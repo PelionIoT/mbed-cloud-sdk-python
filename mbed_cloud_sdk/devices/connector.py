@@ -63,13 +63,13 @@ class ConnectorAPI(BaseAPI):
     def subscribe(self, endpoint_name, resource_path, fix_path = True, queue_size = 5):
         # When path starts with / we remove the slash, as the API can't handle //.
         # Keep the original path around however, as we use that for queue registration.
-        fixed_path = path
+        fixed_path = resource_path
         if fix_path and resource_path.startswith("/"):
-            fixed_path = path[1:]
+            fixed_path = resource_path[1:]
 
         # Create the queue and register it with the dict holding all queues
         q = Queue.Queue(queue_size)
-        self.queues[endpoint_name][resource_path] = q
+        self._queues[endpoint_name][resource_path] = q
 
         # Send subscription request
         api = mds.SubscriptionsApi()
