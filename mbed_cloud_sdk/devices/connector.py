@@ -167,6 +167,11 @@ class ConnectorAPI(BaseAPI):
             return self._get_value_synchronized(consumer)
         return consumer
 
+    def is_active(self, endpoint_name):
+        endpoints = self.list_endpoints()
+        # Create map by endpoint name, and check if requested endpoint is in it and status is ACTIVE
+        return dict((e.name, True) for e in endpoints if e.status == "ACTIVE").get(endpoint_name, False)
+
     def _get_value_synchronized(self, consumer):
         # We return synchronously, so we block in a busy loop waiting for the
         # request to be done.
