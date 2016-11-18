@@ -78,6 +78,66 @@ class ConnectorAPI(BaseAPI):
         # Return the Queue object to the user
         return q
 
+    @catch_exceptions(ApiException)
+    def pre_subscribe(self, endpoint_name, resource_path, endpoint_type = ""):
+        api = mds.SubscriptionsApi()
+
+        presubscription = mds.Presubscription(
+            endpoint_name = endpoint_name,
+            endpoint_type = endpoint_type,
+            _resource_path = [resource_path]
+        )
+        api.v2_subscriptions_put([presubscription])
+
+        # Returns void
+        return
+
+    @catch_exceptions(ApiException)
+    def unsubscribe(self, endpoint_name = None, resource_path = None, fix_path = True):
+        # If endpoint_name or resource_path is None, we remove every subscripton
+        # for them. I.e. calling this method without arguments removes all subscriptions,
+        # but calling it with only endpoint_name removes subscriptions for all resources
+        # on the given endpoint.
+        endpoints = filter(None, [endpoint_name])
+        if not endpoint_name:
+            endpoints = self._queues.keys()
+        resource_paths = [resource_path]
+        if not resource_path:
+            resource_paths = []
+            for e in endpoints:
+                resource_paths.extend(self._queues[e].keys())
+
+        # Delete the subscriptions
+        api = mds.SubscriptionsApi()
+        for e in endpoints:
+            for r in resource_paths:
+                # Fix the path, if required.
+                fixed_path = r
+                if fix_path and r.startswith("/"):
+                    fixed_path = r[1:]
+
+                # Make request to API, ignoring result
+                api.v2_subscriptions_endpoint_name_resource_path_delete(endpoint_name, fixed_path)
+
+                # Remove Queue from dictionary
+                del self._queues[e][r]
+
+    @catch_exceptions(ApiException)
+    def register_webhook(url, headers = {}):
+        api = mds.NotificationsApi()
+
+        webhook_obj = mds.Webhook()
+        webhook_obj.url = url
+        webhook_obj.headers = headers
+
+        # Send the request to register the webhook
+        api.v2_notification_callback_put(webhook_obj)
+
+        # Returns void
+        return
+
+
+
     def _get_value_synchronized(self, consumer):
         # We return synchronously, so we block in a busy loop waiting for the
         # request to be done.
