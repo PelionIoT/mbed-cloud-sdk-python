@@ -1,0 +1,6 @@
+# See hardcoded required packages in swagger-codegen
+# https://github.com/swagger-api/swagger-codegen/blob/master/modules/swagger-codegen/src/main/resources/python/setup.mustache#L18
+urllib3 >= 1.15
+six >= 1.10
+certifi
+python-dateutil
