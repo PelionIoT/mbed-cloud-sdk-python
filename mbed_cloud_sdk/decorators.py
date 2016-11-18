@@ -1,7 +1,9 @@
+import sys
+
 from mbed_cloud_sdk.exceptions import CloudApiException
 
 def error_handler(exceptions = [Exception], get_message = None, exit = 1):
-    def wrap(f):
+    def wrap(fn):
 
         def default_get_message(data):
             return ""
@@ -12,7 +14,7 @@ def error_handler(exceptions = [Exception], get_message = None, exit = 1):
         @catch_exceptions(exceptions)
         def wrapped_f(*args, **kwargs):
             try:
-                fn(*args, **kwargs)
+                return fn(*args, **kwargs)
             except CloudApiException, e:
                 data = parse_exception(str(e))
 
@@ -28,10 +30,10 @@ def error_handler(exceptions = [Exception], get_message = None, exit = 1):
     return wrap
 
 def catch_exceptions(*exceptions):
-    def wrap(f):
+    def wrap(fn):
         def wrapped_f(*args, **kwargs):
             try:
-                fn(*args, **kwargs)
+                return fn(*args, **kwargs)
             except exceptions:
                 t, value, traceback = sys.exc_info()
                 raise CloudApiException, value, traceback

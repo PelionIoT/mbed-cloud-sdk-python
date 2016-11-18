@@ -4,15 +4,16 @@ from collections import defaultdict
 # Import common functions and exceptions from frontend API
 from mbed_cloud_sdk import BaseAPI, config
 from mbed_cloud_sdk.exceptions import AsyncError, UnhandledError, CloudApiException
+from mbed_cloud_sdk.decorators import catch_exceptions
 
 # Import backend API
-import mbed_cloud_sdk.devices.mds
+import mbed_cloud_sdk.devices.mds as mds
 from mbed_cloud_sdk.devices.mds.rest import ApiException
 
 logger = logging.getLogger(__name__)
 
 class ConnectorAPI(BaseAPI):
-    def __init__(self):
+    def __init__(self, b64decode = True):
         # Set the api_key for the requests
         mds.configuration.api_key['Authorization'] = config.get("api_key")
         mds.configuration.api_key_prefix['Authorization'] = 'Bearer'
@@ -20,7 +21,7 @@ class ConnectorAPI(BaseAPI):
         self._db = {}
         self._queues = defaultdict(lambda: defaultdict(Queue.Queue))
 
-        self._long_polling_thread = _LongPollingThread(self._db)
+        self._long_polling_thread = _LongPollingThread(self._db, self._queues, b64decode = b64decode)
         self._long_polling_thread.daemon = True
 
     def start_long_polling(self):
@@ -29,24 +30,27 @@ class ConnectorAPI(BaseAPI):
     def stop_long_polling(self):
         self._long_polling_thread.start()
 
-    @error_handler(exceptions = [ApiException])
+    @catch_exceptions(ApiException)
     def get_endpoints(self):
         api = mds.EndpointsApi()
         return api.v2_endpoints_get()
 
-    @error_handler(exceptions = [ApiException])
+    @catch_exceptions(ApiException)
     def get_endpoint(self, endpoint_name):
         api = mds.EndpointsApi()
         return api.v2_endpoints_endpoint_name_get(endpoint_name)
 
-    @error_handler(exceptions = [ApiException])
+    @catch_exceptions(ApiException)
     def get_resource(self, endpoint_name, resource_path, fix_path = True, sync = False):
         # When path starts with / we remove the slash, as the API can't handle //.
         if fix_path and resource_path.startswith("/"):
-            path = path[1:]
+            resource_path = resource_path[1:]
+
+        api = mds.ResourcesApi()
+        resp = api.v2_endpoints_endpoint_name_resource_path_get(endpoint_name, resource_path)
 
         # The async consumer, which will read data from long-polling thread
-        consumer = _AsyncConsumer(async_id, self._db)
+        consumer = _AsyncConsumer(resp.async_response_id, self._db)
 
         # If, by default, the user has not requested a synchronized request we return
         # the async object - which allows the user to control how and when to read the
@@ -55,7 +59,7 @@ class ConnectorAPI(BaseAPI):
             return self._get_value_synchronized(consumer)
         return consumer
 
-    @error_handler(exceptions = [ApiException])
+    @catch_exceptions(ApiException)
     def subscribe(self, endpoint_name, resource_path, fix_path = True, queue_size = 5):
         # When path starts with / we remove the slash, as the API can't handle //.
         # Keep the original path around however, as we use that for queue registration.
@@ -74,7 +78,7 @@ class ConnectorAPI(BaseAPI):
         # Return the Queue object to the user
         return q
 
-    def _get_value_synchronized(consumer):
+    def _get_value_synchronized(self, consumer):
         # We return synchronously, so we block in a busy loop waiting for the
         # request to be done.
         while not consumer.is_done():
@@ -98,7 +102,7 @@ class _AsyncConsumer(object):
     def error(self):
         if not self.is_done():
             raise UnhandledError("Need to check if request is done, before checking for error")
-        return self.db[async_id].error
+        return self.db[self.async_id]["error"]
 
     def get_value(self, b64_decode = True):
         if not self.is_done():
@@ -108,20 +112,19 @@ class _AsyncConsumer(object):
                                  "before getting value.\nError: %s" % self.error())
 
         # Return the payload
-        payload = self.db[async_id].payload
-        if not b64_decode:
-            return payload
-        return base64.b64decode(payload)
+        return self.db[self.async_id]["payload"]
 
 class _LongPollingThread(threading.Thread):
-    def __init__(self, db, queues):
+    def __init__(self, db, queues, b64decode = True):
         super(_LongPollingThread, self).__init__()
 
         self.db = db
         self.queues = queues
+
+        self._b64decode = b64decode
         self._stopped = False
 
-    @error_handler(exceptions = [ApiException])
+    @catch_exceptions(ApiException)
     def run(self):
         while not self._stopped:
             api = mds.NotificationsApi()
@@ -134,12 +137,15 @@ class _LongPollingThread(threading.Thread):
                         logger.warning("Ignoring notification on %s (%s) as no subscription is registered" % (n.ep, n.path))
 
                     # Decode b64 encoded data
-                    payload = base64.b64decode(n.payload)
+                    payload = base64.b64decode(n.payload) if self._b64decode else payload
                     self.queues[n.ep][n.path].put(payload)
 
             if resp.async_responses:
                 for r in resp.async_responses:
-                    payload = base64.b64decode(r.payload) if r.payload else None
+                    # Check if we have a payload, and decode it if required
+                    payload = r.payload if r.payload else None
+                    payload = base64.b64decode(payload) if (self._b64decode and payload) else payload
+
                     self.db[r.id] = {
                         "payload": payload,
                         "error": r.error,
