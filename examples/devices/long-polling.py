@@ -7,7 +7,7 @@ BUTTON_RESOURCE="/3200/0/5501"
 def run_synchronized():
     api = ConnectorAPI()
     api.start_long_polling()
-    endpoints = api.get_endpoints()
+    endpoints = api.list_endpoints()
     if not endpoints:
         raise Exception("No endpoints registered. Aborting")
 
@@ -17,7 +17,7 @@ def run_synchronized():
         # See the async example for details on what the 'sync' flag does in the background.
         # Note this will raise a AsyncError if something goes wrong, which we're not catching
         # here for simplicity.
-        new_value = api.get_resource(endpoints[0].name, BUTTON_RESOURCE, sync=True)
+        new_value = api.get_resource_value(endpoints[0].name, BUTTON_RESOURCE, sync=True)
 
         # Print new value to user, if it has changed.
         if new_value != current_value:
@@ -29,13 +29,13 @@ def run_synchronized():
 def run_async():
     api = ConnectorAPI()
     api.start_long_polling()
-    endpoints = api.get_endpoints()
+    endpoints = api.list_endpoints()
     if not endpoints:
         raise Exception("No endpoints registered. Aborting")
 
     current_value = None
     while True:
-        async_resp = api.get_resource(endpoints[0].name, BUTTON_RESOURCE)
+        async_resp = api.get_resource_value(endpoints[0].name, BUTTON_RESOURCE)
 
         # Busy wait - block the thread and wait for the response to finish.
         while not async_resp.is_done():

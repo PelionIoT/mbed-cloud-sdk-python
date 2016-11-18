@@ -31,17 +31,17 @@ class ConnectorAPI(BaseAPI):
         self._long_polling_thread.start()
 
     @catch_exceptions(ApiException)
-    def get_endpoints(self):
+    def list_endpoints(self):
         api = mds.EndpointsApi()
         return api.v2_endpoints_get()
 
     @catch_exceptions(ApiException)
-    def get_endpoint(self, endpoint_name):
+    def list_resources(self, endpoint_name):
         api = mds.EndpointsApi()
         return api.v2_endpoints_endpoint_name_get(endpoint_name)
 
     @catch_exceptions(ApiException)
-    def get_resource(self, endpoint_name, resource_path, fix_path = True, sync = False):
+    def get_resource_value(self, endpoint_name, resource_path, fix_path = True, sync = False):
         # When path starts with / we remove the slash, as the API can't handle //.
         if fix_path and resource_path.startswith("/"):
             resource_path = resource_path[1:]
@@ -55,6 +55,20 @@ class ConnectorAPI(BaseAPI):
         # If, by default, the user has not requested a synchronized request we return
         # the async object - which allows the user to control how and when to read the
         # value. If not we block the thread and get the value for the user.
+        if sync:
+            return self._get_value_synchronized(consumer)
+        return consumer
+
+    @catch_exceptions(ApiException)
+    def set_resource_value(self, endpoint_name, resource_path, resource_value, fix_path = True, sync = True):
+        # When path starts with / we remove the slash, as the API can't handle //.
+        if fix_path and resource_path.startswith("/"):
+            resource_path = resource_path[1:]
+
+        api = mds.ResourcesApi()
+        resp = api.v2_endpoints_endpoint_name_resource_path_put(endpoint_name, resource_path, resource_value)
+
+        consumer = _AsyncConsumer(resp.async_response_id, self._db)
         if sync:
             return self._get_value_synchronized(consumer)
         return consumer
@@ -136,7 +150,22 @@ class ConnectorAPI(BaseAPI):
         # Returns void
         return
 
+    @catch_exceptions(ApiException)
+    def execute(self, endpoint_name, resource_path, fix_path = True, sync = True, **kwargs):
+        if fix_path and resource_path.startswith("/"):
+            resource_path = resource_path[1:]
 
+        api = mds.ResourcesApi()
+        resp = api.v2_endpoints_endpoint_name_resource_path_post(
+            endpoint_name,
+            resource_path,
+            **kwargs
+        )
+
+        consumer = _AsyncConsumer(resp.async_response_id, self._db)
+        if sync:
+            return self._get_value_synchronized(consumer)
+        return consumer
 
     def _get_value_synchronized(self, consumer):
         # We return synchronously, so we block in a busy loop waiting for the

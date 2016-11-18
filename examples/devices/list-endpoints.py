@@ -2,10 +2,10 @@ from mbed_cloud_sdk.devices.connector import ConnectorAPI
 
 def main():
     api = ConnectorAPI()
-    endpoints = api.get_endpoints()
+    endpoints = api.list_endpoints()
 
     for endpoint in endpoints:
-        resources = api.get_endpoint(endpoint.name)
+        resources = api.list_resources(endpoint.name)
 
         # Print endpoint name header
         header = endpoint.name
