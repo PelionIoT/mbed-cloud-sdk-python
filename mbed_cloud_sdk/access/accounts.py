@@ -5,8 +5,8 @@ from mbed_cloud_sdk import BaseAPI, config
 from mbed_cloud_sdk.decorators import catch_exceptions
 
 # Import backend API
-import mbed_cloud_sdk.access.iam as iam
-import mbed_cloud_sdk.access.iam.rest as ApiException
+import mbed_cloud_sdk._backends.iam as iam
+import mbed_cloud_sdk._backends.iam.rest as ApiException
 
 logger = logging.getLogger(__name__)
 

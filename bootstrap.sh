@@ -6,23 +6,19 @@ echoerr() {
   echo "$@" 1>&2;
 }
 
-create_module() {
-  mkdir -p mbed_cloud_sdk/$1;
-  touch $LIB_NAME/$1/__init__.py;
-}
-
-move_module() {
+move_modules() {
   # $1: git directory for generated SDK
-  # $2: api name in generated SDK
-  # $3: module to place the api under in library
   # Example: 
-  #     move_module $TMP_DIR iam devices
+  #     move_module $TMP_DIR
   SDK="$1/generated/python";
-  cp -rp $SDK/$2/$2 $LIB_NAME/$3/
+  for d in $SDK/*/; do 
+    DIR=$(basename "$d");
+    cp -rp $SDK/$DIR/$DIR $LIB_NAME/_backends/$DIR;
 
-  # Ensure we get the documentation included too, for good measure.
-  cp -rp $SDK/$2/README.md $LIB_NAME/$3/$2
-  cp -rp $SDK/$2/docs $LIB_NAME/$3/$2
+    # Ensure we get the documentation included too, for good measure.
+    cp -rp $SDK/$DIR/README.md $LIB_NAME/_backends/$DIR;
+    cp -rp $SDK/$DIR/docs $LIB_NAME/_backends/$DIR;
+  done
 }
 
 run_codegen() {
@@ -41,11 +37,13 @@ fi
 
 # Create structure, per the docs
 # See: https://github.com/ARMmbed/mbed-cloud-sdk-codegen/docs/high-level-structure.md
-create_module devices;
-create_module access;
+# create_module devices;
+# create_module access;
 
-# Create __init__.py file for top-level module
+# Create __init__.py file for top-level module and backends
 touch $LIB_NAME/__init__.py;
+mkdir -p $LIB_NAME/_backends;
+touch $LIB_NAME/_backends/__init__.py;
 
 # Fetch generated code to tmp directory
 TMP_DIR=$(mktemp -d);
@@ -55,8 +53,7 @@ git clone git@github.com:ARMmbed/mbed-cloud-sdk-codegen.git $TMP_DIR;
 run_codegen $TMP_DIR
 
 # Copy the different APIs into correct modules
-move_module $TMP_DIR iam access
-move_module $TMP_DIR mds devices
+move_modules $TMP_DIR
 
 # Cleanup
 rm -rf $TMP_DIR;

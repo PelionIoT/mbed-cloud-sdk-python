@@ -7,8 +7,8 @@ from mbed_cloud_sdk.exceptions import AsyncError, UnhandledError, CloudApiExcept
 from mbed_cloud_sdk.decorators import catch_exceptions
 
 # Import backend API
-import mbed_cloud_sdk.devices.mds as mds
-from mbed_cloud_sdk.devices.mds.rest import ApiException
+import mbed_cloud_sdk._backends.mds as mds
+from mbed_cloud_sdk._backends.mds.rest import ApiException
 
 logger = logging.getLogger(__name__)
 
