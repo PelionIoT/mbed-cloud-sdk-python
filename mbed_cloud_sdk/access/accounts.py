@@ -11,10 +11,16 @@ import mbed_cloud_sdk._backends.iam.rest as ApiException
 logger = logging.getLogger(__name__)
 
 class AccountsAPI(BaseAPI):
-    def __init__(self):
+    def __init__(self, params = {}):
+        super(AccountsAPI, self).__init__(params)
+
         # Set the api_key for the requests
         iam.configuration.api_key['Authorization'] = config.get("api_key")
         iam.configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+        # Override host, if defined
+        if config.get("host"):
+            iam.configuration.host = config.get("host")
 
     @catch_exceptions(ApiException)
     def list_api_keys(self):

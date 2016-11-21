@@ -2,11 +2,12 @@ import os, json
 
 class Config(dict):
     def __init__(self):
-        CONFIG_FILES = [
-            # Environment variable or global config in /etc
-            os.environ.get("MBED_CLOUD_SDK_CONFIG", "/etc/mbed_cloud_config.json"),
-            os.path.join(os.getcwd(), "mbed_cloud_config.json")
-        ]
+        CONFIG_FILES = filter(None, [
+            # Global config in /etc
+            "/etc/mbed_cloud_config.json",
+            os.path.join(os.getcwd(), "mbed_cloud_config.json"),
+            os.environ.get("MBED_CLOUD_SDK_CONFIG")
+        ])
 
         # Go through in order and override the config
         for f in CONFIG_FILES:

@@ -1,4 +1,4 @@
-import threading, Queue, time, base64, logging
+import threading, Queue, time, base64, logging, sys
 from collections import defaultdict
 
 # Import common functions and exceptions from frontend API
@@ -13,10 +13,16 @@ from mbed_cloud_sdk._backends.mds.rest import ApiException
 logger = logging.getLogger(__name__)
 
 class ConnectorAPI(BaseAPI):
-    def __init__(self, b64decode = True):
+    def __init__(self, params = {}, b64decode = True):
+        super(ConnectorAPI, self).__init__(params)
+
         # Set the api_key for the requests
         mds.configuration.api_key['Authorization'] = config.get("api_key")
         mds.configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+        # Override host, if defined
+        if config.get("host"):
+            mds.configuration.host = config.get("host")
 
         self._db = {}
         self._queues = defaultdict(lambda: defaultdict(Queue.Queue))
