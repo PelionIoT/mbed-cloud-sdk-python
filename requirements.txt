@@ -4,3 +4,6 @@ urllib3 >= 1.15
 six >= 1.10
 certifi
 python-dateutil
+
+# For testing
+mock == 2.0.0
