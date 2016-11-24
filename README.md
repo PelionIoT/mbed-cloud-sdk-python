@@ -4,8 +4,8 @@ The mbed Cloud SDK gives developers access to the full mbed suite using Python.
 
 Other languages are available too:
 
-- [Javascript]()
-- [.Net]()
+- [Javascript](https://github.com/ARMmbed/mbed-cloud-sdk-javascript)
+- [.Net](https://github.com/ARMmbed/mbed-cloud-sdk-dotnet)
 
 If you want to contribute to creating a SDK for another language the work is
 greatly appreciated and you can read more about the process
