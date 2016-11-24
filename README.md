@@ -87,8 +87,8 @@ vHCCsjARuivueRTaMM28iwE6BsZnxdqmCm/RjcKBzqZDSGIXCwE2kuB2lw==
 >>> api = CertificateAPI()
 >>> pub_key = 'MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEM2yVRYZwbOg/hizrQnMkQrsNzfEz.....'
 >>> cert = api.create_certificate(pub_key)
->>> print "%s" % (cert.pub_key)
-BDVUQID4+0WtivwanoyIWPqEkcpR0gnVezWfchAxonzWGItJ2VaR8Jm3qaDGwVu40ySozQx2n/DIQbCj3dMsiOE=
+>>> print "%s" % (cert.created_at)
+2016-10-18T10:46:03Z
 ```
 
 ## More examples
