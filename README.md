@@ -26,7 +26,7 @@ capabilities:
 
 ### Listing current devices and resources
 
-```
+```python
 >>> from mbed_cloud_sdk.devices.connector import ConnectorAPI
 >>> api = ConnectorAPI()
 >>> api.list_endpoints()
@@ -43,7 +43,7 @@ capabilities:
 
 ### Listing users and groups in team/organisation
 
-```
+```python
 >>> from mbed_cloud_sdk.access.accounts import AccountsAPI
 >>> api = AccountsAPI()
 >>> first_user = api.list_users()[0]
@@ -59,7 +59,7 @@ Note that the first couple commands are to create a new private/public key
 using OpenSSL. The API accepts a base64 encoded NIST P-256 Elliptic Curve
 public key.
 
-```
+```bash
 $ openssl ecparam -out key.pem -name prime256v1 -genkey
 $ openssl ec -text -in key.pem -pubout
 read EC key
@@ -80,8 +80,9 @@ writing EC key
 MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEM2yVRYZwbOg/hizrQnMkQrsNzfEz
 vHCCsjARuivueRTaMM28iwE6BsZnxdqmCm/RjcKBzqZDSGIXCwE2kuB2lw==
 -----END PUBLIC KEY-----
+```
 
-$ python
+```python
 >>> from mbed_cloud_sdk.development.certificate import CertificateAPI
 >>> api = CertificateAPI()
 >>> pub_key = 'MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEM2yVRYZwbOg/hizrQnMkQrsNzfEz.....'
