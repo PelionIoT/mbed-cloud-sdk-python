@@ -25,3 +25,5 @@
 from __future__ import absolute_import
 
 # import models into model package
+from .device_query_serializer import DeviceQuerySerializer
+from .write_device_query_serializer import WriteDeviceQuerySerializer

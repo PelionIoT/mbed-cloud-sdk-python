@@ -25,6 +25,8 @@
 from __future__ import absolute_import
 
 # import models into sdk package
+from .models.device_query_serializer import DeviceQuerySerializer
+from .models.write_device_query_serializer import WriteDeviceQuerySerializer
 
 # import apis into sdk package
 from .apis.default_api import DefaultApi
