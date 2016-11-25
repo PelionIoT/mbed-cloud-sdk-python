@@ -69,8 +69,9 @@ class DefaultApi(object):
         :param str name: The name of the query (required)
         :param str query: The device query (required)
         :param str description: The description of the object
+        :param str id: The ID of the query entity
         :param str object: The API resource entity
-        :param str query_id: DEPRECATED: The ID of the query
+        :param str query_id: The ID of the query
         :return: DeviceQuerySerializer
                  If the method is called asynchronously,
                  returns the request thread.
@@ -100,14 +101,15 @@ class DefaultApi(object):
         :param str name: The name of the query (required)
         :param str query: The device query (required)
         :param str description: The description of the object
+        :param str id: The ID of the query entity
         :param str object: The API resource entity
-        :param str query_id: DEPRECATED: The ID of the query
+        :param str query_id: The ID of the query
         :return: DeviceQuerySerializer
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['name', 'query', 'description', 'object', 'query_id']
+        all_params = ['name', 'query', 'description', 'id', 'object', 'query_id']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
 
@@ -138,6 +140,8 @@ class DefaultApi(object):
         local_var_files = {}
         if 'description' in params:
             form_params.append(('description', params['description']))
+        if 'id' in params:
+            form_params.append(('id', params['id']))
         if 'name' in params:
             form_params.append(('name', params['name']))
         if 'object' in params:
@@ -293,14 +297,13 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str description: 
-        :param str created_at: 
-        :param str updated_at: 
-        :param str etag: 
-        :param str name: 
-        :param str object: 
-        :param str query: 
-        :param str query_id: 
+        :param str description: Description
+        :param str created_at: Created at
+        :param str updated_at: Updated at
+        :param str etag: Etag
+        :param str object: Object
+        :param str name: Name
+        :param str query: Query
         :return: list[DeviceQuerySerializer]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -327,20 +330,19 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str description: 
-        :param str created_at: 
-        :param str updated_at: 
-        :param str etag: 
-        :param str name: 
-        :param str object: 
-        :param str query: 
-        :param str query_id: 
+        :param str description: Description
+        :param str created_at: Created at
+        :param str updated_at: Updated at
+        :param str etag: Etag
+        :param str object: Object
+        :param str name: Name
+        :param str query: Query
         :return: list[DeviceQuerySerializer]
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['description', 'created_at', 'updated_at', 'etag', 'name', 'object', 'query', 'query_id']
+        all_params = ['description', 'created_at', 'updated_at', 'etag', 'object', 'name', 'query']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
 
@@ -366,14 +368,12 @@ class DefaultApi(object):
             query_params['updated_at'] = params['updated_at']
         if 'etag' in params:
             query_params['etag'] = params['etag']
-        if 'name' in params:
-            query_params['name'] = params['name']
         if 'object' in params:
             query_params['object'] = params['object']
+        if 'name' in params:
+            query_params['name'] = params['name']
         if 'query' in params:
             query_params['query'] = params['query']
-        if 'query_id' in params:
-            query_params['query_id'] = params['query_id']
 
         header_params = {}
 
@@ -424,10 +424,11 @@ class DefaultApi(object):
             for asynchronous request. (optional)
         :param str query_id:  (required)
         :param str description: The description of the object
+        :param str id: The ID of the query entity
         :param str name: The name of the query
         :param str object: The API resource entity
         :param str query: The device query
-        :param str query_id2: DEPRECATED: The ID of the query
+        :param str query_id2: The ID of the query
         :return: DeviceQuerySerializer
                  If the method is called asynchronously,
                  returns the request thread.
@@ -456,16 +457,17 @@ class DefaultApi(object):
             for asynchronous request. (optional)
         :param str query_id:  (required)
         :param str description: The description of the object
+        :param str id: The ID of the query entity
         :param str name: The name of the query
         :param str object: The API resource entity
         :param str query: The device query
-        :param str query_id2: DEPRECATED: The ID of the query
+        :param str query_id2: The ID of the query
         :return: DeviceQuerySerializer
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['query_id', 'description', 'name', 'object', 'query', 'query_id2']
+        all_params = ['query_id', 'description', 'id', 'name', 'object', 'query', 'query_id2']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
 
@@ -495,6 +497,8 @@ class DefaultApi(object):
         local_var_files = {}
         if 'description' in params:
             form_params.append(('description', params['description']))
+        if 'id' in params:
+            form_params.append(('id', params['id']))
         if 'name' in params:
             form_params.append(('name', params['name']))
         if 'object' in params:
@@ -654,8 +658,9 @@ class DefaultApi(object):
         :param str name: The name of the query (required)
         :param str query: The device query (required)
         :param str description: The description of the object
+        :param str id: The ID of the query entity
         :param str object: The API resource entity
-        :param str query_id2: DEPRECATED: The ID of the query
+        :param str query_id2: The ID of the query
         :return: DeviceQuerySerializer
                  If the method is called asynchronously,
                  returns the request thread.
@@ -686,14 +691,15 @@ class DefaultApi(object):
         :param str name: The name of the query (required)
         :param str query: The device query (required)
         :param str description: The description of the object
+        :param str id: The ID of the query entity
         :param str object: The API resource entity
-        :param str query_id2: DEPRECATED: The ID of the query
+        :param str query_id2: The ID of the query
         :return: DeviceQuerySerializer
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['query_id', 'name', 'query', 'description', 'object', 'query_id2']
+        all_params = ['query_id', 'name', 'query', 'description', 'id', 'object', 'query_id2']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
 
@@ -729,6 +735,8 @@ class DefaultApi(object):
         local_var_files = {}
         if 'description' in params:
             form_params.append(('description', params['description']))
+        if 'id' in params:
+            form_params.append(('id', params['id']))
         if 'name' in params:
             form_params.append(('name', params['name']))
         if 'object' in params:

@@ -267,27 +267,28 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str created_at: 
-        :param str updated_at: 
-        :param str auto_update: 
-        :param str bootstrapped_timestamp: 
-        :param str deployed_state: 
-        :param str deployment: 
-        :param str description: 
-        :param str device_class: 
-        :param str device_id: 
-        :param str etag: 
-        :param str manifest: 
-        :param str mechanism: 
-        :param str mechanism_url: 
-        :param str name: 
-        :param str object: 
-        :param str provision_key: 
-        :param str serial_number: 
-        :param str state: 
-        :param str trust_class: 
-        :param str trust_level: 
-        :param str vendor_id: 
+        :param str created_at: Created at
+        :param str updated_at: Updated at
+        :param str auto_update: Auto update
+        :param str bootstrapped_timestamp: Bootstrapped timestamp
+        :param str deployed_state: Deployed state
+        :param str deployment: Deployment
+        :param str description: Description
+        :param str device_class: Device class
+        :param str device_id: Device id
+        :param str etag: Etag
+        :param str id: Id
+        :param str manifest: Manifest
+        :param str mechanism: Mechanism
+        :param str mechanism_url: Mechanism url
+        :param str name: Name
+        :param str object: Object
+        :param str provision_key: Provision key
+        :param str serial_number: Serial number
+        :param str state: State
+        :param str trust_class: Trust class
+        :param str trust_level: Trust level
+        :param str vendor_id: Vendor id
         :return: list[DeviceSerializer]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -314,33 +315,34 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str created_at: 
-        :param str updated_at: 
-        :param str auto_update: 
-        :param str bootstrapped_timestamp: 
-        :param str deployed_state: 
-        :param str deployment: 
-        :param str description: 
-        :param str device_class: 
-        :param str device_id: 
-        :param str etag: 
-        :param str manifest: 
-        :param str mechanism: 
-        :param str mechanism_url: 
-        :param str name: 
-        :param str object: 
-        :param str provision_key: 
-        :param str serial_number: 
-        :param str state: 
-        :param str trust_class: 
-        :param str trust_level: 
-        :param str vendor_id: 
+        :param str created_at: Created at
+        :param str updated_at: Updated at
+        :param str auto_update: Auto update
+        :param str bootstrapped_timestamp: Bootstrapped timestamp
+        :param str deployed_state: Deployed state
+        :param str deployment: Deployment
+        :param str description: Description
+        :param str device_class: Device class
+        :param str device_id: Device id
+        :param str etag: Etag
+        :param str id: Id
+        :param str manifest: Manifest
+        :param str mechanism: Mechanism
+        :param str mechanism_url: Mechanism url
+        :param str name: Name
+        :param str object: Object
+        :param str provision_key: Provision key
+        :param str serial_number: Serial number
+        :param str state: State
+        :param str trust_class: Trust class
+        :param str trust_level: Trust level
+        :param str vendor_id: Vendor id
         :return: list[DeviceSerializer]
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['created_at', 'updated_at', 'auto_update', 'bootstrapped_timestamp', 'deployed_state', 'deployment', 'description', 'device_class', 'device_id', 'etag', 'manifest', 'mechanism', 'mechanism_url', 'name', 'object', 'provision_key', 'serial_number', 'state', 'trust_class', 'trust_level', 'vendor_id']
+        all_params = ['created_at', 'updated_at', 'auto_update', 'bootstrapped_timestamp', 'deployed_state', 'deployment', 'description', 'device_class', 'device_id', 'etag', 'id', 'manifest', 'mechanism', 'mechanism_url', 'name', 'object', 'provision_key', 'serial_number', 'state', 'trust_class', 'trust_level', 'vendor_id']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
 
@@ -378,6 +380,8 @@ class DefaultApi(object):
             query_params['device_id'] = params['device_id']
         if 'etag' in params:
             query_params['etag'] = params['etag']
+        if 'id' in params:
+            query_params['id'] = params['id']
         if 'manifest' in params:
             query_params['manifest'] = params['manifest']
         if 'mechanism' in params:
@@ -452,11 +456,11 @@ class DefaultApi(object):
         :param str device_log_id: 
         :param str event_type: 
         :param bool state_change: 
-        :param str date_time2: 
-        :param str device_id: 
-        :param str device_log_id2: 
-        :param str event_type2: 
-        :param str state_change2: 
+        :param str date_time2: Date time
+        :param str device_id: Device
+        :param str device_log_id2: Device log id
+        :param str event_type2: Event type
+        :param str state_change2: State change
         :return: DeviceLogSerializer
                  If the method is called asynchronously,
                  returns the request thread.
@@ -487,11 +491,11 @@ class DefaultApi(object):
         :param str device_log_id: 
         :param str event_type: 
         :param bool state_change: 
-        :param str date_time2: 
-        :param str device_id: 
-        :param str device_log_id2: 
-        :param str event_type2: 
-        :param str state_change2: 
+        :param str date_time2: Date time
+        :param str device_id: Device
+        :param str device_log_id2: Device log id
+        :param str event_type2: Event type
+        :param str state_change2: State change
         :return: DeviceLogSerializer
                  If the method is called asynchronously,
                  returns the request thread.
@@ -585,11 +589,11 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str device_log_id:  (required)
-        :param str date_time: 
-        :param str device_id: 
-        :param str device_log_id2: 
-        :param str event_type: 
-        :param str state_change: 
+        :param str date_time: Date time
+        :param str device_id: Device
+        :param str device_log_id2: Device log id
+        :param str event_type: Event type
+        :param str state_change: State change
         :return: DeviceLogSerializer
                  If the method is called asynchronously,
                  returns the request thread.
@@ -617,11 +621,11 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str device_log_id:  (required)
-        :param str date_time: 
-        :param str device_id: 
-        :param str device_log_id2: 
-        :param str event_type: 
-        :param str state_change: 
+        :param str date_time: Date time
+        :param str device_id: Device
+        :param str device_log_id2: Device log id
+        :param str event_type: Event type
+        :param str state_change: State change
         :return: DeviceLogSerializer
                  If the method is called asynchronously,
                  returns the request thread.
@@ -708,11 +712,11 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str date_time: 
-        :param str device_id: 
-        :param str device_log_id: 
-        :param str event_type: 
-        :param str state_change: 
+        :param str date_time: Date time
+        :param str device_id: Device
+        :param str device_log_id: Device log id
+        :param str event_type: Event type
+        :param str state_change: State change
         :return: list[DeviceLogSerializer]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -739,11 +743,11 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str date_time: 
-        :param str device_id: 
-        :param str device_log_id: 
-        :param str event_type: 
-        :param str state_change: 
+        :param str date_time: Date time
+        :param str device_id: Device
+        :param str device_log_id: Device log id
+        :param str event_type: Event type
+        :param str state_change: State change
         :return: list[DeviceLogSerializer]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -830,11 +834,11 @@ class DefaultApi(object):
         :param str device_log_id2: 
         :param str event_type: 
         :param bool state_change: 
-        :param str date_time2: 
-        :param str device_id: 
-        :param str device_log_id3: 
-        :param str event_type2: 
-        :param str state_change2: 
+        :param str date_time2: Date time
+        :param str device_id: Device
+        :param str device_log_id3: Device log id
+        :param str event_type2: Event type
+        :param str state_change2: State change
         :return: DeviceLogSerializer
                  If the method is called asynchronously,
                  returns the request thread.
@@ -866,11 +870,11 @@ class DefaultApi(object):
         :param str device_log_id2: 
         :param str event_type: 
         :param bool state_change: 
-        :param str date_time2: 
-        :param str device_id: 
-        :param str device_log_id3: 
-        :param str event_type2: 
-        :param str state_change2: 
+        :param str date_time2: Date time
+        :param str device_id: Device
+        :param str device_log_id3: Device log id
+        :param str event_type2: Event type
+        :param str state_change2: State change
         :return: DeviceLogSerializer
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1074,11 +1078,11 @@ class DefaultApi(object):
         :param str device_log_id2: 
         :param str event_type: 
         :param bool state_change: 
-        :param str date_time2: 
-        :param str device_id: 
-        :param str device_log_id3: 
-        :param str event_type2: 
-        :param str state_change2: 
+        :param str date_time2: Date time
+        :param str device_id: Device
+        :param str device_log_id3: Device log id
+        :param str event_type2: Event type
+        :param str state_change2: State change
         :return: DeviceLogSerializer
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1110,11 +1114,11 @@ class DefaultApi(object):
         :param str device_log_id2: 
         :param str event_type: 
         :param bool state_change: 
-        :param str date_time2: 
-        :param str device_id: 
-        :param str device_log_id3: 
-        :param str event_type2: 
-        :param str state_change2: 
+        :param str date_time2: Date time
+        :param str device_id: Device
+        :param str device_log_id3: Device log id
+        :param str event_type2: Event type
+        :param str state_change2: State change
         :return: DeviceLogSerializer
                  If the method is called asynchronously,
                  returns the request thread.

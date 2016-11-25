@@ -119,7 +119,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **device_list**
-> list[DeviceSerializer] device_list(created_at=created_at, updated_at=updated_at, auto_update=auto_update, bootstrapped_timestamp=bootstrapped_timestamp, deployed_state=deployed_state, deployment=deployment, description=description, device_class=device_class, device_id=device_id, etag=etag, manifest=manifest, mechanism=mechanism, mechanism_url=mechanism_url, name=name, object=object, provision_key=provision_key, serial_number=serial_number, state=state, trust_class=trust_class, trust_level=trust_level, vendor_id=vendor_id)
+> list[DeviceSerializer] device_list(created_at=created_at, updated_at=updated_at, auto_update=auto_update, bootstrapped_timestamp=bootstrapped_timestamp, deployed_state=deployed_state, deployment=deployment, description=description, device_class=device_class, device_id=device_id, etag=etag, id=id, manifest=manifest, mechanism=mechanism, mechanism_url=mechanism_url, name=name, object=object, provision_key=provision_key, serial_number=serial_number, state=state, trust_class=trust_class, trust_level=trust_level, vendor_id=vendor_id)
 
 List all update devices
 
@@ -139,31 +139,32 @@ device_catalog.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = device_catalog.DefaultApi()
-created_at = 'created_at_example' # str |  (optional)
-updated_at = 'updated_at_example' # str |  (optional)
-auto_update = 'auto_update_example' # str |  (optional)
-bootstrapped_timestamp = 'bootstrapped_timestamp_example' # str |  (optional)
-deployed_state = 'deployed_state_example' # str |  (optional)
-deployment = 'deployment_example' # str |  (optional)
-description = 'description_example' # str |  (optional)
-device_class = 'device_class_example' # str |  (optional)
-device_id = 'device_id_example' # str |  (optional)
-etag = 'etag_example' # str |  (optional)
-manifest = 'manifest_example' # str |  (optional)
-mechanism = 'mechanism_example' # str |  (optional)
-mechanism_url = 'mechanism_url_example' # str |  (optional)
-name = 'name_example' # str |  (optional)
-object = 'object_example' # str |  (optional)
-provision_key = 'provision_key_example' # str |  (optional)
-serial_number = 'serial_number_example' # str |  (optional)
-state = 'state_example' # str |  (optional)
-trust_class = 'trust_class_example' # str |  (optional)
-trust_level = 'trust_level_example' # str |  (optional)
-vendor_id = 'vendor_id_example' # str |  (optional)
+created_at = 'created_at_example' # str | Created at (optional)
+updated_at = 'updated_at_example' # str | Updated at (optional)
+auto_update = 'auto_update_example' # str | Auto update (optional)
+bootstrapped_timestamp = 'bootstrapped_timestamp_example' # str | Bootstrapped timestamp (optional)
+deployed_state = 'deployed_state_example' # str | Deployed state (optional)
+deployment = 'deployment_example' # str | Deployment (optional)
+description = 'description_example' # str | Description (optional)
+device_class = 'device_class_example' # str | Device class (optional)
+device_id = 'device_id_example' # str | Device id (optional)
+etag = 'etag_example' # str | Etag (optional)
+id = 'id_example' # str | Id (optional)
+manifest = 'manifest_example' # str | Manifest (optional)
+mechanism = 'mechanism_example' # str | Mechanism (optional)
+mechanism_url = 'mechanism_url_example' # str | Mechanism url (optional)
+name = 'name_example' # str | Name (optional)
+object = 'object_example' # str | Object (optional)
+provision_key = 'provision_key_example' # str | Provision key (optional)
+serial_number = 'serial_number_example' # str | Serial number (optional)
+state = 'state_example' # str | State (optional)
+trust_class = 'trust_class_example' # str | Trust class (optional)
+trust_level = 'trust_level_example' # str | Trust level (optional)
+vendor_id = 'vendor_id_example' # str | Vendor id (optional)
 
 try: 
     # List all update devices
-    api_response = api_instance.device_list(created_at=created_at, updated_at=updated_at, auto_update=auto_update, bootstrapped_timestamp=bootstrapped_timestamp, deployed_state=deployed_state, deployment=deployment, description=description, device_class=device_class, device_id=device_id, etag=etag, manifest=manifest, mechanism=mechanism, mechanism_url=mechanism_url, name=name, object=object, provision_key=provision_key, serial_number=serial_number, state=state, trust_class=trust_class, trust_level=trust_level, vendor_id=vendor_id)
+    api_response = api_instance.device_list(created_at=created_at, updated_at=updated_at, auto_update=auto_update, bootstrapped_timestamp=bootstrapped_timestamp, deployed_state=deployed_state, deployment=deployment, description=description, device_class=device_class, device_id=device_id, etag=etag, id=id, manifest=manifest, mechanism=mechanism, mechanism_url=mechanism_url, name=name, object=object, provision_key=provision_key, serial_number=serial_number, state=state, trust_class=trust_class, trust_level=trust_level, vendor_id=vendor_id)
     pprint(api_response)
 except ApiException as e:
     print "Exception when calling DefaultApi->device_list: %s\n" % e
@@ -173,27 +174,28 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **created_at** | **str**|  | [optional] 
- **updated_at** | **str**|  | [optional] 
- **auto_update** | **str**|  | [optional] 
- **bootstrapped_timestamp** | **str**|  | [optional] 
- **deployed_state** | **str**|  | [optional] 
- **deployment** | **str**|  | [optional] 
- **description** | **str**|  | [optional] 
- **device_class** | **str**|  | [optional] 
- **device_id** | **str**|  | [optional] 
- **etag** | **str**|  | [optional] 
- **manifest** | **str**|  | [optional] 
- **mechanism** | **str**|  | [optional] 
- **mechanism_url** | **str**|  | [optional] 
- **name** | **str**|  | [optional] 
- **object** | **str**|  | [optional] 
- **provision_key** | **str**|  | [optional] 
- **serial_number** | **str**|  | [optional] 
- **state** | **str**|  | [optional] 
- **trust_class** | **str**|  | [optional] 
- **trust_level** | **str**|  | [optional] 
- **vendor_id** | **str**|  | [optional] 
+ **created_at** | **str**| Created at | [optional] 
+ **updated_at** | **str**| Updated at | [optional] 
+ **auto_update** | **str**| Auto update | [optional] 
+ **bootstrapped_timestamp** | **str**| Bootstrapped timestamp | [optional] 
+ **deployed_state** | **str**| Deployed state | [optional] 
+ **deployment** | **str**| Deployment | [optional] 
+ **description** | **str**| Description | [optional] 
+ **device_class** | **str**| Device class | [optional] 
+ **device_id** | **str**| Device id | [optional] 
+ **etag** | **str**| Etag | [optional] 
+ **id** | **str**| Id | [optional] 
+ **manifest** | **str**| Manifest | [optional] 
+ **mechanism** | **str**| Mechanism | [optional] 
+ **mechanism_url** | **str**| Mechanism url | [optional] 
+ **name** | **str**| Name | [optional] 
+ **object** | **str**| Object | [optional] 
+ **provision_key** | **str**| Provision key | [optional] 
+ **serial_number** | **str**| Serial number | [optional] 
+ **state** | **str**| State | [optional] 
+ **trust_class** | **str**| Trust class | [optional] 
+ **trust_level** | **str**| Trust level | [optional] 
+ **vendor_id** | **str**| Vendor id | [optional] 
 
 ### Return type
 
@@ -235,11 +237,11 @@ date_time = '2013-10-20T19:20:30+01:00' # datetime |
 device_log_id = 'device_log_id_example' # str |  (optional)
 event_type = 'event_type_example' # str |  (optional)
 state_change = true # bool |  (optional)
-date_time2 = 'date_time_example' # str |  (optional)
-device_id = 'device_id_example' # str |  (optional)
-device_log_id2 = 'device_log_id_example' # str |  (optional)
-event_type2 = 'event_type_example' # str |  (optional)
-state_change2 = 'state_change_example' # str |  (optional)
+date_time2 = 'date_time_example' # str | Date time (optional)
+device_id = 'device_id_example' # str | Device (optional)
+device_log_id2 = 'device_log_id_example' # str | Device log id (optional)
+event_type2 = 'event_type_example' # str | Event type (optional)
+state_change2 = 'state_change_example' # str | State change (optional)
 
 try: 
     # The APIs for creating and manipulating devices
@@ -257,11 +259,11 @@ Name | Type | Description  | Notes
  **device_log_id** | **str**|  | [optional] 
  **event_type** | **str**|  | [optional] 
  **state_change** | **bool**|  | [optional] 
- **date_time2** | **str**|  | [optional] 
- **device_id** | **str**|  | [optional] 
- **device_log_id2** | **str**|  | [optional] 
- **event_type2** | **str**|  | [optional] 
- **state_change2** | **str**|  | [optional] 
+ **date_time2** | **str**| Date time | [optional] 
+ **device_id** | **str**| Device | [optional] 
+ **device_log_id2** | **str**| Device log id | [optional] 
+ **event_type2** | **str**| Event type | [optional] 
+ **state_change2** | **str**| State change | [optional] 
 
 ### Return type
 
@@ -300,11 +302,11 @@ device_catalog.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = device_catalog.DefaultApi()
 device_log_id = 'device_log_id_example' # str | 
-date_time = 'date_time_example' # str |  (optional)
-device_id = 'device_id_example' # str |  (optional)
-device_log_id2 = 'device_log_id_example' # str |  (optional)
-event_type = 'event_type_example' # str |  (optional)
-state_change = 'state_change_example' # str |  (optional)
+date_time = 'date_time_example' # str | Date time (optional)
+device_id = 'device_id_example' # str | Device (optional)
+device_log_id2 = 'device_log_id_example' # str | Device log id (optional)
+event_type = 'event_type_example' # str | Event type (optional)
+state_change = 'state_change_example' # str | State change (optional)
 
 try: 
     # The APIs for creating and manipulating devices
@@ -319,11 +321,11 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **device_log_id** | **str**|  | 
- **date_time** | **str**|  | [optional] 
- **device_id** | **str**|  | [optional] 
- **device_log_id2** | **str**|  | [optional] 
- **event_type** | **str**|  | [optional] 
- **state_change** | **str**|  | [optional] 
+ **date_time** | **str**| Date time | [optional] 
+ **device_id** | **str**| Device | [optional] 
+ **device_log_id2** | **str**| Device log id | [optional] 
+ **event_type** | **str**| Event type | [optional] 
+ **state_change** | **str**| State change | [optional] 
 
 ### Return type
 
@@ -361,11 +363,11 @@ device_catalog.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = device_catalog.DefaultApi()
-date_time = 'date_time_example' # str |  (optional)
-device_id = 'device_id_example' # str |  (optional)
-device_log_id = 'device_log_id_example' # str |  (optional)
-event_type = 'event_type_example' # str |  (optional)
-state_change = 'state_change_example' # str |  (optional)
+date_time = 'date_time_example' # str | Date time (optional)
+device_id = 'device_id_example' # str | Device (optional)
+device_log_id = 'device_log_id_example' # str | Device log id (optional)
+event_type = 'event_type_example' # str | Event type (optional)
+state_change = 'state_change_example' # str | State change (optional)
 
 try: 
     # List all device logs
@@ -379,11 +381,11 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **date_time** | **str**|  | [optional] 
- **device_id** | **str**|  | [optional] 
- **device_log_id** | **str**|  | [optional] 
- **event_type** | **str**|  | [optional] 
- **state_change** | **str**|  | [optional] 
+ **date_time** | **str**| Date time | [optional] 
+ **device_id** | **str**| Device | [optional] 
+ **device_log_id** | **str**| Device log id | [optional] 
+ **event_type** | **str**| Event type | [optional] 
+ **state_change** | **str**| State change | [optional] 
 
 ### Return type
 
@@ -426,11 +428,11 @@ date_time = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
 device_log_id2 = 'device_log_id_example' # str |  (optional)
 event_type = 'event_type_example' # str |  (optional)
 state_change = true # bool |  (optional)
-date_time2 = 'date_time_example' # str |  (optional)
-device_id = 'device_id_example' # str |  (optional)
-device_log_id3 = 'device_log_id_example' # str |  (optional)
-event_type2 = 'event_type_example' # str |  (optional)
-state_change2 = 'state_change_example' # str |  (optional)
+date_time2 = 'date_time_example' # str | Date time (optional)
+device_id = 'device_id_example' # str | Device (optional)
+device_log_id3 = 'device_log_id_example' # str | Device log id (optional)
+event_type2 = 'event_type_example' # str | Event type (optional)
+state_change2 = 'state_change_example' # str | State change (optional)
 
 try: 
     # The APIs for creating and manipulating devices
@@ -449,11 +451,11 @@ Name | Type | Description  | Notes
  **device_log_id2** | **str**|  | [optional] 
  **event_type** | **str**|  | [optional] 
  **state_change** | **bool**|  | [optional] 
- **date_time2** | **str**|  | [optional] 
- **device_id** | **str**|  | [optional] 
- **device_log_id3** | **str**|  | [optional] 
- **event_type2** | **str**|  | [optional] 
- **state_change2** | **str**|  | [optional] 
+ **date_time2** | **str**| Date time | [optional] 
+ **device_id** | **str**| Device | [optional] 
+ **device_log_id3** | **str**| Device log id | [optional] 
+ **event_type2** | **str**| Event type | [optional] 
+ **state_change2** | **str**| State change | [optional] 
 
 ### Return type
 
@@ -548,11 +550,11 @@ date_time = '2013-10-20T19:20:30+01:00' # datetime |
 device_log_id2 = 'device_log_id_example' # str |  (optional)
 event_type = 'event_type_example' # str |  (optional)
 state_change = true # bool |  (optional)
-date_time2 = 'date_time_example' # str |  (optional)
-device_id = 'device_id_example' # str |  (optional)
-device_log_id3 = 'device_log_id_example' # str |  (optional)
-event_type2 = 'event_type_example' # str |  (optional)
-state_change2 = 'state_change_example' # str |  (optional)
+date_time2 = 'date_time_example' # str | Date time (optional)
+device_id = 'device_id_example' # str | Device (optional)
+device_log_id3 = 'device_log_id_example' # str | Device log id (optional)
+event_type2 = 'event_type_example' # str | Event type (optional)
+state_change2 = 'state_change_example' # str | State change (optional)
 
 try: 
     # The APIs for creating and manipulating devices
@@ -571,11 +573,11 @@ Name | Type | Description  | Notes
  **device_log_id2** | **str**|  | [optional] 
  **event_type** | **str**|  | [optional] 
  **state_change** | **bool**|  | [optional] 
- **date_time2** | **str**|  | [optional] 
- **device_id** | **str**|  | [optional] 
- **device_log_id3** | **str**|  | [optional] 
- **event_type2** | **str**|  | [optional] 
- **state_change2** | **str**|  | [optional] 
+ **date_time2** | **str**| Date time | [optional] 
+ **device_id** | **str**| Device | [optional] 
+ **device_log_id3** | **str**| Device log id | [optional] 
+ **event_type2** | **str**| Event type | [optional] 
+ **state_change2** | **str**| State change | [optional] 
 
 ### Return type
 

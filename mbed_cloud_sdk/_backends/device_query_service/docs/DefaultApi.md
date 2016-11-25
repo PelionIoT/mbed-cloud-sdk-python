@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 
 # **device_query_create**
-> DeviceQuerySerializer device_query_create(name, query, description=description, object=object, query_id=query_id)
+> DeviceQuerySerializer device_query_create(name, query, description=description, id=id, object=object, query_id=query_id)
 
 Create device query
 
@@ -36,12 +36,13 @@ api_instance = device_query_service.DefaultApi()
 name = 'name_example' # str | The name of the query
 query = 'query_example' # str | The device query
 description = 'description_example' # str | The description of the object (optional)
+id = 'id_example' # str | The ID of the query entity (optional)
 object = 'object_example' # str | The API resource entity (optional)
-query_id = 'query_id_example' # str | DEPRECATED: The ID of the query (optional)
+query_id = 'query_id_example' # str | The ID of the query (optional)
 
 try: 
     # Create device query
-    api_response = api_instance.device_query_create(name, query, description=description, object=object, query_id=query_id)
+    api_response = api_instance.device_query_create(name, query, description=description, id=id, object=object, query_id=query_id)
     pprint(api_response)
 except ApiException as e:
     print "Exception when calling DefaultApi->device_query_create: %s\n" % e
@@ -54,8 +55,9 @@ Name | Type | Description  | Notes
  **name** | **str**| The name of the query | 
  **query** | **str**| The device query | 
  **description** | **str**| The description of the object | [optional] 
+ **id** | **str**| The ID of the query entity | [optional] 
  **object** | **str**| The API resource entity | [optional] 
- **query_id** | **str**| DEPRECATED: The ID of the query | [optional] 
+ **query_id** | **str**| The ID of the query | [optional] 
 
 ### Return type
 
@@ -125,7 +127,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **device_query_list**
-> list[DeviceQuerySerializer] device_query_list(description=description, created_at=created_at, updated_at=updated_at, etag=etag, name=name, object=object, query=query, query_id=query_id)
+> list[DeviceQuerySerializer] device_query_list(description=description, created_at=created_at, updated_at=updated_at, etag=etag, object=object, name=name, query=query)
 
 List all device queries
 
@@ -145,18 +147,17 @@ device_query_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = device_query_service.DefaultApi()
-description = 'description_example' # str |  (optional)
-created_at = 'created_at_example' # str |  (optional)
-updated_at = 'updated_at_example' # str |  (optional)
-etag = 'etag_example' # str |  (optional)
-name = 'name_example' # str |  (optional)
-object = 'object_example' # str |  (optional)
-query = 'query_example' # str |  (optional)
-query_id = 'query_id_example' # str |  (optional)
+description = 'description_example' # str | Description (optional)
+created_at = 'created_at_example' # str | Created at (optional)
+updated_at = 'updated_at_example' # str | Updated at (optional)
+etag = 'etag_example' # str | Etag (optional)
+object = 'object_example' # str | Object (optional)
+name = 'name_example' # str | Name (optional)
+query = 'query_example' # str | Query (optional)
 
 try: 
     # List all device queries
-    api_response = api_instance.device_query_list(description=description, created_at=created_at, updated_at=updated_at, etag=etag, name=name, object=object, query=query, query_id=query_id)
+    api_response = api_instance.device_query_list(description=description, created_at=created_at, updated_at=updated_at, etag=etag, object=object, name=name, query=query)
     pprint(api_response)
 except ApiException as e:
     print "Exception when calling DefaultApi->device_query_list: %s\n" % e
@@ -166,14 +167,13 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **description** | **str**|  | [optional] 
- **created_at** | **str**|  | [optional] 
- **updated_at** | **str**|  | [optional] 
- **etag** | **str**|  | [optional] 
- **name** | **str**|  | [optional] 
- **object** | **str**|  | [optional] 
- **query** | **str**|  | [optional] 
- **query_id** | **str**|  | [optional] 
+ **description** | **str**| Description | [optional] 
+ **created_at** | **str**| Created at | [optional] 
+ **updated_at** | **str**| Updated at | [optional] 
+ **etag** | **str**| Etag | [optional] 
+ **object** | **str**| Object | [optional] 
+ **name** | **str**| Name | [optional] 
+ **query** | **str**| Query | [optional] 
 
 ### Return type
 
@@ -191,7 +191,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **device_query_partial_update**
-> DeviceQuerySerializer device_query_partial_update(query_id, description=description, name=name, object=object, query=query, query_id2=query_id2)
+> DeviceQuerySerializer device_query_partial_update(query_id, description=description, id=id, name=name, object=object, query=query, query_id2=query_id2)
 
 Update device query fields
 
@@ -213,14 +213,15 @@ device_query_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 api_instance = device_query_service.DefaultApi()
 query_id = 'query_id_example' # str | 
 description = 'description_example' # str | The description of the object (optional)
+id = 'id_example' # str | The ID of the query entity (optional)
 name = 'name_example' # str | The name of the query (optional)
 object = 'object_example' # str | The API resource entity (optional)
 query = 'query_example' # str | The device query (optional)
-query_id2 = 'query_id_example' # str | DEPRECATED: The ID of the query (optional)
+query_id2 = 'query_id_example' # str | The ID of the query (optional)
 
 try: 
     # Update device query fields
-    api_response = api_instance.device_query_partial_update(query_id, description=description, name=name, object=object, query=query, query_id2=query_id2)
+    api_response = api_instance.device_query_partial_update(query_id, description=description, id=id, name=name, object=object, query=query, query_id2=query_id2)
     pprint(api_response)
 except ApiException as e:
     print "Exception when calling DefaultApi->device_query_partial_update: %s\n" % e
@@ -232,10 +233,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **query_id** | **str**|  | 
  **description** | **str**| The description of the object | [optional] 
+ **id** | **str**| The ID of the query entity | [optional] 
  **name** | **str**| The name of the query | [optional] 
  **object** | **str**| The API resource entity | [optional] 
  **query** | **str**| The device query | [optional] 
- **query_id2** | **str**| DEPRECATED: The ID of the query | [optional] 
+ **query_id2** | **str**| The ID of the query | [optional] 
 
 ### Return type
 
@@ -305,7 +307,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **device_query_update**
-> DeviceQuerySerializer device_query_update(query_id, name, query, description=description, object=object, query_id2=query_id2)
+> DeviceQuerySerializer device_query_update(query_id, name, query, description=description, id=id, object=object, query_id2=query_id2)
 
 Update device query
 
@@ -329,12 +331,13 @@ query_id = 'query_id_example' # str |
 name = 'name_example' # str | The name of the query
 query = 'query_example' # str | The device query
 description = 'description_example' # str | The description of the object (optional)
+id = 'id_example' # str | The ID of the query entity (optional)
 object = 'object_example' # str | The API resource entity (optional)
-query_id2 = 'query_id_example' # str | DEPRECATED: The ID of the query (optional)
+query_id2 = 'query_id_example' # str | The ID of the query (optional)
 
 try: 
     # Update device query
-    api_response = api_instance.device_query_update(query_id, name, query, description=description, object=object, query_id2=query_id2)
+    api_response = api_instance.device_query_update(query_id, name, query, description=description, id=id, object=object, query_id2=query_id2)
     pprint(api_response)
 except ApiException as e:
     print "Exception when calling DefaultApi->device_query_update: %s\n" % e
@@ -348,8 +351,9 @@ Name | Type | Description  | Notes
  **name** | **str**| The name of the query | 
  **query** | **str**| The device query | 
  **description** | **str**| The description of the object | [optional] 
+ **id** | **str**| The ID of the query entity | [optional] 
  **object** | **str**| The API resource entity | [optional] 
- **query_id2** | **str**| DEPRECATED: The ID of the query | [optional] 
+ **query_id2** | **str**| The ID of the query | [optional] 
 
 ### Return type
 

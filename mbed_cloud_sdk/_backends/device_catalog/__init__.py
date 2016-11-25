@@ -25,10 +25,6 @@
 from __future__ import absolute_import
 
 # import models into sdk package
-from .models.device_log_serializer import DeviceLogSerializer
-from .models.device_serializer import DeviceSerializer
-from .models.write_device_log_serializer import WriteDeviceLogSerializer
-from .models.write_device_serializer import WriteDeviceSerializer
 
 # import apis into sdk package
 from .apis.default_api import DefaultApi
