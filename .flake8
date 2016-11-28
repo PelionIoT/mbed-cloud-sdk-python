@@ -1,3 +1,4 @@
 [flake8]
 exclude = .git,__pycache__,mbed_cloud_sdk/_backends,venv
 max-complexity = 10
+max-line-length = 100
