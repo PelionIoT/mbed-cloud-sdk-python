@@ -1,0 +1,10 @@
+/* Align the input box and submit button */
+div.sphinxsidebar #searchbox input[type="text"] {
+  width: 100%;
+}
+div.sphinxsidebar input[type="submit"] {
+  margin-left: 5px;
+}
+#searchbox form div {
+  display: inline-block;
+}

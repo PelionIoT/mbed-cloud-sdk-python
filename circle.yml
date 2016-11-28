@@ -2,3 +2,4 @@ test:
   override:
     - flake8
     - python -m unittest discover tests/*
+    - generate-docs.sh
