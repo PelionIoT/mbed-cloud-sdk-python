@@ -1,7 +1,9 @@
-from mbed_cloud_sdk.devices.connector import ConnectorAPI
+"""Example: listing endpoints and their resources using Device API."""
+from mbed_cloud_sdk.devices import DeviceAPI
 
-def main():
-    api = ConnectorAPI()
+
+def _main():
+    api = DeviceAPI()
     endpoints = api.list_endpoints()
 
     for endpoint in endpoints:
@@ -9,14 +11,14 @@ def main():
 
         # Print endpoint name header
         header = endpoint.name
-        print header
-        print len(header) * "-"
+        print(header)
+        print(len(header) * "-")
 
         for r in resources:
-            print "\t- %s (%s / Observable: %s)" % (r.uri, r.rt if r.rt else "-", r.obs)
+            print("\t- %s (%s / Observable: %s)" % (r.uri, r.rt if r.rt else "-", r.obs))
 
         # Space between endpoints
-        print
+        print("")
 
 if __name__ == "__main__":
-    main()
+    _main()
