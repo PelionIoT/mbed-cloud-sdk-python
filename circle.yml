@@ -1,5 +1,5 @@
 test:
   override:
-    - flake8
+    - flake8 --config ./.flake8
     - python -m unittest discover tests/*
     - ./generate-docs.sh
