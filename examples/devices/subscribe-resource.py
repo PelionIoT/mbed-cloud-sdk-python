@@ -13,7 +13,7 @@ def main():
     value = api.get_resource_value(endpoints[0].name, BUTTON_RESOURCE, sync=True)
 
     # Register a subscription for new values
-    queue = api.get_resource_value(endpoints[0].name, BUTTON_RESOURCE)
+    queue = api.subscribe(endpoints[0].name, BUTTON_RESOURCE)
     while True:
         # Print the current value
         print "Current value: %r" % (value,)

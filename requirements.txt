@@ -5,5 +5,8 @@ six >= 1.10
 certifi
 python-dateutil
 
+# For development
+pylint == 1.6.4
+
 # For testing
 mock == 2.0.0

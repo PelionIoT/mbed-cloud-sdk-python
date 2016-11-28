@@ -1,0 +1,3 @@
+test:
+  override:
+    - pylint mbed_cloud_sdk

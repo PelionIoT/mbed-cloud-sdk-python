@@ -1,0 +1,5 @@
+[MASTER]
+ignore=_backends
+
+[REPORTS]
+output-format=colorized
