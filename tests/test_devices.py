@@ -1,16 +1,16 @@
-"""Tests describing the connector/mDS API."""
-from mbed_cloud_sdk.devices.connector import ConnectorAPI
+"""Tests describing the device API."""
+from mbed_cloud_sdk.devices import DeviceAPI
 import mock
 import unittest
 
 
-class TestConnector(unittest.TestCase):
-    """Unit tests for connector."""
+class TestDevices(unittest.TestCase):
+    """Unit tests for devices."""
 
     def __init__(self, *args, **kwargs):
-        """Initialize the connector API."""
-        super(TestConnector, self).__init__(*args, **kwargs)
-        self.api = ConnectorAPI({'api_key': '1234'})
+        """Initialize the devices API."""
+        super(TestDevices, self).__init__(*args, **kwargs)
+        self.api = DeviceAPI({'api_key': '1234'})
 
     @mock.patch('mbed_cloud_sdk._backends.mds.EndpointsApi.v2_endpoints_get')
     def test_list_endpoints(self, c):
