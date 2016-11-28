@@ -1,17 +1,32 @@
+"""Something."""
 import logging
 
 # Import common functions and exceptions from frontend API
-from mbed_cloud_sdk import BaseAPI, config
+from mbed_cloud_sdk import BaseAPI
+from mbed_cloud_sdk import config
 from mbed_cloud_sdk.decorators import catch_exceptions
 
 # Import backend API
 import mbed_cloud_sdk._backends.developer_certificate as cert
 import mbed_cloud_sdk._backends.developer_certificate.rest as ApiException
 
-logger = logging.getLogger(__name__)
+LOG = logging.getLogger(__name__)
+
 
 class CertificateAPI(BaseAPI):
-    def __init__(self, params = {}):
+    """CertificateAPI.
+
+    hey
+    """
+
+    def __init__(self, params=None):
+        """something.
+
+        init
+        """
+        if not params:
+            params = {}
+
         super(CertificateAPI, self).__init__(params)
 
         # Set the api_key for the requests
@@ -27,6 +42,10 @@ class CertificateAPI(BaseAPI):
 
     @catch_exceptions(ApiException)
     def get_certificate(self):
+        """hey.
+
+        get_certificate
+        """
         api = cert.DefaultApi()
         resp = api.v3_developer_certificate_get(self.auth)
 
@@ -37,11 +56,19 @@ class CertificateAPI(BaseAPI):
 
     @catch_exceptions(ApiException)
     def revoke_certificate(self):
+        """foo.
+
+        revoke_certificate
+        """
         api = cert.DefaultApi()
         return api.v3_developer_certificate_delete(self.auth)
 
     @catch_exceptions(ApiException)
     def create_certificate(self, public_key):
+        """foo.
+
+        create_certificate
+        """
         api = cert.DefaultApi()
 
         body = cert.Body()

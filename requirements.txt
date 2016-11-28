@@ -5,8 +5,9 @@ six >= 1.10
 certifi
 python-dateutil
 
-# For development
-pylint == 1.6.4
+# For development (static analysis)
+hacking==0.12.0
+flake8_docstrings==1.0.2
 
 # For testing
 mock == 2.0.0
