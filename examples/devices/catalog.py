@@ -1,10 +1,11 @@
-from mbed_cloud_sdk.devices.catalog import CatalogAPI
+"""Example showing devices from device catalog."""
+from mbed_cloud_sdk.devices import DevicesAPI
 
-def main():
-    api = CatalogAPI()
+
+def _main():
+    api = DevicesAPI()
     devices = api.list_devices()
-    print devices
-    print len(devices)
+    print(len(devices))
 
 if __name__ == "__main__":
-    main()
+    _main()

@@ -8,7 +8,7 @@ SOURCE_DIR="docs/";
 OUTPUT_DIR="docs/build/html";
 
 # Build Sphinx docs
-sphinx-build -b $OUTPUT_FORMAT -c $CONFIG_DIR $SOURCE_DIR $OUTPUT_DIR;
+sphinx-build -a -b $OUTPUT_FORMAT -c $CONFIG_DIR $SOURCE_DIR $OUTPUT_DIR;
 
 # If AWS_ID and SECRET is defined, we push to S3
 if [[ -n $AWS_ID && -n $AWS_SECRET ]]; then

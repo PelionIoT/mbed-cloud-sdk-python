@@ -1,11 +1,13 @@
+"""Example setting up long-polling on a device."""
 import time
 
-from mbed_cloud_sdk.devices.connector import ConnectorAPI
+from mbed_cloud_sdk.devices import DeviceAPI
 
-BUTTON_RESOURCE="/3200/0/5501"
+BUTTON_RESOURCE = "/3200/0/5501"
 
-def run_synchronized():
-    api = ConnectorAPI()
+
+def _run_synchronized():
+    api = DeviceAPI()
     api.start_long_polling()
     endpoints = api.list_endpoints()
     if not endpoints:
@@ -21,13 +23,14 @@ def run_synchronized():
 
         # Print new value to user, if it has changed.
         if new_value != current_value:
-            print "Current value: %r" % (new_value,)
+            print("Current value: %r" % (new_value,))
 
             # Save new current value
             current_value = new_value
 
-def run_async():
-    api = ConnectorAPI()
+
+def _run_async():
+    api = DeviceAPI()
     api.start_long_polling()
     endpoints = api.list_endpoints()
     if not endpoints:
@@ -51,7 +54,7 @@ def run_async():
 
         # Print new value to user, if it has changed.
         if current_value != new_value:
-            print "Current value: %r" % (new_value,)
+            print("Current value: %r" % (new_value,))
 
             # Save new current value
             current_value = new_value
@@ -60,5 +63,5 @@ if __name__ == "__main__":
     # These two methods are doing the same, but one is showing the behaviour of the
     # 'sync' flag to `get_resource`, and the `run_async` shows how you can have
     # a bit more fine grained control.
-    run_synchronized()
-    #run_async()
+    _run_synchronized()
+    # _run_async()

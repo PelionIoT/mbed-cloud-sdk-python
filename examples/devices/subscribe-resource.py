@@ -1,9 +1,11 @@
-from mbed_cloud_sdk.devices.connector import ConnectorAPI
+"""Example showing basic usage of device resource subscriptions."""
+from mbed_cloud_sdk.devices import DeviceAPI
 
-BUTTON_RESOURCE="/3200/0/5501"
+BUTTON_RESOURCE = "/3200/0/5501"
 
-def main():
-    api = ConnectorAPI()
+
+def _main():
+    api = DeviceAPI()
     api.start_long_polling()
     endpoints = api.list_endpoints()
     if not endpoints:
@@ -16,10 +18,10 @@ def main():
     queue = api.subscribe(endpoints[0].name, BUTTON_RESOURCE)
     while True:
         # Print the current value
-        print "Current value: %r" % (value,)
+        print("Current value: %r" % (value,))
 
         # Get a new value, using the subscriptions
-        value = queue.get(timeout = 30)
+        value = queue.get(timeout=30)
 
 if __name__ == "__main__":
-    main()
+    _main()
