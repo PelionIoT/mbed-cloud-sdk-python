@@ -40,6 +40,7 @@ class AccessAPI(BaseAPI):
         :param start: Not yet implemented.
         :param sort_by: Not yet implemented.
         :param sort_direction: Not yet implemented.
+        :returns: a list of API key objects
         """
         api = iam.DeveloperApi()
 
@@ -54,6 +55,7 @@ class AccessAPI(BaseAPI):
         """Get API key details for key registered in organisation.
 
         :param api_key: The key name (str)
+        :returns: a API key object.
         """
         api = iam.DeveloperApi()
         return api.get_api_key(api_key)
@@ -63,6 +65,7 @@ class AccessAPI(BaseAPI):
         """Delete an API key registered in the organisation.
 
         :param api_key: The key name (str)
+        :returns: void
         """
         api = iam.DeveloperApi()
         return api.delete_api_key(api_key)
@@ -72,52 +75,96 @@ class AccessAPI(BaseAPI):
         """Create new API key registered to organisation.
 
         :param name: The name of the API key (str)
-        :param groups: Optional list of group IDs (str)
+        :param groups: Optional list of group IDs (list[str])
         :param owner: Optional user ID owning the API key (str)
+        :returns: a list of API key objects.
         """
         api = iam.DeveloperApi()
         body = iam.ApiKeyInfoReq(name=name, groups=groups, owner=owner)
         return api.create_api_key(body)
 
     @catch_exceptions(ApiException)
-    def list_groups(self):
-        """TODO: Write docstring."""
-        api = iam.DeveloperApi()
+    def list_groups(self, start=0, sort_by=None, sort_direction="asc"):
+        """List all groups in organisation.
 
+        :param start: Not yet implemented.
+        :param sort_by: Not yet implemented.
+        :param sort_direction: Not yet implemented.
+        :returns: a list of group objects.
+        """
+        if start != 0 or sort_by is not None or sort_direction != "asc":
+            raise NotImplementedError("Sorting and pagination is not yet implemented")
+
+        api = iam.DeveloperApi()
         # Return the data array
         return api.get_all_groups().data
 
     @catch_exceptions(ApiException)
-    def list_users(self):
-        """TODO: Write docstring."""
-        api = iam.AccountAdminApi()
+    def list_users(self, start=0, sort_by=None, sort_direction="asc"):
+        """List all users in organisation.
 
+        :param start: Not yet implemented.
+        :param sort_by: Not yet implemented.
+        :param sort_direction: Not yet implemented.
+        :returns: a list of user objects.
+        """
+        if start != 0 or sort_by is not None or sort_direction != "asc":
+            raise NotImplementedError("Sorting and pagination is not yet implemented")
+
+        api = iam.AccountAdminApi()
         # Return the data array
         return api.get_all_users().data
 
     @catch_exceptions(ApiException)
     def get_user(self, user_id):
-        """TODO: Write docstring."""
+        """Get user details of specified user.
+
+        :param user_id: the ID of the user to get (str)
+        :returns: the user object with details about the user.
+        """
         api = iam.AccountAdminApi()
         return api.get_user(user_id)
 
     @catch_exceptions(ApiException)
     def update_user(self, user_id, **kwargs):
-        """TODO: Write docstring."""
+        """Update user properties of specified user.
+
+        Accepts same parameters as `create_user`.
+
+        :param user_id: the ID of the user to update (str)
+        :returns: the updated user object, as it was called with `get_user`.
+        """
         api = iam.AccountAdminApi()
         body = iam.UserInfoReq(**kwargs)
         return api.update_user(user_id, body)
 
     @catch_exceptions(ApiException)
     def delete_user(self, user_id):
-        """TODO: Write docstring."""
+        """Delete user specified user.
+
+        :param user_id: the ID of the user to delete (str)
+        :returns: void
+        """
         api = iam.AccountAdminApi()
         api.delete_user(user_id)
         return
 
     @catch_exceptions(ApiException)
-    def create_user(self, **kwargs):
-        """TODO: Write docstring."""
+    def create_user(self, username, email, **kwargs):
+        """Create a new user with provided details.
+
+        :param username: Required. The unique username of the user (str)
+        :param email: Required. The unique email of the user (str)
+        :param full_name: Optional. The full name of the user (str)
+        :param groups: Optional. List of group IDs which this user belongs to (list[str])
+        :param password: Optional. The password string of the user.
+            Need to adhere to password policy (str)
+        :param phone_number: Optional. Phone number of the user (str)
+        :param is_gtc_accepted: Optional. Is 'General Terms & Conditions' accepted (bool)
+        :param is_marketing_accepted: Optional. Is receiving marketing information accepted? (bool)
+        :returns: the new user as it was called using `get_user`.
+        """
         api = iam.AccountAdminApi()
+        kwargs.update({'username': username, 'email': email})
         body = iam.UserInfoReq(**kwargs)
         return api.create_user(body)

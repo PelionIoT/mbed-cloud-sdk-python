@@ -19,10 +19,3 @@ Reference
 
 .. automodule:: mbed_cloud_sdk.access
   :members:
-
-User properties
----------------
-
-.. autoclass:: mbed_cloud_sdk._backends.iam.models.UserInfoReq
-  :members:
-  :exclude-members: to_dict,to_str
