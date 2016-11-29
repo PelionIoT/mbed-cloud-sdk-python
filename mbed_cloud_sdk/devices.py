@@ -1,4 +1,5 @@
 """Public API for Device API."""
+from __future__ import absolute_import
 import base64
 from collections import defaultdict
 import logging

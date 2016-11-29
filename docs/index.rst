@@ -12,6 +12,7 @@ Components
   devices
   access
   development
+  manufacturing 
 
 Quickstart
 ----------
