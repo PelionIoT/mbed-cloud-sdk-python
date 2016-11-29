@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 List the resources on an endpoint
 
-The list of resources is cached by mbed Cloud Connect, so this call does  not create a message to the device. 
+The list of resources is cached by mbed Cloud Connect, so this call does not create a message to the device. 
 
 ### Example 
 ```python

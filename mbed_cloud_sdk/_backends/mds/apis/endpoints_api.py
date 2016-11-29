@@ -54,7 +54,7 @@ class EndpointsApi(object):
     def v2_endpoints_endpoint_name_get(self, endpoint_name, **kwargs):
         """
         List the resources on an endpoint
-        The list of resources is cached by mbed Cloud Connect, so this call does  not create a message to the device. 
+        The list of resources is cached by mbed Cloud Connect, so this call does not create a message to the device. 
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -81,7 +81,7 @@ class EndpointsApi(object):
     def v2_endpoints_endpoint_name_get_with_http_info(self, endpoint_name, **kwargs):
         """
         List the resources on an endpoint
-        The list of resources is cached by mbed Cloud Connect, so this call does  not create a message to the device. 
+        The list of resources is cached by mbed Cloud Connect, so this call does not create a message to the device. 
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
