@@ -1,4 +1,4 @@
-"""Something."""
+"""Reference API for development component."""
 import logging
 
 # Import common functions and exceptions from frontend API
@@ -13,21 +13,16 @@ import mbed_cloud_sdk._backends.developer_certificate.rest as ApiException
 LOG = logging.getLogger(__name__)
 
 
-class CertificateAPI(BaseAPI):
-    """CertificateAPI.
+class DevelopmentAPI(BaseAPI):
+    """Describing the public development API.
 
-    hey
+    Exposing functionality from the following underlying services:
+    - Developer certificate
     """
 
-    def __init__(self, params=None):
-        """something.
-
-        init
-        """
-        if not params:
-            params = {}
-
-        super(CertificateAPI, self).__init__(params)
+    def __init__(self, params={}):
+        """Initialise the development API, optionally passing in overriding config."""
+        super(DevelopmentAPI, self).__init__(params)
 
         # Set the api_key for the requests
         cert.configuration.api_key['Authorization'] = config.get("api_key")
@@ -42,9 +37,15 @@ class CertificateAPI(BaseAPI):
 
     @catch_exceptions(ApiException)
     def get_certificate(self):
-        """hey.
+        """Get current certificate registered to organisation.
 
-        get_certificate
+        Returns an object with details on when certificate was created and the
+        public key.
+
+        If no certificate is registered, this function returns `None`.
+
+        :return: Object with public key and created date if found, or `None` if
+            no certificate is registered.
         """
         api = cert.DefaultApi()
         resp = api.v3_developer_certificate_get(self.auth)
@@ -56,18 +57,25 @@ class CertificateAPI(BaseAPI):
 
     @catch_exceptions(ApiException)
     def revoke_certificate(self):
-        """foo.
+        """Revoke/delete the organisation certificate, if found.
 
-        revoke_certificate
+        If not found/registered, we do nothing.
+
+        :return: void
         """
         api = cert.DefaultApi()
         return api.v3_developer_certificate_delete(self.auth)
 
     @catch_exceptions(ApiException)
     def create_certificate(self, public_key):
-        """foo.
+        """Create and register a new organisation certificate.
 
-        create_certificate
+        Registeres a new certificate to the organisation, using the provided
+        public key. If a certificate is already registered (and not revoked) an
+        exception indication a conflict will be raised.
+
+        :param public_key: NIST P-256 Elliptic Curve public key, base64 encoded.
+        :return: The newly created certificate (created date, public key, ...)
         """
         api = cert.DefaultApi()
 

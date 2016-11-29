@@ -1,11 +1,16 @@
+"""Initialise the mbed_cloud_sdk config and BaseAPI."""
 import sys
 
 from mbed_cloud_sdk.bootstrap import Config
 
 config = Config()
 
+
 class BaseAPI(object):
+    """BaseAPI is parent class for all APIs. Ensuring config is valid and available."""
+
     def __init__(self, user_config={}):
+        """Ensure the config is valid and has all required fields."""
         config.update(user_config)
 
         if "host" in config:

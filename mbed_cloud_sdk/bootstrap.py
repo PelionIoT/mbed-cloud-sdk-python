@@ -1,11 +1,31 @@
-import os, json
+"""Custom decorator functions used in mbed_cloud_sdk."""
+import json
+import os
+
 
 class Config(dict):
+    """Create configuration dict, reading config file(s) on initialisation."""
+
     def __init__(self):
+        """Go through list of directories in priority order and add to config.
+
+        For each file which is found and valid, we extend/overwrite the existing
+        config dictionary.
+
+        Of highest priority is using the `MBED_CLOUD_SDK_CONFIG` environment
+        variable, to specify a config JSON file.
+        """
         CONFIG_FILES = filter(None, [
             # Global config in /etc
             "/etc/mbed_cloud_config.json",
-            os.path.join(os.getcwd(), "mbed_cloud_config.json"),
+
+            # Config file in home directory
+            os.path.join(os.path.expanduser("~"), ".mbed_cloud_config.json"),
+
+            # Config file in current directory
+            os.path.join(os.getcwd(), ".mbed_cloud_config.json"),
+
+            # Config file specified using environment variable
             os.environ.get("MBED_CLOUD_SDK_CONFIG")
         ])
 

@@ -104,6 +104,7 @@ class RESTClientObject(object):
 
         # https pool manager
         self.pool_manager = urllib3.PoolManager(
+            maxsize = 4,
             num_pools=pools_size,
             cert_reqs=cert_reqs,
             ca_certs=ca_certs,

@@ -1,10 +1,12 @@
-import sys
+"""Custom decorators used in mbed_cloud_sdk."""
 import functools
+import sys
 
 from mbed_cloud_sdk.exceptions import CloudApiException
 
 
 def catch_exceptions(*exceptions):
+    """Catch all exceptions provided as arguments, and raise CloudApiException instead."""
     def wrap(fn):
         @functools.wraps(fn)
         def wrapped_f(*args, **kwargs):
