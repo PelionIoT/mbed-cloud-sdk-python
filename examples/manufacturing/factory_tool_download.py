@@ -8,11 +8,11 @@ def _main():
     api = ManufacturingAPI()
 
     print("Operating systems:")
-    versions = api.versions().to_dict()
+    versions = api.factory_tool_versions().to_dict()
     for v in versions.itervalues():
         print("\t- %s (%s)[%s MB]" % (v["os"], v["filename"], v["size"]))
 
-    resp = api.download("Linux")
+    resp = api.factory_tool_download("Linux")
     fh = tempfile.NamedTemporaryFile(delete=False, suffix=".zip")
     fh.write(resp)
 

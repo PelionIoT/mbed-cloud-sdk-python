@@ -7,9 +7,13 @@ from mbed_cloud_sdk import BaseAPI
 from mbed_cloud_sdk import config
 from mbed_cloud_sdk.decorators import catch_exceptions
 
-# Import backend API
+# Import backend APIs
 import mbed_cloud_sdk._backends.factory_tool as factory_tool
-import mbed_cloud_sdk._backends.factory_tool.rest as ApiException
+import mbed_cloud_sdk._backends.factory_tool.rest as FactoryApiException
+import mbed_cloud_sdk._backends.production_line_certificates as production_line_certificates
+import mbed_cloud_sdk._backends.production_line_certificates.rest as ProductionLineApiException
+import mbed_cloud_sdk._backends.provisioning_certificate as provisioning_certificate
+import mbed_cloud_sdk._backends.provisioning_certificate.rest as ProvisioningApiException
 
 LOG = logging.getLogger(__name__)
 
@@ -29,32 +33,90 @@ class ManufacturingAPI(BaseAPI):
         super(ManufacturingAPI, self).__init__(params)
 
         # Set the api_key for the requests
-        factory_tool.configuration.api_key['Authorization'] = config.get("api_key")
-        factory_tool.configuration.api_key_prefix['Authorization'] = 'Bearer'
+        self.factory_tool = self._init(factory_tool)
+        self.provisioning_certificate = self._init(provisioning_certificate)
+        self.provisioning_certificate = self._init(provisioning_certificate)
+        self.production_line_certificates = self._init(production_line_certificates)
 
-        # Override host, if defined
-        if config.get("host"):
-            factory_tool.configuration.host = config.get("host")
+        # This API is a bit weird, so create the "authorization" string
+        self.auth = "Bearer %s" % (config.get("api_key"),)
 
-    @catch_exceptions(ApiException)
-    def versions(self):
+    def _init(self, api):
+        api.configuration.api_key['Authorization'] = config.get('api_key')
+        api.configuration.api_key_prefix['Authorization'] = 'Bearer'
+        if config.get('host'):
+            api.configuration.host = config.get('host')
+        return api
+
+    @catch_exceptions(FactoryApiException)
+    def factory_tool_versions(self):
         """Get a list of downloadable Factory Tool versions.
 
         - mbed Cloud user role must be Administrator.
         - mbed Cloud account must have Factory Tool downloads enabled
         """
-        api = factory_tool.DefaultApi()
+        api = self.factory_tool.DefaultApi()
         return api.downloads_mbed_factory_provisioning_package_info_get()
 
-    @catch_exceptions(ApiException)
-    def download(self, os):
+    @catch_exceptions(FactoryApiException)
+    def factory_tool_download(self, os):
         """Return a specific Factory Tool package in a ZIP archive.
 
         - mbed Cloud user role must be Administrator.
         - mbed Cloud account must have Factory Tool downloads enabled.
 
         :param os: Operating System. Either "Windows" or "Linux".
-        :returns: file binary
+        :return: file binary
         """
-        api = factory_tool.DefaultApi()
+        api = self.factory_tool.DefaultApi()
         return api.downloads_mbed_factory_provisioning_package_get(os)
+
+    @catch_exceptions(ProvisioningApiException)
+    def get_provisioning_certificate(self):
+        """Get the provisioning certificate registered to organisation.
+
+        :return: Provisioning certificate object
+        """
+        api = self.provisioning_certificate.DefaultApi()
+        return api.v3_provisioning_certificate_get(self.auth)
+
+    @catch_exceptions(ProductionLineApiException)
+    def list_production_line_certificates(self):
+        """Get list of production line certificates associated with the organisation.
+
+        :return: List of production line certificates
+        """
+        api = self.production_line_certificates.DefaultApi()
+        return api.v3_production_line_certificates_get(self.auth).data
+
+    @catch_exceptions(ProductionLineApiException)
+    def get_production_line_certificate(self, certificate_muuid):
+        """Get production certificate with provided mUUID.
+
+        :param certificate_muuid: the mUUID of the requested certificate (str)
+        :return: Production line certificate object
+        """
+        api = self.production_line_certificates.DefaultApi()
+        return api.v3_production_line_certificates_muuid_get(self.auth, certificate_muuid)
+
+    @catch_exceptions(ProductionLineApiException)
+    def delete_production_line_certificate(self, certificate_muuid):
+        """Delete production certificate with provided mUUID.
+
+        :param certificate_muuid: the mUUID of the requested certificate (str)
+        :return: void
+        """
+        api = self.production_line_certificates.DefaultApi()
+        api.v3_production_line_certificates_muuid_delete(self.auth, certificate_muuid)
+        return
+
+    def rename_production_line_certificate(self, certificate_muuid, new_name):
+        """Rename the production line certificate with provided mUUID.
+
+        :param certificate_muuid: the mUUID of the production line certificate to rename (str)
+        :param new_name: the new name of the production line certificate (str)
+        :return: the new production line certificate object.
+        """
+        api = self.production_line_certificates.DefaultApi()
+        body = self.production_line_certificates.Body1(comment=new_name)
+        api.v3_production_line_certificates_muuid_put(self.auth, certificate_muuid, body)
