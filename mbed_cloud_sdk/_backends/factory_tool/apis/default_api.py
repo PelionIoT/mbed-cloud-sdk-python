@@ -51,7 +51,7 @@ class DefaultApi(object):
                 config.api_client = ApiClient()
             self.api_client = config.api_client
 
-    def downloads_mbed_factory_provisioning_package_get(self, authorization, os, **kwargs):
+    def downloads_mbed_factory_provisioning_package_get(self, os, **kwargs):
         """
         
         Returns a specific Factory Tool package in a ZIP archive. * mbed Cloud user role must be Administrator. * mbed Cloud account must have Factory Tool downloads enabled. 
@@ -62,24 +62,23 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.downloads_mbed_factory_provisioning_package_get(authorization, os, callback=callback_function)
+        >>> thread = api.downloads_mbed_factory_provisioning_package_get(os, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str authorization: \"Bearer\" followed by a reference token (API key forbidden). (required)
         :param str os: Requires Factory Tool OS name (Windows or Linux). (required)
-        :return: None
+        :return: file
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.downloads_mbed_factory_provisioning_package_get_with_http_info(authorization, os, **kwargs)
+            return self.downloads_mbed_factory_provisioning_package_get_with_http_info(os, **kwargs)
         else:
-            (data) = self.downloads_mbed_factory_provisioning_package_get_with_http_info(authorization, os, **kwargs)
+            (data) = self.downloads_mbed_factory_provisioning_package_get_with_http_info(os, **kwargs)
             return data
 
-    def downloads_mbed_factory_provisioning_package_get_with_http_info(self, authorization, os, **kwargs):
+    def downloads_mbed_factory_provisioning_package_get_with_http_info(self, os, **kwargs):
         """
         
         Returns a specific Factory Tool package in a ZIP archive. * mbed Cloud user role must be Administrator. * mbed Cloud account must have Factory Tool downloads enabled. 
@@ -90,18 +89,17 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.downloads_mbed_factory_provisioning_package_get_with_http_info(authorization, os, callback=callback_function)
+        >>> thread = api.downloads_mbed_factory_provisioning_package_get_with_http_info(os, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str authorization: \"Bearer\" followed by a reference token (API key forbidden). (required)
         :param str os: Requires Factory Tool OS name (Windows or Linux). (required)
-        :return: None
+        :return: file
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['authorization', 'os']
+        all_params = ['os']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
 
@@ -114,9 +112,6 @@ class DefaultApi(object):
                 )
             params[key] = val
         del params['kwargs']
-        # verify the required parameter 'authorization' is set
-        if ('authorization' not in params) or (params['authorization'] is None):
-            raise ValueError("Missing the required parameter `authorization` when calling `downloads_mbed_factory_provisioning_package_get`")
         # verify the required parameter 'os' is set
         if ('os' not in params) or (params['os'] is None):
             raise ValueError("Missing the required parameter `os` when calling `downloads_mbed_factory_provisioning_package_get`")
@@ -129,8 +124,6 @@ class DefaultApi(object):
             query_params['os'] = params['os']
 
         header_params = {}
-        if 'authorization' in params:
-            header_params['Authorization'] = params['authorization']
 
         form_params = []
         local_var_files = {}
@@ -157,12 +150,12 @@ class DefaultApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=local_var_files,
-                                            response_type=None,
+                                            response_type='file',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))
 
-    def downloads_mbed_factory_provisioning_package_info_get(self, authorization, **kwargs):
+    def downloads_mbed_factory_provisioning_package_info_get(self, **kwargs):
         """
         
         Gets a list of downloadable Factory Tool versions. * mbed Cloud user role must be Administrator. * mbed Cloud account must have Factory Tool downloads enabled. 
@@ -173,23 +166,22 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.downloads_mbed_factory_provisioning_package_info_get(authorization, callback=callback_function)
+        >>> thread = api.downloads_mbed_factory_provisioning_package_info_get(callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str authorization: \"Bearer\" followed by a reference token (API key forbidden). (required)
         :return: AListOfDownloadableFactoryToolVersions_
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.downloads_mbed_factory_provisioning_package_info_get_with_http_info(authorization, **kwargs)
+            return self.downloads_mbed_factory_provisioning_package_info_get_with_http_info(**kwargs)
         else:
-            (data) = self.downloads_mbed_factory_provisioning_package_info_get_with_http_info(authorization, **kwargs)
+            (data) = self.downloads_mbed_factory_provisioning_package_info_get_with_http_info(**kwargs)
             return data
 
-    def downloads_mbed_factory_provisioning_package_info_get_with_http_info(self, authorization, **kwargs):
+    def downloads_mbed_factory_provisioning_package_info_get_with_http_info(self, **kwargs):
         """
         
         Gets a list of downloadable Factory Tool versions. * mbed Cloud user role must be Administrator. * mbed Cloud account must have Factory Tool downloads enabled. 
@@ -200,17 +192,16 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.downloads_mbed_factory_provisioning_package_info_get_with_http_info(authorization, callback=callback_function)
+        >>> thread = api.downloads_mbed_factory_provisioning_package_info_get_with_http_info(callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str authorization: \"Bearer\" followed by a reference token (API key forbidden). (required)
         :return: AListOfDownloadableFactoryToolVersions_
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['authorization']
+        all_params = []
         all_params.append('callback')
         all_params.append('_return_http_data_only')
 
@@ -223,9 +214,6 @@ class DefaultApi(object):
                 )
             params[key] = val
         del params['kwargs']
-        # verify the required parameter 'authorization' is set
-        if ('authorization' not in params) or (params['authorization'] is None):
-            raise ValueError("Missing the required parameter `authorization` when calling `downloads_mbed_factory_provisioning_package_info_get`")
 
         resource_path = '/downloads/mbed_factory_provisioning_package/info'.replace('{format}', 'json')
         path_params = {}
@@ -233,8 +221,6 @@ class DefaultApi(object):
         query_params = {}
 
         header_params = {}
-        if 'authorization' in params:
-            header_params['Authorization'] = params['authorization']
 
         form_params = []
         local_var_files = {}
