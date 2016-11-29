@@ -13,6 +13,9 @@ Components
   access
   development
   manufacturing 
+  assets 
+  logging 
+  update 
 
 Quickstart
 ----------
