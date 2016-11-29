@@ -9,7 +9,7 @@ Method | HTTP request | Description
 
 
 # **downloads_mbed_factory_provisioning_package_get**
-> downloads_mbed_factory_provisioning_package_get(authorization, os)
+> file downloads_mbed_factory_provisioning_package_get(os)
 
 
 
@@ -29,11 +29,11 @@ factory_tool.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = factory_tool.DefaultApi()
-authorization = 'authorization_example' # str | \"Bearer\" followed by a reference token (API key forbidden).
 os = 'os_example' # str | Requires Factory Tool OS name (Windows or Linux).
 
 try: 
-    api_instance.downloads_mbed_factory_provisioning_package_get(authorization, os)
+    api_response = api_instance.downloads_mbed_factory_provisioning_package_get(os)
+    pprint(api_response)
 except ApiException as e:
     print "Exception when calling DefaultApi->downloads_mbed_factory_provisioning_package_get: %s\n" % e
 ```
@@ -42,12 +42,11 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| \&quot;Bearer\&quot; followed by a reference token (API key forbidden). | 
  **os** | **str**| Requires Factory Tool OS name (Windows or Linux). | 
 
 ### Return type
 
-void (empty response body)
+[**file**](file.md)
 
 ### Authorization
 
@@ -61,7 +60,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **downloads_mbed_factory_provisioning_package_info_get**
-> AListOfDownloadableFactoryToolVersions_ downloads_mbed_factory_provisioning_package_info_get(authorization)
+> AListOfDownloadableFactoryToolVersions_ downloads_mbed_factory_provisioning_package_info_get()
 
 
 
@@ -81,20 +80,16 @@ factory_tool.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = factory_tool.DefaultApi()
-authorization = 'authorization_example' # str | \"Bearer\" followed by a reference token (API key forbidden).
 
 try: 
-    api_response = api_instance.downloads_mbed_factory_provisioning_package_info_get(authorization)
+    api_response = api_instance.downloads_mbed_factory_provisioning_package_info_get()
     pprint(api_response)
 except ApiException as e:
     print "Exception when calling DefaultApi->downloads_mbed_factory_provisioning_package_info_get: %s\n" % e
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **str**| \&quot;Bearer\&quot; followed by a reference token (API key forbidden). | 
+This endpoint does not need any parameter.
 
 ### Return type
 
