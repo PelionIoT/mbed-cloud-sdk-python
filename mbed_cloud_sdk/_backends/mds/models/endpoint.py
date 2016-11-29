@@ -87,7 +87,7 @@ class Endpoint(object):
     def q(self):
         """
         Gets the q of this Endpoint.
-        Determines whether the device is in queue mode.  <br/><br/><b>Queue mode</b><br/> When an endpoint is in queue mode, messages sent to the endpoint do not wake up the physical device.  The messages are queued and delivered when the device wakes up and connects to mbed Cloud Connect  itself. You can also use the Queue mode when the device is behind a NAT and cannot be reached directly by  mbed Cloud Connect. 
+        Determines whether the device is in queue mode. <br/><br/><b>Queue mode</b><br/> When an endpoint is in queue mode, messages sent to the endpoint do not wake up the physical device. The messages are queued and delivered when the device wakes up and connects to mbed Cloud Connect itself. You can also use the Queue mode when the device is behind a NAT and cannot be reached directly by mbed Cloud Connect. 
 
         :return: The q of this Endpoint.
         :rtype: bool
@@ -98,7 +98,7 @@ class Endpoint(object):
     def q(self, q):
         """
         Sets the q of this Endpoint.
-        Determines whether the device is in queue mode.  <br/><br/><b>Queue mode</b><br/> When an endpoint is in queue mode, messages sent to the endpoint do not wake up the physical device.  The messages are queued and delivered when the device wakes up and connects to mbed Cloud Connect  itself. You can also use the Queue mode when the device is behind a NAT and cannot be reached directly by  mbed Cloud Connect. 
+        Determines whether the device is in queue mode. <br/><br/><b>Queue mode</b><br/> When an endpoint is in queue mode, messages sent to the endpoint do not wake up the physical device. The messages are queued and delivered when the device wakes up and connects to mbed Cloud Connect itself. You can also use the Queue mode when the device is behind a NAT and cannot be reached directly by mbed Cloud Connect. 
 
         :param q: The q of this Endpoint.
         :type: bool
