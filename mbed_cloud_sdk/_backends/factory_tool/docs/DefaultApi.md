@@ -9,7 +9,7 @@ Method | HTTP request | Description
 
 
 # **downloads_mbed_factory_provisioning_package_get**
-> file downloads_mbed_factory_provisioning_package_get(os)
+> str downloads_mbed_factory_provisioning_package_get(os)
 
 
 
@@ -46,7 +46,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**file**](file.md)
+**str**
 
 ### Authorization
 
