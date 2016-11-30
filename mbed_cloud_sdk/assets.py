@@ -11,13 +11,11 @@ LOG = logging.getLogger(__name__)
 
 
 class AssetsAPI(BaseAPI):
-    """Describing the public update API.
+    """Describing the public assets API.
 
     Exposing functionality from the following underlying services:
 
-        - Update service
-        - Update campaigns
-        - Manifest management
+        - Asset management
     """
 
     def __init__(self, params={}):

@@ -16,8 +16,9 @@ from mbed_cloud_sdk.exceptions import UnhandledError
 
 # Import backend API
 import mbed_cloud_sdk._backends.device_catalog as dc
+from mbed_cloud_sdk._backends.device_catalog.rest import ApiException as DeviceCatalogApiException
 import mbed_cloud_sdk._backends.mds as mds
-from mbed_cloud_sdk._backends.mds.rest import ApiException
+from mbed_cloud_sdk._backends.mds.rest import ApiException as MdsApiException
 
 LOG = logging.getLogger(__name__)
 
@@ -68,7 +69,7 @@ class DeviceAPI(BaseAPI):
         """Stop the long-polling thread."""
         self._long_polling_thread.start()
 
-    @catch_exceptions(ApiException)
+    @catch_exceptions(MdsApiException)
     def list_endpoints(self, start=0, sort_by=None, sort_direction="asc"):
         """List all endpoints.
 
@@ -83,13 +84,13 @@ class DeviceAPI(BaseAPI):
         api = mds.EndpointsApi()
         return api.v2_endpoints_get()
 
-    @catch_exceptions(ApiException)
+    @catch_exceptions(MdsApiException)
     def list_resources(self, endpoint_name):
         """List all resources registered to a connected endpoint/device."""
         api = mds.EndpointsApi()
         return api.v2_endpoints_endpoint_name_get(endpoint_name)
 
-    @catch_exceptions(ApiException)
+    @catch_exceptions(MdsApiException)
     def get_resource_value(self, endpoint_name, resource_path, fix_path=True, sync=False):
         """Get a resource value for a given endpoint and resource path.
 
@@ -115,7 +116,7 @@ class DeviceAPI(BaseAPI):
             return self._get_value_synchronized(consumer)
         return consumer
 
-    @catch_exceptions(ApiException)
+    @catch_exceptions(MdsApiException)
     def set_resource_value(self, endpoint_name, resource_path,
                            resource_value, fix_path=True, sync=True):
         """Set resource value for given resource path, on endpoint."""
@@ -133,7 +134,7 @@ class DeviceAPI(BaseAPI):
             return self._get_value_synchronized(consumer)
         return consumer
 
-    @catch_exceptions(ApiException)
+    @catch_exceptions(MdsApiException)
     def subscribe(self, endpoint_name, resource_path, fix_path=True, queue_size=5):
         """Subscribe to resource updates.
 
@@ -161,7 +162,7 @@ class DeviceAPI(BaseAPI):
         # Return the Queue object to the user
         return q
 
-    @catch_exceptions(ApiException)
+    @catch_exceptions(MdsApiException)
     def pre_subscribe(self, endpoint_name, resource_path, endpoint_type=""):
         """Create pre-subscription for endpoint and resource path."""
         api = mds.SubscriptionsApi()
@@ -176,7 +177,7 @@ class DeviceAPI(BaseAPI):
         # Returns void
         return
 
-    @catch_exceptions(ApiException)
+    @catch_exceptions(MdsApiException)
     def unsubscribe(self, endpoint_name=None, resource_path=None, fix_path=True):
         """Unsubscribe from endpoint and/or resource_path updates.
 
@@ -219,7 +220,7 @@ class DeviceAPI(BaseAPI):
                 del self._queues[e][r]
         return
 
-    @catch_exceptions(ApiException)
+    @catch_exceptions(MdsApiException)
     def register_webhook(self, url, headers={}):
         """Register new webhook for incoming subscriptions.
 
@@ -235,7 +236,7 @@ class DeviceAPI(BaseAPI):
         api.v2_notification_callback_put(webhook_obj)
         return
 
-    @catch_exceptions(ApiException)
+    @catch_exceptions(MdsApiException)
     def deregister_webhook(self):
         """Delete/remove registered webhook.
 
@@ -254,7 +255,7 @@ class DeviceAPI(BaseAPI):
 
         return
 
-    @catch_exceptions(ApiException)
+    @catch_exceptions(MdsApiException)
     def execute(self, endpoint_name, resource_path, fix_path=True, sync=True, **kwargs):
         """Execute the callback function associated with a resource.
 
@@ -292,7 +293,7 @@ class DeviceAPI(BaseAPI):
         active_endpoints = dict((e.name, True) for e in endpoints if e.status == "ACTIVE")
         return active_endpoints.get(endpoint_name, False)
 
-    @catch_exceptions(ApiException)
+    @catch_exceptions(DeviceCatalogApiException)
     def list_devices(self, start=0, sort_by=None, sort_direction="asc"):
         """List devices in the device catalog.
 
@@ -376,7 +377,7 @@ class _LongPollingThread(threading.Thread):
         self._b64decode = b64decode
         self._stopped = False
 
-    @catch_exceptions(ApiException)
+    @catch_exceptions(MdsApiException)
     def run(self):
         while not self._stopped:
             api = mds.NotificationsApi()
