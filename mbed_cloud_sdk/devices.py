@@ -97,7 +97,7 @@ class DeviceAPI(BaseAPI):
         resp = api.v2_endpoints_endpoint_name_resource_path_get(endpoint_name, resource_path)
 
         # The async consumer, which will read data from long-polling thread
-        consumer = _AsyncConsumer(resp.async_response_id, self._db)
+        consumer = AsyncConsumer(resp.async_response_id, self._db)
 
         # If, by default, the user has not requested a synchronized request we return
         # the async object - which allows the user to control how and when to read the
@@ -119,7 +119,7 @@ class DeviceAPI(BaseAPI):
                                                                 resource_path,
                                                                 resource_value)
 
-        consumer = _AsyncConsumer(resp.async_response_id, self._db)
+        consumer = AsyncConsumer(resp.async_response_id, self._db)
         if sync:
             return self._get_value_synchronized(consumer)
         return consumer
@@ -133,7 +133,7 @@ class DeviceAPI(BaseAPI):
         The returned object is a native Python Queue object.
 
         :param fix_path: Removes leading / on resource_path if found.
-        :param queue_size: set the Queue size.
+        :param queue_size: set the Queue size. If set to 0, no queue object will be created.
         """
         # When path starts with / we remove the slash, as the API can't handle //.
         # Keep the original path around however, as we use that for queue registration.
@@ -142,7 +142,7 @@ class DeviceAPI(BaseAPI):
             fixed_path = resource_path[1:]
 
         # Create the queue and register it with the dict holding all queues
-        q = Queue.Queue(queue_size)
+        q = Queue.Queue(queue_size) if queue_size > 0 else None
         self._queues[endpoint_name][resource_path] = q
 
         # Send subscription request
@@ -154,7 +154,7 @@ class DeviceAPI(BaseAPI):
 
     @catch_exceptions(ApiException)
     def pre_subscribe(self, endpoint_name, resource_path, endpoint_type=""):
-        """TODO: Write docstring."""
+        """Create pre-subscription for endpoint and resource path."""
         api = mds.SubscriptionsApi()
 
         presubscription = mds.Presubscription(
@@ -169,11 +169,20 @@ class DeviceAPI(BaseAPI):
 
     @catch_exceptions(ApiException)
     def unsubscribe(self, endpoint_name=None, resource_path=None, fix_path=True):
-        """TODO: Write docstring."""
-        # If endpoint_name or resource_path is None, we remove every subscripton
-        # for them. I.e. calling this method without arguments removes all subscriptions,
-        # but calling it with only endpoint_name removes subscriptions for all resources
-        # on the given endpoint.
+        """Unsubscribe from endpoint and/or resource_path updates.
+
+        If endpoint_name or resource_path is None, we remove every subscripton
+        for them. I.e. calling this method without arguments removes all subscriptions,
+        but calling it with only endpoint_name removes subscriptions for all resources
+        on the given endpoint.
+
+        :param endpoint_name: endpoint to unsubscribe events from. If not
+            provided, all registered endpoints will be unsubscribed.
+        :param resource_path: resource_path to unsubscribe events from. If not
+            provided, all resource paths will be unsubscribed.
+        :param fix_path: remove trailing / in resouce path to ensure API works.
+        :return: void
+        """
         endpoints = filter(None, [endpoint_name])
         if not endpoint_name:
             endpoints = self._queues.keys()
@@ -184,6 +193,8 @@ class DeviceAPI(BaseAPI):
                 resource_paths.extend(self._queues[e].keys())
 
         # Delete the subscriptions
+        self._clear_subscriptions()
+
         api = mds.SubscriptionsApi()
         for e in endpoints:
             for r in resource_paths:
@@ -197,25 +208,59 @@ class DeviceAPI(BaseAPI):
 
                 # Remove Queue from dictionary
                 del self._queues[e][r]
+        return
 
     @catch_exceptions(ApiException)
-    def register_webhook(url, headers={}):
-        """TODO: Write docstring."""
+    def register_webhook(self, url, headers={}):
+        """Register new webhook for incoming subscriptions.
+
+        If a webhook is already set, this will do an overwrite.
+
+        :param url: the URL with listening webhook (str)
+        :return: void
+        """
         api = mds.NotificationsApi()
 
-        webhook_obj = mds.Webhook()
-        webhook_obj.url = url
-        webhook_obj.headers = headers
-
         # Send the request to register the webhook
+        webhook_obj = mds.Webhook(url=url, headers=headers)
         api.v2_notification_callback_put(webhook_obj)
+        return
 
-        # Returns void
+    @catch_exceptions(ApiException)
+    def deregister_webhook(self):
+        """Delete/remove registered webhook.
+
+        If no webhook is registered, an exception (404) will be raised.
+
+        Note that every registered subscription will be deleted as part of
+        deregistering a webhook.
+
+        :return: void
+        """
+        api = mds.DefaultApi()
+        api.v2_notification_callback_delete()
+
+        # Every subscription will be deleted, so we can clear the queues too.
+        self._queues.clear()
+
         return
 
     @catch_exceptions(ApiException)
     def execute(self, endpoint_name, resource_path, fix_path=True, sync=True, **kwargs):
-        """TODO: Write docstring."""
+        """Execute the callback function associated with a resource.
+
+        :param endpoint_name: the endpoint/device to execute on.
+        :param resource_path: resource URL on endpoint.
+        :param fix_path: ensure leading / is stripped from path to comply with backend API.
+        :param sync: run in (blocking) synchronized mode. If false,
+            it returns a ::class:`AsyncConsumer`
+        :param resource_function: (Optional) Most of the time resources do not
+            accept a function but they have their own functions predefined. You can
+            use this to trigger them.
+
+        :return: an ::class:`AsyncConsumer` if not `sync` is set to True, in
+            which case it returns the value as a string.
+        """
         if fix_path and resource_path.startswith("/"):
             resource_path = resource_path[1:]
 
@@ -226,21 +271,30 @@ class DeviceAPI(BaseAPI):
             **kwargs
         )
 
-        consumer = _AsyncConsumer(resp.async_response_id, self._db)
+        consumer = AsyncConsumer(resp.async_response_id, self._db)
         if sync:
             return self._get_value_synchronized(consumer)
         return consumer
 
     def is_active(self, endpoint_name):
-        """TODO: Write docstring."""
+        """Check if endpoint/device has active status."""
         endpoints = self.list_endpoints()
         # Create map by endpoint name, and check if requested endpoint is in it and status is ACTIVE
         active_endpoints = dict((e.name, True) for e in endpoints if e.status == "ACTIVE")
         return active_endpoints.get(endpoint_name, False)
 
     @catch_exceptions(ApiException)
-    def list_devices(self):
-        """TODO: Write docstring."""
+    def list_devices(self, start=0, sort_by=None, sort_direction="asc"):
+        """List devices in the device catalog.
+
+        :param start: Not yet implemented.
+        :param sort_by: Not yet implemented.
+        :param sort_direction: Not yet implemented.
+        :returns: a list of device objects registered in the catalog.
+        """
+        if start != 0 or sort_by is not None or sort_direction != "asc":
+            raise NotImplementedError("Sorting and pagination is not yet implemented")
+
         api = dc.DefaultApi()
         return api.device_list()
 
@@ -258,20 +312,41 @@ class DeviceAPI(BaseAPI):
         return consumer.get_value()
 
 
-class _AsyncConsumer(object):
+class AsyncConsumer(object):
+    """Consumer object for reading values from a long-polling thread."""
+
     def __init__(self, async_id, db):
+        """Setup the consumer, listening for a specific async ID to appear in external DB.
+
+        The DB is populated from the long polling thread.
+        """
         self.async_id = async_id
         self.db = db
 
     def is_done(self):
+        """Check if the DB has received an event with the specified async ID."""
         return self.async_id in self.db
 
     def error(self):
+        """Check if the async response is an error.
+
+        Take care to call `is_done()` before calling `error()`. Note that the error
+        messages are always encoded as strings.
+
+        :return: the error string.
+        """
         if not self.is_done():
             raise UnhandledError("Need to check if request is done, before checking for error")
         return self.db[self.async_id]["error"]
 
-    def get_value(self, b64_decode=True):
+    def get_value(self):
+        """Get the value of the finished async request.
+
+        Take care to ensure the async request is indeed done, by checking both `is_done()`
+        and `error()` before calling `get_value()`.
+
+        :return: the payload string.
+        """
         if not self.is_done():
             raise UnhandledError("Need to check if request is done, before getting value")
         if self.error():

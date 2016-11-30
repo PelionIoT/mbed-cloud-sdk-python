@@ -1,4 +1,5 @@
 """Reference API for development component."""
+from __future__ import absolute_import
 import logging
 
 # Import common functions and exceptions from frontend API
