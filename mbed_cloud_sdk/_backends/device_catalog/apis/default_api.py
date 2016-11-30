@@ -111,7 +111,7 @@ class DefaultApi(object):
             params[key] = val
         del params['kwargs']
 
-        resource_path = '/v3/devices{var}'.replace('{format}', 'json')
+        resource_path = '/v3/devices/'.replace('{format}', 'json')
         path_params = {}
 
         query_params = {}
@@ -213,7 +213,7 @@ class DefaultApi(object):
         if ('device_id' not in params) or (params['device_id'] is None):
             raise ValueError("Missing the required parameter `device_id` when calling `device_destroy`")
 
-        resource_path = '/v3/devices/{device_id}{var}'.replace('{format}', 'json')
+        resource_path = '/v3/devices/{device_id}/'.replace('{format}', 'json')
         path_params = {}
         if 'device_id' in params:
             path_params['device_id'] = params['device_id']
@@ -274,7 +274,7 @@ class DefaultApi(object):
         :param str order: 
         :param str after: 
         :param int total_count: 
-        :return: list[DeviceSerializer]
+        :return: DeviceSerializer
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -307,7 +307,7 @@ class DefaultApi(object):
         :param str order: 
         :param str after: 
         :param int total_count: 
-        :return: list[DeviceSerializer]
+        :return: DeviceSerializer
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -326,7 +326,7 @@ class DefaultApi(object):
             params[key] = val
         del params['kwargs']
 
-        resource_path = '/v3/devices{var}'.replace('{format}', 'json')
+        resource_path = '/v3/devices/'.replace('{format}', 'json')
         path_params = {}
 
         query_params = {}
@@ -372,7 +372,7 @@ class DefaultApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=local_var_files,
-                                            response_type='list[DeviceSerializer]',
+                                            response_type='DeviceSerializer',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))
@@ -399,7 +399,7 @@ class DefaultApi(object):
         :param str order: 
         :param str after: 
         :param int total_count: 
-        :return: list[DeviceLogSerializer]
+        :return: DeviceLogSerializer
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -432,7 +432,7 @@ class DefaultApi(object):
         :param str order: 
         :param str after: 
         :param int total_count: 
-        :return: list[DeviceLogSerializer]
+        :return: DeviceLogSerializer
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -451,7 +451,7 @@ class DefaultApi(object):
             params[key] = val
         del params['kwargs']
 
-        resource_path = '/v3/devicelog{var}'.replace('{format}', 'json')
+        resource_path = '/v3/devicelog/'.replace('{format}', 'json')
         path_params = {}
 
         query_params = {}
@@ -497,7 +497,7 @@ class DefaultApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=local_var_files,
-                                            response_type='list[DeviceLogSerializer]',
+                                            response_type='DeviceLogSerializer',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))
@@ -567,7 +567,7 @@ class DefaultApi(object):
         if ('device_log_id' not in params) or (params['device_log_id'] is None):
             raise ValueError("Missing the required parameter `device_log_id` when calling `device_log_retrieve`")
 
-        resource_path = '/v3/devicelog/{device_log_id}{var}'.replace('{format}', 'json')
+        resource_path = '/v3/devicelog/{device_log_id}/'.replace('{format}', 'json')
         path_params = {}
         if 'device_log_id' in params:
             path_params['device_log_id'] = params['device_log_id']
@@ -671,7 +671,7 @@ class DefaultApi(object):
         if ('device_id' not in params) or (params['device_id'] is None):
             raise ValueError("Missing the required parameter `device_id` when calling `device_partial_update`")
 
-        resource_path = '/v3/devices/{device_id}{var}'.replace('{format}', 'json')
+        resource_path = '/v3/devices/{device_id}/'.replace('{format}', 'json')
         path_params = {}
         if 'device_id' in params:
             path_params['device_id'] = params['device_id']
@@ -775,7 +775,7 @@ class DefaultApi(object):
         if ('device_id' not in params) or (params['device_id'] is None):
             raise ValueError("Missing the required parameter `device_id` when calling `device_retrieve`")
 
-        resource_path = '/v3/devices/{device_id}{var}'.replace('{format}', 'json')
+        resource_path = '/v3/devices/{device_id}/'.replace('{format}', 'json')
         path_params = {}
         if 'device_id' in params:
             path_params['device_id'] = params['device_id']
@@ -879,7 +879,7 @@ class DefaultApi(object):
         if ('device_id' not in params) or (params['device_id'] is None):
             raise ValueError("Missing the required parameter `device_id` when calling `device_update`")
 
-        resource_path = '/v3/devices/{device_id}{var}'.replace('{format}', 'json')
+        resource_path = '/v3/devices/{device_id}/'.replace('{format}', 'json')
         path_params = {}
         if 'device_id' in params:
             path_params['device_id'] = params['device_id']
