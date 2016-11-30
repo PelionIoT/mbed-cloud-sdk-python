@@ -53,7 +53,7 @@ class DefaultApi(object):
 
     def device_create(self, **kwargs):
         """
-        Create device
+        
         <p>The APIs for creating and manipulating devices.  </p> <p>Create device</p>
 
         This method makes a synchronous HTTP request by default. To make an
@@ -79,7 +79,7 @@ class DefaultApi(object):
 
     def device_create_with_http_info(self, **kwargs):
         """
-        Create device
+        
         <p>The APIs for creating and manipulating devices.  </p> <p>Create device</p>
 
         This method makes a synchronous HTTP request by default. To make an
@@ -111,7 +111,7 @@ class DefaultApi(object):
             params[key] = val
         del params['kwargs']
 
-        resource_path = '/v3/devices/'.replace('{format}', 'json')
+        resource_path = '/v3/devices{var}'.replace('{format}', 'json')
         path_params = {}
 
         query_params = {}
@@ -150,7 +150,7 @@ class DefaultApi(object):
 
     def device_destroy(self, device_id, **kwargs):
         """
-        Delete device
+        
         <p>The APIs for creating and manipulating devices.  </p> <p>Delete device</p>
 
         This method makes a synchronous HTTP request by default. To make an
@@ -177,7 +177,7 @@ class DefaultApi(object):
 
     def device_destroy_with_http_info(self, device_id, **kwargs):
         """
-        Delete device
+        
         <p>The APIs for creating and manipulating devices.  </p> <p>Delete device</p>
 
         This method makes a synchronous HTTP request by default. To make an
@@ -213,7 +213,7 @@ class DefaultApi(object):
         if ('device_id' not in params) or (params['device_id'] is None):
             raise ValueError("Missing the required parameter `device_id` when calling `device_destroy`")
 
-        resource_path = '/v3/devices/{device_id}/'.replace('{format}', 'json')
+        resource_path = '/v3/devices/{device_id}{var}'.replace('{format}', 'json')
         path_params = {}
         if 'device_id' in params:
             path_params['device_id'] = params['device_id']
@@ -254,7 +254,7 @@ class DefaultApi(object):
 
     def device_list(self, **kwargs):
         """
-        List all update devices
+        
         <p>The APIs for creating and manipulating devices.  </p> <p>List all update devices. The result is paged into pages of 100.</p>
 
         This method makes a synchronous HTTP request by default. To make an
@@ -267,27 +267,13 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str created_at: 
-        :param str updated_at: 
-        :param str auto_update: 
-        :param str bootstrapped_timestamp: 
-        :param str deployed_state: 
-        :param str deployment: 
-        :param str description: 
-        :param str device_class: 
-        :param str device_id: 
-        :param str etag: 
-        :param str manifest: 
-        :param str mechanism: 
-        :param str mechanism_url: 
-        :param str name: 
         :param str object: 
-        :param str provision_key: 
-        :param str serial_number: 
-        :param str state: 
-        :param str trust_class: 
-        :param str trust_level: 
-        :param str vendor_id: 
+        :param int limit: 
+        :param bool has_more: 
+        :param list[str] data: 
+        :param str order: 
+        :param str after: 
+        :param int total_count: 
         :return: list[DeviceSerializer]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -301,7 +287,7 @@ class DefaultApi(object):
 
     def device_list_with_http_info(self, **kwargs):
         """
-        List all update devices
+        
         <p>The APIs for creating and manipulating devices.  </p> <p>List all update devices. The result is paged into pages of 100.</p>
 
         This method makes a synchronous HTTP request by default. To make an
@@ -314,33 +300,19 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str created_at: 
-        :param str updated_at: 
-        :param str auto_update: 
-        :param str bootstrapped_timestamp: 
-        :param str deployed_state: 
-        :param str deployment: 
-        :param str description: 
-        :param str device_class: 
-        :param str device_id: 
-        :param str etag: 
-        :param str manifest: 
-        :param str mechanism: 
-        :param str mechanism_url: 
-        :param str name: 
         :param str object: 
-        :param str provision_key: 
-        :param str serial_number: 
-        :param str state: 
-        :param str trust_class: 
-        :param str trust_level: 
-        :param str vendor_id: 
+        :param int limit: 
+        :param bool has_more: 
+        :param list[str] data: 
+        :param str order: 
+        :param str after: 
+        :param int total_count: 
         :return: list[DeviceSerializer]
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['created_at', 'updated_at', 'auto_update', 'bootstrapped_timestamp', 'deployed_state', 'deployment', 'description', 'device_class', 'device_id', 'etag', 'manifest', 'mechanism', 'mechanism_url', 'name', 'object', 'provision_key', 'serial_number', 'state', 'trust_class', 'trust_level', 'vendor_id']
+        all_params = ['object', 'limit', 'has_more', 'data', 'order', 'after', 'total_count']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
 
@@ -354,52 +326,24 @@ class DefaultApi(object):
             params[key] = val
         del params['kwargs']
 
-        resource_path = '/v3/devices/'.replace('{format}', 'json')
+        resource_path = '/v3/devices{var}'.replace('{format}', 'json')
         path_params = {}
 
         query_params = {}
-        if 'created_at' in params:
-            query_params['created_at'] = params['created_at']
-        if 'updated_at' in params:
-            query_params['updated_at'] = params['updated_at']
-        if 'auto_update' in params:
-            query_params['auto_update'] = params['auto_update']
-        if 'bootstrapped_timestamp' in params:
-            query_params['bootstrapped_timestamp'] = params['bootstrapped_timestamp']
-        if 'deployed_state' in params:
-            query_params['deployed_state'] = params['deployed_state']
-        if 'deployment' in params:
-            query_params['deployment'] = params['deployment']
-        if 'description' in params:
-            query_params['description'] = params['description']
-        if 'device_class' in params:
-            query_params['device_class'] = params['device_class']
-        if 'device_id' in params:
-            query_params['device_id'] = params['device_id']
-        if 'etag' in params:
-            query_params['etag'] = params['etag']
-        if 'manifest' in params:
-            query_params['manifest'] = params['manifest']
-        if 'mechanism' in params:
-            query_params['mechanism'] = params['mechanism']
-        if 'mechanism_url' in params:
-            query_params['mechanism_url'] = params['mechanism_url']
-        if 'name' in params:
-            query_params['name'] = params['name']
         if 'object' in params:
             query_params['object'] = params['object']
-        if 'provision_key' in params:
-            query_params['provision_key'] = params['provision_key']
-        if 'serial_number' in params:
-            query_params['serial_number'] = params['serial_number']
-        if 'state' in params:
-            query_params['state'] = params['state']
-        if 'trust_class' in params:
-            query_params['trust_class'] = params['trust_class']
-        if 'trust_level' in params:
-            query_params['trust_level'] = params['trust_level']
-        if 'vendor_id' in params:
-            query_params['vendor_id'] = params['vendor_id']
+        if 'limit' in params:
+            query_params['limit'] = params['limit']
+        if 'has_more' in params:
+            query_params['has_more'] = params['has_more']
+        if 'data' in params:
+            query_params['data'] = params['data']
+        if 'order' in params:
+            query_params['order'] = params['order']
+        if 'after' in params:
+            query_params['after'] = params['after']
+        if 'total_count' in params:
+            query_params['total_count'] = params['total_count']
 
         header_params = {}
 
@@ -433,269 +377,9 @@ class DefaultApi(object):
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))
 
-    def device_log_create(self, date_time, **kwargs):
-        """
-        The APIs for creating and manipulating devices
-        <p>The APIs for creating and manipulating devices.</p>
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.device_log_create(date_time, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param datetime date_time:  (required)
-        :param str device_log_id: 
-        :param str event_type: 
-        :param bool state_change: 
-        :param str date_time2: 
-        :param str device_id: 
-        :param str device_log_id2: 
-        :param str event_type2: 
-        :param str state_change2: 
-        :return: DeviceLogSerializer
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
-            return self.device_log_create_with_http_info(date_time, **kwargs)
-        else:
-            (data) = self.device_log_create_with_http_info(date_time, **kwargs)
-            return data
-
-    def device_log_create_with_http_info(self, date_time, **kwargs):
-        """
-        The APIs for creating and manipulating devices
-        <p>The APIs for creating and manipulating devices.</p>
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.device_log_create_with_http_info(date_time, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param datetime date_time:  (required)
-        :param str device_log_id: 
-        :param str event_type: 
-        :param bool state_change: 
-        :param str date_time2: 
-        :param str device_id: 
-        :param str device_log_id2: 
-        :param str event_type2: 
-        :param str state_change2: 
-        :return: DeviceLogSerializer
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['date_time', 'device_log_id', 'event_type', 'state_change', 'date_time2', 'device_id', 'device_log_id2', 'event_type2', 'state_change2']
-        all_params.append('callback')
-        all_params.append('_return_http_data_only')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method device_log_create" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'date_time' is set
-        if ('date_time' not in params) or (params['date_time'] is None):
-            raise ValueError("Missing the required parameter `date_time` when calling `device_log_create`")
-
-        resource_path = '/v3/devicelog/'.replace('{format}', 'json')
-        path_params = {}
-
-        query_params = {}
-        if 'date_time2' in params:
-            query_params['date_time'] = params['date_time2']
-        if 'device_id' in params:
-            query_params['device_id'] = params['device_id']
-        if 'device_log_id2' in params:
-            query_params['device_log_id'] = params['device_log_id2']
-        if 'event_type2' in params:
-            query_params['event_type'] = params['event_type2']
-        if 'state_change2' in params:
-            query_params['state_change'] = params['state_change2']
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-        if 'date_time' in params:
-            form_params.append(('date_time', params['date_time']))
-        if 'device_log_id' in params:
-            form_params.append(('device_log_id', params['device_log_id']))
-        if 'event_type' in params:
-            form_params.append(('event_type', params['event_type']))
-        if 'state_change' in params:
-            form_params.append(('state_change', params['state_change']))
-
-        body_params = None
-
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept([])
-        if not header_params['Accept']:
-            del header_params['Accept']
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.\
-            select_header_content_type([])
-
-        # Authentication setting
-        auth_settings = ['Bearer']
-
-        return self.api_client.call_api(resource_path, 'POST',
-                                            path_params,
-                                            query_params,
-                                            header_params,
-                                            body=body_params,
-                                            post_params=form_params,
-                                            files=local_var_files,
-                                            response_type='DeviceLogSerializer',
-                                            auth_settings=auth_settings,
-                                            callback=params.get('callback'),
-                                            _return_http_data_only=params.get('_return_http_data_only'))
-
-    def device_log_destroy(self, device_log_id, **kwargs):
-        """
-        The APIs for creating and manipulating devices
-        <p>The APIs for creating and manipulating devices.</p>
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.device_log_destroy(device_log_id, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str device_log_id:  (required)
-        :param str date_time: 
-        :param str device_id: 
-        :param str device_log_id2: 
-        :param str event_type: 
-        :param str state_change: 
-        :return: DeviceLogSerializer
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
-            return self.device_log_destroy_with_http_info(device_log_id, **kwargs)
-        else:
-            (data) = self.device_log_destroy_with_http_info(device_log_id, **kwargs)
-            return data
-
-    def device_log_destroy_with_http_info(self, device_log_id, **kwargs):
-        """
-        The APIs for creating and manipulating devices
-        <p>The APIs for creating and manipulating devices.</p>
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.device_log_destroy_with_http_info(device_log_id, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str device_log_id:  (required)
-        :param str date_time: 
-        :param str device_id: 
-        :param str device_log_id2: 
-        :param str event_type: 
-        :param str state_change: 
-        :return: DeviceLogSerializer
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['device_log_id', 'date_time', 'device_id', 'device_log_id2', 'event_type', 'state_change']
-        all_params.append('callback')
-        all_params.append('_return_http_data_only')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method device_log_destroy" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'device_log_id' is set
-        if ('device_log_id' not in params) or (params['device_log_id'] is None):
-            raise ValueError("Missing the required parameter `device_log_id` when calling `device_log_destroy`")
-
-        resource_path = '/v3/devicelog/{device_log_id}/'.replace('{format}', 'json')
-        path_params = {}
-        if 'device_log_id' in params:
-            path_params['device_log_id'] = params['device_log_id']
-
-        query_params = {}
-        if 'date_time' in params:
-            query_params['date_time'] = params['date_time']
-        if 'device_id' in params:
-            query_params['device_id'] = params['device_id']
-        if 'device_log_id2' in params:
-            query_params['device_log_id'] = params['device_log_id2']
-        if 'event_type' in params:
-            query_params['event_type'] = params['event_type']
-        if 'state_change' in params:
-            query_params['state_change'] = params['state_change']
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept([])
-        if not header_params['Accept']:
-            del header_params['Accept']
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.\
-            select_header_content_type([])
-
-        # Authentication setting
-        auth_settings = ['Bearer']
-
-        return self.api_client.call_api(resource_path, 'DELETE',
-                                            path_params,
-                                            query_params,
-                                            header_params,
-                                            body=body_params,
-                                            post_params=form_params,
-                                            files=local_var_files,
-                                            response_type='DeviceLogSerializer',
-                                            auth_settings=auth_settings,
-                                            callback=params.get('callback'),
-                                            _return_http_data_only=params.get('_return_http_data_only'))
-
     def device_log_list(self, **kwargs):
         """
-        List all device logs
+        
         <p>The APIs for creating and manipulating devices.  </p> <p>List all device logs.</p>
 
         This method makes a synchronous HTTP request by default. To make an
@@ -708,11 +392,13 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str date_time: 
-        :param str device_id: 
-        :param str device_log_id: 
-        :param str event_type: 
-        :param str state_change: 
+        :param str object: 
+        :param int limit: 
+        :param bool has_more: 
+        :param list[str] data: 
+        :param str order: 
+        :param str after: 
+        :param int total_count: 
         :return: list[DeviceLogSerializer]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -726,7 +412,7 @@ class DefaultApi(object):
 
     def device_log_list_with_http_info(self, **kwargs):
         """
-        List all device logs
+        
         <p>The APIs for creating and manipulating devices.  </p> <p>List all device logs.</p>
 
         This method makes a synchronous HTTP request by default. To make an
@@ -739,17 +425,19 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str date_time: 
-        :param str device_id: 
-        :param str device_log_id: 
-        :param str event_type: 
-        :param str state_change: 
+        :param str object: 
+        :param int limit: 
+        :param bool has_more: 
+        :param list[str] data: 
+        :param str order: 
+        :param str after: 
+        :param int total_count: 
         :return: list[DeviceLogSerializer]
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['date_time', 'device_id', 'device_log_id', 'event_type', 'state_change']
+        all_params = ['object', 'limit', 'has_more', 'data', 'order', 'after', 'total_count']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
 
@@ -763,20 +451,24 @@ class DefaultApi(object):
             params[key] = val
         del params['kwargs']
 
-        resource_path = '/v3/devicelog/'.replace('{format}', 'json')
+        resource_path = '/v3/devicelog{var}'.replace('{format}', 'json')
         path_params = {}
 
         query_params = {}
-        if 'date_time' in params:
-            query_params['date_time'] = params['date_time']
-        if 'device_id' in params:
-            query_params['device_id'] = params['device_id']
-        if 'device_log_id' in params:
-            query_params['device_log_id'] = params['device_log_id']
-        if 'event_type' in params:
-            query_params['event_type'] = params['event_type']
-        if 'state_change' in params:
-            query_params['state_change'] = params['state_change']
+        if 'object' in params:
+            query_params['object'] = params['object']
+        if 'limit' in params:
+            query_params['limit'] = params['limit']
+        if 'has_more' in params:
+            query_params['has_more'] = params['has_more']
+        if 'data' in params:
+            query_params['data'] = params['data']
+        if 'order' in params:
+            query_params['order'] = params['order']
+        if 'after' in params:
+            query_params['after'] = params['after']
+        if 'total_count' in params:
+            query_params['total_count'] = params['total_count']
 
         header_params = {}
 
@@ -810,149 +502,9 @@ class DefaultApi(object):
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))
 
-    def device_log_partial_update(self, device_log_id, **kwargs):
-        """
-        The APIs for creating and manipulating devices
-        <p>The APIs for creating and manipulating devices.</p>
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.device_log_partial_update(device_log_id, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str device_log_id:  (required)
-        :param datetime date_time: 
-        :param str device_log_id2: 
-        :param str event_type: 
-        :param bool state_change: 
-        :param str date_time2: 
-        :param str device_id: 
-        :param str device_log_id3: 
-        :param str event_type2: 
-        :param str state_change2: 
-        :return: DeviceLogSerializer
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
-            return self.device_log_partial_update_with_http_info(device_log_id, **kwargs)
-        else:
-            (data) = self.device_log_partial_update_with_http_info(device_log_id, **kwargs)
-            return data
-
-    def device_log_partial_update_with_http_info(self, device_log_id, **kwargs):
-        """
-        The APIs for creating and manipulating devices
-        <p>The APIs for creating and manipulating devices.</p>
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.device_log_partial_update_with_http_info(device_log_id, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str device_log_id:  (required)
-        :param datetime date_time: 
-        :param str device_log_id2: 
-        :param str event_type: 
-        :param bool state_change: 
-        :param str date_time2: 
-        :param str device_id: 
-        :param str device_log_id3: 
-        :param str event_type2: 
-        :param str state_change2: 
-        :return: DeviceLogSerializer
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['device_log_id', 'date_time', 'device_log_id2', 'event_type', 'state_change', 'date_time2', 'device_id', 'device_log_id3', 'event_type2', 'state_change2']
-        all_params.append('callback')
-        all_params.append('_return_http_data_only')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method device_log_partial_update" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'device_log_id' is set
-        if ('device_log_id' not in params) or (params['device_log_id'] is None):
-            raise ValueError("Missing the required parameter `device_log_id` when calling `device_log_partial_update`")
-
-        resource_path = '/v3/devicelog/{device_log_id}/'.replace('{format}', 'json')
-        path_params = {}
-        if 'device_log_id' in params:
-            path_params['device_log_id'] = params['device_log_id']
-
-        query_params = {}
-        if 'date_time2' in params:
-            query_params['date_time'] = params['date_time2']
-        if 'device_id' in params:
-            query_params['device_id'] = params['device_id']
-        if 'device_log_id3' in params:
-            query_params['device_log_id'] = params['device_log_id3']
-        if 'event_type2' in params:
-            query_params['event_type'] = params['event_type2']
-        if 'state_change2' in params:
-            query_params['state_change'] = params['state_change2']
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-        if 'date_time' in params:
-            form_params.append(('date_time', params['date_time']))
-        if 'device_log_id2' in params:
-            form_params.append(('device_log_id', params['device_log_id2']))
-        if 'event_type' in params:
-            form_params.append(('event_type', params['event_type']))
-        if 'state_change' in params:
-            form_params.append(('state_change', params['state_change']))
-
-        body_params = None
-
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept([])
-        if not header_params['Accept']:
-            del header_params['Accept']
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.\
-            select_header_content_type([])
-
-        # Authentication setting
-        auth_settings = ['Bearer']
-
-        return self.api_client.call_api(resource_path, 'PATCH',
-                                            path_params,
-                                            query_params,
-                                            header_params,
-                                            body=body_params,
-                                            post_params=form_params,
-                                            files=local_var_files,
-                                            response_type='DeviceLogSerializer',
-                                            auth_settings=auth_settings,
-                                            callback=params.get('callback'),
-                                            _return_http_data_only=params.get('_return_http_data_only'))
-
     def device_log_retrieve(self, device_log_id, **kwargs):
         """
-        Retrieve device log
+        
         <p>The APIs for creating and manipulating devices.  </p> <p>Retrieve device log.</p>
 
         This method makes a synchronous HTTP request by default. To make an
@@ -979,7 +531,7 @@ class DefaultApi(object):
 
     def device_log_retrieve_with_http_info(self, device_log_id, **kwargs):
         """
-        Retrieve device log
+        
         <p>The APIs for creating and manipulating devices.  </p> <p>Retrieve device log.</p>
 
         This method makes a synchronous HTTP request by default. To make an
@@ -1015,7 +567,7 @@ class DefaultApi(object):
         if ('device_log_id' not in params) or (params['device_log_id'] is None):
             raise ValueError("Missing the required parameter `device_log_id` when calling `device_log_retrieve`")
 
-        resource_path = '/v3/devicelog/{device_log_id}/'.replace('{format}', 'json')
+        resource_path = '/v3/devicelog/{device_log_id}{var}'.replace('{format}', 'json')
         path_params = {}
         if 'device_log_id' in params:
             path_params['device_log_id'] = params['device_log_id']
@@ -1054,152 +606,9 @@ class DefaultApi(object):
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))
 
-    def device_log_update(self, device_log_id, date_time, **kwargs):
-        """
-        The APIs for creating and manipulating devices
-        <p>The APIs for creating and manipulating devices.</p>
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.device_log_update(device_log_id, date_time, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str device_log_id:  (required)
-        :param datetime date_time:  (required)
-        :param str device_log_id2: 
-        :param str event_type: 
-        :param bool state_change: 
-        :param str date_time2: 
-        :param str device_id: 
-        :param str device_log_id3: 
-        :param str event_type2: 
-        :param str state_change2: 
-        :return: DeviceLogSerializer
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
-            return self.device_log_update_with_http_info(device_log_id, date_time, **kwargs)
-        else:
-            (data) = self.device_log_update_with_http_info(device_log_id, date_time, **kwargs)
-            return data
-
-    def device_log_update_with_http_info(self, device_log_id, date_time, **kwargs):
-        """
-        The APIs for creating and manipulating devices
-        <p>The APIs for creating and manipulating devices.</p>
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.device_log_update_with_http_info(device_log_id, date_time, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str device_log_id:  (required)
-        :param datetime date_time:  (required)
-        :param str device_log_id2: 
-        :param str event_type: 
-        :param bool state_change: 
-        :param str date_time2: 
-        :param str device_id: 
-        :param str device_log_id3: 
-        :param str event_type2: 
-        :param str state_change2: 
-        :return: DeviceLogSerializer
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['device_log_id', 'date_time', 'device_log_id2', 'event_type', 'state_change', 'date_time2', 'device_id', 'device_log_id3', 'event_type2', 'state_change2']
-        all_params.append('callback')
-        all_params.append('_return_http_data_only')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method device_log_update" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'device_log_id' is set
-        if ('device_log_id' not in params) or (params['device_log_id'] is None):
-            raise ValueError("Missing the required parameter `device_log_id` when calling `device_log_update`")
-        # verify the required parameter 'date_time' is set
-        if ('date_time' not in params) or (params['date_time'] is None):
-            raise ValueError("Missing the required parameter `date_time` when calling `device_log_update`")
-
-        resource_path = '/v3/devicelog/{device_log_id}/'.replace('{format}', 'json')
-        path_params = {}
-        if 'device_log_id' in params:
-            path_params['device_log_id'] = params['device_log_id']
-
-        query_params = {}
-        if 'date_time2' in params:
-            query_params['date_time'] = params['date_time2']
-        if 'device_id' in params:
-            query_params['device_id'] = params['device_id']
-        if 'device_log_id3' in params:
-            query_params['device_log_id'] = params['device_log_id3']
-        if 'event_type2' in params:
-            query_params['event_type'] = params['event_type2']
-        if 'state_change2' in params:
-            query_params['state_change'] = params['state_change2']
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-        if 'date_time' in params:
-            form_params.append(('date_time', params['date_time']))
-        if 'device_log_id2' in params:
-            form_params.append(('device_log_id', params['device_log_id2']))
-        if 'event_type' in params:
-            form_params.append(('event_type', params['event_type']))
-        if 'state_change' in params:
-            form_params.append(('state_change', params['state_change']))
-
-        body_params = None
-
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept([])
-        if not header_params['Accept']:
-            del header_params['Accept']
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.\
-            select_header_content_type([])
-
-        # Authentication setting
-        auth_settings = ['Bearer']
-
-        return self.api_client.call_api(resource_path, 'PUT',
-                                            path_params,
-                                            query_params,
-                                            header_params,
-                                            body=body_params,
-                                            post_params=form_params,
-                                            files=local_var_files,
-                                            response_type='DeviceLogSerializer',
-                                            auth_settings=auth_settings,
-                                            callback=params.get('callback'),
-                                            _return_http_data_only=params.get('_return_http_data_only'))
-
     def device_partial_update(self, device_id, **kwargs):
         """
-        Update device fields
+        
         <p>The APIs for creating and manipulating devices.  </p> <p>Update device fields</p>
 
         This method makes a synchronous HTTP request by default. To make an
@@ -1226,7 +635,7 @@ class DefaultApi(object):
 
     def device_partial_update_with_http_info(self, device_id, **kwargs):
         """
-        Update device fields
+        
         <p>The APIs for creating and manipulating devices.  </p> <p>Update device fields</p>
 
         This method makes a synchronous HTTP request by default. To make an
@@ -1262,7 +671,7 @@ class DefaultApi(object):
         if ('device_id' not in params) or (params['device_id'] is None):
             raise ValueError("Missing the required parameter `device_id` when calling `device_partial_update`")
 
-        resource_path = '/v3/devices/{device_id}/'.replace('{format}', 'json')
+        resource_path = '/v3/devices/{device_id}{var}'.replace('{format}', 'json')
         path_params = {}
         if 'device_id' in params:
             path_params['device_id'] = params['device_id']
@@ -1303,7 +712,7 @@ class DefaultApi(object):
 
     def device_retrieve(self, device_id, **kwargs):
         """
-        Retrieve device
+        
         <p>The APIs for creating and manipulating devices.  </p> <p>Retrieve device.</p>
 
         This method makes a synchronous HTTP request by default. To make an
@@ -1330,7 +739,7 @@ class DefaultApi(object):
 
     def device_retrieve_with_http_info(self, device_id, **kwargs):
         """
-        Retrieve device
+        
         <p>The APIs for creating and manipulating devices.  </p> <p>Retrieve device.</p>
 
         This method makes a synchronous HTTP request by default. To make an
@@ -1366,7 +775,7 @@ class DefaultApi(object):
         if ('device_id' not in params) or (params['device_id'] is None):
             raise ValueError("Missing the required parameter `device_id` when calling `device_retrieve`")
 
-        resource_path = '/v3/devices/{device_id}/'.replace('{format}', 'json')
+        resource_path = '/v3/devices/{device_id}{var}'.replace('{format}', 'json')
         path_params = {}
         if 'device_id' in params:
             path_params['device_id'] = params['device_id']
@@ -1407,7 +816,7 @@ class DefaultApi(object):
 
     def device_update(self, device_id, **kwargs):
         """
-        Update device
+        
         <p>The APIs for creating and manipulating devices.  </p> <p>Update device.</p>
 
         This method makes a synchronous HTTP request by default. To make an
@@ -1434,7 +843,7 @@ class DefaultApi(object):
 
     def device_update_with_http_info(self, device_id, **kwargs):
         """
-        Update device
+        
         <p>The APIs for creating and manipulating devices.  </p> <p>Update device.</p>
 
         This method makes a synchronous HTTP request by default. To make an
@@ -1470,7 +879,7 @@ class DefaultApi(object):
         if ('device_id' not in params) or (params['device_id'] is None):
             raise ValueError("Missing the required parameter `device_id` when calling `device_update`")
 
-        resource_path = '/v3/devices/{device_id}/'.replace('{format}', 'json')
+        resource_path = '/v3/devices/{device_id}{var}'.replace('{format}', 'json')
         path_params = {}
         if 'device_id' in params:
             path_params['device_id'] = params['device_id']

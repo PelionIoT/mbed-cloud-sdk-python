@@ -53,7 +53,7 @@ class DefaultApi(object):
 
     def device_query_create(self, name, query, **kwargs):
         """
-        Create device query
+        
         <p>The APIs for creating and manipulating device queries.  </p> <p>Create device query</p>
 
         This method makes a synchronous HTTP request by default. To make an
@@ -84,7 +84,7 @@ class DefaultApi(object):
 
     def device_query_create_with_http_info(self, name, query, **kwargs):
         """
-        Create device query
+        
         <p>The APIs for creating and manipulating device queries.  </p> <p>Create device query</p>
 
         This method makes a synchronous HTTP request by default. To make an
@@ -127,7 +127,7 @@ class DefaultApi(object):
         if ('query' not in params) or (params['query'] is None):
             raise ValueError("Missing the required parameter `query` when calling `device_query_create`")
 
-        resource_path = '/v3/device-queries/'.replace('{format}', 'json')
+        resource_path = '/v3/device-queries{var}'.replace('{format}', 'json')
         path_params = {}
 
         query_params = {}
@@ -176,7 +176,7 @@ class DefaultApi(object):
 
     def device_query_destroy(self, query_id, **kwargs):
         """
-        Delete device query
+        
         <p>The APIs for creating and manipulating device queries.  </p> <p>Delete device query</p>
 
         This method makes a synchronous HTTP request by default. To make an
@@ -203,7 +203,7 @@ class DefaultApi(object):
 
     def device_query_destroy_with_http_info(self, query_id, **kwargs):
         """
-        Delete device query
+        
         <p>The APIs for creating and manipulating device queries.  </p> <p>Delete device query</p>
 
         This method makes a synchronous HTTP request by default. To make an
@@ -239,7 +239,7 @@ class DefaultApi(object):
         if ('query_id' not in params) or (params['query_id'] is None):
             raise ValueError("Missing the required parameter `query_id` when calling `device_query_destroy`")
 
-        resource_path = '/v3/device-queries/{query_id}/'.replace('{format}', 'json')
+        resource_path = '/v3/device-queries/{query_id}{var}'.replace('{format}', 'json')
         path_params = {}
         if 'query_id' in params:
             path_params['query_id'] = params['query_id']
@@ -280,7 +280,7 @@ class DefaultApi(object):
 
     def device_query_list(self, **kwargs):
         """
-        List all device queries
+        
         <p>The APIs for creating and manipulating device queries.  </p> <p>List all device queries. The result will be paged into pages of 100.</p>
 
         This method makes a synchronous HTTP request by default. To make an
@@ -314,7 +314,7 @@ class DefaultApi(object):
 
     def device_query_list_with_http_info(self, **kwargs):
         """
-        List all device queries
+        
         <p>The APIs for creating and manipulating device queries.  </p> <p>List all device queries. The result will be paged into pages of 100.</p>
 
         This method makes a synchronous HTTP request by default. To make an
@@ -354,7 +354,7 @@ class DefaultApi(object):
             params[key] = val
         del params['kwargs']
 
-        resource_path = '/v3/device-queries/'.replace('{format}', 'json')
+        resource_path = '/v3/device-queries{var}'.replace('{format}', 'json')
         path_params = {}
 
         query_params = {}
@@ -409,7 +409,7 @@ class DefaultApi(object):
 
     def device_query_partial_update(self, query_id, **kwargs):
         """
-        Update device query fields
+        
         <p>The APIs for creating and manipulating device queries.  </p> <p>Update device query fields</p>
 
         This method makes a synchronous HTTP request by default. To make an
@@ -441,7 +441,7 @@ class DefaultApi(object):
 
     def device_query_partial_update_with_http_info(self, query_id, **kwargs):
         """
-        Update device query fields
+        
         <p>The APIs for creating and manipulating device queries.  </p> <p>Update device query fields</p>
 
         This method makes a synchronous HTTP request by default. To make an
@@ -482,7 +482,7 @@ class DefaultApi(object):
         if ('query_id' not in params) or (params['query_id'] is None):
             raise ValueError("Missing the required parameter `query_id` when calling `device_query_partial_update`")
 
-        resource_path = '/v3/device-queries/{query_id}/'.replace('{format}', 'json')
+        resource_path = '/v3/device-queries/{query_id}{var}'.replace('{format}', 'json')
         path_params = {}
         if 'query_id' in params:
             path_params['query_id'] = params['query_id']
@@ -533,7 +533,7 @@ class DefaultApi(object):
 
     def device_query_retrieve(self, query_id, **kwargs):
         """
-        Retrieve device query
+        
         <p>The APIs for creating and manipulating device queries.  </p> <p>Retrieve device query.</p>
 
         This method makes a synchronous HTTP request by default. To make an
@@ -560,7 +560,7 @@ class DefaultApi(object):
 
     def device_query_retrieve_with_http_info(self, query_id, **kwargs):
         """
-        Retrieve device query
+        
         <p>The APIs for creating and manipulating device queries.  </p> <p>Retrieve device query.</p>
 
         This method makes a synchronous HTTP request by default. To make an
@@ -596,7 +596,7 @@ class DefaultApi(object):
         if ('query_id' not in params) or (params['query_id'] is None):
             raise ValueError("Missing the required parameter `query_id` when calling `device_query_retrieve`")
 
-        resource_path = '/v3/device-queries/{query_id}/'.replace('{format}', 'json')
+        resource_path = '/v3/device-queries/{query_id}{var}'.replace('{format}', 'json')
         path_params = {}
         if 'query_id' in params:
             path_params['query_id'] = params['query_id']
@@ -637,7 +637,7 @@ class DefaultApi(object):
 
     def device_query_update(self, query_id, name, query, **kwargs):
         """
-        Update device query
+        
         <p>The APIs for creating and manipulating device queries.  </p> <p>Update device query.</p>
 
         This method makes a synchronous HTTP request by default. To make an
@@ -669,7 +669,7 @@ class DefaultApi(object):
 
     def device_query_update_with_http_info(self, query_id, name, query, **kwargs):
         """
-        Update device query
+        
         <p>The APIs for creating and manipulating device queries.  </p> <p>Update device query.</p>
 
         This method makes a synchronous HTTP request by default. To make an
@@ -716,7 +716,7 @@ class DefaultApi(object):
         if ('query' not in params) or (params['query'] is None):
             raise ValueError("Missing the required parameter `query` when calling `device_query_update`")
 
-        resource_path = '/v3/device-queries/{query_id}/'.replace('{format}', 'json')
+        resource_path = '/v3/device-queries/{query_id}{var}'.replace('{format}', 'json')
         path_params = {}
         if 'query_id' in params:
             path_params['query_id'] = params['query_id']
