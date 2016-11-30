@@ -4,18 +4,18 @@ All URIs are relative to *http://api.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**device_query_create**](DefaultApi.md#device_query_create) | **POST** /v3/device-queries/ | Create device query
-[**device_query_destroy**](DefaultApi.md#device_query_destroy) | **DELETE** /v3/device-queries/{query_id}/ | Delete device query
-[**device_query_list**](DefaultApi.md#device_query_list) | **GET** /v3/device-queries/ | List all device queries
-[**device_query_partial_update**](DefaultApi.md#device_query_partial_update) | **PATCH** /v3/device-queries/{query_id}/ | Update device query fields
-[**device_query_retrieve**](DefaultApi.md#device_query_retrieve) | **GET** /v3/device-queries/{query_id}/ | Retrieve device query
-[**device_query_update**](DefaultApi.md#device_query_update) | **PUT** /v3/device-queries/{query_id}/ | Update device query
+[**device_query_create**](DefaultApi.md#device_query_create) | **POST** /v3/device-queries{var} | 
+[**device_query_destroy**](DefaultApi.md#device_query_destroy) | **DELETE** /v3/device-queries/{query_id}{var} | 
+[**device_query_list**](DefaultApi.md#device_query_list) | **GET** /v3/device-queries{var} | 
+[**device_query_partial_update**](DefaultApi.md#device_query_partial_update) | **PATCH** /v3/device-queries/{query_id}{var} | 
+[**device_query_retrieve**](DefaultApi.md#device_query_retrieve) | **GET** /v3/device-queries/{query_id}{var} | 
+[**device_query_update**](DefaultApi.md#device_query_update) | **PUT** /v3/device-queries/{query_id}{var} | 
 
 
 # **device_query_create**
 > DeviceQuerySerializer device_query_create(name, query, description=description, object=object, query_id=query_id)
 
-Create device query
+
 
 <p>The APIs for creating and manipulating device queries.  </p> <p>Create device query</p>
 
@@ -40,7 +40,6 @@ object = 'object_example' # str | The API resource entity (optional)
 query_id = 'query_id_example' # str | DEPRECATED: The ID of the query (optional)
 
 try: 
-    # Create device query
     api_response = api_instance.device_query_create(name, query, description=description, object=object, query_id=query_id)
     pprint(api_response)
 except ApiException as e:
@@ -75,7 +74,7 @@ Name | Type | Description  | Notes
 # **device_query_destroy**
 > DeviceQuerySerializer device_query_destroy(query_id)
 
-Delete device query
+
 
 <p>The APIs for creating and manipulating device queries.  </p> <p>Delete device query</p>
 
@@ -96,7 +95,6 @@ api_instance = device_query_service.DefaultApi()
 query_id = 'query_id_example' # str | 
 
 try: 
-    # Delete device query
     api_response = api_instance.device_query_destroy(query_id)
     pprint(api_response)
 except ApiException as e:
@@ -127,7 +125,7 @@ Name | Type | Description  | Notes
 # **device_query_list**
 > list[DeviceQuerySerializer] device_query_list(description=description, created_at=created_at, updated_at=updated_at, etag=etag, name=name, object=object, query=query, query_id=query_id)
 
-List all device queries
+
 
 <p>The APIs for creating and manipulating device queries.  </p> <p>List all device queries. The result will be paged into pages of 100.</p>
 
@@ -155,7 +153,6 @@ query = 'query_example' # str |  (optional)
 query_id = 'query_id_example' # str |  (optional)
 
 try: 
-    # List all device queries
     api_response = api_instance.device_query_list(description=description, created_at=created_at, updated_at=updated_at, etag=etag, name=name, object=object, query=query, query_id=query_id)
     pprint(api_response)
 except ApiException as e:
@@ -193,7 +190,7 @@ Name | Type | Description  | Notes
 # **device_query_partial_update**
 > DeviceQuerySerializer device_query_partial_update(query_id, description=description, name=name, object=object, query=query, query_id2=query_id2)
 
-Update device query fields
+
 
 <p>The APIs for creating and manipulating device queries.  </p> <p>Update device query fields</p>
 
@@ -219,7 +216,6 @@ query = 'query_example' # str | The device query (optional)
 query_id2 = 'query_id_example' # str | DEPRECATED: The ID of the query (optional)
 
 try: 
-    # Update device query fields
     api_response = api_instance.device_query_partial_update(query_id, description=description, name=name, object=object, query=query, query_id2=query_id2)
     pprint(api_response)
 except ApiException as e:
@@ -255,7 +251,7 @@ Name | Type | Description  | Notes
 # **device_query_retrieve**
 > DeviceQuerySerializer device_query_retrieve(query_id)
 
-Retrieve device query
+
 
 <p>The APIs for creating and manipulating device queries.  </p> <p>Retrieve device query.</p>
 
@@ -276,7 +272,6 @@ api_instance = device_query_service.DefaultApi()
 query_id = 'query_id_example' # str | 
 
 try: 
-    # Retrieve device query
     api_response = api_instance.device_query_retrieve(query_id)
     pprint(api_response)
 except ApiException as e:
@@ -307,7 +302,7 @@ Name | Type | Description  | Notes
 # **device_query_update**
 > DeviceQuerySerializer device_query_update(query_id, name, query, description=description, object=object, query_id2=query_id2)
 
-Update device query
+
 
 <p>The APIs for creating and manipulating device queries.  </p> <p>Update device query.</p>
 
@@ -333,7 +328,6 @@ object = 'object_example' # str | The API resource entity (optional)
 query_id2 = 'query_id_example' # str | DEPRECATED: The ID of the query (optional)
 
 try: 
-    # Update device query
     api_response = api_instance.device_query_update(query_id, name, query, description=description, object=object, query_id2=query_id2)
     pprint(api_response)
 except ApiException as e:
