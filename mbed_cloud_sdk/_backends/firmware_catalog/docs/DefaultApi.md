@@ -4,21 +4,21 @@ All URIs are relative to *http://api.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**deploy_info_get**](DefaultApi.md#deploy_info_get) | **GET** /v3/fc_deploy_info | Reads the deploy_info
-[**firmware_image_create**](DefaultApi.md#firmware_image_create) | **POST** /v3/firmware/images/ | Create firmware image
-[**firmware_image_destroy**](DefaultApi.md#firmware_image_destroy) | **DELETE** /v3/firmware/images/{image_id}/ | Delete firmware image
-[**firmware_image_list**](DefaultApi.md#firmware_image_list) | **GET** /v3/firmware/images/ | List all firmware images
-[**firmware_image_retrieve**](DefaultApi.md#firmware_image_retrieve) | **GET** /v3/firmware/images/{image_id}/ | Retrieve firmware image
-[**firmware_manifest_create**](DefaultApi.md#firmware_manifest_create) | **POST** /v3/firmware/manifests/ | Create firmware manifest
-[**firmware_manifest_destroy**](DefaultApi.md#firmware_manifest_destroy) | **DELETE** /v3/firmware/manifests/{manifest_id}/ | Delete firmware manifest
-[**firmware_manifest_list**](DefaultApi.md#firmware_manifest_list) | **GET** /v3/firmware/manifests/ | List all firmware manifests
-[**firmware_manifest_retrieve**](DefaultApi.md#firmware_manifest_retrieve) | **GET** /v3/firmware/manifests/{manifest_id}/ | Retrieve firmware manifest
+[**deploy_info_get**](DefaultApi.md#deploy_info_get) | **GET** /v3/fc_deploy_info | 
+[**firmware_image_create**](DefaultApi.md#firmware_image_create) | **POST** /v3/firmware/images/ | 
+[**firmware_image_destroy**](DefaultApi.md#firmware_image_destroy) | **DELETE** /v3/firmware/images/{image_id}/ | 
+[**firmware_image_list**](DefaultApi.md#firmware_image_list) | **GET** /v3/firmware/images/ | 
+[**firmware_image_retrieve**](DefaultApi.md#firmware_image_retrieve) | **GET** /v3/firmware/images/{image_id}/ | 
+[**firmware_manifest_create**](DefaultApi.md#firmware_manifest_create) | **POST** /v3/firmware/manifests/ | 
+[**firmware_manifest_destroy**](DefaultApi.md#firmware_manifest_destroy) | **DELETE** /v3/firmware/manifests/{manifest_id}/ | 
+[**firmware_manifest_list**](DefaultApi.md#firmware_manifest_list) | **GET** /v3/firmware/manifests/ | 
+[**firmware_manifest_retrieve**](DefaultApi.md#firmware_manifest_retrieve) | **GET** /v3/firmware/manifests/{manifest_id}/ | 
 
 
 # **deploy_info_get**
 > object deploy_info_get()
 
-Reads the deploy_info
+
 
 <p>Reads the deploy_info.json file and returns the Build and Git ID to the caller.</p> <p>Will return a 500 error if the file is missing, cannot be parsed or the keys are missing.</p>
 
@@ -38,7 +38,6 @@ firmware_catalog.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 api_instance = firmware_catalog.DefaultApi()
 
 try: 
-    # Reads the deploy_info
     api_response = api_instance.deploy_info_get()
     pprint(api_response)
 except ApiException as e:
@@ -66,7 +65,7 @@ This endpoint does not need any parameter.
 # **firmware_image_create**
 > FirmwareImageSerializer firmware_image_create(datafile, name, description=description, updating_request_id=updating_request_id, updating_ip_address=updating_ip_address, name2=name2, description2=description2, created_at=created_at, updated_at=updated_at, datafile_checksum=datafile_checksum, etag=etag, image_id=image_id, object=object)
 
-Create firmware image
+
 
 <p>The APIs for creating and manipulating firmware images.  </p> <p>Create firmware image</p><pre>YAMLError:  while scanning a simple key   in \"<unicode string>\", line 16, column 9:             Cannot validate the data used to ...              ^ could not find expected ':'   in \"<unicode string>\", line 17, column 5:         - code: 401         ^</pre>
 
@@ -99,7 +98,6 @@ image_id = 'image_id_example' # str |  (optional)
 object = 'object_example' # str |  (optional)
 
 try: 
-    # Create firmware image
     api_response = api_instance.firmware_image_create(datafile, name, description=description, updating_request_id=updating_request_id, updating_ip_address=updating_ip_address, name2=name2, description2=description2, created_at=created_at, updated_at=updated_at, datafile_checksum=datafile_checksum, etag=etag, image_id=image_id, object=object)
     pprint(api_response)
 except ApiException as e:
@@ -142,7 +140,7 @@ Name | Type | Description  | Notes
 # **firmware_image_destroy**
 > FirmwareImageSerializer firmware_image_destroy(image_id, updating_request_id=updating_request_id, updating_ip_address=updating_ip_address, name=name, description=description, created_at=created_at, updated_at=updated_at, datafile_checksum=datafile_checksum, etag=etag, object=object)
 
-Delete firmware image
+
 
 <p>The APIs for creating and manipulating firmware images.  </p> <p>Delete firmware image</p>
 
@@ -172,7 +170,6 @@ etag = 'etag_example' # str |  (optional)
 object = 'object_example' # str |  (optional)
 
 try: 
-    # Delete firmware image
     api_response = api_instance.firmware_image_destroy(image_id, updating_request_id=updating_request_id, updating_ip_address=updating_ip_address, name=name, description=description, created_at=created_at, updated_at=updated_at, datafile_checksum=datafile_checksum, etag=etag, object=object)
     pprint(api_response)
 except ApiException as e:
@@ -212,7 +209,7 @@ Name | Type | Description  | Notes
 # **firmware_image_list**
 > list[FirmwareImageSerializer] firmware_image_list(updating_request_id=updating_request_id, updating_ip_address=updating_ip_address, name=name, description=description, created_at=created_at, updated_at=updated_at, datafile_checksum=datafile_checksum, etag=etag, image_id=image_id, object=object, page=page)
 
-List all firmware images
+
 
 <p>The APIs for creating and manipulating firmware images.  </p> <p>List all firmware images. The result will be paged into pages of 100.</p>
 
@@ -243,7 +240,6 @@ object = 'object_example' # str |  (optional)
 page = 56 # int | The page number to retrieve. If not given, then defaults to first page.  (optional)
 
 try: 
-    # List all firmware images
     api_response = api_instance.firmware_image_list(updating_request_id=updating_request_id, updating_ip_address=updating_ip_address, name=name, description=description, created_at=created_at, updated_at=updated_at, datafile_checksum=datafile_checksum, etag=etag, image_id=image_id, object=object, page=page)
     pprint(api_response)
 except ApiException as e:
@@ -284,7 +280,7 @@ Name | Type | Description  | Notes
 # **firmware_image_retrieve**
 > FirmwareImageSerializer firmware_image_retrieve(image_id, updating_request_id=updating_request_id, updating_ip_address=updating_ip_address, name=name, description=description, created_at=created_at, updated_at=updated_at, datafile_checksum=datafile_checksum, etag=etag, object=object)
 
-Retrieve firmware image
+
 
 <p>The APIs for creating and manipulating firmware images.  </p> <p>Retrieve firmware image</p>
 
@@ -314,7 +310,6 @@ etag = 'etag_example' # str |  (optional)
 object = 'object_example' # str |  (optional)
 
 try: 
-    # Retrieve firmware image
     api_response = api_instance.firmware_image_retrieve(image_id, updating_request_id=updating_request_id, updating_ip_address=updating_ip_address, name=name, description=description, created_at=created_at, updated_at=updated_at, datafile_checksum=datafile_checksum, etag=etag, object=object)
     pprint(api_response)
 except ApiException as e:
@@ -354,7 +349,7 @@ Name | Type | Description  | Notes
 # **firmware_manifest_create**
 > FirmwareManifestSerializer firmware_manifest_create(datafile, name, description=description, updating_request_id=updating_request_id, updating_ip_address=updating_ip_address, name2=name2, description2=description2, created_at=created_at, updated_at=updated_at, datafile_checksum=datafile_checksum, device_class=device_class, etag=etag, manifest_id=manifest_id, object=object, timestamp=timestamp)
 
-Create firmware manifest
+
 
 <p>The APIs for creating and manipulating firmware manifests.  </p> <p>Create firmware manifest</p>
 
@@ -389,7 +384,6 @@ object = 'object_example' # str |  (optional)
 timestamp = 'timestamp_example' # str |  (optional)
 
 try: 
-    # Create firmware manifest
     api_response = api_instance.firmware_manifest_create(datafile, name, description=description, updating_request_id=updating_request_id, updating_ip_address=updating_ip_address, name2=name2, description2=description2, created_at=created_at, updated_at=updated_at, datafile_checksum=datafile_checksum, device_class=device_class, etag=etag, manifest_id=manifest_id, object=object, timestamp=timestamp)
     pprint(api_response)
 except ApiException as e:
@@ -434,7 +428,7 @@ Name | Type | Description  | Notes
 # **firmware_manifest_destroy**
 > FirmwareManifestSerializer firmware_manifest_destroy(manifest_id, updating_request_id=updating_request_id, updating_ip_address=updating_ip_address, name=name, description=description, created_at=created_at, updated_at=updated_at, datafile_checksum=datafile_checksum, device_class=device_class, etag=etag, object=object, timestamp=timestamp)
 
-Delete firmware manifest
+
 
 <p>The APIs for creating and manipulating firmware manifests.  </p> <p>Delete firmware manifest</p>
 
@@ -466,7 +460,6 @@ object = 'object_example' # str |  (optional)
 timestamp = 'timestamp_example' # str |  (optional)
 
 try: 
-    # Delete firmware manifest
     api_response = api_instance.firmware_manifest_destroy(manifest_id, updating_request_id=updating_request_id, updating_ip_address=updating_ip_address, name=name, description=description, created_at=created_at, updated_at=updated_at, datafile_checksum=datafile_checksum, device_class=device_class, etag=etag, object=object, timestamp=timestamp)
     pprint(api_response)
 except ApiException as e:
@@ -508,7 +501,7 @@ Name | Type | Description  | Notes
 # **firmware_manifest_list**
 > list[FirmwareManifestSerializer] firmware_manifest_list(updating_request_id=updating_request_id, updating_ip_address=updating_ip_address, name=name, description=description, created_at=created_at, updated_at=updated_at, datafile_checksum=datafile_checksum, device_class=device_class, etag=etag, manifest_id=manifest_id, object=object, timestamp=timestamp, page=page)
 
-List all firmware manifests
+
 
 <p>The APIs for creating and manipulating firmware manifests.  </p> <p>List all firmware manifests</p>
 
@@ -541,7 +534,6 @@ timestamp = 'timestamp_example' # str |  (optional)
 page = 56 # int | The page number to retrieve. If not given, then defaults to first page.  (optional)
 
 try: 
-    # List all firmware manifests
     api_response = api_instance.firmware_manifest_list(updating_request_id=updating_request_id, updating_ip_address=updating_ip_address, name=name, description=description, created_at=created_at, updated_at=updated_at, datafile_checksum=datafile_checksum, device_class=device_class, etag=etag, manifest_id=manifest_id, object=object, timestamp=timestamp, page=page)
     pprint(api_response)
 except ApiException as e:
@@ -584,7 +576,7 @@ Name | Type | Description  | Notes
 # **firmware_manifest_retrieve**
 > FirmwareManifestSerializer firmware_manifest_retrieve(manifest_id, updating_request_id=updating_request_id, updating_ip_address=updating_ip_address, name=name, description=description, created_at=created_at, updated_at=updated_at, datafile_checksum=datafile_checksum, device_class=device_class, etag=etag, object=object, timestamp=timestamp)
 
-Retrieve firmware manifest
+
 
 <p>The APIs for creating and manipulating firmware manifests.  </p> <p>Retrieve firmware manifest</p>
 
@@ -616,7 +608,6 @@ object = 'object_example' # str |  (optional)
 timestamp = 'timestamp_example' # str |  (optional)
 
 try: 
-    # Retrieve firmware manifest
     api_response = api_instance.firmware_manifest_retrieve(manifest_id, updating_request_id=updating_request_id, updating_ip_address=updating_ip_address, name=name, description=description, created_at=created_at, updated_at=updated_at, datafile_checksum=datafile_checksum, device_class=device_class, etag=etag, object=object, timestamp=timestamp)
     pprint(api_response)
 except ApiException as e:

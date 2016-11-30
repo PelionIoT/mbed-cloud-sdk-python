@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    Firmware Catalog API
+    Deployment Service API
 
-    This is the API Documentation for the mbed firmware catalog service which is part of the update service.
+    This is the API Documentation for the mbed deployment service which is part of the update service.
 
     OpenAPI spec version: 0.1
     
@@ -111,7 +111,7 @@ class DefaultApi(object):
             params[key] = val
         del params['kwargs']
 
-        resource_path = '/v3/fc_deploy_info'.replace('{format}', 'json')
+        resource_path = '/v3/ds_deploy_info'.replace('{format}', 'json')
         path_params = {}
 
         query_params = {}
@@ -148,10 +148,10 @@ class DefaultApi(object):
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))
 
-    def firmware_image_create(self, datafile, name, **kwargs):
+    def update_campaign_create(self, name, **kwargs):
         """
         
-        <p>The APIs for creating and manipulating firmware images.  </p> <p>Create firmware image</p><pre>YAMLError:  while scanning a simple key   in \"<unicode string>\", line 16, column 9:             Cannot validate the data used to ...              ^ could not find expected ':'   in \"<unicode string>\", line 17, column 5:         - code: 401         ^</pre>
+        <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Create update campaign</p>
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -159,38 +159,34 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.firmware_image_create(datafile, name, callback=callback_function)
+        >>> thread = api.update_campaign_create(name, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str datafile: The binary file of firmware image (required)
-        :param str name: The name of the object (required)
-        :param str description: The description of the object
-        :param str updating_request_id: 
-        :param str updating_ip_address: 
-        :param str name2: 
-        :param str description2: 
-        :param str created_at: 
-        :param str updated_at: 
-        :param str datafile_checksum: 
-        :param str etag: 
-        :param str image_id: 
-        :param str object: 
-        :return: FirmwareImageSerializer
+        :param str name: A name for this campaign (required)
+        :param str campaign_id: DEPRECATED: The ID of the campaign
+        :param str description: An optional description of the campaign
+        :param str device_filter: The filter for the devices the campaign will target
+        :param datetime finished: The timestamp when the update campaign finished
+        :param str object: The API resource entity
+        :param str root_manifest_id: 
+        :param str state: The state of the campaign
+        :param datetime when: The timestamp at which update campaign scheduled to start
+        :return: UpdateCampaignSerializer
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.firmware_image_create_with_http_info(datafile, name, **kwargs)
+            return self.update_campaign_create_with_http_info(name, **kwargs)
         else:
-            (data) = self.firmware_image_create_with_http_info(datafile, name, **kwargs)
+            (data) = self.update_campaign_create_with_http_info(name, **kwargs)
             return data
 
-    def firmware_image_create_with_http_info(self, datafile, name, **kwargs):
+    def update_campaign_create_with_http_info(self, name, **kwargs):
         """
         
-        <p>The APIs for creating and manipulating firmware images.  </p> <p>Create firmware image</p><pre>YAMLError:  while scanning a simple key   in \"<unicode string>\", line 16, column 9:             Cannot validate the data used to ...              ^ could not find expected ':'   in \"<unicode string>\", line 17, column 5:         - code: 401         ^</pre>
+        <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Create update campaign</p>
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -198,29 +194,25 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.firmware_image_create_with_http_info(datafile, name, callback=callback_function)
+        >>> thread = api.update_campaign_create_with_http_info(name, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str datafile: The binary file of firmware image (required)
-        :param str name: The name of the object (required)
-        :param str description: The description of the object
-        :param str updating_request_id: 
-        :param str updating_ip_address: 
-        :param str name2: 
-        :param str description2: 
-        :param str created_at: 
-        :param str updated_at: 
-        :param str datafile_checksum: 
-        :param str etag: 
-        :param str image_id: 
-        :param str object: 
-        :return: FirmwareImageSerializer
+        :param str name: A name for this campaign (required)
+        :param str campaign_id: DEPRECATED: The ID of the campaign
+        :param str description: An optional description of the campaign
+        :param str device_filter: The filter for the devices the campaign will target
+        :param datetime finished: The timestamp when the update campaign finished
+        :param str object: The API resource entity
+        :param str root_manifest_id: 
+        :param str state: The state of the campaign
+        :param datetime when: The timestamp at which update campaign scheduled to start
+        :return: UpdateCampaignSerializer
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['datafile', 'name', 'description', 'updating_request_id', 'updating_ip_address', 'name2', 'description2', 'created_at', 'updated_at', 'datafile_checksum', 'etag', 'image_id', 'object']
+        all_params = ['name', 'campaign_id', 'description', 'device_filter', 'finished', 'object', 'root_manifest_id', 'state', 'when']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
 
@@ -229,52 +221,41 @@ class DefaultApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method firmware_image_create" % key
+                    " to method update_campaign_create" % key
                 )
             params[key] = val
         del params['kwargs']
-        # verify the required parameter 'datafile' is set
-        if ('datafile' not in params) or (params['datafile'] is None):
-            raise ValueError("Missing the required parameter `datafile` when calling `firmware_image_create`")
         # verify the required parameter 'name' is set
         if ('name' not in params) or (params['name'] is None):
-            raise ValueError("Missing the required parameter `name` when calling `firmware_image_create`")
+            raise ValueError("Missing the required parameter `name` when calling `update_campaign_create`")
 
-        resource_path = '/v3/firmware/images/'.replace('{format}', 'json')
+        resource_path = '/v3/update-campaigns/'.replace('{format}', 'json')
         path_params = {}
 
         query_params = {}
-        if 'updating_request_id' in params:
-            query_params['updating_request_id'] = params['updating_request_id']
-        if 'updating_ip_address' in params:
-            query_params['updating_ip_address'] = params['updating_ip_address']
-        if 'name2' in params:
-            query_params['name'] = params['name2']
-        if 'description2' in params:
-            query_params['description'] = params['description2']
-        if 'created_at' in params:
-            query_params['created_at'] = params['created_at']
-        if 'updated_at' in params:
-            query_params['updated_at'] = params['updated_at']
-        if 'datafile_checksum' in params:
-            query_params['datafile_checksum'] = params['datafile_checksum']
-        if 'etag' in params:
-            query_params['etag'] = params['etag']
-        if 'image_id' in params:
-            query_params['image_id'] = params['image_id']
-        if 'object' in params:
-            query_params['object'] = params['object']
 
         header_params = {}
 
         form_params = []
         local_var_files = {}
-        if 'datafile' in params:
-            form_params.append(('datafile', params['datafile']))
+        if 'campaign_id' in params:
+            form_params.append(('campaign_id', params['campaign_id']))
         if 'description' in params:
             form_params.append(('description', params['description']))
+        if 'device_filter' in params:
+            form_params.append(('device_filter', params['device_filter']))
+        if 'finished' in params:
+            form_params.append(('finished', params['finished']))
         if 'name' in params:
             form_params.append(('name', params['name']))
+        if 'object' in params:
+            form_params.append(('object', params['object']))
+        if 'root_manifest_id' in params:
+            form_params.append(('root_manifest_id', params['root_manifest_id']))
+        if 'state' in params:
+            form_params.append(('state', params['state']))
+        if 'when' in params:
+            form_params.append(('when', params['when']))
 
         body_params = None
 
@@ -298,15 +279,15 @@ class DefaultApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=local_var_files,
-                                            response_type='FirmwareImageSerializer',
+                                            response_type='UpdateCampaignSerializer',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))
 
-    def firmware_image_destroy(self, image_id, **kwargs):
+    def update_campaign_destroy(self, campaign_id, **kwargs):
         """
         
-        <p>The APIs for creating and manipulating firmware images.  </p> <p>Delete firmware image</p>
+        <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Delete update campaign</p>
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -314,35 +295,40 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.firmware_image_destroy(image_id, callback=callback_function)
+        >>> thread = api.update_campaign_destroy(campaign_id, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param int image_id: The ID of the firmware image (required)
+        :param str campaign_id: The ID of the update campaign (required)
         :param str updating_request_id: 
         :param str updating_ip_address: 
-        :param str name: 
-        :param str description: 
         :param str created_at: 
         :param str updated_at: 
-        :param str datafile_checksum: 
+        :param str attempts: 
+        :param str description: 
+        :param str device_filter: 
         :param str etag: 
+        :param str finished: 
+        :param str name: 
         :param str object: 
-        :return: FirmwareImageSerializer
+        :param str root_manifest_id: 
+        :param str state: 
+        :param str when: 
+        :return: UpdateCampaignSerializer
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.firmware_image_destroy_with_http_info(image_id, **kwargs)
+            return self.update_campaign_destroy_with_http_info(campaign_id, **kwargs)
         else:
-            (data) = self.firmware_image_destroy_with_http_info(image_id, **kwargs)
+            (data) = self.update_campaign_destroy_with_http_info(campaign_id, **kwargs)
             return data
 
-    def firmware_image_destroy_with_http_info(self, image_id, **kwargs):
+    def update_campaign_destroy_with_http_info(self, campaign_id, **kwargs):
         """
         
-        <p>The APIs for creating and manipulating firmware images.  </p> <p>Delete firmware image</p>
+        <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Delete update campaign</p>
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -350,26 +336,31 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.firmware_image_destroy_with_http_info(image_id, callback=callback_function)
+        >>> thread = api.update_campaign_destroy_with_http_info(campaign_id, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param int image_id: The ID of the firmware image (required)
+        :param str campaign_id: The ID of the update campaign (required)
         :param str updating_request_id: 
         :param str updating_ip_address: 
-        :param str name: 
-        :param str description: 
         :param str created_at: 
         :param str updated_at: 
-        :param str datafile_checksum: 
+        :param str attempts: 
+        :param str description: 
+        :param str device_filter: 
         :param str etag: 
+        :param str finished: 
+        :param str name: 
         :param str object: 
-        :return: FirmwareImageSerializer
+        :param str root_manifest_id: 
+        :param str state: 
+        :param str when: 
+        :return: UpdateCampaignSerializer
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['image_id', 'updating_request_id', 'updating_ip_address', 'name', 'description', 'created_at', 'updated_at', 'datafile_checksum', 'etag', 'object']
+        all_params = ['campaign_id', 'updating_request_id', 'updating_ip_address', 'created_at', 'updated_at', 'attempts', 'description', 'device_filter', 'etag', 'finished', 'name', 'object', 'root_manifest_id', 'state', 'when']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
 
@@ -378,38 +369,48 @@ class DefaultApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method firmware_image_destroy" % key
+                    " to method update_campaign_destroy" % key
                 )
             params[key] = val
         del params['kwargs']
-        # verify the required parameter 'image_id' is set
-        if ('image_id' not in params) or (params['image_id'] is None):
-            raise ValueError("Missing the required parameter `image_id` when calling `firmware_image_destroy`")
+        # verify the required parameter 'campaign_id' is set
+        if ('campaign_id' not in params) or (params['campaign_id'] is None):
+            raise ValueError("Missing the required parameter `campaign_id` when calling `update_campaign_destroy`")
 
-        resource_path = '/v3/firmware/images/{image_id}/'.replace('{format}', 'json')
+        resource_path = '/v3/update-campaigns/{campaign_id}/'.replace('{format}', 'json')
         path_params = {}
-        if 'image_id' in params:
-            path_params['image_id'] = params['image_id']
+        if 'campaign_id' in params:
+            path_params['campaign_id'] = params['campaign_id']
 
         query_params = {}
         if 'updating_request_id' in params:
             query_params['updating_request_id'] = params['updating_request_id']
         if 'updating_ip_address' in params:
             query_params['updating_ip_address'] = params['updating_ip_address']
-        if 'name' in params:
-            query_params['name'] = params['name']
-        if 'description' in params:
-            query_params['description'] = params['description']
         if 'created_at' in params:
             query_params['created_at'] = params['created_at']
         if 'updated_at' in params:
             query_params['updated_at'] = params['updated_at']
-        if 'datafile_checksum' in params:
-            query_params['datafile_checksum'] = params['datafile_checksum']
+        if 'attempts' in params:
+            query_params['attempts'] = params['attempts']
+        if 'description' in params:
+            query_params['description'] = params['description']
+        if 'device_filter' in params:
+            query_params['device_filter'] = params['device_filter']
         if 'etag' in params:
             query_params['etag'] = params['etag']
+        if 'finished' in params:
+            query_params['finished'] = params['finished']
+        if 'name' in params:
+            query_params['name'] = params['name']
         if 'object' in params:
             query_params['object'] = params['object']
+        if 'root_manifest_id' in params:
+            query_params['root_manifest_id'] = params['root_manifest_id']
+        if 'state' in params:
+            query_params['state'] = params['state']
+        if 'when' in params:
+            query_params['when'] = params['when']
 
         header_params = {}
 
@@ -438,15 +439,15 @@ class DefaultApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=local_var_files,
-                                            response_type='FirmwareImageSerializer',
+                                            response_type='UpdateCampaignSerializer',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))
 
-    def firmware_image_list(self, **kwargs):
+    def update_campaign_list(self, **kwargs):
         """
         
-        <p>The APIs for creating and manipulating firmware images.  </p> <p>List all firmware images. The result will be paged into pages of 100.</p>
+        <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>List all update campaigns</p>
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -454,36 +455,42 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.firmware_image_list(callback=callback_function)
+        >>> thread = api.update_campaign_list(callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str updating_request_id: 
         :param str updating_ip_address: 
-        :param str name: 
-        :param str description: 
         :param str created_at: 
         :param str updated_at: 
-        :param str datafile_checksum: 
+        :param str attempts: 
+        :param str campaign_id: 
+        :param str description: 
+        :param str device_filter: 
         :param str etag: 
-        :param str image_id: 
+        :param str finished: 
+        :param str name: 
         :param str object: 
-        :param int page: The page number to retrieve. If not given, then defaults to first page. 
-        :return: list[FirmwareImageSerializer]
+        :param str root_manifest_id: 
+        :param str state: 
+        :param str when: 
+        :param int page: The page number to retrieve. If not given, then defaults to first page.
+        :param str root_manifest_url: The firmware catalog URL for the manifest that will be sent to the device as part of the campaign
+        :return: list[UpdateCampaignSerializer]
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.firmware_image_list_with_http_info(**kwargs)
+            return self.update_campaign_list_with_http_info(**kwargs)
         else:
-            (data) = self.firmware_image_list_with_http_info(**kwargs)
+            (data) = self.update_campaign_list_with_http_info(**kwargs)
             return data
 
-    def firmware_image_list_with_http_info(self, **kwargs):
+    def update_campaign_list_with_http_info(self, **kwargs):
         """
         
-        <p>The APIs for creating and manipulating firmware images.  </p> <p>List all firmware images. The result will be paged into pages of 100.</p>
+        <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>List all update campaigns</p>
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -491,27 +498,33 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.firmware_image_list_with_http_info(callback=callback_function)
+        >>> thread = api.update_campaign_list_with_http_info(callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str updating_request_id: 
         :param str updating_ip_address: 
-        :param str name: 
-        :param str description: 
         :param str created_at: 
         :param str updated_at: 
-        :param str datafile_checksum: 
+        :param str attempts: 
+        :param str campaign_id: 
+        :param str description: 
+        :param str device_filter: 
         :param str etag: 
-        :param str image_id: 
+        :param str finished: 
+        :param str name: 
         :param str object: 
-        :param int page: The page number to retrieve. If not given, then defaults to first page. 
-        :return: list[FirmwareImageSerializer]
+        :param str root_manifest_id: 
+        :param str state: 
+        :param str when: 
+        :param int page: The page number to retrieve. If not given, then defaults to first page.
+        :param str root_manifest_url: The firmware catalog URL for the manifest that will be sent to the device as part of the campaign
+        :return: list[UpdateCampaignSerializer]
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['updating_request_id', 'updating_ip_address', 'name', 'description', 'created_at', 'updated_at', 'datafile_checksum', 'etag', 'image_id', 'object', 'page']
+        all_params = ['updating_request_id', 'updating_ip_address', 'created_at', 'updated_at', 'attempts', 'campaign_id', 'description', 'device_filter', 'etag', 'finished', 'name', 'object', 'root_manifest_id', 'state', 'when', 'page', 'root_manifest_url']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
 
@@ -520,12 +533,12 @@ class DefaultApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method firmware_image_list" % key
+                    " to method update_campaign_list" % key
                 )
             params[key] = val
         del params['kwargs']
 
-        resource_path = '/v3/firmware/images/'.replace('{format}', 'json')
+        resource_path = '/v3/update-campaigns/'.replace('{format}', 'json')
         path_params = {}
 
         query_params = {}
@@ -533,24 +546,36 @@ class DefaultApi(object):
             query_params['updating_request_id'] = params['updating_request_id']
         if 'updating_ip_address' in params:
             query_params['updating_ip_address'] = params['updating_ip_address']
-        if 'name' in params:
-            query_params['name'] = params['name']
-        if 'description' in params:
-            query_params['description'] = params['description']
         if 'created_at' in params:
             query_params['created_at'] = params['created_at']
         if 'updated_at' in params:
             query_params['updated_at'] = params['updated_at']
-        if 'datafile_checksum' in params:
-            query_params['datafile_checksum'] = params['datafile_checksum']
+        if 'attempts' in params:
+            query_params['attempts'] = params['attempts']
+        if 'campaign_id' in params:
+            query_params['campaign_id'] = params['campaign_id']
+        if 'description' in params:
+            query_params['description'] = params['description']
+        if 'device_filter' in params:
+            query_params['device_filter'] = params['device_filter']
         if 'etag' in params:
             query_params['etag'] = params['etag']
-        if 'image_id' in params:
-            query_params['image_id'] = params['image_id']
+        if 'finished' in params:
+            query_params['finished'] = params['finished']
+        if 'name' in params:
+            query_params['name'] = params['name']
         if 'object' in params:
             query_params['object'] = params['object']
+        if 'root_manifest_id' in params:
+            query_params['root_manifest_id'] = params['root_manifest_id']
+        if 'state' in params:
+            query_params['state'] = params['state']
+        if 'when' in params:
+            query_params['when'] = params['when']
         if 'page' in params:
             query_params['page'] = params['page']
+        if 'root_manifest_url' in params:
+            query_params['root_manifest_url'] = params['root_manifest_url']
 
         header_params = {}
 
@@ -579,15 +604,15 @@ class DefaultApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=local_var_files,
-                                            response_type='list[FirmwareImageSerializer]',
+                                            response_type='list[UpdateCampaignSerializer]',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))
 
-    def firmware_image_retrieve(self, image_id, **kwargs):
+    def update_campaign_partial_update(self, **kwargs):
         """
         
-        <p>The APIs for creating and manipulating firmware images.  </p> <p>Retrieve firmware image</p>
+        <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Update campaign fields</p>
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -595,35 +620,34 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.firmware_image_retrieve(image_id, callback=callback_function)
+        >>> thread = api.update_campaign_partial_update(callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param int image_id: The ID of the firmware image (required)
-        :param str updating_request_id: 
-        :param str updating_ip_address: 
-        :param str name: 
-        :param str description: 
-        :param str created_at: 
-        :param str updated_at: 
-        :param str datafile_checksum: 
-        :param str etag: 
-        :param str object: 
-        :return: FirmwareImageSerializer
+        :param str campaign_id: DEPRECATED: The ID of the campaign
+        :param str description: An optional description of the campaign
+        :param str device_filter: The filter for the devices the campaign will target
+        :param datetime finished: The timestamp when the update campaign finished
+        :param str name: A name for this campaign
+        :param str object: The API resource entity
+        :param str root_manifest_id: 
+        :param str state: The state of the campaign
+        :param datetime when: The timestamp at which update campaign scheduled to start
+        :return: UpdateCampaignSerializer
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.firmware_image_retrieve_with_http_info(image_id, **kwargs)
+            return self.update_campaign_partial_update_with_http_info(**kwargs)
         else:
-            (data) = self.firmware_image_retrieve_with_http_info(image_id, **kwargs)
+            (data) = self.update_campaign_partial_update_with_http_info(**kwargs)
             return data
 
-    def firmware_image_retrieve_with_http_info(self, image_id, **kwargs):
+    def update_campaign_partial_update_with_http_info(self, **kwargs):
         """
         
-        <p>The APIs for creating and manipulating firmware images.  </p> <p>Retrieve firmware image</p>
+        <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Update campaign fields</p>
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -631,26 +655,25 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.firmware_image_retrieve_with_http_info(image_id, callback=callback_function)
+        >>> thread = api.update_campaign_partial_update_with_http_info(callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param int image_id: The ID of the firmware image (required)
-        :param str updating_request_id: 
-        :param str updating_ip_address: 
-        :param str name: 
-        :param str description: 
-        :param str created_at: 
-        :param str updated_at: 
-        :param str datafile_checksum: 
-        :param str etag: 
-        :param str object: 
-        :return: FirmwareImageSerializer
+        :param str campaign_id: DEPRECATED: The ID of the campaign
+        :param str description: An optional description of the campaign
+        :param str device_filter: The filter for the devices the campaign will target
+        :param datetime finished: The timestamp when the update campaign finished
+        :param str name: A name for this campaign
+        :param str object: The API resource entity
+        :param str root_manifest_id: 
+        :param str state: The state of the campaign
+        :param datetime when: The timestamp at which update campaign scheduled to start
+        :return: UpdateCampaignSerializer
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['image_id', 'updating_request_id', 'updating_ip_address', 'name', 'description', 'created_at', 'updated_at', 'datafile_checksum', 'etag', 'object']
+        all_params = ['campaign_id', 'description', 'device_filter', 'finished', 'name', 'object', 'root_manifest_id', 'state', 'when']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
 
@@ -659,206 +682,38 @@ class DefaultApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method firmware_image_retrieve" % key
+                    " to method update_campaign_partial_update" % key
                 )
             params[key] = val
         del params['kwargs']
-        # verify the required parameter 'image_id' is set
-        if ('image_id' not in params) or (params['image_id'] is None):
-            raise ValueError("Missing the required parameter `image_id` when calling `firmware_image_retrieve`")
 
-        resource_path = '/v3/firmware/images/{image_id}/'.replace('{format}', 'json')
+        resource_path = '/v3/update-campaigns/{campaign_id}/'.replace('{format}', 'json')
         path_params = {}
-        if 'image_id' in params:
-            path_params['image_id'] = params['image_id']
 
         query_params = {}
-        if 'updating_request_id' in params:
-            query_params['updating_request_id'] = params['updating_request_id']
-        if 'updating_ip_address' in params:
-            query_params['updating_ip_address'] = params['updating_ip_address']
-        if 'name' in params:
-            query_params['name'] = params['name']
-        if 'description' in params:
-            query_params['description'] = params['description']
-        if 'created_at' in params:
-            query_params['created_at'] = params['created_at']
-        if 'updated_at' in params:
-            query_params['updated_at'] = params['updated_at']
-        if 'datafile_checksum' in params:
-            query_params['datafile_checksum'] = params['datafile_checksum']
-        if 'etag' in params:
-            query_params['etag'] = params['etag']
-        if 'object' in params:
-            query_params['object'] = params['object']
 
         header_params = {}
 
         form_params = []
         local_var_files = {}
-
-        body_params = None
-
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept([])
-        if not header_params['Accept']:
-            del header_params['Accept']
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.\
-            select_header_content_type([])
-
-        # Authentication setting
-        auth_settings = ['Bearer']
-
-        return self.api_client.call_api(resource_path, 'GET',
-                                            path_params,
-                                            query_params,
-                                            header_params,
-                                            body=body_params,
-                                            post_params=form_params,
-                                            files=local_var_files,
-                                            response_type='FirmwareImageSerializer',
-                                            auth_settings=auth_settings,
-                                            callback=params.get('callback'),
-                                            _return_http_data_only=params.get('_return_http_data_only'))
-
-    def firmware_manifest_create(self, datafile, name, **kwargs):
-        """
-        
-        <p>The APIs for creating and manipulating firmware manifests.  </p> <p>Create firmware manifest</p>
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.firmware_manifest_create(datafile, name, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str datafile: The manifest file to create (required)
-        :param str name: The name of the object (required)
-        :param str description: The description of the object
-        :param str updating_request_id: 
-        :param str updating_ip_address: 
-        :param str name2: 
-        :param str description2: 
-        :param str created_at: 
-        :param str updated_at: 
-        :param str datafile_checksum: 
-        :param str device_class: 
-        :param str etag: 
-        :param str manifest_id: 
-        :param str object: 
-        :param str timestamp: 
-        :return: FirmwareManifestSerializer
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
-            return self.firmware_manifest_create_with_http_info(datafile, name, **kwargs)
-        else:
-            (data) = self.firmware_manifest_create_with_http_info(datafile, name, **kwargs)
-            return data
-
-    def firmware_manifest_create_with_http_info(self, datafile, name, **kwargs):
-        """
-        
-        <p>The APIs for creating and manipulating firmware manifests.  </p> <p>Create firmware manifest</p>
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.firmware_manifest_create_with_http_info(datafile, name, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str datafile: The manifest file to create (required)
-        :param str name: The name of the object (required)
-        :param str description: The description of the object
-        :param str updating_request_id: 
-        :param str updating_ip_address: 
-        :param str name2: 
-        :param str description2: 
-        :param str created_at: 
-        :param str updated_at: 
-        :param str datafile_checksum: 
-        :param str device_class: 
-        :param str etag: 
-        :param str manifest_id: 
-        :param str object: 
-        :param str timestamp: 
-        :return: FirmwareManifestSerializer
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['datafile', 'name', 'description', 'updating_request_id', 'updating_ip_address', 'name2', 'description2', 'created_at', 'updated_at', 'datafile_checksum', 'device_class', 'etag', 'manifest_id', 'object', 'timestamp']
-        all_params.append('callback')
-        all_params.append('_return_http_data_only')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method firmware_manifest_create" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'datafile' is set
-        if ('datafile' not in params) or (params['datafile'] is None):
-            raise ValueError("Missing the required parameter `datafile` when calling `firmware_manifest_create`")
-        # verify the required parameter 'name' is set
-        if ('name' not in params) or (params['name'] is None):
-            raise ValueError("Missing the required parameter `name` when calling `firmware_manifest_create`")
-
-        resource_path = '/v3/firmware/manifests/'.replace('{format}', 'json')
-        path_params = {}
-
-        query_params = {}
-        if 'updating_request_id' in params:
-            query_params['updating_request_id'] = params['updating_request_id']
-        if 'updating_ip_address' in params:
-            query_params['updating_ip_address'] = params['updating_ip_address']
-        if 'name2' in params:
-            query_params['name'] = params['name2']
-        if 'description2' in params:
-            query_params['description'] = params['description2']
-        if 'created_at' in params:
-            query_params['created_at'] = params['created_at']
-        if 'updated_at' in params:
-            query_params['updated_at'] = params['updated_at']
-        if 'datafile_checksum' in params:
-            query_params['datafile_checksum'] = params['datafile_checksum']
-        if 'device_class' in params:
-            query_params['device_class'] = params['device_class']
-        if 'etag' in params:
-            query_params['etag'] = params['etag']
-        if 'manifest_id' in params:
-            query_params['manifest_id'] = params['manifest_id']
-        if 'object' in params:
-            query_params['object'] = params['object']
-        if 'timestamp' in params:
-            query_params['timestamp'] = params['timestamp']
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-        if 'datafile' in params:
-            form_params.append(('datafile', params['datafile']))
+        if 'campaign_id' in params:
+            form_params.append(('campaign_id', params['campaign_id']))
         if 'description' in params:
             form_params.append(('description', params['description']))
+        if 'device_filter' in params:
+            form_params.append(('device_filter', params['device_filter']))
+        if 'finished' in params:
+            form_params.append(('finished', params['finished']))
         if 'name' in params:
             form_params.append(('name', params['name']))
+        if 'object' in params:
+            form_params.append(('object', params['object']))
+        if 'root_manifest_id' in params:
+            form_params.append(('root_manifest_id', params['root_manifest_id']))
+        if 'state' in params:
+            form_params.append(('state', params['state']))
+        if 'when' in params:
+            form_params.append(('when', params['when']))
 
         body_params = None
 
@@ -875,22 +730,22 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'POST',
+        return self.api_client.call_api(resource_path, 'PATCH',
                                             path_params,
                                             query_params,
                                             header_params,
                                             body=body_params,
                                             post_params=form_params,
                                             files=local_var_files,
-                                            response_type='FirmwareManifestSerializer',
+                                            response_type='UpdateCampaignSerializer',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))
 
-    def firmware_manifest_destroy(self, manifest_id, **kwargs):
+    def update_campaign_retrieve(self, campaign_id, **kwargs):
         """
         
-        <p>The APIs for creating and manipulating firmware manifests.  </p> <p>Delete firmware manifest</p>
+        <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Retrieve campaign</p>
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -898,37 +753,41 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.firmware_manifest_destroy(manifest_id, callback=callback_function)
+        >>> thread = api.update_campaign_retrieve(campaign_id, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param int manifest_id: The ID of the firmware manifest (required)
+        :param str campaign_id: The ID of the campaign (required)
         :param str updating_request_id: 
         :param str updating_ip_address: 
-        :param str name: 
-        :param str description: 
         :param str created_at: 
         :param str updated_at: 
-        :param str datafile_checksum: 
-        :param str device_class: 
+        :param str attempts: 
+        :param str description: 
+        :param str device_filter: 
         :param str etag: 
+        :param str finished: 
+        :param str name: 
         :param str object: 
-        :param str timestamp: 
-        :return: FirmwareManifestSerializer
+        :param str root_manifest_id: 
+        :param str state: 
+        :param str when: 
+        :param str root_manifest_url: The firmware catalog URL for the manifest that will be sent to the device as part of the campaign
+        :return: UpdateCampaignSerializer
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.firmware_manifest_destroy_with_http_info(manifest_id, **kwargs)
+            return self.update_campaign_retrieve_with_http_info(campaign_id, **kwargs)
         else:
-            (data) = self.firmware_manifest_destroy_with_http_info(manifest_id, **kwargs)
+            (data) = self.update_campaign_retrieve_with_http_info(campaign_id, **kwargs)
             return data
 
-    def firmware_manifest_destroy_with_http_info(self, manifest_id, **kwargs):
+    def update_campaign_retrieve_with_http_info(self, campaign_id, **kwargs):
         """
         
-        <p>The APIs for creating and manipulating firmware manifests.  </p> <p>Delete firmware manifest</p>
+        <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Retrieve campaign</p>
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -936,28 +795,32 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.firmware_manifest_destroy_with_http_info(manifest_id, callback=callback_function)
+        >>> thread = api.update_campaign_retrieve_with_http_info(campaign_id, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param int manifest_id: The ID of the firmware manifest (required)
+        :param str campaign_id: The ID of the campaign (required)
         :param str updating_request_id: 
         :param str updating_ip_address: 
-        :param str name: 
-        :param str description: 
         :param str created_at: 
         :param str updated_at: 
-        :param str datafile_checksum: 
-        :param str device_class: 
+        :param str attempts: 
+        :param str description: 
+        :param str device_filter: 
         :param str etag: 
+        :param str finished: 
+        :param str name: 
         :param str object: 
-        :param str timestamp: 
-        :return: FirmwareManifestSerializer
+        :param str root_manifest_id: 
+        :param str state: 
+        :param str when: 
+        :param str root_manifest_url: The firmware catalog URL for the manifest that will be sent to the device as part of the campaign
+        :return: UpdateCampaignSerializer
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['manifest_id', 'updating_request_id', 'updating_ip_address', 'name', 'description', 'created_at', 'updated_at', 'datafile_checksum', 'device_class', 'etag', 'object', 'timestamp']
+        all_params = ['campaign_id', 'updating_request_id', 'updating_ip_address', 'created_at', 'updated_at', 'attempts', 'description', 'device_filter', 'etag', 'finished', 'name', 'object', 'root_manifest_id', 'state', 'when', 'root_manifest_url']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
 
@@ -966,47 +829,55 @@ class DefaultApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method firmware_manifest_destroy" % key
+                    " to method update_campaign_retrieve" % key
                 )
             params[key] = val
         del params['kwargs']
-        # verify the required parameter 'manifest_id' is set
-        if ('manifest_id' not in params) or (params['manifest_id'] is None):
-            raise ValueError("Missing the required parameter `manifest_id` when calling `firmware_manifest_destroy`")
+        # verify the required parameter 'campaign_id' is set
+        if ('campaign_id' not in params) or (params['campaign_id'] is None):
+            raise ValueError("Missing the required parameter `campaign_id` when calling `update_campaign_retrieve`")
 
-        resource_path = '/v3/firmware/manifests/{manifest_id}/'.replace('{format}', 'json')
+        resource_path = '/v3/update-campaigns/{campaign_id}/'.replace('{format}', 'json')
         path_params = {}
-        if 'manifest_id' in params:
-            path_params['manifest_id'] = params['manifest_id']
 
         query_params = {}
         if 'updating_request_id' in params:
             query_params['updating_request_id'] = params['updating_request_id']
         if 'updating_ip_address' in params:
             query_params['updating_ip_address'] = params['updating_ip_address']
-        if 'name' in params:
-            query_params['name'] = params['name']
-        if 'description' in params:
-            query_params['description'] = params['description']
         if 'created_at' in params:
             query_params['created_at'] = params['created_at']
         if 'updated_at' in params:
             query_params['updated_at'] = params['updated_at']
-        if 'datafile_checksum' in params:
-            query_params['datafile_checksum'] = params['datafile_checksum']
-        if 'device_class' in params:
-            query_params['device_class'] = params['device_class']
+        if 'attempts' in params:
+            query_params['attempts'] = params['attempts']
+        if 'description' in params:
+            query_params['description'] = params['description']
+        if 'device_filter' in params:
+            query_params['device_filter'] = params['device_filter']
         if 'etag' in params:
             query_params['etag'] = params['etag']
+        if 'finished' in params:
+            query_params['finished'] = params['finished']
+        if 'name' in params:
+            query_params['name'] = params['name']
         if 'object' in params:
             query_params['object'] = params['object']
-        if 'timestamp' in params:
-            query_params['timestamp'] = params['timestamp']
+        if 'root_manifest_id' in params:
+            query_params['root_manifest_id'] = params['root_manifest_id']
+        if 'state' in params:
+            query_params['state'] = params['state']
+        if 'when' in params:
+            query_params['when'] = params['when']
+        if 'root_manifest_url' in params:
+            query_params['root_manifest_url'] = params['root_manifest_url']
 
         header_params = {}
 
         form_params = []
         local_var_files = {}
+        if 'campaign_id' in params:
+            form_params.append(('campaign_id', params['campaign_id']))
 
         body_params = None
 
@@ -1023,22 +894,22 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'DELETE',
+        return self.api_client.call_api(resource_path, 'GET',
                                             path_params,
                                             query_params,
                                             header_params,
                                             body=body_params,
                                             post_params=form_params,
                                             files=local_var_files,
-                                            response_type='FirmwareManifestSerializer',
+                                            response_type='UpdateCampaignSerializer',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))
 
-    def firmware_manifest_list(self, **kwargs):
+    def update_campaign_status(self, campaign_id, **kwargs):
         """
         
-        <p>The APIs for creating and manipulating firmware manifests.  </p> <p>List all firmware manifests</p>
+        <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Show the status of an update campaign</p>
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -1046,38 +917,40 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.firmware_manifest_list(callback=callback_function)
+        >>> thread = api.update_campaign_status(campaign_id, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
+        :param str campaign_id: The ID of the update campaign (required)
         :param str updating_request_id: 
         :param str updating_ip_address: 
-        :param str name: 
-        :param str description: 
         :param str created_at: 
         :param str updated_at: 
-        :param str datafile_checksum: 
-        :param str device_class: 
+        :param str attempts: 
+        :param str description: 
+        :param str device_filter: 
         :param str etag: 
-        :param str manifest_id: 
+        :param str finished: 
+        :param str name: 
         :param str object: 
-        :param str timestamp: 
-        :param int page: The page number to retrieve. If not given, then defaults to first page. 
-        :return: list[FirmwareManifestSerializer]
+        :param str root_manifest_id: 
+        :param str state: 
+        :param str when: 
+        :return: UpdateCampaignStatusSerializer
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.firmware_manifest_list_with_http_info(**kwargs)
+            return self.update_campaign_status_with_http_info(campaign_id, **kwargs)
         else:
-            (data) = self.firmware_manifest_list_with_http_info(**kwargs)
+            (data) = self.update_campaign_status_with_http_info(campaign_id, **kwargs)
             return data
 
-    def firmware_manifest_list_with_http_info(self, **kwargs):
+    def update_campaign_status_with_http_info(self, campaign_id, **kwargs):
         """
         
-        <p>The APIs for creating and manipulating firmware manifests.  </p> <p>List all firmware manifests</p>
+        <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Show the status of an update campaign</p>
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -1085,29 +958,31 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.firmware_manifest_list_with_http_info(callback=callback_function)
+        >>> thread = api.update_campaign_status_with_http_info(campaign_id, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
+        :param str campaign_id: The ID of the update campaign (required)
         :param str updating_request_id: 
         :param str updating_ip_address: 
-        :param str name: 
-        :param str description: 
         :param str created_at: 
         :param str updated_at: 
-        :param str datafile_checksum: 
-        :param str device_class: 
+        :param str attempts: 
+        :param str description: 
+        :param str device_filter: 
         :param str etag: 
-        :param str manifest_id: 
+        :param str finished: 
+        :param str name: 
         :param str object: 
-        :param str timestamp: 
-        :param int page: The page number to retrieve. If not given, then defaults to first page. 
-        :return: list[FirmwareManifestSerializer]
+        :param str root_manifest_id: 
+        :param str state: 
+        :param str when: 
+        :return: UpdateCampaignStatusSerializer
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['updating_request_id', 'updating_ip_address', 'name', 'description', 'created_at', 'updated_at', 'datafile_checksum', 'device_class', 'etag', 'manifest_id', 'object', 'timestamp', 'page']
+        all_params = ['campaign_id', 'updating_request_id', 'updating_ip_address', 'created_at', 'updated_at', 'attempts', 'description', 'device_filter', 'etag', 'finished', 'name', 'object', 'root_manifest_id', 'state', 'when']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
 
@@ -1116,41 +991,48 @@ class DefaultApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method firmware_manifest_list" % key
+                    " to method update_campaign_status" % key
                 )
             params[key] = val
         del params['kwargs']
+        # verify the required parameter 'campaign_id' is set
+        if ('campaign_id' not in params) or (params['campaign_id'] is None):
+            raise ValueError("Missing the required parameter `campaign_id` when calling `update_campaign_status`")
 
-        resource_path = '/v3/firmware/manifests/'.replace('{format}', 'json')
+        resource_path = '/v3/update-campaigns/{campaign_id}/status/'.replace('{format}', 'json')
         path_params = {}
+        if 'campaign_id' in params:
+            path_params['campaign_id'] = params['campaign_id']
 
         query_params = {}
         if 'updating_request_id' in params:
             query_params['updating_request_id'] = params['updating_request_id']
         if 'updating_ip_address' in params:
             query_params['updating_ip_address'] = params['updating_ip_address']
-        if 'name' in params:
-            query_params['name'] = params['name']
-        if 'description' in params:
-            query_params['description'] = params['description']
         if 'created_at' in params:
             query_params['created_at'] = params['created_at']
         if 'updated_at' in params:
             query_params['updated_at'] = params['updated_at']
-        if 'datafile_checksum' in params:
-            query_params['datafile_checksum'] = params['datafile_checksum']
-        if 'device_class' in params:
-            query_params['device_class'] = params['device_class']
+        if 'attempts' in params:
+            query_params['attempts'] = params['attempts']
+        if 'description' in params:
+            query_params['description'] = params['description']
+        if 'device_filter' in params:
+            query_params['device_filter'] = params['device_filter']
         if 'etag' in params:
             query_params['etag'] = params['etag']
-        if 'manifest_id' in params:
-            query_params['manifest_id'] = params['manifest_id']
+        if 'finished' in params:
+            query_params['finished'] = params['finished']
+        if 'name' in params:
+            query_params['name'] = params['name']
         if 'object' in params:
             query_params['object'] = params['object']
-        if 'timestamp' in params:
-            query_params['timestamp'] = params['timestamp']
-        if 'page' in params:
-            query_params['page'] = params['page']
+        if 'root_manifest_id' in params:
+            query_params['root_manifest_id'] = params['root_manifest_id']
+        if 'state' in params:
+            query_params['state'] = params['state']
+        if 'when' in params:
+            query_params['when'] = params['when']
 
         header_params = {}
 
@@ -1179,15 +1061,15 @@ class DefaultApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=local_var_files,
-                                            response_type='list[FirmwareManifestSerializer]',
+                                            response_type='UpdateCampaignStatusSerializer',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))
 
-    def firmware_manifest_retrieve(self, manifest_id, **kwargs):
+    def update_campaign_update(self, name, **kwargs):
         """
         
-        <p>The APIs for creating and manipulating firmware manifests.  </p> <p>Retrieve firmware manifest</p>
+        <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Update campaign</p>
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -1195,37 +1077,34 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.firmware_manifest_retrieve(manifest_id, callback=callback_function)
+        >>> thread = api.update_campaign_update(name, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param int manifest_id: The ID of the firmware manifest (required)
-        :param str updating_request_id: 
-        :param str updating_ip_address: 
-        :param str name: 
-        :param str description: 
-        :param str created_at: 
-        :param str updated_at: 
-        :param str datafile_checksum: 
-        :param str device_class: 
-        :param str etag: 
-        :param str object: 
-        :param str timestamp: 
-        :return: FirmwareManifestSerializer
+        :param str name: A name for this campaign (required)
+        :param str campaign_id: DEPRECATED: The ID of the campaign
+        :param str description: An optional description of the campaign
+        :param str device_filter: The filter for the devices the campaign will target
+        :param datetime finished: The timestamp when the update campaign finished
+        :param str object: The API resource entity
+        :param str root_manifest_id: 
+        :param str state: The state of the campaign
+        :param datetime when: The timestamp at which update campaign scheduled to start
+        :return: UpdateCampaignSerializer
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.firmware_manifest_retrieve_with_http_info(manifest_id, **kwargs)
+            return self.update_campaign_update_with_http_info(name, **kwargs)
         else:
-            (data) = self.firmware_manifest_retrieve_with_http_info(manifest_id, **kwargs)
+            (data) = self.update_campaign_update_with_http_info(name, **kwargs)
             return data
 
-    def firmware_manifest_retrieve_with_http_info(self, manifest_id, **kwargs):
+    def update_campaign_update_with_http_info(self, name, **kwargs):
         """
         
-        <p>The APIs for creating and manipulating firmware manifests.  </p> <p>Retrieve firmware manifest</p>
+        <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Update campaign</p>
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -1233,28 +1112,25 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.firmware_manifest_retrieve_with_http_info(manifest_id, callback=callback_function)
+        >>> thread = api.update_campaign_update_with_http_info(name, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param int manifest_id: The ID of the firmware manifest (required)
-        :param str updating_request_id: 
-        :param str updating_ip_address: 
-        :param str name: 
-        :param str description: 
-        :param str created_at: 
-        :param str updated_at: 
-        :param str datafile_checksum: 
-        :param str device_class: 
-        :param str etag: 
-        :param str object: 
-        :param str timestamp: 
-        :return: FirmwareManifestSerializer
+        :param str name: A name for this campaign (required)
+        :param str campaign_id: DEPRECATED: The ID of the campaign
+        :param str description: An optional description of the campaign
+        :param str device_filter: The filter for the devices the campaign will target
+        :param datetime finished: The timestamp when the update campaign finished
+        :param str object: The API resource entity
+        :param str root_manifest_id: 
+        :param str state: The state of the campaign
+        :param datetime when: The timestamp at which update campaign scheduled to start
+        :return: UpdateCampaignSerializer
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['manifest_id', 'updating_request_id', 'updating_ip_address', 'name', 'description', 'created_at', 'updated_at', 'datafile_checksum', 'device_class', 'etag', 'object', 'timestamp']
+        all_params = ['name', 'campaign_id', 'description', 'device_filter', 'finished', 'object', 'root_manifest_id', 'state', 'when']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
 
@@ -1263,47 +1139,41 @@ class DefaultApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method firmware_manifest_retrieve" % key
+                    " to method update_campaign_update" % key
                 )
             params[key] = val
         del params['kwargs']
-        # verify the required parameter 'manifest_id' is set
-        if ('manifest_id' not in params) or (params['manifest_id'] is None):
-            raise ValueError("Missing the required parameter `manifest_id` when calling `firmware_manifest_retrieve`")
+        # verify the required parameter 'name' is set
+        if ('name' not in params) or (params['name'] is None):
+            raise ValueError("Missing the required parameter `name` when calling `update_campaign_update`")
 
-        resource_path = '/v3/firmware/manifests/{manifest_id}/'.replace('{format}', 'json')
+        resource_path = '/v3/update-campaigns/{campaign_id}/'.replace('{format}', 'json')
         path_params = {}
 
         query_params = {}
-        if 'updating_request_id' in params:
-            query_params['updating_request_id'] = params['updating_request_id']
-        if 'updating_ip_address' in params:
-            query_params['updating_ip_address'] = params['updating_ip_address']
-        if 'name' in params:
-            query_params['name'] = params['name']
-        if 'description' in params:
-            query_params['description'] = params['description']
-        if 'created_at' in params:
-            query_params['created_at'] = params['created_at']
-        if 'updated_at' in params:
-            query_params['updated_at'] = params['updated_at']
-        if 'datafile_checksum' in params:
-            query_params['datafile_checksum'] = params['datafile_checksum']
-        if 'device_class' in params:
-            query_params['device_class'] = params['device_class']
-        if 'etag' in params:
-            query_params['etag'] = params['etag']
-        if 'object' in params:
-            query_params['object'] = params['object']
-        if 'timestamp' in params:
-            query_params['timestamp'] = params['timestamp']
 
         header_params = {}
 
         form_params = []
         local_var_files = {}
-        if 'manifest_id' in params:
-            form_params.append(('manifest_id', params['manifest_id']))
+        if 'campaign_id' in params:
+            form_params.append(('campaign_id', params['campaign_id']))
+        if 'description' in params:
+            form_params.append(('description', params['description']))
+        if 'device_filter' in params:
+            form_params.append(('device_filter', params['device_filter']))
+        if 'finished' in params:
+            form_params.append(('finished', params['finished']))
+        if 'name' in params:
+            form_params.append(('name', params['name']))
+        if 'object' in params:
+            form_params.append(('object', params['object']))
+        if 'root_manifest_id' in params:
+            form_params.append(('root_manifest_id', params['root_manifest_id']))
+        if 'state' in params:
+            form_params.append(('state', params['state']))
+        if 'when' in params:
+            form_params.append(('when', params['when']))
 
         body_params = None
 
@@ -1320,14 +1190,14 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api(resource_path, 'PUT',
                                             path_params,
                                             query_params,
                                             header_params,
                                             body=body_params,
                                             post_params=form_params,
                                             files=local_var_files,
-                                            response_type='FirmwareManifestSerializer',
+                                            response_type='UpdateCampaignSerializer',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))

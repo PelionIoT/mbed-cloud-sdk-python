@@ -47,7 +47,7 @@ class DeviceSerializer(object):
             'total_count': 'int',
             'after': 'str',
             'limit': 'int',
-            'data': 'DeviceSerializerData',
+            'data': 'list[DeviceSerializerData]',
             'order': 'str'
         }
 
@@ -191,7 +191,7 @@ class DeviceSerializer(object):
 
 
         :return: The data of this DeviceSerializer.
-        :rtype: DeviceSerializerData
+        :rtype: list[DeviceSerializerData]
         """
         return self._data
 
@@ -202,7 +202,7 @@ class DeviceSerializer(object):
 
 
         :param data: The data of this DeviceSerializer.
-        :type: DeviceSerializerData
+        :type: list[DeviceSerializerData]
         """
 
         self._data = data

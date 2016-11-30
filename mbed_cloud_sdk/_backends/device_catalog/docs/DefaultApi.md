@@ -113,7 +113,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **device_list**
-> DeviceSerializer device_list(object=object, limit=limit, has_more=has_more, data=data, order=order, after=after, total_count=total_count)
+> DeviceSerializer device_list(limit=limit, order=order, after=after)
 
 
 
@@ -133,16 +133,12 @@ device_catalog.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = device_catalog.DefaultApi()
-object = 'object_example' # str |  (optional)
 limit = 56 # int |  (optional)
-has_more = true # bool |  (optional)
-data = ['data_example'] # list[str] |  (optional)
 order = 'order_example' # str |  (optional)
 after = 'after_example' # str |  (optional)
-total_count = 56 # int |  (optional)
 
 try: 
-    api_response = api_instance.device_list(object=object, limit=limit, has_more=has_more, data=data, order=order, after=after, total_count=total_count)
+    api_response = api_instance.device_list(limit=limit, order=order, after=after)
     pprint(api_response)
 except ApiException as e:
     print "Exception when calling DefaultApi->device_list: %s\n" % e
@@ -152,13 +148,9 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **object** | **str**|  | [optional] 
  **limit** | **int**|  | [optional] 
- **has_more** | **bool**|  | [optional] 
- **data** | [**list[str]**](str.md)|  | [optional] 
  **order** | **str**|  | [optional] 
  **after** | **str**|  | [optional] 
- **total_count** | **int**|  | [optional] 
 
 ### Return type
 
@@ -176,7 +168,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **device_log_list**
-> DeviceLogSerializer device_log_list(object=object, limit=limit, has_more=has_more, data=data, order=order, after=after, total_count=total_count)
+> DeviceLogSerializer device_log_list(limit=limit, order=order, after=after)
 
 
 
@@ -196,16 +188,12 @@ device_catalog.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = device_catalog.DefaultApi()
-object = 'object_example' # str |  (optional)
 limit = 56 # int |  (optional)
-has_more = true # bool |  (optional)
-data = ['data_example'] # list[str] |  (optional)
 order = 'order_example' # str |  (optional)
 after = 'after_example' # str |  (optional)
-total_count = 56 # int |  (optional)
 
 try: 
-    api_response = api_instance.device_log_list(object=object, limit=limit, has_more=has_more, data=data, order=order, after=after, total_count=total_count)
+    api_response = api_instance.device_log_list(limit=limit, order=order, after=after)
     pprint(api_response)
 except ApiException as e:
     print "Exception when calling DefaultApi->device_log_list: %s\n" % e
@@ -215,13 +203,9 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **object** | **str**|  | [optional] 
  **limit** | **int**|  | [optional] 
- **has_more** | **bool**|  | [optional] 
- **data** | [**list[str]**](str.md)|  | [optional] 
  **order** | **str**|  | [optional] 
  **after** | **str**|  | [optional] 
- **total_count** | **int**|  | [optional] 
 
 ### Return type
 
