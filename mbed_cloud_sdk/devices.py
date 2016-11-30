@@ -69,8 +69,17 @@ class DeviceAPI(BaseAPI):
         self._long_polling_thread.start()
 
     @catch_exceptions(ApiException)
-    def list_endpoints(self):
-        """List all endpoints/devices."""
+    def list_endpoints(self, start=0, sort_by=None, sort_direction="asc"):
+        """List all endpoints.
+
+        :param start: Not yet implemented.
+        :param sort_by: Not yet implemented.
+        :param sort_direction: Not yet implemented.
+        :returns: a list of device objects registered in the catalog.
+        """
+        if start != 0 or sort_by is not None or sort_direction != "asc":
+            raise NotImplementedError("Sorting and pagination is not yet implemented")
+
         api = mds.EndpointsApi()
         return api.v2_endpoints_get()
 
