@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    Device Catalog API
+    Deployment Service API
 
-    This is the API Documentation for the mbed device catalog update service.
+    This is the API Documentation for the mbed deployment service which is part of the update service.
 
     OpenAPI spec version: 0.1
     
@@ -25,10 +25,11 @@
 from __future__ import absolute_import
 
 # import models into sdk package
-from .models.device_log_serializer import DeviceLogSerializer
-from .models.device_log_serializer_data import DeviceLogSerializerData
-from .models.device_serializer import DeviceSerializer
-from .models.device_serializer_data import DeviceSerializerData
+from .models.campaign_device_metadata_serializer import CampaignDeviceMetadataSerializer
+from .models.update_campaign_serializer import UpdateCampaignSerializer
+from .models.update_campaign_status_serializer import UpdateCampaignStatusSerializer
+from .models.write_campaign_device_metadata_serializer import WriteCampaignDeviceMetadataSerializer
+from .models.write_update_campaign_serializer import WriteUpdateCampaignSerializer
 
 # import apis into sdk package
 from .apis.default_api import DefaultApi

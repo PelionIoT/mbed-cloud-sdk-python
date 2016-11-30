@@ -267,13 +267,9 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str object: 
         :param int limit: 
-        :param bool has_more: 
-        :param list[str] data: 
         :param str order: 
         :param str after: 
-        :param int total_count: 
         :return: DeviceSerializer
                  If the method is called asynchronously,
                  returns the request thread.
@@ -300,19 +296,15 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str object: 
         :param int limit: 
-        :param bool has_more: 
-        :param list[str] data: 
         :param str order: 
         :param str after: 
-        :param int total_count: 
         :return: DeviceSerializer
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['object', 'limit', 'has_more', 'data', 'order', 'after', 'total_count']
+        all_params = ['limit', 'order', 'after']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
 
@@ -330,20 +322,12 @@ class DefaultApi(object):
         path_params = {}
 
         query_params = {}
-        if 'object' in params:
-            query_params['object'] = params['object']
         if 'limit' in params:
             query_params['limit'] = params['limit']
-        if 'has_more' in params:
-            query_params['has_more'] = params['has_more']
-        if 'data' in params:
-            query_params['data'] = params['data']
         if 'order' in params:
             query_params['order'] = params['order']
         if 'after' in params:
             query_params['after'] = params['after']
-        if 'total_count' in params:
-            query_params['total_count'] = params['total_count']
 
         header_params = {}
 
@@ -392,13 +376,9 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str object: 
         :param int limit: 
-        :param bool has_more: 
-        :param list[str] data: 
         :param str order: 
         :param str after: 
-        :param int total_count: 
         :return: DeviceLogSerializer
                  If the method is called asynchronously,
                  returns the request thread.
@@ -425,19 +405,15 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str object: 
         :param int limit: 
-        :param bool has_more: 
-        :param list[str] data: 
         :param str order: 
         :param str after: 
-        :param int total_count: 
         :return: DeviceLogSerializer
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['object', 'limit', 'has_more', 'data', 'order', 'after', 'total_count']
+        all_params = ['limit', 'order', 'after']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
 
@@ -455,20 +431,12 @@ class DefaultApi(object):
         path_params = {}
 
         query_params = {}
-        if 'object' in params:
-            query_params['object'] = params['object']
         if 'limit' in params:
             query_params['limit'] = params['limit']
-        if 'has_more' in params:
-            query_params['has_more'] = params['has_more']
-        if 'data' in params:
-            query_params['data'] = params['data']
         if 'order' in params:
             query_params['order'] = params['order']
         if 'after' in params:
             query_params['after'] = params['after']
-        if 'total_count' in params:
-            query_params['total_count'] = params['total_count']
 
         header_params = {}
 

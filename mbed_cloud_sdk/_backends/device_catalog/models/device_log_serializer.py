@@ -47,7 +47,7 @@ class DeviceLogSerializer(object):
             'total_count': 'int',
             'after': 'str',
             'limit': 'int',
-            'data': 'DeviceLogSerializerData',
+            'data': 'list[DeviceLogSerializerData]',
             'order': 'str'
         }
 
@@ -191,7 +191,7 @@ class DeviceLogSerializer(object):
 
 
         :return: The data of this DeviceLogSerializer.
-        :rtype: DeviceLogSerializerData
+        :rtype: list[DeviceLogSerializerData]
         """
         return self._data
 
@@ -202,7 +202,7 @@ class DeviceLogSerializer(object):
 
 
         :param data: The data of this DeviceLogSerializer.
-        :type: DeviceLogSerializerData
+        :type: list[DeviceLogSerializerData]
         """
 
         self._data = data

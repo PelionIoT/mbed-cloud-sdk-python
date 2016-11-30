@@ -29,5 +29,3 @@ from .device_log_serializer import DeviceLogSerializer
 from .device_log_serializer_data import DeviceLogSerializerData
 from .device_serializer import DeviceSerializer
 from .device_serializer_data import DeviceSerializerData
-from .write_device_log_serializer import WriteDeviceLogSerializer
-from .write_device_serializer import WriteDeviceSerializer
