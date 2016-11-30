@@ -4,14 +4,14 @@ All URIs are relative to *http://api.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**device_create**](DefaultApi.md#device_create) | **POST** /v3/devices{var} | 
-[**device_destroy**](DefaultApi.md#device_destroy) | **DELETE** /v3/devices/{device_id}{var} | 
-[**device_list**](DefaultApi.md#device_list) | **GET** /v3/devices{var} | 
-[**device_log_list**](DefaultApi.md#device_log_list) | **GET** /v3/devicelog{var} | 
-[**device_log_retrieve**](DefaultApi.md#device_log_retrieve) | **GET** /v3/devicelog/{device_log_id}{var} | 
-[**device_partial_update**](DefaultApi.md#device_partial_update) | **PATCH** /v3/devices/{device_id}{var} | 
-[**device_retrieve**](DefaultApi.md#device_retrieve) | **GET** /v3/devices/{device_id}{var} | 
-[**device_update**](DefaultApi.md#device_update) | **PUT** /v3/devices/{device_id}{var} | 
+[**device_create**](DefaultApi.md#device_create) | **POST** /v3/devices/ | 
+[**device_destroy**](DefaultApi.md#device_destroy) | **DELETE** /v3/devices/{device_id}/ | 
+[**device_list**](DefaultApi.md#device_list) | **GET** /v3/devices/ | 
+[**device_log_list**](DefaultApi.md#device_log_list) | **GET** /v3/devicelog/ | 
+[**device_log_retrieve**](DefaultApi.md#device_log_retrieve) | **GET** /v3/devicelog/{device_log_id}/ | 
+[**device_partial_update**](DefaultApi.md#device_partial_update) | **PATCH** /v3/devices/{device_id}/ | 
+[**device_retrieve**](DefaultApi.md#device_retrieve) | **GET** /v3/devices/{device_id}/ | 
+[**device_update**](DefaultApi.md#device_update) | **PUT** /v3/devices/{device_id}/ | 
 
 
 # **device_create**
@@ -113,7 +113,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **device_list**
-> list[DeviceSerializer] device_list(object=object, limit=limit, has_more=has_more, data=data, order=order, after=after, total_count=total_count)
+> DeviceSerializer device_list(object=object, limit=limit, has_more=has_more, data=data, order=order, after=after, total_count=total_count)
 
 
 
@@ -162,7 +162,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**list[DeviceSerializer]**](DeviceSerializer.md)
+[**DeviceSerializer**](DeviceSerializer.md)
 
 ### Authorization
 
@@ -176,7 +176,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **device_log_list**
-> list[DeviceLogSerializer] device_log_list(object=object, limit=limit, has_more=has_more, data=data, order=order, after=after, total_count=total_count)
+> DeviceLogSerializer device_log_list(object=object, limit=limit, has_more=has_more, data=data, order=order, after=after, total_count=total_count)
 
 
 
@@ -225,7 +225,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**list[DeviceLogSerializer]**](DeviceLogSerializer.md)
+[**DeviceLogSerializer**](DeviceLogSerializer.md)
 
 ### Authorization
 
