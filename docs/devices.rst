@@ -30,4 +30,4 @@ Reference
 ---------
 
 .. automodule:: mbed_cloud_sdk.devices
-  :members:
+  :members: DeviceAPI, AsyncConsumer
