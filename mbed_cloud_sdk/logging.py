@@ -35,15 +35,15 @@ class LoggingAPI(BaseAPI):
     def list_device_logs(self, **kwargs):
         """List all device logs.
 
-        :param date_time: (Optional)
-        :param device_id: (Optional)
-        :param device_log_id: (Optional)
-        :param event_type: (Optional)
-        :param state_change: (Optional)
+        :param limit: (Optional) The number of logs to retrieve. (int)
+        :param order: (Optional) The ordering direction, ascending (asc) or
+            descending (desc) (str)
+        :param after: (Optional) Get logs after/starting at given `device_log_id` (str)
         :return: list of device log objects
         """
+        kwargs = self._verify_sort_options(kwargs)
         api = device_catalog.DefaultApi()
-        return api.device_log_list(**kwargs)
+        return api.device_log_list(**kwargs).data
 
     @catch_exceptions(ApiException)
     def get_device_log(self, device_log_id):

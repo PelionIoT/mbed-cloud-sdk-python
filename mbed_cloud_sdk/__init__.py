@@ -22,3 +22,17 @@ class BaseAPI(object):
         if "api_key" not in config:
             sys.stderr.write("api_key not found in config. Please see documentation.\n")
             sys.exit(1)
+
+    def _verify_sort_options(self, kwargs):
+        if kwargs.get('order'):
+            order = kwargs.get('order').upper()
+            if order not in ["ASC", "DESC"]:
+                raise ValueError("Key 'order' needs to be either 'ASC' or 'DESC'. "
+                                 "Currently: %r" % order)
+            kwargs['order'] = order
+
+        if kwargs.get('limit') is not None:
+            if kwargs.get('limit') < 2 or kwargs.get('limit') > 1000:
+                raise ValueError("Limit needs to be between 2 and 1000. "
+                                 "Currently: %r" % kwargs.get('limit'))
+        return kwargs
