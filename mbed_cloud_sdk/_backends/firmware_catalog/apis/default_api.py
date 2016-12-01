@@ -461,7 +461,7 @@ class DefaultApi(object):
         :param int limit: 
         :param str order: 
         :param str after: 
-        :return: list[FirmwareImageSerializer]
+        :return: FirmwareImageSerializer
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -490,7 +490,7 @@ class DefaultApi(object):
         :param int limit: 
         :param str order: 
         :param str after: 
-        :return: list[FirmwareImageSerializer]
+        :return: FirmwareImageSerializer
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -547,7 +547,7 @@ class DefaultApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=local_var_files,
-                                            response_type='list[FirmwareImageSerializer]',
+                                            response_type='FirmwareImageSerializer',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))
@@ -1031,7 +1031,7 @@ class DefaultApi(object):
         :param str object: 
         :param str timestamp: 
         :param int page: The page number to retrieve. If not given, then defaults to first page. 
-        :return: list[FirmwareManifestSerializer]
+        :return: FirmwareManifestSerializer
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -1070,7 +1070,7 @@ class DefaultApi(object):
         :param str object: 
         :param str timestamp: 
         :param int page: The page number to retrieve. If not given, then defaults to first page. 
-        :return: list[FirmwareManifestSerializer]
+        :return: FirmwareManifestSerializer
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -1147,7 +1147,7 @@ class DefaultApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=local_var_files,
-                                            response_type='list[FirmwareManifestSerializer]',
+                                            response_type='FirmwareManifestSerializer',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))

@@ -207,7 +207,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **firmware_image_list**
-> list[FirmwareImageSerializer] firmware_image_list(limit=limit, order=order, after=after)
+> FirmwareImageSerializer firmware_image_list(limit=limit, order=order, after=after)
 
 
 
@@ -248,7 +248,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**list[FirmwareImageSerializer]**](FirmwareImageSerializer.md)
+[**FirmwareImageSerializer**](FirmwareImageSerializer.md)
 
 ### Authorization
 
@@ -483,7 +483,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **firmware_manifest_list**
-> list[FirmwareManifestSerializer] firmware_manifest_list(updating_request_id=updating_request_id, updating_ip_address=updating_ip_address, name=name, description=description, created_at=created_at, updated_at=updated_at, datafile_checksum=datafile_checksum, device_class=device_class, etag=etag, manifest_id=manifest_id, object=object, timestamp=timestamp, page=page)
+> FirmwareManifestSerializer firmware_manifest_list(updating_request_id=updating_request_id, updating_ip_address=updating_ip_address, name=name, description=description, created_at=created_at, updated_at=updated_at, datafile_checksum=datafile_checksum, device_class=device_class, etag=etag, manifest_id=manifest_id, object=object, timestamp=timestamp, page=page)
 
 
 
@@ -544,7 +544,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**list[FirmwareManifestSerializer]**](FirmwareManifestSerializer.md)
+[**FirmwareManifestSerializer**](FirmwareManifestSerializer.md)
 
 ### Authorization
 
