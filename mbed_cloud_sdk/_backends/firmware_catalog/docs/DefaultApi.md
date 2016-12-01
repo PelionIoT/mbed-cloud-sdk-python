@@ -207,7 +207,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **firmware_image_list**
-> list[FirmwareImageSerializer] firmware_image_list(updating_request_id=updating_request_id, updating_ip_address=updating_ip_address, name=name, description=description, created_at=created_at, updated_at=updated_at, datafile_checksum=datafile_checksum, etag=etag, image_id=image_id, object=object, page=page)
+> list[FirmwareImageSerializer] firmware_image_list(limit=limit, order=order, after=after)
 
 
 
@@ -227,20 +227,12 @@ firmware_catalog.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = firmware_catalog.DefaultApi()
-updating_request_id = 'updating_request_id_example' # str |  (optional)
-updating_ip_address = 'updating_ip_address_example' # str |  (optional)
-name = 'name_example' # str |  (optional)
-description = 'description_example' # str |  (optional)
-created_at = 'created_at_example' # str |  (optional)
-updated_at = 'updated_at_example' # str |  (optional)
-datafile_checksum = 'datafile_checksum_example' # str |  (optional)
-etag = 'etag_example' # str |  (optional)
-image_id = 'image_id_example' # str |  (optional)
-object = 'object_example' # str |  (optional)
-page = 56 # int | The page number to retrieve. If not given, then defaults to first page.  (optional)
+limit = 56 # int |  (optional)
+order = 'order_example' # str |  (optional)
+after = 'after_example' # str |  (optional)
 
 try: 
-    api_response = api_instance.firmware_image_list(updating_request_id=updating_request_id, updating_ip_address=updating_ip_address, name=name, description=description, created_at=created_at, updated_at=updated_at, datafile_checksum=datafile_checksum, etag=etag, image_id=image_id, object=object, page=page)
+    api_response = api_instance.firmware_image_list(limit=limit, order=order, after=after)
     pprint(api_response)
 except ApiException as e:
     print "Exception when calling DefaultApi->firmware_image_list: %s\n" % e
@@ -250,17 +242,9 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **updating_request_id** | **str**|  | [optional] 
- **updating_ip_address** | **str**|  | [optional] 
- **name** | **str**|  | [optional] 
- **description** | **str**|  | [optional] 
- **created_at** | **str**|  | [optional] 
- **updated_at** | **str**|  | [optional] 
- **datafile_checksum** | **str**|  | [optional] 
- **etag** | **str**|  | [optional] 
- **image_id** | **str**|  | [optional] 
- **object** | **str**|  | [optional] 
- **page** | **int**| The page number to retrieve. If not given, then defaults to first page.  | [optional] 
+ **limit** | **int**|  | [optional] 
+ **order** | **str**|  | [optional] 
+ **after** | **str**|  | [optional] 
 
 ### Return type
 
