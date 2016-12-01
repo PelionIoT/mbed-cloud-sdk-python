@@ -113,7 +113,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **device_list**
-> DeviceSerializer device_list(limit=limit, order=order, after=after)
+> DeviceSerializer device_list(limit=limit, order=order, after=after, filter=filter, include=include)
 
 
 
@@ -136,9 +136,11 @@ api_instance = device_catalog.DefaultApi()
 limit = 56 # int |  (optional)
 order = 'order_example' # str |  (optional)
 after = 'after_example' # str |  (optional)
+filter = 'filter_example' # str |  (optional)
+include = 'include_example' # str |  (optional)
 
 try: 
-    api_response = api_instance.device_list(limit=limit, order=order, after=after)
+    api_response = api_instance.device_list(limit=limit, order=order, after=after, filter=filter, include=include)
     pprint(api_response)
 except ApiException as e:
     print "Exception when calling DefaultApi->device_list: %s\n" % e
@@ -151,6 +153,8 @@ Name | Type | Description  | Notes
  **limit** | **int**|  | [optional] 
  **order** | **str**|  | [optional] 
  **after** | **str**|  | [optional] 
+ **filter** | **str**|  | [optional] 
+ **include** | **str**|  | [optional] 
 
 ### Return type
 
@@ -168,7 +172,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **device_log_list**
-> DeviceLogSerializer device_log_list(limit=limit, order=order, after=after)
+> DeviceLogSerializer device_log_list(limit=limit, order=order, after=after, filter=filter, include=include)
 
 
 
@@ -191,9 +195,11 @@ api_instance = device_catalog.DefaultApi()
 limit = 56 # int |  (optional)
 order = 'order_example' # str |  (optional)
 after = 'after_example' # str |  (optional)
+filter = 'filter_example' # str |  (optional)
+include = 'include_example' # str |  (optional)
 
 try: 
-    api_response = api_instance.device_log_list(limit=limit, order=order, after=after)
+    api_response = api_instance.device_log_list(limit=limit, order=order, after=after, filter=filter, include=include)
     pprint(api_response)
 except ApiException as e:
     print "Exception when calling DefaultApi->device_log_list: %s\n" % e
@@ -206,6 +212,8 @@ Name | Type | Description  | Notes
  **limit** | **int**|  | [optional] 
  **order** | **str**|  | [optional] 
  **after** | **str**|  | [optional] 
+ **filter** | **str**|  | [optional] 
+ **include** | **str**|  | [optional] 
 
 ### Return type
 
