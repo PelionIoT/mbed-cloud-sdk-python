@@ -27,5 +27,3 @@ from __future__ import absolute_import
 # import models into model package
 from .firmware_image_serializer import FirmwareImageSerializer
 from .firmware_manifest_serializer import FirmwareManifestSerializer
-from .write_firmware_image_serializer import WriteFirmwareImageSerializer
-from .write_firmware_manifest_serializer import WriteFirmwareManifestSerializer

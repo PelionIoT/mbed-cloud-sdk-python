@@ -458,17 +458,9 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str updating_request_id: 
-        :param str updating_ip_address: 
-        :param str name: 
-        :param str description: 
-        :param str created_at: 
-        :param str updated_at: 
-        :param str datafile_checksum: 
-        :param str etag: 
-        :param str image_id: 
-        :param str object: 
-        :param int page: The page number to retrieve. If not given, then defaults to first page. 
+        :param int limit: 
+        :param str order: 
+        :param str after: 
         :return: list[FirmwareImageSerializer]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -495,23 +487,15 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str updating_request_id: 
-        :param str updating_ip_address: 
-        :param str name: 
-        :param str description: 
-        :param str created_at: 
-        :param str updated_at: 
-        :param str datafile_checksum: 
-        :param str etag: 
-        :param str image_id: 
-        :param str object: 
-        :param int page: The page number to retrieve. If not given, then defaults to first page. 
+        :param int limit: 
+        :param str order: 
+        :param str after: 
         :return: list[FirmwareImageSerializer]
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['updating_request_id', 'updating_ip_address', 'name', 'description', 'created_at', 'updated_at', 'datafile_checksum', 'etag', 'image_id', 'object', 'page']
+        all_params = ['limit', 'order', 'after']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
 
@@ -529,28 +513,12 @@ class DefaultApi(object):
         path_params = {}
 
         query_params = {}
-        if 'updating_request_id' in params:
-            query_params['updating_request_id'] = params['updating_request_id']
-        if 'updating_ip_address' in params:
-            query_params['updating_ip_address'] = params['updating_ip_address']
-        if 'name' in params:
-            query_params['name'] = params['name']
-        if 'description' in params:
-            query_params['description'] = params['description']
-        if 'created_at' in params:
-            query_params['created_at'] = params['created_at']
-        if 'updated_at' in params:
-            query_params['updated_at'] = params['updated_at']
-        if 'datafile_checksum' in params:
-            query_params['datafile_checksum'] = params['datafile_checksum']
-        if 'etag' in params:
-            query_params['etag'] = params['etag']
-        if 'image_id' in params:
-            query_params['image_id'] = params['image_id']
-        if 'object' in params:
-            query_params['object'] = params['object']
-        if 'page' in params:
-            query_params['page'] = params['page']
+        if 'limit' in params:
+            query_params['limit'] = params['limit']
+        if 'order' in params:
+            query_params['order'] = params['order']
+        if 'after' in params:
+            query_params['after'] = params['after']
 
         header_params = {}
 
