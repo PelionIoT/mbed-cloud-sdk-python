@@ -294,19 +294,40 @@ class DeviceAPI(BaseAPI):
         return active_endpoints.get(endpoint_name, False)
 
     @catch_exceptions(DeviceCatalogApiException)
-    def list_devices(self, start=0, sort_by=None, sort_direction="asc"):
+    def list_devices(self, **kwargs):
         """List devices in the device catalog.
 
-        :param start: Not yet implemented.
-        :param sort_by: Not yet implemented.
-        :param sort_direction: Not yet implemented.
+        :param limit: (Optional) The number of devices to retrieve. (int)
+        :param order: (Optional) The ordering direction, ascending (asc) or
+            descending (desc) (str)
+        :param after: (Optional) Get devices after/starting at given `device_id` (str)
+        :param filters: (Optional) Dictionary of filters to apply.
         :returns: a list of device objects registered in the catalog.
         """
-        if start != 0 or sort_by is not None or sort_direction != "asc":
-            raise NotImplementedError("Sorting and pagination is not yet implemented")
+        kwargs = self._verify_sort_options(kwargs)
+        kwargs = self._verify_filters(kwargs)
 
         api = dc.DefaultApi()
-        return api.device_list()
+        return api.device_list(**kwargs).data
+
+    @catch_exceptions(DeviceCatalogApiException)
+    def get_device(self, device_id):
+        """Get device details from catalog.
+
+        :param device_id: the ID of the device to retrieve (str)
+        :returns: device object matching the `device_id`.
+        """
+        api = dc.DefaultApi()
+        return api.device_retrieve(device_id)
+
+    @catch_exceptions(DeviceCatalogApiException)
+    def create_device(self, **kwargs):
+        """Get device details from catalog.
+
+        :returns: the newly created device object.
+        """
+        api = dc.DefaultApi()
+        return api.device_create(**kwargs)
 
     def _get_value_synchronized(self, consumer):
         # We return synchronously, so we block in a busy loop waiting for the
