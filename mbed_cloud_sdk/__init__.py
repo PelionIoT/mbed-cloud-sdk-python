@@ -1,5 +1,6 @@
 """Initialise the mbed_cloud_sdk config and BaseAPI."""
 import sys
+import urllib
 
 from mbed_cloud_sdk.bootstrap import Config
 
@@ -35,4 +36,12 @@ class BaseAPI(object):
             if kwargs.get('limit') < 2 or kwargs.get('limit') > 1000:
                 raise ValueError("Limit needs to be between 2 and 1000. "
                                  "Currently: %r" % kwargs.get('limit'))
+        return kwargs
+
+    def _verify_filters(self, kwargs):
+        if kwargs.get('filter'):
+            raise ValueError("Pass filters using dictionary and the 'filters' keyword")
+        if kwargs.get('filters'):
+            kwargs.update({'filter': urllib.urlencode(kwargs.get('filters'))})
+            del kwargs['filters']
         return kwargs

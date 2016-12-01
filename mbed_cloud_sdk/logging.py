@@ -39,9 +39,12 @@ class LoggingAPI(BaseAPI):
         :param order: (Optional) The ordering direction, ascending (asc) or
             descending (desc) (str)
         :param after: (Optional) Get logs after/starting at given `device_log_id` (str)
+        :param filters: (Optional) Dictionary of filters to apply.
         :return: list of device log objects
         """
         kwargs = self._verify_sort_options(kwargs)
+        kwargs = self._verify_filters(kwargs)
+
         api = device_catalog.DefaultApi()
         return api.device_log_list(**kwargs).data
 
