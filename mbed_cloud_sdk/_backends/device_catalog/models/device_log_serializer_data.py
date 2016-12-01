@@ -233,7 +233,7 @@ class DeviceLogSerializerData(object):
         :param event_type: The event_type of this DeviceLogSerializerData.
         :type: str
         """
-        allowed_values = ["", "update.device.device-created", "update.device.device-updated", "update.deployment.campaign-device-metadata-created", "update.deployment.campaign-device-metadata-updated", "update.deployment.campaign-device-metadata-removed", "update.connector.connector-device.firmware-update.state", "update.connector.connector-device.firmware-update.result"]
+        allowed_values = ["update.device.device-created", "update.device.device-updated", "update.deployment.campaign-device-metadata-created", "update.deployment.campaign-device-metadata-updated", "update.deployment.campaign-device-metadata-removed", "update.connector.connector-device.firmware-update.state", "update.connector.connector-device.firmware-update.result"]
         if event_type not in allowed_values:
             raise ValueError(
                 "Invalid value for `event_type` ({0}), must be one of {1}"
