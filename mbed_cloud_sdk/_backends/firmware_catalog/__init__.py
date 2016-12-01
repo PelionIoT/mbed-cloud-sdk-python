@@ -26,6 +26,7 @@ from __future__ import absolute_import
 
 # import models into sdk package
 from .models.firmware_image_serializer import FirmwareImageSerializer
+from .models.firmware_image_serializer_data import FirmwareImageSerializerData
 from .models.firmware_manifest_serializer import FirmwareManifestSerializer
 
 # import apis into sdk package
