@@ -321,13 +321,47 @@ class DeviceAPI(BaseAPI):
         return api.device_retrieve(device_id)
 
     @catch_exceptions(DeviceCatalogApiException)
-    def create_device(self, **kwargs):
-        """Get device details from catalog.
+    def create_device(self, mechanism, provision_key, **kwargs):
+        """Create new device in catalog.
 
-        :returns: the newly created device object.
+        :param mechanism: The ID of the channel used to communicate with the device (str)
+        :param provision_key: The key used to provision the device (str)
+
+        :param account_id: Owning IAM account ID (str)
+        :param auto_update: Mark this device for auto firmware update (bool)
+        :param created_at: When the device was created (str, ISO-8601)
+        :param custom_attributes: Up to 5 JSON attributes (str, json encoded)
+        :param deployed_state: State of the device's deployment (str)
+        :param deployment: Last deployment used on the device (str)
+        :param description: Description of the device (str)
+        :param device_class: Class of the device (str)
+        :param etag: Entity instance signature (str)
+        :param id: ID of the device (str)
+        :param manifest: URL for the current device manifest (str)
+        :param mechanism_url: Address of the connector to use (str)
+        :param name: Name of the device (str)
+        :param object: API resource entity (str)
+        :param serial_number: Serial number of device (str)
+        :param state: Current state of device (str)
+        :param trust_class: Trust class of device (int)
+        :param trust_level: Trust level of device (int)
+        :param updated_at: Time the device was updated (int)
+        :param vendor_id: Device vendor ID (int)
+
+        :return: the newly created device object.
         """
         api = dc.DefaultApi()
-        return api.device_create(**kwargs)
+        return api.device_create(mechanism=mechanism, provision_key=provision_key, **kwargs)
+
+    @catch_exceptions(DeviceCatalogApiException)
+    def delete_device(self, device_id):
+        """Delete device from catalog.
+
+        :param device_id: ID of device in catalog to delete (str)
+        :return: void
+        """
+        api = dc.DefaultApi()
+        return api.device_destroy(device_id)
 
     def _get_value_synchronized(self, consumer):
         # We return synchronously, so we block in a busy loop waiting for the
