@@ -6,8 +6,8 @@ Usage
 
 .. code-block:: python
 
-  from mbed_cloud_sdk.devices.connector import ConnectorAPI
-  api = ConnectorAPI()
+  from mbed_cloud_sdk.devices import DeviceAPI
+  api = DeviceAPI()
 
   # List all endpoints connected
   endpoints = api.list_endpoints()
