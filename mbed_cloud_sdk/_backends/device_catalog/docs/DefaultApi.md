@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 
 # **device_create**
-> DeviceListResp device_create(mechanism, provision_key, account_id=account_id, auto_update=auto_update, bootstrapped_timestamp=bootstrapped_timestamp, created_at=created_at, custom_attributes=custom_attributes, deployed_state=deployed_state, deployment=deployment, description=description, device_class=device_class, device_id=device_id, etag=etag, id=id, manifest=manifest, mechanism_url=mechanism_url, name=name, object=object, serial_number=serial_number, state=state, trust_class=trust_class, trust_level=trust_level, updated_at=updated_at, vendor_id=vendor_id)
+> DeviceDetail device_create(mechanism, provision_key, account_id=account_id, auto_update=auto_update, bootstrapped_timestamp=bootstrapped_timestamp, created_at=created_at, custom_attributes=custom_attributes, deployed_state=deployed_state, deployment=deployment, description=description, device_class=device_class, device_id=device_id, etag=etag, id=id, manifest=manifest, mechanism_url=mechanism_url, name=name, object=object, serial_number=serial_number, state=state, trust_class=trust_class, trust_level=trust_level, updated_at=updated_at, vendor_id=vendor_id)
 
 
 
@@ -98,7 +98,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceListResp**](DeviceListResp.md)
+[**DeviceDetail**](DeviceDetail.md)
 
 ### Authorization
 
