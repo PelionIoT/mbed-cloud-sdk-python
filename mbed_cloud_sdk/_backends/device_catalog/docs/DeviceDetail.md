@@ -1,4 +1,4 @@
-# DeviceSerializerData
+# DeviceDetail
 
 ## Properties
 Name | Type | Description | Notes
@@ -10,13 +10,13 @@ Name | Type | Description | Notes
 **id** | **str** | The ID of the device | [optional] 
 **description** | **str** | The description of the object | [optional] 
 **auto_update** | **bool** | Mark this device for auto firmware update | [optional] 
-**mechanism** | **str** | The ID of the channel used to communicate with the device | 
+**mechanism** | **str** | The ID of the channel used to communicate with the device | [optional] 
 **state** | **str** | The current state of the device | [optional] 
 **etag** | **datetime** | The entity instance signature | [optional] 
-**provision_key** | **str** | The key used to provision the device | 
+**provision_key** | **str** | The key used to provision the device | [optional] 
 **serial_number** | **str** | The serial number of the device | [optional] 
 **vendor_id** | **str** | The device vendor ID | [optional] 
-**account_id** | **str** | The owning IAM account ID | 
+**account_id** | **str** | The owning IAM account ID | [optional] 
 **deployed_state** | **str** | The state of the device&#39;s deployment | [optional] 
 **object** | **str** | The API resource entity | [optional] 
 **trust_class** | **int** | The device trust class | [optional] 
