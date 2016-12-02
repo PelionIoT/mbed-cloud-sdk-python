@@ -67,7 +67,7 @@ class DeviceAPI(BaseAPI):
 
     def stop_long_polling(self):
         """Stop the long-polling thread."""
-        self._long_polling_thread.start()
+        self._long_polling_thread.stop()
 
     @catch_exceptions(MdsApiException)
     def list_endpoints(self, start=0, sort_by=None, sort_direction="asc"):
