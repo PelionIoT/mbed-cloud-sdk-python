@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 
 # **device_create**
-> DeviceSerializer device_create()
+> DeviceListResp device_create(mechanism, provision_key, account_id=account_id, auto_update=auto_update, bootstrapped_timestamp=bootstrapped_timestamp, created_at=created_at, custom_attributes=custom_attributes, deployed_state=deployed_state, deployment=deployment, description=description, device_class=device_class, device_id=device_id, etag=etag, id=id, manifest=manifest, mechanism_url=mechanism_url, name=name, object=object, serial_number=serial_number, state=state, trust_class=trust_class, trust_level=trust_level, updated_at=updated_at, vendor_id=vendor_id)
 
 
 
@@ -35,20 +35,70 @@ device_catalog.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = device_catalog.DefaultApi()
+mechanism = 'mechanism_example' # str | The ID of the channel used to communicate with the device
+provision_key = 'provision_key_example' # str | The key used to provision the device
+account_id = 'account_id_example' # str | The owning IAM account ID (optional)
+auto_update = true # bool | Mark this device for auto firmware update (optional)
+bootstrapped_timestamp = 'bootstrapped_timestamp_example' # str |  (optional)
+created_at = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+custom_attributes = 'custom_attributes_example' # str | Up to 5 custom JSON attributes (optional)
+deployed_state = 'deployed_state_example' # str | The state of the device's deployment (optional)
+deployment = 'deployment_example' # str | The last deployment used on the device (optional)
+description = 'description_example' # str | The description of the object (optional)
+device_class = 'device_class_example' # str |  (optional)
+device_id = 'device_id_example' # str | DEPRECATED: The ID of the device (optional)
+etag = '2013-10-20T19:20:30+01:00' # datetime | The entity instance signature (optional)
+id = 'id_example' # str | The ID of the device (optional)
+manifest = 'manifest_example' # str | URL for the current device manifest (optional)
+mechanism_url = 'mechanism_url_example' # str | The address of the connector to use (optional)
+name = 'name_example' # str | The name of the object (optional)
+object = 'object_example' # str | The API resource entity (optional)
+serial_number = 'serial_number_example' # str | The serial number of the device (optional)
+state = 'state_example' # str | The current state of the device (optional)
+trust_class = 789 # int | The device trust class (optional)
+trust_level = 789 # int | The device trust level (optional)
+updated_at = '2013-10-20T19:20:30+01:00' # datetime | The time the object was updated (optional)
+vendor_id = 'vendor_id_example' # str | The device vendor ID (optional)
 
 try: 
-    api_response = api_instance.device_create()
+    api_response = api_instance.device_create(mechanism, provision_key, account_id=account_id, auto_update=auto_update, bootstrapped_timestamp=bootstrapped_timestamp, created_at=created_at, custom_attributes=custom_attributes, deployed_state=deployed_state, deployment=deployment, description=description, device_class=device_class, device_id=device_id, etag=etag, id=id, manifest=manifest, mechanism_url=mechanism_url, name=name, object=object, serial_number=serial_number, state=state, trust_class=trust_class, trust_level=trust_level, updated_at=updated_at, vendor_id=vendor_id)
     pprint(api_response)
 except ApiException as e:
     print "Exception when calling DefaultApi->device_create: %s\n" % e
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **mechanism** | **str**| The ID of the channel used to communicate with the device | 
+ **provision_key** | **str**| The key used to provision the device | 
+ **account_id** | **str**| The owning IAM account ID | [optional] 
+ **auto_update** | **bool**| Mark this device for auto firmware update | [optional] 
+ **bootstrapped_timestamp** | **str**|  | [optional] 
+ **created_at** | **datetime**|  | [optional] 
+ **custom_attributes** | **str**| Up to 5 custom JSON attributes | [optional] 
+ **deployed_state** | **str**| The state of the device&#39;s deployment | [optional] 
+ **deployment** | **str**| The last deployment used on the device | [optional] 
+ **description** | **str**| The description of the object | [optional] 
+ **device_class** | **str**|  | [optional] 
+ **device_id** | **str**| DEPRECATED: The ID of the device | [optional] 
+ **etag** | **datetime**| The entity instance signature | [optional] 
+ **id** | **str**| The ID of the device | [optional] 
+ **manifest** | **str**| URL for the current device manifest | [optional] 
+ **mechanism_url** | **str**| The address of the connector to use | [optional] 
+ **name** | **str**| The name of the object | [optional] 
+ **object** | **str**| The API resource entity | [optional] 
+ **serial_number** | **str**| The serial number of the device | [optional] 
+ **state** | **str**| The current state of the device | [optional] 
+ **trust_class** | **int**| The device trust class | [optional] 
+ **trust_level** | **int**| The device trust level | [optional] 
+ **updated_at** | **datetime**| The time the object was updated | [optional] 
+ **vendor_id** | **str**| The device vendor ID | [optional] 
 
 ### Return type
 
-[**DeviceSerializer**](DeviceSerializer.md)
+[**DeviceListResp**](DeviceListResp.md)
 
 ### Authorization
 
@@ -62,7 +112,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **device_destroy**
-> DeviceSerializer device_destroy(device_id)
+> DeviceListResp device_destroy(device_id)
 
 
 
@@ -99,7 +149,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceSerializer**](DeviceSerializer.md)
+[**DeviceListResp**](DeviceListResp.md)
 
 ### Authorization
 
@@ -113,7 +163,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **device_list**
-> DeviceSerializer device_list(limit=limit, order=order, after=after, filter=filter, include=include)
+> DeviceListResp device_list(limit=limit, order=order, after=after, filter=filter, include=include)
 
 
 
@@ -158,7 +208,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceSerializer**](DeviceSerializer.md)
+[**DeviceListResp**](DeviceListResp.md)
 
 ### Authorization
 
@@ -282,7 +332,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **device_partial_update**
-> DeviceSerializer device_partial_update(device_id)
+> DeviceListResp device_partial_update(device_id)
 
 
 
@@ -319,7 +369,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceSerializer**](DeviceSerializer.md)
+[**DeviceListResp**](DeviceListResp.md)
 
 ### Authorization
 
@@ -333,7 +383,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **device_retrieve**
-> DeviceSerializer device_retrieve(device_id)
+> DeviceListResp device_retrieve(device_id)
 
 
 
@@ -370,7 +420,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceSerializer**](DeviceSerializer.md)
+[**DeviceListResp**](DeviceListResp.md)
 
 ### Authorization
 
@@ -384,7 +434,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **device_update**
-> DeviceSerializer device_update(device_id)
+> DeviceListResp device_update(device_id)
 
 
 
@@ -421,7 +471,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceSerializer**](DeviceSerializer.md)
+[**DeviceListResp**](DeviceListResp.md)
 
 ### Authorization
 

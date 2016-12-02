@@ -51,7 +51,7 @@ class DefaultApi(object):
                 config.api_client = ApiClient()
             self.api_client = config.api_client
 
-    def device_create(self, **kwargs):
+    def device_create(self, mechanism, provision_key, **kwargs):
         """
         
         <p>The APIs for creating and manipulating devices.  </p> <p>Create device</p>
@@ -62,22 +62,46 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.device_create(callback=callback_function)
+        >>> thread = api.device_create(mechanism, provision_key, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :return: DeviceSerializer
+        :param str mechanism: The ID of the channel used to communicate with the device (required)
+        :param str provision_key: The key used to provision the device (required)
+        :param str account_id: The owning IAM account ID
+        :param bool auto_update: Mark this device for auto firmware update
+        :param str bootstrapped_timestamp: 
+        :param datetime created_at: 
+        :param str custom_attributes: Up to 5 custom JSON attributes
+        :param str deployed_state: The state of the device's deployment
+        :param str deployment: The last deployment used on the device
+        :param str description: The description of the object
+        :param str device_class: 
+        :param str device_id: DEPRECATED: The ID of the device
+        :param datetime etag: The entity instance signature
+        :param str id: The ID of the device
+        :param str manifest: URL for the current device manifest
+        :param str mechanism_url: The address of the connector to use
+        :param str name: The name of the object
+        :param str object: The API resource entity
+        :param str serial_number: The serial number of the device
+        :param str state: The current state of the device
+        :param int trust_class: The device trust class
+        :param int trust_level: The device trust level
+        :param datetime updated_at: The time the object was updated
+        :param str vendor_id: The device vendor ID
+        :return: DeviceListResp
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.device_create_with_http_info(**kwargs)
+            return self.device_create_with_http_info(mechanism, provision_key, **kwargs)
         else:
-            (data) = self.device_create_with_http_info(**kwargs)
+            (data) = self.device_create_with_http_info(mechanism, provision_key, **kwargs)
             return data
 
-    def device_create_with_http_info(self, **kwargs):
+    def device_create_with_http_info(self, mechanism, provision_key, **kwargs):
         """
         
         <p>The APIs for creating and manipulating devices.  </p> <p>Create device</p>
@@ -88,16 +112,40 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.device_create_with_http_info(callback=callback_function)
+        >>> thread = api.device_create_with_http_info(mechanism, provision_key, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :return: DeviceSerializer
+        :param str mechanism: The ID of the channel used to communicate with the device (required)
+        :param str provision_key: The key used to provision the device (required)
+        :param str account_id: The owning IAM account ID
+        :param bool auto_update: Mark this device for auto firmware update
+        :param str bootstrapped_timestamp: 
+        :param datetime created_at: 
+        :param str custom_attributes: Up to 5 custom JSON attributes
+        :param str deployed_state: The state of the device's deployment
+        :param str deployment: The last deployment used on the device
+        :param str description: The description of the object
+        :param str device_class: 
+        :param str device_id: DEPRECATED: The ID of the device
+        :param datetime etag: The entity instance signature
+        :param str id: The ID of the device
+        :param str manifest: URL for the current device manifest
+        :param str mechanism_url: The address of the connector to use
+        :param str name: The name of the object
+        :param str object: The API resource entity
+        :param str serial_number: The serial number of the device
+        :param str state: The current state of the device
+        :param int trust_class: The device trust class
+        :param int trust_level: The device trust level
+        :param datetime updated_at: The time the object was updated
+        :param str vendor_id: The device vendor ID
+        :return: DeviceListResp
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = []
+        all_params = ['mechanism', 'provision_key', 'account_id', 'auto_update', 'bootstrapped_timestamp', 'created_at', 'custom_attributes', 'deployed_state', 'deployment', 'description', 'device_class', 'device_id', 'etag', 'id', 'manifest', 'mechanism_url', 'name', 'object', 'serial_number', 'state', 'trust_class', 'trust_level', 'updated_at', 'vendor_id']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
 
@@ -110,7 +158,21 @@ class DefaultApi(object):
                 )
             params[key] = val
         del params['kwargs']
+        # verify the required parameter 'mechanism' is set
+        if ('mechanism' not in params) or (params['mechanism'] is None):
+            raise ValueError("Missing the required parameter `mechanism` when calling `device_create`")
+        # verify the required parameter 'provision_key' is set
+        if ('provision_key' not in params) or (params['provision_key'] is None):
+            raise ValueError("Missing the required parameter `provision_key` when calling `device_create`")
 
+        if 'trust_class' in params and params['trust_class'] > 2.147483647E9:
+            raise ValueError("Invalid value for parameter `trust_class` when calling `device_create`, must be a value less than or equal to  `2.147483647E9`")
+        if 'trust_class' in params and params['trust_class'] < -2.147483648E9:
+            raise ValueError("Invalid value for parameter `trust_class` when calling `device_create`, must be a value greater than or equal to `-2.147483648E9`")
+        if 'trust_level' in params and params['trust_level'] > 2.147483647E9:
+            raise ValueError("Invalid value for parameter `trust_level` when calling `device_create`, must be a value less than or equal to  `2.147483647E9`")
+        if 'trust_level' in params and params['trust_level'] < -2.147483648E9:
+            raise ValueError("Invalid value for parameter `trust_level` when calling `device_create`, must be a value greater than or equal to `-2.147483648E9`")
         resource_path = '/v3/devices/'.replace('{format}', 'json')
         path_params = {}
 
@@ -120,6 +182,54 @@ class DefaultApi(object):
 
         form_params = []
         local_var_files = {}
+        if 'account_id' in params:
+            form_params.append(('account_id', params['account_id']))
+        if 'auto_update' in params:
+            form_params.append(('auto_update', params['auto_update']))
+        if 'bootstrapped_timestamp' in params:
+            form_params.append(('bootstrapped_timestamp', params['bootstrapped_timestamp']))
+        if 'created_at' in params:
+            form_params.append(('created_at', params['created_at']))
+        if 'custom_attributes' in params:
+            form_params.append(('custom_attributes', params['custom_attributes']))
+        if 'deployed_state' in params:
+            form_params.append(('deployed_state', params['deployed_state']))
+        if 'deployment' in params:
+            form_params.append(('deployment', params['deployment']))
+        if 'description' in params:
+            form_params.append(('description', params['description']))
+        if 'device_class' in params:
+            form_params.append(('device_class', params['device_class']))
+        if 'device_id' in params:
+            form_params.append(('device_id', params['device_id']))
+        if 'etag' in params:
+            form_params.append(('etag', params['etag']))
+        if 'id' in params:
+            form_params.append(('id', params['id']))
+        if 'manifest' in params:
+            form_params.append(('manifest', params['manifest']))
+        if 'mechanism' in params:
+            form_params.append(('mechanism', params['mechanism']))
+        if 'mechanism_url' in params:
+            form_params.append(('mechanism_url', params['mechanism_url']))
+        if 'name' in params:
+            form_params.append(('name', params['name']))
+        if 'object' in params:
+            form_params.append(('object', params['object']))
+        if 'provision_key' in params:
+            form_params.append(('provision_key', params['provision_key']))
+        if 'serial_number' in params:
+            form_params.append(('serial_number', params['serial_number']))
+        if 'state' in params:
+            form_params.append(('state', params['state']))
+        if 'trust_class' in params:
+            form_params.append(('trust_class', params['trust_class']))
+        if 'trust_level' in params:
+            form_params.append(('trust_level', params['trust_level']))
+        if 'updated_at' in params:
+            form_params.append(('updated_at', params['updated_at']))
+        if 'vendor_id' in params:
+            form_params.append(('vendor_id', params['vendor_id']))
 
         body_params = None
 
@@ -143,7 +253,7 @@ class DefaultApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=local_var_files,
-                                            response_type='DeviceSerializer',
+                                            response_type='DeviceListResp',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))
@@ -164,7 +274,7 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str device_id:  (required)
-        :return: DeviceSerializer
+        :return: DeviceListResp
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -191,7 +301,7 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str device_id:  (required)
-        :return: DeviceSerializer
+        :return: DeviceListResp
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -247,7 +357,7 @@ class DefaultApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=local_var_files,
-                                            response_type='DeviceSerializer',
+                                            response_type='DeviceListResp',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))
@@ -272,7 +382,7 @@ class DefaultApi(object):
         :param str after: 
         :param str filter: 
         :param str include: 
-        :return: DeviceSerializer
+        :return: DeviceListResp
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -303,7 +413,7 @@ class DefaultApi(object):
         :param str after: 
         :param str filter: 
         :param str include: 
-        :return: DeviceSerializer
+        :return: DeviceListResp
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -364,7 +474,7 @@ class DefaultApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=local_var_files,
-                                            response_type='DeviceSerializer',
+                                            response_type='DeviceListResp',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))
@@ -606,7 +716,7 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str device_id: The ID of the device (required)
-        :return: DeviceSerializer
+        :return: DeviceListResp
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -633,7 +743,7 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str device_id: The ID of the device (required)
-        :return: DeviceSerializer
+        :return: DeviceListResp
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -689,7 +799,7 @@ class DefaultApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=local_var_files,
-                                            response_type='DeviceSerializer',
+                                            response_type='DeviceListResp',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))
@@ -710,7 +820,7 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str device_id:  (required)
-        :return: DeviceSerializer
+        :return: DeviceListResp
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -737,7 +847,7 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str device_id:  (required)
-        :return: DeviceSerializer
+        :return: DeviceListResp
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -793,7 +903,7 @@ class DefaultApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=local_var_files,
-                                            response_type='DeviceSerializer',
+                                            response_type='DeviceListResp',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))
@@ -814,7 +924,7 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str device_id: The ID of the device (required)
-        :return: DeviceSerializer
+        :return: DeviceListResp
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -841,7 +951,7 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str device_id: The ID of the device (required)
-        :return: DeviceSerializer
+        :return: DeviceListResp
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -897,7 +1007,7 @@ class DefaultApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=local_var_files,
-                                            response_type='DeviceSerializer',
+                                            response_type='DeviceListResp',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))

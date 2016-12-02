@@ -1,4 +1,4 @@
-# DeviceSerializer
+# DeviceListResp
 
 ## Properties
 Name | Type | Description | Notes
@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **total_count** | **int** | Total number of records | [optional] 
 **after** | **str** | Entity id for fetch after it | [optional] 
 **limit** | **int** | The number of results to return | [optional] 
-**data** | [**list[DeviceSerializerData]**](DeviceSerializerData.md) |  | [optional] 
+**data** | [**list[DeviceDetail]**](DeviceDetail.md) |  | [optional] 
 **order** | **str** | Order of returned records | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
