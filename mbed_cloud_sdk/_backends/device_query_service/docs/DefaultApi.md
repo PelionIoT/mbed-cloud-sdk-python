@@ -123,7 +123,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **device_query_list**
-> list[DeviceQueryResp] device_query_list(description=description, created_at=created_at, updated_at=updated_at, etag=etag, name=name, object=object, query=query, query_id=query_id)
+> DeviceQueryResp device_query_list(description=description, created_at=created_at, updated_at=updated_at, etag=etag, name=name, object=object, query=query, query_id=query_id)
 
 
 
@@ -174,7 +174,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**list[DeviceQueryResp]**](DeviceQueryResp.md)
+[**DeviceQueryResp**](DeviceQueryResp.md)
 
 ### Authorization
 
