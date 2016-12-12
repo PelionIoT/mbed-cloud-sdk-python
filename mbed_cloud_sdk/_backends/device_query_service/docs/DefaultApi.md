@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 
 # **device_query_create**
-> DeviceQuerySerializer device_query_create(name, query, description=description, object=object, query_id=query_id)
+> DeviceQueryDetail device_query_create(name, query, description=description, object=object, query_id=query_id)
 
 
 
@@ -58,7 +58,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceQuerySerializer**](DeviceQuerySerializer.md)
+[**DeviceQueryDetail**](DeviceQueryDetail.md)
 
 ### Authorization
 
@@ -72,7 +72,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **device_query_destroy**
-> DeviceQuerySerializer device_query_destroy(query_id)
+> DeviceQueryDetail device_query_destroy(query_id)
 
 
 
@@ -109,7 +109,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceQuerySerializer**](DeviceQuerySerializer.md)
+[**DeviceQueryDetail**](DeviceQueryDetail.md)
 
 ### Authorization
 
@@ -123,7 +123,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **device_query_list**
-> list[DeviceQuerySerializer] device_query_list(description=description, created_at=created_at, updated_at=updated_at, etag=etag, name=name, object=object, query=query, query_id=query_id)
+> list[DeviceQueryResp] device_query_list(description=description, created_at=created_at, updated_at=updated_at, etag=etag, name=name, object=object, query=query, query_id=query_id)
 
 
 
@@ -174,7 +174,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**list[DeviceQuerySerializer]**](DeviceQuerySerializer.md)
+[**list[DeviceQueryResp]**](DeviceQueryResp.md)
 
 ### Authorization
 
@@ -188,7 +188,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **device_query_partial_update**
-> DeviceQuerySerializer device_query_partial_update(query_id, description=description, name=name, object=object, query=query, query_id2=query_id2)
+> DeviceQueryDetail device_query_partial_update(query_id, description=description, name=name, object=object, query=query, query_id2=query_id2)
 
 
 
@@ -235,7 +235,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceQuerySerializer**](DeviceQuerySerializer.md)
+[**DeviceQueryDetail**](DeviceQueryDetail.md)
 
 ### Authorization
 
@@ -249,7 +249,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **device_query_retrieve**
-> DeviceQuerySerializer device_query_retrieve(query_id)
+> DeviceQueryDetail device_query_retrieve(query_id)
 
 
 
@@ -286,7 +286,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceQuerySerializer**](DeviceQuerySerializer.md)
+[**DeviceQueryDetail**](DeviceQueryDetail.md)
 
 ### Authorization
 
@@ -300,7 +300,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **device_query_update**
-> DeviceQuerySerializer device_query_update(query_id, name, query, description=description, object=object, query_id2=query_id2)
+> DeviceQueryDetail device_query_update(query_id, name, query, description=description, object=object, query_id2=query_id2)
 
 
 
@@ -347,7 +347,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceQuerySerializer**](DeviceQuerySerializer.md)
+[**DeviceQueryDetail**](DeviceQueryDetail.md)
 
 ### Authorization
 

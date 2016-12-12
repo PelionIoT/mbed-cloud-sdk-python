@@ -71,7 +71,7 @@ class DefaultApi(object):
         :param str description: The description of the object
         :param str object: The API resource entity
         :param str query_id: DEPRECATED: The ID of the query
-        :return: DeviceQuerySerializer
+        :return: DeviceQueryDetail
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -102,7 +102,7 @@ class DefaultApi(object):
         :param str description: The description of the object
         :param str object: The API resource entity
         :param str query_id: DEPRECATED: The ID of the query
-        :return: DeviceQuerySerializer
+        :return: DeviceQueryDetail
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -169,7 +169,7 @@ class DefaultApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=local_var_files,
-                                            response_type='DeviceQuerySerializer',
+                                            response_type='DeviceQueryDetail',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))
@@ -190,7 +190,7 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str query_id:  (required)
-        :return: DeviceQuerySerializer
+        :return: DeviceQueryDetail
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -217,7 +217,7 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str query_id:  (required)
-        :return: DeviceQuerySerializer
+        :return: DeviceQueryDetail
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -273,7 +273,7 @@ class DefaultApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=local_var_files,
-                                            response_type='DeviceQuerySerializer',
+                                            response_type='DeviceQueryDetail',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))
@@ -301,7 +301,7 @@ class DefaultApi(object):
         :param str object: 
         :param str query: 
         :param str query_id: 
-        :return: list[DeviceQuerySerializer]
+        :return: list[DeviceQueryResp]
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -335,7 +335,7 @@ class DefaultApi(object):
         :param str object: 
         :param str query: 
         :param str query_id: 
-        :return: list[DeviceQuerySerializer]
+        :return: list[DeviceQueryResp]
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -402,7 +402,7 @@ class DefaultApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=local_var_files,
-                                            response_type='list[DeviceQuerySerializer]',
+                                            response_type='list[DeviceQueryResp]',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))
@@ -428,7 +428,7 @@ class DefaultApi(object):
         :param str object: The API resource entity
         :param str query: The device query
         :param str query_id2: DEPRECATED: The ID of the query
-        :return: DeviceQuerySerializer
+        :return: DeviceQueryDetail
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -460,7 +460,7 @@ class DefaultApi(object):
         :param str object: The API resource entity
         :param str query: The device query
         :param str query_id2: DEPRECATED: The ID of the query
-        :return: DeviceQuerySerializer
+        :return: DeviceQueryDetail
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -526,7 +526,7 @@ class DefaultApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=local_var_files,
-                                            response_type='DeviceQuerySerializer',
+                                            response_type='DeviceQueryDetail',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))
@@ -547,7 +547,7 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str query_id:  (required)
-        :return: DeviceQuerySerializer
+        :return: DeviceQueryDetail
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -574,7 +574,7 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str query_id:  (required)
-        :return: DeviceQuerySerializer
+        :return: DeviceQueryDetail
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -630,7 +630,7 @@ class DefaultApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=local_var_files,
-                                            response_type='DeviceQuerySerializer',
+                                            response_type='DeviceQueryDetail',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))
@@ -656,7 +656,7 @@ class DefaultApi(object):
         :param str description: The description of the object
         :param str object: The API resource entity
         :param str query_id2: DEPRECATED: The ID of the query
-        :return: DeviceQuerySerializer
+        :return: DeviceQueryDetail
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -688,7 +688,7 @@ class DefaultApi(object):
         :param str description: The description of the object
         :param str object: The API resource entity
         :param str query_id2: DEPRECATED: The ID of the query
-        :return: DeviceQuerySerializer
+        :return: DeviceQueryDetail
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -760,7 +760,7 @@ class DefaultApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=local_var_files,
-                                            response_type='DeviceQuerySerializer',
+                                            response_type='DeviceQueryDetail',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))
