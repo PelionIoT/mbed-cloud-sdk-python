@@ -52,3 +52,63 @@ class BaseAPI(object):
             kwargs.update({'filter': urllib.urlencode(kwargs.get('filters'))})
             del kwargs['filters']
         return kwargs
+
+
+class PaginatedResponse(object):
+    """Paginated response object wrapper.
+
+    Used to access multiple pages of data, either through manually
+    iterating pages or using iterators.
+    """
+
+    def __init__(self, func, **kwargs):
+        """Initialize wrapper by passing in object with metadata structure."""
+        self._func = func
+        self._kwargs = kwargs
+        self._idx = 0
+
+        # Initial values, will be updated in first response
+        self.has_more = False
+        self.data = []
+
+        # Do initial request
+        self._get_page()
+
+    def _get_page(self):
+        resp = self._func(**self._kwargs)
+
+        # Update 'after' by taking the last element ID
+        self._kwargs['after'] = resp.data[-1].id
+
+        # Update has_more property
+        self.has_more = resp.has_more
+
+        # Save data
+        self.data = resp.data
+
+    def iteritems(self):
+        """Iterate through elements of the paginated resonse.
+
+        This will get the next page where required. As a consequence,
+        do take not that this method might do multiple calls in the background.
+        """
+        while True:
+            # Yield the data elements one by one
+            for e in self.data:
+                yield e, self._idx
+                self._idx += 1
+
+            # Check if there's more data to get
+            if not self.has_more:
+                break
+
+            # It is, so let's make the request
+            self.next()
+
+    def next(self):
+        """Get the next page of content."""
+        self._get_page()
+
+    def count(self):
+        """Get the total count from the meta data."""
+        return self._obj.total_count

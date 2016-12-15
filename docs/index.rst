@@ -17,6 +17,14 @@ Components
   logging 
   update 
 
+Concepts
+--------
+
+.. toctree::
+  :maxdepth: 1
+
+  pagination
+
 Quickstart
 ----------
 

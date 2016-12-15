@@ -5,27 +5,31 @@ import urlparse
 import uuid
 
 
-def _print_filters(filters):
+def _print_filters(filters, start_idx=0):
     filters_str = []
     for idx, f in enumerate(filters):
-        name = f.name
-        filters = urlparse.parse_qs(urllib.unquote(f.query))
-        s = "%d) %s\n%s\n" % (idx + 1, f.name, "-" * len(name))
-        s += "\n".join(["%s=%s" % (k, ", ".join(v)) for k, v in filters.iteritems()])
-        filters_str.append(s)
+        filters_str.append(_str_filter(f, idx=start_idx + idx + 1))
     print("\n\n".join(filters_str))
+
+
+def _str_filter(f, idx):
+    name = f.name
+    filters = urlparse.parse_qs(urllib.unquote(f.query))
+    s = "%d) %s\n%s\n" % (idx, f.name, "-" * len(name))
+    s += "\n".join(["%s=%s" % (k, ", ".join(v)) for k, v in filters.iteritems()])
+    return s
 
 
 def _main():
     api = DeviceAPI()
 
     # Pretty print all the registered filters
-    filters = api.list_filters()
-    _print_filters(filters)
+    for e, idx in api.list_filters(limit=5).iteritems():
+        print(_str_filter(e, idx))
 
     # Create a new filter
     new_filter = api.create_filter("test_filter", {'device_id': str(uuid.uuid4())})
-    print("Created new filter: %r" % (new_filter.name))
+    print("\nCreated new filter: %r" % (new_filter.name))
 
     # Delete same filter
     api.delete_filter(new_filter.query_id)

@@ -9,7 +9,7 @@ import time
 import urllib
 
 # Import common functions and exceptions from frontend API
-from mbed_cloud import BaseAPI
+from mbed_cloud import BaseAPI, PaginatedResponse
 from mbed_cloud.decorators import catch_exceptions
 from mbed_cloud.exceptions import AsyncError
 from mbed_cloud.exceptions import UnhandledError
@@ -373,7 +373,11 @@ class DeviceAPI(BaseAPI):
         """
         kwargs = self._verify_sort_options(kwargs)
         api = self.dc_queries.DefaultApi()
-        return api.device_query_list(**kwargs).data
+
+        return PaginatedResponse(api.device_query_list, **kwargs)
+        # print(p.data)
+        # p.next()
+        # return api.device_query_list(**kwargs).data
 
     @catch_exceptions(DeviceQueryServiceApiException)
     def create_filter(self, name, query, custom_attributes=None, **kwargs):
