@@ -3,7 +3,7 @@
 """
     IAM Identities REST API
 
-    REST API to manage accounts, groups, users and api-keys
+    REST API to manage accounts, groups, users and API keys
 
     OpenAPI spec version: v3
     
@@ -70,7 +70,7 @@ class UserInfoRespList(object):
     def after(self):
         """
         Gets the after of this UserInfoRespList.
-        The entity id to fetch after it.
+        The entity ID to fetch after the given one.
 
         :return: The after of this UserInfoRespList.
         :rtype: str
@@ -81,7 +81,7 @@ class UserInfoRespList(object):
     def after(self, after):
         """
         Sets the after of this UserInfoRespList.
-        The entity id to fetch after it.
+        The entity ID to fetch after the given one.
 
         :param after: The after of this UserInfoRespList.
         :type: str
@@ -93,7 +93,7 @@ class UserInfoRespList(object):
     def object(self):
         """
         Gets the object of this UserInfoRespList.
-        entity name: always 'list'
+        Entity name: always 'list'
 
         :return: The object of this UserInfoRespList.
         :rtype: str
@@ -104,12 +104,12 @@ class UserInfoRespList(object):
     def object(self, object):
         """
         Sets the object of this UserInfoRespList.
-        entity name: always 'list'
+        Entity name: always 'list'
 
         :param object: The object of this UserInfoRespList.
         :type: str
         """
-        allowed_values = ["user", "apikey", "group", "account", "list", "error"]
+        allowed_values = ["user", "apikey", "group", "account", "ca_cert", "list", "error"]
         if object not in allowed_values:
             raise ValueError(
                 "Invalid value for `object` ({0}), must be one of {1}"
@@ -145,7 +145,7 @@ class UserInfoRespList(object):
     def limit(self):
         """
         Gets the limit of this UserInfoRespList.
-        The number of results to return, (range: 2-1000), or equals to total_count
+        The number of results to return, (range: 2-1000), or equals to `total_count`
 
         :return: The limit of this UserInfoRespList.
         :rtype: int
@@ -156,7 +156,7 @@ class UserInfoRespList(object):
     def limit(self, limit):
         """
         Sets the limit of this UserInfoRespList.
-        The number of results to return, (range: 2-1000), or equals to total_count
+        The number of results to return, (range: 2-1000), or equals to `total_count`
 
         :param limit: The limit of this UserInfoRespList.
         :type: int
@@ -168,7 +168,7 @@ class UserInfoRespList(object):
     def data(self):
         """
         Gets the data of this UserInfoRespList.
-        List of entities.
+        A list of entities.
 
         :return: The data of this UserInfoRespList.
         :rtype: list[UserInfoResp]
@@ -179,7 +179,7 @@ class UserInfoRespList(object):
     def data(self, data):
         """
         Sets the data of this UserInfoRespList.
-        List of entities.
+        A list of entities.
 
         :param data: The data of this UserInfoRespList.
         :type: list[UserInfoResp]
@@ -191,7 +191,7 @@ class UserInfoRespList(object):
     def order(self):
         """
         Gets the order of this UserInfoRespList.
-        The order of the records to return. Available values: ASC, DESC. Default value is ASC
+        The order of the records to return. Available values: ASC, DESC; by default ASC.
 
         :return: The order of this UserInfoRespList.
         :rtype: str
@@ -202,7 +202,7 @@ class UserInfoRespList(object):
     def order(self, order):
         """
         Sets the order of this UserInfoRespList.
-        The order of the records to return. Available values: ASC, DESC. Default value is ASC
+        The order of the records to return. Available values: ASC, DESC; by default ASC.
 
         :param order: The order of this UserInfoRespList.
         :type: str

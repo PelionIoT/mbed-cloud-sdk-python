@@ -3,7 +3,7 @@
 """
     IAM Identities REST API
 
-    REST API to manage accounts, groups, users and api-keys
+    REST API to manage accounts, groups, users and API keys
 
     OpenAPI spec version: v3
     
@@ -171,7 +171,7 @@ class GroupSummary(object):
     def object(self):
         """
         Gets the object of this GroupSummary.
-        entity name: always 'group'
+        Entity name: always 'group'
 
         :return: The object of this GroupSummary.
         :rtype: str
@@ -182,12 +182,12 @@ class GroupSummary(object):
     def object(self, object):
         """
         Sets the object of this GroupSummary.
-        entity name: always 'group'
+        Entity name: always 'group'
 
         :param object: The object of this GroupSummary.
         :type: str
         """
-        allowed_values = ["user", "apikey", "group", "account", "list", "error"]
+        allowed_values = ["user", "apikey", "group", "account", "ca_cert", "list", "error"]
         if object not in allowed_values:
             raise ValueError(
                 "Invalid value for `object` ({0}), must be one of {1}"

@@ -3,7 +3,7 @@
 """
     IAM Identities REST API
 
-    REST API to manage accounts, groups, users and api-keys
+    REST API to manage accounts, groups, users and API keys
 
     OpenAPI spec version: v3
     
@@ -70,7 +70,7 @@ class ApiKeyInfoRespList(object):
     def after(self):
         """
         Gets the after of this ApiKeyInfoRespList.
-        The entity id to fetch after it.
+        The entity ID to fetch after the given one.
 
         :return: The after of this ApiKeyInfoRespList.
         :rtype: str
@@ -81,7 +81,7 @@ class ApiKeyInfoRespList(object):
     def after(self, after):
         """
         Sets the after of this ApiKeyInfoRespList.
-        The entity id to fetch after it.
+        The entity ID to fetch after the given one.
 
         :param after: The after of this ApiKeyInfoRespList.
         :type: str
@@ -93,7 +93,7 @@ class ApiKeyInfoRespList(object):
     def object(self):
         """
         Gets the object of this ApiKeyInfoRespList.
-        entity name: always 'list'
+        Entity name: always 'list'
 
         :return: The object of this ApiKeyInfoRespList.
         :rtype: str
@@ -104,12 +104,12 @@ class ApiKeyInfoRespList(object):
     def object(self, object):
         """
         Sets the object of this ApiKeyInfoRespList.
-        entity name: always 'list'
+        Entity name: always 'list'
 
         :param object: The object of this ApiKeyInfoRespList.
         :type: str
         """
-        allowed_values = ["user", "apikey", "group", "account", "list", "error"]
+        allowed_values = ["user", "apikey", "group", "account", "ca_cert", "list", "error"]
         if object not in allowed_values:
             raise ValueError(
                 "Invalid value for `object` ({0}), must be one of {1}"
@@ -145,7 +145,7 @@ class ApiKeyInfoRespList(object):
     def limit(self):
         """
         Gets the limit of this ApiKeyInfoRespList.
-        The number of results to return, (range: 2-1000), or equals to total_count
+        The number of results to return, (range: 2-1000), or equals to `total_count`
 
         :return: The limit of this ApiKeyInfoRespList.
         :rtype: int
@@ -156,7 +156,7 @@ class ApiKeyInfoRespList(object):
     def limit(self, limit):
         """
         Sets the limit of this ApiKeyInfoRespList.
-        The number of results to return, (range: 2-1000), or equals to total_count
+        The number of results to return, (range: 2-1000), or equals to `total_count`
 
         :param limit: The limit of this ApiKeyInfoRespList.
         :type: int
@@ -168,7 +168,7 @@ class ApiKeyInfoRespList(object):
     def data(self):
         """
         Gets the data of this ApiKeyInfoRespList.
-        List of entities.
+        A list of entities.
 
         :return: The data of this ApiKeyInfoRespList.
         :rtype: list[ApiKeyInfoResp]
@@ -179,7 +179,7 @@ class ApiKeyInfoRespList(object):
     def data(self, data):
         """
         Sets the data of this ApiKeyInfoRespList.
-        List of entities.
+        A list of entities.
 
         :param data: The data of this ApiKeyInfoRespList.
         :type: list[ApiKeyInfoResp]
@@ -191,7 +191,7 @@ class ApiKeyInfoRespList(object):
     def order(self):
         """
         Gets the order of this ApiKeyInfoRespList.
-        The order of the records to return. Available values: ASC, DESC. Default value is ASC
+        The order of the records to return. Available values: ASC, DESC; by default ASC.
 
         :return: The order of this ApiKeyInfoRespList.
         :rtype: str
@@ -202,7 +202,7 @@ class ApiKeyInfoRespList(object):
     def order(self, order):
         """
         Sets the order of this ApiKeyInfoRespList.
-        The order of the records to return. Available values: ASC, DESC. Default value is ASC
+        The order of the records to return. Available values: ASC, DESC; by default ASC.
 
         :param order: The order of this ApiKeyInfoRespList.
         :type: str

@@ -10,9 +10,9 @@ Name | Type | Description | Notes
 **password_changed_time** | **int** | A timestamp of the latest change of the user password, in milliseconds. | [optional] 
 **groups** | **list[str]** | A list of IDs of the groups this user belongs to. | [optional] 
 **created_at** | **str** | Creation UTC time RFC3339. | [optional] 
-**object** | **str** | entity name: always &#39;user&#39; | 
+**object** | **str** | Entity name: always &#39;user&#39; | 
 **is_gtc_accepted** | **bool** | A flag indicating that the General Terms and Conditions has been accepted. | [optional] [default to False]
-**email** | **str** | Email address. | 
+**email** | **str** | The email address. | 
 **is_marketing_accepted** | **bool** | A flag indicating that receiving marketing information has been accepted. | [optional] [default to False]
 **etag** | **str** | API resource entity version. | 
 **full_name** | **str** | The full name of the user. | [optional] 

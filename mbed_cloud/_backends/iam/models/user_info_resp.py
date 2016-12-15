@@ -3,7 +3,7 @@
 """
     IAM Identities REST API
 
-    REST API to manage accounts, groups, users and api-keys
+    REST API to manage accounts, groups, users and API keys
 
     OpenAPI spec version: v3
     
@@ -276,7 +276,7 @@ class UserInfoResp(object):
     def object(self):
         """
         Gets the object of this UserInfoResp.
-        entity name: always 'user'
+        Entity name: always 'user'
 
         :return: The object of this UserInfoResp.
         :rtype: str
@@ -287,12 +287,12 @@ class UserInfoResp(object):
     def object(self, object):
         """
         Sets the object of this UserInfoResp.
-        entity name: always 'user'
+        Entity name: always 'user'
 
         :param object: The object of this UserInfoResp.
         :type: str
         """
-        allowed_values = ["user", "apikey", "group", "account", "list", "error"]
+        allowed_values = ["user", "apikey", "group", "account", "ca_cert", "list", "error"]
         if object not in allowed_values:
             raise ValueError(
                 "Invalid value for `object` ({0}), must be one of {1}"
@@ -328,7 +328,7 @@ class UserInfoResp(object):
     def email(self):
         """
         Gets the email of this UserInfoResp.
-        Email address.
+        The email address.
 
         :return: The email of this UserInfoResp.
         :rtype: str
@@ -339,7 +339,7 @@ class UserInfoResp(object):
     def email(self, email):
         """
         Sets the email of this UserInfoResp.
-        Email address.
+        The email address.
 
         :param email: The email of this UserInfoResp.
         :type: str

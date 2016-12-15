@@ -3,7 +3,7 @@
 """
     IAM Identities REST API
 
-    REST API to manage accounts, groups, users and api-keys
+    REST API to manage accounts, groups, users and API keys
 
     OpenAPI spec version: v3
     
@@ -70,7 +70,7 @@ class ErrorResponse(object):
     def code(self):
         """
         Gets the code of this ErrorResponse.
-        response code
+        Response code.
 
         :return: The code of this ErrorResponse.
         :rtype: int
@@ -81,7 +81,7 @@ class ErrorResponse(object):
     def code(self, code):
         """
         Sets the code of this ErrorResponse.
-        response code
+        Response code.
 
         :param code: The code of this ErrorResponse.
         :type: int
@@ -93,7 +93,7 @@ class ErrorResponse(object):
     def fields(self):
         """
         Gets the fields of this ErrorResponse.
-        failed input fields during request object validation
+        Failed input fields during request object validation.
 
         :return: The fields of this ErrorResponse.
         :rtype: list[Field]
@@ -104,7 +104,7 @@ class ErrorResponse(object):
     def fields(self, fields):
         """
         Sets the fields of this ErrorResponse.
-        failed input fields during request object validation
+        Failed input fields during request object validation.
 
         :param fields: The fields of this ErrorResponse.
         :type: list[Field]
@@ -116,7 +116,7 @@ class ErrorResponse(object):
     def object(self):
         """
         Gets the object of this ErrorResponse.
-        entity name, always 'error'
+        Entity name, always 'error'.
 
         :return: The object of this ErrorResponse.
         :rtype: str
@@ -127,12 +127,12 @@ class ErrorResponse(object):
     def object(self, object):
         """
         Sets the object of this ErrorResponse.
-        entity name, always 'error'
+        Entity name, always 'error'.
 
         :param object: The object of this ErrorResponse.
         :type: str
         """
-        allowed_values = ["user", "apikey", "group", "account", "list", "error"]
+        allowed_values = ["user", "apikey", "group", "account", "ca_cert", "list", "error"]
         if object not in allowed_values:
             raise ValueError(
                 "Invalid value for `object` ({0}), must be one of {1}"
@@ -145,7 +145,7 @@ class ErrorResponse(object):
     def request_id(self):
         """
         Gets the request_id of this ErrorResponse.
-        request id
+        Request ID
 
         :return: The request_id of this ErrorResponse.
         :rtype: str
@@ -156,7 +156,7 @@ class ErrorResponse(object):
     def request_id(self, request_id):
         """
         Sets the request_id of this ErrorResponse.
-        request id
+        Request ID
 
         :param request_id: The request_id of this ErrorResponse.
         :type: str
@@ -168,7 +168,7 @@ class ErrorResponse(object):
     def message(self):
         """
         Gets the message of this ErrorResponse.
-        a human readable message with detailed info
+        A human readable message with detailed info.
 
         :return: The message of this ErrorResponse.
         :rtype: str
@@ -179,7 +179,7 @@ class ErrorResponse(object):
     def message(self, message):
         """
         Sets the message of this ErrorResponse.
-        a human readable message with detailed info
+        A human readable message with detailed info.
 
         :param message: The message of this ErrorResponse.
         :type: str
@@ -191,7 +191,7 @@ class ErrorResponse(object):
     def type(self):
         """
         Gets the type of this ErrorResponse.
-        error type
+        Error type.
 
         :return: The type of this ErrorResponse.
         :rtype: str
@@ -202,12 +202,12 @@ class ErrorResponse(object):
     def type(self, type):
         """
         Sets the type of this ErrorResponse.
-        error type
+        Error type.
 
         :param type: The type of this ErrorResponse.
         :type: str
         """
-        allowed_values = ["success", "created", "accepted", "permanently_deleted", "validation_error", "invalid_token", "access_denied", "account_limit_exceeded", "not_found", "method_not_supported", "duplicate", "precondition_failed", "unsupported_media_type", "rate_limit_exceeded", "internal_server_error", "system_unavailable"]
+        allowed_values = ["success", "created", "accepted", "permanently_deleted", "validation_error", "invalid_token", "access_denied", "account_limit_exceeded", "not_found", "method_not_supported", "not_acceptable", "duplicate", "precondition_failed", "unsupported_media_type", "rate_limit_exceeded", "internal_server_error", "system_unavailable"]
         if type not in allowed_values:
             raise ValueError(
                 "Invalid value for `type` ({0}), must be one of {1}"

@@ -3,7 +3,7 @@
 """
     IAM Identities REST API
 
-    REST API to manage accounts, groups, users and api-keys
+    REST API to manage accounts, groups, users and API keys
 
     OpenAPI spec version: v3
     
@@ -54,7 +54,7 @@ class DeveloperApi(object):
     def create_api_key(self, body, **kwargs):
         """
         Create a new API key.
-        Endpoint for creating the new API key.
+        An endpoint for creating a new API key.
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -81,7 +81,7 @@ class DeveloperApi(object):
     def create_api_key_with_http_info(self, body, **kwargs):
         """
         Create a new API key.
-        Endpoint for creating the new API key.
+        An endpoint for creating a new API key.
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -158,7 +158,7 @@ class DeveloperApi(object):
     def delete_api_key(self, api_key, **kwargs):
         """
         Delete API key.
-        Endpoint for deleting the API key.
+        An endpoint for deleting the API key.
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -185,7 +185,7 @@ class DeveloperApi(object):
     def delete_api_key_with_http_info(self, api_key, **kwargs):
         """
         Delete API key.
-        Endpoint for deleting the API key.
+        An endpoint for deleting the API key.
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -262,7 +262,7 @@ class DeveloperApi(object):
     def get_all_api_keys(self, **kwargs):
         """
         Get all API keys
-        Endpoint for retrieving API keys in an array, optionally filtered by the owner.
+        An endpoint for retrieving API keys in an array, optionally filtered by the owner.
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -274,6 +274,11 @@ class DeveloperApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
+        :param int limit: The number of results to return (2-1000), default is 50.
+        :param str after: The entity ID to fetch after the given one.
+        :param str order: The order of the records, ASC or DESC; by default ASC
+        :param str include: Comma separated additional data to return. Currently supported: total_count
+        :param str filter: A filter for the query, for example filter=owner%3Duuid.
         :param str owner: Owner name filter.
         :return: ApiKeyInfoRespList
                  If the method is called asynchronously,
@@ -289,7 +294,7 @@ class DeveloperApi(object):
     def get_all_api_keys_with_http_info(self, **kwargs):
         """
         Get all API keys
-        Endpoint for retrieving API keys in an array, optionally filtered by the owner.
+        An endpoint for retrieving API keys in an array, optionally filtered by the owner.
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -301,13 +306,18 @@ class DeveloperApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
+        :param int limit: The number of results to return (2-1000), default is 50.
+        :param str after: The entity ID to fetch after the given one.
+        :param str order: The order of the records, ASC or DESC; by default ASC
+        :param str include: Comma separated additional data to return. Currently supported: total_count
+        :param str filter: A filter for the query, for example filter=owner%3Duuid.
         :param str owner: Owner name filter.
         :return: ApiKeyInfoRespList
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['owner']
+        all_params = ['limit', 'after', 'order', 'include', 'filter', 'owner']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
 
@@ -325,6 +335,16 @@ class DeveloperApi(object):
         path_params = {}
 
         query_params = {}
+        if 'limit' in params:
+            query_params['limit'] = params['limit']
+        if 'after' in params:
+            query_params['after'] = params['after']
+        if 'order' in params:
+            query_params['order'] = params['order']
+        if 'include' in params:
+            query_params['include'] = params['include']
+        if 'filter' in params:
+            query_params['filter'] = params['filter']
         if 'owner' in params:
             query_params['owner'] = params['owner']
 
@@ -363,7 +383,7 @@ class DeveloperApi(object):
     def get_all_groups(self, **kwargs):
         """
         Get all group information.
-        Endpoint for retrieving all group information.
+        An endpoint for retrieving all group information.
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -375,6 +395,10 @@ class DeveloperApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
+        :param int limit: The number of results to return (2-1000), default is 50.
+        :param str after: The entity ID to fetch after the given one.
+        :param str order: The order of the records, ASC or DESC; by default ASC
+        :param str include: Comma separated additional data to return. Currently supported: total_count
         :return: GroupSummaryList
                  If the method is called asynchronously,
                  returns the request thread.
@@ -389,7 +413,7 @@ class DeveloperApi(object):
     def get_all_groups_with_http_info(self, **kwargs):
         """
         Get all group information.
-        Endpoint for retrieving all group information.
+        An endpoint for retrieving all group information.
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -401,12 +425,16 @@ class DeveloperApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
+        :param int limit: The number of results to return (2-1000), default is 50.
+        :param str after: The entity ID to fetch after the given one.
+        :param str order: The order of the records, ASC or DESC; by default ASC
+        :param str include: Comma separated additional data to return. Currently supported: total_count
         :return: GroupSummaryList
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = []
+        all_params = ['limit', 'after', 'order', 'include']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
 
@@ -424,6 +452,14 @@ class DeveloperApi(object):
         path_params = {}
 
         query_params = {}
+        if 'limit' in params:
+            query_params['limit'] = params['limit']
+        if 'after' in params:
+            query_params['after'] = params['after']
+        if 'order' in params:
+            query_params['order'] = params['order']
+        if 'include' in params:
+            query_params['include'] = params['include']
 
         header_params = {}
 
@@ -460,7 +496,7 @@ class DeveloperApi(object):
     def get_api_key(self, api_key, **kwargs):
         """
         Get API key details.
-        Endpoint for retrieving API key details.
+        An endpoint for retrieving API key details.
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -487,7 +523,7 @@ class DeveloperApi(object):
     def get_api_key_with_http_info(self, api_key, **kwargs):
         """
         Get API key details.
-        Endpoint for retrieving API key details.
+        An endpoint for retrieving API key details.
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -658,10 +694,107 @@ class DeveloperApi(object):
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))
 
+    def get_my_api_key(self, **kwargs):
+        """
+        Get API key details.
+        An endpoint for retrieving API key details.
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.get_my_api_key(callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :return: ApiKeyInfoResp
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('callback'):
+            return self.get_my_api_key_with_http_info(**kwargs)
+        else:
+            (data) = self.get_my_api_key_with_http_info(**kwargs)
+            return data
+
+    def get_my_api_key_with_http_info(self, **kwargs):
+        """
+        Get API key details.
+        An endpoint for retrieving API key details.
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.get_my_api_key_with_http_info(callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :return: ApiKeyInfoResp
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = []
+        all_params.append('callback')
+        all_params.append('_return_http_data_only')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_my_api_key" % key
+                )
+            params[key] = val
+        del params['kwargs']
+
+        resource_path = '/v3/api-keys/me'.replace('{format}', 'json')
+        path_params = {}
+
+        query_params = {}
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+        if not header_params['Accept']:
+            del header_params['Accept']
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type([])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api(resource_path, 'GET',
+                                            path_params,
+                                            query_params,
+                                            header_params,
+                                            body=body_params,
+                                            post_params=form_params,
+                                            files=local_var_files,
+                                            response_type='ApiKeyInfoResp',
+                                            auth_settings=auth_settings,
+                                            callback=params.get('callback'),
+                                            _return_http_data_only=params.get('_return_http_data_only'))
+
     def get_my_user(self, **kwargs):
         """
         Details of the current user.
-        Endpoint for retrieving the details of the logged in user.
+        An endpoint for retrieving the details of the logged in user.
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -687,7 +820,7 @@ class DeveloperApi(object):
     def get_my_user_with_http_info(self, **kwargs):
         """
         Details of the current user.
-        Endpoint for retrieving the details of the logged in user.
+        An endpoint for retrieving the details of the logged in user.
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -758,7 +891,7 @@ class DeveloperApi(object):
     def update_api_key(self, api_key, body, **kwargs):
         """
         Update API key details.
-        Endpoint for updating API key details.
+        An endpoint for updating API key details.
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -771,7 +904,7 @@ class DeveloperApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str api_key: The ID of the API key to be updated. (required)
-        :param ApiKeyInfoReq body: New API key attributes to be stored. (required)
+        :param ApiKeyUpdateReq body: New API key attributes to be stored. (required)
         :return: ApiKeyInfoResp
                  If the method is called asynchronously,
                  returns the request thread.
@@ -786,7 +919,7 @@ class DeveloperApi(object):
     def update_api_key_with_http_info(self, api_key, body, **kwargs):
         """
         Update API key details.
-        Endpoint for updating API key details.
+        An endpoint for updating API key details.
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -799,7 +932,7 @@ class DeveloperApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str api_key: The ID of the API key to be updated. (required)
-        :param ApiKeyInfoReq body: New API key attributes to be stored. (required)
+        :param ApiKeyUpdateReq body: New API key attributes to be stored. (required)
         :return: ApiKeyInfoResp
                  If the method is called asynchronously,
                  returns the request thread.
@@ -866,10 +999,114 @@ class DeveloperApi(object):
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))
 
+    def update_my_api_key(self, body, **kwargs):
+        """
+        Update API key details.
+        An endpoint for updating API key details.
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.update_my_api_key(body, callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param ApiKeyUpdateReq body: New API key attributes to be stored. (required)
+        :return: ApiKeyInfoResp
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('callback'):
+            return self.update_my_api_key_with_http_info(body, **kwargs)
+        else:
+            (data) = self.update_my_api_key_with_http_info(body, **kwargs)
+            return data
+
+    def update_my_api_key_with_http_info(self, body, **kwargs):
+        """
+        Update API key details.
+        An endpoint for updating API key details.
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.update_my_api_key_with_http_info(body, callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param ApiKeyUpdateReq body: New API key attributes to be stored. (required)
+        :return: ApiKeyInfoResp
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['body']
+        all_params.append('callback')
+        all_params.append('_return_http_data_only')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method update_my_api_key" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'body' is set
+        if ('body' not in params) or (params['body'] is None):
+            raise ValueError("Missing the required parameter `body` when calling `update_my_api_key`")
+
+        resource_path = '/v3/api-keys/me'.replace('{format}', 'json')
+        path_params = {}
+
+        query_params = {}
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'body' in params:
+            body_params = params['body']
+
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+        if not header_params['Accept']:
+            del header_params['Accept']
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type([])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api(resource_path, 'PUT',
+                                            path_params,
+                                            query_params,
+                                            header_params,
+                                            body=body_params,
+                                            post_params=form_params,
+                                            files=local_var_files,
+                                            response_type='ApiKeyInfoResp',
+                                            auth_settings=auth_settings,
+                                            callback=params.get('callback'),
+                                            _return_http_data_only=params.get('_return_http_data_only'))
+
     def update_my_user(self, body, **kwargs):
         """
         Update user details.
-        Endpoint for updating the details of the logged in user.
+        An endpoint for updating the details of the logged in user.
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -896,7 +1133,7 @@ class DeveloperApi(object):
     def update_my_user_with_http_info(self, body, **kwargs):
         """
         Update user details.
-        Endpoint for updating the details of the logged in user.
+        An endpoint for updating the details of the logged in user.
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
