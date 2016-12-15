@@ -6,17 +6,21 @@ import logging
 import Queue
 import threading
 import time
+import urllib
 
 # Import common functions and exceptions from frontend API
 from mbed_cloud_sdk import BaseAPI
-from mbed_cloud_sdk import config
 from mbed_cloud_sdk.decorators import catch_exceptions
 from mbed_cloud_sdk.exceptions import AsyncError
 from mbed_cloud_sdk.exceptions import UnhandledError
 
 # Import backend API
 import mbed_cloud_sdk._backends.device_catalog as dc
-from mbed_cloud_sdk._backends.device_catalog.rest import ApiException as DeviceCatalogApiException
+from mbed_cloud_sdk._backends.device_catalog.rest import \
+    ApiException as DeviceCatalogApiException
+import mbed_cloud_sdk._backends.device_query_service as dc_queries
+from mbed_cloud_sdk._backends.device_query_service.rest import \
+    ApiException as DeviceQueryServiceApiException
 import mbed_cloud_sdk._backends.mds as mds
 from mbed_cloud_sdk._backends.mds.rest import ApiException as MdsApiException
 
@@ -40,16 +44,10 @@ class DeviceAPI(BaseAPI):
         """
         super(DeviceAPI, self).__init__(params)
 
-        # Set the api_key for the requests
-        mds.configuration.api_key['Authorization'] = config.get("api_key")
-        dc.configuration.api_key['Authorization'] = config.get("api_key")
-        mds.configuration.api_key_prefix['Authorization'] = 'Bearer'
-        dc.configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-        # Override host, if defined
-        if config.get("host"):
-            mds.configuration.host = config.get("host")
-            dc.configuration.host = config.get("host")
+        # Initialize the wrapped APIs
+        self.mds = self._init_api(mds)
+        self.dc = self._init_api(dc)
+        self.dc_queries = self._init_api(dc_queries)
 
         self._db = {}
         self._queues = defaultdict(lambda: defaultdict(Queue.Queue))
@@ -81,13 +79,13 @@ class DeviceAPI(BaseAPI):
         if start != 0 or sort_by is not None or sort_direction != "asc":
             raise NotImplementedError("Sorting and pagination is not yet implemented")
 
-        api = mds.EndpointsApi()
+        api = self.mds.EndpointsApi()
         return api.v2_endpoints_get()
 
     @catch_exceptions(MdsApiException)
     def list_resources(self, endpoint_name):
         """List all resources registered to a connected endpoint/device."""
-        api = mds.EndpointsApi()
+        api = self.mds.EndpointsApi()
         return api.v2_endpoints_endpoint_name_get(endpoint_name)
 
     @catch_exceptions(MdsApiException)
@@ -103,7 +101,7 @@ class DeviceAPI(BaseAPI):
         if fix_path and resource_path.startswith("/"):
             resource_path = resource_path[1:]
 
-        api = mds.ResourcesApi()
+        api = self.mds.ResourcesApi()
         resp = api.v2_endpoints_endpoint_name_resource_path_get(endpoint_name, resource_path)
 
         # The async consumer, which will read data from long-polling thread
@@ -124,7 +122,7 @@ class DeviceAPI(BaseAPI):
         if fix_path and resource_path.startswith("/"):
             resource_path = resource_path[1:]
 
-        api = mds.ResourcesApi()
+        api = self.mds.ResourcesApi()
         resp = api.v2_endpoints_endpoint_name_resource_path_put(endpoint_name,
                                                                 resource_path,
                                                                 resource_value)
@@ -156,7 +154,7 @@ class DeviceAPI(BaseAPI):
         self._queues[endpoint_name][resource_path] = q
 
         # Send subscription request
-        api = mds.SubscriptionsApi()
+        api = self.mds.SubscriptionsApi()
         api.v2_subscriptions_endpoint_name_resource_path_put(endpoint_name, fixed_path)
 
         # Return the Queue object to the user
@@ -165,9 +163,9 @@ class DeviceAPI(BaseAPI):
     @catch_exceptions(MdsApiException)
     def pre_subscribe(self, endpoint_name, resource_path, endpoint_type=""):
         """Create pre-subscription for endpoint and resource path."""
-        api = mds.SubscriptionsApi()
+        api = self.mds.SubscriptionsApi()
 
-        presubscription = mds.Presubscription(
+        presubscription = self.mds.Presubscription(
             endpoint_name=endpoint_name,
             endpoint_type=endpoint_type,
             _resource_path=[resource_path]
@@ -203,9 +201,9 @@ class DeviceAPI(BaseAPI):
                 resource_paths.extend(self._queues[e].keys())
 
         # Delete the subscriptions
-        self._clear_subscriptions()
+        self._queues.clear()
 
-        api = mds.SubscriptionsApi()
+        api = self.mds.SubscriptionsApi()
         for e in endpoints:
             for r in resource_paths:
                 # Fix the path, if required.
@@ -229,10 +227,10 @@ class DeviceAPI(BaseAPI):
         :param url: the URL with listening webhook (str)
         :return: void
         """
-        api = mds.NotificationsApi()
+        api = self.mds.NotificationsApi()
 
         # Send the request to register the webhook
-        webhook_obj = mds.Webhook(url=url, headers=headers)
+        webhook_obj = self.mds.Webhook(url=url, headers=headers)
         api.v2_notification_callback_put(webhook_obj)
         return
 
@@ -247,7 +245,7 @@ class DeviceAPI(BaseAPI):
 
         :return: void
         """
-        api = mds.DefaultApi()
+        api = self.mds.DefaultApi()
         api.v2_notification_callback_delete()
 
         # Every subscription will be deleted, so we can clear the queues too.
@@ -274,7 +272,7 @@ class DeviceAPI(BaseAPI):
         if fix_path and resource_path.startswith("/"):
             resource_path = resource_path[1:]
 
-        api = mds.ResourcesApi()
+        api = self.mds.ResourcesApi()
         resp = api.v2_endpoints_endpoint_name_resource_path_post(
             endpoint_name,
             resource_path,
@@ -307,7 +305,7 @@ class DeviceAPI(BaseAPI):
         kwargs = self._verify_sort_options(kwargs)
         kwargs = self._verify_filters(kwargs)
 
-        api = dc.DefaultApi()
+        api = self.dc.DefaultApi()
         return api.device_list(**kwargs).data
 
     @catch_exceptions(DeviceCatalogApiException)
@@ -317,7 +315,7 @@ class DeviceAPI(BaseAPI):
         :param device_id: the ID of the device to retrieve (str)
         :returns: device object matching the `device_id`.
         """
-        api = dc.DefaultApi()
+        api = self.dc.DefaultApi()
         return api.device_retrieve(device_id)
 
     @catch_exceptions(DeviceCatalogApiException)
@@ -350,7 +348,7 @@ class DeviceAPI(BaseAPI):
 
         :return: the newly created device object.
         """
-        api = dc.DefaultApi()
+        api = self.dc.DefaultApi()
         return api.device_create(mechanism=mechanism, provision_key=provision_key, **kwargs)
 
     @catch_exceptions(DeviceCatalogApiException)
@@ -360,8 +358,40 @@ class DeviceAPI(BaseAPI):
         :param device_id: ID of device in catalog to delete (str)
         :return: void
         """
-        api = dc.DefaultApi()
+        api = self.dc.DefaultApi()
         return api.device_destroy(device_id)
+
+    @catch_exceptions(DeviceQueryServiceApiException)
+    def list_filters(self, **kwargs):
+        """List filters in device query service.
+
+        :param limit: (Optional) The number of devices to retrieve. (int)
+        :param order: (Optional) The ordering direction, ascending (asc) or
+            descending (desc) (str)
+        :param after: (Optional) Get devices after/starting at given `device_id` (str)
+        :returns: a list of device query objects.
+        """
+        kwargs = self._verify_sort_options(kwargs)
+        api = self.dc_queries.DefaultApi()
+        return api.device_query_list(**kwargs).data
+
+    @catch_exceptions(DeviceQueryServiceApiException)
+    def create_filter(self, name, query, **kwargs):
+        """Create new filter in device query service.
+
+        :param name: Name of filter (str)
+        :param query: The filter properties to apply (obj)
+        :param return: the newly created filter object.
+        """
+        api = self.dc_queries.DefaultApi()
+
+        # Ensure query is valid
+        if not query.keys():
+            raise ValueError("'query' parameter not valid, needs to contain query keys")
+        # Encode the query string
+        #query = urllib.urlencode(query)
+
+        return api.device_query_create(name=name, query=query, **kwargs)
 
     def _get_value_synchronized(self, consumer):
         # We return synchronously, so we block in a busy loop waiting for the
@@ -435,7 +465,7 @@ class _LongPollingThread(threading.Thread):
     @catch_exceptions(MdsApiException)
     def run(self):
         while not self._stopped:
-            api = mds.NotificationsApi()
+            api = self.mds.NotificationsApi()
             resp = api.v2_notification_pull_get()
 
             if resp.notifications:

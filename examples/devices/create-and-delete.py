@@ -1,5 +1,5 @@
 """Example showing creating and deleting devices in device catalog."""
-from mbed_cloud_sdk.devices import DeviceAPI
+from mbed_cloud.devices import DeviceAPI
 import random
 import string
 

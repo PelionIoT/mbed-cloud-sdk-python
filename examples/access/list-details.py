@@ -1,6 +1,6 @@
 """Example showing basic usage of Access API."""
 import datetime
-from mbed_cloud_sdk.access import AccessAPI
+from mbed_cloud.access import AccessAPI
 
 
 def _main():

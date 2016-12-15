@@ -34,7 +34,7 @@ public key.
 
 .. code-block:: python
 
-  >>> from mbed_cloud_sdk.development.certificate import CertificateAPI
+  >>> from mbed_cloud.development.certificate import CertificateAPI
   >>> api = CertificateAPI()
   >>> pub_key = 'MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEM2yVRYZwbOg/hizrQnMkQrsNzfEz.....'
   >>> cert = api.create_certificate(pub_key)
@@ -44,6 +44,6 @@ public key.
 Reference
 ---------
 
-.. automodule:: mbed_cloud_sdk.development
+.. automodule:: mbed_cloud.development
   :members:
 

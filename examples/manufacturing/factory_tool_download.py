@@ -1,5 +1,5 @@
 """Example showing basic usage of manufacturing API / factory tool download."""
-from mbed_cloud_sdk.manufacturing import ManufacturingAPI
+from mbed_cloud.manufacturing import ManufacturingAPI
 
 import tempfile
 

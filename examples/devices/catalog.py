@@ -1,5 +1,5 @@
 """Example showing devices from device catalog."""
-from mbed_cloud_sdk.devices import DeviceAPI
+from mbed_cloud.devices import DeviceAPI
 
 
 def _print_device(idx, d):

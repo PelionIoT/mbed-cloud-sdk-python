@@ -59,7 +59,7 @@ Run the following command to list accounts in the organisation:
 
 .. code-block:: shell
 
-  export MBED_CLOUD_SDK_CONFIG=$PWD/mbed_cloud_config_integration.json
+  export MBED_CLOUD_CONFIG=$PWD/mbed_cloud_config_integration.json
   python examples/access/list-details.py
 
 .. _cloud portal: https://lab.mbedcloudintegration.net

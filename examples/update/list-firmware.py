@@ -1,5 +1,5 @@
 """Example: listing firmware images and manifests using Update API."""
-from mbed_cloud_sdk.update import UpdateAPI
+from mbed_cloud.update import UpdateAPI
 
 
 def _main():

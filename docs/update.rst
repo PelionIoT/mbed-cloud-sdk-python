@@ -6,7 +6,7 @@ Usage
 
 .. code-block:: python
 
-  from mbed_cloud_sdk.update import UpdateAPI
+  from mbed_cloud.update import UpdateAPI
   api = UpdateAPI()
 
   # Get 5 latest firmware images
@@ -15,6 +15,6 @@ Usage
 Reference
 ---------
 
-.. automodule:: mbed_cloud_sdk.update
+.. automodule:: mbed_cloud.update
   :members:
 

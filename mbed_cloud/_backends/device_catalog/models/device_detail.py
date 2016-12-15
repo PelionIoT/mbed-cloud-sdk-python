@@ -527,8 +527,8 @@ class DeviceDetail(object):
         :type: int
         """
 
-        if not trust_class:
-            raise ValueError("Invalid value for `trust_class`, must not be `None`")
+        # if not trust_class:
+        #     raise ValueError("Invalid value for `trust_class`, must not be `None`")
         if trust_class > 2.147483647E9:
             raise ValueError("Invalid value for `trust_class`, must be a value less than or equal to `2.147483647E9`")
         if trust_class < -2.147483648E9:

@@ -4,6 +4,6 @@ Manufacturing
 Reference
 ---------
 
-.. automodule:: mbed_cloud_sdk.manufacturing
+.. automodule:: mbed_cloud.manufacturing
   :members:
 

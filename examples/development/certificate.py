@@ -1,5 +1,5 @@
 """Example showing basic usage of developer certificates."""
-from mbed_cloud_sdk.development import DevelopmentAPI
+from mbed_cloud.development import DevelopmentAPI
 import sys
 
 DUMMY_PUB_KEY = """

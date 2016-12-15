@@ -4,6 +4,6 @@ Assets
 Reference
 ---------
 
-.. automodule:: mbed_cloud_sdk.assets
+.. automodule:: mbed_cloud.assets
   :members:
 

@@ -1,5 +1,5 @@
 """Example showing basic usage of the webhook functionality."""
-from mbed_cloud_sdk.devices import DeviceAPI
+from mbed_cloud.devices import DeviceAPI
 import time
 
 BUTTON_RESOURCE = "/3200/0/5501"

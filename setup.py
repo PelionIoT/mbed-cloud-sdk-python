@@ -25,7 +25,7 @@ limitations under the License.
 from setuptools import find_packages
 from setuptools import setup
 
-NAME = "mbed-cloud-sdk"
+NAME = "mbed-cloud"
 VERSION = "0.0.1"
 
 # To install the library, run the following

@@ -24,6 +24,13 @@ class BaseAPI(object):
             sys.stderr.write("api_key not found in config. Please see documentation.\n")
             sys.exit(1)
 
+    def _init_api(self, api):
+        api.configuration.api_key['Authorization'] = config.get('api_key')
+        api.configuration.api_key_prefix['Authorization'] = 'Bearer'
+        if config.get('host'):
+            api.configuration.host = config.get('host')
+        return api
+
     def _verify_sort_options(self, kwargs):
         if kwargs.get('order'):
             order = kwargs.get('order').upper()

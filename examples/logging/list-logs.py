@@ -1,5 +1,5 @@
 """Example: listing endpoints and their resources using Device API."""
-from mbed_cloud_sdk.logging import LoggingAPI
+from mbed_cloud.logging import LoggingAPI
 
 
 def _print_log(idx, l):

@@ -6,7 +6,7 @@ Usage
 
 .. code-block:: python
 
-  from mbed_cloud_sdk.logging import LoggingAPI
+  from mbed_cloud.logging import LoggingAPI
   api = LoggingAPI()
 
   # 5 most recent device logs
@@ -30,6 +30,6 @@ Usage
 Reference
 ---------
 
-.. automodule:: mbed_cloud_sdk.logging
+.. automodule:: mbed_cloud.logging
   :members:
 

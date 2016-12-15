@@ -6,7 +6,7 @@ Usage
 
 .. code-block:: python
 
-  from mbed_cloud_sdk.devices import DeviceAPI
+  from mbed_cloud.devices import DeviceAPI
   api = DeviceAPI()
 
   # List all endpoints connected
@@ -56,5 +56,5 @@ See full listing of examples `in the examples directory`_.
 Reference
 ---------
 
-.. automodule:: mbed_cloud_sdk.devices
+.. automodule:: mbed_cloud.devices
   :members: DeviceAPI, AsyncConsumer
