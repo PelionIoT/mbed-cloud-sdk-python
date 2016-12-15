@@ -3,17 +3,17 @@ from __future__ import absolute_import
 import logging
 
 # Import common functions and exceptions from frontend API
-from mbed_cloud_sdk import BaseAPI
-from mbed_cloud_sdk import config
-from mbed_cloud_sdk.decorators import catch_exceptions
+from mbed_cloud import BaseAPI
+from mbed_cloud import config
+from mbed_cloud.decorators import catch_exceptions
 
 # Import backend APIs
-import mbed_cloud_sdk._backends.factory_tool as factory_tool
-import mbed_cloud_sdk._backends.factory_tool.rest as FactoryApiException
-import mbed_cloud_sdk._backends.production_line_certificates as production_line_certificates
-import mbed_cloud_sdk._backends.production_line_certificates.rest as ProductionLineApiException
-import mbed_cloud_sdk._backends.provisioning_certificate as provisioning_certificate
-import mbed_cloud_sdk._backends.provisioning_certificate.rest as ProvisioningApiException
+import mbed_cloud._backends.factory_tool as factory_tool
+import mbed_cloud._backends.factory_tool.rest as FactoryApiException
+import mbed_cloud._backends.production_line_certificates as production_line_certificates
+import mbed_cloud._backends.production_line_certificates.rest as ProductionLineApiException
+import mbed_cloud._backends.provisioning_certificate as provisioning_certificate
+import mbed_cloud._backends.provisioning_certificate.rest as ProvisioningApiException
 
 LOG = logging.getLogger(__name__)
 

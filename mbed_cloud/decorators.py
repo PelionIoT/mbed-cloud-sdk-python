@@ -1,8 +1,8 @@
-"""Custom decorators used in mbed_cloud_sdk."""
+"""Custom decorators used in mbed_cloud."""
 import functools
 import sys
 
-from mbed_cloud_sdk.exceptions import CloudApiException
+from mbed_cloud.exceptions import CloudApiException
 
 
 def catch_exceptions(*exceptions):

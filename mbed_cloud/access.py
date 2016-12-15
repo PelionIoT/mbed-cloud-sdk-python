@@ -3,13 +3,13 @@ from __future__ import absolute_import
 import logging
 
 # Import common functions and exceptions from frontend API
-from mbed_cloud_sdk import BaseAPI
-from mbed_cloud_sdk import config
-from mbed_cloud_sdk.decorators import catch_exceptions
+from mbed_cloud import BaseAPI
+from mbed_cloud import config
+from mbed_cloud.decorators import catch_exceptions
 
 # Import backend API
-import mbed_cloud_sdk._backends.iam as iam
-import mbed_cloud_sdk._backends.iam.rest as ApiException
+import mbed_cloud._backends.iam as iam
+import mbed_cloud._backends.iam.rest as ApiException
 
 LOG = logging.getLogger(__name__)
 

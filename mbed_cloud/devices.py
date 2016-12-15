@@ -9,20 +9,20 @@ import time
 import urllib
 
 # Import common functions and exceptions from frontend API
-from mbed_cloud_sdk import BaseAPI
-from mbed_cloud_sdk.decorators import catch_exceptions
-from mbed_cloud_sdk.exceptions import AsyncError
-from mbed_cloud_sdk.exceptions import UnhandledError
+from mbed_cloud import BaseAPI
+from mbed_cloud.decorators import catch_exceptions
+from mbed_cloud.exceptions import AsyncError
+from mbed_cloud.exceptions import UnhandledError
 
 # Import backend API
-import mbed_cloud_sdk._backends.device_catalog as dc
-from mbed_cloud_sdk._backends.device_catalog.rest import \
+import mbed_cloud._backends.device_catalog as dc
+from mbed_cloud._backends.device_catalog.rest import \
     ApiException as DeviceCatalogApiException
-import mbed_cloud_sdk._backends.device_query_service as dc_queries
-from mbed_cloud_sdk._backends.device_query_service.rest import \
+import mbed_cloud._backends.device_query_service as dc_queries
+from mbed_cloud._backends.device_query_service.rest import \
     ApiException as DeviceQueryServiceApiException
-import mbed_cloud_sdk._backends.mds as mds
-from mbed_cloud_sdk._backends.mds.rest import ApiException as MdsApiException
+import mbed_cloud._backends.mds as mds
+from mbed_cloud._backends.mds.rest import ApiException as MdsApiException
 
 LOG = logging.getLogger(__name__)
 

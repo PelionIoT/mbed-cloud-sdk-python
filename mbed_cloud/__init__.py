@@ -1,8 +1,8 @@
-"""Initialise the mbed_cloud_sdk config and BaseAPI."""
+"""Initialise the mbed_cloud config and BaseAPI."""
 import sys
 import urllib
 
-from mbed_cloud_sdk.bootstrap import Config
+from mbed_cloud.bootstrap import Config
 
 config = Config()
 

@@ -3,7 +3,7 @@ from __future__ import absolute_import
 import logging
 
 # Import common functions and exceptions from frontend API
-from mbed_cloud_sdk import BaseAPI
+from mbed_cloud import BaseAPI
 
 # TODO(Herman): Import backend API
 
