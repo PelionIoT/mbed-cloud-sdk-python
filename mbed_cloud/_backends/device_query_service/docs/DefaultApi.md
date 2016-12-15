@@ -123,7 +123,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **device_query_list**
-> DeviceQueryResp device_query_list(description=description, created_at=created_at, updated_at=updated_at, etag=etag, name=name, object=object, query=query, query_id=query_id)
+> DeviceQueryResp device_query_list(limit=limit, order=order, after=after)
 
 
 
@@ -143,17 +143,12 @@ device_query_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = device_query_service.DefaultApi()
-description = 'description_example' # str |  (optional)
-created_at = 'created_at_example' # str |  (optional)
-updated_at = 'updated_at_example' # str |  (optional)
-etag = 'etag_example' # str |  (optional)
-name = 'name_example' # str |  (optional)
-object = 'object_example' # str |  (optional)
-query = 'query_example' # str |  (optional)
-query_id = 'query_id_example' # str |  (optional)
+limit = 56 # int |  (optional)
+order = 'order_example' # str |  (optional)
+after = 'after_example' # str |  (optional)
 
 try: 
-    api_response = api_instance.device_query_list(description=description, created_at=created_at, updated_at=updated_at, etag=etag, name=name, object=object, query=query, query_id=query_id)
+    api_response = api_instance.device_query_list(limit=limit, order=order, after=after)
     pprint(api_response)
 except ApiException as e:
     print "Exception when calling DefaultApi->device_query_list: %s\n" % e
@@ -163,14 +158,9 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **description** | **str**|  | [optional] 
- **created_at** | **str**|  | [optional] 
- **updated_at** | **str**|  | [optional] 
- **etag** | **str**|  | [optional] 
- **name** | **str**|  | [optional] 
- **object** | **str**|  | [optional] 
- **query** | **str**|  | [optional] 
- **query_id** | **str**|  | [optional] 
+ **limit** | **int**|  | [optional] 
+ **order** | **str**|  | [optional] 
+ **after** | **str**|  | [optional] 
 
 ### Return type
 
