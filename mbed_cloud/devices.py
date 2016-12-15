@@ -376,22 +376,44 @@ class DeviceAPI(BaseAPI):
         return api.device_query_list(**kwargs).data
 
     @catch_exceptions(DeviceQueryServiceApiException)
-    def create_filter(self, name, query, **kwargs):
+    def create_filter(self, name, query, custom_attributes=None, **kwargs):
         """Create new filter in device query service.
 
         :param name: Name of filter (str)
-        :param query: The filter properties to apply (obj)
+        :param query: Filter properties to apply (dict)
+        :param custom_attributes: Extra filter attributes (dict)
         :param return: the newly created filter object.
         """
         api = self.dc_queries.DefaultApi()
 
+        # Add custom attributes, if provided
+        if custom_attributes:
+            for k, v in custom_attributes.iteritems():
+                query['custom_attributes__' + k] = v
+
         # Ensure query is valid
         if not query.keys():
             raise ValueError("'query' parameter not valid, needs to contain query keys")
+
+        # Quote strings using %20, not '+' which is default when urlencoding dicts
+        for k, v in query.iteritems():
+            if type(v) is str:
+                query[k] = urllib.quote(v)
+
         # Encode the query string
-        #query = urllib.urlencode(query)
+        query = urllib.urlencode(query)
 
         return api.device_query_create(name=name, query=query, **kwargs)
+
+    @catch_exceptions(DeviceQueryServiceApiException)
+    def delete_filter(self, filter_id):
+        """Delete filter in device query service.
+
+        :param filter_id: id of the filter to delete (int)
+        :param return: void
+        """
+        api = self.dc_queries.DefaultApi()
+        return api.device_query_destroy(filter_id)
 
     def _get_value_synchronized(self, consumer):
         # We return synchronously, so we block in a busy loop waiting for the
