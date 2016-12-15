@@ -293,14 +293,9 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str description: 
-        :param str created_at: 
-        :param str updated_at: 
-        :param str etag: 
-        :param str name: 
-        :param str object: 
-        :param str query: 
-        :param str query_id: 
+        :param int limit: 
+        :param str order: 
+        :param str after: 
         :return: DeviceQueryResp
                  If the method is called asynchronously,
                  returns the request thread.
@@ -327,20 +322,15 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str description: 
-        :param str created_at: 
-        :param str updated_at: 
-        :param str etag: 
-        :param str name: 
-        :param str object: 
-        :param str query: 
-        :param str query_id: 
+        :param int limit: 
+        :param str order: 
+        :param str after: 
         :return: DeviceQueryResp
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['description', 'created_at', 'updated_at', 'etag', 'name', 'object', 'query', 'query_id']
+        all_params = ['limit', 'order', 'after']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
 
@@ -358,22 +348,12 @@ class DefaultApi(object):
         path_params = {}
 
         query_params = {}
-        if 'description' in params:
-            query_params['description'] = params['description']
-        if 'created_at' in params:
-            query_params['created_at'] = params['created_at']
-        if 'updated_at' in params:
-            query_params['updated_at'] = params['updated_at']
-        if 'etag' in params:
-            query_params['etag'] = params['etag']
-        if 'name' in params:
-            query_params['name'] = params['name']
-        if 'object' in params:
-            query_params['object'] = params['object']
-        if 'query' in params:
-            query_params['query'] = params['query']
-        if 'query_id' in params:
-            query_params['query_id'] = params['query_id']
+        if 'limit' in params:
+            query_params['limit'] = params['limit']
+        if 'order' in params:
+            query_params['order'] = params['order']
+        if 'after' in params:
+            query_params['after'] = params['after']
 
         header_params = {}
 
