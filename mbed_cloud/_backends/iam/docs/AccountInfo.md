@@ -7,9 +7,10 @@ Name | Type | Description | Notes
 **city** | **str** | The city part of the postal address. | [optional] 
 **address_line1** | **str** | Postal address line 1. | [optional] 
 **display_name** | **str** | The display name for the account. | [optional] 
+**upgraded_at** | **str** | Time when upgraded to commercial account in UTC format RFC3339. | [optional] 
 **country** | **str** | The country part of the postal address. | [optional] 
 **company** | **str** | The name of the company. | [optional] 
-**object** | **str** | entity name: always &#39;account&#39; | 
+**object** | **str** | Entity name: always &#39;account&#39; | 
 **status** | **str** | The status of the account. | 
 **id** | **str** | Account ID. | 
 **email** | **str** | The company email address for this account. | [optional] 

@@ -10,8 +10,10 @@ Method | HTTP request | Description
 [**get_all_groups**](DeveloperApi.md#get_all_groups) | **GET** /v3/policy-groups | Get all group information.
 [**get_api_key**](DeveloperApi.md#get_api_key) | **GET** /v3/api-keys/{apiKey} | Get API key details.
 [**get_my_account_info**](DeveloperApi.md#get_my_account_info) | **GET** /v3/accounts/me | Get account info.
+[**get_my_api_key**](DeveloperApi.md#get_my_api_key) | **GET** /v3/api-keys/me | Get API key details.
 [**get_my_user**](DeveloperApi.md#get_my_user) | **GET** /v3/users/me | Details of the current user.
 [**update_api_key**](DeveloperApi.md#update_api_key) | **PUT** /v3/api-keys/{apiKey} | Update API key details.
+[**update_my_api_key**](DeveloperApi.md#update_my_api_key) | **PUT** /v3/api-keys/me | Update API key details.
 [**update_my_user**](DeveloperApi.md#update_my_user) | **PUT** /v3/users/me | Update user details.
 
 
@@ -20,7 +22,7 @@ Method | HTTP request | Description
 
 Create a new API key.
 
-Endpoint for creating the new API key.
+An endpoint for creating a new API key.
 
 ### Example 
 ```python
@@ -72,7 +74,7 @@ Name | Type | Description  | Notes
 
 Delete API key.
 
-Endpoint for deleting the API key.
+An endpoint for deleting the API key.
 
 ### Example 
 ```python
@@ -119,11 +121,11 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_all_api_keys**
-> ApiKeyInfoRespList get_all_api_keys(owner=owner)
+> ApiKeyInfoRespList get_all_api_keys(limit=limit, after=after, order=order, include=include, filter=filter, owner=owner)
 
 Get all API keys
 
-Endpoint for retrieving API keys in an array, optionally filtered by the owner.
+An endpoint for retrieving API keys in an array, optionally filtered by the owner.
 
 ### Example 
 ```python
@@ -139,11 +141,16 @@ iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = iam.DeveloperApi()
+limit = 50 # int | The number of results to return (2-1000), default is 50. (optional) (default to 50)
+after = 'after_example' # str | The entity ID to fetch after the given one. (optional)
+order = 'ASC' # str | The order of the records, ASC or DESC; by default ASC (optional) (default to ASC)
+include = 'include_example' # str | Comma separated additional data to return. Currently supported: total_count (optional)
+filter = 'filter_example' # str | A filter for the query, for example filter=owner%3Duuid. (optional)
 owner = 'owner_example' # str | Owner name filter. (optional)
 
 try: 
     # Get all API keys
-    api_response = api_instance.get_all_api_keys(owner=owner)
+    api_response = api_instance.get_all_api_keys(limit=limit, after=after, order=order, include=include, filter=filter, owner=owner)
     pprint(api_response)
 except ApiException as e:
     print "Exception when calling DeveloperApi->get_all_api_keys: %s\n" % e
@@ -153,6 +160,11 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **limit** | **int**| The number of results to return (2-1000), default is 50. | [optional] [default to 50]
+ **after** | **str**| The entity ID to fetch after the given one. | [optional] 
+ **order** | **str**| The order of the records, ASC or DESC; by default ASC | [optional] [default to ASC]
+ **include** | **str**| Comma separated additional data to return. Currently supported: total_count | [optional] 
+ **filter** | **str**| A filter for the query, for example filter&#x3D;owner%3Duuid. | [optional] 
  **owner** | **str**| Owner name filter. | [optional] 
 
 ### Return type
@@ -171,11 +183,11 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_all_groups**
-> GroupSummaryList get_all_groups()
+> GroupSummaryList get_all_groups(limit=limit, after=after, order=order, include=include)
 
 Get all group information.
 
-Endpoint for retrieving all group information.
+An endpoint for retrieving all group information.
 
 ### Example 
 ```python
@@ -191,17 +203,27 @@ iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = iam.DeveloperApi()
+limit = 50 # int | The number of results to return (2-1000), default is 50. (optional) (default to 50)
+after = 'after_example' # str | The entity ID to fetch after the given one. (optional)
+order = 'ASC' # str | The order of the records, ASC or DESC; by default ASC (optional) (default to ASC)
+include = 'include_example' # str | Comma separated additional data to return. Currently supported: total_count (optional)
 
 try: 
     # Get all group information.
-    api_response = api_instance.get_all_groups()
+    api_response = api_instance.get_all_groups(limit=limit, after=after, order=order, include=include)
     pprint(api_response)
 except ApiException as e:
     print "Exception when calling DeveloperApi->get_all_groups: %s\n" % e
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **limit** | **int**| The number of results to return (2-1000), default is 50. | [optional] [default to 50]
+ **after** | **str**| The entity ID to fetch after the given one. | [optional] 
+ **order** | **str**| The order of the records, ASC or DESC; by default ASC | [optional] [default to ASC]
+ **include** | **str**| Comma separated additional data to return. Currently supported: total_count | [optional] 
 
 ### Return type
 
@@ -223,7 +245,7 @@ This endpoint does not need any parameter.
 
 Get API key details.
 
-Endpoint for retrieving API key details.
+An endpoint for retrieving API key details.
 
 ### Example 
 ```python
@@ -318,12 +340,60 @@ This endpoint does not need any parameter.
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **get_my_api_key**
+> ApiKeyInfoResp get_my_api_key()
+
+Get API key details.
+
+An endpoint for retrieving API key details.
+
+### Example 
+```python
+import time
+import iam
+from iam.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# iam.configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = iam.DeveloperApi()
+
+try: 
+    # Get API key details.
+    api_response = api_instance.get_my_api_key()
+    pprint(api_response)
+except ApiException as e:
+    print "Exception when calling DeveloperApi->get_my_api_key: %s\n" % e
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**ApiKeyInfoResp**](ApiKeyInfoResp.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **get_my_user**
 > UserInfoResp get_my_user()
 
 Details of the current user.
 
-Endpoint for retrieving the details of the logged in user.
+An endpoint for retrieving the details of the logged in user.
 
 ### Example 
 ```python
@@ -371,7 +441,7 @@ This endpoint does not need any parameter.
 
 Update API key details.
 
-Endpoint for updating API key details.
+An endpoint for updating API key details.
 
 ### Example 
 ```python
@@ -388,7 +458,7 @@ iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = iam.DeveloperApi()
 api_key = 'api_key_example' # str | The ID of the API key to be updated.
-body = iam.ApiKeyInfoReq() # ApiKeyInfoReq | New API key attributes to be stored.
+body = iam.ApiKeyUpdateReq() # ApiKeyUpdateReq | New API key attributes to be stored.
 
 try: 
     # Update API key details.
@@ -403,7 +473,59 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **api_key** | **str**| The ID of the API key to be updated. | 
- **body** | [**ApiKeyInfoReq**](ApiKeyInfoReq.md)| New API key attributes to be stored. | 
+ **body** | [**ApiKeyUpdateReq**](ApiKeyUpdateReq.md)| New API key attributes to be stored. | 
+
+### Return type
+
+[**ApiKeyInfoResp**](ApiKeyInfoResp.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **update_my_api_key**
+> ApiKeyInfoResp update_my_api_key(body)
+
+Update API key details.
+
+An endpoint for updating API key details.
+
+### Example 
+```python
+import time
+import iam
+from iam.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# iam.configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = iam.DeveloperApi()
+body = iam.ApiKeyUpdateReq() # ApiKeyUpdateReq | New API key attributes to be stored.
+
+try: 
+    # Update API key details.
+    api_response = api_instance.update_my_api_key(body)
+    pprint(api_response)
+except ApiException as e:
+    print "Exception when calling DeveloperApi->update_my_api_key: %s\n" % e
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**ApiKeyUpdateReq**](ApiKeyUpdateReq.md)| New API key attributes to be stored. | 
 
 ### Return type
 
@@ -425,7 +547,7 @@ Name | Type | Description  | Notes
 
 Update user details.
 
-Endpoint for updating the details of the logged in user.
+An endpoint for updating the details of the logged in user.
 
 ### Example 
 ```python

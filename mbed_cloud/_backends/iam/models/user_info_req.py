@@ -3,7 +3,7 @@
 """
     IAM Identities REST API
 
-    REST API to manage accounts, groups, users and api-keys
+    REST API to manage accounts, groups, users and API keys
 
     OpenAPI spec version: v3
     
@@ -263,7 +263,7 @@ class UserInfoReq(object):
     def email(self):
         """
         Gets the email of this UserInfoReq.
-        Email address.
+        The email address.
 
         :return: The email of this UserInfoReq.
         :rtype: str
@@ -274,7 +274,7 @@ class UserInfoReq(object):
     def email(self, email):
         """
         Sets the email of this UserInfoReq.
-        Email address.
+        The email address.
 
         :param email: The email of this UserInfoReq.
         :type: str

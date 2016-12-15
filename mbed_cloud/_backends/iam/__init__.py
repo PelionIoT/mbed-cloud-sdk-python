@@ -3,7 +3,7 @@
 """
     IAM Identities REST API
 
-    REST API to manage accounts, groups, users and api-keys
+    REST API to manage accounts, groups, users and API keys
 
     OpenAPI spec version: v3
     
@@ -30,11 +30,11 @@ from .models.account_update_req import AccountUpdateReq
 from .models.api_key_info_req import ApiKeyInfoReq
 from .models.api_key_info_resp import ApiKeyInfoResp
 from .models.api_key_info_resp_list import ApiKeyInfoRespList
+from .models.api_key_update_req import ApiKeyUpdateReq
 from .models.error_response import ErrorResponse
 from .models.field import Field
 from .models.group_summary import GroupSummary
 from .models.group_summary_list import GroupSummaryList
-from .models.updated_response import UpdatedResponse
 from .models.user_info_req import UserInfoReq
 from .models.user_info_resp import UserInfoResp
 from .models.user_info_resp_list import UserInfoRespList

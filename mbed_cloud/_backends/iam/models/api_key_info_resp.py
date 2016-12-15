@@ -3,7 +3,7 @@
 """
     IAM Identities REST API
 
-    REST API to manage accounts, groups, users and api-keys
+    REST API to manage accounts, groups, users and API keys
 
     OpenAPI spec version: v3
     
@@ -117,7 +117,7 @@ class ApiKeyInfoResp(object):
     def apikey(self):
         """
         Gets the apikey of this ApiKeyInfoResp.
-        API key.
+        The API key.
 
         :return: The apikey of this ApiKeyInfoResp.
         :rtype: str
@@ -128,7 +128,7 @@ class ApiKeyInfoResp(object):
     def apikey(self, apikey):
         """
         Sets the apikey of this ApiKeyInfoResp.
-        API key.
+        The API key.
 
         :param apikey: The apikey of this ApiKeyInfoResp.
         :type: str
@@ -186,7 +186,7 @@ class ApiKeyInfoResp(object):
     def object(self):
         """
         Gets the object of this ApiKeyInfoResp.
-        entity name: always 'apikey'
+        Entity name: always 'apikey'
 
         :return: The object of this ApiKeyInfoResp.
         :rtype: str
@@ -197,12 +197,12 @@ class ApiKeyInfoResp(object):
     def object(self, object):
         """
         Sets the object of this ApiKeyInfoResp.
-        entity name: always 'apikey'
+        Entity name: always 'apikey'
 
         :param object: The object of this ApiKeyInfoResp.
         :type: str
         """
-        allowed_values = ["user", "apikey", "group", "account", "list", "error"]
+        allowed_values = ["user", "apikey", "group", "account", "ca_cert", "list", "error"]
         if object not in allowed_values:
             raise ValueError(
                 "Invalid value for `object` ({0}), must be one of {1}"
@@ -307,7 +307,7 @@ class ApiKeyInfoResp(object):
     def secret_key(self):
         """
         Gets the secret_key of this ApiKeyInfoResp.
-        API key secret.
+        API key secret, deprecated and always empty string.
 
         :return: The secret_key of this ApiKeyInfoResp.
         :rtype: str
@@ -318,7 +318,7 @@ class ApiKeyInfoResp(object):
     def secret_key(self, secret_key):
         """
         Sets the secret_key of this ApiKeyInfoResp.
-        API key secret.
+        API key secret, deprecated and always empty string.
 
         :param secret_key: The secret_key of this ApiKeyInfoResp.
         :type: str
@@ -330,7 +330,7 @@ class ApiKeyInfoResp(object):
     def id(self):
         """
         Gets the id of this ApiKeyInfoResp.
-        UUID of the API key.
+        The UUID of the API key.
 
         :return: The id of this ApiKeyInfoResp.
         :rtype: str
@@ -341,7 +341,7 @@ class ApiKeyInfoResp(object):
     def id(self, id):
         """
         Sets the id of this ApiKeyInfoResp.
-        UUID of the API key.
+        The UUID of the API key.
 
         :param id: The id of this ApiKeyInfoResp.
         :type: str

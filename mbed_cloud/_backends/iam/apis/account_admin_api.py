@@ -3,7 +3,7 @@
 """
     IAM Identities REST API
 
-    REST API to manage accounts, groups, users and api-keys
+    REST API to manage accounts, groups, users and API keys
 
     OpenAPI spec version: v3
     
@@ -54,7 +54,7 @@ class AccountAdminApi(object):
     def create_user(self, body, **kwargs):
         """
         Create a new user.
-        Endpoint for creating a new user.
+        An endpoint for creating a new user.
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -67,6 +67,7 @@ class AccountAdminApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param UserInfoReq body: A user object with attributes. (required)
+        :param str action: Action, either 'create' or 'invite'.
         :return: UserInfoResp
                  If the method is called asynchronously,
                  returns the request thread.
@@ -81,7 +82,7 @@ class AccountAdminApi(object):
     def create_user_with_http_info(self, body, **kwargs):
         """
         Create a new user.
-        Endpoint for creating a new user.
+        An endpoint for creating a new user.
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -94,12 +95,13 @@ class AccountAdminApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param UserInfoReq body: A user object with attributes. (required)
+        :param str action: Action, either 'create' or 'invite'.
         :return: UserInfoResp
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['body']
+        all_params = ['body', 'action']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
 
@@ -120,6 +122,8 @@ class AccountAdminApi(object):
         path_params = {}
 
         query_params = {}
+        if 'action' in params:
+            query_params['action'] = params['action']
 
         header_params = {}
 
@@ -158,7 +162,7 @@ class AccountAdminApi(object):
     def delete_user(self, user_id, **kwargs):
         """
         Delete a user.
-        Endpoint for deleting a user.
+        An endpoint for deleting a user.
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -171,6 +175,7 @@ class AccountAdminApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str user_id: The ID of the user to be deleted. (required)
+        :param str force: Flag indicating that user is forced to be deleted.
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -185,7 +190,7 @@ class AccountAdminApi(object):
     def delete_user_with_http_info(self, user_id, **kwargs):
         """
         Delete a user.
-        Endpoint for deleting a user.
+        An endpoint for deleting a user.
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -198,12 +203,13 @@ class AccountAdminApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str user_id: The ID of the user to be deleted. (required)
+        :param str force: Flag indicating that user is forced to be deleted.
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['user_id']
+        all_params = ['user_id', 'force']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
 
@@ -226,6 +232,8 @@ class AccountAdminApi(object):
             path_params['user-id'] = params['user_id']
 
         query_params = {}
+        if 'force' in params:
+            query_params['force'] = params['force']
 
         header_params = {}
 
@@ -262,7 +270,7 @@ class AccountAdminApi(object):
     def get_all_users(self, **kwargs):
         """
         Get the details of all users.
-        Endpoint for retrieving the details of all users.
+        An endpoint for retrieving the details of all users.
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -274,6 +282,11 @@ class AccountAdminApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
+        :param int limit: The number of results to return (2-1000), default is 50.
+        :param str after: The entity ID to fetch after the given one.
+        :param str order: The order of the records, ASC or DESC; by default ASC
+        :param str include: Comma separated additional data to return. Currently supported: total_count
+        :param str filter: Filter for the query, for example filter=status%3Dactive,status%3Dreset.
         :return: UserInfoRespList
                  If the method is called asynchronously,
                  returns the request thread.
@@ -288,7 +301,7 @@ class AccountAdminApi(object):
     def get_all_users_with_http_info(self, **kwargs):
         """
         Get the details of all users.
-        Endpoint for retrieving the details of all users.
+        An endpoint for retrieving the details of all users.
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -300,12 +313,17 @@ class AccountAdminApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
+        :param int limit: The number of results to return (2-1000), default is 50.
+        :param str after: The entity ID to fetch after the given one.
+        :param str order: The order of the records, ASC or DESC; by default ASC
+        :param str include: Comma separated additional data to return. Currently supported: total_count
+        :param str filter: Filter for the query, for example filter=status%3Dactive,status%3Dreset.
         :return: UserInfoRespList
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = []
+        all_params = ['limit', 'after', 'order', 'include', 'filter']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
 
@@ -323,6 +341,16 @@ class AccountAdminApi(object):
         path_params = {}
 
         query_params = {}
+        if 'limit' in params:
+            query_params['limit'] = params['limit']
+        if 'after' in params:
+            query_params['after'] = params['after']
+        if 'order' in params:
+            query_params['order'] = params['order']
+        if 'include' in params:
+            query_params['include'] = params['include']
+        if 'filter' in params:
+            query_params['filter'] = params['filter']
 
         header_params = {}
 
@@ -359,7 +387,7 @@ class AccountAdminApi(object):
     def get_user(self, user_id, **kwargs):
         """
         Details of a user.
-        Endpoint for retrieving the details of a user.
+        An endpoint for retrieving the details of a user.
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -386,7 +414,7 @@ class AccountAdminApi(object):
     def get_user_with_http_info(self, user_id, **kwargs):
         """
         Details of a user.
-        Endpoint for retrieving the details of a user.
+        An endpoint for retrieving the details of a user.
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -463,7 +491,7 @@ class AccountAdminApi(object):
     def update_my_account(self, body, **kwargs):
         """
         Updates attributes of the account.
-        Endpoint for updating the account.
+        An endpoint for updating the account.
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -476,7 +504,7 @@ class AccountAdminApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param AccountUpdateReq body: Details of the account to be updated. (required)
-        :return: UpdatedResponse
+        :return: AccountInfo
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -490,7 +518,7 @@ class AccountAdminApi(object):
     def update_my_account_with_http_info(self, body, **kwargs):
         """
         Updates attributes of the account.
-        Endpoint for updating the account.
+        An endpoint for updating the account.
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -503,7 +531,7 @@ class AccountAdminApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param AccountUpdateReq body: Details of the account to be updated. (required)
-        :return: UpdatedResponse
+        :return: AccountInfo
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -559,7 +587,7 @@ class AccountAdminApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=local_var_files,
-                                            response_type='UpdatedResponse',
+                                            response_type='AccountInfo',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))
@@ -567,7 +595,7 @@ class AccountAdminApi(object):
     def update_user(self, user_id, body, **kwargs):
         """
         Update user details.
-        Endpoint for updating user details.
+        An endpoint for updating user details.
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -595,7 +623,7 @@ class AccountAdminApi(object):
     def update_user_with_http_info(self, user_id, body, **kwargs):
         """
         Update user details.
-        Endpoint for updating user details.
+        An endpoint for updating user details.
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
