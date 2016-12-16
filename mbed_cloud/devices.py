@@ -9,10 +9,11 @@ import time
 import urllib
 
 # Import common functions and exceptions from frontend API
-from mbed_cloud import BaseAPI, PaginatedResponse
+from mbed_cloud import BaseAPI
 from mbed_cloud.decorators import catch_exceptions
 from mbed_cloud.exceptions import AsyncError
 from mbed_cloud.exceptions import UnhandledError
+from mbed_cloud import PaginatedResponse
 
 # Import backend API
 import mbed_cloud._backends.device_catalog as dc
@@ -306,7 +307,7 @@ class DeviceAPI(BaseAPI):
         kwargs = self._verify_filters(kwargs)
 
         api = self.dc.DefaultApi()
-        return api.device_list(**kwargs).data
+        return PaginatedResponse(api.device_list(**kwargs))
 
     @catch_exceptions(DeviceCatalogApiException)
     def get_device(self, device_id):
@@ -375,9 +376,6 @@ class DeviceAPI(BaseAPI):
         api = self.dc_queries.DefaultApi()
 
         return PaginatedResponse(api.device_query_list, **kwargs)
-        # print(p.data)
-        # p.next()
-        # return api.device_query_list(**kwargs).data
 
     @catch_exceptions(DeviceQueryServiceApiException)
     def create_filter(self, name, query, custom_attributes=None, **kwargs):
@@ -390,14 +388,9 @@ class DeviceAPI(BaseAPI):
         """
         api = self.dc_queries.DefaultApi()
 
-        # Add custom attributes, if provided
-        if custom_attributes:
-            for k, v in custom_attributes.iteritems():
-                query['custom_attributes__' + k] = v
-
-        # Ensure query is valid
-        if not query.keys():
-            raise ValueError("'query' parameter not valid, needs to contain query keys")
+        # Ensure we have the correct types and get the new query object based on
+        # passed in query object and custom attributes.
+        query = self._get_filter_attributes(query, custom_attributes)
 
         # Quote strings using %20, not '+' which is default when urlencoding dicts
         for k, v in query.iteritems():
@@ -418,6 +411,29 @@ class DeviceAPI(BaseAPI):
         """
         api = self.dc_queries.DefaultApi()
         return api.device_query_destroy(filter_id)
+
+    def _get_filter_attributes(self, query, custom_attributes):
+        # Ensure the query is of dict type
+        if query and not isinstance(query, dict):
+            raise ValueError("'query' parameter needs to be of type dict")
+        else:
+            query = {}
+
+        # Add custom attributes, if provided
+        if custom_attributes:
+            if not isinstance(custom_attributes, dict):
+                raise ValueError("Custom attributes when creating filter needs to be dict object")
+            for k, v in custom_attributes.iteritems():
+                if not k:
+                    LOG.warning("Ignoring custom attribute with value %r as key is empty" % (v,))
+                    continue
+                query['custom_attributes__' + k] = v
+
+        # Ensure query is valid
+        if not query.keys():
+            raise ValueError("'query' parameter not valid, needs to contain query keys")
+
+        return query
 
     def _get_value_synchronized(self, consumer):
         # We return synchronously, so we block in a busy loop waiting for the
