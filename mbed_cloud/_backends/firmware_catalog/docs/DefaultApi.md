@@ -333,7 +333,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **firmware_manifest_create**
-> FirmwareManifestSerializer firmware_manifest_create(datafile, name, description=description, updating_request_id=updating_request_id, updating_ip_address=updating_ip_address, name2=name2, description2=description2, created_at=created_at, updated_at=updated_at, datafile_checksum=datafile_checksum, device_class=device_class, etag=etag, manifest_id=manifest_id, object=object, timestamp=timestamp)
+> ManifestSerializerData firmware_manifest_create(datafile, name, description=description)
 
 
 
@@ -353,24 +353,12 @@ firmware_catalog.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = firmware_catalog.DefaultApi()
-datafile = 'datafile_example' # str | The manifest file to create
+datafile = '/path/to/file.txt' # file | The manifest file to create
 name = 'name_example' # str | The name of the object
 description = 'description_example' # str | The description of the object (optional)
-updating_request_id = 'updating_request_id_example' # str |  (optional)
-updating_ip_address = 'updating_ip_address_example' # str |  (optional)
-name2 = 'name_example' # str |  (optional)
-description2 = 'description_example' # str |  (optional)
-created_at = 'created_at_example' # str |  (optional)
-updated_at = 'updated_at_example' # str |  (optional)
-datafile_checksum = 'datafile_checksum_example' # str |  (optional)
-device_class = 'device_class_example' # str |  (optional)
-etag = 'etag_example' # str |  (optional)
-manifest_id = 'manifest_id_example' # str |  (optional)
-object = 'object_example' # str |  (optional)
-timestamp = 'timestamp_example' # str |  (optional)
 
 try: 
-    api_response = api_instance.firmware_manifest_create(datafile, name, description=description, updating_request_id=updating_request_id, updating_ip_address=updating_ip_address, name2=name2, description2=description2, created_at=created_at, updated_at=updated_at, datafile_checksum=datafile_checksum, device_class=device_class, etag=etag, manifest_id=manifest_id, object=object, timestamp=timestamp)
+    api_response = api_instance.firmware_manifest_create(datafile, name, description=description)
     pprint(api_response)
 except ApiException as e:
     print "Exception when calling DefaultApi->firmware_manifest_create: %s\n" % e
@@ -380,25 +368,13 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **datafile** | **str**| The manifest file to create | 
+ **datafile** | **file**| The manifest file to create | 
  **name** | **str**| The name of the object | 
  **description** | **str**| The description of the object | [optional] 
- **updating_request_id** | **str**|  | [optional] 
- **updating_ip_address** | **str**|  | [optional] 
- **name2** | **str**|  | [optional] 
- **description2** | **str**|  | [optional] 
- **created_at** | **str**|  | [optional] 
- **updated_at** | **str**|  | [optional] 
- **datafile_checksum** | **str**|  | [optional] 
- **device_class** | **str**|  | [optional] 
- **etag** | **str**|  | [optional] 
- **manifest_id** | **str**|  | [optional] 
- **object** | **str**|  | [optional] 
- **timestamp** | **str**|  | [optional] 
 
 ### Return type
 
-[**FirmwareManifestSerializer**](FirmwareManifestSerializer.md)
+[**ManifestSerializerData**](ManifestSerializerData.md)
 
 ### Authorization
 
@@ -412,7 +388,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **firmware_manifest_destroy**
-> FirmwareManifestSerializer firmware_manifest_destroy(manifest_id, updating_request_id=updating_request_id, updating_ip_address=updating_ip_address, name=name, description=description, created_at=created_at, updated_at=updated_at, datafile_checksum=datafile_checksum, device_class=device_class, etag=etag, object=object, timestamp=timestamp)
+> ManifestSerializerData firmware_manifest_destroy(manifest_id)
 
 
 
@@ -433,20 +409,9 @@ firmware_catalog.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = firmware_catalog.DefaultApi()
 manifest_id = 56 # int | The ID of the firmware manifest
-updating_request_id = 'updating_request_id_example' # str |  (optional)
-updating_ip_address = 'updating_ip_address_example' # str |  (optional)
-name = 'name_example' # str |  (optional)
-description = 'description_example' # str |  (optional)
-created_at = 'created_at_example' # str |  (optional)
-updated_at = 'updated_at_example' # str |  (optional)
-datafile_checksum = 'datafile_checksum_example' # str |  (optional)
-device_class = 'device_class_example' # str |  (optional)
-etag = 'etag_example' # str |  (optional)
-object = 'object_example' # str |  (optional)
-timestamp = 'timestamp_example' # str |  (optional)
 
 try: 
-    api_response = api_instance.firmware_manifest_destroy(manifest_id, updating_request_id=updating_request_id, updating_ip_address=updating_ip_address, name=name, description=description, created_at=created_at, updated_at=updated_at, datafile_checksum=datafile_checksum, device_class=device_class, etag=etag, object=object, timestamp=timestamp)
+    api_response = api_instance.firmware_manifest_destroy(manifest_id)
     pprint(api_response)
 except ApiException as e:
     print "Exception when calling DefaultApi->firmware_manifest_destroy: %s\n" % e
@@ -457,21 +422,10 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **manifest_id** | **int**| The ID of the firmware manifest | 
- **updating_request_id** | **str**|  | [optional] 
- **updating_ip_address** | **str**|  | [optional] 
- **name** | **str**|  | [optional] 
- **description** | **str**|  | [optional] 
- **created_at** | **str**|  | [optional] 
- **updated_at** | **str**|  | [optional] 
- **datafile_checksum** | **str**|  | [optional] 
- **device_class** | **str**|  | [optional] 
- **etag** | **str**|  | [optional] 
- **object** | **str**|  | [optional] 
- **timestamp** | **str**|  | [optional] 
 
 ### Return type
 
-[**FirmwareManifestSerializer**](FirmwareManifestSerializer.md)
+[**ManifestSerializerData**](ManifestSerializerData.md)
 
 ### Authorization
 
@@ -542,7 +496,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **firmware_manifest_retrieve**
-> FirmwareManifestSerializer firmware_manifest_retrieve(manifest_id, updating_request_id=updating_request_id, updating_ip_address=updating_ip_address, name=name, description=description, created_at=created_at, updated_at=updated_at, datafile_checksum=datafile_checksum, device_class=device_class, etag=etag, object=object, timestamp=timestamp)
+> ManifestSerializerData firmware_manifest_retrieve(manifest_id, updating_request_id=updating_request_id, updating_ip_address=updating_ip_address, name=name, description=description, created_at=created_at, updated_at=updated_at, datafile_checksum=datafile_checksum, device_class=device_class, etag=etag, object=object, timestamp=timestamp)
 
 
 
@@ -601,7 +555,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FirmwareManifestSerializer**](FirmwareManifestSerializer.md)
+[**ManifestSerializerData**](ManifestSerializerData.md)
 
 ### Authorization
 
