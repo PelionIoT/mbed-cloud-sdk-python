@@ -612,6 +612,7 @@ class DeveloperApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
+        :param str include: Comma separated additional data to return. Currently supported: limits
         :return: AccountInfo
                  If the method is called asynchronously,
                  returns the request thread.
@@ -638,12 +639,13 @@ class DeveloperApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
+        :param str include: Comma separated additional data to return. Currently supported: limits
         :return: AccountInfo
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = []
+        all_params = ['include']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
 
@@ -661,6 +663,8 @@ class DeveloperApi(object):
         path_params = {}
 
         query_params = {}
+        if 'include' in params:
+            query_params['include'] = params['include']
 
         header_params = {}
 

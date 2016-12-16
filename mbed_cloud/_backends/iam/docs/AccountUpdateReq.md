@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **display_name** | **str** | The display name for the account. | [optional] 
 **country** | **str** | The country part of the postal address. | [optional] 
 **company** | **str** | The name of the company. | [optional] 
+**template_id** | **str** | Account template ID. Manageable by the root admin only. | [optional] 
 **status** | **str** | The status of the account. Manageable by the root admin only. | [optional] 
 **state** | **str** | The state part of the postal address. | [optional] 
 **contact** | **str** | The name of the contact person for this account. | [optional] 

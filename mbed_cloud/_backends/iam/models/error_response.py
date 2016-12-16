@@ -132,7 +132,7 @@ class ErrorResponse(object):
         :param object: The object of this ErrorResponse.
         :type: str
         """
-        allowed_values = ["user", "apikey", "group", "account", "ca_cert", "list", "error"]
+        allowed_values = ["user", "apikey", "group", "account", "account_template", "ca_cert", "list", "error"]
         if object not in allowed_values:
             raise ValueError(
                 "Invalid value for `object` ({0}), must be one of {1}"
@@ -145,7 +145,7 @@ class ErrorResponse(object):
     def request_id(self):
         """
         Gets the request_id of this ErrorResponse.
-        Request ID
+        Request ID.
 
         :return: The request_id of this ErrorResponse.
         :rtype: str
@@ -156,7 +156,7 @@ class ErrorResponse(object):
     def request_id(self, request_id):
         """
         Sets the request_id of this ErrorResponse.
-        Request ID
+        Request ID.
 
         :param request_id: The request_id of this ErrorResponse.
         :type: str

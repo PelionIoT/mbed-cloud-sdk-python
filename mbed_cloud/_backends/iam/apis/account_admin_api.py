@@ -51,6 +51,110 @@ class AccountAdminApi(object):
                 config.api_client = ApiClient()
             self.api_client = config.api_client
 
+    def add_certificate(self, body, **kwargs):
+        """
+        Upload a new CA certificate.
+        An endpoint for uploading new CA certificates.
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.add_certificate(body, callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param CACertificateReq body: A CA certificate object with attributes. (required)
+        :return: CACertificateResp
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('callback'):
+            return self.add_certificate_with_http_info(body, **kwargs)
+        else:
+            (data) = self.add_certificate_with_http_info(body, **kwargs)
+            return data
+
+    def add_certificate_with_http_info(self, body, **kwargs):
+        """
+        Upload a new CA certificate.
+        An endpoint for uploading new CA certificates.
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.add_certificate_with_http_info(body, callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param CACertificateReq body: A CA certificate object with attributes. (required)
+        :return: CACertificateResp
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['body']
+        all_params.append('callback')
+        all_params.append('_return_http_data_only')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method add_certificate" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'body' is set
+        if ('body' not in params) or (params['body'] is None):
+            raise ValueError("Missing the required parameter `body` when calling `add_certificate`")
+
+        resource_path = '/v3/ca-certificates'.replace('{format}', 'json')
+        path_params = {}
+
+        query_params = {}
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'body' in params:
+            body_params = params['body']
+
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+        if not header_params['Accept']:
+            del header_params['Accept']
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api(resource_path, 'POST',
+                                            path_params,
+                                            query_params,
+                                            header_params,
+                                            body=body_params,
+                                            post_params=form_params,
+                                            files=local_var_files,
+                                            response_type='CACertificateResp',
+                                            auth_settings=auth_settings,
+                                            callback=params.get('callback'),
+                                            _return_http_data_only=params.get('_return_http_data_only'))
+
     def create_user(self, body, **kwargs):
         """
         Create a new user.
@@ -159,6 +263,110 @@ class AccountAdminApi(object):
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))
 
+    def delete_certificate(self, ca_cert_id, **kwargs):
+        """
+        Delete a CA certificate by ID.
+        An endpoint for deleting a CA certificate.
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.delete_certificate(ca_cert_id, callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param str ca_cert_id: The ID of the CA certificate to be deleted. (required)
+        :return: None
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('callback'):
+            return self.delete_certificate_with_http_info(ca_cert_id, **kwargs)
+        else:
+            (data) = self.delete_certificate_with_http_info(ca_cert_id, **kwargs)
+            return data
+
+    def delete_certificate_with_http_info(self, ca_cert_id, **kwargs):
+        """
+        Delete a CA certificate by ID.
+        An endpoint for deleting a CA certificate.
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.delete_certificate_with_http_info(ca_cert_id, callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param str ca_cert_id: The ID of the CA certificate to be deleted. (required)
+        :return: None
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['ca_cert_id']
+        all_params.append('callback')
+        all_params.append('_return_http_data_only')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method delete_certificate" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'ca_cert_id' is set
+        if ('ca_cert_id' not in params) or (params['ca_cert_id'] is None):
+            raise ValueError("Missing the required parameter `ca_cert_id` when calling `delete_certificate`")
+
+        resource_path = '/v3/ca-certificates/{ca-cert-id}'.replace('{format}', 'json')
+        path_params = {}
+        if 'ca_cert_id' in params:
+            path_params['ca-cert-id'] = params['ca_cert_id']
+
+        query_params = {}
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+        if not header_params['Accept']:
+            del header_params['Accept']
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type([])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api(resource_path, 'DELETE',
+                                            path_params,
+                                            query_params,
+                                            header_params,
+                                            body=body_params,
+                                            post_params=form_params,
+                                            files=local_var_files,
+                                            response_type=None,
+                                            auth_settings=auth_settings,
+                                            callback=params.get('callback'),
+                                            _return_http_data_only=params.get('_return_http_data_only'))
+
     def delete_user(self, user_id, **kwargs):
         """
         Delete a user.
@@ -263,6 +471,123 @@ class AccountAdminApi(object):
                                             post_params=form_params,
                                             files=local_var_files,
                                             response_type=None,
+                                            auth_settings=auth_settings,
+                                            callback=params.get('callback'),
+                                            _return_http_data_only=params.get('_return_http_data_only'))
+
+    def get_all_certificates(self, **kwargs):
+        """
+        Get all CA certificates.
+        An endpoint for retrieving CA certificates in an array.
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.get_all_certificates(callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param int limit: The number of results to return (2-1000), default is 50.
+        :param str after: The entity ID to fetch after the given one.
+        :param str order: The order of the records, ASC or DESC; by default ASC
+        :param str include: Comma separated additional data to return. Currently supported: total_count
+        :param str filter: The filter for the query, for example filter=service%3Dlwm2m
+        :return: CACertificateRespList
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('callback'):
+            return self.get_all_certificates_with_http_info(**kwargs)
+        else:
+            (data) = self.get_all_certificates_with_http_info(**kwargs)
+            return data
+
+    def get_all_certificates_with_http_info(self, **kwargs):
+        """
+        Get all CA certificates.
+        An endpoint for retrieving CA certificates in an array.
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.get_all_certificates_with_http_info(callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param int limit: The number of results to return (2-1000), default is 50.
+        :param str after: The entity ID to fetch after the given one.
+        :param str order: The order of the records, ASC or DESC; by default ASC
+        :param str include: Comma separated additional data to return. Currently supported: total_count
+        :param str filter: The filter for the query, for example filter=service%3Dlwm2m
+        :return: CACertificateRespList
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['limit', 'after', 'order', 'include', 'filter']
+        all_params.append('callback')
+        all_params.append('_return_http_data_only')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_all_certificates" % key
+                )
+            params[key] = val
+        del params['kwargs']
+
+        resource_path = '/v3/ca-certificates'.replace('{format}', 'json')
+        path_params = {}
+
+        query_params = {}
+        if 'limit' in params:
+            query_params['limit'] = params['limit']
+        if 'after' in params:
+            query_params['after'] = params['after']
+        if 'order' in params:
+            query_params['order'] = params['order']
+        if 'include' in params:
+            query_params['include'] = params['include']
+        if 'filter' in params:
+            query_params['filter'] = params['filter']
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+        if not header_params['Accept']:
+            del header_params['Accept']
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type([])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api(resource_path, 'GET',
+                                            path_params,
+                                            query_params,
+                                            header_params,
+                                            body=body_params,
+                                            post_params=form_params,
+                                            files=local_var_files,
+                                            response_type='CACertificateRespList',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))
@@ -384,6 +709,110 @@ class AccountAdminApi(object):
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))
 
+    def get_certificate(self, ca_cert_id, **kwargs):
+        """
+        Get CA certificate by ID.
+        An endpoint for retrieving a CA certificate by ID.
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.get_certificate(ca_cert_id, callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param str ca_cert_id: The ID or name of the CA certificate to be retrieved. (required)
+        :return: CACertificateResp
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('callback'):
+            return self.get_certificate_with_http_info(ca_cert_id, **kwargs)
+        else:
+            (data) = self.get_certificate_with_http_info(ca_cert_id, **kwargs)
+            return data
+
+    def get_certificate_with_http_info(self, ca_cert_id, **kwargs):
+        """
+        Get CA certificate by ID.
+        An endpoint for retrieving a CA certificate by ID.
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.get_certificate_with_http_info(ca_cert_id, callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param str ca_cert_id: The ID or name of the CA certificate to be retrieved. (required)
+        :return: CACertificateResp
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['ca_cert_id']
+        all_params.append('callback')
+        all_params.append('_return_http_data_only')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_certificate" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'ca_cert_id' is set
+        if ('ca_cert_id' not in params) or (params['ca_cert_id'] is None):
+            raise ValueError("Missing the required parameter `ca_cert_id` when calling `get_certificate`")
+
+        resource_path = '/v3/ca-certificates/{ca-cert-id}'.replace('{format}', 'json')
+        path_params = {}
+        if 'ca_cert_id' in params:
+            path_params['ca-cert-id'] = params['ca_cert_id']
+
+        query_params = {}
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+        if not header_params['Accept']:
+            del header_params['Accept']
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type([])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api(resource_path, 'GET',
+                                            path_params,
+                                            query_params,
+                                            header_params,
+                                            body=body_params,
+                                            post_params=form_params,
+                                            files=local_var_files,
+                                            response_type='CACertificateResp',
+                                            auth_settings=auth_settings,
+                                            callback=params.get('callback'),
+                                            _return_http_data_only=params.get('_return_http_data_only'))
+
     def get_user(self, user_id, **kwargs):
         """
         Details of a user.
@@ -484,6 +913,117 @@ class AccountAdminApi(object):
                                             post_params=form_params,
                                             files=local_var_files,
                                             response_type='UserInfoResp',
+                                            auth_settings=auth_settings,
+                                            callback=params.get('callback'),
+                                            _return_http_data_only=params.get('_return_http_data_only'))
+
+    def update_certificate(self, ca_cert_id, body, **kwargs):
+        """
+        Update CA certificate.
+        An endpoint for updating existing CA certificates.
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.update_certificate(ca_cert_id, body, callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param str ca_cert_id: The ID of the CA certificate to be updated. (required)
+        :param CACertificateReq body: A CA certificate object with attributes. (required)
+        :return: CACertificateResp
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('callback'):
+            return self.update_certificate_with_http_info(ca_cert_id, body, **kwargs)
+        else:
+            (data) = self.update_certificate_with_http_info(ca_cert_id, body, **kwargs)
+            return data
+
+    def update_certificate_with_http_info(self, ca_cert_id, body, **kwargs):
+        """
+        Update CA certificate.
+        An endpoint for updating existing CA certificates.
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.update_certificate_with_http_info(ca_cert_id, body, callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param str ca_cert_id: The ID of the CA certificate to be updated. (required)
+        :param CACertificateReq body: A CA certificate object with attributes. (required)
+        :return: CACertificateResp
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['ca_cert_id', 'body']
+        all_params.append('callback')
+        all_params.append('_return_http_data_only')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method update_certificate" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'ca_cert_id' is set
+        if ('ca_cert_id' not in params) or (params['ca_cert_id'] is None):
+            raise ValueError("Missing the required parameter `ca_cert_id` when calling `update_certificate`")
+        # verify the required parameter 'body' is set
+        if ('body' not in params) or (params['body'] is None):
+            raise ValueError("Missing the required parameter `body` when calling `update_certificate`")
+
+        resource_path = '/v3/ca-certificates/{ca-cert-id}'.replace('{format}', 'json')
+        path_params = {}
+        if 'ca_cert_id' in params:
+            path_params['ca-cert-id'] = params['ca_cert_id']
+
+        query_params = {}
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'body' in params:
+            body_params = params['body']
+
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+        if not header_params['Accept']:
+            del header_params['Accept']
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api(resource_path, 'PUT',
+                                            path_params,
+                                            query_params,
+                                            header_params,
+                                            body=body_params,
+                                            post_params=form_params,
+                                            files=local_var_files,
+                                            response_type='CACertificateResp',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))
