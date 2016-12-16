@@ -6,6 +6,7 @@ import logging
 from mbed_cloud import BaseAPI
 from mbed_cloud import config
 from mbed_cloud.decorators import catch_exceptions
+from mbed_cloud import PaginatedResponse
 
 # Import backend API
 import mbed_cloud._backends.iam as iam
@@ -34,21 +35,18 @@ class AccessAPI(BaseAPI):
             iam.configuration.host = config.get("host")
 
     @catch_exceptions(ApiException)
-    def list_api_keys(self, start=0, sort_by=None, sort_direction="asc"):
+    def list_api_keys(self, **kwargs):
         """List the API keys registered in the organisation.
 
-        :param start: Not yet implemented.
-        :param sort_by: Not yet implemented.
-        :param sort_direction: Not yet implemented.
+        :param limit: Number of API keys to get (int)
+        :param after: Entity ID after which to start fetching (str)
+        :param order: Order of the records to return (asc|desc) (str)
         :returns: a list of API key objects
         """
         api = iam.DeveloperApi()
 
-        if start != 0 or sort_by is not None or sort_direction != "asc":
-            raise NotImplementedError("Sorting and pagination is not yet implemented")
-
         # Return the data array
-        return api.get_all_api_keys().data
+        return PaginatedResponse(api.get_all_api_keys, **kwargs)
 
     @catch_exceptions(ApiException)
     def get_api_key(self, api_key):
