@@ -711,22 +711,10 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str datafile: The manifest file to create (required)
+        :param file datafile: The manifest file to create (required)
         :param str name: The name of the object (required)
         :param str description: The description of the object
-        :param str updating_request_id: 
-        :param str updating_ip_address: 
-        :param str name2: 
-        :param str description2: 
-        :param str created_at: 
-        :param str updated_at: 
-        :param str datafile_checksum: 
-        :param str device_class: 
-        :param str etag: 
-        :param str manifest_id: 
-        :param str object: 
-        :param str timestamp: 
-        :return: FirmwareManifestSerializer
+        :return: ManifestSerializerData
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -752,27 +740,15 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str datafile: The manifest file to create (required)
+        :param file datafile: The manifest file to create (required)
         :param str name: The name of the object (required)
         :param str description: The description of the object
-        :param str updating_request_id: 
-        :param str updating_ip_address: 
-        :param str name2: 
-        :param str description2: 
-        :param str created_at: 
-        :param str updated_at: 
-        :param str datafile_checksum: 
-        :param str device_class: 
-        :param str etag: 
-        :param str manifest_id: 
-        :param str object: 
-        :param str timestamp: 
-        :return: FirmwareManifestSerializer
+        :return: ManifestSerializerData
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['datafile', 'name', 'description', 'updating_request_id', 'updating_ip_address', 'name2', 'description2', 'created_at', 'updated_at', 'datafile_checksum', 'device_class', 'etag', 'manifest_id', 'object', 'timestamp']
+        all_params = ['datafile', 'name', 'description']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
 
@@ -796,37 +772,13 @@ class DefaultApi(object):
         path_params = {}
 
         query_params = {}
-        if 'updating_request_id' in params:
-            query_params['updating_request_id'] = params['updating_request_id']
-        if 'updating_ip_address' in params:
-            query_params['updating_ip_address'] = params['updating_ip_address']
-        if 'name2' in params:
-            query_params['name'] = params['name2']
-        if 'description2' in params:
-            query_params['description'] = params['description2']
-        if 'created_at' in params:
-            query_params['created_at'] = params['created_at']
-        if 'updated_at' in params:
-            query_params['updated_at'] = params['updated_at']
-        if 'datafile_checksum' in params:
-            query_params['datafile_checksum'] = params['datafile_checksum']
-        if 'device_class' in params:
-            query_params['device_class'] = params['device_class']
-        if 'etag' in params:
-            query_params['etag'] = params['etag']
-        if 'manifest_id' in params:
-            query_params['manifest_id'] = params['manifest_id']
-        if 'object' in params:
-            query_params['object'] = params['object']
-        if 'timestamp' in params:
-            query_params['timestamp'] = params['timestamp']
 
         header_params = {}
 
         form_params = []
         local_var_files = {}
         if 'datafile' in params:
-            form_params.append(('datafile', params['datafile']))
+            local_var_files['datafile'] = params['datafile']
         if 'description' in params:
             form_params.append(('description', params['description']))
         if 'name' in params:
@@ -854,7 +806,7 @@ class DefaultApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=local_var_files,
-                                            response_type='FirmwareManifestSerializer',
+                                            response_type='ManifestSerializerData',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))
@@ -875,18 +827,7 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int manifest_id: The ID of the firmware manifest (required)
-        :param str updating_request_id: 
-        :param str updating_ip_address: 
-        :param str name: 
-        :param str description: 
-        :param str created_at: 
-        :param str updated_at: 
-        :param str datafile_checksum: 
-        :param str device_class: 
-        :param str etag: 
-        :param str object: 
-        :param str timestamp: 
-        :return: FirmwareManifestSerializer
+        :return: ManifestSerializerData
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -913,23 +854,12 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int manifest_id: The ID of the firmware manifest (required)
-        :param str updating_request_id: 
-        :param str updating_ip_address: 
-        :param str name: 
-        :param str description: 
-        :param str created_at: 
-        :param str updated_at: 
-        :param str datafile_checksum: 
-        :param str device_class: 
-        :param str etag: 
-        :param str object: 
-        :param str timestamp: 
-        :return: FirmwareManifestSerializer
+        :return: ManifestSerializerData
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['manifest_id', 'updating_request_id', 'updating_ip_address', 'name', 'description', 'created_at', 'updated_at', 'datafile_checksum', 'device_class', 'etag', 'object', 'timestamp']
+        all_params = ['manifest_id']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
 
@@ -952,28 +882,6 @@ class DefaultApi(object):
             path_params['manifest_id'] = params['manifest_id']
 
         query_params = {}
-        if 'updating_request_id' in params:
-            query_params['updating_request_id'] = params['updating_request_id']
-        if 'updating_ip_address' in params:
-            query_params['updating_ip_address'] = params['updating_ip_address']
-        if 'name' in params:
-            query_params['name'] = params['name']
-        if 'description' in params:
-            query_params['description'] = params['description']
-        if 'created_at' in params:
-            query_params['created_at'] = params['created_at']
-        if 'updated_at' in params:
-            query_params['updated_at'] = params['updated_at']
-        if 'datafile_checksum' in params:
-            query_params['datafile_checksum'] = params['datafile_checksum']
-        if 'device_class' in params:
-            query_params['device_class'] = params['device_class']
-        if 'etag' in params:
-            query_params['etag'] = params['etag']
-        if 'object' in params:
-            query_params['object'] = params['object']
-        if 'timestamp' in params:
-            query_params['timestamp'] = params['timestamp']
 
         header_params = {}
 
@@ -1002,7 +910,7 @@ class DefaultApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=local_var_files,
-                                            response_type='FirmwareManifestSerializer',
+                                            response_type='ManifestSerializerData',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))
@@ -1147,7 +1055,7 @@ class DefaultApi(object):
         :param str etag: 
         :param str object: 
         :param str timestamp: 
-        :return: FirmwareManifestSerializer
+        :return: ManifestSerializerData
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -1185,7 +1093,7 @@ class DefaultApi(object):
         :param str etag: 
         :param str object: 
         :param str timestamp: 
-        :return: FirmwareManifestSerializer
+        :return: ManifestSerializerData
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -1263,7 +1171,7 @@ class DefaultApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=local_var_files,
-                                            response_type='FirmwareManifestSerializer',
+                                            response_type='ManifestSerializerData',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))
