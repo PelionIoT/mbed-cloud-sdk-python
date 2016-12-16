@@ -207,7 +207,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **firmware_image_list**
-> FirmwareImageSerializer firmware_image_list(limit=limit, order=order, after=after)
+> FirmwareImageSerializer firmware_image_list(limit=limit, order=order, after=after, include=include)
 
 
 
@@ -230,9 +230,10 @@ api_instance = firmware_catalog.DefaultApi()
 limit = 56 # int |  (optional)
 order = 'order_example' # str |  (optional)
 after = 'after_example' # str |  (optional)
+include = 'include_example' # str |  (optional)
 
 try: 
-    api_response = api_instance.firmware_image_list(limit=limit, order=order, after=after)
+    api_response = api_instance.firmware_image_list(limit=limit, order=order, after=after, include=include)
     pprint(api_response)
 except ApiException as e:
     print "Exception when calling DefaultApi->firmware_image_list: %s\n" % e
@@ -245,6 +246,7 @@ Name | Type | Description  | Notes
  **limit** | **int**|  | [optional] 
  **order** | **str**|  | [optional] 
  **after** | **str**|  | [optional] 
+ **include** | **str**|  | [optional] 
 
 ### Return type
 
@@ -483,7 +485,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **firmware_manifest_list**
-> ManifestSerializer firmware_manifest_list(limit=limit, order=order, after=after)
+> ManifestSerializer firmware_manifest_list(limit=limit, order=order, after=after, include=include)
 
 
 
@@ -506,9 +508,10 @@ api_instance = firmware_catalog.DefaultApi()
 limit = 56 # int |  (optional)
 order = 'order_example' # str |  (optional)
 after = 'after_example' # str |  (optional)
+include = 'include_example' # str |  (optional)
 
 try: 
-    api_response = api_instance.firmware_manifest_list(limit=limit, order=order, after=after)
+    api_response = api_instance.firmware_manifest_list(limit=limit, order=order, after=after, include=include)
     pprint(api_response)
 except ApiException as e:
     print "Exception when calling DefaultApi->firmware_manifest_list: %s\n" % e
@@ -521,6 +524,7 @@ Name | Type | Description  | Notes
  **limit** | **int**|  | [optional] 
  **order** | **str**|  | [optional] 
  **after** | **str**|  | [optional] 
+ **include** | **str**|  | [optional] 
 
 ### Return type
 
