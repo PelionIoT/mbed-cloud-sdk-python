@@ -27,4 +27,5 @@ from __future__ import absolute_import
 # import models into model package
 from .firmware_image_serializer import FirmwareImageSerializer
 from .firmware_image_serializer_data import FirmwareImageSerializerData
-from .firmware_manifest_serializer import FirmwareManifestSerializer
+from .firmware_manifest_serializer_data import FirmwareManifestSerializerData
+from .manifest_serializer import ManifestSerializer

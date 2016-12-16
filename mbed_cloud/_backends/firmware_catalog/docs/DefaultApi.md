@@ -483,7 +483,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **firmware_manifest_list**
-> FirmwareManifestSerializer firmware_manifest_list(limit=limit, order=order, after=after)
+> ManifestSerializer firmware_manifest_list(limit=limit, order=order, after=after)
 
 
 
@@ -524,7 +524,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FirmwareManifestSerializer**](FirmwareManifestSerializer.md)
+[**ManifestSerializer**](ManifestSerializer.md)
 
 ### Authorization
 
