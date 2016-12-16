@@ -293,7 +293,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_my_account_info**
-> AccountInfo get_my_account_info()
+> AccountInfo get_my_account_info(include=include)
 
 Get account info.
 
@@ -313,17 +313,21 @@ iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = iam.DeveloperApi()
+include = 'include_example' # str | Comma separated additional data to return. Currently supported: limits (optional)
 
 try: 
     # Get account info.
-    api_response = api_instance.get_my_account_info()
+    api_response = api_instance.get_my_account_info(include=include)
     pprint(api_response)
 except ApiException as e:
     print "Exception when calling DeveloperApi->get_my_account_info: %s\n" % e
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **include** | **str**| Comma separated additional data to return. Currently supported: limits | [optional] 
 
 ### Return type
 

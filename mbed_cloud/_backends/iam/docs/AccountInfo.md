@@ -3,26 +3,30 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**phone_number** | **str** | The phone number of the company. | [optional] 
+**postal_code** | **str** | The postal code part of the postal address. | [optional] 
+**id** | **str** | Account ID. | 
+**aliases** | **list[str]** | An array of aliases. | 
 **address_line2** | **str** | Postal address line 2. | [optional] 
 **city** | **str** | The city part of the postal address. | [optional] 
 **address_line1** | **str** | Postal address line 1. | [optional] 
 **display_name** | **str** | The display name for the account. | [optional] 
-**upgraded_at** | **str** | Time when upgraded to commercial account in UTC format RFC3339. | [optional] 
-**country** | **str** | The country part of the postal address. | [optional] 
-**company** | **str** | The name of the company. | [optional] 
-**object** | **str** | Entity name: always &#39;account&#39; | 
-**status** | **str** | The status of the account. | 
-**id** | **str** | Account ID. | 
-**email** | **str** | The company email address for this account. | [optional] 
 **state** | **str** | The state part of the postal address. | [optional] 
 **etag** | **str** | API resource entity version. | 
-**postal_code** | **str** | The postal code part of the postal address. | [optional] 
-**contact** | **str** | The name of the contact person for this account. | [optional] 
-**is_provisioning_allowed** | **bool** | Flag (true/false) indicating whether Factory Tool is allowed to download or not.. | [default to False]
+**is_provisioning_allowed** | **bool** | Flag (true/false) indicating whether Factory Tool is allowed to download or not. | [default to False]
+**creation_time_millis** | **int** |  | [optional] 
+**email** | **str** | The company email address for this account. | [optional] 
+**status** | **str** | The status of the account. | 
+**company** | **str** | The name of the company. | [optional] 
+**object** | **str** | Entity name: always &#39;account&#39; | 
+**upgraded_at** | **str** | Time when upgraded to commercial account in UTC format RFC3339. | [optional] 
 **tier** | **str** | The tier level of the account; &#39;0&#39;: free tier, &#39;1&#39;: commercial account. Other values are reserved for the future. | 
-**phone_number** | **str** | The phone number of the company. | [optional] 
+**limits** | **dict(str, str)** | List of limits as key-value pairs if requested. | [optional] 
+**country** | **str** | The country part of the postal address. | [optional] 
 **created_at** | **str** | Creation UTC time RFC3339. | [optional] 
-**aliases** | **list[str]** | An array of aliases. | 
+**contact** | **str** | The name of the contact person for this account. | [optional] 
+**policies** | [**list[Policy]**](Policy.md) | List of policies if requested. | [optional] 
+**template_id** | **str** | Account template ID. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

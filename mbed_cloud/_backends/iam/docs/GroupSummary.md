@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **object** | **str** | Entity name: always &#39;group&#39; | 
 **creation_time** | **int** | A timestamp of the group creation in the storage, in milliseconds. | [optional] 
 **etag** | **str** | API resource entity version. | 
+**creation_time_millis** | **int** |  | [optional] 
 **id** | **str** | The UUID of the group. | 
 **user_count** | **int** | The number of users in this group. | 
 
