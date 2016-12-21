@@ -44,7 +44,7 @@ class DeviceDetail(object):
         self.swagger_types = {
             'bootstrapped_timestamp': 'str',
             'updated_at': 'datetime',
-            'custom_attributes': 'str',
+            'custom_attributes': 'object',
             'device_class': 'str',
             'id': 'str',
             'description': 'str',
@@ -173,7 +173,7 @@ class DeviceDetail(object):
         Up to 5 custom JSON attributes
 
         :return: The custom_attributes of this DeviceDetail.
-        :rtype: str
+        :rtype: object
         """
         return self._custom_attributes
 
@@ -184,7 +184,7 @@ class DeviceDetail(object):
         Up to 5 custom JSON attributes
 
         :param custom_attributes: The custom_attributes of this DeviceDetail.
-        :type: str
+        :type: object
         """
 
         self._custom_attributes = custom_attributes
