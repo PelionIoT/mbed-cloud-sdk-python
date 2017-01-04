@@ -41,7 +41,7 @@ account_id = 'account_id_example' # str | The owning IAM account ID (optional)
 auto_update = true # bool | Mark this device for auto firmware update (optional)
 bootstrapped_timestamp = 'bootstrapped_timestamp_example' # str |  (optional)
 created_at = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
-custom_attributes = 'custom_attributes_example' # str | Up to 5 custom JSON attributes (optional)
+custom_attributes = {'key': 'custom_attributes_example'} # dict(str, str) | Up to 5 custom JSON attributes (optional)
 deployed_state = 'deployed_state_example' # str | The state of the device's deployment (optional)
 deployment = 'deployment_example' # str | The last deployment used on the device (optional)
 description = 'description_example' # str | The description of the object (optional)
@@ -77,7 +77,7 @@ Name | Type | Description  | Notes
  **auto_update** | **bool**| Mark this device for auto firmware update | [optional] 
  **bootstrapped_timestamp** | **str**|  | [optional] 
  **created_at** | **datetime**|  | [optional] 
- **custom_attributes** | **str**| Up to 5 custom JSON attributes | [optional] 
+ **custom_attributes** | [**dict(str, str)**](str.md)| Up to 5 custom JSON attributes | [optional] 
  **deployed_state** | **str**| The state of the device&#39;s deployment | [optional] 
  **deployment** | **str**| The last deployment used on the device | [optional] 
  **description** | **str**| The description of the object | [optional] 

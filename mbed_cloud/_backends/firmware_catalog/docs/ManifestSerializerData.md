@@ -1,4 +1,4 @@
-# FirmwareManifestSerializerData
+# ManifestSerializerData
 
 ## Properties
 Name | Type | Description | Notes

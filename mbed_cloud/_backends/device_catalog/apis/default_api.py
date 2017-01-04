@@ -72,7 +72,7 @@ class DefaultApi(object):
         :param bool auto_update: Mark this device for auto firmware update
         :param str bootstrapped_timestamp: 
         :param datetime created_at: 
-        :param str custom_attributes: Up to 5 custom JSON attributes
+        :param dict(str, str) custom_attributes: Up to 5 custom JSON attributes
         :param str deployed_state: The state of the device's deployment
         :param str deployment: The last deployment used on the device
         :param str description: The description of the object
@@ -122,7 +122,7 @@ class DefaultApi(object):
         :param bool auto_update: Mark this device for auto firmware update
         :param str bootstrapped_timestamp: 
         :param datetime created_at: 
-        :param str custom_attributes: Up to 5 custom JSON attributes
+        :param dict(str, str) custom_attributes: Up to 5 custom JSON attributes
         :param str deployed_state: The state of the device's deployment
         :param str deployment: The last deployment used on the device
         :param str description: The description of the object
