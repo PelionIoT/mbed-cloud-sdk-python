@@ -49,7 +49,7 @@ class ManifestSerializerData(object):
             'created_at': 'datetime',
             'object': 'str',
             'updated_at': 'datetime',
-            'manifest_contents': 'str',
+            'manifest_contents': 'object',
             'etag': 'datetime',
             'device_class': 'str',
             'id': 'str',
@@ -252,7 +252,7 @@ class ManifestSerializerData(object):
         The contents of the manifest
 
         :return: The manifest_contents of this ManifestSerializerData.
-        :rtype: str
+        :rtype: object
         """
         return self._manifest_contents
 
@@ -263,7 +263,7 @@ class ManifestSerializerData(object):
         The contents of the manifest
 
         :param manifest_contents: The manifest_contents of this ManifestSerializerData.
-        :type: str
+        :type: object
         """
 
         self._manifest_contents = manifest_contents
