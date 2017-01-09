@@ -19,9 +19,9 @@ def _main():
         print("\t- %s" % (g.name))
 
     header = "\nAll registered API keys in Organisation"
-    print("%s\n%s" % (header, len(header) * "-"))
-    keys = api.list_api_keys()
-    for k in keys:
+    presp = api.list_api_keys(limit=2)
+    print("%s (%d)\n%s" % (header, presp.count(), len(header) * "-"))
+    for k, idx in presp.iteritems():
         last_used = "Never"
         if k.last_login_time > 0:
             last_used = datetime.datetime.fromtimestamp(k.last_login_time / 1000).strftime('%c')
