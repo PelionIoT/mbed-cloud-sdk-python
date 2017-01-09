@@ -233,29 +233,29 @@ class DefaultApi(object):
         path_params = {}
 
         query_params = {}
+        if 'campaign_id' in params:
+            query_params['campaign_id'] = params['campaign_id']
+        if 'description' in params:
+            query_params['description'] = params['description']
+        if 'device_filter' in params:
+            query_params['device_filter'] = params['device_filter']
+        if 'finished' in params:
+            query_params['finished'] = params['finished']
+        if 'name' in params:
+            query_params['name'] = params['name']
+        if 'object' in params:
+            query_params['object'] = params['object']
+        if 'root_manifest_id' in params:
+            query_params['root_manifest_id'] = params['root_manifest_id']
+        if 'state' in params:
+            query_params['state'] = params['state']
+        if 'when' in params:
+            query_params['when'] = params['when']
 
         header_params = {}
 
         form_params = []
         local_var_files = {}
-        if 'campaign_id' in params:
-            form_params.append(('campaign_id', params['campaign_id']))
-        if 'description' in params:
-            form_params.append(('description', params['description']))
-        if 'device_filter' in params:
-            form_params.append(('device_filter', params['device_filter']))
-        if 'finished' in params:
-            form_params.append(('finished', params['finished']))
-        if 'name' in params:
-            form_params.append(('name', params['name']))
-        if 'object' in params:
-            form_params.append(('object', params['object']))
-        if 'root_manifest_id' in params:
-            form_params.append(('root_manifest_id', params['root_manifest_id']))
-        if 'state' in params:
-            form_params.append(('state', params['state']))
-        if 'when' in params:
-            form_params.append(('when', params['when']))
 
         body_params = None
 
