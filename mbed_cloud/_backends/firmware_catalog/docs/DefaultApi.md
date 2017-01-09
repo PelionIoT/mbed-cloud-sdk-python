@@ -333,7 +333,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **firmware_manifest_create**
-> ManifestSerializerData firmware_manifest_create(datafile, name, description=description)
+> FirmwareManifestSerializerData firmware_manifest_create(datafile, name, description=description)
 
 
 
@@ -374,7 +374,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ManifestSerializerData**](ManifestSerializerData.md)
+[**FirmwareManifestSerializerData**](FirmwareManifestSerializerData.md)
 
 ### Authorization
 
@@ -388,7 +388,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **firmware_manifest_destroy**
-> ManifestSerializerData firmware_manifest_destroy(manifest_id)
+> FirmwareManifestSerializerData firmware_manifest_destroy(manifest_id)
 
 
 
@@ -425,7 +425,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ManifestSerializerData**](ManifestSerializerData.md)
+[**FirmwareManifestSerializerData**](FirmwareManifestSerializerData.md)
 
 ### Authorization
 
@@ -496,7 +496,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **firmware_manifest_retrieve**
-> ManifestSerializerData firmware_manifest_retrieve(manifest_id, updating_request_id=updating_request_id, updating_ip_address=updating_ip_address, name=name, description=description, created_at=created_at, updated_at=updated_at, datafile_checksum=datafile_checksum, device_class=device_class, etag=etag, object=object, timestamp=timestamp)
+> FirmwareManifestSerializerData firmware_manifest_retrieve(manifest_id, updating_request_id=updating_request_id, updating_ip_address=updating_ip_address, name=name, description=description, created_at=created_at, updated_at=updated_at, datafile_checksum=datafile_checksum, device_class=device_class, etag=etag, object=object, timestamp=timestamp)
 
 
 
@@ -555,7 +555,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ManifestSerializerData**](ManifestSerializerData.md)
+[**FirmwareManifestSerializerData**](FirmwareManifestSerializerData.md)
 
 ### Authorization
 

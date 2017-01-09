@@ -714,7 +714,7 @@ class DefaultApi(object):
         :param file datafile: The manifest file to create (required)
         :param str name: The name of the object (required)
         :param str description: The description of the object
-        :return: ManifestSerializerData
+        :return: FirmwareManifestSerializerData
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -743,7 +743,7 @@ class DefaultApi(object):
         :param file datafile: The manifest file to create (required)
         :param str name: The name of the object (required)
         :param str description: The description of the object
-        :return: ManifestSerializerData
+        :return: FirmwareManifestSerializerData
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -806,7 +806,7 @@ class DefaultApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=local_var_files,
-                                            response_type='ManifestSerializerData',
+                                            response_type='FirmwareManifestSerializerData',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))
@@ -827,7 +827,7 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int manifest_id: The ID of the firmware manifest (required)
-        :return: ManifestSerializerData
+        :return: FirmwareManifestSerializerData
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -854,7 +854,7 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int manifest_id: The ID of the firmware manifest (required)
-        :return: ManifestSerializerData
+        :return: FirmwareManifestSerializerData
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -910,7 +910,7 @@ class DefaultApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=local_var_files,
-                                            response_type='ManifestSerializerData',
+                                            response_type='FirmwareManifestSerializerData',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))
@@ -1055,7 +1055,7 @@ class DefaultApi(object):
         :param str etag: 
         :param str object: 
         :param str timestamp: 
-        :return: ManifestSerializerData
+        :return: FirmwareManifestSerializerData
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -1093,7 +1093,7 @@ class DefaultApi(object):
         :param str etag: 
         :param str object: 
         :param str timestamp: 
-        :return: ManifestSerializerData
+        :return: FirmwareManifestSerializerData
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -1171,7 +1171,7 @@ class DefaultApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=local_var_files,
-                                            response_type='ManifestSerializerData',
+                                            response_type='FirmwareManifestSerializerData',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))

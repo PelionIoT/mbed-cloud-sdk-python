@@ -47,7 +47,7 @@ class ManifestSerializer(object):
             'total_count': 'int',
             'after': 'str',
             'limit': 'int',
-            'data': 'list[ManifestSerializerData]',
+            'data': 'list[FirmwareManifestSerializerData]',
             'order': 'str'
         }
 
@@ -191,7 +191,7 @@ class ManifestSerializer(object):
 
 
         :return: The data of this ManifestSerializer.
-        :rtype: list[ManifestSerializerData]
+        :rtype: list[FirmwareManifestSerializerData]
         """
         return self._data
 
@@ -202,7 +202,7 @@ class ManifestSerializer(object):
 
 
         :param data: The data of this ManifestSerializer.
-        :type: list[ManifestSerializerData]
+        :type: list[FirmwareManifestSerializerData]
         """
 
         self._data = data
