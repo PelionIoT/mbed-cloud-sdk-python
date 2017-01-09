@@ -99,6 +99,10 @@ class PaginatedResponse(object):
             if 'after' in self._kwargs:
                 del self._kwargs['after']
 
+    def _get_total_count(self):
+        resp = self._func(**{'include': 'total_count', 'limit': 2})
+        return resp.total_count
+
     def iteritems(self):
         """Iterate through elements of the paginated resonse.
 
@@ -125,8 +129,5 @@ class PaginatedResponse(object):
     def count(self):
         """Get the total count from the meta data."""
         if not self.total_count:
-            old_kwargs = self._kwargs
-            self._kwargs = {'include': 'total_count', 'limit': 2}
-            self._get_page()
-            self._kwargs = old_kwargs
+            return self._get_total_count()
         return self.total_count
