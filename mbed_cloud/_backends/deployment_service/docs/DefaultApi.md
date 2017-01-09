@@ -62,7 +62,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_campaign_create**
-> UpdateCampaignSerializer update_campaign_create(name, campaign_id=campaign_id, description=description, device_filter=device_filter, finished=finished, object=object, root_manifest_id=root_manifest_id, state=state, when=when)
+> UpdateCampaignSerializer update_campaign_create(body)
 
 
 
@@ -82,18 +82,10 @@ deployment_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = deployment_service.DefaultApi()
-name = 'name_example' # str | A name for this campaign
-campaign_id = 'campaign_id_example' # str | DEPRECATED: The ID of the campaign (optional)
-description = 'description_example' # str | An optional description of the campaign (optional)
-device_filter = 'device_filter_example' # str | The filter for the devices the campaign will target (optional)
-finished = 'finished_example' # str | The timestamp when the update campaign finished (optional)
-object = 'object_example' # str | The API resource entity (optional)
-root_manifest_id = 'root_manifest_id_example' # str |  (optional)
-state = 'state_example' # str | The state of the campaign (optional)
-when = 'when_example' # str | The timestamp at which update campaign scheduled to start (optional)
+body = deployment_service.WriteUpdateCampaignSerializer() # WriteUpdateCampaignSerializer | Update campaign object to create
 
 try: 
-    api_response = api_instance.update_campaign_create(name, campaign_id=campaign_id, description=description, device_filter=device_filter, finished=finished, object=object, root_manifest_id=root_manifest_id, state=state, when=when)
+    api_response = api_instance.update_campaign_create(body)
     pprint(api_response)
 except ApiException as e:
     print "Exception when calling DefaultApi->update_campaign_create: %s\n" % e
@@ -103,15 +95,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **name** | **str**| A name for this campaign | 
- **campaign_id** | **str**| DEPRECATED: The ID of the campaign | [optional] 
- **description** | **str**| An optional description of the campaign | [optional] 
- **device_filter** | **str**| The filter for the devices the campaign will target | [optional] 
- **finished** | **str**| The timestamp when the update campaign finished | [optional] 
- **object** | **str**| The API resource entity | [optional] 
- **root_manifest_id** | **str**|  | [optional] 
- **state** | **str**| The state of the campaign | [optional] 
- **when** | **str**| The timestamp at which update campaign scheduled to start | [optional] 
+ **body** | [**WriteUpdateCampaignSerializer**](WriteUpdateCampaignSerializer.md)| Update campaign object to create | 
 
 ### Return type
 
