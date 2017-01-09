@@ -75,7 +75,7 @@ def _main():
     # 1. The name of the update campaign (we auto-generate this)
     # 2. What manifest to use for running the update
     # 3. What devices we should apply the updat on (i.e. the filter to use)
-    campaign_name = _rand_id()
+    # campaign_name = _rand_id()
     update_api.create_update_campaign()
 
 
