@@ -78,6 +78,7 @@ class PaginatedResponse(object):
 
         # Initial values, will be updated in first response
         self.has_more = False
+        self.total_count = None
         self.data = []
 
         # Do initial request
@@ -86,14 +87,17 @@ class PaginatedResponse(object):
     def _get_page(self):
         resp = self._func(**self._kwargs)
 
-        # Update 'after' by taking the last element ID
-        self._kwargs['after'] = resp.data[-1].id
-
-        # Update has_more property
+        # Update properties
         self.has_more = resp.has_more
-
-        # Save data
+        self.total_count = resp.total_count
         self.data = resp.data
+
+        # Update 'after' by taking the last element ID
+        if len(resp.data) > 0:
+            self._kwargs['after'] = resp.data[-1].id
+        else:
+            if 'after' in self._kwargs:
+                del self._kwargs['after']
 
     def iteritems(self):
         """Iterate through elements of the paginated resonse.
@@ -120,4 +124,9 @@ class PaginatedResponse(object):
 
     def count(self):
         """Get the total count from the meta data."""
-        return self._obj.total_count
+        if not self.total_count:
+            old_kwargs = self._kwargs
+            self._kwargs = {'include': 'total_count', 'limit': 2}
+            self._get_page()
+            self._kwargs = old_kwargs
+        return self.total_count
