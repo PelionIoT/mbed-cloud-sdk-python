@@ -502,7 +502,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_campaign_update**
-> UpdateCampaignSerializer update_campaign_update(body)
+> UpdateCampaignSerializer update_campaign_update(campaign_id, body)
 
 
 
@@ -522,10 +522,11 @@ deployment_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = deployment_service.DefaultApi()
+campaign_id = 'campaign_id_example' # str | Campaign ID to update
 body = deployment_service.WriteUpdateCampaignSerializer() # WriteUpdateCampaignSerializer | Update campaign object to create
 
 try: 
-    api_response = api_instance.update_campaign_update(body)
+    api_response = api_instance.update_campaign_update(campaign_id, body)
     pprint(api_response)
 except ApiException as e:
     print "Exception when calling DefaultApi->update_campaign_update: %s\n" % e
@@ -535,6 +536,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **campaign_id** | **str**| Campaign ID to update | 
  **body** | [**WriteUpdateCampaignSerializer**](WriteUpdateCampaignSerializer.md)| Update campaign object to create | 
 
 ### Return type
