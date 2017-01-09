@@ -6,6 +6,7 @@ import os
 import random
 import string
 import sys
+import time
 
 
 def _read_file(f):
@@ -75,9 +76,33 @@ def _main():
     # 1. The name of the update campaign (we auto-generate this)
     # 2. What manifest to use for running the update
     # 3. What devices we should apply the updat on (i.e. the filter to use)
-    # campaign_name = _rand_id()
-    update_api.create_update_campaign()
+    campaign_name = _rand_id()
+    print("\nCreating campaign %r using:\n\t- Manifest ID: %r\n\t- Filter ID: %r" % (
+        campaign_name,
+        mobj.id,
+        selected_filter.id)
+    )
+    cobj = update_api.create_update_campaign(
+        name=campaign_name,
+        root_manifest_id=mobj.id,
+        device_filter="filter=%s" % selected_filter.query
+    )
+    print("Campaign successfully created. Current state: %r" % (cobj.state))
 
+    print("\n** Starting the update campign **")
+    # By default a new campaign is created with the 'draft' status. We can manually start it.
+    new_cobj = update_api.start_update_campaign(cobj)
+    print("Campaign successfully started. Current state: %r. Checking updates.." % (new_cobj.state))
+    countdown = 10
+    while countdown > 0:
+        c = update_api.get_update_campaign(new_cobj.id)
+        print("[%d/10] Current state: %r" % (countdown, c.state))
+        time.sleep(1)
+        countdown -= 1
+
+    print("\n** Deleting update campaign and manifest **")
+    update_api.delete_update_campaign(new_cobj.id)
+    update_api.delete_manifest(mobj.id)
 
 if __name__ == '__main__':
     _main()
