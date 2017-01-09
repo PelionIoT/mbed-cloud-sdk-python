@@ -29,6 +29,15 @@ class BaseAPI(object):
         api.configuration.api_key_prefix['Authorization'] = 'Bearer'
         if config.get('host'):
             api.configuration.host = config.get('host')
+
+        # Ensure URL is base string, not unicode (Issue22231)
+        url = api.configuration.host
+        if not isinstance(url, basestring):
+            url = '%s' % url
+        if not isinstance(url, str):
+            url = url.encode('utf-8')
+        api.configuration.host = url
+
         return api
 
     def _verify_sort_options(self, kwargs):
