@@ -296,6 +296,7 @@ class DefaultApi(object):
         :param int limit: 
         :param str order: 
         :param str after: 
+        :param str include: 
         :return: DeviceQueryResp
                  If the method is called asynchronously,
                  returns the request thread.
@@ -325,12 +326,13 @@ class DefaultApi(object):
         :param int limit: 
         :param str order: 
         :param str after: 
+        :param str include: 
         :return: DeviceQueryResp
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['limit', 'order', 'after']
+        all_params = ['limit', 'order', 'after', 'include']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
 
@@ -354,6 +356,8 @@ class DefaultApi(object):
             query_params['order'] = params['order']
         if 'after' in params:
             query_params['after'] = params['after']
+        if 'include' in params:
+            query_params['include'] = params['include']
 
         header_params = {}
 
