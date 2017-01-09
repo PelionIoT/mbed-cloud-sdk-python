@@ -33,20 +33,12 @@ class ManufacturingAPI(BaseAPI):
         super(ManufacturingAPI, self).__init__(params)
 
         # Set the api_key for the requests
-        self.factory_tool = self._init(factory_tool)
-        self.provisioning_certificate = self._init(provisioning_certificate)
-        self.provisioning_certificate = self._init(provisioning_certificate)
-        self.production_line_certificates = self._init(production_line_certificates)
+        self.factory_tool = self._init_api(factory_tool)
+        self.provisioning_certificate = self._init_api(provisioning_certificate)
+        self.production_line_certificates = self._init_api(production_line_certificates)
 
         # This API is a bit weird, so create the "authorization" string
         self.auth = "Bearer %s" % (config.get("api_key"),)
-
-    def _init(self, api):
-        api.configuration.api_key['Authorization'] = config.get('api_key')
-        api.configuration.api_key_prefix['Authorization'] = 'Bearer'
-        if config.get('host'):
-            api.configuration.host = config.get('host')
-        return api
 
     @catch_exceptions(FactoryApiException)
     def factory_tool_versions(self):
