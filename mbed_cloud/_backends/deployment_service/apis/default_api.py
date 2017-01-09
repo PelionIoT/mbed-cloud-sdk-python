@@ -1034,7 +1034,7 @@ class DefaultApi(object):
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))
 
-    def update_campaign_update(self, body, **kwargs):
+    def update_campaign_update(self, campaign_id, body, **kwargs):
         """
         
         <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Update campaign</p>
@@ -1045,10 +1045,11 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.update_campaign_update(body, callback=callback_function)
+        >>> thread = api.update_campaign_update(campaign_id, body, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
+        :param str campaign_id: Campaign ID to update (required)
         :param WriteUpdateCampaignSerializer body: Update campaign object to create (required)
         :return: UpdateCampaignSerializer
                  If the method is called asynchronously,
@@ -1056,12 +1057,12 @@ class DefaultApi(object):
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.update_campaign_update_with_http_info(body, **kwargs)
+            return self.update_campaign_update_with_http_info(campaign_id, body, **kwargs)
         else:
-            (data) = self.update_campaign_update_with_http_info(body, **kwargs)
+            (data) = self.update_campaign_update_with_http_info(campaign_id, body, **kwargs)
             return data
 
-    def update_campaign_update_with_http_info(self, body, **kwargs):
+    def update_campaign_update_with_http_info(self, campaign_id, body, **kwargs):
         """
         
         <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Update campaign</p>
@@ -1072,17 +1073,18 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.update_campaign_update_with_http_info(body, callback=callback_function)
+        >>> thread = api.update_campaign_update_with_http_info(campaign_id, body, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
+        :param str campaign_id: Campaign ID to update (required)
         :param WriteUpdateCampaignSerializer body: Update campaign object to create (required)
         :return: UpdateCampaignSerializer
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['body']
+        all_params = ['campaign_id', 'body']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
 
@@ -1095,12 +1097,17 @@ class DefaultApi(object):
                 )
             params[key] = val
         del params['kwargs']
+        # verify the required parameter 'campaign_id' is set
+        if ('campaign_id' not in params) or (params['campaign_id'] is None):
+            raise ValueError("Missing the required parameter `campaign_id` when calling `update_campaign_update`")
         # verify the required parameter 'body' is set
         if ('body' not in params) or (params['body'] is None):
             raise ValueError("Missing the required parameter `body` when calling `update_campaign_update`")
 
         resource_path = '/v3/update-campaigns/{campaign_id}/'.replace('{format}', 'json')
         path_params = {}
+        if 'campaign_id' in params:
+            path_params['campaign_id'] = params['campaign_id']
 
         query_params = {}
 
