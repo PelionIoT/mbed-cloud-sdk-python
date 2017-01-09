@@ -1034,7 +1034,7 @@ class DefaultApi(object):
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))
 
-    def update_campaign_update(self, name, **kwargs):
+    def update_campaign_update(self, body, **kwargs):
         """
         
         <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Update campaign</p>
@@ -1045,31 +1045,23 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.update_campaign_update(name, callback=callback_function)
+        >>> thread = api.update_campaign_update(body, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str name: A name for this campaign (required)
-        :param str campaign_id: DEPRECATED: The ID of the campaign
-        :param str description: An optional description of the campaign
-        :param str device_filter: The filter for the devices the campaign will target
-        :param datetime finished: The timestamp when the update campaign finished
-        :param str object: The API resource entity
-        :param str root_manifest_id: 
-        :param str state: The state of the campaign
-        :param datetime when: The timestamp at which update campaign scheduled to start
+        :param WriteUpdateCampaignSerializer body: Update campaign object to create (required)
         :return: UpdateCampaignSerializer
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.update_campaign_update_with_http_info(name, **kwargs)
+            return self.update_campaign_update_with_http_info(body, **kwargs)
         else:
-            (data) = self.update_campaign_update_with_http_info(name, **kwargs)
+            (data) = self.update_campaign_update_with_http_info(body, **kwargs)
             return data
 
-    def update_campaign_update_with_http_info(self, name, **kwargs):
+    def update_campaign_update_with_http_info(self, body, **kwargs):
         """
         
         <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Update campaign</p>
@@ -1080,25 +1072,17 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.update_campaign_update_with_http_info(name, callback=callback_function)
+        >>> thread = api.update_campaign_update_with_http_info(body, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str name: A name for this campaign (required)
-        :param str campaign_id: DEPRECATED: The ID of the campaign
-        :param str description: An optional description of the campaign
-        :param str device_filter: The filter for the devices the campaign will target
-        :param datetime finished: The timestamp when the update campaign finished
-        :param str object: The API resource entity
-        :param str root_manifest_id: 
-        :param str state: The state of the campaign
-        :param datetime when: The timestamp at which update campaign scheduled to start
+        :param WriteUpdateCampaignSerializer body: Update campaign object to create (required)
         :return: UpdateCampaignSerializer
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['name', 'campaign_id', 'description', 'device_filter', 'finished', 'object', 'root_manifest_id', 'state', 'when']
+        all_params = ['body']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
 
@@ -1111,9 +1095,9 @@ class DefaultApi(object):
                 )
             params[key] = val
         del params['kwargs']
-        # verify the required parameter 'name' is set
-        if ('name' not in params) or (params['name'] is None):
-            raise ValueError("Missing the required parameter `name` when calling `update_campaign_update`")
+        # verify the required parameter 'body' is set
+        if ('body' not in params) or (params['body'] is None):
+            raise ValueError("Missing the required parameter `body` when calling `update_campaign_update`")
 
         resource_path = '/v3/update-campaigns/{campaign_id}/'.replace('{format}', 'json')
         path_params = {}
@@ -1124,26 +1108,10 @@ class DefaultApi(object):
 
         form_params = []
         local_var_files = {}
-        if 'campaign_id' in params:
-            form_params.append(('campaign_id', params['campaign_id']))
-        if 'description' in params:
-            form_params.append(('description', params['description']))
-        if 'device_filter' in params:
-            form_params.append(('device_filter', params['device_filter']))
-        if 'finished' in params:
-            form_params.append(('finished', params['finished']))
-        if 'name' in params:
-            form_params.append(('name', params['name']))
-        if 'object' in params:
-            form_params.append(('object', params['object']))
-        if 'root_manifest_id' in params:
-            form_params.append(('root_manifest_id', params['root_manifest_id']))
-        if 'state' in params:
-            form_params.append(('state', params['state']))
-        if 'when' in params:
-            form_params.append(('when', params['when']))
 
         body_params = None
+        if 'body' in params:
+            body_params = params['body']
 
         # HTTP header `Accept`
         header_params['Accept'] = self.api_client.\
@@ -1153,7 +1121,7 @@ class DefaultApi(object):
 
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.\
-            select_header_content_type([])
+            select_header_content_type(['application/json'])
 
         # Authentication setting
         auth_settings = ['Bearer']
