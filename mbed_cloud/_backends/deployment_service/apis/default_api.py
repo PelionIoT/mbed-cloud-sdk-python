@@ -167,11 +167,11 @@ class DefaultApi(object):
         :param str campaign_id: DEPRECATED: The ID of the campaign
         :param str description: An optional description of the campaign
         :param str device_filter: The filter for the devices the campaign will target
-        :param datetime finished: The timestamp when the update campaign finished
+        :param str finished: The timestamp when the update campaign finished
         :param str object: The API resource entity
         :param str root_manifest_id: 
         :param str state: The state of the campaign
-        :param datetime when: The timestamp at which update campaign scheduled to start
+        :param str when: The timestamp at which update campaign scheduled to start
         :return: UpdateCampaignSerializer
                  If the method is called asynchronously,
                  returns the request thread.
@@ -202,11 +202,11 @@ class DefaultApi(object):
         :param str campaign_id: DEPRECATED: The ID of the campaign
         :param str description: An optional description of the campaign
         :param str device_filter: The filter for the devices the campaign will target
-        :param datetime finished: The timestamp when the update campaign finished
+        :param str finished: The timestamp when the update campaign finished
         :param str object: The API resource entity
         :param str root_manifest_id: 
         :param str state: The state of the campaign
-        :param datetime when: The timestamp at which update campaign scheduled to start
+        :param str when: The timestamp at which update campaign scheduled to start
         :return: UpdateCampaignSerializer
                  If the method is called asynchronously,
                  returns the request thread.
@@ -233,24 +233,6 @@ class DefaultApi(object):
         path_params = {}
 
         query_params = {}
-        if 'campaign_id' in params:
-            query_params['campaign_id'] = params['campaign_id']
-        if 'description' in params:
-            query_params['description'] = params['description']
-        if 'device_filter' in params:
-            query_params['device_filter'] = params['device_filter']
-        if 'finished' in params:
-            query_params['finished'] = params['finished']
-        if 'name' in params:
-            query_params['name'] = params['name']
-        if 'object' in params:
-            query_params['object'] = params['object']
-        if 'root_manifest_id' in params:
-            query_params['root_manifest_id'] = params['root_manifest_id']
-        if 'state' in params:
-            query_params['state'] = params['state']
-        if 'when' in params:
-            query_params['when'] = params['when']
 
         header_params = {}
 
@@ -258,6 +240,8 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        if 'when' in params:
+            body_params = params['when']
 
         # HTTP header `Accept`
         header_params['Accept'] = self.api_client.\
@@ -267,7 +251,7 @@ class DefaultApi(object):
 
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.\
-            select_header_content_type([])
+            select_header_content_type(['application/json'])
 
         # Authentication setting
         auth_settings = ['Bearer']
