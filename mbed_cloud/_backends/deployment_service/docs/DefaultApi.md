@@ -113,7 +113,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_campaign_destroy**
-> UpdateCampaignSerializer update_campaign_destroy(campaign_id, updating_request_id=updating_request_id, updating_ip_address=updating_ip_address, created_at=created_at, updated_at=updated_at, attempts=attempts, description=description, device_filter=device_filter, etag=etag, finished=finished, name=name, object=object, root_manifest_id=root_manifest_id, state=state, when=when)
+> UpdateCampaignSerializer update_campaign_destroy(campaign_id)
 
 
 
@@ -134,23 +134,9 @@ deployment_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = deployment_service.DefaultApi()
 campaign_id = 'campaign_id_example' # str | The ID of the update campaign
-updating_request_id = 'updating_request_id_example' # str |  (optional)
-updating_ip_address = 'updating_ip_address_example' # str |  (optional)
-created_at = 'created_at_example' # str |  (optional)
-updated_at = 'updated_at_example' # str |  (optional)
-attempts = 'attempts_example' # str |  (optional)
-description = 'description_example' # str |  (optional)
-device_filter = 'device_filter_example' # str |  (optional)
-etag = 'etag_example' # str |  (optional)
-finished = 'finished_example' # str |  (optional)
-name = 'name_example' # str |  (optional)
-object = 'object_example' # str |  (optional)
-root_manifest_id = 'root_manifest_id_example' # str |  (optional)
-state = 'state_example' # str |  (optional)
-when = 'when_example' # str |  (optional)
 
 try: 
-    api_response = api_instance.update_campaign_destroy(campaign_id, updating_request_id=updating_request_id, updating_ip_address=updating_ip_address, created_at=created_at, updated_at=updated_at, attempts=attempts, description=description, device_filter=device_filter, etag=etag, finished=finished, name=name, object=object, root_manifest_id=root_manifest_id, state=state, when=when)
+    api_response = api_instance.update_campaign_destroy(campaign_id)
     pprint(api_response)
 except ApiException as e:
     print "Exception when calling DefaultApi->update_campaign_destroy: %s\n" % e
@@ -161,20 +147,6 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **campaign_id** | **str**| The ID of the update campaign | 
- **updating_request_id** | **str**|  | [optional] 
- **updating_ip_address** | **str**|  | [optional] 
- **created_at** | **str**|  | [optional] 
- **updated_at** | **str**|  | [optional] 
- **attempts** | **str**|  | [optional] 
- **description** | **str**|  | [optional] 
- **device_filter** | **str**|  | [optional] 
- **etag** | **str**|  | [optional] 
- **finished** | **str**|  | [optional] 
- **name** | **str**|  | [optional] 
- **object** | **str**|  | [optional] 
- **root_manifest_id** | **str**|  | [optional] 
- **state** | **str**|  | [optional] 
- **when** | **str**|  | [optional] 
 
 ### Return type
 
@@ -342,7 +314,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_campaign_retrieve**
-> UpdateCampaignSerializer update_campaign_retrieve(campaign_id, updating_request_id=updating_request_id, updating_ip_address=updating_ip_address, created_at=created_at, updated_at=updated_at, attempts=attempts, description=description, device_filter=device_filter, etag=etag, finished=finished, name=name, object=object, root_manifest_id=root_manifest_id, state=state, when=when, root_manifest_url=root_manifest_url)
+> UpdateCampaignSerializer update_campaign_retrieve(campaign_id)
 
 
 
@@ -363,24 +335,9 @@ deployment_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = deployment_service.DefaultApi()
 campaign_id = 'campaign_id_example' # str | The ID of the campaign
-updating_request_id = 'updating_request_id_example' # str |  (optional)
-updating_ip_address = 'updating_ip_address_example' # str |  (optional)
-created_at = 'created_at_example' # str |  (optional)
-updated_at = 'updated_at_example' # str |  (optional)
-attempts = 'attempts_example' # str |  (optional)
-description = 'description_example' # str |  (optional)
-device_filter = 'device_filter_example' # str |  (optional)
-etag = 'etag_example' # str |  (optional)
-finished = 'finished_example' # str |  (optional)
-name = 'name_example' # str |  (optional)
-object = 'object_example' # str |  (optional)
-root_manifest_id = 'root_manifest_id_example' # str |  (optional)
-state = 'state_example' # str |  (optional)
-when = 'when_example' # str |  (optional)
-root_manifest_url = 'root_manifest_url_example' # str | The firmware catalog URL for the manifest that will be sent to the device as part of the campaign (optional)
 
 try: 
-    api_response = api_instance.update_campaign_retrieve(campaign_id, updating_request_id=updating_request_id, updating_ip_address=updating_ip_address, created_at=created_at, updated_at=updated_at, attempts=attempts, description=description, device_filter=device_filter, etag=etag, finished=finished, name=name, object=object, root_manifest_id=root_manifest_id, state=state, when=when, root_manifest_url=root_manifest_url)
+    api_response = api_instance.update_campaign_retrieve(campaign_id)
     pprint(api_response)
 except ApiException as e:
     print "Exception when calling DefaultApi->update_campaign_retrieve: %s\n" % e
@@ -391,21 +348,6 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **campaign_id** | **str**| The ID of the campaign | 
- **updating_request_id** | **str**|  | [optional] 
- **updating_ip_address** | **str**|  | [optional] 
- **created_at** | **str**|  | [optional] 
- **updated_at** | **str**|  | [optional] 
- **attempts** | **str**|  | [optional] 
- **description** | **str**|  | [optional] 
- **device_filter** | **str**|  | [optional] 
- **etag** | **str**|  | [optional] 
- **finished** | **str**|  | [optional] 
- **name** | **str**|  | [optional] 
- **object** | **str**|  | [optional] 
- **root_manifest_id** | **str**|  | [optional] 
- **state** | **str**|  | [optional] 
- **when** | **str**|  | [optional] 
- **root_manifest_url** | **str**| The firmware catalog URL for the manifest that will be sent to the device as part of the campaign | [optional] 
 
 ### Return type
 
@@ -423,7 +365,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_campaign_status**
-> UpdateCampaignStatusSerializer update_campaign_status(campaign_id, updating_request_id=updating_request_id, updating_ip_address=updating_ip_address, created_at=created_at, updated_at=updated_at, attempts=attempts, description=description, device_filter=device_filter, etag=etag, finished=finished, name=name, object=object, root_manifest_id=root_manifest_id, state=state, when=when)
+> UpdateCampaignStatusSerializer update_campaign_status(campaign_id)
 
 
 
@@ -444,23 +386,9 @@ deployment_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = deployment_service.DefaultApi()
 campaign_id = 'campaign_id_example' # str | The ID of the update campaign
-updating_request_id = 'updating_request_id_example' # str |  (optional)
-updating_ip_address = 'updating_ip_address_example' # str |  (optional)
-created_at = 'created_at_example' # str |  (optional)
-updated_at = 'updated_at_example' # str |  (optional)
-attempts = 'attempts_example' # str |  (optional)
-description = 'description_example' # str |  (optional)
-device_filter = 'device_filter_example' # str |  (optional)
-etag = 'etag_example' # str |  (optional)
-finished = 'finished_example' # str |  (optional)
-name = 'name_example' # str |  (optional)
-object = 'object_example' # str |  (optional)
-root_manifest_id = 'root_manifest_id_example' # str |  (optional)
-state = 'state_example' # str |  (optional)
-when = 'when_example' # str |  (optional)
 
 try: 
-    api_response = api_instance.update_campaign_status(campaign_id, updating_request_id=updating_request_id, updating_ip_address=updating_ip_address, created_at=created_at, updated_at=updated_at, attempts=attempts, description=description, device_filter=device_filter, etag=etag, finished=finished, name=name, object=object, root_manifest_id=root_manifest_id, state=state, when=when)
+    api_response = api_instance.update_campaign_status(campaign_id)
     pprint(api_response)
 except ApiException as e:
     print "Exception when calling DefaultApi->update_campaign_status: %s\n" % e
@@ -471,20 +399,6 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **campaign_id** | **str**| The ID of the update campaign | 
- **updating_request_id** | **str**|  | [optional] 
- **updating_ip_address** | **str**|  | [optional] 
- **created_at** | **str**|  | [optional] 
- **updated_at** | **str**|  | [optional] 
- **attempts** | **str**|  | [optional] 
- **description** | **str**|  | [optional] 
- **device_filter** | **str**|  | [optional] 
- **etag** | **str**|  | [optional] 
- **finished** | **str**|  | [optional] 
- **name** | **str**|  | [optional] 
- **object** | **str**|  | [optional] 
- **root_manifest_id** | **str**|  | [optional] 
- **state** | **str**|  | [optional] 
- **when** | **str**|  | [optional] 
 
 ### Return type
 
