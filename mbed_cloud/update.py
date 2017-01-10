@@ -45,7 +45,7 @@ class UpdateAPI(BaseAPI):
         """
         api = self.deployment_service.DefaultApi()
         kwargs = self._verify_sort_options(kwargs)
-        return api.update_campaign_list(**kwargs)
+        return PaginatedResponse(api.update_campaign_list, **kwargs)
 
     @catch_exceptions(DeploymentServiceApiException)
     def get_update_campaign(self, campaign_id):
@@ -56,6 +56,16 @@ class UpdateAPI(BaseAPI):
         """
         api = self.deployment_service.DefaultApi()
         return api.update_campaign_retrieve(campaign_id)
+
+    @catch_exceptions(DeploymentServiceApiException)
+    def get_update_campaign_status(self, campaign_id):
+        """Get status of existing update campaign.
+
+        :param campaign_id: Campaign to retrieve status (str)
+        :return: Update campaign status object matching provided ID.
+        """
+        api = self.deployment_service.DefaultApi()
+        return api.update_campaign_status(campaign_id)
 
     @catch_exceptions(DeploymentServiceApiException)
     def create_update_campaign(self, name, **kwargs):

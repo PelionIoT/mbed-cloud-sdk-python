@@ -307,7 +307,7 @@ class DeviceAPI(BaseAPI):
         kwargs = self._verify_filters(kwargs)
 
         api = self.dc.DefaultApi()
-        return PaginatedResponse(api.device_list(**kwargs))
+        return PaginatedResponse(api.device_list, **kwargs)
 
     @catch_exceptions(DeviceCatalogApiException)
     def get_device(self, device_id):

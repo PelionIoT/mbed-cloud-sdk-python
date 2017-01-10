@@ -89,17 +89,32 @@ def _main():
     )
     print("Campaign successfully created. Current state: %r" % (cobj.state))
 
+    #
+    # List the current campaigns
+    #
+    header = "Update campaigns"
+    print("\n%s\n%s" % (header, "-" * len(header)))
+    for c, idx in update_api.list_update_campaigns().iteritems():
+        print("\t- %s (State: %r)" % (c.name, c.state))
+
+    #
+    # Start the update campaign we've created.
+    #
     print("\n** Starting the update campign **")
     # By default a new campaign is created with the 'draft' status. We can manually start it.
     new_cobj = update_api.start_update_campaign(cobj)
     print("Campaign successfully started. Current state: %r. Checking updates.." % (new_cobj.state))
     countdown = 10
     while countdown > 0:
-        c = update_api.get_update_campaign(new_cobj.id)
-        print("[%d/10] Current state: %r" % (countdown, c.state))
-        time.sleep(1)
+        c = update_api.get_update_campaign_status(new_cobj.id)
+        print("[%d/10] Current state: %r (Updated devices: %d/%d)" % (
+            countdown, c.state, c.deployed_devices, c.total_devices
+        ))
         countdown -= 1
 
+    #
+    # Cleanup.
+    #
     print("\n** Deleting update campaign and manifest **")
     update_api.delete_update_campaign(new_cobj.id)
     update_api.delete_manifest(mobj.id)
