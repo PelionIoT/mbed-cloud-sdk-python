@@ -3,16 +3,16 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**direct_devices** | **str** |  | 
-**connector_devices** | **str** |  | 
+**direct_devices** | **int** |  | 
+**connector_devices** | **int** |  | 
 **description** | **str** | An optional description of the campaign | 
 **state** | **str** | The state of the campaign | 
 **updating_user_id** | **str** | The updating IAM user ID | 
 **created_at** | **datetime** | The time the object was created | 
-**total_devices** | **str** |  | 
+**total_devices** | **int** |  | 
 **campaigndevicemetadata_set** | [**list[CampaignDeviceMetadataSerializer]**](CampaignDeviceMetadataSerializer.md) |  | 
 **campaign_id** | **str** | DEPRECATED: The ID of the campaign | 
-**deployed_devices** | **str** |  | 
+**deployed_devices** | **int** |  | 
 **updated_at** | **datetime** | The time the object was updated | 
 **when** | **datetime** | The timestamp at which campaign is scheduled to start | 
 **finished** | **datetime** | The timestamp when the update campaign finished | 
