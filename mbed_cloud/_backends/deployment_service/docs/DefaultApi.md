@@ -164,7 +164,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_campaign_list**
-> list[UpdateCampaignSerializer] update_campaign_list(updating_request_id=updating_request_id, updating_ip_address=updating_ip_address, created_at=created_at, updated_at=updated_at, attempts=attempts, campaign_id=campaign_id, description=description, device_filter=device_filter, etag=etag, finished=finished, name=name, object=object, root_manifest_id=root_manifest_id, state=state, when=when, page=page, root_manifest_url=root_manifest_url)
+> UpdateCampaignPage update_campaign_list(limit=limit, order=order, after=after, filter=filter, include=include)
 
 
 
@@ -184,26 +184,14 @@ deployment_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = deployment_service.DefaultApi()
-updating_request_id = 'updating_request_id_example' # str |  (optional)
-updating_ip_address = 'updating_ip_address_example' # str |  (optional)
-created_at = 'created_at_example' # str |  (optional)
-updated_at = 'updated_at_example' # str |  (optional)
-attempts = 'attempts_example' # str |  (optional)
-campaign_id = 'campaign_id_example' # str |  (optional)
-description = 'description_example' # str |  (optional)
-device_filter = 'device_filter_example' # str |  (optional)
-etag = 'etag_example' # str |  (optional)
-finished = 'finished_example' # str |  (optional)
-name = 'name_example' # str |  (optional)
-object = 'object_example' # str |  (optional)
-root_manifest_id = 'root_manifest_id_example' # str |  (optional)
-state = 'state_example' # str |  (optional)
-when = 'when_example' # str |  (optional)
-page = 56 # int | The page number to retrieve. If not given, then defaults to first page. (optional)
-root_manifest_url = 'root_manifest_url_example' # str | The firmware catalog URL for the manifest that will be sent to the device as part of the campaign (optional)
+limit = 56 # int |  (optional)
+order = 'order_example' # str |  (optional)
+after = 'after_example' # str |  (optional)
+filter = 'filter_example' # str |  (optional)
+include = 'include_example' # str |  (optional)
 
 try: 
-    api_response = api_instance.update_campaign_list(updating_request_id=updating_request_id, updating_ip_address=updating_ip_address, created_at=created_at, updated_at=updated_at, attempts=attempts, campaign_id=campaign_id, description=description, device_filter=device_filter, etag=etag, finished=finished, name=name, object=object, root_manifest_id=root_manifest_id, state=state, when=when, page=page, root_manifest_url=root_manifest_url)
+    api_response = api_instance.update_campaign_list(limit=limit, order=order, after=after, filter=filter, include=include)
     pprint(api_response)
 except ApiException as e:
     print "Exception when calling DefaultApi->update_campaign_list: %s\n" % e
@@ -213,27 +201,15 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **updating_request_id** | **str**|  | [optional] 
- **updating_ip_address** | **str**|  | [optional] 
- **created_at** | **str**|  | [optional] 
- **updated_at** | **str**|  | [optional] 
- **attempts** | **str**|  | [optional] 
- **campaign_id** | **str**|  | [optional] 
- **description** | **str**|  | [optional] 
- **device_filter** | **str**|  | [optional] 
- **etag** | **str**|  | [optional] 
- **finished** | **str**|  | [optional] 
- **name** | **str**|  | [optional] 
- **object** | **str**|  | [optional] 
- **root_manifest_id** | **str**|  | [optional] 
- **state** | **str**|  | [optional] 
- **when** | **str**|  | [optional] 
- **page** | **int**| The page number to retrieve. If not given, then defaults to first page. | [optional] 
- **root_manifest_url** | **str**| The firmware catalog URL for the manifest that will be sent to the device as part of the campaign | [optional] 
+ **limit** | **int**|  | [optional] 
+ **order** | **str**|  | [optional] 
+ **after** | **str**|  | [optional] 
+ **filter** | **str**|  | [optional] 
+ **include** | **str**|  | [optional] 
 
 ### Return type
 
-[**list[UpdateCampaignSerializer]**](UpdateCampaignSerializer.md)
+[**UpdateCampaignPage**](UpdateCampaignPage.md)
 
 ### Authorization
 
