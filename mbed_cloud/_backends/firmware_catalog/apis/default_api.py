@@ -240,7 +240,7 @@ class DefaultApi(object):
         if ('name' not in params) or (params['name'] is None):
             raise ValueError("Missing the required parameter `name` when calling `firmware_image_create`")
 
-        resource_path = '/v3/firmware/images/'.replace('{format}', 'json')
+        resource_path = '/v3/firmware-images/'.replace('{format}', 'json')
         path_params = {}
 
         query_params = {}
@@ -386,7 +386,7 @@ class DefaultApi(object):
         if ('image_id' not in params) or (params['image_id'] is None):
             raise ValueError("Missing the required parameter `image_id` when calling `firmware_image_destroy`")
 
-        resource_path = '/v3/firmware/images/{image_id}/'.replace('{format}', 'json')
+        resource_path = '/v3/firmware-images/{image_id}/'.replace('{format}', 'json')
         path_params = {}
         if 'image_id' in params:
             path_params['image_id'] = params['image_id']
@@ -511,7 +511,7 @@ class DefaultApi(object):
             params[key] = val
         del params['kwargs']
 
-        resource_path = '/v3/firmware/images/'.replace('{format}', 'json')
+        resource_path = '/v3/firmware-images/'.replace('{format}', 'json')
         path_params = {}
 
         query_params = {}
@@ -639,7 +639,7 @@ class DefaultApi(object):
         if ('image_id' not in params) or (params['image_id'] is None):
             raise ValueError("Missing the required parameter `image_id` when calling `firmware_image_retrieve`")
 
-        resource_path = '/v3/firmware/images/{image_id}/'.replace('{format}', 'json')
+        resource_path = '/v3/firmware-images/{image_id}/'.replace('{format}', 'json')
         path_params = {}
         if 'image_id' in params:
             path_params['image_id'] = params['image_id']
@@ -768,7 +768,7 @@ class DefaultApi(object):
         if ('name' not in params) or (params['name'] is None):
             raise ValueError("Missing the required parameter `name` when calling `firmware_manifest_create`")
 
-        resource_path = '/v3/firmware/manifests/'.replace('{format}', 'json')
+        resource_path = '/v3/firmware-manifests/'.replace('{format}', 'json')
         path_params = {}
 
         query_params = {}
@@ -876,7 +876,7 @@ class DefaultApi(object):
         if ('manifest_id' not in params) or (params['manifest_id'] is None):
             raise ValueError("Missing the required parameter `manifest_id` when calling `firmware_manifest_destroy`")
 
-        resource_path = '/v3/firmware/manifests/{manifest_id}/'.replace('{format}', 'json')
+        resource_path = '/v3/firmware-manifests/{manifest_id}/'.replace('{format}', 'json')
         path_params = {}
         if 'manifest_id' in params:
             path_params['manifest_id'] = params['manifest_id']
@@ -983,7 +983,7 @@ class DefaultApi(object):
             params[key] = val
         del params['kwargs']
 
-        resource_path = '/v3/firmware/manifests/'.replace('{format}', 'json')
+        resource_path = '/v3/firmware-manifests/'.replace('{format}', 'json')
         path_params = {}
 
         query_params = {}
@@ -1115,7 +1115,7 @@ class DefaultApi(object):
         if ('manifest_id' not in params) or (params['manifest_id'] is None):
             raise ValueError("Missing the required parameter `manifest_id` when calling `firmware_manifest_retrieve`")
 
-        resource_path = '/v3/firmware/manifests/{manifest_id}/'.replace('{format}', 'json')
+        resource_path = '/v3/firmware-manifests/{manifest_id}/'.replace('{format}', 'json')
         path_params = {}
 
         query_params = {}

@@ -5,14 +5,14 @@ All URIs are relative to *http://api.mbedcloud.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**deploy_info_get**](DefaultApi.md#deploy_info_get) | **GET** /v3/fc_deploy_info | 
-[**firmware_image_create**](DefaultApi.md#firmware_image_create) | **POST** /v3/firmware/images/ | 
-[**firmware_image_destroy**](DefaultApi.md#firmware_image_destroy) | **DELETE** /v3/firmware/images/{image_id}/ | 
-[**firmware_image_list**](DefaultApi.md#firmware_image_list) | **GET** /v3/firmware/images/ | 
-[**firmware_image_retrieve**](DefaultApi.md#firmware_image_retrieve) | **GET** /v3/firmware/images/{image_id}/ | 
-[**firmware_manifest_create**](DefaultApi.md#firmware_manifest_create) | **POST** /v3/firmware/manifests/ | 
-[**firmware_manifest_destroy**](DefaultApi.md#firmware_manifest_destroy) | **DELETE** /v3/firmware/manifests/{manifest_id}/ | 
-[**firmware_manifest_list**](DefaultApi.md#firmware_manifest_list) | **GET** /v3/firmware/manifests/ | 
-[**firmware_manifest_retrieve**](DefaultApi.md#firmware_manifest_retrieve) | **GET** /v3/firmware/manifests/{manifest_id}/ | 
+[**firmware_image_create**](DefaultApi.md#firmware_image_create) | **POST** /v3/firmware-images/ | 
+[**firmware_image_destroy**](DefaultApi.md#firmware_image_destroy) | **DELETE** /v3/firmware-images/{image_id}/ | 
+[**firmware_image_list**](DefaultApi.md#firmware_image_list) | **GET** /v3/firmware-images/ | 
+[**firmware_image_retrieve**](DefaultApi.md#firmware_image_retrieve) | **GET** /v3/firmware-images/{image_id}/ | 
+[**firmware_manifest_create**](DefaultApi.md#firmware_manifest_create) | **POST** /v3/firmware-manifests/ | 
+[**firmware_manifest_destroy**](DefaultApi.md#firmware_manifest_destroy) | **DELETE** /v3/firmware-manifests/{manifest_id}/ | 
+[**firmware_manifest_list**](DefaultApi.md#firmware_manifest_list) | **GET** /v3/firmware-manifests/ | 
+[**firmware_manifest_retrieve**](DefaultApi.md#firmware_manifest_retrieve) | **GET** /v3/firmware-manifests/{manifest_id}/ | 
 
 
 # **deploy_info_get**
