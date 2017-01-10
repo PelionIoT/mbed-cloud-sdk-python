@@ -371,24 +371,12 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str updating_request_id: 
-        :param str updating_ip_address: 
-        :param str created_at: 
-        :param str updated_at: 
-        :param str attempts: 
-        :param str campaign_id: 
-        :param str description: 
-        :param str device_filter: 
-        :param str etag: 
-        :param str finished: 
-        :param str name: 
-        :param str object: 
-        :param str root_manifest_id: 
-        :param str state: 
-        :param str when: 
-        :param int page: The page number to retrieve. If not given, then defaults to first page.
-        :param str root_manifest_url: The firmware catalog URL for the manifest that will be sent to the device as part of the campaign
-        :return: list[UpdateCampaignSerializer]
+        :param int limit: 
+        :param str order: 
+        :param str after: 
+        :param str filter: 
+        :param str include: 
+        :return: UpdateCampaignPage
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -414,29 +402,17 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str updating_request_id: 
-        :param str updating_ip_address: 
-        :param str created_at: 
-        :param str updated_at: 
-        :param str attempts: 
-        :param str campaign_id: 
-        :param str description: 
-        :param str device_filter: 
-        :param str etag: 
-        :param str finished: 
-        :param str name: 
-        :param str object: 
-        :param str root_manifest_id: 
-        :param str state: 
-        :param str when: 
-        :param int page: The page number to retrieve. If not given, then defaults to first page.
-        :param str root_manifest_url: The firmware catalog URL for the manifest that will be sent to the device as part of the campaign
-        :return: list[UpdateCampaignSerializer]
+        :param int limit: 
+        :param str order: 
+        :param str after: 
+        :param str filter: 
+        :param str include: 
+        :return: UpdateCampaignPage
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['updating_request_id', 'updating_ip_address', 'created_at', 'updated_at', 'attempts', 'campaign_id', 'description', 'device_filter', 'etag', 'finished', 'name', 'object', 'root_manifest_id', 'state', 'when', 'page', 'root_manifest_url']
+        all_params = ['limit', 'order', 'after', 'filter', 'include']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
 
@@ -454,40 +430,16 @@ class DefaultApi(object):
         path_params = {}
 
         query_params = {}
-        if 'updating_request_id' in params:
-            query_params['updating_request_id'] = params['updating_request_id']
-        if 'updating_ip_address' in params:
-            query_params['updating_ip_address'] = params['updating_ip_address']
-        if 'created_at' in params:
-            query_params['created_at'] = params['created_at']
-        if 'updated_at' in params:
-            query_params['updated_at'] = params['updated_at']
-        if 'attempts' in params:
-            query_params['attempts'] = params['attempts']
-        if 'campaign_id' in params:
-            query_params['campaign_id'] = params['campaign_id']
-        if 'description' in params:
-            query_params['description'] = params['description']
-        if 'device_filter' in params:
-            query_params['device_filter'] = params['device_filter']
-        if 'etag' in params:
-            query_params['etag'] = params['etag']
-        if 'finished' in params:
-            query_params['finished'] = params['finished']
-        if 'name' in params:
-            query_params['name'] = params['name']
-        if 'object' in params:
-            query_params['object'] = params['object']
-        if 'root_manifest_id' in params:
-            query_params['root_manifest_id'] = params['root_manifest_id']
-        if 'state' in params:
-            query_params['state'] = params['state']
-        if 'when' in params:
-            query_params['when'] = params['when']
-        if 'page' in params:
-            query_params['page'] = params['page']
-        if 'root_manifest_url' in params:
-            query_params['root_manifest_url'] = params['root_manifest_url']
+        if 'limit' in params:
+            query_params['limit'] = params['limit']
+        if 'order' in params:
+            query_params['order'] = params['order']
+        if 'after' in params:
+            query_params['after'] = params['after']
+        if 'filter' in params:
+            query_params['filter'] = params['filter']
+        if 'include' in params:
+            query_params['include'] = params['include']
 
         header_params = {}
 
@@ -516,7 +468,7 @@ class DefaultApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=local_var_files,
-                                            response_type='list[UpdateCampaignSerializer]',
+                                            response_type='UpdateCampaignPage',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))
