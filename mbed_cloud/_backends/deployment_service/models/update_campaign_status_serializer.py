@@ -42,16 +42,16 @@ class UpdateCampaignStatusSerializer(object):
                                   and the value is json key in definition.
         """
         self.swagger_types = {
-            'direct_devices': 'str',
-            'connector_devices': 'str',
+            'direct_devices': 'int',
+            'connector_devices': 'int',
             'description': 'str',
             'state': 'str',
             'updating_user_id': 'str',
             'created_at': 'datetime',
-            'total_devices': 'str',
+            'total_devices': 'int',
             'campaigndevicemetadata_set': 'list[CampaignDeviceMetadataSerializer]',
             'campaign_id': 'str',
-            'deployed_devices': 'str',
+            'deployed_devices': 'int',
             'updated_at': 'datetime',
             'when': 'datetime',
             'finished': 'datetime',
@@ -109,7 +109,7 @@ class UpdateCampaignStatusSerializer(object):
 
 
         :return: The direct_devices of this UpdateCampaignStatusSerializer.
-        :rtype: str
+        :rtype: int
         """
         return self._direct_devices
 
@@ -120,7 +120,7 @@ class UpdateCampaignStatusSerializer(object):
 
 
         :param direct_devices: The direct_devices of this UpdateCampaignStatusSerializer.
-        :type: str
+        :type: int
         """
 
         self._direct_devices = direct_devices
@@ -132,7 +132,7 @@ class UpdateCampaignStatusSerializer(object):
 
 
         :return: The connector_devices of this UpdateCampaignStatusSerializer.
-        :rtype: str
+        :rtype: int
         """
         return self._connector_devices
 
@@ -143,7 +143,7 @@ class UpdateCampaignStatusSerializer(object):
 
 
         :param connector_devices: The connector_devices of this UpdateCampaignStatusSerializer.
-        :type: str
+        :type: int
         """
 
         self._connector_devices = connector_devices
@@ -253,7 +253,7 @@ class UpdateCampaignStatusSerializer(object):
 
 
         :return: The total_devices of this UpdateCampaignStatusSerializer.
-        :rtype: str
+        :rtype: int
         """
         return self._total_devices
 
@@ -264,7 +264,7 @@ class UpdateCampaignStatusSerializer(object):
 
 
         :param total_devices: The total_devices of this UpdateCampaignStatusSerializer.
-        :type: str
+        :type: int
         """
 
         self._total_devices = total_devices
@@ -322,7 +322,7 @@ class UpdateCampaignStatusSerializer(object):
 
 
         :return: The deployed_devices of this UpdateCampaignStatusSerializer.
-        :rtype: str
+        :rtype: int
         """
         return self._deployed_devices
 
@@ -333,7 +333,7 @@ class UpdateCampaignStatusSerializer(object):
 
 
         :param deployed_devices: The deployed_devices of this UpdateCampaignStatusSerializer.
-        :type: str
+        :type: int
         """
 
         self._deployed_devices = deployed_devices
