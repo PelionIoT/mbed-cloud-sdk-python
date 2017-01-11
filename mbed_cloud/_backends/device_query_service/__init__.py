@@ -25,6 +25,7 @@
 from __future__ import absolute_import
 
 # import models into sdk package
+from .models.body import Body
 from .models.device_query_detail import DeviceQueryDetail
 from .models.device_query_resp import DeviceQueryResp
 
