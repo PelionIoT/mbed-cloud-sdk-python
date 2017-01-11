@@ -908,7 +908,7 @@ class DefaultApi(object):
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))
 
-    def device_update(self, device_id, **kwargs):
+    def device_update(self, device_id, body, **kwargs):
         """
         
         <p>The APIs for creating and manipulating devices.  </p> <p>Update device.</p>
@@ -919,23 +919,24 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.device_update(device_id, callback=callback_function)
+        >>> thread = api.device_update(device_id, body, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str device_id: The ID of the device (required)
-        :return: DeviceListResp
+        :param DeviceDetail body: Device object to update (required)
+        :return: DeviceDetail
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.device_update_with_http_info(device_id, **kwargs)
+            return self.device_update_with_http_info(device_id, body, **kwargs)
         else:
-            (data) = self.device_update_with_http_info(device_id, **kwargs)
+            (data) = self.device_update_with_http_info(device_id, body, **kwargs)
             return data
 
-    def device_update_with_http_info(self, device_id, **kwargs):
+    def device_update_with_http_info(self, device_id, body, **kwargs):
         """
         
         <p>The APIs for creating and manipulating devices.  </p> <p>Update device.</p>
@@ -946,17 +947,18 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.device_update_with_http_info(device_id, callback=callback_function)
+        >>> thread = api.device_update_with_http_info(device_id, body, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str device_id: The ID of the device (required)
-        :return: DeviceListResp
+        :param DeviceDetail body: Device object to update (required)
+        :return: DeviceDetail
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['device_id']
+        all_params = ['device_id', 'body']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
 
@@ -972,6 +974,9 @@ class DefaultApi(object):
         # verify the required parameter 'device_id' is set
         if ('device_id' not in params) or (params['device_id'] is None):
             raise ValueError("Missing the required parameter `device_id` when calling `device_update`")
+        # verify the required parameter 'body' is set
+        if ('body' not in params) or (params['body'] is None):
+            raise ValueError("Missing the required parameter `body` when calling `device_update`")
 
         resource_path = '/v3/devices/{device_id}/'.replace('{format}', 'json')
         path_params = {}
@@ -986,6 +991,8 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        if 'body' in params:
+            body_params = params['body']
 
         # HTTP header `Accept`
         header_params['Accept'] = self.api_client.\
@@ -1007,7 +1014,7 @@ class DefaultApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=local_var_files,
-                                            response_type='DeviceListResp',
+                                            response_type='DeviceDetail',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'),
                                             _return_http_data_only=params.get('_return_http_data_only'))

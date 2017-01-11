@@ -434,7 +434,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **device_update**
-> DeviceListResp device_update(device_id)
+> DeviceDetail device_update(device_id, body)
 
 
 
@@ -455,9 +455,10 @@ device_catalog.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = device_catalog.DefaultApi()
 device_id = 'device_id_example' # str | The ID of the device
+body = device_catalog.DeviceDetail() # DeviceDetail | Device object to update
 
 try: 
-    api_response = api_instance.device_update(device_id)
+    api_response = api_instance.device_update(device_id, body)
     pprint(api_response)
 except ApiException as e:
     print "Exception when calling DefaultApi->device_update: %s\n" % e
@@ -468,10 +469,11 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **device_id** | **str**| The ID of the device | 
+ **body** | [**DeviceDetail**](DeviceDetail.md)| Device object to update | 
 
 ### Return type
 
-[**DeviceListResp**](DeviceListResp.md)
+[**DeviceDetail**](DeviceDetail.md)
 
 ### Authorization
 
