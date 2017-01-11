@@ -25,5 +25,6 @@
 from __future__ import absolute_import
 
 # import models into model package
+from .body import Body
 from .device_query_detail import DeviceQueryDetail
 from .device_query_resp import DeviceQueryResp
