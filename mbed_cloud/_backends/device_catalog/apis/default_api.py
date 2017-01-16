@@ -575,7 +575,7 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str device_log_id: (required)
-        :return: DeviceLogSerializer
+        :return: DeviceLogSerializerData
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -600,7 +600,7 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str device_log_id: (required)
-        :return: DeviceLogSerializer
+        :return: DeviceLogSerializerData
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -650,7 +650,7 @@ class DefaultApi(object):
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='DeviceLogSerializer',
+                                        response_type='DeviceLogSerializerData',
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
