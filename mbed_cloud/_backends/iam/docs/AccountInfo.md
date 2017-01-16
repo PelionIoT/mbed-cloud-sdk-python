@@ -3,8 +3,9 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**phone_number** | **str** | The phone number of the company. | [optional] 
+**status** | **str** | The status of the account. | 
 **postal_code** | **str** | The postal code part of the postal address. | [optional] 
+**parent_id** | **str** | The ID of the parent account, if it has any. | [optional] 
 **id** | **str** | Account ID. | 
 **aliases** | **list[str]** | An array of aliases. | 
 **address_line2** | **str** | Postal address line 2. | [optional] 
@@ -16,7 +17,7 @@ Name | Type | Description | Notes
 **is_provisioning_allowed** | **bool** | Flag (true/false) indicating whether Factory Tool is allowed to download or not. | [default to False]
 **creation_time_millis** | **int** |  | [optional] 
 **email** | **str** | The company email address for this account. | [optional] 
-**status** | **str** | The status of the account. | 
+**phone_number** | **str** | The phone number of the company. | [optional] 
 **company** | **str** | The name of the company. | [optional] 
 **object** | **str** | Entity name: always &#39;account&#39; | 
 **upgraded_at** | **str** | Time when upgraded to commercial account in UTC format RFC3339. | [optional] 

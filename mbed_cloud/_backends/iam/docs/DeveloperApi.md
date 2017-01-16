@@ -26,6 +26,7 @@ An endpoint for creating a new API key.
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import iam
 from iam.rest import ApiException
@@ -45,7 +46,7 @@ try:
     api_response = api_instance.create_api_key(body)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DeveloperApi->create_api_key: %s\n" % e
+    print("Exception when calling DeveloperApi->create_api_key: %s\n" % e)
 ```
 
 ### Parameters
@@ -78,6 +79,7 @@ An endpoint for deleting the API key.
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import iam
 from iam.rest import ApiException
@@ -96,7 +98,7 @@ try:
     # Delete API key.
     api_instance.delete_api_key(api_key)
 except ApiException as e:
-    print "Exception when calling DeveloperApi->delete_api_key: %s\n" % e
+    print("Exception when calling DeveloperApi->delete_api_key: %s\n" % e)
 ```
 
 ### Parameters
@@ -129,6 +131,7 @@ An endpoint for retrieving API keys in an array, optionally filtered by the owne
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import iam
 from iam.rest import ApiException
@@ -153,7 +156,7 @@ try:
     api_response = api_instance.get_all_api_keys(limit=limit, after=after, order=order, include=include, filter=filter, owner=owner)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DeveloperApi->get_all_api_keys: %s\n" % e
+    print("Exception when calling DeveloperApi->get_all_api_keys: %s\n" % e)
 ```
 
 ### Parameters
@@ -191,6 +194,7 @@ An endpoint for retrieving all group information.
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import iam
 from iam.rest import ApiException
@@ -213,7 +217,7 @@ try:
     api_response = api_instance.get_all_groups(limit=limit, after=after, order=order, include=include)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DeveloperApi->get_all_groups: %s\n" % e
+    print("Exception when calling DeveloperApi->get_all_groups: %s\n" % e)
 ```
 
 ### Parameters
@@ -249,6 +253,7 @@ An endpoint for retrieving API key details.
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import iam
 from iam.rest import ApiException
@@ -268,7 +273,7 @@ try:
     api_response = api_instance.get_api_key(api_key)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DeveloperApi->get_api_key: %s\n" % e
+    print("Exception when calling DeveloperApi->get_api_key: %s\n" % e)
 ```
 
 ### Parameters
@@ -301,6 +306,7 @@ Returns detailed information about the account.
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import iam
 from iam.rest import ApiException
@@ -320,7 +326,7 @@ try:
     api_response = api_instance.get_my_account_info(include=include)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DeveloperApi->get_my_account_info: %s\n" % e
+    print("Exception when calling DeveloperApi->get_my_account_info: %s\n" % e)
 ```
 
 ### Parameters
@@ -353,6 +359,7 @@ An endpoint for retrieving API key details.
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import iam
 from iam.rest import ApiException
@@ -371,7 +378,7 @@ try:
     api_response = api_instance.get_my_api_key()
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DeveloperApi->get_my_api_key: %s\n" % e
+    print("Exception when calling DeveloperApi->get_my_api_key: %s\n" % e)
 ```
 
 ### Parameters
@@ -401,6 +408,7 @@ An endpoint for retrieving the details of the logged in user.
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import iam
 from iam.rest import ApiException
@@ -419,7 +427,7 @@ try:
     api_response = api_instance.get_my_user()
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DeveloperApi->get_my_user: %s\n" % e
+    print("Exception when calling DeveloperApi->get_my_user: %s\n" % e)
 ```
 
 ### Parameters
@@ -449,6 +457,7 @@ An endpoint for updating API key details.
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import iam
 from iam.rest import ApiException
@@ -469,7 +478,7 @@ try:
     api_response = api_instance.update_api_key(api_key, body)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DeveloperApi->update_api_key: %s\n" % e
+    print("Exception when calling DeveloperApi->update_api_key: %s\n" % e)
 ```
 
 ### Parameters
@@ -503,6 +512,7 @@ An endpoint for updating API key details.
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import iam
 from iam.rest import ApiException
@@ -522,7 +532,7 @@ try:
     api_response = api_instance.update_my_api_key(body)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DeveloperApi->update_my_api_key: %s\n" % e
+    print("Exception when calling DeveloperApi->update_my_api_key: %s\n" % e)
 ```
 
 ### Parameters
@@ -555,6 +565,7 @@ An endpoint for updating the details of the logged in user.
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import iam
 from iam.rest import ApiException
@@ -567,21 +578,21 @@ iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = iam.DeveloperApi()
-body = iam.UserInfoReq() # UserInfoReq | New attributes for the logged in user.
+body = iam.UserUpdateReq() # UserUpdateReq | New attributes for the logged in user.
 
 try: 
     # Update user details.
     api_response = api_instance.update_my_user(body)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DeveloperApi->update_my_user: %s\n" % e
+    print("Exception when calling DeveloperApi->update_my_user: %s\n" % e)
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**UserInfoReq**](UserInfoReq.md)| New attributes for the logged in user. | 
+ **body** | [**UserUpdateReq**](UserUpdateReq.md)| New attributes for the logged in user. | 
 
 ### Return type
 

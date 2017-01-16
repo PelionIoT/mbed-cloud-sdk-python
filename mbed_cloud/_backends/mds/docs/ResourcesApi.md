@@ -19,6 +19,7 @@ A request to delete a resource must be handled by both mbed Cloud Client and mbe
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import mds
 from mds.rest import ApiException
@@ -40,7 +41,7 @@ try:
     api_response = api_instance.v2_endpoints_endpoint_name_resource_path_delete(endpoint_name, _resource_path, no_resp=no_resp)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling ResourcesApi->v2_endpoints_endpoint_name_resource_path_delete: %s\n" % e
+    print("Exception when calling ResourcesApi->v2_endpoints_endpoint_name_resource_path_delete: %s\n" % e)
 ```
 
 ### Parameters
@@ -75,6 +76,7 @@ Requests the resource value and when the response is available, a json AsycRespo
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import mds
 from mds.rest import ApiException
@@ -97,7 +99,7 @@ try:
     api_response = api_instance.v2_endpoints_endpoint_name_resource_path_get(endpoint_name, _resource_path, cache_only=cache_only, no_resp=no_resp)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling ResourcesApi->v2_endpoints_endpoint_name_resource_path_get: %s\n" % e
+    print("Exception when calling ResourcesApi->v2_endpoints_endpoint_name_resource_path_get: %s\n" % e)
 ```
 
 ### Parameters
@@ -133,6 +135,7 @@ With this API, you can execute a function on an existing resource.  All resource
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import mds
 from mds.rest import ApiException
@@ -155,7 +158,7 @@ try:
     api_response = api_instance.v2_endpoints_endpoint_name_resource_path_post(endpoint_name, _resource_path, resource_function=resource_function, no_resp=no_resp)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling ResourcesApi->v2_endpoints_endpoint_name_resource_path_post: %s\n" % e
+    print("Exception when calling ResourcesApi->v2_endpoints_endpoint_name_resource_path_post: %s\n" % e)
 ```
 
 ### Parameters
@@ -191,6 +194,7 @@ With this API, you can write new values to existing resources, or create new res
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import mds
 from mds.rest import ApiException
@@ -213,7 +217,7 @@ try:
     api_response = api_instance.v2_endpoints_endpoint_name_resource_path_put(endpoint_name, _resource_path, resource_value, no_resp=no_resp)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling ResourcesApi->v2_endpoints_endpoint_name_resource_path_put: %s\n" % e
+    print("Exception when calling ResourcesApi->v2_endpoints_endpoint_name_resource_path_put: %s\n" % e)
 ```
 
 ### Parameters

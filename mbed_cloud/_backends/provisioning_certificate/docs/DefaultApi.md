@@ -16,6 +16,7 @@ Gets the account's provisioning certificate.
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import provisioning_certificate
 from provisioning_certificate.rest import ApiException
@@ -34,7 +35,7 @@ try:
     api_response = api_instance.v3_provisioning_certificate_get(authorization)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->v3_provisioning_certificate_get: %s\n" % e
+    print("Exception when calling DefaultApi->v3_provisioning_certificate_get: %s\n" % e)
 ```
 
 ### Parameters

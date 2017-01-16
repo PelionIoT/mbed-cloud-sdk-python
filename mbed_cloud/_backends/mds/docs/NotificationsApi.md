@@ -17,6 +17,7 @@ Register a URL to which the server should deliver notifications of the subscribe
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import mds
 from mds.rest import ApiException
@@ -35,7 +36,7 @@ try:
     # Register a callback URL
     api_instance.v2_notification_callback_put(webhook)
 except ApiException as e:
-    print "Exception when calling NotificationsApi->v2_notification_callback_put: %s\n" % e
+    print("Exception when calling NotificationsApi->v2_notification_callback_put: %s\n" % e)
 ```
 
 ### Parameters
@@ -68,6 +69,7 @@ In this case, notifications are delivered through HTTP long-poll requests. The H
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import mds
 from mds.rest import ApiException
@@ -86,7 +88,7 @@ try:
     api_response = api_instance.v2_notification_pull_get()
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling NotificationsApi->v2_notification_pull_get: %s\n" % e
+    print("Exception when calling NotificationsApi->v2_notification_pull_get: %s\n" % e)
 ```
 
 ### Parameters

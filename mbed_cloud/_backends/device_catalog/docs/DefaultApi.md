@@ -23,6 +23,7 @@ Method | HTTP request | Description
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import device_catalog
 from device_catalog.rest import ApiException
@@ -64,7 +65,7 @@ try:
     api_response = api_instance.device_create(mechanism, provision_key, account_id=account_id, auto_update=auto_update, bootstrapped_timestamp=bootstrapped_timestamp, created_at=created_at, custom_attributes=custom_attributes, deployed_state=deployed_state, deployment=deployment, description=description, device_class=device_class, device_id=device_id, etag=etag, id=id, manifest=manifest, mechanism_url=mechanism_url, name=name, object=object, serial_number=serial_number, state=state, trust_class=trust_class, trust_level=trust_level, updated_at=updated_at, vendor_id=vendor_id)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->device_create: %s\n" % e
+    print("Exception when calling DefaultApi->device_create: %s\n" % e)
 ```
 
 ### Parameters
@@ -120,6 +121,7 @@ Name | Type | Description  | Notes
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import device_catalog
 from device_catalog.rest import ApiException
@@ -138,7 +140,7 @@ try:
     api_response = api_instance.device_destroy(device_id)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->device_destroy: %s\n" % e
+    print("Exception when calling DefaultApi->device_destroy: %s\n" % e)
 ```
 
 ### Parameters
@@ -171,6 +173,7 @@ Name | Type | Description  | Notes
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import device_catalog
 from device_catalog.rest import ApiException
@@ -193,7 +196,7 @@ try:
     api_response = api_instance.device_list(limit=limit, order=order, after=after, filter=filter, include=include)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->device_list: %s\n" % e
+    print("Exception when calling DefaultApi->device_list: %s\n" % e)
 ```
 
 ### Parameters
@@ -230,6 +233,7 @@ Name | Type | Description  | Notes
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import device_catalog
 from device_catalog.rest import ApiException
@@ -252,7 +256,7 @@ try:
     api_response = api_instance.device_log_list(limit=limit, order=order, after=after, filter=filter, include=include)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->device_log_list: %s\n" % e
+    print("Exception when calling DefaultApi->device_log_list: %s\n" % e)
 ```
 
 ### Parameters
@@ -289,6 +293,7 @@ Name | Type | Description  | Notes
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import device_catalog
 from device_catalog.rest import ApiException
@@ -307,7 +312,7 @@ try:
     api_response = api_instance.device_log_retrieve(device_log_id)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->device_log_retrieve: %s\n" % e
+    print("Exception when calling DefaultApi->device_log_retrieve: %s\n" % e)
 ```
 
 ### Parameters
@@ -340,6 +345,7 @@ Name | Type | Description  | Notes
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import device_catalog
 from device_catalog.rest import ApiException
@@ -358,7 +364,7 @@ try:
     api_response = api_instance.device_partial_update(device_id)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->device_partial_update: %s\n" % e
+    print("Exception when calling DefaultApi->device_partial_update: %s\n" % e)
 ```
 
 ### Parameters
@@ -391,6 +397,7 @@ Name | Type | Description  | Notes
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import device_catalog
 from device_catalog.rest import ApiException
@@ -409,7 +416,7 @@ try:
     api_response = api_instance.device_retrieve(device_id)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->device_retrieve: %s\n" % e
+    print("Exception when calling DefaultApi->device_retrieve: %s\n" % e)
 ```
 
 ### Parameters
@@ -442,6 +449,7 @@ Name | Type | Description  | Notes
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import device_catalog
 from device_catalog.rest import ApiException
@@ -461,7 +469,7 @@ try:
     api_response = api_instance.device_update(device_id, body)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->device_update: %s\n" % e
+    print("Exception when calling DefaultApi->device_update: %s\n" % e)
 ```
 
 ### Parameters

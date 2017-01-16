@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **contact** | **str** | The name of the contact person for this account. | [optional] 
 **postal_code** | **str** | The postal code part of the postal address. | [optional] 
 **is_provisioning_allowed** | **bool** | Flag (true/false) indicating whether Factory Tool is allowed to download or not. Manageable by the root admin only. | [optional] [default to False]
+**parent_id** | **str** | The ID of the parent account, if it has any. | [optional] 
 **tier** | **str** | The tier level of the account; &#39;0&#39;: free tier, &#39;1&#39;: commercial account. Other values are reserved for the future. Manageable by the root admin only. | [optional] 
 **phone_number** | **str** | The phone number of the company. | [optional] 
 **email** | **str** | The company email address for this account. | [optional] 

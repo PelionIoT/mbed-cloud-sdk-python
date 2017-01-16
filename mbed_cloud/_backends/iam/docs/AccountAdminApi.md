@@ -26,6 +26,7 @@ An endpoint for uploading new CA certificates.
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import iam
 from iam.rest import ApiException
@@ -45,7 +46,7 @@ try:
     api_response = api_instance.add_certificate(body)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling AccountAdminApi->add_certificate: %s\n" % e
+    print("Exception when calling AccountAdminApi->add_certificate: %s\n" % e)
 ```
 
 ### Parameters
@@ -78,6 +79,7 @@ An endpoint for creating a new user.
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import iam
 from iam.rest import ApiException
@@ -98,7 +100,7 @@ try:
     api_response = api_instance.create_user(body, action=action)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling AccountAdminApi->create_user: %s\n" % e
+    print("Exception when calling AccountAdminApi->create_user: %s\n" % e)
 ```
 
 ### Parameters
@@ -132,6 +134,7 @@ An endpoint for deleting a CA certificate.
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import iam
 from iam.rest import ApiException
@@ -150,7 +153,7 @@ try:
     # Delete a CA certificate by ID.
     api_instance.delete_certificate(ca_cert_id)
 except ApiException as e:
-    print "Exception when calling AccountAdminApi->delete_certificate: %s\n" % e
+    print("Exception when calling AccountAdminApi->delete_certificate: %s\n" % e)
 ```
 
 ### Parameters
@@ -183,6 +186,7 @@ An endpoint for deleting a user.
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import iam
 from iam.rest import ApiException
@@ -196,13 +200,13 @@ iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = iam.AccountAdminApi()
 user_id = 'user_id_example' # str | The ID of the user to be deleted.
-force = 'force_example' # str | Flag indicating that user is forced to be deleted. (optional)
+force = 'force_example' # str | A flag indicating that the user is forced to be deleted. (optional)
 
 try: 
     # Delete a user.
     api_instance.delete_user(user_id, force=force)
 except ApiException as e:
-    print "Exception when calling AccountAdminApi->delete_user: %s\n" % e
+    print("Exception when calling AccountAdminApi->delete_user: %s\n" % e)
 ```
 
 ### Parameters
@@ -210,7 +214,7 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **user_id** | **str**| The ID of the user to be deleted. | 
- **force** | **str**| Flag indicating that user is forced to be deleted. | [optional] 
+ **force** | **str**| A flag indicating that the user is forced to be deleted. | [optional] 
 
 ### Return type
 
@@ -236,6 +240,7 @@ An endpoint for retrieving CA certificates in an array.
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import iam
 from iam.rest import ApiException
@@ -252,14 +257,14 @@ limit = 50 # int | The number of results to return (2-1000), default is 50. (opt
 after = 'after_example' # str | The entity ID to fetch after the given one. (optional)
 order = 'ASC' # str | The order of the records, ASC or DESC; by default ASC (optional) (default to ASC)
 include = 'include_example' # str | Comma separated additional data to return. Currently supported: total_count (optional)
-filter = 'filter_example' # str | The filter for the query, for example filter=service%3Dlwm2m (optional)
+filter = 'filter_example' # str | Filter by service or expiring days, for example filter=service%3Dlwm2m,expire%3D180 (optional)
 
 try: 
     # Get all CA certificates.
     api_response = api_instance.get_all_certificates(limit=limit, after=after, order=order, include=include, filter=filter)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling AccountAdminApi->get_all_certificates: %s\n" % e
+    print("Exception when calling AccountAdminApi->get_all_certificates: %s\n" % e)
 ```
 
 ### Parameters
@@ -270,7 +275,7 @@ Name | Type | Description  | Notes
  **after** | **str**| The entity ID to fetch after the given one. | [optional] 
  **order** | **str**| The order of the records, ASC or DESC; by default ASC | [optional] [default to ASC]
  **include** | **str**| Comma separated additional data to return. Currently supported: total_count | [optional] 
- **filter** | **str**| The filter for the query, for example filter&#x3D;service%3Dlwm2m | [optional] 
+ **filter** | **str**| Filter by service or expiring days, for example filter&#x3D;service%3Dlwm2m,expire%3D180 | [optional] 
 
 ### Return type
 
@@ -296,6 +301,7 @@ An endpoint for retrieving the details of all users.
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import iam
 from iam.rest import ApiException
@@ -319,7 +325,7 @@ try:
     api_response = api_instance.get_all_users(limit=limit, after=after, order=order, include=include, filter=filter)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling AccountAdminApi->get_all_users: %s\n" % e
+    print("Exception when calling AccountAdminApi->get_all_users: %s\n" % e)
 ```
 
 ### Parameters
@@ -356,6 +362,7 @@ An endpoint for retrieving a CA certificate by ID.
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import iam
 from iam.rest import ApiException
@@ -375,7 +382,7 @@ try:
     api_response = api_instance.get_certificate(ca_cert_id)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling AccountAdminApi->get_certificate: %s\n" % e
+    print("Exception when calling AccountAdminApi->get_certificate: %s\n" % e)
 ```
 
 ### Parameters
@@ -408,6 +415,7 @@ An endpoint for retrieving the details of a user.
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import iam
 from iam.rest import ApiException
@@ -427,7 +435,7 @@ try:
     api_response = api_instance.get_user(user_id)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling AccountAdminApi->get_user: %s\n" % e
+    print("Exception when calling AccountAdminApi->get_user: %s\n" % e)
 ```
 
 ### Parameters
@@ -460,6 +468,7 @@ An endpoint for updating existing CA certificates.
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import iam
 from iam.rest import ApiException
@@ -480,7 +489,7 @@ try:
     api_response = api_instance.update_certificate(ca_cert_id, body)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling AccountAdminApi->update_certificate: %s\n" % e
+    print("Exception when calling AccountAdminApi->update_certificate: %s\n" % e)
 ```
 
 ### Parameters
@@ -514,6 +523,7 @@ An endpoint for updating the account.
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import iam
 from iam.rest import ApiException
@@ -533,7 +543,7 @@ try:
     api_response = api_instance.update_my_account(body)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling AccountAdminApi->update_my_account: %s\n" % e
+    print("Exception when calling AccountAdminApi->update_my_account: %s\n" % e)
 ```
 
 ### Parameters
@@ -566,6 +576,7 @@ An endpoint for updating user details.
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import iam
 from iam.rest import ApiException
@@ -579,14 +590,14 @@ iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = iam.AccountAdminApi()
 user_id = 'user_id_example' # str | The ID of the user whose details are updated.
-body = iam.UserInfoReq() # UserInfoReq | A user object with attributes.
+body = iam.UserUpdateReq() # UserUpdateReq | A user object with attributes.
 
 try: 
     # Update user details.
     api_response = api_instance.update_user(user_id, body)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling AccountAdminApi->update_user: %s\n" % e
+    print("Exception when calling AccountAdminApi->update_user: %s\n" % e)
 ```
 
 ### Parameters
@@ -594,7 +605,7 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **user_id** | **str**| The ID of the user whose details are updated. | 
- **body** | [**UserInfoReq**](UserInfoReq.md)| A user object with attributes. | 
+ **body** | [**UserUpdateReq**](UserUpdateReq.md)| A user object with attributes. | 
 
 ### Return type
 

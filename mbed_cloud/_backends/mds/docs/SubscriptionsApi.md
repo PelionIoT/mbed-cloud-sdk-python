@@ -23,6 +23,7 @@ Removes subscriptions from every endpoint and resource. Note that this does not 
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import mds
 from mds.rest import ApiException
@@ -40,7 +41,7 @@ try:
     # Remove all subscriptions
     api_instance.v2_subscriptions_delete()
 except ApiException as e:
-    print "Exception when calling SubscriptionsApi->v2_subscriptions_delete: %s\n" % e
+    print("Exception when calling SubscriptionsApi->v2_subscriptions_delete: %s\n" % e)
 ```
 
 ### Parameters
@@ -70,6 +71,7 @@ Deletes all resource subscriptions in a single endpoint.
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import mds
 from mds.rest import ApiException
@@ -88,7 +90,7 @@ try:
     # Delete subscriptions from an endpoint
     api_instance.v2_subscriptions_endpoint_name_delete(endpoint_name)
 except ApiException as e:
-    print "Exception when calling SubscriptionsApi->v2_subscriptions_endpoint_name_delete: %s\n" % e
+    print("Exception when calling SubscriptionsApi->v2_subscriptions_endpoint_name_delete: %s\n" % e)
 ```
 
 ### Parameters
@@ -121,6 +123,7 @@ Lists all subscribed resources from a single endpoint.
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import mds
 from mds.rest import ApiException
@@ -139,7 +142,7 @@ try:
     # Read endpoints subscriptions
     api_instance.v2_subscriptions_endpoint_name_get(endpoint_name)
 except ApiException as e:
-    print "Exception when calling SubscriptionsApi->v2_subscriptions_endpoint_name_get: %s\n" % e
+    print("Exception when calling SubscriptionsApi->v2_subscriptions_endpoint_name_get: %s\n" % e)
 ```
 
 ### Parameters
@@ -172,6 +175,7 @@ To remove an existing subscription from a resource path.
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import mds
 from mds.rest import ApiException
@@ -191,7 +195,7 @@ try:
     # Remove a subscription
     api_instance.v2_subscriptions_endpoint_name_resource_path_delete(endpoint_name, _resource_path)
 except ApiException as e:
-    print "Exception when calling SubscriptionsApi->v2_subscriptions_endpoint_name_resource_path_delete: %s\n" % e
+    print("Exception when calling SubscriptionsApi->v2_subscriptions_endpoint_name_resource_path_delete: %s\n" % e)
 ```
 
 ### Parameters
@@ -223,6 +227,7 @@ Read subscription status
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import mds
 from mds.rest import ApiException
@@ -242,7 +247,7 @@ try:
     # Read subscription status
     api_instance.v2_subscriptions_endpoint_name_resource_path_get(endpoint_name, _resource_path)
 except ApiException as e:
-    print "Exception when calling SubscriptionsApi->v2_subscriptions_endpoint_name_resource_path_get: %s\n" % e
+    print("Exception when calling SubscriptionsApi->v2_subscriptions_endpoint_name_resource_path_get: %s\n" % e)
 ```
 
 ### Parameters
@@ -276,6 +281,7 @@ The mbed Cloud Connect eventing model consists of observable resources.  This me
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import mds
 from mds.rest import ApiException
@@ -295,7 +301,7 @@ try:
     # Subscribe to a resource path
     api_instance.v2_subscriptions_endpoint_name_resource_path_put(endpoint_name, _resource_path)
 except ApiException as e:
-    print "Exception when calling SubscriptionsApi->v2_subscriptions_endpoint_name_resource_path_put: %s\n" % e
+    print("Exception when calling SubscriptionsApi->v2_subscriptions_endpoint_name_resource_path_put: %s\n" % e)
 ```
 
 ### Parameters
@@ -329,6 +335,7 @@ You can retrieve the pre-subscription data by using a GET operation. The server 
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import mds
 from mds.rest import ApiException
@@ -346,7 +353,7 @@ try:
     # Get pre-subscriptions
     api_instance.v2_subscriptions_get()
 except ApiException as e:
-    print "Exception when calling SubscriptionsApi->v2_subscriptions_get: %s\n" % e
+    print("Exception when calling SubscriptionsApi->v2_subscriptions_get: %s\n" % e)
 ```
 
 ### Parameters
@@ -376,6 +383,7 @@ Pre-subscription is a set of rules and patterns put by the application. When an 
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import mds
 from mds.rest import ApiException
@@ -394,7 +402,7 @@ try:
     # Set pre-subscriptions
     api_instance.v2_subscriptions_put(presubsription)
 except ApiException as e:
-    print "Exception when calling SubscriptionsApi->v2_subscriptions_put: %s\n" % e
+    print("Exception when calling SubscriptionsApi->v2_subscriptions_put: %s\n" % e)
 ```
 
 ### Parameters
