@@ -20,6 +20,7 @@ Gets the list of production line certificates associated with the account.
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import production_line_certificates
 from production_line_certificates.rest import ApiException
@@ -38,7 +39,7 @@ try:
     api_response = api_instance.v3_production_line_certificates_get(authorization)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->v3_production_line_certificates_get: %s\n" % e
+    print("Exception when calling DefaultApi->v3_production_line_certificates_get: %s\n" % e)
 ```
 
 ### Parameters
@@ -71,6 +72,7 @@ Deactivates the production line certificate.  There is no way to reactivate it.
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import production_line_certificates
 from production_line_certificates.rest import ApiException
@@ -90,7 +92,7 @@ try:
     api_response = api_instance.v3_production_line_certificates_muuid_delete(authorization, m_uuid)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->v3_production_line_certificates_muuid_delete: %s\n" % e
+    print("Exception when calling DefaultApi->v3_production_line_certificates_muuid_delete: %s\n" % e)
 ```
 
 ### Parameters
@@ -124,6 +126,7 @@ Gets a single production line certificate by its mUUID.
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import production_line_certificates
 from production_line_certificates.rest import ApiException
@@ -143,7 +146,7 @@ try:
     api_response = api_instance.v3_production_line_certificates_muuid_get(authorization, m_uuid)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->v3_production_line_certificates_muuid_get: %s\n" % e
+    print("Exception when calling DefaultApi->v3_production_line_certificates_muuid_get: %s\n" % e)
 ```
 
 ### Parameters
@@ -177,6 +180,7 @@ Updates the comment on a production line certificate.
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import production_line_certificates
 from production_line_certificates.rest import ApiException
@@ -197,7 +201,7 @@ try:
     api_response = api_instance.v3_production_line_certificates_muuid_put(authorization, m_uuid, body)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->v3_production_line_certificates_muuid_put: %s\n" % e
+    print("Exception when calling DefaultApi->v3_production_line_certificates_muuid_put: %s\n" % e)
 ```
 
 ### Parameters
@@ -232,6 +236,7 @@ Adds a new production line certificate to the account.
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import production_line_certificates
 from production_line_certificates.rest import ApiException
@@ -251,7 +256,7 @@ try:
     api_response = api_instance.v3_production_line_certificates_post(authorization, body)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->v3_production_line_certificates_post: %s\n" % e
+    print("Exception when calling DefaultApi->v3_production_line_certificates_post: %s\n" % e)
 ```
 
 ### Parameters

@@ -21,6 +21,7 @@ Method | HTTP request | Description
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import device_query_service
 from device_query_service.rest import ApiException
@@ -43,7 +44,7 @@ try:
     api_response = api_instance.device_query_create(name, query, description=description, object=object, query_id=query_id)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->device_query_create: %s\n" % e
+    print("Exception when calling DefaultApi->device_query_create: %s\n" % e)
 ```
 
 ### Parameters
@@ -80,6 +81,7 @@ Name | Type | Description  | Notes
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import device_query_service
 from device_query_service.rest import ApiException
@@ -98,7 +100,7 @@ try:
     api_response = api_instance.device_query_destroy(query_id)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->device_query_destroy: %s\n" % e
+    print("Exception when calling DefaultApi->device_query_destroy: %s\n" % e)
 ```
 
 ### Parameters
@@ -131,6 +133,7 @@ Name | Type | Description  | Notes
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import device_query_service
 from device_query_service.rest import ApiException
@@ -152,7 +155,7 @@ try:
     api_response = api_instance.device_query_list(limit=limit, order=order, after=after, include=include)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->device_query_list: %s\n" % e
+    print("Exception when calling DefaultApi->device_query_list: %s\n" % e)
 ```
 
 ### Parameters
@@ -188,6 +191,7 @@ Name | Type | Description  | Notes
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import device_query_service
 from device_query_service.rest import ApiException
@@ -211,7 +215,7 @@ try:
     api_response = api_instance.device_query_partial_update(query_id, description=description, name=name, object=object, query=query, query_id2=query_id2)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->device_query_partial_update: %s\n" % e
+    print("Exception when calling DefaultApi->device_query_partial_update: %s\n" % e)
 ```
 
 ### Parameters
@@ -249,6 +253,7 @@ Name | Type | Description  | Notes
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import device_query_service
 from device_query_service.rest import ApiException
@@ -267,7 +272,7 @@ try:
     api_response = api_instance.device_query_retrieve(query_id)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->device_query_retrieve: %s\n" % e
+    print("Exception when calling DefaultApi->device_query_retrieve: %s\n" % e)
 ```
 
 ### Parameters
@@ -300,6 +305,7 @@ Name | Type | Description  | Notes
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import device_query_service
 from device_query_service.rest import ApiException
@@ -319,7 +325,7 @@ try:
     api_response = api_instance.device_query_update(query_id, body)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->device_query_update: %s\n" % e
+    print("Exception when calling DefaultApi->device_query_update: %s\n" % e)
 ```
 
 ### Parameters

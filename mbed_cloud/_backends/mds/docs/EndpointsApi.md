@@ -17,6 +17,7 @@ The list of resources is cached by mbed Cloud Connect, so this call does not cre
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import mds
 from mds.rest import ApiException
@@ -36,7 +37,7 @@ try:
     api_response = api_instance.v2_endpoints_endpoint_name_get(endpoint_name)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling EndpointsApi->v2_endpoints_endpoint_name_get: %s\n" % e
+    print("Exception when calling EndpointsApi->v2_endpoints_endpoint_name_get: %s\n" % e)
 ```
 
 ### Parameters
@@ -69,6 +70,7 @@ Endpoints are physical devices running mbed Cloud Client.
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import mds
 from mds.rest import ApiException
@@ -88,7 +90,7 @@ try:
     api_response = api_instance.v2_endpoints_get(type=type)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling EndpointsApi->v2_endpoints_get: %s\n" % e
+    print("Exception when calling EndpointsApi->v2_endpoints_get: %s\n" % e)
 ```
 
 ### Parameters

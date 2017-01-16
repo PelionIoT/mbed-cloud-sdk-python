@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 **account_id** | **str** | The UUID of the account. | 
 **service** | **str** | Service name where the certificate is to be used. | 
 **created_at** | **str** | Creation UTC time RFC3339. | [optional] 
-**object** | **str** | entity name: &#39;user&#39;, &#39;apikey&#39;, &#39;group&#39;, &#39;account&#39; or error | 
+**object** | **str** | Entity name: always &#39;ca-cert&#39; | 
 **subject** | **str** | Subject of the certificate. | 
 **validity** | **str** | Expiration time in UTC formatted as RFC3339. | 
 **etag** | **str** | API resource entity version. | 

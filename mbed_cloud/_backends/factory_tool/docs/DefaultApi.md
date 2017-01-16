@@ -17,6 +17,7 @@ Returns a specific Factory Tool package in a ZIP archive. * mbed Cloud user role
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import factory_tool
 from factory_tool.rest import ApiException
@@ -35,7 +36,7 @@ try:
     api_response = api_instance.downloads_mbed_factory_provisioning_package_get(os)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->downloads_mbed_factory_provisioning_package_get: %s\n" % e
+    print("Exception when calling DefaultApi->downloads_mbed_factory_provisioning_package_get: %s\n" % e)
 ```
 
 ### Parameters
@@ -68,6 +69,7 @@ Gets a list of downloadable Factory Tool versions. * mbed Cloud user role must b
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import factory_tool
 from factory_tool.rest import ApiException
@@ -85,7 +87,7 @@ try:
     api_response = api_instance.downloads_mbed_factory_provisioning_package_info_get()
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->downloads_mbed_factory_provisioning_package_info_get: %s\n" % e
+    print("Exception when calling DefaultApi->downloads_mbed_factory_provisioning_package_info_get: %s\n" % e)
 ```
 
 ### Parameters

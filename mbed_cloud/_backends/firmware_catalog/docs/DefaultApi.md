@@ -24,6 +24,7 @@ Method | HTTP request | Description
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import firmware_catalog
 from firmware_catalog.rest import ApiException
@@ -41,7 +42,7 @@ try:
     api_response = api_instance.deploy_info_get()
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->deploy_info_get: %s\n" % e
+    print("Exception when calling DefaultApi->deploy_info_get: %s\n" % e)
 ```
 
 ### Parameters
@@ -71,6 +72,7 @@ This endpoint does not need any parameter.
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import firmware_catalog
 from firmware_catalog.rest import ApiException
@@ -101,7 +103,7 @@ try:
     api_response = api_instance.firmware_image_create(datafile, name, description=description, updating_request_id=updating_request_id, updating_ip_address=updating_ip_address, name2=name2, description2=description2, created_at=created_at, updated_at=updated_at, datafile_checksum=datafile_checksum, etag=etag, image_id=image_id, object=object)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->firmware_image_create: %s\n" % e
+    print("Exception when calling DefaultApi->firmware_image_create: %s\n" % e)
 ```
 
 ### Parameters
@@ -146,6 +148,7 @@ Name | Type | Description  | Notes
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import firmware_catalog
 from firmware_catalog.rest import ApiException
@@ -173,7 +176,7 @@ try:
     api_response = api_instance.firmware_image_destroy(image_id, updating_request_id=updating_request_id, updating_ip_address=updating_ip_address, name=name, description=description, created_at=created_at, updated_at=updated_at, datafile_checksum=datafile_checksum, etag=etag, object=object)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->firmware_image_destroy: %s\n" % e
+    print("Exception when calling DefaultApi->firmware_image_destroy: %s\n" % e)
 ```
 
 ### Parameters
@@ -215,6 +218,7 @@ Name | Type | Description  | Notes
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import firmware_catalog
 from firmware_catalog.rest import ApiException
@@ -236,7 +240,7 @@ try:
     api_response = api_instance.firmware_image_list(limit=limit, order=order, after=after, include=include)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->firmware_image_list: %s\n" % e
+    print("Exception when calling DefaultApi->firmware_image_list: %s\n" % e)
 ```
 
 ### Parameters
@@ -272,6 +276,7 @@ Name | Type | Description  | Notes
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import firmware_catalog
 from firmware_catalog.rest import ApiException
@@ -299,7 +304,7 @@ try:
     api_response = api_instance.firmware_image_retrieve(image_id, updating_request_id=updating_request_id, updating_ip_address=updating_ip_address, name=name, description=description, created_at=created_at, updated_at=updated_at, datafile_checksum=datafile_checksum, etag=etag, object=object)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->firmware_image_retrieve: %s\n" % e
+    print("Exception when calling DefaultApi->firmware_image_retrieve: %s\n" % e)
 ```
 
 ### Parameters
@@ -341,6 +346,7 @@ Name | Type | Description  | Notes
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import firmware_catalog
 from firmware_catalog.rest import ApiException
@@ -361,7 +367,7 @@ try:
     api_response = api_instance.firmware_manifest_create(datafile, name, description=description)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->firmware_manifest_create: %s\n" % e
+    print("Exception when calling DefaultApi->firmware_manifest_create: %s\n" % e)
 ```
 
 ### Parameters
@@ -396,6 +402,7 @@ Name | Type | Description  | Notes
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import firmware_catalog
 from firmware_catalog.rest import ApiException
@@ -414,7 +421,7 @@ try:
     api_response = api_instance.firmware_manifest_destroy(manifest_id)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->firmware_manifest_destroy: %s\n" % e
+    print("Exception when calling DefaultApi->firmware_manifest_destroy: %s\n" % e)
 ```
 
 ### Parameters
@@ -447,6 +454,7 @@ Name | Type | Description  | Notes
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import firmware_catalog
 from firmware_catalog.rest import ApiException
@@ -468,7 +476,7 @@ try:
     api_response = api_instance.firmware_manifest_list(limit=limit, order=order, after=after, include=include)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->firmware_manifest_list: %s\n" % e
+    print("Exception when calling DefaultApi->firmware_manifest_list: %s\n" % e)
 ```
 
 ### Parameters
@@ -504,6 +512,7 @@ Name | Type | Description  | Notes
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import firmware_catalog
 from firmware_catalog.rest import ApiException
@@ -533,7 +542,7 @@ try:
     api_response = api_instance.firmware_manifest_retrieve(manifest_id, updating_request_id=updating_request_id, updating_ip_address=updating_ip_address, name=name, description=description, created_at=created_at, updated_at=updated_at, datafile_checksum=datafile_checksum, device_class=device_class, etag=etag, object=object, timestamp=timestamp)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->firmware_manifest_retrieve: %s\n" % e
+    print("Exception when calling DefaultApi->firmware_manifest_retrieve: %s\n" % e)
 ```
 
 ### Parameters

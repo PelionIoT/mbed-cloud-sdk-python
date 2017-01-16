@@ -18,6 +18,7 @@ Deletes the account's developer certificate (only one per account allowed).
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import developer_certificate
 from developer_certificate.rest import ApiException
@@ -35,7 +36,7 @@ authorization = 'authorization_example' # str | \"Bearer\" followed by the refer
 try: 
     api_instance.v3_developer_certificate_delete(authorization)
 except ApiException as e:
-    print "Exception when calling DefaultApi->v3_developer_certificate_delete: %s\n" % e
+    print("Exception when calling DefaultApi->v3_developer_certificate_delete: %s\n" % e)
 ```
 
 ### Parameters
@@ -68,6 +69,7 @@ Gets the developer certificate of the account.
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import developer_certificate
 from developer_certificate.rest import ApiException
@@ -86,7 +88,7 @@ try:
     api_response = api_instance.v3_developer_certificate_get(authorization)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->v3_developer_certificate_get: %s\n" % e
+    print("Exception when calling DefaultApi->v3_developer_certificate_get: %s\n" % e)
 ```
 
 ### Parameters
@@ -119,6 +121,7 @@ Adds a developer certificate to the account (only one per account allowed).
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import developer_certificate
 from developer_certificate.rest import ApiException
@@ -138,7 +141,7 @@ try:
     api_response = api_instance.v3_developer_certificate_post(authorization, body)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->v3_developer_certificate_post: %s\n" % e
+    print("Exception when calling DefaultApi->v3_developer_certificate_post: %s\n" % e)
 ```
 
 ### Parameters

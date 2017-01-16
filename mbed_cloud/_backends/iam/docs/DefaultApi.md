@@ -23,6 +23,7 @@ Accepting pending invitation and providing missing details.
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import iam
 from iam.rest import ApiException
@@ -36,14 +37,14 @@ iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = iam.DefaultApi()
 invitation_id = 'invitation_id_example' # str | Invitation ID received in email.
-body = iam.UserInfoReq() # UserInfoReq | Details of the user accepting the invitation.
+body = iam.UserUpdateReq() # UserUpdateReq | Details of the user accepting the invitation.
 
 try: 
     # Accept invitation.
     api_response = api_instance.activate_user(invitation_id, body)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->activate_user: %s\n" % e
+    print("Exception when calling DefaultApi->activate_user: %s\n" % e)
 ```
 
 ### Parameters
@@ -51,7 +52,7 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **invitation_id** | **str**| Invitation ID received in email. | 
- **body** | [**UserInfoReq**](UserInfoReq.md)| Details of the user accepting the invitation. | 
+ **body** | [**UserUpdateReq**](UserUpdateReq.md)| Details of the user accepting the invitation. | 
 
 ### Return type
 
@@ -77,6 +78,7 @@ Applying password recovery by providing a secret hash code.
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import iam
 from iam.rest import ApiException
@@ -96,7 +98,7 @@ try:
     # Apply password recovery.
     api_instance.apply_password_recovery(body, x_forwarded_for=x_forwarded_for)
 except ApiException as e:
-    print "Exception when calling DefaultApi->apply_password_recovery: %s\n" % e
+    print("Exception when calling DefaultApi->apply_password_recovery: %s\n" % e)
 ```
 
 ### Parameters
@@ -130,6 +132,7 @@ Returns information about the user being invited.
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import iam
 from iam.rest import ApiException
@@ -149,7 +152,7 @@ try:
     api_response = api_instance.get_invited_user(invitation_id)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->get_invited_user: %s\n" % e
+    print("Exception when calling DefaultApi->get_invited_user: %s\n" % e)
 ```
 
 ### Parameters
@@ -182,6 +185,7 @@ Retrieving the details of a user to register.
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import iam
 from iam.rest import ApiException
@@ -201,7 +205,7 @@ try:
     api_response = api_instance.get_self_enrolling_user(signup_id)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->get_self_enrolling_user: %s\n" % e
+    print("Exception when calling DefaultApi->get_self_enrolling_user: %s\n" % e)
 ```
 
 ### Parameters
@@ -234,6 +238,7 @@ An endpoint for registering a new account.
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import iam
 from iam.rest import ApiException
@@ -254,7 +259,7 @@ try:
     api_response = api_instance.register_account(signup_id, body)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->register_account: %s\n" % e
+    print("Exception when calling DefaultApi->register_account: %s\n" % e)
 ```
 
 ### Parameters
@@ -288,6 +293,7 @@ Requesting password recovery by email address.
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import iam
 from iam.rest import ApiException
@@ -307,7 +313,7 @@ try:
     # Request password recovery.
     api_instance.request_password_recovery(body, x_forwarded_for=x_forwarded_for)
 except ApiException as e:
-    print "Exception when calling DefaultApi->request_password_recovery: %s\n" % e
+    print("Exception when calling DefaultApi->request_password_recovery: %s\n" % e)
 ```
 
 ### Parameters
@@ -341,6 +347,7 @@ Signing up for a new free tier account with email address.
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import iam
 from iam.rest import ApiException
@@ -360,7 +367,7 @@ try:
     api_response = api_instance.signup(body)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->signup: %s\n" % e
+    print("Exception when calling DefaultApi->signup: %s\n" % e)
 ```
 
 ### Parameters
@@ -389,10 +396,11 @@ Name | Type | Description  | Notes
 
 Verify self-enrollment code and aliases.
 
-Verifying whether the code received by email is valid. Optionally, it also verifies whether account with the given aliases exists.
+Verifying whether the code received by email is valid. Optionally, it also verifies whether an account with the given aliases exists.
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import iam
 from iam.rest import ApiException
@@ -412,7 +420,7 @@ try:
     # Verify self-enrollment code and aliases.
     api_instance.verify_self_enrollment(signup_id, body=body)
 except ApiException as e:
-    print "Exception when calling DefaultApi->verify_self_enrollment: %s\n" % e
+    print("Exception when calling DefaultApi->verify_self_enrollment: %s\n" % e)
 ```
 
 ### Parameters

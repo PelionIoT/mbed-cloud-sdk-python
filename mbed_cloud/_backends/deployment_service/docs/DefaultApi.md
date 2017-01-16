@@ -23,6 +23,7 @@ Method | HTTP request | Description
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import deployment_service
 from deployment_service.rest import ApiException
@@ -40,7 +41,7 @@ try:
     api_response = api_instance.deploy_info_get()
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->deploy_info_get: %s\n" % e
+    print("Exception when calling DefaultApi->deploy_info_get: %s\n" % e)
 ```
 
 ### Parameters
@@ -70,6 +71,7 @@ This endpoint does not need any parameter.
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import deployment_service
 from deployment_service.rest import ApiException
@@ -88,7 +90,7 @@ try:
     api_response = api_instance.update_campaign_create(body)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->update_campaign_create: %s\n" % e
+    print("Exception when calling DefaultApi->update_campaign_create: %s\n" % e)
 ```
 
 ### Parameters
@@ -121,6 +123,7 @@ Name | Type | Description  | Notes
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import deployment_service
 from deployment_service.rest import ApiException
@@ -139,7 +142,7 @@ try:
     api_response = api_instance.update_campaign_destroy(campaign_id)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->update_campaign_destroy: %s\n" % e
+    print("Exception when calling DefaultApi->update_campaign_destroy: %s\n" % e)
 ```
 
 ### Parameters
@@ -172,6 +175,7 @@ Name | Type | Description  | Notes
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import deployment_service
 from deployment_service.rest import ApiException
@@ -194,7 +198,7 @@ try:
     api_response = api_instance.update_campaign_list(limit=limit, order=order, after=after, filter=filter, include=include)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->update_campaign_list: %s\n" % e
+    print("Exception when calling DefaultApi->update_campaign_list: %s\n" % e)
 ```
 
 ### Parameters
@@ -231,6 +235,7 @@ Name | Type | Description  | Notes
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import deployment_service
 from deployment_service.rest import ApiException
@@ -257,7 +262,7 @@ try:
     api_response = api_instance.update_campaign_partial_update(campaign_id=campaign_id, description=description, device_filter=device_filter, finished=finished, name=name, object=object, root_manifest_id=root_manifest_id, state=state, when=when)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->update_campaign_partial_update: %s\n" % e
+    print("Exception when calling DefaultApi->update_campaign_partial_update: %s\n" % e)
 ```
 
 ### Parameters
@@ -298,6 +303,7 @@ Name | Type | Description  | Notes
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import deployment_service
 from deployment_service.rest import ApiException
@@ -316,7 +322,7 @@ try:
     api_response = api_instance.update_campaign_retrieve(campaign_id)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->update_campaign_retrieve: %s\n" % e
+    print("Exception when calling DefaultApi->update_campaign_retrieve: %s\n" % e)
 ```
 
 ### Parameters
@@ -349,6 +355,7 @@ Name | Type | Description  | Notes
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import deployment_service
 from deployment_service.rest import ApiException
@@ -367,7 +374,7 @@ try:
     api_response = api_instance.update_campaign_status(campaign_id)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->update_campaign_status: %s\n" % e
+    print("Exception when calling DefaultApi->update_campaign_status: %s\n" % e)
 ```
 
 ### Parameters
@@ -400,6 +407,7 @@ Name | Type | Description  | Notes
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import deployment_service
 from deployment_service.rest import ApiException
@@ -419,7 +427,7 @@ try:
     api_response = api_instance.update_campaign_update(campaign_id, body)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling DefaultApi->update_campaign_update: %s\n" % e
+    print("Exception when calling DefaultApi->update_campaign_update: %s\n" % e)
 ```
 
 ### Parameters

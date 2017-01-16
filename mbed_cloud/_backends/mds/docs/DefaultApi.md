@@ -17,6 +17,7 @@ Deletes the callback URL.
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import mds
 from mds.rest import ApiException
@@ -34,7 +35,7 @@ try:
     # Delete callback URL
     api_instance.v2_notification_callback_delete()
 except ApiException as e:
-    print "Exception when calling DefaultApi->v2_notification_callback_delete: %s\n" % e
+    print("Exception when calling DefaultApi->v2_notification_callback_delete: %s\n" % e)
 ```
 
 ### Parameters
@@ -64,6 +65,7 @@ Shows the current callback URL if exists.
 
 ### Example 
 ```python
+from __future__ import print_statement
 import time
 import mds
 from mds.rest import ApiException
@@ -81,7 +83,7 @@ try:
     # Check callback URL
     api_instance.v2_notification_callback_get()
 except ApiException as e:
-    print "Exception when calling DefaultApi->v2_notification_callback_get: %s\n" % e
+    print("Exception when calling DefaultApi->v2_notification_callback_get: %s\n" % e)
 ```
 
 ### Parameters
