@@ -285,7 +285,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **device_log_retrieve**
-> DeviceLogSerializer device_log_retrieve(device_log_id)
+> DeviceLogSerializerData device_log_retrieve(device_log_id)
 
 
 
@@ -323,7 +323,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceLogSerializer**](DeviceLogSerializer.md)
+[**DeviceLogSerializerData**](DeviceLogSerializerData.md)
 
 ### Authorization
 
