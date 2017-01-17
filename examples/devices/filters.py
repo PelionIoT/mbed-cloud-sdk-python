@@ -1,5 +1,7 @@
 """Example showing devices from device query service."""
 from mbed_cloud.devices import DeviceAPI
+import random
+import string
 import urllib
 import urlparse
 import uuid
@@ -12,12 +14,21 @@ def _print_filters(filters, start_idx=0):
     print("\n\n".join(filters_str))
 
 
+def _parse_filter_qs(f):
+    qs = urlparse.parse_qs(urllib.unquote(f.query))
+    return {key: ", ".join(value) for (key, value) in qs.iteritems()}
+
+
 def _str_filter(f, idx):
     name = f.name
-    filters = urlparse.parse_qs(urllib.unquote(f.query))
+    filters = _parse_filter_qs(f)
     s = "%d) %s\n%s\n" % (idx, f.name, "-" * len(name))
-    s += "\n".join(["%s=%s" % (k, ", ".join(v)) for k, v in filters.iteritems()])
+    s += "\n".join(["%s = %s" % (k, v) for k, v in filters.iteritems()])
     return s
+
+
+def _id_generator(size=6, chars=string.ascii_uppercase + string.digits):
+    return ''.join(random.choice(chars) for _ in range(size))
 
 
 def _main():
@@ -36,7 +47,8 @@ def _main():
     print("Deleted newly created filter")
 
     # Create more complex filter
-    new_c_filter = api.create_filter("complex_test_filter", {
+    print("Creating complex filter")
+    new_c_filter = api.create_filter("complex_test_filter %s" % _id_generator(), {
         'device_id': str(uuid.uuid4()),
         'auto_update': True,
         'state': 'bootstrapped',
@@ -50,8 +62,26 @@ def _main():
         'customB': 'Something B'
     })
 
+    # Manually get it
+    gf = api.get_filter(new_c_filter.id)
+    print("Got filter %r using 'get'" % gf.name)
+
+    # Update the filter
+    q = _parse_filter_qs(gf)
+    q['serial_number'] = '12345'
+    updated_gf = api.update_filter(
+        filter_id=gf.id,
+        name=gf.name,
+        query=q
+    )
+    # Check it was successful
+    assert _parse_filter_qs(gf)['serial_number'] == '1234'
+    assert _parse_filter_qs(updated_gf)['serial_number'] == '12345'
+    print ("Updated filter with new serial number")
+
     # And delete that too
     api.delete_filter(new_c_filter.query_id)
+    print("Deleted complex filter")
 
 if __name__ == "__main__":
     _main()
