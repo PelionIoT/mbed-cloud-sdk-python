@@ -20,6 +20,10 @@ def _main():
     new_device = api.create_device(**device)
     print("Successfully created device with device_id: %r" % new_device.device_id)
 
+    # Update device
+    new_device.provision_key = _id_generator(12)
+    api.update_device(new_device)
+
     # Delete the device
     print("Attempting to delete device from catalog...")
     api.delete_device(new_device.device_id)
