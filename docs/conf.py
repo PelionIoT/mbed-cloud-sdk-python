@@ -70,7 +70,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'mbed-cloud-sdk-python'
-copyright = u'2016, ARM&reg; mbed&trade;'
+copyright = u'2017, ARM&reg; mbed&trade;'
 author = u'ARM&reg; mbed&trade;'
 
 # The version info for the project you're documenting, acts as replacement for
