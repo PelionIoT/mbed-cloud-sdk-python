@@ -32,6 +32,7 @@ const char gIdcDevSecurityAccountId[33] = "{accountId}";
 const uint8_t gIdcDevSecurityPrivateSignKey[32] = {{
 {privateHex}
 }};
+#endif //__IDENTITY_DEV_SECURITY_H
 """.format(**key_obj).strip()
 
 
@@ -62,6 +63,7 @@ def _main():
     # If we want to register the public key to mbed Cloud
     print("** Registering to mbed Cloud **")
     dev_api = DevelopmentAPI()
+    dev_api.revoke_certificate()
     dev_api.create_certificate(k['publicStr'])
     print("** Added. Please save the file output as `identity_c_dev.c` and compile with device **")
 
