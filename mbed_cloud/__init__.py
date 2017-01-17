@@ -1,4 +1,5 @@
 """Initialise the mbed_cloud config and BaseAPI."""
+from six import string_types
 import sys
 import urllib
 
@@ -32,7 +33,7 @@ class BaseAPI(object):
 
         # Ensure URL is base string, not unicode (Issue22231)
         url = api.configuration.host
-        if not isinstance(url, basestring):
+        if not isinstance(url, string_types):
             url = '%s' % url
         if not isinstance(url, str):
             url = url.encode('utf-8')

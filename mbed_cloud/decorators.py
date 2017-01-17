@@ -1,5 +1,6 @@
 """Custom decorators used in mbed_cloud."""
 import functools
+from six import reraise as raise_
 import sys
 
 from mbed_cloud.exceptions import CloudApiException
@@ -14,6 +15,6 @@ def catch_exceptions(*exceptions):
                 return fn(*args, **kwargs)
             except exceptions:
                 t, value, traceback = sys.exc_info()
-                raise(CloudApiException, value, traceback)
+                raise_(CloudApiException, value, traceback)
         return wrapped_f
     return wrap
