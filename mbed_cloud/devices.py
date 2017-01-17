@@ -179,7 +179,7 @@ class DeviceAPI(BaseAPI):
             fixed_path = resource_path[1:]
 
         # Create the queue and register it with the dict holding all queues
-        q = Queue.Queue(queue_size) if queue_size > 0 else None
+        q = queue.Queue(queue_size) if queue_size > 0 else None
         self._queues[endpoint_name][resource_path] = q
 
         # Send subscription request

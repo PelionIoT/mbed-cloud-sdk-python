@@ -78,7 +78,7 @@ class DevelopmentAPI(BaseAPI):
         exception indication a conflict will be raised.
 
         :param public_key: NIST P-256 Elliptic Curve public key, base64 encoded.
-        :return: The newly created certificate object 
+        :return: The newly created certificate object
         :rtype: Certificate
         """
         api = cert.DefaultApi()

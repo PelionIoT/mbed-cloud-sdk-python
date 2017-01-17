@@ -178,6 +178,7 @@ class AccessAPI(BaseAPI):
         body = iam.UserInfoReq(**kwargs)
         return api.create_user(body)
 
+
 class Account(AccountInfo):
     """Describes account object."""
 
