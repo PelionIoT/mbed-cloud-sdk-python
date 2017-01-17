@@ -1,8 +1,10 @@
 """Generate certficate header file."""
+import base64
 from ecdsa import NIST256p
 from ecdsa import SigningKey
-from six.moves import zip_longest
 from mbed_cloud.access import AccessAPI
+from mbed_cloud.development import DevelopmentAPI
+from six.moves import zip_longest
 
 
 def _generate_cert_header_file(key_obj):
@@ -44,6 +46,7 @@ def _get_key():
     return {
         'privatePem': sk.to_pem().decode('utf-8'),
         'publicPem': vk.to_pem().decode('utf-8'),
+        'publicStr': base64.b64encode(vk.to_der()),
         'privateHex': "\t" + ",\n\r\t".join(privHexGroups)
     }
 
@@ -55,6 +58,12 @@ def _main():
     api = AccessAPI()
     k['accountId'] = api.get_account_details().id
     print(_generate_cert_header_file(k))
+
+    # If we want to register the public key to mbed Cloud
+    print("** Registering to mbed Cloud **")
+    dev_api = DevelopmentAPI()
+    dev_api.create_certificate(k['publicStr'])
+    print("** Added. Please save the file output as `identity_c_dev.c` and compile with device **")
 
 if __name__ == "__main__":
     _main()
