@@ -15,6 +15,20 @@ Usage
 Reference
 ---------
 
-.. automodule:: mbed_cloud.update
+.. autoclass:: mbed_cloud.update.UpdateAPI
   :members:
 
+.. autoclass:: mbed_cloud.update.Firmware
+  :members:
+  :inherited-members:
+  :exclude-members: object, etag, to_str, to_dict, image_id
+
+.. autoclass:: mbed_cloud.update.Manifest
+  :members:
+  :inherited-members:
+  :exclude-members: object, etag, to_str, to_dict, manifest_id
+
+.. autoclass:: mbed_cloud.update.UpdateCampaign
+  :members:
+  :inherited-members:
+  :exclude-members: object, etag, to_str, to_dict, campaign_id

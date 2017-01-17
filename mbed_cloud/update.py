@@ -8,9 +8,12 @@ from mbed_cloud.decorators import catch_exceptions
 from mbed_cloud import PaginatedResponse
 
 import mbed_cloud._backends.deployment_service as deployment_service
+from mbed_cloud._backends.deployment_service.models import UpdateCampaignSerializer
 from mbed_cloud._backends.deployment_service.rest\
     import ApiException as DeploymentServiceApiException
 import mbed_cloud._backends.firmware_catalog as firmware_catalog
+from mbed_cloud._backends.firmware_catalog.models import FirmwareImageSerializerData
+from mbed_cloud._backends.firmware_catalog.models import FirmwareManifestSerializerData
 from mbed_cloud._backends.firmware_catalog.rest\
     import ApiException as FirmwareCatalogApiException
 
@@ -38,21 +41,23 @@ class UpdateAPI(BaseAPI):
     def list_update_campaigns(self, **kwargs):
         """List all update campaigns.
 
-        :param limit: number of campaigns to retrieve (int)
-        :param order: sort direction of campaigns when ordered by creation time (desc|asc)
-        :param after: get campaigns after given campaign ID (str)
-        :return: paginated response object with list of campaign objects
+        :param int limit: number of campaigns to retrieve
+        :param str order: sort direction of campaigns when ordered by creation time (desc|asc)
+        :param str after: get campaigns after given campaign ID
+        :return: List of :py:class:`UpdateCampaign` objects
+        :rtype: PaginatedResponse
         """
         api = self.deployment_service.DefaultApi()
         kwargs = self._verify_sort_options(kwargs)
-        return PaginatedResponse(api.update_campaign_list, **kwargs)
+        return PaginatedResponse(api.update_campaign_list, lwrap_type=UpdateCampaign, **kwargs)
 
     @catch_exceptions(DeploymentServiceApiException)
     def get_update_campaign(self, campaign_id):
         """Get existing update campaign.
 
-        :param campaign_id: Campaign to retrieve (str)
+        :param str campaign_id: Campaign to retrieve
         :return: Update campaign object matching provided ID.
+        :rtype: UpdateCampaign
         """
         api = self.deployment_service.DefaultApi()
         return api.update_campaign_retrieve(campaign_id)
@@ -61,22 +66,24 @@ class UpdateAPI(BaseAPI):
     def get_update_campaign_status(self, campaign_id):
         """Get status of existing update campaign.
 
-        :param campaign_id: Campaign to retrieve status (str)
+        :param str campaign_id: Campaign to retrieve status
         :return: Update campaign status object matching provided ID.
+        :rtype: UpdateCampaign
         """
         api = self.deployment_service.DefaultApi()
         return api.update_campaign_status(campaign_id)
 
     @catch_exceptions(DeploymentServiceApiException)
-    def create_update_campaign(self, name, **kwargs):
-        """Create new update campaign.
+    def add_update_campaign(self, name, **kwargs):
+        """Add new update campaign.
 
-        :param description: Optional description of the campaign (str)
-        :param device_filter: Devices to apply the update on. Provide filter ID (str)
-        :param root_manifest_id: Manifest with metadata/description of the update (str)
-        :param name: Name of the update campaign (str)
-        :param when: The timestamp at which update campaign scheduled to start (str)
+        :param str description: Optional description of the campaign
+        :param str device_filter: Devices to apply the update on. Provide filter ID
+        :param str root_manifest_id: Manifest with metadata/description of the update
+        :param str name: Name of the update campaign
+        :param str when: The timestamp at which update campaign scheduled to start (str)
         :return: newly created campaign object
+        :rtype: UpdateCampaign
         """
         api = self.deployment_service.DefaultApi()
         body = self.deployment_service.WriteUpdateCampaignSerializer(name, **kwargs)
@@ -86,8 +93,9 @@ class UpdateAPI(BaseAPI):
     def start_update_campaign(self, campaign_object):
         """Start an update campaign in draft state.
 
-        :param campaign_object: Campaign object to schedule for immediate start.
+        :param UpdateCampaign campaign_object: Campaign object to schedule for immediate start.
         :return: newly edited campaign object
+        :rtype: UpdateCampaign
         """
         api = self.deployment_service.DefaultApi()
         campaign_object.state = "scheduled"
@@ -108,36 +116,39 @@ class UpdateAPI(BaseAPI):
     def list_firmware_images(self, **kwargs):
         """List all firmware images.
 
-        :param limit: number of firmware images to retrieve (int)
-        :param order: ordering of images when ordered by time. 'desc' or 'asc' (str)
-        :param after: get firmware images after given `image_id` (str)
-        :return: list of firmware image objects
+        :param int limit: number of firmware images to retrieve
+        :param str order: ordering of images when ordered by time. 'desc' or 'asc'
+        :param str after: get firmware images after given `image_id`
+        :return: list of :py:class:`Firmware` objects
+        :rtype: PaginatedResponse
         """
         kwargs = self._verify_sort_options(kwargs)
         api = self.firmware_catalog.DefaultApi()
-        return PaginatedResponse(api.firmware_image_list, **kwargs)
+        return PaginatedResponse(api.firmware_image_list, lwrap_type=Firmware, **kwargs)
 
     @catch_exceptions(FirmwareCatalogApiException)
     def list_manifests(self, **kwargs):
         """List all manifests.
 
-        :param limit: number of manifests to retrieve (int)
-        :param order: sort direction of manifests when ordered by time. 'desc' or 'asc' (str)
-        :param after: get manifests after given `image_id` (str)
-        :return: list of manifest objects
+        :param int limit: number of manifests to retrieve
+        :param str order: sort direction of manifests when ordered by time. 'desc' or 'asc'
+        :param str after: get manifests after given `image_id`
+        :return: list of :py:class:`Manifest` objects
+        :rtype: PaginatedResponse
         """
         kwargs = self._verify_sort_options(kwargs)
         api = self.firmware_catalog.DefaultApi()
-        return PaginatedResponse(api.firmware_manifest_list, **kwargs)
+        return PaginatedResponse(api.firmware_manifest_list, lwrap_type=Manifest, **kwargs)
 
     @catch_exceptions(FirmwareCatalogApiException)
     def upload_manifest(self, name, datafile, description=""):
         """Upload/create a new manifest reference.
 
-        :param name: manifest file short name (str)
-        :param datafile: the *path* to the manifest file (str)
-        :param description: optional manifest file description (str)
+        :param str name: manifest file short name
+        :param str datafile: the *path* to the manifest file
+        :param str description: optional manifest file description
         :return: the newly created manifest file object
+        :rtype: Manifest
         """
         api = self.firmware_catalog.DefaultApi()
         return api.firmware_manifest_create(name=name, datafile=datafile, description=description)
@@ -146,8 +157,32 @@ class UpdateAPI(BaseAPI):
     def delete_manifest(self, manifest_id):
         """Delete an existing manifest.
 
-        :param manifest_id: Manifest file ID to delete (str)
+        :param str manifest_id: Manifest file ID to delete
         :return: void.
         """
         api = self.firmware_catalog.DefaultApi()
         return api.firmware_manifest_destroy(manifest_id)
+
+
+class Firmware(FirmwareImageSerializerData):
+    """Describes firmware object."""
+
+    def __init__(self, firmware_image_obj):
+        """Override __init__ and allow passing in backend object."""
+        super(Firmware, self).__init__(**firmware_image_obj.to_dict())
+
+
+class Manifest(FirmwareManifestSerializerData):
+    """Describes firmware manifest object."""
+
+    def __init__(self, manifest_image_obj):
+        """Override __init__ and allow passing in backend object."""
+        super(Manifest, self).__init__(**manifest_image_obj.to_dict())
+
+
+class UpdateCampaign(UpdateCampaignSerializer):
+    """Describes update campaign object."""
+
+    def __init__(self, device_certificate_obj):
+        """Override __init__ and allow passing in backend object."""
+        super(UpdateCampaign, self).__init__(**device_certificate_obj.to_dict())

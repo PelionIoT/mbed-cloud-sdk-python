@@ -82,7 +82,7 @@ def _main():
         mobj.id,
         selected_filter.id)
     )
-    cobj = update_api.create_update_campaign(
+    cobj = update_api.add_update_campaign(
         name=campaign_name,
         root_manifest_id=mobj.id,
         device_filter="filter=%s" % selected_filter.query
