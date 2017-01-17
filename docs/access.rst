@@ -34,5 +34,10 @@ Creating and managing a new user
 Reference
 ---------
 
-.. automodule:: mbed_cloud.access
+.. autoclass:: mbed_cloud.access.AccessAPI
   :members:
+
+.. autoclass:: mbed_cloud.access.Account
+  :members:
+  :inherited-members:
+  :exclude-members: to_str, to_dict, object, etag

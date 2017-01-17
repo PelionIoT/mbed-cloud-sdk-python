@@ -70,9 +70,10 @@ class PaginatedResponse(object):
     iterating pages or using iterators.
     """
 
-    def __init__(self, func, **kwargs):
+    def __init__(self, func, lwrap_type=None, **kwargs):
         """Initialize wrapper by passing in object with metadata structure."""
         self._func = func
+        self._lwrap_type = lwrap_type
         self._kwargs = kwargs
         self._idx = 0
 
@@ -90,7 +91,7 @@ class PaginatedResponse(object):
         # Update properties
         self.has_more = resp.has_more
         self.total_count = resp.total_count
-        self.data = resp.data
+        self.data = [self._lwrap_type(e) if self._lwrap_type else e for e in resp.data]
 
         # Update 'after' by taking the last element ID
         if len(resp.data) > 0:

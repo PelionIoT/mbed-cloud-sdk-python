@@ -10,6 +10,7 @@ from mbed_cloud import PaginatedResponse
 
 # Import backend API
 import mbed_cloud._backends.iam as iam
+from mbed_cloud._backends.iam.models import AccountInfo
 import mbed_cloud._backends.iam.rest as ApiException
 
 LOG = logging.getLogger(__name__)
@@ -50,9 +51,10 @@ class AccessAPI(BaseAPI):
 
     @catch_exceptions(ApiException)
     def get_account_details(self):
-        """Get details of the current user.
+        """Get details of the current account.
 
-        :returns: a user object.
+        :returns: an account object.
+        :rtype: Account
         """
         api = iam.DeveloperApi()
         return api.get_my_account_info()
@@ -175,3 +177,10 @@ class AccessAPI(BaseAPI):
         kwargs.update({'username': username, 'email': email})
         body = iam.UserInfoReq(**kwargs)
         return api.create_user(body)
+
+class Account(AccountInfo):
+    """Describes account object."""
+
+    def __init__(self, account_info_obj):
+        """Override __init__ and allow passing in backend object."""
+        super(Account, self).__init__(**account_info_obj.to_dict())

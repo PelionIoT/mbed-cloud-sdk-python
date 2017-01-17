@@ -9,6 +9,7 @@ from mbed_cloud.decorators import catch_exceptions
 
 # Import backend API
 import mbed_cloud._backends.developer_certificate as cert
+from mbed_cloud._backends.developer_certificate.models import DeveloperCertificate
 import mbed_cloud._backends.developer_certificate.rest as ApiException
 
 LOG = logging.getLogger(__name__)
@@ -45,8 +46,9 @@ class DevelopmentAPI(BaseAPI):
 
         If no certificate is registered, this function returns `None`.
 
-        :return: Object with public key and created date if found, or `None` if
-            no certificate is registered.
+        :return: Object with public key and created date if found,
+            or `None` if no certificate is registered.
+        :rtype: Certificate
         """
         api = cert.DefaultApi()
         resp = api.v3_developer_certificate_get(self.auth)
@@ -76,11 +78,20 @@ class DevelopmentAPI(BaseAPI):
         exception indication a conflict will be raised.
 
         :param public_key: NIST P-256 Elliptic Curve public key, base64 encoded.
-        :return: The newly created certificate (created date, public key, ...)
+        :return: The newly created certificate object 
+        :rtype: Certificate
         """
         api = cert.DefaultApi()
 
         body = cert.Body()
         body.pub_key = public_key
 
-        return api.v3_developer_certificate_post(self.auth, body)
+        return Certificate(api.v3_developer_certificate_post(self.auth, body))
+
+
+class Certificate(DeveloperCertificate):
+    """Describes device certificate object."""
+
+    def __init__(self, device_certificate_obj):
+        """Override __init__ and allow passing in backend object."""
+        super(Certificate, self).__init__(**device_certificate_obj.to_dict())

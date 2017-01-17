@@ -44,6 +44,10 @@ public key.
 Reference
 ---------
 
-.. automodule:: mbed_cloud.development
+.. autoclass:: mbed_cloud.development.DevelopmentAPI
   :members:
 
+.. autoclass:: mbed_cloud.development.Certificate
+  :members:
+  :inherited-members:
+  :exclude-members: etag, object, to_dict, to_str

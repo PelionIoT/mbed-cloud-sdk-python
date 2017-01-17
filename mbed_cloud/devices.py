@@ -17,9 +17,13 @@ from mbed_cloud import PaginatedResponse
 
 # Import backend API
 import mbed_cloud._backends.device_catalog as dc
+from mbed_cloud._backends.device_catalog.models import \
+    DeviceDetail as DeviceDetailBackend
 from mbed_cloud._backends.device_catalog.rest import \
     ApiException as DeviceCatalogApiException
 import mbed_cloud._backends.device_query_service as dc_queries
+from mbed_cloud._backends.device_query_service.models import \
+    DeviceQueryDetail
 from mbed_cloud._backends.device_query_service.rest import \
     ApiException as DeviceQueryServiceApiException
 import mbed_cloud._backends.mds as mds
@@ -90,13 +94,11 @@ class DeviceAPI(BaseAPI):
         return api.v2_endpoints_endpoint_name_get(endpoint_name)
 
     @catch_exceptions(MdsApiException)
-    def get_resource_value(self, endpoint_name, resource_path, fix_path=True, sync=False):
-        """Get a resource value for a given endpoint and resource path.
+    def get_resource_value(self, endpoint_name, resource_path, fix_path=True):
+        """Get a resource value for a given endpoint and resource path by blocking thread.
 
         :param fix_path: if True then the leading /, if found, will be stripped before
             doing request to backend. This is a requirement for the API to work properly
-        :param sync: if True then the function will not return an async consumer, but instead
-            block the thread until the async request is done.
         """
         # When path starts with / we remove the slash, as the API can't handle //.
         if fix_path and resource_path.startswith("/"):
@@ -108,16 +110,30 @@ class DeviceAPI(BaseAPI):
         # The async consumer, which will read data from long-polling thread
         consumer = AsyncConsumer(resp.async_response_id, self._db)
 
-        # If, by default, the user has not requested a synchronized request we return
-        # the async object - which allows the user to control how and when to read the
-        # value. If not we block the thread and get the value for the user.
-        if sync:
-            return self._get_value_synchronized(consumer)
-        return consumer
+        # We block the thread and get the value for the user.
+        return self._get_value_synchronized(consumer)
+
+    @catch_exceptions(MdsApiException)
+    def get_resource_value_async(self, endpoint_name, resource_path, fix_path=True):
+        """Get a resource value for a given endpoint and resource path.
+
+        :param bool fix_path: strip leading / of path if present
+        :return: Consumer object to control asynchronous request
+        :rtype: AsyncConsumer
+        """
+        # When path starts with / we remove the slash, as the API can't handle //.
+        if fix_path and resource_path.startswith("/"):
+            resource_path = resource_path[1:]
+
+        api = self.mds.ResourcesApi()
+        resp = api.v2_endpoints_endpoint_name_resource_path_get(endpoint_name, resource_path)
+
+        # The async consumer, which will read data from long-polling thread
+        return AsyncConsumer(resp.async_response_id, self._db)
 
     @catch_exceptions(MdsApiException)
     def set_resource_value(self, endpoint_name, resource_path,
-                           resource_value, fix_path=True, sync=True):
+                           resource_value, fix_path=True):
         """Set resource value for given resource path, on endpoint."""
         # When path starts with / we remove the slash, as the API can't handle //.
         if fix_path and resource_path.startswith("/"):
@@ -129,9 +145,21 @@ class DeviceAPI(BaseAPI):
                                                                 resource_value)
 
         consumer = AsyncConsumer(resp.async_response_id, self._db)
-        if sync:
-            return self._get_value_synchronized(consumer)
-        return consumer
+        return self._get_value_synchronized(consumer)
+
+    @catch_exceptions(MdsApiException)
+    def set_resource_value_async(self, endpoint_name, resource_path,
+                                 resource_value, fix_path=True):
+        """Set resource value for given resource path, on endpoint."""
+        # When path starts with / we remove the slash, as the API can't handle //.
+        if fix_path and resource_path.startswith("/"):
+            resource_path = resource_path[1:]
+
+        api = self.mds.ResourcesApi()
+        resp = api.v2_endpoints_endpoint_name_resource_path_put(endpoint_name,
+                                                                resource_path,
+                                                                resource_value)
+        return AsyncConsumer(resp.async_response_id, self._db)
 
     @catch_exceptions(MdsApiException)
     def subscribe(self, endpoint_name, resource_path, fix_path=True, queue_size=5):
@@ -315,42 +343,53 @@ class DeviceAPI(BaseAPI):
 
         :param device_id: the ID of the device to retrieve (str)
         :returns: device object matching the `device_id`.
+        :rtype: DeviceDetail
         """
         api = self.dc.DefaultApi()
-        return api.device_retrieve(device_id)
+        return DeviceDetail(api.device_retrieve(device_id))
+
+    @catch_exceptions(DeviceCatalogApiException)
+    def update_device(self, device_obj):
+        """Get device details from catalog.
+
+        :param device_object: the device_object to pass in for update (device)
+        :returns: the new device object
+        :rtype: DeviceDetail
+        """
+        api = self.dc.DefaultApi()
+        return DeviceDetail(api.device_update(device_obj.id, device_obj))
 
     @catch_exceptions(DeviceCatalogApiException)
     def create_device(self, mechanism, provision_key, **kwargs):
         """Create new device in catalog.
 
-        :param mechanism: The ID of the channel used to communicate with the device (str)
-        :param provision_key: The key used to provision the device (str)
-
-        :param account_id: Owning IAM account ID (str)
-        :param auto_update: Mark this device for auto firmware update (bool)
-        :param created_at: When the device was created (str, ISO-8601)
-        :param custom_attributes: Up to 5 JSON attributes (str, json encoded)
-        :param deployed_state: State of the device's deployment (str)
-        :param deployment: Last deployment used on the device (str)
-        :param description: Description of the device (str)
-        :param device_class: Class of the device (str)
-        :param etag: Entity instance signature (str)
-        :param id: ID of the device (str)
-        :param manifest: URL for the current device manifest (str)
-        :param mechanism_url: Address of the connector to use (str)
-        :param name: Name of the device (str)
-        :param object: API resource entity (str)
-        :param serial_number: Serial number of device (str)
-        :param state: Current state of device (str)
-        :param trust_class: Trust class of device (int)
-        :param trust_level: Trust level of device (int)
-        :param updated_at: Time the device was updated (int)
-        :param vendor_id: Device vendor ID (int)
-
+        :param str mechanism: The ID of the channel used to communicate with the device (str)
+        :param str provision_key: The key used to provision the device (str)
+        :param str account_id: Owning IAM account ID
+        :param bool auto_update: Mark this device for auto firmware update
+        :param str created_at: When the device was created (ISO-8601)
+        :param str custom_attributes: Up to 5 JSON attributes (json encoded)
+        :param str deployed_state: State of the device's deployment
+        :param str deployment: Last deployment used on the device
+        :param str description: Description of the device
+        :param str device_class: Class of the device
+        :param str id: ID of the device
+        :param str manifest: URL for the current device manifest
+        :param str mechanism_url: Address of the connector to use
+        :param str name: Name of the device
+        :param str serial_number: Serial number of device
+        :param str state: Current state of device
+        :param int trust_class: Trust class of device
+        :param int trust_level: Trust level of device
+        :param int updated_at: Time the device was updated
+        :param int vendor_id: Device vendor ID
         :return: the newly created device object.
+        :rtype: DeviceDetail
         """
         api = self.dc.DefaultApi()
-        return api.device_create(mechanism=mechanism, provision_key=provision_key, **kwargs)
+        return DeviceDetail(
+            api.device_create(mechanism=mechanism, provision_key=provision_key, **kwargs)
+        )
 
     @catch_exceptions(DeviceCatalogApiException)
     def delete_device(self, device_id):
@@ -366,25 +405,28 @@ class DeviceAPI(BaseAPI):
     def list_filters(self, **kwargs):
         """List filters in device query service.
 
-        :param limit: (Optional) The number of devices to retrieve. (int)
-        :param order: (Optional) The ordering direction, ascending (asc) or
-            descending (desc) (str)
-        :param after: (Optional) Get devices after/starting at given `device_id` (str)
-        :returns: a list of device query objects.
+        :param int limit: (Optional) The number of devices to retrieve.
+        :param str order: (Optional) The ordering direction, ascending (asc) or
+            descending (desc)
+        :param str after: (Optional) Get devices after/starting at given `device_id`
+        :returns: a list of :py:class:`Filter` objects.
+        :rtype: PaginatedResponse
         """
         kwargs = self._verify_sort_options(kwargs)
         api = self.dc_queries.DefaultApi()
 
-        return PaginatedResponse(api.device_query_list, **kwargs)
+        return PaginatedResponse(api.device_query_list, lwrap_type=Filter, **kwargs)
 
     @catch_exceptions(DeviceQueryServiceApiException)
     def create_filter(self, name, query, custom_attributes=None, **kwargs):
         """Create new filter in device query service.
 
-        :param name: Name of filter (str)
-        :param query: Filter properties to apply (dict)
-        :param custom_attributes: Extra filter attributes (dict)
+        :param str name: Name of filter
+        :param dict query: Filter properties to apply
+        :param dict custom_attributes: Extra filter attributes
         :param return: the newly created filter object.
+        :return: the newly created filter object
+        :rtype: Filter
         """
         api = self.dc_queries.DefaultApi()
 
@@ -392,15 +434,30 @@ class DeviceAPI(BaseAPI):
         # passed in query object and custom attributes.
         query = self._get_filter_attributes(query, custom_attributes)
 
-        # Quote strings using %20, not '+' which is default when urlencoding dicts
-        for k, v in query.iteritems():
-            if type(v) is str:
-                query[k] = urllib.quote(v)
+        return Filter(api.device_query_create(name=name, query=query, **kwargs))
 
-        # Encode the query string
-        query = urllib.urlencode(query)
+    @catch_exceptions(DeviceQueryServiceApiException)
+    def update_filter(self, filter_id, name, query, custom_attributes=None, **kwargs):
+        """Update existing filter in device query service.
 
-        return api.device_query_create(name=name, query=query, **kwargs)
+        :param str filter_id: Existing filter ID to update
+        :param str name: (New) name of filter
+        :param dict query: (New) filter properties to apply
+        :param dict custom_attributes: (New) extra filter attributes
+        :param return: the newly updated filter object.
+        """
+        api = self.dc_queries.DefaultApi()
+
+        # Get urlencoded query attribute
+        query = self._get_filter_attributes(query, custom_attributes)
+
+        body = self.dc_queries.Body(
+            name=name,
+            query=query,
+            **kwargs
+        )
+
+        return api.device_query_update(filter_id, body)
 
     @catch_exceptions(DeviceQueryServiceApiException)
     def delete_filter(self, filter_id):
@@ -412,12 +469,20 @@ class DeviceAPI(BaseAPI):
         api = self.dc_queries.DefaultApi()
         return api.device_query_destroy(filter_id)
 
+    @catch_exceptions(DeviceQueryServiceApiException)
+    def get_filter(self, filter_id):
+        """Get filter in device query service.
+
+        :param int filter_id: id of the filter to get
+        :returns: device filter object
+        """
+        api = self.dc_queries.DefaultApi()
+        return api.device_query_retrieve(filter_id)
+
     def _get_filter_attributes(self, query, custom_attributes):
         # Ensure the query is of dict type
         if query and not isinstance(query, dict):
             raise ValueError("'query' parameter needs to be of type dict")
-        else:
-            query = {}
 
         # Add custom attributes, if provided
         if custom_attributes:
@@ -433,24 +498,46 @@ class DeviceAPI(BaseAPI):
         if not query.keys():
             raise ValueError("'query' parameter not valid, needs to contain query keys")
 
-        return query
+        return self._urlify_query(query)
+
+    def _urlify_query(self, query):
+        # Quote strings using %20, not '+' which is default when urlencoding dicts
+        for k, v in query.iteritems():
+            if type(v) is str:
+                query[k] = urllib.quote(v)
+
+        # Encode the query string
+        return urllib.urlencode(query)
 
     def _get_value_synchronized(self, consumer):
         # We return synchronously, so we block in a busy loop waiting for the
         # request to be done.
-        while not consumer.is_done():
+        while not consumer.is_done:
             time.sleep(0.1)
 
         # If we get an error we throw an exception to the user, which can then be handled
         # accordingly.
-        if consumer.error():
-            raise AsyncError(consumer.error())
+        if consumer.error:
+            raise AsyncError(consumer.error)
 
-        return consumer.get_value()
+        return consumer.value
 
 
 class AsyncConsumer(object):
-    """Consumer object for reading values from a long-polling thread."""
+    """Consumer object for reading values from a long-polling thread.
+
+    Example usage:
+
+    .. code-block:: python
+
+        async_resp = api.get_resource_value(endpoint, resource)
+        while not async_resp.is_done:
+            time.sleep(0.1)
+        if async_resp.error:
+            raise Exception("Async error: %r" % async_resp.error)
+        print("Got value: %r" % (async_resp.value,))
+
+    """
 
     def __init__(self, async_id, db):
         """Setup the consumer, listening for a specific async ID to appear in external DB.
@@ -460,35 +547,46 @@ class AsyncConsumer(object):
         self.async_id = async_id
         self.db = db
 
+    @property
     def is_done(self):
-        """Check if the DB has received an event with the specified async ID."""
+        """Check if the DB has received an event with the specified async ID.
+
+        :return: Whether the async request has finished or not
+        :rtype: bool
+        """
         return self.async_id in self.db
 
+    @property
     def error(self):
         """Check if the async response is an error.
 
-        Take care to call `is_done()` before calling `error()`. Note that the error
+        Take care to call `is_done` before calling `error`. Note that the error
         messages are always encoded as strings.
 
-        :return: the error string.
+        :raises UnhandledError: When not checking `is_done` first
+        :return: the error value/payload, if found.
+        :rtype: str
         """
-        if not self.is_done():
+        if not self.is_done:
             raise UnhandledError("Need to check if request is done, before checking for error")
         return self.db[self.async_id]["error"]
 
+    @property
     def get_value(self):
         """Get the value of the finished async request.
 
-        Take care to ensure the async request is indeed done, by checking both `is_done()`
-        and `error()` before calling `get_value()`.
+        Take care to ensure the async request is indeed done, by checking both `is_done`
+        and `error` before calling `value`.
 
-        :return: the payload string.
+        :raises UnhandledError: When not checking value of `error` or `is_done` first
+        :return: the payload value
+        :rtype: str
         """
-        if not self.is_done():
+        if not self.is_done:
             raise UnhandledError("Need to check if request is done, before getting value")
-        if self.error():
+        if self.error:
             raise UnhandledError("Async request returned an error. Need to check for errors,"
-                                 "before getting value.\nError: %s" % self.error())
+                                 "before getting value.\nError: %s" % self.error)
 
         # Return the payload
         return self.db[self.async_id]["payload"]
@@ -537,3 +635,21 @@ class _LongPollingThread(threading.Thread):
 
     def stop(self):
         self._stopped = True
+
+
+class DeviceDetail(DeviceDetailBackend):
+    """Describes device object from the catalog."""
+
+    def __init__(self, device_obj):
+        """Override __init__ and allow passing in backend object."""
+        super(DeviceDetail, self).__init__(**device_obj.to_dict())
+
+
+class Filter(DeviceQueryDetail):
+    """Describes device query object / filter."""
+
+    def __init__(self, device_query_obj):
+        """Override __init__ and allow passing in backend object."""
+        super(Filter, self).__init__(**device_query_obj.to_dict())
+
+

@@ -58,3 +58,13 @@ Reference
 
 .. automodule:: mbed_cloud.devices
   :members: DeviceAPI, AsyncConsumer
+
+.. autoclass:: mbed_cloud.devices.DeviceDetail
+  :members:
+  :inherited-members:
+  :exclude-members: etag, object, to_dict, to_str
+
+.. autoclass:: mbed_cloud.devices.Filter
+  :members:
+  :inherited-members:
+  :exclude-members: etag, object, to_dict, to_str
