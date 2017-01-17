@@ -12,8 +12,8 @@ Name | Type | Description | Notes
 **campaign_id** | **str** | DEPRECATED: The ID of the campaign | 
 **updating_account_id** | **str** | The updating account ID | 
 **updated_at** | **datetime** | The time the object was updated | 
-**when** | **datetime** | The timestamp at which update campaign scheduled to start | 
-**finished** | **datetime** | The timestamp when the update campaign finished | 
+**when** | **datetime** | The timestamp at which update campaign scheduled to start | [optional] 
+**finished** | **datetime** | The timestamp when the update campaign finished | [optional] 
 **etag** | **datetime** | The entity instance signature | 
 **root_manifest_url** | **str** |  | 
 **updating_api_key** | **str** | The gateway client API key | 

@@ -335,8 +335,6 @@ class UpdateCampaignSerializer(object):
         :param when: The when of this UpdateCampaignSerializer.
         :type: datetime
         """
-        if when is None:
-            raise ValueError("Invalid value for `when`, must not be `None`")
 
         self._when = when
 
@@ -360,8 +358,6 @@ class UpdateCampaignSerializer(object):
         :param finished: The finished of this UpdateCampaignSerializer.
         :type: datetime
         """
-        if finished is None:
-            raise ValueError("Invalid value for `finished`, must not be `None`")
 
         self._finished = finished
 
