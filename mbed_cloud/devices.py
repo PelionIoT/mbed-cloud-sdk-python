@@ -3,7 +3,7 @@ from __future__ import absolute_import
 import base64
 from collections import defaultdict
 import logging
-import Queue
+from six.moves import queue
 import threading
 import time
 import urllib
@@ -55,7 +55,7 @@ class DeviceAPI(BaseAPI):
         self.dc_queries = self._init_api(dc_queries)
 
         self._db = {}
-        self._queues = defaultdict(lambda: defaultdict(Queue.Queue))
+        self._queues = defaultdict(lambda: defaultdict(queue.Queue))
 
         self._long_polling_thread = _LongPollingThread(self._db, self._queues, b64decode=b64decode)
         self._long_polling_thread.daemon = True
@@ -651,5 +651,3 @@ class Filter(DeviceQueryDetail):
     def __init__(self, device_query_obj):
         """Override __init__ and allow passing in backend object."""
         super(Filter, self).__init__(**device_query_obj.to_dict())
-
-
