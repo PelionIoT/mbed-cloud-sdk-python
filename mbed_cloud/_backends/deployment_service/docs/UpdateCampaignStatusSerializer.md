@@ -14,8 +14,8 @@ Name | Type | Description | Notes
 **campaign_id** | **str** | DEPRECATED: The ID of the campaign | 
 **deployed_devices** | **int** |  | 
 **updated_at** | **datetime** | The time the object was updated | 
-**when** | **datetime** | The timestamp at which campaign is scheduled to start | 
-**finished** | **datetime** | The timestamp when the update campaign finished | 
+**when** | **datetime** | The timestamp at which campaign is scheduled to start | [optional] 
+**finished** | **datetime** | The timestamp when the update campaign finished | [optional] 
 **root_manifest_url** | **str** |  | 
 **updating_api_key** | **str** | The gateway client API key | 
 **updating_account_id** | **str** | The updating account ID | 
