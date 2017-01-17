@@ -49,6 +49,15 @@ class AccessAPI(BaseAPI):
         return PaginatedResponse(api.get_all_api_keys, **kwargs)
 
     @catch_exceptions(ApiException)
+    def get_account_details(self):
+        """Get details of the current user.
+
+        :returns: a user object.
+        """
+        api = iam.DeveloperApi()
+        return api.get_my_account_info()
+
+    @catch_exceptions(ApiException)
     def get_api_key(self, api_key):
         """Get API key details for key registered in organisation.
 
