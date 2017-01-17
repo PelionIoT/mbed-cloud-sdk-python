@@ -16,7 +16,7 @@ def _main():
     print("-" * 30 + "\n")
 
     filters = {
-        'device_id': '01588c0460c002420a012c0400000000',
+        'device_id': str(logs[0].device_id),
     }
     device_logs = api.list_device_logs(limit=5, filters=filters)
     for idx, device_log in enumerate(device_logs):
