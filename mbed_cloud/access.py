@@ -1,6 +1,5 @@
 """Functionality for access-related actions in mbed Cloud."""
 from __future__ import absolute_import
-import logging
 
 # Import common functions and exceptions from frontend API
 from mbed_cloud import BaseAPI
@@ -15,8 +14,6 @@ from mbed_cloud._backends.iam.models import ApiKeyInfoResp
 from mbed_cloud._backends.iam.models import GroupSummary
 from mbed_cloud._backends.iam.models import UserInfoResp
 import mbed_cloud._backends.iam.rest as ApiException
-
-LOG = logging.getLogger(__name__)
 
 
 class AccessAPI(BaseAPI):
@@ -54,16 +51,6 @@ class AccessAPI(BaseAPI):
         return PaginatedResponse(api.get_all_api_keys, lwrap_type=ApiKey, **kwargs)
 
     @catch_exceptions(ApiException)
-    def get_account_details(self):
-        """Get details of the current account.
-
-        :returns: an account object.
-        :rtype: Account
-        """
-        api = iam.DeveloperApi()
-        return Account(api.get_my_account_info())
-
-    @catch_exceptions(ApiException)
     def get_api_key(self, api_key):
         """Get API key details for key registered in organisation.
 
@@ -98,21 +85,6 @@ class AccessAPI(BaseAPI):
         api = iam.DeveloperApi()
         body = iam.ApiKeyInfoReq(name=name, groups=groups, owner=owner)
         return ApiKey(api.add_api_key(body))
-
-    @catch_exceptions(ApiException)
-    def list_groups(self, **kwargs):
-        """List all groups in organisation.
-
-        :param int limit: The number of devices to retrieve.
-        :param str order: The ordering direction, ascending (asc) or descending (desc)
-        :param str after: Get devices after/starting at given user ID
-        :returns: a list of :py:class:`Group` objects.
-        :rtype: PaginatedResponse
-        """
-        kwargs = self._verify_sort_options(kwargs)
-
-        api = iam.DeveloperApi()
-        return PaginatedResponse(api.get_all_groups, lwrap_type=Group, **kwargs)
 
     @catch_exceptions(ApiException)
     def list_users(self, **kwargs):
@@ -185,6 +157,31 @@ class AccessAPI(BaseAPI):
         kwargs.update({'username': username, 'email': email})
         body = iam.UserInfoReq(**kwargs)
         return User(api.add_user(body))
+
+    @catch_exceptions(ApiException)
+    def get_account_details(self):
+        """Get details of the current account.
+
+        :returns: an account object.
+        :rtype: Account
+        """
+        api = iam.DeveloperApi()
+        return Account(api.get_my_account_info())
+
+    @catch_exceptions(ApiException)
+    def list_groups(self, **kwargs):
+        """List all groups in organisation.
+
+        :param int limit: The number of devices to retrieve.
+        :param str order: The ordering direction, ascending (asc) or descending (desc)
+        :param str after: Get devices after/starting at given user ID
+        :returns: a list of :py:class:`Group` objects.
+        :rtype: PaginatedResponse
+        """
+        kwargs = self._verify_sort_options(kwargs)
+
+        api = iam.DeveloperApi()
+        return PaginatedResponse(api.get_all_groups, lwrap_type=Group, **kwargs)
 
 
 class Account(AccountInfo):
