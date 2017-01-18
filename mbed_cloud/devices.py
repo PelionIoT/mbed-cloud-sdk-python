@@ -283,7 +283,7 @@ class DeviceAPI(BaseAPI):
         return q
 
     @catch_exceptions(MdsApiException)
-    def add_pre_subscribtion(self, endpoint_name, resource_path, endpoint_type=""):
+    def add_pre_subscription(self, endpoint_name, resource_path, endpoint_type=""):
         """Create pre-subscription for endpoint and resource path.
 
         :returns: void

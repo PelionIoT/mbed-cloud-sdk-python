@@ -71,7 +71,7 @@ class PaginatedResponse(object):
     iterating pages or using iterators.
     """
 
-    def __init__(self, func, lwrap_type=None, init_data=[], **kwargs):
+    def __init__(self, func, lwrap_type=None, init_data=None, **kwargs):
         """Initialize wrapper by passing in object with metadata structure.
 
         :param lwrap_type: Wrap each response element in type
@@ -88,7 +88,7 @@ class PaginatedResponse(object):
         self.total_count = None if not self._data else len(self._data)
 
         # Do initial request, if needed.
-        if not self._data:
+        if self._data is None:
             self._get_page()
 
     def _get_page(self):
