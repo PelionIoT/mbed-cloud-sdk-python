@@ -112,6 +112,7 @@ Class | Method | HTTP request | Description
  - [DeviceListResp](docs/DeviceListResp.md)
  - [DeviceLogSerializer](docs/DeviceLogSerializer.md)
  - [DeviceLogSerializerData](docs/DeviceLogSerializerData.md)
+ - [DeviceUpdateDetail](docs/DeviceUpdateDetail.md)
 
 
 ## Documentation For Authorization

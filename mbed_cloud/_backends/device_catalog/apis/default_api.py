@@ -866,7 +866,7 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str device_id: The ID of the device (required)
-        :param DeviceDetail body: Device object to update (required)
+        :param DeviceUpdateDetail body: Device object to update (required)
         :return: DeviceDetail
                  If the method is called asynchronously,
                  returns the request thread.
@@ -892,7 +892,7 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str device_id: The ID of the device (required)
-        :param DeviceDetail body: Device object to update (required)
+        :param DeviceUpdateDetail body: Device object to update (required)
         :return: DeviceDetail
                  If the method is called asynchronously,
                  returns the request thread.

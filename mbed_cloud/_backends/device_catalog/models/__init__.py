@@ -18,3 +18,4 @@ from .device_detail import DeviceDetail
 from .device_list_resp import DeviceListResp
 from .device_log_serializer import DeviceLogSerializer
 from .device_log_serializer_data import DeviceLogSerializerData
+from .device_update_detail import DeviceUpdateDetail

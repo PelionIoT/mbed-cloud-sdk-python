@@ -18,6 +18,7 @@ from .models.device_detail import DeviceDetail
 from .models.device_list_resp import DeviceListResp
 from .models.device_log_serializer import DeviceLogSerializer
 from .models.device_log_serializer_data import DeviceLogSerializerData
+from .models.device_update_detail import DeviceUpdateDetail
 
 # import apis into sdk package
 from .apis.default_api import DefaultApi
