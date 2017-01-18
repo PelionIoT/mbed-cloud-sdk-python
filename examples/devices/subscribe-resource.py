@@ -7,15 +7,15 @@ BUTTON_RESOURCE = "/3200/0/5501"
 def _main():
     api = DeviceAPI()
     api.start_long_polling()
-    endpoints = api.list_endpoints()
-    if not endpoints:
-        raise Exception("No endpoints registered. Aborting")
+    devices = api.list_connected_devices().as_list()
+    if not devices:
+        raise Exception("No connected devices registered. Aborting")
 
     # Synchronously get the initial/current value of the resource
-    value = api.get_resource_value(endpoints[0].name, BUTTON_RESOURCE, sync=True)
+    value = api.get_resource_value(devices[0].id, BUTTON_RESOURCE)
 
     # Register a subscription for new values
-    queue = api.subscribe(endpoints[0].name, BUTTON_RESOURCE)
+    queue = api.add_subscription(devices[0].id, BUTTON_RESOURCE)
     while True:
         # Print the current value
         print("Current value: %r" % (value,))

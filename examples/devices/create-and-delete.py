@@ -17,12 +17,14 @@ def _main():
         "mechanism": "connector",
         "provision_key": _id_generator(12)
     }
-    new_device = api.create_device(**device)
+    new_device = api.add_device(**device)
     print("Successfully created device with device_id: %r" % new_device.device_id)
 
     # Update device
-    new_device.provision_key = _id_generator(12)
-    api.update_device(new_device)
+    updated_device = api.update_device(new_device.id,
+                                       provision_key=_id_generator(12),
+                                       mechanism=new_device.mechanism)
+    assert new_device.provision_key != updated_device.provision_key
 
     # Delete the device
     print("Attempting to delete device from catalog...")

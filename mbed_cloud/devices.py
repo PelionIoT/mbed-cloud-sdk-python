@@ -33,12 +33,13 @@ LOG = logging.getLogger(__name__)
 
 
 class DeviceAPI(BaseAPI):
-    """Describing the public device API.
+    """API reference for the Device API.
 
-    Exposing functionality from the following underlying services:
-        - Connector / mDS
-        - Device query service
-        - Device catlog
+    Exposing functionality for doing a range of device related actions:
+        - Listing registered and connected devices
+        - Exploring and managing resources and resource values on said devices
+        - Setup resource subscriptions and webhooks for resource monitoring
+        - Create and manage device filters
     """
 
     def __init__(self, params={}, b64decode=True):
@@ -57,48 +58,85 @@ class DeviceAPI(BaseAPI):
         self._db = {}
         self._queues = defaultdict(lambda: defaultdict(queue.Queue))
 
-        self._long_polling_thread = _LongPollingThread(self._db, self._queues, b64decode=b64decode)
+        self._long_polling_thread = _LongPollingThread(self._db,
+                                                       self._queues,
+                                                       b64decode=b64decode,
+                                                       mds=self.mds)
         self._long_polling_thread.daemon = True
 
     def start_long_polling(self):
         """Start the long-polling thread.
 
-        If not an external callback is setup (using `register_webhook`) then
+        If not an external callback is setup (using `add_webhook`) then
         calling this function is mandatory.
+
+        :returns: void
         """
         self._long_polling_thread.start()
 
     def stop_long_polling(self):
-        """Stop the long-polling thread."""
+        """Stop the long-polling thread.
+
+        :returns: void
+        """
         self._long_polling_thread.stop()
 
     @catch_exceptions(MdsApiException)
-    def list_endpoints(self, start=0, sort_by=None, sort_direction="asc"):
+    def list_connected_devices(self, **kwargs):
         """List all endpoints.
 
-        :param start: Not yet implemented.
-        :param sort_by: Not yet implemented.
-        :param sort_direction: Not yet implemented.
-        :returns: a list of device objects registered in the catalog.
+        :returns: a list of currently *connected* `DeviceDetail` objects
+        :rtype: PaginatedResponse
         """
-        if start != 0 or sort_by is not None or sort_direction != "asc":
-            raise NotImplementedError("Sorting and pagination is not yet implemented")
-
         api = self.mds.EndpointsApi()
-        return api.v2_endpoints_get()
+
+        # We wrap each object into a Device catalog object. Doing so we rename
+        # some keys and throw away some information.
+        endpoints = api.v2_endpoints_get()
+        devices = [DeviceDetail({'id': d.name}) for d in endpoints]
+
+        # As this doesn't actually return a paginated response - we mock it.
+        return PaginatedResponse(lambda: None, init_data=devices)
 
     @catch_exceptions(MdsApiException)
-    def list_resources(self, endpoint_name):
-        """List all resources registered to a connected endpoint/device."""
+    def list_resources(self, device_id):
+        """List all resources registered to a connected endpoint/device.
+
+        .. code-block:: python
+
+            >>> for r in api.list_resources(endpoint):
+                    print(r.name, r.observable, r.uri)
+            None,True,/3/0/1
+            Update,False,/5/0/3
+            ...
+
+        :returns: A list of :py:class:`Resource` objects for the device
+        :rtype: list
+        """
         api = self.mds.EndpointsApi()
-        return api.v2_endpoints_endpoint_name_get(endpoint_name)
+        return [Resource(r) for r in api.v2_endpoints_endpoint_name_get(device_id)]
 
     @catch_exceptions(MdsApiException)
     def get_resource_value(self, endpoint_name, resource_path, fix_path=True):
         """Get a resource value for a given endpoint and resource path by blocking thread.
 
+        Example usage:
+
+        .. code-block:: python
+
+            try:
+                v = api.get_resource_value(endpoint, path)
+                print("Current value", v)
+            except AsyncError, e:
+                print("Error", e)
+
+        :param str endpoint_name: The name/id of the endpoint
+        :param str resource_path: The resource path to get
         :param fix_path: if True then the leading /, if found, will be stripped before
             doing request to backend. This is a requirement for the API to work properly
+        :raises: AsyncError
+        :returns: The resource value for the requested resource path
+        :rtype: str
         """
         # When path starts with / we remove the slash, as the API can't handle //.
         if fix_path and resource_path.startswith("/"):
@@ -117,8 +155,21 @@ class DeviceAPI(BaseAPI):
     def get_resource_value_async(self, endpoint_name, resource_path, fix_path=True):
         """Get a resource value for a given endpoint and resource path.
 
+        Will not block, but instead return an AsyncConsumer. Example usage:
+
+        .. code-block:: python
+
+            a = api.get_resource_value_async(endpoint, path)
+            while not a.is_done:
+                time.sleep(0.1)
+            if a.error:
+                print("Error", a.error)
+            print("Current value", a.value)
+
+        :param str endpoint_name: The name/id of the endpoint
+        :param str resource_path: The resource path to get
         :param bool fix_path: strip leading / of path if present
-        :return: Consumer object to control asynchronous request
+        :returns: Consumer object to control asynchronous request
         :rtype: AsyncConsumer
         """
         # When path starts with / we remove the slash, as the API can't handle //.
@@ -134,7 +185,27 @@ class DeviceAPI(BaseAPI):
     @catch_exceptions(MdsApiException)
     def set_resource_value(self, endpoint_name, resource_path,
                            resource_value, fix_path=True):
-        """Set resource value for given resource path, on endpoint."""
+        """Set resource value for given resource path, on endpoint.
+
+        Will block and wait for response to come through. Usage:
+
+        .. code-block:: python
+
+            try:
+                v = api.set_resource_value(endpoint, path, value)
+                print("Success, new value:", v)
+            except AsyncError, e:
+                print("Error", e)
+
+        :param str endpoint_name: The name/id of the endpoint
+        :param str resource_path: The resource path to update
+        :param str resource_value: The new value to set for given path
+        :param fix_path: if True then the leading /, if found, will be stripped before
+            doing request to backend. This is a requirement for the API to work properly
+        :raises: AsyncError
+        :returns: The value of the new resource
+        :rtype: str
+        """
         # When path starts with / we remove the slash, as the API can't handle //.
         if fix_path and resource_path.startswith("/"):
             resource_path = resource_path[1:]
@@ -150,7 +221,27 @@ class DeviceAPI(BaseAPI):
     @catch_exceptions(MdsApiException)
     def set_resource_value_async(self, endpoint_name, resource_path,
                                  resource_value, fix_path=True):
-        """Set resource value for given resource path, on endpoint."""
+        """Set resource value for given resource path, on endpoint.
+
+        Will not block. Returns immediatly. Usage:
+
+        .. code-block:: python
+
+            a = api.set_resource_value_async(endpoint, path, value)
+            while not a.is_done:
+                time.sleep(0.1)
+            if a.error:
+                print("Error", a.error)
+            print("Success, new value:", a.value)
+
+        :param str endpoint_name: The name/id of the endpoint
+        :param str resource_path: The resource path to update
+        :param str resource_value: The new value to set for given path
+        :param fix_path: if True then the leading /, if found, will be stripped before
+            doing request to backend. This is a requirement for the API to work properly
+        :returns: An async consumer object holding reference to request
+        :rtype: AsyncConsumer
+        """
         # When path starts with / we remove the slash, as the API can't handle //.
         if fix_path and resource_path.startswith("/"):
             resource_path = resource_path[1:]
@@ -162,7 +253,7 @@ class DeviceAPI(BaseAPI):
         return AsyncConsumer(resp.async_response_id, self._db)
 
     @catch_exceptions(MdsApiException)
-    def subscribe(self, endpoint_name, resource_path, fix_path=True, queue_size=5):
+    def add_subscribtion(self, endpoint_name, resource_path, fix_path=True, queue_size=5):
         """Subscribe to resource updates.
 
         When called on valid endpoint and resource path a subscription is setup so that
@@ -171,6 +262,8 @@ class DeviceAPI(BaseAPI):
 
         :param fix_path: Removes leading / on resource_path if found.
         :param queue_size: set the Queue size. If set to 0, no queue object will be created.
+        :returns: a queue of resource updates
+        :rtype: Queue
         """
         # When path starts with / we remove the slash, as the API can't handle //.
         # Keep the original path around however, as we use that for queue registration.
@@ -190,8 +283,11 @@ class DeviceAPI(BaseAPI):
         return q
 
     @catch_exceptions(MdsApiException)
-    def pre_subscribe(self, endpoint_name, resource_path, endpoint_type=""):
-        """Create pre-subscription for endpoint and resource path."""
+    def add_pre_subscribtion(self, endpoint_name, resource_path, endpoint_type=""):
+        """Create pre-subscription for endpoint and resource path.
+
+        :returns: void
+        """
         api = self.mds.SubscriptionsApi()
 
         presubscription = self.mds.Presubscription(
@@ -205,7 +301,7 @@ class DeviceAPI(BaseAPI):
         return
 
     @catch_exceptions(MdsApiException)
-    def unsubscribe(self, endpoint_name=None, resource_path=None, fix_path=True):
+    def delete_subscription(self, endpoint_name=None, resource_path=None, fix_path=True):
         """Unsubscribe from endpoint and/or resource_path updates.
 
         If endpoint_name or resource_path is None, we remove every subscripton
@@ -248,12 +344,12 @@ class DeviceAPI(BaseAPI):
         return
 
     @catch_exceptions(MdsApiException)
-    def register_webhook(self, url, headers={}):
+    def add_webhook(self, url, headers={}):
         """Register new webhook for incoming subscriptions.
 
         If a webhook is already set, this will do an overwrite.
 
-        :param url: the URL with listening webhook (str)
+        :param str url: the URL with listening webhook
         :return: void
         """
         api = self.mds.NotificationsApi()
@@ -264,7 +360,7 @@ class DeviceAPI(BaseAPI):
         return
 
     @catch_exceptions(MdsApiException)
-    def deregister_webhook(self):
+    def delete_webhook(self):
         """Delete/remove registered webhook.
 
         If no webhook is registered, an exception (404) will be raised.
@@ -279,55 +375,16 @@ class DeviceAPI(BaseAPI):
 
         # Every subscription will be deleted, so we can clear the queues too.
         self._queues.clear()
-
         return
-
-    @catch_exceptions(MdsApiException)
-    def execute(self, endpoint_name, resource_path, fix_path=True, sync=True, **kwargs):
-        """Execute the callback function associated with a resource.
-
-        :param endpoint_name: the endpoint/device to execute on.
-        :param resource_path: resource URL on endpoint.
-        :param fix_path: ensure leading / is stripped from path to comply with backend API.
-        :param sync: run in (blocking) synchronized mode. If false,
-            it returns a ::class:`AsyncConsumer`
-        :param resource_function: (Optional) Most of the time resources do not
-            accept a function but they have their own functions predefined. You can
-            use this to trigger them.
-
-        :return: an ::class:`AsyncConsumer` if not `sync` is set to True, in
-            which case it returns the value as a string.
-        """
-        if fix_path and resource_path.startswith("/"):
-            resource_path = resource_path[1:]
-
-        api = self.mds.ResourcesApi()
-        resp = api.v2_endpoints_endpoint_name_resource_path_post(
-            endpoint_name,
-            resource_path,
-            **kwargs
-        )
-
-        consumer = AsyncConsumer(resp.async_response_id, self._db)
-        if sync:
-            return self._get_value_synchronized(consumer)
-        return consumer
-
-    def is_active(self, endpoint_name):
-        """Check if endpoint/device has active status."""
-        endpoints = self.list_endpoints()
-        # Create map by endpoint name, and check if requested endpoint is in it and status is ACTIVE
-        active_endpoints = dict((e.name, True) for e in endpoints if e.status == "ACTIVE")
-        return active_endpoints.get(endpoint_name, False)
 
     @catch_exceptions(DeviceCatalogApiException)
     def list_devices(self, **kwargs):
         """List devices in the device catalog.
 
-        :param limit: (Optional) The number of devices to retrieve. (int)
-        :param order: (Optional) The ordering direction, ascending (asc) or
-            descending (desc) (str)
-        :param after: (Optional) Get devices after/starting at given `device_id` (str)
+        :param int limit: (Optional) The number of devices to retrieve.
+        :param str order: (Optional) The ordering direction, ascending (asc) or
+            descending (desc)
+        :param str after: (Optional) Get devices after/starting at given `device_id`
         :param filters: (Optional) Dictionary of filters to apply.
         :returns: a list of device objects registered in the catalog.
         """
@@ -335,7 +392,7 @@ class DeviceAPI(BaseAPI):
         kwargs = self._verify_filters(kwargs)
 
         api = self.dc.DefaultApi()
-        return PaginatedResponse(api.device_list, **kwargs)
+        return PaginatedResponse(api.device_list, lwrap_type=DeviceDetail, **kwargs)
 
     @catch_exceptions(DeviceCatalogApiException)
     def get_device(self, device_id):
@@ -349,19 +406,40 @@ class DeviceAPI(BaseAPI):
         return DeviceDetail(api.device_retrieve(device_id))
 
     @catch_exceptions(DeviceCatalogApiException)
-    def update_device(self, device_obj):
-        """Get device details from catalog.
+    def update_device(self, device_id, **kwargs):
+        """Update existing device in catalog.
 
-        :param device_object: the device_object to pass in for update (device)
-        :returns: the new device object
+        .. code-block:: python
+
+            existing_device = api.get_device(...)
+            updated_device = api.update_device(
+                existing_device.id,
+                provision_key = "something new"
+            )
+
+        :param str mechanism: The ID of the channel used to communicate with the device (str)
+        :param str provision_key: The key used to provision the device (str)
+        :param str account_id: Owning IAM account ID
+        :param bool auto_update: Mark this device for auto firmware update
+        :param str custom_attributes: Up to 5 JSON attributes (json encoded)
+        :param str description: Description of the device
+        :param str device_class: Class of the device
+        :param str manifest: URL for the current device manifest
+        :param str mechanism_url: Address of the connector to use
+        :param str name: Name of the device
+        :param int trust_class: Trust class of device
+        :param int trust_level: Trust level of device
+        :param int vendor_id: Device vendor ID
+        :returns: the updated device object
         :rtype: DeviceDetail
         """
         api = self.dc.DefaultApi()
-        return DeviceDetail(api.device_update(device_obj.id, device_obj))
+        body = self.dc.DeviceUpdateDetail(**kwargs)
+        return DeviceDetail(api.device_update(device_id, body))
 
     @catch_exceptions(DeviceCatalogApiException)
-    def create_device(self, mechanism, provision_key, **kwargs):
-        """Create new device in catalog.
+    def add_device(self, mechanism, provision_key, **kwargs):
+        """Add a new device to catalog.
 
         :param str mechanism: The ID of the channel used to communicate with the device (str)
         :param str provision_key: The key used to provision the device (str)
@@ -395,7 +473,7 @@ class DeviceAPI(BaseAPI):
     def delete_device(self, device_id):
         """Delete device from catalog.
 
-        :param device_id: ID of device in catalog to delete (str)
+        :param str device_id: ID of device in catalog to delete
         :return: void
         """
         api = self.dc.DefaultApi()
@@ -418,8 +496,8 @@ class DeviceAPI(BaseAPI):
         return PaginatedResponse(api.device_query_list, lwrap_type=Filter, **kwargs)
 
     @catch_exceptions(DeviceQueryServiceApiException)
-    def create_filter(self, name, query, custom_attributes=None, **kwargs):
-        """Create new filter in device query service.
+    def add_filter(self, name, query, custom_attributes=None, **kwargs):
+        """Add a new filter to device query service.
 
         :param str name: Name of filter
         :param dict query: Filter properties to apply
@@ -445,6 +523,7 @@ class DeviceAPI(BaseAPI):
         :param dict query: (New) filter properties to apply
         :param dict custom_attributes: (New) extra filter attributes
         :param return: the newly updated filter object.
+        :rtype: Filter
         """
         api = self.dc_queries.DefaultApi()
 
@@ -457,17 +536,18 @@ class DeviceAPI(BaseAPI):
             **kwargs
         )
 
-        return api.device_query_update(filter_id, body)
+        return Filter(api.device_query_update(filter_id, body))
 
     @catch_exceptions(DeviceQueryServiceApiException)
     def delete_filter(self, filter_id):
         """Delete filter in device query service.
 
-        :param filter_id: id of the filter to delete (int)
+        :param int filter_id: id of the filter to delete
         :param return: void
         """
         api = self.dc_queries.DefaultApi()
-        return api.device_query_destroy(filter_id)
+        api.device_query_destroy(filter_id)
+        return
 
     @catch_exceptions(DeviceQueryServiceApiException)
     def get_filter(self, filter_id):
@@ -475,9 +555,10 @@ class DeviceAPI(BaseAPI):
 
         :param int filter_id: id of the filter to get
         :returns: device filter object
+        :rtype: Filter
         """
         api = self.dc_queries.DefaultApi()
-        return api.device_query_retrieve(filter_id)
+        return Filter(api.device_query_retrieve(filter_id))
 
     def _get_filter_attributes(self, query, custom_attributes):
         # Ensure the query is of dict type
@@ -593,11 +674,12 @@ class AsyncConsumer(object):
 
 
 class _LongPollingThread(threading.Thread):
-    def __init__(self, db, queues, b64decode=True):
+    def __init__(self, db, queues, b64decode=True, mds=None):
         super(_LongPollingThread, self).__init__()
 
         self.db = db
         self.queues = queues
+        self.mds = mds
 
         self._b64decode = b64decode
         self._stopped = False
@@ -642,7 +724,12 @@ class DeviceDetail(DeviceDetailBackend):
 
     def __init__(self, device_obj):
         """Override __init__ and allow passing in backend object."""
-        super(DeviceDetail, self).__init__(**device_obj.to_dict())
+        # Check type of device_obj to find params. If dict we use that, if class we ensure it has
+        # the required `to_dict` function - and use that to get a dict.
+        params = device_obj
+        if not isinstance(device_obj, dict) and callable(getattr(device_obj, "to_dict", None)):
+            params = device_obj.to_dict()
+        super(DeviceDetail, self).__init__(**params)
 
 
 class Filter(DeviceQueryDetail):
@@ -651,3 +738,54 @@ class Filter(DeviceQueryDetail):
     def __init__(self, device_query_obj):
         """Override __init__ and allow passing in backend object."""
         super(Filter, self).__init__(**device_query_obj.to_dict())
+
+
+class Resource(object):
+    """Describes resource type from device.
+
+    Example usage:
+
+    .. code-block:: python
+
+        >>> resources = api.list_resources(device_id)
+        >>> for r in resources:
+                print(r.uri, r.name, r.observable)
+        /3/0/1,None,True
+        /5/0/2,Update,False
+        ...
+    """
+
+    def __init__(self, resource_obj):
+        """Override __init__ and allow passing in backend object."""
+        self._observable = resource_obj.obs
+        self._uri = resource_obj.uri
+        self._name = resource_obj.rt
+
+    @property
+    def observable(self):
+        """Get the observability of this Resource.
+
+        Whether the resource is observable or not (true/false)
+
+        :return: The observability of this ResourcesData.
+        :rtype: bool
+        """
+        return self._observable
+
+    @property
+    def uri(self):
+        """Get the URI of this Resource.
+
+        :return: The URI of this Resource.
+        :rtype: str
+        """
+        return self._uri
+
+    @property
+    def name(self):
+        """Get the friendly name of this Resource, if set.
+
+        :return: The name of the Resource.
+        :rtype: str
+        """
+        return self._name

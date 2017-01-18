@@ -39,7 +39,7 @@ def _main():
         print(_str_filter(e, idx))
 
     # Create a new filter
-    new_filter = api.create_filter("test_filter", {'device_id': str(uuid.uuid4())})
+    new_filter = api.add_filter("test_filter", {'device_id': str(uuid.uuid4())})
     print("\nCreated new filter: %r" % (new_filter.name))
 
     # Delete same filter
@@ -48,7 +48,7 @@ def _main():
 
     # Create more complex filter
     print("Creating complex filter")
-    new_c_filter = api.create_filter("complex_test_filter %s" % _id_generator(), {
+    new_c_filter = api.add_filter("complex_test_filter %s" % _id_generator(), {
         'device_id': str(uuid.uuid4()),
         'auto_update': True,
         'state': 'bootstrapped',

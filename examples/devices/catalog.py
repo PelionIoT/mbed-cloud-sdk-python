@@ -10,8 +10,7 @@ def _main():
     api = DeviceAPI()
 
     # List all devices, ordering by the most recently created first.
-    devices = api.list_devices(order='desc', limit=10)
-    for idx, d in enumerate(devices):
+    for d, idx in api.list_devices(order='desc', limit=10).iteritems():
         _print_device(idx + 1, d)
 
     print("\n" + "-" * 30 + "\n")
@@ -21,7 +20,7 @@ def _main():
         'state': 'registered'
     }
     registered = api.list_devices(order='desc', limit=10, filters=filters)
-    for idx, d in enumerate(registered):
+    for d, idx in registered.iteritems():
         _print_device(idx + 1, d)
 
 if __name__ == "__main__":

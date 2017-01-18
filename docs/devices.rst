@@ -68,3 +68,6 @@ Reference
   :members:
   :inherited-members:
   :exclude-members: etag, object, to_dict, to_str
+
+.. autoclass:: mbed_cloud.devices.Resource
+  :members:
