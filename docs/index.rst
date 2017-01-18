@@ -24,6 +24,7 @@ Concepts
   :maxdepth: 1
 
   pagination
+  configuration
 
 Quickstart
 ----------
@@ -60,14 +61,15 @@ virtualenv:
 Running examples using integration lab
 --------------------------------------
 
-Get an API key using the `cloud portal`_ and enter it into :code:`api_key` in
-the :code:`mbed_cloud_config_integration.json` file.
+Get an API key using the `cloud portal`_ and enter it into `api_key` in
+the `mbed_cloud_config_integration.json` file. See :doc:`configuration`
+for more information.
 
 Run the following command to list accounts in the organisation:
 
 .. code-block:: shell
 
-  export MBED_CLOUD_CONFIG=$PWD/mbed_cloud_config_integration.json
+  export MBED_CLOUD_SDK_CONFIG=$PWD/mbed_cloud_config_integration.json
   python examples/access/list-details.py
 
 .. _cloud portal: https://lab.mbedcloudintegration.net

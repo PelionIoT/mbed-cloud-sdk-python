@@ -11,16 +11,19 @@ from mbed_cloud import PaginatedResponse
 # Import backend API
 import mbed_cloud._backends.iam as iam
 from mbed_cloud._backends.iam.models import AccountInfo
+from mbed_cloud._backends.iam.models import ApiKeyInfoResp
+from mbed_cloud._backends.iam.models import GroupSummary
+from mbed_cloud._backends.iam.models import UserInfoResp
 import mbed_cloud._backends.iam.rest as ApiException
 
 LOG = logging.getLogger(__name__)
 
 
 class AccessAPI(BaseAPI):
-    """Describing the public access API.
+    """API reference for the Access API.
 
-    Exposing functionality from the following underlying services:
-        - IAM
+    Exposing functionality for creating and managing accounts,
+    users, groups and API keys in the organisation.
     """
 
     def __init__(self, params={}):
@@ -42,12 +45,13 @@ class AccessAPI(BaseAPI):
         :param limit: Number of API keys to get (int)
         :param after: Entity ID after which to start fetching (str)
         :param order: Order of the records to return (asc|desc) (str)
-        :returns: a list of API key objects
+        :returns: a list of :py:class:`ApiKey` objects
+        :rtype: PaginatedResponse
         """
         api = iam.DeveloperApi()
 
         # Return the data array
-        return PaginatedResponse(api.get_all_api_keys, **kwargs)
+        return PaginatedResponse(api.get_all_api_keys, lwrap_type=ApiKey, **kwargs)
 
     @catch_exceptions(ApiException)
     def get_account_details(self):
@@ -57,17 +61,18 @@ class AccessAPI(BaseAPI):
         :rtype: Account
         """
         api = iam.DeveloperApi()
-        return api.get_my_account_info()
+        return Account(api.get_my_account_info())
 
     @catch_exceptions(ApiException)
     def get_api_key(self, api_key):
         """Get API key details for key registered in organisation.
 
         :param api_key: The key name (str)
-        :returns: a API key object.
+        :returns: API key object
+        :rtype: ApiKey
         """
         api = iam.DeveloperApi()
-        return api.get_api_key(api_key)
+        return ApiKey(api.get_api_key(api_key))
 
     @catch_exceptions(ApiException)
     def delete_api_key(self, api_key):
@@ -77,81 +82,83 @@ class AccessAPI(BaseAPI):
         :returns: void
         """
         api = iam.DeveloperApi()
-        return api.delete_api_key(api_key)
+        api.delete_api_key(api_key)
+        return
 
     @catch_exceptions(ApiException)
-    def create_api_key(self, name, groups=[], owner=None):
+    def add_api_key(self, name, groups=[], owner=None):
         """Create new API key registered to organisation.
 
-        :param name: The name of the API key (str)
-        :param groups: Optional list of group IDs (list[str])
-        :param owner: Optional user ID owning the API key (str)
-        :returns: a list of API key objects.
+        :param str name: The name of the API key
+        :param list groups: Optional list of group IDs (`str`)
+        :param str owner: Optional user ID owning the API key
+        :returns: Newly created API key object
+        :rtype: ApiKey
         """
         api = iam.DeveloperApi()
         body = iam.ApiKeyInfoReq(name=name, groups=groups, owner=owner)
-        return api.create_api_key(body)
+        return ApiKey(api.add_api_key(body))
 
     @catch_exceptions(ApiException)
-    def list_groups(self, start=0, sort_by=None, sort_direction="asc"):
+    def list_groups(self, **kwargs):
         """List all groups in organisation.
 
-        :param start: Not yet implemented.
-        :param sort_by: Not yet implemented.
-        :param sort_direction: Not yet implemented.
-        :returns: a list of group objects.
+        :param int limit: The number of devices to retrieve.
+        :param str order: The ordering direction, ascending (asc) or descending (desc)
+        :param str after: Get devices after/starting at given user ID
+        :returns: a list of :py:class:`Group` objects.
+        :rtype: PaginatedResponse
         """
-        if start != 0 or sort_by is not None or sort_direction != "asc":
-            raise NotImplementedError("Sorting and pagination is not yet implemented")
+        kwargs = self._verify_sort_options(kwargs)
 
         api = iam.DeveloperApi()
-        # Return the data array
-        return api.get_all_groups().data
+        return PaginatedResponse(api.get_all_groups, lwrap_type=Group, **kwargs)
 
     @catch_exceptions(ApiException)
-    def list_users(self, start=0, sort_by=None, sort_direction="asc"):
+    def list_users(self, **kwargs):
         """List all users in organisation.
 
-        :param start: Not yet implemented.
-        :param sort_by: Not yet implemented.
-        :param sort_direction: Not yet implemented.
-        :returns: a list of user objects.
+        :param int limit: The number of devices to retrieve.
+        :param str order: The ordering direction, ascending (asc) or descending (desc)
+        :param str after: Get devices after/starting at given user ID
+        :returns: a list of :py:class:`User` objects
+        :rtype: PaginatedResponse
         """
-        if start != 0 or sort_by is not None or sort_direction != "asc":
-            raise NotImplementedError("Sorting and pagination is not yet implemented")
+        kwargs = self._verify_sort_options(kwargs)
 
         api = iam.AccountAdminApi()
-        # Return the data array
-        return api.get_all_users().data
+        return PaginatedResponse(api.get_all_users, lwrap_type=User, **kwargs)
 
     @catch_exceptions(ApiException)
     def get_user(self, user_id):
         """Get user details of specified user.
 
-        :param user_id: the ID of the user to get (str)
+        :param str user_id: the ID of the user to get
         :returns: the user object with details about the user.
+        :rtype: User
         """
         api = iam.AccountAdminApi()
-        return api.get_user(user_id)
+        return User(api.get_user(user_id))
 
     @catch_exceptions(ApiException)
     def update_user(self, user_id, **kwargs):
         """Update user properties of specified user.
 
-        Accepts same parameters as `create_user`.
+        Accepts same parameters as `add_user`.
 
-        :param user_id: the ID of the user to update (str)
-        :returns: the updated user object, as it was called with `get_user`.
+        :param str user_id: the ID of the user to update
+        :returns: the updated user object
+        :rtype: User
         """
         api = iam.AccountAdminApi()
         body = iam.UserInfoReq(**kwargs)
-        return api.update_user(user_id, body)
+        return User(api.update_user(user_id, body))
 
     @catch_exceptions(ApiException)
     def delete_user(self, user_id):
         """Delete user specified user.
 
-        :param user_id: the ID of the user to delete (str)
+        :param str user_id: the ID of the user to delete
         :returns: void
         """
         api = iam.AccountAdminApi()
@@ -159,29 +166,108 @@ class AccessAPI(BaseAPI):
         return
 
     @catch_exceptions(ApiException)
-    def create_user(self, username, email, **kwargs):
+    def add_user(self, username, email, **kwargs):
         """Create a new user with provided details.
 
-        :param username: Required. The unique username of the user (str)
-        :param email: Required. The unique email of the user (str)
-        :param full_name: Optional. The full name of the user (str)
-        :param groups: Optional. List of group IDs which this user belongs to (list[str])
-        :param password: Optional. The password string of the user.
-            Need to adhere to password policy (str)
-        :param phone_number: Optional. Phone number of the user (str)
-        :param is_gtc_accepted: Optional. Is 'General Terms & Conditions' accepted (bool)
-        :param is_marketing_accepted: Optional. Is receiving marketing information accepted? (bool)
-        :returns: the new user as it was called using `get_user`.
+        :param str username: Required. The unique username of the user
+        :param str email: Required. The unique email of the user
+        :param str full_name: Optional. The full name of the user
+        :param list groups: Optional. List of group IDs (`str`) which this user belongs to
+        :param str password: Optional. The password string of the user.
+            Need to adhere to password policy
+        :param str phone_number: Optional. Phone number of the user
+        :param bool is_gtc_accepted: Optional. Is 'General Terms & Conditions' accepted
+        :param bool is_marketing_accepted: Optional. Is receiving marketing information accepted?
+        :returns: the new user object
+        :rtype: User
         """
         api = iam.AccountAdminApi()
         kwargs.update({'username': username, 'email': email})
         body = iam.UserInfoReq(**kwargs)
-        return api.create_user(body)
+        return User(api.add_user(body))
 
 
 class Account(AccountInfo):
-    """Describes account object."""
+    """Describes account object.
+
+    Example usage:
+
+    .. code-block:: python
+
+        api = AccessAPI()
+
+        # Get account owning the API key in use
+        current_account = api.get_account_details()
+        print(current_account.company)
+    """
 
     def __init__(self, account_info_obj):
         """Override __init__ and allow passing in backend object."""
         super(Account, self).__init__(**account_info_obj.to_dict())
+
+
+class User(UserInfoResp):
+    """Describes user object.
+
+    Example usage:
+
+    .. code-block:: python
+
+        api = AccessAPI()
+
+        # Listing existing users
+        for user, idx in api.list_users().iteritems()
+            print(user.full_name)
+
+        # Creating a new user
+        new_user = api.add_user("username",
+                                "user@example.org",
+                                full_name = "David Bowie",
+                                password = "hunter2")
+    """
+
+    def __init__(self, user_obj):
+        """Override __init__ and allow passing in backend object."""
+        super(User, self).__init__(**user_obj.to_dict())
+
+
+class Group(GroupSummary):
+    """Describes group object.
+
+    Example usage:
+
+    .. code-block:: python
+
+        api = AccessAPI()
+
+        # Listing existing groups
+        for g, idx in api.list_groups().iteritems():
+            print(g.name)
+    """
+
+    def __init__(self, group_obj):
+        """Override __init__ and allow passing in backend object."""
+        super(Group, self).__init__(**group_obj.to_dict())
+
+
+class ApiKey(ApiKeyInfoResp):
+    """Describes API key object.
+
+    Example usage:
+
+    .. code-block:: python
+
+        api = AccessAPI()
+
+        # Listing existing keys
+        for k, idx in api.list_api_keys().iteritems():
+            print(k.name, k.key)
+
+        # Creating a new key
+        new_k = api.add_api_key("New key name")
+        print(new_k.key)
+    """
+
+    def __init__(self, api_key_obj):
+        """Override __init__ and allow passing in backend object."""
+        super(ApiKey, self).__init__(**api_key_obj.to_dict())

@@ -81,7 +81,7 @@ class PaginatedResponse(object):
         # Initial values, will be updated in first response
         self.has_more = False
         self.total_count = None
-        self.data = []
+        self._data = []
 
         # Do initial request
         self._get_page()
@@ -110,6 +110,17 @@ class PaginatedResponse(object):
 
         This will get the next page where required. As a consequence,
         do take not that this method might do multiple calls in the background.
+
+        .. code-block:: python
+
+            >>> for elem, idx in api.list_users().iteritems():
+            >>>    print(idx, elem)
+            1,<Object #1>
+            2,<Object #2>
+            ...
+
+        :returns: Yields tuples of (`element`, `idx`).
+        :rtype: tuple
         """
         while True:
             # Yield the data elements one by one
@@ -124,12 +135,71 @@ class PaginatedResponse(object):
             # It is, so let's make the request
             self.next()
 
+    def as_list(self):
+        """Return the paginated response as a list containing all elements.
+
+        Warning: if the list contains many pages this might block for a long time
+        and consume a lot of memory. Do investigate if using more fine grained control
+        functions such as `iteritems` and `next` is more suited for your needs.
+
+        .. code-block:: python
+
+            >>> len(api.list_users().as_list())
+            13
+
+        :returns: The paginated response as a Python list
+        :rtype: list
+        """
+        return [d for d, idx in self.iteritems()]
+
     def next(self):
-        """Get the next page of content."""
+        """Get the next page of content.
+
+        .. code-block:: python
+
+            >>> p = api.list_users()
+            >>> len(p.data)
+            50
+            >>> p.next()
+            >>> len(p.data)
+            23
+
+        As one can see in the example we finely control the iteration of the
+        pagination and in total we would here have 50+23=73 users.
+
+        """
         self._get_page()
 
     def count(self):
-        """Get the total count from the meta data."""
+        """Get the total count from the meta data.
+
+        As the count, due to backend cost, doesn't always respond with the
+        total count of elements we can explicitly request the total of elements
+        that will be returned by a paginated request.
+
+        .. code-block:: python
+
+            # Will only do 1-2 requests, regardless of how many pages of users
+            # there are. If initial page respons contains the total count it will
+            # only require one request.
+            >>> api.list_users().count()
+            73
+        """
         if not self.total_count:
             return self._get_total_count()
         return self.total_count
+
+    @property
+    def data(self):
+        """The current data from doing last paginated request.
+
+        .. code-block:: python
+
+            >>> api.list_users().data[0].full_name
+            "David Bowie"
+        """
+        return self._data
+
+    @data.setter
+    def data(self, value):
+        self._data = value

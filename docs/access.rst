@@ -41,3 +41,18 @@ Reference
   :members:
   :inherited-members:
   :exclude-members: to_str, to_dict, object, etag
+
+.. autoclass:: mbed_cloud.access.User
+  :members:
+  :inherited-members:
+  :exclude-members: to_str, to_dict, object, etag
+
+.. autoclass:: mbed_cloud.access.Group
+  :members:
+  :inherited-members:
+  :exclude-members: to_str, to_dict, object, etag
+
+.. autoclass:: mbed_cloud.access.ApiKey
+  :members:
+  :inherited-members:
+  :exclude-members: to_str, to_dict, object, etag

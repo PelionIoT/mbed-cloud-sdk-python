@@ -8,14 +8,12 @@ def _main():
 
     header = "All registered users in Organisation"
     print("%s\n%s" % (header, len(header) * "-"))
-    users = api.list_users()
-    for u in users:
+    for u, idx in api.list_users().iteritems():
         print("\t- %s (%s - %s)" % (u.full_name, u.email, u.username))
 
     header = "\nAll registered groups in Organisation"
     print("%s\n%s" % (header, len(header) * "-"))
-    groups = api.list_groups()
-    for g in groups:
+    for g, idx in api.list_groups().iteritems():
         print("\t- %s" % (g.name))
 
     header = "\nAll registered API keys in Organisation"
