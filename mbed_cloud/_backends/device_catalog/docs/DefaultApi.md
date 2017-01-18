@@ -463,7 +463,7 @@ device_catalog.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = device_catalog.DefaultApi()
 device_id = 'device_id_example' # str | The ID of the device
-body = device_catalog.DeviceDetail() # DeviceDetail | Device object to update
+body = device_catalog.DeviceUpdateDetail() # DeviceUpdateDetail | Device object to update
 
 try: 
     api_response = api_instance.device_update(device_id, body)
@@ -477,7 +477,7 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **device_id** | **str**| The ID of the device | 
- **body** | [**DeviceDetail**](DeviceDetail.md)| Device object to update | 
+ **body** | [**DeviceUpdateDetail**](DeviceUpdateDetail.md)| Device object to update | 
 
 ### Return type
 
