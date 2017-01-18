@@ -59,8 +59,8 @@ class DevelopmentAPI(BaseAPI):
         return None
 
     @catch_exceptions(ApiException)
-    def revoke_certificate(self):
-        """Revoke/delete the organisation certificate, if found.
+    def delete_certificate(self):
+        """Delete the organisation certificate, if found.
 
         If not found/registered, we do nothing.
 
@@ -70,11 +70,11 @@ class DevelopmentAPI(BaseAPI):
         return api.v3_developer_certificate_delete(self.auth)
 
     @catch_exceptions(ApiException)
-    def create_certificate(self, public_key):
-        """Create and register a new organisation certificate.
+    def add_certificate(self, public_key):
+        """Register a new organisation certificate.
 
         Registeres a new certificate to the organisation, using the provided
-        public key. If a certificate is already registered (and not revoked) an
+        public key. If a certificate is already registered (and not deleted) an
         exception indication a conflict will be raised.
 
         :param public_key: NIST P-256 Elliptic Curve public key, base64 encoded.
