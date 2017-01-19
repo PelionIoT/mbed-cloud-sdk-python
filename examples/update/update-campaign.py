@@ -8,13 +8,6 @@ import string
 import sys
 
 
-def _read_file(f):
-    fh = open(f)
-    d = fh.read()
-    fh.close()
-    return d
-
-
 def _rand_id(N=6):
     return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(N))
 
