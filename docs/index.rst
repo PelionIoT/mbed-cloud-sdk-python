@@ -13,7 +13,6 @@ Components
   access
   development
   manufacturing 
-  assets 
   logging 
   update 
 
@@ -34,12 +33,25 @@ commands. Note that setting up a virtual environment is optional.
 
 .. code-block:: shell
 
+  git clone git@github.com:ARMmbed/mbed-cloud-sdk-python.git
+  cd mbed-cloud-sdk-python
   virtualenv venv/ && source venv/bin/activate
   python setup.py install
 
-You're now ready to use the API. Let's explore some of the APIs and their
-capabilities.
+Next you will need to create an API key. You can do this logging in to the
+`Cloud Portal`_. Subsequently, create a new file `.mbed_cloud_configuration.json`
+with the following content:
 
+.. code-block:: shell
+
+  $ cat .mbed_cloud_configuration.json
+  {
+    "api_key": "ak_your_api_key_here"
+  }
+  
+This file will automatically be picked up during API instatiation (take a look
+at the :doc:`configuration` overview, for more details on this topic). You're
+now ready to use the API.
 
 More examples
 -------------
@@ -56,14 +68,12 @@ virtualenv:
     source venv/bin/activate
     pip install -r requirements.txt
 
-.. _examples directory: https://github.com/ARMmbed/mbed-cloud-sdk-python/tree/master/examples
-
 Running examples using integration lab
 --------------------------------------
 
-Get an API key using the `cloud portal`_ and enter it into `api_key` in
-the `mbed_cloud_config_integration.json` file. See :doc:`configuration`
-for more information.
+Get an API key using the `cloud portal integration environment`_ and enter it
+into `api_key` in the `mbed_cloud_config_integration.json` file. See
+:doc:`configuration` for more information.
 
 Run the following command to list accounts in the organisation:
 
@@ -72,4 +82,6 @@ Run the following command to list accounts in the organisation:
   export MBED_CLOUD_SDK_CONFIG=$PWD/mbed_cloud_config_integration.json
   python examples/access/list-details.py
 
-.. _cloud portal: https://lab.mbedcloudintegration.net
+.. _cloud portal integration environment: https://lab.mbedcloudintegration.net
+.. _Cloud Portal: https://portal.mbedcloud.com
+.. _examples directory: https://github.com/ARMmbed/mbed-cloud-sdk-python/tree/master/examples

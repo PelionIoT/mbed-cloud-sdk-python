@@ -1,10 +1,8 @@
 """Reference API for development component."""
 from __future__ import absolute_import
-import logging
 
 # Import common functions and exceptions from frontend API
 from mbed_cloud import BaseAPI
-from mbed_cloud import config
 from mbed_cloud.decorators import catch_exceptions
 
 # Import backend API
@@ -12,14 +10,19 @@ import mbed_cloud._backends.developer_certificate as cert
 from mbed_cloud._backends.developer_certificate.models import DeveloperCertificate
 import mbed_cloud._backends.developer_certificate.rest as ApiException
 
-LOG = logging.getLogger(__name__)
-
 
 class DevelopmentAPI(BaseAPI):
-    """Describing the public development API.
+    """Development / developer certificate API reference.
 
-    Exposing functionality from the following underlying services:
-    - Developer certificate
+    This module covers functionality for the development/prototyping phase of
+    your project. By creating and deploying development certificates the
+    developer is able to very easily connect the device to the cloud in a
+    secure manner.
+
+    Please do note that each organisation/account only have one active
+    certificate at a time. As a consequence, if you do delete an already active
+    development certificate please make sure it's not activly in use and that
+    you know what you're doing.
     """
 
     def __init__(self, params={}):
@@ -27,15 +30,7 @@ class DevelopmentAPI(BaseAPI):
         super(DevelopmentAPI, self).__init__(params)
 
         # Set the api_key for the requests
-        cert.configuration.api_key['Authorization'] = config.get("api_key")
-        cert.configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-        # Override host, if defined
-        if config.get("host"):
-            cert.configuration.host = config.get("host")
-
-        # This API is a bit weird, so create the "authorization" string
-        self.auth = "Bearer %s" % (config.get("api_key"),)
+        self.cert = self._init_api(cert)
 
     @catch_exceptions(ApiException)
     def get_certificate(self):
@@ -50,12 +45,12 @@ class DevelopmentAPI(BaseAPI):
             or `None` if no certificate is registered.
         :rtype: Certificate
         """
-        api = cert.DefaultApi()
+        api = self.cert.DefaultApi()
         resp = api.v3_developer_certificate_get(self.auth)
 
         # Return None if the cert object is empty
         if resp.id:
-            return resp
+            return Certificate(resp)
         return None
 
     @catch_exceptions(ApiException)
@@ -66,8 +61,9 @@ class DevelopmentAPI(BaseAPI):
 
         :return: void
         """
-        api = cert.DefaultApi()
-        return api.v3_developer_certificate_delete(self.auth)
+        api = self.cert.DefaultApi()
+        api.v3_developer_certificate_delete(self.auth)
+        return
 
     @catch_exceptions(ApiException)
     def add_certificate(self, public_key):
@@ -81,7 +77,7 @@ class DevelopmentAPI(BaseAPI):
         :return: The newly created certificate object
         :rtype: Certificate
         """
-        api = cert.DefaultApi()
+        api = self.cert.DefaultApi()
 
         body = cert.Body()
         body.pub_key = public_key
@@ -92,6 +88,6 @@ class DevelopmentAPI(BaseAPI):
 class Certificate(DeveloperCertificate):
     """Describes device certificate object."""
 
-    def __init__(self, device_certificate_obj):
+    def __init__(self, developer_certificate_obj):
         """Override __init__ and allow passing in backend object."""
-        super(Certificate, self).__init__(**device_certificate_obj.to_dict())
+        super(Certificate, self).__init__(**developer_certificate_obj.to_dict())
