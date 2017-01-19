@@ -267,8 +267,10 @@ class DeviceAPI(BaseAPI):
         any update on the resource path value triggers a new element on the FIFO queue.
         The returned object is a native Python Queue object.
 
-        :param fix_path: Removes leading / on resource_path if found.
-        :param queue_size: set the Queue size. If set to 0, no queue object will be created.
+        :param endpoint_name: Name of endpoint to subscribe on
+        :param resource_path: The resource path on device to observe
+        :param fix_path: Removes leading / on resource_path if found
+        :param queue_size: set the Queue size. If set to 0, no queue object will be created
         :returns: a queue of resource updates
         :rtype: Queue
         """
@@ -357,6 +359,7 @@ class DeviceAPI(BaseAPI):
         If a webhook is already set, this will do an overwrite.
 
         :param str url: the URL with listening webhook
+        :param dict headers: K/V dict with additional headers to send with request
         :return: void
         """
         api = self.mds.NotificationsApi()
@@ -458,6 +461,18 @@ class DeviceAPI(BaseAPI):
     def add_device(self, mechanism, provision_key, **kwargs):
         """Add a new device to catalog.
 
+        .. code-block:: python
+
+            device = {
+                "mechanism": "connector",
+                "provision_key": "unique key",
+                "name": "New device name",
+                "auto_update": True,
+                "vendor_id": "<id>"
+            }
+            resp = api.add_device(**device)
+            print(resp.created_at)
+
         :param str mechanism: The ID of the channel used to communicate with the device
         :param str provision_key: The key used to provision the device
         :param str account_id: Owning IAM account ID
@@ -516,6 +531,17 @@ class DeviceAPI(BaseAPI):
     def add_filter(self, name, query, custom_attributes=None, **kwargs):
         """Add a new filter to device query service.
 
+        .. code-block:: python
+
+            f = api.add_filter(
+                name = "Filter name",
+                query = {},
+                custom_attributes = {
+                    "foo": "bar"
+                }
+            )
+            print(f.created_at)
+
         :param str name: Name of filter
         :param dict query: Filter properties to apply
         :param dict custom_attributes: Extra filter attributes
@@ -534,6 +560,19 @@ class DeviceAPI(BaseAPI):
     @catch_exceptions(DeviceQueryServiceApiException)
     def update_filter(self, filter_id, name, query, custom_attributes=None, **kwargs):
         """Update existing filter in device query service.
+
+        .. code-block:: python
+
+            f = api.get_filter(...)
+            new_custom_attributes = {
+                "foo": "bar"
+            }
+            new_f = api.update_filter(
+                filter_id = f.id,
+                name = "new name",
+                query = f.query,
+                custom_attributes = new_custom_attributes
+            )
 
         :param str filter_id: Existing filter ID to update
         :param str name: (New) name of filter
