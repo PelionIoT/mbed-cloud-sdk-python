@@ -85,7 +85,7 @@ firmware_catalog.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = firmware_catalog.DefaultApi()
-datafile = 'datafile_example' # str | The binary file of firmware image
+datafile = '/path/to/file.txt' # file | The binary file of firmware image
 name = 'name_example' # str | The name of the object
 description = 'description_example' # str | The description of the object (optional)
 updating_request_id = 'updating_request_id_example' # str |  (optional)
@@ -110,7 +110,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **datafile** | **str**| The binary file of firmware image | 
+ **datafile** | **file**| The binary file of firmware image | 
  **name** | **str**| The name of the object | 
  **description** | **str**| The description of the object | [optional] 
  **updating_request_id** | **str**|  | [optional] 
@@ -134,7 +134,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: multipart/form-data
  - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

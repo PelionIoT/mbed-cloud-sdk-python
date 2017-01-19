@@ -142,7 +142,7 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str datafile: The binary file of firmware image (required)
+        :param file datafile: The binary file of firmware image (required)
         :param str name: The name of the object (required)
         :param str description: The description of the object
         :param str updating_request_id:
@@ -179,7 +179,7 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str datafile: The binary file of firmware image (required)
+        :param file datafile: The binary file of firmware image (required)
         :param str name: The name of the object (required)
         :param str description: The description of the object
         :param str updating_request_id:
@@ -252,13 +252,17 @@ class DefaultApi(object):
         form_params = []
         local_var_files = {}
         if 'datafile' in params:
-            form_params.append(('datafile', params['datafile']))
+            local_var_files['datafile'] = params['datafile']
         if 'description' in params:
             form_params.append(('description', params['description']))
         if 'name' in params:
             form_params.append(('name', params['name']))
 
         body_params = None
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['multipart/form-data'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
