@@ -127,6 +127,32 @@ class UpdateAPI(BaseAPI):
         return PaginatedResponse(api.firmware_image_list, lwrap_type=Firmware, **kwargs)
 
     @catch_exceptions(FirmwareCatalogApiException)
+    def add_firmware(self, name, datafile, description=""):
+        """Add a new firmware reference.
+
+        :param str name: firmware file short name
+        :param str datafile: the *path* to the manifest file
+        :param str description: optional firmware file description
+        :return: the newly created firmware file object
+        :rtype: Firmware
+        """
+        api = self.firmware_catalog.DefaultApi()
+        return Firmware(
+            api.firmware_image_create(name=name, datafile=datafile, description=description)
+        )
+
+    @catch_exceptions(FirmwareCatalogApiException)
+    def delete_firmware(self, firmware_image_id):
+        """Delete a firmware image.
+
+        :param str firmware_image_id: image ID for the firmware to remove/delete
+        :return: void
+        """
+        api = self.firmware_catalog.DefaultApi()
+        api.firmware_image_destroy(image_id=firmware_image_id)
+        return
+
+    @catch_exceptions(FirmwareCatalogApiException)
     def list_manifests(self, **kwargs):
         """List all manifests.
 
@@ -141,8 +167,8 @@ class UpdateAPI(BaseAPI):
         return PaginatedResponse(api.firmware_manifest_list, lwrap_type=Manifest, **kwargs)
 
     @catch_exceptions(FirmwareCatalogApiException)
-    def upload_manifest(self, name, datafile, description=""):
-        """Upload/create a new manifest reference.
+    def add_manifest(self, name, datafile, description=""):
+        """Add a new manifest reference.
 
         :param str name: manifest file short name
         :param str datafile: the *path* to the manifest file
@@ -151,7 +177,9 @@ class UpdateAPI(BaseAPI):
         :rtype: Manifest
         """
         api = self.firmware_catalog.DefaultApi()
-        return api.firmware_manifest_create(name=name, datafile=datafile, description=description)
+        return Manifest(
+            api.firmware_manifest_create(name=name, datafile=datafile, description=description)
+        )
 
     @catch_exceptions(FirmwareCatalogApiException)
     def delete_manifest(self, manifest_id):
