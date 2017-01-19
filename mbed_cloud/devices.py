@@ -70,6 +70,13 @@ class DeviceAPI(BaseAPI):
         If not an external callback is setup (using `add_webhook`) then
         calling this function is mandatory.
 
+        .. code-block:: python
+
+            >>> api.start_long_polling()
+            >>> print(api.get_resource_value(endpoint, path))
+            Some value
+            >>> api.stop_long_polling()
+
         :returns: void
         """
         self._long_polling_thread.start()
@@ -381,12 +388,22 @@ class DeviceAPI(BaseAPI):
     def list_devices(self, **kwargs):
         """List devices in the device catalog.
 
+        Example usage, listing all registered devices in the catalog:
+
+        .. code-block:: python
+
+            filters = { 'state': 'registered' }
+            devices = api.list_devices(order='asc', filters=filters)
+            for d, idx in devices.iteritems():
+                print(idx, d.id)
+
         :param int limit: (Optional) The number of devices to retrieve.
         :param str order: (Optional) The ordering direction, ascending (asc) or
             descending (desc)
         :param str after: (Optional) Get devices after/starting at given `device_id`
         :param filters: (Optional) Dictionary of filters to apply.
-        :returns: a list of device objects registered in the catalog.
+        :returns: a list of :py:class:`DeviceDetail` objects registered in the catalog.
+        :rtype: PaginatedResponse
         """
         kwargs = self._verify_sort_options(kwargs)
         kwargs = self._verify_filters(kwargs)
@@ -441,8 +458,8 @@ class DeviceAPI(BaseAPI):
     def add_device(self, mechanism, provision_key, **kwargs):
         """Add a new device to catalog.
 
-        :param str mechanism: The ID of the channel used to communicate with the device (str)
-        :param str provision_key: The key used to provision the device (str)
+        :param str mechanism: The ID of the channel used to communicate with the device
+        :param str provision_key: The key used to provision the device
         :param str account_id: Owning IAM account ID
         :param bool auto_update: Mark this device for auto firmware update
         :param str created_at: When the device was created (ISO-8601)
