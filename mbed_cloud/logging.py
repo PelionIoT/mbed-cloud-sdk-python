@@ -14,13 +14,10 @@ LOG = logging.getLogger(__name__)
 
 
 class LoggingAPI(BaseAPI):
-    """Describing the public logging API.
+    """Logging API reference.
 
-    Exposing functionality from the following underlying services:
-
-        - Device logging
-        - Access logging
-        - Update campaign logging
+    Exposing functionality allowing developers to easily track and manage logs
+    from devices, access, and updates.
     """
 
     def __init__(self, params={}):
