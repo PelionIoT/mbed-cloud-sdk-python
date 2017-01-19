@@ -155,7 +155,7 @@ class DefaultApi(object):
         :param str etag:
         :param str image_id:
         :param str object:
-        :return: FirmwareImageSerializer
+        :return: FirmwareImageSerializerData
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -192,7 +192,7 @@ class DefaultApi(object):
         :param str etag:
         :param str image_id:
         :param str object:
-        :return: FirmwareImageSerializer
+        :return: FirmwareImageSerializerData
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -273,7 +273,7 @@ class DefaultApi(object):
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='FirmwareImageSerializer',
+                                        response_type='FirmwareImageSerializerData',
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
