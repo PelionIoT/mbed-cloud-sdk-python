@@ -151,7 +151,7 @@ class GroupSummaryList(object):
         :param object: The object of this GroupSummaryList.
         :type: str
         """
-        allowed_values = ["user", "api_key", "group", "account", "account_template", "ca_cert", "list", "error"]
+        allowed_values = ["user", "api-key", "group", "account", "account-template", "ca-cert", "list", "error"]
         if object not in allowed_values:
             raise ValueError(
                 "Invalid value for `object` ({0}), must be one of {1}"

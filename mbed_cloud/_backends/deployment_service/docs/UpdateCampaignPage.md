@@ -3,9 +3,10 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**object** | **str** | API Resource name | [optional] 
 **has_more** | **bool** | Whether there are more results to display | [optional] 
 **total_count** | **int** | Total number of records | [optional] 
-**object** | **str** | API Resource name | [optional] 
+**after** | **str** | Entity id for fetch after it | [optional] 
 **limit** | **int** | The number of results to return | [optional] 
 **data** | [**list[UpdateCampaignSerializer]**](UpdateCampaignSerializer.md) |  | [optional] 
 **order** | **str** | Order of returned records | [optional] 
