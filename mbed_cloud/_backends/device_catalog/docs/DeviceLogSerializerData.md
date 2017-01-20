@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 **date_time** | **datetime** |  | 
 **state_change** | **bool** |  | [optional] 
 **description** | **str** |  | [optional] 
-**changes** | **str** |  | [optional] 
+**changes** | **object** |  | [optional] 
 **event_type_description** | **str** |  | [optional] 
 **device_log_id** | **str** |  | [optional] 
 **event_type** | **str** |  | [optional] 

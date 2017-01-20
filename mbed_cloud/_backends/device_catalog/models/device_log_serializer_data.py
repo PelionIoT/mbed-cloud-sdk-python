@@ -34,7 +34,7 @@ class DeviceLogSerializerData(object):
             'date_time': 'datetime',
             'state_change': 'bool',
             'description': 'str',
-            'changes': 'str',
+            'changes': 'object',
             'event_type_description': 'str',
             'device_log_id': 'str',
             'event_type': 'str',
@@ -135,7 +135,7 @@ class DeviceLogSerializerData(object):
         Gets the changes of this DeviceLogSerializerData.
 
         :return: The changes of this DeviceLogSerializerData.
-        :rtype: str
+        :rtype: object
         """
         return self._changes
 
@@ -145,7 +145,7 @@ class DeviceLogSerializerData(object):
         Sets the changes of this DeviceLogSerializerData.
 
         :param changes: The changes of this DeviceLogSerializerData.
-        :type: str
+        :type: object
         """
 
         self._changes = changes
