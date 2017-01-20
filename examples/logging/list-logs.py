@@ -10,16 +10,16 @@ def _main():
     api = LoggingAPI()
     logs = api.list_device_logs(limit=5, order='desc')
 
-    for idx, log in enumerate(logs):
+    for log, idx in logs.iteritems():
         _print_log(idx + 1, log)
 
     print("-" * 30 + "\n")
 
     filters = {
-        'device_id': str(logs[0].device_id),
+        'device_id': str(logs.data[0].device_id),
     }
     device_logs = api.list_device_logs(limit=5, filters=filters)
-    for idx, device_log in enumerate(device_logs):
+    for device_log, idx in device_logs.iteritems():
         _print_log(idx + 1, device_log)
 
 if __name__ == "__main__":

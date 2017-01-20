@@ -9,14 +9,13 @@ Usage
   from mbed_cloud.logging import LoggingAPI
   api = LoggingAPI()
 
-  # 5 most recent device logs
-  most_recent = api.list_device_logs(limit=5)
-
-  # Next 5 device logs
-  api.list_device_logs(limit=5, after=most_recent[-1].device_log_id)
+  # List device logs
+  logs = api.list_device_logs()
+  for d, idx in logs.iteritems():
+    print(d.device_log_id) 
 
   # 10 oldest device logs
-  api.list_device_logs(order='asc')
+  api.list_device_logs(order='asc').as_list()[:10]
 
   # 10 most recent logs for a specific device
   filters = {
@@ -30,6 +29,10 @@ Usage
 Reference
 ---------
 
-.. automodule:: mbed_cloud.logging
+.. autoclass:: mbed_cloud.logging.LoggingAPI
   :members:
 
+.. autoclass:: mbed_cloud.logging.DeviceLog
+  :members:
+  :inherited-members:
+  :exclude-members: to_dict, to_str
