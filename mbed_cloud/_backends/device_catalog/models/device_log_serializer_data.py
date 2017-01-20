@@ -38,7 +38,7 @@ class DeviceLogSerializerData(object):
             'event_type_description': 'str',
             'device_log_id': 'str',
             'event_type': 'str',
-            'data': 'str',
+            'data': 'object',
             'id': 'str',
             'device_id': 'str'
         }
@@ -228,7 +228,7 @@ class DeviceLogSerializerData(object):
         Gets the data of this DeviceLogSerializerData.
 
         :return: The data of this DeviceLogSerializerData.
-        :rtype: str
+        :rtype: object
         """
         return self._data
 
@@ -238,7 +238,7 @@ class DeviceLogSerializerData(object):
         Sets the data of this DeviceLogSerializerData.
 
         :param data: The data of this DeviceLogSerializerData.
-        :type: str
+        :type: object
         """
 
         self._data = data

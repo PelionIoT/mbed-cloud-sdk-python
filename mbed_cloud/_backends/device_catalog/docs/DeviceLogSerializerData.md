@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **event_type_description** | **str** |  | [optional] 
 **device_log_id** | **str** |  | [optional] 
 **event_type** | **str** |  | [optional] 
-**data** | **str** |  | [optional] 
+**data** | **object** |  | [optional] 
 **id** | **str** |  | [optional] 
 **device_id** | **str** |  | [optional] 
 
