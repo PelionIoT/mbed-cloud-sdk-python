@@ -27,7 +27,7 @@ These instructions can also be found in the [official documentation](https://s3-
 3. Import the library and you're ready to go.
 
     ```python
-    >>> from mbed_cloud_sdk.devices import DeviceAPI
+    >>> from mbed_cloud.devices import DeviceAPI
     >>> device_api = DeviceAPI()
     >>> device_api.list_connected_devices().as_list()[0]
     {
@@ -35,7 +35,7 @@ These instructions can also be found in the [official documentation](https://s3-
       "state": "unenrolled",
       ...
     }
-    >>> from mbed_cloud_sdk.access import AccessAPI
+    >>> from mbed_cloud.access import AccessAPI
     >>> access_api = AccessAPI()
     >>> access_api.list_users().as_list()[0]
     {

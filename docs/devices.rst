@@ -10,7 +10,7 @@ Usage
   api = DeviceAPI()
 
   # List all endpoints connected
-  devices = api.list_connected_devices()
+  devices = api.list_connected_devices().as_list()
 
   # Get resources of the first connected endpoint
   resources = api.list_resources(devices[0].id)
@@ -44,7 +44,7 @@ Usage
   reg_devices = api.list_devices(limit=10, order='desc', filters=filters).as_list()
 
   # Get details about specific (registered) device
-  api.get_device(reg_devices[0].device_id)
+  api.get_device(reg_devices[0].id)
 
 More examples
 -------------
