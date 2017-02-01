@@ -1,39 +1,31 @@
+# ---------------------------------------------------------------------------
+#   The confidential and proprietary information contained in this file may
+#   only be used by a person authorised under and to the extent permitted
+#   by a subsisting licensing agreement from ARM Limited or its affiliates.
+#
+#          (C) COPYRIGHT 2017 ARM Limited or its affiliates.
+#              ALL RIGHTS RESERVED
+#
+#   This entire notice must be reproduced on all copies of this file
+#   and copies of this file may only be made by a person if such person is
+#   permitted to do so under the terms of a subsisting license agreement
+#   from ARM Limited or its affiliates.
+# --------------------------------------------------------------------------
 #!/usr/bin/python
-# -*- coding: utf-8 -*-
-
-"""
-mbed Cloud SDK
-
-mbed Cloud SDK allows IoT developers to communicate with different parts
-of the mbed Cloud product suite.
-
-Copyright 2016 ARM Ltd.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-"""
-
 from setuptools import find_packages
 from setuptools import setup
 
-NAME = "mbed-cloud"
-VERSION = "0.0.1"
+# Render the README in reST
+# http://stackoverflow.com/a/26737672
+try:
+    import pypandoc
+    long_description = pypandoc.convert('README.md', 'rst')
+    long_description = long_description.replace("\r","")
+except(IOError, ImportError):
+    long_description = open('README.md').read()
 
-# To install the library, run the following
-#
-# python setup.py install
-#
-# prerequisite: setuptools
-# http://pypi.python.org/pypi/setuptools
+NAME = "mbed-cloud-sdk"
+VERSION = "0.0.1"
 
 REQUIRES = ["urllib3 >= 1.15", "six >= 1.10", "certifi", "python-dateutil"]
 
@@ -41,13 +33,11 @@ setup(
     name=NAME,
     version=VERSION,
     description="mbed Cloud SDK",
+    author="Herman Schistad",
     author_email="support@mbed.com",
-    url="http://developer.mbed.com",
+    url="https://github.com/ARMmbed/mbed-cloud-sdk-python",
     install_requires=REQUIRES,
     packages=find_packages(),
     include_package_data=True,
-    long_description="""\
-    mbed Cloud SDK allows IoT developers to programmatcially communiticate with\
-    different parts of the mbed Cloud suite.
-    """
+    long_description=long_description
 )

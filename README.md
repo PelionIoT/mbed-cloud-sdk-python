@@ -1,18 +1,56 @@
-# Python mbed Cloud SDK
+# mbed Cloud SDK for Python
 
-The mbed Cloud SDK gives developers access to the full mbed suite using Python.
+The `mbed-cloud-sdk` gives developers access to the full mbed suite using Python.
 
-Other languages are available too:
+## Prerequisites
 
-- [Javascript](https://github.com/ARMmbed/mbed-cloud-sdk-javascript)
-- [.Net](https://github.com/ARMmbed/mbed-cloud-sdk-dotnet)
+Python 2.6+ / Python 3.3+
 
-If you want to contribute to creating a SDK for another language the work is
-greatly appreciated and you can read more about the process
-[here](https://github.com/ARMmbed/mbed-cloud-sdk-codegen/blob/master/docs/create-new-language.md).
+## Installation
 
-## Documentation
+    pip install mbed-cloud-sdk
 
-See full [documentation and API reference
-here](https://s3-us-west-2.amazonaws.com/mbed-cloud-sdk-python/index.html).
+## Usage
+
+These instructions can also be found in the [official documentation](https://s3-us-west-2.amazonaws.com/mbed-cloud-sdk-python/index.html#quickstart):
+
+1. Create API key in the [mbed Cloud Portal](https://portal.mbedcloud.com/).
+
+2. Create configuration file in `$HOME` or project directory (`.mbed_cloud_configuration`):
+
+    ```javascript
+    {
+        "api_key": "ak_your_api_key_here"
+    }
+    ```
+
+3. Import the library and you're ready to go.
+
+    ```python
+    >>> from mbed_cloud_sdk.devices import DeviceAPI
+    >>> device_api = DeviceAPI()
+    >>> device_api.list_connected_devices().as_list()[0]
+    {
+      "name": "Device #1",
+      "state": "unenrolled",
+      ...
+    }
+    >>> from mbed_cloud_sdk.access import AccessAPI
+    >>> access_api = AccessAPI()
+    >>> access_api.list_users().as_list()[0]
+    {
+      "email": "username@example.org",
+      "full_name": "Mrs Example",
+      ...
+    }
+    ```
+
+## Resources
+
+  - Full [documentation and API reference here](https://s3-us-west-2.amazonaws.com/mbed-cloud-sdk-python/index.html).
+
+## License
+
+mbed Cloud SDK for Python is free-to-use and licensed under the Apache License
+2.0. See LICENSE file for more information.
 

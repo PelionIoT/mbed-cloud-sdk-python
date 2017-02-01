@@ -4,3 +4,4 @@
 venv/
 docs/build/
 .mbed_cloud_config.json
+dist/
