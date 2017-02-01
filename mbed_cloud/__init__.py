@@ -39,6 +39,9 @@ class BaseAPI(object):
             url = url.encode('utf-8')
         api.configuration.host = url
 
+        # Ensure we don't encode /
+        api.configuration.safe_chars = "/"
+
         return api
 
     def _verify_sort_options(self, kwargs):
