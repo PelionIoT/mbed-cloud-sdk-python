@@ -706,10 +706,15 @@ class AsyncConsumer(object):
         """
         if not self.is_done:
             raise UnhandledError("Need to check if request is done, before checking for error")
-        return self.db[self.async_id]["error"]
+        error_msg = self.db[self.async_id]["error"]
+        resp_code = int(self.db[self.async_id]["status_code"])
+        payload = self.db[self.async_id]["payload"]
+        if resp_code != 200 and not error_msg and not payload:
+            return "Async error (%s). Status code: %r" % (self.async_id, resp_code)
+        return error_msg
 
     @property
-    def get_value(self):
+    def value(self):
         """Get the value of the finished async request.
 
         Take care to ensure the async request is indeed done, by checking both `is_done`

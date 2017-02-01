@@ -63,7 +63,7 @@ def _main():
     # If we want to register the public key to mbed Cloud
     print("** Registering to mbed Cloud **")
     dev_api = DevelopmentAPI()
-    dev_api.revoke_certificate()
+    dev_api.delete_certificate()
     dev_api.create_certificate(k['publicStr'])
     print("** Added. Please save the file output as `identity_c_dev.c` and compile with device **")
 
