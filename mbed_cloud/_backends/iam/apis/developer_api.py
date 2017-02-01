@@ -599,7 +599,7 @@ class DeveloperApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str include: Comma separated additional data to return. Currently supported: limits
+        :param str include: Comma separated additional data to return. Currently supported: limits, policies, sub_accounts
         :return: AccountInfo
                  If the method is called asynchronously,
                  returns the request thread.
@@ -625,7 +625,7 @@ class DeveloperApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str include: Comma separated additional data to return. Currently supported: limits
+        :param str include: Comma separated additional data to return. Currently supported: limits, policies, sub_accounts
         :return: AccountInfo
                  If the method is called asynchronously,
                  returns the request thread.

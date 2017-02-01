@@ -86,6 +86,10 @@ class Configuration(object):
         # client key file
         self.key_file = None
 
+        # Misc. behaviour configuration
+        # Set the safe characters to *not* encode when creating URL. See 'quote' in stdlib.
+        self.safe_chars = ""
+
     @property
     def logger_file(self):
         """

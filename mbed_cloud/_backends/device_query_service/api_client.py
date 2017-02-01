@@ -63,17 +63,20 @@ class ApiClient(object):
         """
         Constructor of the class.
         """
+        conf = Configuration()
+
         self.rest_client = RESTClientObject()
         self.default_headers = {}
         if header_name is not None:
             self.default_headers[header_name] = header_value
         if host is None:
-            self.host = Configuration().host
+            self.host = conf.host
         else:
             self.host = host
         self.cookie = cookie
         # Set default User-Agent.
         self.user_agent = 'Swagger-Codegen/1.0.0/python'
+        self.safe_chars = conf.safe_chars
 
     @property
     def user_agent(self):
@@ -116,7 +119,7 @@ class ApiClient(object):
                                                     collection_formats)
             for k, v in path_params:
                 resource_path = resource_path.replace(
-                    '{%s}' % k, quote(str(v), safe=""))
+                    '{%s}' % k, quote(str(v), safe=self.safe_chars))
 
         # query parameters
         if query_params:

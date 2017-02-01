@@ -4,25 +4,25 @@ All URIs are relative to *https://api.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**add_certificate**](AccountAdminApi.md#add_certificate) | **POST** /v3/ca-certificates | Upload a new CA certificate.
+[**add_certificate**](AccountAdminApi.md#add_certificate) | **POST** /v3/trusted-certificates | Upload a new trusted certificate.
 [**create_user**](AccountAdminApi.md#create_user) | **POST** /v3/users | Create a new user.
-[**delete_certificate**](AccountAdminApi.md#delete_certificate) | **DELETE** /v3/ca-certificates/{ca-cert-id} | Delete a CA certificate by ID.
+[**delete_certificate**](AccountAdminApi.md#delete_certificate) | **DELETE** /v3/trusted-certificates/{cert-id} | Delete a trusted certificate by ID.
 [**delete_user**](AccountAdminApi.md#delete_user) | **DELETE** /v3/users/{user-id} | Delete a user.
-[**get_all_certificates**](AccountAdminApi.md#get_all_certificates) | **GET** /v3/ca-certificates | Get all CA certificates.
+[**get_all_certificates**](AccountAdminApi.md#get_all_certificates) | **GET** /v3/trusted-certificates | Get all trusted certificates.
 [**get_all_users**](AccountAdminApi.md#get_all_users) | **GET** /v3/users | Get the details of all users.
-[**get_certificate**](AccountAdminApi.md#get_certificate) | **GET** /v3/ca-certificates/{ca-cert-id} | Get CA certificate by ID.
+[**get_certificate**](AccountAdminApi.md#get_certificate) | **GET** /v3/trusted-certificates/{cert-id} | Get trusted certificate by ID.
 [**get_user**](AccountAdminApi.md#get_user) | **GET** /v3/users/{user-id} | Details of a user.
-[**update_certificate**](AccountAdminApi.md#update_certificate) | **PUT** /v3/ca-certificates/{ca-cert-id} | Update CA certificate.
+[**update_certificate**](AccountAdminApi.md#update_certificate) | **PUT** /v3/trusted-certificates/{cert-id} | Update trusted certificate.
 [**update_my_account**](AccountAdminApi.md#update_my_account) | **PUT** /v3/accounts/me | Updates attributes of the account.
 [**update_user**](AccountAdminApi.md#update_user) | **PUT** /v3/users/{user-id} | Update user details.
 
 
 # **add_certificate**
-> CACertificateResp add_certificate(body)
+> TrustedCertificateResp add_certificate(body)
 
-Upload a new CA certificate.
+Upload a new trusted certificate.
 
-An endpoint for uploading new CA certificates.
+An endpoint for uploading new trusted certificates.
 
 ### Example 
 ```python
@@ -39,10 +39,10 @@ iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = iam.AccountAdminApi()
-body = iam.CACertificateReq() # CACertificateReq | A CA certificate object with attributes.
+body = iam.TrustedCertificateReq() # TrustedCertificateReq | A trusted certificate object with attributes.
 
 try: 
-    # Upload a new CA certificate.
+    # Upload a new trusted certificate.
     api_response = api_instance.add_certificate(body)
     pprint(api_response)
 except ApiException as e:
@@ -53,11 +53,11 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**CACertificateReq**](CACertificateReq.md)| A CA certificate object with attributes. | 
+ **body** | [**TrustedCertificateReq**](TrustedCertificateReq.md)| A trusted certificate object with attributes. | 
 
 ### Return type
 
-[**CACertificateResp**](CACertificateResp.md)
+[**TrustedCertificateResp**](TrustedCertificateResp.md)
 
 ### Authorization
 
@@ -126,11 +126,11 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_certificate**
-> delete_certificate(ca_cert_id)
+> delete_certificate(cert_id)
 
-Delete a CA certificate by ID.
+Delete a trusted certificate by ID.
 
-An endpoint for deleting a CA certificate.
+An endpoint for deleting a trusted certificate.
 
 ### Example 
 ```python
@@ -147,11 +147,11 @@ iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = iam.AccountAdminApi()
-ca_cert_id = 'ca_cert_id_example' # str | The ID of the CA certificate to be deleted.
+cert_id = 'cert_id_example' # str | The ID of the trusted certificate to be deleted.
 
 try: 
-    # Delete a CA certificate by ID.
-    api_instance.delete_certificate(ca_cert_id)
+    # Delete a trusted certificate by ID.
+    api_instance.delete_certificate(cert_id)
 except ApiException as e:
     print("Exception when calling AccountAdminApi->delete_certificate: %s\n" % e)
 ```
@@ -160,7 +160,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ca_cert_id** | **str**| The ID of the CA certificate to be deleted. | 
+ **cert_id** | **str**| The ID of the trusted certificate to be deleted. | 
 
 ### Return type
 
@@ -232,11 +232,11 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_all_certificates**
-> CACertificateRespList get_all_certificates(limit=limit, after=after, order=order, include=include, filter=filter)
+> TrustedCertificateRespList get_all_certificates(limit=limit, after=after, order=order, include=include, filter=filter)
 
-Get all CA certificates.
+Get all trusted certificates.
 
-An endpoint for retrieving CA certificates in an array.
+An endpoint for retrieving trusted certificates in an array.
 
 ### Example 
 ```python
@@ -257,10 +257,10 @@ limit = 50 # int | The number of results to return (2-1000), default is 50. (opt
 after = 'after_example' # str | The entity ID to fetch after the given one. (optional)
 order = 'ASC' # str | The order of the records, ASC or DESC; by default ASC (optional) (default to ASC)
 include = 'include_example' # str | Comma separated additional data to return. Currently supported: total_count (optional)
-filter = 'filter_example' # str | Filter by service or expiring days, for example filter=service%3Dlwm2m,expire%3D180 (optional)
+filter = 'filter_example' # str | Filter by service or expiring days, for example filter=service%3Dlwm2m,expire%3D180,attestation_method%3D0 (optional)
 
 try: 
-    # Get all CA certificates.
+    # Get all trusted certificates.
     api_response = api_instance.get_all_certificates(limit=limit, after=after, order=order, include=include, filter=filter)
     pprint(api_response)
 except ApiException as e:
@@ -275,11 +275,11 @@ Name | Type | Description  | Notes
  **after** | **str**| The entity ID to fetch after the given one. | [optional] 
  **order** | **str**| The order of the records, ASC or DESC; by default ASC | [optional] [default to ASC]
  **include** | **str**| Comma separated additional data to return. Currently supported: total_count | [optional] 
- **filter** | **str**| Filter by service or expiring days, for example filter&#x3D;service%3Dlwm2m,expire%3D180 | [optional] 
+ **filter** | **str**| Filter by service or expiring days, for example filter&#x3D;service%3Dlwm2m,expire%3D180,attestation_method%3D0 | [optional] 
 
 ### Return type
 
-[**CACertificateRespList**](CACertificateRespList.md)
+[**TrustedCertificateRespList**](TrustedCertificateRespList.md)
 
 ### Authorization
 
@@ -354,11 +354,11 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_certificate**
-> CACertificateResp get_certificate(ca_cert_id)
+> TrustedCertificateResp get_certificate(cert_id)
 
-Get CA certificate by ID.
+Get trusted certificate by ID.
 
-An endpoint for retrieving a CA certificate by ID.
+An endpoint for retrieving a trusted certificate by ID.
 
 ### Example 
 ```python
@@ -375,11 +375,11 @@ iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = iam.AccountAdminApi()
-ca_cert_id = 'ca_cert_id_example' # str | The ID or name of the CA certificate to be retrieved.
+cert_id = 'cert_id_example' # str | The ID or name of the trusted certificate to be retrieved.
 
 try: 
-    # Get CA certificate by ID.
-    api_response = api_instance.get_certificate(ca_cert_id)
+    # Get trusted certificate by ID.
+    api_response = api_instance.get_certificate(cert_id)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling AccountAdminApi->get_certificate: %s\n" % e)
@@ -389,11 +389,11 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ca_cert_id** | **str**| The ID or name of the CA certificate to be retrieved. | 
+ **cert_id** | **str**| The ID or name of the trusted certificate to be retrieved. | 
 
 ### Return type
 
-[**CACertificateResp**](CACertificateResp.md)
+[**TrustedCertificateResp**](TrustedCertificateResp.md)
 
 ### Authorization
 
@@ -460,11 +460,11 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_certificate**
-> CACertificateResp update_certificate(ca_cert_id, body)
+> TrustedCertificateResp update_certificate(cert_id, body)
 
-Update CA certificate.
+Update trusted certificate.
 
-An endpoint for updating existing CA certificates.
+An endpoint for updating existing trusted certificates.
 
 ### Example 
 ```python
@@ -481,12 +481,12 @@ iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = iam.AccountAdminApi()
-ca_cert_id = 'ca_cert_id_example' # str | The ID of the CA certificate to be updated.
-body = iam.CACertificateReq() # CACertificateReq | A CA certificate object with attributes.
+cert_id = 'cert_id_example' # str | The ID of the trusted certificate to be updated.
+body = iam.TrustedCertificateReq() # TrustedCertificateReq | A trusted certificate object with attributes.
 
 try: 
-    # Update CA certificate.
-    api_response = api_instance.update_certificate(ca_cert_id, body)
+    # Update trusted certificate.
+    api_response = api_instance.update_certificate(cert_id, body)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling AccountAdminApi->update_certificate: %s\n" % e)
@@ -496,12 +496,12 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ca_cert_id** | **str**| The ID of the CA certificate to be updated. | 
- **body** | [**CACertificateReq**](CACertificateReq.md)| A CA certificate object with attributes. | 
+ **cert_id** | **str**| The ID of the trusted certificate to be updated. | 
+ **body** | [**TrustedCertificateReq**](TrustedCertificateReq.md)| A trusted certificate object with attributes. | 
 
 ### Return type
 
-[**CACertificateResp**](CACertificateResp.md)
+[**TrustedCertificateResp**](TrustedCertificateResp.md)
 
 ### Authorization
 

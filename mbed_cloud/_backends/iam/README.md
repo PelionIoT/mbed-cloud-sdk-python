@@ -57,10 +57,10 @@ iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # iam.configuration.api_key_prefix['Authorization'] = 'Bearer'
 # create an instance of the API class
 api_instance = iam.AccountAdminApi()
-body = iam.CACertificateReq() # CACertificateReq | A CA certificate object with attributes.
+body = iam.TrustedCertificateReq() # TrustedCertificateReq | A trusted certificate object with attributes.
 
 try:
-    # Upload a new CA certificate.
+    # Upload a new trusted certificate.
     api_response = api_instance.add_certificate(body)
     pprint(api_response)
 except ApiException as e:
@@ -74,15 +74,15 @@ All URIs are relative to *https://api.mbedcloud.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*AccountAdminApi* | [**add_certificate**](docs/AccountAdminApi.md#add_certificate) | **POST** /v3/ca-certificates | Upload a new CA certificate.
+*AccountAdminApi* | [**add_certificate**](docs/AccountAdminApi.md#add_certificate) | **POST** /v3/trusted-certificates | Upload a new trusted certificate.
 *AccountAdminApi* | [**create_user**](docs/AccountAdminApi.md#create_user) | **POST** /v3/users | Create a new user.
-*AccountAdminApi* | [**delete_certificate**](docs/AccountAdminApi.md#delete_certificate) | **DELETE** /v3/ca-certificates/{ca-cert-id} | Delete a CA certificate by ID.
+*AccountAdminApi* | [**delete_certificate**](docs/AccountAdminApi.md#delete_certificate) | **DELETE** /v3/trusted-certificates/{cert-id} | Delete a trusted certificate by ID.
 *AccountAdminApi* | [**delete_user**](docs/AccountAdminApi.md#delete_user) | **DELETE** /v3/users/{user-id} | Delete a user.
-*AccountAdminApi* | [**get_all_certificates**](docs/AccountAdminApi.md#get_all_certificates) | **GET** /v3/ca-certificates | Get all CA certificates.
+*AccountAdminApi* | [**get_all_certificates**](docs/AccountAdminApi.md#get_all_certificates) | **GET** /v3/trusted-certificates | Get all trusted certificates.
 *AccountAdminApi* | [**get_all_users**](docs/AccountAdminApi.md#get_all_users) | **GET** /v3/users | Get the details of all users.
-*AccountAdminApi* | [**get_certificate**](docs/AccountAdminApi.md#get_certificate) | **GET** /v3/ca-certificates/{ca-cert-id} | Get CA certificate by ID.
+*AccountAdminApi* | [**get_certificate**](docs/AccountAdminApi.md#get_certificate) | **GET** /v3/trusted-certificates/{cert-id} | Get trusted certificate by ID.
 *AccountAdminApi* | [**get_user**](docs/AccountAdminApi.md#get_user) | **GET** /v3/users/{user-id} | Details of a user.
-*AccountAdminApi* | [**update_certificate**](docs/AccountAdminApi.md#update_certificate) | **PUT** /v3/ca-certificates/{ca-cert-id} | Update CA certificate.
+*AccountAdminApi* | [**update_certificate**](docs/AccountAdminApi.md#update_certificate) | **PUT** /v3/trusted-certificates/{cert-id} | Update trusted certificate.
 *AccountAdminApi* | [**update_my_account**](docs/AccountAdminApi.md#update_my_account) | **PUT** /v3/accounts/me | Updates attributes of the account.
 *AccountAdminApi* | [**update_user**](docs/AccountAdminApi.md#update_user) | **PUT** /v3/users/{user-id} | Update user details.
 *DefaultApi* | [**activate_user**](docs/DefaultApi.md#activate_user) | **PUT** /auth/invitations/{invitation-id} | Accept invitation.
@@ -119,9 +119,6 @@ Class | Method | HTTP request | Description
  - [ApiKeyInfoResp](docs/ApiKeyInfoResp.md)
  - [ApiKeyInfoRespList](docs/ApiKeyInfoRespList.md)
  - [ApiKeyUpdateReq](docs/ApiKeyUpdateReq.md)
- - [CACertificateReq](docs/CACertificateReq.md)
- - [CACertificateResp](docs/CACertificateResp.md)
- - [CACertificateRespList](docs/CACertificateRespList.md)
  - [ErrorResponse](docs/ErrorResponse.md)
  - [Field](docs/Field.md)
  - [GroupSummary](docs/GroupSummary.md)
@@ -129,6 +126,9 @@ Class | Method | HTTP request | Description
  - [PasswordRecoveryReq](docs/PasswordRecoveryReq.md)
  - [PasswordResetReq](docs/PasswordResetReq.md)
  - [Policy](docs/Policy.md)
+ - [TrustedCertificateReq](docs/TrustedCertificateReq.md)
+ - [TrustedCertificateResp](docs/TrustedCertificateResp.md)
+ - [TrustedCertificateRespList](docs/TrustedCertificateRespList.md)
  - [UserInfoReq](docs/UserInfoReq.md)
  - [UserInfoResp](docs/UserInfoResp.md)
  - [UserInfoRespList](docs/UserInfoRespList.md)
