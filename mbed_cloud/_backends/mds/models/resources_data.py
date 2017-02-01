@@ -209,6 +209,9 @@ class ResourcesData(object):
         """
         Returns true if both objects are equal
         """
+        if not isinstance(other, ResourcesData):
+            return False
+
         return self.__dict__ == other.__dict__
 
     def __ne__(self, other):

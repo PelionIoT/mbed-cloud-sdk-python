@@ -151,7 +151,7 @@ class UserInfoRespList(object):
         :param object: The object of this UserInfoRespList.
         :type: str
         """
-        allowed_values = ["user", "api-key", "group", "account", "account-template", "ca-cert", "list", "error"]
+        allowed_values = ["user", "api-key", "group", "account", "account_template", "trusted_cert", "list", "error"]
         if object not in allowed_values:
             raise ValueError(
                 "Invalid value for `object` ({0}), must be one of {1}"
@@ -281,6 +281,9 @@ class UserInfoRespList(object):
         """
         Returns true if both objects are equal
         """
+        if not isinstance(other, UserInfoRespList):
+            return False
+
         return self.__dict__ == other.__dict__
 
     def __ne__(self, other):

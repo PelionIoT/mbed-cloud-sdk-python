@@ -319,7 +319,7 @@ iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = iam.DeveloperApi()
-include = 'include_example' # str | Comma separated additional data to return. Currently supported: limits (optional)
+include = 'include_example' # str | Comma separated additional data to return. Currently supported: limits, policies, sub_accounts (optional)
 
 try: 
     # Get account info.
@@ -333,7 +333,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **include** | **str**| Comma separated additional data to return. Currently supported: limits | [optional] 
+ **include** | **str**| Comma separated additional data to return. Currently supported: limits, policies, sub_accounts | [optional] 
 
 ### Return type
 
