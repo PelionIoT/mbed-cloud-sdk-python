@@ -25,9 +25,6 @@ from .models.api_key_info_req import ApiKeyInfoReq
 from .models.api_key_info_resp import ApiKeyInfoResp
 from .models.api_key_info_resp_list import ApiKeyInfoRespList
 from .models.api_key_update_req import ApiKeyUpdateReq
-from .models.ca_certificate_req import CACertificateReq
-from .models.ca_certificate_resp import CACertificateResp
-from .models.ca_certificate_resp_list import CACertificateRespList
 from .models.error_response import ErrorResponse
 from .models.field import Field
 from .models.group_summary import GroupSummary
@@ -35,6 +32,9 @@ from .models.group_summary_list import GroupSummaryList
 from .models.password_recovery_req import PasswordRecoveryReq
 from .models.password_reset_req import PasswordResetReq
 from .models.policy import Policy
+from .models.trusted_certificate_req import TrustedCertificateReq
+from .models.trusted_certificate_resp import TrustedCertificateResp
+from .models.trusted_certificate_resp_list import TrustedCertificateRespList
 from .models.user_info_req import UserInfoReq
 from .models.user_info_resp import UserInfoResp
 from .models.user_info_resp_list import UserInfoRespList
