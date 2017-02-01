@@ -33,10 +33,7 @@ commands. Note that setting up a virtual environment is optional.
 
 .. code-block:: shell
 
-  git clone git@github.com:ARMmbed/mbed-cloud-sdk-python.git
-  cd mbed-cloud-sdk-python
-  virtualenv venv/ && source venv/bin/activate
-  python setup.py install
+  pip install mbed-cloud-sdk
 
 Next you will need to create an API key. You can do this logging in to the
 `Cloud Portal`_. Subsequently, create a new file `.mbed_cloud_configuration.json`
@@ -53,6 +50,25 @@ This file will automatically be picked up during API instatiation (take a look
 at the :doc:`configuration` overview, for more details on this topic). You're
 now ready to use the API.
 
+.. code-block:: python
+
+  >>> from mbed_cloud.devices import DeviceAPI
+  >>> device_api = DeviceAPI()
+  >>> device_api.list_connected_devices().as_list()[0]
+  {
+    "name": "Device #1",
+    "state": "unenrolled",
+    ...
+  }
+  >>> from mbed_cloud.access import AccessAPI
+  >>> access_api = AccessAPI()
+  >>> access_api.list_users().as_list()[0]
+  {
+    "email": "username@example.org",
+    "full_name": "Mrs Example",
+    ...
+  }
+
 More examples
 -------------
 
@@ -67,6 +83,8 @@ virtualenv:
     virtualenv venv/
     source venv/bin/activate
     pip install -r requirements.txt
+
+    python examples/devices/list-devices.py
 
 Running examples using integration lab
 --------------------------------------
