@@ -113,7 +113,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **device_destroy**
-> DeviceListResp device_destroy(device_id)
+> DeviceDetail device_destroy(device_id)
 
 
 
@@ -151,7 +151,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceListResp**](DeviceListResp.md)
+[**DeviceDetail**](DeviceDetail.md)
 
 ### Authorization
 
@@ -337,7 +337,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **device_partial_update**
-> DeviceListResp device_partial_update(device_id)
+> DeviceDetail device_partial_update(device_id)
 
 
 
@@ -375,7 +375,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceListResp**](DeviceListResp.md)
+[**DeviceDetail**](DeviceDetail.md)
 
 ### Authorization
 
@@ -389,7 +389,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **device_retrieve**
-> DeviceListResp device_retrieve(device_id)
+> DeviceDetail device_retrieve(device_id)
 
 
 
@@ -427,7 +427,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceListResp**](DeviceListResp.md)
+[**DeviceDetail**](DeviceDetail.md)
 
 ### Authorization
 
