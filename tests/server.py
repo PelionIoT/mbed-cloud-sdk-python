@@ -11,7 +11,14 @@
 #   permitted to do so under the terms of a subsisting license agreement
 #   from ARM Limited or its affiliates.
 # --------------------------------------------------------------------------
-"""Test server for remote execution of test tasks."""
+"""Test server for remote execution of test tasks.
+
+Run by:
+
+    $ FLASK_APP=server.py flask run
+    * Serving Flask app "server"
+    * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+"""
 from flask import Flask
 from flask import jsonify
 from flask import request
