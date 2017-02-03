@@ -24,9 +24,15 @@ try:
 except(IOError, ImportError):
     long_description = open('README.md').read()
 
-NAME = "mbed-cloud-sdk"
-VERSION = "1.1.0"
+# Version number is composed based on API backend version and SDK version.
+# Breaking changes in SDK will increment major version number.
+# API version number will follow mbed release schedule (~quarterly releases).
+API_VERSION = "1.1"
+SDK_MAJOR_MINOR = "0.0"
+SDK_SUFFIX = "-dev0"
+VERSION = "%s.%s%s" % (API_VERSION, SDK_MAJOR_MINOR, SDK_SUFFIX)
 
+NAME = "mbed-cloud-sdk"
 REQUIRES = ["urllib3 >= 1.15", "six >= 1.10", "certifi", "python-dateutil"]
 
 setup(
