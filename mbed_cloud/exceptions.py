@@ -38,8 +38,14 @@ class UnhandledError(Exception):
 class AsyncError(Exception):
     """Thrown when running in synchronized/blocking mode, but an error is raised.
 
-    Typically only found when an async consumer runs with `sync=True` and an error
-    is raised from the backend. Should be handled by the user.
+    Typically only found when an error is raised from the backend. Should be
+    handled by the user.
     """
+
+    pass
+
+
+class TimeoutError(Exception):
+    """Thrown when running in synchronized/blocking mode, and the request times out."""
 
     pass
