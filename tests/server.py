@@ -73,6 +73,24 @@ def _fix_paginated_response(resp):
     return return_obj
 
 
+def _get_type(v):
+    """Try to get value as original type, if possible. If not, we just return original value."""
+    # Check int
+    try:
+        return int(v)
+    except ValueError:
+        pass
+
+    # Check float
+    try:
+        return float(v)
+    except ValueError:
+        pass
+
+    # Return original value
+    return v
+
+
 class ApiCallException(Exception):
     """HTTP exception, accepting dynamic status code.
 
@@ -101,6 +119,12 @@ def _handle_api_call_error(error):
     return response
 
 
+def _get_dict(obj):
+    if hasattr(obj, 'to_dict'):
+        obj = obj.to_dict()
+    return obj
+
+
 @app.route("/<module>/<method>/")
 def main(module, method, methods=["GET"]):
     """Main runner, responding to remote test calls - mapping module and method to SDK"""
@@ -108,7 +132,7 @@ def main(module, method, methods=["GET"]):
     # preparing it for argument to function.
     qs = unquote(request.args.get("args", ""))
     args_struct = parse_qs(qs)
-    args = dict(((k, ",".join(v)) for k, v in args_struct.iteritems()))
+    args = dict(((k, _get_type(",".join(v))) for k, v in args_struct.iteritems()))
 
     # Check if api_key or host is provided through header
     params = _get_params(request.headers)
@@ -117,15 +141,22 @@ def main(module, method, methods=["GET"]):
     try:
         return_obj = _call_api(module, method, args, params)
 
+        # Handle functions which returns void
+        if not return_obj:
+            return jsonify({})
+
         # Check if return object is of type PaginatedResponse, which we'll
         # handle specially by just returning the first page as an array.
         if isinstance(return_obj, PaginatedResponse):
             return_obj = _fix_paginated_response(return_obj)
 
+        # Check if we can concert to dict for inner objects in a list
+        if isinstance(return_obj, list):
+            return_obj = map(lambda o: _get_dict(o), return_obj)
+
         # Check if we can convert to dict before returning (we can for most models)
         if not isinstance(return_obj, dict):
-            if hasattr(return_obj, 'to_dict'):
-                return_obj = return_obj.to_dict()
+            return_obj = _get_dict(return_obj)
 
         return jsonify(return_obj)
     except Exception as e:
