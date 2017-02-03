@@ -25,6 +25,7 @@ import urllib
 from mbed_cloud import BaseAPI
 from mbed_cloud.decorators import catch_exceptions
 from mbed_cloud.exceptions import AsyncError
+from mbed_cloud.exceptions import TimeoutError
 from mbed_cloud.exceptions import UnhandledError
 from mbed_cloud import PaginatedResponse
 
@@ -75,6 +76,7 @@ class DeviceAPI(BaseAPI):
                                                        self._queues,
                                                        b64decode=b64decode,
                                                        mds=self.mds)
+        self._long_polling_is_active = False
         self._long_polling_thread.daemon = True
 
     def start_long_polling(self):
@@ -93,6 +95,7 @@ class DeviceAPI(BaseAPI):
         :returns: void
         """
         self._long_polling_thread.start()
+        self._long_polling_is_active = True
 
     def stop_long_polling(self):
         """Stop the long-polling thread.
@@ -100,6 +103,7 @@ class DeviceAPI(BaseAPI):
         :returns: void
         """
         self._long_polling_thread.stop()
+        self._long_polling_is_active = False
 
     @catch_exceptions(MdsApiException)
     def list_connected_devices(self, **kwargs):
@@ -124,7 +128,7 @@ class DeviceAPI(BaseAPI):
 
         .. code-block:: python
 
-            >>> for r in api.list_resources(endpoint):
+            >>> for r in api.list_resources(device_id):
                     print(r.name, r.observable, r.uri)
             None,True,/3/0/1
             Update,False,/5/0/3
@@ -137,7 +141,7 @@ class DeviceAPI(BaseAPI):
         return [Resource(r) for r in api.v2_endpoints_endpoint_name_get(device_id)]
 
     @catch_exceptions(MdsApiException)
-    def get_resource_value(self, endpoint_name, resource_path, fix_path=True):
+    def get_resource_value(self, device_id, resource_path, fix_path=True, timeout=None):
         """Get a resource value for a given endpoint and resource path by blocking thread.
 
         Example usage:
@@ -145,7 +149,7 @@ class DeviceAPI(BaseAPI):
         .. code-block:: python
 
             try:
-                v = api.get_resource_value(endpoint, path)
+                v = api.get_resource_value(device_id, path)
                 print("Current value", v)
             except AsyncError, e:
                 print("Error", e)
@@ -154,22 +158,29 @@ class DeviceAPI(BaseAPI):
         :param str resource_path: The resource path to get
         :param fix_path: if True then the leading /, if found, will be stripped before
             doing request to backend. This is a requirement for the API to work properly
-        :raises: AsyncError
+        :param timeout: Seconds to request value for before timeout. If not provided, the
+            program might hang indefinitly.
+        :raises: AsyncError, TimeoutError
         :returns: The resource value for the requested resource path
         :rtype: str
         """
+        # Ensure we're long polling first
+        if not self._long_polling_is_active:
+            raise UnhandledError(
+                "Long polling needs to be enabled before getting resource value synchronously.")
+
         # When path starts with / we remove the slash, as the API can't handle //.
         if fix_path and resource_path.startswith("/"):
             resource_path = resource_path[1:]
 
         api = self.mds.ResourcesApi()
-        resp = api.v2_endpoints_endpoint_name_resource_path_get(endpoint_name, resource_path)
+        resp = api.v2_endpoints_endpoint_name_resource_path_get(device_id, resource_path)
 
         # The async consumer, which will read data from long-polling thread
         consumer = AsyncConsumer(resp.async_response_id, self._db)
 
         # We block the thread and get the value for the user.
-        return self._get_value_synchronized(consumer)
+        return self._get_value_synchronized(consumer, timeout)
 
     @catch_exceptions(MdsApiException)
     def get_resource_value_async(self, endpoint_name, resource_path, fix_path=True):
@@ -659,10 +670,15 @@ class DeviceAPI(BaseAPI):
         # Encode the query string
         return urllib.urlencode(query)
 
-    def _get_value_synchronized(self, consumer):
+    def _get_value_synchronized(self, consumer, timeout=None):
+        start_time = int(time.time())
+
         # We return synchronously, so we block in a busy loop waiting for the
         # request to be done.
         while not consumer.is_done:
+            duration = int(time.time()) - start_time
+            if timeout and duration > timeout:
+                raise TimeoutError("Timeout getting async value. Timeout: %d seconds" % (timeout,))
             time.sleep(0.1)
 
         # If we get an error we throw an exception to the user, which can then be handled
@@ -863,3 +879,15 @@ class Resource(object):
         :rtype: str
         """
         return self._name
+
+    def to_dict(self):
+        """Return dictionary of object."""
+        return {
+            'observable': self.observable,
+            'uri': self.uri,
+            'name': self.name
+        }
+
+    def __repr__(self):
+        """For print and pprint."""
+        return str(self.to_dict())
