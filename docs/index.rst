@@ -33,7 +33,7 @@ commands. Note that setting up a virtual environment is optional.
 
 .. code-block:: shell
 
-  pip install mbed-cloud-sdk
+  pip install git+https://github.com/ARMmbed/mbed-cloud-sdk-python.git
 
 Next you will need to create an API key. You can do this logging in to the
 `Cloud Portal`_. Subsequently, create a new file `.mbed_cloud_configuration.json`
