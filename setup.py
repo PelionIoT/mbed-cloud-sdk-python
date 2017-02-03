@@ -29,7 +29,7 @@ except(IOError, ImportError):
 # API version number will follow mbed release schedule (~quarterly releases).
 API_VERSION = "1.1"
 SDK_MAJOR_MINOR = "0.0"
-SDK_SUFFIX = "-dev0"
+SDK_SUFFIX = ""
 VERSION = "%s.%s%s" % (API_VERSION, SDK_MAJOR_MINOR, SDK_SUFFIX)
 
 NAME = "mbed-cloud-sdk"
