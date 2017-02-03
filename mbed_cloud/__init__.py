@@ -35,8 +35,7 @@ class BaseAPI(object):
                 del config["host"]
 
         if "api_key" not in config:
-            sys.stderr.write("api_key not found in config. Please see documentation.\n")
-            sys.exit(1)
+            raise ValueError("api_key not found in config. Please see documentation.")
 
     def _init_api(self, api):
         api.configuration.api_key['Authorization'] = config.get('api_key')
