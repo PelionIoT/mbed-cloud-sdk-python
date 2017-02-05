@@ -12,14 +12,14 @@ In particular, it will look for the following files - listed in order:
 - `$MBED_CLOUD_SDK_CONFIG`
 - Passed in as `dict` to API constructor
 
-With priority given to last file/property. I.e. you can override the config
+It gives priority to the last file or property. In other words, you can override the config
 file in `/etc` by placing a local config file in the project directory or
 passing it directly to the API object constructor.
 
 Configuration parameters
 ========================
 
-The following configuration parameters can/needs to be set:
+Set the following configuration parameters:
 
 - `api_key`: The API key created in https://portal.mbedcloud.com (Required)
 - `host`: Override the default API host to use. Needs to be HTTPS. (Optional)
@@ -27,7 +27,7 @@ The following configuration parameters can/needs to be set:
 Example configuration file
 ==========================
 
-This file can be placed in any of the locations listed above.
+You can place this file in any of the locations listed above.
 
 .. code-block:: text
 
