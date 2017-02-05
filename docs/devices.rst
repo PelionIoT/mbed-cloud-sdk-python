@@ -29,10 +29,10 @@ Usage
   api.start_long_polling()
 
   # Read the current resource value by blocking
-  resource_value = api.get_resource_value(devices[0].id, observable[0].uri)
+  resource_value = api.get_resource_value(observable[0].id, observable[0].uri)
 
   # Get next one, but do it async waiting for it to finish
-  async_handler = api.get_resource_value_async(devices[0].id, observable[0].uri)
+  async_handler = api.get_resource_value_async(observable[0].id, observable[0].uri)
   while not async_handler.is_done:
     time.sleep(1)
   if async_handler.error:
