@@ -11,7 +11,7 @@
 #   permitted to do so under the terms of a subsisting license agreement
 #   from ARM Limited or its affiliates.
 # --------------------------------------------------------------------------
-"""All custom exceptions used in mbed_cloud_sdk."""
+"""All custom exceptions used in mbed_cloud."""
 
 
 class CloudApiException(Exception):

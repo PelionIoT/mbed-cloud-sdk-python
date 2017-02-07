@@ -11,7 +11,7 @@
 #   permitted to do so under the terms of a subsisting license agreement
 #   from ARM Limited or its affiliates.
 # --------------------------------------------------------------------------
-"""Custom decorator functions used in mbed_cloud_sdk."""
+"""Custom decorator functions used in mbed_cloud."""
 import json
 import os
 
