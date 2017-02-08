@@ -27,23 +27,22 @@ from mbed_cloud import PaginatedResponse
 from urllib import unquote
 from urlparse import parse_qs
 
+import json
 import sys
 import traceback
 
 
 app = Flask(__name__)
 
-MODULES = {
-    "devices": DeviceAPI
-}
+MODULES = {}
 
 
-def _call_api(module, method, args, params):
+def _call_api(module, method, args):
     if module not in MODULES:
         return "Invalid module: %r" % (module)
 
     # Get API object
-    api = MODULES.get(module)(params)
+    api = MODULES.get(module)
 
     # Get function contained in API object
     api_functions = list(filter(lambda f: not f.startswith("_"), dir(api)))
@@ -67,9 +66,11 @@ def _get_params(request_headers):
 
 def _fix_paginated_response(resp):
     return_obj = resp.as_list()
+
     # Convert each inner object to Python dictionary.
-    if hasattr(return_obj[0], 'to_dict'):
+    if return_obj and hasattr(return_obj[0], 'to_dict'):
         return_obj = [o.to_dict() for o in return_obj]
+
     return return_obj
 
 
@@ -84,6 +85,12 @@ def _get_type(v):
     # Check float
     try:
         return float(v)
+    except ValueError:
+        pass
+
+    # Check JSON
+    try:
+        return json.loads(v)
     except ValueError:
         pass
 
@@ -125,6 +132,22 @@ def _get_dict(obj):
     return obj
 
 
+@app.route("/_init")
+def init(methods=["GET"]):
+    """Initialse the APIs and pong the server to say it's up and ready."""
+    # Check if api_key or host is provided through header
+    params = _get_params(request.headers)
+
+    # Initialise all the APIs with settings.
+    global MODULES
+    MODULES = {
+        'devices': DeviceAPI(params=params)
+    }
+
+    # Return empty JSON for now. Might change in the future.
+    return jsonify({})
+
+
 @app.route("/<module>/<method>/")
 def main(module, method, methods=["GET"]):
     """Main runner, responding to remote test calls - mapping module and method to SDK"""
@@ -134,12 +157,9 @@ def main(module, method, methods=["GET"]):
     args_struct = parse_qs(qs)
     args = dict(((k, _get_type(",".join(v))) for k, v in args_struct.iteritems()))
 
-    # Check if api_key or host is provided through header
-    params = _get_params(request.headers)
-
     # We call the SDK module and function, with provided arguments.
     try:
-        return_obj = _call_api(module, method, args, params)
+        return_obj = _call_api(module, method, args)
 
         # Handle functions which returns void
         if not return_obj:
