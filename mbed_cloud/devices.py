@@ -284,7 +284,7 @@ class DeviceAPI(BaseAPI):
         return AsyncConsumer(resp.async_response_id, self._db)
 
     @catch_exceptions(MdsApiException)
-    def add_subscribtion(self, endpoint_name, resource_path, fix_path=True, queue_size=5):
+    def add_subscription(self, endpoint_name, resource_path, fix_path=True, queue_size=5):
         """Subscribe to resource updates.
 
         When called on valid endpoint and resource path a subscription is setup so that
