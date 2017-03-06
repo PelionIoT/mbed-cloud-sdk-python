@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **is_marketing_accepted** | **bool** | A flag indicating that receiving marketing information has been accepted. | [optional] [default to False]
 **groups** | **list[str]** | A list of IDs of the groups this user belongs to. | [optional] 
 **is_gtc_accepted** | **bool** | A flag indicating that the General Terms and Conditions has been accepted. | [optional] [default to False]
+**id** | **str** | ID of the user to be adopted, not used in create or invite cases. | 
 **full_name** | **str** | The full name of the user. | [optional] 
 **address** | **str** | Address. | [optional] 
 **password** | **str** | The password when creating a new user. It will will generated when not present in the request. | [optional] 
