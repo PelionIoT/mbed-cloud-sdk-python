@@ -117,7 +117,7 @@ class UserInfoResp(object):
         :param status: The status of this UserInfoResp.
         :type: str
         """
-        allowed_values = ["INVITED", "ACTIVE", "RESET", "INACTIVE"]
+        allowed_values = ["ENROLLING", "INVITED", "ACTIVE", "RESET", "INACTIVE"]
         if status not in allowed_values:
             raise ValueError(
                 "Invalid value for `status` ({0}), must be one of {1}"
@@ -288,7 +288,7 @@ class UserInfoResp(object):
         :param object: The object of this UserInfoResp.
         :type: str
         """
-        allowed_values = ["user", "api_key", "group", "account", "account_template", "ca_cert", "list", "error"]
+        allowed_values = ["user", "api-key", "group", "account", "account-template", "trusted-cert", "list", "error"]
         if object not in allowed_values:
             raise ValueError(
                 "Invalid value for `object` ({0}), must be one of {1}"

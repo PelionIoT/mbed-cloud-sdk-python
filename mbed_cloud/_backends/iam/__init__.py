@@ -14,41 +14,25 @@
 from __future__ import absolute_import
 
 # import models into sdk package
-from .models.account_creation_req import AccountCreationReq
-from .models.account_creation_resp import AccountCreationResp
 from .models.account_enrollment_req import AccountEnrollmentReq
 from .models.account_enrollment_resp import AccountEnrollmentResp
 from .models.account_info import AccountInfo
-from .models.account_info_list import AccountInfoList
 from .models.account_signup_req import AccountSignupReq
 from .models.account_signup_resp import AccountSignupResp
 from .models.account_signup_verify import AccountSignupVerify
-from .models.account_template_req import AccountTemplateReq
-from .models.account_template_resp import AccountTemplateResp
-from .models.account_template_resp_list import AccountTemplateRespList
 from .models.account_update_req import AccountUpdateReq
 from .models.api_key_info_req import ApiKeyInfoReq
 from .models.api_key_info_resp import ApiKeyInfoResp
 from .models.api_key_info_resp_list import ApiKeyInfoRespList
 from .models.api_key_update_req import ApiKeyUpdateReq
-from .models.ca_certificate_req import CACertificateReq
-from .models.ca_certificate_resp import CACertificateResp
-from .models.ca_certificate_resp_list import CACertificateRespList
-from .models.duration import Duration
 from .models.error_response import ErrorResponse
 from .models.field import Field
-from .models.group_creation_info import GroupCreationInfo
-from .models.group_summary import GroupSummary
-from .models.group_summary_list import GroupSummaryList
-from .models.logging_level import LoggingLevel
-from .models.password_change_req import PasswordChangeReq
 from .models.password_recovery_req import PasswordRecoveryReq
 from .models.password_reset_req import PasswordResetReq
 from .models.policy import Policy
-from .models.root_admin_api_key_update_req import RootAdminApiKeyUpdateReq
-from .models.root_admin_update_req import RootAdminUpdateReq
-from .models.subject_list import SubjectList
-from .models.updated_response import UpdatedResponse
+from .models.trusted_certificate_req import TrustedCertificateReq
+from .models.trusted_certificate_resp import TrustedCertificateResp
+from .models.trusted_certificate_resp_list import TrustedCertificateRespList
 from .models.user_info_req import UserInfoReq
 from .models.user_info_resp import UserInfoResp
 from .models.user_info_resp_list import UserInfoRespList
@@ -58,7 +42,6 @@ from .models.user_update_req import UserUpdateReq
 from .apis.account_admin_api import AccountAdminApi
 from .apis.default_api import DefaultApi
 from .apis.developer_api import DeveloperApi
-from .apis.root_admin_api import RootAdminApi
 
 # import ApiClient
 from .api_client import ApiClient
