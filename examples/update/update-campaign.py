@@ -52,7 +52,7 @@ def _main():
     filename = os.path.abspath(sys.argv[1])
 
     # Upload manifest
-    mobj = update_api.upload_manifest(
+    mobj = update_api.add_manifest(
         name="Auto manifest %s" % _rand_id(),
         datafile=filename,
         description="Manifest uploaded using mbed cloud SDK")

@@ -44,6 +44,7 @@ class DevelopmentAPI(BaseAPI):
 
         # Set the api_key for the requests
         self.cert = self._init_api(cert)
+        self.auth = self.cert.configuration.api_key['Authorization']
 
     @catch_exceptions(ApiException)
     def get_certificate(self):

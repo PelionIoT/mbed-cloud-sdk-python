@@ -24,10 +24,12 @@ def _main():
     for u, idx in api.list_users().iteritems():
         print("\t- %s (%s - %s)" % (u.full_name, u.email, u.username))
 
-    header = "\nAll registered groups in Organisation"
-    print("%s\n%s" % (header, len(header) * "-"))
-    for g, idx in api.list_groups().iteritems():
-        print("\t- %s" % (g.name))
+    # FIXME: Groups removed from R1.2 API
+    # header = "\nAll registered groups in Organisation"
+    # print("%s\n%s" % (header, len(header) * "-"))
+    # for g, idx in api.list_groups().iteritems():
+    #     print("\t- %s" % (g.name))
+    #
 
     header = "\nAll registered API keys in Organisation"
     presp = api.list_api_keys(limit=2)

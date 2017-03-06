@@ -77,8 +77,12 @@ def _main():
     print("** Registering to mbed Cloud **")
     dev_api = DevelopmentAPI()
     dev_api.delete_certificate()
-    dev_api.create_certificate(k['publicStr'])
+    dev_api.add_certificate(k['publicStr'])
     print("** Added. Please save the file output as `identity_c_dev.c` and compile with device **")
+
+    print("** Deleting from mbed Cloud **")
+    dev_api.delete_certificate()
+    print("** Deleted **")
 
 if __name__ == "__main__":
     _main()

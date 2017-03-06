@@ -20,24 +20,24 @@ BUTTON_RESOURCE = "/3200/0/5501"
 
 def _main():
     api = DeviceAPI()
-    endpoints = api.list_endpoints()
-    if not endpoints:
+    devices = api.list_connected_devices()
+    if devices.count() == 0:
         raise Exception("No endpints registered. Aborting")
 
     # First register to one webhook
-    api.register_webhook("http://api.webhookinbox.com/i/JIYNNcZA/in/")
+    api.add_webhook("http://api.webhookinbox.com/i/UTComlHQ/in/")
     time.sleep(2)
 
     # Then register to another one
-    api.register_webhook("http://api.webhookinbox.com/i/qlo8pHTA/in/")
-    api.subscribe(endpoints[0].name, BUTTON_RESOURCE)
+    api.add_webhook("http://api.webhookinbox.com/i/SyjKevok/in/")
+    api.add_subscription(devices.as_list()[0].id, BUTTON_RESOURCE)
     while True:
-        print("Webhook registered. Listening to button updates...")
+        print("Webhook registered. Listening to button updates for 10 seconds...")
 
         time.sleep(10)
         break
 
-    api.deregister_webhook()
+    api.delete_webhook()
     print("Deregistered and ubsubscribed to all resourced. Exiting.")
 
 if __name__ == '__main__':
