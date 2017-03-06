@@ -28,6 +28,7 @@ from urllib import unquote
 from urlparse import parse_qs
 
 import json
+import Queue
 import sys
 import traceback
 
@@ -177,6 +178,10 @@ def main(module, method, methods=["GET"]):
         # Check if we can convert to dict before returning (we can for most models)
         if not isinstance(return_obj, dict):
             return_obj = _get_dict(return_obj)
+
+        # Check if type is Queue (device subscriptions), in which case we just return empty
+        if isinstance(return_obj, Queue.Queue):
+            return_obj = {}
 
         return jsonify(return_obj)
     except Exception as e:
