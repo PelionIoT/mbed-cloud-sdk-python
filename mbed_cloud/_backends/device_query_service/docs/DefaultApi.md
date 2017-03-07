@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 
 # **device_query_create**
-> DeviceQueryDetail device_query_create(name, query, description=description, object=object, query_id=query_id)
+> DeviceQuery device_query_create(name, query, description=description, object=object, query_id=query_id)
 
 
 
@@ -59,7 +59,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceQueryDetail**](DeviceQueryDetail.md)
+[**DeviceQuery**](DeviceQuery.md)
 
 ### Authorization
 
@@ -67,13 +67,13 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/x-www-form-urlencoded
+ - **Content-Type**: Not defined
  - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **device_query_destroy**
-> DeviceQueryDetail device_query_destroy(query_id)
+> DeviceQuery device_query_destroy(query_id)
 
 
 
@@ -111,7 +111,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceQueryDetail**](DeviceQueryDetail.md)
+[**DeviceQuery**](DeviceQuery.md)
 
 ### Authorization
 
@@ -125,11 +125,11 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **device_query_list**
-> DeviceQueryResp device_query_list(limit=limit, order=order, after=after, include=include)
+> DeviceQueryPage device_query_list(limit=limit, order=order, after=after, filter=filter)
 
 
 
-<p>The APIs for creating and manipulating device queries.  </p> <p>List all device queries. The result will be paged into pages of 100.</p>
+<p>The APIs for creating and manipulating device queries.  </p> <p>List all device queries. The result will be paged into pages of 100.</p> <h4 id=\"filtering\">Filtering:</h4> <p><code>?filter={URL encoded query string}</code></p> <p>The query string is made up of key/value pairs separated by ampersands. So for a query of <code>key1=value1&amp;key2=value2&amp;key3=value3</code> this would be encoded as follows:</p> <p><code>?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3</code></p> <p>The examples below show the queries in <em>unencoded</em> form.</p> <h5 id=\"by-device-query-properties-all-properties-are-filterable\">By device query properties (all properties are filterable):</h5> <p>For example: <code>description={value}</code></p> <h5 id=\"on-date-time-fields\">On date-time fields:</h5> <p>Date-time fields should be specified in UTC RFC3339 format <code>YYYY-MM-DDThh:mm:ss.msZ</code>. There are three permitted variations:</p> <ul> <li>UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z</li> <li>UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z</li> <li>UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z</li> </ul> <p>Date-time filtering supports three operators:</p> <ul> <li>equality</li> <li>greater than or equal to &ndash; field name suffixed with <code>__gte</code></li> <li>less than or equal to &ndash; field name suffixed with <code>__lte</code></li> </ul> <p>Lower and upper limits to a date-time range may be specified by including both the <code>__gte</code> and <code>__lte</code> forms in the filter.</p> <p><code>{field name}[|__lte|__gte]={UTC RFC3339 date-time}</code></p> <h4 id=\"multi-field-example\">Multi-field example</h4> <p><code>query_id=0158d38771f70000000000010010038c&amp;created_at__gte=2016-11-30T16:25:12.1234Z&amp;created_at__lte=2016-12-30T00:00:00Z</code></p> <p>Encoded: <code>?filter=query_id%3D0158d38771f70000000000010010038c%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z</code></p>
 
 ### Example 
 ```python
@@ -146,13 +146,13 @@ device_query_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = device_query_service.DefaultApi()
-limit = 56 # int |  (optional)
-order = 'order_example' # str |  (optional)
-after = 'after_example' # str |  (optional)
-include = 'include_example' # str |  (optional)
+limit = 56 # int | how many objects to retrieve in the page (optional)
+order = 'order_example' # str | ASC or DESC (optional)
+after = 'after_example' # str | the ID of the the item after which to retrieve the next page (optional)
+filter = 'filter_example' # str | URL encoded query string parameter to filter returned data (optional)
 
 try: 
-    api_response = api_instance.device_query_list(limit=limit, order=order, after=after, include=include)
+    api_response = api_instance.device_query_list(limit=limit, order=order, after=after, filter=filter)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->device_query_list: %s\n" % e)
@@ -162,14 +162,14 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **int**|  | [optional] 
- **order** | **str**|  | [optional] 
- **after** | **str**|  | [optional] 
- **include** | **str**|  | [optional] 
+ **limit** | **int**| how many objects to retrieve in the page | [optional] 
+ **order** | **str**| ASC or DESC | [optional] 
+ **after** | **str**| the ID of the the item after which to retrieve the next page | [optional] 
+ **filter** | **str**| URL encoded query string parameter to filter returned data | [optional] 
 
 ### Return type
 
-[**DeviceQueryResp**](DeviceQueryResp.md)
+[**DeviceQueryPage**](DeviceQueryPage.md)
 
 ### Authorization
 
@@ -183,7 +183,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **device_query_partial_update**
-> DeviceQueryDetail device_query_partial_update(query_id, description=description, name=name, object=object, query=query, query_id2=query_id2)
+> DeviceQuery device_query_partial_update(query_id, description=description, name=name, object=object, query=query, query_id2=query_id2)
 
 
 
@@ -231,7 +231,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceQueryDetail**](DeviceQueryDetail.md)
+[**DeviceQuery**](DeviceQuery.md)
 
 ### Authorization
 
@@ -245,7 +245,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **device_query_retrieve**
-> DeviceQueryDetail device_query_retrieve(query_id)
+> DeviceQuery device_query_retrieve(query_id)
 
 
 
@@ -283,7 +283,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceQueryDetail**](DeviceQueryDetail.md)
+[**DeviceQuery**](DeviceQuery.md)
 
 ### Authorization
 
@@ -297,7 +297,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **device_query_update**
-> DeviceQueryDetail device_query_update(query_id, body)
+> DeviceQuery device_query_update(query_id, name, query, description=description, object=object, query_id2=query_id2)
 
 
 
@@ -319,10 +319,14 @@ device_query_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = device_query_service.DefaultApi()
 query_id = 'query_id_example' # str | 
-body = device_query_service.Body() # Body | Device query update object
+name = 'name_example' # str | The name of the query
+query = 'query_example' # str | The device query
+description = 'description_example' # str | The description of the object (optional)
+object = 'object_example' # str | The API resource entity (optional)
+query_id2 = 'query_id_example' # str | DEPRECATED: The ID of the query (optional)
 
 try: 
-    api_response = api_instance.device_query_update(query_id, body)
+    api_response = api_instance.device_query_update(query_id, name, query, description=description, object=object, query_id2=query_id2)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->device_query_update: %s\n" % e)
@@ -333,11 +337,15 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **query_id** | **str**|  | 
- **body** | [**Body**](Body.md)| Device query update object | 
+ **name** | **str**| The name of the query | 
+ **query** | **str**| The device query | 
+ **description** | **str**| The description of the object | [optional] 
+ **object** | **str**| The API resource entity | [optional] 
+ **query_id2** | **str**| DEPRECATED: The ID of the query | [optional] 
 
 ### Return type
 
-[**DeviceQueryDetail**](DeviceQueryDetail.md)
+[**DeviceQuery**](DeviceQuery.md)
 
 ### Authorization
 
