@@ -38,7 +38,7 @@ TRUNNER_DIR=$TMPDIR;
 
 # Start the Python SDK test backend server. Send to background.
 export FLASK_APP=$DIR/server.py
-CMD="$ROOT_DIR/venv/bin/flask run"
+CMD="$TRUNNER_DIR/venv/bin/flask run"
 eval "$CMD &"
 echo "Backend server started. PID: $!"
 BACKEND_PID=$!
