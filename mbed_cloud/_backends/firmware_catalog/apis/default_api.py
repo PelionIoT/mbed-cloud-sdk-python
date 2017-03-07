@@ -40,98 +40,9 @@ class DefaultApi(object):
                 config.api_client = ApiClient()
             self.api_client = config.api_client
 
-    def deploy_info_get(self, **kwargs):
-        """
-        <p>Reads the deploy_info.json file and returns the Build and Git ID to the caller.</p> <p>Will return a 500 error if the file is missing, cannot be parsed or the keys are missing.</p>
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.deploy_info_get(callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :return: object
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
-            return self.deploy_info_get_with_http_info(**kwargs)
-        else:
-            (data) = self.deploy_info_get_with_http_info(**kwargs)
-            return data
-
-    def deploy_info_get_with_http_info(self, **kwargs):
-        """
-        <p>Reads the deploy_info.json file and returns the Build and Git ID to the caller.</p> <p>Will return a 500 error if the file is missing, cannot be parsed or the keys are missing.</p>
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.deploy_info_get_with_http_info(callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :return: object
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = []
-        all_params.append('callback')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method deploy_info_get" % key
-                )
-            params[key] = val
-        del params['kwargs']
-
-        collection_formats = {}
-
-        resource_path = '/v3/fc_deploy_info'.replace('{format}', 'json')
-        path_params = {}
-
-        query_params = {}
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # Authentication setting
-        auth_settings = ['Bearer']
-
-        return self.api_client.call_api(resource_path, 'GET',
-                                        path_params,
-                                        query_params,
-                                        header_params,
-                                        body=body_params,
-                                        post_params=form_params,
-                                        files=local_var_files,
-                                        response_type='object',
-                                        auth_settings=auth_settings,
-                                        callback=params.get('callback'),
-                                        _return_http_data_only=params.get('_return_http_data_only'),
-                                        _preload_content=params.get('_preload_content', True),
-                                        _request_timeout=params.get('_request_timeout'),
-                                        collection_formats=collection_formats)
-
     def firmware_image_create(self, datafile, name, **kwargs):
         """
-        <p>The APIs for creating and manipulating firmware images.  </p> <p>Create firmware image</p><pre>YAMLError:  while scanning a simple key   in \"<unicode string>\", line 16, column 9:             Cannot validate the data used to ...              ^ could not find expected ':'   in \"<unicode string>\", line 17, column 5:         - code: 401         ^</pre>
+        <p>The APIs for creating and manipulating firmware images.  </p> <p>Create firmware image</p>
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -142,20 +53,26 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param file datafile: The binary file of firmware image (required)
+        :param str datafile: The firmware image file to upload (required)
         :param str name: The name of the object (required)
         :param str description: The description of the object
-        :param str updating_request_id:
-        :param str updating_ip_address:
-        :param str name2:
-        :param str description2:
-        :param str created_at:
         :param str updated_at:
-        :param str datafile_checksum:
+        :param str updated_at__gte:
+        :param str updated_at__lte:
+        :param str updating_ip_address:
         :param str etag:
-        :param str image_id:
+        :param str etag__gte:
+        :param str etag__lte:
+        :param str updating_request_id:
+        :param str created_at:
+        :param str created_at__gte:
+        :param str created_at__lte:
+        :param str description2:
         :param str object:
-        :return: FirmwareImageSerializerData
+        :param str image_id:
+        :param str datafile_checksum:
+        :param str name2:
+        :return: FirmwareImage
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -168,7 +85,7 @@ class DefaultApi(object):
 
     def firmware_image_create_with_http_info(self, datafile, name, **kwargs):
         """
-        <p>The APIs for creating and manipulating firmware images.  </p> <p>Create firmware image</p><pre>YAMLError:  while scanning a simple key   in \"<unicode string>\", line 16, column 9:             Cannot validate the data used to ...              ^ could not find expected ':'   in \"<unicode string>\", line 17, column 5:         - code: 401         ^</pre>
+        <p>The APIs for creating and manipulating firmware images.  </p> <p>Create firmware image</p>
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -179,25 +96,31 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param file datafile: The binary file of firmware image (required)
+        :param str datafile: The firmware image file to upload (required)
         :param str name: The name of the object (required)
         :param str description: The description of the object
-        :param str updating_request_id:
-        :param str updating_ip_address:
-        :param str name2:
-        :param str description2:
-        :param str created_at:
         :param str updated_at:
-        :param str datafile_checksum:
+        :param str updated_at__gte:
+        :param str updated_at__lte:
+        :param str updating_ip_address:
         :param str etag:
-        :param str image_id:
+        :param str etag__gte:
+        :param str etag__lte:
+        :param str updating_request_id:
+        :param str created_at:
+        :param str created_at__gte:
+        :param str created_at__lte:
+        :param str description2:
         :param str object:
-        :return: FirmwareImageSerializerData
+        :param str image_id:
+        :param str datafile_checksum:
+        :param str name2:
+        :return: FirmwareImage
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['datafile', 'name', 'description', 'updating_request_id', 'updating_ip_address', 'name2', 'description2', 'created_at', 'updated_at', 'datafile_checksum', 'etag', 'image_id', 'object']
+        all_params = ['datafile', 'name', 'description', 'updated_at', 'updated_at__gte', 'updated_at__lte', 'updating_ip_address', 'etag', 'etag__gte', 'etag__lte', 'updating_request_id', 'created_at', 'created_at__gte', 'created_at__lte', 'description2', 'object', 'image_id', 'datafile_checksum', 'name2']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -226,43 +149,51 @@ class DefaultApi(object):
         path_params = {}
 
         query_params = {}
-        if 'updating_request_id' in params:
-            query_params['updating_request_id'] = params['updating_request_id']
-        if 'updating_ip_address' in params:
-            query_params['updating_ip_address'] = params['updating_ip_address']
-        if 'name2' in params:
-            query_params['name'] = params['name2']
-        if 'description2' in params:
-            query_params['description'] = params['description2']
-        if 'created_at' in params:
-            query_params['created_at'] = params['created_at']
         if 'updated_at' in params:
             query_params['updated_at'] = params['updated_at']
-        if 'datafile_checksum' in params:
-            query_params['datafile_checksum'] = params['datafile_checksum']
+        if 'updated_at__gte' in params:
+            query_params['updated_at__gte'] = params['updated_at__gte']
+        if 'updated_at__lte' in params:
+            query_params['updated_at__lte'] = params['updated_at__lte']
+        if 'updating_ip_address' in params:
+            query_params['updating_ip_address'] = params['updating_ip_address']
         if 'etag' in params:
             query_params['etag'] = params['etag']
-        if 'image_id' in params:
-            query_params['image_id'] = params['image_id']
+        if 'etag__gte' in params:
+            query_params['etag__gte'] = params['etag__gte']
+        if 'etag__lte' in params:
+            query_params['etag__lte'] = params['etag__lte']
+        if 'updating_request_id' in params:
+            query_params['updating_request_id'] = params['updating_request_id']
+        if 'created_at' in params:
+            query_params['created_at'] = params['created_at']
+        if 'created_at__gte' in params:
+            query_params['created_at__gte'] = params['created_at__gte']
+        if 'created_at__lte' in params:
+            query_params['created_at__lte'] = params['created_at__lte']
+        if 'description2' in params:
+            query_params['description'] = params['description2']
         if 'object' in params:
             query_params['object'] = params['object']
+        if 'image_id' in params:
+            query_params['image_id'] = params['image_id']
+        if 'datafile_checksum' in params:
+            query_params['datafile_checksum'] = params['datafile_checksum']
+        if 'name2' in params:
+            query_params['name'] = params['name2']
 
         header_params = {}
 
         form_params = []
         local_var_files = {}
         if 'datafile' in params:
-            local_var_files['datafile'] = params['datafile']
+            form_params.append(('datafile', params['datafile']))
         if 'description' in params:
             form_params.append(('description', params['description']))
         if 'name' in params:
             form_params.append(('name', params['name']))
 
         body_params = None
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.\
-            select_header_content_type(['multipart/form-data'])
-
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -273,7 +204,7 @@ class DefaultApi(object):
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='FirmwareImageSerializerData',
+                                        response_type='FirmwareImage',
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -295,16 +226,22 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int image_id: The ID of the firmware image (required)
-        :param str updating_request_id:
-        :param str updating_ip_address:
-        :param str name:
-        :param str description:
-        :param str created_at:
         :param str updated_at:
-        :param str datafile_checksum:
+        :param str updated_at__gte:
+        :param str updated_at__lte:
+        :param str updating_ip_address:
         :param str etag:
+        :param str etag__gte:
+        :param str etag__lte:
+        :param str updating_request_id:
+        :param str created_at:
+        :param str created_at__gte:
+        :param str created_at__lte:
+        :param str description:
         :param str object:
-        :return: FirmwareImageSerializer
+        :param str datafile_checksum:
+        :param str name:
+        :return: FirmwareImage
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -329,21 +266,27 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int image_id: The ID of the firmware image (required)
-        :param str updating_request_id:
-        :param str updating_ip_address:
-        :param str name:
-        :param str description:
-        :param str created_at:
         :param str updated_at:
-        :param str datafile_checksum:
+        :param str updated_at__gte:
+        :param str updated_at__lte:
+        :param str updating_ip_address:
         :param str etag:
+        :param str etag__gte:
+        :param str etag__lte:
+        :param str updating_request_id:
+        :param str created_at:
+        :param str created_at__gte:
+        :param str created_at__lte:
+        :param str description:
         :param str object:
-        :return: FirmwareImageSerializer
+        :param str datafile_checksum:
+        :param str name:
+        :return: FirmwareImage
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['image_id', 'updating_request_id', 'updating_ip_address', 'name', 'description', 'created_at', 'updated_at', 'datafile_checksum', 'etag', 'object']
+        all_params = ['image_id', 'updated_at', 'updated_at__gte', 'updated_at__lte', 'updating_ip_address', 'etag', 'etag__gte', 'etag__lte', 'updating_request_id', 'created_at', 'created_at__gte', 'created_at__lte', 'description', 'object', 'datafile_checksum', 'name']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -371,24 +314,36 @@ class DefaultApi(object):
             path_params['image_id'] = params['image_id']
 
         query_params = {}
-        if 'updating_request_id' in params:
-            query_params['updating_request_id'] = params['updating_request_id']
-        if 'updating_ip_address' in params:
-            query_params['updating_ip_address'] = params['updating_ip_address']
-        if 'name' in params:
-            query_params['name'] = params['name']
-        if 'description' in params:
-            query_params['description'] = params['description']
-        if 'created_at' in params:
-            query_params['created_at'] = params['created_at']
         if 'updated_at' in params:
             query_params['updated_at'] = params['updated_at']
-        if 'datafile_checksum' in params:
-            query_params['datafile_checksum'] = params['datafile_checksum']
+        if 'updated_at__gte' in params:
+            query_params['updated_at__gte'] = params['updated_at__gte']
+        if 'updated_at__lte' in params:
+            query_params['updated_at__lte'] = params['updated_at__lte']
+        if 'updating_ip_address' in params:
+            query_params['updating_ip_address'] = params['updating_ip_address']
         if 'etag' in params:
             query_params['etag'] = params['etag']
+        if 'etag__gte' in params:
+            query_params['etag__gte'] = params['etag__gte']
+        if 'etag__lte' in params:
+            query_params['etag__lte'] = params['etag__lte']
+        if 'updating_request_id' in params:
+            query_params['updating_request_id'] = params['updating_request_id']
+        if 'created_at' in params:
+            query_params['created_at'] = params['created_at']
+        if 'created_at__gte' in params:
+            query_params['created_at__gte'] = params['created_at__gte']
+        if 'created_at__lte' in params:
+            query_params['created_at__lte'] = params['created_at__lte']
+        if 'description' in params:
+            query_params['description'] = params['description']
         if 'object' in params:
             query_params['object'] = params['object']
+        if 'datafile_checksum' in params:
+            query_params['datafile_checksum'] = params['datafile_checksum']
+        if 'name' in params:
+            query_params['name'] = params['name']
 
         header_params = {}
 
@@ -406,7 +361,7 @@ class DefaultApi(object):
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='FirmwareImageSerializer',
+                                        response_type='FirmwareImage',
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -416,7 +371,7 @@ class DefaultApi(object):
 
     def firmware_image_list(self, **kwargs):
         """
-        <p>The APIs for creating and manipulating firmware images.  </p> <p>List all firmware images. The result will be paged into pages of 100.</p>
+        <p>The APIs for creating and manipulating firmware images.  </p> <p>List all firmware images. The result will be paged into pages of 50.</p> <h4 id=\"filtering\">Filtering:</h4> <p><code>?filter={URL encoded query string}</code></p> <p>The query string is made up of key/value pairs separated by ampersands. So for a query of <code>key1=value1&amp;key2=value2&amp;key3=value3</code> this would be encoded as follows:</p> <p><code>?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3</code></p> <p>The examples below show the queries in <em>unencoded</em> form.</p> <p>`</p> <h5 id=\"by-firmware-image-properties-all-properties-are-filterable\">By firmware image properties (all properties are filterable):</h5> <p>For example:</p> <p><code>name={value}</code></p> <h5 id=\"on-date-time-fields\">On date-time fields:</h5> <p>Date-time fields should be specified in UTC RFC3339 format <code>YYYY-MM-DDThh:mm:ss.msZ</code>. There are three permitted variations:</p> <ul> <li>UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z</li> <li>UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z</li> <li>UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z</li> </ul> <p>Date-time filtering supports three operators:</p> <ul> <li>equality</li> <li>greater than or equal to &ndash; field name suffixed with <code>__gte</code></li> <li>less than or equal to &ndash; field name suffixed with <code>__lte</code></li> </ul> <p>Lower and upper limits to a date-time range may be specified by including both the <code>__gte</code> and <code>__lte</code> forms in the filter.</p> <p><code>{field name}[|__lte|__gte]={UTC RFC3339 date-time}</code></p> <h4 id=\"multi-field-example\">Multi-field example</h4> <p><code>name=MyName&amp;bootstrapped&amp;created_at__gte=2016-11-30T16:25:12.1234Z&amp;created_at__lte=2016-12-30T00:00:00Z</code></p> <p>Encoded: <code>?filter=name%3DMyName%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z</code></p>
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -427,11 +382,11 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param int limit:
-        :param str order:
-        :param str after:
-        :param str include:
-        :return: FirmwareImageSerializer
+        :param int limit: how many objects to retrieve in the page
+        :param str order: ASC or DESC
+        :param str after: the ID of the the item after which to retrieve the next page
+        :param str filter: URL encoded query string parameter to filter returned data
+        :return: FirmwareImagePage
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -444,7 +399,7 @@ class DefaultApi(object):
 
     def firmware_image_list_with_http_info(self, **kwargs):
         """
-        <p>The APIs for creating and manipulating firmware images.  </p> <p>List all firmware images. The result will be paged into pages of 100.</p>
+        <p>The APIs for creating and manipulating firmware images.  </p> <p>List all firmware images. The result will be paged into pages of 50.</p> <h4 id=\"filtering\">Filtering:</h4> <p><code>?filter={URL encoded query string}</code></p> <p>The query string is made up of key/value pairs separated by ampersands. So for a query of <code>key1=value1&amp;key2=value2&amp;key3=value3</code> this would be encoded as follows:</p> <p><code>?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3</code></p> <p>The examples below show the queries in <em>unencoded</em> form.</p> <p>`</p> <h5 id=\"by-firmware-image-properties-all-properties-are-filterable\">By firmware image properties (all properties are filterable):</h5> <p>For example:</p> <p><code>name={value}</code></p> <h5 id=\"on-date-time-fields\">On date-time fields:</h5> <p>Date-time fields should be specified in UTC RFC3339 format <code>YYYY-MM-DDThh:mm:ss.msZ</code>. There are three permitted variations:</p> <ul> <li>UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z</li> <li>UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z</li> <li>UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z</li> </ul> <p>Date-time filtering supports three operators:</p> <ul> <li>equality</li> <li>greater than or equal to &ndash; field name suffixed with <code>__gte</code></li> <li>less than or equal to &ndash; field name suffixed with <code>__lte</code></li> </ul> <p>Lower and upper limits to a date-time range may be specified by including both the <code>__gte</code> and <code>__lte</code> forms in the filter.</p> <p><code>{field name}[|__lte|__gte]={UTC RFC3339 date-time}</code></p> <h4 id=\"multi-field-example\">Multi-field example</h4> <p><code>name=MyName&amp;bootstrapped&amp;created_at__gte=2016-11-30T16:25:12.1234Z&amp;created_at__lte=2016-12-30T00:00:00Z</code></p> <p>Encoded: <code>?filter=name%3DMyName%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z</code></p>
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -455,16 +410,16 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param int limit:
-        :param str order:
-        :param str after:
-        :param str include:
-        :return: FirmwareImageSerializer
+        :param int limit: how many objects to retrieve in the page
+        :param str order: ASC or DESC
+        :param str after: the ID of the the item after which to retrieve the next page
+        :param str filter: URL encoded query string parameter to filter returned data
+        :return: FirmwareImagePage
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['limit', 'order', 'after', 'include']
+        all_params = ['limit', 'order', 'after', 'filter']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -493,8 +448,8 @@ class DefaultApi(object):
             query_params['order'] = params['order']
         if 'after' in params:
             query_params['after'] = params['after']
-        if 'include' in params:
-            query_params['include'] = params['include']
+        if 'filter' in params:
+            query_params['filter'] = params['filter']
 
         header_params = {}
 
@@ -512,7 +467,7 @@ class DefaultApi(object):
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='FirmwareImageSerializer',
+                                        response_type='FirmwareImagePage',
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -534,16 +489,22 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int image_id: The ID of the firmware image (required)
-        :param str updating_request_id:
-        :param str updating_ip_address:
-        :param str name:
-        :param str description:
-        :param str created_at:
         :param str updated_at:
-        :param str datafile_checksum:
+        :param str updated_at__gte:
+        :param str updated_at__lte:
+        :param str updating_ip_address:
         :param str etag:
+        :param str etag__gte:
+        :param str etag__lte:
+        :param str updating_request_id:
+        :param str created_at:
+        :param str created_at__gte:
+        :param str created_at__lte:
+        :param str description:
         :param str object:
-        :return: FirmwareImageSerializer
+        :param str datafile_checksum:
+        :param str name:
+        :return: FirmwareImage
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -568,21 +529,27 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int image_id: The ID of the firmware image (required)
-        :param str updating_request_id:
-        :param str updating_ip_address:
-        :param str name:
-        :param str description:
-        :param str created_at:
         :param str updated_at:
-        :param str datafile_checksum:
+        :param str updated_at__gte:
+        :param str updated_at__lte:
+        :param str updating_ip_address:
         :param str etag:
+        :param str etag__gte:
+        :param str etag__lte:
+        :param str updating_request_id:
+        :param str created_at:
+        :param str created_at__gte:
+        :param str created_at__lte:
+        :param str description:
         :param str object:
-        :return: FirmwareImageSerializer
+        :param str datafile_checksum:
+        :param str name:
+        :return: FirmwareImage
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['image_id', 'updating_request_id', 'updating_ip_address', 'name', 'description', 'created_at', 'updated_at', 'datafile_checksum', 'etag', 'object']
+        all_params = ['image_id', 'updated_at', 'updated_at__gte', 'updated_at__lte', 'updating_ip_address', 'etag', 'etag__gte', 'etag__lte', 'updating_request_id', 'created_at', 'created_at__gte', 'created_at__lte', 'description', 'object', 'datafile_checksum', 'name']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -610,24 +577,36 @@ class DefaultApi(object):
             path_params['image_id'] = params['image_id']
 
         query_params = {}
-        if 'updating_request_id' in params:
-            query_params['updating_request_id'] = params['updating_request_id']
-        if 'updating_ip_address' in params:
-            query_params['updating_ip_address'] = params['updating_ip_address']
-        if 'name' in params:
-            query_params['name'] = params['name']
-        if 'description' in params:
-            query_params['description'] = params['description']
-        if 'created_at' in params:
-            query_params['created_at'] = params['created_at']
         if 'updated_at' in params:
             query_params['updated_at'] = params['updated_at']
-        if 'datafile_checksum' in params:
-            query_params['datafile_checksum'] = params['datafile_checksum']
+        if 'updated_at__gte' in params:
+            query_params['updated_at__gte'] = params['updated_at__gte']
+        if 'updated_at__lte' in params:
+            query_params['updated_at__lte'] = params['updated_at__lte']
+        if 'updating_ip_address' in params:
+            query_params['updating_ip_address'] = params['updating_ip_address']
         if 'etag' in params:
             query_params['etag'] = params['etag']
+        if 'etag__gte' in params:
+            query_params['etag__gte'] = params['etag__gte']
+        if 'etag__lte' in params:
+            query_params['etag__lte'] = params['etag__lte']
+        if 'updating_request_id' in params:
+            query_params['updating_request_id'] = params['updating_request_id']
+        if 'created_at' in params:
+            query_params['created_at'] = params['created_at']
+        if 'created_at__gte' in params:
+            query_params['created_at__gte'] = params['created_at__gte']
+        if 'created_at__lte' in params:
+            query_params['created_at__lte'] = params['created_at__lte']
+        if 'description' in params:
+            query_params['description'] = params['description']
         if 'object' in params:
             query_params['object'] = params['object']
+        if 'datafile_checksum' in params:
+            query_params['datafile_checksum'] = params['datafile_checksum']
+        if 'name' in params:
+            query_params['name'] = params['name']
 
         header_params = {}
 
@@ -645,7 +624,7 @@ class DefaultApi(object):
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='FirmwareImageSerializer',
+                                        response_type='FirmwareImage',
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -666,10 +645,30 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param file datafile: The manifest file to create (required)
+        :param str datafile: The manifest file to create (required)
         :param str name: The name of the object (required)
         :param str description: The description of the object
-        :return: FirmwareManifestSerializerData
+        :param str updated_at:
+        :param str updated_at__gte:
+        :param str updated_at__lte:
+        :param str created_at:
+        :param str created_at__gte:
+        :param str created_at__lte:
+        :param str etag:
+        :param str etag__gte:
+        :param str etag__lte:
+        :param str updating_ip_address:
+        :param str manifest_id:
+        :param str updating_request_id:
+        :param str description2:
+        :param str timestamp:
+        :param str timestamp__gte:
+        :param str timestamp__lte:
+        :param str object:
+        :param str device_class:
+        :param str datafile_checksum:
+        :param str name2:
+        :return: FirmwareManifest
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -693,15 +692,35 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param file datafile: The manifest file to create (required)
+        :param str datafile: The manifest file to create (required)
         :param str name: The name of the object (required)
         :param str description: The description of the object
-        :return: FirmwareManifestSerializerData
+        :param str updated_at:
+        :param str updated_at__gte:
+        :param str updated_at__lte:
+        :param str created_at:
+        :param str created_at__gte:
+        :param str created_at__lte:
+        :param str etag:
+        :param str etag__gte:
+        :param str etag__lte:
+        :param str updating_ip_address:
+        :param str manifest_id:
+        :param str updating_request_id:
+        :param str description2:
+        :param str timestamp:
+        :param str timestamp__gte:
+        :param str timestamp__lte:
+        :param str object:
+        :param str device_class:
+        :param str datafile_checksum:
+        :param str name2:
+        :return: FirmwareManifest
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['datafile', 'name', 'description']
+        all_params = ['datafile', 'name', 'description', 'updated_at', 'updated_at__gte', 'updated_at__lte', 'created_at', 'created_at__gte', 'created_at__lte', 'etag', 'etag__gte', 'etag__lte', 'updating_ip_address', 'manifest_id', 'updating_request_id', 'description2', 'timestamp', 'timestamp__gte', 'timestamp__lte', 'object', 'device_class', 'datafile_checksum', 'name2']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -730,23 +749,59 @@ class DefaultApi(object):
         path_params = {}
 
         query_params = {}
+        if 'updated_at' in params:
+            query_params['updated_at'] = params['updated_at']
+        if 'updated_at__gte' in params:
+            query_params['updated_at__gte'] = params['updated_at__gte']
+        if 'updated_at__lte' in params:
+            query_params['updated_at__lte'] = params['updated_at__lte']
+        if 'created_at' in params:
+            query_params['created_at'] = params['created_at']
+        if 'created_at__gte' in params:
+            query_params['created_at__gte'] = params['created_at__gte']
+        if 'created_at__lte' in params:
+            query_params['created_at__lte'] = params['created_at__lte']
+        if 'etag' in params:
+            query_params['etag'] = params['etag']
+        if 'etag__gte' in params:
+            query_params['etag__gte'] = params['etag__gte']
+        if 'etag__lte' in params:
+            query_params['etag__lte'] = params['etag__lte']
+        if 'updating_ip_address' in params:
+            query_params['updating_ip_address'] = params['updating_ip_address']
+        if 'manifest_id' in params:
+            query_params['manifest_id'] = params['manifest_id']
+        if 'updating_request_id' in params:
+            query_params['updating_request_id'] = params['updating_request_id']
+        if 'description2' in params:
+            query_params['description'] = params['description2']
+        if 'timestamp' in params:
+            query_params['timestamp'] = params['timestamp']
+        if 'timestamp__gte' in params:
+            query_params['timestamp__gte'] = params['timestamp__gte']
+        if 'timestamp__lte' in params:
+            query_params['timestamp__lte'] = params['timestamp__lte']
+        if 'object' in params:
+            query_params['object'] = params['object']
+        if 'device_class' in params:
+            query_params['device_class'] = params['device_class']
+        if 'datafile_checksum' in params:
+            query_params['datafile_checksum'] = params['datafile_checksum']
+        if 'name2' in params:
+            query_params['name'] = params['name2']
 
         header_params = {}
 
         form_params = []
         local_var_files = {}
         if 'datafile' in params:
-            local_var_files['datafile'] = params['datafile']
+            form_params.append(('datafile', params['datafile']))
         if 'description' in params:
             form_params.append(('description', params['description']))
         if 'name' in params:
             form_params.append(('name', params['name']))
 
         body_params = None
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.\
-            select_header_content_type(['multipart/form-data'])
-
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -757,7 +812,7 @@ class DefaultApi(object):
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='FirmwareManifestSerializerData',
+                                        response_type='FirmwareManifest',
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -779,7 +834,26 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int manifest_id: The ID of the firmware manifest (required)
-        :return: FirmwareManifestSerializerData
+        :param str updated_at:
+        :param str updated_at__gte:
+        :param str updated_at__lte:
+        :param str created_at:
+        :param str created_at__gte:
+        :param str created_at__lte:
+        :param str etag:
+        :param str etag__gte:
+        :param str etag__lte:
+        :param str updating_ip_address:
+        :param str updating_request_id:
+        :param str description:
+        :param str timestamp:
+        :param str timestamp__gte:
+        :param str timestamp__lte:
+        :param str object:
+        :param str device_class:
+        :param str datafile_checksum:
+        :param str name:
+        :return: FirmwareManifest
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -804,12 +878,31 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int manifest_id: The ID of the firmware manifest (required)
-        :return: FirmwareManifestSerializerData
+        :param str updated_at:
+        :param str updated_at__gte:
+        :param str updated_at__lte:
+        :param str created_at:
+        :param str created_at__gte:
+        :param str created_at__lte:
+        :param str etag:
+        :param str etag__gte:
+        :param str etag__lte:
+        :param str updating_ip_address:
+        :param str updating_request_id:
+        :param str description:
+        :param str timestamp:
+        :param str timestamp__gte:
+        :param str timestamp__lte:
+        :param str object:
+        :param str device_class:
+        :param str datafile_checksum:
+        :param str name:
+        :return: FirmwareManifest
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['manifest_id']
+        all_params = ['manifest_id', 'updated_at', 'updated_at__gte', 'updated_at__lte', 'created_at', 'created_at__gte', 'created_at__lte', 'etag', 'etag__gte', 'etag__lte', 'updating_ip_address', 'updating_request_id', 'description', 'timestamp', 'timestamp__gte', 'timestamp__lte', 'object', 'device_class', 'datafile_checksum', 'name']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -837,6 +930,44 @@ class DefaultApi(object):
             path_params['manifest_id'] = params['manifest_id']
 
         query_params = {}
+        if 'updated_at' in params:
+            query_params['updated_at'] = params['updated_at']
+        if 'updated_at__gte' in params:
+            query_params['updated_at__gte'] = params['updated_at__gte']
+        if 'updated_at__lte' in params:
+            query_params['updated_at__lte'] = params['updated_at__lte']
+        if 'created_at' in params:
+            query_params['created_at'] = params['created_at']
+        if 'created_at__gte' in params:
+            query_params['created_at__gte'] = params['created_at__gte']
+        if 'created_at__lte' in params:
+            query_params['created_at__lte'] = params['created_at__lte']
+        if 'etag' in params:
+            query_params['etag'] = params['etag']
+        if 'etag__gte' in params:
+            query_params['etag__gte'] = params['etag__gte']
+        if 'etag__lte' in params:
+            query_params['etag__lte'] = params['etag__lte']
+        if 'updating_ip_address' in params:
+            query_params['updating_ip_address'] = params['updating_ip_address']
+        if 'updating_request_id' in params:
+            query_params['updating_request_id'] = params['updating_request_id']
+        if 'description' in params:
+            query_params['description'] = params['description']
+        if 'timestamp' in params:
+            query_params['timestamp'] = params['timestamp']
+        if 'timestamp__gte' in params:
+            query_params['timestamp__gte'] = params['timestamp__gte']
+        if 'timestamp__lte' in params:
+            query_params['timestamp__lte'] = params['timestamp__lte']
+        if 'object' in params:
+            query_params['object'] = params['object']
+        if 'device_class' in params:
+            query_params['device_class'] = params['device_class']
+        if 'datafile_checksum' in params:
+            query_params['datafile_checksum'] = params['datafile_checksum']
+        if 'name' in params:
+            query_params['name'] = params['name']
 
         header_params = {}
 
@@ -854,7 +985,7 @@ class DefaultApi(object):
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='FirmwareManifestSerializerData',
+                                        response_type='FirmwareManifest',
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -864,7 +995,7 @@ class DefaultApi(object):
 
     def firmware_manifest_list(self, **kwargs):
         """
-        <p>The APIs for creating and manipulating firmware manifests.  </p> <p>List all firmware manifests</p>
+        <p>The APIs for creating and manipulating firmware manifests.  </p> <p>List all firmware manifests.</p> <h4 id=\"filtering\">Filtering:</h4> <p><code>?filter={URL encoded query string}</code></p> <p>The query string is made up of key/value pairs separated by ampersands. So for a query of <code>key1=value1&amp;key2=value2&amp;key3=value3</code> this would be encoded as follows:</p> <p><code>?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3</code></p> <p>The examples below show the queries in <em>unencoded</em> form.</p> <h5 id=\"by-manifest-id\">By manifest ID:</h5> <p>` manifest_id={id} '</p> <h5 id=\"by-firmware-manifest-properties-all-properties-are-filterable\">By firmware manifest properties (all properties are filterable):</h5> <p><code>device_class={value}</code></p> <h5 id=\"on-date-time-fields\">On date-time fields:</h5> <p>Date-time fields should be specified in UTC RFC3339 format <code>YYYY-MM-DDThh:mm:ss.msZ</code>. There are three permitted variations:</p> <ul> <li>UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z</li> <li>UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z</li> <li>UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z</li> </ul> <p>Date-time filtering supports three operators:</p> <ul> <li>equality</li> <li>greater than or equal to &ndash; field name suffixed with <code>__gte</code></li> <li>less than or equal to &ndash; field name suffixed with <code>__lte</code></li> </ul> <p>Lower and upper limits to a date-time range may be specified by including both the <code>__gte</code> and <code>__lte</code> forms in the filter.</p> <p><code>{field name}[|__lte|__gte]={UTC RFC3339 date-time}</code></p> <h4 id=\"multi-field-example\">Multi-field example</h4> <p><code>device_class=1234&amp;d&amp;created_at__gte=2016-11-30T16:25:12.1234Z&amp;created_at__lte=2016-12-30T00:00:00Z</code></p> <p>Encoded: <code>?filter=device_class%3D1234%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z</code></p>
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -875,11 +1006,11 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param int limit:
-        :param str order:
-        :param str after:
-        :param str include:
-        :return: ManifestSerializer
+        :param int limit: how many objects to retrieve in the page
+        :param str order: ASC or DESC
+        :param str after: the ID of the the item after which to retrieve the next page
+        :param str filter: URL encoded query string parameter to filter returned data
+        :return: FirmwareManifestPage
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -892,7 +1023,7 @@ class DefaultApi(object):
 
     def firmware_manifest_list_with_http_info(self, **kwargs):
         """
-        <p>The APIs for creating and manipulating firmware manifests.  </p> <p>List all firmware manifests</p>
+        <p>The APIs for creating and manipulating firmware manifests.  </p> <p>List all firmware manifests.</p> <h4 id=\"filtering\">Filtering:</h4> <p><code>?filter={URL encoded query string}</code></p> <p>The query string is made up of key/value pairs separated by ampersands. So for a query of <code>key1=value1&amp;key2=value2&amp;key3=value3</code> this would be encoded as follows:</p> <p><code>?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3</code></p> <p>The examples below show the queries in <em>unencoded</em> form.</p> <h5 id=\"by-manifest-id\">By manifest ID:</h5> <p>` manifest_id={id} '</p> <h5 id=\"by-firmware-manifest-properties-all-properties-are-filterable\">By firmware manifest properties (all properties are filterable):</h5> <p><code>device_class={value}</code></p> <h5 id=\"on-date-time-fields\">On date-time fields:</h5> <p>Date-time fields should be specified in UTC RFC3339 format <code>YYYY-MM-DDThh:mm:ss.msZ</code>. There are three permitted variations:</p> <ul> <li>UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z</li> <li>UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z</li> <li>UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z</li> </ul> <p>Date-time filtering supports three operators:</p> <ul> <li>equality</li> <li>greater than or equal to &ndash; field name suffixed with <code>__gte</code></li> <li>less than or equal to &ndash; field name suffixed with <code>__lte</code></li> </ul> <p>Lower and upper limits to a date-time range may be specified by including both the <code>__gte</code> and <code>__lte</code> forms in the filter.</p> <p><code>{field name}[|__lte|__gte]={UTC RFC3339 date-time}</code></p> <h4 id=\"multi-field-example\">Multi-field example</h4> <p><code>device_class=1234&amp;d&amp;created_at__gte=2016-11-30T16:25:12.1234Z&amp;created_at__lte=2016-12-30T00:00:00Z</code></p> <p>Encoded: <code>?filter=device_class%3D1234%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z</code></p>
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -903,16 +1034,16 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param int limit:
-        :param str order:
-        :param str after:
-        :param str include:
-        :return: ManifestSerializer
+        :param int limit: how many objects to retrieve in the page
+        :param str order: ASC or DESC
+        :param str after: the ID of the the item after which to retrieve the next page
+        :param str filter: URL encoded query string parameter to filter returned data
+        :return: FirmwareManifestPage
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['limit', 'order', 'after', 'include']
+        all_params = ['limit', 'order', 'after', 'filter']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -941,8 +1072,8 @@ class DefaultApi(object):
             query_params['order'] = params['order']
         if 'after' in params:
             query_params['after'] = params['after']
-        if 'include' in params:
-            query_params['include'] = params['include']
+        if 'filter' in params:
+            query_params['filter'] = params['filter']
 
         header_params = {}
 
@@ -960,7 +1091,7 @@ class DefaultApi(object):
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='ManifestSerializer',
+                                        response_type='FirmwareManifestPage',
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -982,18 +1113,26 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int manifest_id: The ID of the firmware manifest (required)
-        :param str updating_request_id:
-        :param str updating_ip_address:
-        :param str name:
-        :param str description:
-        :param str created_at:
         :param str updated_at:
-        :param str datafile_checksum:
-        :param str device_class:
+        :param str updated_at__gte:
+        :param str updated_at__lte:
+        :param str created_at:
+        :param str created_at__gte:
+        :param str created_at__lte:
         :param str etag:
-        :param str object:
+        :param str etag__gte:
+        :param str etag__lte:
+        :param str updating_ip_address:
+        :param str updating_request_id:
+        :param str description:
         :param str timestamp:
-        :return: FirmwareManifestSerializerData
+        :param str timestamp__gte:
+        :param str timestamp__lte:
+        :param str object:
+        :param str device_class:
+        :param str datafile_checksum:
+        :param str name:
+        :return: FirmwareManifest
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -1018,23 +1157,31 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int manifest_id: The ID of the firmware manifest (required)
-        :param str updating_request_id:
-        :param str updating_ip_address:
-        :param str name:
-        :param str description:
-        :param str created_at:
         :param str updated_at:
-        :param str datafile_checksum:
-        :param str device_class:
+        :param str updated_at__gte:
+        :param str updated_at__lte:
+        :param str created_at:
+        :param str created_at__gte:
+        :param str created_at__lte:
         :param str etag:
-        :param str object:
+        :param str etag__gte:
+        :param str etag__lte:
+        :param str updating_ip_address:
+        :param str updating_request_id:
+        :param str description:
         :param str timestamp:
-        :return: FirmwareManifestSerializerData
+        :param str timestamp__gte:
+        :param str timestamp__lte:
+        :param str object:
+        :param str device_class:
+        :param str datafile_checksum:
+        :param str name:
+        :return: FirmwareManifest
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['manifest_id', 'updating_request_id', 'updating_ip_address', 'name', 'description', 'created_at', 'updated_at', 'datafile_checksum', 'device_class', 'etag', 'object', 'timestamp']
+        all_params = ['manifest_id', 'updated_at', 'updated_at__gte', 'updated_at__lte', 'created_at', 'created_at__gte', 'created_at__lte', 'etag', 'etag__gte', 'etag__lte', 'updating_ip_address', 'updating_request_id', 'description', 'timestamp', 'timestamp__gte', 'timestamp__lte', 'object', 'device_class', 'datafile_checksum', 'name']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -1058,37 +1205,53 @@ class DefaultApi(object):
 
         resource_path = '/v3/firmware-manifests/{manifest_id}/'.replace('{format}', 'json')
         path_params = {}
+        if 'manifest_id' in params:
+            path_params['manifest_id'] = params['manifest_id']
 
         query_params = {}
-        if 'updating_request_id' in params:
-            query_params['updating_request_id'] = params['updating_request_id']
-        if 'updating_ip_address' in params:
-            query_params['updating_ip_address'] = params['updating_ip_address']
-        if 'name' in params:
-            query_params['name'] = params['name']
-        if 'description' in params:
-            query_params['description'] = params['description']
-        if 'created_at' in params:
-            query_params['created_at'] = params['created_at']
         if 'updated_at' in params:
             query_params['updated_at'] = params['updated_at']
-        if 'datafile_checksum' in params:
-            query_params['datafile_checksum'] = params['datafile_checksum']
-        if 'device_class' in params:
-            query_params['device_class'] = params['device_class']
+        if 'updated_at__gte' in params:
+            query_params['updated_at__gte'] = params['updated_at__gte']
+        if 'updated_at__lte' in params:
+            query_params['updated_at__lte'] = params['updated_at__lte']
+        if 'created_at' in params:
+            query_params['created_at'] = params['created_at']
+        if 'created_at__gte' in params:
+            query_params['created_at__gte'] = params['created_at__gte']
+        if 'created_at__lte' in params:
+            query_params['created_at__lte'] = params['created_at__lte']
         if 'etag' in params:
             query_params['etag'] = params['etag']
-        if 'object' in params:
-            query_params['object'] = params['object']
+        if 'etag__gte' in params:
+            query_params['etag__gte'] = params['etag__gte']
+        if 'etag__lte' in params:
+            query_params['etag__lte'] = params['etag__lte']
+        if 'updating_ip_address' in params:
+            query_params['updating_ip_address'] = params['updating_ip_address']
+        if 'updating_request_id' in params:
+            query_params['updating_request_id'] = params['updating_request_id']
+        if 'description' in params:
+            query_params['description'] = params['description']
         if 'timestamp' in params:
             query_params['timestamp'] = params['timestamp']
+        if 'timestamp__gte' in params:
+            query_params['timestamp__gte'] = params['timestamp__gte']
+        if 'timestamp__lte' in params:
+            query_params['timestamp__lte'] = params['timestamp__lte']
+        if 'object' in params:
+            query_params['object'] = params['object']
+        if 'device_class' in params:
+            query_params['device_class'] = params['device_class']
+        if 'datafile_checksum' in params:
+            query_params['datafile_checksum'] = params['datafile_checksum']
+        if 'name' in params:
+            query_params['name'] = params['name']
 
         header_params = {}
 
         form_params = []
         local_var_files = {}
-        if 'manifest_id' in params:
-            form_params.append(('manifest_id', params['manifest_id']))
 
         body_params = None
         # Authentication setting
@@ -1101,7 +1264,7 @@ class DefaultApi(object):
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='FirmwareManifestSerializerData',
+                                        response_type='FirmwareManifest',
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),

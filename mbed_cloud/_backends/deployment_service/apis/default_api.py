@@ -40,96 +40,7 @@ class DefaultApi(object):
                 config.api_client = ApiClient()
             self.api_client = config.api_client
 
-    def deploy_info_get(self, **kwargs):
-        """
-        <p>Reads the deploy_info.json file and returns the Build and Git ID to the caller.</p> <p>Will return a 500 error if the file is missing, cannot be parsed or the keys are missing.</p>
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.deploy_info_get(callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :return: object
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
-            return self.deploy_info_get_with_http_info(**kwargs)
-        else:
-            (data) = self.deploy_info_get_with_http_info(**kwargs)
-            return data
-
-    def deploy_info_get_with_http_info(self, **kwargs):
-        """
-        <p>Reads the deploy_info.json file and returns the Build and Git ID to the caller.</p> <p>Will return a 500 error if the file is missing, cannot be parsed or the keys are missing.</p>
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.deploy_info_get_with_http_info(callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :return: object
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = []
-        all_params.append('callback')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method deploy_info_get" % key
-                )
-            params[key] = val
-        del params['kwargs']
-
-        collection_formats = {}
-
-        resource_path = '/v3/ds_deploy_info'.replace('{format}', 'json')
-        path_params = {}
-
-        query_params = {}
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # Authentication setting
-        auth_settings = ['Bearer']
-
-        return self.api_client.call_api(resource_path, 'GET',
-                                        path_params,
-                                        query_params,
-                                        header_params,
-                                        body=body_params,
-                                        post_params=form_params,
-                                        files=local_var_files,
-                                        response_type='object',
-                                        auth_settings=auth_settings,
-                                        callback=params.get('callback'),
-                                        _return_http_data_only=params.get('_return_http_data_only'),
-                                        _preload_content=params.get('_preload_content', True),
-                                        _request_timeout=params.get('_request_timeout'),
-                                        collection_formats=collection_formats)
-
-    def update_campaign_create(self, body, **kwargs):
+    def update_campaign_create(self, device_filter, name, **kwargs):
         """
         <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Create update campaign</p>
         This method makes a synchronous HTTP request by default. To make an
@@ -138,23 +49,31 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.update_campaign_create(body, callback=callback_function)
+        >>> thread = api.update_campaign_create(device_filter, name, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param WriteUpdateCampaignSerializer body: Update campaign object to create (required)
-        :return: UpdateCampaignSerializer
+        :param str device_filter: The filter for the devices the campaign will target (required)
+        :param str name: A name for this campaign (required)
+        :param str campaign_id: DEPRECATED: The ID of the campaign
+        :param str description: An optional description of the campaign
+        :param datetime finished: The timestamp when the update campaign finished
+        :param str object: The API resource entity
+        :param str root_manifest_id:
+        :param str state: The state of the campaign
+        :param datetime when: The timestamp at which update campaign scheduled to start
+        :return: UpdateCampaign
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.update_campaign_create_with_http_info(body, **kwargs)
+            return self.update_campaign_create_with_http_info(device_filter, name, **kwargs)
         else:
-            (data) = self.update_campaign_create_with_http_info(body, **kwargs)
+            (data) = self.update_campaign_create_with_http_info(device_filter, name, **kwargs)
             return data
 
-    def update_campaign_create_with_http_info(self, body, **kwargs):
+    def update_campaign_create_with_http_info(self, device_filter, name, **kwargs):
         """
         <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Create update campaign</p>
         This method makes a synchronous HTTP request by default. To make an
@@ -163,17 +82,25 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.update_campaign_create_with_http_info(body, callback=callback_function)
+        >>> thread = api.update_campaign_create_with_http_info(device_filter, name, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param WriteUpdateCampaignSerializer body: Update campaign object to create (required)
-        :return: UpdateCampaignSerializer
+        :param str device_filter: The filter for the devices the campaign will target (required)
+        :param str name: A name for this campaign (required)
+        :param str campaign_id: DEPRECATED: The ID of the campaign
+        :param str description: An optional description of the campaign
+        :param datetime finished: The timestamp when the update campaign finished
+        :param str object: The API resource entity
+        :param str root_manifest_id:
+        :param str state: The state of the campaign
+        :param datetime when: The timestamp at which update campaign scheduled to start
+        :return: UpdateCampaign
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['body']
+        all_params = ['device_filter', 'name', 'campaign_id', 'description', 'finished', 'object', 'root_manifest_id', 'state', 'when']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -188,335 +115,17 @@ class DefaultApi(object):
                 )
             params[key] = val
         del params['kwargs']
-        # verify the required parameter 'body' is set
-        if ('body' not in params) or (params['body'] is None):
-            raise ValueError("Missing the required parameter `body` when calling `update_campaign_create`")
+        # verify the required parameter 'device_filter' is set
+        if ('device_filter' not in params) or (params['device_filter'] is None):
+            raise ValueError("Missing the required parameter `device_filter` when calling `update_campaign_create`")
+        # verify the required parameter 'name' is set
+        if ('name' not in params) or (params['name'] is None):
+            raise ValueError("Missing the required parameter `name` when calling `update_campaign_create`")
 
 
         collection_formats = {}
 
         resource_path = '/v3/update-campaigns/'.replace('{format}', 'json')
-        path_params = {}
-
-        query_params = {}
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'body' in params:
-            body_params = params['body']
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.\
-            select_header_content_type(['application/json'])
-
-        # Authentication setting
-        auth_settings = ['Bearer']
-
-        return self.api_client.call_api(resource_path, 'POST',
-                                        path_params,
-                                        query_params,
-                                        header_params,
-                                        body=body_params,
-                                        post_params=form_params,
-                                        files=local_var_files,
-                                        response_type='UpdateCampaignSerializer',
-                                        auth_settings=auth_settings,
-                                        callback=params.get('callback'),
-                                        _return_http_data_only=params.get('_return_http_data_only'),
-                                        _preload_content=params.get('_preload_content', True),
-                                        _request_timeout=params.get('_request_timeout'),
-                                        collection_formats=collection_formats)
-
-    def update_campaign_destroy(self, campaign_id, **kwargs):
-        """
-        <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Delete update campaign</p>
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.update_campaign_destroy(campaign_id, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str campaign_id: The ID of the update campaign (required)
-        :return: UpdateCampaignSerializer
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
-            return self.update_campaign_destroy_with_http_info(campaign_id, **kwargs)
-        else:
-            (data) = self.update_campaign_destroy_with_http_info(campaign_id, **kwargs)
-            return data
-
-    def update_campaign_destroy_with_http_info(self, campaign_id, **kwargs):
-        """
-        <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Delete update campaign</p>
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.update_campaign_destroy_with_http_info(campaign_id, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str campaign_id: The ID of the update campaign (required)
-        :return: UpdateCampaignSerializer
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['campaign_id']
-        all_params.append('callback')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method update_campaign_destroy" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'campaign_id' is set
-        if ('campaign_id' not in params) or (params['campaign_id'] is None):
-            raise ValueError("Missing the required parameter `campaign_id` when calling `update_campaign_destroy`")
-
-
-        collection_formats = {}
-
-        resource_path = '/v3/update-campaigns/{campaign_id}/'.replace('{format}', 'json')
-        path_params = {}
-        if 'campaign_id' in params:
-            path_params['campaign_id'] = params['campaign_id']
-
-        query_params = {}
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # Authentication setting
-        auth_settings = ['Bearer']
-
-        return self.api_client.call_api(resource_path, 'DELETE',
-                                        path_params,
-                                        query_params,
-                                        header_params,
-                                        body=body_params,
-                                        post_params=form_params,
-                                        files=local_var_files,
-                                        response_type='UpdateCampaignSerializer',
-                                        auth_settings=auth_settings,
-                                        callback=params.get('callback'),
-                                        _return_http_data_only=params.get('_return_http_data_only'),
-                                        _preload_content=params.get('_preload_content', True),
-                                        _request_timeout=params.get('_request_timeout'),
-                                        collection_formats=collection_formats)
-
-    def update_campaign_list(self, **kwargs):
-        """
-        <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>List all update campaigns</p>
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.update_campaign_list(callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param int limit:
-        :param str order:
-        :param str after:
-        :param str filter:
-        :param str include:
-        :return: UpdateCampaignPage
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
-            return self.update_campaign_list_with_http_info(**kwargs)
-        else:
-            (data) = self.update_campaign_list_with_http_info(**kwargs)
-            return data
-
-    def update_campaign_list_with_http_info(self, **kwargs):
-        """
-        <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>List all update campaigns</p>
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.update_campaign_list_with_http_info(callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param int limit:
-        :param str order:
-        :param str after:
-        :param str filter:
-        :param str include:
-        :return: UpdateCampaignPage
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['limit', 'order', 'after', 'filter', 'include']
-        all_params.append('callback')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method update_campaign_list" % key
-                )
-            params[key] = val
-        del params['kwargs']
-
-
-        collection_formats = {}
-
-        resource_path = '/v3/update-campaigns/'.replace('{format}', 'json')
-        path_params = {}
-
-        query_params = {}
-        if 'limit' in params:
-            query_params['limit'] = params['limit']
-        if 'order' in params:
-            query_params['order'] = params['order']
-        if 'after' in params:
-            query_params['after'] = params['after']
-        if 'filter' in params:
-            query_params['filter'] = params['filter']
-        if 'include' in params:
-            query_params['include'] = params['include']
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # Authentication setting
-        auth_settings = ['Bearer']
-
-        return self.api_client.call_api(resource_path, 'GET',
-                                        path_params,
-                                        query_params,
-                                        header_params,
-                                        body=body_params,
-                                        post_params=form_params,
-                                        files=local_var_files,
-                                        response_type='UpdateCampaignPage',
-                                        auth_settings=auth_settings,
-                                        callback=params.get('callback'),
-                                        _return_http_data_only=params.get('_return_http_data_only'),
-                                        _preload_content=params.get('_preload_content', True),
-                                        _request_timeout=params.get('_request_timeout'),
-                                        collection_formats=collection_formats)
-
-    def update_campaign_partial_update(self, **kwargs):
-        """
-        <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Update campaign fields</p>
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.update_campaign_partial_update(callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str campaign_id: DEPRECATED: The ID of the campaign
-        :param str description: An optional description of the campaign
-        :param str device_filter: The filter for the devices the campaign will target
-        :param datetime finished: The timestamp when the update campaign finished
-        :param str name: A name for this campaign
-        :param str object: The API resource entity
-        :param str root_manifest_id:
-        :param str state: The state of the campaign
-        :param datetime when: The timestamp at which update campaign scheduled to start
-        :return: UpdateCampaignSerializer
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
-            return self.update_campaign_partial_update_with_http_info(**kwargs)
-        else:
-            (data) = self.update_campaign_partial_update_with_http_info(**kwargs)
-            return data
-
-    def update_campaign_partial_update_with_http_info(self, **kwargs):
-        """
-        <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Update campaign fields</p>
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.update_campaign_partial_update_with_http_info(callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str campaign_id: DEPRECATED: The ID of the campaign
-        :param str description: An optional description of the campaign
-        :param str device_filter: The filter for the devices the campaign will target
-        :param datetime finished: The timestamp when the update campaign finished
-        :param str name: A name for this campaign
-        :param str object: The API resource entity
-        :param str root_manifest_id:
-        :param str state: The state of the campaign
-        :param datetime when: The timestamp at which update campaign scheduled to start
-        :return: UpdateCampaignSerializer
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['campaign_id', 'description', 'device_filter', 'finished', 'name', 'object', 'root_manifest_id', 'state', 'when']
-        all_params.append('callback')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method update_campaign_partial_update" % key
-                )
-            params[key] = val
-        del params['kwargs']
-
-
-        collection_formats = {}
-
-        resource_path = '/v3/update-campaigns/{campaign_id}/'.replace('{format}', 'json')
         path_params = {}
 
         query_params = {}
@@ -548,6 +157,442 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
+        return self.api_client.call_api(resource_path, 'POST',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='UpdateCampaign',
+                                        auth_settings=auth_settings,
+                                        callback=params.get('callback'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
+    def update_campaign_destroy(self, campaign_id, **kwargs):
+        """
+        <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Delete update campaign</p>
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.update_campaign_destroy(campaign_id, callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param str campaign_id: The ID of the update campaign (required)
+        :param str root_manifest_id:
+        :param str updating_request_id:
+        :param str finished:
+        :param str finished__gte:
+        :param str finished__lte:
+        :param str created_at:
+        :param str created_at__gte:
+        :param str created_at__lte:
+        :param str when:
+        :param str when__gte:
+        :param str when__lte:
+        :param str updating_ip_address:
+        :param str etag:
+        :param str etag__gte:
+        :param str etag__lte:
+        :param str object:
+        :param str state:
+        :param str name:
+        :param str updated_at:
+        :param str updated_at__gte:
+        :param str updated_at__lte:
+        :param str device_filter:
+        :param str campaigndevicemetadata:
+        :param str description:
+        :param str attempts:
+        :return: UpdateCampaign
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('callback'):
+            return self.update_campaign_destroy_with_http_info(campaign_id, **kwargs)
+        else:
+            (data) = self.update_campaign_destroy_with_http_info(campaign_id, **kwargs)
+            return data
+
+    def update_campaign_destroy_with_http_info(self, campaign_id, **kwargs):
+        """
+        <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Delete update campaign</p>
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.update_campaign_destroy_with_http_info(campaign_id, callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param str campaign_id: The ID of the update campaign (required)
+        :param str root_manifest_id:
+        :param str updating_request_id:
+        :param str finished:
+        :param str finished__gte:
+        :param str finished__lte:
+        :param str created_at:
+        :param str created_at__gte:
+        :param str created_at__lte:
+        :param str when:
+        :param str when__gte:
+        :param str when__lte:
+        :param str updating_ip_address:
+        :param str etag:
+        :param str etag__gte:
+        :param str etag__lte:
+        :param str object:
+        :param str state:
+        :param str name:
+        :param str updated_at:
+        :param str updated_at__gte:
+        :param str updated_at__lte:
+        :param str device_filter:
+        :param str campaigndevicemetadata:
+        :param str description:
+        :param str attempts:
+        :return: UpdateCampaign
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['campaign_id', 'root_manifest_id', 'updating_request_id', 'finished', 'finished__gte', 'finished__lte', 'created_at', 'created_at__gte', 'created_at__lte', 'when', 'when__gte', 'when__lte', 'updating_ip_address', 'etag', 'etag__gte', 'etag__lte', 'object', 'state', 'name', 'updated_at', 'updated_at__gte', 'updated_at__lte', 'device_filter', 'campaigndevicemetadata', 'description', 'attempts']
+        all_params.append('callback')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method update_campaign_destroy" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'campaign_id' is set
+        if ('campaign_id' not in params) or (params['campaign_id'] is None):
+            raise ValueError("Missing the required parameter `campaign_id` when calling `update_campaign_destroy`")
+
+
+        collection_formats = {}
+
+        resource_path = '/v3/update-campaigns/{campaign_id}/'.replace('{format}', 'json')
+        path_params = {}
+        if 'campaign_id' in params:
+            path_params['campaign_id'] = params['campaign_id']
+
+        query_params = {}
+        if 'root_manifest_id' in params:
+            query_params['root_manifest_id'] = params['root_manifest_id']
+        if 'updating_request_id' in params:
+            query_params['updating_request_id'] = params['updating_request_id']
+        if 'finished' in params:
+            query_params['finished'] = params['finished']
+        if 'finished__gte' in params:
+            query_params['finished__gte'] = params['finished__gte']
+        if 'finished__lte' in params:
+            query_params['finished__lte'] = params['finished__lte']
+        if 'created_at' in params:
+            query_params['created_at'] = params['created_at']
+        if 'created_at__gte' in params:
+            query_params['created_at__gte'] = params['created_at__gte']
+        if 'created_at__lte' in params:
+            query_params['created_at__lte'] = params['created_at__lte']
+        if 'when' in params:
+            query_params['when'] = params['when']
+        if 'when__gte' in params:
+            query_params['when__gte'] = params['when__gte']
+        if 'when__lte' in params:
+            query_params['when__lte'] = params['when__lte']
+        if 'updating_ip_address' in params:
+            query_params['updating_ip_address'] = params['updating_ip_address']
+        if 'etag' in params:
+            query_params['etag'] = params['etag']
+        if 'etag__gte' in params:
+            query_params['etag__gte'] = params['etag__gte']
+        if 'etag__lte' in params:
+            query_params['etag__lte'] = params['etag__lte']
+        if 'object' in params:
+            query_params['object'] = params['object']
+        if 'state' in params:
+            query_params['state'] = params['state']
+        if 'name' in params:
+            query_params['name'] = params['name']
+        if 'updated_at' in params:
+            query_params['updated_at'] = params['updated_at']
+        if 'updated_at__gte' in params:
+            query_params['updated_at__gte'] = params['updated_at__gte']
+        if 'updated_at__lte' in params:
+            query_params['updated_at__lte'] = params['updated_at__lte']
+        if 'device_filter' in params:
+            query_params['device_filter'] = params['device_filter']
+        if 'campaigndevicemetadata' in params:
+            query_params['campaigndevicemetadata'] = params['campaigndevicemetadata']
+        if 'description' in params:
+            query_params['description'] = params['description']
+        if 'attempts' in params:
+            query_params['attempts'] = params['attempts']
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api(resource_path, 'DELETE',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='UpdateCampaign',
+                                        auth_settings=auth_settings,
+                                        callback=params.get('callback'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
+    def update_campaign_list(self, **kwargs):
+        """
+        <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>List all update campaigns.</p> <h4 id=\"filtering\">Filtering:</h4> <p><code>?filter={URL encoded query string}</code></p> <p>The query string is made up of key/value pairs separated by ampersands. So for a query of <code>key1=value1&amp;key2=value2&amp;key3=value3</code> this would be encoded as follows:</p> <p><code>?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3</code></p> <p>The examples below show the queries in <em>unencoded</em> form.</p> <h5 id=\"by-campaign-properties-all-properties-are-filterable\">By campaign properties (all properties are filterable):</h5> <p>For example: <code>state=[draft|scheduled|devicefectch|devicecopy|devicecopycomplete|publishing|deploying|deployed|manifestremoved|expired]</code></p> <p><code>root_manifest_id=43217771234242e594ddb433816c498a</code></p> <h5 id=\"on-date-time-fields\">On date-time fields:</h5> <p>Date-time fields should be specified in UTC RFC3339 format <code>YYYY-MM-DDThh:mm:ss.msZ</code>. There are three permitted variations:</p> <ul> <li>UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z</li> <li>UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z</li> <li>UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z</li> </ul> <p>Date-time filtering supports three operators:</p> <ul> <li>equality</li> <li>greater than or equal to &ndash; field name suffixed with <code>__gte</code></li> <li>less than or equal to &ndash; field name suffixed with <code>__lte</code></li> </ul> <p>Lower and upper limits to a date-time range may be specified by including both the <code>__gte</code> and <code>__lte</code> forms in the filter.</p> <p><code>{field name}[|__lte|__gte]={UTC RFC3339 date-time}</code></p> <h4 id=\"multi-field-example\">Multi-field example</h4> <p><code>state=deployed&amp;created_at__gte=2016-11-30T16:25:12.1234Z&amp;created_at__lte=2016-12-30T00:00:00Z</code></p> <p>Encoded: <code>?filter=state%3Ddeployed%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z</code></p>
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.update_campaign_list(callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param int limit: how many objects to retrieve in the page
+        :param str order: ASC or DESC
+        :param str after: the ID of the the item after which to retrieve the next page
+        :param str filter: URL encoded query string parameter to filter returned data
+        :return: UpdateCampaignPage
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('callback'):
+            return self.update_campaign_list_with_http_info(**kwargs)
+        else:
+            (data) = self.update_campaign_list_with_http_info(**kwargs)
+            return data
+
+    def update_campaign_list_with_http_info(self, **kwargs):
+        """
+        <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>List all update campaigns.</p> <h4 id=\"filtering\">Filtering:</h4> <p><code>?filter={URL encoded query string}</code></p> <p>The query string is made up of key/value pairs separated by ampersands. So for a query of <code>key1=value1&amp;key2=value2&amp;key3=value3</code> this would be encoded as follows:</p> <p><code>?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3</code></p> <p>The examples below show the queries in <em>unencoded</em> form.</p> <h5 id=\"by-campaign-properties-all-properties-are-filterable\">By campaign properties (all properties are filterable):</h5> <p>For example: <code>state=[draft|scheduled|devicefectch|devicecopy|devicecopycomplete|publishing|deploying|deployed|manifestremoved|expired]</code></p> <p><code>root_manifest_id=43217771234242e594ddb433816c498a</code></p> <h5 id=\"on-date-time-fields\">On date-time fields:</h5> <p>Date-time fields should be specified in UTC RFC3339 format <code>YYYY-MM-DDThh:mm:ss.msZ</code>. There are three permitted variations:</p> <ul> <li>UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z</li> <li>UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z</li> <li>UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z</li> </ul> <p>Date-time filtering supports three operators:</p> <ul> <li>equality</li> <li>greater than or equal to &ndash; field name suffixed with <code>__gte</code></li> <li>less than or equal to &ndash; field name suffixed with <code>__lte</code></li> </ul> <p>Lower and upper limits to a date-time range may be specified by including both the <code>__gte</code> and <code>__lte</code> forms in the filter.</p> <p><code>{field name}[|__lte|__gte]={UTC RFC3339 date-time}</code></p> <h4 id=\"multi-field-example\">Multi-field example</h4> <p><code>state=deployed&amp;created_at__gte=2016-11-30T16:25:12.1234Z&amp;created_at__lte=2016-12-30T00:00:00Z</code></p> <p>Encoded: <code>?filter=state%3Ddeployed%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z</code></p>
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.update_campaign_list_with_http_info(callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param int limit: how many objects to retrieve in the page
+        :param str order: ASC or DESC
+        :param str after: the ID of the the item after which to retrieve the next page
+        :param str filter: URL encoded query string parameter to filter returned data
+        :return: UpdateCampaignPage
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['limit', 'order', 'after', 'filter']
+        all_params.append('callback')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method update_campaign_list" % key
+                )
+            params[key] = val
+        del params['kwargs']
+
+
+        collection_formats = {}
+
+        resource_path = '/v3/update-campaigns/'.replace('{format}', 'json')
+        path_params = {}
+
+        query_params = {}
+        if 'limit' in params:
+            query_params['limit'] = params['limit']
+        if 'order' in params:
+            query_params['order'] = params['order']
+        if 'after' in params:
+            query_params['after'] = params['after']
+        if 'filter' in params:
+            query_params['filter'] = params['filter']
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api(resource_path, 'GET',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='UpdateCampaignPage',
+                                        auth_settings=auth_settings,
+                                        callback=params.get('callback'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
+    def update_campaign_partial_update(self, campaign_id, **kwargs):
+        """
+        <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Update campaign fields</p>
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.update_campaign_partial_update(campaign_id, callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param str campaign_id: (required)
+        :param str campaign_id2: DEPRECATED: The ID of the campaign
+        :param str description: An optional description of the campaign
+        :param str device_filter: The filter for the devices the campaign will target
+        :param datetime finished: The timestamp when the update campaign finished
+        :param str name: A name for this campaign
+        :param str object: The API resource entity
+        :param str root_manifest_id:
+        :param str state: The state of the campaign
+        :param datetime when: The timestamp at which update campaign scheduled to start
+        :return: UpdateCampaign
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('callback'):
+            return self.update_campaign_partial_update_with_http_info(campaign_id, **kwargs)
+        else:
+            (data) = self.update_campaign_partial_update_with_http_info(campaign_id, **kwargs)
+            return data
+
+    def update_campaign_partial_update_with_http_info(self, campaign_id, **kwargs):
+        """
+        <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Update campaign fields</p>
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.update_campaign_partial_update_with_http_info(campaign_id, callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param str campaign_id: (required)
+        :param str campaign_id2: DEPRECATED: The ID of the campaign
+        :param str description: An optional description of the campaign
+        :param str device_filter: The filter for the devices the campaign will target
+        :param datetime finished: The timestamp when the update campaign finished
+        :param str name: A name for this campaign
+        :param str object: The API resource entity
+        :param str root_manifest_id:
+        :param str state: The state of the campaign
+        :param datetime when: The timestamp at which update campaign scheduled to start
+        :return: UpdateCampaign
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['campaign_id', 'campaign_id2', 'description', 'device_filter', 'finished', 'name', 'object', 'root_manifest_id', 'state', 'when']
+        all_params.append('callback')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method update_campaign_partial_update" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'campaign_id' is set
+        if ('campaign_id' not in params) or (params['campaign_id'] is None):
+            raise ValueError("Missing the required parameter `campaign_id` when calling `update_campaign_partial_update`")
+
+
+        collection_formats = {}
+
+        resource_path = '/v3/update-campaigns/{campaign_id}/'.replace('{format}', 'json')
+        path_params = {}
+        if 'campaign_id' in params:
+            path_params['campaign_id'] = params['campaign_id']
+
+        query_params = {}
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+        if 'campaign_id2' in params:
+            form_params.append(('campaign_id', params['campaign_id2']))
+        if 'description' in params:
+            form_params.append(('description', params['description']))
+        if 'device_filter' in params:
+            form_params.append(('device_filter', params['device_filter']))
+        if 'finished' in params:
+            form_params.append(('finished', params['finished']))
+        if 'name' in params:
+            form_params.append(('name', params['name']))
+        if 'object' in params:
+            form_params.append(('object', params['object']))
+        if 'root_manifest_id' in params:
+            form_params.append(('root_manifest_id', params['root_manifest_id']))
+        if 'state' in params:
+            form_params.append(('state', params['state']))
+        if 'when' in params:
+            form_params.append(('when', params['when']))
+
+        body_params = None
+        # Authentication setting
+        auth_settings = ['Bearer']
+
         return self.api_client.call_api(resource_path, 'PATCH',
                                         path_params,
                                         query_params,
@@ -555,7 +600,7 @@ class DefaultApi(object):
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='UpdateCampaignSerializer',
+                                        response_type='UpdateCampaign',
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -577,7 +622,7 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str campaign_id: The ID of the campaign (required)
-        :return: UpdateCampaignSerializer
+        :return: UpdateCampaign
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -602,7 +647,7 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str campaign_id: The ID of the campaign (required)
-        :return: UpdateCampaignSerializer
+        :return: UpdateCampaign
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -652,7 +697,7 @@ class DefaultApi(object):
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='UpdateCampaignSerializer',
+                                        response_type='UpdateCampaign',
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -660,104 +705,7 @@ class DefaultApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
-    def update_campaign_status(self, campaign_id, **kwargs):
-        """
-        <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Show the status of an update campaign</p>
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.update_campaign_status(campaign_id, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str campaign_id: The ID of the update campaign (required)
-        :return: UpdateCampaignStatusSerializer
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
-            return self.update_campaign_status_with_http_info(campaign_id, **kwargs)
-        else:
-            (data) = self.update_campaign_status_with_http_info(campaign_id, **kwargs)
-            return data
-
-    def update_campaign_status_with_http_info(self, campaign_id, **kwargs):
-        """
-        <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Show the status of an update campaign</p>
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.update_campaign_status_with_http_info(campaign_id, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str campaign_id: The ID of the update campaign (required)
-        :return: UpdateCampaignStatusSerializer
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['campaign_id']
-        all_params.append('callback')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method update_campaign_status" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'campaign_id' is set
-        if ('campaign_id' not in params) or (params['campaign_id'] is None):
-            raise ValueError("Missing the required parameter `campaign_id` when calling `update_campaign_status`")
-
-
-        collection_formats = {}
-
-        resource_path = '/v3/update-campaigns/{campaign_id}/status/'.replace('{format}', 'json')
-        path_params = {}
-        if 'campaign_id' in params:
-            path_params['campaign_id'] = params['campaign_id']
-
-        query_params = {}
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # Authentication setting
-        auth_settings = ['Bearer']
-
-        return self.api_client.call_api(resource_path, 'GET',
-                                        path_params,
-                                        query_params,
-                                        header_params,
-                                        body=body_params,
-                                        post_params=form_params,
-                                        files=local_var_files,
-                                        response_type='UpdateCampaignStatusSerializer',
-                                        auth_settings=auth_settings,
-                                        callback=params.get('callback'),
-                                        _return_http_data_only=params.get('_return_http_data_only'),
-                                        _preload_content=params.get('_preload_content', True),
-                                        _request_timeout=params.get('_request_timeout'),
-                                        collection_formats=collection_formats)
-
-    def update_campaign_update(self, campaign_id, body, **kwargs):
+    def update_campaign_update(self, campaign_id, device_filter, name, **kwargs):
         """
         <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Update campaign</p>
         This method makes a synchronous HTTP request by default. To make an
@@ -766,24 +714,32 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.update_campaign_update(campaign_id, body, callback=callback_function)
+        >>> thread = api.update_campaign_update(campaign_id, device_filter, name, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str campaign_id: Campaign ID to update (required)
-        :param WriteUpdateCampaignSerializer body: Update campaign object to create (required)
-        :return: UpdateCampaignSerializer
+        :param str campaign_id: (required)
+        :param str device_filter: The filter for the devices the campaign will target (required)
+        :param str name: A name for this campaign (required)
+        :param str campaign_id2: DEPRECATED: The ID of the campaign
+        :param str description: An optional description of the campaign
+        :param datetime finished: The timestamp when the update campaign finished
+        :param str object: The API resource entity
+        :param str root_manifest_id:
+        :param str state: The state of the campaign
+        :param datetime when: The timestamp at which update campaign scheduled to start
+        :return: UpdateCampaign
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.update_campaign_update_with_http_info(campaign_id, body, **kwargs)
+            return self.update_campaign_update_with_http_info(campaign_id, device_filter, name, **kwargs)
         else:
-            (data) = self.update_campaign_update_with_http_info(campaign_id, body, **kwargs)
+            (data) = self.update_campaign_update_with_http_info(campaign_id, device_filter, name, **kwargs)
             return data
 
-    def update_campaign_update_with_http_info(self, campaign_id, body, **kwargs):
+    def update_campaign_update_with_http_info(self, campaign_id, device_filter, name, **kwargs):
         """
         <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Update campaign</p>
         This method makes a synchronous HTTP request by default. To make an
@@ -792,18 +748,26 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.update_campaign_update_with_http_info(campaign_id, body, callback=callback_function)
+        >>> thread = api.update_campaign_update_with_http_info(campaign_id, device_filter, name, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str campaign_id: Campaign ID to update (required)
-        :param WriteUpdateCampaignSerializer body: Update campaign object to create (required)
-        :return: UpdateCampaignSerializer
+        :param str campaign_id: (required)
+        :param str device_filter: The filter for the devices the campaign will target (required)
+        :param str name: A name for this campaign (required)
+        :param str campaign_id2: DEPRECATED: The ID of the campaign
+        :param str description: An optional description of the campaign
+        :param datetime finished: The timestamp when the update campaign finished
+        :param str object: The API resource entity
+        :param str root_manifest_id:
+        :param str state: The state of the campaign
+        :param datetime when: The timestamp at which update campaign scheduled to start
+        :return: UpdateCampaign
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['campaign_id', 'body']
+        all_params = ['campaign_id', 'device_filter', 'name', 'campaign_id2', 'description', 'finished', 'object', 'root_manifest_id', 'state', 'when']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -821,9 +785,12 @@ class DefaultApi(object):
         # verify the required parameter 'campaign_id' is set
         if ('campaign_id' not in params) or (params['campaign_id'] is None):
             raise ValueError("Missing the required parameter `campaign_id` when calling `update_campaign_update`")
-        # verify the required parameter 'body' is set
-        if ('body' not in params) or (params['body'] is None):
-            raise ValueError("Missing the required parameter `body` when calling `update_campaign_update`")
+        # verify the required parameter 'device_filter' is set
+        if ('device_filter' not in params) or (params['device_filter'] is None):
+            raise ValueError("Missing the required parameter `device_filter` when calling `update_campaign_update`")
+        # verify the required parameter 'name' is set
+        if ('name' not in params) or (params['name'] is None):
+            raise ValueError("Missing the required parameter `name` when calling `update_campaign_update`")
 
 
         collection_formats = {}
@@ -839,14 +806,26 @@ class DefaultApi(object):
 
         form_params = []
         local_var_files = {}
+        if 'campaign_id2' in params:
+            form_params.append(('campaign_id', params['campaign_id2']))
+        if 'description' in params:
+            form_params.append(('description', params['description']))
+        if 'device_filter' in params:
+            form_params.append(('device_filter', params['device_filter']))
+        if 'finished' in params:
+            form_params.append(('finished', params['finished']))
+        if 'name' in params:
+            form_params.append(('name', params['name']))
+        if 'object' in params:
+            form_params.append(('object', params['object']))
+        if 'root_manifest_id' in params:
+            form_params.append(('root_manifest_id', params['root_manifest_id']))
+        if 'state' in params:
+            form_params.append(('state', params['state']))
+        if 'when' in params:
+            form_params.append(('when', params['when']))
 
         body_params = None
-        if 'body' in params:
-            body_params = params['body']
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.\
-            select_header_content_type(['application/json'])
-
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -857,7 +836,7 @@ class DefaultApi(object):
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='UpdateCampaignSerializer',
+                                        response_type='UpdateCampaign',
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
