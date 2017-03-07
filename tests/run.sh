@@ -33,7 +33,7 @@ fi
 # Clone the test runner repo and install virtual environment
 git clone https://${GITHUB_TOKEN:-git}@github.com/ARMmbed/mbed-cloud-sdk-testrunner.git "$TMPDIR"
 virtualenv $TMPDIR/venv
-$TMPDIR/venv/bin/pip install -r $TMPDIR/requirements.txt
+$TMPDIR/venv/bin/pip install -r $ROOT_DIR/requirements.txt
 TRUNNER_DIR=$TMPDIR;
 
 # Start the Python SDK test backend server. Send to background.
