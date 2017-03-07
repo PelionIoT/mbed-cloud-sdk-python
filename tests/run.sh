@@ -31,7 +31,7 @@ if [ -z $API_KEY ]; then
 fi
 
 # Clone the test runner repo and install virtual environment
-git clone git@github.com:ARMmbed/mbed-cloud-sdk-testrunner.git "$TMPDIR"
+git clone https://${GITHUB_TOKEN:-git}@github.com:ARMmbed/mbed-cloud-sdk-testrunner.git "$TMPDIR"
 virtualenv $TMPDIR/venv
 $TMPDIR/venv/bin/pip install -r $TMPDIR/requirements.txt
 TRUNNER_DIR=$TMPDIR;
