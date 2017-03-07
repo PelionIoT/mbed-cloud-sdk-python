@@ -5,7 +5,6 @@ dependencies:
 test:
   override:
     - flake8 --config ./.flake8
-    - python -m unittest discover tests/
     - ./tests/run.sh
 
 deployment:
