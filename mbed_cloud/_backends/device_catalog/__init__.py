@@ -14,11 +14,12 @@
 from __future__ import absolute_import
 
 # import models into sdk package
-from .models.device_detail import DeviceDetail
-from .models.device_list_resp import DeviceListResp
-from .models.device_log_serializer import DeviceLogSerializer
-from .models.device_log_serializer_data import DeviceLogSerializerData
-from .models.device_update_detail import DeviceUpdateDetail
+from .models.device_data import DeviceData
+from .models.device_log_data import DeviceLogData
+from .models.device_log_page import DeviceLogPage
+from .models.device_page import DevicePage
+from .models.device_serializer import DeviceSerializer
+from .models.write_device_serializer import WriteDeviceSerializer
 
 # import apis into sdk package
 from .apis.default_api import DefaultApi

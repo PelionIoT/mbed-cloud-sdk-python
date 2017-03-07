@@ -1,13 +1,10 @@
-# UpdateCampaignPage
+# WriteUpdateCampaignPage
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **str** |  | 
-**has_more** | **bool** |  | 
-**total_count** | **int** |  | 
-**after** | **str** |  | 
 **limit** | **int** |  | 
+**after** | **str** |  | 
 **data** | [**list[UpdateCampaign]**](UpdateCampaign.md) |  | 
 **order** | **str** |  | 
 

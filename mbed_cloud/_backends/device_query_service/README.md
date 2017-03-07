@@ -87,9 +87,10 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [Body](docs/Body.md)
- - [DeviceQueryDetail](docs/DeviceQueryDetail.md)
- - [DeviceQueryResp](docs/DeviceQueryResp.md)
+ - [DeviceQuery](docs/DeviceQuery.md)
+ - [DeviceQueryPage](docs/DeviceQueryPage.md)
+ - [WriteDeviceQuery](docs/WriteDeviceQuery.md)
+ - [WriteDeviceQueryPage](docs/WriteDeviceQueryPage.md)
 
 
 ## Documentation For Authorization

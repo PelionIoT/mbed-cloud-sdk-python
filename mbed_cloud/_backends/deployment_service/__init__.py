@@ -14,12 +14,10 @@
 from __future__ import absolute_import
 
 # import models into sdk package
-from .models.campaign_device_metadata_serializer import CampaignDeviceMetadataSerializer
+from .models.update_campaign import UpdateCampaign
 from .models.update_campaign_page import UpdateCampaignPage
-from .models.update_campaign_serializer import UpdateCampaignSerializer
-from .models.update_campaign_status_serializer import UpdateCampaignStatusSerializer
-from .models.write_campaign_device_metadata_serializer import WriteCampaignDeviceMetadataSerializer
-from .models.write_update_campaign_serializer import WriteUpdateCampaignSerializer
+from .models.write_update_campaign import WriteUpdateCampaign
+from .models.write_update_campaign_page import WriteUpdateCampaignPage
 
 # import apis into sdk package
 from .apis.default_api import DefaultApi

@@ -57,12 +57,31 @@ firmware_catalog.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # firmware_catalog.configuration.api_key_prefix['Authorization'] = 'Bearer'
 # create an instance of the API class
 api_instance = firmware_catalog.DefaultApi()
+datafile = 'datafile_example' # str | The firmware image file to upload
+name = 'name_example' # str | The name of the object
+description = 'description_example' # str | The description of the object (optional)
+updated_at = 'updated_at_example' # str |  (optional)
+updated_at__gte = 'updated_at__gte_example' # str |  (optional)
+updated_at__lte = 'updated_at__lte_example' # str |  (optional)
+updating_ip_address = 'updating_ip_address_example' # str |  (optional)
+etag = 'etag_example' # str |  (optional)
+etag__gte = 'etag__gte_example' # str |  (optional)
+etag__lte = 'etag__lte_example' # str |  (optional)
+updating_request_id = 'updating_request_id_example' # str |  (optional)
+created_at = 'created_at_example' # str |  (optional)
+created_at__gte = 'created_at__gte_example' # str |  (optional)
+created_at__lte = 'created_at__lte_example' # str |  (optional)
+description2 = 'description_example' # str |  (optional)
+object = 'object_example' # str |  (optional)
+image_id = 'image_id_example' # str |  (optional)
+datafile_checksum = 'datafile_checksum_example' # str |  (optional)
+name2 = 'name_example' # str |  (optional)
 
 try:
-    api_response = api_instance.deploy_info_get()
+    api_response = api_instance.firmware_image_create(datafile, name, description=description, updated_at=updated_at, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, updating_ip_address=updating_ip_address, etag=etag, etag__gte=etag__gte, etag__lte=etag__lte, updating_request_id=updating_request_id, created_at=created_at, created_at__gte=created_at__gte, created_at__lte=created_at__lte, description2=description2, object=object, image_id=image_id, datafile_checksum=datafile_checksum, name2=name2)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->deploy_info_get: %s\n" % e)
+    print("Exception when calling DefaultApi->firmware_image_create: %s\n" % e)
 
 ```
 
@@ -72,7 +91,6 @@ All URIs are relative to *http://api.mbedcloud.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**deploy_info_get**](docs/DefaultApi.md#deploy_info_get) | **GET** /v3/fc_deploy_info | 
 *DefaultApi* | [**firmware_image_create**](docs/DefaultApi.md#firmware_image_create) | **POST** /v3/firmware-images/ | 
 *DefaultApi* | [**firmware_image_destroy**](docs/DefaultApi.md#firmware_image_destroy) | **DELETE** /v3/firmware-images/{image_id}/ | 
 *DefaultApi* | [**firmware_image_list**](docs/DefaultApi.md#firmware_image_list) | **GET** /v3/firmware-images/ | 
@@ -85,10 +103,14 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [FirmwareImageSerializer](docs/FirmwareImageSerializer.md)
- - [FirmwareImageSerializerData](docs/FirmwareImageSerializerData.md)
- - [FirmwareManifestSerializerData](docs/FirmwareManifestSerializerData.md)
- - [ManifestSerializer](docs/ManifestSerializer.md)
+ - [FirmwareImage](docs/FirmwareImage.md)
+ - [FirmwareImagePage](docs/FirmwareImagePage.md)
+ - [FirmwareManifest](docs/FirmwareManifest.md)
+ - [FirmwareManifestPage](docs/FirmwareManifestPage.md)
+ - [WriteFirmwareImage](docs/WriteFirmwareImage.md)
+ - [WriteFirmwareImagePage](docs/WriteFirmwareImagePage.md)
+ - [WriteFirmwareManifest](docs/WriteFirmwareManifest.md)
+ - [WriteFirmwareManifestPage](docs/WriteFirmwareManifestPage.md)
 
 
 ## Documentation For Authorization
