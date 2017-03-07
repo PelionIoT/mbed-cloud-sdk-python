@@ -215,7 +215,7 @@ class DeviceAPI(BaseAPI):
 
     @catch_exceptions(MdsApiException)
     def set_resource_value(self, endpoint_name, resource_path,
-                           resource_value, fix_path=True):
+                           resource_value=None, fix_path=True):
         """Set resource value for given resource path, on endpoint.
 
         Will block and wait for response to come through. Usage:
@@ -230,7 +230,8 @@ class DeviceAPI(BaseAPI):
 
         :param str endpoint_name: The name/id of the endpoint
         :param str resource_path: The resource path to update
-        :param str resource_value: The new value to set for given path
+        :param str resource_value: The new value to set for given path (if None
+            the resource function will be executed)
         :param fix_path: if True then the leading /, if found, will be stripped before
             doing request to backend. This is a requirement for the API to work properly
         :raises: AsyncError
@@ -242,16 +243,20 @@ class DeviceAPI(BaseAPI):
             resource_path = resource_path[1:]
 
         api = self.mds.ResourcesApi()
-        resp = api.v2_endpoints_endpoint_name_resource_path_put(endpoint_name,
-                                                                resource_path,
-                                                                resource_value)
 
+        if resource_value:
+            resp = api.v2_endpoints_endpoint_name_resource_path_put(endpoint_name,
+                                                                    resource_path,
+                                                                    resource_value)
+        else:
+            resp = api.v2_endpoints_endpoint_name_resource_path_post(endpoint_name,
+                                                                     resource_path)
         consumer = AsyncConsumer(resp.async_response_id, self._db)
         return self._get_value_synchronized(consumer)
 
     @catch_exceptions(MdsApiException)
     def set_resource_value_async(self, endpoint_name, resource_path,
-                                 resource_value, fix_path=True):
+                                 resource_value=None, fix_path=True):
         """Set resource value for given resource path, on endpoint.
 
         Will not block. Returns immediatly. Usage:
@@ -267,7 +272,8 @@ class DeviceAPI(BaseAPI):
 
         :param str endpoint_name: The name/id of the endpoint
         :param str resource_path: The resource path to update
-        :param str resource_value: The new value to set for given path
+        :param str resource_value: The new value to set for given path (if
+            None, the resource function will be executed)
         :param fix_path: if True then the leading /, if found, will be stripped before
             doing request to backend. This is a requirement for the API to work properly
         :returns: An async consumer object holding reference to request
@@ -278,9 +284,15 @@ class DeviceAPI(BaseAPI):
             resource_path = resource_path[1:]
 
         api = self.mds.ResourcesApi()
-        resp = api.v2_endpoints_endpoint_name_resource_path_put(endpoint_name,
-                                                                resource_path,
-                                                                resource_value)
+
+        if resource_value:
+            resp = api.v2_endpoints_endpoint_name_resource_path_put(endpoint_name,
+                                                                    resource_path,
+                                                                    resource_value)
+        else:
+            resp = api.v2_endpoints_endpoint_name_resource_path_post(endpoint_name,
+                                                                     resource_path)
+
         return AsyncConsumer(resp.async_response_id, self._db)
 
     @catch_exceptions(MdsApiException)
@@ -359,8 +371,6 @@ class DeviceAPI(BaseAPI):
                 resource_paths.extend(self._queues[e].keys())
 
         # Delete the subscriptions
-        self._queues.clear()
-
         api = self.mds.SubscriptionsApi()
         for e in endpoints:
             for r in resource_paths:
