@@ -19,6 +19,7 @@ Run by:
     * Serving Flask app "server"
     * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
 """
+from __future__ import absolute_import
 from flask import Flask
 from flask import jsonify
 from flask import request
@@ -197,3 +198,6 @@ def main(module, method, methods=["GET"]):
         )
 
         raise ApiCallException(str(error_msg), status_code=500)
+
+if __name__ == "__main__":
+    app.run(port=5000)

@@ -34,11 +34,12 @@ fi
 git clone https://${GITHUB_TOKEN:-git}@github.com/ARMmbed/mbed-cloud-sdk-testrunner.git "$TMPDIR"
 virtualenv $TMPDIR/venv
 $TMPDIR/venv/bin/pip install -r $ROOT_DIR/requirements.txt
+$TMPDIR/venv/bin/pip install -r $TMPDIR/requirements.txt
 TRUNNER_DIR=$TMPDIR;
+export PYTHONPATH="$TRUNNER_DIR:$ROOT_DIR:$PYTHONPATH"
 
 # Start the Python SDK test backend server. Send to background.
-export FLASK_APP=$DIR/server.py
-CMD="$TRUNNER_DIR/venv/bin/flask run"
+CMD="$TRUNNER_DIR/venv/bin/python $DIR/server.py"
 eval "$CMD &"
 echo "Backend server started. PID: $!"
 BACKEND_PID=$!
@@ -52,7 +53,6 @@ if ! is_running $BACKEND_PID; then
 fi
 
 # Start the test runner
-export PYTHONPATH="$TRUNNER_DIR:$PYTHONPATH"
 $TRUNNER_DIR/venv/bin/python $TRUNNER_DIR/bin/trunner -s $BACKEND_URL -k $API_KEY
 RET_CODE=$?
 
