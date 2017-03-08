@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 
 # **device_create**
-> object device_create()
+> DeviceData device_create()
 
 
 
@@ -49,7 +49,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**object**
+[**DeviceData**](DeviceData.md)
 
 ### Authorization
 
