@@ -5,8 +5,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **username** | **str** | A username for the new account admin containing alphanumerical letters and -,._@+&#x3D; characters. | 
 **code** | **str** | Verification code. | 
-**is_gtc_accepted** | **bool** | A flag indicating that the General Terms and Conditions has been accepted. | [optional] [default to False]
-**is_marketing_accepted** | **bool** | A flag indicating that receiving marketing information has been accepted. | [optional] [default to False]
+**is_gtc_accepted** | **bool** | A flag indicating that the General Terms and Conditions has been accepted. | [optional] 
+**is_marketing_accepted** | **bool** | A flag indicating that receiving marketing information has been accepted. | [optional] 
 **password** | **str** | The password for the new account admin. | 
 **aliases** | **list[str]** | An array of aliases. | [optional] 
 

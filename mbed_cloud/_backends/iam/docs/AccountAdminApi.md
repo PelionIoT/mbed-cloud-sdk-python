@@ -13,7 +13,6 @@ Method | HTTP request | Description
 [**get_certificate**](AccountAdminApi.md#get_certificate) | **GET** /v3/trusted-certificates/{cert-id} | Get trusted certificate by ID.
 [**get_user**](AccountAdminApi.md#get_user) | **GET** /v3/users/{user-id} | Details of a user.
 [**update_certificate**](AccountAdminApi.md#update_certificate) | **PUT** /v3/trusted-certificates/{cert-id} | Update trusted certificate.
-[**update_my_account**](AccountAdminApi.md#update_my_account) | **PUT** /v3/accounts/me | Updates attributes of the account.
 [**update_user**](AccountAdminApi.md#update_user) | **PUT** /v3/users/{user-id} | Update user details.
 
 
@@ -178,7 +177,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_user**
-> delete_user(user_id, force=force)
+> delete_user(user_id)
 
 Delete a user.
 
@@ -200,11 +199,10 @@ iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = iam.AccountAdminApi()
 user_id = 'user_id_example' # str | The ID of the user to be deleted.
-force = 'force_example' # str | A flag indicating that the user is forced to be deleted. (optional)
 
 try: 
     # Delete a user.
-    api_instance.delete_user(user_id, force=force)
+    api_instance.delete_user(user_id)
 except ApiException as e:
     print("Exception when calling AccountAdminApi->delete_user: %s\n" % e)
 ```
@@ -214,7 +212,6 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **user_id** | **str**| The ID of the user to be deleted. | 
- **force** | **str**| A flag indicating that the user is forced to be deleted. | [optional] 
 
 ### Return type
 
@@ -506,59 +503,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**TrustedCertificateResp**](TrustedCertificateResp.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **update_my_account**
-> AccountInfo update_my_account(body)
-
-Updates attributes of the account.
-
-An endpoint for updating the account.
-
-### Example 
-```python
-from __future__ import print_statement
-import time
-import iam
-from iam.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: Bearer
-iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# iam.configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = iam.AccountAdminApi()
-body = iam.AccountUpdateReq() # AccountUpdateReq | Details of the account to be updated.
-
-try: 
-    # Updates attributes of the account.
-    api_response = api_instance.update_my_account(body)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling AccountAdminApi->update_my_account: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **body** | [**AccountUpdateReq**](AccountUpdateReq.md)| Details of the account to be updated. | 
-
-### Return type
-
-[**AccountInfo**](AccountInfo.md)
 
 ### Authorization
 

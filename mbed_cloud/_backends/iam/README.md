@@ -83,7 +83,6 @@ Class | Method | HTTP request | Description
 *AccountAdminApi* | [**get_certificate**](docs/AccountAdminApi.md#get_certificate) | **GET** /v3/trusted-certificates/{cert-id} | Get trusted certificate by ID.
 *AccountAdminApi* | [**get_user**](docs/AccountAdminApi.md#get_user) | **GET** /v3/users/{user-id} | Details of a user.
 *AccountAdminApi* | [**update_certificate**](docs/AccountAdminApi.md#update_certificate) | **PUT** /v3/trusted-certificates/{cert-id} | Update trusted certificate.
-*AccountAdminApi* | [**update_my_account**](docs/AccountAdminApi.md#update_my_account) | **PUT** /v3/accounts/me | Updates attributes of the account.
 *AccountAdminApi* | [**update_user**](docs/AccountAdminApi.md#update_user) | **PUT** /v3/users/{user-id} | Update user details.
 *DefaultApi* | [**activate_user**](docs/DefaultApi.md#activate_user) | **PUT** /auth/invitations/{invitation-id} | Accept invitation.
 *DefaultApi* | [**apply_password_recovery**](docs/DefaultApi.md#apply_password_recovery) | **PUT** /auth/recover | Apply password recovery.
@@ -93,15 +92,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**request_password_recovery**](docs/DefaultApi.md#request_password_recovery) | **POST** /auth/recover | Request password recovery.
 *DefaultApi* | [**signup**](docs/DefaultApi.md#signup) | **POST** /auth/register | Sign up for a new account.
 *DefaultApi* | [**verify_self_enrollment**](docs/DefaultApi.md#verify_self_enrollment) | **POST** /auth/register/{signup-id} | Verify self-enrollment code and aliases.
-*DeveloperApi* | [**create_api_key**](docs/DeveloperApi.md#create_api_key) | **POST** /v3/api-keys | Create a new API key.
-*DeveloperApi* | [**delete_api_key**](docs/DeveloperApi.md#delete_api_key) | **DELETE** /v3/api-keys/{apiKey} | Delete API key.
-*DeveloperApi* | [**get_all_api_keys**](docs/DeveloperApi.md#get_all_api_keys) | **GET** /v3/api-keys | Get all API keys
-*DeveloperApi* | [**get_api_key**](docs/DeveloperApi.md#get_api_key) | **GET** /v3/api-keys/{apiKey} | Get API key details.
-*DeveloperApi* | [**get_my_account_info**](docs/DeveloperApi.md#get_my_account_info) | **GET** /v3/accounts/me | Get account info.
-*DeveloperApi* | [**get_my_api_key**](docs/DeveloperApi.md#get_my_api_key) | **GET** /v3/api-keys/me | Get API key details.
 *DeveloperApi* | [**get_my_user**](docs/DeveloperApi.md#get_my_user) | **GET** /v3/users/me | Details of the current user.
-*DeveloperApi* | [**update_api_key**](docs/DeveloperApi.md#update_api_key) | **PUT** /v3/api-keys/{apiKey} | Update API key details.
-*DeveloperApi* | [**update_my_api_key**](docs/DeveloperApi.md#update_my_api_key) | **PUT** /v3/api-keys/me | Update API key details.
 *DeveloperApi* | [**update_my_user**](docs/DeveloperApi.md#update_my_user) | **PUT** /v3/users/me | Update user details.
 
 
@@ -109,20 +100,13 @@ Class | Method | HTTP request | Description
 
  - [AccountEnrollmentReq](docs/AccountEnrollmentReq.md)
  - [AccountEnrollmentResp](docs/AccountEnrollmentResp.md)
- - [AccountInfo](docs/AccountInfo.md)
  - [AccountSignupReq](docs/AccountSignupReq.md)
  - [AccountSignupResp](docs/AccountSignupResp.md)
  - [AccountSignupVerify](docs/AccountSignupVerify.md)
- - [AccountUpdateReq](docs/AccountUpdateReq.md)
- - [ApiKeyInfoReq](docs/ApiKeyInfoReq.md)
- - [ApiKeyInfoResp](docs/ApiKeyInfoResp.md)
- - [ApiKeyInfoRespList](docs/ApiKeyInfoRespList.md)
- - [ApiKeyUpdateReq](docs/ApiKeyUpdateReq.md)
  - [ErrorResponse](docs/ErrorResponse.md)
  - [Field](docs/Field.md)
  - [PasswordRecoveryReq](docs/PasswordRecoveryReq.md)
  - [PasswordResetReq](docs/PasswordResetReq.md)
- - [Policy](docs/Policy.md)
  - [TrustedCertificateReq](docs/TrustedCertificateReq.md)
  - [TrustedCertificateResp](docs/TrustedCertificateResp.md)
  - [TrustedCertificateRespList](docs/TrustedCertificateRespList.md)

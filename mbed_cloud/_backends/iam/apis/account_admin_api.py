@@ -376,7 +376,6 @@ class AccountAdminApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str user_id: The ID of the user to be deleted. (required)
-        :param str force: A flag indicating that the user is forced to be deleted.
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -403,13 +402,12 @@ class AccountAdminApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str user_id: The ID of the user to be deleted. (required)
-        :param str force: A flag indicating that the user is forced to be deleted.
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['user_id', 'force']
+        all_params = ['user_id']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -437,8 +435,6 @@ class AccountAdminApi(object):
             path_params['user-id'] = params['user_id']
 
         query_params = {}
-        if 'force' in params:
-            query_params['force'] = params['force']
 
         header_params = {}
 
@@ -1021,113 +1017,6 @@ class AccountAdminApi(object):
                                         post_params=form_params,
                                         files=local_var_files,
                                         response_type='TrustedCertificateResp',
-                                        auth_settings=auth_settings,
-                                        callback=params.get('callback'),
-                                        _return_http_data_only=params.get('_return_http_data_only'),
-                                        _preload_content=params.get('_preload_content', True),
-                                        _request_timeout=params.get('_request_timeout'),
-                                        collection_formats=collection_formats)
-
-    def update_my_account(self, body, **kwargs):
-        """
-        Updates attributes of the account.
-        An endpoint for updating the account.
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.update_my_account(body, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param AccountUpdateReq body: Details of the account to be updated. (required)
-        :return: AccountInfo
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
-            return self.update_my_account_with_http_info(body, **kwargs)
-        else:
-            (data) = self.update_my_account_with_http_info(body, **kwargs)
-            return data
-
-    def update_my_account_with_http_info(self, body, **kwargs):
-        """
-        Updates attributes of the account.
-        An endpoint for updating the account.
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.update_my_account_with_http_info(body, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param AccountUpdateReq body: Details of the account to be updated. (required)
-        :return: AccountInfo
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['body']
-        all_params.append('callback')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method update_my_account" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'body' is set
-        if ('body' not in params) or (params['body'] is None):
-            raise ValueError("Missing the required parameter `body` when calling `update_my_account`")
-
-
-        collection_formats = {}
-
-        resource_path = '/v3/accounts/me'.replace('{format}', 'json')
-        path_params = {}
-
-        query_params = {}
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'body' in params:
-            body_params = params['body']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept(['application/json'])
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.\
-            select_header_content_type(['application/json'])
-
-        # Authentication setting
-        auth_settings = ['Bearer']
-
-        return self.api_client.call_api(resource_path, 'PUT',
-                                        path_params,
-                                        query_params,
-                                        header_params,
-                                        body=body_params,
-                                        post_params=form_params,
-                                        files=local_var_files,
-                                        response_type='AccountInfo',
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
