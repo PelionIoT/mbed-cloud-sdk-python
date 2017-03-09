@@ -26,10 +26,12 @@ from .account_signup_verify import AccountSignupVerify
 from .account_template_req import AccountTemplateReq
 from .account_template_resp import AccountTemplateResp
 from .account_template_resp_list import AccountTemplateRespList
+from .account_update_req import AccountUpdateReq
 from .account_update_root_req import AccountUpdateRootReq
 from .api_key_info_req import ApiKeyInfoReq
 from .api_key_info_resp import ApiKeyInfoResp
 from .api_key_info_resp_list import ApiKeyInfoRespList
+from .api_key_update_req import ApiKeyUpdateReq
 from .duration import Duration
 from .error_response import ErrorResponse
 from .feature_options_resp import FeatureOptionsResp

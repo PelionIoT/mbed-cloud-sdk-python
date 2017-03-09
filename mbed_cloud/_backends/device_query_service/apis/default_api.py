@@ -138,6 +138,10 @@ class DefaultApi(object):
             form_params.append(('query_id', params['query_id']))
 
         body_params = None
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/x-www-form-urlencoded'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -573,7 +577,7 @@ class DefaultApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
-    def device_query_update(self, query_id, name, query, **kwargs):
+    def device_query_update(self, query_id, body, **kwargs):
         """
         <p>The APIs for creating and manipulating device queries.  </p> <p>Update device query.</p>
         This method makes a synchronous HTTP request by default. To make an
@@ -582,28 +586,24 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.device_query_update(query_id, name, query, callback=callback_function)
+        >>> thread = api.device_query_update(query_id, body, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str query_id: (required)
-        :param str name: The name of the query (required)
-        :param str query: The device query (required)
-        :param str description: The description of the object
-        :param str object: The API resource entity
-        :param str query_id2: DEPRECATED: The ID of the query
+        :param Body body: Device query update object (required)
         :return: DeviceQuery
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.device_query_update_with_http_info(query_id, name, query, **kwargs)
+            return self.device_query_update_with_http_info(query_id, body, **kwargs)
         else:
-            (data) = self.device_query_update_with_http_info(query_id, name, query, **kwargs)
+            (data) = self.device_query_update_with_http_info(query_id, body, **kwargs)
             return data
 
-    def device_query_update_with_http_info(self, query_id, name, query, **kwargs):
+    def device_query_update_with_http_info(self, query_id, body, **kwargs):
         """
         <p>The APIs for creating and manipulating device queries.  </p> <p>Update device query.</p>
         This method makes a synchronous HTTP request by default. To make an
@@ -612,22 +612,18 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.device_query_update_with_http_info(query_id, name, query, callback=callback_function)
+        >>> thread = api.device_query_update_with_http_info(query_id, body, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str query_id: (required)
-        :param str name: The name of the query (required)
-        :param str query: The device query (required)
-        :param str description: The description of the object
-        :param str object: The API resource entity
-        :param str query_id2: DEPRECATED: The ID of the query
+        :param Body body: Device query update object (required)
         :return: DeviceQuery
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['query_id', 'name', 'query', 'description', 'object', 'query_id2']
+        all_params = ['query_id', 'body']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -645,12 +641,9 @@ class DefaultApi(object):
         # verify the required parameter 'query_id' is set
         if ('query_id' not in params) or (params['query_id'] is None):
             raise ValueError("Missing the required parameter `query_id` when calling `device_query_update`")
-        # verify the required parameter 'name' is set
-        if ('name' not in params) or (params['name'] is None):
-            raise ValueError("Missing the required parameter `name` when calling `device_query_update`")
-        # verify the required parameter 'query' is set
-        if ('query' not in params) or (params['query'] is None):
-            raise ValueError("Missing the required parameter `query` when calling `device_query_update`")
+        # verify the required parameter 'body' is set
+        if ('body' not in params) or (params['body'] is None):
+            raise ValueError("Missing the required parameter `body` when calling `device_query_update`")
 
 
         collection_formats = {}
@@ -666,18 +659,10 @@ class DefaultApi(object):
 
         form_params = []
         local_var_files = {}
-        if 'description' in params:
-            form_params.append(('description', params['description']))
-        if 'name' in params:
-            form_params.append(('name', params['name']))
-        if 'object' in params:
-            form_params.append(('object', params['object']))
-        if 'query' in params:
-            form_params.append(('query', params['query']))
-        if 'query_id2' in params:
-            form_params.append(('query_id', params['query_id2']))
 
         body_params = None
+        if 'body' in params:
+            body_params = params['body']
         # Authentication setting
         auth_settings = ['Bearer']
 

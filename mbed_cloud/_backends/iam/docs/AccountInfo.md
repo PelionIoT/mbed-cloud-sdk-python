@@ -20,6 +20,7 @@ Name | Type | Description | Notes
 **phone_number** | **str** | The phone number of the company. | [optional] 
 **company** | **str** | The name of the company. | [optional] 
 **object** | **str** | Entity name: always &#39;account&#39; | 
+**reason** | **str** | A reason note for updating the status of the account | [optional] 
 **upgraded_at** | **str** | Time when upgraded to commercial account in UTC format RFC3339. | [optional] 
 **tier** | **str** | The tier level of the account; &#39;0&#39;: free tier, &#39;1&#39;: commercial account. Other values are reserved for the future. | 
 **sub_accounts** | [**list[AccountInfo]**](AccountInfo.md) | List of sub accounts. | [optional] 

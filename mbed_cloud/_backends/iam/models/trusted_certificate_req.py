@@ -147,7 +147,7 @@ class TrustedCertificateReq(object):
         :param service: The service of this TrustedCertificateReq.
         :type: str
         """
-        allowed_values = ["lwm2m", "bootstrap", "provisioning"]
+        allowed_values = ["lwm2m", "bootstrap"]
         if service not in allowed_values:
             raise ValueError(
                 "Invalid value for `service` ({0}), must be one of {1}"

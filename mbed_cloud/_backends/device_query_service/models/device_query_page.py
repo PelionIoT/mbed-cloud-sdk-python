@@ -145,8 +145,6 @@ class DeviceQueryPage(object):
         :param after: The after of this DeviceQueryPage.
         :type: str
         """
-        if after is None:
-            raise ValueError("Invalid value for `after`, must not be `None`")
 
         self._after = after
 

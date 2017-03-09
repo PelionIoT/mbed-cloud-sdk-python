@@ -14,6 +14,7 @@
 from __future__ import absolute_import
 
 # import models into model package
+from .body import Body
 from .device_query import DeviceQuery
 from .device_query_page import DeviceQueryPage
 from .write_device_query import WriteDeviceQuery

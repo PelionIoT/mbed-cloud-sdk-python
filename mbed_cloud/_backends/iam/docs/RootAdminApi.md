@@ -13,6 +13,7 @@ Method | HTTP request | Description
 [**admin_delete_user**](RootAdminApi.md#admin_delete_user) | **DELETE** /admin/v3/users/{user-id} | Delete a user.
 [**admin_get_account_info**](RootAdminApi.md#admin_get_account_info) | **GET** /admin/v3/accounts/{accountID} | Get account info.
 [**admin_get_all_accounts**](RootAdminApi.md#admin_get_all_accounts) | **GET** /admin/v3/accounts | Get all accounts.
+[**admin_get_user**](RootAdminApi.md#admin_get_user) | **GET** /admin/v3/users/{user-id} | Details of a user.
 [**admin_update_account**](RootAdminApi.md#admin_update_account) | **PUT** /admin/v3/accounts/{accountID} | Update attributes of an existing account.
 [**change_account_user_password**](RootAdminApi.md#change_account_user_password) | **PUT** /v3/accounts/{accountID}/users/{user-id}/password | Change the password of a user.
 [**check_account_user_password**](RootAdminApi.md#check_account_user_password) | **POST** /v3/accounts/{accountID}/users/{user-id}/password | Check the password of a user.
@@ -551,6 +552,59 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**AccountInfoList**](AccountInfoList.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **admin_get_user**
+> UserInfoResp admin_get_user(user_id)
+
+Details of a user.
+
+An endpoint for retrieving the details of a user.
+
+### Example 
+```python
+from __future__ import print_statement
+import time
+import iam
+from iam.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# iam.configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = iam.RootAdminApi()
+user_id = 'user_id_example' # str | The ID or name of the user whose details are retrieved.
+
+try: 
+    # Details of a user.
+    api_response = api_instance.admin_get_user(user_id)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling RootAdminApi->admin_get_user: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **user_id** | **str**| The ID or name of the user whose details are retrieved. | 
+
+### Return type
+
+[**UserInfoResp**](UserInfoResp.md)
 
 ### Authorization
 

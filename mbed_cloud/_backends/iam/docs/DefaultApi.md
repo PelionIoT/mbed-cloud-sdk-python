@@ -15,12 +15,14 @@ Method | HTTP request | Description
 [**get_invited_user**](DefaultApi.md#get_invited_user) | **GET** /auth/invitations/{invitation-id} | Get invited user.
 [**get_self_enrolling_user**](DefaultApi.md#get_self_enrolling_user) | **GET** /auth/register/{signup-id} | Get registering user.
 [**head_all_accounts**](DefaultApi.md#head_all_accounts) | **HEAD** /v3/accounts | The heartbeat method for this API.
+[**head_all_api_keys**](DefaultApi.md#head_all_api_keys) | **HEAD** /v3/api-keys | The heartbeat method for this API.
 [**head_all_certificates**](DefaultApi.md#head_all_certificates) | **HEAD** /v3/trusted-certificates | The heartbeat method for this API.
-[**head_all_groups**](DefaultApi.md#head_all_groups) | **HEAD** /v3/policy-groups | The heartbeat method for this API.
 [**head_all_internal_certificates**](DefaultApi.md#head_all_internal_certificates) | **HEAD** /internal/v1/trusted-certificates | The heartbeat method for this API.
 [**head_all_users**](DefaultApi.md#head_all_users) | **HEAD** /v3/users | The heartbeat method for this API.
 [**head_internal_limits**](DefaultApi.md#head_internal_limits) | **HEAD** /internal/v1/limits | The heartbeat method for this API.
 [**head_invitations**](DefaultApi.md#head_invitations) | **HEAD** /auth/invitations | The heartbeat method for this API.
+[**head_my_account**](DefaultApi.md#head_my_account) | **HEAD** /v3/accounts/me | The heartbeat method for this API.
+[**head_my_api_key**](DefaultApi.md#head_my_api_key) | **HEAD** /v3/api-keys/me | The heartbeat method for this API.
 [**head_my_user**](DefaultApi.md#head_my_user) | **HEAD** /v3/users/me | The heartbeat method for this API.
 [**head_recovery**](DefaultApi.md#head_recovery) | **HEAD** /auth/recover | The heartbeat method for this API.
 [**head_register**](DefaultApi.md#head_register) | **HEAD** /auth/register | The heartbeat method for this API.
@@ -624,6 +626,54 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **head_all_api_keys**
+> head_all_api_keys()
+
+The heartbeat method for this API.
+
+
+
+### Example 
+```python
+from __future__ import print_statement
+import time
+import iam
+from iam.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# iam.configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = iam.DefaultApi()
+
+try: 
+    # The heartbeat method for this API.
+    api_instance.head_all_api_keys()
+except ApiException as e:
+    print("Exception when calling DefaultApi->head_all_api_keys: %s\n" % e)
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **head_all_certificates**
 > head_all_certificates()
 
@@ -652,54 +702,6 @@ try:
     api_instance.head_all_certificates()
 except ApiException as e:
     print("Exception when calling DefaultApi->head_all_certificates: %s\n" % e)
-```
-
-### Parameters
-This endpoint does not need any parameter.
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **head_all_groups**
-> head_all_groups()
-
-The heartbeat method for this API.
-
-
-
-### Example 
-```python
-from __future__ import print_statement
-import time
-import iam
-from iam.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: Bearer
-iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# iam.configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = iam.DefaultApi()
-
-try: 
-    # The heartbeat method for this API.
-    api_instance.head_all_groups()
-except ApiException as e:
-    print("Exception when calling DefaultApi->head_all_groups: %s\n" % e)
 ```
 
 ### Parameters
@@ -892,6 +894,102 @@ try:
     api_instance.head_invitations()
 except ApiException as e:
     print("Exception when calling DefaultApi->head_invitations: %s\n" % e)
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **head_my_account**
+> head_my_account()
+
+The heartbeat method for this API.
+
+
+
+### Example 
+```python
+from __future__ import print_statement
+import time
+import iam
+from iam.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# iam.configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = iam.DefaultApi()
+
+try: 
+    # The heartbeat method for this API.
+    api_instance.head_my_account()
+except ApiException as e:
+    print("Exception when calling DefaultApi->head_my_account: %s\n" % e)
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **head_my_api_key**
+> head_my_api_key()
+
+The heartbeat method for this API.
+
+
+
+### Example 
+```python
+from __future__ import print_statement
+import time
+import iam
+from iam.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# iam.configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = iam.DefaultApi()
+
+try: 
+    # The heartbeat method for this API.
+    api_instance.head_my_api_key()
+except ApiException as e:
+    print("Exception when calling DefaultApi->head_my_api_key: %s\n" % e)
 ```
 
 ### Parameters

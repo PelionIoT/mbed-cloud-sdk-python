@@ -67,7 +67,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/x-www-form-urlencoded
  - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -297,7 +297,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **device_query_update**
-> DeviceQuery device_query_update(query_id, name, query, description=description, object=object, query_id2=query_id2)
+> DeviceQuery device_query_update(query_id, body)
 
 
 
@@ -319,14 +319,10 @@ device_query_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = device_query_service.DefaultApi()
 query_id = 'query_id_example' # str | 
-name = 'name_example' # str | The name of the query
-query = 'query_example' # str | The device query
-description = 'description_example' # str | The description of the object (optional)
-object = 'object_example' # str | The API resource entity (optional)
-query_id2 = 'query_id_example' # str | DEPRECATED: The ID of the query (optional)
+body = device_query_service.Body() # Body | Device query update object
 
 try: 
-    api_response = api_instance.device_query_update(query_id, name, query, description=description, object=object, query_id2=query_id2)
+    api_response = api_instance.device_query_update(query_id, body)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->device_query_update: %s\n" % e)
@@ -337,11 +333,7 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **query_id** | **str**|  | 
- **name** | **str**| The name of the query | 
- **query** | **str**| The device query | 
- **description** | **str**| The description of the object | [optional] 
- **object** | **str**| The API resource entity | [optional] 
- **query_id2** | **str**| DEPRECATED: The ID of the query | [optional] 
+ **body** | [**Body**](Body.md)| Device query update object | 
 
 ### Return type
 
