@@ -328,6 +328,28 @@ class DeviceAPI(BaseAPI):
         return q
 
     @catch_exceptions(MdsApiException)
+    def add_subscription_with_callback(self, endpoint_name, resource_path, callback_fn,
+                                       fix_path=True, queue_size=5):
+        """Subscribe to resource updates with callback function.
+
+        When called on valid endpoint and resource path a subscription is setup so that
+        any update on the resource path value triggers an update on the callback function.
+
+        :param endpoint_name: Name of endpoint to subscribe on
+        :param resource_path: The resource path on device to observe
+        :param callback_fn: Callback function to be executed on update to subscribed resource
+        :param fix_path: Removes leading / on resource_path if found
+        :param queue_size: set the Queue size. If set to 0, no queue object will be created
+        :returns: void
+        """
+        queue = self.add_subscription(endpoint_name, resource_path, fix_path, queue_size)
+
+        # Setup daemon thread for callback function
+        t = threading.Thread(target=self._subscription_handler, args=[queue, callback_fn])
+        t.daemon = True
+        t.start()
+
+    @catch_exceptions(MdsApiException)
     def add_pre_subscription(self, endpoint_name, resource_path, endpoint_type=""):
         """Create pre-subscription for endpoint and resource path.
 
@@ -649,6 +671,11 @@ class DeviceAPI(BaseAPI):
         """
         api = self.dc_queries.DefaultApi()
         return Filter(api.device_query_retrieve(filter_id))
+
+    def _subscription_handler(self, queue, callback_fn):
+        while True:
+            value = queue.get()
+            callback_fn(value)
 
     def _get_filter_attributes(self, query, custom_attributes):
         # Ensure the query is of dict type
