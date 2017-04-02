@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    mbed Cloud Connect REST API
+    Connect API
 
-    mbed Cloud Connect REST API allows web applications to communicate with devices.
+    mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
 
     OpenAPI spec version: 2
     
@@ -138,7 +138,7 @@ class DefaultApi(object):
     def v2_notification_callback_get(self, **kwargs):
         """
         Check callback URL
-        Shows the current callback URL if exists.
+        Shows the current callback URL if it exists.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -163,7 +163,7 @@ class DefaultApi(object):
     def v2_notification_callback_get_with_http_info(self, **kwargs):
         """
         Check callback URL
-        Shows the current callback URL if exists.
+        Shows the current callback URL if it exists.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.

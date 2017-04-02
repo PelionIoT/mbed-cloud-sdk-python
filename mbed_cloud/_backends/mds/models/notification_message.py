@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    mbed Cloud Connect REST API
+    Connect API
 
-    mbed Cloud Connect REST API allows web applications to communicate with devices.
+    mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
 
     OpenAPI spec version: 2
     

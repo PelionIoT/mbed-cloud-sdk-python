@@ -5,7 +5,7 @@ All URIs are relative to *https://api.mbedcloud.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**v2_endpoints_endpoint_name_get**](EndpointsApi.md#v2_endpoints_endpoint_name_get) | **GET** /v2/endpoints/{endpointName} | List the resources on an endpoint
-[**v2_endpoints_get**](EndpointsApi.md#v2_endpoints_get) | **GET** /v2/endpoints | List all endpoints
+[**v2_endpoints_get**](EndpointsApi.md#v2_endpoints_get) | **GET** /v2/endpoints | List endpoints. The number of endpoints is currently limited to 200.
 
 
 # **v2_endpoints_endpoint_name_get**
@@ -64,7 +64,7 @@ Name | Type | Description  | Notes
 # **v2_endpoints_get**
 > list[Endpoint] v2_endpoints_get(type=type)
 
-List all endpoints
+List endpoints. The number of endpoints is currently limited to 200.
 
 Endpoints are physical devices running mbed Cloud Client. 
 
@@ -86,7 +86,7 @@ api_instance = mds.EndpointsApi()
 type = 'type_example' # str | Filter endpoints by endpoint-type. (optional)
 
 try: 
-    # List all endpoints
+    # List endpoints. The number of endpoints is currently limited to 200.
     api_response = api_instance.v2_endpoints_get(type=type)
     pprint(api_response)
 except ApiException as e:

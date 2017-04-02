@@ -1,18 +1,18 @@
 # statistics.AccountApi
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *http://api.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**v3_metrics_get**](AccountApi.md#v3_metrics_get) | **GET** /v3/metrics | provides account specific statistics for other cloud services
+[**v3_metrics_get**](AccountApi.md#v3_metrics_get) | **GET** /v3/metrics | Provides account-specific statistics for other cloud services.
 
 
 # **v3_metrics_get**
 > SuccessfulResponse v3_metrics_get(include, start, end, period, interval, authorization)
 
-provides account specific statistics for other cloud services
+Provides account-specific statistics for other cloud services.
 
-This REST API will be used to get account specific statistics
+This REST API is used to get account-specific statistics.
 
 ### Example 
 ```python
@@ -29,15 +29,15 @@ statistics.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = statistics.AccountApi()
-include = 'include_example' # str | Comma-separated list of requested metrics. Supported values are bootstraps_successful, bootstraps_failed, bootstraps_pending, bootstrap_certificate_create, bootstrap_certificate_delete, connector_certificate_create,  connector_certificate_delete, bootstrap_credentials_get, bootstrap_full_credentials_get, connector_credentials_get, connector_full_credentials_get, connector_ca_rest_api_count, connector_ca_rest_api_error_count
-start = 'start_example' # str | UTC time/year/date in RFC3339 format. Fetch data with timestamp greater than or equal to this value. Sample values: 20170207T092056990Z / 2017-02-07T09:20:56.990Z / 2017 / 20170207. The parameter is not mandatory, if period specified. 
-end = 'end_example' # str | UTC time / year / date in RFC3339 format. Fetch data with timestamp less than this value.Sample values: 20170207T092056990Z / 2017-02-07T09:20:56.990Z / 2017 / 20170207.The parameter is not mandatory, if period specified. 
-period = 'period_example' # str | Period. Fetch data for the period in days, weeks or hours. Sample values: 2h, 3w, 4d. The parameter is not mandatory, if start and end time are specified. 
+include = 'include_example' # str | A comma-separated list of requested metrics. Supported values are:  - `transactions` - `bootstraps_successful` - `bootstraps_failed` - `bootstraps_pending` - `device_server_rest_api_success` - `device_server_rest_api_error` 
+start = 'start_example' # str | UTC time/year/date in RFC3339 format. Fetch the data with timestamp greater than or equal to this value. Sample values: 20170207T092056990Z/2017-02-07T09:20:56.990Z/2017/20170207. The parameter is not mandatory, if the period is specified. 
+end = 'end_example' # str | UTC time/year/date in RFC3339 format. Fetch the data with timestamp less than this value.Sample values: 20170207T092056990Z/2017-02-07T09:20:56.990Z/2017/20170207.The parameter is not mandatory, if the period is specified. 
+period = 'period_example' # str | Period. Fetch the data for the period in days, weeks or hours. Sample values: 2h, 3w, 4d. The parameter is not mandatory, if the start and end time are specified. 
 interval = 'interval_example' # str | Group data by this interval in days, weeks or hours. Sample values: 2h, 3w, 4d. 
-authorization = 'authorization_example' # str | Bearer {Access Token}. A valid ApiGateway access token. The token is validated and the associated account identifier is used to retrieve account specific statistics. 
+authorization = 'authorization_example' # str | Bearer {Access Token}. A valid API Gateway access token. The token is validated and the associated account identifier is used to retrieve account-specific statistics. 
 
 try: 
-    # provides account specific statistics for other cloud services
+    # Provides account-specific statistics for other cloud services.
     api_response = api_instance.v3_metrics_get(include, start, end, period, interval, authorization)
     pprint(api_response)
 except ApiException as e:
@@ -48,12 +48,12 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **include** | **str**| Comma-separated list of requested metrics. Supported values are bootstraps_successful, bootstraps_failed, bootstraps_pending, bootstrap_certificate_create, bootstrap_certificate_delete, connector_certificate_create,  connector_certificate_delete, bootstrap_credentials_get, bootstrap_full_credentials_get, connector_credentials_get, connector_full_credentials_get, connector_ca_rest_api_count, connector_ca_rest_api_error_count | 
- **start** | **str**| UTC time/year/date in RFC3339 format. Fetch data with timestamp greater than or equal to this value. Sample values: 20170207T092056990Z / 2017-02-07T09:20:56.990Z / 2017 / 20170207. The parameter is not mandatory, if period specified.  | 
- **end** | **str**| UTC time / year / date in RFC3339 format. Fetch data with timestamp less than this value.Sample values: 20170207T092056990Z / 2017-02-07T09:20:56.990Z / 2017 / 20170207.The parameter is not mandatory, if period specified.  | 
- **period** | **str**| Period. Fetch data for the period in days, weeks or hours. Sample values: 2h, 3w, 4d. The parameter is not mandatory, if start and end time are specified.  | 
+ **include** | **str**| A comma-separated list of requested metrics. Supported values are:  - &#x60;transactions&#x60; - &#x60;bootstraps_successful&#x60; - &#x60;bootstraps_failed&#x60; - &#x60;bootstraps_pending&#x60; - &#x60;device_server_rest_api_success&#x60; - &#x60;device_server_rest_api_error&#x60;  | 
+ **start** | **str**| UTC time/year/date in RFC3339 format. Fetch the data with timestamp greater than or equal to this value. Sample values: 20170207T092056990Z/2017-02-07T09:20:56.990Z/2017/20170207. The parameter is not mandatory, if the period is specified.  | 
+ **end** | **str**| UTC time/year/date in RFC3339 format. Fetch the data with timestamp less than this value.Sample values: 20170207T092056990Z/2017-02-07T09:20:56.990Z/2017/20170207.The parameter is not mandatory, if the period is specified.  | 
+ **period** | **str**| Period. Fetch the data for the period in days, weeks or hours. Sample values: 2h, 3w, 4d. The parameter is not mandatory, if the start and end time are specified.  | 
  **interval** | **str**| Group data by this interval in days, weeks or hours. Sample values: 2h, 3w, 4d.  | 
- **authorization** | **str**| Bearer {Access Token}. A valid ApiGateway access token. The token is validated and the associated account identifier is used to retrieve account specific statistics.  | 
+ **authorization** | **str**| Bearer {Access Token}. A valid API Gateway access token. The token is validated and the associated account identifier is used to retrieve account-specific statistics.  | 
 
 ### Return type
 

@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    mbed Cloud Connector Statistics REST API
+    Connect Statistics API
 
-    mbed Cloud Connector Statistics REST API provides statistics about other cloud services through defined counters.
+    mbed Cloud Connect Statistics API provides statistics about other cloud services through defined counters.
 
     OpenAPI spec version: 3
     
@@ -47,7 +47,7 @@ class Field(object):
     def message(self):
         """
         Gets the message of this Field.
-        error description
+        Error description.
 
         :return: The message of this Field.
         :rtype: str
@@ -58,7 +58,7 @@ class Field(object):
     def message(self, message):
         """
         Sets the message of this Field.
-        error description
+        Error description.
 
         :param message: The message of this Field.
         :type: str
@@ -70,7 +70,7 @@ class Field(object):
     def name(self):
         """
         Gets the name of this Field.
-        field name in the request for which validation is failed
+        The field name in the request for which the validation has failed
 
         :return: The name of this Field.
         :rtype: str
@@ -81,7 +81,7 @@ class Field(object):
     def name(self, name):
         """
         Sets the name of this Field.
-        field name in the request for which validation is failed
+        The field name in the request for which the validation has failed
 
         :param name: The name of this Field.
         :type: str

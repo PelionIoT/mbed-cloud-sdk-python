@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    mbed Cloud Connect CA REST API (R1.2)
+    Connect CA API
 
-    mbed Cloud Connect CA REST API allows services to get device credentials.
+    Connect CA API provides methods to create and get Developer certificate. Also Connect CA provides server-credentials for Bootstarp and LWM2M Server.
 
     OpenAPI spec version: 3
     
@@ -56,7 +56,7 @@ class ExternalAPIApi(object):
             for asynchronous request. (optional)
         :param str id: A unique identifier for the developer certificate.  (required)
         :param str authorization: Bearer {Access Token}.  (required)
-        :return: InlineResponse201
+        :return: DeveloperCertificateResponseData
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -83,7 +83,7 @@ class ExternalAPIApi(object):
             for asynchronous request. (optional)
         :param str id: A unique identifier for the developer certificate.  (required)
         :param str authorization: Bearer {Access Token}.  (required)
-        :return: InlineResponse201
+        :return: DeveloperCertificateResponseData
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -142,7 +142,7 @@ class ExternalAPIApi(object):
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='InlineResponse201',
+                                        response_type='DeveloperCertificateResponseData',
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -153,7 +153,7 @@ class ExternalAPIApi(object):
     def v3_developer_certificates_post(self, authorization, body, **kwargs):
         """
         Create a new developer certificate to connect to the bootstrap server.
-        This REST API is intended to be used by customers to get a developer certificate (a certificate that can be flashed into multiple devices to connect to bootstrap server).  Limitations:   - One developer certificate allows up to 100 devices to connect to bootstrap server.   - Only 10 developer certificates are allowed per account 
+        This REST API is intended to be used by customers to get a developer certificate (a certificate that can be flashed into multiple devices to connect to bootstrap server).  Limitations:    - One developer certificate allows up to 100 devices to connect to bootstrap server.   - Only 10 developer certificates are allowed per account. 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -165,8 +165,8 @@ class ExternalAPIApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str authorization: Bearer {Access Token}.  (required)
-        :param Body body: (required)
-        :return: InlineResponse201
+        :param DeveloperCertificateRequestData body: (required)
+        :return: DeveloperCertificateResponseData
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -180,7 +180,7 @@ class ExternalAPIApi(object):
     def v3_developer_certificates_post_with_http_info(self, authorization, body, **kwargs):
         """
         Create a new developer certificate to connect to the bootstrap server.
-        This REST API is intended to be used by customers to get a developer certificate (a certificate that can be flashed into multiple devices to connect to bootstrap server).  Limitations:   - One developer certificate allows up to 100 devices to connect to bootstrap server.   - Only 10 developer certificates are allowed per account 
+        This REST API is intended to be used by customers to get a developer certificate (a certificate that can be flashed into multiple devices to connect to bootstrap server).  Limitations:    - One developer certificate allows up to 100 devices to connect to bootstrap server.   - Only 10 developer certificates are allowed per account. 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -192,8 +192,8 @@ class ExternalAPIApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str authorization: Bearer {Access Token}.  (required)
-        :param Body body: (required)
-        :return: InlineResponse201
+        :param DeveloperCertificateRequestData body: (required)
+        :return: DeveloperCertificateResponseData
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -252,7 +252,7 @@ class ExternalAPIApi(object):
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='InlineResponse201',
+                                        response_type='DeveloperCertificateResponseData',
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -263,7 +263,7 @@ class ExternalAPIApi(object):
     def v3_server_credentials_bootstrap_get(self, authorization, **kwargs):
         """
         Fetch bootstrap server credentials.
-        This REST API is intended to be used by customers to fetch bootstrap server credentials that they will need to use with their clients to connect to bootstrap server. 
+        This REST API is intended to be used by customers to fetch bootstrap server credentials that they need to use with their clients to connect to bootstrap server. 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -275,7 +275,7 @@ class ExternalAPIApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str authorization: Bearer {Access Token}.  (required)
-        :return: InlineResponse200
+        :return: ServerCredentialsResponseData
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -289,7 +289,7 @@ class ExternalAPIApi(object):
     def v3_server_credentials_bootstrap_get_with_http_info(self, authorization, **kwargs):
         """
         Fetch bootstrap server credentials.
-        This REST API is intended to be used by customers to fetch bootstrap server credentials that they will need to use with their clients to connect to bootstrap server. 
+        This REST API is intended to be used by customers to fetch bootstrap server credentials that they need to use with their clients to connect to bootstrap server. 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -301,7 +301,7 @@ class ExternalAPIApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str authorization: Bearer {Access Token}.  (required)
-        :return: InlineResponse200
+        :return: ServerCredentialsResponseData
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -355,7 +355,7 @@ class ExternalAPIApi(object):
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='InlineResponse200',
+                                        response_type='ServerCredentialsResponseData',
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -366,7 +366,7 @@ class ExternalAPIApi(object):
     def v3_server_credentials_lwm2m_get(self, authorization, **kwargs):
         """
         Fetch LWM2M server credentials.
-        This REST API is intended to be used by customers to fetch LWM2M server credentials that they will need to use with their clients to connect to LWM2M server. 
+        This REST API is intended to be used by customers to fetch LWM2M server credentials that they need to use with their clients to connect to LWM2M server. 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -378,7 +378,7 @@ class ExternalAPIApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str authorization: Bearer {Access Token}.  (required)
-        :return: InlineResponse2001
+        :return: ServerCredentialsResponseData
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -392,7 +392,7 @@ class ExternalAPIApi(object):
     def v3_server_credentials_lwm2m_get_with_http_info(self, authorization, **kwargs):
         """
         Fetch LWM2M server credentials.
-        This REST API is intended to be used by customers to fetch LWM2M server credentials that they will need to use with their clients to connect to LWM2M server. 
+        This REST API is intended to be used by customers to fetch LWM2M server credentials that they need to use with their clients to connect to LWM2M server. 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -404,7 +404,7 @@ class ExternalAPIApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str authorization: Bearer {Access Token}.  (required)
-        :return: InlineResponse2001
+        :return: ServerCredentialsResponseData
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -458,7 +458,7 @@ class ExternalAPIApi(object):
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='InlineResponse2001',
+                                        response_type='ServerCredentialsResponseData',
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),

@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    mbed Cloud Connect REST API
+    Connect API
 
-    mbed Cloud Connect REST API allows web applications to communicate with devices.
+    mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
 
     OpenAPI spec version: 2
     
@@ -47,7 +47,7 @@ class Webhook(object):
     def url(self):
         """
         Gets the url of this Webhook.
-        The URL to which the notifications must be sent. We recommend that you serve this URL over HTTPS.
+        The URL to which the notifications are sent. We recommend that you serve this URL over HTTPS.
 
         :return: The url of this Webhook.
         :rtype: str
@@ -58,7 +58,7 @@ class Webhook(object):
     def url(self, url):
         """
         Sets the url of this Webhook.
-        The URL to which the notifications must be sent. We recommend that you serve this URL over HTTPS.
+        The URL to which the notifications are sent. We recommend that you serve this URL over HTTPS.
 
         :param url: The url of this Webhook.
         :type: str
@@ -70,7 +70,7 @@ class Webhook(object):
     def headers(self):
         """
         Gets the headers of this Webhook.
-        Headers (key/value) that must be sent with the request. Optional.
+        Headers (key/value) that are sent with the notification. Optional.
 
         :return: The headers of this Webhook.
         :rtype: object
@@ -81,7 +81,7 @@ class Webhook(object):
     def headers(self, headers):
         """
         Sets the headers of this Webhook.
-        Headers (key/value) that must be sent with the request. Optional.
+        Headers (key/value) that are sent with the notification. Optional.
 
         :param headers: The headers of this Webhook.
         :type: object

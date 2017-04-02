@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    mbed Cloud Connect CA REST API (R1.2)
+    Connect CA API
 
-    mbed Cloud Connect CA REST API allows services to get device credentials.
+    Connect CA API provides methods to create and get Developer certificate. Also Connect CA provides server-credentials for Bootstarp and LWM2M Server.
 
     OpenAPI spec version: 3
     
@@ -45,7 +45,7 @@ class Configuration(object):
         Constructor
         """
         # Default Base url
-        self.host = "http://localhost"
+        self.host = "http://api.mbedcloud.com"
         # Default api client
         self.api_client = None
         # Temp file folder for downloading files

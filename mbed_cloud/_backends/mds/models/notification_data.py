@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    mbed Cloud Connect REST API
+    Connect API
 
-    mbed Cloud Connect REST API allows web applications to communicate with devices.
+    mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
 
     OpenAPI spec version: 2
     
@@ -59,7 +59,7 @@ class NotificationData(object):
     def timestamp(self):
         """
         Gets the timestamp of this NotificationData.
-        Timestamp
+        Timestamp.
 
         :return: The timestamp of this NotificationData.
         :rtype: str
@@ -70,7 +70,7 @@ class NotificationData(object):
     def timestamp(self, timestamp):
         """
         Sets the timestamp of this NotificationData.
-        Timestamp
+        Timestamp.
 
         :param timestamp: The timestamp of this NotificationData.
         :type: str
@@ -82,7 +82,7 @@ class NotificationData(object):
     def payload(self):
         """
         Gets the payload of this NotificationData.
-        Base64 encoded payload
+        Base64 encoded payload.
 
         :return: The payload of this NotificationData.
         :rtype: str
@@ -93,7 +93,7 @@ class NotificationData(object):
     def payload(self, payload):
         """
         Sets the payload of this NotificationData.
-        Base64 encoded payload
+        Base64 encoded payload.
 
         :param payload: The payload of this NotificationData.
         :type: str
@@ -105,7 +105,7 @@ class NotificationData(object):
     def path(self):
         """
         Gets the path of this NotificationData.
-        URI path
+        URI path.
 
         :return: The path of this NotificationData.
         :rtype: str
@@ -116,7 +116,7 @@ class NotificationData(object):
     def path(self, path):
         """
         Sets the path of this NotificationData.
-        URI path
+        URI path.
 
         :param path: The path of this NotificationData.
         :type: str
@@ -128,7 +128,7 @@ class NotificationData(object):
     def max_age(self):
         """
         Gets the max_age of this NotificationData.
-        Max age
+        Max age value is an integer number of seconds between 0 and 2^32-1 but the actual maximum cache time is limited to 3 days. A default value of 60 seconds is assumed in the absence of the option. 
 
         :return: The max_age of this NotificationData.
         :rtype: str
@@ -139,7 +139,7 @@ class NotificationData(object):
     def max_age(self, max_age):
         """
         Sets the max_age of this NotificationData.
-        Max age
+        Max age value is an integer number of seconds between 0 and 2^32-1 but the actual maximum cache time is limited to 3 days. A default value of 60 seconds is assumed in the absence of the option. 
 
         :param max_age: The max_age of this NotificationData.
         :type: str
@@ -151,7 +151,7 @@ class NotificationData(object):
     def ep(self):
         """
         Gets the ep of this NotificationData.
-        Endpoint name
+        Endpoint name.
 
         :return: The ep of this NotificationData.
         :rtype: str
@@ -162,7 +162,7 @@ class NotificationData(object):
     def ep(self, ep):
         """
         Sets the ep of this NotificationData.
-        Endpoint name
+        Endpoint name.
 
         :param ep: The ep of this NotificationData.
         :type: str
@@ -174,7 +174,7 @@ class NotificationData(object):
     def ct(self):
         """
         Gets the ct of this NotificationData.
-        Content type
+        Content type.
 
         :return: The ct of this NotificationData.
         :rtype: str
@@ -185,7 +185,7 @@ class NotificationData(object):
     def ct(self, ct):
         """
         Sets the ct of this NotificationData.
-        Content type
+        Content type.
 
         :param ct: The ct of this NotificationData.
         :type: str

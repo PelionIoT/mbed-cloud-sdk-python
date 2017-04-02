@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    mbed Cloud Connector Statistics REST API
+    Connect Statistics API
 
-    mbed Cloud Connector Statistics REST API provides statistics about other cloud services through defined counters.
+    mbed Cloud Connect Statistics API provides statistics about other cloud services through defined counters.
 
     OpenAPI spec version: 3
     
@@ -59,7 +59,7 @@ class ErrorResponse(object):
     def code(self):
         """
         Gets the code of this ErrorResponse.
-        http response code.
+        HTTP response code.
 
         :return: The code of this ErrorResponse.
         :rtype: int
@@ -70,7 +70,7 @@ class ErrorResponse(object):
     def code(self, code):
         """
         Sets the code of this ErrorResponse.
-        http response code.
+        HTTP response code.
 
         :param code: The code of this ErrorResponse.
         :type: int
@@ -103,7 +103,7 @@ class ErrorResponse(object):
     def object(self):
         """
         Gets the object of this ErrorResponse.
-        response type, always \"error\"
+        Response type, always \"error\".
 
         :return: The object of this ErrorResponse.
         :rtype: str
@@ -114,7 +114,7 @@ class ErrorResponse(object):
     def object(self, object):
         """
         Sets the object of this ErrorResponse.
-        response type, always \"error\"
+        Response type, always \"error\".
 
         :param object: The object of this ErrorResponse.
         :type: str
@@ -126,7 +126,7 @@ class ErrorResponse(object):
     def request_id(self):
         """
         Gets the request_id of this ErrorResponse.
-        request id for the request.
+        Request ID.
 
         :return: The request_id of this ErrorResponse.
         :rtype: str
@@ -137,7 +137,7 @@ class ErrorResponse(object):
     def request_id(self, request_id):
         """
         Sets the request_id of this ErrorResponse.
-        request id for the request.
+        Request ID.
 
         :param request_id: The request_id of this ErrorResponse.
         :type: str
@@ -149,7 +149,7 @@ class ErrorResponse(object):
     def message(self):
         """
         Gets the message of this ErrorResponse.
-        description of the error.
+        Description of the error.
 
         :return: The message of this ErrorResponse.
         :rtype: str
@@ -160,7 +160,7 @@ class ErrorResponse(object):
     def message(self, message):
         """
         Sets the message of this ErrorResponse.
-        description of the error.
+        Description of the error.
 
         :param message: The message of this ErrorResponse.
         :type: str
@@ -172,7 +172,7 @@ class ErrorResponse(object):
     def type(self):
         """
         Gets the type of this ErrorResponse.
-        type of error.
+        Type of error.
 
         :return: The type of this ErrorResponse.
         :rtype: str
@@ -183,7 +183,7 @@ class ErrorResponse(object):
     def type(self, type):
         """
         Sets the type of this ErrorResponse.
-        type of error.
+        Type of error.
 
         :param type: The type of this ErrorResponse.
         :type: str

@@ -40,113 +40,6 @@ class DeveloperApi(object):
                 config.api_client = ApiClient()
             self.api_client = config.api_client
 
-    def change_my_password(self, body, **kwargs):
-        """
-        Change the password of the current user.
-        An endpoint for changing the password of the logged in user.
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.change_my_password(body, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param PasswordChangeReq body: Old and new password. (required)
-        :return: UpdatedResponse
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
-            return self.change_my_password_with_http_info(body, **kwargs)
-        else:
-            (data) = self.change_my_password_with_http_info(body, **kwargs)
-            return data
-
-    def change_my_password_with_http_info(self, body, **kwargs):
-        """
-        Change the password of the current user.
-        An endpoint for changing the password of the logged in user.
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.change_my_password_with_http_info(body, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param PasswordChangeReq body: Old and new password. (required)
-        :return: UpdatedResponse
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['body']
-        all_params.append('callback')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method change_my_password" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'body' is set
-        if ('body' not in params) or (params['body'] is None):
-            raise ValueError("Missing the required parameter `body` when calling `change_my_password`")
-
-
-        collection_formats = {}
-
-        resource_path = '/v3/users/me/password'.replace('{format}', 'json')
-        path_params = {}
-
-        query_params = {}
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'body' in params:
-            body_params = params['body']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept(['application/json'])
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.\
-            select_header_content_type(['application/json'])
-
-        # Authentication setting
-        auth_settings = ['Bearer']
-
-        return self.api_client.call_api(resource_path, 'PUT',
-                                        path_params,
-                                        query_params,
-                                        header_params,
-                                        body=body_params,
-                                        post_params=form_params,
-                                        files=local_var_files,
-                                        response_type='UpdatedResponse',
-                                        auth_settings=auth_settings,
-                                        callback=params.get('callback'),
-                                        _return_http_data_only=params.get('_return_http_data_only'),
-                                        _preload_content=params.get('_preload_content', True),
-                                        _request_timeout=params.get('_request_timeout'),
-                                        collection_formats=collection_formats)
-
     def create_api_key(self, body, **kwargs):
         """
         Create a new API key.
@@ -357,216 +250,6 @@ class DeveloperApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
-    def get_account_attributes(self, account_id, **kwargs):
-        """
-        Read account attributes.
-        Reads all account attributes as map.
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.get_account_attributes(account_id, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str account_id: The ID of the account to be read. (required)
-        :param str name: A comma separated list of attribute names.
-        :return: dict(str, str)
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
-            return self.get_account_attributes_with_http_info(account_id, **kwargs)
-        else:
-            (data) = self.get_account_attributes_with_http_info(account_id, **kwargs)
-            return data
-
-    def get_account_attributes_with_http_info(self, account_id, **kwargs):
-        """
-        Read account attributes.
-        Reads all account attributes as map.
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.get_account_attributes_with_http_info(account_id, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str account_id: The ID of the account to be read. (required)
-        :param str name: A comma separated list of attribute names.
-        :return: dict(str, str)
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['account_id', 'name']
-        all_params.append('callback')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_account_attributes" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'account_id' is set
-        if ('account_id' not in params) or (params['account_id'] is None):
-            raise ValueError("Missing the required parameter `account_id` when calling `get_account_attributes`")
-
-
-        collection_formats = {}
-
-        resource_path = '/v3/accounts/{accountID}/attributes'.replace('{format}', 'json')
-        path_params = {}
-        if 'account_id' in params:
-            path_params['accountID'] = params['account_id']
-
-        query_params = {}
-        if 'name' in params:
-            query_params['name'] = params['name']
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept(['application/json'])
-
-        # Authentication setting
-        auth_settings = ['Bearer']
-
-        return self.api_client.call_api(resource_path, 'GET',
-                                        path_params,
-                                        query_params,
-                                        header_params,
-                                        body=body_params,
-                                        post_params=form_params,
-                                        files=local_var_files,
-                                        response_type='dict(str, str)',
-                                        auth_settings=auth_settings,
-                                        callback=params.get('callback'),
-                                        _return_http_data_only=params.get('_return_http_data_only'),
-                                        _preload_content=params.get('_preload_content', True),
-                                        _request_timeout=params.get('_request_timeout'),
-                                        collection_formats=collection_formats)
-
-    def get_aliases(self, account_id, **kwargs):
-        """
-        Get aliases.
-        Retrieves the aliases of the account as an array.
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.get_aliases(account_id, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str account_id: The ID of the account whose aliases are retrieved. (required)
-        :return: list[str]
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
-            return self.get_aliases_with_http_info(account_id, **kwargs)
-        else:
-            (data) = self.get_aliases_with_http_info(account_id, **kwargs)
-            return data
-
-    def get_aliases_with_http_info(self, account_id, **kwargs):
-        """
-        Get aliases.
-        Retrieves the aliases of the account as an array.
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.get_aliases_with_http_info(account_id, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str account_id: The ID of the account whose aliases are retrieved. (required)
-        :return: list[str]
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['account_id']
-        all_params.append('callback')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_aliases" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'account_id' is set
-        if ('account_id' not in params) or (params['account_id'] is None):
-            raise ValueError("Missing the required parameter `account_id` when calling `get_aliases`")
-
-
-        collection_formats = {}
-
-        resource_path = '/v3/accounts/{accountID}/alias'.replace('{format}', 'json')
-        path_params = {}
-        if 'account_id' in params:
-            path_params['accountID'] = params['account_id']
-
-        query_params = {}
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept(['application/json'])
-
-        # Authentication setting
-        auth_settings = ['Bearer']
-
-        return self.api_client.call_api(resource_path, 'GET',
-                                        path_params,
-                                        query_params,
-                                        header_params,
-                                        body=body_params,
-                                        post_params=form_params,
-                                        files=local_var_files,
-                                        response_type='list[str]',
-                                        auth_settings=auth_settings,
-                                        callback=params.get('callback'),
-                                        _return_http_data_only=params.get('_return_http_data_only'),
-                                        _preload_content=params.get('_preload_content', True),
-                                        _request_timeout=params.get('_request_timeout'),
-                                        collection_formats=collection_formats)
-
     def get_all_api_keys(self, **kwargs):
         """
         Get all API keys
@@ -585,8 +268,6 @@ class DeveloperApi(object):
         :param str after: The entity ID to fetch after the given one.
         :param str order: The order of the records, ASC or DESC; by default ASC
         :param str include: Comma separated additional data to return. Currently supported: total_count
-        :param str filter: A filter for the query, for example filter=owner%3Duuid.
-        :param str owner: Owner name filter.
         :param str owner__eq: Owner name filter.
         :return: ApiKeyInfoRespList
                  If the method is called asynchronously,
@@ -617,15 +298,13 @@ class DeveloperApi(object):
         :param str after: The entity ID to fetch after the given one.
         :param str order: The order of the records, ASC or DESC; by default ASC
         :param str include: Comma separated additional data to return. Currently supported: total_count
-        :param str filter: A filter for the query, for example filter=owner%3Duuid.
-        :param str owner: Owner name filter.
         :param str owner__eq: Owner name filter.
         :return: ApiKeyInfoRespList
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['limit', 'after', 'order', 'include', 'filter', 'owner', 'owner__eq']
+        all_params = ['limit', 'after', 'order', 'include', 'owner__eq']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -656,10 +335,6 @@ class DeveloperApi(object):
             query_params['order'] = params['order']
         if 'include' in params:
             query_params['include'] = params['include']
-        if 'filter' in params:
-            query_params['filter'] = params['filter']
-        if 'owner' in params:
-            query_params['owner'] = params['owner']
         if 'owner__eq' in params:
             query_params['owner__eq'] = params['owner__eq']
 
@@ -684,6 +359,118 @@ class DeveloperApi(object):
                                         post_params=form_params,
                                         files=local_var_files,
                                         response_type='ApiKeyInfoRespList',
+                                        auth_settings=auth_settings,
+                                        callback=params.get('callback'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
+    def get_all_groups(self, **kwargs):
+        """
+        Get all group information.
+        An endpoint for retrieving all group information.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.get_all_groups(callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param int limit: The number of results to return (2-1000), default is 50.
+        :param str after: The entity ID to fetch after the given one.
+        :param str order: The order of the records, ASC or DESC; by default ASC
+        :param str include: Comma separated additional data to return. Currently supported: total_count
+        :return: GroupSummaryList
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('callback'):
+            return self.get_all_groups_with_http_info(**kwargs)
+        else:
+            (data) = self.get_all_groups_with_http_info(**kwargs)
+            return data
+
+    def get_all_groups_with_http_info(self, **kwargs):
+        """
+        Get all group information.
+        An endpoint for retrieving all group information.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.get_all_groups_with_http_info(callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param int limit: The number of results to return (2-1000), default is 50.
+        :param str after: The entity ID to fetch after the given one.
+        :param str order: The order of the records, ASC or DESC; by default ASC
+        :param str include: Comma separated additional data to return. Currently supported: total_count
+        :return: GroupSummaryList
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['limit', 'after', 'order', 'include']
+        all_params.append('callback')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_all_groups" % key
+                )
+            params[key] = val
+        del params['kwargs']
+
+
+        collection_formats = {}
+
+        resource_path = '/v3/policy-groups'.replace('{format}', 'json')
+        path_params = {}
+
+        query_params = {}
+        if 'limit' in params:
+            query_params['limit'] = params['limit']
+        if 'after' in params:
+            query_params['after'] = params['after']
+        if 'order' in params:
+            query_params['order'] = params['order']
+        if 'include' in params:
+            query_params['include'] = params['include']
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api(resource_path, 'GET',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='GroupSummaryList',
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -794,51 +581,61 @@ class DeveloperApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
-    def get_my_account_aliases(self, **kwargs):
+    def get_api_keys_of_group(self, group_id, **kwargs):
         """
-        Get aliases.
-        Retrieves the aliases of the account as an array.
+        Get the API keys of a group.
+        An endpoint for listing the API keys of the group with details.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.get_my_account_aliases(callback=callback_function)
+        >>> thread = api.get_api_keys_of_group(group_id, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :return: list[str]
+        :param str group_id: The ID of the group whose API keys are retrieved. (required)
+        :param int limit: The number of results to return (2-1000), default is 50.
+        :param str after: The entity ID to fetch after the given one.
+        :param str order: The order of the records, ASC or DESC; by default ASC
+        :param str include: Comma separated additional data to return. Currently supported: total_count
+        :return: ApiKeyInfoRespList
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.get_my_account_aliases_with_http_info(**kwargs)
+            return self.get_api_keys_of_group_with_http_info(group_id, **kwargs)
         else:
-            (data) = self.get_my_account_aliases_with_http_info(**kwargs)
+            (data) = self.get_api_keys_of_group_with_http_info(group_id, **kwargs)
             return data
 
-    def get_my_account_aliases_with_http_info(self, **kwargs):
+    def get_api_keys_of_group_with_http_info(self, group_id, **kwargs):
         """
-        Get aliases.
-        Retrieves the aliases of the account as an array.
+        Get the API keys of a group.
+        An endpoint for listing the API keys of the group with details.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.get_my_account_aliases_with_http_info(callback=callback_function)
+        >>> thread = api.get_api_keys_of_group_with_http_info(group_id, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :return: list[str]
+        :param str group_id: The ID of the group whose API keys are retrieved. (required)
+        :param int limit: The number of results to return (2-1000), default is 50.
+        :param str after: The entity ID to fetch after the given one.
+        :param str order: The order of the records, ASC or DESC; by default ASC
+        :param str include: Comma separated additional data to return. Currently supported: total_count
+        :return: ApiKeyInfoRespList
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = []
+        all_params = ['group_id', 'limit', 'after', 'order', 'include']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -849,17 +646,31 @@ class DeveloperApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method get_my_account_aliases" % key
+                    " to method get_api_keys_of_group" % key
                 )
             params[key] = val
         del params['kwargs']
+        # verify the required parameter 'group_id' is set
+        if ('group_id' not in params) or (params['group_id'] is None):
+            raise ValueError("Missing the required parameter `group_id` when calling `get_api_keys_of_group`")
+
 
         collection_formats = {}
 
-        resource_path = '/v3/accounts/me/alias'.replace('{format}', 'json')
+        resource_path = '/v3/policy-groups/{groupID}/api-keys'.replace('{format}', 'json')
         path_params = {}
+        if 'group_id' in params:
+            path_params['groupID'] = params['group_id']
 
         query_params = {}
+        if 'limit' in params:
+            query_params['limit'] = params['limit']
+        if 'after' in params:
+            query_params['after'] = params['after']
+        if 'order' in params:
+            query_params['order'] = params['order']
+        if 'include' in params:
+            query_params['include'] = params['include']
 
         header_params = {}
 
@@ -881,7 +692,7 @@ class DeveloperApi(object):
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='list[str]',
+                                        response_type='ApiKeyInfoRespList',
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -889,53 +700,53 @@ class DeveloperApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
-    def get_my_account_attributes(self, **kwargs):
+    def get_group_summary(self, group_id, **kwargs):
         """
-        Read account attributes.
-        Reads all account attributes as map.
+        Get group information.
+        An endpoint for getting general information about the group.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.get_my_account_attributes(callback=callback_function)
+        >>> thread = api.get_group_summary(group_id, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str name: A comma separated list of attribute names.
-        :return: dict(str, object)
+        :param str group_id: The ID or name of the group to be retrieved. (required)
+        :return: GroupSummary
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.get_my_account_attributes_with_http_info(**kwargs)
+            return self.get_group_summary_with_http_info(group_id, **kwargs)
         else:
-            (data) = self.get_my_account_attributes_with_http_info(**kwargs)
+            (data) = self.get_group_summary_with_http_info(group_id, **kwargs)
             return data
 
-    def get_my_account_attributes_with_http_info(self, **kwargs):
+    def get_group_summary_with_http_info(self, group_id, **kwargs):
         """
-        Read account attributes.
-        Reads all account attributes as map.
+        Get group information.
+        An endpoint for getting general information about the group.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.get_my_account_attributes_with_http_info(callback=callback_function)
+        >>> thread = api.get_group_summary_with_http_info(group_id, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str name: A comma separated list of attribute names.
-        :return: dict(str, object)
+        :param str group_id: The ID or name of the group to be retrieved. (required)
+        :return: GroupSummary
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['name']
+        all_params = ['group_id']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -946,20 +757,23 @@ class DeveloperApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method get_my_account_attributes" % key
+                    " to method get_group_summary" % key
                 )
             params[key] = val
         del params['kwargs']
+        # verify the required parameter 'group_id' is set
+        if ('group_id' not in params) or (params['group_id'] is None):
+            raise ValueError("Missing the required parameter `group_id` when calling `get_group_summary`")
 
 
         collection_formats = {}
 
-        resource_path = '/v3/accounts/me/attributes'.replace('{format}', 'json')
+        resource_path = '/v3/policy-groups/{groupID}'.replace('{format}', 'json')
         path_params = {}
+        if 'group_id' in params:
+            path_params['groupID'] = params['group_id']
 
         query_params = {}
-        if 'name' in params:
-            query_params['name'] = params['name']
 
         header_params = {}
 
@@ -981,7 +795,7 @@ class DeveloperApi(object):
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='dict(str, object)',
+                                        response_type='GroupSummary',
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -1279,53 +1093,55 @@ class DeveloperApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
-    def reset_secret(self, api_key, **kwargs):
+    def remove_api_keys_from_group(self, group_id, body, **kwargs):
         """
-        Reset secret key.
-        An endpoint for resetting the secret key of the API key. The new secret key will visible in the response.
+        Remove API keys from a group.
+        An endpoint for removing API keys from groups.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.reset_secret(api_key, callback=callback_function)
+        >>> thread = api.remove_api_keys_from_group(group_id, body, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str api_key: The ID of the API key to be reset. (required)
-        :return: ApiKeyInfoResp
+        :param str group_id: The ID of the group whose API keys are removed. (required)
+        :param SubjectList body: A list of API keys to be removed from the group. (required)
+        :return: UpdatedResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.reset_secret_with_http_info(api_key, **kwargs)
+            return self.remove_api_keys_from_group_with_http_info(group_id, body, **kwargs)
         else:
-            (data) = self.reset_secret_with_http_info(api_key, **kwargs)
+            (data) = self.remove_api_keys_from_group_with_http_info(group_id, body, **kwargs)
             return data
 
-    def reset_secret_with_http_info(self, api_key, **kwargs):
+    def remove_api_keys_from_group_with_http_info(self, group_id, body, **kwargs):
         """
-        Reset secret key.
-        An endpoint for resetting the secret key of the API key. The new secret key will visible in the response.
+        Remove API keys from a group.
+        An endpoint for removing API keys from groups.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.reset_secret_with_http_info(api_key, callback=callback_function)
+        >>> thread = api.remove_api_keys_from_group_with_http_info(group_id, body, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str api_key: The ID of the API key to be reset. (required)
-        :return: ApiKeyInfoResp
+        :param str group_id: The ID of the group whose API keys are removed. (required)
+        :param SubjectList body: A list of API keys to be removed from the group. (required)
+        :return: UpdatedResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['api_key']
+        all_params = ['group_id', 'body']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -1336,21 +1152,24 @@ class DeveloperApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method reset_secret" % key
+                    " to method remove_api_keys_from_group" % key
                 )
             params[key] = val
         del params['kwargs']
-        # verify the required parameter 'api_key' is set
-        if ('api_key' not in params) or (params['api_key'] is None):
-            raise ValueError("Missing the required parameter `api_key` when calling `reset_secret`")
+        # verify the required parameter 'group_id' is set
+        if ('group_id' not in params) or (params['group_id'] is None):
+            raise ValueError("Missing the required parameter `group_id` when calling `remove_api_keys_from_group`")
+        # verify the required parameter 'body' is set
+        if ('body' not in params) or (params['body'] is None):
+            raise ValueError("Missing the required parameter `body` when calling `remove_api_keys_from_group`")
 
 
         collection_formats = {}
 
-        resource_path = '/v3/api-keys/{apiKey}/reset-secret'.replace('{format}', 'json')
+        resource_path = '/v3/policy-groups/{groupID}/api-keys'.replace('{format}', 'json')
         path_params = {}
-        if 'api_key' in params:
-            path_params['apiKey'] = params['api_key']
+        if 'group_id' in params:
+            path_params['groupID'] = params['group_id']
 
         query_params = {}
 
@@ -1360,21 +1179,27 @@ class DeveloperApi(object):
         local_var_files = {}
 
         body_params = None
+        if 'body' in params:
+            body_params = params['body']
         # HTTP header `Accept`
         header_params['Accept'] = self.api_client.\
             select_header_accept(['application/json'])
 
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'POST',
+        return self.api_client.call_api(resource_path, 'DELETE',
                                         path_params,
                                         query_params,
                                         header_params,
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='ApiKeyInfoResp',
+                                        response_type='UpdatedResponse',
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),

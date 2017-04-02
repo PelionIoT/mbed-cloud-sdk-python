@@ -40,7 +40,7 @@ class ResourcesApi(object):
                 config.api_client = ApiClient()
             self.api_client = config.api_client
 
-    def v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_delete(self, endpoint_name, _resource_path, **kwargs):
+    def v3_devices_device_id_cached_resources_resource_path_delete(self, endpoint_name, _resource_path, **kwargs):
         """
         Delete a resource
         A request to delete a resource must be handled by both mbed Client and mbed Device Connector. The resource is not deleted from mbed Device Connector until the delete is handled by mbed Client.  All resource APIs are asynchronous. Note that these APIs respond only if the device is turned on and connected to mbed Device Connector. 
@@ -50,7 +50,7 @@ class ResourcesApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_delete(endpoint_name, _resource_path, callback=callback_function)
+        >>> thread = api.v3_devices_device_id_cached_resources_resource_path_delete(endpoint_name, _resource_path, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
@@ -64,12 +64,12 @@ class ResourcesApi(object):
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_delete_with_http_info(endpoint_name, _resource_path, **kwargs)
+            return self.v3_devices_device_id_cached_resources_resource_path_delete_with_http_info(endpoint_name, _resource_path, **kwargs)
         else:
-            (data) = self.v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_delete_with_http_info(endpoint_name, _resource_path, **kwargs)
+            (data) = self.v3_devices_device_id_cached_resources_resource_path_delete_with_http_info(endpoint_name, _resource_path, **kwargs)
             return data
 
-    def v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_delete_with_http_info(self, endpoint_name, _resource_path, **kwargs):
+    def v3_devices_device_id_cached_resources_resource_path_delete_with_http_info(self, endpoint_name, _resource_path, **kwargs):
         """
         Delete a resource
         A request to delete a resource must be handled by both mbed Client and mbed Device Connector. The resource is not deleted from mbed Device Connector until the delete is handled by mbed Client.  All resource APIs are asynchronous. Note that these APIs respond only if the device is turned on and connected to mbed Device Connector. 
@@ -79,7 +79,7 @@ class ResourcesApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_delete_with_http_info(endpoint_name, _resource_path, callback=callback_function)
+        >>> thread = api.v3_devices_device_id_cached_resources_resource_path_delete_with_http_info(endpoint_name, _resource_path, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
@@ -103,21 +103,21 @@ class ResourcesApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_delete" % key
+                    " to method v3_devices_device_id_cached_resources_resource_path_delete" % key
                 )
             params[key] = val
         del params['kwargs']
         # verify the required parameter 'endpoint_name' is set
         if ('endpoint_name' not in params) or (params['endpoint_name'] is None):
-            raise ValueError("Missing the required parameter `endpoint_name` when calling `v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_delete`")
+            raise ValueError("Missing the required parameter `endpoint_name` when calling `v3_devices_device_id_cached_resources_resource_path_delete`")
         # verify the required parameter '_resource_path' is set
         if ('_resource_path' not in params) or (params['_resource_path'] is None):
-            raise ValueError("Missing the required parameter `_resource_path` when calling `v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_delete`")
+            raise ValueError("Missing the required parameter `_resource_path` when calling `v3_devices_device_id_cached_resources_resource_path_delete`")
 
 
         collection_formats = {}
 
-        resource_path = '/v3/connect-synchronizer/proxy/endpoint/{endpointName}/{resourcePath}'.replace('{format}', 'json')
+        resource_path = '/v3/devices/{deviceId}/cached-resources/{resourcePath}'.replace('{format}', 'json')
         path_params = {}
         if 'endpoint_name' in params:
             path_params['endpointName'] = params['endpoint_name']
@@ -158,7 +158,7 @@ class ResourcesApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
-    def v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_get(self, endpoint_name, _resource_path, **kwargs):
+    def v3_devices_device_id_cached_resources_resource_path_get(self, endpoint_name, _resource_path, **kwargs):
         """
         Read from a resource
         Requests the resource value and when the response is available, a json object with the resource value will be returned.  Note that these APIs will only respond if the device is turned on and connected to mbed Device Connector. 
@@ -168,7 +168,7 @@ class ResourcesApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_get(endpoint_name, _resource_path, callback=callback_function)
+        >>> thread = api.v3_devices_device_id_cached_resources_resource_path_get(endpoint_name, _resource_path, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
@@ -182,12 +182,12 @@ class ResourcesApi(object):
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_get_with_http_info(endpoint_name, _resource_path, **kwargs)
+            return self.v3_devices_device_id_cached_resources_resource_path_get_with_http_info(endpoint_name, _resource_path, **kwargs)
         else:
-            (data) = self.v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_get_with_http_info(endpoint_name, _resource_path, **kwargs)
+            (data) = self.v3_devices_device_id_cached_resources_resource_path_get_with_http_info(endpoint_name, _resource_path, **kwargs)
             return data
 
-    def v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_get_with_http_info(self, endpoint_name, _resource_path, **kwargs):
+    def v3_devices_device_id_cached_resources_resource_path_get_with_http_info(self, endpoint_name, _resource_path, **kwargs):
         """
         Read from a resource
         Requests the resource value and when the response is available, a json object with the resource value will be returned.  Note that these APIs will only respond if the device is turned on and connected to mbed Device Connector. 
@@ -197,7 +197,7 @@ class ResourcesApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_get_with_http_info(endpoint_name, _resource_path, callback=callback_function)
+        >>> thread = api.v3_devices_device_id_cached_resources_resource_path_get_with_http_info(endpoint_name, _resource_path, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
@@ -221,21 +221,21 @@ class ResourcesApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_get" % key
+                    " to method v3_devices_device_id_cached_resources_resource_path_get" % key
                 )
             params[key] = val
         del params['kwargs']
         # verify the required parameter 'endpoint_name' is set
         if ('endpoint_name' not in params) or (params['endpoint_name'] is None):
-            raise ValueError("Missing the required parameter `endpoint_name` when calling `v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_get`")
+            raise ValueError("Missing the required parameter `endpoint_name` when calling `v3_devices_device_id_cached_resources_resource_path_get`")
         # verify the required parameter '_resource_path' is set
         if ('_resource_path' not in params) or (params['_resource_path'] is None):
-            raise ValueError("Missing the required parameter `_resource_path` when calling `v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_get`")
+            raise ValueError("Missing the required parameter `_resource_path` when calling `v3_devices_device_id_cached_resources_resource_path_get`")
 
 
         collection_formats = {}
 
-        resource_path = '/v3/connect-synchronizer/proxy/endpoint/{endpointName}/{resourcePath}'.replace('{format}', 'json')
+        resource_path = '/v3/devices/{deviceId}/cached-resources/{resourcePath}'.replace('{format}', 'json')
         path_params = {}
         if 'endpoint_name' in params:
             path_params['endpointName'] = params['endpoint_name']
@@ -276,7 +276,7 @@ class ResourcesApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
-    def v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_post(self, endpoint_name, _resource_path, **kwargs):
+    def v3_devices_device_id_cached_resources_resource_path_post(self, endpoint_name, _resource_path, **kwargs):
         """
         Execute a function on a resource
         With this API, you can execute a function on an existing resource.  All resource APIs are asynchronous. Note that these APIs respond only if the device is turned on and connected to mbed Device Connector. 
@@ -286,7 +286,7 @@ class ResourcesApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_post(endpoint_name, _resource_path, callback=callback_function)
+        >>> thread = api.v3_devices_device_id_cached_resources_resource_path_post(endpoint_name, _resource_path, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
@@ -301,12 +301,12 @@ class ResourcesApi(object):
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_post_with_http_info(endpoint_name, _resource_path, **kwargs)
+            return self.v3_devices_device_id_cached_resources_resource_path_post_with_http_info(endpoint_name, _resource_path, **kwargs)
         else:
-            (data) = self.v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_post_with_http_info(endpoint_name, _resource_path, **kwargs)
+            (data) = self.v3_devices_device_id_cached_resources_resource_path_post_with_http_info(endpoint_name, _resource_path, **kwargs)
             return data
 
-    def v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_post_with_http_info(self, endpoint_name, _resource_path, **kwargs):
+    def v3_devices_device_id_cached_resources_resource_path_post_with_http_info(self, endpoint_name, _resource_path, **kwargs):
         """
         Execute a function on a resource
         With this API, you can execute a function on an existing resource.  All resource APIs are asynchronous. Note that these APIs respond only if the device is turned on and connected to mbed Device Connector. 
@@ -316,7 +316,7 @@ class ResourcesApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_post_with_http_info(endpoint_name, _resource_path, callback=callback_function)
+        >>> thread = api.v3_devices_device_id_cached_resources_resource_path_post_with_http_info(endpoint_name, _resource_path, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
@@ -341,21 +341,21 @@ class ResourcesApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_post" % key
+                    " to method v3_devices_device_id_cached_resources_resource_path_post" % key
                 )
             params[key] = val
         del params['kwargs']
         # verify the required parameter 'endpoint_name' is set
         if ('endpoint_name' not in params) or (params['endpoint_name'] is None):
-            raise ValueError("Missing the required parameter `endpoint_name` when calling `v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_post`")
+            raise ValueError("Missing the required parameter `endpoint_name` when calling `v3_devices_device_id_cached_resources_resource_path_post`")
         # verify the required parameter '_resource_path' is set
         if ('_resource_path' not in params) or (params['_resource_path'] is None):
-            raise ValueError("Missing the required parameter `_resource_path` when calling `v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_post`")
+            raise ValueError("Missing the required parameter `_resource_path` when calling `v3_devices_device_id_cached_resources_resource_path_post`")
 
 
         collection_formats = {}
 
-        resource_path = '/v3/connect-synchronizer/proxy/endpoint/{endpointName}/{resourcePath}'.replace('{format}', 'json')
+        resource_path = '/v3/devices/{deviceId}/cached-resources/{resourcePath}'.replace('{format}', 'json')
         path_params = {}
         if 'endpoint_name' in params:
             path_params['endpointName'] = params['endpoint_name']
@@ -402,7 +402,7 @@ class ResourcesApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
-    def v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_put(self, endpoint_name, _resource_path, resource_value, **kwargs):
+    def v3_devices_device_id_cached_resources_resource_path_put(self, endpoint_name, _resource_path, resource_value, **kwargs):
         """
         Write to a resource
         With this API, you can write new values to existing resources, or create new resources on the device. The resource-path does not have to exist - it can be created by the call.  Note that these APIs respond only if the device is turned on and connected to mbed Device Connector.  Also note that query parameters defined in OMA specification such as step/lt/ gt/pmax/ pmin can also be included with relvant values and will be passed to the device as they are defined. 
@@ -412,7 +412,7 @@ class ResourcesApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_put(endpoint_name, _resource_path, resource_value, callback=callback_function)
+        >>> thread = api.v3_devices_device_id_cached_resources_resource_path_put(endpoint_name, _resource_path, resource_value, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
@@ -426,12 +426,12 @@ class ResourcesApi(object):
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_put_with_http_info(endpoint_name, _resource_path, resource_value, **kwargs)
+            return self.v3_devices_device_id_cached_resources_resource_path_put_with_http_info(endpoint_name, _resource_path, resource_value, **kwargs)
         else:
-            (data) = self.v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_put_with_http_info(endpoint_name, _resource_path, resource_value, **kwargs)
+            (data) = self.v3_devices_device_id_cached_resources_resource_path_put_with_http_info(endpoint_name, _resource_path, resource_value, **kwargs)
             return data
 
-    def v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_put_with_http_info(self, endpoint_name, _resource_path, resource_value, **kwargs):
+    def v3_devices_device_id_cached_resources_resource_path_put_with_http_info(self, endpoint_name, _resource_path, resource_value, **kwargs):
         """
         Write to a resource
         With this API, you can write new values to existing resources, or create new resources on the device. The resource-path does not have to exist - it can be created by the call.  Note that these APIs respond only if the device is turned on and connected to mbed Device Connector.  Also note that query parameters defined in OMA specification such as step/lt/ gt/pmax/ pmin can also be included with relvant values and will be passed to the device as they are defined. 
@@ -441,7 +441,7 @@ class ResourcesApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_put_with_http_info(endpoint_name, _resource_path, resource_value, callback=callback_function)
+        >>> thread = api.v3_devices_device_id_cached_resources_resource_path_put_with_http_info(endpoint_name, _resource_path, resource_value, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
@@ -465,24 +465,24 @@ class ResourcesApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_put" % key
+                    " to method v3_devices_device_id_cached_resources_resource_path_put" % key
                 )
             params[key] = val
         del params['kwargs']
         # verify the required parameter 'endpoint_name' is set
         if ('endpoint_name' not in params) or (params['endpoint_name'] is None):
-            raise ValueError("Missing the required parameter `endpoint_name` when calling `v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_put`")
+            raise ValueError("Missing the required parameter `endpoint_name` when calling `v3_devices_device_id_cached_resources_resource_path_put`")
         # verify the required parameter '_resource_path' is set
         if ('_resource_path' not in params) or (params['_resource_path'] is None):
-            raise ValueError("Missing the required parameter `_resource_path` when calling `v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_put`")
+            raise ValueError("Missing the required parameter `_resource_path` when calling `v3_devices_device_id_cached_resources_resource_path_put`")
         # verify the required parameter 'resource_value' is set
         if ('resource_value' not in params) or (params['resource_value'] is None):
-            raise ValueError("Missing the required parameter `resource_value` when calling `v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_put`")
+            raise ValueError("Missing the required parameter `resource_value` when calling `v3_devices_device_id_cached_resources_resource_path_put`")
 
 
         collection_formats = {}
 
-        resource_path = '/v3/connect-synchronizer/proxy/endpoint/{endpointName}/{resourcePath}'.replace('{format}', 'json')
+        resource_path = '/v3/devices/{deviceId}/cached-resources/{resourcePath}'.replace('{format}', 'json')
         path_params = {}
         if 'endpoint_name' in params:
             path_params['endpointName'] = params['endpoint_name']

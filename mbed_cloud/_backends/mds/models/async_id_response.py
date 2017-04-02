@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    mbed Cloud Connect REST API
+    Connect API
 
-    mbed Cloud Connect REST API allows web applications to communicate with devices.
+    mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
 
     OpenAPI spec version: 2
     
@@ -105,7 +105,7 @@ class AsyncIDResponse(object):
     def max_age(self):
         """
         Gets the max_age of this AsyncIDResponse.
-        Determines how long this value will be valid in cache, in seconds. 0 means that value won't be stored in cache.
+        Determines how long this value will be valid in cache, in seconds. 0 means that value is not stored in cache.
 
         :return: The max_age of this AsyncIDResponse.
         :rtype: str
@@ -116,7 +116,7 @@ class AsyncIDResponse(object):
     def max_age(self, max_age):
         """
         Sets the max_age of this AsyncIDResponse.
-        Determines how long this value will be valid in cache, in seconds. 0 means that value won't be stored in cache.
+        Determines how long this value will be valid in cache, in seconds. 0 means that value is not stored in cache.
 
         :param max_age: The max_age of this AsyncIDResponse.
         :type: str
@@ -128,7 +128,7 @@ class AsyncIDResponse(object):
     def error(self):
         """
         Gets the error of this AsyncIDResponse.
-        Optional error message, describing error.
+        Optional error message, describing the error.
 
         :return: The error of this AsyncIDResponse.
         :rtype: str
@@ -139,7 +139,7 @@ class AsyncIDResponse(object):
     def error(self, error):
         """
         Sets the error of this AsyncIDResponse.
-        Optional error message, describing error.
+        Optional error message, describing the error.
 
         :param error: The error of this AsyncIDResponse.
         :type: str

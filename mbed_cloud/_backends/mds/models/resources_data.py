@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    mbed Cloud Connect REST API
+    Connect API
 
-    mbed Cloud Connect REST API allows web applications to communicate with devices.
+    mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
 
     OpenAPI spec version: 2
     
@@ -56,7 +56,7 @@ class ResourcesData(object):
     def path(self):
         """
         Gets the path of this ResourcesData.
-        Resource's URI path
+        Resource's URI path.
 
         :return: The path of this ResourcesData.
         :rtype: str
@@ -67,7 +67,7 @@ class ResourcesData(object):
     def path(self, path):
         """
         Sets the path of this ResourcesData.
-        Resource's URI path
+        Resource's URI path.
 
         :param path: The path of this ResourcesData.
         :type: str
@@ -79,7 +79,7 @@ class ResourcesData(object):
     def rf(self):
         """
         Gets the rf of this ResourcesData.
-        Resource type
+        Resource type.
 
         :return: The rf of this ResourcesData.
         :rtype: str
@@ -90,7 +90,7 @@ class ResourcesData(object):
     def rf(self, rf):
         """
         Sets the rf of this ResourcesData.
-        Resource type
+        Resource type.
 
         :param rf: The rf of this ResourcesData.
         :type: str
@@ -102,7 +102,7 @@ class ResourcesData(object):
     def ct(self):
         """
         Gets the ct of this ResourcesData.
-        Content type
+        Content type.
 
         :return: The ct of this ResourcesData.
         :rtype: str
@@ -113,7 +113,7 @@ class ResourcesData(object):
     def ct(self, ct):
         """
         Sets the ct of this ResourcesData.
-        Content type
+        Content type.
 
         :param ct: The ct of this ResourcesData.
         :type: str
@@ -125,7 +125,7 @@ class ResourcesData(object):
     def obs(self):
         """
         Gets the obs of this ResourcesData.
-        Whether the resource is observable or not (true/false)
+        Whether the resource is observable or not (true/false).
 
         :return: The obs of this ResourcesData.
         :rtype: bool
@@ -136,7 +136,7 @@ class ResourcesData(object):
     def obs(self, obs):
         """
         Sets the obs of this ResourcesData.
-        Whether the resource is observable or not (true/false)
+        Whether the resource is observable or not (true/false).
 
         :param obs: The obs of this ResourcesData.
         :type: bool
@@ -148,7 +148,7 @@ class ResourcesData(object):
     def _if(self):
         """
         Gets the _if of this ResourcesData.
-        Interface description
+        Interface description.
 
         :return: The _if of this ResourcesData.
         :rtype: str
@@ -159,7 +159,7 @@ class ResourcesData(object):
     def _if(self, _if):
         """
         Sets the _if of this ResourcesData.
-        Interface description
+        Interface description.
 
         :param _if: The _if of this ResourcesData.
         :type: str

@@ -56,7 +56,7 @@ class AccountInfo(object):
             'country': 'str',
             'created_at': 'str',
             'contact': 'str',
-            'policies': 'list[Policy]',
+            'policies': 'list[FeaturePolicy]',
             'template_id': 'str'
         }
 
@@ -720,7 +720,7 @@ class AccountInfo(object):
         List of policies if requested.
 
         :return: The policies of this AccountInfo.
-        :rtype: list[Policy]
+        :rtype: list[FeaturePolicy]
         """
         return self._policies
 
@@ -731,7 +731,7 @@ class AccountInfo(object):
         List of policies if requested.
 
         :param policies: The policies of this AccountInfo.
-        :type: list[Policy]
+        :type: list[FeaturePolicy]
         """
 
         self._policies = policies

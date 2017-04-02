@@ -28,7 +28,7 @@ Name | Type | Description | Notes
 **country** | **str** | The country part of the postal address. | [optional] 
 **created_at** | **str** | Creation UTC time RFC3339. | [optional] 
 **contact** | **str** | The name of the contact person for this account. | [optional] 
-**policies** | [**list[Policy]**](Policy.md) | List of policies if requested. | [optional] 
+**policies** | [**list[FeaturePolicy]**](FeaturePolicy.md) | List of policies if requested. | [optional] 
 **template_id** | **str** | Account template ID. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
