@@ -14,12 +14,13 @@ Name | Type | Description | Notes
 **parent_id** | **str** | The ID of the parent account, if it has any. | [optional] 
 **state** | **str** | The state part of the postal address. | [optional] 
 **etag** | **str** | API resource entity version. | 
-**is_provisioning_allowed** | **bool** | Flag (true/false) indicating whether Factory Tool is allowed to download or not. | [default to False]
+**is_provisioning_allowed** | **bool** | Flag (true/false) indicating whether Factory Tool is allowed to download or not. | 
 **creation_time_millis** | **int** |  | [optional] 
 **email** | **str** | The company email address for this account. | [optional] 
 **phone_number** | **str** | The phone number of the company. | [optional] 
 **company** | **str** | The name of the company. | [optional] 
 **object** | **str** | Entity name: always &#39;account&#39; | 
+**reason** | **str** | A reason note for updating the status of the account | [optional] 
 **upgraded_at** | **str** | Time when upgraded to commercial account in UTC format RFC3339. | [optional] 
 **tier** | **str** | The tier level of the account; &#39;0&#39;: free tier, &#39;1&#39;: commercial account. Other values are reserved for the future. | 
 **sub_accounts** | [**list[AccountInfo]**](AccountInfo.md) | List of sub accounts. | [optional] 
@@ -27,7 +28,7 @@ Name | Type | Description | Notes
 **country** | **str** | The country part of the postal address. | [optional] 
 **created_at** | **str** | Creation UTC time RFC3339. | [optional] 
 **contact** | **str** | The name of the contact person for this account. | [optional] 
-**policies** | [**list[Policy]**](Policy.md) | List of policies if requested. | [optional] 
+**policies** | [**list[FeaturePolicy]**](FeaturePolicy.md) | List of policies if requested. | [optional] 
 **template_id** | **str** | Account template ID. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

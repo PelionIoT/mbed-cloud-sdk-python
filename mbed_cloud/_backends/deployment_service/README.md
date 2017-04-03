@@ -57,12 +57,21 @@ deployment_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # deployment_service.configuration.api_key_prefix['Authorization'] = 'Bearer'
 # create an instance of the API class
 api_instance = deployment_service.DefaultApi()
+device_filter = 'device_filter_example' # str | The filter for the devices the campaign will target
+name = 'name_example' # str | A name for this campaign
+campaign_id = 'campaign_id_example' # str | DEPRECATED: The ID of the campaign (optional)
+description = 'description_example' # str | An optional description of the campaign (optional)
+finished = '2013-10-20T19:20:30+01:00' # datetime | The timestamp when the update campaign finished (optional)
+object = 'object_example' # str | The API resource entity (optional)
+root_manifest_id = 'root_manifest_id_example' # str |  (optional)
+state = 'state_example' # str | The state of the campaign (optional)
+when = '2013-10-20T19:20:30+01:00' # datetime | The timestamp at which update campaign scheduled to start (optional)
 
 try:
-    api_response = api_instance.deploy_info_get()
+    api_response = api_instance.update_campaign_create(device_filter, name, campaign_id=campaign_id, description=description, finished=finished, object=object, root_manifest_id=root_manifest_id, state=state, when=when)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->deploy_info_get: %s\n" % e)
+    print("Exception when calling DefaultApi->update_campaign_create: %s\n" % e)
 
 ```
 
@@ -72,24 +81,20 @@ All URIs are relative to *http://api.mbedcloud.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**deploy_info_get**](docs/DefaultApi.md#deploy_info_get) | **GET** /v3/ds_deploy_info | 
 *DefaultApi* | [**update_campaign_create**](docs/DefaultApi.md#update_campaign_create) | **POST** /v3/update-campaigns/ | 
 *DefaultApi* | [**update_campaign_destroy**](docs/DefaultApi.md#update_campaign_destroy) | **DELETE** /v3/update-campaigns/{campaign_id}/ | 
 *DefaultApi* | [**update_campaign_list**](docs/DefaultApi.md#update_campaign_list) | **GET** /v3/update-campaigns/ | 
 *DefaultApi* | [**update_campaign_partial_update**](docs/DefaultApi.md#update_campaign_partial_update) | **PATCH** /v3/update-campaigns/{campaign_id}/ | 
 *DefaultApi* | [**update_campaign_retrieve**](docs/DefaultApi.md#update_campaign_retrieve) | **GET** /v3/update-campaigns/{campaign_id}/ | 
-*DefaultApi* | [**update_campaign_status**](docs/DefaultApi.md#update_campaign_status) | **GET** /v3/update-campaigns/{campaign_id}/status/ | 
 *DefaultApi* | [**update_campaign_update**](docs/DefaultApi.md#update_campaign_update) | **PUT** /v3/update-campaigns/{campaign_id}/ | 
 
 
 ## Documentation For Models
 
- - [CampaignDeviceMetadataSerializer](docs/CampaignDeviceMetadataSerializer.md)
+ - [UpdateCampaign](docs/UpdateCampaign.md)
  - [UpdateCampaignPage](docs/UpdateCampaignPage.md)
- - [UpdateCampaignSerializer](docs/UpdateCampaignSerializer.md)
- - [UpdateCampaignStatusSerializer](docs/UpdateCampaignStatusSerializer.md)
- - [WriteCampaignDeviceMetadataSerializer](docs/WriteCampaignDeviceMetadataSerializer.md)
- - [WriteUpdateCampaignSerializer](docs/WriteUpdateCampaignSerializer.md)
+ - [WriteUpdateCampaign](docs/WriteUpdateCampaign.md)
+ - [WriteUpdateCampaignPage](docs/WriteUpdateCampaignPage.md)
 
 
 ## Documentation For Authorization

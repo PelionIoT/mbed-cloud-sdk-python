@@ -14,10 +14,14 @@
 from __future__ import absolute_import
 
 # import models into sdk package
-from .models.firmware_image_serializer import FirmwareImageSerializer
-from .models.firmware_image_serializer_data import FirmwareImageSerializerData
-from .models.firmware_manifest_serializer_data import FirmwareManifestSerializerData
-from .models.manifest_serializer import ManifestSerializer
+from .models.firmware_image import FirmwareImage
+from .models.firmware_image_page import FirmwareImagePage
+from .models.firmware_manifest import FirmwareManifest
+from .models.firmware_manifest_page import FirmwareManifestPage
+from .models.write_firmware_image import WriteFirmwareImage
+from .models.write_firmware_image_page import WriteFirmwareImagePage
+from .models.write_firmware_manifest import WriteFirmwareManifest
+from .models.write_firmware_manifest_page import WriteFirmwareManifestPage
 
 # import apis into sdk package
 from .apis.default_api import DefaultApi

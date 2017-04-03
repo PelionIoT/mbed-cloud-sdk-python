@@ -64,9 +64,9 @@ pri = 'pri_example' # str | Priority message. Adds traffic-class for outgoing IP
 
 try:
     # Delete a resource
-    api_instance.v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_delete(endpoint_name, _resource_path, no_resp=no_resp, pri=pri)
+    api_instance.v3_devices_device_id_cached_resources_resource_path_delete(endpoint_name, _resource_path, no_resp=no_resp, pri=pri)
 except ApiException as e:
-    print("Exception when calling ResourcesApi->v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_delete: %s\n" % e)
+    print("Exception when calling ResourcesApi->v3_devices_device_id_cached_resources_resource_path_delete: %s\n" % e)
 
 ```
 
@@ -76,10 +76,10 @@ All URIs are relative to *http://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*ResourcesApi* | [**v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_delete**](docs/ResourcesApi.md#v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_delete) | **DELETE** /v3/connect-synchronizer/proxy/endpoint/{endpointName}/{resourcePath} | Delete a resource
-*ResourcesApi* | [**v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_get**](docs/ResourcesApi.md#v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_get) | **GET** /v3/connect-synchronizer/proxy/endpoint/{endpointName}/{resourcePath} | Read from a resource
-*ResourcesApi* | [**v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_post**](docs/ResourcesApi.md#v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_post) | **POST** /v3/connect-synchronizer/proxy/endpoint/{endpointName}/{resourcePath} | Execute a function on a resource
-*ResourcesApi* | [**v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_put**](docs/ResourcesApi.md#v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_put) | **PUT** /v3/connect-synchronizer/proxy/endpoint/{endpointName}/{resourcePath} | Write to a resource
+*ResourcesApi* | [**v3_devices_device_id_cached_resources_resource_path_delete**](docs/ResourcesApi.md#v3_devices_device_id_cached_resources_resource_path_delete) | **DELETE** /v3/devices/{deviceId}/cached-resources/{resourcePath} | Delete a resource
+*ResourcesApi* | [**v3_devices_device_id_cached_resources_resource_path_get**](docs/ResourcesApi.md#v3_devices_device_id_cached_resources_resource_path_get) | **GET** /v3/devices/{deviceId}/cached-resources/{resourcePath} | Read from a resource
+*ResourcesApi* | [**v3_devices_device_id_cached_resources_resource_path_post**](docs/ResourcesApi.md#v3_devices_device_id_cached_resources_resource_path_post) | **POST** /v3/devices/{deviceId}/cached-resources/{resourcePath} | Execute a function on a resource
+*ResourcesApi* | [**v3_devices_device_id_cached_resources_resource_path_put**](docs/ResourcesApi.md#v3_devices_device_id_cached_resources_resource_path_put) | **PUT** /v3/devices/{deviceId}/cached-resources/{resourcePath} | Write to a resource
 
 
 ## Documentation For Models

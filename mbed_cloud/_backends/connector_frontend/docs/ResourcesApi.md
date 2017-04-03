@@ -4,14 +4,14 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_delete**](ResourcesApi.md#v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_delete) | **DELETE** /v3/connect-synchronizer/proxy/endpoint/{endpointName}/{resourcePath} | Delete a resource
-[**v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_get**](ResourcesApi.md#v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_get) | **GET** /v3/connect-synchronizer/proxy/endpoint/{endpointName}/{resourcePath} | Read from a resource
-[**v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_post**](ResourcesApi.md#v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_post) | **POST** /v3/connect-synchronizer/proxy/endpoint/{endpointName}/{resourcePath} | Execute a function on a resource
-[**v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_put**](ResourcesApi.md#v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_put) | **PUT** /v3/connect-synchronizer/proxy/endpoint/{endpointName}/{resourcePath} | Write to a resource
+[**v3_devices_device_id_cached_resources_resource_path_delete**](ResourcesApi.md#v3_devices_device_id_cached_resources_resource_path_delete) | **DELETE** /v3/devices/{deviceId}/cached-resources/{resourcePath} | Delete a resource
+[**v3_devices_device_id_cached_resources_resource_path_get**](ResourcesApi.md#v3_devices_device_id_cached_resources_resource_path_get) | **GET** /v3/devices/{deviceId}/cached-resources/{resourcePath} | Read from a resource
+[**v3_devices_device_id_cached_resources_resource_path_post**](ResourcesApi.md#v3_devices_device_id_cached_resources_resource_path_post) | **POST** /v3/devices/{deviceId}/cached-resources/{resourcePath} | Execute a function on a resource
+[**v3_devices_device_id_cached_resources_resource_path_put**](ResourcesApi.md#v3_devices_device_id_cached_resources_resource_path_put) | **PUT** /v3/devices/{deviceId}/cached-resources/{resourcePath} | Write to a resource
 
 
-# **v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_delete**
-> v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_delete(endpoint_name, _resource_path, no_resp=no_resp, pri=pri)
+# **v3_devices_device_id_cached_resources_resource_path_delete**
+> v3_devices_device_id_cached_resources_resource_path_delete(endpoint_name, _resource_path, no_resp=no_resp, pri=pri)
 
 Delete a resource
 
@@ -39,9 +39,9 @@ pri = 'pri_example' # str | Priority message. Adds traffic-class for outgoing IP
 
 try: 
     # Delete a resource
-    api_instance.v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_delete(endpoint_name, _resource_path, no_resp=no_resp, pri=pri)
+    api_instance.v3_devices_device_id_cached_resources_resource_path_delete(endpoint_name, _resource_path, no_resp=no_resp, pri=pri)
 except ApiException as e:
-    print("Exception when calling ResourcesApi->v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_delete: %s\n" % e)
+    print("Exception when calling ResourcesApi->v3_devices_device_id_cached_resources_resource_path_delete: %s\n" % e)
 ```
 
 ### Parameters
@@ -68,8 +68,8 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_get**
-> str v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_get(endpoint_name, _resource_path, cache_only=cache_only, pri=pri)
+# **v3_devices_device_id_cached_resources_resource_path_get**
+> str v3_devices_device_id_cached_resources_resource_path_get(endpoint_name, _resource_path, cache_only=cache_only, pri=pri)
 
 Read from a resource
 
@@ -97,10 +97,10 @@ pri = 'pri_example' # str | Priority message. Adds traffic-class for outgoing IP
 
 try: 
     # Read from a resource
-    api_response = api_instance.v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_get(endpoint_name, _resource_path, cache_only=cache_only, pri=pri)
+    api_response = api_instance.v3_devices_device_id_cached_resources_resource_path_get(endpoint_name, _resource_path, cache_only=cache_only, pri=pri)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling ResourcesApi->v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_get: %s\n" % e)
+    print("Exception when calling ResourcesApi->v3_devices_device_id_cached_resources_resource_path_get: %s\n" % e)
 ```
 
 ### Parameters
@@ -127,8 +127,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_post**
-> v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_post(endpoint_name, _resource_path, resource_function=resource_function, no_resp=no_resp, pri=pri)
+# **v3_devices_device_id_cached_resources_resource_path_post**
+> v3_devices_device_id_cached_resources_resource_path_post(endpoint_name, _resource_path, resource_function=resource_function, no_resp=no_resp, pri=pri)
 
 Execute a function on a resource
 
@@ -157,9 +157,9 @@ pri = 'pri_example' # str | Priority message. Adds traffic-class for outgoing IP
 
 try: 
     # Execute a function on a resource
-    api_instance.v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_post(endpoint_name, _resource_path, resource_function=resource_function, no_resp=no_resp, pri=pri)
+    api_instance.v3_devices_device_id_cached_resources_resource_path_post(endpoint_name, _resource_path, resource_function=resource_function, no_resp=no_resp, pri=pri)
 except ApiException as e:
-    print("Exception when calling ResourcesApi->v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_post: %s\n" % e)
+    print("Exception when calling ResourcesApi->v3_devices_device_id_cached_resources_resource_path_post: %s\n" % e)
 ```
 
 ### Parameters
@@ -187,8 +187,8 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_put**
-> v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_put(endpoint_name, _resource_path, resource_value, pri=pri)
+# **v3_devices_device_id_cached_resources_resource_path_put**
+> v3_devices_device_id_cached_resources_resource_path_put(endpoint_name, _resource_path, resource_value, pri=pri)
 
 Write to a resource
 
@@ -216,9 +216,9 @@ pri = 'pri_example' # str | Priority message. Adds traffic-class for outgoing IP
 
 try: 
     # Write to a resource
-    api_instance.v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_put(endpoint_name, _resource_path, resource_value, pri=pri)
+    api_instance.v3_devices_device_id_cached_resources_resource_path_put(endpoint_name, _resource_path, resource_value, pri=pri)
 except ApiException as e:
-    print("Exception when calling ResourcesApi->v3_connect_synchronizer_proxy_endpoint_endpoint_name_resource_path_put: %s\n" % e)
+    print("Exception when calling ResourcesApi->v3_devices_device_id_cached_resources_resource_path_put: %s\n" % e)
 ```
 
 ### Parameters

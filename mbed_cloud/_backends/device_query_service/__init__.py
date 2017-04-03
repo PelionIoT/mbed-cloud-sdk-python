@@ -15,8 +15,10 @@ from __future__ import absolute_import
 
 # import models into sdk package
 from .models.body import Body
-from .models.device_query_detail import DeviceQueryDetail
-from .models.device_query_resp import DeviceQueryResp
+from .models.device_query import DeviceQuery
+from .models.device_query_page import DeviceQueryPage
+from .models.write_device_query import WriteDeviceQuery
+from .models.write_device_query_page import WriteDeviceQueryPage
 
 # import apis into sdk package
 from .apis.default_api import DefaultApi

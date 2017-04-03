@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    mbed Cloud Connect REST API
+    Connect API
 
-    mbed Cloud Connect REST API allows web applications to communicate with devices.
+    mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
 
     OpenAPI spec version: 2
     
@@ -43,7 +43,7 @@ class ResourcesApi(object):
     def v2_endpoints_endpoint_name_resource_path_delete(self, endpoint_name, _resource_path, **kwargs):
         """
         Delete a resource
-        A request to delete a resource must be handled by both mbed Cloud Client and mbed Cloud Connect. The resource is not deleted from mbed Cloud Connect until the delete is handled by mbed Cloud Client.  All resource APIs are asynchronous. Note that these APIs respond only if the device is turned on and connected to mbed Cloud Connect. 
+        A request to delete a resource must be handled by both mbed Cloud Client and mbed Cloud Connect. The resource is not deleted from mbed Cloud Connect until the delete  is handled by mbed Cloud Client.  All resource APIs are asynchronous. These APIs respond only if the device is turned on and connected to mbed Cloud Connect. 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -55,8 +55,8 @@ class ResourcesApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str endpoint_name: A unique identifier for the endpoint. Note that the endpoint-name must be an exact match. You cannot use wildcards here.  (required)
-        :param str _resource_path: Resource's url.  (required)
-        :param bool no_resp: **Non-confirmable requests**  All resource APIs have the parameter noResp. If you make a request with noResp=true, mbed Cloud Connect makes a CoAP non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code 204 No Content. If the underlying protocol does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code 409 Conflict. 
+        :param str _resource_path: The URL of the resource.  (required)
+        :param bool no_resp: **Non-confirmable requests**   All resource APIs have the parameter noResp. If you make a request with `noResp=true`, mbed Cloud Connect makes a CoAP non-confirmable request to the device.  Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code  204 No Content. If the underlying protocol does not support non-confirmable requests,  or if the endpoint is registered in queue mode, the response is status code 409 Conflict. 
         :return: AsyncID
                  If the method is called asynchronously,
                  returns the request thread.
@@ -71,7 +71,7 @@ class ResourcesApi(object):
     def v2_endpoints_endpoint_name_resource_path_delete_with_http_info(self, endpoint_name, _resource_path, **kwargs):
         """
         Delete a resource
-        A request to delete a resource must be handled by both mbed Cloud Client and mbed Cloud Connect. The resource is not deleted from mbed Cloud Connect until the delete is handled by mbed Cloud Client.  All resource APIs are asynchronous. Note that these APIs respond only if the device is turned on and connected to mbed Cloud Connect. 
+        A request to delete a resource must be handled by both mbed Cloud Client and mbed Cloud Connect. The resource is not deleted from mbed Cloud Connect until the delete  is handled by mbed Cloud Client.  All resource APIs are asynchronous. These APIs respond only if the device is turned on and connected to mbed Cloud Connect. 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -83,8 +83,8 @@ class ResourcesApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str endpoint_name: A unique identifier for the endpoint. Note that the endpoint-name must be an exact match. You cannot use wildcards here.  (required)
-        :param str _resource_path: Resource's url.  (required)
-        :param bool no_resp: **Non-confirmable requests**  All resource APIs have the parameter noResp. If you make a request with noResp=true, mbed Cloud Connect makes a CoAP non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code 204 No Content. If the underlying protocol does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code 409 Conflict. 
+        :param str _resource_path: The URL of the resource.  (required)
+        :param bool no_resp: **Non-confirmable requests**   All resource APIs have the parameter noResp. If you make a request with `noResp=true`, mbed Cloud Connect makes a CoAP non-confirmable request to the device.  Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code  204 No Content. If the underlying protocol does not support non-confirmable requests,  or if the endpoint is registered in queue mode, the response is status code 409 Conflict. 
         :return: AsyncID
                  If the method is called asynchronously,
                  returns the request thread.
@@ -157,7 +157,7 @@ class ResourcesApi(object):
     def v2_endpoints_endpoint_name_resource_path_get(self, endpoint_name, _resource_path, **kwargs):
         """
         Read from a resource
-        Requests the resource value and when the response is available, a json AsycResponse object (AsyncIDResponse object) is received in the notification channel. Note that you can also receive notifications when a resource changes. The preferred way to get resource values is to use subscribe and callback methods.  All resource APIs are asynchronous. Note that these APIs will only respond if the device is turned on and connected to mbed Cloud Connect. 
+        Requests the resource value and when the response is available, a json AsycResponse  object (AsyncIDResponse object) is received in the notification channel. Note that you can also  receive notifications when a resource changes. The preferred way to get resource values is to use subscribe  and callback methods.  All resource APIs are asynchronous. These APIs will only respond  if the device is turned on and connected to mbed Cloud Connect. 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -169,9 +169,9 @@ class ResourcesApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str endpoint_name: Unique identifier for the endpoint. Note that the endpoint name needs to be an exact match. You cannot use wildcards here.  (required)
-        :param str _resource_path: Resource's url.  (required)
+        :param str _resource_path: The URL of the resource.  (required)
         :param bool cache_only: If true, the response comes only from the cache. Default: false. 
-        :param bool no_resp: **Non-confirmable requests**  All resource APIs have the parameter noResp. If a request is made with noResp=true, mbed Cloud Connect makes a CoAP non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code 204 No Content. If the underlying protocol does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code 409 Conflict. 
+        :param bool no_resp: **Non-confirmable requests**   All resource APIs have the parameter noResp. If a request is made with noResp=true, mbed Cloud Connect makes a CoAP  non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back  an async-response-id.  If calls with this parameter enabled succeed, they return with the status code 204 No Content. If the underlying protocol  does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code  409 Conflict. 
         :return: AsyncID
                  If the method is called asynchronously,
                  returns the request thread.
@@ -186,7 +186,7 @@ class ResourcesApi(object):
     def v2_endpoints_endpoint_name_resource_path_get_with_http_info(self, endpoint_name, _resource_path, **kwargs):
         """
         Read from a resource
-        Requests the resource value and when the response is available, a json AsycResponse object (AsyncIDResponse object) is received in the notification channel. Note that you can also receive notifications when a resource changes. The preferred way to get resource values is to use subscribe and callback methods.  All resource APIs are asynchronous. Note that these APIs will only respond if the device is turned on and connected to mbed Cloud Connect. 
+        Requests the resource value and when the response is available, a json AsycResponse  object (AsyncIDResponse object) is received in the notification channel. Note that you can also  receive notifications when a resource changes. The preferred way to get resource values is to use subscribe  and callback methods.  All resource APIs are asynchronous. These APIs will only respond  if the device is turned on and connected to mbed Cloud Connect. 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -198,9 +198,9 @@ class ResourcesApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str endpoint_name: Unique identifier for the endpoint. Note that the endpoint name needs to be an exact match. You cannot use wildcards here.  (required)
-        :param str _resource_path: Resource's url.  (required)
+        :param str _resource_path: The URL of the resource.  (required)
         :param bool cache_only: If true, the response comes only from the cache. Default: false. 
-        :param bool no_resp: **Non-confirmable requests**  All resource APIs have the parameter noResp. If a request is made with noResp=true, mbed Cloud Connect makes a CoAP non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code 204 No Content. If the underlying protocol does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code 409 Conflict. 
+        :param bool no_resp: **Non-confirmable requests**   All resource APIs have the parameter noResp. If a request is made with noResp=true, mbed Cloud Connect makes a CoAP  non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back  an async-response-id.  If calls with this parameter enabled succeed, they return with the status code 204 No Content. If the underlying protocol  does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code  409 Conflict. 
         :return: AsyncID
                  If the method is called asynchronously,
                  returns the request thread.
@@ -275,7 +275,7 @@ class ResourcesApi(object):
     def v2_endpoints_endpoint_name_resource_path_post(self, endpoint_name, _resource_path, **kwargs):
         """
         Execute a function on a resource
-        With this API, you can execute a function on an existing resource.  All resource APIs are asynchronous. Note that these APIs respond only if the device is turned on and connected to mbed Cloud Connect. 
+        With this API, you can execute a function on an existing resource.  All resource APIs are asynchronous. These APIs respond only if the device is turned on and connected to mbed Cloud Connect. 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -287,9 +287,9 @@ class ResourcesApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str endpoint_name: A unique identifier for the endpoint. Note that the endpoint-name must be an exact match. You cannot use wildcards here.  (required)
-        :param str _resource_path: Resource's url. (required)
+        :param str _resource_path: The URL of the resource. (required)
         :param str resource_function: This value is not needed. Most of the time resources do not accept a function but they have their own functions predefined. You can use this to trigger them.  If a function is included, the body of this request is passed as a char* to the function in mbed Cloud Client. 
-        :param bool no_resp: **Non-confirmable requests**  All resource APIs have the parameter noResp. If you make a request with noResp=true, mbed Cloud Connect makes a CoAP non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code 204 No Content. If the underlying protocol does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code 409 Conflict. 
+        :param bool no_resp: **Non-confirmable requests**  All resource APIs have the parameter noResp. If you make a request with noResp=true, mbed Cloud Connect makes a CoAP non-confirmable request to the device.  Such requests are not guaranteed to arrive in the device,  and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code  204 No Content. If the underlying protocol does not support non-confirmable requests,  or if the endpoint is registered in queue mode, the response is status code 409 Conflict. 
         :return: AsyncID
                  If the method is called asynchronously,
                  returns the request thread.
@@ -304,7 +304,7 @@ class ResourcesApi(object):
     def v2_endpoints_endpoint_name_resource_path_post_with_http_info(self, endpoint_name, _resource_path, **kwargs):
         """
         Execute a function on a resource
-        With this API, you can execute a function on an existing resource.  All resource APIs are asynchronous. Note that these APIs respond only if the device is turned on and connected to mbed Cloud Connect. 
+        With this API, you can execute a function on an existing resource.  All resource APIs are asynchronous. These APIs respond only if the device is turned on and connected to mbed Cloud Connect. 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -316,9 +316,9 @@ class ResourcesApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str endpoint_name: A unique identifier for the endpoint. Note that the endpoint-name must be an exact match. You cannot use wildcards here.  (required)
-        :param str _resource_path: Resource's url. (required)
+        :param str _resource_path: The URL of the resource. (required)
         :param str resource_function: This value is not needed. Most of the time resources do not accept a function but they have their own functions predefined. You can use this to trigger them.  If a function is included, the body of this request is passed as a char* to the function in mbed Cloud Client. 
-        :param bool no_resp: **Non-confirmable requests**  All resource APIs have the parameter noResp. If you make a request with noResp=true, mbed Cloud Connect makes a CoAP non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code 204 No Content. If the underlying protocol does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code 409 Conflict. 
+        :param bool no_resp: **Non-confirmable requests**  All resource APIs have the parameter noResp. If you make a request with noResp=true, mbed Cloud Connect makes a CoAP non-confirmable request to the device.  Such requests are not guaranteed to arrive in the device,  and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code  204 No Content. If the underlying protocol does not support non-confirmable requests,  or if the endpoint is registered in queue mode, the response is status code 409 Conflict. 
         :return: AsyncID
                  If the method is called asynchronously,
                  returns the request thread.
@@ -397,7 +397,7 @@ class ResourcesApi(object):
     def v2_endpoints_endpoint_name_resource_path_put(self, endpoint_name, _resource_path, resource_value, **kwargs):
         """
         Write to a resource
-        With this API, you can write new values to existing resources, or create new resources on the device. The resource-path does not have to exist - it can be created by the call.  All resource APIs are asynchronous. Note that these APIs respond only if the device is turned on and connected to mbed Cloud Connect. 
+        With this API, you can write new values to existing resources, or create new  resources on the device. The resource-path does not have to exist - it can be  created by the call.  This API can also be used to transfer files to the device. mbed Cloud Connect  LWM2M server implements the Option 1 from RFC7959. The maximum block size is 1024 bytes.  The block size versus transferred file size is something to note in low quality networks.  The customer application needs to know what type of file is transferred (for example txt)  and the payload can be encrypted by the customer.   All resource APIs are asynchronous. These APIs respond only if the device is turned on and connected to mbed Cloud Connect. 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -409,9 +409,9 @@ class ResourcesApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str endpoint_name: A unique identifier for the endpoint. Note that the endpoint name must be an exact match. You cannot use wildcards here.  (required)
-        :param str _resource_path: Resource's url. (required)
-        :param str resource_value: Value to be set to the resource. (Check accceptable content-types)  (required)
-        :param bool no_resp: **Non-confirmable requests**  All resource APIs have the parameter noResp. If you make a request with noResp=true, mbed Cloud Connect makes a CoAP non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code 204 No Content. If the underlying protocol does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code 409 Conflict. 
+        :param str _resource_path: Resource URL. (required)
+        :param str resource_value: The value to be set to the resource. (Check accceptable content-types)  (required)
+        :param bool no_resp: **Non-confirmable requests**   All resource APIs have the parameter noResp. If you make a request with noResp=true, mbed Cloud Connect makes a CoAP non-confirmable request to the device.  Such requests are not guaranteed to arrive in the device,  and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code  204 No Content. If the underlying protocol does not support non-confirmable requests,  or if the endpoint is registered in queue mode, the response is status code 409 Conflict. 
         :return: AsyncID
                  If the method is called asynchronously,
                  returns the request thread.
@@ -426,7 +426,7 @@ class ResourcesApi(object):
     def v2_endpoints_endpoint_name_resource_path_put_with_http_info(self, endpoint_name, _resource_path, resource_value, **kwargs):
         """
         Write to a resource
-        With this API, you can write new values to existing resources, or create new resources on the device. The resource-path does not have to exist - it can be created by the call.  All resource APIs are asynchronous. Note that these APIs respond only if the device is turned on and connected to mbed Cloud Connect. 
+        With this API, you can write new values to existing resources, or create new  resources on the device. The resource-path does not have to exist - it can be  created by the call.  This API can also be used to transfer files to the device. mbed Cloud Connect  LWM2M server implements the Option 1 from RFC7959. The maximum block size is 1024 bytes.  The block size versus transferred file size is something to note in low quality networks.  The customer application needs to know what type of file is transferred (for example txt)  and the payload can be encrypted by the customer.   All resource APIs are asynchronous. These APIs respond only if the device is turned on and connected to mbed Cloud Connect. 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -438,9 +438,9 @@ class ResourcesApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str endpoint_name: A unique identifier for the endpoint. Note that the endpoint name must be an exact match. You cannot use wildcards here.  (required)
-        :param str _resource_path: Resource's url. (required)
-        :param str resource_value: Value to be set to the resource. (Check accceptable content-types)  (required)
-        :param bool no_resp: **Non-confirmable requests**  All resource APIs have the parameter noResp. If you make a request with noResp=true, mbed Cloud Connect makes a CoAP non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code 204 No Content. If the underlying protocol does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code 409 Conflict. 
+        :param str _resource_path: Resource URL. (required)
+        :param str resource_value: The value to be set to the resource. (Check accceptable content-types)  (required)
+        :param bool no_resp: **Non-confirmable requests**   All resource APIs have the parameter noResp. If you make a request with noResp=true, mbed Cloud Connect makes a CoAP non-confirmable request to the device.  Such requests are not guaranteed to arrive in the device,  and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code  204 No Content. If the underlying protocol does not support non-confirmable requests,  or if the endpoint is registered in queue mode, the response is status code 409 Conflict. 
         :return: AsyncID
                  If the method is called asynchronously,
                  returns the request thread.

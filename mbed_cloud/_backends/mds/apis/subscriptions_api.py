@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    mbed Cloud Connect REST API
+    Connect API
 
-    mbed Cloud Connect REST API allows web applications to communicate with devices.
+    mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
 
     OpenAPI spec version: 2
     
@@ -356,7 +356,7 @@ class SubscriptionsApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str endpoint_name: A unique identifier for the endpoint. Note that the endpoint name must be an exact match. You cannot use wildcards here.  (required)
-        :param str _resource_path: Resource's url.  (required)
+        :param str _resource_path: The URL of the resource.  (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -383,7 +383,7 @@ class SubscriptionsApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str endpoint_name: A unique identifier for the endpoint. Note that the endpoint name must be an exact match. You cannot use wildcards here.  (required)
-        :param str _resource_path: Resource's url.  (required)
+        :param str _resource_path: The URL of the resource.  (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -465,7 +465,7 @@ class SubscriptionsApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str endpoint_name: A unique identifier for the endpoint. Note that the endpoint name must be an exact match. You cannot use wildcards here.  (required)
-        :param str _resource_path: Resource's url.  (required)
+        :param str _resource_path: The URL of the resource.  (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -491,7 +491,7 @@ class SubscriptionsApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str endpoint_name: A unique identifier for the endpoint. Note that the endpoint name must be an exact match. You cannot use wildcards here.  (required)
-        :param str _resource_path: Resource's url.  (required)
+        :param str _resource_path: The URL of the resource.  (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -562,7 +562,7 @@ class SubscriptionsApi(object):
     def v2_subscriptions_endpoint_name_resource_path_put(self, endpoint_name, _resource_path, **kwargs):
         """
         Subscribe to a resource path
-        The mbed Cloud Connect eventing model consists of observable resources.  This means that endpoints can deliver updated resource content, periodically or with a more sophisticated solution-dependent logic. The OMA LWM2M resource model including objects, object instances, resources and resource instances is also supported.  Applications can subscribe to objects, object instances or individual resources to make the device to provide value change notifications to mbed Cloud Connect service. An application needs to call a /notification/callback method to get mbed Cloud Connect to push a notification of the resource changes. You can also use /subscriptions to set a pre-subscription. 
+        The mbed Cloud Connect eventing model consists of observable resources.  This means that endpoints can deliver updated resource content, periodically or with a more sophisticated  solution-dependent logic. The OMA LWM2M resource model including objects, object instances,  resources and resource instances is also supported.  Applications can subscribe to objects, object instances or individual resources to make the device  to provide value change notifications to mbed Cloud Connect service. An application needs to call a /notification/callback method to get mbed Cloud Connect to push a notification of the resource changes.  You can also use /subscriptions to set a pre-subscription. 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -574,7 +574,7 @@ class SubscriptionsApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str endpoint_name: A unique identifier for the endpoint. Note that the endpoint name must be an exact match. You cannot use wildcards here.  (required)
-        :param str _resource_path: Resource's URL.  (required)
+        :param str _resource_path: The URL of the resource.  (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -589,7 +589,7 @@ class SubscriptionsApi(object):
     def v2_subscriptions_endpoint_name_resource_path_put_with_http_info(self, endpoint_name, _resource_path, **kwargs):
         """
         Subscribe to a resource path
-        The mbed Cloud Connect eventing model consists of observable resources.  This means that endpoints can deliver updated resource content, periodically or with a more sophisticated solution-dependent logic. The OMA LWM2M resource model including objects, object instances, resources and resource instances is also supported.  Applications can subscribe to objects, object instances or individual resources to make the device to provide value change notifications to mbed Cloud Connect service. An application needs to call a /notification/callback method to get mbed Cloud Connect to push a notification of the resource changes. You can also use /subscriptions to set a pre-subscription. 
+        The mbed Cloud Connect eventing model consists of observable resources.  This means that endpoints can deliver updated resource content, periodically or with a more sophisticated  solution-dependent logic. The OMA LWM2M resource model including objects, object instances,  resources and resource instances is also supported.  Applications can subscribe to objects, object instances or individual resources to make the device  to provide value change notifications to mbed Cloud Connect service. An application needs to call a /notification/callback method to get mbed Cloud Connect to push a notification of the resource changes.  You can also use /subscriptions to set a pre-subscription. 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -601,7 +601,7 @@ class SubscriptionsApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str endpoint_name: A unique identifier for the endpoint. Note that the endpoint name must be an exact match. You cannot use wildcards here.  (required)
-        :param str _resource_path: Resource's URL.  (required)
+        :param str _resource_path: The URL of the resource.  (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -672,7 +672,7 @@ class SubscriptionsApi(object):
     def v2_subscriptions_get(self, **kwargs):
         """
         Get pre-subscriptions
-        You can retrieve the pre-subscription data by using a GET operation. The server returns with the same JSON structure as described above. If there are no pre-subscribed resources, it returns with an empty array. 
+        You can retrieve the pre-subscription data by using a GET operation. The server returns with the same JSON structure  as described above. If there are no pre-subscribed resources, it returns with an empty array. 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -697,7 +697,7 @@ class SubscriptionsApi(object):
     def v2_subscriptions_get_with_http_info(self, **kwargs):
         """
         Get pre-subscriptions
-        You can retrieve the pre-subscription data by using a GET operation. The server returns with the same JSON structure as described above. If there are no pre-subscribed resources, it returns with an empty array. 
+        You can retrieve the pre-subscription data by using a GET operation. The server returns with the same JSON structure  as described above. If there are no pre-subscribed resources, it returns with an empty array. 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -767,7 +767,7 @@ class SubscriptionsApi(object):
     def v2_subscriptions_put(self, presubsription, **kwargs):
         """
         Set pre-subscriptions
-        Pre-subscription is a set of rules and patterns put by the application. When an endpoint registers and its name, type and registered resources match the pre-subscription data, mbed Cloud Connect sends subscription requests to the device automatically. The pattern may include the endpoint name (optionally having an \\* character at the end), endpoint type, a list of resources or expressions with an \\* character at the end. The pre-subscription concerns all the endpoints that are already registered and the server sends subscription requests to the devices immediately when the patterns are set. There is only one pre-subscribe array, so changing the pre-subscription data removes all the previous subscriptions. To remove the pre-subscription data, put an empty array as a rule. 
+        Pre-subscription is a set of rules and patterns put by the application. When an endpoint registers  and its name, type and registered resources match the pre-subscription data, mbed Cloud Connect sends  subscription requests to the device automatically. The pattern may include the endpoint name  (optionally having an \\* character at the end), endpoint type, a list of resources or expressions  with an \\* character at the end. Subscriptions based on pre-subscriptions are done when device registers or does register update. To remove the pre-subscription data, put an empty array as a rule.  ``` Example payload: [  {    endpoint-name: \"node-001\",    resource-path: [\"/dev\"]  },  {    endpoint-type: \"Light\",    resource-path: [\"/sen/*\"]  },  {    endpoint-name: \"node*\"  },  {    endpoint-type: \"Sensor\"  },  {     resource-path: [\"/dev/temp\",\"/dev/hum\"]  } ] ``` 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -793,7 +793,7 @@ class SubscriptionsApi(object):
     def v2_subscriptions_put_with_http_info(self, presubsription, **kwargs):
         """
         Set pre-subscriptions
-        Pre-subscription is a set of rules and patterns put by the application. When an endpoint registers and its name, type and registered resources match the pre-subscription data, mbed Cloud Connect sends subscription requests to the device automatically. The pattern may include the endpoint name (optionally having an \\* character at the end), endpoint type, a list of resources or expressions with an \\* character at the end. The pre-subscription concerns all the endpoints that are already registered and the server sends subscription requests to the devices immediately when the patterns are set. There is only one pre-subscribe array, so changing the pre-subscription data removes all the previous subscriptions. To remove the pre-subscription data, put an empty array as a rule. 
+        Pre-subscription is a set of rules and patterns put by the application. When an endpoint registers  and its name, type and registered resources match the pre-subscription data, mbed Cloud Connect sends  subscription requests to the device automatically. The pattern may include the endpoint name  (optionally having an \\* character at the end), endpoint type, a list of resources or expressions  with an \\* character at the end. Subscriptions based on pre-subscriptions are done when device registers or does register update. To remove the pre-subscription data, put an empty array as a rule.  ``` Example payload: [  {    endpoint-name: \"node-001\",    resource-path: [\"/dev\"]  },  {    endpoint-type: \"Light\",    resource-path: [\"/sen/*\"]  },  {    endpoint-name: \"node*\"  },  {    endpoint-type: \"Sensor\"  },  {     resource-path: [\"/dev/temp\",\"/dev/hum\"]  } ] ``` 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.

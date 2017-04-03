@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    mbed Cloud Connect REST API
+    Connect API
 
-    mbed Cloud Connect REST API allows web applications to communicate with devices.
+    mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
 
     OpenAPI spec version: 2
     
@@ -145,7 +145,7 @@ class EndpointsApi(object):
 
     def v2_endpoints_get(self, **kwargs):
         """
-        List all endpoints
+        List endpoints. The number of endpoints is currently limited to 200.
         Endpoints are physical devices running mbed Cloud Client. 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -171,7 +171,7 @@ class EndpointsApi(object):
 
     def v2_endpoints_get_with_http_info(self, **kwargs):
         """
-        List all endpoints
+        List endpoints. The number of endpoints is currently limited to 200.
         Endpoints are physical devices running mbed Cloud Client. 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function

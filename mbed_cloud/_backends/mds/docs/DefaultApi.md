@@ -61,7 +61,7 @@ void (empty response body)
 
 Check callback URL
 
-Shows the current callback URL if exists.
+Shows the current callback URL if it exists.
 
 ### Example 
 ```python

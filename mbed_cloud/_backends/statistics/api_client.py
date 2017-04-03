@@ -1,8 +1,8 @@
 # coding: utf-8
 """
-    mbed Cloud Connector Statistics REST API
+    Connect Statistics API
 
-    mbed Cloud Connector Statistics REST API provides statistics about other cloud services through defined counters.
+    mbed Cloud Connect Statistics API provides statistics about other cloud services through defined counters.
 
     OpenAPI spec version: 3
     

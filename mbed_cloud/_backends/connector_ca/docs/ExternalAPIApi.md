@@ -1,6 +1,6 @@
 # connector_ca.ExternalAPIApi
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *http://api.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 
 # **v3_developer_certificates_id_get**
-> InlineResponse201 v3_developer_certificates_id_get(id, authorization)
+> DeveloperCertificateResponseData v3_developer_certificates_id_get(id, authorization)
 
 Fetch an existing developer certificate to connect to the bootstrap server.
 
@@ -52,7 +52,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse201**](InlineResponse201.md)
+[**DeveloperCertificateResponseData**](DeveloperCertificateResponseData.md)
 
 ### Authorization
 
@@ -66,11 +66,11 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v3_developer_certificates_post**
-> InlineResponse201 v3_developer_certificates_post(authorization, body)
+> DeveloperCertificateResponseData v3_developer_certificates_post(authorization, body)
 
 Create a new developer certificate to connect to the bootstrap server.
 
-This REST API is intended to be used by customers to get a developer certificate (a certificate that can be flashed into multiple devices to connect to bootstrap server).  Limitations:   - One developer certificate allows up to 100 devices to connect to bootstrap server.   - Only 10 developer certificates are allowed per account 
+This REST API is intended to be used by customers to get a developer certificate (a certificate that can be flashed into multiple devices to connect to bootstrap server).  Limitations:    - One developer certificate allows up to 100 devices to connect to bootstrap server.   - Only 10 developer certificates are allowed per account. 
 
 ### Example 
 ```python
@@ -88,7 +88,7 @@ connector_ca.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = connector_ca.ExternalAPIApi()
 authorization = 'authorization_example' # str | Bearer {Access Token}. 
-body = connector_ca.Body() # Body | 
+body = connector_ca.DeveloperCertificateRequestData() # DeveloperCertificateRequestData | 
 
 try: 
     # Create a new developer certificate to connect to the bootstrap server.
@@ -103,11 +103,11 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **str**| Bearer {Access Token}.  | 
- **body** | [**Body**](Body.md)|  | 
+ **body** | [**DeveloperCertificateRequestData**](DeveloperCertificateRequestData.md)|  | 
 
 ### Return type
 
-[**InlineResponse201**](InlineResponse201.md)
+[**DeveloperCertificateResponseData**](DeveloperCertificateResponseData.md)
 
 ### Authorization
 
@@ -121,11 +121,11 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v3_server_credentials_bootstrap_get**
-> InlineResponse200 v3_server_credentials_bootstrap_get(authorization)
+> ServerCredentialsResponseData v3_server_credentials_bootstrap_get(authorization)
 
 Fetch bootstrap server credentials.
 
-This REST API is intended to be used by customers to fetch bootstrap server credentials that they will need to use with their clients to connect to bootstrap server. 
+This REST API is intended to be used by customers to fetch bootstrap server credentials that they need to use with their clients to connect to bootstrap server. 
 
 ### Example 
 ```python
@@ -160,7 +160,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse200**](InlineResponse200.md)
+[**ServerCredentialsResponseData**](ServerCredentialsResponseData.md)
 
 ### Authorization
 
@@ -174,11 +174,11 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v3_server_credentials_lwm2m_get**
-> InlineResponse2001 v3_server_credentials_lwm2m_get(authorization)
+> ServerCredentialsResponseData v3_server_credentials_lwm2m_get(authorization)
 
 Fetch LWM2M server credentials.
 
-This REST API is intended to be used by customers to fetch LWM2M server credentials that they will need to use with their clients to connect to LWM2M server. 
+This REST API is intended to be used by customers to fetch LWM2M server credentials that they need to use with their clients to connect to LWM2M server. 
 
 ### Example 
 ```python
@@ -213,7 +213,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2001**](InlineResponse2001.md)
+[**ServerCredentialsResponseData**](ServerCredentialsResponseData.md)
 
 ### Authorization
 

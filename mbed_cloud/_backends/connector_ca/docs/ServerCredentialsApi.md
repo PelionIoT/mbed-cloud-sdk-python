@@ -1,6 +1,6 @@
 # connector_ca.ServerCredentialsApi
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *http://api.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -9,11 +9,11 @@ Method | HTTP request | Description
 
 
 # **v3_server_credentials_bootstrap_get**
-> InlineResponse200 v3_server_credentials_bootstrap_get(authorization)
+> ServerCredentialsResponseData v3_server_credentials_bootstrap_get(authorization)
 
 Fetch bootstrap server credentials.
 
-This REST API is intended to be used by customers to fetch bootstrap server credentials that they will need to use with their clients to connect to bootstrap server. 
+This REST API is intended to be used by customers to fetch bootstrap server credentials that they need to use with their clients to connect to bootstrap server. 
 
 ### Example 
 ```python
@@ -48,7 +48,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse200**](InlineResponse200.md)
+[**ServerCredentialsResponseData**](ServerCredentialsResponseData.md)
 
 ### Authorization
 
@@ -62,11 +62,11 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v3_server_credentials_lwm2m_get**
-> InlineResponse2001 v3_server_credentials_lwm2m_get(authorization)
+> ServerCredentialsResponseData v3_server_credentials_lwm2m_get(authorization)
 
 Fetch LWM2M server credentials.
 
-This REST API is intended to be used by customers to fetch LWM2M server credentials that they will need to use with their clients to connect to LWM2M server. 
+This REST API is intended to be used by customers to fetch LWM2M server credentials that they need to use with their clients to connect to LWM2M server. 
 
 ### Example 
 ```python
@@ -101,7 +101,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2001**](InlineResponse2001.md)
+[**ServerCredentialsResponseData**](ServerCredentialsResponseData.md)
 
 ### Authorization
 

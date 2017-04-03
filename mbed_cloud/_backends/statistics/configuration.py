@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    mbed Cloud Connector Statistics REST API
+    Connect Statistics API
 
-    mbed Cloud Connector Statistics REST API provides statistics about other cloud services through defined counters.
+    mbed Cloud Connect Statistics API provides statistics about other cloud services through defined counters.
 
     OpenAPI spec version: 3
     
@@ -45,7 +45,7 @@ class Configuration(object):
         Constructor
         """
         # Default Base url
-        self.host = "http://localhost"
+        self.host = "http://api.mbedcloud.com"
         # Default api client
         self.api_client = None
         # Temp file folder for downloading files

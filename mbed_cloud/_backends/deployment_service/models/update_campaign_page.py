@@ -36,7 +36,7 @@ class UpdateCampaignPage(object):
             'total_count': 'int',
             'after': 'str',
             'limit': 'int',
-            'data': 'list[UpdateCampaignSerializer]',
+            'data': 'list[UpdateCampaign]',
             'order': 'str'
         }
 
@@ -62,7 +62,6 @@ class UpdateCampaignPage(object):
     def object(self):
         """
         Gets the object of this UpdateCampaignPage.
-        API Resource name
 
         :return: The object of this UpdateCampaignPage.
         :rtype: str
@@ -73,11 +72,12 @@ class UpdateCampaignPage(object):
     def object(self, object):
         """
         Sets the object of this UpdateCampaignPage.
-        API Resource name
 
         :param object: The object of this UpdateCampaignPage.
         :type: str
         """
+        if object is None:
+            raise ValueError("Invalid value for `object`, must not be `None`")
 
         self._object = object
 
@@ -85,7 +85,6 @@ class UpdateCampaignPage(object):
     def has_more(self):
         """
         Gets the has_more of this UpdateCampaignPage.
-        Whether there are more results to display
 
         :return: The has_more of this UpdateCampaignPage.
         :rtype: bool
@@ -96,11 +95,12 @@ class UpdateCampaignPage(object):
     def has_more(self, has_more):
         """
         Sets the has_more of this UpdateCampaignPage.
-        Whether there are more results to display
 
         :param has_more: The has_more of this UpdateCampaignPage.
         :type: bool
         """
+        if has_more is None:
+            raise ValueError("Invalid value for `has_more`, must not be `None`")
 
         self._has_more = has_more
 
@@ -108,7 +108,6 @@ class UpdateCampaignPage(object):
     def total_count(self):
         """
         Gets the total_count of this UpdateCampaignPage.
-        Total number of records
 
         :return: The total_count of this UpdateCampaignPage.
         :rtype: int
@@ -119,11 +118,12 @@ class UpdateCampaignPage(object):
     def total_count(self, total_count):
         """
         Sets the total_count of this UpdateCampaignPage.
-        Total number of records
 
         :param total_count: The total_count of this UpdateCampaignPage.
         :type: int
         """
+        if total_count is None:
+            raise ValueError("Invalid value for `total_count`, must not be `None`")
 
         self._total_count = total_count
 
@@ -131,7 +131,6 @@ class UpdateCampaignPage(object):
     def after(self):
         """
         Gets the after of this UpdateCampaignPage.
-        Entity id for fetch after it
 
         :return: The after of this UpdateCampaignPage.
         :rtype: str
@@ -142,11 +141,12 @@ class UpdateCampaignPage(object):
     def after(self, after):
         """
         Sets the after of this UpdateCampaignPage.
-        Entity id for fetch after it
 
         :param after: The after of this UpdateCampaignPage.
         :type: str
         """
+        if after is None:
+            raise ValueError("Invalid value for `after`, must not be `None`")
 
         self._after = after
 
@@ -154,7 +154,6 @@ class UpdateCampaignPage(object):
     def limit(self):
         """
         Gets the limit of this UpdateCampaignPage.
-        The number of results to return
 
         :return: The limit of this UpdateCampaignPage.
         :rtype: int
@@ -165,11 +164,12 @@ class UpdateCampaignPage(object):
     def limit(self, limit):
         """
         Sets the limit of this UpdateCampaignPage.
-        The number of results to return
 
         :param limit: The limit of this UpdateCampaignPage.
         :type: int
         """
+        if limit is None:
+            raise ValueError("Invalid value for `limit`, must not be `None`")
 
         self._limit = limit
 
@@ -179,7 +179,7 @@ class UpdateCampaignPage(object):
         Gets the data of this UpdateCampaignPage.
 
         :return: The data of this UpdateCampaignPage.
-        :rtype: list[UpdateCampaignSerializer]
+        :rtype: list[UpdateCampaign]
         """
         return self._data
 
@@ -189,8 +189,10 @@ class UpdateCampaignPage(object):
         Sets the data of this UpdateCampaignPage.
 
         :param data: The data of this UpdateCampaignPage.
-        :type: list[UpdateCampaignSerializer]
+        :type: list[UpdateCampaign]
         """
+        if data is None:
+            raise ValueError("Invalid value for `data`, must not be `None`")
 
         self._data = data
 
@@ -198,7 +200,6 @@ class UpdateCampaignPage(object):
     def order(self):
         """
         Gets the order of this UpdateCampaignPage.
-        Order of returned records
 
         :return: The order of this UpdateCampaignPage.
         :rtype: str
@@ -209,11 +210,12 @@ class UpdateCampaignPage(object):
     def order(self, order):
         """
         Sets the order of this UpdateCampaignPage.
-        Order of returned records
 
         :param order: The order of this UpdateCampaignPage.
         :type: str
         """
+        if order is None:
+            raise ValueError("Invalid value for `order`, must not be `None`")
 
         self._order = order
 

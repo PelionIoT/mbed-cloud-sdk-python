@@ -58,7 +58,7 @@ class DefaultApi(object):
         :param str description: The description of the object
         :param str object: The API resource entity
         :param str query_id: DEPRECATED: The ID of the query
-        :return: DeviceQueryDetail
+        :return: DeviceQuery
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -87,7 +87,7 @@ class DefaultApi(object):
         :param str description: The description of the object
         :param str object: The API resource entity
         :param str query_id: DEPRECATED: The ID of the query
-        :return: DeviceQueryDetail
+        :return: DeviceQuery
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -152,7 +152,7 @@ class DefaultApi(object):
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='DeviceQueryDetail',
+                                        response_type='DeviceQuery',
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -174,7 +174,7 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str query_id: (required)
-        :return: DeviceQueryDetail
+        :return: DeviceQuery
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -199,7 +199,7 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str query_id: (required)
-        :return: DeviceQueryDetail
+        :return: DeviceQuery
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -249,7 +249,7 @@ class DefaultApi(object):
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='DeviceQueryDetail',
+                                        response_type='DeviceQuery',
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -259,7 +259,7 @@ class DefaultApi(object):
 
     def device_query_list(self, **kwargs):
         """
-        <p>The APIs for creating and manipulating device queries.  </p> <p>List all device queries. The result will be paged into pages of 100.</p>
+        <p>The APIs for creating and manipulating device queries.  </p> <p>List all device queries. The result will be paged into pages of 100.</p> <h4 id=\"filtering\">Filtering:</h4> <p><code>?filter={URL encoded query string}</code></p> <p>The query string is made up of key/value pairs separated by ampersands. So for a query of <code>key1=value1&amp;key2=value2&amp;key3=value3</code> this would be encoded as follows:</p> <p><code>?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3</code></p> <p>The examples below show the queries in <em>unencoded</em> form.</p> <h5 id=\"by-device-query-properties-all-properties-are-filterable\">By device query properties (all properties are filterable):</h5> <p>For example: <code>description={value}</code></p> <h5 id=\"on-date-time-fields\">On date-time fields:</h5> <p>Date-time fields should be specified in UTC RFC3339 format <code>YYYY-MM-DDThh:mm:ss.msZ</code>. There are three permitted variations:</p> <ul> <li>UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z</li> <li>UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z</li> <li>UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z</li> </ul> <p>Date-time filtering supports three operators:</p> <ul> <li>equality</li> <li>greater than or equal to &ndash; field name suffixed with <code>__gte</code></li> <li>less than or equal to &ndash; field name suffixed with <code>__lte</code></li> </ul> <p>Lower and upper limits to a date-time range may be specified by including both the <code>__gte</code> and <code>__lte</code> forms in the filter.</p> <p><code>{field name}[|__lte|__gte]={UTC RFC3339 date-time}</code></p> <h4 id=\"multi-field-example\">Multi-field example</h4> <p><code>query_id=0158d38771f70000000000010010038c&amp;created_at__gte=2016-11-30T16:25:12.1234Z&amp;created_at__lte=2016-12-30T00:00:00Z</code></p> <p>Encoded: <code>?filter=query_id%3D0158d38771f70000000000010010038c%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z</code></p>
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -270,11 +270,11 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param int limit:
-        :param str order:
-        :param str after:
-        :param str include:
-        :return: DeviceQueryResp
+        :param int limit: how many objects to retrieve in the page
+        :param str order: ASC or DESC
+        :param str after: the ID of the the item after which to retrieve the next page
+        :param str filter: URL encoded query string parameter to filter returned data
+        :return: DeviceQueryPage
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -287,7 +287,7 @@ class DefaultApi(object):
 
     def device_query_list_with_http_info(self, **kwargs):
         """
-        <p>The APIs for creating and manipulating device queries.  </p> <p>List all device queries. The result will be paged into pages of 100.</p>
+        <p>The APIs for creating and manipulating device queries.  </p> <p>List all device queries. The result will be paged into pages of 100.</p> <h4 id=\"filtering\">Filtering:</h4> <p><code>?filter={URL encoded query string}</code></p> <p>The query string is made up of key/value pairs separated by ampersands. So for a query of <code>key1=value1&amp;key2=value2&amp;key3=value3</code> this would be encoded as follows:</p> <p><code>?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3</code></p> <p>The examples below show the queries in <em>unencoded</em> form.</p> <h5 id=\"by-device-query-properties-all-properties-are-filterable\">By device query properties (all properties are filterable):</h5> <p>For example: <code>description={value}</code></p> <h5 id=\"on-date-time-fields\">On date-time fields:</h5> <p>Date-time fields should be specified in UTC RFC3339 format <code>YYYY-MM-DDThh:mm:ss.msZ</code>. There are three permitted variations:</p> <ul> <li>UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z</li> <li>UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z</li> <li>UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z</li> </ul> <p>Date-time filtering supports three operators:</p> <ul> <li>equality</li> <li>greater than or equal to &ndash; field name suffixed with <code>__gte</code></li> <li>less than or equal to &ndash; field name suffixed with <code>__lte</code></li> </ul> <p>Lower and upper limits to a date-time range may be specified by including both the <code>__gte</code> and <code>__lte</code> forms in the filter.</p> <p><code>{field name}[|__lte|__gte]={UTC RFC3339 date-time}</code></p> <h4 id=\"multi-field-example\">Multi-field example</h4> <p><code>query_id=0158d38771f70000000000010010038c&amp;created_at__gte=2016-11-30T16:25:12.1234Z&amp;created_at__lte=2016-12-30T00:00:00Z</code></p> <p>Encoded: <code>?filter=query_id%3D0158d38771f70000000000010010038c%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z</code></p>
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -298,16 +298,16 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param int limit:
-        :param str order:
-        :param str after:
-        :param str include:
-        :return: DeviceQueryResp
+        :param int limit: how many objects to retrieve in the page
+        :param str order: ASC or DESC
+        :param str after: the ID of the the item after which to retrieve the next page
+        :param str filter: URL encoded query string parameter to filter returned data
+        :return: DeviceQueryPage
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['limit', 'order', 'after', 'include']
+        all_params = ['limit', 'order', 'after', 'filter']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -336,8 +336,8 @@ class DefaultApi(object):
             query_params['order'] = params['order']
         if 'after' in params:
             query_params['after'] = params['after']
-        if 'include' in params:
-            query_params['include'] = params['include']
+        if 'filter' in params:
+            query_params['filter'] = params['filter']
 
         header_params = {}
 
@@ -355,7 +355,7 @@ class DefaultApi(object):
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='DeviceQueryResp',
+                                        response_type='DeviceQueryPage',
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -382,7 +382,7 @@ class DefaultApi(object):
         :param str object: The API resource entity
         :param str query: The device query
         :param str query_id2: DEPRECATED: The ID of the query
-        :return: DeviceQueryDetail
+        :return: DeviceQuery
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -412,7 +412,7 @@ class DefaultApi(object):
         :param str object: The API resource entity
         :param str query: The device query
         :param str query_id2: DEPRECATED: The ID of the query
-        :return: DeviceQueryDetail
+        :return: DeviceQuery
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -472,7 +472,7 @@ class DefaultApi(object):
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='DeviceQueryDetail',
+                                        response_type='DeviceQuery',
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -494,7 +494,7 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str query_id: (required)
-        :return: DeviceQueryDetail
+        :return: DeviceQuery
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -519,7 +519,7 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str query_id: (required)
-        :return: DeviceQueryDetail
+        :return: DeviceQuery
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -569,7 +569,7 @@ class DefaultApi(object):
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='DeviceQueryDetail',
+                                        response_type='DeviceQuery',
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -592,7 +592,7 @@ class DefaultApi(object):
             for asynchronous request. (optional)
         :param str query_id: (required)
         :param Body body: Device query update object (required)
-        :return: DeviceQueryDetail
+        :return: DeviceQuery
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -618,7 +618,7 @@ class DefaultApi(object):
             for asynchronous request. (optional)
         :param str query_id: (required)
         :param Body body: Device query update object (required)
-        :return: DeviceQueryDetail
+        :return: DeviceQuery
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -673,7 +673,7 @@ class DefaultApi(object):
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='DeviceQueryDetail',
+                                        response_type='DeviceQuery',
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
