@@ -100,7 +100,7 @@ class PaginatedResponse(object):
         # Initial values, will be updated in first response
         self.has_more = False
         self._data = init_data
-        self.total_count = None if not self._data else len(self._data)
+        self.total_count = None if self._data is None else len(self._data)
 
         # Do initial request, if needed.
         if self._data is None:
@@ -142,18 +142,14 @@ class PaginatedResponse(object):
         :returns: Yields tuples of (`element`, `idx`).
         :rtype: tuple
         """
-        while True:
+        self._idx = 0
+        n = self.next()
+        while n:
             # Yield the data elements one by one
             for e in self.data:
                 yield e, self._idx
                 self._idx += 1
-
-            # Check if there's more data to get
-            if not self.has_more:
-                break
-
-            # It is, so let's make the request
-            self.next()
+            n = self.next()
 
     def as_list(self):
         """Return the paginated response as a list containing all elements.
@@ -170,7 +166,7 @@ class PaginatedResponse(object):
         :returns: The paginated response as a Python list
         :rtype: list
         """
-        return [d for d, idx in self.iteritems()]
+        return [d for d in self.next()]
 
     def next(self):
         """Get the next page of content.
@@ -186,9 +182,16 @@ class PaginatedResponse(object):
 
         As one can see in the example we finely control the iteration of the
         pagination and in total we would here have 50+23=73 users.
-
         """
-        self._get_page()
+        curr = self._data
+        if not self._data:
+            raise StopIteration()
+
+        # Get next page if there's more.
+        if self.has_more:
+            self._get_page()
+
+        return curr
 
     def count(self):
         """Get the total count from the meta data.
@@ -205,9 +208,12 @@ class PaginatedResponse(object):
             >>> api.list_users().count()
             73
         """
-        if not self.total_count:
+        if self.total_count is None:
             return self._get_total_count()
         return self.total_count
+
+    def __iter__(self):
+        return self
 
     @property
     def data(self):
