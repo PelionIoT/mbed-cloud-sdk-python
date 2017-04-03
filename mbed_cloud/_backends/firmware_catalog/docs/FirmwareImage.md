@@ -3,7 +3,6 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**datafile** | **str** | The binary file of firmware image | 
 **description** | **str** | The description of the object | 
 **created_at** | **datetime** | The time the object was created | 
 **object** | **str** | The API resource entity | 
