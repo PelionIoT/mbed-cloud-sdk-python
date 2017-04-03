@@ -40,7 +40,7 @@ class DefaultApi(object):
                 config.api_client = ApiClient()
             self.api_client = config.api_client
 
-    def device_query_create(self, name, query, **kwargs):
+    def device_query_create(self, device, **kwargs):
         """
         <p>The APIs for creating and manipulating device queries.  </p> <p>Create device query</p>
         This method makes a synchronous HTTP request by default. To make an
@@ -49,27 +49,23 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.device_query_create(name, query, callback=callback_function)
+        >>> thread = api.device_query_create(device, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str name: The name of the query (required)
-        :param str query: The device query (required)
-        :param str description: The description of the object
-        :param str object: The API resource entity
-        :param str query_id: DEPRECATED: The ID of the query
+        :param DeviceQuery device: (required)
         :return: DeviceQuery
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.device_query_create_with_http_info(name, query, **kwargs)
+            return self.device_query_create_with_http_info(device, **kwargs)
         else:
-            (data) = self.device_query_create_with_http_info(name, query, **kwargs)
+            (data) = self.device_query_create_with_http_info(device, **kwargs)
             return data
 
-    def device_query_create_with_http_info(self, name, query, **kwargs):
+    def device_query_create_with_http_info(self, device, **kwargs):
         """
         <p>The APIs for creating and manipulating device queries.  </p> <p>Create device query</p>
         This method makes a synchronous HTTP request by default. To make an
@@ -78,21 +74,17 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.device_query_create_with_http_info(name, query, callback=callback_function)
+        >>> thread = api.device_query_create_with_http_info(device, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str name: The name of the query (required)
-        :param str query: The device query (required)
-        :param str description: The description of the object
-        :param str object: The API resource entity
-        :param str query_id: DEPRECATED: The ID of the query
+        :param DeviceQuery device: (required)
         :return: DeviceQuery
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['name', 'query', 'description', 'object', 'query_id']
+        all_params = ['device']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -107,12 +99,9 @@ class DefaultApi(object):
                 )
             params[key] = val
         del params['kwargs']
-        # verify the required parameter 'name' is set
-        if ('name' not in params) or (params['name'] is None):
-            raise ValueError("Missing the required parameter `name` when calling `device_query_create`")
-        # verify the required parameter 'query' is set
-        if ('query' not in params) or (params['query'] is None):
-            raise ValueError("Missing the required parameter `query` when calling `device_query_create`")
+        # verify the required parameter 'device' is set
+        if ('device' not in params) or (params['device'] is None):
+            raise ValueError("Missing the required parameter `device` when calling `device_query_create`")
 
 
         collection_formats = {}
@@ -126,18 +115,10 @@ class DefaultApi(object):
 
         form_params = []
         local_var_files = {}
-        if 'description' in params:
-            form_params.append(('description', params['description']))
-        if 'name' in params:
-            form_params.append(('name', params['name']))
-        if 'object' in params:
-            form_params.append(('object', params['object']))
-        if 'query' in params:
-            form_params.append(('query', params['query']))
-        if 'query_id' in params:
-            form_params.append(('query_id', params['query_id']))
 
         body_params = None
+        if 'device' in params:
+            body_params = params['device']
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.\
             select_header_content_type(['application/x-www-form-urlencoded'])
@@ -274,6 +255,22 @@ class DefaultApi(object):
         :param str order: ASC or DESC
         :param str after: the ID of the the item after which to retrieve the next page
         :param str filter: URL encoded query string parameter to filter returned data
+        :param str include: Comma separated list of data fields to return. Currently supported: total_count
+        :param str created_at: 
+        :param str created_at__gte: 
+        :param str created_at__lte: 
+        :param str description: 
+        :param str etag: 
+        :param str etag_at__gte: 
+        :param str etag_at__lte: 
+        :param str id: 
+        :param str name: 
+        :param str object: 
+        :param str query: 
+        :param str query_id: 
+        :param str updated_at: 
+        :param str updated_at__gte: 
+        :param str updated_at__lte: 
         :return: DeviceQueryPage
                  If the method is called asynchronously,
                  returns the request thread.
@@ -302,12 +299,28 @@ class DefaultApi(object):
         :param str order: ASC or DESC
         :param str after: the ID of the the item after which to retrieve the next page
         :param str filter: URL encoded query string parameter to filter returned data
+        :param str include: Comma separated list of data fields to return. Currently supported: total_count
+        :param str created_at: 
+        :param str created_at__gte: 
+        :param str created_at__lte: 
+        :param str description: 
+        :param str etag: 
+        :param str etag_at__gte: 
+        :param str etag_at__lte: 
+        :param str id: 
+        :param str name: 
+        :param str object: 
+        :param str query: 
+        :param str query_id: 
+        :param str updated_at: 
+        :param str updated_at__gte: 
+        :param str updated_at__lte: 
         :return: DeviceQueryPage
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['limit', 'order', 'after', 'filter']
+        all_params = ['limit', 'order', 'after', 'filter', 'include', 'created_at', 'created_at__gte', 'created_at__lte', 'description', 'etag', 'etag_at__gte', 'etag_at__lte', 'id', 'name', 'object', 'query', 'query_id', 'updated_at', 'updated_at__gte', 'updated_at__lte']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -338,6 +351,38 @@ class DefaultApi(object):
             query_params['after'] = params['after']
         if 'filter' in params:
             query_params['filter'] = params['filter']
+        if 'include' in params:
+            query_params['include'] = params['include']
+        if 'created_at' in params:
+            query_params['created_at'] = params['created_at']
+        if 'created_at__gte' in params:
+            query_params['created_at__gte'] = params['created_at__gte']
+        if 'created_at__lte' in params:
+            query_params['created_at__lte'] = params['created_at__lte']
+        if 'description' in params:
+            query_params['description'] = params['description']
+        if 'etag' in params:
+            query_params['etag'] = params['etag']
+        if 'etag_at__gte' in params:
+            query_params['etag_at__gte'] = params['etag_at__gte']
+        if 'etag_at__lte' in params:
+            query_params['etag_at__lte'] = params['etag_at__lte']
+        if 'id' in params:
+            query_params['id'] = params['id']
+        if 'name' in params:
+            query_params['name'] = params['name']
+        if 'object' in params:
+            query_params['object'] = params['object']
+        if 'query' in params:
+            query_params['query'] = params['query']
+        if 'query_id' in params:
+            query_params['query_id'] = params['query_id']
+        if 'updated_at' in params:
+            query_params['updated_at'] = params['updated_at']
+        if 'updated_at__gte' in params:
+            query_params['updated_at__gte'] = params['updated_at__gte']
+        if 'updated_at__lte' in params:
+            query_params['updated_at__lte'] = params['updated_at__lte']
 
         header_params = {}
 
@@ -363,7 +408,7 @@ class DefaultApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
-    def device_query_partial_update(self, query_id, **kwargs):
+    def device_query_partial_update(self, query_id, device_query, **kwargs):
         """
         <p>The APIs for creating and manipulating device queries.  </p> <p>Update device query fields</p>
         This method makes a synchronous HTTP request by default. To make an
@@ -372,28 +417,24 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.device_query_partial_update(query_id, callback=callback_function)
+        >>> thread = api.device_query_partial_update(query_id, device_query, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str query_id: (required)
-        :param str description: The description of the object
-        :param str name: The name of the query
-        :param str object: The API resource entity
-        :param str query: The device query
-        :param str query_id2: DEPRECATED: The ID of the query
+        :param DeviceQuery device_query: (required)
         :return: DeviceQuery
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.device_query_partial_update_with_http_info(query_id, **kwargs)
+            return self.device_query_partial_update_with_http_info(query_id, device_query, **kwargs)
         else:
-            (data) = self.device_query_partial_update_with_http_info(query_id, **kwargs)
+            (data) = self.device_query_partial_update_with_http_info(query_id, device_query, **kwargs)
             return data
 
-    def device_query_partial_update_with_http_info(self, query_id, **kwargs):
+    def device_query_partial_update_with_http_info(self, query_id, device_query, **kwargs):
         """
         <p>The APIs for creating and manipulating device queries.  </p> <p>Update device query fields</p>
         This method makes a synchronous HTTP request by default. To make an
@@ -402,22 +443,18 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.device_query_partial_update_with_http_info(query_id, callback=callback_function)
+        >>> thread = api.device_query_partial_update_with_http_info(query_id, device_query, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str query_id: (required)
-        :param str description: The description of the object
-        :param str name: The name of the query
-        :param str object: The API resource entity
-        :param str query: The device query
-        :param str query_id2: DEPRECATED: The ID of the query
+        :param DeviceQuery device_query: (required)
         :return: DeviceQuery
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['query_id', 'description', 'name', 'object', 'query', 'query_id2']
+        all_params = ['query_id', 'device_query']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -435,6 +472,9 @@ class DefaultApi(object):
         # verify the required parameter 'query_id' is set
         if ('query_id' not in params) or (params['query_id'] is None):
             raise ValueError("Missing the required parameter `query_id` when calling `device_query_partial_update`")
+        # verify the required parameter 'device_query' is set
+        if ('device_query' not in params) or (params['device_query'] is None):
+            raise ValueError("Missing the required parameter `device_query` when calling `device_query_partial_update`")
 
 
         collection_formats = {}
@@ -450,18 +490,10 @@ class DefaultApi(object):
 
         form_params = []
         local_var_files = {}
-        if 'description' in params:
-            form_params.append(('description', params['description']))
-        if 'name' in params:
-            form_params.append(('name', params['name']))
-        if 'object' in params:
-            form_params.append(('object', params['object']))
-        if 'query' in params:
-            form_params.append(('query', params['query']))
-        if 'query_id2' in params:
-            form_params.append(('query_id', params['query_id2']))
 
         body_params = None
+        if 'device_query' in params:
+            body_params = params['device_query']
         # Authentication setting
         auth_settings = ['Bearer']
 

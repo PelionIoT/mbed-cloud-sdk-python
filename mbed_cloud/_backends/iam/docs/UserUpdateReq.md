@@ -3,8 +3,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**phone_number** | **str** | Phone number. | [optional] 
 **username** | **str** | A username containing alphanumerical letters and -,._@+&#x3D; characters. | [optional] 
+**phone_number** | **str** | Phone number. | [optional] 
 **is_marketing_accepted** | **bool** | A flag indicating that receiving marketing information has been accepted. | [optional] 
 **is_gtc_accepted** | **bool** | A flag indicating that the General Terms and Conditions has been accepted. | [optional] 
 **full_name** | **str** | The full name of the user. | [optional] 

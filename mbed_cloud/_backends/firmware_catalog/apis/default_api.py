@@ -194,6 +194,10 @@ class DefaultApi(object):
             form_params.append(('name', params['name']))
 
         body_params = None
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['multipart/form-data'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -386,6 +390,7 @@ class DefaultApi(object):
         :param str order: ASC or DESC
         :param str after: the ID of the the item after which to retrieve the next page
         :param str filter: URL encoded query string parameter to filter returned data
+        :param str include: Comma separated list of data fields to return. Currently supported: total_count
         :return: FirmwareImagePage
                  If the method is called asynchronously,
                  returns the request thread.
@@ -414,12 +419,13 @@ class DefaultApi(object):
         :param str order: ASC or DESC
         :param str after: the ID of the the item after which to retrieve the next page
         :param str filter: URL encoded query string parameter to filter returned data
+        :param str include: Comma separated list of data fields to return. Currently supported: total_count
         :return: FirmwareImagePage
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['limit', 'order', 'after', 'filter']
+        all_params = ['limit', 'order', 'after', 'filter', 'include']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -450,6 +456,8 @@ class DefaultApi(object):
             query_params['after'] = params['after']
         if 'filter' in params:
             query_params['filter'] = params['filter']
+        if 'include' in params:
+            query_params['include'] = params['include']
 
         header_params = {}
 
@@ -802,6 +810,10 @@ class DefaultApi(object):
             form_params.append(('name', params['name']))
 
         body_params = None
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['multipart/form-data'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -1010,6 +1022,7 @@ class DefaultApi(object):
         :param str order: ASC or DESC
         :param str after: the ID of the the item after which to retrieve the next page
         :param str filter: URL encoded query string parameter to filter returned data
+        :param str include: Comma separated list of data fields to return. Currently supported: total_count
         :return: FirmwareManifestPage
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1038,12 +1051,13 @@ class DefaultApi(object):
         :param str order: ASC or DESC
         :param str after: the ID of the the item after which to retrieve the next page
         :param str filter: URL encoded query string parameter to filter returned data
+        :param str include: Comma separated list of data fields to return. Currently supported: total_count
         :return: FirmwareManifestPage
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['limit', 'order', 'after', 'filter']
+        all_params = ['limit', 'order', 'after', 'filter', 'include']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -1074,6 +1088,8 @@ class DefaultApi(object):
             query_params['after'] = params['after']
         if 'filter' in params:
             query_params['filter'] = params['filter']
+        if 'include' in params:
+            query_params['include'] = params['include']
 
         header_params = {}
 

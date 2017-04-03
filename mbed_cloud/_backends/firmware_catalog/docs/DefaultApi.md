@@ -36,7 +36,7 @@ firmware_catalog.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = firmware_catalog.DefaultApi()
-datafile = 'datafile_example' # str | The firmware image file to upload
+datafile = 'B' # str | The firmware image file to upload
 name = 'name_example' # str | The name of the object
 description = 'description_example' # str | The description of the object (optional)
 updated_at = 'updated_at_example' # str |  (optional)
@@ -97,7 +97,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: multipart/form-data
  - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -185,7 +185,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **firmware_image_list**
-> FirmwareImagePage firmware_image_list(limit=limit, order=order, after=after, filter=filter)
+> FirmwareImagePage firmware_image_list(limit=limit, order=order, after=after, filter=filter, include=include)
 
 
 
@@ -210,9 +210,10 @@ limit = 56 # int | how many objects to retrieve in the page (optional)
 order = 'order_example' # str | ASC or DESC (optional)
 after = 'after_example' # str | the ID of the the item after which to retrieve the next page (optional)
 filter = 'filter_example' # str | URL encoded query string parameter to filter returned data (optional)
+include = 'include_example' # str | Comma separated list of data fields to return. Currently supported: total_count (optional)
 
 try: 
-    api_response = api_instance.firmware_image_list(limit=limit, order=order, after=after, filter=filter)
+    api_response = api_instance.firmware_image_list(limit=limit, order=order, after=after, filter=filter, include=include)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->firmware_image_list: %s\n" % e)
@@ -226,6 +227,7 @@ Name | Type | Description  | Notes
  **order** | **str**| ASC or DESC | [optional] 
  **after** | **str**| the ID of the the item after which to retrieve the next page | [optional] 
  **filter** | **str**| URL encoded query string parameter to filter returned data | [optional] 
+ **include** | **str**| Comma separated list of data fields to return. Currently supported: total_count | [optional] 
 
 ### Return type
 
@@ -346,7 +348,7 @@ firmware_catalog.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = firmware_catalog.DefaultApi()
-datafile = 'datafile_example' # str | The manifest file to create
+datafile = 'B' # str | The manifest file to create
 name = 'name_example' # str | The name of the object
 description = 'description_example' # str | The description of the object (optional)
 updated_at = 'updated_at_example' # str |  (optional)
@@ -415,7 +417,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: multipart/form-data
  - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -511,7 +513,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **firmware_manifest_list**
-> FirmwareManifestPage firmware_manifest_list(limit=limit, order=order, after=after, filter=filter)
+> FirmwareManifestPage firmware_manifest_list(limit=limit, order=order, after=after, filter=filter, include=include)
 
 
 
@@ -536,9 +538,10 @@ limit = 56 # int | how many objects to retrieve in the page (optional)
 order = 'order_example' # str | ASC or DESC (optional)
 after = 'after_example' # str | the ID of the the item after which to retrieve the next page (optional)
 filter = 'filter_example' # str | URL encoded query string parameter to filter returned data (optional)
+include = 'include_example' # str | Comma separated list of data fields to return. Currently supported: total_count (optional)
 
 try: 
-    api_response = api_instance.firmware_manifest_list(limit=limit, order=order, after=after, filter=filter)
+    api_response = api_instance.firmware_manifest_list(limit=limit, order=order, after=after, filter=filter, include=include)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->firmware_manifest_list: %s\n" % e)
@@ -552,6 +555,7 @@ Name | Type | Description  | Notes
  **order** | **str**| ASC or DESC | [optional] 
  **after** | **str**| the ID of the the item after which to retrieve the next page | [optional] 
  **filter** | **str**| URL encoded query string parameter to filter returned data | [optional] 
+ **include** | **str**| Comma separated list of data fields to return. Currently supported: total_count | [optional] 
 
 ### Return type
 

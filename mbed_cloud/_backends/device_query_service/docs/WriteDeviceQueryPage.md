@@ -4,7 +4,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **limit** | **int** |  | 
-**after** | **str** |  | 
+**after** | **str** |  | [optional] 
 **data** | [**list[DeviceQuery]**](DeviceQuery.md) |  | 
 **order** | **str** |  | 
 

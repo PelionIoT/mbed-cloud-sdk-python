@@ -169,7 +169,7 @@ This endpoint does not need any parameter.
 
 Active devices per account
 
-Get active devices for an account with specified from and to timestamp
+Get active devices for an account with specified from and to timestamp. Can be used to fetch active device data for a single month (full or partial) (for example: between 01.04.2017 00:00:00.000Z (inclusive) - 01.05.2017 00:00:00.000Z (exclusive) or between 15.04.2017 15:00:00.000Z (inclusive) - 15.04.2017 16:00.00.000Z (exclusive)).
 
 ### Example 
 ```python
@@ -187,8 +187,8 @@ billing.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = billing.DefaultApi()
 account = 'account_example' # str | account id
-_from = 789 # int | in epoch millis, inclusive
-to = 789 # int | in epoch millis, exclusive
+_from = 789 # int | in epoch milliseconds, inclusive.
+to = 789 # int | in epoch milliseconds, exclusive. Must be greater than 'from' parameter and be on the same calendar month as 'from' parameter (can be also the absolute beginning of the next month as this parameter is exclusive).
 
 try: 
     # Active devices per account
@@ -203,8 +203,8 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **account** | **str**| account id | 
- **_from** | **int**| in epoch millis, inclusive | 
- **to** | **int**| in epoch millis, exclusive | 
+ **_from** | **int**| in epoch milliseconds, inclusive. | 
+ **to** | **int**| in epoch milliseconds, exclusive. Must be greater than &#39;from&#39; parameter and be on the same calendar month as &#39;from&#39; parameter (can be also the absolute beginning of the next month as this parameter is exclusive). | 
 
 ### Return type
 

@@ -57,14 +57,10 @@ device_query_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # device_query_service.configuration.api_key_prefix['Authorization'] = 'Bearer'
 # create an instance of the API class
 api_instance = device_query_service.DefaultApi()
-name = 'name_example' # str | The name of the query
-query = 'query_example' # str | The device query
-description = 'description_example' # str | The description of the object (optional)
-object = 'object_example' # str | The API resource entity (optional)
-query_id = 'query_id_example' # str | DEPRECATED: The ID of the query (optional)
+device = device_query_service.DeviceQuery() # DeviceQuery | 
 
 try:
-    api_response = api_instance.device_query_create(name, query, description=description, object=object, query_id=query_id)
+    api_response = api_instance.device_query_create(device)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->device_query_create: %s\n" % e)
