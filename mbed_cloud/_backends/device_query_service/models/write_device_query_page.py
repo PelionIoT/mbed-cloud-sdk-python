@@ -90,8 +90,6 @@ class WriteDeviceQueryPage(object):
         :param after: The after of this WriteDeviceQueryPage.
         :type: str
         """
-        if after is None:
-            raise ValueError("Invalid value for `after`, must not be `None`")
 
         self._after = after
 

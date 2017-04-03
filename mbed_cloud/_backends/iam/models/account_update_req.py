@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    IAM Identities REST API
+    Account Management API
 
-    REST API to manage accounts, groups, users and API keys
+    API for managing accounts, users, creating API keys, uploading trusted certificates
 
     OpenAPI spec version: v3
     

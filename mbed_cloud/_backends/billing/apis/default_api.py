@@ -328,7 +328,7 @@ class DefaultApi(object):
     def v1_activedevices_get(self, account, _from, to, **kwargs):
         """
         Active devices per account
-        Get active devices for an account with specified from and to timestamp
+        Get active devices for an account with specified from and to timestamp. Can be used to fetch active device data for a single month (full or partial) (for example: between 01.04.2017 00:00:00.000Z (inclusive) - 01.05.2017 00:00:00.000Z (exclusive) or between 15.04.2017 15:00:00.000Z (inclusive) - 15.04.2017 16:00.00.000Z (exclusive)).
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -340,8 +340,8 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str account: account id (required)
-        :param int _from: in epoch millis, inclusive (required)
-        :param int to: in epoch millis, exclusive (required)
+        :param int _from: in epoch milliseconds, inclusive. (required)
+        :param int to: in epoch milliseconds, exclusive. Must be greater than 'from' parameter and be on the same calendar month as 'from' parameter (can be also the absolute beginning of the next month as this parameter is exclusive). (required)
         :return: list[ActiveDevice]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -356,7 +356,7 @@ class DefaultApi(object):
     def v1_activedevices_get_with_http_info(self, account, _from, to, **kwargs):
         """
         Active devices per account
-        Get active devices for an account with specified from and to timestamp
+        Get active devices for an account with specified from and to timestamp. Can be used to fetch active device data for a single month (full or partial) (for example: between 01.04.2017 00:00:00.000Z (inclusive) - 01.05.2017 00:00:00.000Z (exclusive) or between 15.04.2017 15:00:00.000Z (inclusive) - 15.04.2017 16:00.00.000Z (exclusive)).
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -368,8 +368,8 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str account: account id (required)
-        :param int _from: in epoch millis, inclusive (required)
-        :param int to: in epoch millis, exclusive (required)
+        :param int _from: in epoch milliseconds, inclusive. (required)
+        :param int to: in epoch milliseconds, exclusive. Must be greater than 'from' parameter and be on the same calendar month as 'from' parameter (can be also the absolute beginning of the next month as this parameter is exclusive). (required)
         :return: list[ActiveDevice]
                  If the method is called asynchronously,
                  returns the request thread.
