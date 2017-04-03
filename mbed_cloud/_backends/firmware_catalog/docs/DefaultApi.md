@@ -36,7 +36,7 @@ firmware_catalog.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = firmware_catalog.DefaultApi()
-datafile = 'datafile_example' # str | The firmware image file to upload
+datafile = 'B' # str | The firmware image file to upload
 name = 'name_example' # str | The name of the object
 description = 'description_example' # str | The description of the object (optional)
 updated_at = 'updated_at_example' # str |  (optional)
@@ -348,7 +348,7 @@ firmware_catalog.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = firmware_catalog.DefaultApi()
-datafile = 'datafile_example' # str | The manifest file to create
+datafile = 'B' # str | The manifest file to create
 name = 'name_example' # str | The name of the object
 description = 'description_example' # str | The description of the object (optional)
 updated_at = 'updated_at_example' # str |  (optional)
