@@ -31,13 +31,11 @@ from mbed_cloud import PaginatedResponse
 
 # Import backend API
 import mbed_cloud._backends.device_catalog as dc
-from mbed_cloud._backends.device_catalog.models import \
-    DeviceDetail as DeviceDetailBackend
+from mbed_cloud._backends.device_catalog.models import DeviceData
 from mbed_cloud._backends.device_catalog.rest import \
     ApiException as DeviceCatalogApiException
 import mbed_cloud._backends.device_query_service as dc_queries
-from mbed_cloud._backends.device_query_service.models import \
-    DeviceQueryDetail
+from mbed_cloud._backends.device_query_service.models import DeviceQuery
 from mbed_cloud._backends.device_query_service.rest import \
     ApiException as DeviceQueryServiceApiException
 import mbed_cloud._backends.mds as mds
@@ -846,7 +844,7 @@ class _LongPollingThread(threading.Thread):
         self._stopped = True
 
 
-class DeviceDetail(DeviceDetailBackend):
+class DeviceDetail(DeviceData):
     """Describes device object from the catalog."""
 
     def __init__(self, device_obj):
@@ -859,7 +857,7 @@ class DeviceDetail(DeviceDetailBackend):
         super(DeviceDetail, self).__init__(**params)
 
 
-class Filter(DeviceQueryDetail):
+class Filter(DeviceQuery):
     """Describes device query object / filter."""
 
     def __init__(self, device_query_obj):
