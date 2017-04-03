@@ -53,7 +53,7 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str datafile: The firmware image file to upload (required)
+        :param file datafile: The firmware image file to upload (required)
         :param str name: The name of the object (required)
         :param str description: The description of the object
         :param str updated_at:
@@ -96,7 +96,7 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str datafile: The firmware image file to upload (required)
+        :param file datafile: The firmware image file to upload (required)
         :param str name: The name of the object (required)
         :param str description: The description of the object
         :param str updated_at:
@@ -187,7 +187,7 @@ class DefaultApi(object):
         form_params = []
         local_var_files = {}
         if 'datafile' in params:
-            form_params.append(('datafile', params['datafile']))
+            local_var_files['datafile'] = params['datafile']
         if 'description' in params:
             form_params.append(('description', params['description']))
         if 'name' in params:
@@ -653,7 +653,7 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str datafile: The manifest file to create (required)
+        :param file datafile: The manifest file to create (required)
         :param str name: The name of the object (required)
         :param str description: The description of the object
         :param str updated_at:
@@ -700,7 +700,7 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str datafile: The manifest file to create (required)
+        :param file datafile: The manifest file to create (required)
         :param str name: The name of the object (required)
         :param str description: The description of the object
         :param str updated_at:
@@ -803,7 +803,7 @@ class DefaultApi(object):
         form_params = []
         local_var_files = {}
         if 'datafile' in params:
-            form_params.append(('datafile', params['datafile']))
+            local_var_files['datafile'] = params['datafile']
         if 'description' in params:
             form_params.append(('description', params['description']))
         if 'name' in params:
