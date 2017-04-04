@@ -86,10 +86,14 @@ class StatisticsAPI(BaseAPI):
         self._verify_arguments(start, end, period, interval)
         if start:
             start = self._convert_to_UTC_RFC3339(start)
+            kwargs['start'] = start
         if end:
             end = self._convert_to_UTC_RFC3339(end)
+            kwargs['end'] = start
+        if period:
+            kwargs['period'] = period
         api = self.statistics.StatisticsApi()
-        return api.v3_metrics_get(include, start, end, period, interval, self._auth, **kwargs)
+        return api.v3_metrics_get(include, interval, self._auth, **kwargs)
     
     @catch_exceptions(ApiException)
     def get_account_metric(self, include=None, start=None, end=None, period="30d", interval="1d", **kwargs):
@@ -115,16 +119,21 @@ class StatisticsAPI(BaseAPI):
         self._verify_arguments(start, end, period, interval)
         if start:
             start = self._convert_to_UTC_RFC3339(start)
+            kwargs['start'] = start
         if end:
             end = self._convert_to_UTC_RFC3339(end)
+            kwargs['end'] = start
+        if period:
+            kwargs['period'] = period
         api = self.statistics.AccountApi()
-        return api.v3_metrics_get(include, start, end, period, interval, self._auth, **kwargs)
+
+        return api.v3_metrics_get(include, interval, self._auth, **kwargs)
 
 class Metric(Data):
     """Describes Metric object from statistics."""
 
     def __init__(self, data_obj):
         """Override __init__ and allow passing in backend object."""
-        super(Filter, self).__init__(**data_obj.to_dict())
+        super(Metric, self).__init__(**data_obj.to_dict())
 
         
