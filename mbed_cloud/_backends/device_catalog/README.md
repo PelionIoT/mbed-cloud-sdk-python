@@ -57,7 +57,7 @@ device_catalog.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # device_catalog.configuration.api_key_prefix['Authorization'] = 'Bearer'
 # create an instance of the API class
 api_instance = device_catalog.DefaultApi()
-device = device_catalog.DeviceData() # DeviceData | 
+device = device_catalog.DeviceDataRequest() # DeviceDataRequest | 
 
 try:
     api_response = api_instance.device_create(device)
@@ -69,28 +69,27 @@ except ApiException as e:
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://api.mbedcloud.com*
+All URIs are relative to *https://api.mbedcloud.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DefaultApi* | [**device_create**](docs/DefaultApi.md#device_create) | **POST** /v3/devices/ | 
-*DefaultApi* | [**device_destroy**](docs/DefaultApi.md#device_destroy) | **DELETE** /v3/devices/{device_id}/ | 
+*DefaultApi* | [**device_destroy**](docs/DefaultApi.md#device_destroy) | **DELETE** /v3/devices/{id}/ | 
 *DefaultApi* | [**device_list**](docs/DefaultApi.md#device_list) | **GET** /v3/devices/ | 
 *DefaultApi* | [**device_log_list**](docs/DefaultApi.md#device_log_list) | **GET** /v3/devicelog/ | 
 *DefaultApi* | [**device_log_retrieve**](docs/DefaultApi.md#device_log_retrieve) | **GET** /v3/devicelog/{device_log_id}/ | 
-*DefaultApi* | [**device_partial_update**](docs/DefaultApi.md#device_partial_update) | **PATCH** /v3/devices/{device_id}/ | 
-*DefaultApi* | [**device_retrieve**](docs/DefaultApi.md#device_retrieve) | **GET** /v3/devices/{device_id}/ | 
-*DefaultApi* | [**device_update**](docs/DefaultApi.md#device_update) | **PUT** /v3/devices/{device_id}/ | 
+*DefaultApi* | [**device_partial_update**](docs/DefaultApi.md#device_partial_update) | **PATCH** /v3/devices/{id}/ | 
+*DefaultApi* | [**device_retrieve**](docs/DefaultApi.md#device_retrieve) | **GET** /v3/devices/{id}/ | 
+*DefaultApi* | [**device_update**](docs/DefaultApi.md#device_update) | **PUT** /v3/devices/{id}/ | 
 
 
 ## Documentation For Models
 
  - [DeviceData](docs/DeviceData.md)
+ - [DeviceDataRequest](docs/DeviceDataRequest.md)
  - [DeviceLogData](docs/DeviceLogData.md)
  - [DeviceLogPage](docs/DeviceLogPage.md)
  - [DevicePage](docs/DevicePage.md)
- - [DeviceSerializer](docs/DeviceSerializer.md)
- - [WriteDeviceSerializer](docs/WriteDeviceSerializer.md)
 
 
 ## Documentation For Authorization
