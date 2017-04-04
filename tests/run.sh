@@ -52,8 +52,16 @@ if ! is_running $BACKEND_PID; then
   exit 1
 fi
 
+# Set the parameters to the test runner
+PARAMS=()
+PARAMS+=(-s $BACKEND_URL)
+PARAMS+=(-k $API_KEY)
+if [ -n "${MBED_CLOUD_API_HOST}" ]; then
+  PARAMS+=(-u $MBED_CLOUD_API_HOST)
+fi
+
 # Start the test runner
-$TRUNNER_DIR/venv/bin/python $TRUNNER_DIR/bin/trunner -s $BACKEND_URL -k $API_KEY
+$TRUNNER_DIR/venv/bin/python $TRUNNER_DIR/bin/trunner ${PARAMS[@]}
 RET_CODE=$?
 
 # Kill the backend server & cleanup
