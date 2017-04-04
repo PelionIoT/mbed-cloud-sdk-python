@@ -86,7 +86,7 @@ class PaginatedResponse(object):
     iterating pages or using iterators.
     """
 
-    def __init__(self, func, lwrap_type=None, init_data=None, **kwargs):
+    def __init__(self, func, lwrap_type=None, init_data=None, limit=None, **kwargs):
         """Initialize wrapper by passing in object with metadata structure.
 
         :param lwrap_type: Wrap each response element in type
@@ -96,6 +96,7 @@ class PaginatedResponse(object):
         self._lwrap_type = lwrap_type
         self._kwargs = kwargs
         self._idx = 0
+        self._limit = limit
 
         # Initial values, will be updated in first response
         self.has_more = False
@@ -126,21 +127,14 @@ class PaginatedResponse(object):
         return resp.total_count
 
     def next(self):
-        """Get the next page of content.
-
-        .. code-block:: python
-
-            >>> p = api.list_users()
-            >>> len(p.data)
-            50
-            >>> p.next()
-            >>> len(p.data)
-            23
+        """Get the next element in list.
 
         As one can see in the example we finely control the iteration of the
         pagination and in total we would here have 50+23=73 users.
         """
-        curr = self._data
+        # If we've reached the limit, we stop.
+        if self._limit is not None and self._idx == self._limit:
+            raise StopIteration
 
         # If we don't have any data, then we just return.
         if self._data is None:
@@ -154,8 +148,9 @@ class PaginatedResponse(object):
             raise StopIteration
 
         # Grab first item and return
-        r_value = curr[0]
+        r_value = self._data[0]
         self._data = self._data[1:]
+        self._idx += 1
         return r_value
 
     def count(self):
@@ -178,6 +173,17 @@ class PaginatedResponse(object):
         return self.total_count
 
     def __iter__(self):
+        """Override iter, as to provide iterable interface to Pagination object.
+
+        This was you can iterate over PaginatinatedResponse objects like so:
+
+        .. code-block:: python
+
+            obj = PaginatedResponse(..)
+            for x in obj:
+                print(x)
+
+        """
         return self
 
     @property
