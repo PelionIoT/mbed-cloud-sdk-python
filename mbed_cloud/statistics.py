@@ -34,12 +34,7 @@ class StatisticsAPI(BaseAPI):
         self.statistics = self._init_api(statistics)
         # This API is a bit weird, so create the "authorization" string
         self._auth = "Bearer %s" % (self.statistics.configuration.api_key['Authorization'],)
-        self._include_all = "devices"
-        #self._include_all = "devices, transactions, bootstraps_successful, bootstraps_failed, bootstraps_pending, " \
-        #"bootstrap_certificate_create, bootstrap_certificate_delete, connector_certificate_create, " \
-        #"connector_certificate_delete, bootstrap_credentials_get, bootstrap_full_credentials_get, " \
-        #"connector_credentials_get, connector_full_credentials_get, connector_ca_rest_api_count, " \
-        #"connector_ca_rest_api_error_count"
+        self._include_all = "devices,transactions,apikeys,bootstraps_successful,bootstraps_failed,bootstraps_pending"
 
     def _verify_arguments(self, start, end, period, interval):
         if not start and not end and not period:
@@ -130,5 +125,4 @@ class Metric(Data):
     def __init__(self, data_obj):
         """Override __init__ and allow passing in backend object."""
         super(Metric, self).__init__(**data_obj.to_dict())
-
-        
+      
