@@ -23,6 +23,7 @@ from __future__ import absolute_import
 from flask import Flask
 from flask import jsonify
 from flask import request
+from mbed_cloud.access import AccessAPI
 from mbed_cloud.devices import DeviceAPI
 from mbed_cloud import PaginatedResponse
 from urllib import unquote
@@ -36,6 +37,7 @@ import traceback
 
 app = Flask(__name__)
 
+# Empty on purpose. Initialized later.
 MODULES = {}
 
 
@@ -143,7 +145,8 @@ def init(methods=["GET"]):
     # Initialise all the APIs with settings.
     global MODULES
     MODULES = {
-        'devices': DeviceAPI(params=params)
+        'devices': DeviceAPI(params=params),
+        'access': AccessAPI(params=params)
     }
 
     # Return empty JSON for now. Might change in the future.
