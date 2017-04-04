@@ -20,7 +20,7 @@ from mbed_cloud.decorators import catch_exceptions
 from mbed_cloud import PaginatedResponse
 
 import mbed_cloud._backends.device_catalog as device_catalog
-from mbed_cloud._backends.device_catalog.models import DeviceLogSerializerData
+from mbed_cloud._backends.device_catalog.models import DeviceLogData
 from mbed_cloud._backends.device_catalog.rest import ApiException
 
 
@@ -64,7 +64,7 @@ class LoggingAPI(BaseAPI):
         return DeviceLog(api.device_log_retrieve(device_log_id))
 
 
-class DeviceLog(DeviceLogSerializerData):
+class DeviceLog(DeviceLogData):
     """Describes device log object."""
 
     def __init__(self, device_log_obj):
