@@ -27,22 +27,21 @@ def _main():
     # Create a new device
     print("Creating new device...")
     device = {
-        "mechanism": "connector",
-        "provision_key": _id_generator(12)
+        "device_key": _id_generator(12),
+        "ca_id": _id_generator(12)
     }
     new_device = api.add_device(**device)
-    print("Successfully created device with device_id: %r" % new_device.device_id)
+    print("Successfully created device with id: %r" % new_device.id)
 
     # Update device
     updated_device = api.update_device(new_device.id,
-                                       provision_key=_id_generator(12),
-                                       mechanism=new_device.mechanism)
-    assert new_device.provision_key != updated_device.provision_key
+                                       device_key=new_device.device_key,
+                                       ca_id=_id_generator(12))
 
     # Delete the device
     print("Attempting to delete device from catalog...")
-    api.delete_device(new_device.device_id)
-    print("Successfully deleted device (ID: %r)" % new_device.device_id)
+    api.delete_device(new_device.id)
+    print("Successfully deleted device (ID: %r)" % new_device.id)
 
 if __name__ == "__main__":
     _main()
