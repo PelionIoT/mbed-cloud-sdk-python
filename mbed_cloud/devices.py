@@ -508,11 +508,11 @@ class DeviceAPI(BaseAPI):
         :rtype: DeviceDetail
         """
         api = self.dc.DefaultApi()
-        body = self.dc.DeviceUpdateDetail(**kwargs)
+        body = self.dc.DeviceDataRequest(**kwargs)
         return DeviceDetail(api.device_update(device_id, body))
 
     @catch_exceptions(DeviceCatalogApiException)
-    def add_device(self, mechanism, provision_key, **kwargs):
+    def add_device(self, **kwargs):
         """Add a new device to catalog.
 
         .. code-block:: python
@@ -551,19 +551,18 @@ class DeviceAPI(BaseAPI):
         :rtype: DeviceDetail
         """
         api = self.dc.DefaultApi()
-        return DeviceDetail(
-            api.device_create(mechanism=mechanism, provision_key=provision_key, **kwargs)
-        )
+        device = DeviceData(**kwargs)
+        return DeviceDetail(api.device_create(device))
 
     @catch_exceptions(DeviceCatalogApiException)
-    def delete_device(self, device_id):
+    def delete_device(self, id):
         """Delete device from catalog.
 
-        :param str device_id: ID of device in catalog to delete
+        :param str id: ID of device in catalog to delete
         :return: void
         """
         api = self.dc.DefaultApi()
-        return api.device_destroy(device_id)
+        return api.device_destroy(id=id)
 
     @catch_exceptions(DeviceQueryServiceApiException)
     def list_filters(self, **kwargs):
