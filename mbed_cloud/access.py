@@ -24,7 +24,7 @@ from mbed_cloud import PaginatedResponse
 import mbed_cloud._backends.iam as iam
 from mbed_cloud._backends.iam.models import AccountInfo
 from mbed_cloud._backends.iam.models import ApiKeyInfoResp
-# from mbed_cloud._backends.iam.models import GroupSummary
+from mbed_cloud._backends.iam.models import GroupSummary
 from mbed_cloud._backends.iam.models import UserInfoResp
 import mbed_cloud._backends.iam.rest as ApiException
 
@@ -181,21 +181,20 @@ class AccessAPI(BaseAPI):
         api = iam.DeveloperApi()
         return Account(api.get_my_account_info())
 
-    # FIXME: Groups removed from R1.2 API
-    # @catch_exceptions(ApiException)
-    # def list_groups(self, **kwargs):
-    #     """List all groups in organisation.
-    #
-    #     :param int limit: The number of devices to retrieve.
-    #     :param str order: The ordering direction, ascending (asc) or descending (desc)
-    #     :param str after: Get devices after/starting at given user ID
-    #     :returns: a list of :py:class:`Group` objects.
-    #     :rtype: PaginatedResponse
-    #     """
-    #     kwargs = self._verify_sort_options(kwargs)
-    #
-    #     api = iam.DeveloperApi()
-    #     return PaginatedResponse(api.get_all_groups, lwrap_type=Group, **kwargs)
+    @catch_exceptions(ApiException)
+    def list_groups(self, **kwargs):
+        """List all groups in organisation.
+
+        :param int limit: The number of devices to retrieve.
+        :param str order: The ordering direction, ascending (asc) or descending (desc)
+        :param str after: Get devices after/starting at given user ID
+        :returns: a list of :py:class:`Group` objects.
+        :rtype: PaginatedResponse
+        """
+        kwargs = self._verify_sort_options(kwargs)
+
+        api = iam.DeveloperApi()
+        return PaginatedResponse(api.get_all_groups, lwrap_type=Group, **kwargs)
 
 
 class Account(AccountInfo):
@@ -242,23 +241,23 @@ class User(UserInfoResp):
         super(User, self).__init__(**user_obj.to_dict())
 
 
-# class Group(GroupSummary):
-#     """Describes group object.
-#
-#     Example usage:
-#
-#     .. code-block:: python
-#
-#         api = AccessAPI()
-#
-#         # Listing existing groups
-#         for g, idx in api.list_groups().iteritems():
-#             print(g.name)
-#     """
-#
-#     def __init__(self, group_obj):
-#         """Override __init__ and allow passing in backend object."""
-#         super(Group, self).__init__(**group_obj.to_dict())
+class Group(GroupSummary):
+    """Describes group object.
+
+    Example usage:
+
+    .. code-block:: python
+
+        api = AccessAPI()
+
+        # Listing existing groups
+        for g, idx in api.list_groups().iteritems():
+            print(g.name)
+    """
+
+    def __init__(self, group_obj):
+        """Override __init__ and allow passing in backend object."""
+        super(Group, self).__init__(**group_obj.to_dict())
 
 
 class ApiKey(ApiKeyInfoResp):
