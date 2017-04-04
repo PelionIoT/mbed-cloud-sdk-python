@@ -97,7 +97,7 @@ class AccessAPI(BaseAPI):
         """
         api = iam.DeveloperApi()
         body = iam.ApiKeyInfoReq(name=name, groups=groups, owner=owner)
-        return ApiKey(api.add_api_key(body))
+        return ApiKey(api.create_api_key(body))
 
     @catch_exceptions(ApiException)
     def list_users(self, **kwargs):
@@ -169,7 +169,7 @@ class AccessAPI(BaseAPI):
         api = iam.AccountAdminApi()
         kwargs.update({'username': username, 'email': email})
         body = iam.UserInfoReq(**kwargs)
-        return User(api.add_user(body))
+        return User(api.create_user(body))
 
     @catch_exceptions(ApiException)
     def get_account_details(self):
