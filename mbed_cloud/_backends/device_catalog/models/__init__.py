@@ -15,8 +15,7 @@ from __future__ import absolute_import
 
 # import models into model package
 from .device_data import DeviceData
+from .device_data_request import DeviceDataRequest
 from .device_log_data import DeviceLogData
 from .device_log_page import DeviceLogPage
 from .device_page import DevicePage
-from .device_serializer import DeviceSerializer
-from .write_device_serializer import WriteDeviceSerializer
