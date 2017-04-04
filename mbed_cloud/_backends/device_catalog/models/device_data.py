@@ -502,7 +502,7 @@ class DeviceData(object):
         :param deployed_state: The deployed_state of this DeviceData.
         :type: str
         """
-        allowed_values = ["Development", "Deployment"]
+        allowed_values = ["development", "production"]
         if deployed_state not in allowed_values:
             raise ValueError(
                 "Invalid value for `deployed_state` ({0}), must be one of {1}"
