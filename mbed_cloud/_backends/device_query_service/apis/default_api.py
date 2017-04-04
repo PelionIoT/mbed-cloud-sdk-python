@@ -119,10 +119,6 @@ class DefaultApi(object):
         body_params = None
         if 'device' in params:
             body_params = params['device']
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.\
-            select_header_content_type(['application/x-www-form-urlencoded'])
-
         # Authentication setting
         auth_settings = ['Bearer']
 
