@@ -40,7 +40,7 @@ class AccountApi(object):
                 config.api_client = ApiClient()
             self.api_client = config.api_client
 
-    def v3_metrics_get(self, include, start, end, period, interval, authorization, **kwargs):
+    def v3_metrics_get(self, include, interval, authorization, **kwargs):
         """
         Provides account-specific statistics for other cloud services.
         This REST API is used to get account-specific statistics.
@@ -50,28 +50,28 @@ class AccountApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.v3_metrics_get(include, start, end, period, interval, authorization, callback=callback_function)
+        >>> thread = api.v3_metrics_get(include, interval, authorization, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str include: A comma-separated list of requested metrics. Supported values are:  - `transactions` - `bootstraps_successful` - `bootstraps_failed` - `bootstraps_pending` - `device_server_rest_api_success` - `device_server_rest_api_error`  (required)
-        :param str start: UTC time/year/date in RFC3339 format. Fetch the data with timestamp greater than or equal to this value. Sample values: 20170207T092056990Z/2017-02-07T09:20:56.990Z/2017/20170207. The parameter is not mandatory, if the period is specified.  (required)
-        :param str end: UTC time/year/date in RFC3339 format. Fetch the data with timestamp less than this value.Sample values: 20170207T092056990Z/2017-02-07T09:20:56.990Z/2017/20170207.The parameter is not mandatory, if the period is specified.  (required)
-        :param str period: Period. Fetch the data for the period in days, weeks or hours. Sample values: 2h, 3w, 4d. The parameter is not mandatory, if the start and end time are specified.  (required)
         :param str interval: Group data by this interval in days, weeks or hours. Sample values: 2h, 3w, 4d.  (required)
         :param str authorization: Bearer {Access Token}. A valid API Gateway access token. The token is validated and the associated account identifier is used to retrieve account-specific statistics.  (required)
+        :param str start: UTC time/year/date in RFC3339 format. Fetch the data with timestamp greater than or equal to this value. Sample values: 20170207T092056990Z/2017-02-07T09:20:56.990Z/2017/20170207. The parameter is not mandatory, if the period is specified. 
+        :param str end: UTC time/year/date in RFC3339 format. Fetch the data with timestamp less than this value.Sample values: 20170207T092056990Z/2017-02-07T09:20:56.990Z/2017/20170207.The parameter is not mandatory, if the period is specified. 
+        :param str period: Period. Fetch the data for the period in days, weeks or hours. Sample values: 2h, 3w, 4d. The parameter is not mandatory, if the start and end time are specified. 
         :return: SuccessfulResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.v3_metrics_get_with_http_info(include, start, end, period, interval, authorization, **kwargs)
+            return self.v3_metrics_get_with_http_info(include, interval, authorization, **kwargs)
         else:
-            (data) = self.v3_metrics_get_with_http_info(include, start, end, period, interval, authorization, **kwargs)
+            (data) = self.v3_metrics_get_with_http_info(include, interval, authorization, **kwargs)
             return data
 
-    def v3_metrics_get_with_http_info(self, include, start, end, period, interval, authorization, **kwargs):
+    def v3_metrics_get_with_http_info(self, include, interval, authorization, **kwargs):
         """
         Provides account-specific statistics for other cloud services.
         This REST API is used to get account-specific statistics.
@@ -81,22 +81,22 @@ class AccountApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.v3_metrics_get_with_http_info(include, start, end, period, interval, authorization, callback=callback_function)
+        >>> thread = api.v3_metrics_get_with_http_info(include, interval, authorization, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str include: A comma-separated list of requested metrics. Supported values are:  - `transactions` - `bootstraps_successful` - `bootstraps_failed` - `bootstraps_pending` - `device_server_rest_api_success` - `device_server_rest_api_error`  (required)
-        :param str start: UTC time/year/date in RFC3339 format. Fetch the data with timestamp greater than or equal to this value. Sample values: 20170207T092056990Z/2017-02-07T09:20:56.990Z/2017/20170207. The parameter is not mandatory, if the period is specified.  (required)
-        :param str end: UTC time/year/date in RFC3339 format. Fetch the data with timestamp less than this value.Sample values: 20170207T092056990Z/2017-02-07T09:20:56.990Z/2017/20170207.The parameter is not mandatory, if the period is specified.  (required)
-        :param str period: Period. Fetch the data for the period in days, weeks or hours. Sample values: 2h, 3w, 4d. The parameter is not mandatory, if the start and end time are specified.  (required)
         :param str interval: Group data by this interval in days, weeks or hours. Sample values: 2h, 3w, 4d.  (required)
         :param str authorization: Bearer {Access Token}. A valid API Gateway access token. The token is validated and the associated account identifier is used to retrieve account-specific statistics.  (required)
+        :param str start: UTC time/year/date in RFC3339 format. Fetch the data with timestamp greater than or equal to this value. Sample values: 20170207T092056990Z/2017-02-07T09:20:56.990Z/2017/20170207. The parameter is not mandatory, if the period is specified. 
+        :param str end: UTC time/year/date in RFC3339 format. Fetch the data with timestamp less than this value.Sample values: 20170207T092056990Z/2017-02-07T09:20:56.990Z/2017/20170207.The parameter is not mandatory, if the period is specified. 
+        :param str period: Period. Fetch the data for the period in days, weeks or hours. Sample values: 2h, 3w, 4d. The parameter is not mandatory, if the start and end time are specified. 
         :return: SuccessfulResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['include', 'start', 'end', 'period', 'interval', 'authorization']
+        all_params = ['include', 'interval', 'authorization', 'start', 'end', 'period']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -114,15 +114,6 @@ class AccountApi(object):
         # verify the required parameter 'include' is set
         if ('include' not in params) or (params['include'] is None):
             raise ValueError("Missing the required parameter `include` when calling `v3_metrics_get`")
-        # verify the required parameter 'start' is set
-        if ('start' not in params) or (params['start'] is None):
-            raise ValueError("Missing the required parameter `start` when calling `v3_metrics_get`")
-        # verify the required parameter 'end' is set
-        if ('end' not in params) or (params['end'] is None):
-            raise ValueError("Missing the required parameter `end` when calling `v3_metrics_get`")
-        # verify the required parameter 'period' is set
-        if ('period' not in params) or (params['period'] is None):
-            raise ValueError("Missing the required parameter `period` when calling `v3_metrics_get`")
         # verify the required parameter 'interval' is set
         if ('interval' not in params) or (params['interval'] is None):
             raise ValueError("Missing the required parameter `interval` when calling `v3_metrics_get`")
