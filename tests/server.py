@@ -70,7 +70,7 @@ def _get_params(request_headers):
 
 
 def _fix_paginated_response(resp):
-    return_obj = resp.as_list()
+    return_obj = list(resp)
 
     # Convert each inner object to Python dictionary.
     if return_obj and hasattr(return_obj[0], 'to_dict'):
