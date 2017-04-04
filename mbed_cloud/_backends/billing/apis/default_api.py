@@ -773,7 +773,7 @@ class DefaultApi(object):
     def v1_report_get(self, month, **kwargs):
         """
         Billing report
-        Generate billing report for all accounts.
+        Generate billing report for all commercial accounts.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -800,7 +800,7 @@ class DefaultApi(object):
     def v1_report_get_with_http_info(self, month, **kwargs):
         """
         Billing report
-        Generate billing report for all accounts.
+        Generate billing report for all commercial accounts.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.

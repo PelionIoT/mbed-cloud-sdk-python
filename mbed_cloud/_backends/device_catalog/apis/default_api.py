@@ -40,7 +40,7 @@ class DefaultApi(object):
                 config.api_client = ApiClient()
             self.api_client = config.api_client
 
-    def device_create(self, **kwargs):
+    def device_create(self, device, **kwargs):
         """
         <p>The APIs for creating and manipulating devices.  </p> <p>Create device</p>
         This method makes a synchronous HTTP request by default. To make an
@@ -49,22 +49,23 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.device_create(callback=callback_function)
+        >>> thread = api.device_create(device, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
+        :param DeviceData device: (required)
         :return: DeviceData
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.device_create_with_http_info(**kwargs)
+            return self.device_create_with_http_info(device, **kwargs)
         else:
-            (data) = self.device_create_with_http_info(**kwargs)
+            (data) = self.device_create_with_http_info(device, **kwargs)
             return data
 
-    def device_create_with_http_info(self, **kwargs):
+    def device_create_with_http_info(self, device, **kwargs):
         """
         <p>The APIs for creating and manipulating devices.  </p> <p>Create device</p>
         This method makes a synchronous HTTP request by default. To make an
@@ -73,16 +74,17 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.device_create_with_http_info(callback=callback_function)
+        >>> thread = api.device_create_with_http_info(device, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
+        :param DeviceData device: (required)
         :return: DeviceData
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = []
+        all_params = ['device']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -97,6 +99,10 @@ class DefaultApi(object):
                 )
             params[key] = val
         del params['kwargs']
+        # verify the required parameter 'device' is set
+        if ('device' not in params) or (params['device'] is None):
+            raise ValueError("Missing the required parameter `device` when calling `device_create`")
+
 
         collection_formats = {}
 
@@ -111,6 +117,8 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        if 'device' in params:
+            body_params = params['device']
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -243,6 +251,51 @@ class DefaultApi(object):
         :param str order: ASC or DESC
         :param str after: the ID of the the item after which to retrieve the next page
         :param str filter: URL encoded query string parameter to filter returned data
+        :param str include: Comma separated list of data fields to return. Currently supported: total_count
+        :param str account_id: 
+        :param int attestation_method: 
+        :param bool auto_update: 
+        :param str bootstrap_expiration_date: 
+        :param str bootstrap_expiration_date__lte: 
+        :param str bootstrap_expiration_date__gte: 
+        :param str bootstrapped_timestamp: 
+        :param str bootstrapped_timestamp__lte: 
+        :param str bootstrapped_timestamp__gte: 
+        :param str ca_id: 
+        :param str connector_expiration_date: 
+        :param str connector_expiration_date__lte: 
+        :param str connector_expiration_date__gte: 
+        :param str created_at: 
+        :param str created_at__lte: 
+        :param str created_at__gte: 
+        :param str custom_attributes: 
+        :param str deployed_state: 
+        :param str deployment: 
+        :param str description: 
+        :param str device_class: 
+        :param str device_id: 
+        :param str device_key: 
+        :param str endpoint_name: 
+        :param str etag: 
+        :param str etag__lte: 
+        :param str etag__gte: 
+        :param str firmware_checksum: 
+        :param str manifest: 
+        :param str manifest_timestamp: 
+        :param str manifest_timestamp__lte: 
+        :param str manifest_timestamp__gte: 
+        :param str mechanism: 
+        :param str mechanism_url: 
+        :param str name: 
+        :param str object: 
+        :param str serial_number: 
+        :param str state: 
+        :param str trust_class: 
+        :param str trust_level: 
+        :param str updated_at: 
+        :param str updated_at__lte: 
+        :param str updated_at__gte: 
+        :param str vendor_id: 
         :return: DevicePage
                  If the method is called asynchronously,
                  returns the request thread.
@@ -271,12 +324,57 @@ class DefaultApi(object):
         :param str order: ASC or DESC
         :param str after: the ID of the the item after which to retrieve the next page
         :param str filter: URL encoded query string parameter to filter returned data
+        :param str include: Comma separated list of data fields to return. Currently supported: total_count
+        :param str account_id: 
+        :param int attestation_method: 
+        :param bool auto_update: 
+        :param str bootstrap_expiration_date: 
+        :param str bootstrap_expiration_date__lte: 
+        :param str bootstrap_expiration_date__gte: 
+        :param str bootstrapped_timestamp: 
+        :param str bootstrapped_timestamp__lte: 
+        :param str bootstrapped_timestamp__gte: 
+        :param str ca_id: 
+        :param str connector_expiration_date: 
+        :param str connector_expiration_date__lte: 
+        :param str connector_expiration_date__gte: 
+        :param str created_at: 
+        :param str created_at__lte: 
+        :param str created_at__gte: 
+        :param str custom_attributes: 
+        :param str deployed_state: 
+        :param str deployment: 
+        :param str description: 
+        :param str device_class: 
+        :param str device_id: 
+        :param str device_key: 
+        :param str endpoint_name: 
+        :param str etag: 
+        :param str etag__lte: 
+        :param str etag__gte: 
+        :param str firmware_checksum: 
+        :param str manifest: 
+        :param str manifest_timestamp: 
+        :param str manifest_timestamp__lte: 
+        :param str manifest_timestamp__gte: 
+        :param str mechanism: 
+        :param str mechanism_url: 
+        :param str name: 
+        :param str object: 
+        :param str serial_number: 
+        :param str state: 
+        :param str trust_class: 
+        :param str trust_level: 
+        :param str updated_at: 
+        :param str updated_at__lte: 
+        :param str updated_at__gte: 
+        :param str vendor_id: 
         :return: DevicePage
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['limit', 'order', 'after', 'filter']
+        all_params = ['limit', 'order', 'after', 'filter', 'include', 'account_id', 'attestation_method', 'auto_update', 'bootstrap_expiration_date', 'bootstrap_expiration_date__lte', 'bootstrap_expiration_date__gte', 'bootstrapped_timestamp', 'bootstrapped_timestamp__lte', 'bootstrapped_timestamp__gte', 'ca_id', 'connector_expiration_date', 'connector_expiration_date__lte', 'connector_expiration_date__gte', 'created_at', 'created_at__lte', 'created_at__gte', 'custom_attributes', 'deployed_state', 'deployment', 'description', 'device_class', 'device_id', 'device_key', 'endpoint_name', 'etag', 'etag__lte', 'etag__gte', 'firmware_checksum', 'manifest', 'manifest_timestamp', 'manifest_timestamp__lte', 'manifest_timestamp__gte', 'mechanism', 'mechanism_url', 'name', 'object', 'serial_number', 'state', 'trust_class', 'trust_level', 'updated_at', 'updated_at__lte', 'updated_at__gte', 'vendor_id']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -307,6 +405,96 @@ class DefaultApi(object):
             query_params['after'] = params['after']
         if 'filter' in params:
             query_params['filter'] = params['filter']
+        if 'include' in params:
+            query_params['include'] = params['include']
+        if 'account_id' in params:
+            query_params['account_id'] = params['account_id']
+        if 'attestation_method' in params:
+            query_params['attestation_method'] = params['attestation_method']
+        if 'auto_update' in params:
+            query_params['auto_update'] = params['auto_update']
+        if 'bootstrap_expiration_date' in params:
+            query_params['bootstrap_expiration_date'] = params['bootstrap_expiration_date']
+        if 'bootstrap_expiration_date__lte' in params:
+            query_params['bootstrap_expiration_date__lte'] = params['bootstrap_expiration_date__lte']
+        if 'bootstrap_expiration_date__gte' in params:
+            query_params['bootstrap_expiration_date__gte'] = params['bootstrap_expiration_date__gte']
+        if 'bootstrapped_timestamp' in params:
+            query_params['bootstrapped_timestamp'] = params['bootstrapped_timestamp']
+        if 'bootstrapped_timestamp__lte' in params:
+            query_params['bootstrapped_timestamp__lte'] = params['bootstrapped_timestamp__lte']
+        if 'bootstrapped_timestamp__gte' in params:
+            query_params['bootstrapped_timestamp__gte'] = params['bootstrapped_timestamp__gte']
+        if 'ca_id' in params:
+            query_params['ca_id'] = params['ca_id']
+        if 'connector_expiration_date' in params:
+            query_params['connector_expiration_date'] = params['connector_expiration_date']
+        if 'connector_expiration_date__lte' in params:
+            query_params['connector_expiration_date__lte'] = params['connector_expiration_date__lte']
+        if 'connector_expiration_date__gte' in params:
+            query_params['connector_expiration_date__gte'] = params['connector_expiration_date__gte']
+        if 'created_at' in params:
+            query_params['created_at'] = params['created_at']
+        if 'created_at__lte' in params:
+            query_params['created_at__lte'] = params['created_at__lte']
+        if 'created_at__gte' in params:
+            query_params['created_at__gte'] = params['created_at__gte']
+        if 'custom_attributes' in params:
+            query_params['custom_attributes'] = params['custom_attributes']
+        if 'deployed_state' in params:
+            query_params['deployed_state'] = params['deployed_state']
+        if 'deployment' in params:
+            query_params['deployment'] = params['deployment']
+        if 'description' in params:
+            query_params['description'] = params['description']
+        if 'device_class' in params:
+            query_params['device_class'] = params['device_class']
+        if 'device_id' in params:
+            query_params['device_id'] = params['device_id']
+        if 'device_key' in params:
+            query_params['device_key'] = params['device_key']
+        if 'endpoint_name' in params:
+            query_params['endpoint_name'] = params['endpoint_name']
+        if 'etag' in params:
+            query_params['etag'] = params['etag']
+        if 'etag__lte' in params:
+            query_params['etag__lte'] = params['etag__lte']
+        if 'etag__gte' in params:
+            query_params['etag__gte'] = params['etag__gte']
+        if 'firmware_checksum' in params:
+            query_params['firmware_checksum'] = params['firmware_checksum']
+        if 'manifest' in params:
+            query_params['manifest'] = params['manifest']
+        if 'manifest_timestamp' in params:
+            query_params['manifest_timestamp'] = params['manifest_timestamp']
+        if 'manifest_timestamp__lte' in params:
+            query_params['manifest_timestamp__lte'] = params['manifest_timestamp__lte']
+        if 'manifest_timestamp__gte' in params:
+            query_params['manifest_timestamp__gte'] = params['manifest_timestamp__gte']
+        if 'mechanism' in params:
+            query_params['mechanism'] = params['mechanism']
+        if 'mechanism_url' in params:
+            query_params['mechanism_url'] = params['mechanism_url']
+        if 'name' in params:
+            query_params['name'] = params['name']
+        if 'object' in params:
+            query_params['object'] = params['object']
+        if 'serial_number' in params:
+            query_params['serial_number'] = params['serial_number']
+        if 'state' in params:
+            query_params['state'] = params['state']
+        if 'trust_class' in params:
+            query_params['trust_class'] = params['trust_class']
+        if 'trust_level' in params:
+            query_params['trust_level'] = params['trust_level']
+        if 'updated_at' in params:
+            query_params['updated_at'] = params['updated_at']
+        if 'updated_at__lte' in params:
+            query_params['updated_at__lte'] = params['updated_at__lte']
+        if 'updated_at__gte' in params:
+            query_params['updated_at__gte'] = params['updated_at__gte']
+        if 'vendor_id' in params:
+            query_params['vendor_id'] = params['vendor_id']
 
         header_params = {}
 
@@ -349,6 +537,7 @@ class DefaultApi(object):
         :param str order: ASC or DESC
         :param str after: the ID of the the item after which to retrieve the next page
         :param str filter: URL encoded query string parameter to filter returned data
+        :param str include: Comma separated list of data fields to return. Currently supported: total_count
         :return: DeviceLogPage
                  If the method is called asynchronously,
                  returns the request thread.
@@ -377,12 +566,13 @@ class DefaultApi(object):
         :param str order: ASC or DESC
         :param str after: the ID of the the item after which to retrieve the next page
         :param str filter: URL encoded query string parameter to filter returned data
+        :param str include: Comma separated list of data fields to return. Currently supported: total_count
         :return: DeviceLogPage
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['limit', 'order', 'after', 'filter']
+        all_params = ['limit', 'order', 'after', 'filter', 'include']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -413,6 +603,8 @@ class DefaultApi(object):
             query_params['after'] = params['after']
         if 'filter' in params:
             query_params['filter'] = params['filter']
+        if 'include' in params:
+            query_params['include'] = params['include']
 
         header_params = {}
 
@@ -535,7 +727,7 @@ class DefaultApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
-    def device_partial_update(self, device_id, **kwargs):
+    def device_partial_update(self, device_id, device, **kwargs):
         """
         <p>The APIs for creating and manipulating devices.  </p> <p>Update device fields</p>
         This method makes a synchronous HTTP request by default. To make an
@@ -544,37 +736,24 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.device_partial_update(device_id, callback=callback_function)
+        >>> thread = api.device_partial_update(device_id, device, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str device_id: The ID of the device (required)
-        :param bool auto_update: Mark this device for auto firmware update
-        :param str custom_attributes: Up to 5 custom JSON attributes
-        :param str deployment: The last deployment used on the device
-        :param str description: The description of the object
-        :param str device_class: The device class
-        :param str manifest: URL for the current device manifest
-        :param str mechanism: The ID of the channel used to communicate with the device
-        :param str mechanism_url: The address of the connector to use
-        :param str name: The name of the object
-        :param str object: The API resource entity
-        :param str provision_key: The key used to provision the device
-        :param str serial_number: The serial number of the device
-        :param str state: The current state of the device
-        :param str vendor_id: The device vendor ID
+        :param DeviceData device: (required)
         :return: DeviceSerializer
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.device_partial_update_with_http_info(device_id, **kwargs)
+            return self.device_partial_update_with_http_info(device_id, device, **kwargs)
         else:
-            (data) = self.device_partial_update_with_http_info(device_id, **kwargs)
+            (data) = self.device_partial_update_with_http_info(device_id, device, **kwargs)
             return data
 
-    def device_partial_update_with_http_info(self, device_id, **kwargs):
+    def device_partial_update_with_http_info(self, device_id, device, **kwargs):
         """
         <p>The APIs for creating and manipulating devices.  </p> <p>Update device fields</p>
         This method makes a synchronous HTTP request by default. To make an
@@ -583,31 +762,18 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.device_partial_update_with_http_info(device_id, callback=callback_function)
+        >>> thread = api.device_partial_update_with_http_info(device_id, device, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str device_id: The ID of the device (required)
-        :param bool auto_update: Mark this device for auto firmware update
-        :param str custom_attributes: Up to 5 custom JSON attributes
-        :param str deployment: The last deployment used on the device
-        :param str description: The description of the object
-        :param str device_class: The device class
-        :param str manifest: URL for the current device manifest
-        :param str mechanism: The ID of the channel used to communicate with the device
-        :param str mechanism_url: The address of the connector to use
-        :param str name: The name of the object
-        :param str object: The API resource entity
-        :param str provision_key: The key used to provision the device
-        :param str serial_number: The serial number of the device
-        :param str state: The current state of the device
-        :param str vendor_id: The device vendor ID
+        :param DeviceData device: (required)
         :return: DeviceSerializer
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['device_id', 'auto_update', 'custom_attributes', 'deployment', 'description', 'device_class', 'manifest', 'mechanism', 'mechanism_url', 'name', 'object', 'provision_key', 'serial_number', 'state', 'vendor_id']
+        all_params = ['device_id', 'device']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -625,6 +791,9 @@ class DefaultApi(object):
         # verify the required parameter 'device_id' is set
         if ('device_id' not in params) or (params['device_id'] is None):
             raise ValueError("Missing the required parameter `device_id` when calling `device_partial_update`")
+        # verify the required parameter 'device' is set
+        if ('device' not in params) or (params['device'] is None):
+            raise ValueError("Missing the required parameter `device` when calling `device_partial_update`")
 
 
         collection_formats = {}
@@ -640,36 +809,10 @@ class DefaultApi(object):
 
         form_params = []
         local_var_files = {}
-        if 'auto_update' in params:
-            form_params.append(('auto_update', params['auto_update']))
-        if 'custom_attributes' in params:
-            form_params.append(('custom_attributes', params['custom_attributes']))
-        if 'deployment' in params:
-            form_params.append(('deployment', params['deployment']))
-        if 'description' in params:
-            form_params.append(('description', params['description']))
-        if 'device_class' in params:
-            form_params.append(('device_class', params['device_class']))
-        if 'manifest' in params:
-            form_params.append(('manifest', params['manifest']))
-        if 'mechanism' in params:
-            form_params.append(('mechanism', params['mechanism']))
-        if 'mechanism_url' in params:
-            form_params.append(('mechanism_url', params['mechanism_url']))
-        if 'name' in params:
-            form_params.append(('name', params['name']))
-        if 'object' in params:
-            form_params.append(('object', params['object']))
-        if 'provision_key' in params:
-            form_params.append(('provision_key', params['provision_key']))
-        if 'serial_number' in params:
-            form_params.append(('serial_number', params['serial_number']))
-        if 'state' in params:
-            form_params.append(('state', params['state']))
-        if 'vendor_id' in params:
-            form_params.append(('vendor_id', params['vendor_id']))
 
         body_params = None
+        if 'device' in params:
+            body_params = params['device']
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -785,7 +928,7 @@ class DefaultApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
-    def device_update(self, device_id, mechanism, provision_key, **kwargs):
+    def device_update(self, device_id, device, **kwargs):
         """
         <p>The APIs for creating and manipulating devices.  </p> <p>Update device.</p>
         This method makes a synchronous HTTP request by default. To make an
@@ -794,37 +937,24 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.device_update(device_id, mechanism, provision_key, callback=callback_function)
+        >>> thread = api.device_update(device_id, device, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str device_id: The ID of the device (required)
-        :param str mechanism: The ID of the channel used to communicate with the device (required)
-        :param str provision_key: The key used to provision the device (required)
-        :param bool auto_update: Mark this device for auto firmware update
-        :param str custom_attributes: Up to 5 custom JSON attributes
-        :param str deployment: The last deployment used on the device
-        :param str description: The description of the object
-        :param str device_class: The device class
-        :param str manifest: URL for the current device manifest
-        :param str mechanism_url: The address of the connector to use
-        :param str name: The name of the object
-        :param str object: The API resource entity
-        :param str serial_number: The serial number of the device
-        :param str state: The current state of the device
-        :param str vendor_id: The device vendor ID
+        :param DeviceData device: (required)
         :return: DeviceSerializer
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.device_update_with_http_info(device_id, mechanism, provision_key, **kwargs)
+            return self.device_update_with_http_info(device_id, device, **kwargs)
         else:
-            (data) = self.device_update_with_http_info(device_id, mechanism, provision_key, **kwargs)
+            (data) = self.device_update_with_http_info(device_id, device, **kwargs)
             return data
 
-    def device_update_with_http_info(self, device_id, mechanism, provision_key, **kwargs):
+    def device_update_with_http_info(self, device_id, device, **kwargs):
         """
         <p>The APIs for creating and manipulating devices.  </p> <p>Update device.</p>
         This method makes a synchronous HTTP request by default. To make an
@@ -833,31 +963,18 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.device_update_with_http_info(device_id, mechanism, provision_key, callback=callback_function)
+        >>> thread = api.device_update_with_http_info(device_id, device, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str device_id: The ID of the device (required)
-        :param str mechanism: The ID of the channel used to communicate with the device (required)
-        :param str provision_key: The key used to provision the device (required)
-        :param bool auto_update: Mark this device for auto firmware update
-        :param str custom_attributes: Up to 5 custom JSON attributes
-        :param str deployment: The last deployment used on the device
-        :param str description: The description of the object
-        :param str device_class: The device class
-        :param str manifest: URL for the current device manifest
-        :param str mechanism_url: The address of the connector to use
-        :param str name: The name of the object
-        :param str object: The API resource entity
-        :param str serial_number: The serial number of the device
-        :param str state: The current state of the device
-        :param str vendor_id: The device vendor ID
+        :param DeviceData device: (required)
         :return: DeviceSerializer
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['device_id', 'mechanism', 'provision_key', 'auto_update', 'custom_attributes', 'deployment', 'description', 'device_class', 'manifest', 'mechanism_url', 'name', 'object', 'serial_number', 'state', 'vendor_id']
+        all_params = ['device_id', 'device']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -875,12 +992,9 @@ class DefaultApi(object):
         # verify the required parameter 'device_id' is set
         if ('device_id' not in params) or (params['device_id'] is None):
             raise ValueError("Missing the required parameter `device_id` when calling `device_update`")
-        # verify the required parameter 'mechanism' is set
-        if ('mechanism' not in params) or (params['mechanism'] is None):
-            raise ValueError("Missing the required parameter `mechanism` when calling `device_update`")
-        # verify the required parameter 'provision_key' is set
-        if ('provision_key' not in params) or (params['provision_key'] is None):
-            raise ValueError("Missing the required parameter `provision_key` when calling `device_update`")
+        # verify the required parameter 'device' is set
+        if ('device' not in params) or (params['device'] is None):
+            raise ValueError("Missing the required parameter `device` when calling `device_update`")
 
 
         collection_formats = {}
@@ -896,36 +1010,10 @@ class DefaultApi(object):
 
         form_params = []
         local_var_files = {}
-        if 'auto_update' in params:
-            form_params.append(('auto_update', params['auto_update']))
-        if 'custom_attributes' in params:
-            form_params.append(('custom_attributes', params['custom_attributes']))
-        if 'deployment' in params:
-            form_params.append(('deployment', params['deployment']))
-        if 'description' in params:
-            form_params.append(('description', params['description']))
-        if 'device_class' in params:
-            form_params.append(('device_class', params['device_class']))
-        if 'manifest' in params:
-            form_params.append(('manifest', params['manifest']))
-        if 'mechanism' in params:
-            form_params.append(('mechanism', params['mechanism']))
-        if 'mechanism_url' in params:
-            form_params.append(('mechanism_url', params['mechanism_url']))
-        if 'name' in params:
-            form_params.append(('name', params['name']))
-        if 'object' in params:
-            form_params.append(('object', params['object']))
-        if 'provision_key' in params:
-            form_params.append(('provision_key', params['provision_key']))
-        if 'serial_number' in params:
-            form_params.append(('serial_number', params['serial_number']))
-        if 'state' in params:
-            form_params.append(('state', params['state']))
-        if 'vendor_id' in params:
-            form_params.append(('vendor_id', params['vendor_id']))
 
         body_params = None
+        if 'device' in params:
+            body_params = params['device']
         # Authentication setting
         auth_settings = ['Bearer']
 

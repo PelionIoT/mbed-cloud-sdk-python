@@ -38,7 +38,7 @@ class FirmwareManifest(object):
             'created_at': 'datetime',
             'object': 'str',
             'updated_at': 'datetime',
-            'manifest_contents': 'str',
+            'manifest_contents': 'object',
             'etag': 'datetime',
             'device_class': 'str',
             'id': 'str',
@@ -253,7 +253,7 @@ class FirmwareManifest(object):
         The contents of the manifest
 
         :return: The manifest_contents of this FirmwareManifest.
-        :rtype: str
+        :rtype: object
         """
         return self._manifest_contents
 
@@ -264,7 +264,7 @@ class FirmwareManifest(object):
         The contents of the manifest
 
         :param manifest_contents: The manifest_contents of this FirmwareManifest.
-        :type: str
+        :type: object
         """
         if manifest_contents is None:
             raise ValueError("Invalid value for `manifest_contents`, must not be `None`")

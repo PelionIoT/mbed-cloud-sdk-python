@@ -4,7 +4,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **status** | **str** | The status of the user. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. | 
-**username** | **str** | A username containing alphanumerical letters and -,._@+&#x3D; characters. | 
+**username** | **str** | A username containing alphanumerical letters and -,._@+&#x3D; characters. | [optional] 
 **groups** | **list[str]** | A list of IDs of the groups this user belongs to. | [optional] 
 **password_changed_time** | **int** | A timestamp of the latest change of the user password, in milliseconds. | [optional] 
 **email_verified** | **bool** | A flag indicating whether the user&#39;s email address has been verified or not. | [optional] 

@@ -146,8 +146,6 @@ class UserInfoResp(object):
         :param username: The username of this UserInfoResp.
         :type: str
         """
-        if username is None:
-            raise ValueError("Invalid value for `username`, must not be `None`")
 
         self._username = username
 
