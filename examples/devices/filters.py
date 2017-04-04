@@ -48,7 +48,7 @@ def _main():
     api = DeviceAPI()
 
     # Pretty print all the registered filters
-    for e, idx in api.list_filters(limit=5).iteritems():
+    for idx, e in enumerate(api.list_filters(limit=5)):
         print(_str_filter(e, idx))
 
     # Create a new filter
@@ -56,7 +56,7 @@ def _main():
     print("\nCreated new filter: %r" % (new_filter.name))
 
     # Delete same filter
-    api.delete_filter(new_filter.query_id)
+    api.delete_filter(new_filter.id)
     print("Deleted newly created filter")
 
     # Create more complex filter
@@ -93,7 +93,7 @@ def _main():
     print ("Updated filter with new serial number")
 
     # And delete that too
-    api.delete_filter(new_c_filter.query_id)
+    api.delete_filter(new_c_filter.id)
     print("Deleted complex filter")
 
 if __name__ == "__main__":
