@@ -16,7 +16,7 @@ These instructions can also be found in the [official documentation](https://s3-
 
 1. Create API key in the [mbed Cloud Portal](https://portal.mbedcloud.com/).
 
-2. Create configuration file in `$HOME` or project directory (`.mbed_cloud_configuration`):
+2. Create configuration file in `$HOME` or project directory (`.mbed_cloud_config`):
 
     ```javascript
     {

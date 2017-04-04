@@ -1,4 +1,3 @@
-mbed Cloud SDK
 ==============
 
 The mbed Cloud SDK gives developers access to the full mbed suite using Python.
@@ -36,12 +35,12 @@ commands. Note that setting up a virtual environment is optional.
   pip install git+https://github.com/ARMmbed/mbed-cloud-sdk-python.git
 
 Next you will need to create an API key. You can do this logging in to the
-`Cloud Portal`_. Subsequently, create a new file `.mbed_cloud_configuration.json`
+`Cloud Portal`_. Subsequently, create a new file `.mbed_cloud_config.json`
 with the following content:
 
 .. code-block:: shell
 
-  $ cat .mbed_cloud_configuration.json
+  $ cat .mbed_cloud_config.json
   {
     "api_key": "ak_your_api_key_here"
   }
