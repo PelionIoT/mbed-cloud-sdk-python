@@ -18,8 +18,8 @@ from datetime import datetime
 
 def _main():
     api = StatisticsAPI()
-    start = datetime(2017, 03, 01, 0, 0, 0)
-    end = datetime(2017, 05, 01, 0, 0, 0)
+    start = datetime(2017, 3, 1, 0, 0, 0)
+    end = datetime(2017, 4, 1, 0, 0, 0)
     header = "Get statistics from the last 30 days in 1 day interval"
     print("%s\n%s" % (header, len(header) * "-"))
     for key, metric in api.get_metric(None, None, None, "30d", "1d").iteritems():

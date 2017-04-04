@@ -11,22 +11,17 @@
 #   permitted to do so under the terms of a subsisting license agreement
 #   from ARM Limited or its affiliates.
 # --------------------------------------------------------------------------
-"""Functionality for access-related actions in mbed Cloud."""
-from __future__ import absolute_import
+"""Functionality for statistics-related actions in mbed Cloud."""
 
 # Import common functions and exceptions from frontend API
 import re
 from mbed_cloud import BaseAPI
-from mbed_cloud import config
 from mbed_cloud.decorators import catch_exceptions
-from mbed_cloud import PaginatedResponse
-from datetime import datetime
 
 # Import backend API
 import mbed_cloud._backends.statistics as statistics
 from mbed_cloud._backends.statistics.models import Data
 from mbed_cloud._backends.statistics.rest import ApiException
-
 
 class StatisticsAPI(BaseAPI):
     """API reference for the Statistics API.
