@@ -21,12 +21,13 @@ from mbed_cloud.decorators import catch_exceptions
 from mbed_cloud import PaginatedResponse
 
 import mbed_cloud._backends.deployment_service as deployment_service
-from mbed_cloud._backends.deployment_service.models import UpdateCampaignSerializer
+from mbed_cloud._backends.deployment_service.models\
+    import UpdateCampaign as UpdateCampaignObj
 from mbed_cloud._backends.deployment_service.rest\
     import ApiException as DeploymentServiceApiException
 import mbed_cloud._backends.firmware_catalog as firmware_catalog
-from mbed_cloud._backends.firmware_catalog.models import FirmwareImageSerializerData
-from mbed_cloud._backends.firmware_catalog.models import FirmwareManifestSerializerData
+from mbed_cloud._backends.firmware_catalog.models import FirmwareImage
+from mbed_cloud._backends.firmware_catalog.models import FirmwareManifest
 from mbed_cloud._backends.firmware_catalog.rest\
     import ApiException as FirmwareCatalogApiException
 
@@ -99,7 +100,7 @@ class UpdateAPI(BaseAPI):
         :rtype: UpdateCampaign
         """
         api = self.deployment_service.DefaultApi()
-        body = self.deployment_service.WriteUpdateCampaignSerializer(name, **kwargs)
+        body = self.deployment_service.WriteUpdateCampaignObj(name, **kwargs)
         return api.update_campaign_create(body)
 
     @catch_exceptions(DeploymentServiceApiException)
@@ -205,7 +206,7 @@ class UpdateAPI(BaseAPI):
         return api.firmware_manifest_destroy(manifest_id)
 
 
-class Firmware(FirmwareImageSerializerData):
+class Firmware(FirmwareImage):
     """Describes firmware object."""
 
     def __init__(self, firmware_image_obj):
@@ -213,7 +214,7 @@ class Firmware(FirmwareImageSerializerData):
         super(Firmware, self).__init__(**firmware_image_obj.to_dict())
 
 
-class Manifest(FirmwareManifestSerializerData):
+class Manifest(FirmwareManifest):
     """Describes firmware manifest object."""
 
     def __init__(self, manifest_image_obj):
@@ -221,7 +222,7 @@ class Manifest(FirmwareManifestSerializerData):
         super(Manifest, self).__init__(**manifest_image_obj.to_dict())
 
 
-class UpdateCampaign(UpdateCampaignSerializer):
+class UpdateCampaign(UpdateCampaignObj):
     """Describes update campaign object."""
 
     def __init__(self, device_certificate_obj):
