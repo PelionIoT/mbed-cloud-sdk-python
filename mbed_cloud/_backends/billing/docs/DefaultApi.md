@@ -383,7 +383,7 @@ This endpoint does not need any parameter.
 
 Billing report
 
-Generate billing report for all accounts.
+Generate billing report for all commercial accounts.
 
 ### Example 
 ```python

@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 
 # **device_create**
-> DeviceData device_create()
+> DeviceData device_create(device)
 
 
 
@@ -36,16 +36,20 @@ device_catalog.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = device_catalog.DefaultApi()
+device = device_catalog.DeviceData() # DeviceData | 
 
 try: 
-    api_response = api_instance.device_create()
+    api_response = api_instance.device_create(device)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->device_create: %s\n" % e)
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **device** | [**DeviceData**](DeviceData.md)|  | 
 
 ### Return type
 
@@ -115,7 +119,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **device_list**
-> DevicePage device_list(limit=limit, order=order, after=after, filter=filter)
+> DevicePage device_list(limit=limit, order=order, after=after, filter=filter, include=include, account_id=account_id, attestation_method=attestation_method, auto_update=auto_update, bootstrap_expiration_date=bootstrap_expiration_date, bootstrap_expiration_date__lte=bootstrap_expiration_date__lte, bootstrap_expiration_date__gte=bootstrap_expiration_date__gte, bootstrapped_timestamp=bootstrapped_timestamp, bootstrapped_timestamp__lte=bootstrapped_timestamp__lte, bootstrapped_timestamp__gte=bootstrapped_timestamp__gte, ca_id=ca_id, connector_expiration_date=connector_expiration_date, connector_expiration_date__lte=connector_expiration_date__lte, connector_expiration_date__gte=connector_expiration_date__gte, created_at=created_at, created_at__lte=created_at__lte, created_at__gte=created_at__gte, custom_attributes=custom_attributes, deployed_state=deployed_state, deployment=deployment, description=description, device_class=device_class, device_id=device_id, device_key=device_key, endpoint_name=endpoint_name, etag=etag, etag__lte=etag__lte, etag__gte=etag__gte, firmware_checksum=firmware_checksum, manifest=manifest, manifest_timestamp=manifest_timestamp, manifest_timestamp__lte=manifest_timestamp__lte, manifest_timestamp__gte=manifest_timestamp__gte, mechanism=mechanism, mechanism_url=mechanism_url, name=name, object=object, serial_number=serial_number, state=state, trust_class=trust_class, trust_level=trust_level, updated_at=updated_at, updated_at__lte=updated_at__lte, updated_at__gte=updated_at__gte, vendor_id=vendor_id)
 
 
 
@@ -140,9 +144,54 @@ limit = 56 # int | how many objects to retrieve in the page (optional)
 order = 'order_example' # str | ASC or DESC (optional)
 after = 'after_example' # str | the ID of the the item after which to retrieve the next page (optional)
 filter = 'filter_example' # str | URL encoded query string parameter to filter returned data (optional)
+include = 'include_example' # str | Comma separated list of data fields to return. Currently supported: total_count (optional)
+account_id = 'account_id_example' # str |  (optional)
+attestation_method = 56 # int |  (optional)
+auto_update = true # bool |  (optional)
+bootstrap_expiration_date = 'bootstrap_expiration_date_example' # str |  (optional)
+bootstrap_expiration_date__lte = 'bootstrap_expiration_date__lte_example' # str |  (optional)
+bootstrap_expiration_date__gte = 'bootstrap_expiration_date__gte_example' # str |  (optional)
+bootstrapped_timestamp = 'bootstrapped_timestamp_example' # str |  (optional)
+bootstrapped_timestamp__lte = 'bootstrapped_timestamp__lte_example' # str |  (optional)
+bootstrapped_timestamp__gte = 'bootstrapped_timestamp__gte_example' # str |  (optional)
+ca_id = 'ca_id_example' # str |  (optional)
+connector_expiration_date = 'connector_expiration_date_example' # str |  (optional)
+connector_expiration_date__lte = 'connector_expiration_date__lte_example' # str |  (optional)
+connector_expiration_date__gte = 'connector_expiration_date__gte_example' # str |  (optional)
+created_at = 'created_at_example' # str |  (optional)
+created_at__lte = 'created_at__lte_example' # str |  (optional)
+created_at__gte = 'created_at__gte_example' # str |  (optional)
+custom_attributes = 'custom_attributes_example' # str |  (optional)
+deployed_state = 'deployed_state_example' # str |  (optional)
+deployment = 'deployment_example' # str |  (optional)
+description = 'description_example' # str |  (optional)
+device_class = 'device_class_example' # str |  (optional)
+device_id = 'device_id_example' # str |  (optional)
+device_key = 'device_key_example' # str |  (optional)
+endpoint_name = 'endpoint_name_example' # str |  (optional)
+etag = 'etag_example' # str |  (optional)
+etag__lte = 'etag__lte_example' # str |  (optional)
+etag__gte = 'etag__gte_example' # str |  (optional)
+firmware_checksum = 'firmware_checksum_example' # str |  (optional)
+manifest = 'manifest_example' # str |  (optional)
+manifest_timestamp = 'manifest_timestamp_example' # str |  (optional)
+manifest_timestamp__lte = 'manifest_timestamp__lte_example' # str |  (optional)
+manifest_timestamp__gte = 'manifest_timestamp__gte_example' # str |  (optional)
+mechanism = 'mechanism_example' # str |  (optional)
+mechanism_url = 'mechanism_url_example' # str |  (optional)
+name = 'name_example' # str |  (optional)
+object = 'object_example' # str |  (optional)
+serial_number = 'serial_number_example' # str |  (optional)
+state = 'state_example' # str |  (optional)
+trust_class = 'trust_class_example' # str |  (optional)
+trust_level = 'trust_level_example' # str |  (optional)
+updated_at = 'updated_at_example' # str |  (optional)
+updated_at__lte = 'updated_at__lte_example' # str |  (optional)
+updated_at__gte = 'updated_at__gte_example' # str |  (optional)
+vendor_id = 'vendor_id_example' # str |  (optional)
 
 try: 
-    api_response = api_instance.device_list(limit=limit, order=order, after=after, filter=filter)
+    api_response = api_instance.device_list(limit=limit, order=order, after=after, filter=filter, include=include, account_id=account_id, attestation_method=attestation_method, auto_update=auto_update, bootstrap_expiration_date=bootstrap_expiration_date, bootstrap_expiration_date__lte=bootstrap_expiration_date__lte, bootstrap_expiration_date__gte=bootstrap_expiration_date__gte, bootstrapped_timestamp=bootstrapped_timestamp, bootstrapped_timestamp__lte=bootstrapped_timestamp__lte, bootstrapped_timestamp__gte=bootstrapped_timestamp__gte, ca_id=ca_id, connector_expiration_date=connector_expiration_date, connector_expiration_date__lte=connector_expiration_date__lte, connector_expiration_date__gte=connector_expiration_date__gte, created_at=created_at, created_at__lte=created_at__lte, created_at__gte=created_at__gte, custom_attributes=custom_attributes, deployed_state=deployed_state, deployment=deployment, description=description, device_class=device_class, device_id=device_id, device_key=device_key, endpoint_name=endpoint_name, etag=etag, etag__lte=etag__lte, etag__gte=etag__gte, firmware_checksum=firmware_checksum, manifest=manifest, manifest_timestamp=manifest_timestamp, manifest_timestamp__lte=manifest_timestamp__lte, manifest_timestamp__gte=manifest_timestamp__gte, mechanism=mechanism, mechanism_url=mechanism_url, name=name, object=object, serial_number=serial_number, state=state, trust_class=trust_class, trust_level=trust_level, updated_at=updated_at, updated_at__lte=updated_at__lte, updated_at__gte=updated_at__gte, vendor_id=vendor_id)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->device_list: %s\n" % e)
@@ -156,6 +205,51 @@ Name | Type | Description  | Notes
  **order** | **str**| ASC or DESC | [optional] 
  **after** | **str**| the ID of the the item after which to retrieve the next page | [optional] 
  **filter** | **str**| URL encoded query string parameter to filter returned data | [optional] 
+ **include** | **str**| Comma separated list of data fields to return. Currently supported: total_count | [optional] 
+ **account_id** | **str**|  | [optional] 
+ **attestation_method** | **int**|  | [optional] 
+ **auto_update** | **bool**|  | [optional] 
+ **bootstrap_expiration_date** | **str**|  | [optional] 
+ **bootstrap_expiration_date__lte** | **str**|  | [optional] 
+ **bootstrap_expiration_date__gte** | **str**|  | [optional] 
+ **bootstrapped_timestamp** | **str**|  | [optional] 
+ **bootstrapped_timestamp__lte** | **str**|  | [optional] 
+ **bootstrapped_timestamp__gte** | **str**|  | [optional] 
+ **ca_id** | **str**|  | [optional] 
+ **connector_expiration_date** | **str**|  | [optional] 
+ **connector_expiration_date__lte** | **str**|  | [optional] 
+ **connector_expiration_date__gte** | **str**|  | [optional] 
+ **created_at** | **str**|  | [optional] 
+ **created_at__lte** | **str**|  | [optional] 
+ **created_at__gte** | **str**|  | [optional] 
+ **custom_attributes** | **str**|  | [optional] 
+ **deployed_state** | **str**|  | [optional] 
+ **deployment** | **str**|  | [optional] 
+ **description** | **str**|  | [optional] 
+ **device_class** | **str**|  | [optional] 
+ **device_id** | **str**|  | [optional] 
+ **device_key** | **str**|  | [optional] 
+ **endpoint_name** | **str**|  | [optional] 
+ **etag** | **str**|  | [optional] 
+ **etag__lte** | **str**|  | [optional] 
+ **etag__gte** | **str**|  | [optional] 
+ **firmware_checksum** | **str**|  | [optional] 
+ **manifest** | **str**|  | [optional] 
+ **manifest_timestamp** | **str**|  | [optional] 
+ **manifest_timestamp__lte** | **str**|  | [optional] 
+ **manifest_timestamp__gte** | **str**|  | [optional] 
+ **mechanism** | **str**|  | [optional] 
+ **mechanism_url** | **str**|  | [optional] 
+ **name** | **str**|  | [optional] 
+ **object** | **str**|  | [optional] 
+ **serial_number** | **str**|  | [optional] 
+ **state** | **str**|  | [optional] 
+ **trust_class** | **str**|  | [optional] 
+ **trust_level** | **str**|  | [optional] 
+ **updated_at** | **str**|  | [optional] 
+ **updated_at__lte** | **str**|  | [optional] 
+ **updated_at__gte** | **str**|  | [optional] 
+ **vendor_id** | **str**|  | [optional] 
 
 ### Return type
 
@@ -173,7 +267,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **device_log_list**
-> DeviceLogPage device_log_list(limit=limit, order=order, after=after, filter=filter)
+> DeviceLogPage device_log_list(limit=limit, order=order, after=after, filter=filter, include=include)
 
 
 
@@ -198,9 +292,10 @@ limit = 56 # int | how many objects to retrieve in the page (optional)
 order = 'order_example' # str | ASC or DESC (optional)
 after = 'after_example' # str | the ID of the the item after which to retrieve the next page (optional)
 filter = 'filter_example' # str | URL encoded query string parameter to filter returned data (optional)
+include = 'include_example' # str | Comma separated list of data fields to return. Currently supported: total_count (optional)
 
 try: 
-    api_response = api_instance.device_log_list(limit=limit, order=order, after=after, filter=filter)
+    api_response = api_instance.device_log_list(limit=limit, order=order, after=after, filter=filter, include=include)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->device_log_list: %s\n" % e)
@@ -214,6 +309,7 @@ Name | Type | Description  | Notes
  **order** | **str**| ASC or DESC | [optional] 
  **after** | **str**| the ID of the the item after which to retrieve the next page | [optional] 
  **filter** | **str**| URL encoded query string parameter to filter returned data | [optional] 
+ **include** | **str**| Comma separated list of data fields to return. Currently supported: total_count | [optional] 
 
 ### Return type
 
@@ -283,7 +379,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **device_partial_update**
-> DeviceSerializer device_partial_update(device_id, auto_update=auto_update, custom_attributes=custom_attributes, deployment=deployment, description=description, device_class=device_class, manifest=manifest, mechanism=mechanism, mechanism_url=mechanism_url, name=name, object=object, provision_key=provision_key, serial_number=serial_number, state=state, vendor_id=vendor_id)
+> DeviceSerializer device_partial_update(device_id, device)
 
 
 
@@ -305,23 +401,10 @@ device_catalog.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = device_catalog.DefaultApi()
 device_id = 'device_id_example' # str | The ID of the device
-auto_update = true # bool | Mark this device for auto firmware update (optional)
-custom_attributes = 'custom_attributes_example' # str | Up to 5 custom JSON attributes (optional)
-deployment = 'deployment_example' # str | The last deployment used on the device (optional)
-description = 'description_example' # str | The description of the object (optional)
-device_class = 'device_class_example' # str | The device class (optional)
-manifest = 'manifest_example' # str | URL for the current device manifest (optional)
-mechanism = 'mechanism_example' # str | The ID of the channel used to communicate with the device (optional)
-mechanism_url = 'mechanism_url_example' # str | The address of the connector to use (optional)
-name = 'name_example' # str | The name of the object (optional)
-object = 'object_example' # str | The API resource entity (optional)
-provision_key = 'provision_key_example' # str | The key used to provision the device (optional)
-serial_number = 'serial_number_example' # str | The serial number of the device (optional)
-state = 'state_example' # str | The current state of the device (optional)
-vendor_id = 'vendor_id_example' # str | The device vendor ID (optional)
+device = device_catalog.DeviceData() # DeviceData | 
 
 try: 
-    api_response = api_instance.device_partial_update(device_id, auto_update=auto_update, custom_attributes=custom_attributes, deployment=deployment, description=description, device_class=device_class, manifest=manifest, mechanism=mechanism, mechanism_url=mechanism_url, name=name, object=object, provision_key=provision_key, serial_number=serial_number, state=state, vendor_id=vendor_id)
+    api_response = api_instance.device_partial_update(device_id, device)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->device_partial_update: %s\n" % e)
@@ -332,20 +415,7 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **device_id** | **str**| The ID of the device | 
- **auto_update** | **bool**| Mark this device for auto firmware update | [optional] 
- **custom_attributes** | **str**| Up to 5 custom JSON attributes | [optional] 
- **deployment** | **str**| The last deployment used on the device | [optional] 
- **description** | **str**| The description of the object | [optional] 
- **device_class** | **str**| The device class | [optional] 
- **manifest** | **str**| URL for the current device manifest | [optional] 
- **mechanism** | **str**| The ID of the channel used to communicate with the device | [optional] 
- **mechanism_url** | **str**| The address of the connector to use | [optional] 
- **name** | **str**| The name of the object | [optional] 
- **object** | **str**| The API resource entity | [optional] 
- **provision_key** | **str**| The key used to provision the device | [optional] 
- **serial_number** | **str**| The serial number of the device | [optional] 
- **state** | **str**| The current state of the device | [optional] 
- **vendor_id** | **str**| The device vendor ID | [optional] 
+ **device** | [**DeviceData**](DeviceData.md)|  | 
 
 ### Return type
 
@@ -415,7 +485,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **device_update**
-> DeviceSerializer device_update(device_id, mechanism, provision_key, auto_update=auto_update, custom_attributes=custom_attributes, deployment=deployment, description=description, device_class=device_class, manifest=manifest, mechanism_url=mechanism_url, name=name, object=object, serial_number=serial_number, state=state, vendor_id=vendor_id)
+> DeviceSerializer device_update(device_id, device)
 
 
 
@@ -437,23 +507,10 @@ device_catalog.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = device_catalog.DefaultApi()
 device_id = 'device_id_example' # str | The ID of the device
-mechanism = 'mechanism_example' # str | The ID of the channel used to communicate with the device
-provision_key = 'provision_key_example' # str | The key used to provision the device
-auto_update = true # bool | Mark this device for auto firmware update (optional)
-custom_attributes = 'custom_attributes_example' # str | Up to 5 custom JSON attributes (optional)
-deployment = 'deployment_example' # str | The last deployment used on the device (optional)
-description = 'description_example' # str | The description of the object (optional)
-device_class = 'device_class_example' # str | The device class (optional)
-manifest = 'manifest_example' # str | URL for the current device manifest (optional)
-mechanism_url = 'mechanism_url_example' # str | The address of the connector to use (optional)
-name = 'name_example' # str | The name of the object (optional)
-object = 'object_example' # str | The API resource entity (optional)
-serial_number = 'serial_number_example' # str | The serial number of the device (optional)
-state = 'state_example' # str | The current state of the device (optional)
-vendor_id = 'vendor_id_example' # str | The device vendor ID (optional)
+device = device_catalog.DeviceData() # DeviceData | 
 
 try: 
-    api_response = api_instance.device_update(device_id, mechanism, provision_key, auto_update=auto_update, custom_attributes=custom_attributes, deployment=deployment, description=description, device_class=device_class, manifest=manifest, mechanism_url=mechanism_url, name=name, object=object, serial_number=serial_number, state=state, vendor_id=vendor_id)
+    api_response = api_instance.device_update(device_id, device)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->device_update: %s\n" % e)
@@ -464,20 +521,7 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **device_id** | **str**| The ID of the device | 
- **mechanism** | **str**| The ID of the channel used to communicate with the device | 
- **provision_key** | **str**| The key used to provision the device | 
- **auto_update** | **bool**| Mark this device for auto firmware update | [optional] 
- **custom_attributes** | **str**| Up to 5 custom JSON attributes | [optional] 
- **deployment** | **str**| The last deployment used on the device | [optional] 
- **description** | **str**| The description of the object | [optional] 
- **device_class** | **str**| The device class | [optional] 
- **manifest** | **str**| URL for the current device manifest | [optional] 
- **mechanism_url** | **str**| The address of the connector to use | [optional] 
- **name** | **str**| The name of the object | [optional] 
- **object** | **str**| The API resource entity | [optional] 
- **serial_number** | **str**| The serial number of the device | [optional] 
- **state** | **str**| The current state of the device | [optional] 
- **vendor_id** | **str**| The device vendor ID | [optional] 
+ **device** | [**DeviceData**](DeviceData.md)|  | 
 
 ### Return type
 

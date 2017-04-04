@@ -57,9 +57,10 @@ device_catalog.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # device_catalog.configuration.api_key_prefix['Authorization'] = 'Bearer'
 # create an instance of the API class
 api_instance = device_catalog.DefaultApi()
+device = device_catalog.DeviceData() # DeviceData | 
 
 try:
-    api_response = api_instance.device_create()
+    api_response = api_instance.device_create(device)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->device_create: %s\n" % e)
