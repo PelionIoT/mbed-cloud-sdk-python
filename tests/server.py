@@ -25,6 +25,7 @@ from flask import jsonify
 from flask import request
 from mbed_cloud.access import AccessAPI
 from mbed_cloud.devices import DeviceAPI
+from mbed_cloud.logging import LoggingAPI
 from mbed_cloud import PaginatedResponse
 from urllib import unquote
 from urlparse import parse_qs
@@ -145,8 +146,9 @@ def init(methods=["GET"]):
     # Initialise all the APIs with settings.
     global MODULES
     MODULES = {
+        'access': AccessAPI(params=params),
         'devices': DeviceAPI(params=params),
-        'access': AccessAPI(params=params)
+        'logging': LoggingAPI(params=params)
     }
 
     # Return empty JSON for now. Might change in the future.
