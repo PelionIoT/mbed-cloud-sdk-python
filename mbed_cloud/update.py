@@ -127,6 +127,16 @@ class UpdateAPI(BaseAPI):
         return
 
     @catch_exceptions(FirmwareCatalogApiException)
+    def get_firmware_image(self, image_id):
+        """Get a firmware image with provided image_id.
+
+        :param str image_id: The firmware ID for the image to retrieve
+        :return: Firmware
+        """
+        api = self.firmware_catalog.DefaultApi()
+        return Firmware(api.firmware_image_retrieve(image_id))
+
+    @catch_exceptions(FirmwareCatalogApiException)
     def list_firmware_images(self, **kwargs):
         """List all firmware images.
 
@@ -165,6 +175,16 @@ class UpdateAPI(BaseAPI):
         api = self.firmware_catalog.DefaultApi()
         api.firmware_image_destroy(image_id=firmware_image_id)
         return
+
+    @catch_exceptions(FirmwareCatalogApiException)
+    def get_manifest(self, manifest_id):
+        """Get manifest with provided manifest_id.
+
+        :param str manifest_id: ID of manifest to retrieve
+        :return Manifest
+        """
+        api = self.firmware_catalog.DefaultApi()
+        return Manifest(api.firmware_manifest_retrieve(manifest_id=manifest_id))
 
     @catch_exceptions(FirmwareCatalogApiException)
     def list_manifests(self, **kwargs):
