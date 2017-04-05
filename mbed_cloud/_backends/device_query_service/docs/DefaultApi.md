@@ -65,7 +65,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **device_query_destroy**
-> DeviceQuery device_query_destroy(query_id)
+> device_query_destroy(query_id)
 
 
 
@@ -89,8 +89,7 @@ api_instance = device_query_service.DefaultApi()
 query_id = 'query_id_example' # str | 
 
 try: 
-    api_response = api_instance.device_query_destroy(query_id)
-    pprint(api_response)
+    api_instance.device_query_destroy(query_id)
 except ApiException as e:
     print("Exception when calling DefaultApi->device_query_destroy: %s\n" % e)
 ```
@@ -103,7 +102,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceQuery**](DeviceQuery.md)
+void (empty response body)
 
 ### Authorization
 
@@ -117,7 +116,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **device_query_list**
-> DeviceQueryPage device_query_list(limit=limit, order=order, after=after, filter=filter, include=include, created_at=created_at, created_at__gte=created_at__gte, created_at__lte=created_at__lte, description=description, etag=etag, etag_at__gte=etag_at__gte, etag_at__lte=etag_at__lte, id=id, name=name, object=object, query=query, query_id=query_id, updated_at=updated_at, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte)
+> DeviceQueryPage device_query_list(limit=limit, order=order, after=after, filter=filter, include=include, created_at=created_at, created_at__gte=created_at__gte, created_at__lte=created_at__lte, description=description, etag=etag, etag_at__gte=etag_at__gte, etag_at__lte=etag_at__lte, id=id, name=name, object=object, query=query, updated_at=updated_at, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte)
 
 
 
@@ -154,13 +153,12 @@ id = 'id_example' # str |  (optional)
 name = 'name_example' # str |  (optional)
 object = 'object_example' # str |  (optional)
 query = 'query_example' # str |  (optional)
-query_id = 'query_id_example' # str |  (optional)
 updated_at = 'updated_at_example' # str |  (optional)
 updated_at__gte = 'updated_at__gte_example' # str |  (optional)
 updated_at__lte = 'updated_at__lte_example' # str |  (optional)
 
 try: 
-    api_response = api_instance.device_query_list(limit=limit, order=order, after=after, filter=filter, include=include, created_at=created_at, created_at__gte=created_at__gte, created_at__lte=created_at__lte, description=description, etag=etag, etag_at__gte=etag_at__gte, etag_at__lte=etag_at__lte, id=id, name=name, object=object, query=query, query_id=query_id, updated_at=updated_at, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte)
+    api_response = api_instance.device_query_list(limit=limit, order=order, after=after, filter=filter, include=include, created_at=created_at, created_at__gte=created_at__gte, created_at__lte=created_at__lte, description=description, etag=etag, etag_at__gte=etag_at__gte, etag_at__lte=etag_at__lte, id=id, name=name, object=object, query=query, updated_at=updated_at, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->device_query_list: %s\n" % e)
@@ -186,7 +184,6 @@ Name | Type | Description  | Notes
  **name** | **str**|  | [optional] 
  **object** | **str**|  | [optional] 
  **query** | **str**|  | [optional] 
- **query_id** | **str**|  | [optional] 
  **updated_at** | **str**|  | [optional] 
  **updated_at__gte** | **str**|  | [optional] 
  **updated_at__lte** | **str**|  | [optional] 
@@ -229,7 +226,7 @@ device_query_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = device_query_service.DefaultApi()
 query_id = 'query_id_example' # str | 
-device_query = device_query_service.DeviceQuery() # DeviceQuery | 
+device_query = device_query_service.DeviceQueryPatchRequest() # DeviceQueryPatchRequest | 
 
 try: 
     api_response = api_instance.device_query_partial_update(query_id, device_query)
@@ -243,7 +240,7 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **query_id** | **str**|  | 
- **device_query** | [**DeviceQuery**](DeviceQuery.md)|  | 
+ **device_query** | [**DeviceQueryPatchRequest**](DeviceQueryPatchRequest.md)|  | 
 
 ### Return type
 
@@ -335,7 +332,7 @@ device_query_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = device_query_service.DefaultApi()
 query_id = 'query_id_example' # str | 
-body = device_query_service.Body() # Body | Device query update object
+body = device_query_service.DeviceQueryPutRequest() # DeviceQueryPutRequest | Device query update object
 
 try: 
     api_response = api_instance.device_query_update(query_id, body)
@@ -349,7 +346,7 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **query_id** | **str**|  | 
- **body** | [**Body**](Body.md)| Device query update object | 
+ **body** | [**DeviceQueryPutRequest**](DeviceQueryPutRequest.md)| Device query update object | 
 
 ### Return type
 

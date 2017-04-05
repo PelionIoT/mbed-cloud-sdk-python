@@ -83,11 +83,10 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [Body](docs/Body.md)
  - [DeviceQuery](docs/DeviceQuery.md)
  - [DeviceQueryPage](docs/DeviceQueryPage.md)
- - [WriteDeviceQuery](docs/WriteDeviceQuery.md)
- - [WriteDeviceQueryPage](docs/WriteDeviceQueryPage.md)
+ - [DeviceQueryPatchRequest](docs/DeviceQueryPatchRequest.md)
+ - [DeviceQueryPutRequest](docs/DeviceQueryPutRequest.md)
 
 
 ## Documentation For Authorization

@@ -8,7 +8,6 @@ Name | Type | Description | Notes
 **created_at** | **datetime** | The time the object was created | 
 **object** | **str** | The API resource entity | 
 **updated_at** | **datetime** | The time the object was updated | 
-**image_id** | **str** | DEPRECATED: The ID of the firmware image | 
 **etag** | **datetime** | The entity instance signature | 
 **datafile_checksum** | **str** | Checksum generated for the datafile | 
 **id** | **str** | The ID of the firmware image | 

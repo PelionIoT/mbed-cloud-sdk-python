@@ -28,6 +28,7 @@ from mbed_cloud.devices import DeviceAPI
 from mbed_cloud.logging import LoggingAPI
 from mbed_cloud import PaginatedResponse
 from mbed_cloud.statistics import StatisticsAPI
+from mbed_cloud.update import UpdateAPI
 from urllib import unquote
 from urlparse import parse_qs
 
@@ -150,7 +151,8 @@ def init(methods=["GET"]):
         'access': AccessAPI(params=params),
         'devices': DeviceAPI(params=params),
         'logging': LoggingAPI(params=params),
-        'statistics': StatisticsAPI(params=params)
+        'statistics': StatisticsAPI(params=params),
+        'update': UpdateAPI(params=params)
     }
 
     # Return empty JSON for now. Might change in the future.

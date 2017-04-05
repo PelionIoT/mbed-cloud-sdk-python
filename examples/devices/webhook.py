@@ -30,7 +30,7 @@ def _main():
 
     # Then register to another one
     api.add_webhook("http://api.webhookinbox.com/i/SyjKevok/in/")
-    api.add_subscription(devices.as_list()[0].id, BUTTON_RESOURCE)
+    api.add_subscription(list(devices)[0].id, BUTTON_RESOURCE)
     while True:
         print("Webhook registered. Listening to button updates for 10 seconds...")
 
