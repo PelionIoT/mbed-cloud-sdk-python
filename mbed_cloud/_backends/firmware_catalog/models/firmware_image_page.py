@@ -76,8 +76,6 @@ class FirmwareImagePage(object):
         :param object: The object of this FirmwareImagePage.
         :type: str
         """
-        if object is None:
-            raise ValueError("Invalid value for `object`, must not be `None`")
 
         self._object = object
 
@@ -99,8 +97,6 @@ class FirmwareImagePage(object):
         :param has_more: The has_more of this FirmwareImagePage.
         :type: bool
         """
-        if has_more is None:
-            raise ValueError("Invalid value for `has_more`, must not be `None`")
 
         self._has_more = has_more
 
@@ -122,8 +118,6 @@ class FirmwareImagePage(object):
         :param total_count: The total_count of this FirmwareImagePage.
         :type: int
         """
-        if total_count is None:
-            raise ValueError("Invalid value for `total_count`, must not be `None`")
 
         self._total_count = total_count
 
@@ -145,8 +139,6 @@ class FirmwareImagePage(object):
         :param after: The after of this FirmwareImagePage.
         :type: str
         """
-        if after is None:
-            raise ValueError("Invalid value for `after`, must not be `None`")
 
         self._after = after
 
@@ -168,8 +160,6 @@ class FirmwareImagePage(object):
         :param limit: The limit of this FirmwareImagePage.
         :type: int
         """
-        if limit is None:
-            raise ValueError("Invalid value for `limit`, must not be `None`")
 
         self._limit = limit
 
@@ -191,8 +181,6 @@ class FirmwareImagePage(object):
         :param data: The data of this FirmwareImagePage.
         :type: list[FirmwareImage]
         """
-        if data is None:
-            raise ValueError("Invalid value for `data`, must not be `None`")
 
         self._data = data
 
@@ -214,8 +202,6 @@ class FirmwareImagePage(object):
         :param order: The order of this FirmwareImagePage.
         :type: str
         """
-        if order is None:
-            raise ValueError("Invalid value for `order`, must not be `None`")
 
         self._order = order
 
