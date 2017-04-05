@@ -14,9 +14,9 @@
 """Functionality for statistics-related actions in mbed Cloud."""
 
 # Import common functions and exceptions from frontend API
-import re
 from mbed_cloud import BaseAPI
 from mbed_cloud.decorators import catch_exceptions
+import re
 
 # Import backend API
 import mbed_cloud._backends.statistics as statistics
@@ -26,6 +26,7 @@ from mbed_cloud._backends.statistics.rest import ApiException
 
 class StatisticsAPI(BaseAPI):
     """API reference for the Statistics API.
+
     Exposing functionality for getting statistics data.
     """
 
@@ -59,6 +60,7 @@ class StatisticsAPI(BaseAPI):
     @catch_exceptions(ApiException)
     def get_metric(self, include=None, start=None, end=None, period="30d", interval="1d", **kwargs):
         """Get statistics.
+
         :param str include: What fields to include in response. None will return all.
         :param datetime start: UTC time/year/date in RFC3339 format.
             Fetch the data with timestamp greater than or equal to this value.
@@ -87,12 +89,13 @@ class StatisticsAPI(BaseAPI):
         if period:
             kwargs['period'] = period
         api = self.statistics.StatisticsApi()
-        return api.v3_metrics_get(include, interval, self._auth, **kwargs)
+        return api.v3_metrics_get(include, interval, self._auth, **kwargs).data
 
     @catch_exceptions(ApiException)
     def get_account_metric(self, include=None, start=None, end=None, period="30d",
                            interval="1d", **kwargs):
         """Get account-specific statistics.
+
         :param str include: What fields to include in response. None will return all.
         :param datetime start: UTC time/year/date in RFC3339 format.
             Fetch the data with timestamp greater than or equal to this value.
@@ -122,7 +125,7 @@ class StatisticsAPI(BaseAPI):
             kwargs['period'] = period
         api = self.statistics.AccountApi()
 
-        return api.v3_metrics_get(include, interval, self._auth, **kwargs)
+        return api.v3_metrics_get(include, interval, self._auth, **kwargs).data
 
 
 class Metric(MetricData):
