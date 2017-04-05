@@ -1,12 +1,11 @@
-# WriteDeviceQueryPage
+# DeviceQueryPutRequest
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**limit** | **int** |  | 
-**after** | **str** |  | [optional] 
-**data** | [**list[DeviceQuery]**](DeviceQuery.md) |  | 
-**order** | **str** |  | 
+**query** | **str** | The device query | 
+**description** | **str** | The description of the object | 
+**name** | **str** | The name of the query | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
