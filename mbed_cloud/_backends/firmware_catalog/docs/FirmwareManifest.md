@@ -4,7 +4,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **datafile** | **str** |  | 
-**manifest_id** | **str** | DEPRECATED: The ID of the firmware manifest | 
 **description** | **str** | The description of the object | 
 **timestamp** | **datetime** | The version of the firmware manifest (as a timestamp) | 
 **created_at** | **datetime** | The time the object was created | 
