@@ -35,5 +35,6 @@ def _main():
     for device_log, idx in device_logs.iteritems():
         _print_log(idx + 1, device_log)
 
+
 if __name__ == "__main__":
     _main()

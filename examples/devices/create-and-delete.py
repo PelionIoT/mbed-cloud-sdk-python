@@ -44,5 +44,6 @@ def _main():
     api.delete_device(new_device.device_id)
     print("Successfully deleted device (ID: %r)" % new_device.device_id)
 
+
 if __name__ == "__main__":
     _main()

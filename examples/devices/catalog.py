@@ -36,5 +36,6 @@ def _main():
     for d, idx in registered.iteritems():
         _print_device(idx + 1, d)
 
+
 if __name__ == "__main__":
     _main()

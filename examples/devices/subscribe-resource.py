@@ -36,5 +36,6 @@ def _main():
         # Get a new value, using the subscriptions
         value = queue.get(timeout=30)
 
+
 if __name__ == "__main__":
     _main()

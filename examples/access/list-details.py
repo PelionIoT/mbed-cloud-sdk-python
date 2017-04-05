@@ -40,5 +40,6 @@ def _main():
             last_used = datetime.datetime.fromtimestamp(k.last_login_time / 1000).strftime('%c')
         print("\t- %s (Last used: %s)" % (k.name, last_used))
 
+
 if __name__ == "__main__":
     _main()

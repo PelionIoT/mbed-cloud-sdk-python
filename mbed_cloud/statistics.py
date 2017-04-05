@@ -20,21 +20,25 @@ from mbed_cloud.decorators import catch_exceptions
 
 # Import backend API
 import mbed_cloud._backends.statistics as statistics
-from mbed_cloud._backends.statistics.models import Data
+from mbed_cloud._backends.statistics.models import Metric as MetricData
 from mbed_cloud._backends.statistics.rest import ApiException
+
 
 class StatisticsAPI(BaseAPI):
     """API reference for the Statistics API.
     Exposing functionality for getting statistics data.
     """
+
     def __init__(self, params={}):
-        """Initialise the development API, optionally passing in overriding config."""
+        """Initialise the statistics API."""
         super(StatisticsAPI, self).__init__(params)
         # Set the api_key for the requests
         self.statistics = self._init_api(statistics)
         # This API is a bit weird, so create the "authorization" string
-        self._auth = "Bearer %s" % (self.statistics.configuration.api_key['Authorization'],)
-        self._include_all = "devices,transactions,apikeys,bootstraps_successful,bootstraps_failed,bootstraps_pending"
+        authorization = self.statistics.configuration.api_key['Authorization']
+        self._auth = "Bearer %s" % (authorization,)
+        self._include_all = "devices,transactions,apikeys,"\
+            "bootstraps_successful,bootstraps_failed,bootstraps_pending"
 
     def _verify_arguments(self, start, end, period, interval):
         if not start and not end and not period:
@@ -56,11 +60,11 @@ class StatisticsAPI(BaseAPI):
     def get_metric(self, include=None, start=None, end=None, period="30d", interval="1d", **kwargs):
         """Get statistics.
         :param str include: What fields to include in response. None will return all.
-        :param datetime start: UTC time/year/date in RFC3339 format. 
-            Fetch the data with timestamp greater than or equal to this value. 
+        :param datetime start: UTC time/year/date in RFC3339 format.
+            Fetch the data with timestamp greater than or equal to this value.
             Sample values: 20170207T092056990Z/2017-02-07T09:20:56.990Z/2017/20170207.
             The parameter is not mandatory, if the period is specified.
-        :param datetime end: UTC time/year/date in RFC3339 format. 
+        :param datetime end: UTC time/year/date in RFC3339 format.
             Fetch the data with timestamp less than this value.
             Sample values: 20170207T092056990Z/2017-02-07T09:20:56.990Z/2017/20170207.
             The parameter is not mandatory, if the period is specified.
@@ -84,16 +88,17 @@ class StatisticsAPI(BaseAPI):
             kwargs['period'] = period
         api = self.statistics.StatisticsApi()
         return api.v3_metrics_get(include, interval, self._auth, **kwargs)
-    
+
     @catch_exceptions(ApiException)
-    def get_account_metric(self, include=None, start=None, end=None, period="30d", interval="1d", **kwargs):
+    def get_account_metric(self, include=None, start=None, end=None, period="30d",
+                           interval="1d", **kwargs):
         """Get account-specific statistics.
         :param str include: What fields to include in response. None will return all.
-        :param datetime start: UTC time/year/date in RFC3339 format. 
-            Fetch the data with timestamp greater than or equal to this value. 
+        :param datetime start: UTC time/year/date in RFC3339 format.
+            Fetch the data with timestamp greater than or equal to this value.
             Sample values: 20170207T092056990Z/2017-02-07T09:20:56.990Z/2017/20170207.
             The parameter is not mandatory, if the period is specified.
-        :param datetime end: UTC time/year/date in RFC3339 format. 
+        :param datetime end: UTC time/year/date in RFC3339 format.
             Fetch the data with timestamp less than this value.
             Sample values: 20170207T092056990Z/2017-02-07T09:20:56.990Z/2017/20170207.
             The parameter is not mandatory, if the period is specified.
@@ -119,10 +124,10 @@ class StatisticsAPI(BaseAPI):
 
         return api.v3_metrics_get(include, interval, self._auth, **kwargs)
 
-class Metric(Data):
+
+class Metric(MetricData):
     """Describes Metric object from statistics."""
 
     def __init__(self, data_obj):
         """Override __init__ and allow passing in backend object."""
         super(Metric, self).__init__(**data_obj.to_dict())
-      

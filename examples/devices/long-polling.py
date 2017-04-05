@@ -77,6 +77,7 @@ def _run_async():
             # Save new current value
             current_value = new_value
 
+
 if __name__ == "__main__":
     # These two methods are doing the same, but one is showing the behaviour of the
     # 'sync' flag to `get_resource`, and the `run_async` shows how you can have

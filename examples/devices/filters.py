@@ -96,5 +96,6 @@ def _main():
     api.delete_filter(new_c_filter.query_id)
     print("Deleted complex filter")
 
+
 if __name__ == "__main__":
     _main()
