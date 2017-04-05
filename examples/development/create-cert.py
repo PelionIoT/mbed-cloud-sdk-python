@@ -84,5 +84,6 @@ def _main():
     dev_api.delete_certificate()
     print("** Deleted **")
 
+
 if __name__ == "__main__":
     _main()

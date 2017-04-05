@@ -35,5 +35,6 @@ def _main():
     for idx, device_log in enumerate(device_logs):
         _print_log(idx + 1, device_log)
 
+
 if __name__ == "__main__":
     _main()

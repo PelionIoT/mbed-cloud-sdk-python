@@ -123,5 +123,6 @@ def _main():
     update_api.delete_update_campaign(new_cobj.id)
     update_api.delete_manifest(mobj.id)
 
+
 if __name__ == '__main__':
     _main()

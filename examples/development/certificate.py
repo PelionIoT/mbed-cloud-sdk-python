@@ -48,5 +48,6 @@ def _main():
     print("Created new certificate!")
     _print_certificate(new_cert)
 
+
 if __name__ == "__main__":
     _main()

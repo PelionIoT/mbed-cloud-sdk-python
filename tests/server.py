@@ -27,6 +27,7 @@ from mbed_cloud.access import AccessAPI
 from mbed_cloud.devices import DeviceAPI
 from mbed_cloud.logging import LoggingAPI
 from mbed_cloud import PaginatedResponse
+from mbed_cloud.statistics import StatisticsAPI
 from mbed_cloud.update import UpdateAPI
 from urllib import unquote
 from urlparse import parse_qs
@@ -150,6 +151,7 @@ def init(methods=["GET"]):
         'access': AccessAPI(params=params),
         'devices': DeviceAPI(params=params),
         'logging': LoggingAPI(params=params),
+        'statistics': StatisticsAPI(params=params),
         'update': UpdateAPI(params=params)
     }
 
@@ -205,6 +207,7 @@ def main(module, method, methods=["GET"]):
         )
 
         raise ApiCallException(str(error_msg), status_code=500)
+
 
 if __name__ == "__main__":
     app.run(port=5000)

@@ -32,5 +32,6 @@ def _main():
         # Space between endpoints
         print("")
 
+
 if __name__ == "__main__":
     _main()

@@ -9,12 +9,13 @@ Components
 .. toctree::
   :maxdepth: 1
 
-  devices
   access
   development
-  manufacturing 
-  logging 
-  update 
+  devices
+  logging
+  manufacturing
+  statistics
+  update
 
 Concepts
 --------
@@ -45,7 +46,7 @@ with the following content:
   {
     "api_key": "ak_your_api_key_here"
   }
-  
+
 This file will automatically be picked up during API instatiation (take a look
 at the :doc:`configuration` overview, for more details on this topic). You're
 now ready to use the API.
