@@ -29,7 +29,7 @@ These instructions can also be found in the [official documentation](https://s3-
     ```python
     >>> from mbed_cloud.devices import DeviceAPI
     >>> device_api = DeviceAPI()
-    >>> device_api.list_connected_devices().as_list()[0]
+    >>> list(device_api.list_connected_devices())[0]
     {
       "name": "Device #1",
       "state": "unenrolled",
@@ -37,7 +37,7 @@ These instructions can also be found in the [official documentation](https://s3-
     }
     >>> from mbed_cloud.access import AccessAPI
     >>> access_api = AccessAPI()
-    >>> access_api.list_users().as_list()[0]
+    >>> list(access_api.list_users())[0]
     {
       "email": "username@example.org",
       "full_name": "Mrs Example",

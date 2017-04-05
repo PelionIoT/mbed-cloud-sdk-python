@@ -29,7 +29,7 @@ def _subscription_handler(value):
 def _main():
     api = DeviceAPI()
     api.start_long_polling()
-    devices = api.list_connected_devices().as_list()
+    devices = list(api.list_connected_devices())
     if not devices:
         raise Exception("No connected devices registered. Aborting")
 
