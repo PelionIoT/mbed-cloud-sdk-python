@@ -18,10 +18,6 @@ from .models.firmware_image import FirmwareImage
 from .models.firmware_image_page import FirmwareImagePage
 from .models.firmware_manifest import FirmwareManifest
 from .models.firmware_manifest_page import FirmwareManifestPage
-from .models.write_firmware_image import WriteFirmwareImage
-from .models.write_firmware_image_page import WriteFirmwareImagePage
-from .models.write_firmware_manifest import WriteFirmwareManifest
-from .models.write_firmware_manifest_page import WriteFirmwareManifestPage
 
 # import apis into sdk package
 from .apis.default_api import DefaultApi

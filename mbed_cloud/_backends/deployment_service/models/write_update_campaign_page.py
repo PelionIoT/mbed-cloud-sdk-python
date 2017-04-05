@@ -67,8 +67,6 @@ class WriteUpdateCampaignPage(object):
         :param limit: The limit of this WriteUpdateCampaignPage.
         :type: int
         """
-        if limit is None:
-            raise ValueError("Invalid value for `limit`, must not be `None`")
 
         self._limit = limit
 
@@ -90,8 +88,6 @@ class WriteUpdateCampaignPage(object):
         :param after: The after of this WriteUpdateCampaignPage.
         :type: str
         """
-        if after is None:
-            raise ValueError("Invalid value for `after`, must not be `None`")
 
         self._after = after
 
@@ -113,8 +109,6 @@ class WriteUpdateCampaignPage(object):
         :param data: The data of this WriteUpdateCampaignPage.
         :type: list[UpdateCampaign]
         """
-        if data is None:
-            raise ValueError("Invalid value for `data`, must not be `None`")
 
         self._data = data
 
@@ -136,8 +130,6 @@ class WriteUpdateCampaignPage(object):
         :param order: The order of this WriteUpdateCampaignPage.
         :type: str
         """
-        if order is None:
-            raise ValueError("Invalid value for `order`, must not be `None`")
 
         self._order = order
 

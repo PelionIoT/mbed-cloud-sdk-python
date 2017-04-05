@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 
 # **firmware_image_create**
-> FirmwareImage firmware_image_create(datafile, name, description=description, updated_at=updated_at, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, updating_ip_address=updating_ip_address, etag=etag, etag__gte=etag__gte, etag__lte=etag__lte, updating_request_id=updating_request_id, created_at=created_at, created_at__gte=created_at__gte, created_at__lte=created_at__lte, description2=description2, object=object, image_id=image_id, datafile_checksum=datafile_checksum, name2=name2)
+> FirmwareImage firmware_image_create(datafile, name, description=description)
 
 
 
@@ -39,25 +39,9 @@ api_instance = firmware_catalog.DefaultApi()
 datafile = '/path/to/file.txt' # file | The firmware image file to upload
 name = 'name_example' # str | The name of the object
 description = 'description_example' # str | The description of the object (optional)
-updated_at = 'updated_at_example' # str |  (optional)
-updated_at__gte = 'updated_at__gte_example' # str |  (optional)
-updated_at__lte = 'updated_at__lte_example' # str |  (optional)
-updating_ip_address = 'updating_ip_address_example' # str |  (optional)
-etag = 'etag_example' # str |  (optional)
-etag__gte = 'etag__gte_example' # str |  (optional)
-etag__lte = 'etag__lte_example' # str |  (optional)
-updating_request_id = 'updating_request_id_example' # str |  (optional)
-created_at = 'created_at_example' # str |  (optional)
-created_at__gte = 'created_at__gte_example' # str |  (optional)
-created_at__lte = 'created_at__lte_example' # str |  (optional)
-description2 = 'description_example' # str |  (optional)
-object = 'object_example' # str |  (optional)
-image_id = 'image_id_example' # str |  (optional)
-datafile_checksum = 'datafile_checksum_example' # str |  (optional)
-name2 = 'name_example' # str |  (optional)
 
 try: 
-    api_response = api_instance.firmware_image_create(datafile, name, description=description, updated_at=updated_at, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, updating_ip_address=updating_ip_address, etag=etag, etag__gte=etag__gte, etag__lte=etag__lte, updating_request_id=updating_request_id, created_at=created_at, created_at__gte=created_at__gte, created_at__lte=created_at__lte, description2=description2, object=object, image_id=image_id, datafile_checksum=datafile_checksum, name2=name2)
+    api_response = api_instance.firmware_image_create(datafile, name, description=description)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->firmware_image_create: %s\n" % e)
@@ -70,22 +54,6 @@ Name | Type | Description  | Notes
  **datafile** | **file**| The firmware image file to upload | 
  **name** | **str**| The name of the object | 
  **description** | **str**| The description of the object | [optional] 
- **updated_at** | **str**|  | [optional] 
- **updated_at__gte** | **str**|  | [optional] 
- **updated_at__lte** | **str**|  | [optional] 
- **updating_ip_address** | **str**|  | [optional] 
- **etag** | **str**|  | [optional] 
- **etag__gte** | **str**|  | [optional] 
- **etag__lte** | **str**|  | [optional] 
- **updating_request_id** | **str**|  | [optional] 
- **created_at** | **str**|  | [optional] 
- **created_at__gte** | **str**|  | [optional] 
- **created_at__lte** | **str**|  | [optional] 
- **description2** | **str**|  | [optional] 
- **object** | **str**|  | [optional] 
- **image_id** | **str**|  | [optional] 
- **datafile_checksum** | **str**|  | [optional] 
- **name2** | **str**|  | [optional] 
 
 ### Return type
 
@@ -103,7 +71,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **firmware_image_destroy**
-> FirmwareImage firmware_image_destroy(image_id, updated_at=updated_at, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, updating_ip_address=updating_ip_address, etag=etag, etag__gte=etag__gte, etag__lte=etag__lte, updating_request_id=updating_request_id, created_at=created_at, created_at__gte=created_at__gte, created_at__lte=created_at__lte, description=description, object=object, datafile_checksum=datafile_checksum, name=name)
+> FirmwareImage firmware_image_destroy(image_id)
 
 
 
@@ -125,24 +93,9 @@ firmware_catalog.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = firmware_catalog.DefaultApi()
 image_id = 56 # int | The ID of the firmware image
-updated_at = 'updated_at_example' # str |  (optional)
-updated_at__gte = 'updated_at__gte_example' # str |  (optional)
-updated_at__lte = 'updated_at__lte_example' # str |  (optional)
-updating_ip_address = 'updating_ip_address_example' # str |  (optional)
-etag = 'etag_example' # str |  (optional)
-etag__gte = 'etag__gte_example' # str |  (optional)
-etag__lte = 'etag__lte_example' # str |  (optional)
-updating_request_id = 'updating_request_id_example' # str |  (optional)
-created_at = 'created_at_example' # str |  (optional)
-created_at__gte = 'created_at__gte_example' # str |  (optional)
-created_at__lte = 'created_at__lte_example' # str |  (optional)
-description = 'description_example' # str |  (optional)
-object = 'object_example' # str |  (optional)
-datafile_checksum = 'datafile_checksum_example' # str |  (optional)
-name = 'name_example' # str |  (optional)
 
 try: 
-    api_response = api_instance.firmware_image_destroy(image_id, updated_at=updated_at, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, updating_ip_address=updating_ip_address, etag=etag, etag__gte=etag__gte, etag__lte=etag__lte, updating_request_id=updating_request_id, created_at=created_at, created_at__gte=created_at__gte, created_at__lte=created_at__lte, description=description, object=object, datafile_checksum=datafile_checksum, name=name)
+    api_response = api_instance.firmware_image_destroy(image_id)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->firmware_image_destroy: %s\n" % e)
@@ -153,21 +106,6 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **image_id** | **int**| The ID of the firmware image | 
- **updated_at** | **str**|  | [optional] 
- **updated_at__gte** | **str**|  | [optional] 
- **updated_at__lte** | **str**|  | [optional] 
- **updating_ip_address** | **str**|  | [optional] 
- **etag** | **str**|  | [optional] 
- **etag__gte** | **str**|  | [optional] 
- **etag__lte** | **str**|  | [optional] 
- **updating_request_id** | **str**|  | [optional] 
- **created_at** | **str**|  | [optional] 
- **created_at__gte** | **str**|  | [optional] 
- **created_at__lte** | **str**|  | [optional] 
- **description** | **str**|  | [optional] 
- **object** | **str**|  | [optional] 
- **datafile_checksum** | **str**|  | [optional] 
- **name** | **str**|  | [optional] 
 
 ### Return type
 
@@ -185,7 +123,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **firmware_image_list**
-> FirmwareImagePage firmware_image_list(limit=limit, order=order, after=after, filter=filter, include=include)
+> FirmwareImagePage firmware_image_list(limit=limit, order=order, after=after, filter=filter, include=include, updated_at=updated_at, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, etag=etag, etag__gte=etag__gte, etag__lte=etag__lte, created_at=created_at, created_at__gte=created_at__gte, created_at__lte=created_at__lte, description=description, object=object, datafile_checksum=datafile_checksum, name=name)
 
 
 
@@ -211,9 +149,22 @@ order = 'order_example' # str | ASC or DESC (optional)
 after = 'after_example' # str | the ID of the the item after which to retrieve the next page (optional)
 filter = 'filter_example' # str | URL encoded query string parameter to filter returned data (optional)
 include = 'include_example' # str | Comma separated list of data fields to return. Currently supported: total_count (optional)
+updated_at = 'updated_at_example' # str |  (optional)
+updated_at__gte = 'updated_at__gte_example' # str |  (optional)
+updated_at__lte = 'updated_at__lte_example' # str |  (optional)
+etag = 'etag_example' # str |  (optional)
+etag__gte = 'etag__gte_example' # str |  (optional)
+etag__lte = 'etag__lte_example' # str |  (optional)
+created_at = 'created_at_example' # str |  (optional)
+created_at__gte = 'created_at__gte_example' # str |  (optional)
+created_at__lte = 'created_at__lte_example' # str |  (optional)
+description = 'description_example' # str |  (optional)
+object = 'object_example' # str |  (optional)
+datafile_checksum = 'datafile_checksum_example' # str |  (optional)
+name = 'name_example' # str |  (optional)
 
 try: 
-    api_response = api_instance.firmware_image_list(limit=limit, order=order, after=after, filter=filter, include=include)
+    api_response = api_instance.firmware_image_list(limit=limit, order=order, after=after, filter=filter, include=include, updated_at=updated_at, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, etag=etag, etag__gte=etag__gte, etag__lte=etag__lte, created_at=created_at, created_at__gte=created_at__gte, created_at__lte=created_at__lte, description=description, object=object, datafile_checksum=datafile_checksum, name=name)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->firmware_image_list: %s\n" % e)
@@ -228,6 +179,19 @@ Name | Type | Description  | Notes
  **after** | **str**| the ID of the the item after which to retrieve the next page | [optional] 
  **filter** | **str**| URL encoded query string parameter to filter returned data | [optional] 
  **include** | **str**| Comma separated list of data fields to return. Currently supported: total_count | [optional] 
+ **updated_at** | **str**|  | [optional] 
+ **updated_at__gte** | **str**|  | [optional] 
+ **updated_at__lte** | **str**|  | [optional] 
+ **etag** | **str**|  | [optional] 
+ **etag__gte** | **str**|  | [optional] 
+ **etag__lte** | **str**|  | [optional] 
+ **created_at** | **str**|  | [optional] 
+ **created_at__gte** | **str**|  | [optional] 
+ **created_at__lte** | **str**|  | [optional] 
+ **description** | **str**|  | [optional] 
+ **object** | **str**|  | [optional] 
+ **datafile_checksum** | **str**|  | [optional] 
+ **name** | **str**|  | [optional] 
 
 ### Return type
 
@@ -245,7 +209,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **firmware_image_retrieve**
-> FirmwareImage firmware_image_retrieve(image_id, updated_at=updated_at, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, updating_ip_address=updating_ip_address, etag=etag, etag__gte=etag__gte, etag__lte=etag__lte, updating_request_id=updating_request_id, created_at=created_at, created_at__gte=created_at__gte, created_at__lte=created_at__lte, description=description, object=object, datafile_checksum=datafile_checksum, name=name)
+> FirmwareImage firmware_image_retrieve(image_id)
 
 
 
@@ -267,24 +231,9 @@ firmware_catalog.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = firmware_catalog.DefaultApi()
 image_id = 56 # int | The ID of the firmware image
-updated_at = 'updated_at_example' # str |  (optional)
-updated_at__gte = 'updated_at__gte_example' # str |  (optional)
-updated_at__lte = 'updated_at__lte_example' # str |  (optional)
-updating_ip_address = 'updating_ip_address_example' # str |  (optional)
-etag = 'etag_example' # str |  (optional)
-etag__gte = 'etag__gte_example' # str |  (optional)
-etag__lte = 'etag__lte_example' # str |  (optional)
-updating_request_id = 'updating_request_id_example' # str |  (optional)
-created_at = 'created_at_example' # str |  (optional)
-created_at__gte = 'created_at__gte_example' # str |  (optional)
-created_at__lte = 'created_at__lte_example' # str |  (optional)
-description = 'description_example' # str |  (optional)
-object = 'object_example' # str |  (optional)
-datafile_checksum = 'datafile_checksum_example' # str |  (optional)
-name = 'name_example' # str |  (optional)
 
 try: 
-    api_response = api_instance.firmware_image_retrieve(image_id, updated_at=updated_at, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, updating_ip_address=updating_ip_address, etag=etag, etag__gte=etag__gte, etag__lte=etag__lte, updating_request_id=updating_request_id, created_at=created_at, created_at__gte=created_at__gte, created_at__lte=created_at__lte, description=description, object=object, datafile_checksum=datafile_checksum, name=name)
+    api_response = api_instance.firmware_image_retrieve(image_id)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->firmware_image_retrieve: %s\n" % e)
@@ -295,21 +244,6 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **image_id** | **int**| The ID of the firmware image | 
- **updated_at** | **str**|  | [optional] 
- **updated_at__gte** | **str**|  | [optional] 
- **updated_at__lte** | **str**|  | [optional] 
- **updating_ip_address** | **str**|  | [optional] 
- **etag** | **str**|  | [optional] 
- **etag__gte** | **str**|  | [optional] 
- **etag__lte** | **str**|  | [optional] 
- **updating_request_id** | **str**|  | [optional] 
- **created_at** | **str**|  | [optional] 
- **created_at__gte** | **str**|  | [optional] 
- **created_at__lte** | **str**|  | [optional] 
- **description** | **str**|  | [optional] 
- **object** | **str**|  | [optional] 
- **datafile_checksum** | **str**|  | [optional] 
- **name** | **str**|  | [optional] 
 
 ### Return type
 
@@ -327,7 +261,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **firmware_manifest_create**
-> FirmwareManifest firmware_manifest_create(datafile, name, description=description, updated_at=updated_at, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, created_at=created_at, created_at__gte=created_at__gte, created_at__lte=created_at__lte, etag=etag, etag__gte=etag__gte, etag__lte=etag__lte, updating_ip_address=updating_ip_address, manifest_id=manifest_id, updating_request_id=updating_request_id, description2=description2, timestamp=timestamp, timestamp__gte=timestamp__gte, timestamp__lte=timestamp__lte, object=object, device_class=device_class, datafile_checksum=datafile_checksum, name2=name2)
+> FirmwareManifest firmware_manifest_create(datafile, name, description=description)
 
 
 
@@ -351,29 +285,9 @@ api_instance = firmware_catalog.DefaultApi()
 datafile = '/path/to/file.txt' # file | The manifest file to create
 name = 'name_example' # str | The name of the object
 description = 'description_example' # str | The description of the object (optional)
-updated_at = 'updated_at_example' # str |  (optional)
-updated_at__gte = 'updated_at__gte_example' # str |  (optional)
-updated_at__lte = 'updated_at__lte_example' # str |  (optional)
-created_at = 'created_at_example' # str |  (optional)
-created_at__gte = 'created_at__gte_example' # str |  (optional)
-created_at__lte = 'created_at__lte_example' # str |  (optional)
-etag = 'etag_example' # str |  (optional)
-etag__gte = 'etag__gte_example' # str |  (optional)
-etag__lte = 'etag__lte_example' # str |  (optional)
-updating_ip_address = 'updating_ip_address_example' # str |  (optional)
-manifest_id = 'manifest_id_example' # str |  (optional)
-updating_request_id = 'updating_request_id_example' # str |  (optional)
-description2 = 'description_example' # str |  (optional)
-timestamp = 'timestamp_example' # str |  (optional)
-timestamp__gte = 'timestamp__gte_example' # str |  (optional)
-timestamp__lte = 'timestamp__lte_example' # str |  (optional)
-object = 'object_example' # str |  (optional)
-device_class = 'device_class_example' # str |  (optional)
-datafile_checksum = 'datafile_checksum_example' # str |  (optional)
-name2 = 'name_example' # str |  (optional)
 
 try: 
-    api_response = api_instance.firmware_manifest_create(datafile, name, description=description, updated_at=updated_at, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, created_at=created_at, created_at__gte=created_at__gte, created_at__lte=created_at__lte, etag=etag, etag__gte=etag__gte, etag__lte=etag__lte, updating_ip_address=updating_ip_address, manifest_id=manifest_id, updating_request_id=updating_request_id, description2=description2, timestamp=timestamp, timestamp__gte=timestamp__gte, timestamp__lte=timestamp__lte, object=object, device_class=device_class, datafile_checksum=datafile_checksum, name2=name2)
+    api_response = api_instance.firmware_manifest_create(datafile, name, description=description)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->firmware_manifest_create: %s\n" % e)
@@ -386,26 +300,6 @@ Name | Type | Description  | Notes
  **datafile** | **file**| The manifest file to create | 
  **name** | **str**| The name of the object | 
  **description** | **str**| The description of the object | [optional] 
- **updated_at** | **str**|  | [optional] 
- **updated_at__gte** | **str**|  | [optional] 
- **updated_at__lte** | **str**|  | [optional] 
- **created_at** | **str**|  | [optional] 
- **created_at__gte** | **str**|  | [optional] 
- **created_at__lte** | **str**|  | [optional] 
- **etag** | **str**|  | [optional] 
- **etag__gte** | **str**|  | [optional] 
- **etag__lte** | **str**|  | [optional] 
- **updating_ip_address** | **str**|  | [optional] 
- **manifest_id** | **str**|  | [optional] 
- **updating_request_id** | **str**|  | [optional] 
- **description2** | **str**|  | [optional] 
- **timestamp** | **str**|  | [optional] 
- **timestamp__gte** | **str**|  | [optional] 
- **timestamp__lte** | **str**|  | [optional] 
- **object** | **str**|  | [optional] 
- **device_class** | **str**|  | [optional] 
- **datafile_checksum** | **str**|  | [optional] 
- **name2** | **str**|  | [optional] 
 
 ### Return type
 
@@ -423,7 +317,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **firmware_manifest_destroy**
-> FirmwareManifest firmware_manifest_destroy(manifest_id, updated_at=updated_at, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, created_at=created_at, created_at__gte=created_at__gte, created_at__lte=created_at__lte, etag=etag, etag__gte=etag__gte, etag__lte=etag__lte, updating_ip_address=updating_ip_address, updating_request_id=updating_request_id, description=description, timestamp=timestamp, timestamp__gte=timestamp__gte, timestamp__lte=timestamp__lte, object=object, device_class=device_class, datafile_checksum=datafile_checksum, name=name)
+> FirmwareManifest firmware_manifest_destroy(manifest_id)
 
 
 
@@ -445,28 +339,9 @@ firmware_catalog.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = firmware_catalog.DefaultApi()
 manifest_id = 56 # int | The ID of the firmware manifest
-updated_at = 'updated_at_example' # str |  (optional)
-updated_at__gte = 'updated_at__gte_example' # str |  (optional)
-updated_at__lte = 'updated_at__lte_example' # str |  (optional)
-created_at = 'created_at_example' # str |  (optional)
-created_at__gte = 'created_at__gte_example' # str |  (optional)
-created_at__lte = 'created_at__lte_example' # str |  (optional)
-etag = 'etag_example' # str |  (optional)
-etag__gte = 'etag__gte_example' # str |  (optional)
-etag__lte = 'etag__lte_example' # str |  (optional)
-updating_ip_address = 'updating_ip_address_example' # str |  (optional)
-updating_request_id = 'updating_request_id_example' # str |  (optional)
-description = 'description_example' # str |  (optional)
-timestamp = 'timestamp_example' # str |  (optional)
-timestamp__gte = 'timestamp__gte_example' # str |  (optional)
-timestamp__lte = 'timestamp__lte_example' # str |  (optional)
-object = 'object_example' # str |  (optional)
-device_class = 'device_class_example' # str |  (optional)
-datafile_checksum = 'datafile_checksum_example' # str |  (optional)
-name = 'name_example' # str |  (optional)
 
 try: 
-    api_response = api_instance.firmware_manifest_destroy(manifest_id, updated_at=updated_at, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, created_at=created_at, created_at__gte=created_at__gte, created_at__lte=created_at__lte, etag=etag, etag__gte=etag__gte, etag__lte=etag__lte, updating_ip_address=updating_ip_address, updating_request_id=updating_request_id, description=description, timestamp=timestamp, timestamp__gte=timestamp__gte, timestamp__lte=timestamp__lte, object=object, device_class=device_class, datafile_checksum=datafile_checksum, name=name)
+    api_response = api_instance.firmware_manifest_destroy(manifest_id)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->firmware_manifest_destroy: %s\n" % e)
@@ -477,25 +352,6 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **manifest_id** | **int**| The ID of the firmware manifest | 
- **updated_at** | **str**|  | [optional] 
- **updated_at__gte** | **str**|  | [optional] 
- **updated_at__lte** | **str**|  | [optional] 
- **created_at** | **str**|  | [optional] 
- **created_at__gte** | **str**|  | [optional] 
- **created_at__lte** | **str**|  | [optional] 
- **etag** | **str**|  | [optional] 
- **etag__gte** | **str**|  | [optional] 
- **etag__lte** | **str**|  | [optional] 
- **updating_ip_address** | **str**|  | [optional] 
- **updating_request_id** | **str**|  | [optional] 
- **description** | **str**|  | [optional] 
- **timestamp** | **str**|  | [optional] 
- **timestamp__gte** | **str**|  | [optional] 
- **timestamp__lte** | **str**|  | [optional] 
- **object** | **str**|  | [optional] 
- **device_class** | **str**|  | [optional] 
- **datafile_checksum** | **str**|  | [optional] 
- **name** | **str**|  | [optional] 
 
 ### Return type
 
@@ -513,7 +369,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **firmware_manifest_list**
-> FirmwareManifestPage firmware_manifest_list(limit=limit, order=order, after=after, filter=filter, include=include)
+> FirmwareManifestPage firmware_manifest_list(limit=limit, order=order, after=after, filter=filter, include=include, updated_at=updated_at, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, created_at=created_at, created_at__gte=created_at__gte, created_at__lte=created_at__lte, etag=etag, etag__gte=etag__gte, etag__lte=etag__lte, manifest_id=manifest_id, updating_request_id=updating_request_id, description=description, timestamp=timestamp, timestamp__gte=timestamp__gte, timestamp__lte=timestamp__lte, object=object, device_class=device_class, datafile_checksum=datafile_checksum, name=name)
 
 
 
@@ -539,9 +395,28 @@ order = 'order_example' # str | ASC or DESC (optional)
 after = 'after_example' # str | the ID of the the item after which to retrieve the next page (optional)
 filter = 'filter_example' # str | URL encoded query string parameter to filter returned data (optional)
 include = 'include_example' # str | Comma separated list of data fields to return. Currently supported: total_count (optional)
+updated_at = 'updated_at_example' # str |  (optional)
+updated_at__gte = 'updated_at__gte_example' # str |  (optional)
+updated_at__lte = 'updated_at__lte_example' # str |  (optional)
+created_at = 'created_at_example' # str |  (optional)
+created_at__gte = 'created_at__gte_example' # str |  (optional)
+created_at__lte = 'created_at__lte_example' # str |  (optional)
+etag = 'etag_example' # str |  (optional)
+etag__gte = 'etag__gte_example' # str |  (optional)
+etag__lte = 'etag__lte_example' # str |  (optional)
+manifest_id = 'manifest_id_example' # str |  (optional)
+updating_request_id = 'updating_request_id_example' # str |  (optional)
+description = 'description_example' # str |  (optional)
+timestamp = 'timestamp_example' # str |  (optional)
+timestamp__gte = 'timestamp__gte_example' # str |  (optional)
+timestamp__lte = 'timestamp__lte_example' # str |  (optional)
+object = 'object_example' # str |  (optional)
+device_class = 'device_class_example' # str |  (optional)
+datafile_checksum = 'datafile_checksum_example' # str |  (optional)
+name = 'name_example' # str |  (optional)
 
 try: 
-    api_response = api_instance.firmware_manifest_list(limit=limit, order=order, after=after, filter=filter, include=include)
+    api_response = api_instance.firmware_manifest_list(limit=limit, order=order, after=after, filter=filter, include=include, updated_at=updated_at, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, created_at=created_at, created_at__gte=created_at__gte, created_at__lte=created_at__lte, etag=etag, etag__gte=etag__gte, etag__lte=etag__lte, manifest_id=manifest_id, updating_request_id=updating_request_id, description=description, timestamp=timestamp, timestamp__gte=timestamp__gte, timestamp__lte=timestamp__lte, object=object, device_class=device_class, datafile_checksum=datafile_checksum, name=name)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->firmware_manifest_list: %s\n" % e)
@@ -556,6 +431,25 @@ Name | Type | Description  | Notes
  **after** | **str**| the ID of the the item after which to retrieve the next page | [optional] 
  **filter** | **str**| URL encoded query string parameter to filter returned data | [optional] 
  **include** | **str**| Comma separated list of data fields to return. Currently supported: total_count | [optional] 
+ **updated_at** | **str**|  | [optional] 
+ **updated_at__gte** | **str**|  | [optional] 
+ **updated_at__lte** | **str**|  | [optional] 
+ **created_at** | **str**|  | [optional] 
+ **created_at__gte** | **str**|  | [optional] 
+ **created_at__lte** | **str**|  | [optional] 
+ **etag** | **str**|  | [optional] 
+ **etag__gte** | **str**|  | [optional] 
+ **etag__lte** | **str**|  | [optional] 
+ **manifest_id** | **str**|  | [optional] 
+ **updating_request_id** | **str**|  | [optional] 
+ **description** | **str**|  | [optional] 
+ **timestamp** | **str**|  | [optional] 
+ **timestamp__gte** | **str**|  | [optional] 
+ **timestamp__lte** | **str**|  | [optional] 
+ **object** | **str**|  | [optional] 
+ **device_class** | **str**|  | [optional] 
+ **datafile_checksum** | **str**|  | [optional] 
+ **name** | **str**|  | [optional] 
 
 ### Return type
 
@@ -573,7 +467,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **firmware_manifest_retrieve**
-> FirmwareManifest firmware_manifest_retrieve(manifest_id, updated_at=updated_at, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, created_at=created_at, created_at__gte=created_at__gte, created_at__lte=created_at__lte, etag=etag, etag__gte=etag__gte, etag__lte=etag__lte, updating_ip_address=updating_ip_address, updating_request_id=updating_request_id, description=description, timestamp=timestamp, timestamp__gte=timestamp__gte, timestamp__lte=timestamp__lte, object=object, device_class=device_class, datafile_checksum=datafile_checksum, name=name)
+> FirmwareManifest firmware_manifest_retrieve(manifest_id)
 
 
 
@@ -595,28 +489,9 @@ firmware_catalog.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = firmware_catalog.DefaultApi()
 manifest_id = 56 # int | The ID of the firmware manifest
-updated_at = 'updated_at_example' # str |  (optional)
-updated_at__gte = 'updated_at__gte_example' # str |  (optional)
-updated_at__lte = 'updated_at__lte_example' # str |  (optional)
-created_at = 'created_at_example' # str |  (optional)
-created_at__gte = 'created_at__gte_example' # str |  (optional)
-created_at__lte = 'created_at__lte_example' # str |  (optional)
-etag = 'etag_example' # str |  (optional)
-etag__gte = 'etag__gte_example' # str |  (optional)
-etag__lte = 'etag__lte_example' # str |  (optional)
-updating_ip_address = 'updating_ip_address_example' # str |  (optional)
-updating_request_id = 'updating_request_id_example' # str |  (optional)
-description = 'description_example' # str |  (optional)
-timestamp = 'timestamp_example' # str |  (optional)
-timestamp__gte = 'timestamp__gte_example' # str |  (optional)
-timestamp__lte = 'timestamp__lte_example' # str |  (optional)
-object = 'object_example' # str |  (optional)
-device_class = 'device_class_example' # str |  (optional)
-datafile_checksum = 'datafile_checksum_example' # str |  (optional)
-name = 'name_example' # str |  (optional)
 
 try: 
-    api_response = api_instance.firmware_manifest_retrieve(manifest_id, updated_at=updated_at, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, created_at=created_at, created_at__gte=created_at__gte, created_at__lte=created_at__lte, etag=etag, etag__gte=etag__gte, etag__lte=etag__lte, updating_ip_address=updating_ip_address, updating_request_id=updating_request_id, description=description, timestamp=timestamp, timestamp__gte=timestamp__gte, timestamp__lte=timestamp__lte, object=object, device_class=device_class, datafile_checksum=datafile_checksum, name=name)
+    api_response = api_instance.firmware_manifest_retrieve(manifest_id)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->firmware_manifest_retrieve: %s\n" % e)
@@ -627,25 +502,6 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **manifest_id** | **int**| The ID of the firmware manifest | 
- **updated_at** | **str**|  | [optional] 
- **updated_at__gte** | **str**|  | [optional] 
- **updated_at__lte** | **str**|  | [optional] 
- **created_at** | **str**|  | [optional] 
- **created_at__gte** | **str**|  | [optional] 
- **created_at__lte** | **str**|  | [optional] 
- **etag** | **str**|  | [optional] 
- **etag__gte** | **str**|  | [optional] 
- **etag__lte** | **str**|  | [optional] 
- **updating_ip_address** | **str**|  | [optional] 
- **updating_request_id** | **str**|  | [optional] 
- **description** | **str**|  | [optional] 
- **timestamp** | **str**|  | [optional] 
- **timestamp__gte** | **str**|  | [optional] 
- **timestamp__lte** | **str**|  | [optional] 
- **object** | **str**|  | [optional] 
- **device_class** | **str**|  | [optional] 
- **datafile_checksum** | **str**|  | [optional] 
- **name** | **str**|  | [optional] 
 
 ### Return type
 
