@@ -85,10 +85,10 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [Data](docs/Data.md)
  - [ErrorResponse](docs/ErrorResponse.md)
  - [Field](docs/Field.md)
  - [FieldsArray](docs/FieldsArray.md)
+ - [Metric](docs/Metric.md)
  - [SuccessfulResponse](docs/SuccessfulResponse.md)
 
 

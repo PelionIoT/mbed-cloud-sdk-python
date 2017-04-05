@@ -14,8 +14,8 @@
 from __future__ import absolute_import
 
 # import models into model package
-from .data import Data
 from .error_response import ErrorResponse
 from .field import Field
 from .fields_array import FieldsArray
+from .metric import Metric
 from .successful_response import SuccessfulResponse
