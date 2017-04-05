@@ -43,19 +43,15 @@ class StatisticsAPI(BaseAPI):
         self._include_all = "devices,transactions,apikeys,"\
             "bootstraps_successful,bootstraps_failed,bootstraps_pending"
 
-    def _convert_to_UTC_RFC3339(self, time):
+    def _convert_to_UTC_RFC3339(self, time, name):
+        if not isinstance(time, datetime.datetime):
+            raise ValueError("%s should be of type datetime" % (name))
         return time.isoformat() + "Z"
 
     def _verify_arguments(self, interval, kwargs):
-        start = None
-        end = None
-        period = None
-        if ('start' in kwargs) and (kwargs['start'] is not None):
-            start = kwargs['start']
-        if ('end' in kwargs) and (kwargs['end'] is not None):
-            end = kwargs['start']
-        if ('period' in kwargs) and (kwargs['period'] is not None):
-            period = kwargs['period']
+        start = kwargs.get("start", None)
+        end = kwargs.get("end", None)
+        period = kwargs.get("period", None)
         if not start and not end and not period:
             raise ValueError("start and end is mandatory if period is not specified.")
         if start and not end:
@@ -67,14 +63,12 @@ class StatisticsAPI(BaseAPI):
             raise ValueError("period is incorrect. Sample values: 2h, 3w, 4d.")
         if interval and not pattern.match(interval):
             raise ValueError("interval is incorrect. Sample values: 2h, 3w, 4d.")
+        # convert start into UTC RFC3339 format
         if start:
-            if not isinstance(start, datetime.datetime):
-                raise ValueError("start should be of type datetime")
-            kwargs['start'] = self._convert_to_UTC_RFC3339(start)
+            kwargs['start'] = self._convert_to_UTC_RFC3339(start, 'start')
+        # convert end into UTC RFC3339 format
         if end:
-            if not isinstance(end, datetime.datetime):
-                raise ValueError("end should be of type datetime")
-            kwargs['end'] = self._convert_to_UTC_RFC3339(end)
+            kwargs['end'] = self._convert_to_UTC_RFC3339(end, 'end')
 
     @catch_exceptions(ApiException)
     def get_metric(self, include=None, interval="1d", **kwargs):
