@@ -10,7 +10,7 @@ Usage
   api = StatisticsAPI()
 
   # Get Metrics from the last 30 days grouped in 1 day interval
-  for metric in api.get_metric(None, None, None, "30d", "1d"):
+  for metric in api.get_metric(interval="1d", period="30d"):
       print(metric)
 
 Reference

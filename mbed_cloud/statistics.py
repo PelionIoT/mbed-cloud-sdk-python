@@ -14,6 +14,7 @@
 """Functionality for statistics-related actions in mbed Cloud."""
 
 # Import common functions and exceptions from frontend API
+import datetime
 from mbed_cloud import BaseAPI
 from mbed_cloud.decorators import catch_exceptions
 import re
@@ -38,10 +39,23 @@ class StatisticsAPI(BaseAPI):
         # This API is a bit weird, so create the "authorization" string
         authorization = self.statistics.configuration.api_key['Authorization']
         self._auth = "Bearer %s" % (authorization,)
+        # API requires to send what fields should be returned in response
         self._include_all = "devices,transactions,apikeys,"\
             "bootstraps_successful,bootstraps_failed,bootstraps_pending"
 
-    def _verify_arguments(self, start, end, period, interval):
+    def _convert_to_UTC_RFC3339(self, time):
+        return time.isoformat() + "Z"
+
+    def _verify_arguments(self, interval, kwargs):
+        start = None
+        end = None
+        period = None
+        if ('start' in kwargs) and (kwargs['start'] is not None):
+            start = kwargs['start']
+        if ('end' in kwargs) and (kwargs['end'] is not None):
+            end = kwargs['start']
+        if ('period' in kwargs) and (kwargs['period'] is not None):
+            period = kwargs['period']
         if not start and not end and not period:
             raise ValueError("start and end is mandatory if period is not specified.")
         if start and not end:
@@ -53,78 +67,57 @@ class StatisticsAPI(BaseAPI):
             raise ValueError("period is incorrect. Sample values: 2h, 3w, 4d.")
         if interval and not pattern.match(interval):
             raise ValueError("interval is incorrect. Sample values: 2h, 3w, 4d.")
-
-    def _convert_to_UTC_RFC3339(self, time):
-        return time.isoformat("T") + "Z"
+        if start:
+            if not isinstance(start, datetime.datetime):
+                raise ValueError("start should be of type datetime")
+            kwargs['start'] = self._convert_to_UTC_RFC3339(start)
+        if end:
+            if not isinstance(end, datetime.datetime):
+                raise ValueError("end should be of type datetime")
+            kwargs['end'] = self._convert_to_UTC_RFC3339(end)
 
     @catch_exceptions(ApiException)
-    def get_metric(self, include=None, start=None, end=None, period="30d", interval="1d", **kwargs):
+    def get_metric(self, include=None, interval="1d", **kwargs):
         """Get statistics.
 
         :param str include: What fields to include in response. None will return all.
-        :param datetime start: UTC time/year/date in RFC3339 format.
-            Fetch the data with timestamp greater than or equal to this value.
-            Sample values: 20170207T092056990Z/2017-02-07T09:20:56.990Z/2017/20170207.
+        :param str interval: Group data by this interval in days, weeks or hours.
+            Sample values: 2h, 3w, 4d.
+        :param datetime start: Fetch the data with timestamp greater than or equal to this value.
             The parameter is not mandatory, if the period is specified.
-        :param datetime end: UTC time/year/date in RFC3339 format.
-            Fetch the data with timestamp less than this value.
-            Sample values: 20170207T092056990Z/2017-02-07T09:20:56.990Z/2017/20170207.
+        :param datetime end: Fetch the data with timestamp less than this value.
             The parameter is not mandatory, if the period is specified.
         :param str period: Period. Fetch the data for the period in days, weeks or hours.
             Sample values: 2h, 3w, 4d.
             The parameter is not mandatory, if the start and end time are specified
-        :param str interval: Group data by this interval in days, weeks or hours.
-            Sample values: 2h, 3w, 4d.
         :returns: a list of :py:class:`Metric` objects.
         """
         if not include:
             include = self._include_all
-        self._verify_arguments(start, end, period, interval)
-        if start:
-            start = self._convert_to_UTC_RFC3339(start)
-            kwargs['start'] = start
-        if end:
-            end = self._convert_to_UTC_RFC3339(end)
-            kwargs['end'] = start
-        if period:
-            kwargs['period'] = period
+        self._verify_arguments(interval, kwargs)
         api = self.statistics.StatisticsApi()
         return api.v3_metrics_get(include, interval, self._auth, **kwargs).data
 
     @catch_exceptions(ApiException)
-    def get_account_metric(self, include=None, start=None, end=None, period="30d",
-                           interval="1d", **kwargs):
+    def get_account_metric(self, include=None, interval="1d", **kwargs):
         """Get account-specific statistics.
 
         :param str include: What fields to include in response. None will return all.
-        :param datetime start: UTC time/year/date in RFC3339 format.
-            Fetch the data with timestamp greater than or equal to this value.
-            Sample values: 20170207T092056990Z/2017-02-07T09:20:56.990Z/2017/20170207.
+        :param str interval: Group data by this interval in days, weeks or hours.
+            Sample values: 2h, 3w, 4d.
+        :param datetime start: Fetch the data with timestamp greater than or equal to this value.
             The parameter is not mandatory, if the period is specified.
-        :param datetime end: UTC time/year/date in RFC3339 format.
-            Fetch the data with timestamp less than this value.
-            Sample values: 20170207T092056990Z/2017-02-07T09:20:56.990Z/2017/20170207.
+        :param datetime end: Fetch the data with timestamp less than this value.
             The parameter is not mandatory, if the period is specified.
         :param str period: Period. Fetch the data for the period in days, weeks or hours.
             Sample values: 2h, 3w, 4d.
             The parameter is not mandatory, if the start and end time are specified
-        :param str interval: Group data by this interval in days, weeks or hours.
-            Sample values: 2h, 3w, 4d.
         :returns: a list of :py:class:`Metric` objects.
         """
         if not include:
             include = self._include_all
-        self._verify_arguments(start, end, period, interval)
-        if start:
-            start = self._convert_to_UTC_RFC3339(start)
-            kwargs['start'] = start
-        if end:
-            end = self._convert_to_UTC_RFC3339(end)
-            kwargs['end'] = start
-        if period:
-            kwargs['period'] = period
+        self._verify_arguments(interval, kwargs)
         api = self.statistics.AccountApi()
-
         return api.v3_metrics_get(include, interval, self._auth, **kwargs).data
 
 
