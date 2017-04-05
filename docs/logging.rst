@@ -10,12 +10,11 @@ Usage
   api = LoggingAPI()
 
   # List device logs
-  logs = api.list_device_logs()
-  for d, idx in logs.iteritems():
+  for d in api.list_device_logs():
     print(d.device_log_id) 
 
   # 10 oldest device logs
-  api.list_device_logs(order='asc').as_list()[:10]
+  list(api.list_device_logs(order='asc'))[:10]
 
   # 10 most recent logs for a specific device
   filters = {

@@ -86,7 +86,7 @@ class PaginatedResponse(object):
     iterating pages or using iterators.
     """
 
-    def __init__(self, func, lwrap_type=None, init_data=None, **kwargs):
+    def __init__(self, func, lwrap_type=None, init_data=None, limit=None, **kwargs):
         """Initialize wrapper by passing in object with metadata structure.
 
         :param lwrap_type: Wrap each response element in type
@@ -96,6 +96,7 @@ class PaginatedResponse(object):
         self._lwrap_type = lwrap_type
         self._kwargs = kwargs
         self._idx = 0
+        self._limit = limit
 
         # Initial values, will be updated in first response
         self.has_more = False
@@ -125,73 +126,32 @@ class PaginatedResponse(object):
         resp = self._func(**{'include': 'total_count', 'limit': 2})
         return resp.total_count
 
-    def iteritems(self):
-        """Iterate through elements of the paginated resonse.
-
-        This will get the next page where required. As a consequence,
-        do take not that this method might do multiple calls in the background.
-
-        .. code-block:: python
-
-            >>> for elem, idx in api.list_users().iteritems():
-            >>>    print(idx, elem)
-            1,<Object #1>
-            2,<Object #2>
-            ...
-
-        :returns: Yields tuples of (`element`, `idx`).
-        :rtype: tuple
-        """
-        self._idx = 0
-        n = self.next()
-        while n:
-            # Yield the data elements one by one
-            for e in self.data:
-                yield e, self._idx
-                self._idx += 1
-            n = self.next()
-
-    def as_list(self):
-        """Return the paginated response as a list containing all elements.
-
-        Warning: if the list contains many pages this might block for a long time
-        and consume a lot of memory. Do investigate if using more fine grained control
-        functions such as `iteritems` and `next` is more suited for your needs.
-
-        .. code-block:: python
-
-            >>> len(api.list_users().as_list())
-            13
-
-        :returns: The paginated response as a Python list
-        :rtype: list
-        """
-        return [d for d in self.next()]
-
     def next(self):
-        """Get the next page of content.
-
-        .. code-block:: python
-
-            >>> p = api.list_users()
-            >>> len(p.data)
-            50
-            >>> p.next()
-            >>> len(p.data)
-            23
+        """Get the next element in list.
 
         As one can see in the example we finely control the iteration of the
         pagination and in total we would here have 50+23=73 users.
         """
-        curr = self._data
-        if not self._data:
-            raise StopIteration()
+        # If we've reached the limit, we stop.
+        if self._limit is not None and self._idx == self._limit:
+            raise StopIteration
 
-        # Get next page if there's more.
-        if self.has_more:
+        # If we don't have any data, then we just return.
+        if self._data is None:
+            raise StopIteration
+
+        # If we have an empty data array, but more data in the pipe we
+        # fetch it. If not we're done iterating.
+        if len(self._data) == 0 and self.has_more:
             self._get_page()
+        if len(self._data) == 0 and not self.has_more:
+            raise StopIteration
 
-        return curr
+        # Grab first item and return
+        r_value = self._data[0]
+        self._data = self._data[1:]
+        self._idx += 1
+        return r_value
 
     def count(self):
         """Get the total count from the meta data.
@@ -213,6 +173,17 @@ class PaginatedResponse(object):
         return self.total_count
 
     def __iter__(self):
+        """Override iter, as to provide iterable interface to Pagination object.
+
+        This was you can iterate over PaginatinatedResponse objects like so:
+
+        .. code-block:: python
+
+            obj = PaginatedResponse(..)
+            for x in obj:
+                print(x)
+
+        """
         return self
 
     @property

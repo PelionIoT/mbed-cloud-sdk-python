@@ -12,12 +12,12 @@ Basic iteration
 
   >>> from mbed_cloud.devices import DeviceAPI
   >>> api = DeviceAPI()
-  >>> for f, idx in api.list_filters(limit=2).iteritems():
-        print idx
-  1
-  2
-  3
-  4
+  >>> for idx, f in enumerate(api.list_filters(limit=2)):
+        print(idx, f)
+  1,<F>
+  2,<F>
+  3,<F>
+  4,<F>
 
 Manual control of iteration
 ---------------------------
