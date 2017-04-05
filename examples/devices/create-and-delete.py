@@ -40,8 +40,8 @@ def _main():
 
     # Delete the device
     print("Attempting to delete device from catalog...")
-    api.delete_device(new_device.id)
-    print("Successfully deleted device (ID: %r)" % new_device.id)
+    api.delete_device(updated_device.id)
+    print("Successfully deleted device (ID: %r)" % updated_device.id)
 
 if __name__ == "__main__":
     _main()
