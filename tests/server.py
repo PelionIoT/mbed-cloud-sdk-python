@@ -26,6 +26,7 @@ from flask import request
 from mbed_cloud.access import AccessAPI
 from mbed_cloud.devices import DeviceAPI
 from mbed_cloud.logging import LoggingAPI
+from mbed_cloud.statistics import StatisticsAPI
 from mbed_cloud import PaginatedResponse
 from urllib import unquote
 from urlparse import parse_qs
@@ -148,7 +149,8 @@ def init(methods=["GET"]):
     MODULES = {
         'access': AccessAPI(params=params),
         'devices': DeviceAPI(params=params),
-        'logging': LoggingAPI(params=params)
+        'logging': LoggingAPI(params=params),
+        'statistics': StatisticsAPI(params=params)
     }
 
     # Return empty JSON for now. Might change in the future.
