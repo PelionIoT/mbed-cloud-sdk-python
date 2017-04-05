@@ -608,7 +608,10 @@ class DeviceAPI(BaseAPI):
         # passed in query object and custom attributes.
         query = self._get_filter_attributes(query, custom_attributes)
 
-        return Filter(api.device_query_create(name=name, query=query, **kwargs))
+        # Create the filter object
+        f = self.dc_queries.DeviceQuery(name=name, query=query, **kwargs)
+
+        return Filter(api.device_query_create(f))
 
     @catch_exceptions(DeviceQueryServiceApiException)
     def update_filter(self, filter_id, name, query, custom_attributes=None, **kwargs):
