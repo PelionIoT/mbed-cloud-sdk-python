@@ -34,7 +34,7 @@ deployment_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = deployment_service.DefaultApi()
-update_campaign = deployment_service.UpdateCampaignRequest() # UpdateCampaignRequest | Update campaign
+update_campaign = deployment_service.UpdateCampaignPostRequest() # UpdateCampaignPostRequest | Update campaign
 
 try: 
     api_response = api_instance.update_campaign_create(update_campaign)
@@ -47,7 +47,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **update_campaign** | [**UpdateCampaignRequest**](UpdateCampaignRequest.md)| Update campaign | 
+ **update_campaign** | [**UpdateCampaignPostRequest**](UpdateCampaignPostRequest.md)| Update campaign | 
 
 ### Return type
 
@@ -117,7 +117,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_campaign_list**
-> UpdateCampaignPage update_campaign_list(limit=limit, order=order, after=after, filter=filter, include=include, created_at=created_at, created_at__lte=created_at__lte, created_at__gte=created_at__gte, description=description, device_filter=device_filter, id=id, name=name, object=object, root_manifest_id=root_manifest_id, root_manifest_url=root_manifest_url, started_at=started_at, started_at__lte=started_at__lte, stated_at__gte=stated_at__gte, state=state, updated_at=updated_at, updated_at__lte=updated_at__lte, updated_at_gte=updated_at_gte, when=when, when__lte=when__lte, when_gte=when_gte)
+> UpdateCampaignPage update_campaign_list(limit=limit, order=order, after=after, filter=filter, include=include, created_at=created_at, created_at__lte=created_at__lte, created_at__gte=created_at__gte, description=description, device_filter=device_filter, etag=etag, etag__lte=etag__lte, etag__gte=etag__gte, finished=finished, finished__lte=finished__lte, finished__gte=finished__gte, id=id, name=name, object=object, root_manifest_id=root_manifest_id, root_manifest_url=root_manifest_url, started_at=started_at, started_at__lte=started_at__lte, stated_at__gte=stated_at__gte, state=state, when=when, when__lte=when__lte, when_gte=when_gte)
 
 
 
@@ -148,6 +148,12 @@ created_at__lte = 'created_at__lte_example' # str |  (optional)
 created_at__gte = 'created_at__gte_example' # str |  (optional)
 description = 'description_example' # str |  (optional)
 device_filter = 'device_filter_example' # str |  (optional)
+etag = 'etag_example' # str |  (optional)
+etag__lte = 'etag__lte_example' # str |  (optional)
+etag__gte = 'etag__gte_example' # str |  (optional)
+finished = 'finished_example' # str |  (optional)
+finished__lte = 'finished__lte_example' # str |  (optional)
+finished__gte = 'finished__gte_example' # str |  (optional)
 id = 'id_example' # str |  (optional)
 name = 'name_example' # str |  (optional)
 object = 'object_example' # str |  (optional)
@@ -157,15 +163,12 @@ started_at = 'started_at_example' # str |  (optional)
 started_at__lte = 'started_at__lte_example' # str |  (optional)
 stated_at__gte = 'stated_at__gte_example' # str |  (optional)
 state = 'state_example' # str |  (optional)
-updated_at = 'updated_at_example' # str |  (optional)
-updated_at__lte = 'updated_at__lte_example' # str |  (optional)
-updated_at_gte = 'updated_at_gte_example' # str |  (optional)
 when = 'when_example' # str |  (optional)
 when__lte = 'when__lte_example' # str |  (optional)
 when_gte = 'when_gte_example' # str |  (optional)
 
 try: 
-    api_response = api_instance.update_campaign_list(limit=limit, order=order, after=after, filter=filter, include=include, created_at=created_at, created_at__lte=created_at__lte, created_at__gte=created_at__gte, description=description, device_filter=device_filter, id=id, name=name, object=object, root_manifest_id=root_manifest_id, root_manifest_url=root_manifest_url, started_at=started_at, started_at__lte=started_at__lte, stated_at__gte=stated_at__gte, state=state, updated_at=updated_at, updated_at__lte=updated_at__lte, updated_at_gte=updated_at_gte, when=when, when__lte=when__lte, when_gte=when_gte)
+    api_response = api_instance.update_campaign_list(limit=limit, order=order, after=after, filter=filter, include=include, created_at=created_at, created_at__lte=created_at__lte, created_at__gte=created_at__gte, description=description, device_filter=device_filter, etag=etag, etag__lte=etag__lte, etag__gte=etag__gte, finished=finished, finished__lte=finished__lte, finished__gte=finished__gte, id=id, name=name, object=object, root_manifest_id=root_manifest_id, root_manifest_url=root_manifest_url, started_at=started_at, started_at__lte=started_at__lte, stated_at__gte=stated_at__gte, state=state, when=when, when__lte=when__lte, when_gte=when_gte)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->update_campaign_list: %s\n" % e)
@@ -185,6 +188,12 @@ Name | Type | Description  | Notes
  **created_at__gte** | **str**|  | [optional] 
  **description** | **str**|  | [optional] 
  **device_filter** | **str**|  | [optional] 
+ **etag** | **str**|  | [optional] 
+ **etag__lte** | **str**|  | [optional] 
+ **etag__gte** | **str**|  | [optional] 
+ **finished** | **str**|  | [optional] 
+ **finished__lte** | **str**|  | [optional] 
+ **finished__gte** | **str**|  | [optional] 
  **id** | **str**|  | [optional] 
  **name** | **str**|  | [optional] 
  **object** | **str**|  | [optional] 
@@ -194,9 +203,6 @@ Name | Type | Description  | Notes
  **started_at__lte** | **str**|  | [optional] 
  **stated_at__gte** | **str**|  | [optional] 
  **state** | **str**|  | [optional] 
- **updated_at** | **str**|  | [optional] 
- **updated_at__lte** | **str**|  | [optional] 
- **updated_at_gte** | **str**|  | [optional] 
  **when** | **str**|  | [optional] 
  **when__lte** | **str**|  | [optional] 
  **when_gte** | **str**|  | [optional] 
@@ -217,7 +223,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_campaign_partial_update**
-> UpdateCampaign update_campaign_partial_update(campaign_id, update_campaign)
+> UpdateCampaignPatchRequest update_campaign_partial_update(campaign_id, update_campaign)
 
 
 
@@ -239,7 +245,7 @@ deployment_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = deployment_service.DefaultApi()
 campaign_id = 'campaign_id_example' # str | 
-update_campaign = deployment_service.UpdateCampaignRequest() # UpdateCampaignRequest | Update campaign
+update_campaign = deployment_service.UpdateCampaignPatchRequest() # UpdateCampaignPatchRequest | Update campaign
 
 try: 
     api_response = api_instance.update_campaign_partial_update(campaign_id, update_campaign)
@@ -253,11 +259,11 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **campaign_id** | **str**|  | 
- **update_campaign** | [**UpdateCampaignRequest**](UpdateCampaignRequest.md)| Update campaign | 
+ **update_campaign** | [**UpdateCampaignPatchRequest**](UpdateCampaignPatchRequest.md)| Update campaign | 
 
 ### Return type
 
-[**UpdateCampaign**](UpdateCampaign.md)
+[**UpdateCampaignPatchRequest**](UpdateCampaignPatchRequest.md)
 
 ### Authorization
 
@@ -345,7 +351,7 @@ deployment_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = deployment_service.DefaultApi()
 campaign_id = 'campaign_id_example' # str | 
-update_campaign = deployment_service.UpdateCampaignRequest() # UpdateCampaignRequest | Update campaign
+update_campaign = deployment_service.UpdateCampaignPutRequest() # UpdateCampaignPutRequest | Update campaign
 
 try: 
     api_response = api_instance.update_campaign_update(campaign_id, update_campaign)
@@ -359,7 +365,7 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **campaign_id** | **str**|  | 
- **update_campaign** | [**UpdateCampaignRequest**](UpdateCampaignRequest.md)| Update campaign | 
+ **update_campaign** | [**UpdateCampaignPutRequest**](UpdateCampaignPutRequest.md)| Update campaign | 
 
 ### Return type
 

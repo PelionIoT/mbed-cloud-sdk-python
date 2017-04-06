@@ -70,7 +70,7 @@ class ApiKeyUpdateReq(object):
     def name(self):
         """
         Gets the name of this ApiKeyUpdateReq.
-        The display name for the API key.
+        The display name for the API key, not longer than 100 characters.
 
         :return: The name of this ApiKeyUpdateReq.
         :rtype: str
@@ -81,7 +81,7 @@ class ApiKeyUpdateReq(object):
     def name(self, name):
         """
         Sets the name of this ApiKeyUpdateReq.
-        The display name for the API key.
+        The display name for the API key, not longer than 100 characters.
 
         :param name: The name of this ApiKeyUpdateReq.
         :type: str

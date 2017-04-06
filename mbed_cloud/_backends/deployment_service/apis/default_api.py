@@ -53,7 +53,7 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param UpdateCampaignRequest update_campaign: Update campaign (required)
+        :param UpdateCampaignPostRequest update_campaign: Update campaign (required)
         :return: UpdateCampaign
                  If the method is called asynchronously,
                  returns the request thread.
@@ -78,7 +78,7 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param UpdateCampaignRequest update_campaign: Update campaign (required)
+        :param UpdateCampaignPostRequest update_campaign: Update campaign (required)
         :return: UpdateCampaign
                  If the method is called asynchronously,
                  returns the request thread.
@@ -257,6 +257,12 @@ class DefaultApi(object):
         :param str created_at__gte:
         :param str description:
         :param str device_filter:
+        :param str etag:
+        :param str etag__lte:
+        :param str etag__gte:
+        :param str finished:
+        :param str finished__lte:
+        :param str finished__gte:
         :param str id:
         :param str name:
         :param str object:
@@ -266,9 +272,6 @@ class DefaultApi(object):
         :param str started_at__lte:
         :param str stated_at__gte:
         :param str state:
-        :param str updated_at:
-        :param str updated_at__lte:
-        :param str updated_at_gte:
         :param str when:
         :param str when__lte:
         :param str when_gte:
@@ -306,6 +309,12 @@ class DefaultApi(object):
         :param str created_at__gte:
         :param str description:
         :param str device_filter:
+        :param str etag:
+        :param str etag__lte:
+        :param str etag__gte:
+        :param str finished:
+        :param str finished__lte:
+        :param str finished__gte:
         :param str id:
         :param str name:
         :param str object:
@@ -315,9 +324,6 @@ class DefaultApi(object):
         :param str started_at__lte:
         :param str stated_at__gte:
         :param str state:
-        :param str updated_at:
-        :param str updated_at__lte:
-        :param str updated_at_gte:
         :param str when:
         :param str when__lte:
         :param str when_gte:
@@ -326,7 +332,7 @@ class DefaultApi(object):
                  returns the request thread.
         """
 
-        all_params = ['limit', 'order', 'after', 'filter', 'include', 'created_at', 'created_at__lte', 'created_at__gte', 'description', 'device_filter', 'id', 'name', 'object', 'root_manifest_id', 'root_manifest_url', 'started_at', 'started_at__lte', 'stated_at__gte', 'state', 'updated_at', 'updated_at__lte', 'updated_at_gte', 'when', 'when__lte', 'when_gte']
+        all_params = ['limit', 'order', 'after', 'filter', 'include', 'created_at', 'created_at__lte', 'created_at__gte', 'description', 'device_filter', 'etag', 'etag__lte', 'etag__gte', 'finished', 'finished__lte', 'finished__gte', 'id', 'name', 'object', 'root_manifest_id', 'root_manifest_url', 'started_at', 'started_at__lte', 'stated_at__gte', 'state', 'when', 'when__lte', 'when_gte']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -369,6 +375,18 @@ class DefaultApi(object):
             query_params['description'] = params['description']
         if 'device_filter' in params:
             query_params['device_filter'] = params['device_filter']
+        if 'etag' in params:
+            query_params['etag'] = params['etag']
+        if 'etag__lte' in params:
+            query_params['etag__lte'] = params['etag__lte']
+        if 'etag__gte' in params:
+            query_params['etag__gte'] = params['etag__gte']
+        if 'finished' in params:
+            query_params['finished'] = params['finished']
+        if 'finished__lte' in params:
+            query_params['finished__lte'] = params['finished__lte']
+        if 'finished__gte' in params:
+            query_params['finished__gte'] = params['finished__gte']
         if 'id' in params:
             query_params['id'] = params['id']
         if 'name' in params:
@@ -387,12 +405,6 @@ class DefaultApi(object):
             query_params['stated_at__gte'] = params['stated_at__gte']
         if 'state' in params:
             query_params['state'] = params['state']
-        if 'updated_at' in params:
-            query_params['updated_at'] = params['updated_at']
-        if 'updated_at__lte' in params:
-            query_params['updated_at__lte'] = params['updated_at__lte']
-        if 'updated_at_gte' in params:
-            query_params['updated_at_gte'] = params['updated_at_gte']
         if 'when' in params:
             query_params['when'] = params['when']
         if 'when__lte' in params:
@@ -438,8 +450,8 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str campaign_id: (required)
-        :param UpdateCampaignRequest update_campaign: Update campaign (required)
-        :return: UpdateCampaign
+        :param UpdateCampaignPatchRequest update_campaign: Update campaign (required)
+        :return: UpdateCampaignPatchRequest
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -464,8 +476,8 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str campaign_id: (required)
-        :param UpdateCampaignRequest update_campaign: Update campaign (required)
-        :return: UpdateCampaign
+        :param UpdateCampaignPatchRequest update_campaign: Update campaign (required)
+        :return: UpdateCampaignPatchRequest
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -520,7 +532,7 @@ class DefaultApi(object):
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='UpdateCampaign',
+                                        response_type='UpdateCampaignPatchRequest',
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -639,7 +651,7 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str campaign_id: (required)
-        :param UpdateCampaignRequest update_campaign: Update campaign (required)
+        :param UpdateCampaignPutRequest update_campaign: Update campaign (required)
         :return: UpdateCampaign
                  If the method is called asynchronously,
                  returns the request thread.
@@ -665,7 +677,7 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str campaign_id: (required)
-        :param UpdateCampaignRequest update_campaign: Update campaign (required)
+        :param UpdateCampaignPutRequest update_campaign: Update campaign (required)
         :return: UpdateCampaign
                  If the method is called asynchronously,
                  returns the request thread.

@@ -9,7 +9,6 @@ Name | Type | Description | Notes
 **object** | **str** | The API resource entity | 
 **root_manifest_id** | **str** |  | 
 **state** | **str** | The state of the campaign | 
-**updated_at** | **str** | The time the object was updated | 
 **finished** | **str** | The timestamp when the update campaign finished | 
 **etag** | **str** | The entity instance signature | 
 **root_manifest_url** | **str** |  | 
