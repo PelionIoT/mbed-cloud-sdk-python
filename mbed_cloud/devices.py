@@ -508,7 +508,7 @@ class DeviceAPI(BaseAPI):
         :rtype: DeviceDetail
         """
         api = self.dc.DefaultApi()
-        body = self.dc.DeviceDataWriteRequest(**kwargs)
+        body = self.dc.DeviceDataPostRequest(**kwargs)
         return DeviceDetail(api.device_update(device_id, body))
 
     @catch_exceptions(DeviceCatalogApiException)
