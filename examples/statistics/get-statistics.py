@@ -20,7 +20,7 @@ def _main():
     api = StatisticsAPI()
     header = "Get statistics from the last 30 days in 1 day interval"
     print("%s\n%s" % (header, len(header) * "-"))
-    for metric in api.get_metric(interval="1y", period="30d"):
+    for metric in api.get_metric(interval="1d", period="30d"):
         print(metric)
 
     header = "Get statistics from the last 2 days in 3 hours interval"

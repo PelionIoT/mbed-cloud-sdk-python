@@ -206,11 +206,13 @@ def main(module, method, methods=["GET"]):
             str(e)
         )
 
-        status = 500
+        # Set defaul status_code as 500
+        status_code = 500
+        # Check if error contains code status, return it if it does
         if hasattr(e, 'status'):
-            status = e.status
+            status_code = e.status
 
-        raise ApiCallException(str(error_msg), status_code=status)
+        raise ApiCallException(str(error_msg), status_code=status_code)
 
 
 if __name__ == "__main__":
