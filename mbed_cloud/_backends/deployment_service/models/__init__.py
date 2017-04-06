@@ -16,5 +16,4 @@ from __future__ import absolute_import
 # import models into model package
 from .update_campaign import UpdateCampaign
 from .update_campaign_page import UpdateCampaignPage
-from .write_update_campaign import WriteUpdateCampaign
-from .write_update_campaign_page import WriteUpdateCampaignPage
+from .update_campaign_request import UpdateCampaignRequest

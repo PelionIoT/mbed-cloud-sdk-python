@@ -15,7 +15,8 @@ from __future__ import absolute_import
 
 # import models into sdk package
 from .models.device_data import DeviceData
-from .models.device_data_request import DeviceDataRequest
+from .models.device_data_patch_request import DeviceDataPatchRequest
+from .models.device_data_write_request import DeviceDataWriteRequest
 from .models.device_log_data import DeviceLogData
 from .models.device_log_page import DeviceLogPage
 from .models.device_page import DevicePage

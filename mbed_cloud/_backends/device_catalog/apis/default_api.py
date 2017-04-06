@@ -53,7 +53,7 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param DeviceDataRequest device: (required)
+        :param DeviceDataWriteRequest device: (required)
         :return: DeviceData
                  If the method is called asynchronously,
                  returns the request thread.
@@ -78,7 +78,7 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param DeviceDataRequest device: (required)
+        :param DeviceDataWriteRequest device: (required)
         :return: DeviceData
                  If the method is called asynchronously,
                  returns the request thread.
@@ -741,7 +741,7 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str id: The ID of the device (required)
-        :param DeviceDataRequest device: (required)
+        :param DeviceDataPatchRequest device: (required)
         :return: DeviceData
                  If the method is called asynchronously,
                  returns the request thread.
@@ -767,7 +767,7 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str id: The ID of the device (required)
-        :param DeviceDataRequest device: (required)
+        :param DeviceDataPatchRequest device: (required)
         :return: DeviceData
                  If the method is called asynchronously,
                  returns the request thread.
@@ -942,7 +942,7 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str id: The ID of the device (required)
-        :param DeviceDataRequest device: (required)
+        :param DeviceDataWriteRequest device: (required)
         :return: DeviceData
                  If the method is called asynchronously,
                  returns the request thread.
@@ -968,7 +968,7 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str id: The ID of the device (required)
-        :param DeviceDataRequest device: (required)
+        :param DeviceDataWriteRequest device: (required)
         :return: DeviceData
                  If the method is called asynchronously,
                  returns the request thread.

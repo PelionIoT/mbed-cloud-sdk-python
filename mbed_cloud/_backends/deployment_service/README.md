@@ -57,18 +57,10 @@ deployment_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # deployment_service.configuration.api_key_prefix['Authorization'] = 'Bearer'
 # create an instance of the API class
 api_instance = deployment_service.DefaultApi()
-device_filter = 'device_filter_example' # str | The filter for the devices the campaign will target
-name = 'name_example' # str | A name for this campaign
-campaign_id = 'campaign_id_example' # str | DEPRECATED: The ID of the campaign (optional)
-description = 'description_example' # str | An optional description of the campaign (optional)
-finished = '2013-10-20T19:20:30+01:00' # datetime | The timestamp when the update campaign finished (optional)
-object = 'object_example' # str | The API resource entity (optional)
-root_manifest_id = 'root_manifest_id_example' # str |  (optional)
-state = 'state_example' # str | The state of the campaign (optional)
-when = '2013-10-20T19:20:30+01:00' # datetime | The timestamp at which update campaign scheduled to start (optional)
+update_campaign = deployment_service.UpdateCampaignRequest() # UpdateCampaignRequest | Update campaign
 
 try:
-    api_response = api_instance.update_campaign_create(device_filter, name, campaign_id=campaign_id, description=description, finished=finished, object=object, root_manifest_id=root_manifest_id, state=state, when=when)
+    api_response = api_instance.update_campaign_create(update_campaign)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->update_campaign_create: %s\n" % e)
@@ -77,7 +69,7 @@ except ApiException as e:
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://api.mbedcloud.com*
+All URIs are relative to *https://api.mbedcloud.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
@@ -93,8 +85,7 @@ Class | Method | HTTP request | Description
 
  - [UpdateCampaign](docs/UpdateCampaign.md)
  - [UpdateCampaignPage](docs/UpdateCampaignPage.md)
- - [WriteUpdateCampaign](docs/WriteUpdateCampaign.md)
- - [WriteUpdateCampaignPage](docs/WriteUpdateCampaignPage.md)
+ - [UpdateCampaignRequest](docs/UpdateCampaignRequest.md)
 
 
 ## Documentation For Authorization

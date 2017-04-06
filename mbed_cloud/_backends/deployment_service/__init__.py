@@ -16,8 +16,7 @@ from __future__ import absolute_import
 # import models into sdk package
 from .models.update_campaign import UpdateCampaign
 from .models.update_campaign_page import UpdateCampaignPage
-from .models.write_update_campaign import WriteUpdateCampaign
-from .models.write_update_campaign_page import WriteUpdateCampaignPage
+from .models.update_campaign_request import UpdateCampaignRequest
 
 # import apis into sdk package
 from .apis.default_api import DefaultApi

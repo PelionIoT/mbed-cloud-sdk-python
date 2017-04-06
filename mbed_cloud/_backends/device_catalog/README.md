@@ -57,7 +57,7 @@ device_catalog.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # device_catalog.configuration.api_key_prefix['Authorization'] = 'Bearer'
 # create an instance of the API class
 api_instance = device_catalog.DefaultApi()
-device = device_catalog.DeviceDataRequest() # DeviceDataRequest | 
+device = device_catalog.DeviceDataWriteRequest() # DeviceDataWriteRequest | 
 
 try:
     api_response = api_instance.device_create(device)
@@ -86,7 +86,8 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [DeviceData](docs/DeviceData.md)
- - [DeviceDataRequest](docs/DeviceDataRequest.md)
+ - [DeviceDataPatchRequest](docs/DeviceDataPatchRequest.md)
+ - [DeviceDataWriteRequest](docs/DeviceDataWriteRequest.md)
  - [DeviceLogData](docs/DeviceLogData.md)
  - [DeviceLogPage](docs/DeviceLogPage.md)
  - [DevicePage](docs/DevicePage.md)

@@ -36,7 +36,7 @@ device_catalog.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = device_catalog.DefaultApi()
-device = device_catalog.DeviceDataRequest() # DeviceDataRequest | 
+device = device_catalog.DeviceDataWriteRequest() # DeviceDataWriteRequest | 
 
 try: 
     api_response = api_instance.device_create(device)
@@ -49,7 +49,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **device** | [**DeviceDataRequest**](DeviceDataRequest.md)|  | 
+ **device** | [**DeviceDataWriteRequest**](DeviceDataWriteRequest.md)|  | 
 
 ### Return type
 
@@ -401,7 +401,7 @@ device_catalog.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = device_catalog.DefaultApi()
 id = 'id_example' # str | The ID of the device
-device = device_catalog.DeviceDataRequest() # DeviceDataRequest | 
+device = device_catalog.DeviceDataPatchRequest() # DeviceDataPatchRequest | 
 
 try: 
     api_response = api_instance.device_partial_update(id, device)
@@ -415,7 +415,7 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| The ID of the device | 
- **device** | [**DeviceDataRequest**](DeviceDataRequest.md)|  | 
+ **device** | [**DeviceDataPatchRequest**](DeviceDataPatchRequest.md)|  | 
 
 ### Return type
 
@@ -507,7 +507,7 @@ device_catalog.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = device_catalog.DefaultApi()
 id = 'id_example' # str | The ID of the device
-device = device_catalog.DeviceDataRequest() # DeviceDataRequest | 
+device = device_catalog.DeviceDataWriteRequest() # DeviceDataWriteRequest | 
 
 try: 
     api_response = api_instance.device_update(id, device)
@@ -521,7 +521,7 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| The ID of the device | 
- **device** | [**DeviceDataRequest**](DeviceDataRequest.md)|  | 
+ **device** | [**DeviceDataWriteRequest**](DeviceDataWriteRequest.md)|  | 
 
 ### Return type
 
