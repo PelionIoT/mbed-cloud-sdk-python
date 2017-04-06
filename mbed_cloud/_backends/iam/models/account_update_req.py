@@ -80,7 +80,7 @@ class AccountUpdateReq(object):
     def address_line2(self):
         """
         Gets the address_line2 of this AccountUpdateReq.
-        Postal address line 2.
+        Postal address line 2, not longer than 100 characters.
 
         :return: The address_line2 of this AccountUpdateReq.
         :rtype: str
@@ -91,7 +91,7 @@ class AccountUpdateReq(object):
     def address_line2(self, address_line2):
         """
         Sets the address_line2 of this AccountUpdateReq.
-        Postal address line 2.
+        Postal address line 2, not longer than 100 characters.
 
         :param address_line2: The address_line2 of this AccountUpdateReq.
         :type: str
@@ -103,7 +103,7 @@ class AccountUpdateReq(object):
     def city(self):
         """
         Gets the city of this AccountUpdateReq.
-        The city part of the postal address.
+        The city part of the postal address, not longer than 100 characters.
 
         :return: The city of this AccountUpdateReq.
         :rtype: str
@@ -114,7 +114,7 @@ class AccountUpdateReq(object):
     def city(self, city):
         """
         Sets the city of this AccountUpdateReq.
-        The city part of the postal address.
+        The city part of the postal address, not longer than 100 characters.
 
         :param city: The city of this AccountUpdateReq.
         :type: str
@@ -126,7 +126,7 @@ class AccountUpdateReq(object):
     def address_line1(self):
         """
         Gets the address_line1 of this AccountUpdateReq.
-        Postal address line 1.
+        Postal address line 1, not longer than 100 characters.
 
         :return: The address_line1 of this AccountUpdateReq.
         :rtype: str
@@ -137,7 +137,7 @@ class AccountUpdateReq(object):
     def address_line1(self, address_line1):
         """
         Sets the address_line1 of this AccountUpdateReq.
-        Postal address line 1.
+        Postal address line 1, not longer than 100 characters.
 
         :param address_line1: The address_line1 of this AccountUpdateReq.
         :type: str
@@ -149,7 +149,7 @@ class AccountUpdateReq(object):
     def display_name(self):
         """
         Gets the display_name of this AccountUpdateReq.
-        The display name for the account.
+        The display name for the account, not longer than 100 characters.
 
         :return: The display_name of this AccountUpdateReq.
         :rtype: str
@@ -160,7 +160,7 @@ class AccountUpdateReq(object):
     def display_name(self, display_name):
         """
         Sets the display_name of this AccountUpdateReq.
-        The display name for the account.
+        The display name for the account, not longer than 100 characters.
 
         :param display_name: The display_name of this AccountUpdateReq.
         :type: str
@@ -172,7 +172,7 @@ class AccountUpdateReq(object):
     def country(self):
         """
         Gets the country of this AccountUpdateReq.
-        The country part of the postal address.
+        The country part of the postal address, not longer than 100 characters.
 
         :return: The country of this AccountUpdateReq.
         :rtype: str
@@ -183,7 +183,7 @@ class AccountUpdateReq(object):
     def country(self, country):
         """
         Sets the country of this AccountUpdateReq.
-        The country part of the postal address.
+        The country part of the postal address, not longer than 100 characters.
 
         :param country: The country of this AccountUpdateReq.
         :type: str
@@ -195,7 +195,7 @@ class AccountUpdateReq(object):
     def company(self):
         """
         Gets the company of this AccountUpdateReq.
-        The name of the company.
+        The name of the company, not longer than 100 characters.
 
         :return: The company of this AccountUpdateReq.
         :rtype: str
@@ -206,7 +206,7 @@ class AccountUpdateReq(object):
     def company(self, company):
         """
         Sets the company of this AccountUpdateReq.
-        The name of the company.
+        The name of the company, not longer than 100 characters.
 
         :param company: The company of this AccountUpdateReq.
         :type: str
@@ -218,7 +218,7 @@ class AccountUpdateReq(object):
     def state(self):
         """
         Gets the state of this AccountUpdateReq.
-        The state part of the postal address.
+        The state part of the postal address, not longer than 100 characters.
 
         :return: The state of this AccountUpdateReq.
         :rtype: str
@@ -229,7 +229,7 @@ class AccountUpdateReq(object):
     def state(self, state):
         """
         Sets the state of this AccountUpdateReq.
-        The state part of the postal address.
+        The state part of the postal address, not longer than 100 characters.
 
         :param state: The state of this AccountUpdateReq.
         :type: str
@@ -241,7 +241,7 @@ class AccountUpdateReq(object):
     def contact(self):
         """
         Gets the contact of this AccountUpdateReq.
-        The name of the contact person for this account.
+        The name of the contact person for this account, not longer than 100 characters.
 
         :return: The contact of this AccountUpdateReq.
         :rtype: str
@@ -252,7 +252,7 @@ class AccountUpdateReq(object):
     def contact(self, contact):
         """
         Sets the contact of this AccountUpdateReq.
-        The name of the contact person for this account.
+        The name of the contact person for this account, not longer than 100 characters.
 
         :param contact: The contact of this AccountUpdateReq.
         :type: str

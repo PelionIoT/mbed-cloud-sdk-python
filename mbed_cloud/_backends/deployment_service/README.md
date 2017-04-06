@@ -57,7 +57,7 @@ deployment_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # deployment_service.configuration.api_key_prefix['Authorization'] = 'Bearer'
 # create an instance of the API class
 api_instance = deployment_service.DefaultApi()
-update_campaign = deployment_service.UpdateCampaignRequest() # UpdateCampaignRequest | Update campaign
+update_campaign = deployment_service.UpdateCampaignPostRequest() # UpdateCampaignPostRequest | Update campaign
 
 try:
     api_response = api_instance.update_campaign_create(update_campaign)
@@ -85,7 +85,9 @@ Class | Method | HTTP request | Description
 
  - [UpdateCampaign](docs/UpdateCampaign.md)
  - [UpdateCampaignPage](docs/UpdateCampaignPage.md)
- - [UpdateCampaignRequest](docs/UpdateCampaignRequest.md)
+ - [UpdateCampaignPatchRequest](docs/UpdateCampaignPatchRequest.md)
+ - [UpdateCampaignPostRequest](docs/UpdateCampaignPostRequest.md)
+ - [UpdateCampaignPutRequest](docs/UpdateCampaignPutRequest.md)
 
 
 ## Documentation For Authorization

@@ -88,19 +88,37 @@ class UpdateAPI(BaseAPI):
         return api.update_campaign_status(campaign_id)
 
     @catch_exceptions(DeploymentServiceApiException)
-    def add_update_campaign(self, name, **kwargs):
+    def add_update_campaign(self, name, device_filter, **kwargs):
         """Add new update campaign.
 
-        :param str description: Optional description of the campaign
+        Add an update campaign with given name and device filtering. Example:
+
+        .. code-block:: python
+
+            device_api, update_api = DeviceAPI(), UpdateAPI()
+
+            # Get a filter to use for update campaign
+            device_filter_obj = device_api.get_filter(filter_id="MYID")
+
+            # Create the campaign
+            new_campaign = update_api.add_update_campaign(
+                name="foo",
+                device_filter=device_filter_obj.query
+            )
+
+        :param str name: Name of the update campaign
         :param str device_filter: Devices to apply the update on. Provide filter ID
         :param str root_manifest_id: Manifest with metadata/description of the update
-        :param str name: Name of the update campaign
+        :param str description: Optional description of the campaign
         :param str when: The timestamp at which update campaign scheduled to start
         :return: newly created campaign object
         :rtype: UpdateCampaign
         """
         api = self.deployment_service.DefaultApi()
-        body = self.deployment_service.WriteUpdateCampaignObj(name, **kwargs)
+        body = self.deployment_service.UpdateCampaignPostRequest(
+            name=name,
+            device_filter=device_filter,
+            **kwargs)
         return api.update_campaign_create(body)
 
     @catch_exceptions(DeploymentServiceApiException)

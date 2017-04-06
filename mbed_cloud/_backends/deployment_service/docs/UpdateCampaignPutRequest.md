@@ -1,13 +1,13 @@
-# UpdateCampaignRequest
+# UpdateCampaignPutRequest
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**description** | **str** | An optional description of the campaign | [optional] 
-**when** | **str** | The timestamp at which update campaign scheduled to start | [optional] 
-**root_manifest_id** | **str** |  | [optional] 
-**state** | **str** | The state of the campaign | [optional] 
-**finished** | **str** | The timestamp when the update campaign finished | [optional] 
+**description** | **str** | An optional description of the campaign | 
+**when** | **str** | The timestamp at which update campaign scheduled to start | 
+**object** | **str** | The API resource entity | 
+**root_manifest_id** | **str** |  | 
+**state** | **str** | The state of the campaign | 
 **device_filter** | **str** | The filter for the devices the campaign will target | 
 **name** | **str** | A name for this campaign | 
 
