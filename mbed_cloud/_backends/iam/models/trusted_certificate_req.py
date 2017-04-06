@@ -106,7 +106,7 @@ class TrustedCertificateReq(object):
     def name(self):
         """
         Gets the name of this TrustedCertificateReq.
-        Certificate name.
+        Certificate name, not longer than 100 characters.
 
         :return: The name of this TrustedCertificateReq.
         :rtype: str
@@ -117,7 +117,7 @@ class TrustedCertificateReq(object):
     def name(self, name):
         """
         Sets the name of this TrustedCertificateReq.
-        Certificate name.
+        Certificate name, not longer than 100 characters.
 
         :param name: The name of this TrustedCertificateReq.
         :type: str
@@ -160,7 +160,7 @@ class TrustedCertificateReq(object):
     def description(self):
         """
         Gets the description of this TrustedCertificateReq.
-        Human readable description of this certificate.
+        Human readable description of this certificate, not longer than 500 characters.
 
         :return: The description of this TrustedCertificateReq.
         :rtype: str
@@ -171,7 +171,7 @@ class TrustedCertificateReq(object):
     def description(self, description):
         """
         Sets the description of this TrustedCertificateReq.
-        Human readable description of this certificate.
+        Human readable description of this certificate, not longer than 500 characters.
 
         :param description: The description of this TrustedCertificateReq.
         :type: str

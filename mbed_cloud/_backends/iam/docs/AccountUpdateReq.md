@@ -3,14 +3,14 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**address_line2** | **str** | Postal address line 2. | [optional] 
-**city** | **str** | The city part of the postal address. | [optional] 
-**address_line1** | **str** | Postal address line 1. | [optional] 
-**display_name** | **str** | The display name for the account. | [optional] 
-**country** | **str** | The country part of the postal address. | [optional] 
-**company** | **str** | The name of the company. | [optional] 
-**state** | **str** | The state part of the postal address. | [optional] 
-**contact** | **str** | The name of the contact person for this account. | [optional] 
+**address_line2** | **str** | Postal address line 2, not longer than 100 characters. | [optional] 
+**city** | **str** | The city part of the postal address, not longer than 100 characters. | [optional] 
+**address_line1** | **str** | Postal address line 1, not longer than 100 characters. | [optional] 
+**display_name** | **str** | The display name for the account, not longer than 100 characters. | [optional] 
+**country** | **str** | The country part of the postal address, not longer than 100 characters. | [optional] 
+**company** | **str** | The name of the company, not longer than 100 characters. | [optional] 
+**state** | **str** | The state part of the postal address, not longer than 100 characters. | [optional] 
+**contact** | **str** | The name of the contact person for this account, not longer than 100 characters. | [optional] 
 **postal_code** | **str** | The postal code part of the postal address. | [optional] 
 **parent_id** | **str** | The ID of the parent account, if it has any. | [optional] 
 **phone_number** | **str** | The phone number of the company. | [optional] 

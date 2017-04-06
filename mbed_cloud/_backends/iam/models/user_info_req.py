@@ -91,7 +91,7 @@ class UserInfoReq(object):
     def phone_number(self):
         """
         Gets the phone_number of this UserInfoReq.
-        Phone number.
+        Phone number, not longer than 100 characters.
 
         :return: The phone_number of this UserInfoReq.
         :rtype: str
@@ -102,7 +102,7 @@ class UserInfoReq(object):
     def phone_number(self, phone_number):
         """
         Sets the phone_number of this UserInfoReq.
-        Phone number.
+        Phone number, not longer than 100 characters.
 
         :param phone_number: The phone_number of this UserInfoReq.
         :type: str
@@ -183,7 +183,7 @@ class UserInfoReq(object):
     def full_name(self):
         """
         Gets the full_name of this UserInfoReq.
-        The full name of the user.
+        The full name of the user, not longer than 100 characters.
 
         :return: The full_name of this UserInfoReq.
         :rtype: str
@@ -194,7 +194,7 @@ class UserInfoReq(object):
     def full_name(self, full_name):
         """
         Sets the full_name of this UserInfoReq.
-        The full name of the user.
+        The full name of the user, not longer than 100 characters.
 
         :param full_name: The full_name of this UserInfoReq.
         :type: str
@@ -206,7 +206,7 @@ class UserInfoReq(object):
     def address(self):
         """
         Gets the address of this UserInfoReq.
-        Address.
+        Address, not longer than 100 characters.
 
         :return: The address of this UserInfoReq.
         :rtype: str
@@ -217,7 +217,7 @@ class UserInfoReq(object):
     def address(self, address):
         """
         Sets the address of this UserInfoReq.
-        Address.
+        Address, not longer than 100 characters.
 
         :param address: The address of this UserInfoReq.
         :type: str
@@ -252,7 +252,7 @@ class UserInfoReq(object):
     def email(self):
         """
         Gets the email of this UserInfoReq.
-        The email address.
+        The email address, not longer than 100 characters.
 
         :return: The email of this UserInfoReq.
         :rtype: str
@@ -263,7 +263,7 @@ class UserInfoReq(object):
     def email(self, email):
         """
         Sets the email of this UserInfoReq.
-        The email address.
+        The email address, not longer than 100 characters.
 
         :param email: The email of this UserInfoReq.
         :type: str
