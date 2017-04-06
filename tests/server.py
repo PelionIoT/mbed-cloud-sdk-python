@@ -206,7 +206,11 @@ def main(module, method, methods=["GET"]):
             str(e)
         )
 
-        raise ApiCallException(str(error_msg), status_code=500)
+        status = 500
+        if hasattr(e, 'status'):
+            status = e.status
+
+        raise ApiCallException(str(error_msg), status_code=status)
 
 
 if __name__ == "__main__":
