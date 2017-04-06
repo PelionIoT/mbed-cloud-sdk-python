@@ -229,6 +229,12 @@ class DeviceData(object):
         :param mechanism: The mechanism of this DeviceData.
         :type: str
         """
+        allowed_values = ["connector", "direct"]
+        if mechanism not in allowed_values:
+            raise ValueError(
+                "Invalid value for `mechanism` ({0}), must be one of {1}"
+                .format(mechanism, allowed_values)
+            )
 
         self._mechanism = mechanism
 
@@ -397,6 +403,12 @@ class DeviceData(object):
         :param state: The state of this DeviceData.
         :type: str
         """
+        allowed_values = ["unenrolled", "cloud_enrolling", "bootstrapped", "registered", "deregistered"]
+        if state not in allowed_values:
+            raise ValueError(
+                "Invalid value for `state` ({0}), must be one of {1}"
+                .format(state, allowed_values)
+            )
 
         self._state = state
 
