@@ -1,4 +1,4 @@
-# DeviceDataPutRequest
+# DeviceDataWriteRequest
 
 ## Properties
 Name | Type | Description | Notes
