@@ -1,6 +1,6 @@
 # deployment_service.DefaultApi
 
-All URIs are relative to *http://api.mbedcloud.com*
+All URIs are relative to *https://api.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 
 # **update_campaign_create**
-> UpdateCampaign update_campaign_create(device_filter, name, campaign_id=campaign_id, description=description, finished=finished, object=object, root_manifest_id=root_manifest_id, state=state, when=when)
+> UpdateCampaign update_campaign_create(update_campaign)
 
 
 
@@ -34,18 +34,10 @@ deployment_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = deployment_service.DefaultApi()
-device_filter = 'device_filter_example' # str | The filter for the devices the campaign will target
-name = 'name_example' # str | A name for this campaign
-campaign_id = 'campaign_id_example' # str | DEPRECATED: The ID of the campaign (optional)
-description = 'description_example' # str | An optional description of the campaign (optional)
-finished = '2013-10-20T19:20:30+01:00' # datetime | The timestamp when the update campaign finished (optional)
-object = 'object_example' # str | The API resource entity (optional)
-root_manifest_id = 'root_manifest_id_example' # str |  (optional)
-state = 'state_example' # str | The state of the campaign (optional)
-when = '2013-10-20T19:20:30+01:00' # datetime | The timestamp at which update campaign scheduled to start (optional)
+update_campaign = deployment_service.UpdateCampaignRequest() # UpdateCampaignRequest | Update campaign
 
 try: 
-    api_response = api_instance.update_campaign_create(device_filter, name, campaign_id=campaign_id, description=description, finished=finished, object=object, root_manifest_id=root_manifest_id, state=state, when=when)
+    api_response = api_instance.update_campaign_create(update_campaign)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->update_campaign_create: %s\n" % e)
@@ -55,15 +47,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **device_filter** | **str**| The filter for the devices the campaign will target | 
- **name** | **str**| A name for this campaign | 
- **campaign_id** | **str**| DEPRECATED: The ID of the campaign | [optional] 
- **description** | **str**| An optional description of the campaign | [optional] 
- **finished** | **datetime**| The timestamp when the update campaign finished | [optional] 
- **object** | **str**| The API resource entity | [optional] 
- **root_manifest_id** | **str**|  | [optional] 
- **state** | **str**| The state of the campaign | [optional] 
- **when** | **datetime**| The timestamp at which update campaign scheduled to start | [optional] 
+ **update_campaign** | [**UpdateCampaignRequest**](UpdateCampaignRequest.md)| Update campaign | 
 
 ### Return type
 
@@ -81,7 +65,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_campaign_destroy**
-> UpdateCampaign update_campaign_destroy(campaign_id, root_manifest_id=root_manifest_id, updating_request_id=updating_request_id, finished=finished, finished__gte=finished__gte, finished__lte=finished__lte, created_at=created_at, created_at__gte=created_at__gte, created_at__lte=created_at__lte, when=when, when__gte=when__gte, when__lte=when__lte, updating_ip_address=updating_ip_address, etag=etag, etag__gte=etag__gte, etag__lte=etag__lte, object=object, state=state, name=name, updated_at=updated_at, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, device_filter=device_filter, campaigndevicemetadata=campaigndevicemetadata, description=description, attempts=attempts)
+> UpdateCampaign update_campaign_destroy(campaign_id)
 
 
 
@@ -103,34 +87,9 @@ deployment_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = deployment_service.DefaultApi()
 campaign_id = 'campaign_id_example' # str | The ID of the update campaign
-root_manifest_id = 'root_manifest_id_example' # str |  (optional)
-updating_request_id = 'updating_request_id_example' # str |  (optional)
-finished = 'finished_example' # str |  (optional)
-finished__gte = 'finished__gte_example' # str |  (optional)
-finished__lte = 'finished__lte_example' # str |  (optional)
-created_at = 'created_at_example' # str |  (optional)
-created_at__gte = 'created_at__gte_example' # str |  (optional)
-created_at__lte = 'created_at__lte_example' # str |  (optional)
-when = 'when_example' # str |  (optional)
-when__gte = 'when__gte_example' # str |  (optional)
-when__lte = 'when__lte_example' # str |  (optional)
-updating_ip_address = 'updating_ip_address_example' # str |  (optional)
-etag = 'etag_example' # str |  (optional)
-etag__gte = 'etag__gte_example' # str |  (optional)
-etag__lte = 'etag__lte_example' # str |  (optional)
-object = 'object_example' # str |  (optional)
-state = 'state_example' # str |  (optional)
-name = 'name_example' # str |  (optional)
-updated_at = 'updated_at_example' # str |  (optional)
-updated_at__gte = 'updated_at__gte_example' # str |  (optional)
-updated_at__lte = 'updated_at__lte_example' # str |  (optional)
-device_filter = 'device_filter_example' # str |  (optional)
-campaigndevicemetadata = 'campaigndevicemetadata_example' # str |  (optional)
-description = 'description_example' # str |  (optional)
-attempts = 'attempts_example' # str |  (optional)
 
 try: 
-    api_response = api_instance.update_campaign_destroy(campaign_id, root_manifest_id=root_manifest_id, updating_request_id=updating_request_id, finished=finished, finished__gte=finished__gte, finished__lte=finished__lte, created_at=created_at, created_at__gte=created_at__gte, created_at__lte=created_at__lte, when=when, when__gte=when__gte, when__lte=when__lte, updating_ip_address=updating_ip_address, etag=etag, etag__gte=etag__gte, etag__lte=etag__lte, object=object, state=state, name=name, updated_at=updated_at, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, device_filter=device_filter, campaigndevicemetadata=campaigndevicemetadata, description=description, attempts=attempts)
+    api_response = api_instance.update_campaign_destroy(campaign_id)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->update_campaign_destroy: %s\n" % e)
@@ -141,31 +100,6 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **campaign_id** | **str**| The ID of the update campaign | 
- **root_manifest_id** | **str**|  | [optional] 
- **updating_request_id** | **str**|  | [optional] 
- **finished** | **str**|  | [optional] 
- **finished__gte** | **str**|  | [optional] 
- **finished__lte** | **str**|  | [optional] 
- **created_at** | **str**|  | [optional] 
- **created_at__gte** | **str**|  | [optional] 
- **created_at__lte** | **str**|  | [optional] 
- **when** | **str**|  | [optional] 
- **when__gte** | **str**|  | [optional] 
- **when__lte** | **str**|  | [optional] 
- **updating_ip_address** | **str**|  | [optional] 
- **etag** | **str**|  | [optional] 
- **etag__gte** | **str**|  | [optional] 
- **etag__lte** | **str**|  | [optional] 
- **object** | **str**|  | [optional] 
- **state** | **str**|  | [optional] 
- **name** | **str**|  | [optional] 
- **updated_at** | **str**|  | [optional] 
- **updated_at__gte** | **str**|  | [optional] 
- **updated_at__lte** | **str**|  | [optional] 
- **device_filter** | **str**|  | [optional] 
- **campaigndevicemetadata** | **str**|  | [optional] 
- **description** | **str**|  | [optional] 
- **attempts** | **str**|  | [optional] 
 
 ### Return type
 
@@ -183,7 +117,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_campaign_list**
-> UpdateCampaignPage update_campaign_list(limit=limit, order=order, after=after, filter=filter)
+> UpdateCampaignPage update_campaign_list(limit=limit, order=order, after=after, filter=filter, include=include, created_at=created_at, created_at__lte=created_at__lte, created_at__gte=created_at__gte, description=description, device_filter=device_filter, id=id, name=name, object=object, root_manifest_id=root_manifest_id, root_manifest_url=root_manifest_url, started_at=started_at, started_at__lte=started_at__lte, stated_at__gte=stated_at__gte, state=state, updated_at=updated_at, updated_at__lte=updated_at__lte, updated_at_gte=updated_at_gte, when=when, when__lte=when__lte, when_gte=when_gte)
 
 
 
@@ -208,9 +142,30 @@ limit = 56 # int | how many objects to retrieve in the page (optional)
 order = 'order_example' # str | ASC or DESC (optional)
 after = 'after_example' # str | the ID of the the item after which to retrieve the next page (optional)
 filter = 'filter_example' # str | URL encoded query string parameter to filter returned data (optional)
+include = 'include_example' # str | Comma separated list of data fields to return. Currently supported: total_count (optional)
+created_at = 'created_at_example' # str |  (optional)
+created_at__lte = 'created_at__lte_example' # str |  (optional)
+created_at__gte = 'created_at__gte_example' # str |  (optional)
+description = 'description_example' # str |  (optional)
+device_filter = 'device_filter_example' # str |  (optional)
+id = 'id_example' # str |  (optional)
+name = 'name_example' # str |  (optional)
+object = 'object_example' # str |  (optional)
+root_manifest_id = 'root_manifest_id_example' # str |  (optional)
+root_manifest_url = 'root_manifest_url_example' # str |  (optional)
+started_at = 'started_at_example' # str |  (optional)
+started_at__lte = 'started_at__lte_example' # str |  (optional)
+stated_at__gte = 'stated_at__gte_example' # str |  (optional)
+state = 'state_example' # str |  (optional)
+updated_at = 'updated_at_example' # str |  (optional)
+updated_at__lte = 'updated_at__lte_example' # str |  (optional)
+updated_at_gte = 'updated_at_gte_example' # str |  (optional)
+when = 'when_example' # str |  (optional)
+when__lte = 'when__lte_example' # str |  (optional)
+when_gte = 'when_gte_example' # str |  (optional)
 
 try: 
-    api_response = api_instance.update_campaign_list(limit=limit, order=order, after=after, filter=filter)
+    api_response = api_instance.update_campaign_list(limit=limit, order=order, after=after, filter=filter, include=include, created_at=created_at, created_at__lte=created_at__lte, created_at__gte=created_at__gte, description=description, device_filter=device_filter, id=id, name=name, object=object, root_manifest_id=root_manifest_id, root_manifest_url=root_manifest_url, started_at=started_at, started_at__lte=started_at__lte, stated_at__gte=stated_at__gte, state=state, updated_at=updated_at, updated_at__lte=updated_at__lte, updated_at_gte=updated_at_gte, when=when, when__lte=when__lte, when_gte=when_gte)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->update_campaign_list: %s\n" % e)
@@ -224,6 +179,27 @@ Name | Type | Description  | Notes
  **order** | **str**| ASC or DESC | [optional] 
  **after** | **str**| the ID of the the item after which to retrieve the next page | [optional] 
  **filter** | **str**| URL encoded query string parameter to filter returned data | [optional] 
+ **include** | **str**| Comma separated list of data fields to return. Currently supported: total_count | [optional] 
+ **created_at** | **str**|  | [optional] 
+ **created_at__lte** | **str**|  | [optional] 
+ **created_at__gte** | **str**|  | [optional] 
+ **description** | **str**|  | [optional] 
+ **device_filter** | **str**|  | [optional] 
+ **id** | **str**|  | [optional] 
+ **name** | **str**|  | [optional] 
+ **object** | **str**|  | [optional] 
+ **root_manifest_id** | **str**|  | [optional] 
+ **root_manifest_url** | **str**|  | [optional] 
+ **started_at** | **str**|  | [optional] 
+ **started_at__lte** | **str**|  | [optional] 
+ **stated_at__gte** | **str**|  | [optional] 
+ **state** | **str**|  | [optional] 
+ **updated_at** | **str**|  | [optional] 
+ **updated_at__lte** | **str**|  | [optional] 
+ **updated_at_gte** | **str**|  | [optional] 
+ **when** | **str**|  | [optional] 
+ **when__lte** | **str**|  | [optional] 
+ **when_gte** | **str**|  | [optional] 
 
 ### Return type
 
@@ -241,7 +217,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_campaign_partial_update**
-> UpdateCampaign update_campaign_partial_update(campaign_id, campaign_id2=campaign_id2, description=description, device_filter=device_filter, finished=finished, name=name, object=object, root_manifest_id=root_manifest_id, state=state, when=when)
+> UpdateCampaign update_campaign_partial_update(campaign_id, update_campaign)
 
 
 
@@ -263,18 +239,10 @@ deployment_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = deployment_service.DefaultApi()
 campaign_id = 'campaign_id_example' # str | 
-campaign_id2 = 'campaign_id_example' # str | DEPRECATED: The ID of the campaign (optional)
-description = 'description_example' # str | An optional description of the campaign (optional)
-device_filter = 'device_filter_example' # str | The filter for the devices the campaign will target (optional)
-finished = '2013-10-20T19:20:30+01:00' # datetime | The timestamp when the update campaign finished (optional)
-name = 'name_example' # str | A name for this campaign (optional)
-object = 'object_example' # str | The API resource entity (optional)
-root_manifest_id = 'root_manifest_id_example' # str |  (optional)
-state = 'state_example' # str | The state of the campaign (optional)
-when = '2013-10-20T19:20:30+01:00' # datetime | The timestamp at which update campaign scheduled to start (optional)
+update_campaign = deployment_service.UpdateCampaignRequest() # UpdateCampaignRequest | Update campaign
 
 try: 
-    api_response = api_instance.update_campaign_partial_update(campaign_id, campaign_id2=campaign_id2, description=description, device_filter=device_filter, finished=finished, name=name, object=object, root_manifest_id=root_manifest_id, state=state, when=when)
+    api_response = api_instance.update_campaign_partial_update(campaign_id, update_campaign)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->update_campaign_partial_update: %s\n" % e)
@@ -285,15 +253,7 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **campaign_id** | **str**|  | 
- **campaign_id2** | **str**| DEPRECATED: The ID of the campaign | [optional] 
- **description** | **str**| An optional description of the campaign | [optional] 
- **device_filter** | **str**| The filter for the devices the campaign will target | [optional] 
- **finished** | **datetime**| The timestamp when the update campaign finished | [optional] 
- **name** | **str**| A name for this campaign | [optional] 
- **object** | **str**| The API resource entity | [optional] 
- **root_manifest_id** | **str**|  | [optional] 
- **state** | **str**| The state of the campaign | [optional] 
- **when** | **datetime**| The timestamp at which update campaign scheduled to start | [optional] 
+ **update_campaign** | [**UpdateCampaignRequest**](UpdateCampaignRequest.md)| Update campaign | 
 
 ### Return type
 
@@ -363,7 +323,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_campaign_update**
-> UpdateCampaign update_campaign_update(campaign_id, device_filter, name, campaign_id2=campaign_id2, description=description, finished=finished, object=object, root_manifest_id=root_manifest_id, state=state, when=when)
+> UpdateCampaign update_campaign_update(campaign_id, update_campaign)
 
 
 
@@ -385,18 +345,10 @@ deployment_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = deployment_service.DefaultApi()
 campaign_id = 'campaign_id_example' # str | 
-device_filter = 'device_filter_example' # str | The filter for the devices the campaign will target
-name = 'name_example' # str | A name for this campaign
-campaign_id2 = 'campaign_id_example' # str | DEPRECATED: The ID of the campaign (optional)
-description = 'description_example' # str | An optional description of the campaign (optional)
-finished = '2013-10-20T19:20:30+01:00' # datetime | The timestamp when the update campaign finished (optional)
-object = 'object_example' # str | The API resource entity (optional)
-root_manifest_id = 'root_manifest_id_example' # str |  (optional)
-state = 'state_example' # str | The state of the campaign (optional)
-when = '2013-10-20T19:20:30+01:00' # datetime | The timestamp at which update campaign scheduled to start (optional)
+update_campaign = deployment_service.UpdateCampaignRequest() # UpdateCampaignRequest | Update campaign
 
 try: 
-    api_response = api_instance.update_campaign_update(campaign_id, device_filter, name, campaign_id2=campaign_id2, description=description, finished=finished, object=object, root_manifest_id=root_manifest_id, state=state, when=when)
+    api_response = api_instance.update_campaign_update(campaign_id, update_campaign)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->update_campaign_update: %s\n" % e)
@@ -407,15 +359,7 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **campaign_id** | **str**|  | 
- **device_filter** | **str**| The filter for the devices the campaign will target | 
- **name** | **str**| A name for this campaign | 
- **campaign_id2** | **str**| DEPRECATED: The ID of the campaign | [optional] 
- **description** | **str**| An optional description of the campaign | [optional] 
- **finished** | **datetime**| The timestamp when the update campaign finished | [optional] 
- **object** | **str**| The API resource entity | [optional] 
- **root_manifest_id** | **str**|  | [optional] 
- **state** | **str**| The state of the campaign | [optional] 
- **when** | **datetime**| The timestamp at which update campaign scheduled to start | [optional] 
+ **update_campaign** | [**UpdateCampaignRequest**](UpdateCampaignRequest.md)| Update campaign | 
 
 ### Return type
 
