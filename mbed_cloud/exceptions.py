@@ -15,8 +15,9 @@
 
 
 class CloudApiException(Exception):
-    """exception thrown when an Exception is thrown is SDK"""
+    """Exception thrown when an Exception is thrown is SDK"""
 
+    """Init CloudApiException"""
     def __init__(self, message, reason=None, status=400):
         self.message = message
         self.status = status
@@ -30,6 +31,8 @@ class CloudBackendError(CloudApiException):
     with the cloud API. This can be authentication errors, connectivity issues
     or invalid usage of the API.
     """
+
+    """Init CloudBackendError"""
     def __init__(self, e):
         super(CloudBackendError, self).__init__(e.message, e.reason, e.status)
 
@@ -41,6 +44,8 @@ class CloudValueError(CloudApiException):
     with the cloud API. This can be authentication errors, connectivity issues
     or invalid usage of the API.
     """
+
+    """Init CloudValueError"""
     def __init__(self, message, reason=None, status=400):
         super(CloudValueError, self).__init__(message, reason, status)
 
@@ -51,6 +56,8 @@ class CloudUnhandledError(CloudApiException):
     Only applicable when threads are setup and the user needs to call `is_done`
     and `error` before getting value.
     """
+
+    """Init CloudUnhandledError"""
     def __init__(self, message, reason=None, status=400):
         super(CloudUnhandledError, self).__init__(message, reason, status)
 
@@ -61,11 +68,15 @@ class CloudAsyncError(CloudApiException):
     Typically only found when an error is raised from the backend. Should be
     handled by the user.
     """
+
+    """Init CloudAsyncError"""
     def __init__(self, message, reason=None, status=400):
         super(CloudAsyncError, self).__init__(message, reason, status)
 
 
 class CloudTimeoutError(CloudApiException):
     """Thrown when running in synchronized/blocking mode, and the request times out."""
+
+    """Init CloudTimeoutError"""
     def __init__(self, message, reason=None, status=400):
         super(CloudTimeoutError, self).__init__(message, reason, status)

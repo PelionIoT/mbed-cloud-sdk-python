@@ -686,7 +686,8 @@ class DeviceAPI(BaseAPI):
         # Add custom attributes, if provided
         if custom_attributes:
             if not isinstance(custom_attributes, dict):
-                raise CLoudValueError("Custom attributes when creating filter needs to be dict object")
+                raise CloudValueError("Custom attributes when creating filter"
+                                      "needs to be dict object")
             for k, v in custom_attributes.iteritems():
                 if not k:
                     LOG.warning("Ignoring custom attribute with value %r as key is empty" % (v,))
@@ -716,7 +717,9 @@ class DeviceAPI(BaseAPI):
         while not consumer.is_done:
             duration = int(time.time()) - start_time
             if timeout and duration > timeout:
-                raise CloudTimeoutError("Timeout getting async value. Timeout: %d seconds" % (timeout,))
+                raise CloudTimeoutError("Timeout getting async value. Timeout: %d seconds"
+                                        % (timeout,)
+                                        )
             time.sleep(0.1)
 
         # If we get an error we throw an exception to the user, which can then be handled
@@ -795,7 +798,7 @@ class AsyncConsumer(object):
             raise CloudUnhandledError("Need to check if request is done, before getting value")
         if self.error:
             raise CloudUnhandledError("Async request returned an error. Need to check for errors,"
-                                 "before getting value.\nError: %s" % self.error)
+                                      "before getting value.\nError: %s" % self.error)
 
         # Return the payload
         return self.db[self.async_id]["payload"]
