@@ -121,8 +121,6 @@ class UpdateCampaign(object):
         :param when: The when of this UpdateCampaign.
         :type: str
         """
-        if when is None:
-            raise ValueError("Invalid value for `when`, must not be `None`")
 
         self._when = when
 
@@ -248,8 +246,6 @@ class UpdateCampaign(object):
         :param finished: The finished of this UpdateCampaign.
         :type: str
         """
-        if finished is None:
-            raise ValueError("Invalid value for `finished`, must not be `None`")
 
         self._finished = finished
 
@@ -319,8 +315,6 @@ class UpdateCampaign(object):
         :param started_at: The started_at of this UpdateCampaign.
         :type: datetime
         """
-        if started_at is None:
-            raise ValueError("Invalid value for `started_at`, must not be `None`")
 
         self._started_at = started_at
 
