@@ -1,4 +1,4 @@
-# DeviceDataRequest
+# DeviceDataPatchRequest
 
 ## Properties
 Name | Type | Description | Notes
@@ -17,7 +17,6 @@ Name | Type | Description | Notes
 **trust_class** | **int** |  | [optional] 
 **device_key** | **str** |  | [optional] 
 **state** | **str** |  | [optional] 
-**attestation_method** | **int** |  | [optional] 
 **ca_id** | **str** |  | [optional] 
 **deployment** | **str** |  | [optional] 
 **mechanism_url** | **str** |  | [optional] 

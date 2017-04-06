@@ -86,7 +86,8 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [DeviceData](docs/DeviceData.md)
- - [DeviceDataRequest](docs/DeviceDataRequest.md)
+ - [DeviceDataPatchRequest](docs/DeviceDataPatchRequest.md)
+ - [DeviceDataPutRequest](docs/DeviceDataPutRequest.md)
  - [DeviceLogData](docs/DeviceLogData.md)
  - [DeviceLogPage](docs/DeviceLogPage.md)
  - [DevicePage](docs/DevicePage.md)
