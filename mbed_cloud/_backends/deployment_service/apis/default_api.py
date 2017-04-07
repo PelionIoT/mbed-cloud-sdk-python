@@ -40,7 +40,7 @@ class DefaultApi(object):
                 config.api_client = ApiClient()
             self.api_client = config.api_client
 
-    def update_campaign_create(self, update_campaign, **kwargs):
+    def update_campaign_create(self, campaign, **kwargs):
         """
         <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Create update campaign</p>
         This method makes a synchronous HTTP request by default. To make an
@@ -49,23 +49,23 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.update_campaign_create(update_campaign, callback=callback_function)
+        >>> thread = api.update_campaign_create(campaign, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param UpdateCampaignPostRequest update_campaign: Update campaign (required)
+        :param UpdateCampaignPostRequest campaign: Update campaign (required)
         :return: UpdateCampaign
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.update_campaign_create_with_http_info(update_campaign, **kwargs)
+            return self.update_campaign_create_with_http_info(campaign, **kwargs)
         else:
-            (data) = self.update_campaign_create_with_http_info(update_campaign, **kwargs)
+            (data) = self.update_campaign_create_with_http_info(campaign, **kwargs)
             return data
 
-    def update_campaign_create_with_http_info(self, update_campaign, **kwargs):
+    def update_campaign_create_with_http_info(self, campaign, **kwargs):
         """
         <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Create update campaign</p>
         This method makes a synchronous HTTP request by default. To make an
@@ -74,17 +74,17 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.update_campaign_create_with_http_info(update_campaign, callback=callback_function)
+        >>> thread = api.update_campaign_create_with_http_info(campaign, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param UpdateCampaignPostRequest update_campaign: Update campaign (required)
+        :param UpdateCampaignPostRequest campaign: Update campaign (required)
         :return: UpdateCampaign
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['update_campaign']
+        all_params = ['campaign']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -99,9 +99,9 @@ class DefaultApi(object):
                 )
             params[key] = val
         del params['kwargs']
-        # verify the required parameter 'update_campaign' is set
-        if ('update_campaign' not in params) or (params['update_campaign'] is None):
-            raise ValueError("Missing the required parameter `update_campaign` when calling `update_campaign_create`")
+        # verify the required parameter 'campaign' is set
+        if ('campaign' not in params) or (params['campaign'] is None):
+            raise ValueError("Missing the required parameter `campaign` when calling `update_campaign_create`")
 
 
         collection_formats = {}
@@ -117,8 +117,8 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
-        if 'update_campaign' in params:
-            body_params = params['update_campaign']
+        if 'campaign' in params:
+            body_params = params['campaign']
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -436,7 +436,7 @@ class DefaultApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
-    def update_campaign_partial_update(self, campaign_id, update_campaign, **kwargs):
+    def update_campaign_partial_update(self, campaign_id, campaign, **kwargs):
         """
         <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Update campaign fields</p>
         This method makes a synchronous HTTP request by default. To make an
@@ -445,24 +445,24 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.update_campaign_partial_update(campaign_id, update_campaign, callback=callback_function)
+        >>> thread = api.update_campaign_partial_update(campaign_id, campaign, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str campaign_id: (required)
-        :param UpdateCampaignPatchRequest update_campaign: Update campaign (required)
+        :param UpdateCampaignPatchRequest campaign: Update campaign (required)
         :return: UpdateCampaignPatchRequest
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.update_campaign_partial_update_with_http_info(campaign_id, update_campaign, **kwargs)
+            return self.update_campaign_partial_update_with_http_info(campaign_id, campaign, **kwargs)
         else:
-            (data) = self.update_campaign_partial_update_with_http_info(campaign_id, update_campaign, **kwargs)
+            (data) = self.update_campaign_partial_update_with_http_info(campaign_id, campaign, **kwargs)
             return data
 
-    def update_campaign_partial_update_with_http_info(self, campaign_id, update_campaign, **kwargs):
+    def update_campaign_partial_update_with_http_info(self, campaign_id, campaign, **kwargs):
         """
         <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Update campaign fields</p>
         This method makes a synchronous HTTP request by default. To make an
@@ -471,18 +471,18 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.update_campaign_partial_update_with_http_info(campaign_id, update_campaign, callback=callback_function)
+        >>> thread = api.update_campaign_partial_update_with_http_info(campaign_id, campaign, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str campaign_id: (required)
-        :param UpdateCampaignPatchRequest update_campaign: Update campaign (required)
+        :param UpdateCampaignPatchRequest campaign: Update campaign (required)
         :return: UpdateCampaignPatchRequest
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['campaign_id', 'update_campaign']
+        all_params = ['campaign_id', 'campaign']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -500,9 +500,9 @@ class DefaultApi(object):
         # verify the required parameter 'campaign_id' is set
         if ('campaign_id' not in params) or (params['campaign_id'] is None):
             raise ValueError("Missing the required parameter `campaign_id` when calling `update_campaign_partial_update`")
-        # verify the required parameter 'update_campaign' is set
-        if ('update_campaign' not in params) or (params['update_campaign'] is None):
-            raise ValueError("Missing the required parameter `update_campaign` when calling `update_campaign_partial_update`")
+        # verify the required parameter 'campaign' is set
+        if ('campaign' not in params) or (params['campaign'] is None):
+            raise ValueError("Missing the required parameter `campaign` when calling `update_campaign_partial_update`")
 
 
         collection_formats = {}
@@ -520,8 +520,8 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
-        if 'update_campaign' in params:
-            body_params = params['update_campaign']
+        if 'campaign' in params:
+            body_params = params['campaign']
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -637,7 +637,7 @@ class DefaultApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
-    def update_campaign_update(self, campaign_id, update_campaign, **kwargs):
+    def update_campaign_update(self, campaign_id, campaign, **kwargs):
         """
         <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Update campaign</p>
         This method makes a synchronous HTTP request by default. To make an
@@ -646,24 +646,24 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.update_campaign_update(campaign_id, update_campaign, callback=callback_function)
+        >>> thread = api.update_campaign_update(campaign_id, campaign, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str campaign_id: (required)
-        :param UpdateCampaignPutRequest update_campaign: Update campaign (required)
+        :param UpdateCampaignPutRequest campaign: Update campaign (required)
         :return: UpdateCampaign
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.update_campaign_update_with_http_info(campaign_id, update_campaign, **kwargs)
+            return self.update_campaign_update_with_http_info(campaign_id, campaign, **kwargs)
         else:
-            (data) = self.update_campaign_update_with_http_info(campaign_id, update_campaign, **kwargs)
+            (data) = self.update_campaign_update_with_http_info(campaign_id, campaign, **kwargs)
             return data
 
-    def update_campaign_update_with_http_info(self, campaign_id, update_campaign, **kwargs):
+    def update_campaign_update_with_http_info(self, campaign_id, campaign, **kwargs):
         """
         <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Update campaign</p>
         This method makes a synchronous HTTP request by default. To make an
@@ -672,18 +672,18 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.update_campaign_update_with_http_info(campaign_id, update_campaign, callback=callback_function)
+        >>> thread = api.update_campaign_update_with_http_info(campaign_id, campaign, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str campaign_id: (required)
-        :param UpdateCampaignPutRequest update_campaign: Update campaign (required)
+        :param UpdateCampaignPutRequest campaign: Update campaign (required)
         :return: UpdateCampaign
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['campaign_id', 'update_campaign']
+        all_params = ['campaign_id', 'campaign']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -701,9 +701,9 @@ class DefaultApi(object):
         # verify the required parameter 'campaign_id' is set
         if ('campaign_id' not in params) or (params['campaign_id'] is None):
             raise ValueError("Missing the required parameter `campaign_id` when calling `update_campaign_update`")
-        # verify the required parameter 'update_campaign' is set
-        if ('update_campaign' not in params) or (params['update_campaign'] is None):
-            raise ValueError("Missing the required parameter `update_campaign` when calling `update_campaign_update`")
+        # verify the required parameter 'campaign' is set
+        if ('campaign' not in params) or (params['campaign'] is None):
+            raise ValueError("Missing the required parameter `campaign` when calling `update_campaign_update`")
 
 
         collection_formats = {}
@@ -721,8 +721,8 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
-        if 'update_campaign' in params:
-            body_params = params['update_campaign']
+        if 'campaign' in params:
+            body_params = params['campaign']
         # Authentication setting
         auth_settings = ['Bearer']
 

@@ -1,4 +1,4 @@
-# DeviceQueryPutRequest
+# DeviceQueryPostPutRequest
 
 ## Properties
 Name | Type | Description | Notes

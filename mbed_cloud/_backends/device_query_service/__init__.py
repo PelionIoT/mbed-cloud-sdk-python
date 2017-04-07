@@ -17,7 +17,7 @@ from __future__ import absolute_import
 from .models.device_query import DeviceQuery
 from .models.device_query_page import DeviceQueryPage
 from .models.device_query_patch_request import DeviceQueryPatchRequest
-from .models.device_query_put_request import DeviceQueryPutRequest
+from .models.device_query_post_put_request import DeviceQueryPostPutRequest
 
 # import apis into sdk package
 from .apis.default_api import DefaultApi
