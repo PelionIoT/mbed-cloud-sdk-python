@@ -643,7 +643,7 @@ class DeviceAPI(BaseAPI):
         # Get urlencoded query attribute
         query = self._get_filter_attributes(query, custom_attributes)
 
-        body = self.dc_queries.DeviceQueryPutRequest(
+        body = self.dc_queries.DeviceQueryPostPutRequest(
             name=name,
             query=query,
             **kwargs
