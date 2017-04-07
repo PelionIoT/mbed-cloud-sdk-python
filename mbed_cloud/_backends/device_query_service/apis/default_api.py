@@ -53,7 +53,7 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param DeviceQuery device: (required)
+        :param DeviceQueryPostPutRequest device: (required)
         :return: DeviceQuery
                  If the method is called asynchronously,
                  returns the request thread.
@@ -78,7 +78,7 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param DeviceQuery device: (required)
+        :param DeviceQueryPostPutRequest device: (required)
         :return: DeviceQuery
                  If the method is called asynchronously,
                  returns the request thread.
@@ -615,7 +615,7 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str query_id: (required)
-        :param DeviceQueryPutRequest body: Device query update object (required)
+        :param DeviceQueryPostPutRequest body: Device query update object (required)
         :return: DeviceQuery
                  If the method is called asynchronously,
                  returns the request thread.
@@ -641,7 +641,7 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str query_id: (required)
-        :param DeviceQueryPutRequest body: Device query update object (required)
+        :param DeviceQueryPostPutRequest body: Device query update object (required)
         :return: DeviceQuery
                  If the method is called asynchronously,
                  returns the request thread.
