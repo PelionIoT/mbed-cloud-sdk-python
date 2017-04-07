@@ -26,7 +26,6 @@ from flask import request
 from mbed_cloud.access import AccessAPI
 from mbed_cloud.devices import DeviceAPI
 from mbed_cloud.logging import LoggingAPI
-from mbed_cloud import PaginatedResponse
 from mbed_cloud.statistics import StatisticsAPI
 from mbed_cloud.update import UpdateAPI
 from urllib import unquote
@@ -175,11 +174,6 @@ def main(module, method, methods=["GET"]):
         # Handle functions which returns void
         if not return_obj:
             return jsonify({})
-
-        # Check if return object is of type PaginatedResponse, which we'll
-        # handle specially by just returning the first page as an array.
-        if isinstance(return_obj, PaginatedResponse):
-            return_obj = _fix_paginated_response(return_obj)
 
         # Check if we can concert to dict for inner objects in a list
         if isinstance(return_obj, list):
