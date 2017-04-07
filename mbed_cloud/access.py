@@ -172,7 +172,7 @@ class AccessAPI(BaseAPI):
         return User(api.create_user(body))
 
     @catch_exceptions(ApiException)
-    def get_account_details(self):
+    def get_account(self):
         """Get details of the current account.
 
         :returns: an account object.
@@ -207,7 +207,7 @@ class Account(AccountInfo):
         api = AccessAPI()
 
         # Get account owning the API key in use
-        current_account = api.get_account_details()
+        current_account = api.get_account()
         print(current_account.company)
     """
 

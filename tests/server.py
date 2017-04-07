@@ -26,7 +26,6 @@ from flask import request
 from mbed_cloud.access import AccessAPI
 from mbed_cloud.devices import DeviceAPI
 from mbed_cloud.logging import LoggingAPI
-from mbed_cloud import PaginatedResponse
 from mbed_cloud.statistics import StatisticsAPI
 from mbed_cloud.update import UpdateAPI
 from urllib import unquote
@@ -176,11 +175,6 @@ def main(module, method, methods=["GET"]):
         if not return_obj:
             return jsonify({})
 
-        # Check if return object is of type PaginatedResponse, which we'll
-        # handle specially by just returning the first page as an array.
-        if isinstance(return_obj, PaginatedResponse):
-            return_obj = _fix_paginated_response(return_obj)
-
         # Check if we can concert to dict for inner objects in a list
         if isinstance(return_obj, list):
             return_obj = map(lambda o: _get_dict(o), return_obj)
@@ -206,7 +200,13 @@ def main(module, method, methods=["GET"]):
             str(e)
         )
 
-        raise ApiCallException(str(error_msg), status_code=500)
+        # Set defaul status_code as 500
+        status_code = 500
+        # Check if error contains code status, return it if it does
+        if hasattr(e, 'status'):
+            status_code = e.status
+
+        raise ApiCallException(str(error_msg), status_code=status_code)
 
 
 if __name__ == "__main__":

@@ -79,6 +79,20 @@ class BaseAPI(object):
         return kwargs
 
 
+class _FakePaginatedResponse(object):
+    """Fake a summary page that is returned from API when mocking paginated response."""
+
+    def __init__(self, data):
+        self.data = data
+
+    def to_dict(self):
+        return {
+            'data': [e.to_dict() for e in self.data],
+            'total_count': len(self.data),
+            'has_more': False
+        }
+
+
 class PaginatedResponse(object):
     """Paginated response object wrapper.
 
@@ -95,13 +109,19 @@ class PaginatedResponse(object):
         self._func = func
         self._lwrap_type = lwrap_type
         self._kwargs = kwargs
-        self._idx = 0
         self._limit = limit
+        self._data = None
 
         # Initial values, will be updated in first response
-        self.has_more = False
-        self._data = init_data
-        self.total_count = None if self._data is None else len(self._data)
+        self._raw_response = None
+        self._has_more = False
+        self._idx = 0
+        if init_data is not None:
+            self._data = init_data
+            self._raw_response = _FakePaginatedResponse(init_data)
+
+        # Calculate total count on initial data, if set.
+        self._total_count = None if self._data is None else len(self._data)
 
         # Do initial request, if needed.
         if self._data is None:
@@ -109,11 +129,12 @@ class PaginatedResponse(object):
 
     def _get_page(self):
         resp = self._func(**self._kwargs)
+        self._raw_response = resp
 
         # Update properties
-        self.has_more = resp.has_more
-        self.total_count = resp.total_count
-        self.data = [self._lwrap_type(e) if self._lwrap_type else e for e in resp.data]
+        self._has_more = resp.has_more
+        self._total_count = resp.total_count
+        self._data = [self._lwrap_type(e) if self._lwrap_type else e for e in resp.data]
 
         # Update 'after' by taking the last element ID
         if len(resp.data) > 0:
@@ -172,6 +193,10 @@ class PaginatedResponse(object):
             return self._get_total_count()
         return self.total_count
 
+    def to_dict(self):
+        """Propagate the to_dict of the inner response for the paginated response."""
+        return self._raw_response.to_dict()
+
     def __iter__(self):
         """Override iter, as to provide iterable interface to Pagination object.
 
@@ -185,6 +210,11 @@ class PaginatedResponse(object):
 
         """
         return self
+
+    @property
+    def has_more(self):
+        """Get status of whether the paginated response has more content."""
+        return self._has_more
 
     @property
     def data(self):

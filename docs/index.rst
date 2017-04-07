@@ -23,8 +23,9 @@ Concepts
 .. toctree::
   :maxdepth: 1
 
-  pagination
   configuration
+  exceptions
+  pagination
 
 Quickstart
 ----------

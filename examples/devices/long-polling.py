@@ -30,7 +30,7 @@ def _run_synchronized():
     while True:
         # Will get the resource value for button and block the thread whilst doing it
         # See the async example for details on what the 'sync' flag does in the background.
-        # Note this will raise a AsyncError if something goes wrong, which we're not catching
+        # Note this will raise a CloudAsyncError if something goes wrong, which we're not catching
         # here for simplicity.
         new_value = api.get_resource_value(devices[0].id, BUTTON_RESOURCE)
 

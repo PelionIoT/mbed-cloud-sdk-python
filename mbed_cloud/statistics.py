@@ -17,6 +17,7 @@
 import datetime
 from mbed_cloud import BaseAPI
 from mbed_cloud.decorators import catch_exceptions
+from mbed_cloud.exceptions import CloudValueError
 import re
 
 # Import backend API
@@ -45,7 +46,7 @@ class StatisticsAPI(BaseAPI):
 
     def _convert_to_UTC_RFC3339(self, time, name):
         if not isinstance(time, datetime.datetime):
-            raise ValueError("%s should be of type datetime" % (name))
+            raise CloudValueError("%s should be of type datetime" % (name))
         return time.isoformat() + "Z"
 
     def _verify_arguments(self, interval, kwargs):
@@ -53,16 +54,16 @@ class StatisticsAPI(BaseAPI):
         end = kwargs.get("end", None)
         period = kwargs.get("period", None)
         if not start and not end and not period:
-            raise ValueError("start and end is mandatory if period is not specified.")
+            raise CloudValueError("start and end is mandatory if period is not specified.")
         if start and not end:
-            raise ValueError("end is required if start is specified.")
+            raise CloudValueError("end is required if start is specified.")
         if end and not start:
-            raise ValueError("start is required if end is specified.")
+            raise CloudValueError("start is required if end is specified.")
         pattern = re.compile("[0-9]+[h|d|w]$")
         if period and not pattern.match(period):
-            raise ValueError("period is incorrect. Sample values: 2h, 3w, 4d.")
+            raise CloudValueError("period is incorrect. Sample values: 2h, 3w, 4d.")
         if interval and not pattern.match(interval):
-            raise ValueError("interval is incorrect. Sample values: 2h, 3w, 4d.")
+            raise CloudValueError("interval is incorrect. Sample values: 2h, 3w, 4d.")
         # convert start into UTC RFC3339 format
         if start:
             kwargs['start'] = self._convert_to_UTC_RFC3339(start, 'start')
@@ -71,7 +72,7 @@ class StatisticsAPI(BaseAPI):
             kwargs['end'] = self._convert_to_UTC_RFC3339(end, 'end')
 
     @catch_exceptions(ApiException)
-    def get_metric(self, include=None, interval="1d", **kwargs):
+    def get_metrics(self, include=None, interval="1d", **kwargs):
         """Get statistics.
 
         :param str include: What fields to include in response. None will return all.
@@ -93,7 +94,7 @@ class StatisticsAPI(BaseAPI):
         return api.v3_metrics_get(include, interval, self._auth, **kwargs).data
 
     @catch_exceptions(ApiException)
-    def get_account_metric(self, include=None, interval="1d", **kwargs):
+    def get_account_metrics(self, include=None, interval="1d", **kwargs):
         """Get account-specific statistics.
 
         :param str include: What fields to include in response. None will return all.
