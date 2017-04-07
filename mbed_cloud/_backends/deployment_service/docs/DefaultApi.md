@@ -223,7 +223,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_campaign_partial_update**
-> UpdateCampaignPatchRequest update_campaign_partial_update(campaign_id, update_campaign)
+> UpdateCampaignPatchRequest update_campaign_partial_update(campaign_id, campaign)
 
 
 
@@ -245,10 +245,10 @@ deployment_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = deployment_service.DefaultApi()
 campaign_id = 'campaign_id_example' # str | 
-update_campaign = deployment_service.UpdateCampaignPatchRequest() # UpdateCampaignPatchRequest | Update campaign
+campaign = deployment_service.UpdateCampaignPatchRequest() # UpdateCampaignPatchRequest | Update campaign
 
 try: 
-    api_response = api_instance.update_campaign_partial_update(campaign_id, update_campaign)
+    api_response = api_instance.update_campaign_partial_update(campaign_id, campaign)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->update_campaign_partial_update: %s\n" % e)
@@ -259,7 +259,7 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **campaign_id** | **str**|  | 
- **update_campaign** | [**UpdateCampaignPatchRequest**](UpdateCampaignPatchRequest.md)| Update campaign | 
+ **campaign** | [**UpdateCampaignPatchRequest**](UpdateCampaignPatchRequest.md)| Update campaign | 
 
 ### Return type
 
@@ -329,7 +329,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_campaign_update**
-> UpdateCampaign update_campaign_update(campaign_id, update_campaign)
+> UpdateCampaign update_campaign_update(campaign_id, campaign)
 
 
 
@@ -351,10 +351,10 @@ deployment_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = deployment_service.DefaultApi()
 campaign_id = 'campaign_id_example' # str | 
-update_campaign = deployment_service.UpdateCampaignPutRequest() # UpdateCampaignPutRequest | Update campaign
+campaign = deployment_service.UpdateCampaignPutRequest() # UpdateCampaignPutRequest | Update campaign
 
 try: 
-    api_response = api_instance.update_campaign_update(campaign_id, update_campaign)
+    api_response = api_instance.update_campaign_update(campaign_id, campaign)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->update_campaign_update: %s\n" % e)
@@ -365,7 +365,7 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **campaign_id** | **str**|  | 
- **update_campaign** | [**UpdateCampaignPutRequest**](UpdateCampaignPutRequest.md)| Update campaign | 
+ **campaign** | [**UpdateCampaignPutRequest**](UpdateCampaignPutRequest.md)| Update campaign | 
 
 ### Return type
 
