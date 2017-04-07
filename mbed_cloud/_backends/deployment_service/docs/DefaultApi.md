@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 
 # **update_campaign_create**
-> UpdateCampaign update_campaign_create(update_campaign)
+> UpdateCampaign update_campaign_create(campaign)
 
 
 
@@ -34,10 +34,10 @@ deployment_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = deployment_service.DefaultApi()
-update_campaign = deployment_service.UpdateCampaignPostRequest() # UpdateCampaignPostRequest | Update campaign
+campaign = deployment_service.UpdateCampaignPostRequest() # UpdateCampaignPostRequest | Update campaign
 
 try: 
-    api_response = api_instance.update_campaign_create(update_campaign)
+    api_response = api_instance.update_campaign_create(campaign)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->update_campaign_create: %s\n" % e)
@@ -47,7 +47,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **update_campaign** | [**UpdateCampaignPostRequest**](UpdateCampaignPostRequest.md)| Update campaign | 
+ **campaign** | [**UpdateCampaignPostRequest**](UpdateCampaignPostRequest.md)| Update campaign | 
 
 ### Return type
 
