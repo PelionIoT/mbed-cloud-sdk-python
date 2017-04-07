@@ -23,7 +23,7 @@ Usage
 
   # Register a webhook to send all updates to
   api.add_webhook(WEBHOOK_URL)
-  
+
   # Remove webhook, and now use long-polling instead
   api.delete_webhook()
   api.start_long_polling()

@@ -11,7 +11,7 @@ Usage
 
   # List device logs
   for d in api.list_device_logs():
-    print(d.device_log_id) 
+    print(d.device_log_id)
 
   # 10 oldest device logs
   list(api.list_device_logs(order='asc'))[:10]
