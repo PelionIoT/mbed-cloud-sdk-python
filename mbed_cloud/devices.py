@@ -408,6 +408,15 @@ class DeviceAPI(BaseAPI):
         return
 
     @catch_exceptions(MdsApiException)
+    def get_webhook(self):
+        """Get the current callback URL if it exists.
+
+        return: void
+        """
+        api = self.mds.DefaultApi()
+        return api.v2_notification_callback_get()
+
+    @catch_exceptions(MdsApiException)
     def add_webhook(self, url, headers={}):
         """Register new webhook for incoming subscriptions.
 

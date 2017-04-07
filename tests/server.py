@@ -45,7 +45,7 @@ MODULES = {}
 
 def _call_api(module, method, args):
     if module not in MODULES:
-        return "Invalid module: %r" % (module)
+        raise ApiCallException("Invalid module: %r" % (module), status_code=400)
 
     # Get API object
     api = MODULES.get(module)
@@ -53,7 +53,9 @@ def _call_api(module, method, args):
     # Get function contained in API object
     api_functions = list(filter(lambda f: not f.startswith("_"), dir(api)))
     if method not in api_functions:
-        return "%r not found in %r" % (method, ", ".join(api_functions))
+        raise ApiCallException(
+            "%r not found in %r" % (method, ", ".join(api_functions)),
+            status_code=400)
 
     # Call SDK function
     return getattr(api, method)(**args)
@@ -116,6 +118,7 @@ class ApiCallException(Exception):
         self.message = message
         if status_code is not None:
             self.status_code = status_code
+            self.status = status_code
         self.payload = payload
 
     def to_dict(self):
