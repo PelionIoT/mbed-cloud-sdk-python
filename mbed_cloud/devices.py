@@ -24,9 +24,10 @@ import urllib
 # Import common functions and exceptions from frontend API
 from mbed_cloud import BaseAPI
 from mbed_cloud.decorators import catch_exceptions
-from mbed_cloud.exceptions import AsyncError
-from mbed_cloud.exceptions import TimeoutError
-from mbed_cloud.exceptions import UnhandledError
+from mbed_cloud.exceptions import CloudAsyncError
+from mbed_cloud.exceptions import CloudTimeoutError
+from mbed_cloud.exceptions import CloudUnhandledError
+from mbed_cloud.exceptions import CloudValueError
 from mbed_cloud import PaginatedResponse
 
 # Import backend API
@@ -149,7 +150,7 @@ class DeviceAPI(BaseAPI):
             try:
                 v = api.get_resource_value(device_id, path)
                 print("Current value", v)
-            except AsyncError, e:
+            except CloudAsyncError, e:
                 print("Error", e)
 
         :param str endpoint_name: The name/id of the endpoint
@@ -158,13 +159,13 @@ class DeviceAPI(BaseAPI):
             doing request to backend. This is a requirement for the API to work properly
         :param timeout: Seconds to request value for before timeout. If not provided, the
             program might hang indefinitly.
-        :raises: AsyncError, TimeoutError
+        :raises: CloudAsyncError, CloudTimeoutError
         :returns: The resource value for the requested resource path
         :rtype: str
         """
         # Ensure we're long polling first
         if not self._long_polling_is_active:
-            raise UnhandledError(
+            raise CloudUnhandledError(
                 "Long polling needs to be enabled before getting resource value synchronously.")
 
         # When path starts with / we remove the slash, as the API can't handle //.
@@ -680,12 +681,13 @@ class DeviceAPI(BaseAPI):
     def _get_filter_attributes(self, query, custom_attributes):
         # Ensure the query is of dict type
         if query and not isinstance(query, dict):
-            raise ValueError("'query' parameter needs to be of type dict")
+            raise CloudValueError("'query' parameter needs to be of type dict")
 
         # Add custom attributes, if provided
         if custom_attributes:
             if not isinstance(custom_attributes, dict):
-                raise ValueError("Custom attributes when creating filter needs to be dict object")
+                raise CloudValueError("Custom attributes when creating filter"
+                                      "needs to be dict object")
             for k, v in custom_attributes.iteritems():
                 if not k:
                     LOG.warning("Ignoring custom attribute with value %r as key is empty" % (v,))
@@ -694,7 +696,7 @@ class DeviceAPI(BaseAPI):
 
         # Ensure query is valid
         if not query.keys():
-            raise ValueError("'query' parameter not valid, needs to contain query keys")
+            raise CloudValueError("'query' parameter not valid, needs to contain query keys")
 
         return self._urlify_query(query)
 
@@ -715,13 +717,15 @@ class DeviceAPI(BaseAPI):
         while not consumer.is_done:
             duration = int(time.time()) - start_time
             if timeout and duration > timeout:
-                raise TimeoutError("Timeout getting async value. Timeout: %d seconds" % (timeout,))
+                raise CloudTimeoutError("Timeout getting async value. Timeout: %d seconds"
+                                        % (timeout,)
+                                        )
             time.sleep(0.1)
 
         # If we get an error we throw an exception to the user, which can then be handled
         # accordingly.
         if consumer.error:
-            raise AsyncError(consumer.error)
+            raise CloudAsyncError(consumer.error)
 
         return consumer.value
 
@@ -766,12 +770,12 @@ class AsyncConsumer(object):
         Take care to call `is_done` before calling `error`. Note that the error
         messages are always encoded as strings.
 
-        :raises UnhandledError: When not checking `is_done` first
+        :raises CloudUnhandledError: When not checking `is_done` first
         :return: the error value/payload, if found.
         :rtype: str
         """
         if not self.is_done:
-            raise UnhandledError("Need to check if request is done, before checking for error")
+            raise CloudUnhandledError("Need to check if request is done, before checking for error")
         error_msg = self.db[self.async_id]["error"]
         resp_code = int(self.db[self.async_id]["status_code"])
         payload = self.db[self.async_id]["payload"]
@@ -786,15 +790,15 @@ class AsyncConsumer(object):
         Take care to ensure the async request is indeed done, by checking both `is_done`
         and `error` before calling `value`.
 
-        :raises UnhandledError: When not checking value of `error` or `is_done` first
+        :raises CloudUnhandledError: When not checking value of `error` or `is_done` first
         :return: the payload value
         :rtype: str
         """
         if not self.is_done:
-            raise UnhandledError("Need to check if request is done, before getting value")
+            raise CloudUnhandledError("Need to check if request is done, before getting value")
         if self.error:
-            raise UnhandledError("Async request returned an error. Need to check for errors,"
-                                 "before getting value.\nError: %s" % self.error)
+            raise CloudUnhandledError("Async request returned an error. Need to check for errors,"
+                                      "before getting value.\nError: %s" % self.error)
 
         # Return the payload
         return self.db[self.async_id]["payload"]
