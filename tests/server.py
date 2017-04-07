@@ -197,10 +197,10 @@ def main(module, method, methods=["GET"]):
             filename,
             line,
             text,
-            str(e)
+            e.message
         )
 
-        # Set defaul status_code as 500
+        # Set default status_code as 500
         status_code = 500
         # Check if error contains code status, return it if it does
         if hasattr(e, 'status'):
