@@ -223,7 +223,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_campaign_partial_update**
-> UpdateCampaignPatchRequest update_campaign_partial_update(campaign_id, campaign)
+> UpdateCampaign update_campaign_partial_update(campaign_id, campaign)
 
 
 
@@ -263,7 +263,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**UpdateCampaignPatchRequest**](UpdateCampaignPatchRequest.md)
+[**UpdateCampaign**](UpdateCampaign.md)
 
 ### Authorization
 

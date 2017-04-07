@@ -451,7 +451,7 @@ class DefaultApi(object):
             for asynchronous request. (optional)
         :param str campaign_id: (required)
         :param UpdateCampaignPatchRequest campaign: Update campaign (required)
-        :return: UpdateCampaignPatchRequest
+        :return: UpdateCampaign
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -477,7 +477,7 @@ class DefaultApi(object):
             for asynchronous request. (optional)
         :param str campaign_id: (required)
         :param UpdateCampaignPatchRequest campaign: Update campaign (required)
-        :return: UpdateCampaignPatchRequest
+        :return: UpdateCampaign
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -532,7 +532,7 @@ class DefaultApi(object):
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='UpdateCampaignPatchRequest',
+                                        response_type='UpdateCampaign',
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
