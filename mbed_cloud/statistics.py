@@ -72,7 +72,7 @@ class StatisticsAPI(BaseAPI):
             kwargs['end'] = self._convert_to_UTC_RFC3339(end, 'end')
 
     @catch_exceptions(ApiException)
-    def get_metric(self, include=None, interval="1d", **kwargs):
+    def get_metrics(self, include=None, interval="1d", **kwargs):
         """Get statistics.
 
         :param str include: What fields to include in response. None will return all.
@@ -94,7 +94,7 @@ class StatisticsAPI(BaseAPI):
         return api.v3_metrics_get(include, interval, self._auth, **kwargs).data
 
     @catch_exceptions(ApiException)
-    def get_account_metric(self, include=None, interval="1d", **kwargs):
+    def get_account_metrics(self, include=None, interval="1d", **kwargs):
         """Get account-specific statistics.
 
         :param str include: What fields to include in response. None will return all.
