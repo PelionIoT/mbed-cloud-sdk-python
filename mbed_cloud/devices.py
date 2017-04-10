@@ -87,7 +87,7 @@ class DeviceAPI(BaseAPI):
         .. code-block:: python
 
             >>> api.start_long_polling()
-            >>> print(api.get_resource_value(endpoint, path))
+            >>> print(api.get_resource_value(device, path))
             Some value
             >>> api.stop_long_polling()
 
@@ -106,7 +106,7 @@ class DeviceAPI(BaseAPI):
 
     @catch_exceptions(MdsApiException)
     def list_connected_devices(self, **kwargs):
-        """List all endpoints.
+        """List all devices.
 
         :returns: a list of currently *connected* `DeviceDetail` objects
         :rtype: PaginatedResponse
@@ -115,15 +115,15 @@ class DeviceAPI(BaseAPI):
 
         # We wrap each object into a Device catalog object. Doing so we rename
         # some keys and throw away some information.
-        endpoints = api.v2_endpoints_get()
-        devices = [DeviceDetail({'id': d.name}) for d in endpoints]
+        devices = api.v2_endpoints_get()
+        devices = [DeviceDetail({'id': d.name}) for d in devices]
 
         # As this doesn't actually return a paginated response - we mock it.
         return PaginatedResponse(lambda: None, init_data=devices)
 
     @catch_exceptions(MdsApiException)
     def list_resources(self, device_id):
-        """List all resources registered to a connected endpoint/device.
+        """List all resources registered to a connected device/device.
 
         .. code-block:: python
 
@@ -141,7 +141,7 @@ class DeviceAPI(BaseAPI):
 
     @catch_exceptions(MdsApiException)
     def get_resource_value(self, device_id, resource_path, fix_path=True, timeout=None):
-        """Get a resource value for a given endpoint and resource path by blocking thread.
+        """Get a resource value for a given device and resource path by blocking thread.
 
         Example usage:
 
@@ -153,7 +153,7 @@ class DeviceAPI(BaseAPI):
             except CloudAsyncError, e:
                 print("Error", e)
 
-        :param str endpoint_name: The name/id of the endpoint
+        :param str device_id: The name/id of the device
         :param str resource_path: The resource path to get
         :param fix_path: if True then the leading /, if found, will be stripped before
             doing request to backend. This is a requirement for the API to work properly
@@ -182,21 +182,21 @@ class DeviceAPI(BaseAPI):
         return self._get_value_synchronized(consumer, timeout)
 
     @catch_exceptions(MdsApiException)
-    def get_resource_value_async(self, endpoint_name, resource_path, fix_path=True):
-        """Get a resource value for a given endpoint and resource path.
+    def get_resource_value_async(self, device_id, resource_path, fix_path=True):
+        """Get a resource value for a given device and resource path.
 
         Will not block, but instead return an AsyncConsumer. Example usage:
 
         .. code-block:: python
 
-            a = api.get_resource_value_async(endpoint, path)
+            a = api.get_resource_value_async(device, path)
             while not a.is_done:
                 time.sleep(0.1)
             if a.error:
                 print("Error", a.error)
             print("Current value", a.value)
 
-        :param str endpoint_name: The name/id of the endpoint
+        :param str device_id: The name/id of the device
         :param str resource_path: The resource path to get
         :param bool fix_path: strip leading / of path if present
         :returns: Consumer object to control asynchronous request
@@ -207,27 +207,27 @@ class DeviceAPI(BaseAPI):
             resource_path = resource_path[1:]
 
         api = self.mds.ResourcesApi()
-        resp = api.v2_endpoints_endpoint_name_resource_path_get(endpoint_name, resource_path)
+        resp = api.v2_endpoints_endpoint_name_resource_path_get(device_id, resource_path)
 
         # The async consumer, which will read data from long-polling thread
         return AsyncConsumer(resp.async_response_id, self._db)
 
     @catch_exceptions(MdsApiException)
-    def set_resource_value(self, endpoint_name, resource_path,
+    def set_resource_value(self, device_id, resource_path,
                            resource_value=None, fix_path=True):
-        """Set resource value for given resource path, on endpoint.
+        """Set resource value for given resource path, on device.
 
         Will block and wait for response to come through. Usage:
 
         .. code-block:: python
 
             try:
-                v = api.set_resource_value(endpoint, path, value)
+                v = api.set_resource_value(device, path, value)
                 print("Success, new value:", v)
             except AsyncError, e:
                 print("Error", e)
 
-        :param str endpoint_name: The name/id of the endpoint
+        :param str device_id: The name/id of the device
         :param str resource_path: The resource path to update
         :param str resource_value: The new value to set for given path (if None
             the resource function will be executed)
@@ -244,32 +244,32 @@ class DeviceAPI(BaseAPI):
         api = self.mds.ResourcesApi()
 
         if resource_value:
-            resp = api.v2_endpoints_endpoint_name_resource_path_put(endpoint_name,
+            resp = api.v2_endpoints_endpoint_name_resource_path_put(device_id,
                                                                     resource_path,
                                                                     resource_value)
         else:
-            resp = api.v2_endpoints_endpoint_name_resource_path_post(endpoint_name,
+            resp = api.v2_endpoints_endpoint_name_resource_path_post(device_id,
                                                                      resource_path)
         consumer = AsyncConsumer(resp.async_response_id, self._db)
         return self._get_value_synchronized(consumer)
 
     @catch_exceptions(MdsApiException)
-    def set_resource_value_async(self, endpoint_name, resource_path,
+    def set_resource_value_async(self, device_id, resource_path,
                                  resource_value=None, fix_path=True):
-        """Set resource value for given resource path, on endpoint.
+        """Set resource value for given resource path, on device.
 
         Will not block. Returns immediatly. Usage:
 
         .. code-block:: python
 
-            a = api.set_resource_value_async(endpoint, path, value)
+            a = api.set_resource_value_async(device, path, value)
             while not a.is_done:
                 time.sleep(0.1)
             if a.error:
                 print("Error", a.error)
             print("Success, new value:", a.value)
 
-        :param str endpoint_name: The name/id of the endpoint
+        :param str device_id: The name/id of the device
         :param str resource_path: The resource path to update
         :param str resource_value: The new value to set for given path (if
             None, the resource function will be executed)
@@ -285,24 +285,24 @@ class DeviceAPI(BaseAPI):
         api = self.mds.ResourcesApi()
 
         if resource_value:
-            resp = api.v2_endpoints_endpoint_name_resource_path_put(endpoint_name,
+            resp = api.v2_endpoints_endpoint_name_resource_path_put(device_id,
                                                                     resource_path,
                                                                     resource_value)
         else:
-            resp = api.v2_endpoints_endpoint_name_resource_path_post(endpoint_name,
+            resp = api.v2_endpoints_endpoint_name_resource_path_post(device_id,
                                                                      resource_path)
 
         return AsyncConsumer(resp.async_response_id, self._db)
 
     @catch_exceptions(MdsApiException)
-    def add_subscription(self, endpoint_name, resource_path, fix_path=True, queue_size=5):
+    def add_subscription(self, device_id, resource_path, fix_path=True, queue_size=5):
         """Subscribe to resource updates.
 
-        When called on valid endpoint and resource path a subscription is setup so that
+        When called on valid device and resource path a subscription is setup so that
         any update on the resource path value triggers a new element on the FIFO queue.
         The returned object is a native Python Queue object.
 
-        :param endpoint_name: Name of endpoint to subscribe on
+        :param device_id: Name of device to subscribe on
         :param resource_path: The resource path on device to observe
         :param fix_path: Removes leading / on resource_path if found
         :param queue_size: set the Queue size. If set to 0, no queue object will be created
@@ -317,31 +317,31 @@ class DeviceAPI(BaseAPI):
 
         # Create the queue and register it with the dict holding all queues
         q = queue.Queue(queue_size) if queue_size > 0 else None
-        self._queues[endpoint_name][resource_path] = q
+        self._queues[device_id][resource_path] = q
 
         # Send subscription request
         api = self.mds.SubscriptionsApi()
-        api.v2_subscriptions_endpoint_name_resource_path_put(endpoint_name, fixed_path)
+        api.v2_subscriptions_endpoint_name_resource_path_put(device_id, fixed_path)
 
         # Return the Queue object to the user
         return q
 
     @catch_exceptions(MdsApiException)
-    def add_subscription_with_callback(self, endpoint_name, resource_path, callback_fn,
+    def add_subscription_with_callback(self, device_id, resource_path, callback_fn,
                                        fix_path=True, queue_size=5):
         """Subscribe to resource updates with callback function.
 
-        When called on valid endpoint and resource path a subscription is setup so that
+        When called on valid device and resource path a subscription is setup so that
         any update on the resource path value triggers an update on the callback function.
 
-        :param endpoint_name: Name of endpoint to subscribe on
+        :param device_id: Name of device to subscribe on
         :param resource_path: The resource path on device to observe
         :param callback_fn: Callback function to be executed on update to subscribed resource
         :param fix_path: Removes leading / on resource_path if found
         :param queue_size: set the Queue size. If set to 0, no queue object will be created
         :returns: void
         """
-        queue = self.add_subscription(endpoint_name, resource_path, fix_path, queue_size)
+        queue = self.add_subscription(device_id, resource_path, fix_path, queue_size)
 
         # Setup daemon thread for callback function
         t = threading.Thread(target=self._subscription_handler, args=[queue, callback_fn])
@@ -349,16 +349,16 @@ class DeviceAPI(BaseAPI):
         t.start()
 
     @catch_exceptions(MdsApiException)
-    def add_pre_subscription(self, endpoint_name, resource_path, endpoint_type=""):
-        """Create pre-subscription for endpoint and resource path.
+    def add_pre_subscription(self, device_id, resource_path, device_type=""):
+        """Create pre-subscription for device and resource path.
 
         :returns: void
         """
         api = self.mds.SubscriptionsApi()
 
         presubscription = self.mds.Presubscription(
-            endpoint_name=endpoint_name,
-            endpoint_type=endpoint_type,
+            endpoint_name=device_id,
+            endpoint_type=device_type,
             _resource_path=[resource_path]
         )
         api.v2_subscriptions_put([presubscription])
@@ -367,33 +367,33 @@ class DeviceAPI(BaseAPI):
         return
 
     @catch_exceptions(MdsApiException)
-    def delete_subscription(self, endpoint_name=None, resource_path=None, fix_path=True):
-        """Unsubscribe from endpoint and/or resource_path updates.
+    def delete_subscription(self, device_id=None, resource_path=None, fix_path=True):
+        """Unsubscribe from device and/or resource_path updates.
 
-        If endpoint_name or resource_path is None, we remove every subscripton
+        If device_id or resource_path is None, we remove every subscripton
         for them. I.e. calling this method without arguments removes all subscriptions,
-        but calling it with only endpoint_name removes subscriptions for all resources
-        on the given endpoint.
+        but calling it with only device_id removes subscriptions for all resources
+        on the given device.
 
-        :param endpoint_name: endpoint to unsubscribe events from. If not
-            provided, all registered endpoints will be unsubscribed.
+        :param device_id: device to unsubscribe events from. If not
+            provided, all registered devices will be unsubscribed.
         :param resource_path: resource_path to unsubscribe events from. If not
             provided, all resource paths will be unsubscribed.
         :param fix_path: remove trailing / in resouce path to ensure API works.
         :return: void
         """
-        endpoints = filter(None, [endpoint_name])
-        if not endpoint_name:
-            endpoints = self._queues.keys()
+        devices = filter(None, [device_id])
+        if not device_id:
+            devices = self._queues.keys()
         resource_paths = [resource_path]
         if not resource_path:
             resource_paths = []
-            for e in endpoints:
+            for e in devices:
                 resource_paths.extend(self._queues[e].keys())
 
         # Delete the subscriptions
         api = self.mds.SubscriptionsApi()
-        for e in endpoints:
+        for e in devices:
             for r in resource_paths:
                 # Fix the path, if required.
                 fixed_path = r
@@ -401,11 +401,20 @@ class DeviceAPI(BaseAPI):
                     fixed_path = r[1:]
 
                 # Make request to API, ignoring result
-                api.v2_subscriptions_endpoint_name_resource_path_delete(endpoint_name, fixed_path)
+                api.v2_subscriptions_endpoint_name_resource_path_delete(device_id, fixed_path)
 
                 # Remove Queue from dictionary
                 del self._queues[e][r]
         return
+
+    @catch_exceptions(MdsApiException)
+    def get_webhook(self):
+        """Get the current callback URL if it exists.
+
+        return: void
+        """
+        api = self.mds.DefaultApi()
+        return api.v2_notification_callback_get()
 
     @catch_exceptions(MdsApiException)
     def add_webhook(self, url, headers={}):
@@ -643,7 +652,7 @@ class DeviceAPI(BaseAPI):
         # Get urlencoded query attribute
         query = self._get_filter_attributes(query, custom_attributes)
 
-        body = self.dc_queries.DeviceQueryPutRequest(
+        body = self.dc_queries.DeviceQueryPostPutRequest(
             name=name,
             query=query,
             **kwargs
@@ -737,7 +746,7 @@ class AsyncConsumer(object):
 
     .. code-block:: python
 
-        async_resp = api.get_resource_value(endpoint, resource)
+        async_resp = api.get_resource_value(device, resource)
         while not async_resp.is_done:
             time.sleep(0.1)
         if async_resp.error:
@@ -802,6 +811,14 @@ class AsyncConsumer(object):
 
         # Return the payload
         return self.db[self.async_id]["payload"]
+
+    def to_dict(self):
+        """JSON serializable representation of the consumer."""
+        return str(self)
+
+    def __repr__(self):
+        """String representation of this AsyncConsumer."""
+        return self.async_id
 
 
 class _LongPollingThread(threading.Thread):

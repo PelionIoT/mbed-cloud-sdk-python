@@ -28,6 +28,7 @@ def catch_exceptions(*exceptions):
                 return fn(*args, **kwargs)
             except exceptions:
                 t, value, traceback = sys.exc_info()
-                raise_(CloudApiException, CloudApiException(value), traceback)
+                e = CloudApiException(str(value), value.reason, value.status)
+                raise_(CloudApiException, e, traceback)
         return wrapped_f
     return wrap

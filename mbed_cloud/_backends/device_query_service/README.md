@@ -57,7 +57,7 @@ device_query_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # device_query_service.configuration.api_key_prefix['Authorization'] = 'Bearer'
 # create an instance of the API class
 api_instance = device_query_service.DefaultApi()
-device = device_query_service.DeviceQuery() # DeviceQuery | 
+device = device_query_service.DeviceQueryPostPutRequest() # DeviceQueryPostPutRequest | 
 
 try:
     api_response = api_instance.device_query_create(device)
@@ -86,7 +86,7 @@ Class | Method | HTTP request | Description
  - [DeviceQuery](docs/DeviceQuery.md)
  - [DeviceQueryPage](docs/DeviceQueryPage.md)
  - [DeviceQueryPatchRequest](docs/DeviceQueryPatchRequest.md)
- - [DeviceQueryPutRequest](docs/DeviceQueryPutRequest.md)
+ - [DeviceQueryPostPutRequest](docs/DeviceQueryPostPutRequest.md)
 
 
 ## Documentation For Authorization

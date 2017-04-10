@@ -17,4 +17,4 @@ from __future__ import absolute_import
 from .device_query import DeviceQuery
 from .device_query_page import DeviceQueryPage
 from .device_query_patch_request import DeviceQueryPatchRequest
-from .device_query_put_request import DeviceQueryPutRequest
+from .device_query_post_put_request import DeviceQueryPostPutRequest

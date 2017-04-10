@@ -34,7 +34,7 @@ device_query_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = device_query_service.DefaultApi()
-device = device_query_service.DeviceQuery() # DeviceQuery | 
+device = device_query_service.DeviceQueryPostPutRequest() # DeviceQueryPostPutRequest | 
 
 try: 
     api_response = api_instance.device_query_create(device)
@@ -47,7 +47,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **device** | [**DeviceQuery**](DeviceQuery.md)|  | 
+ **device** | [**DeviceQueryPostPutRequest**](DeviceQueryPostPutRequest.md)|  | 
 
 ### Return type
 
@@ -332,7 +332,7 @@ device_query_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = device_query_service.DefaultApi()
 query_id = 'query_id_example' # str | 
-body = device_query_service.DeviceQueryPutRequest() # DeviceQueryPutRequest | Device query update object
+body = device_query_service.DeviceQueryPostPutRequest() # DeviceQueryPostPutRequest | Device query update object
 
 try: 
     api_response = api_instance.device_query_update(query_id, body)
@@ -346,7 +346,7 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **query_id** | **str**|  | 
- **body** | [**DeviceQueryPutRequest**](DeviceQueryPutRequest.md)| Device query update object | 
+ **body** | [**DeviceQueryPostPutRequest**](DeviceQueryPostPutRequest.md)| Device query update object | 
 
 ### Return type
 
