@@ -10,7 +10,7 @@ Components
   :maxdepth: 1
 
   access
-  development
+  certificates
   devices
   logging
   manufacturing
