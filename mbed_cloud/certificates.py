@@ -22,6 +22,7 @@ from mbed_cloud import PaginatedResponse
 # Import backend API
 
 import mbed_cloud._backends.connector_ca as cert
+from mbed_cloud._backends.connector_ca.models import DeveloperCertificateResponseData
 import mbed_cloud._backends.connector_ca.rest as ApiException
 import mbed_cloud._backends.iam as iam
 from mbed_cloud._backends.iam.models import TrustedCertificateResp
@@ -77,7 +78,17 @@ class CertificatesAPI(BaseAPI):
         :rtype: Certificate
         """
         api = self.iam.AccountAdminApi()
-        return Certificate(api.get_certificate(certificate_id))
+        certificate = Certificate(api.get_certificate(certificate_id))
+        self._extend_certificate(certificate)
+        return certificate
+        # return Certificate(api.get_certificate(certificate_id))
+
+    def _extend_certificate(self, certificate):
+        # extend certificate with developer_certificate properties
+        if certificate.type == CertificateType.developer:
+            dev_api = self.cert.DeveloperCertificateApi()
+            dev_cert = dev_api.v3_developer_certificates_id_get(certificate.id, self.auth)
+            certificate.update_certificate(dev_cert.__dict__)
 
     @catch_exceptions(ApiException)
     def delete_certificate(self, certificate_id):
@@ -120,40 +131,53 @@ class CertificatesAPI(BaseAPI):
         """
         api = self.iam.AccountAdminApi()
         body = iam.TrustedCertificateReq(**kwargs)
-        return Certificate(api.update_certificate(certificate_id, body))
+        certificate = Certificate(api.update_certificate(certificate_id, body))
+        return self.get_certificate(certificate.id)
 
 
-class CertificateType(object):
-    """Describes the type of certificate"""
+class Enumeration(set):
+    """Enumeration class."""
 
-    developer, bootstrap, lwm2m = range(3)
+    def __getattr__(self, name):
+        """Get attribute. Return name of the attribute."""
+        if name in self:
+            return name
+        raise AttributeError
 
-    def __init__(self, execution_mode, service):
-        """Initialize certificate type"""
-        if execution_mode == 1:
-            self.value = self.developer
-        elif service == "bootstrap":
-            self.value = self.bootstrap
-        else:
-            self.value = self.lwm2m
+    def __setattr__(self, name, value):
+        """Set attribute. Method not allowed. Raises RuntimeError."""
+        raise RuntimeError("Cannot override values in Enum")
 
-    def __repr__(self):
-        """Return a printable representation of the type"""
-        if self.value == self.developer:
-            return "developer"
-        if self.value == self.bootstrap:
-            return "bootstrap"
-        if self.value == self.lwm2m:
-            return "lwm2m"
+    def __delattr__(self, name):
+        """Delete attribute. Method not allowed. Raises RuntimeError."""
+        raise RuntimeError("Cannot delete values from Enum")
 
 
-class Certificate(TrustedCertificateResp):
+CertificateType = Enumeration(["developer", "bootstrap", "lwm2m"])
+
+
+class Certificate(TrustedCertificateResp, DeveloperCertificateResponseData):
     """Describes device certificate object."""
 
     def __init__(self, certificate_obj):
-        """Override __init__ and allow passing in backend object."""
+        """Override __init__ and allow passing in backend object.
+
+        :param object certificate_obj: Certificate object..
+        """
         super(Certificate, self).__init__(**certificate_obj.to_dict())
-        self._type = CertificateType(self.device_execution_mode, self.service)
+        if self.device_execution_mode == 1:
+            self._type = CertificateType.developer
+        elif self.service == CertificateType.bootstrap:
+            self._type = CertificateType.bootstrap
+        else:
+            self._type = CertificateType.lwm2m
+
+    def update_certificate(self, dev_certificate):
+        """Update certificate with attributes from developer certificate.
+
+        :param dict dev_certificate: Developer certificate dictionary.
+        """
+        self.__dict__.update(dev_certificate)
 
     @property
     def type(self):
@@ -166,6 +190,7 @@ class Certificate(TrustedCertificateResp):
 
     def to_dict(self):
         """Convert Certificate to dictionary"""
+        # List of properties to be excluded from dict
         deletes = ('creation_time_millis', 'device_execution_mode', 'etag', 'object', 'service')
         d = super(Certificate, self).to_dict()
         d["type"] = self._type

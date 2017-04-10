@@ -30,7 +30,6 @@ def _main():
     # Update certificate
     updated_certificate = api.update_certificate(new_certificate.id,
                                                  description="my updated certificate")
-
     # Delete the device
     print("Attempting to delete certificate...")
     api.delete_certificate(updated_certificate.id)
