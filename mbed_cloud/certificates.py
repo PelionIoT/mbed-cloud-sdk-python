@@ -194,4 +194,11 @@ class Certificate(TrustedCertificateResp, DeveloperCertificateResponseData):
         deletes = ('creation_time_millis', 'device_execution_mode', 'etag', 'object', 'service')
         d = super(Certificate, self).to_dict()
         d["type"] = self._type
-        return map(lambda k: {k: d[k]}, filter(lambda k: k not in deletes, d.keys()))
+        # Remove keys from dictionary if they exist
+        for key in deletes:
+            d.pop(key, None)
+        return d
+
+    def __repr__(self):
+        """For print and pprint."""
+        return str(self.to_dict())
