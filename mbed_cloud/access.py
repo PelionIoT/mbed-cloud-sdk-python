@@ -206,7 +206,6 @@ class AccessAPI(BaseAPI):
         :returns: :py:class:`Group` object.
         :rtype: Group
         """
-
         api = iam.DeveloperApi()
         return Group(api.get_group_summary(group_id))
 
