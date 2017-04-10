@@ -24,6 +24,7 @@ from flask import Flask
 from flask import jsonify
 from flask import request
 from mbed_cloud.access import AccessAPI
+from mbed_cloud.certificates import CertificatesAPI
 from mbed_cloud.devices import DeviceAPI
 from mbed_cloud.logging import LoggingAPI
 from mbed_cloud import PaginatedResponse
@@ -149,6 +150,7 @@ def init(methods=["GET"]):
     global MODULES
     MODULES = {
         'access': AccessAPI(params=params),
+        'certificates': CertificatesAPI(params=params),
         'devices': DeviceAPI(params=params),
         'logging': LoggingAPI(params=params),
         'statistics': StatisticsAPI(params=params),
