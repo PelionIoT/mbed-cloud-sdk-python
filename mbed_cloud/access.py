@@ -185,9 +185,9 @@ class AccessAPI(BaseAPI):
     def list_groups(self, **kwargs):
         """List all groups in organisation.
 
-        :param int limit: The number of devices to retrieve.
+        :param int limit: The number of groups to retrieve.
         :param str order: The ordering direction, ascending (asc) or descending (desc)
-        :param str after: Get devices after/starting at given user ID
+        :param str after: Get groups after/starting at given group ID
         :returns: a list of :py:class:`Group` objects.
         :rtype: PaginatedResponse
         """
@@ -195,6 +195,53 @@ class AccessAPI(BaseAPI):
 
         api = iam.DeveloperApi()
         return PaginatedResponse(api.get_all_groups, lwrap_type=Group, **kwargs)
+
+    @catch_exceptions(ApiException)
+    def get_group(self, group_id):
+        """Get details of the group.
+
+        :param str group_id: The group ID.
+        :param str order: The ordering direction, ascending (asc) or descending (desc)
+        :param str after: Get groups after/starting at given group ID
+        :returns: :py:class:`Group` object.
+        :rtype: Group
+        """
+
+        api = iam.DeveloperApi()
+        return Group(api.get_group_summary(group_id))
+
+    @catch_exceptions(ApiException)
+    def list_group_users(self, group_id, **kwargs):
+        """List users of a group.
+
+        :param str group_id: The group ID.
+        :param int limit: The number of users to retrieve.
+        :param str order: The ordering direction, ascending (asc) or descending (desc).
+        :param str after: Get api keys after/starting at given user ID.
+        :returns: a list of :py:class:`User` objects.
+        :rtype: PaginatedResponse
+        """
+        kwargs["group_id"] = group_id
+        kwargs = self._verify_sort_options(kwargs)
+
+        api = iam.AccountAdminApi()
+        return PaginatedResponse(api.get_users_of_group, lwrap_type=User, **kwargs)
+
+    @catch_exceptions(ApiException)
+    def list_group_api_keys(self, group_id, **kwargs):
+        """List API keys of a group.
+
+        :param str group_id: The group ID.
+        :param int limit: The number of api keys to retrieve.
+        :param str order: The ordering direction, ascending (asc) or descending (desc).
+        :param str after: Get api keys after/starting at given api key ID.
+        :returns: a list of :py:class:`ApiKey` objects.
+        :rtype: PaginatedResponse
+        """
+        kwargs["group_id"] = group_id
+        kwargs = self._verify_sort_options(kwargs)
+        api = iam.DeveloperApi()
+        return PaginatedResponse(api.get_api_keys_of_group, lwrap_type=ApiKey, **kwargs)
 
 
 class Account(AccountInfo):
