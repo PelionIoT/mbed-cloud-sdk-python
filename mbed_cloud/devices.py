@@ -108,7 +108,7 @@ class DeviceAPI(BaseAPI):
     def list_connected_devices(self, **kwargs):
         """List all devices.
 
-        :returns: a list of currently *connected* `DeviceDetail` objects
+        :returns: a list of currently *connected* `Device` objects
         :rtype: PaginatedResponse
         """
         api = self.mds.EndpointsApi()
@@ -116,7 +116,7 @@ class DeviceAPI(BaseAPI):
         # We wrap each object into a Device catalog object. Doing so we rename
         # some keys and throw away some information.
         devices = api.v2_endpoints_get()
-        devices = [DeviceDetail({'id': d.name}) for d in devices]
+        devices = [Device({'id': d.name}) for d in devices]
 
         # As this doesn't actually return a paginated response - we mock it.
         return PaginatedResponse(lambda: None, init_data=devices)
@@ -469,14 +469,14 @@ class DeviceAPI(BaseAPI):
             descending (desc)
         :param str after: (Optional) Get devices after/starting at given `device_id`
         :param filters: (Optional) Dictionary of filters to apply.
-        :returns: a list of :py:class:`DeviceDetail` objects registered in the catalog.
+        :returns: a list of :py:class:`Device` objects registered in the catalog.
         :rtype: PaginatedResponse
         """
         kwargs = self._verify_sort_options(kwargs)
         kwargs = self._verify_filters(kwargs)
 
         api = self.dc.DefaultApi()
-        return PaginatedResponse(api.device_list, lwrap_type=DeviceDetail, **kwargs)
+        return PaginatedResponse(api.device_list, lwrap_type=Device, **kwargs)
 
     @catch_exceptions(DeviceCatalogApiException)
     def get_device(self, device_id):
@@ -484,10 +484,10 @@ class DeviceAPI(BaseAPI):
 
         :param device_id: the ID of the device to retrieve (str)
         :returns: device object matching the `device_id`.
-        :rtype: DeviceDetail
+        :rtype: Device
         """
         api = self.dc.DefaultApi()
-        return DeviceDetail(api.device_retrieve(device_id))
+        return Device(api.device_retrieve(device_id))
 
     @catch_exceptions(DeviceCatalogApiException)
     def update_device(self, device_id, **kwargs):
@@ -515,11 +515,11 @@ class DeviceAPI(BaseAPI):
         :param int trust_level: Trust level of device
         :param int vendor_id: Device vendor ID
         :returns: the updated device object
-        :rtype: DeviceDetail
+        :rtype: Device
         """
         api = self.dc.DefaultApi()
         body = self.dc.DeviceDataPostRequest(**kwargs)
-        return DeviceDetail(api.device_update(device_id, body))
+        return Device(api.device_update(device_id, body))
 
     @catch_exceptions(DeviceCatalogApiException)
     def add_device(self, **kwargs):
@@ -558,11 +558,11 @@ class DeviceAPI(BaseAPI):
         :param int updated_at: Time the device was updated
         :param int vendor_id: Device vendor ID
         :return: the newly created device object.
-        :rtype: DeviceDetail
+        :rtype: Device
         """
         api = self.dc.DefaultApi()
         device = DeviceData(**kwargs)
-        return DeviceDetail(api.device_create(device))
+        return Device(api.device_create(device))
 
     @catch_exceptions(DeviceCatalogApiException)
     def delete_device(self, id):
@@ -867,7 +867,7 @@ class _LongPollingThread(threading.Thread):
         self._stopped = True
 
 
-class DeviceDetail(DeviceData):
+class Device(DeviceData):
     """Describes device object from the catalog."""
 
     def __init__(self, device_obj):
@@ -877,7 +877,7 @@ class DeviceDetail(DeviceData):
         params = device_obj
         if not isinstance(device_obj, dict) and callable(getattr(device_obj, "to_dict", None)):
             params = device_obj.to_dict()
-        super(DeviceDetail, self).__init__(**params)
+        super(Device, self).__init__(**params)
 
 
 class Filter(DeviceQuery):
