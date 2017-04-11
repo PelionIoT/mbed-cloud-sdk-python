@@ -5,7 +5,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **description** | **str** | Human readable description of this certificate. | [optional] 
 **service** | **str** | Service name where the certificate is to be used. | 
-**device_execution_mode** | **int** | Device execution mode where 1 means a developer certificate. | 
+**device_execution_mode** | **int** | Device execution mode where 1 means a developer certificate. | [optional] 
 **created_at** | **str** | Creation UTC time RFC3339. | [optional] 
 **object** | **str** | Entity name: always &#39;trusted-cert&#39; | 
 **subject** | **str** | Subject of the certificate. | 

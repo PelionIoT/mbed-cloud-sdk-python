@@ -264,7 +264,7 @@ class AccountUpdateReq(object):
     def postal_code(self):
         """
         Gets the postal_code of this AccountUpdateReq.
-        The postal code part of the postal address.
+        The postal code part of the postal address, not longer than 100 characters.
 
         :return: The postal_code of this AccountUpdateReq.
         :rtype: str
@@ -275,7 +275,7 @@ class AccountUpdateReq(object):
     def postal_code(self, postal_code):
         """
         Sets the postal_code of this AccountUpdateReq.
-        The postal code part of the postal address.
+        The postal code part of the postal address, not longer than 100 characters.
 
         :param postal_code: The postal_code of this AccountUpdateReq.
         :type: str
@@ -310,7 +310,7 @@ class AccountUpdateReq(object):
     def phone_number(self):
         """
         Gets the phone_number of this AccountUpdateReq.
-        The phone number of the company.
+        The phone number of the company, not longer than 100 characters.
 
         :return: The phone_number of this AccountUpdateReq.
         :rtype: str
@@ -321,7 +321,7 @@ class AccountUpdateReq(object):
     def phone_number(self, phone_number):
         """
         Sets the phone_number of this AccountUpdateReq.
-        The phone number of the company.
+        The phone number of the company, not longer than 100 characters.
 
         :param phone_number: The phone_number of this AccountUpdateReq.
         :type: str
@@ -333,7 +333,7 @@ class AccountUpdateReq(object):
     def email(self):
         """
         Gets the email of this AccountUpdateReq.
-        The company email address for this account.
+        The company email address for this account, not longer than 100 characters.
 
         :return: The email of this AccountUpdateReq.
         :rtype: str
@@ -344,7 +344,7 @@ class AccountUpdateReq(object):
     def email(self, email):
         """
         Sets the email of this AccountUpdateReq.
-        The company email address for this account.
+        The company email address for this account, not longer than 100 characters.
 
         :param email: The email of this AccountUpdateReq.
         :type: str
@@ -356,7 +356,7 @@ class AccountUpdateReq(object):
     def aliases(self):
         """
         Gets the aliases of this AccountUpdateReq.
-        An array of aliases.
+        An array of aliases, not more than 10.
 
         :return: The aliases of this AccountUpdateReq.
         :rtype: list[str]
@@ -367,7 +367,7 @@ class AccountUpdateReq(object):
     def aliases(self, aliases):
         """
         Sets the aliases of this AccountUpdateReq.
-        An array of aliases.
+        An array of aliases, not more than 10.
 
         :param aliases: The aliases of this AccountUpdateReq.
         :type: list[str]
