@@ -16,14 +16,14 @@ from mbed_cloud.devices import DeviceAPI
 
 
 def _print_device(idx, d):
-    print("%d) %s | %s | %s" % (idx, d.device_id, d.state, d.created_at))
+    print("%d) %s | %s | %s" % (idx, d.id, d.state, d.created_at))
 
 
 def _main():
     api = DeviceAPI()
 
     # List all devices, ordering by the most recently created first.
-    for d, idx in api.list_devices(order='desc', limit=10).iteritems():
+    for idx, d in enumerate(api.list_devices(order='desc', limit=10)):
         _print_device(idx + 1, d)
 
     print("\n" + "-" * 30 + "\n")
@@ -33,7 +33,7 @@ def _main():
         'state': 'registered'
     }
     registered = api.list_devices(order='desc', limit=10, filters=filters)
-    for d, idx in registered.iteritems():
+    for idx, d in enumerate(registered):
         _print_device(idx + 1, d)
 
 

@@ -25,11 +25,11 @@ def _main():
         raise Exception("No endpints registered. Aborting")
 
     # First register to one webhook
-    api.add_webhook("http://api.webhookinbox.com/i/UTComlHQ/in/")
+    api.update_webhook("http://api.webhookinbox.com/i/UTComlHQ/in/")
     time.sleep(2)
 
     # Then register to another one
-    api.add_webhook("http://api.webhookinbox.com/i/SyjKevok/in/")
+    api.update_webhook("http://api.webhookinbox.com/i/SyjKevok/in/")
     api.add_subscription(list(devices)[0].id, BUTTON_RESOURCE)
     while True:
         print("Webhook registered. Listening to button updates for 10 seconds...")

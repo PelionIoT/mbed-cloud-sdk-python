@@ -40,6 +40,7 @@ from mbed_cloud._backends.device_query_service.models import DeviceQuery
 from mbed_cloud._backends.device_query_service.rest import \
     ApiException as DeviceQueryServiceApiException
 import mbed_cloud._backends.mds as mds
+from mbed_cloud._backends.mds.models import Webhook as WebhookData
 from mbed_cloud._backends.mds.rest import ApiException as MdsApiException
 
 LOG = logging.getLogger(__name__)
@@ -52,7 +53,7 @@ class DeviceAPI(BaseAPI):
         - Listing registered and connected devices
         - Exploring and managing resources and resource values on said devices
         - Setup resource subscriptions and webhooks for resource monitoring
-        - Create and manage device filters
+        - Create and manage device queries
     """
 
     def __init__(self, params={}, b64decode=True):
@@ -78,25 +79,25 @@ class DeviceAPI(BaseAPI):
         self._long_polling_is_active = False
         self._long_polling_thread.daemon = True
 
-    def start_long_polling(self):
+    def start_notifications(self):
         """Start the long-polling thread.
 
-        If not an external callback is setup (using `add_webhook`) then
+        If not an external callback is setup (using `update_webhook`) then
         calling this function is mandatory.
 
         .. code-block:: python
 
-            >>> api.start_long_polling()
+            >>> api.start_notifications()
             >>> print(api.get_resource_value(device, path))
             Some value
-            >>> api.stop_long_polling()
+            >>> api.stop_notifications()
 
         :returns: void
         """
         self._long_polling_thread.start()
         self._long_polling_is_active = True
 
-    def stop_long_polling(self):
+    def stop_notifications(self):
         """Stop the long-polling thread.
 
         :returns: void
@@ -327,7 +328,7 @@ class DeviceAPI(BaseAPI):
         return q
 
     @catch_exceptions(MdsApiException)
-    def add_subscription_with_callback(self, device_id, resource_path, callback_fn,
+    def add_subscription_async(self, device_id, resource_path, callback_fn,
                                        fix_path=True, queue_size=5):
         """Subscribe to resource updates with callback function.
 
@@ -414,10 +415,10 @@ class DeviceAPI(BaseAPI):
         return: void
         """
         api = self.mds.DefaultApi()
-        return api.v2_notification_callback_get()
+        return Webhook(api.v2_notification_callback_get())
 
     @catch_exceptions(MdsApiException)
-    def add_webhook(self, url, headers={}):
+    def update_webhook(self, url, headers={}):
         """Register new webhook for incoming subscriptions.
 
         If a webhook is already set, this will do an overwrite.
@@ -537,6 +538,7 @@ class DeviceAPI(BaseAPI):
             resp = api.add_device(**device)
             print(resp.created_at)
 
+        :param str certificate_issuer_id:
         :param str mechanism: The ID of the channel used to communicate with the device
         :param str provision_key: The key used to provision the device
         :param str account_id: Owning IAM account ID
@@ -575,29 +577,29 @@ class DeviceAPI(BaseAPI):
         return api.device_destroy(id=id)
 
     @catch_exceptions(DeviceQueryServiceApiException)
-    def list_filters(self, **kwargs):
-        """List filters in device query service.
+    def list_queries(self, **kwargs):
+        """List queries in device query service.
 
         :param int limit: (Optional) The number of devices to retrieve.
         :param str order: (Optional) The ordering direction, ascending (asc) or
             descending (desc)
         :param str after: (Optional) Get devices after/starting at given `device_id`
-        :returns: a list of :py:class:`Filter` objects.
+        :returns: a list of :py:class:`Query` objects.
         :rtype: PaginatedResponse
         """
         kwargs = self._verify_sort_options(kwargs)
         api = self.dc_queries.DefaultApi()
 
-        return PaginatedResponse(api.device_query_list, lwrap_type=Filter, **kwargs)
+        return PaginatedResponse(api.device_query_list, lwrap_type=Query, **kwargs)
 
     @catch_exceptions(DeviceQueryServiceApiException)
-    def add_filter(self, name, query, custom_attributes=None, **kwargs):
-        """Add a new filter to device query service.
+    def add_query(self, name, query, custom_attributes=None, **kwargs):
+        """Add a new query to device query service.
 
         .. code-block:: python
 
-            f = api.add_filter(
-                name = "Filter name",
+            f = api.add_query(
+                name = "Query name",
                 query = {},
                 custom_attributes = {
                     "foo": "bar"
@@ -605,52 +607,52 @@ class DeviceAPI(BaseAPI):
             )
             print(f.created_at)
 
-        :param str name: Name of filter
-        :param dict query: Filter properties to apply
-        :param dict custom_attributes: Extra filter attributes
-        :param return: the newly created filter object.
-        :return: the newly created filter object
-        :rtype: Filter
+        :param str name: Name of query
+        :param dict query: Query properties to apply
+        :param dict custom_attributes: Extra query attributes
+        :param return: the newly created query object.
+        :return: the newly created query object
+        :rtype: Query
         """
         api = self.dc_queries.DefaultApi()
 
         # Ensure we have the correct types and get the new query object based on
         # passed in query object and custom attributes.
-        query = self._get_filter_attributes(query, custom_attributes)
+        query = self._get_query_attributes(query, custom_attributes)
 
-        # Create the filter object
+        # Create the query object
         f = self.dc_queries.DeviceQuery(name=name, query=query, **kwargs)
 
-        return Filter(api.device_query_create(f))
+        return Query(api.device_query_create(f))
 
     @catch_exceptions(DeviceQueryServiceApiException)
-    def update_filter(self, filter_id, name, query, custom_attributes=None, **kwargs):
-        """Update existing filter in device query service.
+    def update_query(self, query_id, name, query, custom_attributes=None, **kwargs):
+        """Update existing query in device query service.
 
         .. code-block:: python
 
-            f = api.get_filter(...)
+            q = api.get_query(...)
             new_custom_attributes = {
                 "foo": "bar"
             }
-            new_f = api.update_filter(
-                filter_id = f.id,
+            new_q = api.update_query(
+                query_id = q.id,
                 name = "new name",
-                query = f.query,
+                query = q.query,
                 custom_attributes = new_custom_attributes
             )
 
-        :param str filter_id: Existing filter ID to update
-        :param str name: (New) name of filter
-        :param dict query: (New) filter properties to apply
-        :param dict custom_attributes: (New) extra filter attributes
-        :param return: the newly updated filter object.
-        :rtype: Filter
+        :param str query_id: Existing query ID to update
+        :param str name: (New) name of query
+        :param dict query: (New) query properties to apply
+        :param dict custom_attributes: (New) extra query attributes
+        :param return: the newly updated query object.
+        :rtype: Query
         """
         api = self.dc_queries.DefaultApi()
 
         # Get urlencoded query attribute
-        query = self._get_filter_attributes(query, custom_attributes)
+        query = self._get_query_attributes(query, custom_attributes)
 
         body = self.dc_queries.DeviceQueryPostPutRequest(
             name=name,
@@ -658,36 +660,36 @@ class DeviceAPI(BaseAPI):
             **kwargs
         )
 
-        return Filter(api.device_query_update(filter_id, body))
+        return Query(api.device_query_update(query_id, body))
 
     @catch_exceptions(DeviceQueryServiceApiException)
-    def delete_filter(self, filter_id):
-        """Delete filter in device query service.
+    def delete_query(self, query_id):
+        """Delete query in device query service.
 
-        :param int filter_id: id of the filter to delete
+        :param int query_id: id of the query to delete
         :param return: void
         """
         api = self.dc_queries.DefaultApi()
-        api.device_query_destroy(filter_id)
+        api.device_query_destroy(query_id)
         return
 
     @catch_exceptions(DeviceQueryServiceApiException)
-    def get_filter(self, filter_id):
-        """Get filter in device query service.
+    def get_query(self, query_id):
+        """Get query in device query service.
 
-        :param int filter_id: id of the filter to get
-        :returns: device filter object
-        :rtype: Filter
+        :param int query_id: id of the query to get
+        :returns: device query object
+        :rtype: Query
         """
         api = self.dc_queries.DefaultApi()
-        return Filter(api.device_query_retrieve(filter_id))
+        return Query(api.device_query_retrieve(query_id))
 
     def _subscription_handler(self, queue, callback_fn):
         while True:
             value = queue.get()
             callback_fn(value)
 
-    def _get_filter_attributes(self, query, custom_attributes):
+    def _get_query_attributes(self, query, custom_attributes):
         # Ensure the query is of dict type
         if query and not isinstance(query, dict):
             raise CloudValueError("'query' parameter needs to be of type dict")
@@ -695,7 +697,7 @@ class DeviceAPI(BaseAPI):
         # Add custom attributes, if provided
         if custom_attributes:
             if not isinstance(custom_attributes, dict):
-                raise CloudValueError("Custom attributes when creating filter"
+                raise CloudValueError("Custom attributes when creating query"
                                       "needs to be dict object")
             for k, v in custom_attributes.iteritems():
                 if not k:
@@ -880,12 +882,20 @@ class Device(DeviceData):
         super(Device, self).__init__(**params)
 
 
-class Filter(DeviceQuery):
-    """Describes device query object / filter."""
+class Query(DeviceQuery):
+    """Describes device query object."""
 
     def __init__(self, device_query_obj):
         """Override __init__ and allow passing in backend object."""
-        super(Filter, self).__init__(**device_query_obj.to_dict())
+        super(Query, self).__init__(**device_query_obj.to_dict())
+
+
+class Webhook(WebhookData):
+    """Describes webhook object."""
+
+    def __init__(self, device_webhook_obj):
+        """Override __init__ and allow passing in backend object."""
+        super(Webhook, self).__init__(**device_webhook_obj.to_dict())
 
 
 class Resource(object):

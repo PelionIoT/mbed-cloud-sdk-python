@@ -21,7 +21,7 @@ BUTTON_RESOURCE = "/3200/0/5501"
 
 def _run_synchronized():
     api = DeviceAPI()
-    api.start_long_polling()
+    api.start_notifications()
     devices = list(api.list_connected_devices())
     if not devices:
         raise Exception("No devices registered. Aborting")
@@ -49,7 +49,7 @@ def _run_synchronized():
 
 def _run_async():
     api = DeviceAPI()
-    api.start_long_polling()
+    api.start_notifications()
     devices = list(api.list_connected_devices())
     if not devices:
         raise Exception("No devices registered. Aborting")

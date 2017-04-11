@@ -23,7 +23,9 @@ from mbed_cloud import PaginatedResponse
 # Import backend API
 import mbed_cloud._backends.iam as iam
 from mbed_cloud._backends.iam.models import AccountInfo
+from mbed_cloud._backends.iam.models import AccountUpdateReq
 from mbed_cloud._backends.iam.models import ApiKeyInfoResp
+from mbed_cloud._backends.iam.models import ApiKeyUpdateReq
 from mbed_cloud._backends.iam.models import GroupSummary
 from mbed_cloud._backends.iam.models import UserInfoResp
 import mbed_cloud._backends.iam.rest as ApiException
@@ -67,7 +69,7 @@ class AccessAPI(BaseAPI):
     def get_api_key(self, api_key):
         """Get API key details for key registered in organisation.
 
-        :param api_key: The key name (str)
+        :param api_key: The ID of the API key to be updated
         :returns: API key object
         :rtype: ApiKey
         """
@@ -78,7 +80,7 @@ class AccessAPI(BaseAPI):
     def delete_api_key(self, api_key):
         """Delete an API key registered in the organisation.
 
-        :param api_key: The key name (str)
+        :param api_key: The ID of the API key
         :returns: void
         """
         api = iam.DeveloperApi()
@@ -98,6 +100,20 @@ class AccessAPI(BaseAPI):
         api = iam.DeveloperApi()
         body = iam.ApiKeyInfoReq(name=name, groups=groups, owner=owner)
         return ApiKey(api.create_api_key(body))
+
+    @catch_exceptions(ApiException)
+    def update_api_key(self, api_key, name, owner=None):
+        """Updates an API key.
+
+        :param str api_key: The ID of the API key to be updated.
+        :param str name: The name of the API key.
+        :param str owner: Optional user ID owning the API key.
+        :returns: Newly created API key object
+        :rtype: ApiKey
+        """
+        api = iam.DeveloperApi()
+        body = iam.ApiKeyUpdateReq(name=name, owner=owner)
+        return ApiKey(api.update_api_key(api_key, body))
 
     @catch_exceptions(ApiException)
     def list_users(self, **kwargs):
@@ -180,6 +196,30 @@ class AccessAPI(BaseAPI):
         """
         api = iam.DeveloperApi()
         return Account(api.get_my_account_info(include="limits, policies"))
+
+    @catch_exceptions(ApiException)
+    def update_account(self, **kwargs):
+        """Update details of account associated with current API key.
+
+        :param str address_line1: Postal address line 1.
+        :param str address_line2: Postal address line 2.
+        :param str city: The city part of the postal address.
+        :param str display_name: The display name for the account.
+        :param str country: The country part of the postal address.
+        :param str company: The name of the company.
+        :param str state: The state part of the postal address.
+        :param str contact: The name of the contact person for this account.
+        :param str postal_code: The postal code part of the postal address.
+        :param str parent_id: The ID of the parent account.
+        :param str phone_number: The phone number of the company.
+        :param str email: Email address for this account.
+        :param list[str] aliases: List of aliases
+        :returns: an account object.
+        :rtype: Account
+        """
+        api = iam.AccountAdminApi()
+        body = AccountUpdateReq(**kwargs)
+        return Account(api.update_my_account(body))
 
     @catch_exceptions(ApiException)
     def list_groups(self, **kwargs):

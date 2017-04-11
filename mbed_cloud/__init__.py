@@ -189,9 +189,9 @@ class PaginatedResponse(object):
             >>> api.list_users().count()
             73
         """
-        if self.total_count is None:
+        if self._total_count is None:
             return self._get_total_count()
-        return self.total_count
+        return self._total_count
 
     def to_dict(self):
         """Propagate the to_dict of the inner response for the paginated response."""

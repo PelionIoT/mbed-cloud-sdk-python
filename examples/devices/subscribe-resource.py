@@ -19,7 +19,7 @@ BUTTON_RESOURCE = "/3200/0/5501"
 
 def _main():
     api = DeviceAPI()
-    api.start_long_polling()
+    api.start_notifications()
     devices = list(api.list_connected_devices())
     if not devices:
         raise Exception("No connected devices registered. Aborting")

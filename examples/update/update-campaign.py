@@ -52,7 +52,7 @@ def _main():
     filename = os.path.abspath(sys.argv[1])
 
     # Upload manifest
-    mobj = update_api.add_manifest(
+    mobj = update_api.add__firmware_manifest(
         name="Auto manifest %s" % _rand_id(),
         datafile=filename,
         description="Manifest uploaded using mbed cloud SDK")
@@ -60,7 +60,7 @@ def _main():
     _print_manifest_details(mobj)
 
     # List all manifests currently uploaded
-    mresp = update_api.list_manifests(limit=10)
+    mresp = update_api.list_firmware_manifests(limit=10)
     _print_manifests(mresp)
 
     # List all filters
@@ -86,7 +86,7 @@ def _main():
         mobj.id,
         selected_filter.id)
     )
-    cobj = update_api.add_update_campaign(
+    cobj = update_api.add_campaign(
         name=campaign_name,
         root_manifest_id=mobj.id,
         device_filter="filter=%s" % selected_filter.query
@@ -98,7 +98,7 @@ def _main():
     #
     header = "Update campaigns"
     print("\n%s\n%s" % (header, "-" * len(header)))
-    for c, idx in update_api.list_update_campaigns().iteritems():
+    for c, idx in update_api.list_campaigns().iteritems():
         print("\t- %s (State: %r)" % (c.name, c.state))
 
     #
@@ -106,11 +106,11 @@ def _main():
     #
     print("\n** Starting the update campign **")
     # By default a new campaign is created with the 'draft' status. We can manually start it.
-    new_cobj = update_api.start_update_campaign(cobj)
+    new_cobj = update_api.start_campaign(cobj)
     print("Campaign successfully started. Current state: %r. Checking updates.." % (new_cobj.state))
     countdown = 10
     while countdown > 0:
-        c = update_api.get_update_campaign_status(new_cobj.id)
+        c = update_api.get_campaign_status(new_cobj.id)
         print("[%d/10] Current state: %r (Updated devices: %d/%d)" % (
             countdown, c.state, c.deployed_devices, c.total_devices
         ))
@@ -120,8 +120,8 @@ def _main():
     # Cleanup.
     #
     print("\n** Deleting update campaign and manifest **")
-    update_api.delete_update_campaign(new_cobj.id)
-    update_api.delete_manifest(mobj.id)
+    update_api.delete_campaign(new_cobj.id)
+    update_api.delete_firmware_manifest(mobj.id)
 
 
 if __name__ == '__main__':

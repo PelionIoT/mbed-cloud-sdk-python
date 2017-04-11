@@ -21,13 +21,13 @@ def _main():
 
     header = "All registered users in Organisation"
     print("%s\n%s" % (header, len(header) * "-"))
-    for u, idx in api.list_users().iteritems():
+    for idx, u in enumerate(api.list_users()):
         print("\t- %s (%s - %s)" % (u.full_name, u.email, u.username))
 
     header = "\nAll registered API keys in Organisation"
     presp = api.list_api_keys(limit=2)
-    print("%s (%d)\n%s" % (header, presp.count(), len(header) * "-"))
-    for k, idx in presp.iteritems():
+    print("%s \n%s" % (header, len(header) * "-"))
+    for idx, k in enumerate(presp):
         last_used = "Never"
         if k.last_login_time > 0:
             last_used = datetime.datetime.fromtimestamp(k.last_login_time / 1000).strftime('%c')

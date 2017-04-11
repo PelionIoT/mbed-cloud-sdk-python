@@ -26,8 +26,8 @@ from mbed_cloud._backends.deployment_service.models\
 from mbed_cloud._backends.deployment_service.rest\
     import ApiException as DeploymentServiceApiException
 import mbed_cloud._backends.firmware_catalog as firmware_catalog
-from mbed_cloud._backends.firmware_catalog.models import FirmwareImage
-from mbed_cloud._backends.firmware_catalog.models import FirmwareManifest
+from mbed_cloud._backends.firmware_catalog.models import FirmwareImage as FirmwareImageObj
+from mbed_cloud._backends.firmware_catalog.models import FirmwareManifest as FirmwareManifestObj
 from mbed_cloud._backends.firmware_catalog.rest\
     import ApiException as FirmwareCatalogApiException
 
@@ -52,43 +52,32 @@ class UpdateAPI(BaseAPI):
         self.deployment_service = self._init_api(deployment_service)
 
     @catch_exceptions(DeploymentServiceApiException)
-    def list_update_campaigns(self, **kwargs):
+    def list_campaigns(self, **kwargs):
         """List all update campaigns.
 
         :param int limit: number of campaigns to retrieve
         :param str order: sort direction of campaigns when ordered by creation time (desc|asc)
         :param str after: get campaigns after given campaign ID
-        :return: List of :py:class:`UpdateCampaign` objects
+        :return: List of :py:class:`Campaign` objects
         :rtype: PaginatedResponse
         """
         api = self.deployment_service.DefaultApi()
         kwargs = self._verify_sort_options(kwargs)
-        return PaginatedResponse(api.update_campaign_list, lwrap_type=UpdateCampaign, **kwargs)
+        return PaginatedResponse(api.update_campaign_list, lwrap_type=Campaign, **kwargs)
 
     @catch_exceptions(DeploymentServiceApiException)
-    def get_update_campaign(self, campaign_id):
+    def get_campaign(self, campaign_id):
         """Get existing update campaign.
 
         :param str campaign_id: Campaign to retrieve
         :return: Update campaign object matching provided ID.
-        :rtype: UpdateCampaign
+        :rtype: Campaign
         """
         api = self.deployment_service.DefaultApi()
         return api.update_campaign_retrieve(campaign_id)
 
     @catch_exceptions(DeploymentServiceApiException)
-    def get_update_campaign_status(self, campaign_id):
-        """Get status of existing update campaign.
-
-        :param str campaign_id: Campaign to retrieve status
-        :return: Update campaign status object matching provided ID.
-        :rtype: UpdateCampaign
-        """
-        api = self.deployment_service.DefaultApi()
-        return api.update_campaign_status(campaign_id)
-
-    @catch_exceptions(DeploymentServiceApiException)
-    def add_update_campaign(self, name, device_filter, **kwargs):
+    def add_campaign(self, name, device_filter, **kwargs):
         """Add new update campaign.
 
         Add an update campaign with given name and device filtering. Example:
@@ -101,7 +90,7 @@ class UpdateAPI(BaseAPI):
             device_filter_obj = device_api.get_filter(filter_id="MYID")
 
             # Create the campaign
-            new_campaign = update_api.add_update_campaign(
+            new_campaign = update_api.add_campaign(
                 name="foo",
                 device_filter=device_filter_obj.query
             )
@@ -112,7 +101,7 @@ class UpdateAPI(BaseAPI):
         :param str description: Optional description of the campaign
         :param str when: The timestamp at which update campaign scheduled to start
         :return: newly created campaign object
-        :rtype: UpdateCampaign
+        :rtype: Campaign
         """
         api = self.deployment_service.DefaultApi()
         body = self.deployment_service.UpdateCampaignPostRequest(
@@ -122,19 +111,19 @@ class UpdateAPI(BaseAPI):
         return api.update_campaign_create(body)
 
     @catch_exceptions(DeploymentServiceApiException)
-    def start_update_campaign(self, campaign_object):
+    def start_campaign(self, campaign_object):
         """Start an update campaign in draft state.
 
-        :param UpdateCampaign campaign_object: Campaign object to schedule for immediate start.
+        :param Campaign campaign_object: Campaign object to schedule for immediate start.
         :return: newly edited campaign object
-        :rtype: UpdateCampaign
+        :rtype: Campaign
         """
         api = self.deployment_service.DefaultApi()
         campaign_object.state = "scheduled"
         return api.update_campaign_update(campaign_id=campaign_object.id, body=campaign_object)
 
     @catch_exceptions(DeploymentServiceApiException)
-    def delete_update_campaign(self, campaign_id):
+    def delete_campaign(self, campaign_id):
         """Delete an update campaign.
 
         :param campaign_id: Campaign ID to delete (str)
@@ -152,7 +141,7 @@ class UpdateAPI(BaseAPI):
         :return: Firmware
         """
         api = self.firmware_catalog.DefaultApi()
-        return Firmware(api.firmware_image_retrieve(image_id))
+        return FirmwareImage(api.firmware_image_retrieve(image_id))
 
     @catch_exceptions(FirmwareCatalogApiException)
     def list_firmware_images(self, **kwargs):
@@ -166,25 +155,25 @@ class UpdateAPI(BaseAPI):
         """
         kwargs = self._verify_sort_options(kwargs)
         api = self.firmware_catalog.DefaultApi()
-        return PaginatedResponse(api.firmware_image_list, lwrap_type=Firmware, **kwargs)
+        return PaginatedResponse(api.firmware_image_list, lwrap_type=FirmwareImage, **kwargs)
 
     @catch_exceptions(FirmwareCatalogApiException)
-    def add_firmware(self, name, datafile, description=""):
+    def add_firmware_image(self, name, datafile, description=""):
         """Add a new firmware reference.
 
         :param str name: firmware file short name
         :param str datafile: the *path* to the manifest file
         :param str description: optional firmware file description
         :return: the newly created firmware file object
-        :rtype: Firmware
+        :rtype: FirmwareImage
         """
         api = self.firmware_catalog.DefaultApi()
-        return Firmware(
+        return FirmwareImage(
             api.firmware_image_create(name=name, datafile=datafile, description=description)
         )
 
     @catch_exceptions(FirmwareCatalogApiException)
-    def delete_firmware(self, firmware_image_id):
+    def delete_firmware_image(self, firmware_image_id):
         """Delete a firmware image.
 
         :param str firmware_image_id: image ID for the firmware to remove/delete
@@ -195,17 +184,17 @@ class UpdateAPI(BaseAPI):
         return
 
     @catch_exceptions(FirmwareCatalogApiException)
-    def get_manifest(self, manifest_id):
+    def get_firmware_manifest(self, manifest_id):
         """Get manifest with provided manifest_id.
 
         :param str manifest_id: ID of manifest to retrieve
         :return Manifest
         """
         api = self.firmware_catalog.DefaultApi()
-        return Manifest(api.firmware_manifest_retrieve(manifest_id=manifest_id))
+        return FirmwareManifest(api.firmware_manifest_retrieve(manifest_id=manifest_id))
 
     @catch_exceptions(FirmwareCatalogApiException)
-    def list_manifests(self, **kwargs):
+    def list_firmware_manifests(self, **kwargs):
         """List all manifests.
 
         :param int limit: number of manifests to retrieve
@@ -216,25 +205,25 @@ class UpdateAPI(BaseAPI):
         """
         kwargs = self._verify_sort_options(kwargs)
         api = self.firmware_catalog.DefaultApi()
-        return PaginatedResponse(api.firmware_manifest_list, lwrap_type=Manifest, **kwargs)
+        return PaginatedResponse(api.firmware_manifest_list, lwrap_type=FirmwareManifest, **kwargs)
 
     @catch_exceptions(FirmwareCatalogApiException)
-    def add_manifest(self, name, datafile, description=""):
+    def add_firmware_manifest(self, name, datafile, description=""):
         """Add a new manifest reference.
 
         :param str name: manifest file short name
         :param str datafile: the *path* to the manifest file
         :param str description: optional manifest file description
         :return: the newly created manifest file object
-        :rtype: Manifest
+        :rtype: FirmwareManifest
         """
         api = self.firmware_catalog.DefaultApi()
-        return Manifest(
+        return FirmwareManifest(
             api.firmware_manifest_create(name=name, datafile=datafile, description=description)
         )
 
     @catch_exceptions(FirmwareCatalogApiException)
-    def delete_manifest(self, manifest_id):
+    def delete_firmware_manifest(self, manifest_id):
         """Delete an existing manifest.
 
         :param str manifest_id: Manifest file ID to delete
@@ -244,25 +233,25 @@ class UpdateAPI(BaseAPI):
         return api.firmware_manifest_destroy(manifest_id)
 
 
-class Firmware(FirmwareImage):
+class FirmwareImage(FirmwareImageObj):
     """Describes firmware object."""
 
     def __init__(self, firmware_image_obj):
         """Override __init__ and allow passing in backend object."""
-        super(Firmware, self).__init__(**firmware_image_obj.to_dict())
+        super(FirmwareImage, self).__init__(**firmware_image_obj.to_dict())
 
 
-class Manifest(FirmwareManifest):
+class FirmwareManifest(FirmwareManifestObj):
     """Describes firmware manifest object."""
 
     def __init__(self, manifest_image_obj):
         """Override __init__ and allow passing in backend object."""
-        super(Manifest, self).__init__(**manifest_image_obj.to_dict())
+        super(FirmwareManifest, self).__init__(**manifest_image_obj.to_dict())
 
 
-class UpdateCampaign(UpdateCampaignObj):
+class Campaign(UpdateCampaignObj):
     """Describes update campaign object."""
 
     def __init__(self, device_certificate_obj):
         """Override __init__ and allow passing in backend object."""
-        super(UpdateCampaign, self).__init__(**device_certificate_obj.to_dict())
+        super(Campaign, self).__init__(**device_certificate_obj.to_dict())

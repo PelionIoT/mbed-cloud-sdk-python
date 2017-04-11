@@ -22,11 +22,11 @@ Usage
   api.subscribe(endpoints[0].name, observable[0].path)
 
   # Register a webhook to send all updates to
-  api.add_webhook(WEBHOOK_URL)
+  api.update_webhook(WEBHOOK_URL)
 
   # Remove webhook, and now use long-polling instead
   api.delete_webhook()
-  api.start_long_polling()
+  api.start_notifications()
 
   # Read the current resource value by blocking
   resource_value = api.get_resource_value(observable[0].id, observable[0].uri)
