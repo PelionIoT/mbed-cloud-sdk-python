@@ -111,7 +111,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v2_subscriptions_id_delete**
-> v2_subscriptions_id_delete(device_id)
+> v2_subscriptions_id_delete(id)
 
 Delete subscriptions from an endpoint
 
@@ -132,11 +132,11 @@ mds.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = mds.SubscriptionsApi()
-device_id = 'device_id_example' # str | A unique mbed Cloud identifier for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
+id = 'id_example' # str | A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
 
 try: 
     # Delete subscriptions from an endpoint
-    api_instance.v2_subscriptions_id_delete(device_id)
+    api_instance.v2_subscriptions_id_delete(id)
 except ApiException as e:
     print("Exception when calling SubscriptionsApi->v2_subscriptions_id_delete: %s\n" % e)
 ```
@@ -145,7 +145,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **device_id** | **str**| A unique mbed Cloud identifier for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  | 
+ **id** | **str**| A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  | 
 
 ### Return type
 
@@ -163,7 +163,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v2_subscriptions_id_get**
-> v2_subscriptions_id_get(device_id)
+> v2_subscriptions_id_get(id)
 
 Read endpoints subscriptions
 
@@ -184,11 +184,11 @@ mds.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = mds.SubscriptionsApi()
-device_id = 'device_id_example' # str | A unique mbed Cloud identifier for the endpoint. Note that ID must be an exact match. You cannot use wildcards here. 
+id = 'id_example' # str | A unique mbed Cloud device ID for the endpoint. Note that ID must be an exact match. You cannot use wildcards here. 
 
 try: 
     # Read endpoints subscriptions
-    api_instance.v2_subscriptions_id_get(device_id)
+    api_instance.v2_subscriptions_id_get(id)
 except ApiException as e:
     print("Exception when calling SubscriptionsApi->v2_subscriptions_id_get: %s\n" % e)
 ```
@@ -197,7 +197,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **device_id** | **str**| A unique mbed Cloud identifier for the endpoint. Note that ID must be an exact match. You cannot use wildcards here.  | 
+ **id** | **str**| A unique mbed Cloud device ID for the endpoint. Note that ID must be an exact match. You cannot use wildcards here.  | 
 
 ### Return type
 
@@ -215,7 +215,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v2_subscriptions_id_resource_path_delete**
-> v2_subscriptions_id_resource_path_delete(device_id, _resource_path)
+> v2_subscriptions_id_resource_path_delete(id, _resource_path)
 
 Remove a subscription
 
@@ -236,12 +236,12 @@ mds.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = mds.SubscriptionsApi()
-device_id = 'device_id_example' # str | A unique mbed Cloud identifier for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
+id = 'id_example' # str | A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
 _resource_path = '_resource_path_example' # str | The URL of the resource. 
 
 try: 
     # Remove a subscription
-    api_instance.v2_subscriptions_id_resource_path_delete(device_id, _resource_path)
+    api_instance.v2_subscriptions_id_resource_path_delete(id, _resource_path)
 except ApiException as e:
     print("Exception when calling SubscriptionsApi->v2_subscriptions_id_resource_path_delete: %s\n" % e)
 ```
@@ -250,7 +250,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **device_id** | **str**| A unique mbed Cloud identifier for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  | 
+ **id** | **str**| A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  | 
  **_resource_path** | **str**| The URL of the resource.  | 
 
 ### Return type
@@ -269,7 +269,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v2_subscriptions_id_resource_path_get**
-> v2_subscriptions_id_resource_path_get(device_id, _resource_path)
+> v2_subscriptions_id_resource_path_get(id, _resource_path)
 
 Read subscription status
 
@@ -288,12 +288,12 @@ mds.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = mds.SubscriptionsApi()
-device_id = 'device_id_example' # str | A unique mbed Cloud identifier for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
+id = 'id_example' # str | A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
 _resource_path = '_resource_path_example' # str | The URL of the resource. 
 
 try: 
     # Read subscription status
-    api_instance.v2_subscriptions_id_resource_path_get(device_id, _resource_path)
+    api_instance.v2_subscriptions_id_resource_path_get(id, _resource_path)
 except ApiException as e:
     print("Exception when calling SubscriptionsApi->v2_subscriptions_id_resource_path_get: %s\n" % e)
 ```
@@ -302,7 +302,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **device_id** | **str**| A unique mbed Cloud identifier for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  | 
+ **id** | **str**| A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  | 
  **_resource_path** | **str**| The URL of the resource.  | 
 
 ### Return type
@@ -321,7 +321,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v2_subscriptions_id_resource_path_put**
-> v2_subscriptions_id_resource_path_put(device_id, _resource_path)
+> v2_subscriptions_id_resource_path_put(id, _resource_path)
 
 Subscribe to a resource path
 
@@ -342,12 +342,12 @@ mds.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = mds.SubscriptionsApi()
-device_id = 'device_id_example' # str | A unique mbed Cloud identifier for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
+id = 'id_example' # str | A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
 _resource_path = '_resource_path_example' # str | The URL of the resource. 
 
 try: 
     # Subscribe to a resource path
-    api_instance.v2_subscriptions_id_resource_path_put(device_id, _resource_path)
+    api_instance.v2_subscriptions_id_resource_path_put(id, _resource_path)
 except ApiException as e:
     print("Exception when calling SubscriptionsApi->v2_subscriptions_id_resource_path_put: %s\n" % e)
 ```
@@ -356,7 +356,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **device_id** | **str**| A unique mbed Cloud identifier for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  | 
+ **id** | **str**| A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  | 
  **_resource_path** | **str**| The URL of the resource.  | 
 
 ### Return type

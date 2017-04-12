@@ -62,7 +62,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v2_endpoints_id_get**
-> list[Resource] v2_endpoints_id_get(device_id)
+> list[Resource] v2_endpoints_id_get(id)
 
 List the resources on an endpoint
 
@@ -83,11 +83,11 @@ mds.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = mds.EndpointsApi()
-device_id = 'device_id_example' # str | A unique mbed Cloud identifier for an endpoint. Note that the ID needs to be an exact match. You cannot use wildcards here. 
+id = 'id_example' # str | A unique mbed Cloud device ID for an endpoint. Note that the ID needs to be an exact match. You cannot use wildcards here. 
 
 try: 
     # List the resources on an endpoint
-    api_response = api_instance.v2_endpoints_id_get(device_id)
+    api_response = api_instance.v2_endpoints_id_get(id)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling EndpointsApi->v2_endpoints_id_get: %s\n" % e)
@@ -97,7 +97,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **device_id** | **str**| A unique mbed Cloud identifier for an endpoint. Note that the ID needs to be an exact match. You cannot use wildcards here.  | 
+ **id** | **str**| A unique mbed Cloud device ID for an endpoint. Note that the ID needs to be an exact match. You cannot use wildcards here.  | 
 
 ### Return type
 
