@@ -107,20 +107,15 @@ class DeviceAPI(BaseAPI):
 
     @catch_exceptions(MdsApiException)
     def list_connected_devices(self, **kwargs):
-        """List all devices.
+        """List connected devices.
 
-        :returns: a list of currently *connected* `Device` objects
-        :rtype: PaginatedResponse
+        :returns: a list of currently *connected* `ConnectedDevice` objects
+        :rtype: list of ConnectedDevice
         """
         api = self.mds.EndpointsApi()
 
-        # We wrap each object into a Device catalog object. Doing so we rename
-        # some keys and throw away some information.
-        devices = api.v2_endpoints_get()
-        devices = [Device({'id': d.name}) for d in devices]
-
-        # As this doesn't actually return a paginated response - we mock it.
-        return PaginatedResponse(lambda: None, init_data=devices)
+        resp = api.v2_endpoints_get()
+        return [ConnectedDevice(e.to_dict()) for e in resp]
 
     @catch_exceptions(MdsApiException)
     def list_resources(self, device_id):
@@ -860,6 +855,83 @@ class _LongPollingThread(threading.Thread):
 
     def stop(self):
         self._stopped = True
+
+
+class ConnectedDevice(object):
+    """Describes device object from the mDS."""
+
+    def __init__(self, connected_device_obj):
+        """Override __init__ and allow passing in backend object."""
+        for key, value in iteritems(ConnectedDevice._get_map_attributes()):
+            setattr(self, "_%s" % key, connected_device_obj.get(value, None))
+
+    @staticmethod
+    def _get_map_attributes():
+        return {
+            'state': 'status',
+            'queue_mode': 'q',
+            'type': 'type',
+            'id': 'name'
+        }
+
+    @property
+    def state(self):
+        """Get the state of this Endpoint.
+
+        Possible values ACTIVE, STALE.xwwxw
+        :return: The state of this Endpoint.
+        :rtype: str
+        """
+        return self._state
+
+    @property
+    def queue_mode(self):
+        """Get the queue mode of this Endpoint.
+
+        Determines whether the device is in queue mode.
+        When an endpoint is in Queue mode,
+        messages sent to the endpoint do not wake up the physical device.
+        The messages are queued and delivered when the device
+        wakes up and connects to mbed Cloud Connect itself.
+        You can also use the Queue mode when the device
+        is behind a NAT and cannot be reached directly by mbed Cloud Connect.
+        :return: The queue_mode of this Endpoint.
+        :rtype: bool
+        """
+        return self._queue_mode
+
+    @property
+    def type(self):
+        """Get the type of this Endpoint.
+
+        Type of endpoint. (Free text)
+        :return: The type of this Endpoint.
+        :rtype: str
+        """
+        return self._type
+
+    @property
+    def id(self):
+        """Get the id of this Endpoint.
+
+        Unique mbed Cloud Device ID representing the endpoint.
+        :return: The id of this Endpoint.
+        :rtype: str
+        """
+        return self._id
+
+    def to_dict(self):
+        """Return dictionary of object."""
+        return {
+            'id': self.id,
+            'state': self.state,
+            'queue_mode': self.queue_mode,
+            'type': self.type
+        }
+
+    def __repr__(self):
+        """For print and pprint."""
+        return str(self.to_dict())
 
 
 class Device(ClassAPI):

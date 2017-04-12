@@ -29,10 +29,10 @@ Usage
   api.start_notifications()
 
   # Read the current resource value by blocking
-  resource_value = api.get_resource_value(observable[0].id, observable[0].uri)
+  resource_value = api.get_resource_value(devices[0].id, observable[0].path)
 
   # Get next one, but do it async waiting for it to finish
-  async_handler = api.get_resource_value_async(observable[0].id, observable[0].uri)
+  async_handler = api.get_resource_value_async(devices[0].id, observable[0].path)
   while not async_handler.is_done:
     time.sleep(1)
   if async_handler.error:
@@ -59,15 +59,20 @@ Reference
 .. automodule:: mbed_cloud.devices
   :members: DeviceAPI, AsyncConsumer
 
+.. autoclass:: mbed_cloud.devices.ConnectedDevice
+  :members:
+  :inherited-members:
+  :exclude-members: to_dict, to_str
+
 .. autoclass:: mbed_cloud.devices.Device
   :members:
   :inherited-members:
-  :exclude-members: etag, object, to_dict, to_str
+  :exclude-members: to_dict, to_str
 
-.. autoclass:: mbed_cloud.devices.Filter
+.. autoclass:: mbed_cloud.devices.Query
   :members:
   :inherited-members:
-  :exclude-members: etag, object, to_dict, to_str
+  :exclude-members: to_dict, to_str
 
 .. autoclass:: mbed_cloud.devices.Resource
   :members:

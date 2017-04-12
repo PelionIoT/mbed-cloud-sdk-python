@@ -16,7 +16,7 @@ import time
 
 from mbed_cloud.devices import DeviceAPI
 
-BUTTON_RESOURCE = "/3200/0/5501"
+BUTTON_RESOURCE = "/5002/0/1"
 
 
 def _run_synchronized():
@@ -40,11 +40,6 @@ def _run_synchronized():
 
             # Save new current value
             current_value = new_value
-
-        # If counter reaches threshold, reset it.
-        if int(current_value) > 10:
-            current_value = api.set_resource_value(devices[0].id, BUTTON_RESOURCE, 0)
-            print(current_value)
 
 
 def _run_async():

@@ -15,22 +15,20 @@
 from mbed_cloud.devices import DeviceAPI
 import time
 
-BUTTON_RESOURCE = "/3200/0/5501"
+BUTTON_RESOURCE = "/5002/0/1"
 
 
 def _main():
     api = DeviceAPI()
     devices = api.list_connected_devices()
-    if devices.count() == 0:
+    if len(devices) == 0:
         raise Exception("No endpints registered. Aborting")
 
-    # First register to one webhook
-    api.update_webhook("http://api.webhookinbox.com/i/UTComlHQ/in/")
+    # First register to webhook
+    api.update_webhook("http://testpython2.requestcatcher.com/")
     time.sleep(2)
 
-    # Then register to another one
-    api.update_webhook("http://api.webhookinbox.com/i/SyjKevok/in/")
-    api.add_subscription(list(devices)[0].id, BUTTON_RESOURCE)
+    api.add_subscription(devices[0].id, BUTTON_RESOURCE)
     while True:
         print("Webhook registered. Listening to button updates for 10 seconds...")
 

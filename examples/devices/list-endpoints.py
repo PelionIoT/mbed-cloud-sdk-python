@@ -27,7 +27,8 @@ def _main():
         print(len(header) * "-")
 
         for r in resources:
-            print("\t- %s (%s / Observable: %s)" % (r.uri, r.name if r.name else "-", r.observable))
+            print("\t- %s (%s / Observable: %s)" %
+                  (r.path, r.type if r.type else "-", r.observable))
 
         # Space between endpoints
         print("")

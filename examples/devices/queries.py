@@ -85,7 +85,7 @@ def _main():
     updated_gf = api.update_query(
         query_id=gf.id,
         name=gf.name,
-        query=q
+        filter=q
     )
     # Check it was successful
     assert _parse_query_qs(gf)['serial_number'] == '1234'

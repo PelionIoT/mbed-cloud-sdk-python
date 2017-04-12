@@ -14,7 +14,7 @@
 """Example showing basic usage of device resource subscriptions."""
 from mbed_cloud.devices import DeviceAPI
 
-BUTTON_RESOURCE = "/3200/0/5501"
+BUTTON_RESOURCE = "/5002/0/1"
 
 
 def _current_val(value):
@@ -29,7 +29,7 @@ def _subscription_handler(value):
 def _main():
     api = DeviceAPI()
     api.start_notifications()
-    devices = list(api.list_connected_devices())
+    devices = api.list_connected_devices()
     if not devices:
         raise Exception("No connected devices registered. Aborting")
 
