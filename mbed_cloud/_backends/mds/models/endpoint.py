@@ -122,7 +122,7 @@ class Endpoint(object):
     def name(self):
         """
         Gets the name of this Endpoint.
-        Unique identifier representing the endpoint.
+        Unique mbed Cloud Device ID representing the endpoint.
 
         :return: The name of this Endpoint.
         :rtype: str
@@ -133,7 +133,7 @@ class Endpoint(object):
     def name(self, name):
         """
         Sets the name of this Endpoint.
-        Unique identifier representing the endpoint.
+        Unique mbed Cloud Device ID representing the endpoint.
 
         :param name: The name of this Endpoint.
         :type: str
