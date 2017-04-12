@@ -151,7 +151,7 @@ class NotificationData(object):
     def ep(self):
         """
         Gets the ep of this NotificationData.
-        Device ID.
+        mbed Cloud Device ID.
 
         :return: The ep of this NotificationData.
         :rtype: str
@@ -162,7 +162,7 @@ class NotificationData(object):
     def ep(self, ep):
         """
         Sets the ep of this NotificationData.
-        Device ID.
+        mbed Cloud Device ID.
 
         :param ep: The ep of this NotificationData.
         :type: str
