@@ -118,7 +118,7 @@ class ResourcesApi(object):
         resource_path = '/v2/endpoints/{id}/{resourcePath}'.replace('{format}', 'json')
         path_params = {}
         if 'device_id' in params:
-            path_params['Device ID'] = params['device_id']
+            path_params['deviceId'] = params['device_id']
         if '_resource_path' in params:
             path_params['resourcePath'] = params['_resource_path']
 
@@ -234,7 +234,7 @@ class ResourcesApi(object):
         resource_path = '/v2/endpoints/{id}/{resourcePath}'.replace('{format}', 'json')
         path_params = {}
         if 'device_id' in params:
-            path_params['Device ID'] = params['device_id']
+            path_params['deviceId'] = params['device_id']
         if '_resource_path' in params:
             path_params['resourcePath'] = params['_resource_path']
 
@@ -352,7 +352,7 @@ class ResourcesApi(object):
         resource_path = '/v2/endpoints/{id}/{resourcePath}'.replace('{format}', 'json')
         path_params = {}
         if 'device_id' in params:
-            path_params['Device ID'] = params['device_id']
+            path_params['deviceId'] = params['device_id']
         if '_resource_path' in params:
             path_params['resourcePath'] = params['_resource_path']
 
@@ -477,7 +477,7 @@ class ResourcesApi(object):
         resource_path = '/v2/endpoints/{id}/{resourcePath}'.replace('{format}', 'json')
         path_params = {}
         if 'device_id' in params:
-            path_params['Device ID'] = params['device_id']
+            path_params['deviceId'] = params['device_id']
         if '_resource_path' in params:
             path_params['resourcePath'] = params['_resource_path']
 

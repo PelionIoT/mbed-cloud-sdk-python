@@ -301,7 +301,7 @@ class SubscriptionsApi(object):
         resource_path = '/v2/subscriptions/{id}'.replace('{format}', 'json')
         path_params = {}
         if 'device_id' in params:
-            path_params['Device ID'] = params['device_id']
+            path_params['deviceId'] = params['device_id']
 
         query_params = {}
 
@@ -404,7 +404,7 @@ class SubscriptionsApi(object):
         resource_path = '/v2/subscriptions/{id}'.replace('{format}', 'json')
         path_params = {}
         if 'device_id' in params:
-            path_params['Device ID'] = params['device_id']
+            path_params['deviceId'] = params['device_id']
 
         query_params = {}
 
@@ -512,7 +512,7 @@ class SubscriptionsApi(object):
         resource_path = '/v2/subscriptions/{id}/{resourcePath}'.replace('{format}', 'json')
         path_params = {}
         if 'device_id' in params:
-            path_params['Device ID'] = params['device_id']
+            path_params['deviceId'] = params['device_id']
         if '_resource_path' in params:
             path_params['resourcePath'] = params['_resource_path']
 
@@ -620,7 +620,7 @@ class SubscriptionsApi(object):
         resource_path = '/v2/subscriptions/{id}/{resourcePath}'.replace('{format}', 'json')
         path_params = {}
         if 'device_id' in params:
-            path_params['Device ID'] = params['device_id']
+            path_params['deviceId'] = params['device_id']
         if '_resource_path' in params:
             path_params['resourcePath'] = params['_resource_path']
 
@@ -730,7 +730,7 @@ class SubscriptionsApi(object):
         resource_path = '/v2/subscriptions/{id}/{resourcePath}'.replace('{format}', 'json')
         path_params = {}
         if 'device_id' in params:
-            path_params['Device ID'] = params['device_id']
+            path_params['deviceId'] = params['device_id']
         if '_resource_path' in params:
             path_params['resourcePath'] = params['_resource_path']
 

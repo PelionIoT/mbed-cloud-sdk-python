@@ -211,7 +211,7 @@ class EndpointsApi(object):
         resource_path = '/v2/endpoints/{id}'.replace('{format}', 'json')
         path_params = {}
         if 'device_id' in params:
-            path_params['Device ID'] = params['device_id']
+            path_params['deviceId'] = params['device_id']
 
         query_params = {}
 
