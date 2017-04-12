@@ -73,7 +73,7 @@ class BaseAPI(object):
 
     def _verify_filters(self, kwargs):
         if kwargs.get('filter'):
-            raise ValueError("Pass filters using dictionary and the 'filters' keyword")
+            kwargs.update({'filter': urllib.urlencode(kwargs.get('filter'))})
         if kwargs.get('filters'):
             kwargs.update({'filter': urllib.urlencode(kwargs.get('filters'))})
             del kwargs['filters']

@@ -138,7 +138,7 @@ class DeviceAPI(BaseAPI):
         :rtype: list
         """
         api = self.mds.EndpointsApi()
-        return [Resource(r) for r in api.v2_endpoints_endpoint_name_get(device_id)]
+        return [Resource(r) for r in api.v2_endpoints_id_get(device_id)]
 
     @catch_exceptions(MdsApiException)
     def get_resource_value(self, device_id, resource_path, fix_path=True, timeout=None):
@@ -174,7 +174,7 @@ class DeviceAPI(BaseAPI):
             resource_path = resource_path[1:]
 
         api = self.mds.ResourcesApi()
-        resp = api.v2_endpoints_endpoint_name_resource_path_get(device_id, resource_path)
+        resp = api.v2_endpoints_id_resource_path_get(device_id, resource_path)
 
         # The async consumer, which will read data from long-polling thread
         consumer = AsyncConsumer(resp.async_response_id, self._db)
@@ -208,7 +208,7 @@ class DeviceAPI(BaseAPI):
             resource_path = resource_path[1:]
 
         api = self.mds.ResourcesApi()
-        resp = api.v2_endpoints_endpoint_name_resource_path_get(device_id, resource_path)
+        resp = api.v2_endpoints_id_resource_path_get(device_id, resource_path)
 
         # The async consumer, which will read data from long-polling thread
         return AsyncConsumer(resp.async_response_id, self._db)
@@ -245,12 +245,9 @@ class DeviceAPI(BaseAPI):
         api = self.mds.ResourcesApi()
 
         if resource_value:
-            resp = api.v2_endpoints_endpoint_name_resource_path_put(device_id,
-                                                                    resource_path,
-                                                                    resource_value)
+            resp = api.v2_endpoints_id_resource_path_put(device_id, resource_path, resource_value)
         else:
-            resp = api.v2_endpoints_endpoint_name_resource_path_post(device_id,
-                                                                     resource_path)
+            resp = api.v2_endpoints_id_resource_path_post(device_id, resource_path)
         consumer = AsyncConsumer(resp.async_response_id, self._db)
         return self._get_value_synchronized(consumer)
 
@@ -286,12 +283,9 @@ class DeviceAPI(BaseAPI):
         api = self.mds.ResourcesApi()
 
         if resource_value:
-            resp = api.v2_endpoints_endpoint_name_resource_path_put(device_id,
-                                                                    resource_path,
-                                                                    resource_value)
+            resp = api.v2_endpoints_id_resource_path_put(device_id, resource_path, resource_value)
         else:
-            resp = api.v2_endpoints_endpoint_name_resource_path_post(device_id,
-                                                                     resource_path)
+            resp = api.v2_endpoints_id_resource_path_post(device_id, resource_path)
 
         return AsyncConsumer(resp.async_response_id, self._db)
 
@@ -593,7 +587,7 @@ class DeviceAPI(BaseAPI):
         return PaginatedResponse(api.device_query_list, lwrap_type=Query, **kwargs)
 
     @catch_exceptions(DeviceQueryServiceApiException)
-    def add_query(self, name, query, custom_attributes=None, **kwargs):
+    def add_query(self, name, filter, custom_attributes=None, **kwargs):
         """Add a new query to device query service.
 
         .. code-block:: python
@@ -608,7 +602,7 @@ class DeviceAPI(BaseAPI):
             print(f.created_at)
 
         :param str name: Name of query
-        :param dict query: Query properties to apply
+        :param dict filter: Filter properties to apply
         :param dict custom_attributes: Extra query attributes
         :param return: the newly created query object.
         :return: the newly created query object
@@ -618,7 +612,7 @@ class DeviceAPI(BaseAPI):
 
         # Ensure we have the correct types and get the new query object based on
         # passed in query object and custom attributes.
-        query = self._get_query_attributes(query, custom_attributes)
+        query = self._get_query_attributes(filter, custom_attributes)
 
         # Create the query object
         f = self.dc_queries.DeviceQuery(name=name, query=query, **kwargs)
@@ -626,7 +620,7 @@ class DeviceAPI(BaseAPI):
         return Query(api.device_query_create(f))
 
     @catch_exceptions(DeviceQueryServiceApiException)
-    def update_query(self, query_id, name, query, custom_attributes=None, **kwargs):
+    def update_query(self, query_id, name, filter, custom_attributes=None, **kwargs):
         """Update existing query in device query service.
 
         .. code-block:: python
@@ -638,7 +632,7 @@ class DeviceAPI(BaseAPI):
             new_q = api.update_query(
                 query_id = q.id,
                 name = "new name",
-                query = q.query,
+                filter = q.filter,
                 custom_attributes = new_custom_attributes
             )
 
@@ -652,7 +646,7 @@ class DeviceAPI(BaseAPI):
         api = self.dc_queries.DefaultApi()
 
         # Get urlencoded query attribute
-        query = self._get_query_attributes(query, custom_attributes)
+        query = self._get_query_attributes(filter, custom_attributes)
 
         body = self.dc_queries.DeviceQueryPostPutRequest(
             name=name,
@@ -663,14 +657,14 @@ class DeviceAPI(BaseAPI):
         return Query(api.device_query_update(query_id, body))
 
     @catch_exceptions(DeviceQueryServiceApiException)
-    def delete_query(self, query_id):
+    def delete_query(self, filter_id):
         """Delete query in device query service.
 
         :param int query_id: id of the query to delete
         :param return: void
         """
         api = self.dc_queries.DefaultApi()
-        api.device_query_destroy(query_id)
+        api.device_query_destroy(filter_id)
         return
 
     @catch_exceptions(DeviceQueryServiceApiException)
@@ -934,8 +928,12 @@ class Device(ClassAPI):
     def __init__(self, obj=None):
         """Override __init__ and allow passing in backend object."""
         if obj is not None:
-            for key, value in iteritems(self._get_map_attributes()):
-                setattr(self, key, getattr(obj, value, None))
+            if isinstance(obj, dict):
+                for key, value in iteritems(self._get_map_attributes()):
+                    setattr(self, key, obj.get(value, None))
+            else:
+                for key, value in iteritems(self._get_map_attributes()):
+                    setattr(self, key, getattr(obj, value, None))
 
     def _get_map_attributes(self):
         return {
