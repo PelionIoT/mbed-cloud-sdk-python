@@ -27,16 +27,16 @@ def _main():
     # Create a new device
     print("Creating new device...")
     device = {
-        "device_key": _id_generator(12),
-        "ca_id": _id_generator(12)
+        "certificate_issuer_id": _id_generator(12),
+        "certificate_fingerprint": _id_generator(12)
     }
     new_device = api.add_device(**device)
     print("Successfully created device with id: %r" % new_device.id)
 
     # Update device
     updated_device = api.update_device(new_device.id,
-                                       device_key=new_device.device_key,
-                                       ca_id=_id_generator(12))
+                                       certificate_fingerprint=new_device.certificate_fingerprint,
+                                       certificate_issuer_id=_id_generator(12))
 
     # Delete the device
     print("Attempting to delete device from catalog...")

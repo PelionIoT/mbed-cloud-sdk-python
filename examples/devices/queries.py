@@ -22,20 +22,20 @@ import uuid
 
 def _print_queries(queries, start_idx=0):
     queries_str = []
-    for idx, f in enumerate(queries):
-        queries_str.append(_str_query(f, idx=start_idx + idx + 1))
+    for idx, q in enumerate(queries):
+        queries_str.append(_str_query(q, idx=start_idx + idx + 1))
     print("\n\n".join(queries_str))
 
 
-def _parse_query_qs(f):
-    qs = urlparse.parse_qs(urllib.unquote(f.query))
+def _parse_query_qs(q):
+    qs = urlparse.parse_qs(urllib.unquote(q.filter))
     return {key: ", ".join(value) for (key, value) in qs.iteritems()}
 
 
-def _str_query(f, idx):
-    name = f.name
-    queries = _parse_query_qs(f)
-    s = "%d) %s\n%s\n" % (idx, f.name, "-" * len(name))
+def _str_query(q, idx):
+    name = q.name
+    queries = _parse_query_qs(q)
+    s = "%d) %s\n%s\n" % (idx, q.name, "-" * len(name))
     s += "\n".join(["%s = %s" % (k, v) for k, v in queries.iteritems()])
     return s
 

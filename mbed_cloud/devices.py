@@ -16,6 +16,7 @@ from __future__ import absolute_import
 import base64
 from collections import defaultdict
 import logging
+from six import iteritems
 from six.moves import queue
 import threading
 import time
@@ -23,6 +24,7 @@ import urllib
 
 # Import common functions and exceptions from frontend API
 from mbed_cloud import BaseAPI
+from mbed_cloud import ClassAPI
 from mbed_cloud.decorators import catch_exceptions
 from mbed_cloud.exceptions import CloudAsyncError
 from mbed_cloud.exceptions import CloudTimeoutError
@@ -36,11 +38,9 @@ from mbed_cloud._backends.device_catalog.models import DeviceData
 from mbed_cloud._backends.device_catalog.rest import \
     ApiException as DeviceCatalogApiException
 import mbed_cloud._backends.device_query_service as dc_queries
-from mbed_cloud._backends.device_query_service.models import DeviceQuery
 from mbed_cloud._backends.device_query_service.rest import \
     ApiException as DeviceQueryServiceApiException
 import mbed_cloud._backends.mds as mds
-from mbed_cloud._backends.mds.models import Webhook as WebhookData
 from mbed_cloud._backends.mds.rest import ApiException as MdsApiException
 
 LOG = logging.getLogger(__name__)
@@ -329,7 +329,7 @@ class DeviceAPI(BaseAPI):
 
     @catch_exceptions(MdsApiException)
     def add_subscription_async(self, device_id, resource_path, callback_fn,
-                                       fix_path=True, queue_size=5):
+                               fix_path=True, queue_size=5):
         """Subscribe to resource updates with callback function.
 
         When called on valid device and resource path a subscription is setup so that
@@ -499,25 +499,20 @@ class DeviceAPI(BaseAPI):
             existing_device = api.get_device(...)
             updated_device = api.update_device(
                 existing_device.id,
-                provision_key = "something new"
+                certificate_fingerprint = "something new"
             )
 
-        :param str mechanism: The ID of the channel used to communicate with the device (str)
-        :param str provision_key: The key used to provision the device (str)
-        :param str account_id: Owning IAM account ID
         :param bool auto_update: Mark this device for auto firmware update
-        :param str custom_attributes: Up to 5 JSON attributes (json encoded)
-        :param str description: Description of the device
-        :param str device_class: Class of the device
-        :param str manifest: URL for the current device manifest
-        :param str mechanism_url: Address of the connector to use
-        :param str name: Name of the device
-        :param int trust_class: Trust class of device
-        :param int trust_level: Trust level of device
-        :param int vendor_id: Device vendor ID
+        :param obj custom_attributes: Up to 5 custom JSON attributes
+        :param str description: The description of the device
+        :param str name: The name of the device
+        :param str alias: The alias of the device
+        :param str certificate_fingerprint: Fingerprint of the device certificate
+        :param str certificate_issuer_id: ID of the issuer of the certificate
         :returns: the updated device object
         :rtype: Device
         """
+        kwargs = Device()._verify_args(kwargs)
         api = self.dc.DefaultApi()
         body = self.dc.DeviceDataPostRequest(**kwargs)
         return Device(api.device_update(device_id, body))
@@ -530,38 +525,43 @@ class DeviceAPI(BaseAPI):
 
             device = {
                 "mechanism": "connector",
-                "provision_key": "unique key",
+                "certificateFingerprint": "<certificate>",
                 "name": "New device name",
                 "auto_update": True,
-                "vendor_id": "<id>"
+                "certificateIssuerId": "<id>"
             }
             resp = api.add_device(**device)
             print(resp.created_at)
 
-        :param str certificate_issuer_id:
-        :param str mechanism: The ID of the channel used to communicate with the device
-        :param str provision_key: The key used to provision the device
-        :param str account_id: Owning IAM account ID
+        :param str account_id: The owning IAM account ID
         :param bool auto_update: Mark this device for auto firmware update
-        :param str created_at: When the device was created (ISO-8601)
-        :param str custom_attributes: Up to 5 JSON attributes (json encoded)
+        :param obj custom_attributes: Up to 5 custom JSON attributes
         :param str deployed_state: State of the device's deployment
-        :param str deployment: Last deployment used on the device
-        :param str description: Description of the device
+        :param str description: The description of the device
         :param str device_class: Class of the device
-        :param str id: ID of the device
-        :param str manifest: URL for the current device manifest
-        :param str mechanism_url: Address of the connector to use
-        :param str name: Name of the device
-        :param str serial_number: Serial number of device
-        :param str state: Current state of device
-        :param int trust_class: Trust class of device
-        :param int trust_level: Trust level of device
-        :param int updated_at: Time the device was updated
-        :param int vendor_id: Device vendor ID
+        :param str id: The ID of the device
+        :param str manifest_url: URL for the current device manifest
+        :param str mechanism: The ID of the channel used to communicate with the device
+        :param str mechanism_url: The address of the connector to use
+        :param str name: The name of the device
+        :param str serial_number: The serial number of the device
+        :param str state: The current state of the device
+        :param int trust_class: The device trust class
+        :param int trust_level: The device trust level
+        :param str vendor_id: The device vendor ID
+        :param str alias: The alias of the device
+        :param datetime bootstrap_certificate_expiration:
+        :param str certificate_fingerprint: Fingerprint of the device certificate
+        :param str certificate_issuer_id: ID of the issuer of the certificate
+        :param datetime connector_certificate_expiration: Expiration date of the certificate
+        used to connect to connector server
+        :param int device_execution_mode: The device class
+        :param str firmware_checksum: The SHA256 checksum of the current firmware image
+        :param datetime manifest_timestamp: The timestamp of the current manifest version
         :return: the newly created device object.
         :rtype: Device
         """
+        kwargs = Device()._verify_args(kwargs)
         api = self.dc.DefaultApi()
         device = DeviceData(**kwargs)
         return Device(api.device_create(device))
@@ -869,33 +869,159 @@ class _LongPollingThread(threading.Thread):
         self._stopped = True
 
 
-class Device(DeviceData):
-    """Describes device object from the catalog."""
+class Device(ClassAPI):
+    """Describes device object from the catalog.
 
-    def __init__(self, device_obj):
+    :ivar account_id: The owning IAM account ID
+    :vartype account_id: str
+    :ivar auto_update: Mark this device for auto firmware update
+    :vartype auto_update: bool
+    :ivar bootstrapped_timestamp:
+    :vartype bootstrapped_timestamp: datetime
+    :ivar created_at: The time the device was created
+    :vartype created_at: datetime
+    :ivar custom_attributes: Up to 5 custom JSON attributes
+    :vartype custom_attributes: object
+    :ivar deployed_state: State of the device's deployment
+    :vartype deployed_state: str
+    :ivar last_deployment: The last deployment used on the device
+    :vartype last_deployment: datetime
+    :ivar description: The description of the device
+    :vartype description: str
+    :ivar device_class: Class of the device
+    :vartype device_class: str
+    :ivar id: The ID of the device
+    :vartype id: str
+    :ivar manifest_url: URL for the current device manifest
+    :vartype manifest_url: str
+    :ivar mechanism: The ID of the channel used to communicate with the device
+    :vartype mechanism: str
+    :ivar mechanism_url: The address of the connector to use
+    :vartype mechanism_url: str
+    :ivar name: The name of the device
+    :vartype name: str
+    :ivar serial_number: The serial number of the device
+    :vartype serial_number: str
+    :ivar state: The current state of the device
+    :vartype state: str
+    :ivar trust_class: The device trust class
+    :vartype trust_class: int
+    :ivar trust_level: The device trust level
+    :vartype trust_level: int
+    :ivar updated_at: The time the device was updated
+    :vartype updated_at: datetime
+    :ivar vendor_id: The device vendor ID
+    :vartype vendor_id: str
+    :ivar alias: The alias of the device
+    :vartype alias: str
+    :ivar bootstrap_certificate_expiration:
+    :vartype bootstrap_certificate_expiration: datetime
+    :ivar certificate_fingerprint: Fingerprint of the device certificate
+    :vartype certificate_fingerprint: str
+    :ivar certificate_issuer_id: ID of the issuer of the certificate
+    :vartype certificate_issuer_id: str
+    :ivar connector_certificate_expiration: Expiration date of the certificate
+    used to connect to connector server
+    :vartype connector_certificate_expiration: datetime
+    :ivar device_execution_mode: The device class
+    :vartype device_execution_mode: int
+    :ivar firmware_checksum: The SHA256 checksum of the current firmware image
+    :vartype firmware_checksum: str
+    :ivar manifest_timestamp: The timestamp of the current manifest version
+    :vartype manifest_timestamp: datetime
+    """
+
+    def __init__(self, obj=None):
         """Override __init__ and allow passing in backend object."""
-        # Check type of device_obj to find params. If dict we use that, if class we ensure it has
-        # the required `to_dict` function - and use that to get a dict.
-        params = device_obj
-        if not isinstance(device_obj, dict) and callable(getattr(device_obj, "to_dict", None)):
-            params = device_obj.to_dict()
-        super(Device, self).__init__(**params)
+        if obj is not None:
+            for key, value in iteritems(self._get_map_attributes()):
+                setattr(self, key, getattr(obj, value, None))
+
+    def _get_map_attributes(self):
+        return {
+            "account_id": "account_id",
+            "auto_update": "auto_update",
+            "bootstrapped_timestamp": "bootstrapped_timestamp",
+            "created_at": "created_at",
+            "custom_attributes": "custom_attributes",
+            "deployed_state": "deployed_state",
+            "last_deployment": "deployment",
+            "description": "description",
+            "device_class": "device_class",
+            "id": "id",
+            "manifest_url": "manifest",
+            "mechanism": "mechanism",
+            "mechanism_url": "mechanism_url",
+            "name": "name",
+            "serial_number": "serial_number",
+            "state": "state",
+            "trust_class": "trust_class",
+            "trust_level": "trust_level",
+            "updated_at": "updated_at",
+            "vendor_id": "vendor_id",
+            "alias": "endpoint_name",
+            "bootstrap_certificate_expiration": "bootstrap_expiration_date",
+            "certificate_fingerprint": "device_key",
+            "certificate_issuer_id": "ca_id",
+            "connector_certificate_expiration": "connector_expiration_date",
+            "device_execution_mode": "device_execution_mode",
+            "firmware_checksum": "firmware_checksum",
+            "manifest_timestamp": "manifest_timestamp"
+        }
 
 
-class Query(DeviceQuery):
-    """Describes device query object."""
+class Query(ClassAPI):
+    """Describes device query object.
 
-    def __init__(self, device_query_obj):
+    :ivar id: The ID of the query
+    :vartype id: str
+    :ivar description: The description of the query
+    :vartype description: str
+    :ivar created_at: The time the query was created
+    :vartype created_at: date
+    :ivar updated_at: The time the query was updated
+    :vartype updated_at: date
+    :ivar filter: The query filter
+    :vartype filter: str
+    """
+
+    def __init__(self, obj=None):
         """Override __init__ and allow passing in backend object."""
-        super(Query, self).__init__(**device_query_obj.to_dict())
+        if obj is not None:
+            for key, value in iteritems(self._get_map_attributes()):
+                setattr(self, key, getattr(obj, value, None))
+
+    def _get_map_attributes(self):
+        return {
+            "created_at": "created_at",
+            "description": "description",
+            "id": "id",
+            "name": "name",
+            "updated_at": "updated_at",
+            "filter": "query"
+        }
 
 
-class Webhook(WebhookData):
-    """Describes webhook object."""
+class Webhook(ClassAPI):
+    """Describes webhook object.
 
-    def __init__(self, device_webhook_obj):
+    :ivar url: The URL to which the notifications must be sent
+    :vartype url: str
+    :ivar headers: Headers (key/value) that must be sent with the request
+    :vartype headers: dict
+    """
+
+    def __init__(self, obj=None):
         """Override __init__ and allow passing in backend object."""
-        super(Webhook, self).__init__(**device_webhook_obj.to_dict())
+        if obj is not None:
+            for key, value in iteritems(self._get_map_attributes()):
+                setattr(self, key, getattr(obj, value, None))
+
+    def _get_map_attributes(self):
+        return {
+            "url": "url",
+            "headers": "headers",
+        }
 
 
 class Resource(object):

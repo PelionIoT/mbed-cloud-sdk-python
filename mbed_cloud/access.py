@@ -25,7 +25,6 @@ import mbed_cloud._backends.iam as iam
 from mbed_cloud._backends.iam.models import AccountInfo
 from mbed_cloud._backends.iam.models import AccountUpdateReq
 from mbed_cloud._backends.iam.models import ApiKeyInfoResp
-from mbed_cloud._backends.iam.models import ApiKeyUpdateReq
 from mbed_cloud._backends.iam.models import GroupSummary
 from mbed_cloud._backends.iam.models import UserInfoResp
 import mbed_cloud._backends.iam.rest as ApiException
@@ -103,7 +102,7 @@ class AccessAPI(BaseAPI):
 
     @catch_exceptions(ApiException)
     def update_api_key(self, api_key, name, owner=None):
-        """Updates an API key.
+        """Update API key.
 
         :param str api_key: The ID of the API key to be updated.
         :param str name: The name of the API key.
