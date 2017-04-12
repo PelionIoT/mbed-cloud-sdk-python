@@ -151,8 +151,6 @@ class TrustedCertificateResp(object):
         :param device_execution_mode: The device_execution_mode of this TrustedCertificateResp.
         :type: int
         """
-        if device_execution_mode is None:
-            raise ValueError("Invalid value for `device_execution_mode`, must not be `None`")
 
         self._device_execution_mode = device_execution_mode
 

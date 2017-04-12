@@ -65,7 +65,7 @@ class UserUpdateReq(object):
     def username(self):
         """
         Gets the username of this UserUpdateReq.
-        A username containing alphanumerical letters and -,._@+= characters.
+        A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
 
         :return: The username of this UserUpdateReq.
         :rtype: str
@@ -76,7 +76,7 @@ class UserUpdateReq(object):
     def username(self, username):
         """
         Sets the username of this UserUpdateReq.
-        A username containing alphanumerical letters and -,._@+= characters.
+        A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
 
         :param username: The username of this UserUpdateReq.
         :type: str
