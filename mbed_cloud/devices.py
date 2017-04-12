@@ -657,14 +657,14 @@ class DeviceAPI(BaseAPI):
         return Query(api.device_query_update(query_id, body))
 
     @catch_exceptions(DeviceQueryServiceApiException)
-    def delete_query(self, filter_id):
+    def delete_query(self, query_id):
         """Delete query in device query service.
 
         :param int query_id: id of the query to delete
         :param return: void
         """
         api = self.dc_queries.DefaultApi()
-        api.device_query_destroy(filter_id)
+        api.device_query_destroy(query_id)
         return
 
     @catch_exceptions(DeviceQueryServiceApiException)
