@@ -14,7 +14,7 @@
 """Example showing basic usage of device resource subscriptions."""
 from mbed_cloud.devices import DeviceAPI
 
-BUTTON_RESOURCE = "/3200/0/5501"
+BUTTON_RESOURCE = "/5002/0/1"
 
 
 def _main():

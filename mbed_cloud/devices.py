@@ -172,7 +172,6 @@ class DeviceAPI(BaseAPI):
         # When path starts with / we remove the slash, as the API can't handle //.
         if fix_path and resource_path.startswith("/"):
             resource_path = resource_path[1:]
-
         api = self.mds.ResourcesApi()
         resp = api.v2_endpoints_id_resource_path_get(device_id, resource_path)
 
@@ -316,7 +315,7 @@ class DeviceAPI(BaseAPI):
 
         # Send subscription request
         api = self.mds.SubscriptionsApi()
-        api.v2_subscriptions_endpoint_name_resource_path_put(device_id, fixed_path)
+        api.v2_subscriptions_id_resource_path_put(device_id, fixed_path)
 
         # Return the Queue object to the user
         return q
@@ -344,7 +343,7 @@ class DeviceAPI(BaseAPI):
         t.start()
 
     @catch_exceptions(MdsApiException)
-    def add_pre_subscription(self, device_id, resource_path, device_type=""):
+    def update_presubscription(self, device_id, resource_path, device_type=""):
         """Create pre-subscription for device and resource path.
 
         :returns: void
@@ -1040,8 +1039,9 @@ class Resource(object):
     def __init__(self, resource_obj):
         """Override __init__ and allow passing in backend object."""
         self._observable = resource_obj.obs
-        self._uri = resource_obj.uri
-        self._name = resource_obj.rt
+        self._path = resource_obj.uri
+        self._type = resource_obj.rt
+        self._content_type = resource_obj.type
 
     @property
     def observable(self):
@@ -1055,29 +1055,39 @@ class Resource(object):
         return self._observable
 
     @property
-    def uri(self):
+    def path(self):
         """Get the URI of this Resource.
 
         :return: The URI of this Resource.
         :rtype: str
         """
-        return self._uri
+        return self._path
 
     @property
-    def name(self):
-        """Get the friendly name of this Resource, if set.
+    def type(self):
+        """Get the type of this Resource, if set.
 
-        :return: The name of the Resource.
+        :return: The type of the Resource.
         :rtype: str
         """
-        return self._name
+        return self._type
+
+    @property
+    def content_type(self):
+        """The content type of this Resource, if set.
+
+        :return: The content type of the Resource.
+        :rtype: str
+        """
+        return self._content_type
 
     def to_dict(self):
         """Return dictionary of object."""
         return {
             'observable': self.observable,
-            'uri': self.uri,
-            'name': self.name
+            'path': self.path,
+            'type': self.type,
+            'content_type': self.content_type
         }
 
     def __repr__(self):
