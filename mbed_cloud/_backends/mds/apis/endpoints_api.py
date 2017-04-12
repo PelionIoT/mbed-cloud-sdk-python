@@ -140,7 +140,7 @@ class EndpointsApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
-    def v2_endpoints_id_get(self, device_id, **kwargs):
+    def v2_endpoints_id_get(self, id, **kwargs):
         """
         List the resources on an endpoint
         The list of resources is cached by mbed Cloud Connect, so this call does not create a message to the device. 
@@ -150,23 +150,23 @@ class EndpointsApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.v2_endpoints_id_get(device_id, callback=callback_function)
+        >>> thread = api.v2_endpoints_id_get(id, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str device_id: A unique mbed Cloud identifier for an endpoint. Note that the ID needs to be an exact match. You cannot use wildcards here.  (required)
+        :param str id: A unique mbed Cloud device ID for an endpoint. Note that the ID needs to be an exact match. You cannot use wildcards here.  (required)
         :return: list[Resource]
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.v2_endpoints_id_get_with_http_info(device_id, **kwargs)
+            return self.v2_endpoints_id_get_with_http_info(id, **kwargs)
         else:
-            (data) = self.v2_endpoints_id_get_with_http_info(device_id, **kwargs)
+            (data) = self.v2_endpoints_id_get_with_http_info(id, **kwargs)
             return data
 
-    def v2_endpoints_id_get_with_http_info(self, device_id, **kwargs):
+    def v2_endpoints_id_get_with_http_info(self, id, **kwargs):
         """
         List the resources on an endpoint
         The list of resources is cached by mbed Cloud Connect, so this call does not create a message to the device. 
@@ -176,17 +176,17 @@ class EndpointsApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.v2_endpoints_id_get_with_http_info(device_id, callback=callback_function)
+        >>> thread = api.v2_endpoints_id_get_with_http_info(id, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str device_id: A unique mbed Cloud identifier for an endpoint. Note that the ID needs to be an exact match. You cannot use wildcards here.  (required)
+        :param str id: A unique mbed Cloud device ID for an endpoint. Note that the ID needs to be an exact match. You cannot use wildcards here.  (required)
         :return: list[Resource]
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['device_id']
+        all_params = ['id']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -201,17 +201,17 @@ class EndpointsApi(object):
                 )
             params[key] = val
         del params['kwargs']
-        # verify the required parameter 'device_id' is set
-        if ('device_id' not in params) or (params['device_id'] is None):
-            raise ValueError("Missing the required parameter `device_id` when calling `v2_endpoints_id_get`")
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `v2_endpoints_id_get`")
 
 
         collection_formats = {}
 
         resource_path = '/v2/endpoints/{id}'.replace('{format}', 'json')
         path_params = {}
-        if 'device_id' in params:
-            path_params['deviceId'] = params['device_id']
+        if 'id' in params:
+            path_params['id'] = params['id']
 
         query_params = {}
 
