@@ -230,7 +230,7 @@ class SubscriptionsApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
-    def v2_subscriptions_id_delete(self, device_id, **kwargs):
+    def v2_subscriptions_id_delete(self, id, **kwargs):
         """
         Delete subscriptions from an endpoint
         Deletes all resource subscriptions in a single endpoint.
@@ -240,23 +240,23 @@ class SubscriptionsApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.v2_subscriptions_id_delete(device_id, callback=callback_function)
+        >>> thread = api.v2_subscriptions_id_delete(id, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str device_id: A unique mbed Cloud identifier for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  (required)
+        :param str id: A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.v2_subscriptions_id_delete_with_http_info(device_id, **kwargs)
+            return self.v2_subscriptions_id_delete_with_http_info(id, **kwargs)
         else:
-            (data) = self.v2_subscriptions_id_delete_with_http_info(device_id, **kwargs)
+            (data) = self.v2_subscriptions_id_delete_with_http_info(id, **kwargs)
             return data
 
-    def v2_subscriptions_id_delete_with_http_info(self, device_id, **kwargs):
+    def v2_subscriptions_id_delete_with_http_info(self, id, **kwargs):
         """
         Delete subscriptions from an endpoint
         Deletes all resource subscriptions in a single endpoint.
@@ -266,17 +266,17 @@ class SubscriptionsApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.v2_subscriptions_id_delete_with_http_info(device_id, callback=callback_function)
+        >>> thread = api.v2_subscriptions_id_delete_with_http_info(id, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str device_id: A unique mbed Cloud identifier for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  (required)
+        :param str id: A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['device_id']
+        all_params = ['id']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -291,17 +291,17 @@ class SubscriptionsApi(object):
                 )
             params[key] = val
         del params['kwargs']
-        # verify the required parameter 'device_id' is set
-        if ('device_id' not in params) or (params['device_id'] is None):
-            raise ValueError("Missing the required parameter `device_id` when calling `v2_subscriptions_id_delete`")
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `v2_subscriptions_id_delete`")
 
 
         collection_formats = {}
 
         resource_path = '/v2/subscriptions/{id}'.replace('{format}', 'json')
         path_params = {}
-        if 'device_id' in params:
-            path_params['deviceId'] = params['device_id']
+        if 'id' in params:
+            path_params['id'] = params['id']
 
         query_params = {}
 
@@ -333,7 +333,7 @@ class SubscriptionsApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
-    def v2_subscriptions_id_get(self, device_id, **kwargs):
+    def v2_subscriptions_id_get(self, id, **kwargs):
         """
         Read endpoints subscriptions
         Lists all subscribed resources from a single endpoint.
@@ -343,23 +343,23 @@ class SubscriptionsApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.v2_subscriptions_id_get(device_id, callback=callback_function)
+        >>> thread = api.v2_subscriptions_id_get(id, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str device_id: A unique mbed Cloud identifier for the endpoint. Note that ID must be an exact match. You cannot use wildcards here.  (required)
+        :param str id: A unique mbed Cloud device ID for the endpoint. Note that ID must be an exact match. You cannot use wildcards here.  (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.v2_subscriptions_id_get_with_http_info(device_id, **kwargs)
+            return self.v2_subscriptions_id_get_with_http_info(id, **kwargs)
         else:
-            (data) = self.v2_subscriptions_id_get_with_http_info(device_id, **kwargs)
+            (data) = self.v2_subscriptions_id_get_with_http_info(id, **kwargs)
             return data
 
-    def v2_subscriptions_id_get_with_http_info(self, device_id, **kwargs):
+    def v2_subscriptions_id_get_with_http_info(self, id, **kwargs):
         """
         Read endpoints subscriptions
         Lists all subscribed resources from a single endpoint.
@@ -369,17 +369,17 @@ class SubscriptionsApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.v2_subscriptions_id_get_with_http_info(device_id, callback=callback_function)
+        >>> thread = api.v2_subscriptions_id_get_with_http_info(id, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str device_id: A unique mbed Cloud identifier for the endpoint. Note that ID must be an exact match. You cannot use wildcards here.  (required)
+        :param str id: A unique mbed Cloud device ID for the endpoint. Note that ID must be an exact match. You cannot use wildcards here.  (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['device_id']
+        all_params = ['id']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -394,17 +394,17 @@ class SubscriptionsApi(object):
                 )
             params[key] = val
         del params['kwargs']
-        # verify the required parameter 'device_id' is set
-        if ('device_id' not in params) or (params['device_id'] is None):
-            raise ValueError("Missing the required parameter `device_id` when calling `v2_subscriptions_id_get`")
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `v2_subscriptions_id_get`")
 
 
         collection_formats = {}
 
         resource_path = '/v2/subscriptions/{id}'.replace('{format}', 'json')
         path_params = {}
-        if 'device_id' in params:
-            path_params['deviceId'] = params['device_id']
+        if 'id' in params:
+            path_params['id'] = params['id']
 
         query_params = {}
 
@@ -436,7 +436,7 @@ class SubscriptionsApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
-    def v2_subscriptions_id_resource_path_delete(self, device_id, _resource_path, **kwargs):
+    def v2_subscriptions_id_resource_path_delete(self, id, _resource_path, **kwargs):
         """
         Remove a subscription
         To remove an existing subscription from a resource path. 
@@ -446,11 +446,11 @@ class SubscriptionsApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.v2_subscriptions_id_resource_path_delete(device_id, _resource_path, callback=callback_function)
+        >>> thread = api.v2_subscriptions_id_resource_path_delete(id, _resource_path, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str device_id: A unique mbed Cloud identifier for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  (required)
+        :param str id: A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  (required)
         :param str _resource_path: The URL of the resource.  (required)
         :return: None
                  If the method is called asynchronously,
@@ -458,12 +458,12 @@ class SubscriptionsApi(object):
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.v2_subscriptions_id_resource_path_delete_with_http_info(device_id, _resource_path, **kwargs)
+            return self.v2_subscriptions_id_resource_path_delete_with_http_info(id, _resource_path, **kwargs)
         else:
-            (data) = self.v2_subscriptions_id_resource_path_delete_with_http_info(device_id, _resource_path, **kwargs)
+            (data) = self.v2_subscriptions_id_resource_path_delete_with_http_info(id, _resource_path, **kwargs)
             return data
 
-    def v2_subscriptions_id_resource_path_delete_with_http_info(self, device_id, _resource_path, **kwargs):
+    def v2_subscriptions_id_resource_path_delete_with_http_info(self, id, _resource_path, **kwargs):
         """
         Remove a subscription
         To remove an existing subscription from a resource path. 
@@ -473,18 +473,18 @@ class SubscriptionsApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.v2_subscriptions_id_resource_path_delete_with_http_info(device_id, _resource_path, callback=callback_function)
+        >>> thread = api.v2_subscriptions_id_resource_path_delete_with_http_info(id, _resource_path, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str device_id: A unique mbed Cloud identifier for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  (required)
+        :param str id: A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  (required)
         :param str _resource_path: The URL of the resource.  (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['device_id', '_resource_path']
+        all_params = ['id', '_resource_path']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -499,9 +499,9 @@ class SubscriptionsApi(object):
                 )
             params[key] = val
         del params['kwargs']
-        # verify the required parameter 'device_id' is set
-        if ('device_id' not in params) or (params['device_id'] is None):
-            raise ValueError("Missing the required parameter `device_id` when calling `v2_subscriptions_id_resource_path_delete`")
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `v2_subscriptions_id_resource_path_delete`")
         # verify the required parameter '_resource_path' is set
         if ('_resource_path' not in params) or (params['_resource_path'] is None):
             raise ValueError("Missing the required parameter `_resource_path` when calling `v2_subscriptions_id_resource_path_delete`")
@@ -511,8 +511,8 @@ class SubscriptionsApi(object):
 
         resource_path = '/v2/subscriptions/{id}/{resourcePath}'.replace('{format}', 'json')
         path_params = {}
-        if 'device_id' in params:
-            path_params['deviceId'] = params['device_id']
+        if 'id' in params:
+            path_params['id'] = params['id']
         if '_resource_path' in params:
             path_params['resourcePath'] = params['_resource_path']
 
@@ -546,7 +546,7 @@ class SubscriptionsApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
-    def v2_subscriptions_id_resource_path_get(self, device_id, _resource_path, **kwargs):
+    def v2_subscriptions_id_resource_path_get(self, id, _resource_path, **kwargs):
         """
         Read subscription status
         This method makes a synchronous HTTP request by default. To make an
@@ -555,11 +555,11 @@ class SubscriptionsApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.v2_subscriptions_id_resource_path_get(device_id, _resource_path, callback=callback_function)
+        >>> thread = api.v2_subscriptions_id_resource_path_get(id, _resource_path, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str device_id: A unique mbed Cloud identifier for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  (required)
+        :param str id: A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  (required)
         :param str _resource_path: The URL of the resource.  (required)
         :return: None
                  If the method is called asynchronously,
@@ -567,12 +567,12 @@ class SubscriptionsApi(object):
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.v2_subscriptions_id_resource_path_get_with_http_info(device_id, _resource_path, **kwargs)
+            return self.v2_subscriptions_id_resource_path_get_with_http_info(id, _resource_path, **kwargs)
         else:
-            (data) = self.v2_subscriptions_id_resource_path_get_with_http_info(device_id, _resource_path, **kwargs)
+            (data) = self.v2_subscriptions_id_resource_path_get_with_http_info(id, _resource_path, **kwargs)
             return data
 
-    def v2_subscriptions_id_resource_path_get_with_http_info(self, device_id, _resource_path, **kwargs):
+    def v2_subscriptions_id_resource_path_get_with_http_info(self, id, _resource_path, **kwargs):
         """
         Read subscription status
         This method makes a synchronous HTTP request by default. To make an
@@ -581,18 +581,18 @@ class SubscriptionsApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.v2_subscriptions_id_resource_path_get_with_http_info(device_id, _resource_path, callback=callback_function)
+        >>> thread = api.v2_subscriptions_id_resource_path_get_with_http_info(id, _resource_path, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str device_id: A unique mbed Cloud identifier for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  (required)
+        :param str id: A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  (required)
         :param str _resource_path: The URL of the resource.  (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['device_id', '_resource_path']
+        all_params = ['id', '_resource_path']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -607,9 +607,9 @@ class SubscriptionsApi(object):
                 )
             params[key] = val
         del params['kwargs']
-        # verify the required parameter 'device_id' is set
-        if ('device_id' not in params) or (params['device_id'] is None):
-            raise ValueError("Missing the required parameter `device_id` when calling `v2_subscriptions_id_resource_path_get`")
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `v2_subscriptions_id_resource_path_get`")
         # verify the required parameter '_resource_path' is set
         if ('_resource_path' not in params) or (params['_resource_path'] is None):
             raise ValueError("Missing the required parameter `_resource_path` when calling `v2_subscriptions_id_resource_path_get`")
@@ -619,8 +619,8 @@ class SubscriptionsApi(object):
 
         resource_path = '/v2/subscriptions/{id}/{resourcePath}'.replace('{format}', 'json')
         path_params = {}
-        if 'device_id' in params:
-            path_params['deviceId'] = params['device_id']
+        if 'id' in params:
+            path_params['id'] = params['id']
         if '_resource_path' in params:
             path_params['resourcePath'] = params['_resource_path']
 
@@ -654,7 +654,7 @@ class SubscriptionsApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
-    def v2_subscriptions_id_resource_path_put(self, device_id, _resource_path, **kwargs):
+    def v2_subscriptions_id_resource_path_put(self, id, _resource_path, **kwargs):
         """
         Subscribe to a resource path
         The mbed Cloud Connect eventing model consists of observable resources.  This means that endpoints can deliver updated resource content, periodically or with a more sophisticated  solution-dependent logic. The OMA LWM2M resource model including objects, object instances,  resources and resource instances is also supported.  Applications can subscribe to objects, object instances or individual resources to make the device  to provide value change notifications to mbed Cloud Connect service. An application needs to call a `/notification/callback` method to get mbed Cloud Connect to push a notification of the resource changes.  You can also use `/subscriptions` to set a pre-subscription. 
@@ -664,11 +664,11 @@ class SubscriptionsApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.v2_subscriptions_id_resource_path_put(device_id, _resource_path, callback=callback_function)
+        >>> thread = api.v2_subscriptions_id_resource_path_put(id, _resource_path, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str device_id: A unique mbed Cloud identifier for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  (required)
+        :param str id: A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  (required)
         :param str _resource_path: The URL of the resource.  (required)
         :return: None
                  If the method is called asynchronously,
@@ -676,12 +676,12 @@ class SubscriptionsApi(object):
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.v2_subscriptions_id_resource_path_put_with_http_info(device_id, _resource_path, **kwargs)
+            return self.v2_subscriptions_id_resource_path_put_with_http_info(id, _resource_path, **kwargs)
         else:
-            (data) = self.v2_subscriptions_id_resource_path_put_with_http_info(device_id, _resource_path, **kwargs)
+            (data) = self.v2_subscriptions_id_resource_path_put_with_http_info(id, _resource_path, **kwargs)
             return data
 
-    def v2_subscriptions_id_resource_path_put_with_http_info(self, device_id, _resource_path, **kwargs):
+    def v2_subscriptions_id_resource_path_put_with_http_info(self, id, _resource_path, **kwargs):
         """
         Subscribe to a resource path
         The mbed Cloud Connect eventing model consists of observable resources.  This means that endpoints can deliver updated resource content, periodically or with a more sophisticated  solution-dependent logic. The OMA LWM2M resource model including objects, object instances,  resources and resource instances is also supported.  Applications can subscribe to objects, object instances or individual resources to make the device  to provide value change notifications to mbed Cloud Connect service. An application needs to call a `/notification/callback` method to get mbed Cloud Connect to push a notification of the resource changes.  You can also use `/subscriptions` to set a pre-subscription. 
@@ -691,18 +691,18 @@ class SubscriptionsApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.v2_subscriptions_id_resource_path_put_with_http_info(device_id, _resource_path, callback=callback_function)
+        >>> thread = api.v2_subscriptions_id_resource_path_put_with_http_info(id, _resource_path, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str device_id: A unique mbed Cloud identifier for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  (required)
+        :param str id: A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  (required)
         :param str _resource_path: The URL of the resource.  (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['device_id', '_resource_path']
+        all_params = ['id', '_resource_path']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -717,9 +717,9 @@ class SubscriptionsApi(object):
                 )
             params[key] = val
         del params['kwargs']
-        # verify the required parameter 'device_id' is set
-        if ('device_id' not in params) or (params['device_id'] is None):
-            raise ValueError("Missing the required parameter `device_id` when calling `v2_subscriptions_id_resource_path_put`")
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `v2_subscriptions_id_resource_path_put`")
         # verify the required parameter '_resource_path' is set
         if ('_resource_path' not in params) or (params['_resource_path'] is None):
             raise ValueError("Missing the required parameter `_resource_path` when calling `v2_subscriptions_id_resource_path_put`")
@@ -729,8 +729,8 @@ class SubscriptionsApi(object):
 
         resource_path = '/v2/subscriptions/{id}/{resourcePath}'.replace('{format}', 'json')
         path_params = {}
-        if 'device_id' in params:
-            path_params['deviceId'] = params['device_id']
+        if 'id' in params:
+            path_params['id'] = params['id']
         if '_resource_path' in params:
             path_params['resourcePath'] = params['_resource_path']
 
