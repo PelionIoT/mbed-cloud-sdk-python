@@ -179,7 +179,7 @@ class AccessAPI(BaseAPI):
         :rtype: Account
         """
         api = iam.DeveloperApi()
-        return Account(api.get_my_account_info())
+        return Account(api.get_my_account_info(include="limits, policies"))
 
     @catch_exceptions(ApiException)
     def list_groups(self, **kwargs):
