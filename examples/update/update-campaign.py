@@ -32,7 +32,7 @@ def _print_manifests(mresp):
 
     header = "Manifests (%d)" % (num_manifests)
     print("%s\n%s" % (header, "-" * len(header)))
-    for m, idx in mresp.iteritems():
+    for idx, m in enumerate(mresp):
         print("%s | %s | %s" % (m.name, m.datafile, m.created_at.strftime("%Y-%m-%d %H:%M:%S")))
 
 
@@ -52,7 +52,7 @@ def _main():
     filename = os.path.abspath(sys.argv[1])
 
     # Upload manifest
-    mobj = update_api.add__firmware_manifest(
+    mobj = update_api.add_firmware_manifest(
         name="Auto manifest %s" % _rand_id(),
         datafile=filename,
         description="Manifest uploaded using mbed cloud SDK")
@@ -65,16 +65,16 @@ def _main():
 
     # List all filters
     device_api = DeviceAPI()
-    fresp = device_api.list_filters()
+    fresp = device_api.list_queries()
     header = "Current filters:"
     print("\n%s\n%s" % (header, "-" * len(header)))
     if fresp.count() == 0:
         print("No filters created. Please create one to apply the update on.")
         sys.exit(1)
-    filters = [f for f, idx in fresp.iteritems()]
+    filters = [f for idx, f in enumerate(fresp)]
     print("\n".join(["\t- %s" % (f.name) for f in filters]))
-    selected_filter = random.choice(filters)
-    print("Randomly chose %r for applying update" % (selected_filter.name))
+    selected_query = random.choice(filters)
+    print("Randomly chose %r for applying update" % (selected_query.name))
 
     # Create update campaign. For this step we need three pieces of information:
     # 1. The name of the update campaign (we auto-generate this)
@@ -84,12 +84,12 @@ def _main():
     print("\nCreating campaign %r using:\n\t- Manifest ID: %r\n\t- Filter ID: %r" % (
         campaign_name,
         mobj.id,
-        selected_filter.id)
+        selected_query.id)
     )
     cobj = update_api.add_campaign(
         name=campaign_name,
         root_manifest_id=mobj.id,
-        device_filter="filter=%s" % selected_filter.query
+        device_filter="filter=%s" % selected_query.filter
     )
     print("Campaign successfully created. Current state: %r" % (cobj.state))
 
@@ -98,7 +98,7 @@ def _main():
     #
     header = "Update campaigns"
     print("\n%s\n%s" % (header, "-" * len(header)))
-    for c, idx in update_api.list_campaigns().iteritems():
+    for idx, c in enumerate(update_api.list_campaigns()):
         print("\t- %s (State: %r)" % (c.name, c.state))
 
     #
@@ -110,9 +110,9 @@ def _main():
     print("Campaign successfully started. Current state: %r. Checking updates.." % (new_cobj.state))
     countdown = 10
     while countdown > 0:
-        c = update_api.get_campaign_status(new_cobj.id)
-        print("[%d/10] Current state: %r (Updated devices: %d/%d)" % (
-            countdown, c.state, c.deployed_devices, c.total_devices
+        c = update_api.get_campaign(new_cobj.id)
+        print("[%d/10] Current state: %r (Finished: %s)" % (
+            countdown, c.state, c.finished
         ))
         countdown -= 1
 

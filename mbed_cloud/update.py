@@ -120,7 +120,7 @@ class UpdateAPI(BaseAPI):
         """
         api = self.deployment_service.DefaultApi()
         campaign_object.state = "scheduled"
-        return api.update_campaign_update(campaign_id=campaign_object.id, body=campaign_object)
+        return api.update_campaign_update(campaign_id=campaign_object.id, campaign=campaign_object)
 
     @catch_exceptions(DeploymentServiceApiException)
     def delete_campaign(self, campaign_id):

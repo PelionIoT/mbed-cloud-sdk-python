@@ -41,7 +41,7 @@ class StatisticsAPI(BaseAPI):
         authorization = self.statistics.configuration.api_key['Authorization']
         self._auth = "Bearer %s" % (authorization,)
         # API requires to send what fields should be returned in response
-        self._include_all = "devices,transactions,apikeys,"\
+        self._include_all = "registered_devices,transactions,apikeys,"\
             "bootstraps_successful,bootstraps_failed,bootstraps_pending"
 
     def _convert_to_UTC_RFC3339(self, time, name):
