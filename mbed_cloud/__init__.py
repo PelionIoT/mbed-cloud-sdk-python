@@ -12,6 +12,7 @@
 #   from ARM Limited or its affiliates.
 # --------------------------------------------------------------------------
 """Initialise the mbed_cloud config and BaseAPI."""
+from six import iteritems
 from six import string_types
 import sys
 import urllib
@@ -72,11 +73,51 @@ class BaseAPI(object):
 
     def _verify_filters(self, kwargs):
         if kwargs.get('filter'):
-            raise ValueError("Pass filters using dictionary and the 'filters' keyword")
+            kwargs.update({'filter': urllib.urlencode(kwargs.get('filter'))})
         if kwargs.get('filters'):
             kwargs.update({'filter': urllib.urlencode(kwargs.get('filters'))})
             del kwargs['filters']
         return kwargs
+
+
+class ClassAPI(object):
+    """ClassAPI is parent class for all APIs classes."""
+
+    def _get_map_attributes(self):
+        """Get map attributes. Should be overridden in child class."""
+        raise NotImplementedError
+
+    def _verify_args(self, kwargs):
+        """Verify arguments before sending to Backend API."""
+        for key, value in iteritems(self._get_map_attributes()):
+            if key in kwargs:
+                kwargs[value] = kwargs[key]
+                del kwargs[key]
+        return kwargs
+
+    def to_dict(self):
+        """Return model properties as dict."""
+        result = {}
+
+        for attr, _ in iteritems(self._get_map_attributes()):
+            value = getattr(self, attr)
+            if isinstance(value, list):
+                result[attr] = list(map(
+                    lambda x: x.to_dict() if hasattr(x, "to_dict") else x,
+                    value
+                ))
+            elif hasattr(value, "to_dict"):
+                result[attr] = value.to_dict()
+            elif isinstance(value, dict):
+                result[attr] = dict(map(
+                    lambda item: (item[0], item[1].to_dict())
+                    if hasattr(item[1], "to_dict") else item,
+                    value.items()
+                ))
+            else:
+                result[attr] = value
+
+        return result
 
 
 class _FakePaginatedResponse(object):
@@ -189,9 +230,9 @@ class PaginatedResponse(object):
             >>> api.list_users().count()
             73
         """
-        if self.total_count is None:
+        if self._total_count is None:
             return self._get_total_count()
-        return self.total_count
+        return self._total_count
 
     def to_dict(self):
         """Propagate the to_dict of the inner response for the paginated response."""

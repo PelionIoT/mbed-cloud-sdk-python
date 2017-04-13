@@ -16,6 +16,7 @@ from __future__ import absolute_import
 import base64
 from collections import defaultdict
 import logging
+from six import iteritems
 from six.moves import queue
 import threading
 import time
@@ -23,6 +24,7 @@ import urllib
 
 # Import common functions and exceptions from frontend API
 from mbed_cloud import BaseAPI
+from mbed_cloud import ClassAPI
 from mbed_cloud.decorators import catch_exceptions
 from mbed_cloud.exceptions import CloudAsyncError
 from mbed_cloud.exceptions import CloudTimeoutError
@@ -36,7 +38,6 @@ from mbed_cloud._backends.device_catalog.models import DeviceData
 from mbed_cloud._backends.device_catalog.rest import \
     ApiException as DeviceCatalogApiException
 import mbed_cloud._backends.device_query_service as dc_queries
-from mbed_cloud._backends.device_query_service.models import DeviceQuery
 from mbed_cloud._backends.device_query_service.rest import \
     ApiException as DeviceQueryServiceApiException
 import mbed_cloud._backends.mds as mds
@@ -52,7 +53,7 @@ class DeviceAPI(BaseAPI):
         - Listing registered and connected devices
         - Exploring and managing resources and resource values on said devices
         - Setup resource subscriptions and webhooks for resource monitoring
-        - Create and manage device filters
+        - Create and manage device queries
     """
 
     def __init__(self, params={}, b64decode=True):
@@ -78,25 +79,25 @@ class DeviceAPI(BaseAPI):
         self._long_polling_is_active = False
         self._long_polling_thread.daemon = True
 
-    def start_long_polling(self):
+    def start_notifications(self):
         """Start the long-polling thread.
 
-        If not an external callback is setup (using `add_webhook`) then
+        If not an external callback is setup (using `update_webhook`) then
         calling this function is mandatory.
 
         .. code-block:: python
 
-            >>> api.start_long_polling()
+            >>> api.start_notifications()
             >>> print(api.get_resource_value(device, path))
             Some value
-            >>> api.stop_long_polling()
+            >>> api.stop_notifications()
 
         :returns: void
         """
         self._long_polling_thread.start()
         self._long_polling_is_active = True
 
-    def stop_long_polling(self):
+    def stop_notifications(self):
         """Stop the long-polling thread.
 
         :returns: void
@@ -106,20 +107,15 @@ class DeviceAPI(BaseAPI):
 
     @catch_exceptions(MdsApiException)
     def list_connected_devices(self, **kwargs):
-        """List all devices.
+        """List connected devices.
 
-        :returns: a list of currently *connected* `DeviceDetail` objects
-        :rtype: PaginatedResponse
+        :returns: a list of currently *connected* `ConnectedDevice` objects
+        :rtype: list of ConnectedDevice
         """
         api = self.mds.EndpointsApi()
 
-        # We wrap each object into a Device catalog object. Doing so we rename
-        # some keys and throw away some information.
-        devices = api.v2_endpoints_get()
-        devices = [DeviceDetail({'id': d.name}) for d in devices]
-
-        # As this doesn't actually return a paginated response - we mock it.
-        return PaginatedResponse(lambda: None, init_data=devices)
+        resp = api.v2_endpoints_get()
+        return [ConnectedDevice(e) for e in resp]
 
     @catch_exceptions(MdsApiException)
     def list_resources(self, device_id):
@@ -137,7 +133,7 @@ class DeviceAPI(BaseAPI):
         :rtype: list
         """
         api = self.mds.EndpointsApi()
-        return [Resource(r) for r in api.v2_endpoints_endpoint_name_get(device_id)]
+        return [Resource(r) for r in api.v2_endpoints_id_get(device_id)]
 
     @catch_exceptions(MdsApiException)
     def get_resource_value(self, device_id, resource_path, fix_path=True, timeout=None):
@@ -171,9 +167,8 @@ class DeviceAPI(BaseAPI):
         # When path starts with / we remove the slash, as the API can't handle //.
         if fix_path and resource_path.startswith("/"):
             resource_path = resource_path[1:]
-
         api = self.mds.ResourcesApi()
-        resp = api.v2_endpoints_endpoint_name_resource_path_get(device_id, resource_path)
+        resp = api.v2_endpoints_id_resource_path_get(device_id, resource_path)
 
         # The async consumer, which will read data from long-polling thread
         consumer = AsyncConsumer(resp.async_response_id, self._db)
@@ -207,7 +202,7 @@ class DeviceAPI(BaseAPI):
             resource_path = resource_path[1:]
 
         api = self.mds.ResourcesApi()
-        resp = api.v2_endpoints_endpoint_name_resource_path_get(device_id, resource_path)
+        resp = api.v2_endpoints_id_resource_path_get(device_id, resource_path)
 
         # The async consumer, which will read data from long-polling thread
         return AsyncConsumer(resp.async_response_id, self._db)
@@ -244,12 +239,9 @@ class DeviceAPI(BaseAPI):
         api = self.mds.ResourcesApi()
 
         if resource_value:
-            resp = api.v2_endpoints_endpoint_name_resource_path_put(device_id,
-                                                                    resource_path,
-                                                                    resource_value)
+            resp = api.v2_endpoints_id_resource_path_put(device_id, resource_path, resource_value)
         else:
-            resp = api.v2_endpoints_endpoint_name_resource_path_post(device_id,
-                                                                     resource_path)
+            resp = api.v2_endpoints_id_resource_path_post(device_id, resource_path)
         consumer = AsyncConsumer(resp.async_response_id, self._db)
         return self._get_value_synchronized(consumer)
 
@@ -285,12 +277,9 @@ class DeviceAPI(BaseAPI):
         api = self.mds.ResourcesApi()
 
         if resource_value:
-            resp = api.v2_endpoints_endpoint_name_resource_path_put(device_id,
-                                                                    resource_path,
-                                                                    resource_value)
+            resp = api.v2_endpoints_id_resource_path_put(device_id, resource_path, resource_value)
         else:
-            resp = api.v2_endpoints_endpoint_name_resource_path_post(device_id,
-                                                                     resource_path)
+            resp = api.v2_endpoints_id_resource_path_post(device_id, resource_path)
 
         return AsyncConsumer(resp.async_response_id, self._db)
 
@@ -321,14 +310,14 @@ class DeviceAPI(BaseAPI):
 
         # Send subscription request
         api = self.mds.SubscriptionsApi()
-        api.v2_subscriptions_endpoint_name_resource_path_put(device_id, fixed_path)
+        api.v2_subscriptions_id_resource_path_put(device_id, fixed_path)
 
         # Return the Queue object to the user
         return q
 
     @catch_exceptions(MdsApiException)
-    def add_subscription_with_callback(self, device_id, resource_path, callback_fn,
-                                       fix_path=True, queue_size=5):
+    def add_subscription_async(self, device_id, resource_path, callback_fn,
+                               fix_path=True, queue_size=5):
         """Subscribe to resource updates with callback function.
 
         When called on valid device and resource path a subscription is setup so that
@@ -349,7 +338,7 @@ class DeviceAPI(BaseAPI):
         t.start()
 
     @catch_exceptions(MdsApiException)
-    def add_pre_subscription(self, device_id, resource_path, device_type=""):
+    def update_presubscription(self, device_id, resource_path, device_type=""):
         """Create pre-subscription for device and resource path.
 
         :returns: void
@@ -414,10 +403,10 @@ class DeviceAPI(BaseAPI):
         return: void
         """
         api = self.mds.DefaultApi()
-        return api.v2_notification_callback_get()
+        return Webhook(api.v2_notification_callback_get())
 
     @catch_exceptions(MdsApiException)
-    def add_webhook(self, url, headers={}):
+    def update_webhook(self, url, headers={}):
         """Register new webhook for incoming subscriptions.
 
         If a webhook is already set, this will do an overwrite.
@@ -469,14 +458,14 @@ class DeviceAPI(BaseAPI):
             descending (desc)
         :param str after: (Optional) Get devices after/starting at given `device_id`
         :param filters: (Optional) Dictionary of filters to apply.
-        :returns: a list of :py:class:`DeviceDetail` objects registered in the catalog.
+        :returns: a list of :py:class:`Device` objects registered in the catalog.
         :rtype: PaginatedResponse
         """
         kwargs = self._verify_sort_options(kwargs)
         kwargs = self._verify_filters(kwargs)
 
         api = self.dc.DefaultApi()
-        return PaginatedResponse(api.device_list, lwrap_type=DeviceDetail, **kwargs)
+        return PaginatedResponse(api.device_list, lwrap_type=Device, **kwargs)
 
     @catch_exceptions(DeviceCatalogApiException)
     def get_device(self, device_id):
@@ -484,10 +473,10 @@ class DeviceAPI(BaseAPI):
 
         :param device_id: the ID of the device to retrieve (str)
         :returns: device object matching the `device_id`.
-        :rtype: DeviceDetail
+        :rtype: Device
         """
         api = self.dc.DefaultApi()
-        return DeviceDetail(api.device_retrieve(device_id))
+        return Device(api.device_retrieve(device_id))
 
     @catch_exceptions(DeviceCatalogApiException)
     def update_device(self, device_id, **kwargs):
@@ -498,28 +487,23 @@ class DeviceAPI(BaseAPI):
             existing_device = api.get_device(...)
             updated_device = api.update_device(
                 existing_device.id,
-                provision_key = "something new"
+                certificate_fingerprint = "something new"
             )
 
-        :param str mechanism: The ID of the channel used to communicate with the device (str)
-        :param str provision_key: The key used to provision the device (str)
-        :param str account_id: Owning IAM account ID
         :param bool auto_update: Mark this device for auto firmware update
-        :param str custom_attributes: Up to 5 JSON attributes (json encoded)
-        :param str description: Description of the device
-        :param str device_class: Class of the device
-        :param str manifest: URL for the current device manifest
-        :param str mechanism_url: Address of the connector to use
-        :param str name: Name of the device
-        :param int trust_class: Trust class of device
-        :param int trust_level: Trust level of device
-        :param int vendor_id: Device vendor ID
+        :param obj custom_attributes: Up to 5 custom JSON attributes
+        :param str description: The description of the device
+        :param str name: The name of the device
+        :param str alias: The alias of the device
+        :param str certificate_fingerprint: Fingerprint of the device certificate
+        :param str certificate_issuer_id: ID of the issuer of the certificate
         :returns: the updated device object
-        :rtype: DeviceDetail
+        :rtype: Device
         """
+        kwargs = Device()._verify_args(kwargs)
         api = self.dc.DefaultApi()
         body = self.dc.DeviceDataPostRequest(**kwargs)
-        return DeviceDetail(api.device_update(device_id, body))
+        return Device(api.device_update(device_id, body))
 
     @catch_exceptions(DeviceCatalogApiException)
     def add_device(self, **kwargs):
@@ -529,40 +513,46 @@ class DeviceAPI(BaseAPI):
 
             device = {
                 "mechanism": "connector",
-                "provision_key": "unique key",
+                "certificateFingerprint": "<certificate>",
                 "name": "New device name",
                 "auto_update": True,
-                "vendor_id": "<id>"
+                "certificateIssuerId": "<id>"
             }
             resp = api.add_device(**device)
             print(resp.created_at)
 
-        :param str mechanism: The ID of the channel used to communicate with the device
-        :param str provision_key: The key used to provision the device
-        :param str account_id: Owning IAM account ID
+        :param str account_id: The owning IAM account ID
         :param bool auto_update: Mark this device for auto firmware update
-        :param str created_at: When the device was created (ISO-8601)
-        :param str custom_attributes: Up to 5 JSON attributes (json encoded)
+        :param obj custom_attributes: Up to 5 custom JSON attributes
         :param str deployed_state: State of the device's deployment
-        :param str deployment: Last deployment used on the device
-        :param str description: Description of the device
+        :param str description: The description of the device
         :param str device_class: Class of the device
-        :param str id: ID of the device
-        :param str manifest: URL for the current device manifest
-        :param str mechanism_url: Address of the connector to use
-        :param str name: Name of the device
-        :param str serial_number: Serial number of device
-        :param str state: Current state of device
-        :param int trust_class: Trust class of device
-        :param int trust_level: Trust level of device
-        :param int updated_at: Time the device was updated
-        :param int vendor_id: Device vendor ID
+        :param str id: The ID of the device
+        :param str manifest_url: URL for the current device manifest
+        :param str mechanism: The ID of the channel used to communicate with the device
+        :param str mechanism_url: The address of the connector to use
+        :param str name: The name of the device
+        :param str serial_number: The serial number of the device
+        :param str state: The current state of the device
+        :param int trust_class: The device trust class
+        :param int trust_level: The device trust level
+        :param str vendor_id: The device vendor ID
+        :param str alias: The alias of the device
+        :param datetime bootstrap_certificate_expiration:
+        :param str certificate_fingerprint: Fingerprint of the device certificate
+        :param str certificate_issuer_id: ID of the issuer of the certificate
+        :param datetime connector_certificate_expiration: Expiration date of the certificate
+        used to connect to connector server
+        :param int device_execution_mode: The device class
+        :param str firmware_checksum: The SHA256 checksum of the current firmware image
+        :param datetime manifest_timestamp: The timestamp of the current manifest version
         :return: the newly created device object.
-        :rtype: DeviceDetail
+        :rtype: Device
         """
+        kwargs = Device()._verify_args(kwargs)
         api = self.dc.DefaultApi()
         device = DeviceData(**kwargs)
-        return DeviceDetail(api.device_create(device))
+        return Device(api.device_create(device))
 
     @catch_exceptions(DeviceCatalogApiException)
     def delete_device(self, id):
@@ -575,29 +565,29 @@ class DeviceAPI(BaseAPI):
         return api.device_destroy(id=id)
 
     @catch_exceptions(DeviceQueryServiceApiException)
-    def list_filters(self, **kwargs):
-        """List filters in device query service.
+    def list_queries(self, **kwargs):
+        """List queries in device query service.
 
         :param int limit: (Optional) The number of devices to retrieve.
         :param str order: (Optional) The ordering direction, ascending (asc) or
             descending (desc)
         :param str after: (Optional) Get devices after/starting at given `device_id`
-        :returns: a list of :py:class:`Filter` objects.
+        :returns: a list of :py:class:`Query` objects.
         :rtype: PaginatedResponse
         """
         kwargs = self._verify_sort_options(kwargs)
         api = self.dc_queries.DefaultApi()
 
-        return PaginatedResponse(api.device_query_list, lwrap_type=Filter, **kwargs)
+        return PaginatedResponse(api.device_query_list, lwrap_type=Query, **kwargs)
 
     @catch_exceptions(DeviceQueryServiceApiException)
-    def add_filter(self, name, query, custom_attributes=None, **kwargs):
-        """Add a new filter to device query service.
+    def add_query(self, name, filter, custom_attributes=None, **kwargs):
+        """Add a new query to device query service.
 
         .. code-block:: python
 
-            f = api.add_filter(
-                name = "Filter name",
+            f = api.add_query(
+                name = "Query name",
                 query = {},
                 custom_attributes = {
                     "foo": "bar"
@@ -605,52 +595,52 @@ class DeviceAPI(BaseAPI):
             )
             print(f.created_at)
 
-        :param str name: Name of filter
-        :param dict query: Filter properties to apply
-        :param dict custom_attributes: Extra filter attributes
-        :param return: the newly created filter object.
-        :return: the newly created filter object
-        :rtype: Filter
+        :param str name: Name of query
+        :param dict filter: Filter properties to apply
+        :param dict custom_attributes: Extra query attributes
+        :param return: the newly created query object.
+        :return: the newly created query object
+        :rtype: Query
         """
         api = self.dc_queries.DefaultApi()
 
         # Ensure we have the correct types and get the new query object based on
         # passed in query object and custom attributes.
-        query = self._get_filter_attributes(query, custom_attributes)
+        query = self._get_query_attributes(filter, custom_attributes)
 
-        # Create the filter object
+        # Create the query object
         f = self.dc_queries.DeviceQuery(name=name, query=query, **kwargs)
 
-        return Filter(api.device_query_create(f))
+        return Query(api.device_query_create(f))
 
     @catch_exceptions(DeviceQueryServiceApiException)
-    def update_filter(self, filter_id, name, query, custom_attributes=None, **kwargs):
-        """Update existing filter in device query service.
+    def update_query(self, query_id, name, filter, custom_attributes=None, **kwargs):
+        """Update existing query in device query service.
 
         .. code-block:: python
 
-            f = api.get_filter(...)
+            q = api.get_query(...)
             new_custom_attributes = {
                 "foo": "bar"
             }
-            new_f = api.update_filter(
-                filter_id = f.id,
+            new_q = api.update_query(
+                query_id = q.id,
                 name = "new name",
-                query = f.query,
+                filter = q.filter,
                 custom_attributes = new_custom_attributes
             )
 
-        :param str filter_id: Existing filter ID to update
-        :param str name: (New) name of filter
-        :param dict query: (New) filter properties to apply
-        :param dict custom_attributes: (New) extra filter attributes
-        :param return: the newly updated filter object.
-        :rtype: Filter
+        :param str query_id: Existing query ID to update
+        :param str name: (New) name of query
+        :param dict query: (New) query properties to apply
+        :param dict custom_attributes: (New) extra query attributes
+        :param return: the newly updated query object.
+        :rtype: Query
         """
         api = self.dc_queries.DefaultApi()
 
         # Get urlencoded query attribute
-        query = self._get_filter_attributes(query, custom_attributes)
+        query = self._get_query_attributes(filter, custom_attributes)
 
         body = self.dc_queries.DeviceQueryPostPutRequest(
             name=name,
@@ -658,36 +648,36 @@ class DeviceAPI(BaseAPI):
             **kwargs
         )
 
-        return Filter(api.device_query_update(filter_id, body))
+        return Query(api.device_query_update(query_id, body))
 
     @catch_exceptions(DeviceQueryServiceApiException)
-    def delete_filter(self, filter_id):
-        """Delete filter in device query service.
+    def delete_query(self, query_id):
+        """Delete query in device query service.
 
-        :param int filter_id: id of the filter to delete
+        :param int query_id: id of the query to delete
         :param return: void
         """
         api = self.dc_queries.DefaultApi()
-        api.device_query_destroy(filter_id)
+        api.device_query_destroy(query_id)
         return
 
     @catch_exceptions(DeviceQueryServiceApiException)
-    def get_filter(self, filter_id):
-        """Get filter in device query service.
+    def get_query(self, query_id):
+        """Get query in device query service.
 
-        :param int filter_id: id of the filter to get
-        :returns: device filter object
-        :rtype: Filter
+        :param int query_id: id of the query to get
+        :returns: device query object
+        :rtype: Query
         """
         api = self.dc_queries.DefaultApi()
-        return Filter(api.device_query_retrieve(filter_id))
+        return Query(api.device_query_retrieve(query_id))
 
     def _subscription_handler(self, queue, callback_fn):
         while True:
             value = queue.get()
             callback_fn(value)
 
-    def _get_filter_attributes(self, query, custom_attributes):
+    def _get_query_attributes(self, query, custom_attributes):
         # Ensure the query is of dict type
         if query and not isinstance(query, dict):
             raise CloudValueError("'query' parameter needs to be of type dict")
@@ -695,7 +685,7 @@ class DeviceAPI(BaseAPI):
         # Add custom attributes, if provided
         if custom_attributes:
             if not isinstance(custom_attributes, dict):
-                raise CloudValueError("Custom attributes when creating filter"
+                raise CloudValueError("Custom attributes when creating query"
                                       "needs to be dict object")
             for k, v in custom_attributes.iteritems():
                 if not k:
@@ -867,25 +857,347 @@ class _LongPollingThread(threading.Thread):
         self._stopped = True
 
 
-class DeviceDetail(DeviceData):
-    """Describes device object from the catalog."""
+class ConnectedDevice(object):
+    """Describes device object from the mDS."""
 
-    def __init__(self, device_obj):
+    def __init__(self, connected_device_obj):
         """Override __init__ and allow passing in backend object."""
-        # Check type of device_obj to find params. If dict we use that, if class we ensure it has
-        # the required `to_dict` function - and use that to get a dict.
-        params = device_obj
-        if not isinstance(device_obj, dict) and callable(getattr(device_obj, "to_dict", None)):
-            params = device_obj.to_dict()
-        super(DeviceDetail, self).__init__(**params)
+        if not isinstance(connected_device_obj, dict):
+            connected_device_obj = connected_device_obj.to_dict()
+        for key, value in iteritems(ConnectedDevice._get_map_attributes()):
+            setattr(self, "_%s" % key, connected_device_obj.get(value, None))
+
+    @staticmethod
+    def _get_map_attributes():
+        return {
+            'state': 'status',
+            'queue_mode': 'q',
+            'type': 'type',
+            'id': 'name'
+        }
+
+    @property
+    def state(self):
+        """Get the state of this Endpoint.
+
+        Possible values ACTIVE, STALE.
+
+        :return: The state of this Endpoint.
+        :rtype: str
+        """
+        return self._state
+
+    @property
+    def queue_mode(self):
+        """Get the queue mode of this Endpoint.
+
+        Determines whether the device is in queue mode.
+        When an endpoint is in Queue mode,
+        messages sent to the endpoint do not wake up the physical device.
+        The messages are queued and delivered when the device
+        wakes up and connects to mbed Cloud Connect itself.
+        You can also use the Queue mode when the device
+        is behind a NAT and cannot be reached directly by mbed Cloud Connect.
+
+        :return: The queue_mode of this Endpoint.
+        :rtype: bool
+        """
+        return self._queue_mode
+
+    @property
+    def type(self):
+        """Get the type of this Endpoint.
+
+        Type of endpoint. (Free text)
+
+        :return: The type of this Endpoint.
+        :rtype: str
+        """
+        return self._type
+
+    @property
+    def id(self):
+        """Get the id of this Endpoint.
+
+        Unique mbed Cloud Device ID representing the endpoint.
+
+        :return: The id of this Endpoint.
+        :rtype: str
+        """
+        return self._id
+
+    def to_dict(self):
+        """Return dictionary of object."""
+        return {
+            'id': self.id,
+            'state': self.state,
+            'queue_mode': self.queue_mode,
+            'type': self.type
+        }
+
+    def __repr__(self):
+        """For print and pprint."""
+        return str(self.to_dict())
 
 
-class Filter(DeviceQuery):
-    """Describes device query object / filter."""
+class Device(ClassAPI):
+    """Describes device object from the catalog.
 
-    def __init__(self, device_query_obj):
+    :ivar account_id: The owning IAM account ID
+    :vartype account_id: str
+    :ivar auto_update: Mark this device for auto firmware update
+    :vartype auto_update: bool
+    :ivar bootstrapped_timestamp:
+    :vartype bootstrapped_timestamp: datetime
+    :ivar created_at: The time the device was created
+    :vartype created_at: datetime
+    :ivar custom_attributes: Up to 5 custom JSON attributes
+    :vartype custom_attributes: object
+    :ivar deployed_state: State of the device's deployment
+    :vartype deployed_state: str
+    :ivar last_deployment: The last deployment used on the device
+    :vartype last_deployment: datetime
+    :ivar description: The description of the device
+    :vartype description: str
+    :ivar device_class: Class of the device
+    :vartype device_class: str
+    :ivar id: The ID of the device
+    :vartype id: str
+    :ivar manifest_url: URL for the current device manifest
+    :vartype manifest_url: str
+    :ivar mechanism: The ID of the channel used to communicate with the device
+    :vartype mechanism: str
+    :ivar mechanism_url: The address of the connector to use
+    :vartype mechanism_url: str
+    :ivar name: The name of the device
+    :vartype name: str
+    :ivar serial_number: The serial number of the device
+    :vartype serial_number: str
+    :ivar state: The current state of the device
+    :vartype state: str
+    :ivar trust_class: The device trust class
+    :vartype trust_class: int
+    :ivar trust_level: The device trust level
+    :vartype trust_level: int
+    :ivar updated_at: The time the device was updated
+    :vartype updated_at: datetime
+    :ivar vendor_id: The device vendor ID
+    :vartype vendor_id: str
+    :ivar alias: The alias of the device
+    :vartype alias: str
+    :ivar bootstrap_certificate_expiration:
+    :vartype bootstrap_certificate_expiration: datetime
+    :ivar certificate_fingerprint: Fingerprint of the device certificate
+    :vartype certificate_fingerprint: str
+    :ivar certificate_issuer_id: ID of the issuer of the certificate
+    :vartype certificate_issuer_id: str
+    :ivar connector_certificate_expiration: Expiration date of the certificate
+    used to connect to connector server
+    :vartype connector_certificate_expiration: datetime
+    :ivar device_execution_mode: The device class
+    :vartype device_execution_mode: int
+    :ivar firmware_checksum: The SHA256 checksum of the current firmware image
+    :vartype firmware_checksum: str
+    :ivar manifest_timestamp: The timestamp of the current manifest version
+    :vartype manifest_timestamp: datetime
+    """
+
+    def __init__(self, obj=None):
         """Override __init__ and allow passing in backend object."""
-        super(Filter, self).__init__(**device_query_obj.to_dict())
+        if obj is not None:
+            if isinstance(obj, dict):
+                for key, value in iteritems(self._get_map_attributes()):
+                    setattr(self, key, obj.get(value, None))
+            else:
+                for key, value in iteritems(self._get_map_attributes()):
+                    setattr(self, key, getattr(obj, value, None))
+
+    def _get_map_attributes(self):
+        return {
+            "account_id": "account_id",
+            "auto_update": "auto_update",
+            "bootstrapped_timestamp": "bootstrapped_timestamp",
+            "created_at": "created_at",
+            "custom_attributes": "custom_attributes",
+            "deployed_state": "deployed_state",
+            "last_deployment": "deployment",
+            "description": "description",
+            "device_class": "device_class",
+            "id": "id",
+            "manifest_url": "manifest",
+            "mechanism": "mechanism",
+            "mechanism_url": "mechanism_url",
+            "name": "name",
+            "serial_number": "serial_number",
+            "state": "state",
+            "trust_class": "trust_class",
+            "trust_level": "trust_level",
+            "updated_at": "updated_at",
+            "vendor_id": "vendor_id",
+            "alias": "endpoint_name",
+            "bootstrap_certificate_expiration": "bootstrap_expiration_date",
+            "certificate_fingerprint": "device_key",
+            "certificate_issuer_id": "ca_id",
+            "connector_certificate_expiration": "connector_expiration_date",
+            "device_execution_mode": "device_execution_mode",
+            "firmware_checksum": "firmware_checksum",
+            "manifest_timestamp": "manifest_timestamp"
+        }
+
+
+class Query(object):
+    """Describes device query object."""
+
+    def __init__(self, query_obj):
+        """Override __init__ and allow passing in backend object."""
+        if not isinstance(query_obj, dict):
+            query_obj = query_obj.to_dict()
+        for key, value in iteritems(Query._get_map_attributes()):
+            setattr(self, "_%s" % key, query_obj.get(value, None))
+
+    @staticmethod
+    def _get_map_attributes():
+        return {
+            "created_at": "created_at",
+            "description": "description",
+            "id": "id",
+            "name": "name",
+            "updated_at": "updated_at",
+            "filter": "query"
+        }
+
+    @property
+    def created_at(self):
+        """Get the created_at of this Query.
+
+        The time the object was created
+
+        :return: The created_at of this Query.
+        :rtype: datetime
+        """
+        return self._created_at
+
+    @property
+    def description(self):
+        """Get the description of this Query.
+
+        The description of the object
+
+        :return: The description of this Query.
+        :rtype: str
+        """
+        return self._description
+
+    @property
+    def id(self):
+        """Get the id of this Query.
+
+        The ID of the query
+
+        :return: The id of this Query.
+        :rtype: str
+        """
+        return self._id
+
+    @property
+    def name(self):
+        """Get the name of this Query.
+
+        The name of the query
+
+        :return: The name of this Query.
+        :rtype: str
+        """
+        return self._name
+
+    @property
+    def updated_at(self):
+        """Get the updated_at of this Query.
+
+        The time the object was updated
+
+        :return: The updated_at of this Query.
+        :rtype: datetime
+        """
+        return self._updated_at
+
+    @property
+    def filter(self):
+        """Get the query of this Query.
+
+        The device query
+
+        :return: The query of this Query.
+        :rtype: str
+        """
+        return self._filter
+
+    def to_dict(self):
+        """Return dictionary of object."""
+        return {
+            "created_at": self.created_at,
+            "description": self.description,
+            "id": self.id,
+            "name": self.name,
+            "updated_at": self.updated_at,
+            "filter": self.filter
+        }
+
+    def __repr__(self):
+        """For print and pprint."""
+        return str(self.to_dict())
+
+
+class Webhook(object):
+    """Describes webhook object."""
+
+    def __init__(self, webhook_obj):
+        """Override __init__ and allow passing in backend object."""
+        if not isinstance(webhook_obj, dict):
+            webhook_obj = webhook_obj.to_dict()
+        for key, value in iteritems(Webhook._get_map_attributes()):
+            setattr(self, "_%s" % key, webhook_obj.get(value, None))
+
+    @staticmethod
+    def _get_map_attributes():
+        return {
+            "url": "url",
+            "headers": "headers",
+        }
+
+    @property
+    def url(self):
+        """Get the url of this Webhook.
+
+        The URL to which the notifications are sent.
+        We recommend that you serve this URL over HTTPS.
+
+        :return: The url of this Webhook.
+        :rtype: str
+        """
+        return self._url
+
+    @property
+    def headers(self):
+        """Get the headers of this Webhook.
+
+        Headers (key/value) that are sent with the notification. Optional.
+
+        :return: The headers of this Webhook.
+        :rtype: object
+        """
+        return self._headers
+
+    def to_dict(self):
+        """Return dictionary of object."""
+        return {
+            'url': self.url,
+            'headers': self.headers
+        }
+
+    def __repr__(self):
+        """For print and pprint."""
+        return str(self.to_dict())
 
 
 class Resource(object):
@@ -906,8 +1218,9 @@ class Resource(object):
     def __init__(self, resource_obj):
         """Override __init__ and allow passing in backend object."""
         self._observable = resource_obj.obs
-        self._uri = resource_obj.uri
-        self._name = resource_obj.rt
+        self._path = resource_obj.uri
+        self._type = resource_obj.rt
+        self._content_type = resource_obj.type
 
     @property
     def observable(self):
@@ -921,29 +1234,39 @@ class Resource(object):
         return self._observable
 
     @property
-    def uri(self):
+    def path(self):
         """Get the URI of this Resource.
 
         :return: The URI of this Resource.
         :rtype: str
         """
-        return self._uri
+        return self._path
 
     @property
-    def name(self):
-        """Get the friendly name of this Resource, if set.
+    def type(self):
+        """Get the type of this Resource, if set.
 
-        :return: The name of the Resource.
+        :return: The type of the Resource.
         :rtype: str
         """
-        return self._name
+        return self._type
+
+    @property
+    def content_type(self):
+        """The content type of this Resource, if set.
+
+        :return: The content type of the Resource.
+        :rtype: str
+        """
+        return self._content_type
 
     def to_dict(self):
         """Return dictionary of object."""
         return {
             'observable': self.observable,
-            'uri': self.uri,
-            'name': self.name
+            'path': self.path,
+            'type': self.type,
+            'content_type': self.content_type
         }
 
     def __repr__(self):

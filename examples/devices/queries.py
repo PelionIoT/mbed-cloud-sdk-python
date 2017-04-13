@@ -20,23 +20,23 @@ import urlparse
 import uuid
 
 
-def _print_filters(filters, start_idx=0):
-    filters_str = []
-    for idx, f in enumerate(filters):
-        filters_str.append(_str_filter(f, idx=start_idx + idx + 1))
-    print("\n\n".join(filters_str))
+def _print_queries(queries, start_idx=0):
+    queries_str = []
+    for idx, q in enumerate(queries):
+        queries_str.append(_str_query(q, idx=start_idx + idx + 1))
+    print("\n\n".join(queries_str))
 
 
-def _parse_filter_qs(f):
-    qs = urlparse.parse_qs(urllib.unquote(f.query))
+def _parse_query_qs(q):
+    qs = urlparse.parse_qs(urllib.unquote(q.filter))
     return {key: ", ".join(value) for (key, value) in qs.iteritems()}
 
 
-def _str_filter(f, idx):
-    name = f.name
-    filters = _parse_filter_qs(f)
-    s = "%d) %s\n%s\n" % (idx, f.name, "-" * len(name))
-    s += "\n".join(["%s = %s" % (k, v) for k, v in filters.iteritems()])
+def _str_query(q, idx):
+    name = q.name
+    queries = _parse_query_qs(q)
+    s = "%d) %s\n%s\n" % (idx, q.name, "-" * len(name))
+    s += "\n".join(["%s = %s" % (k, v) for k, v in queries.iteritems()])
     return s
 
 
@@ -47,21 +47,21 @@ def _id_generator(size=6, chars=string.ascii_uppercase + string.digits):
 def _main():
     api = DeviceAPI()
 
-    # Pretty print all the registered filters
-    for idx, e in enumerate(api.list_filters(limit=5)):
-        print(_str_filter(e, idx))
+    # Pretty print all the registered queries
+    for idx, e in enumerate(api.list_queries(limit=5)):
+        print(_str_query(e, idx))
 
-    # Create a new filter
-    new_filter = api.add_filter("test_filter", {'device_id': str(uuid.uuid4())})
-    print("\nCreated new filter: %r" % (new_filter.name))
+    # Create a new query
+    new_query = api.add_query("test_filter", {'device_id': str(uuid.uuid4())})
+    print("\nCreated new query: %r" % (new_query.name))
 
-    # Delete same filter
-    api.delete_filter(new_filter.id)
-    print("Deleted newly created filter")
+    # Delete same query
+    api.delete_query(new_query.id)
+    print("Deleted newly created query")
 
-    # Create more complex filter
-    print("Creating complex filter")
-    new_c_filter = api.add_filter("complex_test_filter %s" % _id_generator(), {
+    # Create more complex query
+    print("Creating complex query")
+    new_c_query = api.add_query("complex_test_query %s" % _id_generator(), {
         'device_id': str(uuid.uuid4()),
         'auto_update': True,
         'state': 'bootstrapped',
@@ -76,25 +76,25 @@ def _main():
     })
 
     # Manually get it
-    gf = api.get_filter(new_c_filter.id)
-    print("Got filter %r using 'get'" % gf.name)
+    gf = api.get_query(new_c_query.id)
+    print("Got query %r using 'get'" % gf.name)
 
-    # Update the filter
-    q = _parse_filter_qs(gf)
+    # Update the query
+    q = _parse_query_qs(gf)
     q['serial_number'] = '12345'
-    updated_gf = api.update_filter(
-        filter_id=gf.id,
+    updated_gf = api.update_query(
+        query_id=gf.id,
         name=gf.name,
-        query=q
+        filter=q
     )
     # Check it was successful
-    assert _parse_filter_qs(gf)['serial_number'] == '1234'
-    assert _parse_filter_qs(updated_gf)['serial_number'] == '12345'
-    print ("Updated filter with new serial number")
+    assert _parse_query_qs(gf)['serial_number'] == '1234'
+    assert _parse_query_qs(updated_gf)['serial_number'] == '12345'
+    print ("Updated query with new serial number")
 
     # And delete that too
-    api.delete_filter(new_c_filter.id)
-    print("Deleted complex filter")
+    api.delete_query(new_c_query.id)
+    print("Deleted complex query")
 
 
 if __name__ == "__main__":

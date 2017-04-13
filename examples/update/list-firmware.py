@@ -34,13 +34,13 @@ def _main():
         print("No firmware images currently uploaded")
     else:
         print("** Found %d existing firmware images **\n" % c)
-    for image, idx in images.iteritems():
+    for idx, image in enumerate(images):
         description = image.description if image.description else "<No description>"
         filename = image.datafile.rsplit("/", 1)[1]
         print("%d) %s | %s [%s] | %s\n%s\n" % (idx,
                                                image.created_at.strftime(DATE_FMT),
                                                image.name,
-                                               image.image_id,
+                                               image.id,
                                                filename,
                                                description))
 
@@ -50,14 +50,14 @@ def _main():
         return
     filename = os.path.abspath(sys.argv[1])
 
-    nf = api.add_firmware(
+    nf = api.add_firmware_image(
         name="Auto firmware %s" % _rand_id(),
         datafile=filename,
         description="Uploaded using the mbed Cloud Python SDK"
     )
     print("Created firmware %r at %s" % (nf.name, nf.created_at.strftime(DATE_FMT)))
 
-    api.delete_firmware(nf.id)
+    api.delete_firmware_image(nf.id)
     print("Deleted the firmware %r" % nf.name)
 
 

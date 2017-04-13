@@ -18,17 +18,17 @@ Reference
 .. autoclass:: mbed_cloud.update.UpdateAPI
   :members:
 
-.. autoclass:: mbed_cloud.update.Firmware
+.. autoclass:: mbed_cloud.update.FirmwareImage
   :members:
   :inherited-members:
   :exclude-members: object, etag, to_str, to_dict, image_id
 
-.. autoclass:: mbed_cloud.update.Manifest
+.. autoclass:: mbed_cloud.update.FirmwareManifest
   :members:
   :inherited-members:
   :exclude-members: object, etag, to_str, to_dict, manifest_id
 
-.. autoclass:: mbed_cloud.update.UpdateCampaign
+.. autoclass:: mbed_cloud.update.Campaign
   :members:
   :inherited-members:
   :exclude-members: object, etag, to_str, to_dict, campaign_id
