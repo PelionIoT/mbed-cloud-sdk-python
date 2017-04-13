@@ -19,6 +19,7 @@ class CloudApiException(Exception):
 
     def __init__(self, message, reason=None, status=400):
         """Initialize CloudApiException class"""
+        super(CloudApiException, self).__init__(message)
         self.message = message
         self.status = status
         self.reason = reason
