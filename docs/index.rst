@@ -13,7 +13,6 @@ Components
   certificates
   devices
   logging
-  manufacturing
   statistics
   update
 
@@ -58,7 +57,7 @@ now ready to use the API.
   >>> device_api = DeviceAPI()
   >>> list(device_api.list_connected_devices())[0]
   {
-    "name": "Device #1",
+    "id": "Device #1",
     "state": "unenrolled",
     ...
   }

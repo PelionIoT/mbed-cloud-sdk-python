@@ -29,7 +29,7 @@ These instructions can also be found in the [official documentation](https://s3-
     ```python
     >>> from mbed_cloud.devices import DeviceAPI
     >>> device_api = DeviceAPI()
-    >>> device_api.list_connected_devices()[0]
+    >>> list(device_api.list_connected_devices())[0]
     {
       "id": "Device #1",
       "state": "unenrolled",
@@ -53,4 +53,3 @@ These instructions can also be found in the [official documentation](https://s3-
 
 mbed Cloud SDK for Python is free-to-use and licensed under the Apache License
 2.0. See LICENSE file for more information.
-
