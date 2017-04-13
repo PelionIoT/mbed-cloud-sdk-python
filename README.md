@@ -29,9 +29,9 @@ These instructions can also be found in the [official documentation](https://s3-
     ```python
     >>> from mbed_cloud.devices import DeviceAPI
     >>> device_api = DeviceAPI()
-    >>> list(device_api.list_connected_devices())[0]
+    >>> device_api.list_connected_devices()[0]
     {
-      "name": "Device #1",
+      "id": "Device #1",
       "state": "unenrolled",
       ...
     }
