@@ -28,7 +28,7 @@ def _main():
     api.update_webhook("http://testpython2.requestcatcher.com/")
     time.sleep(2)
 
-    api.add_subscription(devices[0].id, BUTTON_RESOURCE)
+    api.add_resource_subscription(devices[0].id, BUTTON_RESOURCE)
     while True:
         print("Webhook registered. Listening to button updates for 10 seconds...")
 

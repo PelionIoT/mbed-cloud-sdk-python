@@ -38,7 +38,7 @@ def _main():
     _current_val(value)
 
     # Register a subscription for new values
-    api.add_subscription_async(devices[0].id, BUTTON_RESOURCE, _subscription_handler)
+    api.add_resource_subscription_async(devices[0].id, BUTTON_RESOURCE, _subscription_handler)
 
     # Run forever
     while True:

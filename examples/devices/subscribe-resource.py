@@ -28,7 +28,7 @@ def _main():
     value = api.get_resource_value(devices[0].id, BUTTON_RESOURCE)
 
     # Register a subscription for new values
-    queue = api.add_subscription(devices[0].id, BUTTON_RESOURCE)
+    queue = api.add_resource_subscription(devices[0].id, BUTTON_RESOURCE)
     while True:
         # Print the current value
         print("Current value: %r" % (value,))

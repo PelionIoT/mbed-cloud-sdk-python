@@ -24,7 +24,6 @@ import urllib
 
 # Import common functions and exceptions from frontend API
 from mbed_cloud import BaseAPI
-from mbed_cloud import ClassAPI
 from mbed_cloud.decorators import catch_exceptions
 from mbed_cloud.exceptions import CloudAsyncError
 from mbed_cloud.exceptions import CloudTimeoutError
@@ -284,7 +283,7 @@ class DeviceAPI(BaseAPI):
         return AsyncConsumer(resp.async_response_id, self._db)
 
     @catch_exceptions(MdsApiException)
-    def add_subscription(self, device_id, resource_path, fix_path=True, queue_size=5):
+    def add_resource_subscription(self, device_id, resource_path, fix_path=True, queue_size=5):
         """Subscribe to resource updates.
 
         When called on valid device and resource path a subscription is setup so that
@@ -316,8 +315,8 @@ class DeviceAPI(BaseAPI):
         return q
 
     @catch_exceptions(MdsApiException)
-    def add_subscription_async(self, device_id, resource_path, callback_fn,
-                               fix_path=True, queue_size=5):
+    def add_resource_subscription_async(self, device_id, resource_path, callback_fn,
+                                        fix_path=True, queue_size=5):
         """Subscribe to resource updates with callback function.
 
         When called on valid device and resource path a subscription is setup so that
@@ -330,7 +329,7 @@ class DeviceAPI(BaseAPI):
         :param queue_size: set the Queue size. If set to 0, no queue object will be created
         :returns: void
         """
-        queue = self.add_subscription(device_id, resource_path, fix_path, queue_size)
+        queue = self.add_resource_subscription(device_id, resource_path, fix_path, queue_size)
 
         # Setup daemon thread for callback function
         t = threading.Thread(target=self._subscription_handler, args=[queue, callback_fn])
@@ -356,7 +355,7 @@ class DeviceAPI(BaseAPI):
         return
 
     @catch_exceptions(MdsApiException)
-    def delete_subscription(self, device_id=None, resource_path=None, fix_path=True):
+    def delete_resource_subscription(self, device_id=None, resource_path=None, fix_path=True):
         """Unsubscribe from device and/or resource_path updates.
 
         If device_id or resource_path is None, we remove every subscripton
@@ -390,7 +389,7 @@ class DeviceAPI(BaseAPI):
                     fixed_path = r[1:]
 
                 # Make request to API, ignoring result
-                api.v2_subscriptions_endpoint_name_resource_path_delete(device_id, fixed_path)
+                api.v2_subscriptions_id_resource_path_delete(device_id, fixed_path)
 
                 # Remove Queue from dictionary
                 del self._queues[e][r]
@@ -500,7 +499,7 @@ class DeviceAPI(BaseAPI):
         :returns: the updated device object
         :rtype: Device
         """
-        kwargs = Device()._verify_args(kwargs)
+        kwargs = Device._verify_args(kwargs)
         api = self.dc.DefaultApi()
         body = self.dc.DeviceDataPostRequest(**kwargs)
         return Device(api.device_update(device_id, body))
@@ -549,7 +548,7 @@ class DeviceAPI(BaseAPI):
         :return: the newly created device object.
         :rtype: Device
         """
-        kwargs = Device()._verify_args(kwargs)
+        kwargs = Device._verify_args(kwargs)
         api = self.dc.DefaultApi()
         device = DeviceData(**kwargs)
         return Device(api.device_create(device))
@@ -940,79 +939,18 @@ class ConnectedDevice(object):
         return str(self.to_dict())
 
 
-class Device(ClassAPI):
-    """Describes device object from the catalog.
+class Device(object):
+    """Describes device object from the catalog."""
 
-    :ivar account_id: The owning IAM account ID
-    :vartype account_id: str
-    :ivar auto_update: Mark this device for auto firmware update
-    :vartype auto_update: bool
-    :ivar bootstrapped_timestamp:
-    :vartype bootstrapped_timestamp: datetime
-    :ivar created_at: The time the device was created
-    :vartype created_at: datetime
-    :ivar custom_attributes: Up to 5 custom JSON attributes
-    :vartype custom_attributes: object
-    :ivar deployed_state: State of the device's deployment
-    :vartype deployed_state: str
-    :ivar last_deployment: The last deployment used on the device
-    :vartype last_deployment: datetime
-    :ivar description: The description of the device
-    :vartype description: str
-    :ivar device_class: Class of the device
-    :vartype device_class: str
-    :ivar id: The ID of the device
-    :vartype id: str
-    :ivar manifest_url: URL for the current device manifest
-    :vartype manifest_url: str
-    :ivar mechanism: The ID of the channel used to communicate with the device
-    :vartype mechanism: str
-    :ivar mechanism_url: The address of the connector to use
-    :vartype mechanism_url: str
-    :ivar name: The name of the device
-    :vartype name: str
-    :ivar serial_number: The serial number of the device
-    :vartype serial_number: str
-    :ivar state: The current state of the device
-    :vartype state: str
-    :ivar trust_class: The device trust class
-    :vartype trust_class: int
-    :ivar trust_level: The device trust level
-    :vartype trust_level: int
-    :ivar updated_at: The time the device was updated
-    :vartype updated_at: datetime
-    :ivar vendor_id: The device vendor ID
-    :vartype vendor_id: str
-    :ivar alias: The alias of the device
-    :vartype alias: str
-    :ivar bootstrap_certificate_expiration:
-    :vartype bootstrap_certificate_expiration: datetime
-    :ivar certificate_fingerprint: Fingerprint of the device certificate
-    :vartype certificate_fingerprint: str
-    :ivar certificate_issuer_id: ID of the issuer of the certificate
-    :vartype certificate_issuer_id: str
-    :ivar connector_certificate_expiration: Expiration date of the certificate
-    used to connect to connector server
-    :vartype connector_certificate_expiration: datetime
-    :ivar device_execution_mode: The device class
-    :vartype device_execution_mode: int
-    :ivar firmware_checksum: The SHA256 checksum of the current firmware image
-    :vartype firmware_checksum: str
-    :ivar manifest_timestamp: The timestamp of the current manifest version
-    :vartype manifest_timestamp: datetime
-    """
-
-    def __init__(self, obj=None):
+    def __init__(self, device_obj):
         """Override __init__ and allow passing in backend object."""
-        if obj is not None:
-            if isinstance(obj, dict):
-                for key, value in iteritems(self._get_map_attributes()):
-                    setattr(self, key, obj.get(value, None))
-            else:
-                for key, value in iteritems(self._get_map_attributes()):
-                    setattr(self, key, getattr(obj, value, None))
+        if not isinstance(device_obj, dict):
+            device_obj = device_obj.to_dict()
+        for key, value in iteritems(Device._get_map_attributes()):
+            setattr(self, "_%s" % key, device_obj.get(value, None))
 
-    def _get_map_attributes(self):
+    @staticmethod
+    def _get_map_attributes():
         return {
             "account_id": "account_id",
             "auto_update": "auto_update",
@@ -1043,6 +981,288 @@ class Device(ClassAPI):
             "firmware_checksum": "firmware_checksum",
             "manifest_timestamp": "manifest_timestamp"
         }
+
+    @staticmethod
+    def _verify_args(kwargs):
+        """Verify arguments before sending to Backend API."""
+        for key, value in iteritems(Device._get_map_attributes()):
+            if key in kwargs:
+                kwargs[value] = kwargs[key]
+                del kwargs[key]
+        return kwargs
+
+    @property
+    def account_id(self):
+        """The owning IAM account ID.
+
+        :rtype: str
+        """
+        return self._account_id
+
+    @property
+    def auto_update(self):
+        """Mark this device for auto firmware update.
+
+        :rtype: bool
+        """
+        return self._auto_update
+
+    @property
+    def bootstrapped_timestamp(self):
+        """The time device was created..
+
+        :rtype: datetime
+        """
+        return self._bootstrapped_timestamp
+
+    @property
+    def created_at(self):
+        """The time the device was created.
+
+        :rtype: datetime
+        """
+        return self._created_at
+
+    @property
+    def custom_attributes(self):
+        """Up to 5 custom JSON attributes.
+
+        :rtype: object
+        """
+        return self._custom_attributes
+
+    @property
+    def deployed_state(self):
+        """State of the device's deployment.
+
+        :rtype: str
+        """
+        return self._deployed_state
+
+    @property
+    def last_deployment(self):
+        """The last deployment used on the device.
+
+        :rtype: datetime
+        """
+        return self._last_deployment
+
+    @property
+    def description(self):
+        """The description of the device.
+
+        :rtype: str
+        """
+        return self._description
+
+    @property
+    def device_class(self):
+        """Class of the device.
+
+        :rtype: str
+        """
+        return self._device_class
+
+    @property
+    def id(self):
+        """The ID of the device.
+
+        :rtype: str
+        """
+        return self._id
+
+    @property
+    def manifest_url(self):
+        """URL for the current device manifest.
+
+        :rtype: str
+        """
+        return self._manifest_url
+
+    @property
+    def mechanism(self):
+        """The ID of the channel used to communicate with the device.
+
+        :rtype: str
+        """
+        return self._mechanism
+
+    @property
+    def mechanism_url(self):
+        """The address of the connector to use.
+
+        :rtype: str
+        """
+        return self._mechanism_url
+
+    @property
+    def name(self):
+        """The name of the device.
+
+        :rtype: str
+        """
+        return self._name
+
+    @property
+    def serial_number(self):
+        """The serial number of the device.
+
+        :rtype: str
+        """
+        return self._serial_number
+
+    @property
+    def state(self):
+        """The current state of the device.
+
+        :rtype: str
+        """
+        return self._state
+
+    @property
+    def trust_class(self):
+        """The device trust class.
+
+        The time the object was created
+
+        :return: The created_at of this Query.
+        :rtype: int
+        """
+        return self._trust_class
+
+    @property
+    def trust_level(self):
+        """The device trust level.
+
+        The time the object was created
+
+        :return: The created_at of this Query.
+        :rtype: int
+        """
+        return self._trust_level
+
+    @property
+    def updated_at(self):
+        """The time the device was updated.
+
+        The time the object was created
+
+        :return: The created_at of this Query.
+        :rtype: datetime
+        """
+        return self._updated_at
+
+    @property
+    def vendor_id(self):
+        """The device vendor ID.
+
+        The time the object was created
+
+        :return: The created_at of this Query.
+        :rtype: str
+        """
+        return self._vendor_id
+
+    @property
+    def alias(self):
+        """The alias of the device.
+
+        :rtype: str
+        """
+        return self._alias
+
+    @property
+    def bootstrap_certificate_expiration(self):
+        """Expiration date of certificate.
+
+        :rtype: datetime
+        """
+        return self._bootstrap_certificate_expiration
+
+    @property
+    def certificate_fingerprint(self):
+        """Fingerprint of the device certificate.
+
+        :rtype: str
+        """
+        return self._certificate_fingerprint
+
+    @property
+    def certificate_issuer_id(self):
+        """ID of the issuer of the certificate.
+
+        :rtype: str
+        """
+        return self._certificate_issuer_id
+
+    @property
+    def connector_certificate_expiration(self):
+        """Expiration date of the certificate used to connect to connector server.
+
+        :rtype: datetime
+        """
+        return self._connector_certificate_expiration
+
+    @property
+    def device_execution_mode(self):
+        """The device class.
+
+        :rtype: int
+        """
+        return self._device_execution_mode
+
+    @property
+    def firmware_checksum(self):
+        """The SHA256 checksum of the current firmware image.
+
+        :rtype: str
+        """
+        return self._firmware_checksum
+
+    @property
+    def manifest_timestamp(self):
+        """The timestamp of the current manifest version.
+
+        :rtype: datetime
+        """
+        return self._manifest_timestamp
+
+    def to_dict(self):
+        """Return dictionary of object."""
+        return {
+            "account_id": self._account_id,
+            "auto_update": self._auto_update,
+            "bootstrapped_timestamp": self._bootstrapped_timestamp,
+            "created_at": self._created_at,
+            "custom_attributes": self._custom_attributes,
+            "deployed_state": self._deployed_state,
+            "last_deployment": self._last_deployment,
+            "description": self._description,
+            "device_class": self._device_class,
+            "id": self._id,
+            "manifest_url": self._manifest_url,
+            "mechanism": self._mechanism,
+            "mechanism_url": self._mechanism_url,
+            "name": self._name,
+            "serial_number": self._serial_number,
+            "state": self._state,
+            "trust_class": self._trust_class,
+            "trust_level": self._trust_level,
+            "updated_at": self._updated_at,
+            "vendor_id": self._vendor_id,
+            "alias": self._alias,
+            "bootstrap_certificate_expiration": self._bootstrap_certificate_expiration,
+            "certificate_fingerprint": self._certificate_fingerprint,
+            "certificate_issuer_id": self._certificate_issuer_id,
+            "connector_certificate_expiration": self._connector_certificate_expiration,
+            "device_execution_mode": self._device_execution_mode,
+            "firmware_checksum": self._firmware_checksum,
+            "manifest_timestamp": self._manifest_timestamp
+        }
+
+    def __repr__(self):
+        """For print and pprint."""
+        return str(self.to_dict())
 
 
 class Query(object):
