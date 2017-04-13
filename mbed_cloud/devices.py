@@ -115,7 +115,7 @@ class DeviceAPI(BaseAPI):
         api = self.mds.EndpointsApi()
 
         resp = api.v2_endpoints_get()
-        return [ConnectedDevice(e.to_dict()) for e in resp]
+        return [ConnectedDevice(e) for e in resp]
 
     @catch_exceptions(MdsApiException)
     def list_resources(self, device_id):
@@ -862,6 +862,8 @@ class ConnectedDevice(object):
 
     def __init__(self, connected_device_obj):
         """Override __init__ and allow passing in backend object."""
+        if not isinstance(connected_device_obj, dict):
+            connected_device_obj = connected_device_obj.to_dict()
         for key, value in iteritems(ConnectedDevice._get_map_attributes()):
             setattr(self, "_%s" % key, connected_device_obj.get(value, None))
 
@@ -878,7 +880,8 @@ class ConnectedDevice(object):
     def state(self):
         """Get the state of this Endpoint.
 
-        Possible values ACTIVE, STALE.xwwxw
+        Possible values ACTIVE, STALE.
+
         :return: The state of this Endpoint.
         :rtype: str
         """
@@ -895,6 +898,7 @@ class ConnectedDevice(object):
         wakes up and connects to mbed Cloud Connect itself.
         You can also use the Queue mode when the device
         is behind a NAT and cannot be reached directly by mbed Cloud Connect.
+
         :return: The queue_mode of this Endpoint.
         :rtype: bool
         """
@@ -905,6 +909,7 @@ class ConnectedDevice(object):
         """Get the type of this Endpoint.
 
         Type of endpoint. (Free text)
+
         :return: The type of this Endpoint.
         :rtype: str
         """
@@ -915,6 +920,7 @@ class ConnectedDevice(object):
         """Get the id of this Endpoint.
 
         Unique mbed Cloud Device ID representing the endpoint.
+
         :return: The id of this Endpoint.
         :rtype: str
         """
@@ -1039,28 +1045,18 @@ class Device(ClassAPI):
         }
 
 
-class Query(ClassAPI):
-    """Describes device query object.
+class Query(object):
+    """Describes device query object."""
 
-    :ivar id: The ID of the query
-    :vartype id: str
-    :ivar description: The description of the query
-    :vartype description: str
-    :ivar created_at: The time the query was created
-    :vartype created_at: date
-    :ivar updated_at: The time the query was updated
-    :vartype updated_at: date
-    :ivar filter: The query filter
-    :vartype filter: str
-    """
-
-    def __init__(self, obj=None):
+    def __init__(self, query_obj):
         """Override __init__ and allow passing in backend object."""
-        if obj is not None:
-            for key, value in iteritems(self._get_map_attributes()):
-                setattr(self, key, getattr(obj, value, None))
+        if not isinstance(query_obj, dict):
+            query_obj = query_obj.to_dict()
+        for key, value in iteritems(Query._get_map_attributes()):
+            setattr(self, "_%s" % key, query_obj.get(value, None))
 
-    def _get_map_attributes(self):
+    @staticmethod
+    def _get_map_attributes():
         return {
             "created_at": "created_at",
             "description": "description",
@@ -1070,27 +1066,138 @@ class Query(ClassAPI):
             "filter": "query"
         }
 
+    @property
+    def created_at(self):
+        """Get the created_at of this Query.
 
-class Webhook(ClassAPI):
-    """Describes webhook object.
+        The time the object was created
 
-    :ivar url: The URL to which the notifications must be sent
-    :vartype url: str
-    :ivar headers: Headers (key/value) that must be sent with the request
-    :vartype headers: dict
-    """
+        :return: The created_at of this Query.
+        :rtype: datetime
+        """
+        return self._created_at
 
-    def __init__(self, obj=None):
+    @property
+    def description(self):
+        """Get the description of this Query.
+
+        The description of the object
+
+        :return: The description of this Query.
+        :rtype: str
+        """
+        return self._description
+
+    @property
+    def id(self):
+        """Get the id of this Query.
+
+        The ID of the query
+
+        :return: The id of this Query.
+        :rtype: str
+        """
+        return self._id
+
+    @property
+    def name(self):
+        """Get the name of this Query.
+
+        The name of the query
+
+        :return: The name of this Query.
+        :rtype: str
+        """
+        return self._name
+
+    @property
+    def updated_at(self):
+        """Get the updated_at of this Query.
+
+        The time the object was updated
+
+        :return: The updated_at of this Query.
+        :rtype: datetime
+        """
+        return self._updated_at
+
+    @property
+    def filter(self):
+        """Get the query of this Query.
+
+        The device query
+
+        :return: The query of this Query.
+        :rtype: str
+        """
+        return self._filter
+
+    def to_dict(self):
+        """Return dictionary of object."""
+        return {
+            "created_at": self.created_at,
+            "description": self.description,
+            "id": self.id,
+            "name": self.name,
+            "updated_at": self.updated_at,
+            "filter": self.filter
+        }
+
+    def __repr__(self):
+        """For print and pprint."""
+        return str(self.to_dict())
+
+
+class Webhook(object):
+    """Describes webhook object."""
+
+    def __init__(self, webhook_obj):
         """Override __init__ and allow passing in backend object."""
-        if obj is not None:
-            for key, value in iteritems(self._get_map_attributes()):
-                setattr(self, key, getattr(obj, value, None))
+        if not isinstance(webhook_obj, dict):
+            webhook_obj = webhook_obj.to_dict()
+        for key, value in iteritems(Webhook._get_map_attributes()):
+            setattr(self, "_%s" % key, webhook_obj.get(value, None))
 
-    def _get_map_attributes(self):
+    @staticmethod
+    def _get_map_attributes():
         return {
             "url": "url",
             "headers": "headers",
         }
+
+    @property
+    def url(self):
+        """Get the url of this Webhook.
+
+        The URL to which the notifications are sent.
+        We recommend that you serve this URL over HTTPS.
+
+        :return: The url of this Webhook.
+        :rtype: str
+        """
+        return self._url
+
+    @property
+    def headers(self):
+        """Get the headers of this Webhook.
+
+        Headers (key/value) that are sent with the notification. Optional.
+
+        :return: The headers of this Webhook.
+        :rtype: object
+        """
+        return self._headers
+
+    def to_dict(self):
+        """Return dictionary of object."""
+        return {
+            'url': self.url,
+            'headers': self.headers
+        }
+
+    def __repr__(self):
+        """For print and pprint."""
+        return str(self.to_dict())
 
 
 class Resource(object):
