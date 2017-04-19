@@ -145,6 +145,8 @@ class UpdateCampaignPatchRequest(object):
         :param root_manifest_id: The root_manifest_id of this UpdateCampaignPatchRequest.
         :type: str
         """
+        if root_manifest_id is not None and len(root_manifest_id) > 32:
+            raise ValueError("Invalid value for `root_manifest_id`, length must be less than or equal to `32`")
 
         self._root_manifest_id = root_manifest_id
 
@@ -220,6 +222,8 @@ class UpdateCampaignPatchRequest(object):
         :param name: The name of this UpdateCampaignPatchRequest.
         :type: str
         """
+        if name is not None and len(name) > 128:
+            raise ValueError("Invalid value for `name`, length must be less than or equal to `128`")
 
         self._name = name
 

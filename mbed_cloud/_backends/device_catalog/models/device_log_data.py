@@ -213,6 +213,8 @@ class DeviceLogData(object):
         :param event_type: The event_type of this DeviceLogData.
         :type: str
         """
+        if event_type is not None and len(event_type) > 100:
+            raise ValueError("Invalid value for `event_type`, length must be less than or equal to `100`")
 
         self._event_type = event_type
 

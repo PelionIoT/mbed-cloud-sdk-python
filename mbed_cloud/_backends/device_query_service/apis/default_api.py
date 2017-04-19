@@ -252,20 +252,6 @@ class DefaultApi(object):
         :param str after: the ID of the the item after which to retrieve the next page
         :param str filter: URL encoded query string parameter to filter returned data
         :param str include: Comma separated list of data fields to return. Currently supported: total_count
-        :param str created_at: 
-        :param str created_at__gte: 
-        :param str created_at__lte: 
-        :param str description: 
-        :param str etag: 
-        :param str etag_at__gte: 
-        :param str etag_at__lte: 
-        :param str id: 
-        :param str name: 
-        :param str object: 
-        :param str query: 
-        :param str updated_at: 
-        :param str updated_at__gte: 
-        :param str updated_at__lte: 
         :return: DeviceQueryPage
                  If the method is called asynchronously,
                  returns the request thread.
@@ -295,26 +281,12 @@ class DefaultApi(object):
         :param str after: the ID of the the item after which to retrieve the next page
         :param str filter: URL encoded query string parameter to filter returned data
         :param str include: Comma separated list of data fields to return. Currently supported: total_count
-        :param str created_at: 
-        :param str created_at__gte: 
-        :param str created_at__lte: 
-        :param str description: 
-        :param str etag: 
-        :param str etag_at__gte: 
-        :param str etag_at__lte: 
-        :param str id: 
-        :param str name: 
-        :param str object: 
-        :param str query: 
-        :param str updated_at: 
-        :param str updated_at__gte: 
-        :param str updated_at__lte: 
         :return: DeviceQueryPage
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['limit', 'order', 'after', 'filter', 'include', 'created_at', 'created_at__gte', 'created_at__lte', 'description', 'etag', 'etag_at__gte', 'etag_at__lte', 'id', 'name', 'object', 'query', 'updated_at', 'updated_at__gte', 'updated_at__lte']
+        all_params = ['limit', 'order', 'after', 'filter', 'include']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -347,34 +319,6 @@ class DefaultApi(object):
             query_params['filter'] = params['filter']
         if 'include' in params:
             query_params['include'] = params['include']
-        if 'created_at' in params:
-            query_params['created_at'] = params['created_at']
-        if 'created_at__gte' in params:
-            query_params['created_at__gte'] = params['created_at__gte']
-        if 'created_at__lte' in params:
-            query_params['created_at__lte'] = params['created_at__lte']
-        if 'description' in params:
-            query_params['description'] = params['description']
-        if 'etag' in params:
-            query_params['etag'] = params['etag']
-        if 'etag_at__gte' in params:
-            query_params['etag_at__gte'] = params['etag_at__gte']
-        if 'etag_at__lte' in params:
-            query_params['etag_at__lte'] = params['etag_at__lte']
-        if 'id' in params:
-            query_params['id'] = params['id']
-        if 'name' in params:
-            query_params['name'] = params['name']
-        if 'object' in params:
-            query_params['object'] = params['object']
-        if 'query' in params:
-            query_params['query'] = params['query']
-        if 'updated_at' in params:
-            query_params['updated_at'] = params['updated_at']
-        if 'updated_at__gte' in params:
-            query_params['updated_at__gte'] = params['updated_at__gte']
-        if 'updated_at__lte' in params:
-            query_params['updated_at__lte'] = params['updated_at__lte']
 
         header_params = {}
 

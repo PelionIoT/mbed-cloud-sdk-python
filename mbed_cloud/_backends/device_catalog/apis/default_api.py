@@ -252,50 +252,6 @@ class DefaultApi(object):
         :param str after: the ID of the the item after which to retrieve the next page
         :param str filter: URL encoded query string parameter to filter returned data
         :param str include: Comma separated list of data fields to return. Currently supported: total_count
-        :param str account_id: 
-        :param int attestation_method: 
-        :param bool auto_update: 
-        :param str bootstrap_expiration_date: 
-        :param str bootstrap_expiration_date__lte: 
-        :param str bootstrap_expiration_date__gte: 
-        :param str bootstrapped_timestamp: 
-        :param str bootstrapped_timestamp__lte: 
-        :param str bootstrapped_timestamp__gte: 
-        :param str ca_id: 
-        :param str connector_expiration_date: 
-        :param str connector_expiration_date__lte: 
-        :param str connector_expiration_date__gte: 
-        :param str created_at: 
-        :param str created_at__lte: 
-        :param str created_at__gte: 
-        :param str custom_attributes: 
-        :param str deployed_state: 
-        :param str deployment: 
-        :param str description: 
-        :param str device_class: 
-        :param str id: 
-        :param str device_key: 
-        :param str endpoint_name: 
-        :param str etag: 
-        :param str etag__lte: 
-        :param str etag__gte: 
-        :param str firmware_checksum: 
-        :param str manifest: 
-        :param str manifest_timestamp: 
-        :param str manifest_timestamp__lte: 
-        :param str manifest_timestamp__gte: 
-        :param str mechanism: 
-        :param str mechanism_url: 
-        :param str name: 
-        :param str object: 
-        :param str serial_number: 
-        :param str state: 
-        :param str trust_class: 
-        :param str trust_level: 
-        :param str updated_at: 
-        :param str updated_at__lte: 
-        :param str updated_at__gte: 
-        :param str vendor_id: 
         :return: DevicePage
                  If the method is called asynchronously,
                  returns the request thread.
@@ -325,56 +281,12 @@ class DefaultApi(object):
         :param str after: the ID of the the item after which to retrieve the next page
         :param str filter: URL encoded query string parameter to filter returned data
         :param str include: Comma separated list of data fields to return. Currently supported: total_count
-        :param str account_id: 
-        :param int attestation_method: 
-        :param bool auto_update: 
-        :param str bootstrap_expiration_date: 
-        :param str bootstrap_expiration_date__lte: 
-        :param str bootstrap_expiration_date__gte: 
-        :param str bootstrapped_timestamp: 
-        :param str bootstrapped_timestamp__lte: 
-        :param str bootstrapped_timestamp__gte: 
-        :param str ca_id: 
-        :param str connector_expiration_date: 
-        :param str connector_expiration_date__lte: 
-        :param str connector_expiration_date__gte: 
-        :param str created_at: 
-        :param str created_at__lte: 
-        :param str created_at__gte: 
-        :param str custom_attributes: 
-        :param str deployed_state: 
-        :param str deployment: 
-        :param str description: 
-        :param str device_class: 
-        :param str id: 
-        :param str device_key: 
-        :param str endpoint_name: 
-        :param str etag: 
-        :param str etag__lte: 
-        :param str etag__gte: 
-        :param str firmware_checksum: 
-        :param str manifest: 
-        :param str manifest_timestamp: 
-        :param str manifest_timestamp__lte: 
-        :param str manifest_timestamp__gte: 
-        :param str mechanism: 
-        :param str mechanism_url: 
-        :param str name: 
-        :param str object: 
-        :param str serial_number: 
-        :param str state: 
-        :param str trust_class: 
-        :param str trust_level: 
-        :param str updated_at: 
-        :param str updated_at__lte: 
-        :param str updated_at__gte: 
-        :param str vendor_id: 
         :return: DevicePage
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['limit', 'order', 'after', 'filter', 'include', 'account_id', 'attestation_method', 'auto_update', 'bootstrap_expiration_date', 'bootstrap_expiration_date__lte', 'bootstrap_expiration_date__gte', 'bootstrapped_timestamp', 'bootstrapped_timestamp__lte', 'bootstrapped_timestamp__gte', 'ca_id', 'connector_expiration_date', 'connector_expiration_date__lte', 'connector_expiration_date__gte', 'created_at', 'created_at__lte', 'created_at__gte', 'custom_attributes', 'deployed_state', 'deployment', 'description', 'device_class', 'id', 'device_key', 'endpoint_name', 'etag', 'etag__lte', 'etag__gte', 'firmware_checksum', 'manifest', 'manifest_timestamp', 'manifest_timestamp__lte', 'manifest_timestamp__gte', 'mechanism', 'mechanism_url', 'name', 'object', 'serial_number', 'state', 'trust_class', 'trust_level', 'updated_at', 'updated_at__lte', 'updated_at__gte', 'vendor_id']
+        all_params = ['limit', 'order', 'after', 'filter', 'include']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -407,94 +319,6 @@ class DefaultApi(object):
             query_params['filter'] = params['filter']
         if 'include' in params:
             query_params['include'] = params['include']
-        if 'account_id' in params:
-            query_params['account_id'] = params['account_id']
-        if 'attestation_method' in params:
-            query_params['attestation_method'] = params['attestation_method']
-        if 'auto_update' in params:
-            query_params['auto_update'] = params['auto_update']
-        if 'bootstrap_expiration_date' in params:
-            query_params['bootstrap_expiration_date'] = params['bootstrap_expiration_date']
-        if 'bootstrap_expiration_date__lte' in params:
-            query_params['bootstrap_expiration_date__lte'] = params['bootstrap_expiration_date__lte']
-        if 'bootstrap_expiration_date__gte' in params:
-            query_params['bootstrap_expiration_date__gte'] = params['bootstrap_expiration_date__gte']
-        if 'bootstrapped_timestamp' in params:
-            query_params['bootstrapped_timestamp'] = params['bootstrapped_timestamp']
-        if 'bootstrapped_timestamp__lte' in params:
-            query_params['bootstrapped_timestamp__lte'] = params['bootstrapped_timestamp__lte']
-        if 'bootstrapped_timestamp__gte' in params:
-            query_params['bootstrapped_timestamp__gte'] = params['bootstrapped_timestamp__gte']
-        if 'ca_id' in params:
-            query_params['ca_id'] = params['ca_id']
-        if 'connector_expiration_date' in params:
-            query_params['connector_expiration_date'] = params['connector_expiration_date']
-        if 'connector_expiration_date__lte' in params:
-            query_params['connector_expiration_date__lte'] = params['connector_expiration_date__lte']
-        if 'connector_expiration_date__gte' in params:
-            query_params['connector_expiration_date__gte'] = params['connector_expiration_date__gte']
-        if 'created_at' in params:
-            query_params['created_at'] = params['created_at']
-        if 'created_at__lte' in params:
-            query_params['created_at__lte'] = params['created_at__lte']
-        if 'created_at__gte' in params:
-            query_params['created_at__gte'] = params['created_at__gte']
-        if 'custom_attributes' in params:
-            query_params['custom_attributes'] = params['custom_attributes']
-        if 'deployed_state' in params:
-            query_params['deployed_state'] = params['deployed_state']
-        if 'deployment' in params:
-            query_params['deployment'] = params['deployment']
-        if 'description' in params:
-            query_params['description'] = params['description']
-        if 'device_class' in params:
-            query_params['device_class'] = params['device_class']
-        if 'id' in params:
-            query_params['id'] = params['id']
-        if 'device_key' in params:
-            query_params['device_key'] = params['device_key']
-        if 'endpoint_name' in params:
-            query_params['endpoint_name'] = params['endpoint_name']
-        if 'etag' in params:
-            query_params['etag'] = params['etag']
-        if 'etag__lte' in params:
-            query_params['etag__lte'] = params['etag__lte']
-        if 'etag__gte' in params:
-            query_params['etag__gte'] = params['etag__gte']
-        if 'firmware_checksum' in params:
-            query_params['firmware_checksum'] = params['firmware_checksum']
-        if 'manifest' in params:
-            query_params['manifest'] = params['manifest']
-        if 'manifest_timestamp' in params:
-            query_params['manifest_timestamp'] = params['manifest_timestamp']
-        if 'manifest_timestamp__lte' in params:
-            query_params['manifest_timestamp__lte'] = params['manifest_timestamp__lte']
-        if 'manifest_timestamp__gte' in params:
-            query_params['manifest_timestamp__gte'] = params['manifest_timestamp__gte']
-        if 'mechanism' in params:
-            query_params['mechanism'] = params['mechanism']
-        if 'mechanism_url' in params:
-            query_params['mechanism_url'] = params['mechanism_url']
-        if 'name' in params:
-            query_params['name'] = params['name']
-        if 'object' in params:
-            query_params['object'] = params['object']
-        if 'serial_number' in params:
-            query_params['serial_number'] = params['serial_number']
-        if 'state' in params:
-            query_params['state'] = params['state']
-        if 'trust_class' in params:
-            query_params['trust_class'] = params['trust_class']
-        if 'trust_level' in params:
-            query_params['trust_level'] = params['trust_level']
-        if 'updated_at' in params:
-            query_params['updated_at'] = params['updated_at']
-        if 'updated_at__lte' in params:
-            query_params['updated_at__lte'] = params['updated_at__lte']
-        if 'updated_at__gte' in params:
-            query_params['updated_at__gte'] = params['updated_at__gte']
-        if 'vendor_id' in params:
-            query_params['vendor_id'] = params['vendor_id']
 
         header_params = {}
 

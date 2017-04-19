@@ -12,7 +12,6 @@ Name | Type | Description | Notes
 **state** | **str** | The state part of the postal address, not longer than 100 characters. | [optional] 
 **contact** | **str** | The name of the contact person for this account, not longer than 100 characters. | [optional] 
 **postal_code** | **str** | The postal code part of the postal address, not longer than 100 characters. | [optional] 
-**parent_id** | **str** | The ID of the parent account, if it has any. | [optional] 
 **phone_number** | **str** | The phone number of the company, not longer than 100 characters. | [optional] 
 **email** | **str** | The company email address for this account, not longer than 100 characters. | [optional] 
 **aliases** | **list[str]** | An array of aliases, not more than 10. | [optional] 

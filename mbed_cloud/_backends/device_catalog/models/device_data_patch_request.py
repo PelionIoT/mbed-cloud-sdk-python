@@ -100,6 +100,8 @@ class DeviceDataPatchRequest(object):
         :param endpoint_name: The endpoint_name of this DeviceDataPatchRequest.
         :type: str
         """
+        if endpoint_name is not None and len(endpoint_name) > 64:
+            raise ValueError("Invalid value for `endpoint_name`, length must be less than or equal to `64`")
 
         self._endpoint_name = endpoint_name
 
@@ -184,6 +186,8 @@ class DeviceDataPatchRequest(object):
         :param device_key: The device_key of this DeviceDataPatchRequest.
         :type: str
         """
+        if device_key is not None and len(device_key) > 512:
+            raise ValueError("Invalid value for `device_key`, length must be less than or equal to `512`")
 
         self._device_key = device_key
 
@@ -205,6 +209,8 @@ class DeviceDataPatchRequest(object):
         :param ca_id: The ca_id of this DeviceDataPatchRequest.
         :type: str
         """
+        if ca_id is not None and len(ca_id) > 500:
+            raise ValueError("Invalid value for `ca_id`, length must be less than or equal to `500`")
 
         self._ca_id = ca_id
 
@@ -226,6 +232,8 @@ class DeviceDataPatchRequest(object):
         :param name: The name of this DeviceDataPatchRequest.
         :type: str
         """
+        if name is not None and len(name) > 128:
+            raise ValueError("Invalid value for `name`, length must be less than or equal to `128`")
 
         self._name = name
 
