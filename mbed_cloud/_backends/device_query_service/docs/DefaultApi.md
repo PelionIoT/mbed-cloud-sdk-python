@@ -116,7 +116,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **device_query_list**
-> DeviceQueryPage device_query_list(limit=limit, order=order, after=after, filter=filter, include=include, created_at=created_at, created_at__gte=created_at__gte, created_at__lte=created_at__lte, description=description, etag=etag, etag_at__gte=etag_at__gte, etag_at__lte=etag_at__lte, id=id, name=name, object=object, query=query, updated_at=updated_at, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte)
+> DeviceQueryPage device_query_list(limit=limit, order=order, after=after, filter=filter, include=include)
 
 
 
@@ -142,23 +142,9 @@ order = 'order_example' # str | ASC or DESC (optional)
 after = 'after_example' # str | the ID of the the item after which to retrieve the next page (optional)
 filter = 'filter_example' # str | URL encoded query string parameter to filter returned data (optional)
 include = 'include_example' # str | Comma separated list of data fields to return. Currently supported: total_count (optional)
-created_at = 'created_at_example' # str |  (optional)
-created_at__gte = 'created_at__gte_example' # str |  (optional)
-created_at__lte = 'created_at__lte_example' # str |  (optional)
-description = 'description_example' # str |  (optional)
-etag = 'etag_example' # str |  (optional)
-etag_at__gte = 'etag_at__gte_example' # str |  (optional)
-etag_at__lte = 'etag_at__lte_example' # str |  (optional)
-id = 'id_example' # str |  (optional)
-name = 'name_example' # str |  (optional)
-object = 'object_example' # str |  (optional)
-query = 'query_example' # str |  (optional)
-updated_at = 'updated_at_example' # str |  (optional)
-updated_at__gte = 'updated_at__gte_example' # str |  (optional)
-updated_at__lte = 'updated_at__lte_example' # str |  (optional)
 
 try: 
-    api_response = api_instance.device_query_list(limit=limit, order=order, after=after, filter=filter, include=include, created_at=created_at, created_at__gte=created_at__gte, created_at__lte=created_at__lte, description=description, etag=etag, etag_at__gte=etag_at__gte, etag_at__lte=etag_at__lte, id=id, name=name, object=object, query=query, updated_at=updated_at, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte)
+    api_response = api_instance.device_query_list(limit=limit, order=order, after=after, filter=filter, include=include)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->device_query_list: %s\n" % e)
@@ -173,20 +159,6 @@ Name | Type | Description  | Notes
  **after** | **str**| the ID of the the item after which to retrieve the next page | [optional] 
  **filter** | **str**| URL encoded query string parameter to filter returned data | [optional] 
  **include** | **str**| Comma separated list of data fields to return. Currently supported: total_count | [optional] 
- **created_at** | **str**|  | [optional] 
- **created_at__gte** | **str**|  | [optional] 
- **created_at__lte** | **str**|  | [optional] 
- **description** | **str**|  | [optional] 
- **etag** | **str**|  | [optional] 
- **etag_at__gte** | **str**|  | [optional] 
- **etag_at__lte** | **str**|  | [optional] 
- **id** | **str**|  | [optional] 
- **name** | **str**|  | [optional] 
- **object** | **str**|  | [optional] 
- **query** | **str**|  | [optional] 
- **updated_at** | **str**|  | [optional] 
- **updated_at__gte** | **str**|  | [optional] 
- **updated_at__lte** | **str**|  | [optional] 
 
 ### Return type
 

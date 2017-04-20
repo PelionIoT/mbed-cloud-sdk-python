@@ -123,7 +123,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **firmware_image_list**
-> FirmwareImagePage firmware_image_list(limit=limit, order=order, after=after, filter=filter, include=include, updated_at=updated_at, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, etag=etag, etag__gte=etag__gte, etag__lte=etag__lte, created_at=created_at, created_at__gte=created_at__gte, created_at__lte=created_at__lte, description=description, object=object, datafile_checksum=datafile_checksum, name=name)
+> FirmwareImagePage firmware_image_list(limit=limit, order=order, after=after, filter=filter, include=include)
 
 
 
@@ -149,22 +149,9 @@ order = 'order_example' # str | ASC or DESC (optional)
 after = 'after_example' # str | the ID of the the item after which to retrieve the next page (optional)
 filter = 'filter_example' # str | URL encoded query string parameter to filter returned data (optional)
 include = 'include_example' # str | Comma separated list of data fields to return. Currently supported: total_count (optional)
-updated_at = 'updated_at_example' # str |  (optional)
-updated_at__gte = 'updated_at__gte_example' # str |  (optional)
-updated_at__lte = 'updated_at__lte_example' # str |  (optional)
-etag = 'etag_example' # str |  (optional)
-etag__gte = 'etag__gte_example' # str |  (optional)
-etag__lte = 'etag__lte_example' # str |  (optional)
-created_at = 'created_at_example' # str |  (optional)
-created_at__gte = 'created_at__gte_example' # str |  (optional)
-created_at__lte = 'created_at__lte_example' # str |  (optional)
-description = 'description_example' # str |  (optional)
-object = 'object_example' # str |  (optional)
-datafile_checksum = 'datafile_checksum_example' # str |  (optional)
-name = 'name_example' # str |  (optional)
 
 try: 
-    api_response = api_instance.firmware_image_list(limit=limit, order=order, after=after, filter=filter, include=include, updated_at=updated_at, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, etag=etag, etag__gte=etag__gte, etag__lte=etag__lte, created_at=created_at, created_at__gte=created_at__gte, created_at__lte=created_at__lte, description=description, object=object, datafile_checksum=datafile_checksum, name=name)
+    api_response = api_instance.firmware_image_list(limit=limit, order=order, after=after, filter=filter, include=include)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->firmware_image_list: %s\n" % e)
@@ -179,19 +166,6 @@ Name | Type | Description  | Notes
  **after** | **str**| the ID of the the item after which to retrieve the next page | [optional] 
  **filter** | **str**| URL encoded query string parameter to filter returned data | [optional] 
  **include** | **str**| Comma separated list of data fields to return. Currently supported: total_count | [optional] 
- **updated_at** | **str**|  | [optional] 
- **updated_at__gte** | **str**|  | [optional] 
- **updated_at__lte** | **str**|  | [optional] 
- **etag** | **str**|  | [optional] 
- **etag__gte** | **str**|  | [optional] 
- **etag__lte** | **str**|  | [optional] 
- **created_at** | **str**|  | [optional] 
- **created_at__gte** | **str**|  | [optional] 
- **created_at__lte** | **str**|  | [optional] 
- **description** | **str**|  | [optional] 
- **object** | **str**|  | [optional] 
- **datafile_checksum** | **str**|  | [optional] 
- **name** | **str**|  | [optional] 
 
 ### Return type
 
@@ -282,7 +256,7 @@ firmware_catalog.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = firmware_catalog.DefaultApi()
-datafile = '/path/to/file.txt' # file | The manifest file to create
+datafile = '/path/to/file.txt' # file | The manifest file to create. The size of the file is account specific and enforced by the api gateway
 name = 'name_example' # str | The name of the object
 description = 'description_example' # str | The description of the object (optional)
 
@@ -297,7 +271,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **datafile** | **file**| The manifest file to create | 
+ **datafile** | **file**| The manifest file to create. The size of the file is account specific and enforced by the api gateway | 
  **name** | **str**| The name of the object | 
  **description** | **str**| The description of the object | [optional] 
 
@@ -369,7 +343,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **firmware_manifest_list**
-> FirmwareManifestPage firmware_manifest_list(limit=limit, order=order, after=after, filter=filter, include=include, updated_at=updated_at, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, created_at=created_at, created_at__gte=created_at__gte, created_at__lte=created_at__lte, etag=etag, etag__gte=etag__gte, etag__lte=etag__lte, manifest_id=manifest_id, updating_request_id=updating_request_id, description=description, timestamp=timestamp, timestamp__gte=timestamp__gte, timestamp__lte=timestamp__lte, object=object, device_class=device_class, datafile_checksum=datafile_checksum, name=name)
+> FirmwareManifestPage firmware_manifest_list(limit=limit, order=order, after=after, filter=filter, include=include)
 
 
 
@@ -395,28 +369,9 @@ order = 'order_example' # str | ASC or DESC (optional)
 after = 'after_example' # str | the ID of the the item after which to retrieve the next page (optional)
 filter = 'filter_example' # str | URL encoded query string parameter to filter returned data (optional)
 include = 'include_example' # str | Comma separated list of data fields to return. Currently supported: total_count (optional)
-updated_at = 'updated_at_example' # str |  (optional)
-updated_at__gte = 'updated_at__gte_example' # str |  (optional)
-updated_at__lte = 'updated_at__lte_example' # str |  (optional)
-created_at = 'created_at_example' # str |  (optional)
-created_at__gte = 'created_at__gte_example' # str |  (optional)
-created_at__lte = 'created_at__lte_example' # str |  (optional)
-etag = 'etag_example' # str |  (optional)
-etag__gte = 'etag__gte_example' # str |  (optional)
-etag__lte = 'etag__lte_example' # str |  (optional)
-manifest_id = 'manifest_id_example' # str |  (optional)
-updating_request_id = 'updating_request_id_example' # str |  (optional)
-description = 'description_example' # str |  (optional)
-timestamp = 'timestamp_example' # str |  (optional)
-timestamp__gte = 'timestamp__gte_example' # str |  (optional)
-timestamp__lte = 'timestamp__lte_example' # str |  (optional)
-object = 'object_example' # str |  (optional)
-device_class = 'device_class_example' # str |  (optional)
-datafile_checksum = 'datafile_checksum_example' # str |  (optional)
-name = 'name_example' # str |  (optional)
 
 try: 
-    api_response = api_instance.firmware_manifest_list(limit=limit, order=order, after=after, filter=filter, include=include, updated_at=updated_at, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, created_at=created_at, created_at__gte=created_at__gte, created_at__lte=created_at__lte, etag=etag, etag__gte=etag__gte, etag__lte=etag__lte, manifest_id=manifest_id, updating_request_id=updating_request_id, description=description, timestamp=timestamp, timestamp__gte=timestamp__gte, timestamp__lte=timestamp__lte, object=object, device_class=device_class, datafile_checksum=datafile_checksum, name=name)
+    api_response = api_instance.firmware_manifest_list(limit=limit, order=order, after=after, filter=filter, include=include)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->firmware_manifest_list: %s\n" % e)
@@ -431,25 +386,6 @@ Name | Type | Description  | Notes
  **after** | **str**| the ID of the the item after which to retrieve the next page | [optional] 
  **filter** | **str**| URL encoded query string parameter to filter returned data | [optional] 
  **include** | **str**| Comma separated list of data fields to return. Currently supported: total_count | [optional] 
- **updated_at** | **str**|  | [optional] 
- **updated_at__gte** | **str**|  | [optional] 
- **updated_at__lte** | **str**|  | [optional] 
- **created_at** | **str**|  | [optional] 
- **created_at__gte** | **str**|  | [optional] 
- **created_at__lte** | **str**|  | [optional] 
- **etag** | **str**|  | [optional] 
- **etag__gte** | **str**|  | [optional] 
- **etag__lte** | **str**|  | [optional] 
- **manifest_id** | **str**|  | [optional] 
- **updating_request_id** | **str**|  | [optional] 
- **description** | **str**|  | [optional] 
- **timestamp** | **str**|  | [optional] 
- **timestamp__gte** | **str**|  | [optional] 
- **timestamp__lte** | **str**|  | [optional] 
- **object** | **str**|  | [optional] 
- **device_class** | **str**|  | [optional] 
- **datafile_checksum** | **str**|  | [optional] 
- **name** | **str**|  | [optional] 
 
 ### Return type
 

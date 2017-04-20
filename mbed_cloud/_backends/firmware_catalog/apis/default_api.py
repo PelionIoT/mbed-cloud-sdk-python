@@ -110,6 +110,8 @@ class DefaultApi(object):
         if ('name' not in params) or (params['name'] is None):
             raise ValueError("Missing the required parameter `name` when calling `firmware_image_create`")
 
+        if 'name' in params and len(params['name']) > 128:
+            raise ValueError("Invalid value for parameter `name` when calling `firmware_image_create`, length must be less than or equal to `128`")
 
         collection_formats = {}
 
@@ -267,19 +269,6 @@ class DefaultApi(object):
         :param str after: the ID of the the item after which to retrieve the next page
         :param str filter: URL encoded query string parameter to filter returned data
         :param str include: Comma separated list of data fields to return. Currently supported: total_count
-        :param str updated_at:
-        :param str updated_at__gte:
-        :param str updated_at__lte:
-        :param str etag:
-        :param str etag__gte:
-        :param str etag__lte:
-        :param str created_at:
-        :param str created_at__gte:
-        :param str created_at__lte:
-        :param str description:
-        :param str object:
-        :param str datafile_checksum:
-        :param str name:
         :return: FirmwareImagePage
                  If the method is called asynchronously,
                  returns the request thread.
@@ -309,25 +298,12 @@ class DefaultApi(object):
         :param str after: the ID of the the item after which to retrieve the next page
         :param str filter: URL encoded query string parameter to filter returned data
         :param str include: Comma separated list of data fields to return. Currently supported: total_count
-        :param str updated_at:
-        :param str updated_at__gte:
-        :param str updated_at__lte:
-        :param str etag:
-        :param str etag__gte:
-        :param str etag__lte:
-        :param str created_at:
-        :param str created_at__gte:
-        :param str created_at__lte:
-        :param str description:
-        :param str object:
-        :param str datafile_checksum:
-        :param str name:
         :return: FirmwareImagePage
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['limit', 'order', 'after', 'filter', 'include', 'updated_at', 'updated_at__gte', 'updated_at__lte', 'etag', 'etag__gte', 'etag__lte', 'created_at', 'created_at__gte', 'created_at__lte', 'description', 'object', 'datafile_checksum', 'name']
+        all_params = ['limit', 'order', 'after', 'filter', 'include']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -360,32 +336,6 @@ class DefaultApi(object):
             query_params['filter'] = params['filter']
         if 'include' in params:
             query_params['include'] = params['include']
-        if 'updated_at' in params:
-            query_params['updated_at'] = params['updated_at']
-        if 'updated_at__gte' in params:
-            query_params['updated_at__gte'] = params['updated_at__gte']
-        if 'updated_at__lte' in params:
-            query_params['updated_at__lte'] = params['updated_at__lte']
-        if 'etag' in params:
-            query_params['etag'] = params['etag']
-        if 'etag__gte' in params:
-            query_params['etag__gte'] = params['etag__gte']
-        if 'etag__lte' in params:
-            query_params['etag__lte'] = params['etag__lte']
-        if 'created_at' in params:
-            query_params['created_at'] = params['created_at']
-        if 'created_at__gte' in params:
-            query_params['created_at__gte'] = params['created_at__gte']
-        if 'created_at__lte' in params:
-            query_params['created_at__lte'] = params['created_at__lte']
-        if 'description' in params:
-            query_params['description'] = params['description']
-        if 'object' in params:
-            query_params['object'] = params['object']
-        if 'datafile_checksum' in params:
-            query_params['datafile_checksum'] = params['datafile_checksum']
-        if 'name' in params:
-            query_params['name'] = params['name']
 
         header_params = {}
 
@@ -521,7 +471,7 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param file datafile: The manifest file to create (required)
+        :param file datafile: The manifest file to create. The size of the file is account specific and enforced by the api gateway (required)
         :param str name: The name of the object (required)
         :param str description: The description of the object
         :return: FirmwareManifest
@@ -548,7 +498,7 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param file datafile: The manifest file to create (required)
+        :param file datafile: The manifest file to create. The size of the file is account specific and enforced by the api gateway (required)
         :param str name: The name of the object (required)
         :param str description: The description of the object
         :return: FirmwareManifest
@@ -578,6 +528,8 @@ class DefaultApi(object):
         if ('name' not in params) or (params['name'] is None):
             raise ValueError("Missing the required parameter `name` when calling `firmware_manifest_create`")
 
+        if 'name' in params and len(params['name']) > 128:
+            raise ValueError("Invalid value for parameter `name` when calling `firmware_manifest_create`, length must be less than or equal to `128`")
 
         collection_formats = {}
 
@@ -735,25 +687,6 @@ class DefaultApi(object):
         :param str after: the ID of the the item after which to retrieve the next page
         :param str filter: URL encoded query string parameter to filter returned data
         :param str include: Comma separated list of data fields to return. Currently supported: total_count
-        :param str updated_at:
-        :param str updated_at__gte:
-        :param str updated_at__lte:
-        :param str created_at:
-        :param str created_at__gte:
-        :param str created_at__lte:
-        :param str etag:
-        :param str etag__gte:
-        :param str etag__lte:
-        :param str manifest_id:
-        :param str updating_request_id:
-        :param str description:
-        :param str timestamp:
-        :param str timestamp__gte:
-        :param str timestamp__lte:
-        :param str object:
-        :param str device_class:
-        :param str datafile_checksum:
-        :param str name:
         :return: FirmwareManifestPage
                  If the method is called asynchronously,
                  returns the request thread.
@@ -783,31 +716,12 @@ class DefaultApi(object):
         :param str after: the ID of the the item after which to retrieve the next page
         :param str filter: URL encoded query string parameter to filter returned data
         :param str include: Comma separated list of data fields to return. Currently supported: total_count
-        :param str updated_at:
-        :param str updated_at__gte:
-        :param str updated_at__lte:
-        :param str created_at:
-        :param str created_at__gte:
-        :param str created_at__lte:
-        :param str etag:
-        :param str etag__gte:
-        :param str etag__lte:
-        :param str manifest_id:
-        :param str updating_request_id:
-        :param str description:
-        :param str timestamp:
-        :param str timestamp__gte:
-        :param str timestamp__lte:
-        :param str object:
-        :param str device_class:
-        :param str datafile_checksum:
-        :param str name:
         :return: FirmwareManifestPage
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['limit', 'order', 'after', 'filter', 'include', 'updated_at', 'updated_at__gte', 'updated_at__lte', 'created_at', 'created_at__gte', 'created_at__lte', 'etag', 'etag__gte', 'etag__lte', 'manifest_id', 'updating_request_id', 'description', 'timestamp', 'timestamp__gte', 'timestamp__lte', 'object', 'device_class', 'datafile_checksum', 'name']
+        all_params = ['limit', 'order', 'after', 'filter', 'include']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -840,44 +754,6 @@ class DefaultApi(object):
             query_params['filter'] = params['filter']
         if 'include' in params:
             query_params['include'] = params['include']
-        if 'updated_at' in params:
-            query_params['updated_at'] = params['updated_at']
-        if 'updated_at__gte' in params:
-            query_params['updated_at__gte'] = params['updated_at__gte']
-        if 'updated_at__lte' in params:
-            query_params['updated_at__lte'] = params['updated_at__lte']
-        if 'created_at' in params:
-            query_params['created_at'] = params['created_at']
-        if 'created_at__gte' in params:
-            query_params['created_at__gte'] = params['created_at__gte']
-        if 'created_at__lte' in params:
-            query_params['created_at__lte'] = params['created_at__lte']
-        if 'etag' in params:
-            query_params['etag'] = params['etag']
-        if 'etag__gte' in params:
-            query_params['etag__gte'] = params['etag__gte']
-        if 'etag__lte' in params:
-            query_params['etag__lte'] = params['etag__lte']
-        if 'manifest_id' in params:
-            query_params['manifest_id'] = params['manifest_id']
-        if 'updating_request_id' in params:
-            query_params['updating_request_id'] = params['updating_request_id']
-        if 'description' in params:
-            query_params['description'] = params['description']
-        if 'timestamp' in params:
-            query_params['timestamp'] = params['timestamp']
-        if 'timestamp__gte' in params:
-            query_params['timestamp__gte'] = params['timestamp__gte']
-        if 'timestamp__lte' in params:
-            query_params['timestamp__lte'] = params['timestamp__lte']
-        if 'object' in params:
-            query_params['object'] = params['object']
-        if 'device_class' in params:
-            query_params['device_class'] = params['device_class']
-        if 'datafile_checksum' in params:
-            query_params['datafile_checksum'] = params['datafile_checksum']
-        if 'name' in params:
-            query_params['name'] = params['name']
 
         header_params = {}
 

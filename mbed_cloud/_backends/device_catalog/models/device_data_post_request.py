@@ -214,6 +214,8 @@ class DeviceDataPostRequest(object):
         :param device_class: The device_class of this DeviceDataPostRequest.
         :type: str
         """
+        if device_class is not None and len(device_class) > 500:
+            raise ValueError("Invalid value for `device_class`, length must be less than or equal to `500`")
 
         self._device_class = device_class
 
@@ -235,6 +237,8 @@ class DeviceDataPostRequest(object):
         :param endpoint_name: The endpoint_name of this DeviceDataPostRequest.
         :type: str
         """
+        if endpoint_name is not None and len(endpoint_name) > 64:
+            raise ValueError("Invalid value for `endpoint_name`, length must be less than or equal to `64`")
 
         self._endpoint_name = endpoint_name
 
@@ -346,6 +350,8 @@ class DeviceDataPostRequest(object):
         :param serial_number: The serial_number of this DeviceDataPostRequest.
         :type: str
         """
+        if serial_number is not None and len(serial_number) > 64:
+            raise ValueError("Invalid value for `serial_number`, length must be less than or equal to `64`")
 
         self._serial_number = serial_number
 
@@ -367,6 +373,8 @@ class DeviceDataPostRequest(object):
         :param firmware_checksum: The firmware_checksum of this DeviceDataPostRequest.
         :type: str
         """
+        if firmware_checksum is not None and len(firmware_checksum) > 64:
+            raise ValueError("Invalid value for `firmware_checksum`, length must be less than or equal to `64`")
 
         self._firmware_checksum = firmware_checksum
 
@@ -388,6 +396,8 @@ class DeviceDataPostRequest(object):
         :param vendor_id: The vendor_id of this DeviceDataPostRequest.
         :type: str
         """
+        if vendor_id is not None and len(vendor_id) > 255:
+            raise ValueError("Invalid value for `vendor_id`, length must be less than or equal to `255`")
 
         self._vendor_id = vendor_id
 
@@ -541,6 +551,8 @@ class DeviceDataPostRequest(object):
         :param name: The name of this DeviceDataPostRequest.
         :type: str
         """
+        if name is not None and len(name) > 128:
+            raise ValueError("Invalid value for `name`, length must be less than or equal to `128`")
 
         self._name = name
 
@@ -564,6 +576,8 @@ class DeviceDataPostRequest(object):
         """
         if device_key is None:
             raise ValueError("Invalid value for `device_key`, must not be `None`")
+        if device_key is not None and len(device_key) > 512:
+            raise ValueError("Invalid value for `device_key`, length must be less than or equal to `512`")
 
         self._device_key = device_key
 
@@ -608,6 +622,8 @@ class DeviceDataPostRequest(object):
         """
         if ca_id is None:
             raise ValueError("Invalid value for `ca_id`, must not be `None`")
+        if ca_id is not None and len(ca_id) > 500:
+            raise ValueError("Invalid value for `ca_id`, length must be less than or equal to `500`")
 
         self._ca_id = ca_id
 

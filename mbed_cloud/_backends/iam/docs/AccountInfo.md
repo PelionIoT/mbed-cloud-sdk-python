@@ -15,7 +15,6 @@ Name | Type | Description | Notes
 **state** | **str** | The state part of the postal address. | [optional] 
 **etag** | **str** | API resource entity version. | 
 **is_provisioning_allowed** | **bool** | Flag (true/false) indicating whether Factory Tool is allowed to download or not. | 
-**creation_time_millis** | **int** |  | [optional] 
 **email** | **str** | The company email address for this account. | [optional] 
 **phone_number** | **str** | The phone number of the company. | [optional] 
 **company** | **str** | The name of the company. | [optional] 

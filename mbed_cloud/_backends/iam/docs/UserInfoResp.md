@@ -17,7 +17,6 @@ Name | Type | Description | Notes
 **etag** | **str** | API resource entity version. | 
 **full_name** | **str** | The full name of the user. | [optional] 
 **address** | **str** | Address. | [optional] 
-**creation_time_millis** | **int** |  | [optional] 
 **creation_time** | **int** | A timestamp of the user creation in the storage, in milliseconds. | [optional] 
 **password** | **str** | The password when creating a new user. It will will generated when not present in the request. | [optional] 
 **phone_number** | **str** | Phone number. | [optional] 

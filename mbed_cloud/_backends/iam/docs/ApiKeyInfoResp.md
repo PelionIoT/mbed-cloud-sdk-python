@@ -9,7 +9,6 @@ Name | Type | Description | Notes
 **created_at** | **str** | Creation UTC time RFC3339. | [optional] 
 **object** | **str** | Entity name: always &#39;api-key&#39; | 
 **creation_time** | **int** | The timestamp of the API key creation in the storage, in milliseconds. | [optional] 
-**creation_time_millis** | **int** |  | [optional] 
 **etag** | **str** | API resource entity version. | 
 **key** | **str** | The API key. | 
 **owner** | **str** | The owner of this API key, who is the creator by default. | [optional] 

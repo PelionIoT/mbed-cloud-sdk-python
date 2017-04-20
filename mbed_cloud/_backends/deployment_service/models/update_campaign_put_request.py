@@ -153,6 +153,8 @@ class UpdateCampaignPutRequest(object):
         """
         if root_manifest_id is None:
             raise ValueError("Invalid value for `root_manifest_id`, must not be `None`")
+        if root_manifest_id is not None and len(root_manifest_id) > 32:
+            raise ValueError("Invalid value for `root_manifest_id`, length must be less than or equal to `32`")
 
         self._root_manifest_id = root_manifest_id
 
@@ -232,6 +234,8 @@ class UpdateCampaignPutRequest(object):
         """
         if name is None:
             raise ValueError("Invalid value for `name`, must not be `None`")
+        if name is not None and len(name) > 128:
+            raise ValueError("Invalid value for `name`, length must be less than or equal to `128`")
 
         self._name = name
 

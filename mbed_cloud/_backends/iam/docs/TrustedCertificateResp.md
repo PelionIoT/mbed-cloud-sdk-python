@@ -12,7 +12,6 @@ Name | Type | Description | Notes
 **account_id** | **str** | The UUID of the account. | 
 **etag** | **str** | API resource entity version. | 
 **validity** | **str** | Expiration time in UTC formatted as RFC3339. | 
-**creation_time_millis** | **int** |  | [optional] 
 **issuer** | **str** | Issuer of the certificate. | 
 **cert_data** | **str** | X509.v3 trusted certificate in PEM or base64 encoded DER format. | 
 **id** | **str** | Entity ID. | 
