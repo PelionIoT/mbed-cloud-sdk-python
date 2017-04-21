@@ -1,4 +1,4 @@
-Access
+Account Management
 ~~~~~~
 
 Listing users and groups in team/organisation
@@ -6,8 +6,8 @@ Listing users and groups in team/organisation
 
 .. code-block:: python
 
-  >>> from mbed_cloud.access import AccessAPI
-  >>> api = AccessAPI()
+  >>> from mbed_cloud.account_management import AccountManagementAPI
+  >>> api = AccountManagementAPI()
   >>>
   >>> u = list(api.list_users())[0]
   >>> print("%r (%s)" % (u.full_name, u.email))
@@ -21,8 +21,8 @@ Creating and managing a new user
 
 .. code-block:: python
 
-  >>> from mbed_cloud.access import AccessAPI
-  >>> api = AccessAPI()
+  >>> from mbed_cloud.account_management import AccountManagementAPI
+  >>> api = AccountManagementAPI()
   >>>
   >>> # Create a new user with the bare minimum required information
   >>> new_u = api.create_user(username='foo', email='foo@example.org')
@@ -34,25 +34,25 @@ Creating and managing a new user
 Reference
 ---------
 
-.. autoclass:: mbed_cloud.access.AccessAPI
+.. autoclass:: mbed_cloud.account_management.AccountManagementAPI
   :members:
 
-.. autoclass:: mbed_cloud.access.Account
-  :members:
-  :inherited-members:
-  :exclude-members: to_str, to_dict, object, etag
-
-.. autoclass:: mbed_cloud.access.User
+.. autoclass:: mbed_cloud.account_management.Account
   :members:
   :inherited-members:
   :exclude-members: to_str, to_dict, object, etag
 
-.. autoclass:: mbed_cloud.access.Group
+.. autoclass:: mbed_cloud.account_management.User
   :members:
   :inherited-members:
   :exclude-members: to_str, to_dict, object, etag
 
-.. autoclass:: mbed_cloud.access.ApiKey
+.. autoclass:: mbed_cloud.account_management.Group
+  :members:
+  :inherited-members:
+  :exclude-members: to_str, to_dict, object, etag
+
+.. autoclass:: mbed_cloud.account_management.ApiKey
   :members:
   :inherited-members:
   :exclude-members: to_str, to_dict, object, etag

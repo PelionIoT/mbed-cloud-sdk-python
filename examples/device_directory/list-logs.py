@@ -11,8 +11,8 @@
 #   permitted to do so under the terms of a subsisting license agreement
 #   from ARM Limited or its affiliates.
 # --------------------------------------------------------------------------
-"""Example: listing endpoints and their resources using Device API."""
-from mbed_cloud.logging import LoggingAPI
+"""Example: listing devices logs."""
+from mbed_cloud.device_directory import DeviceDirectoryAPI
 
 
 def _print_log(idx, l):
@@ -20,7 +20,7 @@ def _print_log(idx, l):
 
 
 def _main():
-    api = LoggingAPI()
+    api = DeviceDirectoryAPI()
     logs = list(api.list_device_logs(limit=5, order='desc'))
 
     for idx, log in enumerate(logs):

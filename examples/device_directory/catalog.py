@@ -11,33 +11,31 @@
 #   permitted to do so under the terms of a subsisting license agreement
 #   from ARM Limited or its affiliates.
 # --------------------------------------------------------------------------
-"""Example showing basic usage of the webhook functionality."""
-from mbed_cloud.devices import DeviceAPI
-import time
+"""Example showing devices from device catalog."""
+from mbed_cloud.device_directory import DeviceDirectoryAPI
 
-BUTTON_RESOURCE = "/5002/0/1"
+
+def _print_device(idx, d):
+    print("%d) %s | %s | %s" % (idx, d.id, d.state, d.created_at))
 
 
 def _main():
-    api = DeviceAPI()
-    devices = api.list_connected_devices()
-    if len(devices) == 0:
-        raise Exception("No endpints registered. Aborting")
+    api = DeviceDirectoryAPI()
 
-    # First register to webhook
-    api.update_webhook("http://testpython2.requestcatcher.com/")
-    time.sleep(2)
+    # List all devices, ordering by the most recently created first.
+    for idx, d in enumerate(api.list_devices(order='desc', limit=10)):
+        _print_device(idx + 1, d)
 
-    api.add_resource_subscription(devices[0].id, BUTTON_RESOURCE)
-    while True:
-        print("Webhook registered. Listening to button updates for 10 seconds...")
+    print("\n" + "-" * 30 + "\n")
 
-        time.sleep(10)
-        break
-
-    api.delete_webhook()
-    print("Deregistered and ubsubscribed to all resourced. Exiting.")
+    # Now only list the devices that are registered.
+    filters = {
+        'state': 'registered'
+    }
+    registered = api.list_devices(order='desc', limit=10, filters=filters)
+    for idx, d in enumerate(registered):
+        _print_device(idx + 1, d)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     _main()

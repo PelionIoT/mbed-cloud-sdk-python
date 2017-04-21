@@ -11,27 +11,27 @@
 #   permitted to do so under the terms of a subsisting license agreement
 #   from ARM Limited or its affiliates.
 # --------------------------------------------------------------------------
-"""Example showing basic usage of Access API."""
-import datetime
-from mbed_cloud.access import AccessAPI
+"""Example: listing endpoints and their resources using Connect API."""
+from mbed_cloud.connect import ConnectAPI
 
 
 def _main():
-    api = AccessAPI()
+    api = ConnectAPI()
 
-    header = "All registered users in Organisation"
-    print("%s\n%s" % (header, len(header) * "-"))
-    for idx, u in enumerate(api.list_users()):
-        print("\t- %s (%s - %s)" % (u.full_name, u.email, u.username))
+    for device in api.list_connected_devices():
+        resources = api.list_resources(device.id)
 
-    header = "\nAll registered API keys in Organisation"
-    presp = api.list_api_keys(limit=2)
-    print("%s \n%s" % (header, len(header) * "-"))
-    for idx, k in enumerate(presp):
-        last_used = "Never"
-        if k.last_login_time > 0:
-            last_used = datetime.datetime.fromtimestamp(k.last_login_time / 1000).strftime('%c')
-        print("\t- %s (Last used: %s)" % (k.name, last_used))
+        # Print endpoint name header
+        header = device.id
+        print(header)
+        print(len(header) * "-")
+
+        for r in resources:
+            print("\t- %s (%s / Observable: %s)" %
+                  (r.path, r.type if r.type else "-", r.observable))
+
+        # Space between endpoints
+        print("")
 
 
 if __name__ == "__main__":

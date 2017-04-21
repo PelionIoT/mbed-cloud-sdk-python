@@ -11,7 +11,7 @@
 #   permitted to do so under the terms of a subsisting license agreement
 #   from ARM Limited or its affiliates.
 # --------------------------------------------------------------------------
-"""Functionality for access-related actions in mbed Cloud."""
+"""Functionality for Account Management related actions in mbed Cloud."""
 from __future__ import absolute_import
 
 # Import common functions and exceptions from frontend API
@@ -30,8 +30,8 @@ from mbed_cloud._backends.iam.models import UserInfoResp
 import mbed_cloud._backends.iam.rest as ApiException
 
 
-class AccessAPI(BaseAPI):
-    """API reference for the Access API.
+class AccountManagementAPI(BaseAPI):
+    """API reference for the AccountManagement API.
 
     Exposing functionality for creating and managing accounts,
     users, groups and API keys in the organisation.
@@ -39,7 +39,7 @@ class AccessAPI(BaseAPI):
 
     def __init__(self, params={}):
         """Setup the backend APIs with provided config."""
-        super(AccessAPI, self).__init__(params)
+        super(AccountManagementAPI, self).__init__(params)
 
         # Set the api_key for the requests
         iam.configuration.api_key['Authorization'] = config.get("api_key")
@@ -289,7 +289,7 @@ class Account(AccountInfo):
 
     .. code-block:: python
 
-        api = AccessAPI()
+        api = AccountManagementAPI()
 
         # Get account owning the API key in use
         current_account = api.get_account()
@@ -308,10 +308,10 @@ class User(UserInfoResp):
 
     .. code-block:: python
 
-        api = AccessAPI()
+        api = AccountManagementAPI()
 
         # Listing existing users
-        for user, idx in api.list_users().iteritems()
+        for idx, user in enumerate(api.list_users())
             print(user.full_name)
 
         # Creating a new user
@@ -333,10 +333,10 @@ class Group(GroupSummary):
 
     .. code-block:: python
 
-        api = AccessAPI()
+        api = AccountManagementAPI()
 
         # Listing existing groups
-        for g, idx in api.list_groups().iteritems():
+        for idx, g in enumerate(api.list_groups())
             print(g.name)
     """
 
@@ -352,10 +352,10 @@ class ApiKey(ApiKeyInfoResp):
 
     .. code-block:: python
 
-        api = AccessAPI()
+        api = AccountManagementAPI()
 
         # Listing existing keys
-        for k, idx in api.list_api_keys().iteritems():
+        for idx, k in enumerate(api.list_api_keys()):
             print(k.name, k.key)
 
         # Creating a new key

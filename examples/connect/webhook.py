@@ -11,28 +11,33 @@
 #   permitted to do so under the terms of a subsisting license agreement
 #   from ARM Limited or its affiliates.
 # --------------------------------------------------------------------------
-"""Example: listing endpoints and their resources using Device API."""
-from mbed_cloud.devices import DeviceAPI
+"""Example showing basic usage of the webhook functionality."""
+from mbed_cloud.connect import ConnectAPI
+import time
+
+BUTTON_RESOURCE = "/5002/0/1"
 
 
 def _main():
-    api = DeviceAPI()
+    api = ConnectAPI()
+    devices = api.list_connected_devices()
+    if len(devices) == 0:
+        raise Exception("No endpints registered. Aborting")
 
-    for device in api.list_connected_devices():
-        resources = api.list_resources(device.id)
+    # First register to webhook
+    api.update_webhook("http://testpython5.requestcatcher.com/")
+    time.sleep(2)
 
-        # Print endpoint name header
-        header = device.id
-        print(header)
-        print(len(header) * "-")
+    api.add_resource_subscription(devices[0].id, BUTTON_RESOURCE)
+    while True:
+        print("Webhook registered. Listening to button updates for 10 seconds...")
 
-        for r in resources:
-            print("\t- %s (%s / Observable: %s)" %
-                  (r.path, r.type if r.type else "-", r.observable))
+        time.sleep(10)
+        break
 
-        # Space between endpoints
-        print("")
+    api.delete_webhook()
+    print("Deregistered and ubsubscribed to all resourced. Exiting.")
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     _main()

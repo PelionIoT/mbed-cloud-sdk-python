@@ -27,17 +27,17 @@ These instructions can also be found in the [official documentation](https://s3-
 3. Import the library and you're ready to go.
 
     ```python
-    >>> from mbed_cloud.devices import DeviceAPI
-    >>> device_api = DeviceAPI()
-    >>> list(device_api.list_connected_devices())[0]
+    >>> from mbed_cloud.connect import ConnectAPI
+    >>> connect_api = DeviceAPI()
+    >>> list(connect_api.list_connected_devices())[0]
     {
       "id": "Device #1",
       "state": "unenrolled",
       ...
     }
-    >>> from mbed_cloud.access import AccessAPI
-    >>> access_api = AccessAPI()
-    >>> list(access_api.list_users())[0]
+    >>> from mbed_cloud.account_management import AccountManagementAPI
+    >>> api = AccountManagementAPI()
+    >>> list(api.list_users())[0]
     {
       "email": "username@example.org",
       "full_name": "Mrs Example",

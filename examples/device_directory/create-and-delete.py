@@ -12,7 +12,7 @@
 #   from ARM Limited or its affiliates.
 # --------------------------------------------------------------------------
 """Example showing creating and deleting devices in device catalog."""
-from mbed_cloud.devices import DeviceAPI
+from mbed_cloud.device_directory import DeviceDirectoryAPI
 import random
 import string
 
@@ -22,7 +22,7 @@ def _id_generator(size=6, chars=string.ascii_uppercase + string.digits):
 
 
 def _main():
-    api = DeviceAPI()
+    api = DeviceDirectoryAPI()
 
     # Create a new device
     print("Creating new device...")

@@ -14,13 +14,13 @@
 """Example setting up long-polling on a device."""
 import time
 
-from mbed_cloud.devices import DeviceAPI
+from mbed_cloud.connect import ConnectAPI
 
 BUTTON_RESOURCE = "/5002/0/1"
 
 
 def _run_synchronized():
-    api = DeviceAPI()
+    api = ConnectAPI()
     api.start_notifications()
     devices = list(api.list_connected_devices())
     if not devices:
@@ -43,7 +43,7 @@ def _run_synchronized():
 
 
 def _run_async():
-    api = DeviceAPI()
+    api = ConnectAPI()
     api.start_notifications()
     devices = list(api.list_connected_devices())
     if not devices:

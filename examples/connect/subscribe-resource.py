@@ -12,37 +12,29 @@
 #   from ARM Limited or its affiliates.
 # --------------------------------------------------------------------------
 """Example showing basic usage of device resource subscriptions."""
-from mbed_cloud.devices import DeviceAPI
+from mbed_cloud.connect import ConnectAPI
 
 BUTTON_RESOURCE = "/5002/0/1"
 
 
-def _current_val(value):
-    # Print the current value
-    print("Current value: %r" % (value,))
-
-
-def _subscription_handler(value):
-    _current_val(value)
-
-
 def _main():
-    api = DeviceAPI()
+    api = ConnectAPI()
     api.start_notifications()
-    devices = api.list_connected_devices()
+    devices = list(api.list_connected_devices())
     if not devices:
         raise Exception("No connected devices registered. Aborting")
 
     # Synchronously get the initial/current value of the resource
     value = api.get_resource_value(devices[0].id, BUTTON_RESOURCE)
-    _current_val(value)
 
     # Register a subscription for new values
-    api.add_resource_subscription_async(devices[0].id, BUTTON_RESOURCE, _subscription_handler)
-
-    # Run forever
+    queue = api.add_resource_subscription(devices[0].id, BUTTON_RESOURCE)
     while True:
-        pass
+        # Print the current value
+        print("Current value: %r" % (value,))
+
+        # Get a new value, using the subscriptions
+        value = queue.get(timeout=30)
 
 
 if __name__ == "__main__":

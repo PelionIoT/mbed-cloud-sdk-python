@@ -9,11 +9,10 @@ Components
 .. toctree::
   :maxdepth: 1
 
-  access
+  account_management
   certificates
-  devices
-  logging
-  statistics
+  connect
+  device_directory
   update
 
 Concepts
@@ -53,17 +52,17 @@ now ready to use the API.
 
 .. code-block:: python
 
-  >>> from mbed_cloud.devices import DeviceAPI
-  >>> device_api = DeviceAPI()
-  >>> list(device_api.list_connected_devices())[0]
+  >>> from mbed_cloud.connect import ConnectAPI
+  >>> connect_api = ConnectAPI()
+  >>> list(connect_api.list_connected_devices())[0]
   {
     "id": "Device #1",
     "state": "unenrolled",
     ...
   }
-  >>> from mbed_cloud.access import AccessAPI
-  >>> access_api = AccessAPI()
-  >>> list(access_api.list_users())[0]
+  >>> from mbed_cloud.account_management import AccountManagementAPI
+  >>> account_api = AccountManagementAPI()
+  >>> list(account_api.list_users())[0]
   {
     "email": "username@example.org",
     "full_name": "Mrs Example",
@@ -85,7 +84,7 @@ virtualenv:
     source venv/bin/activate
     pip install -r requirements.txt
 
-    python examples/devices/list-devices.py
+    python examples/connect/list-devices.py
 
 Running examples using integration lab
 --------------------------------------
@@ -99,7 +98,7 @@ Run the following command to list accounts in the organisation:
 .. code-block:: shell
 
   export MBED_CLOUD_SDK_CONFIG=$PWD/mbed_cloud_config_integration.json
-  python examples/access/list-details.py
+  python examples/account_management/list-details.py
 
 .. _cloud portal integration environment: https://lab.mbedcloudintegration.net
 .. _Cloud Portal: https://portal.mbedcloud.com
