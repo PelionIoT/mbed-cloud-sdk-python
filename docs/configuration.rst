@@ -45,5 +45,4 @@ You can also override the configuration on a per-API basis.
 .. code-block:: python
 
   >>> config = { "api_key": "ak_******", "host": "https://custom-api.example.org" }
-  >>> api = AccessAPI(config)
-
+  >>> api = AccountManagementAPI(config)

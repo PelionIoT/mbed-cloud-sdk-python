@@ -1,4 +1,4 @@
-Devices
+Connect
 ~~~~~~~
 
 Usage
@@ -6,8 +6,8 @@ Usage
 
 .. code-block:: python
 
-  from mbed_cloud.devices import DeviceAPI
-  api = DeviceAPI()
+  from mbed_cloud.connect import ConnectAPI
+  api = ConnectAPI()
 
   # List all endpoints connected
   devices = list(api.list_connected_devices())
@@ -39,40 +39,43 @@ Usage
     raise Exception("Something went wrong: %s" % (async_handler.error)
   resource_value = async_handler.value
 
-  # 5 most recent devices from catalog, which are registered
-  filters = { 'state': 'registered' }
-  reg_devices = list(api.list_devices(limit=10, order='desc', filters=filters))
+.. code-block:: python
 
-  # Get details about specific (registered) device
-  api.get_device(reg_devices[0].id)
+  from mbed_cloud.connect import ConnectAPI
+  api = ConnectAPI()
+
+  # Get Metrics from the last 30 days grouped in 1 day interval
+  for metric in api.get_metrics(interval="1d", period="30d"):
+      print(metric)
+
 
 More examples
 -------------
 
 See full listing of examples `in the examples directory`_.
 
-.. _in the examples directory: https://github.com/ARMmbed/mbed-cloud-sdk-python/tree/master/examples/devices
+.. _in the examples directory: https://github.com/ARMmbed/mbed-cloud-sdk-python/tree/master/examples/connect
 
 Reference
 ---------
 
-.. automodule:: mbed_cloud.devices
-  :members: DeviceAPI, AsyncConsumer
+.. automodule:: mbed_cloud.connect
+  :members: ConnectAPI, AsyncConsumer
 
-.. autoclass:: mbed_cloud.devices.ConnectedDevice
+.. autoclass:: mbed_cloud.connect.ConnectedDevice
   :members:
   :inherited-members:
   :exclude-members: to_dict, to_str
 
-.. autoclass:: mbed_cloud.devices.Device
+.. autoclass:: mbed_cloud.connect.Metric
+  :members:
+  :inherited-members:
+  :exclude-members: object, etag, to_str, to_dict
+
+.. autoclass:: mbed_cloud.connect.Resource
+  :members:
+
+.. autoclass:: mbed_cloud.connect.Webhook
   :members:
   :inherited-members:
   :exclude-members: to_dict, to_str
-
-.. autoclass:: mbed_cloud.devices.Query
-  :members:
-  :inherited-members:
-  :exclude-members: to_dict, to_str
-
-.. autoclass:: mbed_cloud.devices.Resource
-  :members:

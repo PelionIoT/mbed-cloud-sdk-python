@@ -12,7 +12,7 @@
 #   from ARM Limited or its affiliates.
 # --------------------------------------------------------------------------
 """Example showing devices from device query service."""
-from mbed_cloud.devices import DeviceAPI
+from mbed_cloud.device_directory import DeviceDirectoryAPI
 import random
 import string
 import urllib
@@ -45,7 +45,7 @@ def _id_generator(size=6, chars=string.ascii_uppercase + string.digits):
 
 
 def _main():
-    api = DeviceAPI()
+    api = DeviceDirectoryAPI()
 
     # Pretty print all the registered queries
     for idx, e in enumerate(api.list_queries(limit=5)):

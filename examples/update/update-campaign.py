@@ -12,7 +12,7 @@
 #   from ARM Limited or its affiliates.
 # --------------------------------------------------------------------------
 """Example: Listing and creating update campaigns."""
-from mbed_cloud.devices import DeviceAPI
+from mbed_cloud.device_directory import DeviceDirectoryAPI
 from mbed_cloud.update import UpdateAPI
 import os
 import random
@@ -64,7 +64,7 @@ def _main():
     _print_manifests(mresp)
 
     # List all filters
-    device_api = DeviceAPI()
+    device_api = DeviceDirectoryAPI()
     fresp = device_api.list_queries()
     header = "Current filters:"
     print("\n%s\n%s" % (header, "-" * len(header)))

@@ -11,29 +11,27 @@
 #   permitted to do so under the terms of a subsisting license agreement
 #   from ARM Limited or its affiliates.
 # --------------------------------------------------------------------------
-"""Example showing basic usage of Statistics API."""
-from datetime import datetime
-from mbed_cloud.statistics import StatisticsAPI
+"""Example showing basic usage of AccountManagement API."""
+import datetime
+from mbed_cloud.account_management import AccountManagementAPI
 
 
 def _main():
-    api = StatisticsAPI()
-    header = "Get statistics from the last 30 days in 1 day interval"
-    print("%s\n%s" % (header, len(header) * "-"))
-    for metric in api.get_metrics(interval="1d", period="30d"):
-        print(metric)
+    api = AccountManagementAPI()
 
-    header = "Get statistics from the last 2 days in 3 hours interval"
+    header = "All registered users in Organisation"
     print("%s\n%s" % (header, len(header) * "-"))
-    for metric in api.get_metrics(interval="3h", period="2d"):
-        print(metric)
+    for idx, u in enumerate(api.list_users()):
+        print("\t- %s (%s - %s)" % (u.full_name, u.email, u.username))
 
-    header = "Get statistics from 1 March 2017 to 1 April 2017"
-    print("%s\n%s" % (header, len(header) * "-"))
-    start = datetime(2017, 3, 1, 0, 0, 0)
-    end = datetime(2017, 4, 1, 0, 0, 0)
-    for metric in api.get_metrics(interval="1d", start=start, end=end):
-        print(metric)
+    header = "\nAll registered API keys in Organisation"
+    presp = api.list_api_keys(limit=2)
+    print("%s \n%s" % (header, len(header) * "-"))
+    for idx, k in enumerate(presp):
+        last_used = "Never"
+        if k.last_login_time > 0:
+            last_used = datetime.datetime.fromtimestamp(k.last_login_time / 1000).strftime('%c')
+        print("\t- %s (Last used: %s)" % (k.name, last_used))
 
 
 if __name__ == "__main__":

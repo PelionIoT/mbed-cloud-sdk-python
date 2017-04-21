@@ -11,12 +11,12 @@
 #   permitted to do so under the terms of a subsisting license agreement
 #   from ARM Limited or its affiliates.
 # --------------------------------------------------------------------------
-"""Example showing basic usage of Access API."""
-from mbed_cloud.access import AccessAPI
+"""Example showing basic usage of AccountManagement API."""
+from mbed_cloud.account_management import AccountManagementAPI
 
 
 def _main():
-    api = AccessAPI()
+    api = AccountManagementAPI()
 
     header = "List all groups in Organisation"
     print("%s\n%s" % (header, len(header) * "-"))

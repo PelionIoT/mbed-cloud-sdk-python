@@ -23,11 +23,10 @@ from __future__ import absolute_import
 from flask import Flask
 from flask import jsonify
 from flask import request
-from mbed_cloud.access import AccessAPI
+from mbed_cloud.account_management import AccountManagementAPI
 from mbed_cloud.certificates import CertificatesAPI
-from mbed_cloud.devices import DeviceAPI
-from mbed_cloud.logging import LoggingAPI
-from mbed_cloud.statistics import StatisticsAPI
+from mbed_cloud.connect import ConnectAPI
+from mbed_cloud.device_directory import DeviceDirectoryAPI
 from mbed_cloud.update import UpdateAPI
 from urllib import unquote
 from urlparse import parse_qs
@@ -151,11 +150,10 @@ def init(methods=["GET"]):
     # Initialise all the APIs with settings.
     global MODULES
     MODULES = {
-        'access': AccessAPI(params=params),
+        'account_management': AccountManagementAPI(params=params),
         'certificates': CertificatesAPI(params=params),
-        'devices': DeviceAPI(params=params),
-        'logging': LoggingAPI(params=params),
-        'statistics': StatisticsAPI(params=params),
+        'connect': ConnectAPI(params=params),
+        'device_directory': DeviceDirectoryAPI(params=params),
         'update': UpdateAPI(params=params)
     }
 
