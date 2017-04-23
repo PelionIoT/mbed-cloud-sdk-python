@@ -84,7 +84,7 @@ class UpdateAPI(BaseAPI):
 
         .. code-block:: python
 
-            device_api, update_api = DeviceAPI(), UpdateAPI()
+            device_api, update_api = DeviceDirectoryAPI(), UpdateAPI()
 
             # Get a filter to use for update campaign
             device_filter_obj = device_api.get_filter(filter_id="MYID")

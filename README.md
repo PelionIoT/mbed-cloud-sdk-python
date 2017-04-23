@@ -28,7 +28,7 @@ These instructions can also be found in the [official documentation](https://s3-
 
     ```python
     >>> from mbed_cloud.connect import ConnectAPI
-    >>> connect_api = DeviceAPI()
+    >>> connect_api = ConnectAPI()
     >>> list(connect_api.list_connected_devices())[0]
     {
       "id": "Device #1",
