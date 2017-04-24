@@ -80,6 +80,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**v1_imports_activedevices_get**](docs/DefaultApi.md#v1_imports_activedevices_get) | **GET** /v1/imports/activedevices | Active devices
 *DefaultApi* | [**v1_imports_get**](docs/DefaultApi.md#v1_imports_get) | **GET** /v1/imports | Import log
 *DefaultApi* | [**v1_metrics_get**](docs/DefaultApi.md#v1_metrics_get) | **GET** /v1/metrics | System metrics
+*DefaultApi* | [**v1_report_activedevices_get**](docs/DefaultApi.md#v1_report_activedevices_get) | **GET** /v1/report/activedevices | Active devices per account in reporting
 *DefaultApi* | [**v1_report_get**](docs/DefaultApi.md#v1_report_get) | **GET** /v1/report | Billing report
 *DefaultApi* | [**v1_services_get**](docs/DefaultApi.md#v1_services_get) | **GET** /v1/services | Known services
 *DefaultApi* | [**v1_stats_get**](docs/DefaultApi.md#v1_stats_get) | **GET** /v1/stats | Account billing data

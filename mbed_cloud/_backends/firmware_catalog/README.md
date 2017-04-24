@@ -57,9 +57,9 @@ firmware_catalog.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # firmware_catalog.configuration.api_key_prefix['Authorization'] = 'Bearer'
 # create an instance of the API class
 api_instance = firmware_catalog.DefaultApi()
-datafile = '/path/to/file.txt' # file | The firmware image file to upload
-name = 'name_example' # str | The name of the object
-description = 'description_example' # str | The description of the object (optional)
+datafile = '/path/to/file.txt' # file | The firmware image file to upload.
+name = 'name_example' # str | The name of the object.
+description = 'description_example' # str | The description of the object. (optional)
 
 try:
     api_response = api_instance.firmware_image_create(datafile, name, description=description)

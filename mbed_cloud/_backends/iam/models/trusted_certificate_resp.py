@@ -332,7 +332,7 @@ class TrustedCertificateResp(object):
     def cert_data(self):
         """
         Gets the cert_data of this TrustedCertificateResp.
-        X509.v3 trusted certificate in PEM or base64 encoded DER format.
+        X509.v3 trusted certificate in base64 encoded DER format.
 
         :return: The cert_data of this TrustedCertificateResp.
         :rtype: str
@@ -343,7 +343,7 @@ class TrustedCertificateResp(object):
     def cert_data(self, cert_data):
         """
         Sets the cert_data of this TrustedCertificateResp.
-        X509.v3 trusted certificate in PEM or base64 encoded DER format.
+        X509.v3 trusted certificate in base64 encoded DER format.
 
         :param cert_data: The cert_data of this TrustedCertificateResp.
         :type: str

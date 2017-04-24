@@ -62,7 +62,7 @@ class DeviceQuery(object):
     def name(self):
         """
         Gets the name of this DeviceQuery.
-        The name of the query
+        The name of the query.
 
         :return: The name of this DeviceQuery.
         :rtype: str
@@ -73,7 +73,7 @@ class DeviceQuery(object):
     def name(self, name):
         """
         Sets the name of this DeviceQuery.
-        The name of the query
+        The name of the query.
 
         :param name: The name of this DeviceQuery.
         :type: str
@@ -87,7 +87,7 @@ class DeviceQuery(object):
     def created_at(self):
         """
         Gets the created_at of this DeviceQuery.
-        The time the object was created
+        The time the object was created.
 
         :return: The created_at of this DeviceQuery.
         :rtype: datetime
@@ -98,7 +98,7 @@ class DeviceQuery(object):
     def created_at(self, created_at):
         """
         Sets the created_at of this DeviceQuery.
-        The time the object was created
+        The time the object was created.
 
         :param created_at: The created_at of this DeviceQuery.
         :type: datetime
@@ -112,7 +112,7 @@ class DeviceQuery(object):
     def object(self):
         """
         Gets the object of this DeviceQuery.
-        The API resource entity
+        The API resource entity.
 
         :return: The object of this DeviceQuery.
         :rtype: str
@@ -123,7 +123,7 @@ class DeviceQuery(object):
     def object(self, object):
         """
         Sets the object of this DeviceQuery.
-        The API resource entity
+        The API resource entity.
 
         :param object: The object of this DeviceQuery.
         :type: str
@@ -137,7 +137,7 @@ class DeviceQuery(object):
     def updated_at(self):
         """
         Gets the updated_at of this DeviceQuery.
-        The time the object was updated
+        The time the object was updated.
 
         :return: The updated_at of this DeviceQuery.
         :rtype: datetime
@@ -148,7 +148,7 @@ class DeviceQuery(object):
     def updated_at(self, updated_at):
         """
         Sets the updated_at of this DeviceQuery.
-        The time the object was updated
+        The time the object was updated.
 
         :param updated_at: The updated_at of this DeviceQuery.
         :type: datetime
@@ -162,7 +162,7 @@ class DeviceQuery(object):
     def etag(self):
         """
         Gets the etag of this DeviceQuery.
-        The entity instance signature
+        The entity instance signature.
 
         :return: The etag of this DeviceQuery.
         :rtype: datetime
@@ -173,7 +173,7 @@ class DeviceQuery(object):
     def etag(self, etag):
         """
         Sets the etag of this DeviceQuery.
-        The entity instance signature
+        The entity instance signature.
 
         :param etag: The etag of this DeviceQuery.
         :type: datetime
@@ -187,7 +187,7 @@ class DeviceQuery(object):
     def query(self):
         """
         Gets the query of this DeviceQuery.
-        The device query
+        The device query.
 
         :return: The query of this DeviceQuery.
         :rtype: str
@@ -198,7 +198,7 @@ class DeviceQuery(object):
     def query(self, query):
         """
         Sets the query of this DeviceQuery.
-        The device query
+        The device query.
 
         :param query: The query of this DeviceQuery.
         :type: str
@@ -212,7 +212,7 @@ class DeviceQuery(object):
     def id(self):
         """
         Gets the id of this DeviceQuery.
-        The ID of the query
+        The ID of the query.
 
         :return: The id of this DeviceQuery.
         :rtype: str
@@ -223,7 +223,7 @@ class DeviceQuery(object):
     def id(self, id):
         """
         Sets the id of this DeviceQuery.
-        The ID of the query
+        The ID of the query.
 
         :param id: The id of this DeviceQuery.
         :type: str

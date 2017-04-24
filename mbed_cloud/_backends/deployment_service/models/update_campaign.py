@@ -80,7 +80,7 @@ class UpdateCampaign(object):
     def description(self):
         """
         Gets the description of this UpdateCampaign.
-        An optional description of the campaign
+        An optional description of the campaign.
 
         :return: The description of this UpdateCampaign.
         :rtype: str
@@ -91,7 +91,7 @@ class UpdateCampaign(object):
     def description(self, description):
         """
         Sets the description of this UpdateCampaign.
-        An optional description of the campaign
+        An optional description of the campaign.
 
         :param description: The description of this UpdateCampaign.
         :type: str
@@ -105,7 +105,7 @@ class UpdateCampaign(object):
     def when(self):
         """
         Gets the when of this UpdateCampaign.
-        The timestamp at which update campaign scheduled to start
+        The timestamp at which update campaign scheduled to start.
 
         :return: The when of this UpdateCampaign.
         :rtype: str
@@ -116,7 +116,7 @@ class UpdateCampaign(object):
     def when(self, when):
         """
         Sets the when of this UpdateCampaign.
-        The timestamp at which update campaign scheduled to start
+        The timestamp at which update campaign scheduled to start.
 
         :param when: The when of this UpdateCampaign.
         :type: str
@@ -128,7 +128,7 @@ class UpdateCampaign(object):
     def created_at(self):
         """
         Gets the created_at of this UpdateCampaign.
-        The time the object was created
+        The time the object was created.
 
         :return: The created_at of this UpdateCampaign.
         :rtype: str
@@ -139,7 +139,7 @@ class UpdateCampaign(object):
     def created_at(self, created_at):
         """
         Sets the created_at of this UpdateCampaign.
-        The time the object was created
+        The time the object was created.
 
         :param created_at: The created_at of this UpdateCampaign.
         :type: str
@@ -153,7 +153,7 @@ class UpdateCampaign(object):
     def object(self):
         """
         Gets the object of this UpdateCampaign.
-        The API resource entity
+        The API resource entity.
 
         :return: The object of this UpdateCampaign.
         :rtype: str
@@ -164,7 +164,7 @@ class UpdateCampaign(object):
     def object(self, object):
         """
         Sets the object of this UpdateCampaign.
-        The API resource entity
+        The API resource entity.
 
         :param object: The object of this UpdateCampaign.
         :type: str
@@ -201,7 +201,7 @@ class UpdateCampaign(object):
     def state(self):
         """
         Gets the state of this UpdateCampaign.
-        The state of the campaign
+        The state of the campaign.
 
         :return: The state of this UpdateCampaign.
         :rtype: str
@@ -212,7 +212,7 @@ class UpdateCampaign(object):
     def state(self, state):
         """
         Sets the state of this UpdateCampaign.
-        The state of the campaign
+        The state of the campaign.
 
         :param state: The state of this UpdateCampaign.
         :type: str
@@ -230,7 +230,7 @@ class UpdateCampaign(object):
     def finished(self):
         """
         Gets the finished of this UpdateCampaign.
-        The timestamp when the update campaign finished
+        The timestamp when the update campaign finished.
 
         :return: The finished of this UpdateCampaign.
         :rtype: str
@@ -241,7 +241,7 @@ class UpdateCampaign(object):
     def finished(self, finished):
         """
         Sets the finished of this UpdateCampaign.
-        The timestamp when the update campaign finished
+        The timestamp when the update campaign finished.
 
         :param finished: The finished of this UpdateCampaign.
         :type: str
@@ -253,7 +253,7 @@ class UpdateCampaign(object):
     def etag(self):
         """
         Gets the etag of this UpdateCampaign.
-        The entity instance signature
+        The entity instance signature.
 
         :return: The etag of this UpdateCampaign.
         :rtype: str
@@ -264,7 +264,7 @@ class UpdateCampaign(object):
     def etag(self, etag):
         """
         Sets the etag of this UpdateCampaign.
-        The entity instance signature
+        The entity instance signature.
 
         :param etag: The etag of this UpdateCampaign.
         :type: str
@@ -322,7 +322,7 @@ class UpdateCampaign(object):
     def id(self):
         """
         Gets the id of this UpdateCampaign.
-        The ID of the campaign
+        The ID of the campaign.
 
         :return: The id of this UpdateCampaign.
         :rtype: str
@@ -333,7 +333,7 @@ class UpdateCampaign(object):
     def id(self, id):
         """
         Sets the id of this UpdateCampaign.
-        The ID of the campaign
+        The ID of the campaign.
 
         :param id: The id of this UpdateCampaign.
         :type: str
@@ -347,7 +347,7 @@ class UpdateCampaign(object):
     def device_filter(self):
         """
         Gets the device_filter of this UpdateCampaign.
-        The filter for the devices the campaign will target
+        The filter for the devices the campaign will target.
 
         :return: The device_filter of this UpdateCampaign.
         :rtype: str
@@ -358,7 +358,7 @@ class UpdateCampaign(object):
     def device_filter(self, device_filter):
         """
         Sets the device_filter of this UpdateCampaign.
-        The filter for the devices the campaign will target
+        The filter for the devices the campaign will target.
 
         :param device_filter: The device_filter of this UpdateCampaign.
         :type: str
@@ -372,7 +372,7 @@ class UpdateCampaign(object):
     def name(self):
         """
         Gets the name of this UpdateCampaign.
-        A name for this campaign
+        A name for this campaign.
 
         :return: The name of this UpdateCampaign.
         :rtype: str
@@ -383,7 +383,7 @@ class UpdateCampaign(object):
     def name(self, name):
         """
         Sets the name of this UpdateCampaign.
-        A name for this campaign
+        A name for this campaign.
 
         :param name: The name of this UpdateCampaign.
         :type: str
