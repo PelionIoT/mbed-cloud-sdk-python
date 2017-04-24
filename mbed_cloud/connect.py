@@ -109,12 +109,13 @@ class ConnectAPI(BaseAPI):
     def list_connected_devices(self, **kwargs):
         """List connected devices.
 
+        :param str type: Filter endpoints by endpoint-type.
         :returns: a list of currently *connected* `ConnectedDevice` objects
         :rtype: list of ConnectedDevice
         """
         api = self.mds.EndpointsApi()
 
-        resp = api.v2_endpoints_get()
+        resp = api.v2_endpoints_get(**kwargs)
         return [ConnectedDevice(e) for e in resp]
 
     @catch_exceptions(MdsApiException)
