@@ -33,7 +33,7 @@ def _print_manifests(mresp):
     header = "Manifests (%d)" % (num_manifests)
     print("%s\n%s" % (header, "-" * len(header)))
     for idx, m in enumerate(mresp):
-        print("%s | %s | %s" % (m.name, m.datafile, m.created_at.strftime("%Y-%m-%d %H:%M:%S")))
+        print("%s | %s | %s" % (m.name, m.url, m.created_at.strftime("%Y-%m-%d %H:%M:%S")))
 
 
 def _print_manifest_details(m):
@@ -54,9 +54,9 @@ def _main():
     # Upload manifest
     mobj = update_api.add_firmware_manifest(
         name="Auto manifest %s" % _rand_id(),
-        datafile=filename,
+        url=filename,
         description="Manifest uploaded using mbed cloud SDK")
-    print("Successfully uploaded manifest %r\n\tURL: %s\nProperties:" % (mobj.name, mobj.datafile))
+    print("Successfully uploaded manifest %r\n\tURL: %s\nProperties:" % (mobj.name, mobj.url))
     _print_manifest_details(mobj)
 
     # List all manifests currently uploaded
@@ -112,7 +112,7 @@ def _main():
     while countdown > 0:
         c = update_api.get_campaign(new_cobj.id)
         print("[%d/10] Current state: %r (Finished: %s)" % (
-            countdown, c.state, c.finished
+            countdown, c.state, c.finished_at
         ))
         countdown -= 1
 

@@ -36,7 +36,7 @@ def _main():
         print("** Found %d existing firmware images **\n" % c)
     for idx, image in enumerate(images):
         description = image.description if image.description else "<No description>"
-        filename = image.datafile.rsplit("/", 1)[1]
+        filename = image.url.rsplit("/", 1)[1]
         print("%d) %s | %s [%s] | %s\n%s\n" % (idx,
                                                image.created_at.strftime(DATE_FMT),
                                                image.name,
@@ -52,7 +52,7 @@ def _main():
 
     nf = api.add_firmware_image(
         name="Auto firmware %s" % _rand_id(),
-        datafile=filename,
+        url=filename,
         description="Uploaded using the mbed Cloud Python SDK"
     )
     print("Created firmware %r at %s" % (nf.name, nf.created_at.strftime(DATE_FMT)))

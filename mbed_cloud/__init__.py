@@ -12,6 +12,7 @@
 #   from ARM Limited or its affiliates.
 # --------------------------------------------------------------------------
 """Initialise the mbed_cloud config and BaseAPI."""
+from six import iteritems
 from six import string_types
 import sys
 import urllib
@@ -77,6 +78,33 @@ class BaseAPI(object):
             kwargs.update({'filter': urllib.urlencode(kwargs.get('filters'))})
             del kwargs['filters']
         return kwargs
+
+
+class BaseObject(object):
+    """Base class for APIs classes."""
+
+    def __init__(self, obj):
+        """Override __init__ and allow passing in backend object."""
+        if not isinstance(obj, dict):
+            obj = obj.to_dict()
+        for key, value in iteritems(self._get_attributes_map()):
+            setattr(self, "_%s" % key, obj.get(value, None))
+
+    @staticmethod
+    def _get_attributes_map():
+        """Override in child class."""
+        pass
+
+    def to_dict(self):
+        """Return dictionary of object."""
+        dictionary = {}
+        for key, value in iteritems(self._get_attributes_map()):
+            dictionary[key] = getattr(self, key, None)
+        return dictionary
+
+    def __repr__(self):
+        """For print and pprint."""
+        return str(self.to_dict())
 
 
 class _FakePaginatedResponse(object):

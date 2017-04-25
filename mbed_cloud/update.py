@@ -17,17 +17,15 @@ import logging
 
 # Import common functions and exceptions from frontend API
 from mbed_cloud import BaseAPI
+from mbed_cloud import BaseObject
 from mbed_cloud.decorators import catch_exceptions
 from mbed_cloud import PaginatedResponse
+from six import iteritems
 
 import mbed_cloud._backends.deployment_service as deployment_service
-from mbed_cloud._backends.deployment_service.models\
-    import UpdateCampaign as UpdateCampaignObj
 from mbed_cloud._backends.deployment_service.rest\
     import ApiException as DeploymentServiceApiException
 import mbed_cloud._backends.firmware_catalog as firmware_catalog
-from mbed_cloud._backends.firmware_catalog.models import FirmwareImage as FirmwareImageObj
-from mbed_cloud._backends.firmware_catalog.models import FirmwareManifest as FirmwareManifestObj
 from mbed_cloud._backends.firmware_catalog.rest\
     import ApiException as FirmwareCatalogApiException
 
@@ -74,7 +72,7 @@ class UpdateAPI(BaseAPI):
         :rtype: Campaign
         """
         api = self.deployment_service.DefaultApi()
-        return api.update_campaign_retrieve(campaign_id)
+        return Campaign(api.update_campaign_retrieve(campaign_id))
 
     @catch_exceptions(DeploymentServiceApiException)
     def add_campaign(self, name, device_filter, **kwargs):
@@ -108,7 +106,7 @@ class UpdateAPI(BaseAPI):
             name=name,
             device_filter=device_filter,
             **kwargs)
-        return api.update_campaign_create(body)
+        return Campaign(api.update_campaign_create(body))
 
     @catch_exceptions(DeploymentServiceApiException)
     def start_campaign(self, campaign_object):
@@ -118,9 +116,22 @@ class UpdateAPI(BaseAPI):
         :return: newly edited campaign object
         :rtype: Campaign
         """
+        campaign_object._state = "scheduled"
+        return self.update_campaign(campaign_object)
+
+    @catch_exceptions(DeploymentServiceApiException)
+    def update_campaign(self, campaign_object):
+        """Update an update campaign.
+
+        :param Campaign campaign_object: Campaign object to update.
+        :return: updated campaign object
+        :rtype: Campaign
+        """
         api = self.deployment_service.DefaultApi()
-        campaign_object.state = "scheduled"
-        return api.update_campaign_update(campaign_id=campaign_object.id, campaign=campaign_object)
+        campaign_id = campaign_object.id
+        campaign_object = campaign_object._create_patch_request()
+        return Campaign(api.update_campaign_partial_update(campaign_id=campaign_id,
+                                                           campaign=campaign_object))
 
     @catch_exceptions(DeploymentServiceApiException)
     def delete_campaign(self, campaign_id):
@@ -158,18 +169,18 @@ class UpdateAPI(BaseAPI):
         return PaginatedResponse(api.firmware_image_list, lwrap_type=FirmwareImage, **kwargs)
 
     @catch_exceptions(FirmwareCatalogApiException)
-    def add_firmware_image(self, name, datafile, description=""):
+    def add_firmware_image(self, name, url, description=""):
         """Add a new firmware reference.
 
         :param str name: firmware file short name
-        :param str datafile: the *path* to the firmware file
+        :param str url: the *path* to the firmware file
         :param str description: optional firmware file description
         :return: the newly created firmware file object
         :rtype: FirmwareImage
         """
         api = self.firmware_catalog.DefaultApi()
         return FirmwareImage(
-            api.firmware_image_create(name=name, datafile=datafile, description=description)
+            api.firmware_image_create(name=name, datafile=url, description=description)
         )
 
     @catch_exceptions(FirmwareCatalogApiException)
@@ -208,18 +219,18 @@ class UpdateAPI(BaseAPI):
         return PaginatedResponse(api.firmware_manifest_list, lwrap_type=FirmwareManifest, **kwargs)
 
     @catch_exceptions(FirmwareCatalogApiException)
-    def add_firmware_manifest(self, name, datafile, description=""):
+    def add_firmware_manifest(self, name, url, description=""):
         """Add a new manifest reference.
 
         :param str name: manifest file short name
-        :param str datafile: the *path* to the manifest file
+        :param str url: the *path* to the manifest file
         :param str description: optional manifest file description
         :return: the newly created manifest file object
         :rtype: FirmwareManifest
         """
         api = self.firmware_catalog.DefaultApi()
         return FirmwareManifest(
-            api.firmware_manifest_create(name=name, datafile=datafile, description=description)
+            api.firmware_manifest_create(name=name, datafile=url, description=description)
         )
 
     @catch_exceptions(FirmwareCatalogApiException)
@@ -233,25 +244,344 @@ class UpdateAPI(BaseAPI):
         return api.firmware_manifest_destroy(manifest_id)
 
 
-class FirmwareImage(FirmwareImageObj):
+class FirmwareImage(BaseObject):
     """Describes firmware object."""
 
-    def __init__(self, firmware_image_obj):
-        """Override __init__ and allow passing in backend object."""
-        super(FirmwareImage, self).__init__(**firmware_image_obj.to_dict())
+    @staticmethod
+    def _get_attributes_map():
+        return {
+            "created_at": "created_at",
+            "url": "datafile",
+            "datafile_checksum": "datafile_checksum",
+            "description": "description",
+            "id": "id",
+            "name": "name",
+            "updated_at": "updated_at"
+        }
+
+    @property
+    def created_at(self):
+        """The time the object was created (readonly).
+
+        :rtype: datetime
+        """
+        return self._created_at
+
+    @property
+    def url(self):
+        """The URL of the firmware image (readonly).
+
+        :rtype: str
+        """
+        return self._url
+
+    @property
+    def datafile_checksum(self):
+        """The checksum generated for the datafile (readonly).
+
+        :rtype: str
+        """
+        return self._datafile_checksum
+
+    @property
+    def description(self):
+        """Get the description of firmware image (readonly).
+
+        :rtype: str
+        """
+        return self._description
+
+    @property
+    def id(self):
+        """Get the ID of the firmware image (readonly).
+
+        :rtype: str
+        """
+        return self._id
+
+    @property
+    def name(self):
+        """Get the name of firmware image (readonly).
+
+        :rtype: str
+        """
+        return self._name
+
+    @property
+    def updated_at(self):
+        """Get the time the object was updated (readonly).
+
+        :rtype: datetime
+        """
+        return self._updated_at
 
 
-class FirmwareManifest(FirmwareManifestObj):
-    """Describes firmware manifest object."""
+class FirmwareManifest(BaseObject):
+    """Describes firmware object."""
 
-    def __init__(self, manifest_image_obj):
-        """Override __init__ and allow passing in backend object."""
-        super(FirmwareManifest, self).__init__(**manifest_image_obj.to_dict())
+    @staticmethod
+    def _get_attributes_map():
+        return {
+            "created_at": "created_at",
+            "url": "datafile",
+            "description": "description",
+            "device_class": "device_class",
+            "id": "id",
+            "manifest_contents": "manifest_contents",
+            "name": "name",
+            "timestamp": "timestamp",
+            "updated_at": "updated_at"
+        }
+
+    @property
+    def created_at(self):
+        """Get the time the object was created (readonly).
+
+        :rtype: datetime
+        """
+        return self._created_at
+
+    @property
+    def url(self):
+        """Get the URL of the firmware manifest (readonly).
+
+        :rtype: str
+        """
+        return self._url
+
+    @property
+    def description(self):
+        """Get the description of firmware manifest (readonly).
+
+        :rtype: str
+        """
+        return self._description
+
+    @property
+    def device_class(self):
+        """The class of device (readonly).
+
+        :rtype: str
+        """
+        return self._device_class
+
+    @property
+    def id(self):
+        """The ID of the firmware manifest (readonly).
+
+        :rtype: str
+        """
+        return self._id
+
+    @property
+    def manifest_contents(self):
+        """The contents of the manifest (readonly).
+
+        :rtype: object
+        """
+        return self._manifest_contents
+
+    @property
+    def name(self):
+        """The time the object was created (readonly).
+
+        :rtype: str
+        """
+        return self._name
+
+    @property
+    def timestamp(self):
+        """The timestamp of the firmware manifest (readonly).
+
+        :rtype: datetime
+        """
+        return self._timestamp
+
+    @property
+    def updated_at(self):
+        """The time the object was updated (readonly).
+
+        :rtype: datetime
+        """
+        return self._updated_at
 
 
-class Campaign(UpdateCampaignObj):
+class Campaign(BaseObject):
     """Describes update campaign object."""
 
-    def __init__(self, device_certificate_obj):
-        """Override __init__ and allow passing in backend object."""
-        super(Campaign, self).__init__(**device_certificate_obj.to_dict())
+    @staticmethod
+    def _get_attributes_map():
+        return {
+            "device_filter": "device_filter",
+            "created_at": "created_at",
+            "description": "description",
+            "finished_at": "finished",
+            "id": "id",
+            "manifest_id": "root_manifest_id",
+            "manifest_url": "root_manifest_url",
+            "name": "name",
+            "started_at": "started_at",
+            "state": "state",
+            "scheduled_at": "when"
+        }
+
+    def _create_patch_request(self):
+        patch_map = {
+            "device_filter": "device_filter",
+            "description": "description",
+            "manifest_id": "root_manifest_id",
+            "name": "name",
+            "state": "state",
+            "scheduled_at": "when"
+        }
+        map_patch = {}
+        for key, value in iteritems(patch_map):
+            val = getattr(self, key, None)
+            if val is not None:
+                map_patch[value] = val
+        return map_patch
+
+    @property
+    def device_filter(self):
+        """The device filter to use.
+
+        :rtype: str
+        """
+        return self._device_filter
+
+    @device_filter.setter
+    def device_filter(self, device_filter):
+        """The device filter of this campaign.
+
+        The filter for the devices the campaign will target
+
+        :param device_filter: The device filter of this campaign.
+        :type: str
+        """
+        self._device_filter = device_filter
+
+    @property
+    def created_at(self):
+        """The time the object was created (readonly).
+
+        :rtype: datetime
+        """
+        return self._created_at
+
+    @property
+    def description(self):
+        """The description of the campaign.
+
+        :rtype: str
+        """
+        return self._description
+
+    @description.setter
+    def description(self, description):
+        """The description of this Campaign.
+
+        An optional description of the campaign
+
+        :param description: The description of this Campaign.
+        :type: str
+        """
+        self._description = description
+
+    @property
+    def finished_at(self):
+        """The timestamp when the update campaign finished (readonly).
+
+        :rtype: datetime
+        """
+        return self._finished_at
+
+    @property
+    def id(self):
+        """The ID of the campaign (readonly).
+
+        :rtype: str
+        """
+        return self._id
+
+    @property
+    def manifest_id(self):
+        """The ID of the manifest to use for update.
+
+        :rtype: str
+        """
+        return self._manifest_id
+
+    @manifest_id.setter
+    def manifest_id(self, manifest_id):
+        """The manifest id of this Update Campaign.
+
+        :param manifest_id: The ID of manifest.
+        :type: str
+        """
+        self._manifest_id = manifest_id
+
+    @property
+    def manifest_url(self):
+        """The URl of the manifest used (readonly).
+
+        :rtype: str
+        """
+        return self._manifest_url
+
+    @property
+    def name(self):
+        """The name for this campaign.
+
+        :rtype: str
+        """
+        return self._name
+
+    @name.setter
+    def name(self, name):
+        """The name of this campaign.
+
+        A name for this campaign
+
+        :param name: The name of this campaign.
+        :type: str
+        """
+        if name is not None and len(name) > 128:
+            raise ValueError("Invalid value for `name`, length must be less than or equal to `128`")
+
+        self._name = name
+
+    @property
+    def started_at(self):
+        """The timestamp at which update campaign scheduled to start (readonly).
+
+        :rtype: datetime
+        """
+        return self._started_at
+
+    @property
+    def state(self):
+        """The state of the campaign (readonly).
+
+        values: draft, scheduled, devicefetch, devicecopy, devicecopycomplete, publishing,
+        deploying, deployed, manifestremoved, expired
+
+        :rtype: str
+        """
+        return self._state
+
+    @property
+    def scheduled_at(self):
+        """The time the object was created.
+
+        :rtype: datetime
+        """
+        return self._scheduled_at
+
+    @scheduled_at.setter
+    def scheduled_at(self, scheduled_at):
+        """The timestamp at which update campaign scheduled to start.
+
+        :param scheduled_at: The timestamp of this Cmapaign.
+        :type: str
+        """
+        self._scheduled_at = scheduled_at
