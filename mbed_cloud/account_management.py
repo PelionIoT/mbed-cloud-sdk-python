@@ -13,20 +13,18 @@
 # --------------------------------------------------------------------------
 """Functionality for Account Management related actions in mbed Cloud."""
 from __future__ import absolute_import
+from six import iteritems
 
 # Import common functions and exceptions from frontend API
 from mbed_cloud import BaseAPI
+from mbed_cloud import BaseObject
 from mbed_cloud import config
 from mbed_cloud.decorators import catch_exceptions
 from mbed_cloud import PaginatedResponse
 
 # Import backend API
 import mbed_cloud._backends.iam as iam
-from mbed_cloud._backends.iam.models import AccountInfo
 from mbed_cloud._backends.iam.models import AccountUpdateReq
-from mbed_cloud._backends.iam.models import ApiKeyInfoResp
-from mbed_cloud._backends.iam.models import GroupSummary
-from mbed_cloud._backends.iam.models import UserInfoResp
 import mbed_cloud._backends.iam.rest as ApiException
 
 
@@ -176,8 +174,8 @@ class AccountManagementAPI(BaseAPI):
         :param str password: Optional. The password string of the user.
             Need to adhere to password policy
         :param str phone_number: Optional. Phone number of the user
-        :param bool is_gtc_accepted: Optional. Is 'General Terms & Conditions' accepted
-        :param bool is_marketing_accepted: Optional. Is receiving marketing information accepted?
+        :param bool terms_accepted: Optional. Is 'General Terms & Conditions' accepted
+        :param bool marketing_accepted: Optional. Is receiving marketing information accepted?
         :returns: the new user object
         :rtype: User
         """
@@ -282,7 +280,7 @@ class AccountManagementAPI(BaseAPI):
         return PaginatedResponse(api.get_api_keys_of_group, lwrap_type=ApiKey, **kwargs)
 
 
-class Account(AccountInfo):
+class Account(BaseObject):
     """Describes account object.
 
     Example usage:
@@ -296,12 +294,214 @@ class Account(AccountInfo):
         print(current_account.company)
     """
 
-    def __init__(self, account_info_obj):
-        """Override __init__ and allow passing in backend object."""
-        super(Account, self).__init__(**account_info_obj.to_dict())
+    @staticmethod
+    def _get_attributes_map():
+        return {
+            "display_name": "display_name",
+            "aliases": "aliases",
+            "company": "company",
+            "contact": "contact",
+            "email": "email",
+            "phone_number": "phone_number",
+            "address_line1": "address_line1",
+            "address_line2": "address_line2",
+            "city": "city",
+            "state": "state",
+            "postcode": "postal_code",
+            "country": "country",
+            "id": "id",
+            "status": "status",
+            "tier": "tier",
+            "limits": "limits",
+            "policies": "policies",
+            "provisioning_allowed": "is_provisioning_allowed",
+            "created_at": "created_at",
+            "upgraded_at": "upgraded_at",
+            "reason": "reason",
+            "template_id": "template_id"
+        }
+
+    @property
+    def display_name(self):
+        """The display name for the account.
+
+        :rtype: str
+        """
+        return self._display_name
+
+    @property
+    def aliases(self):
+        """An array of aliases.
+
+        :rtype: str[]
+        """
+        return self._aliases
+
+    @property
+    def company(self):
+        """The name of the company.
+
+        :rtype: str
+        """
+        return self._company
+
+    @property
+    def contact(self):
+        """The name of the contact person for this account.
+
+        :rtype: str
+        """
+        return self._contact
+
+    @property
+    def email(self):
+        """The company email address for this account.
+
+        :rtype: str
+        """
+        return self._email
+
+    @property
+    def phone_number(self):
+        """The phone number of the company.
+
+        :rtype: str
+        """
+        return self._phone_number
+
+    @property
+    def address_line1(self):
+        """Postal address line 1.
+
+        :rtype: str
+        """
+        return self._address_line1
+
+    @property
+    def address_line2(self):
+        """Postal address line 2.
+
+        :rtype: str
+        """
+        return self._address_line2
+
+    @property
+    def city(self):
+        """The city part of the postal address.
+
+        :rtype: str
+        """
+        return self._city
+
+    @property
+    def state(self):
+        """The state part of the postal address.
+
+        :rtype: str
+        """
+        return self._state
+
+    @property
+    def postcode(self):
+        """The postal code part of the postal address.
+
+        :rtype: str
+        """
+        return self._postcode
+
+    @property
+    def country(self):
+        """The country part of the postal address.
+
+        :rtype: str
+        """
+        return self._country
+
+    @property
+    def id(self):
+        """Account ID (readonly).
+
+        :rtype: str
+        """
+        return self._id
+
+    @property
+    def status(self):
+        """The status of the account.
+
+        values: ENROLLING, ACTIVE, RESTRICTED, SUSPENDED
+
+        :rtype: str
+        """
+        return self._status
+
+    @property
+    def tier(self):
+        """The tier level of the account; '0': free tier, '1': commercial account.
+
+        Other values are reserved for the future.
+        :rtype: str
+        """
+        return self._tier
+
+    @property
+    def limits(self):
+        """List of limits as key-value pairs if requested.
+
+        :rtype: list of Limits
+        """
+        return self._limits
+
+    @property
+    def policies(self):
+        """List of policies if requested.
+
+        :rtype: list of Policies
+        """
+        return self._policies
+
+    @property
+    def provisioning_allowed(self):
+        """Flag (true/false) indicating whether Factory Tool is allowed to download or not.
+
+        :rtype: bool
+        """
+        return self._provisioning_allowed
+
+    @property
+    def created_at(self):
+        """Creation UTC time RFC3339.
+
+        :rtype: str
+        """
+        return self._created_at
+
+    @property
+    def upgraded_at(self):
+        """Time when upgraded to commercial account in UTC format RFC3339.
+
+        :rtype: str
+        """
+        return self._upgraded_at
+
+    @property
+    def reason(self):
+        """A reason note for updating the status of the account.
+
+        :rtype: str
+        """
+        return self._reason
+
+    @property
+    def template_id(self):
+        """Account template ID.
+
+        :rtype: str
+        """
+        return self._template_id
 
 
-class User(UserInfoResp):
+class User(BaseObject):
     """Describes user object.
 
     Example usage:
@@ -321,12 +521,197 @@ class User(UserInfoResp):
                                 password = "hunter2")
     """
 
-    def __init__(self, user_obj):
-        """Override __init__ and allow passing in backend object."""
-        super(User, self).__init__(**user_obj.to_dict())
+    @staticmethod
+    def _get_attributes_map():
+        return {
+            "full_name": "full_name",
+            "username": "username",
+            "password": "password",
+            "email": "email",
+            "phone_number": "phone_number",
+            "address": "address",
+            "terms_accepted": "is_gtc_accepted",
+            "marketing_accepted": "is_marketing_accepted",
+            "groups": "groups",
+            "id": "id",
+            "status": "status",
+            "account_id": "account_id",
+            "email_verified": "email_verified",
+            "created_at": "created_at",
+            "limits": "limits",
+            "creation_time": "creation_time",
+            "password_changed_time": "password_changed_time",
+            "last_login_time": "last_login_time"
+        }
+
+    def _create_put_request(self):
+        put_map = {
+            "full_name": "full_name",
+            "username": "username",
+            "password": "password",
+            "email": "email",
+            "phone_number": "phone_number",
+            "address": "address",
+            "terms_accepted": "is_gtc_accepted",
+            "marketing_accepted": "is_marketing_accepted",
+        }
+        map_put = {}
+        for key, value in iteritems(put_map):
+            val = getattr(self, key, None)
+            if val is not None:
+                map_put[value] = val
+        return map_put
+
+    @property
+    def full_name(self):
+        """Account ID.
+
+        :rtype: str
+        """
+        return self._full_name
+
+    @property
+    def username(self):
+        """A username containing alphanumerical letters and -,._@+= characters.
+
+        :rtype: str
+        """
+        return self._username
+
+    @property
+    def password(self):
+        """Account ID (readonly).
+
+        :rtype: str
+        """
+        return self._password
+
+    @property
+    def email(self):
+        """Account ID (readonly).
+
+        :rtype: str
+        """
+        return self._email
+
+    @property
+    def phone_number(self):
+        """Account ID (readonly).
+
+        :rtype: str
+        """
+        return self._phone_number
+
+    @property
+    def address(self):
+        """Account ID (readonly).
+
+        :rtype: str
+        """
+        return self._address
+
+    @property
+    def terms_accepted(self):
+        """Account ID (readonly).
+
+        :rtype: str
+        """
+        return self._terms_accepted
+
+    @property
+    def marketing_accepted(self):
+        """Account ID (readonly).
+
+        :rtype: str
+        """
+        return self._marketing_accepted
+
+    @property
+    def groups(self):
+        """A list of group IDs this user belongs to.
+
+        :rtype: str[]
+        """
+        return self._groups
+
+    @property
+    def id(self):
+        """Account ID (readonly).
+
+        :rtype: str
+        """
+        return self._id
+
+    @property
+    def status(self):
+        """The status of the user.
+
+        INVITED means that the user has not accepted the invitation request.
+        RESET means that the password must be changed immediately.
+        values: ENROLLING, INVITED, ACTIVE, RESET, INACTIVE
+
+        :rtype: str
+        """
+        return self._status
+
+    @property
+    def account_id(self):
+        """The UUID of the account.
+
+        :rtype: str
+        """
+        return self._account_id
+
+    @property
+    def email_verified(self):
+        """A flag indicating whether the user's email address has been verified or not.
+
+        :rtype: bool
+        """
+        return self._email_verified
+
+    @property
+    def created_at(self):
+        """Creation UTC time RFC3339.
+
+        :rtype: str
+        """
+        return self._created_at
+
+    @property
+    def limits(self):
+        """Account ID (readonly).
+
+        :rtype: str
+        """
+        return self._limits
+
+    @property
+    def creation_time(self):
+        """A timestamp of the user creation in the storage, in milliseconds.
+
+        :rtype: int
+        """
+        return self._creation_time
+
+    @property
+    def password_changed_time(self):
+        """A timestamp of the latest change of the user password, in milliseconds.
+
+        :rtype: int
+        """
+        return self._password_changed_time
+
+    @property
+    def last_login_time(self):
+        """A timestamp of the latest login of the user, in milliseconds.
+
+        :rtype: int
+        """
+        return self._last_login_time
 
 
-class Group(GroupSummary):
+class Group(BaseObject):
     """Describes group object.
 
     Example usage:
@@ -340,12 +725,77 @@ class Group(GroupSummary):
             print(g.name)
     """
 
-    def __init__(self, group_obj):
-        """Override __init__ and allow passing in backend object."""
-        super(Group, self).__init__(**group_obj.to_dict())
+    @staticmethod
+    def _get_attributes_map():
+        return {
+            "id": "id",
+            "account_id": "account_id",
+            "name": "name",
+            "user_count": "user_count",
+            "api_key_count": "api_key_count",
+            "created_at": "created_at",
+            "creation_time": "creation_time",
+            "last_update_time": "last_update_time"
+        }
+
+    @property
+    def id(self):
+        """The UUID of the group. (readonly)
+
+        :rtype: str
+        """
+        return self._id
+
+    @property
+    def account_id(self):
+        """The UUID of the account this group belongs to. (readonly)
+
+        :rtype: str
+        """
+        return self._account_id
+
+    @property
+    def name(self):
+        """The name of the group. (readonly)
+
+        :rtype: str
+        """
+        return self._name
+
+    @property
+    def user_count(self):
+        """The number of users in this group. (readonly)
+
+        :rtype: int
+        """
+        return self._user_count
+
+    @property
+    def api_key_count(self):
+        """The number of API keys in this group. (readonly)
+
+        :rtype: int
+        """
+        return self._api_key_count
+
+    @property
+    def created_at(self):
+        """Creation UTC time RFC3339. (readonly)
+
+        :rtype: str
+        """
+        return self._created_at
+
+    @property
+    def creation_time(self):
+        """A timestamp of the group creation in the storage, in milliseconds. (readonly)
+
+        :rtype: int
+        """
+        return self._creation_time
 
 
-class ApiKey(ApiKeyInfoResp):
+class ApiKey(BaseObject):
     """Describes API key object.
 
     Example usage:
@@ -363,6 +813,90 @@ class ApiKey(ApiKeyInfoResp):
         print(new_k.key)
     """
 
-    def __init__(self, api_key_obj):
-        """Override __init__ and allow passing in backend object."""
-        super(ApiKey, self).__init__(**api_key_obj.to_dict())
+    @staticmethod
+    def _get_attributes_map():
+        return {
+            "name": "name",
+            "owner": "owner",
+            "groups": "groups",
+            "id": "id",
+            "key": "key",
+            "status": "status",
+            "created_at": "created_at",
+            "creation_time": "creation_time",
+            "last_login_time": "last_login_time"
+        }
+
+    @property
+    def name(self):
+        """The display name for the API key.
+
+        :rtype: str
+        """
+        return self._name
+
+    @property
+    def owner(self):
+        """The owner of this API key, who is the creator by default.
+
+        :rtype: str
+        """
+        return self._owner
+
+    @property
+    def groups(self):
+        """A list of group IDs this API key belongs to.
+
+        :rtype: str[]
+        """
+        return self._groups
+
+    @property
+    def id(self):
+        """The UUID of the API key. (readonly)
+
+        :rtype: str
+        """
+        return self._id
+
+    @property
+    def key(self):
+        """The API key. (readonly)
+
+        :rtype: str
+        """
+        return self._key
+
+    @property
+    def status(self):
+        """The status of the API key. (readonly)
+
+        values: ACTIVE, INACTIVE
+
+        :rtype: str
+        """
+        return self._status
+
+    @property
+    def created_at(self):
+        """Creation UTC time RFC3339. (readonly)
+
+        :rtype: str
+        """
+        return self._created_at
+
+    @property
+    def creation_time(self):
+        """The timestamp of the API key creation in the storage, in milliseconds. (readonly)
+
+        :rtype: int
+        """
+        return self._creation_time
+
+    @property
+    def last_login_time(self):
+        """The timestamp of the latest API key usage, in milliseconds. (readonly)
+
+        :rtype: int
+        """
+        return self._last_login_time
