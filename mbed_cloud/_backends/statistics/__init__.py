@@ -16,7 +16,6 @@ from __future__ import absolute_import
 # import models into sdk package
 from .models.error_response import ErrorResponse
 from .models.field import Field
-from .models.fields_array import FieldsArray
 from .models.metric import Metric
 from .models.successful_response import SuccessfulResponse
 

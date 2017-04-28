@@ -4,10 +4,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **description** | **str** | An optional description of the campaign. | 
-**when** | **str** | The timestamp at which update campaign scheduled to start. | [optional] 
+**root_manifest_id** | **str** |  | 
 **created_at** | **str** | The time the object was created. | 
 **object** | **str** | The API resource entity. | 
-**root_manifest_id** | **str** |  | 
+**when** | **str** | The timestamp at which update campaign scheduled to start. | [optional] 
 **state** | **str** | The state of the campaign. | 
 **finished** | **str** | The timestamp when the update campaign finished. | [optional] 
 **etag** | **str** | The entity instance signature. | 

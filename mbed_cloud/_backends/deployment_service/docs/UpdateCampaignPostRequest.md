@@ -4,9 +4,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **description** | **str** | An optional description of the campaign. | [optional] 
-**when** | **str** | The timestamp at which update campaign scheduled to start. | [optional] 
-**object** | **str** | The API resource entity. | [optional] 
 **root_manifest_id** | **str** |  | [optional] 
+**object** | **str** | The API resource entity. | [optional] 
+**when** | **str** | The timestamp at which update campaign scheduled to start. | [optional] 
 **state** | **str** | The state of the campaign. | [optional] 
 **device_filter** | **str** | The filter for the devices the campaign will target. | 
 **name** | **str** | A name for this campaign. | 

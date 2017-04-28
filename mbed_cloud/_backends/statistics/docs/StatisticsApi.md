@@ -29,12 +29,12 @@ statistics.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = statistics.StatisticsApi()
-include = 'include_example' # str | A comma-separated list of requested metrics. Supported values are:  - `transactions` - `bootstraps_successful` - `bootstraps_failed` - `bootstraps_pending` - `device_server_rest_api_success` - `device_server_rest_api_error` 
-interval = 'interval_example' # str | Group data by this interval in days, weeks or hours. Sample values: 2h, 3w, 4d. 
+include = 'include_example' # str | A comma-separated list of requested metrics. Supported values are:  - `transactions` - `registered_devices` - `bootstraps_successful` - `bootstraps_failed` - `bootstraps_pending` - `handshakes_successful` - `handshakes_failed` - `device_server_rest_api_success` - `device_server_rest_api_error` 
+interval = 'interval_example' # str | Group data by this interval in days, weeks or hours. Sample values: 2h, 3w, 4d. Maximum allowed interval is 9999[h/w/d]. 
 authorization = 'authorization_example' # str | Bearer {Access Token}. A valid API Gateway access token. The token is validated and the associated account identifier is used to retrieve account-specific statistics. 
 start = 'start_example' # str | UTC time/year/date in RFC3339 format. Fetch the data with timestamp greater than or equal to this value. Sample values: 20170207T092056990Z/2017-02-07T09:20:56.990Z/2017/20170207. The parameter is not mandatory, if the period is specified.  (optional)
 end = 'end_example' # str | UTC time/year/date in RFC3339 format. Fetch the data with timestamp less than this value.Sample values: 20170207T092056990Z/2017-02-07T09:20:56.990Z/2017/20170207.The parameter is not mandatory, if the period is specified.  (optional)
-period = 'period_example' # str | Period. Fetch the data for the period in days, weeks or hours. Sample values: 2h, 3w, 4d. The parameter is not mandatory, if the start and end time are specified.  (optional)
+period = 'period_example' # str | Period. Fetch the data for the period in days, weeks or hours. Sample values: 2h, 3w, 4d. The parameter is not mandatory, if the start and end time are specified. Maximum allowed period is 9999[h/w/d].  (optional)
 
 try: 
     # Provides account-specific statistics for other cloud services.
@@ -48,12 +48,12 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **include** | **str**| A comma-separated list of requested metrics. Supported values are:  - &#x60;transactions&#x60; - &#x60;bootstraps_successful&#x60; - &#x60;bootstraps_failed&#x60; - &#x60;bootstraps_pending&#x60; - &#x60;device_server_rest_api_success&#x60; - &#x60;device_server_rest_api_error&#x60;  | 
- **interval** | **str**| Group data by this interval in days, weeks or hours. Sample values: 2h, 3w, 4d.  | 
+ **include** | **str**| A comma-separated list of requested metrics. Supported values are:  - &#x60;transactions&#x60; - &#x60;registered_devices&#x60; - &#x60;bootstraps_successful&#x60; - &#x60;bootstraps_failed&#x60; - &#x60;bootstraps_pending&#x60; - &#x60;handshakes_successful&#x60; - &#x60;handshakes_failed&#x60; - &#x60;device_server_rest_api_success&#x60; - &#x60;device_server_rest_api_error&#x60;  | 
+ **interval** | **str**| Group data by this interval in days, weeks or hours. Sample values: 2h, 3w, 4d. Maximum allowed interval is 9999[h/w/d].  | 
  **authorization** | **str**| Bearer {Access Token}. A valid API Gateway access token. The token is validated and the associated account identifier is used to retrieve account-specific statistics.  | 
  **start** | **str**| UTC time/year/date in RFC3339 format. Fetch the data with timestamp greater than or equal to this value. Sample values: 20170207T092056990Z/2017-02-07T09:20:56.990Z/2017/20170207. The parameter is not mandatory, if the period is specified.  | [optional] 
  **end** | **str**| UTC time/year/date in RFC3339 format. Fetch the data with timestamp less than this value.Sample values: 20170207T092056990Z/2017-02-07T09:20:56.990Z/2017/20170207.The parameter is not mandatory, if the period is specified.  | [optional] 
- **period** | **str**| Period. Fetch the data for the period in days, weeks or hours. Sample values: 2h, 3w, 4d. The parameter is not mandatory, if the start and end time are specified.  | [optional] 
+ **period** | **str**| Period. Fetch the data for the period in days, weeks or hours. Sample values: 2h, 3w, 4d. The parameter is not mandatory, if the start and end time are specified. Maximum allowed period is 9999[h/w/d].  | [optional] 
 
 ### Return type
 

@@ -32,7 +32,7 @@ class ErrorResponse(object):
         """
         self.swagger_types = {
             'code': 'int',
-            'fields': 'FieldsArray',
+            'fields': 'list[Field]',
             'object': 'str',
             'request_id': 'str',
             'message': 'str',
@@ -82,9 +82,10 @@ class ErrorResponse(object):
     def fields(self):
         """
         Gets the fields of this ErrorResponse.
+        Details of the error fields.
 
         :return: The fields of this ErrorResponse.
-        :rtype: FieldsArray
+        :rtype: list[Field]
         """
         return self._fields
 
@@ -92,9 +93,10 @@ class ErrorResponse(object):
     def fields(self, fields):
         """
         Sets the fields of this ErrorResponse.
+        Details of the error fields.
 
         :param fields: The fields of this ErrorResponse.
-        :type: FieldsArray
+        :type: list[Field]
         """
 
         self._fields = fields

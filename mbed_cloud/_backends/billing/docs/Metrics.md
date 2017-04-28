@@ -33,6 +33,7 @@ Name | Type | Description | Notes
 **vertx_eventbus_messages_reply_failures** | [**MetricMeter**](MetricMeter.md) |  | 
 **vertx_http_clients_iam_head_requests** | [**MetricTimer**](MetricTimer.md) |  | 
 **jvm_mem_pools_ps_old_gen_max** | [**MetricGauge**](MetricGauge.md) |  | 
+**persistence_update_update_account_upgrade_time** | [**MetricTimer**](MetricTimer.md) |  | 
 **jvm_mem_pools_compressed_class_space_init** | [**MetricGauge**](MetricGauge.md) |  | 
 **jvm_mem_pools_code_cache_usage** | [**MetricGauge**](MetricGauge.md) |  | 
 **vertx_verticles** | [**MetricCounter**](MetricCounter.md) |  | 
