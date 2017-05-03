@@ -18,13 +18,13 @@ from collections import defaultdict
 import datetime
 import logging
 import re
-from six import iteritems
 from six.moves import queue
 import threading
 import time
 
 # Import common functions and exceptions from frontend API
 from mbed_cloud import BaseAPI
+from mbed_cloud import BaseObject
 from mbed_cloud.decorators import catch_exceptions
 from mbed_cloud.exceptions import CloudAsyncError
 from mbed_cloud.exceptions import CloudTimeoutError
@@ -666,18 +666,11 @@ class _LongPollingThread(threading.Thread):
         self._stopped = True
 
 
-class ConnectedDevice(object):
+class ConnectedDevice(BaseObject):
     """Describes device object from the mDS."""
 
-    def __init__(self, connected_device_obj):
-        """Override __init__ and allow passing in backend object."""
-        if not isinstance(connected_device_obj, dict):
-            connected_device_obj = connected_device_obj.to_dict()
-        for key, value in iteritems(ConnectedDevice._get_map_attributes()):
-            setattr(self, "_%s" % key, connected_device_obj.get(value, None))
-
     @staticmethod
-    def _get_map_attributes():
+    def _get_attributes_map():
         return {
             'state': 'status',
             'queue_mode': 'q',
@@ -735,32 +728,12 @@ class ConnectedDevice(object):
         """
         return self._id
 
-    def to_dict(self):
-        """Return dictionary of object."""
-        return {
-            'id': self.id,
-            'state': self.state,
-            'queue_mode': self.queue_mode,
-            'type': self.type
-        }
 
-    def __repr__(self):
-        """For print and pprint."""
-        return str(self.to_dict())
-
-
-class Webhook(object):
+class Webhook(BaseObject):
     """Describes webhook object."""
 
-    def __init__(self, webhook_obj):
-        """Override __init__ and allow passing in backend object."""
-        if not isinstance(webhook_obj, dict):
-            webhook_obj = webhook_obj.to_dict()
-        for key, value in iteritems(Webhook._get_map_attributes()):
-            setattr(self, "_%s" % key, webhook_obj.get(value, None))
-
     @staticmethod
-    def _get_map_attributes():
+    def _get_attributes_map():
         return {
             "url": "url",
             "headers": "headers",
@@ -788,17 +761,6 @@ class Webhook(object):
         :rtype: object
         """
         return self._headers
-
-    def to_dict(self):
-        """Return dictionary of object."""
-        return {
-            'url': self.url,
-            'headers': self.headers
-        }
-
-    def __repr__(self):
-        """For print and pprint."""
-        return str(self.to_dict())
 
 
 class Resource(object):

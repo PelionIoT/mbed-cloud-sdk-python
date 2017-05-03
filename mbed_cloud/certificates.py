@@ -29,18 +29,7 @@ from mbed_cloud._backends.iam.models import TrustedCertificateResp
 
 
 class CertificatesAPI(BaseAPI):
-    """Certificates API reference.
-
-    This module covers functionality for the development/prototyping phase of
-    your project. By creating and deploying development certificates the
-    developer is able to very easily connect the device to the cloud in a
-    secure manner.
-
-    Please do note that each organisation/account only have one active
-    certificate at a time. As a consequence, if you do delete an already active
-    development certificate please make sure it's not activly in use and that
-    you know what you're doing.
-    """
+    """Certificates API reference."""
 
     def __init__(self, params={}):
         """Initialise the certificates API, optionally passing in overriding config."""

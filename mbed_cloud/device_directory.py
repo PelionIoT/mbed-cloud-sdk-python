@@ -19,6 +19,7 @@ import urllib
 
 # Import common functions and exceptions from frontend API
 from mbed_cloud import BaseAPI
+from mbed_cloud import BaseObject
 from mbed_cloud.decorators import catch_exceptions
 from mbed_cloud.exceptions import CloudValueError
 from mbed_cloud import PaginatedResponse
@@ -343,18 +344,11 @@ class DeviceDirectoryAPI(BaseAPI):
         return urllib.urlencode(query)
 
 
-class Device(object):
+class Device(BaseObject):
     """Describes device object from the catalog."""
 
-    def __init__(self, device_obj):
-        """Override __init__ and allow passing in backend object."""
-        if not isinstance(device_obj, dict):
-            device_obj = device_obj.to_dict()
-        for key, value in iteritems(Device._get_map_attributes()):
-            setattr(self, "_%s" % key, device_obj.get(value, None))
-
     @staticmethod
-    def _get_map_attributes():
+    def _get_attributes_map():
         return {
             "account_id": "account_id",
             "auto_update": "auto_update",
@@ -389,7 +383,7 @@ class Device(object):
     @staticmethod
     def _verify_args(kwargs):
         """Verify arguments before sending to Backend API."""
-        for key, value in iteritems(Device._get_map_attributes()):
+        for key, value in iteritems(Device._get_attributes_map()):
             if key in kwargs:
                 kwargs[value] = kwargs[key]
                 del kwargs[key]
@@ -631,56 +625,12 @@ class Device(object):
         """
         return self._manifest_timestamp
 
-    def to_dict(self):
-        """Return dictionary of object."""
-        return {
-            "account_id": self._account_id,
-            "auto_update": self._auto_update,
-            "bootstrapped_timestamp": self._bootstrapped_timestamp,
-            "created_at": self._created_at,
-            "custom_attributes": self._custom_attributes,
-            "deployed_state": self._deployed_state,
-            "last_deployment": self._last_deployment,
-            "description": self._description,
-            "device_class": self._device_class,
-            "id": self._id,
-            "manifest_url": self._manifest_url,
-            "mechanism": self._mechanism,
-            "mechanism_url": self._mechanism_url,
-            "name": self._name,
-            "serial_number": self._serial_number,
-            "state": self._state,
-            "trust_class": self._trust_class,
-            "trust_level": self._trust_level,
-            "updated_at": self._updated_at,
-            "vendor_id": self._vendor_id,
-            "alias": self._alias,
-            "bootstrap_certificate_expiration": self._bootstrap_certificate_expiration,
-            "certificate_fingerprint": self._certificate_fingerprint,
-            "certificate_issuer_id": self._certificate_issuer_id,
-            "connector_certificate_expiration": self._connector_certificate_expiration,
-            "device_execution_mode": self._device_execution_mode,
-            "firmware_checksum": self._firmware_checksum,
-            "manifest_timestamp": self._manifest_timestamp
-        }
 
-    def __repr__(self):
-        """For print and pprint."""
-        return str(self.to_dict())
-
-
-class Query(object):
+class Query(BaseObject):
     """Describes device query object."""
 
-    def __init__(self, query_obj):
-        """Override __init__ and allow passing in backend object."""
-        if not isinstance(query_obj, dict):
-            query_obj = query_obj.to_dict()
-        for key, value in iteritems(Query._get_map_attributes()):
-            setattr(self, "_%s" % key, query_obj.get(value, None))
-
     @staticmethod
-    def _get_map_attributes():
+    def _get_attributes_map():
         return {
             "created_at": "created_at",
             "description": "description",
@@ -755,21 +705,6 @@ class Query(object):
         :rtype: str
         """
         return self._filter
-
-    def to_dict(self):
-        """Return dictionary of object."""
-        return {
-            "created_at": self.created_at,
-            "description": self.description,
-            "id": self.id,
-            "name": self.name,
-            "updated_at": self.updated_at,
-            "filter": self.filter
-        }
-
-    def __repr__(self):
-        """For print and pprint."""
-        return str(self.to_dict())
 
 
 class DeviceLog(DeviceLogData):
