@@ -1,8 +1,8 @@
 # coding: utf-8
 """
-    Device Catalog API
+    Device Directory API
 
-    This is the API Documentation for the mbed device catalog update service.
+    This is the API Documentation for the mbed device directory update service.
 
     OpenAPI spec version: 0.1
     
