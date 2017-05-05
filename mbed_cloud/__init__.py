@@ -23,6 +23,7 @@ from mbed_cloud.exceptions import CloudValueError
 
 config = Config()
 
+
 class BaseAPI(object):
     """BaseAPI is parent class for all APIs. Ensuring config is valid and available."""
 
