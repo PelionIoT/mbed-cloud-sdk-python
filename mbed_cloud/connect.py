@@ -240,7 +240,9 @@ class ConnectAPI(BaseAPI):
         api = self.mds.ResourcesApi()
 
         if resource_value:
-            resp = api.v2_endpoints_device_id_resource_path_put(device_id, resource_path, resource_value)
+            resp = api.v2_endpoints_device_id_resource_path_put(device_id,
+                                                                resource_path,
+                                                                resource_value)
         else:
             resp = api.v2_endpoints_device_id_resource_path_post(device_id, resource_path)
         consumer = AsyncConsumer(resp.async_response_id, self._db)
@@ -278,7 +280,9 @@ class ConnectAPI(BaseAPI):
         api = self.mds.ResourcesApi()
 
         if resource_value:
-            resp = api.v2_endpoints_device_id_resource_path_put(device_id, resource_path, resource_value)
+            resp = api.v2_endpoints_device_id_resource_path_put(device_id,
+                                                                resource_path,
+                                                                resource_value)
         else:
             resp = api.v2_endpoints_device_id_resource_path_post(device_id, resource_path)
 

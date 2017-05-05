@@ -28,7 +28,6 @@ from mbed_cloud._backends.deployment_service.rest\
 import mbed_cloud._backends.firmware_catalog as firmware_catalog
 from mbed_cloud._backends.firmware_catalog.rest\
     import ApiException as FirmwareCatalogApiException
-from mbed_cloud.__init__ import decode_query
 
 LOG = logging.getLogger(__name__)
 
@@ -452,7 +451,7 @@ class Campaign(BaseObject):
         :rtype: dict
         """
         if isinstance(self._device_filter, str):
-            return decode_query(self._device_filter)
+            return self._decode_query(self._device_filter)
         return self._device_filter
 
     @device_filter.setter

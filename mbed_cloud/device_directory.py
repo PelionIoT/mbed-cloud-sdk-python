@@ -15,13 +15,11 @@
 from __future__ import absolute_import
 import logging
 from six import iteritems
-import urllib
 
 # Import common functions and exceptions from frontend API
 from mbed_cloud import BaseAPI
 from mbed_cloud import BaseObject
 from mbed_cloud.decorators import catch_exceptions
-from mbed_cloud.exceptions import CloudValueError
 from mbed_cloud import PaginatedResponse
 
 # Import backend API
@@ -33,7 +31,6 @@ from mbed_cloud._backends.device_catalog.rest import \
 import mbed_cloud._backends.device_query_service as dc_queries
 from mbed_cloud._backends.device_query_service.rest import \
     ApiException as DeviceQueryServiceApiException
-from mbed_cloud.__init__ import decode_query
 
 LOG = logging.getLogger(__name__)
 
@@ -674,7 +671,7 @@ class Query(BaseObject):
         :rtype: dict
         """
         if isinstance(self._filter, str):
-            return decode_query(self._filter)
+            return self._decode_query(self._filter)
         return self._filter
 
     @filter.setter

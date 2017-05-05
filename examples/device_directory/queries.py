@@ -15,9 +15,8 @@
 from mbed_cloud.device_directory import DeviceDirectoryAPI
 import random
 import string
-import urllib
-import urlparse
 import uuid
+
 
 def _id_generator(size=6, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
@@ -31,7 +30,7 @@ def _main():
         print(e)
 
     # Create a new query
-    new_query = api.add_query("test_filter", {'device_id': { '$eq' : str(uuid.uuid4())}})
+    new_query = api.add_query("test_filter", {'device_id': {'$eq': str(uuid.uuid4())}})
     print("\nCreated new query: %r" % (new_query.name))
 
     # Delete same query
@@ -41,17 +40,17 @@ def _main():
     # Create more complex query
     print("Creating complex query")
     new_c_query = api.add_query("complex_test_query %s" % _id_generator(), {
-        'device_id': { '$eq': str(uuid.uuid4())},
-        'auto_update': { '$eq': True },
-        'state': { '$eq': 'bootstrapped' },
-        'device_class': { '$eq': 'embedded' },
-        'serial_number': { '$eq': '1234' },
-        'vendor_id': { '$eq': 'ARM' },
-        'description': { '$eq': 'Loreum ipsum' },
-        'device_name': { '$eq': 'DeviceName' },
+        'device_id': {'$eq': str(uuid.uuid4())},
+        'auto_update': {'$eq': True},
+        'state': {'$eq': 'bootstrapped'},
+        'device_class': {'$eq': 'embedded'},
+        'serial_number': {'$eq': '1234'},
+        'vendor_id': {'$eq': 'ARM'},
+        'description': {'$eq': 'Loreum ipsum'},
+        'device_name': {'$eq': 'DeviceName'},
         'custom_attributes': {
-            'customA': { '$eq': 'SomethingA' },
-            'customB': { '$eq': 'Something B' }
+            'customA': {'$eq': 'SomethingA'},
+            'customB': {'$eq': 'Something B'}
         }
     })
 
