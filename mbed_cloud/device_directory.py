@@ -33,6 +33,7 @@ from mbed_cloud._backends.device_catalog.rest import \
 import mbed_cloud._backends.device_query_service as dc_queries
 from mbed_cloud._backends.device_query_service.rest import \
     ApiException as DeviceQueryServiceApiException
+from mbed_cloud.__init__ import decode_query
 
 LOG = logging.getLogger(__name__)
 
@@ -75,7 +76,7 @@ class DeviceDirectoryAPI(BaseAPI):
         :rtype: PaginatedResponse
         """
         kwargs = self._verify_sort_options(kwargs)
-        kwargs = self._verify_filters(kwargs)
+        kwargs = self._verify_device_filters(kwargs)
 
         api = self.dc.DefaultApi()
         return PaginatedResponse(api.device_list, lwrap_type=Device, **kwargs)
@@ -194,7 +195,7 @@ class DeviceDirectoryAPI(BaseAPI):
         return PaginatedResponse(api.device_query_list, lwrap_type=Query, **kwargs)
 
     @catch_exceptions(DeviceQueryServiceApiException)
-    def add_query(self, name, filter, custom_attributes=None, **kwargs):
+    def add_query(self, name, filter, **kwargs):
         """Add a new query to device query service.
 
         .. code-block:: python
@@ -210,16 +211,14 @@ class DeviceDirectoryAPI(BaseAPI):
 
         :param str name: Name of query
         :param dict filter: Filter properties to apply
-        :param dict custom_attributes: Extra query attributes
         :param return: the newly created query object.
         :return: the newly created query object
         :rtype: Query
         """
         api = self.dc_queries.DefaultApi()
 
-        # Ensure we have the correct types and get the new query object based on
-        # passed in query object and custom attributes.
-        query = self._get_query_attributes(filter, custom_attributes)
+        # Ensure we have the correct types and get the new query object
+        query = self._encode_query(filter)
 
         # Create the query object
         f = self.dc_queries.DeviceQuery(name=name, query=query, **kwargs)
@@ -227,41 +226,42 @@ class DeviceDirectoryAPI(BaseAPI):
         return Query(api.device_query_create(f))
 
     @catch_exceptions(DeviceQueryServiceApiException)
-    def update_query(self, query_id, name, filter, custom_attributes=None, **kwargs):
+    def update_query(self, query_id, name, filter=None, **kwargs):
         """Update existing query in device query service.
 
         .. code-block:: python
 
             q = api.get_query(...)
-            new_custom_attributes = {
-                "foo": "bar"
+            q.filter["custom_attributes"]["foo"] = {
+                "$eq": "bar"
             }
             new_q = api.update_query(
                 query_id = q.id,
                 name = "new name",
-                filter = q.filter,
-                custom_attributes = new_custom_attributes
+                filter = q.filter
             )
 
         :param str query_id: Existing query ID to update
         :param str name: (New) name of query
         :param dict query: (New) query properties to apply
-        :param dict custom_attributes: (New) extra query attributes
         :param return: the newly updated query object.
         :rtype: Query
         """
         api = self.dc_queries.DefaultApi()
 
         # Get urlencoded query attribute
-        query = self._get_query_attributes(filter, custom_attributes)
+        if filter is not None:
+            query = self._encode_query(filter)
+        else:
+            query = filter
 
-        body = self.dc_queries.DeviceQueryPostPutRequest(
+        body = self.dc_queries.DeviceQueryPatchRequest(
             name=name,
             query=query,
             **kwargs
         )
 
-        return Query(api.device_query_update(query_id, body))
+        return Query(api.device_query_partial_update(query_id, body))
 
     @catch_exceptions(DeviceQueryServiceApiException)
     def delete_query(self, query_id):
@@ -298,7 +298,7 @@ class DeviceDirectoryAPI(BaseAPI):
         :rtype: PaginatedResponse
         """
         kwargs = self._verify_sort_options(kwargs)
-        kwargs = self._verify_filters(kwargs)
+        kwargs = self._verify_device_filters(kwargs)
 
         api = self.dc.DefaultApi()
         return PaginatedResponse(api.device_log_list, lwrap_type=DeviceLog, **kwargs)
@@ -311,37 +311,6 @@ class DeviceDirectoryAPI(BaseAPI):
         """
         api = self.dc.DefaultApi()
         return DeviceLog(api.device_log_retrieve(device_log_id))
-
-    def _get_query_attributes(self, query, custom_attributes):
-        # Ensure the query is of dict type
-        if query and not isinstance(query, dict):
-            raise CloudValueError("'query' parameter needs to be of type dict")
-
-        # Add custom attributes, if provided
-        if custom_attributes:
-            if not isinstance(custom_attributes, dict):
-                raise CloudValueError("Custom attributes when creating query"
-                                      "needs to be dict object")
-            for k, v in custom_attributes.iteritems():
-                if not k:
-                    LOG.warning("Ignoring custom attribute with value %r as key is empty" % (v,))
-                    continue
-                query['custom_attributes__' + k] = v
-
-        # Ensure query is valid
-        if not query.keys():
-            raise CloudValueError("'query' parameter not valid, needs to contain query keys")
-
-        return self._urlify_query(query)
-
-    def _urlify_query(self, query):
-        # Quote strings using %20, not '+' which is default when urlencoding dicts
-        for k, v in query.iteritems():
-            if type(v) is str:
-                query[k] = urllib.quote(v)
-
-        # Encode the query string
-        return urllib.urlencode(query)
 
 
 class Device(BaseObject):
@@ -702,9 +671,15 @@ class Query(BaseObject):
         The device query
 
         :return: The query of this Query.
-        :rtype: str
+        :rtype: dict
         """
+        if isinstance(self._filter, str):
+            return decode_query(self._filter)
         return self._filter
+
+    @filter.setter
+    def filter(self, value):
+        self._filter = value
 
 
 class DeviceLog(DeviceLogData):

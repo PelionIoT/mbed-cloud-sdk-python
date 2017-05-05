@@ -28,6 +28,7 @@ from mbed_cloud._backends.deployment_service.rest\
 import mbed_cloud._backends.firmware_catalog as firmware_catalog
 from mbed_cloud._backends.firmware_catalog.rest\
     import ApiException as FirmwareCatalogApiException
+from mbed_cloud.__init__ import decode_query
 
 LOG = logging.getLogger(__name__)
 
@@ -102,6 +103,7 @@ class UpdateAPI(BaseAPI):
         :rtype: Campaign
         """
         api = self.deployment_service.DefaultApi()
+        device_filter = self._encode_query(device_filter)
         body = self.deployment_service.UpdateCampaignPostRequest(
             name=name,
             device_filter=device_filter,
@@ -130,6 +132,8 @@ class UpdateAPI(BaseAPI):
         api = self.deployment_service.DefaultApi()
         campaign_id = campaign_object.id
         campaign_object = campaign_object._create_patch_request()
+        if 'device_filter' in campaign_object:
+            campaign_object["device_filter"] = self._encode_query(campaign_object["device_filter"])
         return Campaign(api.update_campaign_partial_update(campaign_id=campaign_id,
                                                            campaign=campaign_object))
 
@@ -445,8 +449,10 @@ class Campaign(BaseObject):
     def device_filter(self):
         """The device filter to use.
 
-        :rtype: str
+        :rtype: dict
         """
+        if isinstance(self._device_filter, str):
+            return decode_query(self._device_filter)
         return self._device_filter
 
     @device_filter.setter
@@ -456,7 +462,7 @@ class Campaign(BaseObject):
         The filter for the devices the campaign will target
 
         :param device_filter: The device filter of this campaign.
-        :type: str
+        :type: dict
         """
         self._device_filter = device_filter
 

@@ -30,7 +30,7 @@ def _main():
 
     # Now only list the devices that are registered.
     filters = {
-        'state': 'registered'
+        'state': { '$eq': "deregistered" }
     }
     registered = api.list_devices(order='desc', limit=10, filters=filters)
     for idx, d in enumerate(registered):
