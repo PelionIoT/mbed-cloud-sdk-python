@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 
 
-<p>The APIs for creating and manipulating device queries.  </p> <p>Create device query</p>
+Create device query
 
 ### Example 
 ```python
@@ -69,7 +69,7 @@ Name | Type | Description  | Notes
 
 
 
-<p>The APIs for creating and manipulating device queries.  </p> <p>Delete device query</p>
+Delete device query
 
 ### Example 
 ```python
@@ -120,7 +120,7 @@ void (empty response body)
 
 
 
-<p>The APIs for creating and manipulating device queries.  </p> <p>List all device queries. The result will be paged into pages of 100.</p> <h4 id=\"filtering\">Filtering:</h4> <p><code>?filter={URL encoded query string}</code></p> <p>The query string is made up of key/value pairs separated by ampersands. So for a query of <code>key1=value1&amp;key2=value2&amp;key3=value3</code> this would be encoded as follows:</p> <p><code>?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3</code></p> <p>The examples below show the queries in <em>unencoded</em> form.</p> <h5 id=\"by-device-query-properties-all-properties-are-filterable\">By device query properties (all properties are filterable):</h5> <p>For example: <code>description={value}</code></p> <h5 id=\"on-date-time-fields\">On date-time fields:</h5> <p>Date-time fields should be specified in UTC RFC3339 format <code>YYYY-MM-DDThh:mm:ss.msZ</code>. There are three permitted variations:</p> <ul> <li>UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z</li> <li>UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z</li> <li>UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z</li> </ul> <p>Date-time filtering supports three operators:</p> <ul> <li>equality</li> <li>greater than or equal to &ndash; field name suffixed with <code>__gte</code></li> <li>less than or equal to &ndash; field name suffixed with <code>__lte</code></li> </ul> <p>Lower and upper limits to a date-time range may be specified by including both the <code>__gte</code> and <code>__lte</code> forms in the filter.</p> <p><code>{field name}[|__lte|__gte]={UTC RFC3339 date-time}</code></p> <h4 id=\"multi-field-example\">Multi-field example</h4> <p><code>query_id=0158d38771f70000000000010010038c&amp;created_at__gte=2016-11-30T16:25:12.1234Z&amp;created_at__lte=2016-12-30T00:00:00Z</code></p> <p>Encoded: <code>?filter=query_id%3D0158d38771f70000000000010010038c%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z</code></p>
+List all device queries. The result will be paged into pages of 100.
 
 ### Example 
 ```python
@@ -137,10 +137,10 @@ device_query_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = device_query_service.DefaultApi()
-limit = 56 # int | how many objects to retrieve in the page (optional)
+limit = 56 # int | How many objects to retrieve in the page. (optional)
 order = 'order_example' # str | ASC or DESC (optional)
-after = 'after_example' # str | the ID of the the item after which to retrieve the next page (optional)
-filter = 'filter_example' # str | URL encoded query string parameter to filter returned data (optional)
+after = 'after_example' # str | The ID of the the item after which to retrieve the next page. (optional)
+filter = 'filter_example' # str | URL encoded query string parameter to filter returned data.  ##### Filtering ```?filter={URL encoded query string}```  The query string is made up of key/value pairs separated by ampersands. So for a query of ```key1=value1&amp;key2=value2&amp;key3=value3``` this would be encoded as follows: ```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3``` The examples below show the queries in *unencoded* form.  ###### By device query properties (all properties are filterable): For example: ```description={value}```  ###### On date-time fields: Date-time fields should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &ndash; field name suffixed with ```__gte``` * less than or equal to &ndash; field name suffixed with ```__lte```  Lower and upper limits to a date-time range may be specified by including both the ```__gte``` and ```__lte``` forms in the filter.  ```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```  ##### Multi-field example  ```query_id=0158d38771f70000000000010010038c&amp;created_at__gte=2016-11-30T16:25:12.1234Z&amp;created_at__lte=2016-12-30T00:00:00Z```  Encoded:  ```filter=query_id%3D0158d38771f70000000000010010038c%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z``` (optional)
 include = 'include_example' # str | Comma separated list of data fields to return. Currently supported: total_count (optional)
 
 try: 
@@ -154,10 +154,10 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **int**| how many objects to retrieve in the page | [optional] 
+ **limit** | **int**| How many objects to retrieve in the page. | [optional] 
  **order** | **str**| ASC or DESC | [optional] 
- **after** | **str**| the ID of the the item after which to retrieve the next page | [optional] 
- **filter** | **str**| URL encoded query string parameter to filter returned data | [optional] 
+ **after** | **str**| The ID of the the item after which to retrieve the next page. | [optional] 
+ **filter** | **str**| URL encoded query string parameter to filter returned data.  ##### Filtering &#x60;&#x60;&#x60;?filter&#x3D;{URL encoded query string}&#x60;&#x60;&#x60;  The query string is made up of key/value pairs separated by ampersands. So for a query of &#x60;&#x60;&#x60;key1&#x3D;value1&amp;amp;key2&#x3D;value2&amp;amp;key3&#x3D;value3&#x60;&#x60;&#x60; this would be encoded as follows: &#x60;&#x60;&#x60;?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3&#x60;&#x60;&#x60; The examples below show the queries in *unencoded* form.  ###### By device query properties (all properties are filterable): For example: &#x60;&#x60;&#x60;description&#x3D;{value}&#x60;&#x60;&#x60;  ###### On date-time fields: Date-time fields should be specified in UTC RFC3339 format &#x60;&#x60;&#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;&#x60;&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &amp;ndash; field name suffixed with &#x60;&#x60;&#x60;__gte&#x60;&#x60;&#x60; * less than or equal to &amp;ndash; field name suffixed with &#x60;&#x60;&#x60;__lte&#x60;&#x60;&#x60;  Lower and upper limits to a date-time range may be specified by including both the &#x60;&#x60;&#x60;__gte&#x60;&#x60;&#x60; and &#x60;&#x60;&#x60;__lte&#x60;&#x60;&#x60; forms in the filter.  &#x60;&#x60;&#x60;{field name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&#x60;&#x60;&#x60;  ##### Multi-field example  &#x60;&#x60;&#x60;query_id&#x3D;0158d38771f70000000000010010038c&amp;amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;&#x60;&#x60;  Encoded:  &#x60;&#x60;&#x60;filter&#x3D;query_id%3D0158d38771f70000000000010010038c%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z&#x60;&#x60;&#x60; | [optional] 
  **include** | **str**| Comma separated list of data fields to return. Currently supported: total_count | [optional] 
 
 ### Return type
@@ -180,7 +180,7 @@ Name | Type | Description  | Notes
 
 
 
-<p>The APIs for creating and manipulating device queries.  </p> <p>Update device query fields</p>
+Update device query fields
 
 ### Example 
 ```python
@@ -234,7 +234,7 @@ Name | Type | Description  | Notes
 
 
 
-<p>The APIs for creating and manipulating device queries.  </p> <p>Retrieve device query.</p>
+Retrieve device query
 
 ### Example 
 ```python
@@ -286,7 +286,7 @@ Name | Type | Description  | Notes
 
 
 
-<p>The APIs for creating and manipulating device queries.  </p> <p>Update device query.</p>
+Update device query
 
 ### Example 
 ```python
@@ -304,7 +304,7 @@ device_query_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = device_query_service.DefaultApi()
 query_id = 'query_id_example' # str | 
-body = device_query_service.DeviceQueryPostPutRequest() # DeviceQueryPostPutRequest | Device query update object
+body = device_query_service.DeviceQueryPostPutRequest() # DeviceQueryPostPutRequest | Device query update object.
 
 try: 
     api_response = api_instance.device_query_update(query_id, body)
@@ -318,7 +318,7 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **query_id** | **str**|  | 
- **body** | [**DeviceQueryPostPutRequest**](DeviceQueryPostPutRequest.md)| Device query update object | 
+ **body** | [**DeviceQueryPostPutRequest**](DeviceQueryPostPutRequest.md)| Device query update object. | 
 
 ### Return type
 

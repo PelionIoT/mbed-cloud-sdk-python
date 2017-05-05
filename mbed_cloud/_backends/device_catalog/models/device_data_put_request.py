@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    Device Catalog API
+    Device Directory API
 
-    This is the API Documentation for the mbed device catalog update service.
+    This is the API Documentation for the mbed device directory update service.
 
     OpenAPI spec version: 0.1
     
@@ -65,6 +65,7 @@ class DeviceDataPutRequest(object):
     def description(self):
         """
         Gets the description of this DeviceDataPutRequest.
+        The description of the object.
 
         :return: The description of this DeviceDataPutRequest.
         :rtype: str
@@ -75,6 +76,7 @@ class DeviceDataPutRequest(object):
     def description(self, description):
         """
         Sets the description of this DeviceDataPutRequest.
+        The description of the object.
 
         :param description: The description of this DeviceDataPutRequest.
         :type: str
@@ -86,6 +88,7 @@ class DeviceDataPutRequest(object):
     def endpoint_name(self):
         """
         Gets the endpoint_name of this DeviceDataPutRequest.
+        The endpoint name given to the device.
 
         :return: The endpoint_name of this DeviceDataPutRequest.
         :rtype: str
@@ -96,6 +99,7 @@ class DeviceDataPutRequest(object):
     def endpoint_name(self, endpoint_name):
         """
         Sets the endpoint_name of this DeviceDataPutRequest.
+        The endpoint name given to the device.
 
         :param endpoint_name: The endpoint_name of this DeviceDataPutRequest.
         :type: str
@@ -109,6 +113,7 @@ class DeviceDataPutRequest(object):
     def auto_update(self):
         """
         Gets the auto_update of this DeviceDataPutRequest.
+        Mark this device for auto firmware update.
 
         :return: The auto_update of this DeviceDataPutRequest.
         :rtype: bool
@@ -119,6 +124,7 @@ class DeviceDataPutRequest(object):
     def auto_update(self, auto_update):
         """
         Sets the auto_update of this DeviceDataPutRequest.
+        Mark this device for auto firmware update.
 
         :param auto_update: The auto_update of this DeviceDataPutRequest.
         :type: bool
@@ -130,6 +136,7 @@ class DeviceDataPutRequest(object):
     def object(self):
         """
         Gets the object of this DeviceDataPutRequest.
+        The API resource entity.
 
         :return: The object of this DeviceDataPutRequest.
         :rtype: str
@@ -140,6 +147,7 @@ class DeviceDataPutRequest(object):
     def object(self, object):
         """
         Sets the object of this DeviceDataPutRequest.
+        The API resource entity.
 
         :param object: The object of this DeviceDataPutRequest.
         :type: str
@@ -151,6 +159,7 @@ class DeviceDataPutRequest(object):
     def custom_attributes(self):
         """
         Gets the custom_attributes of this DeviceDataPutRequest.
+        Up to 5 custom JSON attributes
 
         :return: The custom_attributes of this DeviceDataPutRequest.
         :rtype: object
@@ -161,6 +170,7 @@ class DeviceDataPutRequest(object):
     def custom_attributes(self, custom_attributes):
         """
         Sets the custom_attributes of this DeviceDataPutRequest.
+        Up to 5 custom JSON attributes
 
         :param custom_attributes: The custom_attributes of this DeviceDataPutRequest.
         :type: object
@@ -172,6 +182,7 @@ class DeviceDataPutRequest(object):
     def device_key(self):
         """
         Gets the device_key of this DeviceDataPutRequest.
+        Fingerprint of the device certificate.
 
         :return: The device_key of this DeviceDataPutRequest.
         :rtype: str
@@ -182,6 +193,7 @@ class DeviceDataPutRequest(object):
     def device_key(self, device_key):
         """
         Sets the device_key of this DeviceDataPutRequest.
+        Fingerprint of the device certificate.
 
         :param device_key: The device_key of this DeviceDataPutRequest.
         :type: str
@@ -197,6 +209,7 @@ class DeviceDataPutRequest(object):
     def ca_id(self):
         """
         Gets the ca_id of this DeviceDataPutRequest.
+        ID of the issuer of the certificate.
 
         :return: The ca_id of this DeviceDataPutRequest.
         :rtype: str
@@ -207,6 +220,7 @@ class DeviceDataPutRequest(object):
     def ca_id(self, ca_id):
         """
         Sets the ca_id of this DeviceDataPutRequest.
+        ID of the issuer of the certificate.
 
         :param ca_id: The ca_id of this DeviceDataPutRequest.
         :type: str
@@ -222,6 +236,7 @@ class DeviceDataPutRequest(object):
     def name(self):
         """
         Gets the name of this DeviceDataPutRequest.
+        The name of the object.
 
         :return: The name of this DeviceDataPutRequest.
         :rtype: str
@@ -232,6 +247,7 @@ class DeviceDataPutRequest(object):
     def name(self, name):
         """
         Sets the name of this DeviceDataPutRequest.
+        The name of the object.
 
         :param name: The name of this DeviceDataPutRequest.
         :type: str

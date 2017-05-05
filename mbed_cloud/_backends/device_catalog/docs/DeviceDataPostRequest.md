@@ -3,29 +3,29 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**bootstrap_expiration_date** | **datetime** |  | [optional] 
-**bootstrapped_timestamp** | **datetime** |  | [optional] 
-**connector_expiration_date** | **datetime** |  | [optional] 
-**mechanism** | **str** |  | [optional] 
-**device_class** | **str** |  | [optional] 
-**endpoint_name** | **str** |  | [optional] 
-**auto_update** | **bool** |  | [optional] 
-**device_execution_mode** | **int** |  | [optional] 
-**custom_attributes** | **object** |  | [optional] 
-**state** | **str** |  | [optional] 
-**serial_number** | **str** |  | [optional] 
-**firmware_checksum** | **str** |  | [optional] 
-**vendor_id** | **str** |  | [optional] 
-**description** | **str** |  | [optional] 
-**deployed_state** | **str** |  | [optional] 
-**object** | **str** |  | [optional] 
-**deployment** | **str** |  | [optional] 
-**mechanism_url** | **str** |  | [optional] 
-**trust_level** | **int** |  | [optional] 
-**name** | **str** |  | [optional] 
-**device_key** | **str** |  | 
-**manifest** | **str** |  | [optional] 
-**ca_id** | **str** |  | 
+**bootstrap_expiration_date** | **datetime** | Expiration date of the certificate used to connect to bootstrap server. | [optional] 
+**bootstrapped_timestamp** | **datetime** | Timestamp of when the device was bootstrapped. | [optional] 
+**connector_expiration_date** | **datetime** | Expiration date of the certificate used to connect to connector server. | [optional] 
+**mechanism** | **str** | The ID of the channel used to communicate with the device. | [optional] 
+**device_class** | **str** | The device class. | [optional] 
+**endpoint_name** | **str** | The endpoint name given to the device. | [optional] 
+**auto_update** | **bool** | Mark this device for auto firmware update. | [optional] 
+**device_execution_mode** | **int** | Defines the type of certificate used. | [optional] 
+**custom_attributes** | **object** | Up to 5 custom JSON attributes | [optional] 
+**state** | **str** | The current state of the device. | [optional] 
+**serial_number** | **str** | The serial number of the device. | [optional] 
+**firmware_checksum** | **str** | The SHA256 checksum of the current firmware image. | [optional] 
+**vendor_id** | **str** | The device vendor ID. | [optional] 
+**description** | **str** | The description of the object. | [optional] 
+**deployed_state** | **str** | DEPRECATED The state of the device&#39;s deployment. | [optional] 
+**object** | **str** | The API resource entity. | [optional] 
+**deployment** | **str** | DEPRECATED The last deployment used on the device. | [optional] 
+**mechanism_url** | **str** | The address of the connector to use. | [optional] 
+**trust_level** | **int** | The device trust level. | [optional] 
+**name** | **str** | The name of the object. | [optional] 
+**device_key** | **str** | Fingerprint of the device certificate. | 
+**manifest** | **str** | DEPRECATED The URL for the current device manifest. | [optional] 
+**ca_id** | **str** | ID of the issuer of the certificate. | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

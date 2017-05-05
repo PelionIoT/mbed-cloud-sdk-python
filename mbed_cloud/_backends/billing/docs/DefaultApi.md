@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**v1_imports_activedevices_get**](DefaultApi.md#v1_imports_activedevices_get) | **GET** /v1/imports/activedevices | Active devices
 [**v1_imports_get**](DefaultApi.md#v1_imports_get) | **GET** /v1/imports | Import log
 [**v1_metrics_get**](DefaultApi.md#v1_metrics_get) | **GET** /v1/metrics | System metrics
+[**v1_report_activedevices_get**](DefaultApi.md#v1_report_activedevices_get) | **GET** /v1/report/activedevices | Active devices per account in reporting
 [**v1_report_get**](DefaultApi.md#v1_report_get) | **GET** /v1/report | Billing report
 [**v1_services_get**](DefaultApi.md#v1_services_get) | **GET** /v1/services | Known services
 [**v1_stats_get**](DefaultApi.md#v1_stats_get) | **GET** /v1/stats | Account billing data
@@ -366,6 +367,61 @@ This endpoint does not need any parameter.
 ### Return type
 
 [**Metrics**](Metrics.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **v1_report_activedevices_get**
+> list[ActiveDevice] v1_report_activedevices_get(account, month)
+
+Active devices per account in reporting
+
+Get active devices for a commercial account with specified month.
+
+### Example 
+```python
+from __future__ import print_statement
+import time
+import billing
+from billing.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+billing.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# billing.configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = billing.DefaultApi()
+account = 'account_example' # str | account id
+month = 'month_example' # str | year and month
+
+try: 
+    # Active devices per account in reporting
+    api_response = api_instance.v1_report_activedevices_get(account, month)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->v1_report_activedevices_get: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **account** | **str**| account id | 
+ **month** | **str**| year and month | 
+
+### Return type
+
+[**list[ActiveDevice]**](ActiveDevice.md)
 
 ### Authorization
 

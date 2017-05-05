@@ -15,29 +15,7 @@
 from mbed_cloud.device_directory import DeviceDirectoryAPI
 import random
 import string
-import urllib
-import urlparse
 import uuid
-
-
-def _print_queries(queries, start_idx=0):
-    queries_str = []
-    for idx, q in enumerate(queries):
-        queries_str.append(_str_query(q, idx=start_idx + idx + 1))
-    print("\n\n".join(queries_str))
-
-
-def _parse_query_qs(q):
-    qs = urlparse.parse_qs(urllib.unquote(q.filter))
-    return {key: ", ".join(value) for (key, value) in qs.iteritems()}
-
-
-def _str_query(q, idx):
-    name = q.name
-    queries = _parse_query_qs(q)
-    s = "%d) %s\n%s\n" % (idx, q.name, "-" * len(name))
-    s += "\n".join(["%s = %s" % (k, v) for k, v in queries.iteritems()])
-    return s
 
 
 def _id_generator(size=6, chars=string.ascii_uppercase + string.digits):
@@ -49,10 +27,10 @@ def _main():
 
     # Pretty print all the registered queries
     for idx, e in enumerate(api.list_queries(limit=5)):
-        print(_str_query(e, idx))
+        print(e)
 
     # Create a new query
-    new_query = api.add_query("test_filter", {'device_id': str(uuid.uuid4())})
+    new_query = api.add_query("test_filter", {'device_id': {'$eq': str(uuid.uuid4())}})
     print("\nCreated new query: %r" % (new_query.name))
 
     # Delete same query
@@ -62,34 +40,32 @@ def _main():
     # Create more complex query
     print("Creating complex query")
     new_c_query = api.add_query("complex_test_query %s" % _id_generator(), {
-        'device_id': str(uuid.uuid4()),
-        'auto_update': True,
-        'state': 'bootstrapped',
-        'device_class': 'embedded',
-        'serial_number': '1234',
-        'vendor_id': 'ARM',
-        'description': 'Loreum ipsum',
-        'device_name': 'DeviceName'
-    }, {
-        'customA': 'SomethingA',
-        'customB': 'Something B'
+        'device_id': {'$eq': str(uuid.uuid4())},
+        'auto_update': {'$eq': True},
+        'state': {'$eq': 'bootstrapped'},
+        'device_class': {'$eq': 'embedded'},
+        'serial_number': {'$eq': '1234'},
+        'vendor_id': {'$eq': 'ARM'},
+        'description': {'$eq': 'Loreum ipsum'},
+        'device_name': {'$eq': 'DeviceName'},
+        'custom_attributes': {
+            'customA': {'$eq': 'SomethingA'},
+            'customB': {'$eq': 'Something B'}
+        }
     })
 
     # Manually get it
     gf = api.get_query(new_c_query.id)
     print("Got query %r using 'get'" % gf.name)
-
     # Update the query
-    q = _parse_query_qs(gf)
-    q['serial_number'] = '12345'
+    gf.filter['serial_number']['$eq'] = '12345'
     updated_gf = api.update_query(
         query_id=gf.id,
         name=gf.name,
-        filter=q
+        filter=gf.filter
     )
     # Check it was successful
-    assert _parse_query_qs(gf)['serial_number'] == '1234'
-    assert _parse_query_qs(updated_gf)['serial_number'] == '12345'
+    assert updated_gf.filter['serial_number']['$eq'] == '12345'
     print ("Updated query with new serial number")
 
     # And delete that too

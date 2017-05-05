@@ -47,7 +47,7 @@ class DeviceQueryPatchRequest(object):
     def query(self):
         """
         Gets the query of this DeviceQueryPatchRequest.
-        The device query
+        The device query.
 
         :return: The query of this DeviceQueryPatchRequest.
         :rtype: str
@@ -58,7 +58,7 @@ class DeviceQueryPatchRequest(object):
     def query(self, query):
         """
         Sets the query of this DeviceQueryPatchRequest.
-        The device query
+        The device query.
 
         :param query: The query of this DeviceQueryPatchRequest.
         :type: str
@@ -72,7 +72,7 @@ class DeviceQueryPatchRequest(object):
     def name(self):
         """
         Gets the name of this DeviceQueryPatchRequest.
-        The name of the query
+        The name of the query.
 
         :return: The name of this DeviceQueryPatchRequest.
         :rtype: str
@@ -83,7 +83,7 @@ class DeviceQueryPatchRequest(object):
     def name(self, name):
         """
         Sets the name of this DeviceQueryPatchRequest.
-        The name of the query
+        The name of the query.
 
         :param name: The name of this DeviceQueryPatchRequest.
         :type: str

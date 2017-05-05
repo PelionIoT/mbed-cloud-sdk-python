@@ -133,7 +133,7 @@ Name | Type | Description  | Notes
 
 Create a new user.
 
-An endpoint for creating a new user.
+An endpoint for creating or inviting a new user to the account. In case of invitation email address is used only, other attributes are set in the 2nd step.
 
 ### Example 
 ```python

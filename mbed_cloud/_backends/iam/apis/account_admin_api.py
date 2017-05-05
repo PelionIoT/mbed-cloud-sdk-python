@@ -264,7 +264,7 @@ class AccountAdminApi(object):
     def create_user(self, body, **kwargs):
         """
         Create a new user.
-        An endpoint for creating a new user.
+        An endpoint for creating or inviting a new user to the account. In case of invitation email address is used only, other attributes are set in the 2nd step.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -291,7 +291,7 @@ class AccountAdminApi(object):
     def create_user_with_http_info(self, body, **kwargs):
         """
         Create a new user.
-        An endpoint for creating a new user.
+        An endpoint for creating or inviting a new user to the account. In case of invitation email address is used only, other attributes are set in the 2nd step.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.

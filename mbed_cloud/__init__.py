@@ -16,8 +16,10 @@ from six import iteritems
 from six import string_types
 import sys
 import urllib
+import urlparse
 
 from mbed_cloud.bootstrap import Config
+from mbed_cloud.exceptions import CloudValueError
 
 config = Config()
 
@@ -79,6 +81,61 @@ class BaseAPI(object):
             del kwargs['filters']
         return kwargs
 
+    def _verify_device_filters(self, kwargs):
+        if kwargs.get('filters'):
+            kwargs.update({'filter': kwargs.get('filters')})
+            del kwargs['filters']
+        if 'filter' in kwargs:
+            kwargs.update({'filter': self._encode_query(kwargs.get('filter'))})
+        return kwargs
+
+    def _set_custom_attributes(self, query):
+        if "custom_attributes" in query:
+            custom_attributes = query["custom_attributes"]
+            del query["custom_attributes"]
+            if not isinstance(custom_attributes, dict):
+                raise CloudValueError("Custom attributes when creating query"
+                                      "needs to be dict object")
+            for k, v in custom_attributes.iteritems():
+                if not k:
+                    print("Ignoring custom attribute with value %r as key is empty" % (v,))
+                    continue
+                query['custom_attributes__' + k] = v
+
+    def _get_key_suffix(self, operator):
+        suffix = ""
+        if operator == "eq":
+            suffix = ""
+        elif operator == "ne":
+            suffix = "__neq"
+        else:
+            suffix = "__%s" % (operator)
+        return suffix
+
+    def _encode_query(self, query):
+        # Ensure the query is of dict type
+        if query and not isinstance(query, dict):
+            raise CloudValueError("'query' parameter needs to be of type dict")
+
+        # Add custom attributes, if provided
+        self._set_custom_attributes(query)
+
+        # Ensure query is valid
+        if not query.keys():
+            raise CloudValueError("'query' parameter not valid, needs to contain query keys")
+        filters = {}
+        for k, v in query.iteritems():
+            if isinstance(v, dict):
+                for operator, val in v.iteritems():
+                    operator = operator.replace("$", "")
+                    if isinstance(val, bool):
+                        val = str(val)
+                    suffix = self._get_key_suffix(operator)
+                    key = "%s%s" % (k, suffix)
+                    filters[key] = urllib.quote(val)
+        # Encode the query string
+        return urllib.urlencode(filters)
+
 
 class BaseObject(object):
     """Base class for APIs classes."""
@@ -101,6 +158,40 @@ class BaseObject(object):
         for key, value in iteritems(self._get_attributes_map()):
             dictionary[key] = getattr(self, key, None)
         return dictionary
+
+    def _get_operator(self, key):
+        operator = ""
+        if key.endswith("__eq"):
+            operator = "eq"
+        elif key.endswith("__neq"):
+            operator = "neq"
+        elif key.endswith("__lte"):
+            operator = "lte"
+        elif key.endswith("__gte"):
+            operator = "gte"
+        return operator
+
+    def _decode_query(self, query):
+        qs = urlparse.parse_qs(urllib.unquote(query))
+        query = {}
+        for (key, value) in qs.iteritems():
+            operator = self._get_operator(key)
+            if operator is not "":
+                key = key.replace("__%s" % (operator), "")
+            else:
+                operator = "eq"
+            if key.startswith("custom_attributes"):
+                key = key.replace("custom_attributes__", "")
+                if "custom_attributes" not in query:
+                    query["custom_attributes"] = {}
+                val = query["custom_attributes"].get(key, {})
+                val["$%s" % (operator)] = value[0]
+                query["custom_attributes"][key] = val
+            else:
+                val = query.get(key, {})
+                val["$%s" % (operator)] = value[0]
+                query[key] = val
+        return query
 
     def __repr__(self):
         """For print and pprint."""

@@ -4,7 +4,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **code** | **int** | HTTP response code. | [optional] 
-**fields** | [**FieldsArray**](FieldsArray.md) |  | [optional] 
+**fields** | [**list[Field]**](Field.md) | Details of the error fields. | [optional] 
 **object** | **str** | Response type, always \&quot;error\&quot;. | [optional] 
 **request_id** | **str** | Request ID. | [optional] 
 **message** | **str** | Description of the error. | [optional] 

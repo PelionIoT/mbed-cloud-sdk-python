@@ -33,6 +33,7 @@ Name | Type | Description | Notes
 **vertx_eventbus_messages_reply_failures** | [**MetricMeter**](MetricMeter.md) |  | 
 **vertx_http_clients_iam_head_requests** | [**MetricTimer**](MetricTimer.md) |  | 
 **jvm_mem_pools_ps_old_gen_max** | [**MetricGauge**](MetricGauge.md) |  | 
+**persistence_update_update_account_upgrade_time** | [**MetricTimer**](MetricTimer.md) |  | 
 **jvm_mem_pools_compressed_class_space_init** | [**MetricGauge**](MetricGauge.md) |  | 
 **jvm_mem_pools_code_cache_usage** | [**MetricGauge**](MetricGauge.md) |  | 
 **vertx_verticles** | [**MetricCounter**](MetricCounter.md) |  | 
@@ -122,7 +123,7 @@ Name | Type | Description | Notes
 **vertx_http_clients_iam_post_requests** | [**MetricTimer**](MetricTimer.md) |  | 
 **vertx_http_servers_open_websockets** | [**MetricCounter**](MetricCounter.md) |  | 
 **vertx_http_servers_other_requests** | [**MetricTimer**](MetricTimer.md) |  | 
-**vertx_pools_worker_vert_x_worker_thread_in_use** | [**MetricCounter**](MetricCounter.md) |  | 
+**http_handler_report_activedevices_timer** | [**MetricTimer**](MetricTimer.md) |  | 
 **jvm_mem_heap_usage** | [**MetricGauge**](MetricGauge.md) |  | 
 **jvm_mem_non_heap_committed** | [**MetricGauge**](MetricGauge.md) |  | 
 **jvm_mem_pools_compressed_class_space_usage** | [**MetricGauge**](MetricGauge.md) |  | 
@@ -163,6 +164,7 @@ Name | Type | Description | Notes
 **persistent_store_ds_pool_pending_connections** | [**MetricGauge**](MetricGauge.md) |  | 
 **jvm_mem_pools_ps_old_gen_used** | [**MetricGauge**](MetricGauge.md) |  | 
 **jvm_mem_pools_metaspace_usage** | [**MetricGauge**](MetricGauge.md) |  | 
+**vertx_pools_worker_vert_x_worker_thread_in_use** | [**MetricCounter**](MetricCounter.md) |  | 
 **persistence_select_time_series** | [**MetricTimer**](MetricTimer.md) |  | 
 **jvm_mem_pools_metaspace_committed** | [**MetricGauge**](MetricGauge.md) |  | 
 **vertx_eventbus_messages_delivered** | [**MetricMeter**](MetricMeter.md) |  | 

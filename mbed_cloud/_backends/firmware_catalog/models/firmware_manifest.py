@@ -97,7 +97,7 @@ class FirmwareManifest(object):
     def description(self):
         """
         Gets the description of this FirmwareManifest.
-        The description of the object
+        The description of the object.
 
         :return: The description of this FirmwareManifest.
         :rtype: str
@@ -108,7 +108,7 @@ class FirmwareManifest(object):
     def description(self, description):
         """
         Sets the description of this FirmwareManifest.
-        The description of the object
+        The description of the object.
 
         :param description: The description of this FirmwareManifest.
         :type: str
@@ -122,7 +122,7 @@ class FirmwareManifest(object):
     def timestamp(self):
         """
         Gets the timestamp of this FirmwareManifest.
-        The version of the firmware manifest (as a timestamp)
+        The version of the firmware manifest (as a timestamp).
 
         :return: The timestamp of this FirmwareManifest.
         :rtype: datetime
@@ -133,7 +133,7 @@ class FirmwareManifest(object):
     def timestamp(self, timestamp):
         """
         Sets the timestamp of this FirmwareManifest.
-        The version of the firmware manifest (as a timestamp)
+        The version of the firmware manifest (as a timestamp).
 
         :param timestamp: The timestamp of this FirmwareManifest.
         :type: datetime
@@ -147,7 +147,7 @@ class FirmwareManifest(object):
     def created_at(self):
         """
         Gets the created_at of this FirmwareManifest.
-        The time the object was created
+        The time the object was created.
 
         :return: The created_at of this FirmwareManifest.
         :rtype: datetime
@@ -158,7 +158,7 @@ class FirmwareManifest(object):
     def created_at(self, created_at):
         """
         Sets the created_at of this FirmwareManifest.
-        The time the object was created
+        The time the object was created.
 
         :param created_at: The created_at of this FirmwareManifest.
         :type: datetime
@@ -172,7 +172,7 @@ class FirmwareManifest(object):
     def object(self):
         """
         Gets the object of this FirmwareManifest.
-        The API resource entity
+        The API resource entity.
 
         :return: The object of this FirmwareManifest.
         :rtype: str
@@ -183,7 +183,7 @@ class FirmwareManifest(object):
     def object(self, object):
         """
         Sets the object of this FirmwareManifest.
-        The API resource entity
+        The API resource entity.
 
         :param object: The object of this FirmwareManifest.
         :type: str
@@ -197,7 +197,7 @@ class FirmwareManifest(object):
     def updated_at(self):
         """
         Gets the updated_at of this FirmwareManifest.
-        The time the object was updated
+        The time the object was updated.
 
         :return: The updated_at of this FirmwareManifest.
         :rtype: datetime
@@ -208,7 +208,7 @@ class FirmwareManifest(object):
     def updated_at(self, updated_at):
         """
         Sets the updated_at of this FirmwareManifest.
-        The time the object was updated
+        The time the object was updated.
 
         :param updated_at: The updated_at of this FirmwareManifest.
         :type: datetime
@@ -222,7 +222,7 @@ class FirmwareManifest(object):
     def manifest_contents(self):
         """
         Gets the manifest_contents of this FirmwareManifest.
-        The contents of the manifest
+        The contents of the manifest.
 
         :return: The manifest_contents of this FirmwareManifest.
         :rtype: object
@@ -233,7 +233,7 @@ class FirmwareManifest(object):
     def manifest_contents(self, manifest_contents):
         """
         Sets the manifest_contents of this FirmwareManifest.
-        The contents of the manifest
+        The contents of the manifest.
 
         :param manifest_contents: The manifest_contents of this FirmwareManifest.
         :type: object
@@ -247,7 +247,7 @@ class FirmwareManifest(object):
     def etag(self):
         """
         Gets the etag of this FirmwareManifest.
-        The entity instance signature
+        The entity instance signature.
 
         :return: The etag of this FirmwareManifest.
         :rtype: datetime
@@ -258,7 +258,7 @@ class FirmwareManifest(object):
     def etag(self, etag):
         """
         Sets the etag of this FirmwareManifest.
-        The entity instance signature
+        The entity instance signature.
 
         :param etag: The etag of this FirmwareManifest.
         :type: datetime
@@ -272,7 +272,7 @@ class FirmwareManifest(object):
     def device_class(self):
         """
         Gets the device_class of this FirmwareManifest.
-        The class of device
+        The class of device.
 
         :return: The device_class of this FirmwareManifest.
         :rtype: str
@@ -283,7 +283,7 @@ class FirmwareManifest(object):
     def device_class(self, device_class):
         """
         Sets the device_class of this FirmwareManifest.
-        The class of device
+        The class of device.
 
         :param device_class: The device_class of this FirmwareManifest.
         :type: str
@@ -297,7 +297,7 @@ class FirmwareManifest(object):
     def id(self):
         """
         Gets the id of this FirmwareManifest.
-        The ID of the firmware manifest
+        The ID of the firmware manifest.
 
         :return: The id of this FirmwareManifest.
         :rtype: str
@@ -308,7 +308,7 @@ class FirmwareManifest(object):
     def id(self, id):
         """
         Sets the id of this FirmwareManifest.
-        The ID of the firmware manifest
+        The ID of the firmware manifest.
 
         :param id: The id of this FirmwareManifest.
         :type: str
@@ -322,7 +322,7 @@ class FirmwareManifest(object):
     def name(self):
         """
         Gets the name of this FirmwareManifest.
-        The name of the object
+        The name of the object.
 
         :return: The name of this FirmwareManifest.
         :rtype: str
@@ -333,7 +333,7 @@ class FirmwareManifest(object):
     def name(self, name):
         """
         Sets the name of this FirmwareManifest.
-        The name of the object
+        The name of the object.
 
         :param name: The name of this FirmwareManifest.
         :type: str

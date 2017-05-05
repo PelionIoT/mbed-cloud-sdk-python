@@ -134,7 +134,7 @@ class ConnectAPI(BaseAPI):
         :rtype: list
         """
         api = self.mds.EndpointsApi()
-        return [Resource(r) for r in api.v2_endpoints_id_get(device_id)]
+        return [Resource(r) for r in api.v2_endpoints_device_id_get(device_id)]
 
     @catch_exceptions(MdsApiException)
     def get_resource_value(self, device_id, resource_path, fix_path=True, timeout=None):
@@ -169,7 +169,7 @@ class ConnectAPI(BaseAPI):
         if fix_path and resource_path.startswith("/"):
             resource_path = resource_path[1:]
         api = self.mds.ResourcesApi()
-        resp = api.v2_endpoints_id_resource_path_get(device_id, resource_path)
+        resp = api.v2_endpoints_device_id_resource_path_get(device_id, resource_path)
 
         # The async consumer, which will read data from long-polling thread
         consumer = AsyncConsumer(resp.async_response_id, self._db)
@@ -203,7 +203,7 @@ class ConnectAPI(BaseAPI):
             resource_path = resource_path[1:]
 
         api = self.mds.ResourcesApi()
-        resp = api.v2_endpoints_id_resource_path_get(device_id, resource_path)
+        resp = api.v2_endpoints_device_id_resource_path_get(device_id, resource_path)
 
         # The async consumer, which will read data from long-polling thread
         return AsyncConsumer(resp.async_response_id, self._db)
@@ -240,9 +240,11 @@ class ConnectAPI(BaseAPI):
         api = self.mds.ResourcesApi()
 
         if resource_value:
-            resp = api.v2_endpoints_id_resource_path_put(device_id, resource_path, resource_value)
+            resp = api.v2_endpoints_device_id_resource_path_put(device_id,
+                                                                resource_path,
+                                                                resource_value)
         else:
-            resp = api.v2_endpoints_id_resource_path_post(device_id, resource_path)
+            resp = api.v2_endpoints_device_id_resource_path_post(device_id, resource_path)
         consumer = AsyncConsumer(resp.async_response_id, self._db)
         return self._get_value_synchronized(consumer)
 
@@ -278,9 +280,11 @@ class ConnectAPI(BaseAPI):
         api = self.mds.ResourcesApi()
 
         if resource_value:
-            resp = api.v2_endpoints_id_resource_path_put(device_id, resource_path, resource_value)
+            resp = api.v2_endpoints_device_id_resource_path_put(device_id,
+                                                                resource_path,
+                                                                resource_value)
         else:
-            resp = api.v2_endpoints_id_resource_path_post(device_id, resource_path)
+            resp = api.v2_endpoints_device_id_resource_path_post(device_id, resource_path)
 
         return AsyncConsumer(resp.async_response_id, self._db)
 
@@ -311,7 +315,7 @@ class ConnectAPI(BaseAPI):
 
         # Send subscription request
         api = self.mds.SubscriptionsApi()
-        api.v2_subscriptions_id_resource_path_put(device_id, fixed_path)
+        api.v2_subscriptions_device_id_resource_path_put(device_id, fixed_path)
 
         # Return the Queue object to the user
         return q
@@ -391,7 +395,7 @@ class ConnectAPI(BaseAPI):
                     fixed_path = r[1:]
 
                 # Make request to API, ignoring result
-                api.v2_subscriptions_id_resource_path_delete(device_id, fixed_path)
+                api.v2_subscriptions_device_id_resource_path_delete(device_id, fixed_path)
 
                 # Remove Queue from dictionary
                 del self._queues[e][r]

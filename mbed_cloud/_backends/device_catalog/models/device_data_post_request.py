@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    Device Catalog API
+    Device Directory API
 
-    This is the API Documentation for the mbed device catalog update service.
+    This is the API Documentation for the mbed device directory update service.
 
     OpenAPI spec version: 0.1
     
@@ -110,6 +110,7 @@ class DeviceDataPostRequest(object):
     def bootstrap_expiration_date(self):
         """
         Gets the bootstrap_expiration_date of this DeviceDataPostRequest.
+        Expiration date of the certificate used to connect to bootstrap server.
 
         :return: The bootstrap_expiration_date of this DeviceDataPostRequest.
         :rtype: datetime
@@ -120,6 +121,7 @@ class DeviceDataPostRequest(object):
     def bootstrap_expiration_date(self, bootstrap_expiration_date):
         """
         Sets the bootstrap_expiration_date of this DeviceDataPostRequest.
+        Expiration date of the certificate used to connect to bootstrap server.
 
         :param bootstrap_expiration_date: The bootstrap_expiration_date of this DeviceDataPostRequest.
         :type: datetime
@@ -131,6 +133,7 @@ class DeviceDataPostRequest(object):
     def bootstrapped_timestamp(self):
         """
         Gets the bootstrapped_timestamp of this DeviceDataPostRequest.
+        Timestamp of when the device was bootstrapped.
 
         :return: The bootstrapped_timestamp of this DeviceDataPostRequest.
         :rtype: datetime
@@ -141,6 +144,7 @@ class DeviceDataPostRequest(object):
     def bootstrapped_timestamp(self, bootstrapped_timestamp):
         """
         Sets the bootstrapped_timestamp of this DeviceDataPostRequest.
+        Timestamp of when the device was bootstrapped.
 
         :param bootstrapped_timestamp: The bootstrapped_timestamp of this DeviceDataPostRequest.
         :type: datetime
@@ -152,6 +156,7 @@ class DeviceDataPostRequest(object):
     def connector_expiration_date(self):
         """
         Gets the connector_expiration_date of this DeviceDataPostRequest.
+        Expiration date of the certificate used to connect to connector server.
 
         :return: The connector_expiration_date of this DeviceDataPostRequest.
         :rtype: datetime
@@ -162,6 +167,7 @@ class DeviceDataPostRequest(object):
     def connector_expiration_date(self, connector_expiration_date):
         """
         Sets the connector_expiration_date of this DeviceDataPostRequest.
+        Expiration date of the certificate used to connect to connector server.
 
         :param connector_expiration_date: The connector_expiration_date of this DeviceDataPostRequest.
         :type: datetime
@@ -173,6 +179,7 @@ class DeviceDataPostRequest(object):
     def mechanism(self):
         """
         Gets the mechanism of this DeviceDataPostRequest.
+        The ID of the channel used to communicate with the device.
 
         :return: The mechanism of this DeviceDataPostRequest.
         :rtype: str
@@ -183,6 +190,7 @@ class DeviceDataPostRequest(object):
     def mechanism(self, mechanism):
         """
         Sets the mechanism of this DeviceDataPostRequest.
+        The ID of the channel used to communicate with the device.
 
         :param mechanism: The mechanism of this DeviceDataPostRequest.
         :type: str
@@ -200,6 +208,7 @@ class DeviceDataPostRequest(object):
     def device_class(self):
         """
         Gets the device_class of this DeviceDataPostRequest.
+        The device class.
 
         :return: The device_class of this DeviceDataPostRequest.
         :rtype: str
@@ -210,6 +219,7 @@ class DeviceDataPostRequest(object):
     def device_class(self, device_class):
         """
         Sets the device_class of this DeviceDataPostRequest.
+        The device class.
 
         :param device_class: The device_class of this DeviceDataPostRequest.
         :type: str
@@ -223,6 +233,7 @@ class DeviceDataPostRequest(object):
     def endpoint_name(self):
         """
         Gets the endpoint_name of this DeviceDataPostRequest.
+        The endpoint name given to the device.
 
         :return: The endpoint_name of this DeviceDataPostRequest.
         :rtype: str
@@ -233,6 +244,7 @@ class DeviceDataPostRequest(object):
     def endpoint_name(self, endpoint_name):
         """
         Sets the endpoint_name of this DeviceDataPostRequest.
+        The endpoint name given to the device.
 
         :param endpoint_name: The endpoint_name of this DeviceDataPostRequest.
         :type: str
@@ -246,6 +258,7 @@ class DeviceDataPostRequest(object):
     def auto_update(self):
         """
         Gets the auto_update of this DeviceDataPostRequest.
+        Mark this device for auto firmware update.
 
         :return: The auto_update of this DeviceDataPostRequest.
         :rtype: bool
@@ -256,6 +269,7 @@ class DeviceDataPostRequest(object):
     def auto_update(self, auto_update):
         """
         Sets the auto_update of this DeviceDataPostRequest.
+        Mark this device for auto firmware update.
 
         :param auto_update: The auto_update of this DeviceDataPostRequest.
         :type: bool
@@ -267,6 +281,7 @@ class DeviceDataPostRequest(object):
     def device_execution_mode(self):
         """
         Gets the device_execution_mode of this DeviceDataPostRequest.
+        Defines the type of certificate used.
 
         :return: The device_execution_mode of this DeviceDataPostRequest.
         :rtype: int
@@ -277,6 +292,7 @@ class DeviceDataPostRequest(object):
     def device_execution_mode(self, device_execution_mode):
         """
         Sets the device_execution_mode of this DeviceDataPostRequest.
+        Defines the type of certificate used.
 
         :param device_execution_mode: The device_execution_mode of this DeviceDataPostRequest.
         :type: int
@@ -288,6 +304,7 @@ class DeviceDataPostRequest(object):
     def custom_attributes(self):
         """
         Gets the custom_attributes of this DeviceDataPostRequest.
+        Up to 5 custom JSON attributes
 
         :return: The custom_attributes of this DeviceDataPostRequest.
         :rtype: object
@@ -298,6 +315,7 @@ class DeviceDataPostRequest(object):
     def custom_attributes(self, custom_attributes):
         """
         Sets the custom_attributes of this DeviceDataPostRequest.
+        Up to 5 custom JSON attributes
 
         :param custom_attributes: The custom_attributes of this DeviceDataPostRequest.
         :type: object
@@ -309,6 +327,7 @@ class DeviceDataPostRequest(object):
     def state(self):
         """
         Gets the state of this DeviceDataPostRequest.
+        The current state of the device.
 
         :return: The state of this DeviceDataPostRequest.
         :rtype: str
@@ -319,6 +338,7 @@ class DeviceDataPostRequest(object):
     def state(self, state):
         """
         Sets the state of this DeviceDataPostRequest.
+        The current state of the device.
 
         :param state: The state of this DeviceDataPostRequest.
         :type: str
@@ -336,6 +356,7 @@ class DeviceDataPostRequest(object):
     def serial_number(self):
         """
         Gets the serial_number of this DeviceDataPostRequest.
+        The serial number of the device.
 
         :return: The serial_number of this DeviceDataPostRequest.
         :rtype: str
@@ -346,6 +367,7 @@ class DeviceDataPostRequest(object):
     def serial_number(self, serial_number):
         """
         Sets the serial_number of this DeviceDataPostRequest.
+        The serial number of the device.
 
         :param serial_number: The serial_number of this DeviceDataPostRequest.
         :type: str
@@ -359,6 +381,7 @@ class DeviceDataPostRequest(object):
     def firmware_checksum(self):
         """
         Gets the firmware_checksum of this DeviceDataPostRequest.
+        The SHA256 checksum of the current firmware image.
 
         :return: The firmware_checksum of this DeviceDataPostRequest.
         :rtype: str
@@ -369,6 +392,7 @@ class DeviceDataPostRequest(object):
     def firmware_checksum(self, firmware_checksum):
         """
         Sets the firmware_checksum of this DeviceDataPostRequest.
+        The SHA256 checksum of the current firmware image.
 
         :param firmware_checksum: The firmware_checksum of this DeviceDataPostRequest.
         :type: str
@@ -382,6 +406,7 @@ class DeviceDataPostRequest(object):
     def vendor_id(self):
         """
         Gets the vendor_id of this DeviceDataPostRequest.
+        The device vendor ID.
 
         :return: The vendor_id of this DeviceDataPostRequest.
         :rtype: str
@@ -392,6 +417,7 @@ class DeviceDataPostRequest(object):
     def vendor_id(self, vendor_id):
         """
         Sets the vendor_id of this DeviceDataPostRequest.
+        The device vendor ID.
 
         :param vendor_id: The vendor_id of this DeviceDataPostRequest.
         :type: str
@@ -405,6 +431,7 @@ class DeviceDataPostRequest(object):
     def description(self):
         """
         Gets the description of this DeviceDataPostRequest.
+        The description of the object.
 
         :return: The description of this DeviceDataPostRequest.
         :rtype: str
@@ -415,6 +442,7 @@ class DeviceDataPostRequest(object):
     def description(self, description):
         """
         Sets the description of this DeviceDataPostRequest.
+        The description of the object.
 
         :param description: The description of this DeviceDataPostRequest.
         :type: str
@@ -426,6 +454,7 @@ class DeviceDataPostRequest(object):
     def deployed_state(self):
         """
         Gets the deployed_state of this DeviceDataPostRequest.
+        DEPRECATED The state of the device's deployment.
 
         :return: The deployed_state of this DeviceDataPostRequest.
         :rtype: str
@@ -436,6 +465,7 @@ class DeviceDataPostRequest(object):
     def deployed_state(self, deployed_state):
         """
         Sets the deployed_state of this DeviceDataPostRequest.
+        DEPRECATED The state of the device's deployment.
 
         :param deployed_state: The deployed_state of this DeviceDataPostRequest.
         :type: str
@@ -453,6 +483,7 @@ class DeviceDataPostRequest(object):
     def object(self):
         """
         Gets the object of this DeviceDataPostRequest.
+        The API resource entity.
 
         :return: The object of this DeviceDataPostRequest.
         :rtype: str
@@ -463,6 +494,7 @@ class DeviceDataPostRequest(object):
     def object(self, object):
         """
         Sets the object of this DeviceDataPostRequest.
+        The API resource entity.
 
         :param object: The object of this DeviceDataPostRequest.
         :type: str
@@ -474,6 +506,7 @@ class DeviceDataPostRequest(object):
     def deployment(self):
         """
         Gets the deployment of this DeviceDataPostRequest.
+        DEPRECATED The last deployment used on the device.
 
         :return: The deployment of this DeviceDataPostRequest.
         :rtype: str
@@ -484,6 +517,7 @@ class DeviceDataPostRequest(object):
     def deployment(self, deployment):
         """
         Sets the deployment of this DeviceDataPostRequest.
+        DEPRECATED The last deployment used on the device.
 
         :param deployment: The deployment of this DeviceDataPostRequest.
         :type: str
@@ -495,6 +529,7 @@ class DeviceDataPostRequest(object):
     def mechanism_url(self):
         """
         Gets the mechanism_url of this DeviceDataPostRequest.
+        The address of the connector to use.
 
         :return: The mechanism_url of this DeviceDataPostRequest.
         :rtype: str
@@ -505,6 +540,7 @@ class DeviceDataPostRequest(object):
     def mechanism_url(self, mechanism_url):
         """
         Sets the mechanism_url of this DeviceDataPostRequest.
+        The address of the connector to use.
 
         :param mechanism_url: The mechanism_url of this DeviceDataPostRequest.
         :type: str
@@ -516,6 +552,7 @@ class DeviceDataPostRequest(object):
     def trust_level(self):
         """
         Gets the trust_level of this DeviceDataPostRequest.
+        The device trust level.
 
         :return: The trust_level of this DeviceDataPostRequest.
         :rtype: int
@@ -526,6 +563,7 @@ class DeviceDataPostRequest(object):
     def trust_level(self, trust_level):
         """
         Sets the trust_level of this DeviceDataPostRequest.
+        The device trust level.
 
         :param trust_level: The trust_level of this DeviceDataPostRequest.
         :type: int
@@ -537,6 +575,7 @@ class DeviceDataPostRequest(object):
     def name(self):
         """
         Gets the name of this DeviceDataPostRequest.
+        The name of the object.
 
         :return: The name of this DeviceDataPostRequest.
         :rtype: str
@@ -547,6 +586,7 @@ class DeviceDataPostRequest(object):
     def name(self, name):
         """
         Sets the name of this DeviceDataPostRequest.
+        The name of the object.
 
         :param name: The name of this DeviceDataPostRequest.
         :type: str
@@ -560,6 +600,7 @@ class DeviceDataPostRequest(object):
     def device_key(self):
         """
         Gets the device_key of this DeviceDataPostRequest.
+        Fingerprint of the device certificate.
 
         :return: The device_key of this DeviceDataPostRequest.
         :rtype: str
@@ -570,6 +611,7 @@ class DeviceDataPostRequest(object):
     def device_key(self, device_key):
         """
         Sets the device_key of this DeviceDataPostRequest.
+        Fingerprint of the device certificate.
 
         :param device_key: The device_key of this DeviceDataPostRequest.
         :type: str
@@ -585,6 +627,7 @@ class DeviceDataPostRequest(object):
     def manifest(self):
         """
         Gets the manifest of this DeviceDataPostRequest.
+        DEPRECATED The URL for the current device manifest.
 
         :return: The manifest of this DeviceDataPostRequest.
         :rtype: str
@@ -595,6 +638,7 @@ class DeviceDataPostRequest(object):
     def manifest(self, manifest):
         """
         Sets the manifest of this DeviceDataPostRequest.
+        DEPRECATED The URL for the current device manifest.
 
         :param manifest: The manifest of this DeviceDataPostRequest.
         :type: str
@@ -606,6 +650,7 @@ class DeviceDataPostRequest(object):
     def ca_id(self):
         """
         Gets the ca_id of this DeviceDataPostRequest.
+        ID of the issuer of the certificate.
 
         :return: The ca_id of this DeviceDataPostRequest.
         :rtype: str
@@ -616,6 +661,7 @@ class DeviceDataPostRequest(object):
     def ca_id(self, ca_id):
         """
         Sets the ca_id of this DeviceDataPostRequest.
+        ID of the issuer of the certificate.
 
         :param ca_id: The ca_id of this DeviceDataPostRequest.
         :type: str
