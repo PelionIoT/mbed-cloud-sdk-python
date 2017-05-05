@@ -321,24 +321,24 @@ class ConnectAPI(BaseAPI):
         return q
 
     @catch_exceptions(MdsApiException)
-    def add_resource_subscription_async(self, device_id, resource_path, callback_fn,
+    def add_resource_subscription_async(self, context, resource_path, callback_fn,
                                         fix_path=True, queue_size=5):
         """Subscribe to resource updates with callback function.
 
         When called on valid device and resource path a subscription is setup so that
         any update on the resource path value triggers an update on the callback function.
 
-        :param device_id: Name of device to subscribe on
+        :param context: context of device to subscribe on
         :param resource_path: The resource path on device to observe
-        :param callback_fn: Callback function to be executed on update to subscribed resource
+        :param callback_fn: Callback function to be executed on update to subscribed resource, has signature callback_fn(context, current_value)
         :param fix_path: Removes leading / on resource_path if found
         :param queue_size: set the Queue size. If set to 0, no queue object will be created
         :returns: void
         """
-        queue = self.add_resource_subscription(device_id, resource_path, fix_path, queue_size)
+        queue = self.add_resource_subscription(context['device_id'], resource_path, fix_path, queue_size)
 
         # Setup daemon thread for callback function
-        t = threading.Thread(target=self._subscription_handler, args=[queue, callback_fn])
+        t = threading.Thread(target=self._subscription_handler, args=[queue, context, callback_fn])
         t.daemon = True
         t.start()
 
@@ -489,10 +489,10 @@ class ConnectAPI(BaseAPI):
         api = self.statistics.AccountApi()
         return api.v3_metrics_get(include, interval, self._auth, **kwargs).data
 
-    def _subscription_handler(self, queue, callback_fn):
+    def _subscription_handler(self, queue, context, callback_fn):
         while True:
             value = queue.get()
-            callback_fn(value)
+            callback_fn(context, value)
 
     def _get_value_synchronized(self, consumer, timeout=None):
         start_time = int(time.time())
