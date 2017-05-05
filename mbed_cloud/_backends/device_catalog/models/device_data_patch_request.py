@@ -65,6 +65,7 @@ class DeviceDataPatchRequest(object):
     def description(self):
         """
         Gets the description of this DeviceDataPatchRequest.
+        The description of the object.
 
         :return: The description of this DeviceDataPatchRequest.
         :rtype: str
@@ -75,6 +76,7 @@ class DeviceDataPatchRequest(object):
     def description(self, description):
         """
         Sets the description of this DeviceDataPatchRequest.
+        The description of the object.
 
         :param description: The description of this DeviceDataPatchRequest.
         :type: str
@@ -86,6 +88,7 @@ class DeviceDataPatchRequest(object):
     def endpoint_name(self):
         """
         Gets the endpoint_name of this DeviceDataPatchRequest.
+        The endpoint name given to the device.
 
         :return: The endpoint_name of this DeviceDataPatchRequest.
         :rtype: str
@@ -96,6 +99,7 @@ class DeviceDataPatchRequest(object):
     def endpoint_name(self, endpoint_name):
         """
         Sets the endpoint_name of this DeviceDataPatchRequest.
+        The endpoint name given to the device.
 
         :param endpoint_name: The endpoint_name of this DeviceDataPatchRequest.
         :type: str
@@ -109,6 +113,7 @@ class DeviceDataPatchRequest(object):
     def auto_update(self):
         """
         Gets the auto_update of this DeviceDataPatchRequest.
+        Mark this device for auto firmware update.
 
         :return: The auto_update of this DeviceDataPatchRequest.
         :rtype: bool
@@ -119,6 +124,7 @@ class DeviceDataPatchRequest(object):
     def auto_update(self, auto_update):
         """
         Sets the auto_update of this DeviceDataPatchRequest.
+        Mark this device for auto firmware update.
 
         :param auto_update: The auto_update of this DeviceDataPatchRequest.
         :type: bool
@@ -130,6 +136,7 @@ class DeviceDataPatchRequest(object):
     def object(self):
         """
         Gets the object of this DeviceDataPatchRequest.
+        The API resource entity.
 
         :return: The object of this DeviceDataPatchRequest.
         :rtype: str
@@ -140,6 +147,7 @@ class DeviceDataPatchRequest(object):
     def object(self, object):
         """
         Sets the object of this DeviceDataPatchRequest.
+        The API resource entity.
 
         :param object: The object of this DeviceDataPatchRequest.
         :type: str
@@ -151,6 +159,7 @@ class DeviceDataPatchRequest(object):
     def custom_attributes(self):
         """
         Gets the custom_attributes of this DeviceDataPatchRequest.
+        Up to 5 custom JSON attributes
 
         :return: The custom_attributes of this DeviceDataPatchRequest.
         :rtype: object
@@ -161,6 +170,7 @@ class DeviceDataPatchRequest(object):
     def custom_attributes(self, custom_attributes):
         """
         Sets the custom_attributes of this DeviceDataPatchRequest.
+        Up to 5 custom JSON attributes
 
         :param custom_attributes: The custom_attributes of this DeviceDataPatchRequest.
         :type: object
@@ -172,6 +182,7 @@ class DeviceDataPatchRequest(object):
     def device_key(self):
         """
         Gets the device_key of this DeviceDataPatchRequest.
+        Fingerprint of the device certificate.
 
         :return: The device_key of this DeviceDataPatchRequest.
         :rtype: str
@@ -182,6 +193,7 @@ class DeviceDataPatchRequest(object):
     def device_key(self, device_key):
         """
         Sets the device_key of this DeviceDataPatchRequest.
+        Fingerprint of the device certificate.
 
         :param device_key: The device_key of this DeviceDataPatchRequest.
         :type: str
@@ -195,6 +207,7 @@ class DeviceDataPatchRequest(object):
     def ca_id(self):
         """
         Gets the ca_id of this DeviceDataPatchRequest.
+        ID of the issuer of the certificate.
 
         :return: The ca_id of this DeviceDataPatchRequest.
         :rtype: str
@@ -205,6 +218,7 @@ class DeviceDataPatchRequest(object):
     def ca_id(self, ca_id):
         """
         Sets the ca_id of this DeviceDataPatchRequest.
+        ID of the issuer of the certificate.
 
         :param ca_id: The ca_id of this DeviceDataPatchRequest.
         :type: str
@@ -218,6 +232,7 @@ class DeviceDataPatchRequest(object):
     def name(self):
         """
         Gets the name of this DeviceDataPatchRequest.
+        The name of the object.
 
         :return: The name of this DeviceDataPatchRequest.
         :rtype: str
@@ -228,6 +243,7 @@ class DeviceDataPatchRequest(object):
     def name(self, name):
         """
         Sets the name of this DeviceDataPatchRequest.
+        The name of the object.
 
         :param name: The name of this DeviceDataPatchRequest.
         :type: str

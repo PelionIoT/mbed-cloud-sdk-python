@@ -170,7 +170,7 @@ class UpdateCampaignPostRequest(object):
         :param state: The state of this UpdateCampaignPostRequest.
         :type: str
         """
-        allowed_values = ["draft", "scheduled", "devicefetch", "devicecopy", "devicecopycomplete", "publishing", "deploying", "deployed", "manifestremoved", "expired"]
+        allowed_values = ["draft", "scheduled", "devicefetch", "devicecopy", "publishing", "deploying", "deployed", "manifestremoved", "expired"]
         if state not in allowed_values:
             raise ValueError(
                 "Invalid value for `state` ({0}), must be one of {1}"
