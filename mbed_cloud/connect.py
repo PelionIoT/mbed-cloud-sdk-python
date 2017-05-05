@@ -338,7 +338,8 @@ class ConnectAPI(BaseAPI):
         queue = self.add_resource_subscription(device_id, resource_path, fix_path, queue_size)
 
         # Setup daemon thread for callback function
-        t = threading.Thread(target=self._subscription_handler, args=[queue, callback_fn])
+        t = threading.Thread(target=self._subscription_handler,
+                             args=[queue, device_id, resource_path, callback_fn])
         t.daemon = True
         t.start()
 
@@ -489,10 +490,10 @@ class ConnectAPI(BaseAPI):
         api = self.statistics.AccountApi()
         return api.v3_metrics_get(include, interval, self._auth, **kwargs).data
 
-    def _subscription_handler(self, queue, callback_fn):
+    def _subscription_handler(self, queue, device_id, path, callback_fn):
         while True:
             value = queue.get()
-            callback_fn(value)
+            callback_fn(device_id, path, value)
 
     def _get_value_synchronized(self, consumer, timeout=None):
         start_time = int(time.time())

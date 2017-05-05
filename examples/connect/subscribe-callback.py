@@ -19,11 +19,11 @@ BUTTON_RESOURCE = "/5002/0/1"
 
 def _current_val(value):
     # Print the current value
-    print("Current value: %r" % (value,))
+    print("Current value: %r" % (value))
 
 
-def _subscription_handler(value):
-    _current_val(value)
+def _subscription_handler(device_id, path, value):
+    print("Device: %s, Resoure path: %s, Current value: %r" % (device_id, path, value))
 
 
 def _main():
