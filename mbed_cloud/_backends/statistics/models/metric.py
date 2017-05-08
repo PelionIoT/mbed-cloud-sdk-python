@@ -163,7 +163,7 @@ class Metric(object):
     def registered_devices(self):
         """
         Gets the registered_devices of this Metric.
-        Number of registered devices linked to the account.
+        Maximum number of registered devices linked to the account.
 
         :return: The registered_devices of this Metric.
         :rtype: int
@@ -174,7 +174,7 @@ class Metric(object):
     def registered_devices(self, registered_devices):
         """
         Sets the registered_devices of this Metric.
-        Number of registered devices linked to the account.
+        Maximum number of registered devices linked to the account.
 
         :param registered_devices: The registered_devices of this Metric.
         :type: int

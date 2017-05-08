@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **bootstraps_failed** | **int** | Number of failed bootstraps the account has used. | [optional] 
 **transactions** | **int** | Number of transaction events from devices linked to the account. | [optional] 
 **timestamp** | **str** | UTC time in RFC3339 format | [optional] 
-**registered_devices** | **int** | Number of registered devices linked to the account. | [optional] 
+**registered_devices** | **int** | Maximum number of registered devices linked to the account. | [optional] 
 **bootstraps_pending** | **int** | Number of pending bootstraps the account has used. | [optional] 
 **handshakes_failed** | **int** | Number of failed handshakes the account has used. | [optional] 
 **handshakes_successful** | **int** | Number of successful handshakes the account has used. | [optional] 

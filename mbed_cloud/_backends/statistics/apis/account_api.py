@@ -55,11 +55,11 @@ class AccountApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str include: A comma-separated list of requested metrics. Supported values are:  - `transactions` - `registered_devices` - `bootstraps_successful` - `bootstraps_failed` - `bootstraps_pending` - `handshakes_successful` - `handshakes_failed` - `device_server_rest_api_success` - `device_server_rest_api_error`  (required)
-        :param str interval: Group data by this interval in days, weeks or hours. Sample values: 2h, 3w, 4d. Maximum allowed interval is 9999[h/w/d].  (required)
+        :param str interval: Group data by this interval in minutes, hours, days or weeks. Sample values: 5m, 2h, 3d, 4w. Allowed range is 1[h/d/w] - 9999[h/d/w] or 5[m] - 9999[m].  (required)
         :param str authorization: Bearer {Access Token}. A valid API Gateway access token. The token is validated and the associated account identifier is used to retrieve account-specific statistics.  (required)
         :param str start: UTC time/year/date in RFC3339 format. Fetch the data with timestamp greater than or equal to this value. Sample values: 20170207T092056990Z/2017-02-07T09:20:56.990Z/2017/20170207. The parameter is not mandatory, if the period is specified. 
         :param str end: UTC time/year/date in RFC3339 format. Fetch the data with timestamp less than this value.Sample values: 20170207T092056990Z/2017-02-07T09:20:56.990Z/2017/20170207.The parameter is not mandatory, if the period is specified. 
-        :param str period: Period. Fetch the data for the period in days, weeks or hours. Sample values: 2h, 3w, 4d. The parameter is not mandatory, if the start and end time are specified. Maximum allowed period is 9999[h/w/d]. 
+        :param str period: Period. Fetch the data for the period in minutes, hours, days or weeks. Sample values: 5m, 2h, 3d, 4w. The parameter is not mandatory, if the start and end time are specified. Allowed range is 1[h/d/w] - 9999[h/d/w] or 5[m] - 9999[m]. 
         :return: SuccessfulResponse
                  If the method is called asynchronously,
                  returns the request thread.
@@ -86,11 +86,11 @@ class AccountApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str include: A comma-separated list of requested metrics. Supported values are:  - `transactions` - `registered_devices` - `bootstraps_successful` - `bootstraps_failed` - `bootstraps_pending` - `handshakes_successful` - `handshakes_failed` - `device_server_rest_api_success` - `device_server_rest_api_error`  (required)
-        :param str interval: Group data by this interval in days, weeks or hours. Sample values: 2h, 3w, 4d. Maximum allowed interval is 9999[h/w/d].  (required)
+        :param str interval: Group data by this interval in minutes, hours, days or weeks. Sample values: 5m, 2h, 3d, 4w. Allowed range is 1[h/d/w] - 9999[h/d/w] or 5[m] - 9999[m].  (required)
         :param str authorization: Bearer {Access Token}. A valid API Gateway access token. The token is validated and the associated account identifier is used to retrieve account-specific statistics.  (required)
         :param str start: UTC time/year/date in RFC3339 format. Fetch the data with timestamp greater than or equal to this value. Sample values: 20170207T092056990Z/2017-02-07T09:20:56.990Z/2017/20170207. The parameter is not mandatory, if the period is specified. 
         :param str end: UTC time/year/date in RFC3339 format. Fetch the data with timestamp less than this value.Sample values: 20170207T092056990Z/2017-02-07T09:20:56.990Z/2017/20170207.The parameter is not mandatory, if the period is specified. 
-        :param str period: Period. Fetch the data for the period in days, weeks or hours. Sample values: 2h, 3w, 4d. The parameter is not mandatory, if the start and end time are specified. Maximum allowed period is 9999[h/w/d]. 
+        :param str period: Period. Fetch the data for the period in minutes, hours, days or weeks. Sample values: 5m, 2h, 3d, 4w. The parameter is not mandatory, if the start and end time are specified. Allowed range is 1[h/d/w] - 9999[h/d/w] or 5[m] - 9999[m]. 
         :return: SuccessfulResponse
                  If the method is called asynchronously,
                  returns the request thread.
