@@ -13,7 +13,6 @@ cleanup() {
     echo "Killing backend SDK server: $BACKEND_PID";
     kill $BACKEND_PID;
   fi
-  rm -rf "$TMPDIR";
 }
 
 is_running() {
@@ -84,5 +83,7 @@ if [ $RET_CODE -eq 0 ]; then
   python $TRUNNER_DIR/bin/trunner ${PARAMS[@]}
   RET_CODE=$?
 fi
+# Remove temp folder
+rm -rf "$TMPDIR";
 
 exit $RET_CODE
