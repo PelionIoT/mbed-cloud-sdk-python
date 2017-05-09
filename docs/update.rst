@@ -7,10 +7,10 @@ Usage
 .. code-block:: python
 
   from mbed_cloud.update import UpdateAPI
-  api = UpdateAPI()
+  updateApi = UpdateAPI()
 
   # Get 5 latest firmware images
-  images = api.list_firmware_images(limit=5)
+  images = updateApi.list_firmware_images(limit=5)
 
 Reference
 ---------

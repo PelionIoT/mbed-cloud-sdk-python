@@ -83,7 +83,7 @@ class ConnectAPI(BaseAPI):
         """Start the long-polling thread.
 
         If not an external callback is setup (using `update_webhook`) then
-        calling this function is mandatory.
+        calling this function is mandatory to get or set resource.
 
         .. code-block:: python
 
@@ -163,7 +163,7 @@ class ConnectAPI(BaseAPI):
         # Ensure we're long polling first
         if not self._long_polling_is_active:
             raise CloudUnhandledError(
-                "Long polling needs to be enabled before getting resource value synchronously.")
+                "start_notifications needs to be called before getting resource value.")
 
         # When path starts with / we remove the slash, as the API can't handle //.
         if fix_path and resource_path.startswith("/"):
@@ -233,6 +233,11 @@ class ConnectAPI(BaseAPI):
         :returns: The value of the new resource
         :rtype: str
         """
+        # Ensure we're long polling first
+        if not self._long_polling_is_active:
+            raise CloudUnhandledError(
+                "start_notifications needs to be called before setting resource value.")
+
         # When path starts with / we remove the slash, as the API can't handle //.
         if fix_path and resource_path.startswith("/"):
             resource_path = resource_path[1:]
