@@ -35,6 +35,8 @@ git clone https://${GITHUB_TOKEN:-git}@github.com/ARMmbed/mbed-cloud-sdk-testrun
 virtualenv $TMPDIR/venv
 $TMPDIR/venv/bin/pip install -r $ROOT_DIR/requirements.txt
 $TMPDIR/venv/bin/pip install -r $TMPDIR/requirements.txt
+$TMPDIR/venv/bin/pip3 install -r $ROOT_DIR/requirements.txt
+$TMPDIR/venv/bin/pip3 install -r $TMPDIR/requirements.txt
 TRUNNER_DIR=$TMPDIR;
 export PYTHONPATH="$TRUNNER_DIR:$ROOT_DIR:$PYTHONPATH"
 
