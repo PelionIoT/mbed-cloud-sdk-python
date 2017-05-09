@@ -32,8 +32,8 @@ from mbed_cloud.certificates import CertificatesAPI
 from mbed_cloud.connect import ConnectAPI
 from mbed_cloud.device_directory import DeviceDirectoryAPI
 from mbed_cloud.update import UpdateAPI
-from urllib.parse import unquote
 from urllib.parse import parse_qs
+from urllib.parse import unquote
 
 import json
 import queue

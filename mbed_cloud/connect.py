@@ -14,9 +14,9 @@
 """Public API for mDS and Statistics APIs."""
 from __future__ import absolute_import
 from __future__ import unicode_literals
-from builtins import str
-from builtins import object
 import base64
+from builtins import object
+from builtins import str
 from collections import defaultdict
 import datetime
 import logging

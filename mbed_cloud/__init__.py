@@ -16,13 +16,15 @@ from __future__ import print_function
 from __future__ import unicode_literals
 from future import standard_library
 standard_library.install_aliases()
-from builtins import str
 from builtins import object
+from builtins import str
 from six import iteritems
 from six import string_types
 import sys
-import urllib.request, urllib.parse, urllib.error
+import urllib.error
+urllib.parse
 import urllib.parse
+import urllib.request
 
 from mbed_cloud.bootstrap import Config
 from mbed_cloud.exceptions import CloudValueError
