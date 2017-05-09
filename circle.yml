@@ -1,3 +1,7 @@
+machine:
+  post:
+    - pyenv global 2.7.13 3.6.1
+
 dependencies:
   pre:
     - sudo apt-get update; sudo apt-get install pandoc
