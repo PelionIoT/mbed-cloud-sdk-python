@@ -14,32 +14,29 @@
 """Example showing basic usage of device resource subscriptions."""
 from mbed_cloud.connect import ConnectAPI
 
-BUTTON_RESOURCE = "/5002/0/1"
 WRITEABLE_RESOURCE = "/5001/0/1"
 
 
 def _main():
     api = ConnectAPI()
+    # calling start_notifications is required for getting/setting resource synchronously
     api.start_notifications()
     devices = list(api.list_connected_devices())
     if not devices:
         raise Exception("No connected devices registered. Aborting")
 
     # Synchronously get the initial/current value of the resource
-    value = api.get_resource_value(devices[0].id, BUTTON_RESOURCE)
+    value = api.get_resource_value(devices[0].id, WRITEABLE_RESOURCE)
+    print("Current value: %r" % (value,))
 
-    # Register a subscription for new values
+    # Set Resource value. Resource needs to have type == "writable_resource"
     api.set_resource_value(device_id=devices[0].id,
                            resource_path=WRITEABLE_RESOURCE,
-                           resource_value='10')
+                           resource_value=10)
 
-    queue = api.add_resource_subscription(devices[0].id, BUTTON_RESOURCE)
-    while True:
-        # Print the current value
-        print("Current value: %r" % (value,))
-
-        # Get a new value, using the subscriptions
-        value = queue.get(timeout=30)
+    # Synchronously get the current value of the resource
+    value = api.get_resource_value(devices[0].id, WRITEABLE_RESOURCE)
+    print("Current value: %r" % (value,))
 
 
 if __name__ == "__main__":
