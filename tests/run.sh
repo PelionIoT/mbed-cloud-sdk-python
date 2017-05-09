@@ -66,4 +66,22 @@ RET_CODE=$?
 
 # Kill the backend server & cleanup
 cleanup
+
+if [ $RET_CODE -eq 0 ]; then
+  # Run server in python3
+  CMD="$TRUNNER_DIR/venv/bin/python $DIR/server.py"
+  eval "$CMD &"
+  echo "Backend server in python 3 started. PID: $!"
+  # Sleep for a second whilst the server starts up
+  sleep 1
+  if ! is_running $BACKEND_PID; then
+    >&2 echo "Backend server did not start successfully."
+    cleanup
+    exit 1
+  fi
+  # Start the test runner
+  $TRUNNER_DIR/venv/bin/python $TRUNNER_DIR/bin/trunner ${PARAMS[@]}
+  RET_CODE=$?
+fi
+
 exit $RET_CODE

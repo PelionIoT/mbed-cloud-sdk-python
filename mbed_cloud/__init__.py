@@ -12,11 +12,17 @@
 #   from ARM Limited or its affiliates.
 # --------------------------------------------------------------------------
 """Initialise the mbed_cloud config and BaseAPI."""
+from __future__ import print_function
+from __future__ import unicode_literals
+from future import standard_library
+standard_library.install_aliases()
+from builtins import str
+from builtins import object
 from six import iteritems
 from six import string_types
 import sys
-import urllib
-import urlparse
+import urllib.request, urllib.parse, urllib.error
+import urllib.parse
 
 from mbed_cloud.bootstrap import Config
 from mbed_cloud.exceptions import CloudValueError
@@ -75,9 +81,9 @@ class BaseAPI(object):
 
     def _verify_filters(self, kwargs):
         if kwargs.get('filter'):
-            kwargs.update({'filter': urllib.urlencode(kwargs.get('filter'))})
+            kwargs.update({'filter': urllib.parse.urlencode(kwargs.get('filter'))})
         if kwargs.get('filters'):
-            kwargs.update({'filter': urllib.urlencode(kwargs.get('filters'))})
+            kwargs.update({'filter': urllib.parse.urlencode(kwargs.get('filters'))})
             del kwargs['filters']
         return kwargs
 
@@ -96,7 +102,7 @@ class BaseAPI(object):
             if not isinstance(custom_attributes, dict):
                 raise CloudValueError("Custom attributes when creating query"
                                       "needs to be dict object")
-            for k, v in custom_attributes.iteritems():
+            for k, v in list(custom_attributes.items()):
                 if not k:
                     print("Ignoring custom attribute with value %r as key is empty" % (v,))
                     continue
@@ -121,20 +127,20 @@ class BaseAPI(object):
         self._set_custom_attributes(query)
 
         # Ensure query is valid
-        if not query.keys():
+        if not list(query.keys()):
             raise CloudValueError("'query' parameter not valid, needs to contain query keys")
         filters = {}
-        for k, v in query.iteritems():
+        for k, v in list(query.items()):
             if isinstance(v, dict):
-                for operator, val in v.iteritems():
+                for operator, val in list(v.items()):
                     operator = operator.replace("$", "")
                     if isinstance(val, bool):
                         val = str(val)
                     suffix = self._get_key_suffix(operator)
                     key = "%s%s" % (k, suffix)
-                    filters[key] = urllib.quote(val)
+                    filters[key] = urllib.parse.quote(val)
         # Encode the query string
-        return urllib.urlencode(filters)
+        return urllib.parse.urlencode(filters)
 
 
 class BaseObject(object):
@@ -172,9 +178,9 @@ class BaseObject(object):
         return operator
 
     def _decode_query(self, query):
-        qs = urlparse.parse_qs(urllib.unquote(query))
+        qs = urllib.parse.parse_qs(urllib.parse.unquote(query))
         query = {}
-        for (key, value) in qs.iteritems():
+        for (key, value) in list(qs.items()):
             operator = self._get_operator(key)
             if operator is not "":
                 key = key.replace("__%s" % (operator), "")
@@ -266,7 +272,7 @@ class PaginatedResponse(object):
         resp = self._func(**{'include': 'total_count', 'limit': 2})
         return resp.total_count
 
-    def next(self):
+    def __next__(self):
         """Get the next element in list.
 
         As one can see in the example we finely control the iteration of the

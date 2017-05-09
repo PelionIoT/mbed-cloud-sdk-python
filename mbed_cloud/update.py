@@ -13,6 +13,7 @@
 # --------------------------------------------------------------------------
 """API reference for update components in mbed Cloud"""
 from __future__ import absolute_import
+from __future__ import unicode_literals
 import logging
 
 # Import common functions and exceptions from frontend API

@@ -12,6 +12,7 @@
 #   from ARM Limited or its affiliates.
 # --------------------------------------------------------------------------
 """Custom decorator functions used in mbed_cloud."""
+from __future__ import unicode_literals
 import json
 import os
 
@@ -28,7 +29,7 @@ class Config(dict):
         Of highest priority is using the `MBED_CLOUD_SDK_CONFIG` environment
         variable, to specify a config JSON file.
         """
-        CONFIG_FILES = filter(None, [
+        CONFIG_FILES = [_f for _f in [
             # Global config in /etc
             "/etc/mbed_cloud_config.json",
 
@@ -40,7 +41,7 @@ class Config(dict):
 
             # Config file specified using environment variable
             os.environ.get("MBED_CLOUD_SDK_CONFIG")
-        ])
+        ] if _f]
 
         # Go through in order and override the config
         for f in CONFIG_FILES:

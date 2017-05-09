@@ -12,6 +12,8 @@
 #   from ARM Limited or its affiliates.
 # --------------------------------------------------------------------------
 """Custom decorators used in mbed_cloud."""
+from __future__ import unicode_literals
+from builtins import str
 import functools
 from six import reraise as raise_
 import sys

@@ -13,8 +13,10 @@
 # --------------------------------------------------------------------------
 """Reference API for certificates component."""
 from __future__ import absolute_import
+from __future__ import unicode_literals
 
 # Import common functions and exceptions from frontend API
+from builtins import str
 from mbed_cloud import BaseAPI
 from mbed_cloud.decorators import catch_exceptions
 from mbed_cloud import PaginatedResponse
