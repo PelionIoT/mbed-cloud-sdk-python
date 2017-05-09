@@ -19,9 +19,9 @@ Basic exceptions handling.
 
   from mbed_cloud.exceptions import CloudApiException
   from mbed_cloud.account_management import AccountManagementAPI
-  api = AccountManagementAPI()
+  accountApi = AccountManagementAPI()
   try:
-    u = list(api.list_users())[0]
+    u = list(accountApi.list_users())[0]
     print("%r (%s)" % (u.full_name, u.email))
   except CloudApiException as e:
     print("Error occurred, status_code: %d , message: %s" % (e.status, e.message))

@@ -11,8 +11,8 @@ Basic iteration
 .. code-block:: python
 
   >>> from mbed_cloud.device_directory import DeviceDirectoryAPI
-  >>> api = DeviceDirectoryAPI()
-  >>> for idx, f in enumerate(api.list_filters(limit=2)):
+  >>> deviceDirectoryApi = DeviceDirectoryAPI()
+  >>> for idx, f in enumerate(deviceDirectoryApi.list_filters(limit=2)):
         print(idx, f)
   1,<F>
   2,<F>
@@ -25,8 +25,8 @@ Manual control of iteration
 .. code-block:: python
 
   >>> from mbed_cloud.device_directory import DeviceDirectoryAPI
-  >>> api = DeviceDirectoryAPI()
-  >>> presp = api.list_filters(limit=2)
+  >>> deviceDirectoryApi = DeviceDirectoryAPI()
+  >>> presp = deviceDirectoryApi.list_filters(limit=2)
   >>> elements = []
   >>> while True:
         elements.extend(presp.data)

@@ -84,7 +84,7 @@ virtualenv:
     source venv/bin/activate
     pip install -r requirements.txt
 
-    python examples/connect/list-devices.py
+    python examples/connect/list-connected-devices.py
 
 Running examples using integration lab
 --------------------------------------
