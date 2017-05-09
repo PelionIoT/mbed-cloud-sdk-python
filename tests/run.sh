@@ -32,16 +32,14 @@ fi
 
 # Clone the test runner repo and install virtual environment
 git clone https://${GITHUB_TOKEN:-git}@github.com/ARMmbed/mbed-cloud-sdk-testrunner.git "$TMPDIR"
-virtualenv $TMPDIR/venv
-$TMPDIR/venv/bin/pip install -r $ROOT_DIR/requirements.txt
-$TMPDIR/venv/bin/pip install -r $TMPDIR/requirements.txt
-$TMPDIR/venv/bin/pip3 install -r $ROOT_DIR/requirements.txt
-$TMPDIR/venv/bin/pip3 install -r $TMPDIR/requirements.txt
+pip install -r $ROOT_DIR/requirements.txt
+pip install -r $TMPDIR/requirements.txt
+pip3 install -r $ROOT_DIR/requirements.txt
 TRUNNER_DIR=$TMPDIR;
 export PYTHONPATH="$TRUNNER_DIR:$ROOT_DIR:$PYTHONPATH"
 
 # Start the Python SDK test backend server. Send to background.
-CMD="$TRUNNER_DIR/venv/bin/python $DIR/server.py"
+CMD="python $DIR/server.py"
 eval "$CMD &"
 echo "Backend server started. PID: $!"
 BACKEND_PID=$!
@@ -63,7 +61,7 @@ if [ -n "${MBED_CLOUD_API_HOST}" ]; then
 fi
 
 # Start the test runner
-$TRUNNER_DIR/venv/bin/python $TRUNNER_DIR/bin/trunner ${PARAMS[@]}
+python $TRUNNER_DIR/bin/trunner ${PARAMS[@]}
 RET_CODE=$?
 
 # Kill the backend server & cleanup
@@ -71,7 +69,7 @@ cleanup
 
 if [ $RET_CODE -eq 0 ]; then
   # Run server in python3
-  CMD="$TRUNNER_DIR/venv/bin/python3 $DIR/server.py"
+  CMD="python3 $DIR/server.py"
   eval "$CMD &"
   echo "Backend server in python 3 started. PID: $!"
   BACKEND_PID=$!
@@ -83,7 +81,7 @@ if [ $RET_CODE -eq 0 ]; then
     exit 1
   fi
   # Start the test runner
-  $TRUNNER_DIR/venv/bin/python $TRUNNER_DIR/bin/trunner ${PARAMS[@]}
+  python $TRUNNER_DIR/bin/trunner ${PARAMS[@]}
   RET_CODE=$?
 fi
 
