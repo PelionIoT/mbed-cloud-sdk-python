@@ -25,7 +25,7 @@ from mbed_cloud import PaginatedResponse
 
 import mbed_cloud._backends.connector_ca as cert
 from mbed_cloud._backends.connector_ca.models import DeveloperCertificateResponseData
-import mbed_cloud._backends.connector_ca.rest as ApiException
+from mbed_cloud._backends.connector_ca.rest import ApiException
 import mbed_cloud._backends.iam as iam
 from mbed_cloud._backends.iam.models import TrustedCertificateResp
 

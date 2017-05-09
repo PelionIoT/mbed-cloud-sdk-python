@@ -199,12 +199,15 @@ def main(module, method, methods=["GET"]):
         _, _, tb = sys.exc_info()
         tb_info = traceback.extract_tb(tb)
         filename, line, func, text = tb_info[-1]
+        message = str(e)
+        if hasattr(e, "message"):
+            message = e.message
 
         error_msg = "{}: An error occurred on line {} in statement '{}': {}".format(
             filename,
             line,
             text,
-            e.message
+            message
         )
 
         # Set default status_code as 500
