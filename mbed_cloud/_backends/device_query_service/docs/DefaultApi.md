@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 
 
-Create device query
+Create device query.
 
 ### Example 
 ```python
@@ -69,7 +69,7 @@ Name | Type | Description  | Notes
 
 
 
-Delete device query
+Delete device query.
 
 ### Example 
 ```python
@@ -180,7 +180,7 @@ Name | Type | Description  | Notes
 
 
 
-Update device query fields
+Update device query fields.
 
 ### Example 
 ```python
@@ -234,7 +234,7 @@ Name | Type | Description  | Notes
 
 
 
-Retrieve device query
+Retrieve device query.
 
 ### Example 
 ```python
@@ -286,7 +286,7 @@ Name | Type | Description  | Notes
 
 
 
-Update device query
+Update device query.
 
 ### Example 
 ```python

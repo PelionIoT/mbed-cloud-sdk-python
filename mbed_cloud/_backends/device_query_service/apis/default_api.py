@@ -42,7 +42,7 @@ class DefaultApi(object):
 
     def device_query_create(self, device, **kwargs):
         """
-        Create device query
+        Create device query.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -67,7 +67,7 @@ class DefaultApi(object):
 
     def device_query_create_with_http_info(self, device, **kwargs):
         """
-        Create device query
+        Create device query.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -139,7 +139,7 @@ class DefaultApi(object):
 
     def device_query_destroy(self, query_id, **kwargs):
         """
-        Delete device query
+        Delete device query.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -164,7 +164,7 @@ class DefaultApi(object):
 
     def device_query_destroy_with_http_info(self, query_id, **kwargs):
         """
-        Delete device query
+        Delete device query.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -346,7 +346,7 @@ class DefaultApi(object):
 
     def device_query_partial_update(self, query_id, device_query, **kwargs):
         """
-        Update device query fields
+        Update device query fields.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -372,7 +372,7 @@ class DefaultApi(object):
 
     def device_query_partial_update_with_http_info(self, query_id, device_query, **kwargs):
         """
-        Update device query fields
+        Update device query fields.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -450,7 +450,7 @@ class DefaultApi(object):
 
     def device_query_retrieve(self, query_id, **kwargs):
         """
-        Retrieve device query
+        Retrieve device query.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -475,7 +475,7 @@ class DefaultApi(object):
 
     def device_query_retrieve_with_http_info(self, query_id, **kwargs):
         """
-        Retrieve device query
+        Retrieve device query.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -547,7 +547,7 @@ class DefaultApi(object):
 
     def device_query_update(self, query_id, body, **kwargs):
         """
-        Update device query
+        Update device query.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -573,7 +573,7 @@ class DefaultApi(object):
 
     def device_query_update_with_http_info(self, query_id, body, **kwargs):
         """
-        Update device query
+        Update device query.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.

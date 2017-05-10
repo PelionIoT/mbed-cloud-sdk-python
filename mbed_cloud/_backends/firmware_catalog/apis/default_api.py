@@ -42,7 +42,7 @@ class DefaultApi(object):
 
     def firmware_image_create(self, datafile, name, **kwargs):
         """
-        Create firmware image
+        Create firmware image.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -69,7 +69,7 @@ class DefaultApi(object):
 
     def firmware_image_create_with_http_info(self, datafile, name, **kwargs):
         """
-        Create firmware image
+        Create firmware image.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -156,7 +156,7 @@ class DefaultApi(object):
 
     def firmware_image_destroy(self, image_id, **kwargs):
         """
-        Delete firmware image
+        Delete firmware image.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -181,7 +181,7 @@ class DefaultApi(object):
 
     def firmware_image_destroy_with_http_info(self, image_id, **kwargs):
         """
-        Delete firmware image
+        Delete firmware image.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -363,7 +363,7 @@ class DefaultApi(object):
 
     def firmware_image_retrieve(self, image_id, **kwargs):
         """
-        Retrieve firmware image
+        Retrieve firmware image.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -388,7 +388,7 @@ class DefaultApi(object):
 
     def firmware_image_retrieve_with_http_info(self, image_id, **kwargs):
         """
-        Retrieve firmware image
+        Retrieve firmware image.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -460,7 +460,7 @@ class DefaultApi(object):
 
     def firmware_manifest_create(self, datafile, name, **kwargs):
         """
-        Create firmware manifest
+        Create firmware manifest.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -487,7 +487,7 @@ class DefaultApi(object):
 
     def firmware_manifest_create_with_http_info(self, datafile, name, **kwargs):
         """
-        Create firmware manifest
+        Create firmware manifest.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -574,7 +574,7 @@ class DefaultApi(object):
 
     def firmware_manifest_destroy(self, manifest_id, **kwargs):
         """
-        Delete firmware manifest
+        Delete firmware manifest.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -599,7 +599,7 @@ class DefaultApi(object):
 
     def firmware_manifest_destroy_with_http_info(self, manifest_id, **kwargs):
         """
-        Delete firmware manifest
+        Delete firmware manifest.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -671,7 +671,7 @@ class DefaultApi(object):
 
     def firmware_manifest_list(self, **kwargs):
         """
-        List all firmware manifests
+        List all firmware manifests.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -685,7 +685,7 @@ class DefaultApi(object):
         :param int limit: How many objects to retrieve in the page.
         :param str order: ASC or DESC
         :param str after: The ID of the the item after which to retrieve the next page.
-        :param str filter: URL encoded query string parameter to filter returned data  ##### Filtering ```?filter={URL encoded query string}```  The query string is made up of key/value pairs separated by ampersands. So for a query of ```key1=value1&amp;key2=value2&amp;key3=value3``` this would be encoded as follows: ```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3``` The examples below show the queries in *unencoded* form.  ##### By manifest ID: ```manifest_id={id}```  ##### By firmware manifest properties (all properties are filterable):  ```device_class={value}```  ###### On date-time fields: Date-time fields should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &ndash; field name suffixed with ```__gte``` * less than or equal to &ndash; field name suffixed with ```__lte```  Lower and upper limits to a date-time range may be specified by including both the ```__gte``` and ```__lte``` forms in the filter.  ```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```  ##### Multi-field example ```device_class=1234&amp;d&amp;created_at__gte=2016-11-30T16:25:12.1234Z&amp;created_at__lte=2016-12-30T00:00:00Z```  Encoded: ```?filter=device_class%3D1234%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z```
+        :param str filter: URL encoded query string parameter to filter returned data.  ##### Filtering ```?filter={URL encoded query string}```  The query string is made up of key/value pairs separated by ampersands. So for a query of ```key1=value1&amp;key2=value2&amp;key3=value3``` this would be encoded as follows: ```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3``` The examples below show the queries in *unencoded* form.  ##### By manifest ID: ```manifest_id={id}```  ##### By firmware manifest properties (all properties are filterable):  ```device_class={value}```  ###### On date-time fields: Date-time fields should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &ndash; field name suffixed with ```__gte``` * less than or equal to &ndash; field name suffixed with ```__lte```  Lower and upper limits to a date-time range may be specified by including both the ```__gte``` and ```__lte``` forms in the filter.  ```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```  ##### Multi-field example ```device_class=1234&amp;d&amp;created_at__gte=2016-11-30T16:25:12.1234Z&amp;created_at__lte=2016-12-30T00:00:00Z```  Encoded: ```?filter=device_class%3D1234%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z```
         :param str include: Comma separated list of data fields to return. Currently supported: total_count
         :return: FirmwareManifestPage
                  If the method is called asynchronously,
@@ -700,7 +700,7 @@ class DefaultApi(object):
 
     def firmware_manifest_list_with_http_info(self, **kwargs):
         """
-        List all firmware manifests
+        List all firmware manifests.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -714,7 +714,7 @@ class DefaultApi(object):
         :param int limit: How many objects to retrieve in the page.
         :param str order: ASC or DESC
         :param str after: The ID of the the item after which to retrieve the next page.
-        :param str filter: URL encoded query string parameter to filter returned data  ##### Filtering ```?filter={URL encoded query string}```  The query string is made up of key/value pairs separated by ampersands. So for a query of ```key1=value1&amp;key2=value2&amp;key3=value3``` this would be encoded as follows: ```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3``` The examples below show the queries in *unencoded* form.  ##### By manifest ID: ```manifest_id={id}```  ##### By firmware manifest properties (all properties are filterable):  ```device_class={value}```  ###### On date-time fields: Date-time fields should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &ndash; field name suffixed with ```__gte``` * less than or equal to &ndash; field name suffixed with ```__lte```  Lower and upper limits to a date-time range may be specified by including both the ```__gte``` and ```__lte``` forms in the filter.  ```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```  ##### Multi-field example ```device_class=1234&amp;d&amp;created_at__gte=2016-11-30T16:25:12.1234Z&amp;created_at__lte=2016-12-30T00:00:00Z```  Encoded: ```?filter=device_class%3D1234%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z```
+        :param str filter: URL encoded query string parameter to filter returned data.  ##### Filtering ```?filter={URL encoded query string}```  The query string is made up of key/value pairs separated by ampersands. So for a query of ```key1=value1&amp;key2=value2&amp;key3=value3``` this would be encoded as follows: ```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3``` The examples below show the queries in *unencoded* form.  ##### By manifest ID: ```manifest_id={id}```  ##### By firmware manifest properties (all properties are filterable):  ```device_class={value}```  ###### On date-time fields: Date-time fields should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &ndash; field name suffixed with ```__gte``` * less than or equal to &ndash; field name suffixed with ```__lte```  Lower and upper limits to a date-time range may be specified by including both the ```__gte``` and ```__lte``` forms in the filter.  ```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```  ##### Multi-field example ```device_class=1234&amp;d&amp;created_at__gte=2016-11-30T16:25:12.1234Z&amp;created_at__lte=2016-12-30T00:00:00Z```  Encoded: ```?filter=device_class%3D1234%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z```
         :param str include: Comma separated list of data fields to return. Currently supported: total_count
         :return: FirmwareManifestPage
                  If the method is called asynchronously,
@@ -781,7 +781,7 @@ class DefaultApi(object):
 
     def firmware_manifest_retrieve(self, manifest_id, **kwargs):
         """
-        Retrieve firmware manifest
+        Retrieve firmware manifest.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -806,7 +806,7 @@ class DefaultApi(object):
 
     def firmware_manifest_retrieve_with_http_info(self, manifest_id, **kwargs):
         """
-        Retrieve firmware manifest
+        Retrieve firmware manifest.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
