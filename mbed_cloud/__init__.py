@@ -22,7 +22,6 @@ from six import iteritems
 from six import string_types
 import sys
 import urllib.error
-urllib.parse
 import urllib.parse
 import urllib.request
 

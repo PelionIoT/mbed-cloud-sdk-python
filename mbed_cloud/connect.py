@@ -520,8 +520,10 @@ class ConnectAPI(BaseAPI):
         # accordingly.
         if consumer.error:
             raise CloudAsyncError(consumer.error)
-
-        return consumer.value.decode('utf-8')
+        value = consumer.value
+        if value is not None:
+            value = value.decode('utf-8')
+        return value
 
     def _convert_to_UTC_RFC3339(self, time, name):
         if not isinstance(time, datetime.datetime):
