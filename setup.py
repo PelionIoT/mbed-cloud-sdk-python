@@ -33,7 +33,7 @@ SDK_SUFFIX = ""
 VERSION = "%s.%s%s" % (API_VERSION, SDK_MAJOR_MINOR, SDK_SUFFIX)
 
 NAME = "mbed-cloud-sdk"
-REQUIRES = ["urllib3 >= 1.15", "six >= 1.10", "certifi", "python-dateutil"]
+REQUIRES = ["urllib3 >= 1.15", "six >= 1.10", "certifi", "python-dateutil", "future"]
 
 setup(
     name=NAME,

@@ -20,6 +20,10 @@ Run by:
     * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
 """
 from __future__ import absolute_import
+from __future__ import unicode_literals
+from future import standard_library
+standard_library.install_aliases()
+from builtins import str
 from flask import Flask
 from flask import jsonify
 from flask import request
@@ -28,11 +32,11 @@ from mbed_cloud.certificates import CertificatesAPI
 from mbed_cloud.connect import ConnectAPI
 from mbed_cloud.device_directory import DeviceDirectoryAPI
 from mbed_cloud.update import UpdateAPI
-from urllib import unquote
-from urlparse import parse_qs
+from urllib.parse import parse_qs
+from urllib.parse import unquote
 
 import json
-import Queue
+import queue
 import sys
 import traceback
 
@@ -51,7 +55,7 @@ def _call_api(module, method, args):
     api = MODULES.get(module)
 
     # Get function contained in API object
-    api_functions = list(filter(lambda f: not f.startswith("_"), dir(api)))
+    api_functions = list([f for f in dir(api) if not f.startswith("_")])
     if method not in api_functions:
         raise ApiCallException(
             "%r not found in %r" % (method, ", ".join(api_functions)),
@@ -168,7 +172,7 @@ def main(module, method, methods=["GET"]):
     # preparing it for argument to function.
     qs = unquote(request.args.get("args", ""))
     args_struct = parse_qs(qs)
-    args = dict(((k, _get_type(",".join(v))) for k, v in args_struct.iteritems()))
+    args = dict(((k, _get_type(",".join(v))) for k, v in list(args_struct.items())))
 
     # We call the SDK module and function, with provided arguments.
     try:
@@ -180,14 +184,14 @@ def main(module, method, methods=["GET"]):
 
         # Check if we can concert to dict for inner objects in a list
         if isinstance(return_obj, list):
-            return_obj = map(lambda o: _get_dict(o), return_obj)
+            return_obj = [_get_dict(o) for o in return_obj]
 
         # Check if we can convert to dict before returning (we can for most models)
         if not isinstance(return_obj, dict):
             return_obj = _get_dict(return_obj)
 
         # Check if type is Queue (device subscriptions), in which case we just return empty
-        if isinstance(return_obj, Queue.Queue):
+        if isinstance(return_obj, queue.Queue):
             return_obj = {}
 
         return jsonify(return_obj)
@@ -195,12 +199,15 @@ def main(module, method, methods=["GET"]):
         _, _, tb = sys.exc_info()
         tb_info = traceback.extract_tb(tb)
         filename, line, func, text = tb_info[-1]
+        message = str(e)
+        if hasattr(e, "message"):
+            message = e.message
 
         error_msg = "{}: An error occurred on line {} in statement '{}': {}".format(
             filename,
             line,
             text,
-            e.message
+            message
         )
 
         # Set default status_code as 500

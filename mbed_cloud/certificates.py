@@ -13,8 +13,10 @@
 # --------------------------------------------------------------------------
 """Reference API for certificates component."""
 from __future__ import absolute_import
+from __future__ import unicode_literals
 
 # Import common functions and exceptions from frontend API
+from builtins import str
 from mbed_cloud import BaseAPI
 from mbed_cloud.decorators import catch_exceptions
 from mbed_cloud import PaginatedResponse
@@ -23,7 +25,7 @@ from mbed_cloud import PaginatedResponse
 
 import mbed_cloud._backends.connector_ca as cert
 from mbed_cloud._backends.connector_ca.models import DeveloperCertificateResponseData
-import mbed_cloud._backends.connector_ca.rest as ApiException
+from mbed_cloud._backends.connector_ca.rest import ApiException
 import mbed_cloud._backends.iam as iam
 from mbed_cloud._backends.iam.models import TrustedCertificateResp
 

@@ -4,6 +4,7 @@ urllib3 >= 1.15
 six >= 1.10
 certifi
 python-dateutil
+future
 
 # For development (static analysis)
 hacking == 0.12.0

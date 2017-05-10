@@ -13,7 +13,10 @@
 # --------------------------------------------------------------------------
 """Public API for mDS and Statistics APIs."""
 from __future__ import absolute_import
+from __future__ import unicode_literals
 import base64
+from builtins import object
+from builtins import str
 from collections import defaultdict
 import datetime
 import logging
@@ -382,14 +385,14 @@ class ConnectAPI(BaseAPI):
         :param fix_path: remove trailing / in resouce path to ensure API works.
         :return: void
         """
-        devices = filter(None, [device_id])
+        devices = [_f for _f in [device_id] if _f]
         if not device_id:
-            devices = self._queues.keys()
+            devices = list(self._queues.keys())
         resource_paths = [resource_path]
         if not resource_path:
             resource_paths = []
             for e in devices:
-                resource_paths.extend(self._queues[e].keys())
+                resource_paths.extend(list(self._queues[e].keys()))
 
         # Delete the subscriptions
         api = self.mds.SubscriptionsApi()
@@ -517,8 +520,10 @@ class ConnectAPI(BaseAPI):
         # accordingly.
         if consumer.error:
             raise CloudAsyncError(consumer.error)
-
-        return consumer.value
+        value = consumer.value
+        if value is not None:
+            value = value.decode('utf-8')
+        return value
 
     def _convert_to_UTC_RFC3339(self, time, name):
         if not isinstance(time, datetime.datetime):

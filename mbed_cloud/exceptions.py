@@ -12,6 +12,7 @@
 #   from ARM Limited or its affiliates.
 # --------------------------------------------------------------------------
 """All custom exceptions used in mbed_cloud."""
+from __future__ import unicode_literals
 
 
 class CloudApiException(Exception):
