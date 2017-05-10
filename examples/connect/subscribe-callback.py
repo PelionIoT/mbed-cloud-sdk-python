@@ -28,6 +28,7 @@ def _subscription_handler(device_id, path, value):
 
 def _main():
     api = ConnectAPI()
+    # calling start_notifications is required for getting/setting resource synchronously
     api.start_notifications()
     devices = api.list_connected_devices()
     if not devices:
