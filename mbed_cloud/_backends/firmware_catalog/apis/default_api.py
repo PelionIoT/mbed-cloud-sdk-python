@@ -167,7 +167,7 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param int image_id: The ID of the firmware image. (required)
+        :param str image_id: The ID of the firmware image. (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -192,7 +192,7 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param int image_id: The ID of the firmware image. (required)
+        :param str image_id: The ID of the firmware image. (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -374,7 +374,7 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param int image_id: The ID of the firmware image. (required)
+        :param str image_id: The ID of the firmware image. (required)
         :return: FirmwareImage
                  If the method is called asynchronously,
                  returns the request thread.
@@ -399,7 +399,7 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param int image_id: The ID of the firmware image. (required)
+        :param str image_id: The ID of the firmware image. (required)
         :return: FirmwareImage
                  If the method is called asynchronously,
                  returns the request thread.
@@ -585,7 +585,7 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param int manifest_id: The ID of the firmware manifest. (required)
+        :param str manifest_id: The ID of the firmware manifest. (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -610,7 +610,7 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param int manifest_id: The ID of the firmware manifest. (required)
+        :param str manifest_id: The ID of the firmware manifest. (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -792,7 +792,7 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param int manifest_id: The ID of the firmware manifest. (required)
+        :param str manifest_id: The ID of the firmware manifest. (required)
         :return: FirmwareManifest
                  If the method is called asynchronously,
                  returns the request thread.
@@ -817,7 +817,7 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param int manifest_id: The ID of the firmware manifest. (required)
+        :param str manifest_id: The ID of the firmware manifest. (required)
         :return: FirmwareManifest
                  If the method is called asynchronously,
                  returns the request thread.

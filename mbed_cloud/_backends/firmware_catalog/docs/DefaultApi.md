@@ -92,7 +92,7 @@ firmware_catalog.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = firmware_catalog.DefaultApi()
-image_id = 56 # int | The ID of the firmware image.
+image_id = 'image_id_example' # str | The ID of the firmware image.
 
 try: 
     api_instance.firmware_image_destroy(image_id)
@@ -104,7 +104,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **image_id** | **int**| The ID of the firmware image. | 
+ **image_id** | **str**| The ID of the firmware image. | 
 
 ### Return type
 
@@ -203,7 +203,7 @@ firmware_catalog.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = firmware_catalog.DefaultApi()
-image_id = 56 # int | The ID of the firmware image.
+image_id = 'image_id_example' # str | The ID of the firmware image.
 
 try: 
     api_response = api_instance.firmware_image_retrieve(image_id)
@@ -216,7 +216,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **image_id** | **int**| The ID of the firmware image. | 
+ **image_id** | **str**| The ID of the firmware image. | 
 
 ### Return type
 
@@ -311,7 +311,7 @@ firmware_catalog.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = firmware_catalog.DefaultApi()
-manifest_id = 56 # int | The ID of the firmware manifest.
+manifest_id = 'manifest_id_example' # str | The ID of the firmware manifest.
 
 try: 
     api_instance.firmware_manifest_destroy(manifest_id)
@@ -323,7 +323,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **manifest_id** | **int**| The ID of the firmware manifest. | 
+ **manifest_id** | **str**| The ID of the firmware manifest. | 
 
 ### Return type
 
@@ -422,7 +422,7 @@ firmware_catalog.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = firmware_catalog.DefaultApi()
-manifest_id = 56 # int | The ID of the firmware manifest.
+manifest_id = 'manifest_id_example' # str | The ID of the firmware manifest.
 
 try: 
     api_response = api_instance.firmware_manifest_retrieve(manifest_id)
@@ -435,7 +435,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **manifest_id** | **int**| The ID of the firmware manifest. | 
+ **manifest_id** | **str**| The ID of the firmware manifest. | 
 
 ### Return type
 
