@@ -18,6 +18,6 @@ from .device_data import DeviceData
 from .device_data_patch_request import DeviceDataPatchRequest
 from .device_data_post_request import DeviceDataPostRequest
 from .device_data_put_request import DeviceDataPutRequest
-from .device_log_data import DeviceLogData
-from .device_log_page import DeviceLogPage
+from .device_event_data import DeviceEventData
+from .device_event_page import DeviceEventPage
 from .device_page import DevicePage
