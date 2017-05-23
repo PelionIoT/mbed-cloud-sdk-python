@@ -150,7 +150,7 @@ class AccountManagementAPI(BaseAPI):
         :rtype: User
         """
         api = iam.AccountAdminApi()
-        body = iam.UserInfoReq(**kwargs)
+        body = iam.UserUpdateReq(**kwargs)
         return User(api.update_user(user_id, body))
 
     @catch_exceptions(ApiException)
