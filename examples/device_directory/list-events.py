@@ -11,29 +11,29 @@
 #   permitted to do so under the terms of a subsisting license agreement
 #   from ARM Limited or its affiliates.
 # --------------------------------------------------------------------------
-"""Example: listing devices logs."""
+"""Example: listing devices events."""
 from mbed_cloud.device_directory import DeviceDirectoryAPI
 
 
-def _print_log(idx, l):
-    print("%d) %s | %s\n%s\n" % (idx, l.date_time, l.device_log_id, l.description))
+def _print_event(idx, l):
+    print("%d) %s | %s\n%s\n" % (idx, l.date_time, l.device_event_id, l.description))
 
 
 def _main():
     api = DeviceDirectoryAPI()
-    logs = list(api.list_device_logs(limit=5, order='desc'))
+    events = list(api.list_device_events(limit=5, order='desc'))
 
-    for idx, log in enumerate(logs):
-        _print_log(idx + 1, log)
+    for idx, event in enumerate(events):
+        _print_event(idx + 1, event)
 
     print("-" * 30 + "\n")
 
     filters = {
-        'id': str(logs[0].id),
+        'id': str(events[0].id),
     }
-    device_logs = api.list_device_logs(limit=5, filters=filters)
-    for idx, device_log in enumerate(device_logs):
-        _print_log(idx + 1, device_log)
+    device_events = api.list_device_events(limit=5, filters=filters)
+    for idx, device_event in enumerate(device_events):
+        _print_event(idx + 1, device_event)
 
 
 if __name__ == "__main__":

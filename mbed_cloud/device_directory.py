@@ -26,7 +26,7 @@ from mbed_cloud import PaginatedResponse
 # Import backend API
 import mbed_cloud._backends.device_catalog as dc
 from mbed_cloud._backends.device_catalog.models import DeviceData
-from mbed_cloud._backends.device_catalog.models import DeviceLogData
+from mbed_cloud._backends.device_catalog.models import DeviceEventData
 from mbed_cloud._backends.device_catalog.rest import \
     ApiException as DeviceCatalogApiException
 import mbed_cloud._backends.device_query_service as dc_queries
@@ -284,31 +284,31 @@ class DeviceDirectoryAPI(BaseAPI):
         return Query(api.device_query_retrieve(query_id))
 
     @catch_exceptions(DeviceCatalogApiException)
-    def list_device_logs(self, **kwargs):
+    def list_device_events(self, **kwargs):
         """List all device logs.
 
         :param int limit: (Optional) The number of logs to retrieve. (int)
         :param str order: (Optional) The ordering direction, ascending (asc) or
             descending (desc) (str)
-        :param str after: (Optional) Get logs after/starting at given `device_log_id` (str)
+        :param str after: (Optional) Get logs after/starting at given `device_event_id` (str)
         :param dict filters: (Optional) Dictionary of filters to apply.
-        :return: list of :py:class:`DeviceLog` objects
+        :return: list of :py:class:`DeviceEvent` objects
         :rtype: PaginatedResponse
         """
         kwargs = self._verify_sort_options(kwargs)
         kwargs = self._verify_device_filters(kwargs)
 
         api = self.dc.DefaultApi()
-        return PaginatedResponse(api.device_log_list, lwrap_type=DeviceLog, **kwargs)
+        return PaginatedResponse(api.device_log_list, lwrap_type=DeviceEvent, **kwargs)
 
     @catch_exceptions(DeviceCatalogApiException)
-    def get_device_log(self, device_log_id):
-        """Get device log with provided ID.
+    def get_device_event(self, device_event_id):
+        """Get device event with provided ID.
 
-        :rtype: DeviceLog
+        :rtype: DeviceEvent
         """
         api = self.dc.DefaultApi()
-        return DeviceLog(api.device_log_retrieve(device_log_id))
+        return DeviceEvent(api.device_log_retrieve(device_event_id))
 
 
 class Device(BaseObject):
@@ -680,9 +680,9 @@ class Query(BaseObject):
         self._filter = value
 
 
-class DeviceLog(DeviceLogData):
-    """Describes device log object."""
+class DeviceEvent(DeviceEventData):
+    """Describes device event object."""
 
-    def __init__(self, device_log_obj):
+    def __init__(self, device_event_obj):
         """Override __init__ and allow passing in backend object."""
-        super(DeviceLog, self).__init__(**device_log_obj.to_dict())
+        super(DeviceEvent, self).__init__(**device_event_obj.to_dict())

@@ -75,9 +75,11 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DefaultApi* | [**device_create**](docs/DefaultApi.md#device_create) | **POST** /v3/devices/ | 
 *DefaultApi* | [**device_destroy**](docs/DefaultApi.md#device_destroy) | **DELETE** /v3/devices/{id}/ | 
+*DefaultApi* | [**device_event_list**](docs/DefaultApi.md#device_event_list) | **GET** /v3/device-events/ | 
+*DefaultApi* | [**device_event_retrieve**](docs/DefaultApi.md#device_event_retrieve) | **GET** /v3/device-events/{device_event_id}/ | 
 *DefaultApi* | [**device_list**](docs/DefaultApi.md#device_list) | **GET** /v3/devices/ | 
 *DefaultApi* | [**device_log_list**](docs/DefaultApi.md#device_log_list) | **GET** /v3/devicelog/ | 
-*DefaultApi* | [**device_log_retrieve**](docs/DefaultApi.md#device_log_retrieve) | **GET** /v3/devicelog/{device_log_id}/ | 
+*DefaultApi* | [**device_log_retrieve**](docs/DefaultApi.md#device_log_retrieve) | **GET** /v3/devicelog/{device_event_id}/ | 
 *DefaultApi* | [**device_partial_update**](docs/DefaultApi.md#device_partial_update) | **PATCH** /v3/devices/{id}/ | 
 *DefaultApi* | [**device_retrieve**](docs/DefaultApi.md#device_retrieve) | **GET** /v3/devices/{id}/ | 
 *DefaultApi* | [**device_update**](docs/DefaultApi.md#device_update) | **PUT** /v3/devices/{id}/ | 
@@ -89,8 +91,8 @@ Class | Method | HTTP request | Description
  - [DeviceDataPatchRequest](docs/DeviceDataPatchRequest.md)
  - [DeviceDataPostRequest](docs/DeviceDataPostRequest.md)
  - [DeviceDataPutRequest](docs/DeviceDataPutRequest.md)
- - [DeviceLogData](docs/DeviceLogData.md)
- - [DeviceLogPage](docs/DeviceLogPage.md)
+ - [DeviceEventData](docs/DeviceEventData.md)
+ - [DeviceEventPage](docs/DeviceEventPage.md)
  - [DevicePage](docs/DevicePage.md)
 
 

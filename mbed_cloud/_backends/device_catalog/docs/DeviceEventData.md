@@ -1,4 +1,4 @@
-# DeviceLogData
+# DeviceEventData
 
 ## Properties
 Name | Type | Description | Notes
@@ -8,7 +8,6 @@ Name | Type | Description | Notes
 **description** | **str** |  | [optional] 
 **changes** | **object** |  | [optional] 
 **event_type_description** | **str** |  | [optional] 
-**device_log_id** | **str** |  | [optional] 
 **event_type** | **str** |  | [optional] 
 **data** | **object** |  | [optional] 
 **id** | **str** |  | [optional] 
