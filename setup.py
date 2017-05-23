@@ -27,7 +27,7 @@ except(IOError, ImportError):
 # Version number is composed based on API backend version and SDK version.
 # Breaking changes in SDK will increment major version number.
 # API version number will follow mbed release schedule (~quarterly releases).
-API_VERSION = "1.1"
+API_VERSION = "1.2"
 SDK_MAJOR_MINOR = "0.0"
 SDK_SUFFIX = ""
 VERSION = "%s.%s%s" % (API_VERSION, SDK_MAJOR_MINOR, SDK_SUFFIX)
