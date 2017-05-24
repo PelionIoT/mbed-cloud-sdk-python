@@ -724,7 +724,7 @@ class Group(BaseObject):
             "account_id": "account_id",
             "name": "name",
             "user_count": "user_count",
-            "api_key_count": "api_key_count",
+            "apikey_count": "apikey_count",
             "created_at": "created_at",
             "creation_time": "creation_time",
             "last_update_time": "last_update_time"
@@ -763,12 +763,12 @@ class Group(BaseObject):
         return self._user_count
 
     @property
-    def api_key_count(self):
+    def apikey_count(self):
         """The number of API keys in this group. (readonly)
 
         :rtype: int
         """
-        return self._api_key_count
+        return self._apikey_count
 
     @property
     def created_at(self):
