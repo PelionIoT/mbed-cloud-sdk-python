@@ -539,7 +539,6 @@ class User(BaseObject):
             "account_id": "account_id",
             "email_verified": "email_verified",
             "created_at": "created_at",
-            "limits": "limits",
             "creation_time": "creation_time",
             "password_changed_time": "password_changed_time",
             "last_login_time": "last_login_time"
@@ -565,7 +564,7 @@ class User(BaseObject):
 
     @property
     def full_name(self):
-        """Account ID.
+        """The full name of the user.
 
         :rtype: str
         """
@@ -581,7 +580,7 @@ class User(BaseObject):
 
     @property
     def password(self):
-        """Account ID (readonly).
+        """The password when creating a new user. It will will generated when not present in the request.
 
         :rtype: str
         """
@@ -589,7 +588,7 @@ class User(BaseObject):
 
     @property
     def email(self):
-        """Account ID (readonly).
+        """The email address.
 
         :rtype: str
         """
@@ -597,7 +596,7 @@ class User(BaseObject):
 
     @property
     def phone_number(self):
-        """Account ID (readonly).
+        """Phone number.
 
         :rtype: str
         """
@@ -605,7 +604,7 @@ class User(BaseObject):
 
     @property
     def address(self):
-        """Account ID (readonly).
+        """Address.
 
         :rtype: str
         """
@@ -613,23 +612,23 @@ class User(BaseObject):
 
     @property
     def terms_accepted(self):
-        """Account ID (readonly).
+        """A flag indicating that the General Terms and Conditions has been accepted.
 
-        :rtype: str
+        :rtype: bool
         """
         return self._terms_accepted
 
     @property
     def marketing_accepted(self):
-        """Account ID (readonly).
+        """A flag indicating that receiving marketing information has been accepted.
 
-        :rtype: str
+        :rtype: bool
         """
         return self._marketing_accepted
 
     @property
     def groups(self):
-        """A list of group IDs this user belongs to.
+        """A list of group IDs this user belongs to (readonly).
 
         :rtype: str[]
         """
@@ -637,7 +636,7 @@ class User(BaseObject):
 
     @property
     def id(self):
-        """Account ID (readonly).
+        """The UUID of the user (readonly).
 
         :rtype: str
         """
@@ -645,7 +644,7 @@ class User(BaseObject):
 
     @property
     def status(self):
-        """The status of the user.
+        """The status of the user (readonly).
 
         INVITED means that the user has not accepted the invitation request.
         RESET means that the password must be changed immediately.
@@ -657,7 +656,7 @@ class User(BaseObject):
 
     @property
     def account_id(self):
-        """The UUID of the account.
+        """The UUID of the account (readonly).
 
         :rtype: str
         """
@@ -673,23 +672,15 @@ class User(BaseObject):
 
     @property
     def created_at(self):
-        """Creation UTC time RFC3339.
+        """Creation UTC time RFC3339 (readonly).
 
         :rtype: str
         """
         return self._created_at
 
     @property
-    def limits(self):
-        """Account ID (readonly).
-
-        :rtype: str
-        """
-        return self._limits
-
-    @property
     def creation_time(self):
-        """A timestamp of the user creation in the storage, in milliseconds.
+        """A timestamp of the user creation in the storage, in milliseconds (readonly).
 
         :rtype: int
         """
@@ -697,7 +688,7 @@ class User(BaseObject):
 
     @property
     def password_changed_time(self):
-        """A timestamp of the latest change of the user password, in milliseconds.
+        """A timestamp of the latest change of the user password, in milliseconds (readonly).
 
         :rtype: int
         """
@@ -705,7 +696,7 @@ class User(BaseObject):
 
     @property
     def last_login_time(self):
-        """A timestamp of the latest login of the user, in milliseconds.
+        """A timestamp of the latest login of the user, in milliseconds (readonly).
 
         :rtype: int
         """
