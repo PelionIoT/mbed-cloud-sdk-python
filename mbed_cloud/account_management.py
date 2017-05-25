@@ -441,6 +441,7 @@ class Account(BaseObject):
         """The tier level of the account; '0': free tier, '1': commercial account.
 
         Other values are reserved for the future.
+
         :rtype: str
         """
         return self._tier

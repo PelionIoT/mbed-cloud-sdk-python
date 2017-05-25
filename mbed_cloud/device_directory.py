@@ -154,7 +154,7 @@ class DeviceDirectoryAPI(BaseAPI):
         :param str certificate_fingerprint: Fingerprint of the device certificate
         :param str certificate_issuer_id: ID of the issuer of the certificate
         :param datetime connector_certificate_expiration: Expiration date of the certificate
-        used to connect to connector server
+            used to connect to connector server
         :param int device_execution_mode: The device class
         :param str firmware_checksum: The SHA256 checksum of the current firmware image
         :param datetime manifest_timestamp: The timestamp of the current manifest version
@@ -242,7 +242,7 @@ class DeviceDirectoryAPI(BaseAPI):
         :param str query_id: Existing query ID to update
         :param str name: (New) name of query
         :param dict query: (New) query properties to apply
-        :param return: the newly updated query object.
+        :return: the newly updated query object.
         :rtype: Query
         """
         api = self.dc_queries.DefaultApi()
@@ -266,7 +266,7 @@ class DeviceDirectoryAPI(BaseAPI):
         """Delete query in device query service.
 
         :param int query_id: id of the query to delete
-        :param return: void
+        :return: void
         """
         api = self.dc_queries.DefaultApi()
         api.device_query_destroy(query_id)
