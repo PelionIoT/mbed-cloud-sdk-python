@@ -94,11 +94,12 @@ class CertificatesAPI(BaseAPI):
 
     @catch_exceptions(ApiException)
     def add_certificate(self, name, type, **kwargs):
-        """Delete a certificate.
+        """Add a new certificate.
 
         :param name: name of the certificate (str)
         :param type: type of the certificate (str)
-        :returns: void
+        :returns: Certificate object
+        :rtype: Certificate
         """
         kwargs.update({'name': name})
         if type == CertificateType.developer:
@@ -115,10 +116,11 @@ class CertificatesAPI(BaseAPI):
 
     @catch_exceptions(ApiException)
     def update_certificate(self, certificate_id, **kwargs):
-        """Delete a certificate.
+        """Update a certificate.
 
         :param certificate_id: The certificate id (str)
-        :returns: void
+        :returns: Certificate object
+        :rtype: Certificate
         """
         api = self.iam.AccountAdminApi()
         body = iam.TrustedCertificateReq(**kwargs)

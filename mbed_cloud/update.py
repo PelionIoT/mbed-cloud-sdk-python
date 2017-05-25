@@ -387,7 +387,7 @@ class FirmwareManifest(BaseObject):
 
     @property
     def name(self):
-        """The time the object was created (readonly).
+        """The name of the firmware manifest (readonly).
 
         :rtype: str
         """
