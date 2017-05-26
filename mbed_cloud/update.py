@@ -153,7 +153,7 @@ class UpdateAPI(BaseAPI):
         """Get a firmware image with provided image_id.
 
         :param str image_id: The firmware ID for the image to retrieve
-        :return: Firmware
+        :return: FirmwareImage
         """
         api = self.firmware_catalog.DefaultApi()
         return FirmwareImage(api.firmware_image_retrieve(image_id))
@@ -165,7 +165,7 @@ class UpdateAPI(BaseAPI):
         :param int limit: number of firmware images to retrieve
         :param str order: ordering of images when ordered by time. 'desc' or 'asc'
         :param str after: get firmware images after given `image_id`
-        :return: list of :py:class:`Firmware` objects
+        :return: list of :py:class:`FirmwareImage` objects
         :rtype: PaginatedResponse
         """
         kwargs = self._verify_sort_options(kwargs)
@@ -203,7 +203,7 @@ class UpdateAPI(BaseAPI):
         """Get manifest with provided manifest_id.
 
         :param str manifest_id: ID of manifest to retrieve
-        :return Manifest
+        :return: FirmwareManifest
         """
         api = self.firmware_catalog.DefaultApi()
         return FirmwareManifest(api.firmware_manifest_retrieve(manifest_id=manifest_id))
@@ -215,7 +215,7 @@ class UpdateAPI(BaseAPI):
         :param int limit: number of manifests to retrieve
         :param str order: sort direction of manifests when ordered by time. 'desc' or 'asc'
         :param str after: get manifests after given `image_id`
-        :return: list of :py:class:`Manifest` objects
+        :return: list of :py:class:`FirmwareManifest` objects
         :rtype: PaginatedResponse
         """
         kwargs = self._verify_sort_options(kwargs)
@@ -242,7 +242,7 @@ class UpdateAPI(BaseAPI):
         """Delete an existing manifest.
 
         :param str manifest_id: Manifest file ID to delete
-        :return: void.
+        :return: void
         """
         api = self.firmware_catalog.DefaultApi()
         return api.firmware_manifest_destroy(manifest_id)
