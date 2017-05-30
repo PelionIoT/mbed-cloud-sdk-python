@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **is_marketing_accepted** | **bool** | A flag indicating that receiving marketing information has been accepted. | [optional] 
 **address** | **str** | Address, not longer than 100 characters. | [optional] 
 **password** | **str** | The password when creating a new user. It will will generated when not present in the request. | [optional] 
-**email** | **str** | The email address, not longer than 100 characters. | 
+**email** | **str** | The email address, not longer than 254 characters. | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
