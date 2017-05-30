@@ -18,3 +18,8 @@ from .firmware_image import FirmwareImage
 from .firmware_image_page import FirmwareImagePage
 from .firmware_manifest import FirmwareManifest
 from .firmware_manifest_page import FirmwareManifestPage
+from .manifest_contents import ManifestContents
+from .manifest_contents_encryption_mode import ManifestContentsEncryptionMode
+from .manifest_contents_payload import ManifestContentsPayload
+from .manifest_contents_payload_format import ManifestContentsPayloadFormat
+from .manifest_contents_payload_reference import ManifestContentsPayloadReference

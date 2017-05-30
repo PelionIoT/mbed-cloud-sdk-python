@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **created_at** | **datetime** | The time the object was created. | 
 **object** | **str** | The API resource entity. | 
 **updated_at** | **datetime** | The time the object was updated. | 
-**manifest_contents** | **object** | The contents of the manifest. | 
+**manifest_contents** | [**ManifestContents**](ManifestContents.md) |  | 
 **etag** | **datetime** | The entity instance signature. | 
 **device_class** | **str** | The class of device. | 
 **id** | **str** | The ID of the firmware manifest. | 

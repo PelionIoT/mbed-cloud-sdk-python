@@ -91,6 +91,11 @@ Class | Method | HTTP request | Description
  - [FirmwareImagePage](docs/FirmwareImagePage.md)
  - [FirmwareManifest](docs/FirmwareManifest.md)
  - [FirmwareManifestPage](docs/FirmwareManifestPage.md)
+ - [ManifestContents](docs/ManifestContents.md)
+ - [ManifestContentsEncryptionMode](docs/ManifestContentsEncryptionMode.md)
+ - [ManifestContentsPayload](docs/ManifestContentsPayload.md)
+ - [ManifestContentsPayloadFormat](docs/ManifestContentsPayloadFormat.md)
+ - [ManifestContentsPayloadReference](docs/ManifestContentsPayloadReference.md)
 
 
 ## Documentation For Authorization
