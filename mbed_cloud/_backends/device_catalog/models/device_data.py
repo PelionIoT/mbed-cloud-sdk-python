@@ -295,7 +295,7 @@ class DeviceData(object):
     def account_id(self):
         """
         Gets the account_id of this DeviceData.
-        The owning IAM account ID.
+        The ID of the associated account.
 
         :return: The account_id of this DeviceData.
         :rtype: str
@@ -306,7 +306,7 @@ class DeviceData(object):
     def account_id(self, account_id):
         """
         Sets the account_id of this DeviceData.
-        The owning IAM account ID.
+        The ID of the associated account.
 
         :param account_id: The account_id of this DeviceData.
         :type: str

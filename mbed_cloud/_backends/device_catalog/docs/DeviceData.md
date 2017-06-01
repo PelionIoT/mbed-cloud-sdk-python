@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **ca_id** | **str** | ID of the issuer of the certificate. | [optional] 
 **device_class** | **str** | The device class. | [optional] 
 **id** | **str** | The ID of the device. | [optional] 
-**account_id** | **str** | The owning IAM account ID. | [optional] 
+**account_id** | **str** | The ID of the associated account. | [optional] 
 **endpoint_name** | **str** | The endpoint name given to the device. | [optional] 
 **auto_update** | **bool** | Mark this device for auto firmware update. | [optional] 
 **host_gateway** | **str** | The endpoint_name of the host gateway, if appropriate. | [optional] 
