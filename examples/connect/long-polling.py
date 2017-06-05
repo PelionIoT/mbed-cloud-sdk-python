@@ -22,7 +22,7 @@ BUTTON_RESOURCE = "/5002/0/1"
 def _run_synchronized():
     api = ConnectAPI()
     api.start_notifications()
-    devices = list(api.list_connected_devices())
+    devices = api.list_connected_devices()
     if not devices:
         raise Exception("No devices registered. Aborting")
 
@@ -45,7 +45,7 @@ def _run_synchronized():
 def _run_async():
     api = ConnectAPI()
     api.start_notifications()
-    devices = list(api.list_connected_devices())
+    devices = api.list_connected_devices()
     if not devices:
         raise Exception("No devices registered. Aborting")
 

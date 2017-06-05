@@ -54,7 +54,7 @@ now ready to use the API.
 
   >>> from mbed_cloud.connect import ConnectAPI
   >>> connect_api = ConnectAPI()
-  >>> list(connect_api.list_connected_devices())[0]
+  >>> connect_api.list_connected_devices()[0]
   {
     "id": "Device #1",
     "state": "unenrolled",
