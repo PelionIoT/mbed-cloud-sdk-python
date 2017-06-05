@@ -38,7 +38,6 @@ from mbed_cloud.exceptions import CloudValueError
 import mbed_cloud._backends.mds as mds
 from mbed_cloud._backends.mds.rest import ApiException as MdsApiException
 import mbed_cloud._backends.statistics as statistics
-from mbed_cloud._backends.statistics.models import Metric as MetricData
 from mbed_cloud._backends.statistics.rest import ApiException as StatisticsApiException
 
 LOG = logging.getLogger(__name__)
@@ -474,7 +473,8 @@ class ConnectAPI(BaseAPI):
             include = self._include_all
         self._verify_arguments(interval, kwargs)
         api = self.statistics.StatisticsApi()
-        return api.v3_metrics_get(include, interval, self._auth, **kwargs).data
+        data = api.v3_metrics_get(include, interval, self._auth, **kwargs).data
+        return [Metric(m) for m in data]
 
     @catch_exceptions(StatisticsApiException)
     def get_account_metrics(self, include=None, interval="1d", **kwargs):
@@ -496,7 +496,8 @@ class ConnectAPI(BaseAPI):
             include = self._include_all
         self._verify_arguments(interval, kwargs)
         api = self.statistics.AccountApi()
-        return api.v3_metrics_get(include, interval, self._auth, **kwargs).data
+        data = api.v3_metrics_get(include, interval, self._auth, **kwargs).data
+        return [Metric(m) for m in data]
 
     def _subscription_handler(self, queue, device_id, path, callback_fn):
         while True:
@@ -852,9 +853,74 @@ class Resource(object):
         return str(self.to_dict())
 
 
-class Metric(MetricData):
+class Metric(BaseObject):
     """Describes Metric object from statistics."""
 
-    def __init__(self, data_obj):
-        """Override __init__ and allow passing in backend object."""
-        super(Metric, self).__init__(**data_obj.to_dict())
+    @staticmethod
+    def _get_attributes_map():
+        return {
+            "timestamp": "timestamp",
+            "transactions": "transactions",
+            "successful_device_registrations": "bootstraps_successful",
+            "pending_device_registrations": "bootstraps_pending",
+            "failed_device_registrations": "bootstraps_failed",
+            "successful_api_calls": "device_server_rest_api_success",
+            "failed_api_calls": "device_server_rest_api_error"
+        }
+
+    @property
+    def timestamp(self):
+        """UTC time in RFC3339 format.
+
+        :return: The timestamp of this Metric.
+        :rtype: str
+        """
+        return self._timestamp
+
+    @property
+    def transactions(self):
+        """Number of transaction events from devices linked to the account.
+
+        :rtype: int
+        """
+        return self._transactions
+
+    @property
+    def successful_device_registrations(self):
+        """Number of successful bootstraps the account has used.
+
+        :rtype: int
+        """
+        return self._successful_device_registrations
+
+    @property
+    def pending_device_registrations(self):
+        """Number of pending bootstraps the account has used.
+
+        :rtype: int
+        """
+        return self._pending_device_registrations
+
+    @property
+    def failed_device_registrations(self):
+        """Number of failed bootstraps the account has used.
+
+        :rtype: int
+        """
+        return self._failed_device_registrations
+
+    @property
+    def successful_api_calls(self):
+        """Number of successful device server REST API requests the account has used.
+
+        :rtype: int
+        """
+        return self._successful_api_calls
+
+    @property
+    def failed_api_calls(self):
+        """Number of failed device server REST API requests the account has used.
+
+        :rtype: int
+        """
+        return self._failed_api_calls
