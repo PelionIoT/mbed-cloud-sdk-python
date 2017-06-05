@@ -21,7 +21,7 @@ def _main():
     api = ConnectAPI()
     # calling start_notifications is required for getting/setting resource synchronously
     api.start_notifications()
-    devices = list(api.list_connected_devices())
+    devices = api.list_connected_devices()
     if not devices:
         raise Exception("No connected devices registered. Aborting")
 

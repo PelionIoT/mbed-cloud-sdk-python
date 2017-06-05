@@ -10,7 +10,7 @@ Usage
   connectApi = ConnectAPI()
 
   # List all connected devices
-  devices = list(connectApi.list_connected_devices())
+  devices = connectApi.list_connected_devices()
 
   # Get resources of the first connected endpoint
   resources = connectApi.list_resources(devices[0].id)

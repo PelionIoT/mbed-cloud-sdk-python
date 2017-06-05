@@ -21,7 +21,7 @@ WRITEABLE_RESOURCE = "/5001/0/1"
 def _main():
     api = ConnectAPI()
     api.start_notifications()
-    devices = list(api.list_connected_devices())
+    devices = api.list_connected_devices()
     if not devices:
         raise Exception("No connected devices registered. Aborting")
 
