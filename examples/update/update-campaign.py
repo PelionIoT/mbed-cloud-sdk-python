@@ -54,7 +54,7 @@ def _main():
     # Upload manifest
     mobj = update_api.add_firmware_manifest(
         name="Auto manifest %s" % _rand_id(),
-        url=filename,
+        datafile=filename,
         description="Manifest uploaded using mbed cloud SDK")
     print("Successfully uploaded manifest %r\n\tURL: %s\nProperties:" % (mobj.name, mobj.url))
     _print_manifest_details(mobj)
