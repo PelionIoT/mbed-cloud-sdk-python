@@ -252,7 +252,7 @@ class UserInfoReq(object):
     def email(self):
         """
         Gets the email of this UserInfoReq.
-        The email address, not longer than 100 characters.
+        The email address, not longer than 254 characters.
 
         :return: The email of this UserInfoReq.
         :rtype: str
@@ -263,7 +263,7 @@ class UserInfoReq(object):
     def email(self, email):
         """
         Sets the email of this UserInfoReq.
-        The email address, not longer than 100 characters.
+        The email address, not longer than 254 characters.
 
         :param email: The email of this UserInfoReq.
         :type: str

@@ -100,7 +100,7 @@ class AccountUpdateReq(object):
     def city(self):
         """
         Gets the city of this AccountUpdateReq.
-        The city part of the postal address, not longer than 100 characters.
+        The city part of the postal address, not longer than 100 characters. Required for commercial accounts only.
 
         :return: The city of this AccountUpdateReq.
         :rtype: str
@@ -111,7 +111,7 @@ class AccountUpdateReq(object):
     def city(self, city):
         """
         Sets the city of this AccountUpdateReq.
-        The city part of the postal address, not longer than 100 characters.
+        The city part of the postal address, not longer than 100 characters. Required for commercial accounts only.
 
         :param city: The city of this AccountUpdateReq.
         :type: str
@@ -123,7 +123,7 @@ class AccountUpdateReq(object):
     def address_line1(self):
         """
         Gets the address_line1 of this AccountUpdateReq.
-        Postal address line 1, not longer than 100 characters.
+        Postal address line 1, not longer than 100 characters. Required for commercial accounts only.
 
         :return: The address_line1 of this AccountUpdateReq.
         :rtype: str
@@ -134,7 +134,7 @@ class AccountUpdateReq(object):
     def address_line1(self, address_line1):
         """
         Sets the address_line1 of this AccountUpdateReq.
-        Postal address line 1, not longer than 100 characters.
+        Postal address line 1, not longer than 100 characters. Required for commercial accounts only.
 
         :param address_line1: The address_line1 of this AccountUpdateReq.
         :type: str
@@ -169,7 +169,7 @@ class AccountUpdateReq(object):
     def country(self):
         """
         Gets the country of this AccountUpdateReq.
-        The country part of the postal address, not longer than 100 characters.
+        The country part of the postal address, not longer than 100 characters. Required for commercial accounts only.
 
         :return: The country of this AccountUpdateReq.
         :rtype: str
@@ -180,7 +180,7 @@ class AccountUpdateReq(object):
     def country(self, country):
         """
         Sets the country of this AccountUpdateReq.
-        The country part of the postal address, not longer than 100 characters.
+        The country part of the postal address, not longer than 100 characters. Required for commercial accounts only.
 
         :param country: The country of this AccountUpdateReq.
         :type: str
@@ -192,7 +192,7 @@ class AccountUpdateReq(object):
     def company(self):
         """
         Gets the company of this AccountUpdateReq.
-        The name of the company, not longer than 100 characters.
+        The name of the company, not longer than 100 characters. Required for commercial accounts only.
 
         :return: The company of this AccountUpdateReq.
         :rtype: str
@@ -203,7 +203,7 @@ class AccountUpdateReq(object):
     def company(self, company):
         """
         Sets the company of this AccountUpdateReq.
-        The name of the company, not longer than 100 characters.
+        The name of the company, not longer than 100 characters. Required for commercial accounts only.
 
         :param company: The company of this AccountUpdateReq.
         :type: str
@@ -238,7 +238,7 @@ class AccountUpdateReq(object):
     def contact(self):
         """
         Gets the contact of this AccountUpdateReq.
-        The name of the contact person for this account, not longer than 100 characters.
+        The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.
 
         :return: The contact of this AccountUpdateReq.
         :rtype: str
@@ -249,7 +249,7 @@ class AccountUpdateReq(object):
     def contact(self, contact):
         """
         Sets the contact of this AccountUpdateReq.
-        The name of the contact person for this account, not longer than 100 characters.
+        The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.
 
         :param contact: The contact of this AccountUpdateReq.
         :type: str
@@ -307,7 +307,7 @@ class AccountUpdateReq(object):
     def email(self):
         """
         Gets the email of this AccountUpdateReq.
-        The company email address for this account, not longer than 100 characters.
+        The company email address for this account, not longer than 100 characters. Required for commercial accounts only.
 
         :return: The email of this AccountUpdateReq.
         :rtype: str
@@ -318,7 +318,7 @@ class AccountUpdateReq(object):
     def email(self, email):
         """
         Sets the email of this AccountUpdateReq.
-        The company email address for this account, not longer than 100 characters.
+        The company email address for this account, not longer than 100 characters. Required for commercial accounts only.
 
         :param email: The email of this AccountUpdateReq.
         :type: str
