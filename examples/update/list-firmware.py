@@ -52,7 +52,7 @@ def _main():
 
     nf = api.add_firmware_image(
         name="Auto firmware %s" % _rand_id(),
-        url=filename,
+        datafile=filename,
         description="Uploaded using the mbed Cloud Python SDK"
     )
     print("Created firmware %r at %s" % (nf.name, nf.created_at.strftime(DATE_FMT)))

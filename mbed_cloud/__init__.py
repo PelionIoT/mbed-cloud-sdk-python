@@ -17,7 +17,6 @@ from __future__ import unicode_literals
 from future import standard_library
 standard_library.install_aliases()
 from builtins import object
-from builtins import str
 from six import iteritems
 from six import string_types
 import sys

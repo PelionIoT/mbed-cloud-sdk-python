@@ -173,18 +173,18 @@ class UpdateAPI(BaseAPI):
         return PaginatedResponse(api.firmware_image_list, lwrap_type=FirmwareImage, **kwargs)
 
     @catch_exceptions(FirmwareCatalogApiException)
-    def add_firmware_image(self, name, url, description=""):
+    def add_firmware_image(self, name, datafile, description=""):
         """Add a new firmware reference.
 
         :param str name: firmware file short name
-        :param str url: the *path* to the firmware file
+        :param str datafile: the *path* to the firmware file
         :param str description: optional firmware file description
         :return: the newly created firmware file object
         :rtype: FirmwareImage
         """
         api = self.firmware_catalog.DefaultApi()
         return FirmwareImage(
-            api.firmware_image_create(name=name, datafile=url, description=description)
+            api.firmware_image_create(name=name, datafile=datafile, description=description)
         )
 
     @catch_exceptions(FirmwareCatalogApiException)
@@ -223,18 +223,18 @@ class UpdateAPI(BaseAPI):
         return PaginatedResponse(api.firmware_manifest_list, lwrap_type=FirmwareManifest, **kwargs)
 
     @catch_exceptions(FirmwareCatalogApiException)
-    def add_firmware_manifest(self, name, url, description=""):
+    def add_firmware_manifest(self, name, datafile, description=""):
         """Add a new manifest reference.
 
         :param str name: manifest file short name
-        :param str url: the *path* to the manifest file
+        :param str datafile: the *path* to the manifest file
         :param str description: optional manifest file description
         :return: the newly created manifest file object
         :rtype: FirmwareManifest
         """
         api = self.firmware_catalog.DefaultApi()
         return FirmwareManifest(
-            api.firmware_manifest_create(name=name, datafile=url, description=description)
+            api.firmware_manifest_create(name=name, datafile=datafile, description=description)
         )
 
     @catch_exceptions(FirmwareCatalogApiException)
