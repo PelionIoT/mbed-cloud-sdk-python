@@ -46,10 +46,10 @@ class CertificatesAPI(BaseAPI):
     def list_certificates(self, **kwargs):
         """List certificates registered to organisation.
 
-        :param int limit: (Optional) The number of logs to retrieve. (int)
+        :param int limit: (Optional) The number of logs to retrieve.
         :param str order: (Optional) The ordering direction, ascending (asc) or
-            descending (desc) (str)
-        :param str after: (Optional) Get logs after/starting at given `device_log_id` (str)
+            descending (desc).
+        :param str after: (Optional) Get logs after/starting at given `device_log_id`.
         :param dict filters: (Optional) Dictionary of filters to apply.
         :return: list of :py:class:`DeviceLog` objects
         :rtype: Certificate
@@ -64,7 +64,7 @@ class CertificatesAPI(BaseAPI):
     def get_certificate(self, certificate_id):
         """Get certificate by id.
 
-        :param certificate_id: The certificate id (str)
+        :param str certificate_id: The certificate id.
         :returns: Certificate object
         :rtype: Certificate
         """
@@ -85,7 +85,7 @@ class CertificatesAPI(BaseAPI):
     def delete_certificate(self, certificate_id):
         """Delete a certificate.
 
-        :param certificate_id: The certificate id (str)
+        :param str certificate_id: The certificate id.
         :returns: void
         """
         api = self.iam.AccountAdminApi()
@@ -96,8 +96,17 @@ class CertificatesAPI(BaseAPI):
     def add_certificate(self, name, type, **kwargs):
         """Add a new certificate.
 
-        :param name: name of the certificate (str)
-        :param type: type of the certificate (str)
+        :param str name: name of the certificate.
+        :param str type: type of the certificate.
+        :param str certificate: (Optional) X509.v3 trusted certificate in PEM format.
+        Required for types lwm2m and bootstrap.
+        :param str signature: (Optional) Base64 encoded signature of the account ID
+        signed by the certificate to be uploaded.
+        Signature must be hashed with SHA256. Required for types lwm2m and bootstrap.
+        :param str status: (Optional) Status of the certificate.
+        Allowed values: "ACTIVE" | "INACTIVE".
+        :param str description: (Optional) Human readable description of this certificate,
+        not longer than 500 characters.
         :returns: Certificate object
         :rtype: Certificate
         """
@@ -109,7 +118,6 @@ class CertificatesAPI(BaseAPI):
             return self.get_certificate(dev_cert.id)
         else:
             api = self.iam.AccountAdminApi()
-            kwargs["device_execution_mode"] = 0
             kwargs["service"] = type
             body = iam.TrustedCertificateReq(**kwargs)
             return api.add_certificate(body)
@@ -118,7 +126,15 @@ class CertificatesAPI(BaseAPI):
     def update_certificate(self, certificate_id, **kwargs):
         """Update a certificate.
 
-        :param certificate_id: The certificate id (str)
+        :param str certificate_id: The certificate id.
+        :param str certificate: (Optional) X509.v3 trusted certificate in PEM format.
+        Required for types lwm2m and bootstrap.
+        :param str signature: (Optional) Base64 encoded signature of the account ID
+        signed by the certificate to be uploaded.
+        :param str status: (Optional) Status of the certificate.
+        Allowed values: "ACTIVE" | "INACTIVE".
+        :param str description: (Optional) Human readable description of this certificate,
+        not longer than 500 characters.
         :returns: Certificate object
         :rtype: Certificate
         """
