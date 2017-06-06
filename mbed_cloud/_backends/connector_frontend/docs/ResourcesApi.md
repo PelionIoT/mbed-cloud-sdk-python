@@ -69,7 +69,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v3_devices_device_id_cached_resources_resource_path_get**
-> str v3_devices_device_id_cached_resources_resource_path_get(endpoint_name, _resource_path, cache_only=cache_only, pri=pri)
+> v3_devices_device_id_cached_resources_resource_path_get(endpoint_name, _resource_path, cache_only=cache_only, pri=pri)
 
 Read from a resource
 
@@ -97,8 +97,7 @@ pri = 'pri_example' # str | Priority message. Adds traffic-class for outgoing IP
 
 try: 
     # Read from a resource
-    api_response = api_instance.v3_devices_device_id_cached_resources_resource_path_get(endpoint_name, _resource_path, cache_only=cache_only, pri=pri)
-    pprint(api_response)
+    api_instance.v3_devices_device_id_cached_resources_resource_path_get(endpoint_name, _resource_path, cache_only=cache_only, pri=pri)
 except ApiException as e:
     print("Exception when calling ResourcesApi->v3_devices_device_id_cached_resources_resource_path_get: %s\n" % e)
 ```
@@ -114,7 +113,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**str**
+void (empty response body)
 
 ### Authorization
 
@@ -123,7 +122,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: text/plain
+ - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
