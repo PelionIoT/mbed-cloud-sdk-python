@@ -327,7 +327,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v2_subscriptions_get**
-> v2_subscriptions_get()
+> PresubscriptionArray v2_subscriptions_get()
 
 Get pre-subscriptions
 
@@ -351,7 +351,8 @@ api_instance = mds.SubscriptionsApi()
 
 try: 
     # Get pre-subscriptions
-    api_instance.v2_subscriptions_get()
+    api_response = api_instance.v2_subscriptions_get()
+    pprint(api_response)
 except ApiException as e:
     print("Exception when calling SubscriptionsApi->v2_subscriptions_get: %s\n" % e)
 ```
@@ -361,7 +362,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-void (empty response body)
+[**PresubscriptionArray**](PresubscriptionArray.md)
 
 ### Authorization
 
