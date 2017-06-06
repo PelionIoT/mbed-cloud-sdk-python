@@ -1,6 +1,6 @@
 # mds.NotificationsApi
 
-All URIs are relative to *https://api.mbedcloud.com*
+All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
