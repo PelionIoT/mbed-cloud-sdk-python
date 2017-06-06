@@ -99,14 +99,14 @@ class CertificatesAPI(BaseAPI):
         :param str name: name of the certificate.
         :param str type: type of the certificate.
         :param str certificate: (Optional) X509.v3 trusted certificate in PEM format.
-        Required for types lwm2m and bootstrap.
+            Required for types lwm2m and bootstrap.
         :param str signature: (Optional) Base64 encoded signature of the account ID
-        signed by the certificate to be uploaded.
-        Signature must be hashed with SHA256. Required for types lwm2m and bootstrap.
+            signed by the certificate to be uploaded.
+            Signature must be hashed with SHA256. Required for types lwm2m and bootstrap.
         :param str status: (Optional) Status of the certificate.
-        Allowed values: "ACTIVE" | "INACTIVE".
+            Allowed values: "ACTIVE" | "INACTIVE".
         :param str description: (Optional) Human readable description of this certificate,
-        not longer than 500 characters.
+            not longer than 500 characters.
         :returns: Certificate object
         :rtype: Certificate
         """
@@ -128,13 +128,13 @@ class CertificatesAPI(BaseAPI):
 
         :param str certificate_id: The certificate id.
         :param str certificate: (Optional) X509.v3 trusted certificate in PEM format.
-        Required for types lwm2m and bootstrap.
+            Required for types lwm2m and bootstrap.
         :param str signature: (Optional) Base64 encoded signature of the account ID
-        signed by the certificate to be uploaded.
+            signed by the certificate to be uploaded.
         :param str status: (Optional) Status of the certificate.
-        Allowed values: "ACTIVE" | "INACTIVE".
+            Allowed values: "ACTIVE" | "INACTIVE".
         :param str description: (Optional) Human readable description of this certificate,
-        not longer than 500 characters.
+            not longer than 500 characters.
         :returns: Certificate object
         :rtype: Certificate
         """
