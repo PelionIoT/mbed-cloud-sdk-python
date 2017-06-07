@@ -34,7 +34,7 @@ class GroupSummary(object):
             'last_update_time': 'int',
             'user_count': 'int',
             'name': 'str',
-            'created_at': 'str',
+            'created_at': 'datetime',
             'object': 'str',
             'creation_time': 'int',
             'etag': 'str',
@@ -147,7 +147,7 @@ class GroupSummary(object):
         Creation UTC time RFC3339.
 
         :return: The created_at of this GroupSummary.
-        :rtype: str
+        :rtype: datetime
         """
         return self._created_at
 
@@ -158,7 +158,7 @@ class GroupSummary(object):
         Creation UTC time RFC3339.
 
         :param created_at: The created_at of this GroupSummary.
-        :type: str
+        :type: datetime
         """
 
         self._created_at = created_at

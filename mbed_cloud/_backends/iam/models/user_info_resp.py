@@ -36,7 +36,7 @@ class UserInfoResp(object):
             'groups': 'list[str]',
             'password_changed_time': 'int',
             'email_verified': 'bool',
-            'created_at': 'str',
+            'created_at': 'datetime',
             'object': 'str',
             'is_gtc_accepted': 'bool',
             'account_id': 'str',
@@ -222,7 +222,7 @@ class UserInfoResp(object):
         Creation UTC time RFC3339.
 
         :return: The created_at of this UserInfoResp.
-        :rtype: str
+        :rtype: datetime
         """
         return self._created_at
 
@@ -233,7 +233,7 @@ class UserInfoResp(object):
         Creation UTC time RFC3339.
 
         :param created_at: The created_at of this UserInfoResp.
-        :type: str
+        :type: datetime
         """
 
         self._created_at = created_at

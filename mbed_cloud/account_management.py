@@ -474,7 +474,7 @@ class Account(BaseObject):
     def created_at(self):
         """Creation UTC time RFC3339.
 
-        :rtype: str
+        :rtype: datetime
         """
         return self._created_at
 
@@ -482,7 +482,7 @@ class Account(BaseObject):
     def upgraded_at(self):
         """Time when upgraded to commercial account in UTC format RFC3339.
 
-        :rtype: str
+        :rtype: datetime
         """
         return self._upgraded_at
 
@@ -675,7 +675,7 @@ class User(BaseObject):
     def created_at(self):
         """Creation UTC time RFC3339 (readonly).
 
-        :rtype: str
+        :rtype: datetime
         """
         return self._created_at
 
@@ -775,7 +775,7 @@ class Group(BaseObject):
     def created_at(self):
         """Creation UTC time RFC3339. (readonly)
 
-        :rtype: str
+        :rtype: datetime
         """
         return self._created_at
 
@@ -874,7 +874,7 @@ class ApiKey(BaseObject):
     def created_at(self):
         """Creation UTC time RFC3339. (readonly)
 
-        :rtype: str
+        :rtype: datetime
         """
         return self._created_at
 

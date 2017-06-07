@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 **groups** | **list[str]** | A list of group IDs this API key belongs to. | [optional] 
 **status** | **str** | The status of the API key. | [optional] 
 **name** | **str** | The display name for the API key. | 
-**created_at** | **str** | Creation UTC time RFC3339. | [optional] 
+**created_at** | **datetime** | Creation UTC time RFC3339. | [optional] 
 **object** | **str** | Entity name: always &#39;api-key&#39; | 
 **creation_time** | **int** | The timestamp of the API key creation in the storage, in milliseconds. | [optional] 
 **etag** | **str** | API resource entity version. | 

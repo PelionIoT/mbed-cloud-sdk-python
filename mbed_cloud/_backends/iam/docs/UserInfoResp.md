@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **groups** | **list[str]** | A list of IDs of the groups this user belongs to. | [optional] 
 **password_changed_time** | **int** | A timestamp of the latest change of the user password, in milliseconds. | [optional] 
 **email_verified** | **bool** | A flag indicating whether the user&#39;s email address has been verified or not. | [optional] 
-**created_at** | **str** | Creation UTC time RFC3339. | [optional] 
+**created_at** | **datetime** | Creation UTC time RFC3339. | [optional] 
 **object** | **str** | Entity name: always &#39;user&#39; | 
 **is_gtc_accepted** | **bool** | A flag indicating that the General Terms and Conditions has been accepted. | [optional] 
 **account_id** | **str** | The UUID of the account. | 

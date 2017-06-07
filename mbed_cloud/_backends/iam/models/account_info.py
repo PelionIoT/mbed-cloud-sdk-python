@@ -48,12 +48,12 @@ class AccountInfo(object):
             'company': 'str',
             'object': 'str',
             'reason': 'str',
-            'upgraded_at': 'str',
+            'upgraded_at': 'datetime',
             'tier': 'str',
             'sub_accounts': 'list[AccountInfo]',
             'limits': 'dict(str, str)',
             'country': 'str',
-            'created_at': 'str',
+            'created_at': 'datetime',
             'contact': 'str',
             'policies': 'list[FeaturePolicy]',
             'template_id': 'str'
@@ -533,7 +533,7 @@ class AccountInfo(object):
         Time when upgraded to commercial account in UTC format RFC3339.
 
         :return: The upgraded_at of this AccountInfo.
-        :rtype: str
+        :rtype: datetime
         """
         return self._upgraded_at
 
@@ -544,7 +544,7 @@ class AccountInfo(object):
         Time when upgraded to commercial account in UTC format RFC3339.
 
         :param upgraded_at: The upgraded_at of this AccountInfo.
-        :type: str
+        :type: datetime
         """
 
         self._upgraded_at = upgraded_at
@@ -650,7 +650,7 @@ class AccountInfo(object):
         Creation UTC time RFC3339.
 
         :return: The created_at of this AccountInfo.
-        :rtype: str
+        :rtype: datetime
         """
         return self._created_at
 
@@ -661,7 +661,7 @@ class AccountInfo(object):
         Creation UTC time RFC3339.
 
         :param created_at: The created_at of this AccountInfo.
-        :type: str
+        :type: datetime
         """
 
         self._created_at = created_at
