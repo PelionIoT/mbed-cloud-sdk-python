@@ -34,7 +34,7 @@ class ApiKeyInfoResp(object):
             'groups': 'list[str]',
             'status': 'str',
             'name': 'str',
-            'created_at': 'str',
+            'created_at': 'datetime',
             'object': 'str',
             'creation_time': 'int',
             'etag': 'str',
@@ -154,7 +154,7 @@ class ApiKeyInfoResp(object):
         Creation UTC time RFC3339.
 
         :return: The created_at of this ApiKeyInfoResp.
-        :rtype: str
+        :rtype: datetime
         """
         return self._created_at
 
@@ -165,7 +165,7 @@ class ApiKeyInfoResp(object):
         Creation UTC time RFC3339.
 
         :param created_at: The created_at of this ApiKeyInfoResp.
-        :type: str
+        :type: datetime
         """
 
         self._created_at = created_at

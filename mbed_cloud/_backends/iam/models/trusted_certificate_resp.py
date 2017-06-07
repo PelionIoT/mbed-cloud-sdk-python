@@ -37,12 +37,12 @@ class TrustedCertificateResp(object):
             'certificate': 'str',
             'issuer': 'str',
             'device_execution_mode': 'int',
-            'created_at': 'str',
+            'created_at': 'datetime',
             'object': 'str',
             'subject': 'str',
             'account_id': 'str',
             'etag': 'str',
-            'validity': 'str',
+            'validity': 'datetime',
             'owner_id': 'str',
             'id': 'str',
             'name': 'str'
@@ -243,7 +243,7 @@ class TrustedCertificateResp(object):
         Creation UTC time RFC3339.
 
         :return: The created_at of this TrustedCertificateResp.
-        :rtype: str
+        :rtype: datetime
         """
         return self._created_at
 
@@ -254,7 +254,7 @@ class TrustedCertificateResp(object):
         Creation UTC time RFC3339.
 
         :param created_at: The created_at of this TrustedCertificateResp.
-        :type: str
+        :type: datetime
         """
 
         self._created_at = created_at
@@ -370,7 +370,7 @@ class TrustedCertificateResp(object):
         Expiration time in UTC formatted as RFC3339.
 
         :return: The validity of this TrustedCertificateResp.
-        :rtype: str
+        :rtype: datetime
         """
         return self._validity
 
@@ -381,7 +381,7 @@ class TrustedCertificateResp(object):
         Expiration time in UTC formatted as RFC3339.
 
         :param validity: The validity of this TrustedCertificateResp.
-        :type: str
+        :type: datetime
         """
         if validity is None:
             raise ValueError("Invalid value for `validity`, must not be `None`")

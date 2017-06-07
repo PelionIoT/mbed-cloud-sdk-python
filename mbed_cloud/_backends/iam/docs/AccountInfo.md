@@ -20,12 +20,12 @@ Name | Type | Description | Notes
 **company** | **str** | The name of the company. | [optional] 
 **object** | **str** | Entity name: always &#39;account&#39; | 
 **reason** | **str** | A reason note for updating the status of the account | [optional] 
-**upgraded_at** | **str** | Time when upgraded to commercial account in UTC format RFC3339. | [optional] 
+**upgraded_at** | **datetime** | Time when upgraded to commercial account in UTC format RFC3339. | [optional] 
 **tier** | **str** | The tier level of the account; &#39;0&#39;: free tier, &#39;1&#39;: commercial account. Other values are reserved for the future. | 
 **sub_accounts** | [**list[AccountInfo]**](AccountInfo.md) | List of sub accounts. | [optional] 
 **limits** | **dict(str, str)** | List of limits as key-value pairs if requested. | [optional] 
 **country** | **str** | The country part of the postal address. | [optional] 
-**created_at** | **str** | Creation UTC time RFC3339. | [optional] 
+**created_at** | **datetime** | Creation UTC time RFC3339. | [optional] 
 **contact** | **str** | The name of the contact person for this account. | [optional] 
 **policies** | [**list[FeaturePolicy]**](FeaturePolicy.md) | List of policies if requested. | [optional] 
 **template_id** | **str** | Account template ID. | [optional] 
