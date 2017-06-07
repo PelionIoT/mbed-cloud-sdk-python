@@ -36,7 +36,7 @@ def _main():
         break
 
     api.delete_webhook()
-    print("Deregistered and ubsubscribed to all resourced. Exiting.")
+    print("Deregistered and unsubscribed from all resources. Exiting.")
 
 
 if __name__ == '__main__':
