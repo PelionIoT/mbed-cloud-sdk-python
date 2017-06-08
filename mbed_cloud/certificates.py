@@ -16,18 +16,16 @@ from __future__ import absolute_import
 from __future__ import unicode_literals
 
 # Import common functions and exceptions from frontend API
-from builtins import str
 from mbed_cloud import BaseAPI
+from mbed_cloud import BaseObject
 from mbed_cloud.decorators import catch_exceptions
 from mbed_cloud import PaginatedResponse
 
 # Import backend API
 
 import mbed_cloud._backends.connector_ca as cert
-from mbed_cloud._backends.connector_ca.models import DeveloperCertificateResponseData
 from mbed_cloud._backends.connector_ca.rest import ApiException
 import mbed_cloud._backends.iam as iam
-from mbed_cloud._backends.iam.models import TrustedCertificateResp
 
 
 class CertificatesAPI(BaseAPI):
@@ -72,14 +70,13 @@ class CertificatesAPI(BaseAPI):
         certificate = Certificate(api.get_certificate(certificate_id))
         self._extend_certificate(certificate)
         return certificate
-        # return Certificate(api.get_certificate(certificate_id))
 
     def _extend_certificate(self, certificate):
         # extend certificate with developer_certificate properties
         if certificate.type == CertificateType.developer:
             dev_api = self.cert.DeveloperCertificateApi()
             dev_cert = dev_api.v3_developer_certificates_id_get(certificate.id, self.auth)
-            certificate.update_certificate(dev_cert.__dict__)
+            certificate.update_attributes(dev_cert)
 
     @catch_exceptions(ApiException)
     def delete_certificate(self, certificate_id):
@@ -165,49 +162,181 @@ class Enumeration(set):
 CertificateType = Enumeration(["developer", "bootstrap", "lwm2m"])
 
 
-class Certificate(TrustedCertificateResp, DeveloperCertificateResponseData):
+class Certificate(BaseObject):
     """Describes device certificate object."""
 
-    def __init__(self, certificate_obj):
-        """Override __init__ and allow passing in backend object.
+    @staticmethod
+    def _get_attributes_map():
+        return {
+            "id": "id",
+            "name": "name",
+            "description": "description",
+            "type": "device_execution_mode",
+            "service": "service",
+            "status": "status",
+            "account_id": "account_id",
+            "certificate_data": "certificate",
+            "created_at": "created_at",
+            "issuer": "issuer",
+            "subject": "subject",
+            "validity": "validity",
+            "owner_id": "owner_id",
+            "server_uri": "server_uri",
+            "server_certificate": "server_certificate",
+            "header_file": "security_file_content",
+            "developer_certificate": "developer_certificate",
+            "developer_private_key": "developer_private_key"
+        }
 
-        :param object certificate_obj: Certificate object..
+    @property
+    def status(self):
+        """The status of the certificate.
+
+        :return: The status of this certificate.
+        :rtype: str
         """
-        super(Certificate, self).__init__(**certificate_obj.to_dict())
-        if self.device_execution_mode == 1:
-            self._type = CertificateType.developer
-        elif self.service == CertificateType.bootstrap:
-            self._type = CertificateType.bootstrap
-        else:
-            self._type = CertificateType.lwm2m
+        return self._status
 
-    def update_certificate(self, dev_certificate):
-        """Update certificate with attributes from developer certificate.
+    @property
+    def description(self):
+        """Human readable description of this certificate.
 
-        :param dict dev_certificate: Developer certificate dictionary.
+        :return: The description of this certificate.
+        :rtype: str
         """
-        self.__dict__.update(dev_certificate)
+        return self._description
+
+    @property
+    def certificate_data(self):
+        """X509.v3 trusted certificate data in PEM format.
+
+        :return: The certificate data.
+        :rtype: str
+        """
+        return self._certificate_data
+
+    @property
+    def issuer(self):
+        """Issuer of the certificate.
+
+        :return: The issuer of this certificate.
+        :rtype: str
+        """
+        return self._issuer
 
     @property
     def type(self):
-        """Get the type of this certificate.
+        """Certificate type.
 
         :return: The type of the certificate.
         :rtype: CertificateType
         """
-        return self._type
+        if self._type == 1:
+            return CertificateType.developer
+        elif self._service == CertificateType.bootstrap:
+            return CertificateType.bootstrap
+        else:
+            return CertificateType.lwm2m
 
-    def to_dict(self):
-        """Convert Certificate to dictionary"""
-        # List of properties to be excluded from dict
-        deletes = ('creation_time_millis', 'device_execution_mode', 'etag', 'object', 'service')
-        d = super(Certificate, self).to_dict()
-        d["type"] = self._type
-        # Remove keys from dictionary if they exist
-        for key in deletes:
-            d.pop(key, None)
-        return d
+    @property
+    def created_at(self):
+        """Creation UTC time RFC3339.
 
-    def __repr__(self):
-        """For print and pprint."""
-        return str(self.to_dict())
+        :rtype: datetime
+        """
+        return self._created_at
+
+    @property
+    def subject(self):
+        """Subject of the certificate.
+
+        :return: The subject of this certificate.
+        :rtype: str
+        """
+        return self._subject
+
+    @property
+    def account_id(self):
+        """The UUID of the account.
+
+        :rtype: str
+        """
+        return self._account_id
+
+    @property
+    def validity(self):
+        """Expiration time in UTC formatted as RFC3339.
+
+        :return: The validity of this certificate.
+        :rtype: datetime
+        """
+        return self._validity
+
+    @property
+    def owner_id(self):
+        """The UUID of the owner.
+
+        :rtype: str
+        """
+        return self._owner_id
+
+    @property
+    def id(self):
+        """ID of this certificate.
+
+        :return: The id of this certificate.
+        :rtype: str
+        """
+        return self._id
+
+    @property
+    def name(self):
+        """Certificate name.
+
+        :return: The name of this certificate.
+        :rtype: str
+        """
+        return self._name
+
+    @property
+    def header_file(self):
+        """The content of the `security.c` file that is flashed into the device
+
+        to provide the security credentials.
+        :rtype: str
+        """
+        return self._header_file
+
+    @property
+    def developer_certificate(self):
+        """The PEM format X.509 developer certificate.
+
+        :rtype: str
+        """
+        return self._developer_certificate
+
+    @property
+    def server_uri(self):
+        """The URI to which the client needs to connect to.
+
+        :rtype: str
+        """
+        return self._server_uri
+
+    @property
+    def developer_private_key(self):
+        """The PEM format developer private key associated to the certificate.
+
+        :rtype: str
+        """
+        return self._developer_private_key
+
+    @property
+    def server_certificate(self):
+        """The PEM format X.509 server certificate that is used to validate
+
+        the server certificate that is received during the TLS/DTLS handshake.
+
+        :rtype: str
+        """
+        return self._server_certificate

@@ -149,12 +149,16 @@ class BaseAPI(object):
 class BaseObject(object):
     """Base class for APIs classes."""
 
-    def __init__(self, obj):
-        """Override __init__ and allow passing in backend object."""
-        if not isinstance(obj, dict):
-            obj = obj.to_dict()
+    def __init__(self, dictionary):
+        """Initialize object."""
+        self.update_attributes(dictionary)
+
+    def update_attributes(self, dictionary):
+        """Update attributes."""
+        if not isinstance(dictionary, dict):
+            dictionary = dictionary.to_dict()
         for key, value in iteritems(self._get_attributes_map()):
-            setattr(self, "_%s" % key, obj.get(value, None))
+            setattr(self, "_%s" % key, dictionary.get(value, None))
 
     @staticmethod
     def _get_attributes_map():
