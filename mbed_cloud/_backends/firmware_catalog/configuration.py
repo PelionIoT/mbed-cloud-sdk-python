@@ -45,7 +45,7 @@ class Configuration(object):
         Constructor
         """
         # Default Base url
-        self.host = "http://api.mbedcloud.com"
+        self.host = "http://api.us-east-1.mbedcloud.com"
         # Default api client
         self.api_client = None
         # Temp file folder for downloading files

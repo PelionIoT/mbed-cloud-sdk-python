@@ -1,6 +1,6 @@
 # device_query_service.DefaultApi
 
-All URIs are relative to *http://api.mbedcloud.com*
+All URIs are relative to *http://api.us-east-1.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------

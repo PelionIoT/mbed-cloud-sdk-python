@@ -117,7 +117,7 @@ class ManifestContents(object):
     def manifest_version(self):
         """
         Gets the manifest_version of this ManifestContents.
-        A short description of the update.
+        The version of the manifest format being used.
 
         :return: The manifest_version of this ManifestContents.
         :rtype: int
@@ -128,7 +128,7 @@ class ManifestContents(object):
     def manifest_version(self, manifest_version):
         """
         Sets the manifest_version of this ManifestContents.
-        A short description of the update.
+        The version of the manifest format being used.
 
         :param manifest_version: The manifest_version of this ManifestContents.
         :type: int
