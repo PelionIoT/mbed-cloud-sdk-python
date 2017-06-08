@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 **description** | **str** | The description of the object. | [optional] 
 **endpoint_name** | **str** | The endpoint name given to the device. | [optional] 
 **auto_update** | **bool** | Mark this device for auto firmware update. | [optional] 
+**host_gateway** | **str** | The endpoint_name of the host gateway, if appropriate. | [optional] 
 **object** | **str** | The API resource entity. | [optional] 
 **custom_attributes** | **object** | Up to 5 custom JSON attributes | [optional] 
 **device_key** | **str** | Fingerprint of the device certificate. | [optional] 
