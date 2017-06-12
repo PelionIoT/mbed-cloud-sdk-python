@@ -56,17 +56,18 @@ class CertificatesAPI(BaseAPI):
         kwargs = self._verify_sort_options(kwargs)
         kwargs = self._verify_filters(kwargs)
 
-        if kwargs and kwargs.get("filter"):
-            filters = kwargs.get("filter")
-            if "type" in filters:
-                if filters["type"] == CertificateType.bootstrap:
-                    kwargs["service__eq"] = CertificateType.bootstrap
-                elif filters["type"] == CertificateType.developer:
-                    kwargs["device_execution_mode__eq"] = 1
-                elif filters["type"] == CertificateType.lwm2m:
-                    kwargs["service__eq"] = CertificateType.developer
-                else:
-                    raise CloudValueError("Incorrect filter 'type': %s" % (filters["type"]))
+        if "type__eq" in kwargs:
+            if kwargs["type__eq"] == CertificateType.bootstrap:
+                kwargs["service__eq"] = CertificateType.bootstrap
+                kwargs["device_execution_mode__eq"] = 0
+            elif kwargs["type__eq"] == CertificateType.developer:
+                kwargs["device_execution_mode__eq"] = 1
+            elif kwargs["type__eq"] == CertificateType.lwm2m:
+                kwargs["service__eq"] = CertificateType.lwm2m
+                kwargs["device_execution_mode__eq"] = 0
+            else:
+                raise CloudValueError("Incorrect filter 'type': %s" % (kwargs["type__eq"]))
+            del kwargs["type__eq"]
         api = self.iam.AccountAdminApi()
         return PaginatedResponse(api.get_all_certificates, lwrap_type=Certificate, **kwargs)
 
