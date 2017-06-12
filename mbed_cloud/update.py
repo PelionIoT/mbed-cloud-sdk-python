@@ -21,7 +21,6 @@ from mbed_cloud import BaseAPI
 from mbed_cloud import BaseObject
 from mbed_cloud.decorators import catch_exceptions
 from mbed_cloud import PaginatedResponse
-from six import iteritems
 
 import mbed_cloud._backends.deployment_service as deployment_service
 from mbed_cloud._backends.deployment_service.rest\
@@ -143,11 +142,10 @@ class UpdateAPI(BaseAPI):
         :rtype: Campaign
         """
         api = self.deployment_service.DefaultApi()
-        campaign_id = campaign_object.id
-        campaign = Campaign.create_request_map(kwargs)
+        campaign_object = Campaign.create_request_map(kwargs)
         if 'device_filter' in campaign_object:
-            campaign["device_filter"] = self._encode_query(campaign_object["device_filter"])
-        body = self.deployment_service.UpdateCampaignPatchRequest(**campaign)
+            campaign_object["device_filter"] = self._encode_query(campaign_object["device_filter"])
+        body = self.deployment_service.UpdateCampaignPatchRequest(**campaign_object)
         return Campaign(api.update_campaign_partial_update(campaign_id=campaign_id,
                                                            campaign=body))
 

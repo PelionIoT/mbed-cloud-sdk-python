@@ -14,7 +14,6 @@
 """Functionality for Account Management related actions in mbed Cloud."""
 from __future__ import absolute_import
 from __future__ import unicode_literals
-from six import iteritems
 
 # Import common functions and exceptions from frontend API
 from mbed_cloud import BaseAPI
