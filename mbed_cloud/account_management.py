@@ -14,7 +14,6 @@
 """Functionality for Account Management related actions in mbed Cloud."""
 from __future__ import absolute_import
 from __future__ import unicode_literals
-from six import iteritems
 
 # Import common functions and exceptions from frontend API
 from mbed_cloud import BaseAPI
@@ -52,12 +51,27 @@ class AccountManagementAPI(BaseAPI):
     def list_api_keys(self, **kwargs):
         """List the API keys registered in the organisation.
 
-        :param limit: Number of API keys to get (int)
-        :param after: Entity ID after which to start fetching (str)
-        :param order: Order of the records to return (asc|desc) (str)
+        List api keys Example:
+
+        .. code-block:: python
+
+            account_management_api = AccountManagementAPI()
+
+            # List api keys
+            api_keys_paginated_response = account_management_api.list_api_keys()
+            # get single api key
+            api_keys_paginated_response.data[0]
+
+        :param int limit: Number of API keys to get
+        :param str after: Entity ID after which to start fetching
+        :param str order: Order of the records to return (asc|desc)
+        :param dict filters: Dictionary of filters to apply: str owner (eq)
         :returns: a list of :py:class:`ApiKey` objects
         :rtype: PaginatedResponse
         """
+        kwargs = self._verify_sort_options(kwargs)
+        kwargs = self._verify_filters(kwargs)
+
         api = iam.DeveloperApi()
 
         # Return the data array
@@ -67,7 +81,7 @@ class AccountManagementAPI(BaseAPI):
     def get_api_key(self, api_key):
         """Get API key details for key registered in organisation.
 
-        :param api_key: The ID of the API key to be updated
+        :param str api_key: The ID of the API key to be updated (Required)
         :returns: API key object
         :rtype: ApiKey
         """
@@ -78,7 +92,7 @@ class AccountManagementAPI(BaseAPI):
     def delete_api_key(self, api_key):
         """Delete an API key registered in the organisation.
 
-        :param api_key: The ID of the API key
+        :param str api_key: The ID of the API key (Required)
         :returns: void
         """
         api = iam.DeveloperApi()
@@ -86,45 +100,49 @@ class AccountManagementAPI(BaseAPI):
         return
 
     @catch_exceptions(ApiException)
-    def add_api_key(self, name, groups=[], owner=None):
+    def add_api_key(self, name, **kwargs):
         """Create new API key registered to organisation.
 
-        :param str name: The name of the API key
-        :param list groups: Optional list of group IDs (`str`)
-        :param str owner: Optional user ID owning the API key
+        :param str name: The name of the API key (Required)
+        :param list groups: List of group IDs (`str`)
+        :param str owner: User ID owning the API key
         :returns: Newly created API key object
         :rtype: ApiKey
         """
         api = iam.DeveloperApi()
-        body = iam.ApiKeyInfoReq(name=name, groups=groups, owner=owner)
+        kwargs.update({'name': name})
+        api_key = ApiKey.create_request_map(kwargs)
+        body = iam.ApiKeyInfoReq(**api_key)
         return ApiKey(api.create_api_key(body))
 
     @catch_exceptions(ApiException)
-    def update_api_key(self, api_key, name, owner=None):
+    def update_api_key(self, api_key, **kwargs):
         """Update API key.
 
-        :param str api_key: The ID of the API key to be updated.
-        :param str name: The name of the API key.
-        :param str owner: Optional user ID owning the API key.
+        :param str api_key: The ID of the API key to be updated (Required)
+        :param str name: The name of the API key
+        :param str owner: User ID owning the API key
         :returns: Newly created API key object
         :rtype: ApiKey
         """
         api = iam.DeveloperApi()
-        body = iam.ApiKeyUpdateReq(name=name, owner=owner)
+        apikey = ApiKey.create_request_map(kwargs)
+        body = iam.ApiKeyUpdateReq(**apikey)
         return ApiKey(api.update_api_key(api_key, body))
 
     @catch_exceptions(ApiException)
     def list_users(self, **kwargs):
         """List all users in organisation.
 
-        :param int limit: The number of devices to retrieve.
+        :param int limit: The number of devices to retrieve
         :param str order: The ordering direction, ascending (asc) or descending (desc)
         :param str after: Get devices after/starting at given user ID
+        :param dict filters: Dictionary of filters to apply: str status (eq)
         :returns: a list of :py:class:`User` objects
         :rtype: PaginatedResponse
         """
         kwargs = self._verify_sort_options(kwargs)
-
+        kwargs = self._verify_filters(kwargs)
         api = iam.AccountAdminApi()
         return PaginatedResponse(api.get_all_users, lwrap_type=User, **kwargs)
 
@@ -132,7 +150,7 @@ class AccountManagementAPI(BaseAPI):
     def get_user(self, user_id):
         """Get user details of specified user.
 
-        :param str user_id: the ID of the user to get
+        :param str user_id: the ID of the user to get (Required)
         :returns: the user object with details about the user.
         :rtype: User
         """
@@ -143,21 +161,28 @@ class AccountManagementAPI(BaseAPI):
     def update_user(self, user_id, **kwargs):
         """Update user properties of specified user.
 
-        Accepts same parameters as `add_user`.
-
-        :param str user_id: the ID of the user to update
+        :param str user_id: The ID of the user to update (Required)
+        :param str username: The unique username of the user
+        :param str email: The unique email of the user
+        :param str full_name: The full name of the user
+        :param list groups: List of group IDs (`str`) which this user belongs to
+        :param str password: The password string of the user.
+        :param str phone_number: Phone number of the user
+        :param bool terms_accepted: Is 'General Terms & Conditions' accepted
+        :param bool marketing_accepted: Is receiving marketing information accepted?
         :returns: the updated user object
         :rtype: User
         """
         api = iam.AccountAdminApi()
-        body = iam.UserUpdateReq(**kwargs)
+        user = User.create_request_map(kwargs)
+        body = iam.UserUpdateReq(**user)
         return User(api.update_user(user_id, body))
 
     @catch_exceptions(ApiException)
     def delete_user(self, user_id):
         """Delete user specified user.
 
-        :param str user_id: the ID of the user to delete
+        :param str user_id: the ID of the user to delete (Required)
         :returns: void
         """
         api = iam.AccountAdminApi()
@@ -168,21 +193,33 @@ class AccountManagementAPI(BaseAPI):
     def add_user(self, username, email, **kwargs):
         """Create a new user with provided details.
 
-        :param str username: Required. The unique username of the user
-        :param str email: Required. The unique email of the user
-        :param str full_name: Optional. The full name of the user
-        :param list groups: Optional. List of group IDs (`str`) which this user belongs to
-        :param str password: Optional. The password string of the user.
-            Need to adhere to password policy
-        :param str phone_number: Optional. Phone number of the user
-        :param bool terms_accepted: Optional. Is 'General Terms & Conditions' accepted
-        :param bool marketing_accepted: Optional. Is receiving marketing information accepted?
+        Add user example:
+
+        .. code-block:: python
+            account_management_api = AccountManagementAPI()
+            # Add user
+            user = {
+                "username": "test_user",
+                "email": "test@gmail.com",
+                "phone_number": "0123456789"
+            }
+            new_user = account_management_api.add_user(**user)
+
+        :param str username: The unique username of the user (Required)
+        :param str email: The unique email of the user (Required)
+        :param str full_name: The full name of the user
+        :param list groups: List of group IDs (`str`) which this user belongs to
+        :param str password: The password string of the user.
+        :param str phone_number: Phone number of the user
+        :param bool terms_accepted: Is 'General Terms & Conditions' accepted
+        :param bool marketing_accepted: Is receiving marketing information accepted?
         :returns: the new user object
         :rtype: User
         """
         api = iam.AccountAdminApi()
         kwargs.update({'username': username, 'email': email})
-        body = iam.UserInfoReq(**kwargs)
+        user = User.create_request_map(kwargs)
+        body = iam.UserInfoReq(**user)
         return User(api.create_user(body))
 
     @catch_exceptions(ApiException)
@@ -216,21 +253,21 @@ class AccountManagementAPI(BaseAPI):
         :rtype: Account
         """
         api = iam.AccountAdminApi()
-        body = AccountUpdateReq(**kwargs)
+        account = Account.create_request_map(kwargs)
+        body = AccountUpdateReq(**account)
         return Account(api.update_my_account(body))
 
     @catch_exceptions(ApiException)
     def list_groups(self, **kwargs):
         """List all groups in organisation.
 
-        :param int limit: The number of groups to retrieve.
+        :param int limit: The number of groups to retrieve
         :param str order: The ordering direction, ascending (asc) or descending (desc)
         :param str after: Get groups after/starting at given group ID
         :returns: a list of :py:class:`Group` objects.
         :rtype: PaginatedResponse
         """
         kwargs = self._verify_sort_options(kwargs)
-
         api = iam.DeveloperApi()
         return PaginatedResponse(api.get_all_groups, lwrap_type=Group, **kwargs)
 
@@ -238,7 +275,7 @@ class AccountManagementAPI(BaseAPI):
     def get_group(self, group_id):
         """Get details of the group.
 
-        :param str group_id: The group ID.
+        :param str group_id: The group ID (Required)
         :param str order: The ordering direction, ascending (asc) or descending (desc)
         :param str after: Get groups after/starting at given group ID
         :returns: :py:class:`Group` object.
@@ -251,16 +288,15 @@ class AccountManagementAPI(BaseAPI):
     def list_group_users(self, group_id, **kwargs):
         """List users of a group.
 
-        :param str group_id: The group ID.
-        :param int limit: The number of users to retrieve.
-        :param str order: The ordering direction, ascending (asc) or descending (desc).
-        :param str after: Get api keys after/starting at given user ID.
+        :param str group_id: The group ID (Required)
+        :param int limit: The number of users to retrieve
+        :param str order: The ordering direction, ascending (asc) or descending (desc)
+        :param str after: Get api keys after/starting at given user ID
         :returns: a list of :py:class:`User` objects.
         :rtype: PaginatedResponse
         """
         kwargs["group_id"] = group_id
         kwargs = self._verify_sort_options(kwargs)
-
         api = iam.AccountAdminApi()
         return PaginatedResponse(api.get_users_of_group, lwrap_type=User, **kwargs)
 
@@ -544,24 +580,6 @@ class User(BaseObject):
             "password_changed_time": "password_changed_time",
             "last_login_time": "last_login_time"
         }
-
-    def _create_put_request(self):
-        put_map = {
-            "full_name": "full_name",
-            "username": "username",
-            "password": "password",
-            "email": "email",
-            "phone_number": "phone_number",
-            "address": "address",
-            "terms_accepted": "is_gtc_accepted",
-            "marketing_accepted": "is_marketing_accepted",
-        }
-        map_put = {}
-        for key, value in iteritems(put_map):
-            val = getattr(self, key, None)
-            if val is not None:
-                map_put[value] = val
-        return map_put
 
     @property
     def full_name(self):

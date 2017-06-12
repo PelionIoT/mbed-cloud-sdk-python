@@ -82,20 +82,24 @@ class BaseAPI(object):
                                  "Currently: %r" % kwargs.get('limit'))
         return kwargs
 
-    def _verify_filters(self, kwargs):
-        if kwargs.get('filter'):
-            kwargs.update({'filter': urllib.parse.urlencode(kwargs.get('filter'))})
-        if kwargs.get('filters'):
-            kwargs.update({'filter': urllib.parse.urlencode(kwargs.get('filters'))})
-            del kwargs['filters']
-        return kwargs
-
-    def _verify_device_filters(self, kwargs):
+    def _verify_filters(self, kwargs, encode=False):
         if kwargs.get('filters'):
             kwargs.update({'filter': kwargs.get('filters')})
             del kwargs['filters']
         if 'filter' in kwargs:
-            kwargs.update({'filter': self._encode_query(kwargs.get('filter'))})
+            if encode:
+                kwargs.update({'filter': self._encode_query(kwargs.get('filter'))})
+            else:
+                for k, v in list(kwargs.get('filter').items()):
+                    if isinstance(v, dict):
+                        for operator, val in list(v.items()):
+                            suffix = self._get_key_suffix(operator, False)
+                            key = "%s%s" % (k, suffix)
+                            kwargs[key] = val
+                    else:
+                        key = "%s__%s" % (k, "eq")
+                        kwargs[key] = v
+                del kwargs['filter']
         return kwargs
 
     def _set_custom_attributes(self, query):
@@ -111,9 +115,10 @@ class BaseAPI(object):
                     continue
                 query['custom_attributes__' + k] = v
 
-    def _get_key_suffix(self, operator):
+    def _get_key_suffix(self, operator, replace_eq=True):
         suffix = ""
-        if operator == "eq":
+        operator = operator.replace("$", "")
+        if replace_eq and operator == "eq":
             suffix = ""
         elif operator == "ne":
             suffix = "__neq"
@@ -136,7 +141,6 @@ class BaseAPI(object):
         for k, v in list(query.items()):
             if isinstance(v, dict):
                 for operator, val in list(v.items()):
-                    operator = operator.replace("$", "")
                     if isinstance(val, bool):
                         val = str(val)
                     suffix = self._get_key_suffix(operator)
@@ -164,6 +168,17 @@ class BaseObject(object):
     def _get_attributes_map():
         """Override in child class."""
         pass
+
+    @classmethod
+    def create_request_map(cls, input_map):
+        """Create request map."""
+        request_map = {}
+        attributes_map = cls._get_attributes_map()
+        for key, value in iteritems(input_map):
+            val = attributes_map.get(key, None)
+            if val is not None:
+                request_map[val] = value
+        return request_map
 
     def to_dict(self):
         """Return dictionary of object."""
