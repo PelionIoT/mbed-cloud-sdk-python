@@ -132,6 +132,7 @@ class ConnectAPI(BaseAPI):
             Update,False,/5/0/3
             ...
 
+        :param str device_id: The ID of the device (Required)
         :returns: A list of :py:class:`Resource` objects for the device
         :rtype: list
         """
@@ -152,8 +153,8 @@ class ConnectAPI(BaseAPI):
             except CloudAsyncError, e:
                 print("Error", e)
 
-        :param str device_id: The name/id of the device
-        :param str resource_path: The resource path to get
+        :param str device_id: The name/id of the device (Required)
+        :param str resource_path: The resource path to get (Required)
         :param fix_path: if True then the leading /, if found, will be stripped before
             doing request to backend. This is a requirement for the API to work properly
         :param timeout: Seconds to request value for before timeout. If not provided, the
@@ -194,8 +195,8 @@ class ConnectAPI(BaseAPI):
                 print("Error", a.error)
             print("Current value", a.value)
 
-        :param str device_id: The name/id of the device
-        :param str resource_path: The resource path to get
+        :param str device_id: The name/id of the device (Required)
+        :param str resource_path: The resource path to get (Required)
         :param bool fix_path: strip leading / of path if present
         :returns: Consumer object to control asynchronous request
         :rtype: AsyncConsumer
@@ -225,8 +226,8 @@ class ConnectAPI(BaseAPI):
             except AsyncError, e:
                 print("Error", e)
 
-        :param str device_id: The name/id of the device
-        :param str resource_path: The resource path to update
+        :param str device_id: The name/id of the device (Required)
+        :param str resource_path: The resource path to update (Required)
         :param str resource_value: The new value to set for given path (if None
             the resource function will be executed)
         :param fix_path: if True then the leading /, if found, will be stripped before
@@ -271,8 +272,8 @@ class ConnectAPI(BaseAPI):
                 print("Error", a.error)
             print("Success, new value:", a.value)
 
-        :param str device_id: The name/id of the device
-        :param str resource_path: The resource path to update
+        :param str device_id: The name/id of the device (Required)
+        :param str resource_path: The resource path to update (Required)
         :param str resource_value: The new value to set for given path (if
             None, the resource function will be executed)
         :param fix_path: if True then the leading /, if found, will be stripped before
@@ -303,8 +304,8 @@ class ConnectAPI(BaseAPI):
         any update on the resource path value triggers a new element on the FIFO queue.
         The returned object is a native Python Queue object.
 
-        :param device_id: Name of device to subscribe on
-        :param resource_path: The resource path on device to observe
+        :param device_id: Name of device to subscribe on (Required)
+        :param resource_path: The resource path on device to observe (Required)
         :param fix_path: Removes leading / on resource_path if found
         :param queue_size: set the Queue size. If set to 0, no queue object will be created
         :returns: a queue of resource updates
@@ -335,8 +336,8 @@ class ConnectAPI(BaseAPI):
         When called on valid device and resource path a subscription is setup so that
         any update on the resource path value triggers an update on the callback function.
 
-        :param device_id: Name of device to subscribe on
-        :param resource_path: The resource path on device to observe
+        :param device_id: Name of device to subscribe on (Required)
+        :param resource_path: The resource path on device to observe (Required)
         :param callback_fn: Callback function to be executed on update to subscribed resource
         :param fix_path: Removes leading / on resource_path if found
         :param queue_size: set the Queue size. If set to 0, no queue object will be created
@@ -354,6 +355,9 @@ class ConnectAPI(BaseAPI):
     def update_presubscription(self, device_id, resource_path, device_type=""):
         """Create pre-subscription for device and resource path.
 
+        :param device_id: ID of device to subscribe on (Required)
+        :param resource_path: The resource path on device to subscribe (Required)
+        :param device_type: Device type
         :returns: void
         """
         api = self.mds.SubscriptionsApi()
@@ -424,7 +428,7 @@ class ConnectAPI(BaseAPI):
 
         If a webhook is already set, this will do an overwrite.
 
-        :param str url: the URL with listening webhook
+        :param str url: the URL with listening webhook (Required)
         :param dict headers: K/V dict with additional headers to send with request
         :return: void
         """

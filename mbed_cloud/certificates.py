@@ -19,6 +19,7 @@ from __future__ import unicode_literals
 from mbed_cloud import BaseAPI
 from mbed_cloud import BaseObject
 from mbed_cloud.decorators import catch_exceptions
+from mbed_cloud.exceptions import CloudValueError
 from mbed_cloud import PaginatedResponse
 
 # Import backend API
@@ -44,17 +45,28 @@ class CertificatesAPI(BaseAPI):
     def list_certificates(self, **kwargs):
         """List certificates registered to organisation.
 
-        :param int limit: (Optional) The number of logs to retrieve.
-        :param str order: (Optional) The ordering direction, ascending (asc) or
+        :param int limit: The number of logs to retrieve.
+        :param str order: The ordering direction, ascending (asc) or
             descending (desc).
-        :param str after: (Optional) Get logs after/starting at given `device_log_id`.
-        :param dict filters: (Optional) Dictionary of filters to apply.
+        :param str after: Get logs after/starting at given `device_log_id`.
+        :param dict filters: Dictionary of filters to apply: type (eq), expire (eq)
         :return: list of :py:class:`DeviceLog` objects
         :rtype: Certificate
         """
         kwargs = self._verify_sort_options(kwargs)
         kwargs = self._verify_filters(kwargs)
 
+        if kwargs and kwargs.get("filter"):
+            filters = kwargs.get("filter")
+            if "type" in filters:
+                if filters["type"] == CertificateType.bootstrap:
+                    kwargs["service__eq"] = CertificateType.bootstrap
+                elif filters["type"] == CertificateType.developer:
+                    kwargs["device_execution_mode__eq"] = 1
+                elif filters["type"] == CertificateType.lwm2m:
+                    kwargs["service__eq"] = CertificateType.developer
+                else:
+                    raise CloudValueError("Incorrect filter 'type': %s" % (filters["type"]))
         api = self.iam.AccountAdminApi()
         return PaginatedResponse(api.get_all_certificates, lwrap_type=Certificate, **kwargs)
 
@@ -62,7 +74,7 @@ class CertificatesAPI(BaseAPI):
     def get_certificate(self, certificate_id):
         """Get certificate by id.
 
-        :param str certificate_id: The certificate id.
+        :param str certificate_id: The certificate id (Required)
         :returns: Certificate object
         :rtype: Certificate
         """
@@ -82,7 +94,7 @@ class CertificatesAPI(BaseAPI):
     def delete_certificate(self, certificate_id):
         """Delete a certificate.
 
-        :param str certificate_id: The certificate id.
+        :param str certificate_id: The certificate id (Required)
         :returns: void
         """
         api = self.iam.AccountAdminApi()
@@ -93,16 +105,16 @@ class CertificatesAPI(BaseAPI):
     def add_certificate(self, name, type, **kwargs):
         """Add a new certificate.
 
-        :param str name: name of the certificate.
-        :param str type: type of the certificate.
-        :param str certificate: (Optional) X509.v3 trusted certificate in PEM format.
+        :param str name: name of the certificate (Required)
+        :param str type: type of the certificate (Required)
+        :param str certificate: X509.v3 trusted certificate in PEM format.
             Required for types lwm2m and bootstrap.
-        :param str signature: (Optional) Base64 encoded signature of the account ID
+        :param str signature: Base64 encoded signature of the account ID
             signed by the certificate to be uploaded.
             Signature must be hashed with SHA256. Required for types lwm2m and bootstrap.
-        :param str status: (Optional) Status of the certificate.
+        :param str status: Status of the certificate.
             Allowed values: "ACTIVE" | "INACTIVE".
-        :param str description: (Optional) Human readable description of this certificate,
+        :param str description: Human readable description of this certificate,
             not longer than 500 characters.
         :returns: Certificate object
         :rtype: Certificate
@@ -110,33 +122,36 @@ class CertificatesAPI(BaseAPI):
         kwargs.update({'name': name})
         if type == CertificateType.developer:
             api = self.cert.DeveloperCertificateApi()
-            body = cert.DeveloperCertificateRequestData(**kwargs)
+            certificate = Certificate.create_request_map(kwargs)
+            body = cert.DeveloperCertificateRequestData(**certificate)
             dev_cert = api.v3_developer_certificates_post(self.auth, body)
             return self.get_certificate(dev_cert.id)
         else:
             api = self.iam.AccountAdminApi()
             kwargs["service"] = type
-            body = iam.TrustedCertificateReq(**kwargs)
+            certificate = Certificate.create_request_map(kwargs)
+            body = iam.TrustedCertificateReq(**certificate)
             return api.add_certificate(body)
 
     @catch_exceptions(ApiException)
     def update_certificate(self, certificate_id, **kwargs):
         """Update a certificate.
 
-        :param str certificate_id: The certificate id.
-        :param str certificate: (Optional) X509.v3 trusted certificate in PEM format.
+        :param str certificate_id: The certificate id (Required)
+        :param str certificate: X509.v3 trusted certificate in PEM format.
             Required for types lwm2m and bootstrap.
-        :param str signature: (Optional) Base64 encoded signature of the account ID
+        :param str signature: Base64 encoded signature of the account ID
             signed by the certificate to be uploaded.
-        :param str status: (Optional) Status of the certificate.
+        :param str status: Status of the certificate.
             Allowed values: "ACTIVE" | "INACTIVE".
-        :param str description: (Optional) Human readable description of this certificate,
+        :param str description: Human readable description of this certificate,
             not longer than 500 characters.
         :returns: Certificate object
         :rtype: Certificate
         """
         api = self.iam.AccountAdminApi()
-        body = iam.TrustedCertificateReq(**kwargs)
+        cert = Certificate.create_request_map(kwargs)
+        body = iam.TrustedCertificateReq(**cert)
         certificate = Certificate(api.update_certificate(certificate_id, body))
         return self.get_certificate(certificate.id)
 

@@ -65,16 +65,16 @@ class DeviceDirectoryAPI(BaseAPI):
             for idx, d in enumerate(devices):
                 print(idx, d.id)
 
-        :param int limit: (Optional) The number of devices to retrieve.
-        :param str order: (Optional) The ordering direction, ascending (asc) or
+        :param int limit: The number of devices to retrieve.
+        :param str order: The ordering direction, ascending (asc) or
             descending (desc)
-        :param str after: (Optional) Get devices after/starting at given `device_id`
-        :param filters: (Optional) Dictionary of filters to apply.
+        :param str after: Get devices after/starting at given `device_id`
+        :param filters: Dictionary of filters to apply.
         :returns: a list of :py:class:`Device` objects registered in the catalog.
         :rtype: PaginatedResponse
         """
         kwargs = self._verify_sort_options(kwargs)
-        kwargs = self._verify_device_filters(kwargs)
+        kwargs = self._verify_filters(kwargs, True)
 
         api = self.dc.DefaultApi()
         return PaginatedResponse(api.device_list, lwrap_type=Device, **kwargs)
@@ -83,7 +83,7 @@ class DeviceDirectoryAPI(BaseAPI):
     def get_device(self, device_id):
         """Get device details from catalog.
 
-        :param device_id: the ID of the device to retrieve (str)
+        :param str device_id: the ID of the device to retrieve (Required)
         :returns: device object matching the `device_id`.
         :rtype: Device
         """
@@ -102,6 +102,7 @@ class DeviceDirectoryAPI(BaseAPI):
                 certificate_fingerprint = "something new"
             )
 
+        :param str device_id: The ID of the device to update (Required)
         :param bool auto_update: Mark this device for auto firmware update
         :param obj custom_attributes: Up to 5 custom JSON attributes
         :param str description: The description of the device
@@ -112,9 +113,9 @@ class DeviceDirectoryAPI(BaseAPI):
         :returns: the updated device object
         :rtype: Device
         """
-        kwargs = Device._verify_args(kwargs)
         api = self.dc.DefaultApi()
-        body = self.dc.DeviceDataPostRequest(**kwargs)
+        device = Device.create_request_map(kwargs)
+        body = self.dc.DeviceDataPostRequest(**device)
         return Device(api.device_update(device_id, body))
 
     @catch_exceptions(DeviceCatalogApiException)
@@ -125,14 +126,17 @@ class DeviceDirectoryAPI(BaseAPI):
 
             device = {
                 "mechanism": "connector",
-                "certificateFingerprint": "<certificate>",
+                "certificate_fingerprint": "<certificate>",
                 "name": "New device name",
                 "auto_update": True,
-                "certificateIssuerId": "<id>"
+                "certificate_issuer_id": "<id>"
             }
             resp = api.add_device(**device)
             print(resp.created_at)
 
+        :param str certificate_fingerprint: Fingerprint of the device certificate (Required)
+        :param str certificate_issuer_id: ID of the issuer of the certificate (Required)
+        :param str name: The name of the device
         :param str account_id: The owning IAM account ID
         :param bool auto_update: Mark this device for auto firmware update
         :param obj custom_attributes: Up to 5 custom JSON attributes
@@ -143,7 +147,6 @@ class DeviceDirectoryAPI(BaseAPI):
         :param str manifest_url: URL for the current device manifest
         :param str mechanism: The ID of the channel used to communicate with the device
         :param str mechanism_url: The address of the connector to use
-        :param str name: The name of the device
         :param str serial_number: The serial number of the device
         :param str state: The current state of the device
         :param int trust_class: The device trust class
@@ -151,8 +154,6 @@ class DeviceDirectoryAPI(BaseAPI):
         :param str vendor_id: The device vendor ID
         :param str alias: The alias of the device
         :param datetime bootstrap_certificate_expiration:
-        :param str certificate_fingerprint: Fingerprint of the device certificate
-        :param str certificate_issuer_id: ID of the issuer of the certificate
         :param datetime connector_certificate_expiration: Expiration date of the certificate
             used to connect to connector server
         :param int device_execution_mode: The device class
@@ -161,16 +162,16 @@ class DeviceDirectoryAPI(BaseAPI):
         :return: the newly created device object.
         :rtype: Device
         """
-        kwargs = Device._verify_args(kwargs)
         api = self.dc.DefaultApi()
-        device = DeviceData(**kwargs)
+        device = Device.create_request_map(kwargs)
+        device = DeviceData(**device)
         return Device(api.device_create(device))
 
     @catch_exceptions(DeviceCatalogApiException)
     def delete_device(self, id):
         """Delete device from catalog.
 
-        :param str id: ID of device in catalog to delete
+        :param str id: ID of device in catalog to delete (Required)
         :return: void
         """
         api = self.dc.DefaultApi()
@@ -180,14 +181,16 @@ class DeviceDirectoryAPI(BaseAPI):
     def list_queries(self, **kwargs):
         """List queries in device query service.
 
-        :param int limit: (Optional) The number of devices to retrieve.
-        :param str order: (Optional) The ordering direction, ascending (asc) or
+        :param int limit: The number of devices to retrieve.
+        :param str order: The ordering direction, ascending (asc) or
             descending (desc)
-        :param str after: (Optional) Get devices after/starting at given `device_id`
+        :param str after: Get devices after/starting at given `device_id`
+        :param filters: Dictionary of filters to apply.
         :returns: a list of :py:class:`Query` objects.
         :rtype: PaginatedResponse
         """
         kwargs = self._verify_sort_options(kwargs)
+        kwargs = self._verify_filters(kwargs, True)
         api = self.dc_queries.DefaultApi()
 
         return PaginatedResponse(api.device_query_list, lwrap_type=Query, **kwargs)
@@ -207,8 +210,8 @@ class DeviceDirectoryAPI(BaseAPI):
             )
             print(f.created_at)
 
-        :param str name: Name of query
-        :param dict filter: Filter properties to apply
+        :param str name: Name of query (Required)
+        :param dict filter: Filter properties to apply (Required)
         :param return: the newly created query object.
         :return: the newly created query object
         :rtype: Query
@@ -217,14 +220,14 @@ class DeviceDirectoryAPI(BaseAPI):
 
         # Ensure we have the correct types and get the new query object
         query = self._encode_query(filter)
-
+        query_map = Query.create_request_map(kwargs)
         # Create the query object
-        f = self.dc_queries.DeviceQuery(name=name, query=query, **kwargs)
+        f = self.dc_queries.DeviceQuery(name=name, query=query, **query_map)
 
         return Query(api.device_query_create(f))
 
     @catch_exceptions(DeviceQueryServiceApiException)
-    def update_query(self, query_id, name, filter=None, **kwargs):
+    def update_query(self, query_id, name=None, filter=None, **kwargs):
         """Update existing query in device query service.
 
         .. code-block:: python
@@ -239,9 +242,9 @@ class DeviceDirectoryAPI(BaseAPI):
                 filter = q.filter
             )
 
-        :param str query_id: Existing query ID to update
-        :param str name: (New) name of query
-        :param dict query: (New) query properties to apply
+        :param str query_id: Existing query ID to update (Required)
+        :param str name: name of query
+        :param dict filter: query properties to apply
         :return: the newly updated query object.
         :rtype: Query
         """
@@ -253,10 +256,11 @@ class DeviceDirectoryAPI(BaseAPI):
         else:
             query = filter
 
+        query_map = Query.create_request_map(kwargs)
         body = self.dc_queries.DeviceQueryPatchRequest(
             name=name,
             query=query,
-            **kwargs
+            **query_map
         )
 
         return Query(api.device_query_partial_update(query_id, body))
@@ -265,7 +269,7 @@ class DeviceDirectoryAPI(BaseAPI):
     def delete_query(self, query_id):
         """Delete query in device query service.
 
-        :param int query_id: id of the query to delete
+        :param int query_id: id of the query to delete (Required)
         :return: void
         """
         api = self.dc_queries.DefaultApi()
@@ -276,7 +280,7 @@ class DeviceDirectoryAPI(BaseAPI):
     def get_query(self, query_id):
         """Get query in device query service.
 
-        :param int query_id: id of the query to get
+        :param int query_id: id of the query to get (Required)
         :returns: device query object
         :rtype: Query
         """
@@ -287,16 +291,16 @@ class DeviceDirectoryAPI(BaseAPI):
     def list_device_events(self, **kwargs):
         """List all device logs.
 
-        :param int limit: (Optional) The number of logs to retrieve. (int)
-        :param str order: (Optional) The ordering direction, ascending (asc) or
-            descending (desc) (str)
-        :param str after: (Optional) Get logs after/starting at given `device_event_id` (str)
-        :param dict filters: (Optional) Dictionary of filters to apply.
+        :param int limit: The number of logs to retrieve.
+        :param str order: The ordering direction, ascending (asc) or
+            descending (desc)
+        :param str after: Get logs after/starting at given `device_event_id`
+        :param dict filters: Dictionary of filters to apply.
         :return: list of :py:class:`DeviceEvent` objects
         :rtype: PaginatedResponse
         """
         kwargs = self._verify_sort_options(kwargs)
-        kwargs = self._verify_device_filters(kwargs)
+        kwargs = self._verify_filters(kwargs, True)
 
         api = self.dc.DefaultApi()
         return PaginatedResponse(api.device_log_list, lwrap_type=DeviceEvent, **kwargs)
@@ -305,6 +309,7 @@ class DeviceDirectoryAPI(BaseAPI):
     def get_device_event(self, device_event_id):
         """Get device event with provided ID.
 
+        :param int device_event_id: id of the event to get (Required)
         :rtype: DeviceEvent
         """
         api = self.dc.DefaultApi()
@@ -346,15 +351,6 @@ class Device(BaseObject):
             "firmware_checksum": "firmware_checksum",
             "manifest_timestamp": "manifest_timestamp"
         }
-
-    @staticmethod
-    def _verify_args(kwargs):
-        """Verify arguments before sending to Backend API."""
-        for key, value in iteritems(Device._get_attributes_map()):
-            if key in kwargs:
-                kwargs[value] = kwargs[key]
-                del kwargs[key]
-        return kwargs
 
     @property
     def account_id(self):
