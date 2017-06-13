@@ -599,6 +599,7 @@ class AccountAdminApi(object):
         :param str service__eq: Service filter, either lwm2m or bootstrap
         :param int expire__eq: Expire filter in days
         :param int device_execution_mode__eq: Device execution mode, as 1 for developer certificates or as another natural integer value
+        :param str owner__eq: Owner ID filter
         :return: TrustedCertificateRespList
                  If the method is called asynchronously,
                  returns the request thread.
@@ -631,12 +632,13 @@ class AccountAdminApi(object):
         :param str service__eq: Service filter, either lwm2m or bootstrap
         :param int expire__eq: Expire filter in days
         :param int device_execution_mode__eq: Device execution mode, as 1 for developer certificates or as another natural integer value
+        :param str owner__eq: Owner ID filter
         :return: TrustedCertificateRespList
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['limit', 'after', 'order', 'include', 'service__eq', 'expire__eq', 'device_execution_mode__eq']
+        all_params = ['limit', 'after', 'order', 'include', 'service__eq', 'expire__eq', 'device_execution_mode__eq', 'owner__eq']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -673,6 +675,8 @@ class AccountAdminApi(object):
             query_params['expire__eq'] = params['expire__eq']
         if 'device_execution_mode__eq' in params:
             query_params['device_execution_mode__eq'] = params['device_execution_mode__eq']
+        if 'owner__eq' in params:
+            query_params['owner__eq'] = params['owner__eq']
 
         header_params = {}
 
