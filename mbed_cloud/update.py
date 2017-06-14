@@ -272,7 +272,7 @@ class FirmwareImage(BaseObject):
     def _get_attributes_map():
         return {
             "created_at": "created_at",
-            "datafile": "url",
+            "url": "datafile",
             "datafile_checksum": "datafile_checksum",
             "description": "description",
             "id": "id",
