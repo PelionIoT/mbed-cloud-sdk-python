@@ -107,6 +107,8 @@ class DeviceDirectoryAPI(BaseAPI):
         :param str description: The description of the device
         :param str name: The name of the device
         :param str alias: The alias of the device
+        :parama str endpoint_type: The endpoint type of the device - e.g. if the device is a gateway
+        :param str host_gateway: The endpoint_name of the host gateway, if appropriate
         :param str certificate_fingerprint: Fingerprint of the device certificate
         :param str certificate_issuer_id: ID of the issuer of the certificate
         :returns: the updated device object
@@ -152,6 +154,8 @@ class DeviceDirectoryAPI(BaseAPI):
         :param int trust_level: The device trust level
         :param str vendor_id: The device vendor ID
         :param str alias: The alias of the device
+        :parama str endpoint_type: The endpoint type of the device - e.g. if the device is a gateway
+        :param str host_gateway: The endpoint_name of the host gateway, if appropriate
         :param datetime bootstrap_certificate_expiration:
         :param datetime connector_certificate_expiration: Expiration date of the certificate
             used to connect to connector server
@@ -335,6 +339,8 @@ class Device(BaseObject):
             "mechanism": "mechanism",
             "mechanism_url": "mechanism_url",
             "name": "name",
+            "host_gateway": "host_gateway",
+            "endpoint_type": "endpoint_type",
             "serial_number": "serial_number",
             "state": "state",
             "trust_class": "trust_class",
