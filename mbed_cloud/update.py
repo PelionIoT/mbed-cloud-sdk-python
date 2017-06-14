@@ -505,7 +505,7 @@ class FirmwareManifestContents(object):
         return self._payload_size
 
     def to_dict(self):
-        """Returns the model properties as a dict"""
+        """Return the model properties as a dict"""
         return {
             "class_id": self.class_id,
             "vendor_id": self.vendor_id,
