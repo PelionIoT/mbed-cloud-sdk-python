@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **object** | **str** | The API resource entity. | [optional] 
 **custom_attributes** | **object** | Up to 5 custom JSON attributes | [optional] 
 **device_key** | **str** | Fingerprint of the device certificate. | 
+**endpoint_type** | **str** | The endpoint type of the device - e.g. if the device is a gateway. | [optional] 
 **ca_id** | **str** | ID of the issuer of the certificate. | 
 **name** | **str** | The name of the object. | [optional] 
 
