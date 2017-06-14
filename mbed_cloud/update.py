@@ -351,41 +351,46 @@ class FirmwareManifestContents(object):
         self._apply_immediately = dictionary.get("apply_immediately", None)
         self._device_id = dictionary.get("device_id", None)
         self._encryption_mode = None
-        encryption_mode = dictionary.get("encryption_mode", None)
-        if encryption_mode and "enum" in encryption_mode:
-            mode = encryption_mode["enum"]
-            if mode == 1:
-                self._encryption_mode = "none-ecc-secp256r1-sha256"
-            if mode == 2:
-                self._encryption_mode = "aes-128-ctr-ecc-secp256r1-sha256"
-            if mode == 3:
-                self._encryption_mode = "none-none-sha256"
-
         self._payload_format = None
         self._payload_storage_identifier = None
         self._payload_hash = None
         self._payload_uri = None
         self._payload_size = None
+        encryption_mode = dictionary.get("encryption_mode", None)
+        if encryption_mode and "enum" in encryption_mode:
+            self._set_encryption_mode(encryption_mode)
         payload = dictionary.get("payload", None)
         if payload:
-            self._payload_storage_identifier = payload.get("storage_identifier", None)
-            reference = payload.get("reference", None)
-            payload_format = payload.get("format")
-            if payload_format:
-                format_enum = payload_format.get("enum", False)
-                if format_enum:
-                    if format_enum == 1:
-                        self._payload_format = "raw-binary"
-                    if format_enum == 2:
-                        self._payload_format = "cbor"
-                    if format_enum == 3:
-                        self._payload_format = "hex-location-length-data"
-                    if format_enum == 4:
-                        self._payload_format = "elf"
-            if reference:
-                self._payload_hash = reference.get("hash", None)
-                self._payload_uri = reference.get("uri", None)
-                self._payload_size = reference.get("size", None)
+            self._set_payload(payload)
+
+    def _set_encryption_mode(self, encryption_mode):
+        mode = encryption_mode["enum"]
+        if mode == 1:
+            self._encryption_mode = "none-ecc-secp256r1-sha256"
+        if mode == 2:
+            self._encryption_mode = "aes-128-ctr-ecc-secp256r1-sha256"
+        if mode == 3:
+            self._encryption_mode = "none-none-sha256"
+
+    def _set_payload(self, payload):
+        self._payload_storage_identifier = payload.get("storage_identifier", None)
+        reference = payload.get("reference", None)
+        payload_format = payload.get("format")
+        if payload_format:
+            format_enum = payload_format.get("enum", False)
+            if format_enum:
+                if format_enum == 1:
+                    self._payload_format = "raw-binary"
+                if format_enum == 2:
+                    self._payload_format = "cbor"
+                if format_enum == 3:
+                    self._payload_format = "hex-location-length-data"
+                if format_enum == 4:
+                    self._payload_format = "elf"
+        if reference:
+            self._payload_hash = reference.get("hash", None)
+            self._payload_uri = reference.get("uri", None)
+            self._payload_size = reference.get("size", None)
 
     @property
     def class_id(self):
@@ -500,7 +505,9 @@ class FirmwareManifestContents(object):
         return self._payload_size
 
     def to_dict(self):
-        return {k: getattr(self, k) for k, v in self.__class__.__dict__.iteritems() if isinstance(v, property)}
+        """Convert object to dictionary."""
+        return {k: getattr(self, k) for k, v in self.__class__.__dict__.iteritems()
+                if isinstance(v, property)}
 
     def __repr__(self):
         """For print and pprint."""
