@@ -506,8 +506,22 @@ class FirmwareManifestContents(object):
 
     def to_dict(self):
         """Returns the model properties as a dict"""
-        return {k: getattr(self, k) for k, v in self.__class__.__dict__.iteritems()
-                if isinstance(v, property)}
+        return {
+            "class_id": self.class_id,
+            "vendor_id": self.vendor_id,
+            "version": self.version,
+            "description": self.description,
+            "nonce": self.nonce,
+            "created_at": self.created_at,
+            "encryption_mode": self.encryption_mode,
+            "apply_immediately": self.apply_immediately,
+            "device_id": self.device_id,
+            "payload_format": self.payload_format,
+            "payload_storage_identifier": self.payload_storage_identifier,
+            "payload_hash": self.payload_hash,
+            "payload_uri": self.payload_uri,
+            "payload_size": self.payload_size
+        }
 
     def __repr__(self):
         """For print and pprint."""
