@@ -37,11 +37,8 @@ def _print_manifests(mresp):
 
 
 def _print_manifest_details(m):
-    pass
-    #detail_props = ['description', 'deviceId', 'classId']
-    #details = map(lambda p: "\t- %s: %s" % (p, m.manifest_contents.get(p, "-")), detail_props)
-    #print("\n".join(details))
-    #print("")
+    print("Manifest details:")
+    print(m.contents)
 
 
 def _main():

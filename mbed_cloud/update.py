@@ -431,9 +431,9 @@ class FirmwareManifestContents(object):
     def created_at(self):
         """Get the URL of the firmware manifest (readonly).
 
-        :rtype: str
+        :rtype: int
         """
-        return self._createdAt
+        return self._created_at
 
     @property
     def encryption_mode(self):
@@ -447,7 +447,7 @@ class FirmwareManifestContents(object):
     def apply_immediately(self):
         """Get the URL of the firmware manifest (readonly).
 
-        :rtype: str
+        :rtype: bool
         """
         return self._apply_immediately
 
@@ -498,6 +498,13 @@ class FirmwareManifestContents(object):
         :rtype: str
         """
         return self._payload_size
+
+    def to_dict(self):
+        return {k: getattr(self, k) for k, v in self.__class__.__dict__.iteritems() if isinstance(v, property)}
+
+    def __repr__(self):
+        """For print and pprint."""
+        return str(self.to_dict())
 
 
 class FirmwareManifest(BaseObject):
