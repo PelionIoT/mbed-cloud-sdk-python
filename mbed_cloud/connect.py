@@ -297,6 +297,80 @@ class ConnectAPI(BaseAPI):
         return AsyncConsumer(resp.async_response_id, self._db)
 
     @catch_exceptions(MdsApiException)
+    def execute_resource(self, device_id, resource_path, function_name=None, fix_path=True):
+        """Execute a function on a resource.
+
+        Will block and wait for response to come through. Usage:
+
+        .. code-block:: python
+
+            try:
+                v = api.execute_resource(device, path, function_name)
+                print("Success, returned value:", v)
+            except AsyncError, e:
+                print("Error", e)
+
+        :param str device_id: The name/id of the device (Required)
+        :param str resource_path: The resource path to update (Required)
+        :param str function_name: The function to trigger
+        :param fix_path: if True then the leading /, if found, will be stripped before
+            doing request to backend. This is a requirement for the API to work properly
+        :raises: AsyncError
+        :returns: The value returned from the function executed on the resource
+        :rtype: str
+        """
+        # Ensure we're long polling first
+        if not self._long_polling_is_active:
+            raise CloudUnhandledError(
+                "start_notifications needs to be called before setting resource value.")
+
+        # When path starts with / we remove the slash, as the API can't handle //.
+        if fix_path and resource_path.startswith("/"):
+            resource_path = resource_path[1:]
+
+        api = self.mds.ResourcesApi()
+        resp = api.v2_endpoints_device_id_resource_path_post(device_id,
+                                                             resource_path,
+                                                             function_name)
+        consumer = AsyncConsumer(resp.async_response_id, self._db)
+        return self._get_value_synchronized(consumer)
+
+    @catch_exceptions(MdsApiException)
+    def execute_resource_async(self, device_id, resource_path, function_name=None, fix_path=True):
+        """Execute a function on a resource.
+
+        Will not block. Returns immediatly. Usage:
+
+        .. code-block:: python
+
+            a = api.execute_resource_async(device, path, function_name)
+            while not a.is_done:
+                time.sleep(0.1)
+            if a.error:
+                print("Error", a.error)
+            print("Success, returned value:", a.value)
+
+        :param str device_id: The name/id of the device (Required)
+        :param str resource_path: The resource path to update (Required)
+        :param str function_name: The function to trigger
+        :param fix_path: if True then the leading /, if found, will be stripped before
+            doing request to backend. This is a requirement for the API to work properly
+        :returns: An async consumer object holding reference to request
+        :rtype: AsyncConsumer
+        """
+        # When path starts with / we remove the slash, as the API can't handle //.
+        if fix_path and resource_path.startswith("/"):
+            resource_path = resource_path[1:]
+
+        api = self.mds.ResourcesApi()
+
+        resp = api.v2_endpoints_device_id_resource_path_post(device_id,
+                                                             resource_path,
+                                                             function_name)
+
+        return AsyncConsumer(resp.async_response_id, self._db)
+
+    @catch_exceptions(MdsApiException)
     def add_resource_subscription(self, device_id, resource_path, fix_path=True, queue_size=5):
         """Subscribe to resource updates.
 

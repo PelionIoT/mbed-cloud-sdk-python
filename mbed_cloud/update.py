@@ -22,6 +22,7 @@ from mbed_cloud import BaseAPI
 from mbed_cloud import BaseObject
 from mbed_cloud.decorators import catch_exceptions
 from mbed_cloud import PaginatedResponse
+from six import iteritems
 
 import mbed_cloud._backends.deployment_service as deployment_service
 from mbed_cloud._backends.deployment_service.rest\
@@ -124,31 +125,24 @@ class UpdateAPI(BaseAPI):
         :return: newly edited campaign object
         :rtype: Campaign
         """
-        return self.update_campaign(campaign_object.id, **{"state": "scheduled"})
+        campaign_object._state = "scheduled"
+        return self.update_campaign(campaign_object)
 
     @catch_exceptions(DeploymentServiceApiException)
-    def update_campaign(self, campaign_id, **kwargs):
+    def update_campaign(self, campaign_object):
         """Update an update campaign.
 
-        :param str campaign_id: The ID of the campaign to update (Required)
-        :param str name: Name of the update campaign.
-        :param str device_filter: Devices to apply the update on. Provide filter ID.
-        :param str root_manifest_id: Manifest with metadata/description of the update
-        :param str description: Description of the campaign
-        :param date when: The timestamp at which update campaign scheduled to start
-        :param str state: The state of the campaign. Values:
-            "draft", "scheduled", "devicefetch", "devicecopy", "publishing",
-            "deploying", "deployed", "manifestremoved", "expired"
+        :param str campaign_object: Campaign object to update (Required)
         :return: updated campaign object
         :rtype: Campaign
         """
         api = self.deployment_service.DefaultApi()
-        campaign_object = Campaign.create_request_map(kwargs)
+        campaign_id = campaign_object.id
+        campaign_object = campaign_object._create_patch_request()
         if 'device_filter' in campaign_object:
             campaign_object["device_filter"] = self._encode_query(campaign_object["device_filter"])
-        body = self.deployment_service.UpdateCampaignPatchRequest(**campaign_object)
         return Campaign(api.update_campaign_partial_update(campaign_id=campaign_id,
-                                                           campaign=body))
+                                                           campaign=campaign_object))
 
     @catch_exceptions(DeploymentServiceApiException)
     def delete_campaign(self, campaign_id):
@@ -619,6 +613,22 @@ class Campaign(BaseObject):
             "state": "state",
             "scheduled_at": "when"
         }
+
+    def _create_patch_request(self):
+        patch_map = {
+            "device_filter": "device_filter",
+            "description": "description",
+            "manifest_id": "root_manifest_id",
+            "name": "name",
+            "state": "state",
+            "scheduled_at": "when"
+        }
+        map_patch = {}
+        for key, value in iteritems(patch_map):
+            val = getattr(self, key, None)
+            if val is not None:
+                map_patch[value] = val
+                return map_patch
 
     @property
     def device_filter(self):
