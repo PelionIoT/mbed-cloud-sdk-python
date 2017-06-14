@@ -288,7 +288,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_all_certificates**
-> TrustedCertificateRespList get_all_certificates(limit=limit, after=after, order=order, include=include, service__eq=service__eq, expire__eq=expire__eq, device_execution_mode__eq=device_execution_mode__eq)
+> TrustedCertificateRespList get_all_certificates(limit=limit, after=after, order=order, include=include, service__eq=service__eq, expire__eq=expire__eq, device_execution_mode__eq=device_execution_mode__eq, owner__eq=owner__eq)
 
 Get all trusted certificates.
 
@@ -316,10 +316,11 @@ include = 'include_example' # str | Comma separated additional data to return. C
 service__eq = 'service__eq_example' # str | Service filter, either lwm2m or bootstrap (optional)
 expire__eq = 56 # int | Expire filter in days (optional)
 device_execution_mode__eq = 56 # int | Device execution mode, as 1 for developer certificates or as another natural integer value (optional)
+owner__eq = 'owner__eq_example' # str | Owner ID filter (optional)
 
 try: 
     # Get all trusted certificates.
-    api_response = api_instance.get_all_certificates(limit=limit, after=after, order=order, include=include, service__eq=service__eq, expire__eq=expire__eq, device_execution_mode__eq=device_execution_mode__eq)
+    api_response = api_instance.get_all_certificates(limit=limit, after=after, order=order, include=include, service__eq=service__eq, expire__eq=expire__eq, device_execution_mode__eq=device_execution_mode__eq, owner__eq=owner__eq)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling AccountAdminApi->get_all_certificates: %s\n" % e)
@@ -336,6 +337,7 @@ Name | Type | Description  | Notes
  **service__eq** | **str**| Service filter, either lwm2m or bootstrap | [optional] 
  **expire__eq** | **int**| Expire filter in days | [optional] 
  **device_execution_mode__eq** | **int**| Device execution mode, as 1 for developer certificates or as another natural integer value | [optional] 
+ **owner__eq** | **str**| Owner ID filter | [optional] 
 
 ### Return type
 
