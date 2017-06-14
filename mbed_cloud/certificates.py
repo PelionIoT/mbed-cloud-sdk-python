@@ -49,7 +49,7 @@ class CertificatesAPI(BaseAPI):
         :param str order: The ordering direction, ascending (asc) or
             descending (desc).
         :param str after: Get logs after/starting at given `device_log_id`.
-        :param dict filters: Dictionary of filters to apply: type (eq), expire (eq)
+        :param dict filters: Dictionary of filters to apply: type (eq), expire (eq), owner (eq)
         :return: list of :py:class:`DeviceLog` objects
         :rtype: Certificate
         """
