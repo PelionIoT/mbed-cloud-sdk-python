@@ -505,7 +505,7 @@ class FirmwareManifestContents(object):
         return self._payload_size
 
     def to_dict(self):
-        """Convert object to dictionary."""
+        """Returns the model properties as a dict"""
         return {k: getattr(self, k) for k, v in self.__class__.__dict__.iteritems()
                 if isinstance(v, property)}
 
@@ -520,7 +520,7 @@ class FirmwareManifest(BaseObject):
     def __init__(self, dictionary):
         """Initialize object."""
         super(FirmwareManifest, self).__init__(dictionary)
-        self._contents = FirmwareManifestContents(self.contents)
+        self._contents = FirmwareManifestContents(self.contents).to_dict()
 
     @staticmethod
     def _get_attributes_map():
