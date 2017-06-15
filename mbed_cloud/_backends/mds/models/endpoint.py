@@ -53,7 +53,7 @@ class Endpoint(object):
     def status(self):
         """
         Gets the status of this Endpoint.
-        Possible values ACTIVE, STALE.
+        Deprecated and the value is always ACTIVE. Only used for API backwards compatibility reasons.
 
         :return: The status of this Endpoint.
         :rtype: str
@@ -64,7 +64,7 @@ class Endpoint(object):
     def status(self, status):
         """
         Sets the status of this Endpoint.
-        Possible values ACTIVE, STALE.
+        Deprecated and the value is always ACTIVE. Only used for API backwards compatibility reasons.
 
         :param status: The status of this Endpoint.
         :type: str
