@@ -330,7 +330,7 @@ class AccountUpdateReq(object):
     def aliases(self):
         """
         Gets the aliases of this AccountUpdateReq.
-        An array of aliases, not more than 10.
+        An array of aliases, not more than 10. An alias is not shorter than 8 and not longer than 100 characters.
 
         :return: The aliases of this AccountUpdateReq.
         :rtype: list[str]
@@ -341,7 +341,7 @@ class AccountUpdateReq(object):
     def aliases(self, aliases):
         """
         Sets the aliases of this AccountUpdateReq.
-        An array of aliases, not more than 10.
+        An array of aliases, not more than 10. An alias is not shorter than 8 and not longer than 100 characters.
 
         :param aliases: The aliases of this AccountUpdateReq.
         :type: list[str]
