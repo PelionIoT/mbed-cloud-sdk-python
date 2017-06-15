@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **postal_code** | **str** | The postal code part of the postal address, not longer than 100 characters. | [optional] 
 **phone_number** | **str** | The phone number of the company, not longer than 100 characters. | [optional] 
 **email** | **str** | The company email address for this account, not longer than 100 characters. Required for commercial accounts only. | [optional] 
-**aliases** | **list[str]** | An array of aliases, not more than 10. | [optional] 
+**aliases** | **list[str]** | An array of aliases, not more than 10. An alias is not shorter than 8 and not longer than 100 characters. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
