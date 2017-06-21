@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **id** | **str** | The ID of the device. | [optional] 
 **account_id** | **str** | The ID of the associated account. | [optional] 
 **endpoint_name** | **str** | The endpoint name given to the device. | [optional] 
-**auto_update** | **bool** | Mark this device for auto firmware update. | [optional] 
+**auto_update** | **bool** | DEPRECATED Mark this device for auto firmware update. | [optional] 
 **host_gateway** | **str** | The endpoint_name of the host gateway, if appropriate. | [optional] 
 **device_execution_mode** | **int** | Defines the type of certificate used. | [optional] 
 **mechanism** | **str** | The ID of the channel used to communicate with the device. | [optional] 

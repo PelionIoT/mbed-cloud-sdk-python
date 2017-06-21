@@ -119,7 +119,7 @@ class DeviceDataPatchRequest(object):
     def auto_update(self):
         """
         Gets the auto_update of this DeviceDataPatchRequest.
-        Mark this device for auto firmware update.
+        DEPRECATED Mark this device for auto firmware update.
 
         :return: The auto_update of this DeviceDataPatchRequest.
         :rtype: bool
@@ -130,7 +130,7 @@ class DeviceDataPatchRequest(object):
     def auto_update(self, auto_update):
         """
         Sets the auto_update of this DeviceDataPatchRequest.
-        Mark this device for auto firmware update.
+        DEPRECATED Mark this device for auto firmware update.
 
         :param auto_update: The auto_update of this DeviceDataPatchRequest.
         :type: bool

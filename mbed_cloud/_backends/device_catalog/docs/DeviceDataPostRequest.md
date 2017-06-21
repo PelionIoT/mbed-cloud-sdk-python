@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **mechanism** | **str** | The ID of the channel used to communicate with the device. | [optional] 
 **device_class** | **str** | The device class. | [optional] 
 **endpoint_name** | **str** | The endpoint name given to the device. | [optional] 
-**auto_update** | **bool** | Mark this device for auto firmware update. | [optional] 
+**auto_update** | **bool** | DEPRECATED Mark this device for auto firmware update. | [optional] 
 **host_gateway** | **str** | The endpoint_name of the host gateway, if appropriate. | [optional] 
 **device_execution_mode** | **int** | Defines the type of certificate used. | [optional] 
 **custom_attributes** | **object** | Up to 5 custom JSON attributes | [optional] 

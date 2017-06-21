@@ -81,6 +81,12 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**device_log_list**](docs/DefaultApi.md#device_log_list) | **GET** /v3/devicelog/ | 
 *DefaultApi* | [**device_log_retrieve**](docs/DefaultApi.md#device_log_retrieve) | **GET** /v3/devicelog/{device_event_id}/ | 
 *DefaultApi* | [**device_partial_update**](docs/DefaultApi.md#device_partial_update) | **PATCH** /v3/devices/{id}/ | 
+*DefaultApi* | [**device_query_create**](docs/DefaultApi.md#device_query_create) | **POST** /v3/device-queries/ | 
+*DefaultApi* | [**device_query_destroy**](docs/DefaultApi.md#device_query_destroy) | **DELETE** /v3/device-queries/{query_id}/ | 
+*DefaultApi* | [**device_query_list**](docs/DefaultApi.md#device_query_list) | **GET** /v3/device-queries/ | 
+*DefaultApi* | [**device_query_partial_update**](docs/DefaultApi.md#device_query_partial_update) | **PATCH** /v3/device-queries/{query_id}/ | 
+*DefaultApi* | [**device_query_retrieve**](docs/DefaultApi.md#device_query_retrieve) | **GET** /v3/device-queries/{query_id}/ | 
+*DefaultApi* | [**device_query_update**](docs/DefaultApi.md#device_query_update) | **PUT** /v3/device-queries/{query_id}/ | 
 *DefaultApi* | [**device_retrieve**](docs/DefaultApi.md#device_retrieve) | **GET** /v3/devices/{id}/ | 
 *DefaultApi* | [**device_update**](docs/DefaultApi.md#device_update) | **PUT** /v3/devices/{id}/ | 
 
@@ -94,6 +100,10 @@ Class | Method | HTTP request | Description
  - [DeviceEventData](docs/DeviceEventData.md)
  - [DeviceEventPage](docs/DeviceEventPage.md)
  - [DevicePage](docs/DevicePage.md)
+ - [DeviceQuery](docs/DeviceQuery.md)
+ - [DeviceQueryPage](docs/DeviceQueryPage.md)
+ - [DeviceQueryPatchRequest](docs/DeviceQueryPatchRequest.md)
+ - [DeviceQueryPostPutRequest](docs/DeviceQueryPostPutRequest.md)
 
 
 ## Documentation For Authorization

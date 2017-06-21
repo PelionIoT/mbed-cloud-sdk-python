@@ -21,6 +21,10 @@ from .models.device_data_put_request import DeviceDataPutRequest
 from .models.device_event_data import DeviceEventData
 from .models.device_event_page import DeviceEventPage
 from .models.device_page import DevicePage
+from .models.device_query import DeviceQuery
+from .models.device_query_page import DeviceQueryPage
+from .models.device_query_patch_request import DeviceQueryPatchRequest
+from .models.device_query_post_put_request import DeviceQueryPostPutRequest
 
 # import apis into sdk package
 from .apis.default_api import DefaultApi

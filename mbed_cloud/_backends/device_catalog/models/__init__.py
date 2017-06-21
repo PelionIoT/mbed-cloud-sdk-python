@@ -21,3 +21,7 @@ from .device_data_put_request import DeviceDataPutRequest
 from .device_event_data import DeviceEventData
 from .device_event_page import DeviceEventPage
 from .device_page import DevicePage
+from .device_query import DeviceQuery
+from .device_query_page import DeviceQueryPage
+from .device_query_patch_request import DeviceQueryPatchRequest
+from .device_query_post_put_request import DeviceQueryPostPutRequest
