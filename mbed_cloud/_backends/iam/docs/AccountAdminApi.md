@@ -7,15 +7,11 @@ Method | HTTP request | Description
 [**add_certificate**](AccountAdminApi.md#add_certificate) | **POST** /v3/trusted-certificates | Upload a new trusted certificate.
 [**add_subjects_to_group**](AccountAdminApi.md#add_subjects_to_group) | **POST** /v3/policy-groups/{groupID} | Add members to a group.
 [**create_user**](AccountAdminApi.md#create_user) | **POST** /v3/users | Create a new user.
-[**delete_certificate**](AccountAdminApi.md#delete_certificate) | **DELETE** /v3/trusted-certificates/{cert-id} | Delete a trusted certificate by ID.
 [**delete_user**](AccountAdminApi.md#delete_user) | **DELETE** /v3/users/{user-id} | Delete a user.
-[**get_all_certificates**](AccountAdminApi.md#get_all_certificates) | **GET** /v3/trusted-certificates | Get all trusted certificates.
 [**get_all_users**](AccountAdminApi.md#get_all_users) | **GET** /v3/users | Get the details of all users.
-[**get_certificate**](AccountAdminApi.md#get_certificate) | **GET** /v3/trusted-certificates/{cert-id} | Get trusted certificate by ID.
 [**get_user**](AccountAdminApi.md#get_user) | **GET** /v3/users/{user-id} | Details of a user.
 [**get_users_of_group**](AccountAdminApi.md#get_users_of_group) | **GET** /v3/policy-groups/{groupID}/users | Get users of a group.
 [**remove_users_from_group**](AccountAdminApi.md#remove_users_from_group) | **DELETE** /v3/policy-groups/{groupID}/users | Remove users from a group.
-[**update_certificate**](AccountAdminApi.md#update_certificate) | **PUT** /v3/trusted-certificates/{cert-id} | Update trusted certificate.
 [**update_my_account**](AccountAdminApi.md#update_my_account) | **PUT** /v3/accounts/me | Updates attributes of the account.
 [**update_user**](AccountAdminApi.md#update_user) | **PUT** /v3/users/{user-id} | Update user details.
 
@@ -183,58 +179,6 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **delete_certificate**
-> delete_certificate(cert_id)
-
-Delete a trusted certificate by ID.
-
-An endpoint for deleting a trusted certificate.
-
-### Example 
-```python
-from __future__ import print_statement
-import time
-import iam
-from iam.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: Bearer
-iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# iam.configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = iam.AccountAdminApi()
-cert_id = 'cert_id_example' # str | The ID of the trusted certificate to be deleted.
-
-try: 
-    # Delete a trusted certificate by ID.
-    api_instance.delete_certificate(cert_id)
-except ApiException as e:
-    print("Exception when calling AccountAdminApi->delete_certificate: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **cert_id** | **str**| The ID of the trusted certificate to be deleted. | 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 # **delete_user**
 > delete_user(user_id)
 
@@ -275,73 +219,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 void (empty response body)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **get_all_certificates**
-> TrustedCertificateRespList get_all_certificates(limit=limit, after=after, order=order, include=include, service__eq=service__eq, expire__eq=expire__eq, device_execution_mode__eq=device_execution_mode__eq, owner__eq=owner__eq)
-
-Get all trusted certificates.
-
-An endpoint for retrieving trusted certificates in an array.
-
-### Example 
-```python
-from __future__ import print_statement
-import time
-import iam
-from iam.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: Bearer
-iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# iam.configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = iam.AccountAdminApi()
-limit = 50 # int | The number of results to return (2-1000), default is 50. (optional) (default to 50)
-after = 'after_example' # str | The entity ID to fetch after the given one. (optional)
-order = 'ASC' # str | The order of the records, ASC or DESC; by default ASC (optional) (default to ASC)
-include = 'include_example' # str | Comma separated additional data to return. Currently supported: total_count (optional)
-service__eq = 'service__eq_example' # str | Service filter, either lwm2m or bootstrap (optional)
-expire__eq = 56 # int | Expire filter in days (optional)
-device_execution_mode__eq = 56 # int | Device execution mode, as 1 for developer certificates or as another natural integer value (optional)
-owner__eq = 'owner__eq_example' # str | Owner ID filter (optional)
-
-try: 
-    # Get all trusted certificates.
-    api_response = api_instance.get_all_certificates(limit=limit, after=after, order=order, include=include, service__eq=service__eq, expire__eq=expire__eq, device_execution_mode__eq=device_execution_mode__eq, owner__eq=owner__eq)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling AccountAdminApi->get_all_certificates: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **limit** | **int**| The number of results to return (2-1000), default is 50. | [optional] [default to 50]
- **after** | **str**| The entity ID to fetch after the given one. | [optional] 
- **order** | **str**| The order of the records, ASC or DESC; by default ASC | [optional] [default to ASC]
- **include** | **str**| Comma separated additional data to return. Currently supported: total_count | [optional] 
- **service__eq** | **str**| Service filter, either lwm2m or bootstrap | [optional] 
- **expire__eq** | **int**| Expire filter in days | [optional] 
- **device_execution_mode__eq** | **int**| Device execution mode, as 1 for developer certificates or as another natural integer value | [optional] 
- **owner__eq** | **str**| Owner ID filter | [optional] 
-
-### Return type
-
-[**TrustedCertificateRespList**](TrustedCertificateRespList.md)
 
 ### Authorization
 
@@ -403,59 +280,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**UserInfoRespList**](UserInfoRespList.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **get_certificate**
-> TrustedCertificateResp get_certificate(cert_id)
-
-Get trusted certificate by ID.
-
-An endpoint for retrieving a trusted certificate by ID.
-
-### Example 
-```python
-from __future__ import print_statement
-import time
-import iam
-from iam.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: Bearer
-iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# iam.configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = iam.AccountAdminApi()
-cert_id = 'cert_id_example' # str | The ID or name of the trusted certificate to be retrieved.
-
-try: 
-    # Get trusted certificate by ID.
-    api_response = api_instance.get_certificate(cert_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling AccountAdminApi->get_certificate: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **cert_id** | **str**| The ID or name of the trusted certificate to be retrieved. | 
-
-### Return type
-
-[**TrustedCertificateResp**](TrustedCertificateResp.md)
 
 ### Authorization
 
@@ -625,61 +449,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**UpdatedResponse**](UpdatedResponse.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **update_certificate**
-> TrustedCertificateResp update_certificate(cert_id, body)
-
-Update trusted certificate.
-
-An endpoint for updating existing trusted certificates.
-
-### Example 
-```python
-from __future__ import print_statement
-import time
-import iam
-from iam.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: Bearer
-iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# iam.configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = iam.AccountAdminApi()
-cert_id = 'cert_id_example' # str | The ID of the trusted certificate to be updated.
-body = iam.TrustedCertificateReq() # TrustedCertificateReq | A trusted certificate object with attributes.
-
-try: 
-    # Update trusted certificate.
-    api_response = api_instance.update_certificate(cert_id, body)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling AccountAdminApi->update_certificate: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **cert_id** | **str**| The ID of the trusted certificate to be updated. | 
- **body** | [**TrustedCertificateReq**](TrustedCertificateReq.md)| A trusted certificate object with attributes. | 
-
-### Return type
-
-[**TrustedCertificateResp**](TrustedCertificateResp.md)
 
 ### Authorization
 
