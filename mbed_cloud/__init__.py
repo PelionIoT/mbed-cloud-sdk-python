@@ -38,6 +38,8 @@ class BaseAPI(object):
         config.update(user_config)
 
         if "host" in config:
+            # Strip leading and trailing slashes from host
+            config.update({'host': config['host'].strip('/')})
             if not config["host"].startswith("https"):
                 sys.stderr.write("'host' config needs to use protocol HTTPS. Ignoring.\n")
                 sys.stderr.flush()
