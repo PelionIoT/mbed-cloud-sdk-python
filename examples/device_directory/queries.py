@@ -58,11 +58,12 @@ def _main():
     gf = api.get_query(new_c_query.id)
     print("Got query %r using 'get'" % gf.name)
     # Update the query
-    gf.filter['serial_number']['$eq'] = '12345'
+    new_filter_dict = gf.filter
+    new_filter_dict['serial_number']['$eq'] = '12345'
     updated_gf = api.update_query(
         query_id=gf.id,
         name=gf.name,
-        filter=gf.filter
+        filter=new_filter_dict
     )
     # Check it was successful
     assert updated_gf.filter['serial_number']['$eq'] == '12345'

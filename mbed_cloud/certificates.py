@@ -68,7 +68,7 @@ class CertificatesAPI(BaseAPI):
             else:
                 raise CloudValueError("Incorrect filter 'type': %s" % (kwargs["type__eq"]))
             del kwargs["type__eq"]
-        api = self.iam.AccountAdminApi()
+        api = self.iam.DeveloperApi()
         return PaginatedResponse(api.get_all_certificates, lwrap_type=Certificate, **kwargs)
 
     @catch_exceptions(ApiException)
@@ -79,7 +79,7 @@ class CertificatesAPI(BaseAPI):
         :returns: Certificate object
         :rtype: Certificate
         """
-        api = self.iam.AccountAdminApi()
+        api = self.iam.DeveloperApi()
         certificate = Certificate(api.get_certificate(certificate_id))
         self._extend_certificate(certificate)
         return certificate
@@ -98,7 +98,7 @@ class CertificatesAPI(BaseAPI):
         :param str certificate_id: The certificate id (Required)
         :returns: void
         """
-        api = self.iam.AccountAdminApi()
+        api = self.iam.DeveloperApi()
         api.delete_certificate(certificate_id)
         return
 
@@ -150,7 +150,7 @@ class CertificatesAPI(BaseAPI):
         :returns: Certificate object
         :rtype: Certificate
         """
-        api = self.iam.AccountAdminApi()
+        api = self.iam.DeveloperApi()
         cert = Certificate.create_request_map(kwargs)
         body = iam.TrustedCertificateReq(**cert)
         certificate = Certificate(api.update_certificate(certificate_id, body))

@@ -6,16 +6,20 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**create_api_key**](DeveloperApi.md#create_api_key) | **POST** /v3/api-keys | Create a new API key.
 [**delete_api_key**](DeveloperApi.md#delete_api_key) | **DELETE** /v3/api-keys/{apiKey} | Delete API key.
+[**delete_certificate**](DeveloperApi.md#delete_certificate) | **DELETE** /v3/trusted-certificates/{cert-id} | Delete a trusted certificate by ID.
 [**get_all_api_keys**](DeveloperApi.md#get_all_api_keys) | **GET** /v3/api-keys | Get all API keys
+[**get_all_certificates**](DeveloperApi.md#get_all_certificates) | **GET** /v3/trusted-certificates | Get all trusted certificates.
 [**get_all_groups**](DeveloperApi.md#get_all_groups) | **GET** /v3/policy-groups | Get all group information.
 [**get_api_key**](DeveloperApi.md#get_api_key) | **GET** /v3/api-keys/{apiKey} | Get API key details.
 [**get_api_keys_of_group**](DeveloperApi.md#get_api_keys_of_group) | **GET** /v3/policy-groups/{groupID}/api-keys | Get the API keys of a group.
+[**get_certificate**](DeveloperApi.md#get_certificate) | **GET** /v3/trusted-certificates/{cert-id} | Get trusted certificate by ID.
 [**get_group_summary**](DeveloperApi.md#get_group_summary) | **GET** /v3/policy-groups/{groupID} | Get group information.
 [**get_my_account_info**](DeveloperApi.md#get_my_account_info) | **GET** /v3/accounts/me | Get account info.
 [**get_my_api_key**](DeveloperApi.md#get_my_api_key) | **GET** /v3/api-keys/me | Get API key details.
 [**get_my_user**](DeveloperApi.md#get_my_user) | **GET** /v3/users/me | Details of the current user.
 [**remove_api_keys_from_group**](DeveloperApi.md#remove_api_keys_from_group) | **DELETE** /v3/policy-groups/{groupID}/api-keys | Remove API keys from a group.
 [**update_api_key**](DeveloperApi.md#update_api_key) | **PUT** /v3/api-keys/{apiKey} | Update API key details.
+[**update_certificate**](DeveloperApi.md#update_certificate) | **PUT** /v3/trusted-certificates/{cert-id} | Update trusted certificate.
 [**update_my_api_key**](DeveloperApi.md#update_my_api_key) | **PUT** /v3/api-keys/me | Update API key details.
 [**update_my_user**](DeveloperApi.md#update_my_user) | **PUT** /v3/users/me | Update user details.
 
@@ -125,6 +129,58 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **delete_certificate**
+> delete_certificate(cert_id)
+
+Delete a trusted certificate by ID.
+
+An endpoint for deleting a trusted certificate.
+
+### Example 
+```python
+from __future__ import print_statement
+import time
+import iam
+from iam.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# iam.configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = iam.DeveloperApi()
+cert_id = 'cert_id_example' # str | The ID of the trusted certificate to be deleted.
+
+try: 
+    # Delete a trusted certificate by ID.
+    api_instance.delete_certificate(cert_id)
+except ApiException as e:
+    print("Exception when calling DeveloperApi->delete_certificate: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **cert_id** | **str**| The ID of the trusted certificate to be deleted. | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **get_all_api_keys**
 > ApiKeyInfoRespList get_all_api_keys(limit=limit, after=after, order=order, include=include, owner__eq=owner__eq)
 
@@ -174,6 +230,73 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ApiKeyInfoRespList**](ApiKeyInfoRespList.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_all_certificates**
+> TrustedCertificateRespList get_all_certificates(limit=limit, after=after, order=order, include=include, service__eq=service__eq, expire__eq=expire__eq, device_execution_mode__eq=device_execution_mode__eq, owner__eq=owner__eq)
+
+Get all trusted certificates.
+
+An endpoint for retrieving trusted certificates in an array.
+
+### Example 
+```python
+from __future__ import print_statement
+import time
+import iam
+from iam.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# iam.configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = iam.DeveloperApi()
+limit = 50 # int | The number of results to return (2-1000), default is 50. (optional) (default to 50)
+after = 'after_example' # str | The entity ID to fetch after the given one. (optional)
+order = 'ASC' # str | The order of the records, ASC or DESC; by default ASC (optional) (default to ASC)
+include = 'include_example' # str | Comma separated additional data to return. Currently supported: total_count (optional)
+service__eq = 'service__eq_example' # str | Service filter, either lwm2m or bootstrap (optional)
+expire__eq = 56 # int | Expire filter in days (optional)
+device_execution_mode__eq = 56 # int | Device execution mode, as 1 for developer certificates or as another natural integer value (optional)
+owner__eq = 'owner__eq_example' # str | Owner ID filter (optional)
+
+try: 
+    # Get all trusted certificates.
+    api_response = api_instance.get_all_certificates(limit=limit, after=after, order=order, include=include, service__eq=service__eq, expire__eq=expire__eq, device_execution_mode__eq=device_execution_mode__eq, owner__eq=owner__eq)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DeveloperApi->get_all_certificates: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **limit** | **int**| The number of results to return (2-1000), default is 50. | [optional] [default to 50]
+ **after** | **str**| The entity ID to fetch after the given one. | [optional] 
+ **order** | **str**| The order of the records, ASC or DESC; by default ASC | [optional] [default to ASC]
+ **include** | **str**| Comma separated additional data to return. Currently supported: total_count | [optional] 
+ **service__eq** | **str**| Service filter, either lwm2m or bootstrap | [optional] 
+ **expire__eq** | **int**| Expire filter in days | [optional] 
+ **device_execution_mode__eq** | **int**| Device execution mode, as 1 for developer certificates or as another natural integer value | [optional] 
+ **owner__eq** | **str**| Owner ID filter | [optional] 
+
+### Return type
+
+[**TrustedCertificateRespList**](TrustedCertificateRespList.md)
 
 ### Authorization
 
@@ -347,6 +470,59 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ApiKeyInfoRespList**](ApiKeyInfoRespList.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_certificate**
+> TrustedCertificateResp get_certificate(cert_id)
+
+Get trusted certificate by ID.
+
+An endpoint for retrieving a trusted certificate by ID.
+
+### Example 
+```python
+from __future__ import print_statement
+import time
+import iam
+from iam.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# iam.configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = iam.DeveloperApi()
+cert_id = 'cert_id_example' # str | The ID or name of the trusted certificate to be retrieved.
+
+try: 
+    # Get trusted certificate by ID.
+    api_response = api_instance.get_certificate(cert_id)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DeveloperApi->get_certificate: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **cert_id** | **str**| The ID or name of the trusted certificate to be retrieved. | 
+
+### Return type
+
+[**TrustedCertificateResp**](TrustedCertificateResp.md)
 
 ### Authorization
 
@@ -669,6 +845,61 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **update_certificate**
+> TrustedCertificateResp update_certificate(cert_id, body)
+
+Update trusted certificate.
+
+An endpoint for updating existing trusted certificates.
+
+### Example 
+```python
+from __future__ import print_statement
+import time
+import iam
+from iam.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# iam.configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = iam.DeveloperApi()
+cert_id = 'cert_id_example' # str | The ID of the trusted certificate to be updated.
+body = iam.TrustedCertificateReq() # TrustedCertificateReq | A trusted certificate object with attributes.
+
+try: 
+    # Update trusted certificate.
+    api_response = api_instance.update_certificate(cert_id, body)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DeveloperApi->update_certificate: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **cert_id** | **str**| The ID of the trusted certificate to be updated. | 
+ **body** | [**TrustedCertificateReq**](TrustedCertificateReq.md)| A trusted certificate object with attributes. | 
+
+### Return type
+
+[**TrustedCertificateResp**](TrustedCertificateResp.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

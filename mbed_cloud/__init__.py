@@ -280,11 +280,17 @@ class PaginatedResponse(object):
 
         # Update properties
         self._has_more = resp.has_more
-        self._total_count = resp.total_count
         self._data = [self._lwrap_type(e) if self._lwrap_type else e for e in resp.data]
+        if hasattr(resp, 'total_count'):
+            self._total_count = resp.total_count
+        else:
+            self._total_count = len(self._data)
 
-        # Update 'after' by taking the last element ID
-        if len(resp.data) > 0:
+        if hasattr(resp, 'continuation_token'):
+            # Update 'after' with continuation_token if present
+            self._kwargs['after'] = resp.continuation_token
+        elif len(resp.data) > 0:
+            # Update 'after' by taking the last element ID
             self._kwargs['after'] = resp.data[-1].id
         else:
             if 'after' in self._kwargs:
@@ -292,7 +298,9 @@ class PaginatedResponse(object):
 
     def _get_total_count(self):
         resp = self._func(**{'include': 'total_count', 'limit': 2})
-        return resp.total_count
+        if hasattr(resp, 'total_count'):
+            return resp.total_count
+        return 0
 
     def __next__(self):
         """Get the next element in list.

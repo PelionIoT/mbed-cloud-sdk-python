@@ -16,7 +16,7 @@ from mbed_cloud.device_directory import DeviceDirectoryAPI
 
 
 def _print_event(idx, l):
-    print("%d) %s | %s\n%s\n" % (idx, l.date_time, l.device_event_id, l.description))
+    print("%d) %s | %s\n%s\n" % (idx, l.date_time, l.id, l.description))
 
 
 def _main():

@@ -77,29 +77,29 @@ Class | Method | HTTP request | Description
 *AccountAdminApi* | [**add_certificate**](docs/AccountAdminApi.md#add_certificate) | **POST** /v3/trusted-certificates | Upload a new trusted certificate.
 *AccountAdminApi* | [**add_subjects_to_group**](docs/AccountAdminApi.md#add_subjects_to_group) | **POST** /v3/policy-groups/{groupID} | Add members to a group.
 *AccountAdminApi* | [**create_user**](docs/AccountAdminApi.md#create_user) | **POST** /v3/users | Create a new user.
-*AccountAdminApi* | [**delete_certificate**](docs/AccountAdminApi.md#delete_certificate) | **DELETE** /v3/trusted-certificates/{cert-id} | Delete a trusted certificate by ID.
 *AccountAdminApi* | [**delete_user**](docs/AccountAdminApi.md#delete_user) | **DELETE** /v3/users/{user-id} | Delete a user.
-*AccountAdminApi* | [**get_all_certificates**](docs/AccountAdminApi.md#get_all_certificates) | **GET** /v3/trusted-certificates | Get all trusted certificates.
 *AccountAdminApi* | [**get_all_users**](docs/AccountAdminApi.md#get_all_users) | **GET** /v3/users | Get the details of all users.
-*AccountAdminApi* | [**get_certificate**](docs/AccountAdminApi.md#get_certificate) | **GET** /v3/trusted-certificates/{cert-id} | Get trusted certificate by ID.
 *AccountAdminApi* | [**get_user**](docs/AccountAdminApi.md#get_user) | **GET** /v3/users/{user-id} | Details of a user.
 *AccountAdminApi* | [**get_users_of_group**](docs/AccountAdminApi.md#get_users_of_group) | **GET** /v3/policy-groups/{groupID}/users | Get users of a group.
 *AccountAdminApi* | [**remove_users_from_group**](docs/AccountAdminApi.md#remove_users_from_group) | **DELETE** /v3/policy-groups/{groupID}/users | Remove users from a group.
-*AccountAdminApi* | [**update_certificate**](docs/AccountAdminApi.md#update_certificate) | **PUT** /v3/trusted-certificates/{cert-id} | Update trusted certificate.
 *AccountAdminApi* | [**update_my_account**](docs/AccountAdminApi.md#update_my_account) | **PUT** /v3/accounts/me | Updates attributes of the account.
 *AccountAdminApi* | [**update_user**](docs/AccountAdminApi.md#update_user) | **PUT** /v3/users/{user-id} | Update user details.
 *DeveloperApi* | [**create_api_key**](docs/DeveloperApi.md#create_api_key) | **POST** /v3/api-keys | Create a new API key.
 *DeveloperApi* | [**delete_api_key**](docs/DeveloperApi.md#delete_api_key) | **DELETE** /v3/api-keys/{apiKey} | Delete API key.
+*DeveloperApi* | [**delete_certificate**](docs/DeveloperApi.md#delete_certificate) | **DELETE** /v3/trusted-certificates/{cert-id} | Delete a trusted certificate by ID.
 *DeveloperApi* | [**get_all_api_keys**](docs/DeveloperApi.md#get_all_api_keys) | **GET** /v3/api-keys | Get all API keys
+*DeveloperApi* | [**get_all_certificates**](docs/DeveloperApi.md#get_all_certificates) | **GET** /v3/trusted-certificates | Get all trusted certificates.
 *DeveloperApi* | [**get_all_groups**](docs/DeveloperApi.md#get_all_groups) | **GET** /v3/policy-groups | Get all group information.
 *DeveloperApi* | [**get_api_key**](docs/DeveloperApi.md#get_api_key) | **GET** /v3/api-keys/{apiKey} | Get API key details.
 *DeveloperApi* | [**get_api_keys_of_group**](docs/DeveloperApi.md#get_api_keys_of_group) | **GET** /v3/policy-groups/{groupID}/api-keys | Get the API keys of a group.
+*DeveloperApi* | [**get_certificate**](docs/DeveloperApi.md#get_certificate) | **GET** /v3/trusted-certificates/{cert-id} | Get trusted certificate by ID.
 *DeveloperApi* | [**get_group_summary**](docs/DeveloperApi.md#get_group_summary) | **GET** /v3/policy-groups/{groupID} | Get group information.
 *DeveloperApi* | [**get_my_account_info**](docs/DeveloperApi.md#get_my_account_info) | **GET** /v3/accounts/me | Get account info.
 *DeveloperApi* | [**get_my_api_key**](docs/DeveloperApi.md#get_my_api_key) | **GET** /v3/api-keys/me | Get API key details.
 *DeveloperApi* | [**get_my_user**](docs/DeveloperApi.md#get_my_user) | **GET** /v3/users/me | Details of the current user.
 *DeveloperApi* | [**remove_api_keys_from_group**](docs/DeveloperApi.md#remove_api_keys_from_group) | **DELETE** /v3/policy-groups/{groupID}/api-keys | Remove API keys from a group.
 *DeveloperApi* | [**update_api_key**](docs/DeveloperApi.md#update_api_key) | **PUT** /v3/api-keys/{apiKey} | Update API key details.
+*DeveloperApi* | [**update_certificate**](docs/DeveloperApi.md#update_certificate) | **PUT** /v3/trusted-certificates/{cert-id} | Update trusted certificate.
 *DeveloperApi* | [**update_my_api_key**](docs/DeveloperApi.md#update_my_api_key) | **PUT** /v3/api-keys/me | Update API key details.
 *DeveloperApi* | [**update_my_user**](docs/DeveloperApi.md#update_my_user) | **PUT** /v3/users/me | Update user details.
 
