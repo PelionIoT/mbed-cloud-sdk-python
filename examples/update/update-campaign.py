@@ -86,7 +86,7 @@ def _main():
     )
     cobj = update_api.add_campaign(
         name=campaign_name,
-        root_manifest_id=mobj.id,
+        manifest_id=mobj.id,
         device_filter=selected_query.filter
     )
     print("Campaign successfully created. Current state: %r" % (cobj.state))

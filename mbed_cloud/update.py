@@ -95,7 +95,7 @@ class UpdateAPI(BaseAPI):
 
         :param str name: Name of the update campaign (Required)
         :param str device_filter: Devices to apply the update on. Provide filter ID (Required)
-        :param str root_manifest_id: Manifest with metadata/description of the update
+        :param str manifest_id: Manifest with metadata/description of the update
         :param str description: Description of the campaign
         :param date when: The timestamp at which update campaign scheduled to start
         :param str state: The state of the campaign. Values:
