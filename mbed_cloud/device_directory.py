@@ -23,14 +23,11 @@ from mbed_cloud.decorators import catch_exceptions
 from mbed_cloud import PaginatedResponse
 
 # Import backend API
-import mbed_cloud._backends.device_catalog as dc
-from mbed_cloud._backends.device_catalog.models import DeviceData
-from mbed_cloud._backends.device_catalog.models import DeviceEventData
-from mbed_cloud._backends.device_catalog.rest import \
-    ApiException as DeviceCatalogApiException
-import mbed_cloud._backends.device_query_service as dc_queries
-from mbed_cloud._backends.device_query_service.rest import \
-    ApiException as DeviceQueryServiceApiException
+import mbed_cloud._backends.device_directory as device_directory
+from mbed_cloud._backends.device_directory.models import DeviceData
+from mbed_cloud._backends.device_directory.models import DeviceEventData
+from mbed_cloud._backends.device_directory.rest import \
+    ApiException as DeviceDirectoryApiException
 
 LOG = logging.getLogger(__name__)
 
@@ -48,10 +45,9 @@ class DeviceDirectoryAPI(BaseAPI):
         super(DeviceDirectoryAPI, self).__init__(params)
 
         # Initialize the wrapped APIs
-        self.dc = self._init_api(dc)
-        self.dc_queries = self._init_api(dc_queries)
+        self.device_directory = self._init_api(device_directory)
 
-    @catch_exceptions(DeviceCatalogApiException)
+    @catch_exceptions(DeviceDirectoryApiException)
     def list_devices(self, **kwargs):
         """List devices in the device catalog.
 
@@ -75,10 +71,10 @@ class DeviceDirectoryAPI(BaseAPI):
         kwargs = self._verify_sort_options(kwargs)
         kwargs = self._verify_filters(kwargs, True)
 
-        api = self.dc.DefaultApi()
+        api = self.device_directory.DefaultApi()
         return PaginatedResponse(api.device_list, lwrap_type=Device, **kwargs)
 
-    @catch_exceptions(DeviceCatalogApiException)
+    @catch_exceptions(DeviceDirectoryApiException)
     def get_device(self, device_id):
         """Get device details from catalog.
 
@@ -86,10 +82,10 @@ class DeviceDirectoryAPI(BaseAPI):
         :returns: device object matching the `device_id`.
         :rtype: Device
         """
-        api = self.dc.DefaultApi()
+        api = self.device_directory.DefaultApi()
         return Device(api.device_retrieve(device_id))
 
-    @catch_exceptions(DeviceCatalogApiException)
+    @catch_exceptions(DeviceDirectoryApiException)
     def update_device(self, device_id, **kwargs):
         """Update existing device in catalog.
 
@@ -102,7 +98,6 @@ class DeviceDirectoryAPI(BaseAPI):
             )
 
         :param str device_id: The ID of the device to update (Required)
-        :param bool auto_update: Mark this device for auto firmware update
         :param obj custom_attributes: Up to 5 custom JSON attributes
         :param str description: The description of the device
         :param str name: The name of the device
@@ -114,12 +109,12 @@ class DeviceDirectoryAPI(BaseAPI):
         :returns: the updated device object
         :rtype: Device
         """
-        api = self.dc.DefaultApi()
+        api = self.device_directory.DefaultApi()
         device = Device.create_request_map(kwargs)
-        body = self.dc.DeviceDataPostRequest(**device)
+        body = self.device_directory.DeviceDataPostRequest(**device)
         return Device(api.device_update(device_id, body))
 
-    @catch_exceptions(DeviceCatalogApiException)
+    @catch_exceptions(DeviceDirectoryApiException)
     def add_device(self, **kwargs):
         """Add a new device to catalog.
 
@@ -129,7 +124,6 @@ class DeviceDirectoryAPI(BaseAPI):
                 "mechanism": "connector",
                 "certificate_fingerprint": "<certificate>",
                 "name": "New device name",
-                "auto_update": True,
                 "certificate_issuer_id": "<id>"
             }
             resp = api.add_device(**device)
@@ -139,7 +133,6 @@ class DeviceDirectoryAPI(BaseAPI):
         :param str certificate_issuer_id: ID of the issuer of the certificate (Required)
         :param str name: The name of the device
         :param str account_id: The owning IAM account ID
-        :param bool auto_update: Mark this device for auto firmware update
         :param obj custom_attributes: Up to 5 custom JSON attributes
         :param str deployed_state: State of the device's deployment
         :param str description: The description of the device
@@ -165,22 +158,22 @@ class DeviceDirectoryAPI(BaseAPI):
         :return: the newly created device object.
         :rtype: Device
         """
-        api = self.dc.DefaultApi()
+        api = self.device_directory.DefaultApi()
         device = Device.create_request_map(kwargs)
         device = DeviceData(**device)
         return Device(api.device_create(device))
 
-    @catch_exceptions(DeviceCatalogApiException)
+    @catch_exceptions(DeviceDirectoryApiException)
     def delete_device(self, id):
         """Delete device from catalog.
 
         :param str id: ID of device in catalog to delete (Required)
         :return: void
         """
-        api = self.dc.DefaultApi()
+        api = self.device_directory.DefaultApi()
         return api.device_destroy(id=id)
 
-    @catch_exceptions(DeviceQueryServiceApiException)
+    @catch_exceptions(DeviceDirectoryApiException)
     def list_queries(self, **kwargs):
         """List queries in device query service.
 
@@ -194,11 +187,11 @@ class DeviceDirectoryAPI(BaseAPI):
         """
         kwargs = self._verify_sort_options(kwargs)
         kwargs = self._verify_filters(kwargs, True)
-        api = self.dc_queries.DefaultApi()
+        api = self.device_directory.DefaultApi()
 
         return PaginatedResponse(api.device_query_list, lwrap_type=Query, **kwargs)
 
-    @catch_exceptions(DeviceQueryServiceApiException)
+    @catch_exceptions(DeviceDirectoryApiException)
     def add_query(self, name, filter, **kwargs):
         """Add a new query to device query service.
 
@@ -219,17 +212,17 @@ class DeviceDirectoryAPI(BaseAPI):
         :return: the newly created query object
         :rtype: Query
         """
-        api = self.dc_queries.DefaultApi()
+        api = self.device_directory.DefaultApi()
 
         # Ensure we have the correct types and get the new query object
         query = self._encode_query(filter)
         query_map = Query.create_request_map(kwargs)
         # Create the query object
-        f = self.dc_queries.DeviceQuery(name=name, query=query, **query_map)
+        f = self.device_directory.DeviceQuery(name=name, query=query, **query_map)
 
         return Query(api.device_query_create(f))
 
-    @catch_exceptions(DeviceQueryServiceApiException)
+    @catch_exceptions(DeviceDirectoryApiException)
     def update_query(self, query_id, name=None, filter=None, **kwargs):
         """Update existing query in device query service.
 
@@ -251,7 +244,7 @@ class DeviceDirectoryAPI(BaseAPI):
         :return: the newly updated query object.
         :rtype: Query
         """
-        api = self.dc_queries.DefaultApi()
+        api = self.device_directory.DefaultApi()
 
         # Get urlencoded query attribute
         if filter is not None:
@@ -260,7 +253,7 @@ class DeviceDirectoryAPI(BaseAPI):
             query = filter
 
         query_map = Query.create_request_map(kwargs)
-        body = self.dc_queries.DeviceQueryPatchRequest(
+        body = self.device_directory.DeviceQueryPatchRequest(
             name=name,
             query=query,
             **query_map
@@ -268,18 +261,18 @@ class DeviceDirectoryAPI(BaseAPI):
 
         return Query(api.device_query_partial_update(query_id, body))
 
-    @catch_exceptions(DeviceQueryServiceApiException)
+    @catch_exceptions(DeviceDirectoryApiException)
     def delete_query(self, query_id):
         """Delete query in device query service.
 
         :param int query_id: id of the query to delete (Required)
         :return: void
         """
-        api = self.dc_queries.DefaultApi()
+        api = self.device_directory.DefaultApi()
         api.device_query_destroy(query_id)
         return
 
-    @catch_exceptions(DeviceQueryServiceApiException)
+    @catch_exceptions(DeviceDirectoryApiException)
     def get_query(self, query_id):
         """Get query in device query service.
 
@@ -287,10 +280,10 @@ class DeviceDirectoryAPI(BaseAPI):
         :returns: device query object
         :rtype: Query
         """
-        api = self.dc_queries.DefaultApi()
+        api = self.device_directory.DefaultApi()
         return Query(api.device_query_retrieve(query_id))
 
-    @catch_exceptions(DeviceCatalogApiException)
+    @catch_exceptions(DeviceDirectoryApiException)
     def list_device_events(self, **kwargs):
         """List all device logs.
 
@@ -305,17 +298,17 @@ class DeviceDirectoryAPI(BaseAPI):
         kwargs = self._verify_sort_options(kwargs)
         kwargs = self._verify_filters(kwargs, True)
 
-        api = self.dc.DefaultApi()
+        api = self.device_directory.DefaultApi()
         return PaginatedResponse(api.device_log_list, lwrap_type=DeviceEvent, **kwargs)
 
-    @catch_exceptions(DeviceCatalogApiException)
+    @catch_exceptions(DeviceDirectoryApiException)
     def get_device_event(self, device_event_id):
         """Get device event with provided ID.
 
         :param int device_event_id: id of the event to get (Required)
         :rtype: DeviceEvent
         """
-        api = self.dc.DefaultApi()
+        api = self.device_directory.DefaultApi()
         return DeviceEvent(api.device_log_retrieve(device_event_id))
 
 
@@ -326,7 +319,6 @@ class Device(BaseObject):
     def _get_attributes_map():
         return {
             "account_id": "account_id",
-            "auto_update": "auto_update",
             "bootstrapped_timestamp": "bootstrapped_timestamp",
             "created_at": "created_at",
             "custom_attributes": "custom_attributes",
@@ -364,14 +356,6 @@ class Device(BaseObject):
         :rtype: str
         """
         return self._account_id
-
-    @property
-    def auto_update(self):
-        """Mark this device for auto firmware update.
-
-        :rtype: bool
-        """
-        return self._auto_update
 
     @property
     def bootstrapped_timestamp(self):

@@ -33,6 +33,7 @@ from mbed_cloud.exceptions import CloudAsyncError
 from mbed_cloud.exceptions import CloudTimeoutError
 from mbed_cloud.exceptions import CloudUnhandledError
 from mbed_cloud.exceptions import CloudValueError
+from mbed_cloud import PaginatedResponse
 
 # Import backend API
 import mbed_cloud._backends.mds as mds
@@ -297,7 +298,7 @@ class ConnectAPI(BaseAPI):
         return AsyncConsumer(resp.async_response_id, self._db)
 
     @catch_exceptions(MdsApiException)
-    def execute_resource(self, device_id, resource_path, function_name=None, fix_path=True):
+    def execute_resource(self, device_id, resource_path, fix_path=True, **kwargs):
         """Execute a function on a resource.
 
         Will block and wait for response to come through. Usage:
@@ -312,7 +313,7 @@ class ConnectAPI(BaseAPI):
 
         :param str device_id: The name/id of the device (Required)
         :param str resource_path: The resource path to update (Required)
-        :param str function_name: The function to trigger
+        :param str resource_function: The function to trigger
         :param fix_path: if True then the leading /, if found, will be stripped before
             doing request to backend. This is a requirement for the API to work properly
         :raises: AsyncError
@@ -331,12 +332,12 @@ class ConnectAPI(BaseAPI):
         api = self.mds.ResourcesApi()
         resp = api.v2_endpoints_device_id_resource_path_post(device_id,
                                                              resource_path,
-                                                             function_name)
+                                                             **kwargs)
         consumer = AsyncConsumer(resp.async_response_id, self._db)
         return self._get_value_synchronized(consumer)
 
     @catch_exceptions(MdsApiException)
-    def execute_resource_async(self, device_id, resource_path, function_name=None, fix_path=True):
+    def execute_resource_async(self, device_id, resource_path, fix_path=True, **kwargs):
         """Execute a function on a resource.
 
         Will not block. Returns immediatly. Usage:
@@ -352,7 +353,7 @@ class ConnectAPI(BaseAPI):
 
         :param str device_id: The name/id of the device (Required)
         :param str resource_path: The resource path to update (Required)
-        :param str function_name: The function to trigger
+        :param str resource_function: The function to trigger
         :param fix_path: if True then the leading /, if found, will be stripped before
             doing request to backend. This is a requirement for the API to work properly
         :returns: An async consumer object holding reference to request
@@ -366,7 +367,7 @@ class ConnectAPI(BaseAPI):
 
         resp = api.v2_endpoints_device_id_resource_path_post(device_id,
                                                              resource_path,
-                                                             function_name)
+                                                             **kwargs)
 
         return AsyncConsumer(resp.async_response_id, self._db)
 
@@ -532,7 +533,7 @@ class ConnectAPI(BaseAPI):
         return
 
     @catch_exceptions(StatisticsApiException)
-    def get_metrics(self, include=None, interval="1d", **kwargs):
+    def list_metrics(self, include=None, interval="1d", **kwargs):
         """Get statistics.
 
         :param str include: What fields to include in response. None will return all.
@@ -545,37 +546,21 @@ class ConnectAPI(BaseAPI):
         :param str period: Period. Fetch the data for the period in days, weeks or hours.
             Sample values: 2h, 3w, 4d.
             The parameter is not mandatory, if the start and end time are specified
-        :returns: a list of :py:class:`Metric` objects.
+        :param int limit: The number of devices to retrieve
+        :param str order: The ordering direction, ascending (asc) or descending (desc)
+        :param str after: Get metrics after/starting at given metric ID
+        :returns: a list of :py:class:`Metric` objects
+        :rtype: PaginatedResponse
         """
         if not include:
             include = self._include_all
         self._verify_arguments(interval, kwargs)
+        kwargs = self._verify_filters(kwargs)
         api = self.statistics.StatisticsApi()
-        data = api.v3_metrics_get(include, interval, self._auth, **kwargs).data
-        return [Metric(m) for m in data]
-
-    @catch_exceptions(StatisticsApiException)
-    def get_account_metrics(self, include=None, interval="1d", **kwargs):
-        """Get account-specific statistics.
-
-        :param str include: What fields to include in response. None will return all.
-        :param str interval: Group data by this interval in days, weeks or hours.
-            Sample values: 2h, 3w, 4d.
-        :param datetime start: Fetch the data with timestamp greater than or equal to this value.
-            The parameter is not mandatory, if the period is specified.
-        :param datetime end: Fetch the data with timestamp less than this value.
-            The parameter is not mandatory, if the period is specified.
-        :param str period: Period. Fetch the data for the period in days, weeks or hours.
-            Sample values: 2h, 3w, 4d.
-            The parameter is not mandatory, if the start and end time are specified
-        :returns: a list of :py:class:`Metric` objects.
-        """
-        if not include:
-            include = self._include_all
-        self._verify_arguments(interval, kwargs)
-        api = self.statistics.AccountApi()
-        data = api.v3_metrics_get(include, interval, self._auth, **kwargs).data
-        return [Metric(m) for m in data]
+        kwargs.update({ "include": include });
+        kwargs.update({ "interval": interval });
+        kwargs.update({ "authorization": self._auth });
+        return PaginatedResponse(api.v3_metrics_get, lwrap_type=Metric, **kwargs)
 
     def _subscription_handler(self, queue, device_id, path, callback_fn):
         while True:

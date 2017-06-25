@@ -20,19 +20,22 @@ def _main():
     api = ConnectAPI()
     header = "Get statistics from the last 30 days in 1 day interval"
     print("%s\n%s" % (header, len(header) * "-"))
-    for metric in api.get_metrics(interval="1d", period="30d"):
+    metrics = list(api.list_metrics(interval="1d", period="30d"))
+    for idx, metric in enumerate(metrics):
         print(metric)
 
     header = "Get statistics from the last 2 days in 3 hours interval"
     print("%s\n%s" % (header, len(header) * "-"))
-    for metric in api.get_metrics(interval="3h", period="2d"):
+    metrics = list(api.list_metrics(interval="3h", period="2d"))
+    for idx, metric in enumerate(metrics):
         print(metric)
 
     header = "Get statistics from 1 March 2017 to 1 April 2017"
     print("%s\n%s" % (header, len(header) * "-"))
     start = datetime(2017, 3, 1, 0, 0, 0)
     end = datetime(2017, 4, 1, 0, 0, 0)
-    for metric in api.get_metrics(interval="1d", start=start, end=end):
+    metrics = list(api.list_metrics(interval="1d", start=start, end=end))
+    for idx, metric in enumerate(metrics):
         print(metric)
 
 
