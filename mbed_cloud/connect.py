@@ -557,9 +557,9 @@ class ConnectAPI(BaseAPI):
         self._verify_arguments(interval, kwargs)
         kwargs = self._verify_filters(kwargs)
         api = self.statistics.StatisticsApi()
-        kwargs.update({ "include": include });
-        kwargs.update({ "interval": interval });
-        kwargs.update({ "authorization": self._auth });
+        kwargs.update({"include": include})
+        kwargs.update({"interval": interval})
+        kwargs.update({"authorization": self._auth})
         return PaginatedResponse(api.v3_metrics_get, lwrap_type=Metric, **kwargs)
 
     def _subscription_handler(self, queue, device_id, path, callback_fn):
@@ -922,6 +922,7 @@ class Metric(BaseObject):
     @staticmethod
     def _get_attributes_map():
         return {
+            "id": "id",
             "timestamp": "timestamp",
             "transactions": "transactions",
             "successful_device_registrations": "bootstraps_successful",
@@ -930,6 +931,14 @@ class Metric(BaseObject):
             "successful_api_calls": "device_server_rest_api_success",
             "failed_api_calls": "device_server_rest_api_error"
         }
+
+    @property
+    def id(self):
+        """Number of transaction events from devices linked to the account.
+
+        :rtype: string
+        """
+        return self._id
 
     @property
     def timestamp(self):
