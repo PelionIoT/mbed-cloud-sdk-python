@@ -288,10 +288,7 @@ class PaginatedResponse(object):
         else:
             self._total_count = len(self._data)
 
-        if hasattr(resp, 'continuation_token'):
-            # Update 'after' with continuation_token if present
-            self._kwargs['after'] = resp.continuation_token
-        elif len(resp.data) > 0:
+        if len(resp.data) > 0:
             # Update 'after' by taking the last element ID
             self._kwargs['after'] = resp.data[-1].id
         else:
