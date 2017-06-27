@@ -8,7 +8,7 @@ Python 2.6+ / Python 3.3+
 
 ## Installation
 
-    pip install git+https://github.com/ARMmbed/mbed-cloud-sdk-python.git
+    pip install git+https://github.com/ARMmbed/mbed-cloud-sdk-python.git@1.2.0-alpha
 
 ## Usage
 

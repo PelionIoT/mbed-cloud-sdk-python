@@ -28,7 +28,7 @@ except(IOError, ImportError):
 # Breaking changes in SDK will increment major version number.
 # API version number will follow mbed release schedule (~quarterly releases).
 API_VERSION = "1.2"
-SDK_MAJOR_MINOR = "0.0"
+SDK_MAJOR_MINOR = "0"
 SDK_SUFFIX = "-alpha"
 VERSION = "%s.%s%s" % (API_VERSION, SDK_MAJOR_MINOR, SDK_SUFFIX)
 
@@ -39,7 +39,7 @@ setup(
     name=NAME,
     version=VERSION,
     description="mbed Cloud SDK",
-    author="Herman Schistad",
+    author="Herman Schistad, Arkadiusz Zaluski",
     author_email="support@mbed.com",
     url="https://github.com/ARMmbed/mbed-cloud-sdk-python",
     install_requires=REQUIRES,
