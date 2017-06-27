@@ -249,7 +249,7 @@ class PaginatedResponse(object):
     iterating pages or using iterators.
     """
 
-    def __init__(self, func, lwrap_type=None, init_data=None, limit=None, **kwargs):
+    def __init__(self, func, lwrap_type=None, init_data=None, **kwargs):
         """Initialize wrapper by passing in object with metadata structure.
 
         :param lwrap_type: Wrap each response element in type
@@ -258,7 +258,6 @@ class PaginatedResponse(object):
         self._func = func
         self._lwrap_type = lwrap_type
         self._kwargs = kwargs
-        self._limit = limit
         self._data = None
 
         # Initial values, will be updated in first response
@@ -307,10 +306,6 @@ class PaginatedResponse(object):
         As one can see in the example we finely control the iteration of the
         pagination and in total we would here have 50+23=73 users.
         """
-        # If we've reached the limit, we stop.
-        if self._limit is not None and self._idx == self._limit:
-            raise StopIteration
-
         # If we don't have any data, then we just return.
         if self._data is None:
             raise StopIteration
