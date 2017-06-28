@@ -929,7 +929,10 @@ class Metric(BaseObject):
             "pending_device_registrations": "bootstraps_pending",
             "failed_device_registrations": "bootstraps_failed",
             "successful_api_calls": "device_server_rest_api_success",
-            "failed_api_calls": "device_server_rest_api_error"
+            "failed_api_calls": "device_server_rest_api_error",
+            "successful_handshakes": "handshakes_successful",
+            "failed_handshakes": "handshakes_failed",
+            "registered_devices": "registered_devices"
         }
 
     @property
@@ -996,3 +999,27 @@ class Metric(BaseObject):
         :rtype: int
         """
         return self._failed_api_calls
+
+    @property
+    def successful_handshakes(self):
+        """Number of successful handshakes the account has used.
+
+        :rtype: int
+        """
+        return self._successful_handshakes
+
+    @property
+    def failed_handshakes(self):
+        """Number of failed handshakes the account has used.
+
+        :rtype: int
+        """
+        return self._failed_handshakes
+
+    @property
+    def registered_devices(self):
+        """Maximum number of registered devices linked to the account.
+
+        :rtype: int
+        """
+        return self._registered_devices
