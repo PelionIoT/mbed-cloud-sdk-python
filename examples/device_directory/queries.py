@@ -69,6 +69,12 @@ def _main():
     assert updated_gf.filter['serial_number']['$eq'] == '12345'
     print ("Updated query with new serial number")
 
+    # Find device using query object
+    print ("Find devices that are matching the created query")
+    devicesResponse = api.list_devices(filters=updated_gf.filter)
+    # Print all devices that are matching provided query
+    print(list(devicesResponse))
+
     # And delete that too
     api.delete_query(new_c_query.id)
     print("Deleted complex query")
