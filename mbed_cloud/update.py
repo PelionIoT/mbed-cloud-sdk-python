@@ -134,7 +134,9 @@ class UpdateAPI(BaseAPI):
         """
         api = self.update_service.DefaultApi()
         campaign_id = campaign_object.id
+        print(campaign_object)
         campaign_object = campaign_object._create_patch_request()
+        print(campaign_object)
         if 'device_filter' in campaign_object:
             campaign_object["device_filter"] = self._encode_query(campaign_object["device_filter"])
         return Campaign(api.update_campaign_partial_update(campaign_id=campaign_id,
@@ -652,7 +654,7 @@ class Campaign(BaseObject):
             val = getattr(self, key, None)
             if val is not None:
                 map_patch[value] = val
-                return map_patch
+        return map_patch
 
     @property
     def device_filter(self):
