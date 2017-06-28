@@ -22,5 +22,5 @@ $ npm install ARMmbed/mbed-cloud-sdk-python@1.2.0-alpha
 - Python versions supported:
   - 2.6+
   - 3.3+
-- Examples working with both python 2.6+ and 3.3+
+- Examples working with both Python 2.6+ and 3.3+
 - Full documentation outlining usage
