@@ -7,7 +7,7 @@
 The application is hosted on GitHub at https://github.com/ARMmbed/mbed-cloud-sdk-python and can be installed using pip:
 
 ```
-$ npm install ARMmbed/mbed-cloud-sdk-python@1.2.0-alpha
+$ pip install ARMmbed/mbed-cloud-sdk-python@1.2.0-alpha
 ```
 
 ### Changes
