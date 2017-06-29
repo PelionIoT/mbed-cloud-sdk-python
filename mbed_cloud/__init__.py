@@ -164,7 +164,8 @@ class BaseObject(object):
         if not isinstance(dictionary, dict):
             dictionary = dictionary.to_dict()
         for key, value in iteritems(self._get_attributes_map()):
-            setattr(self, "_%s" % key, dictionary.get(value, None))
+            if value in dictionary:
+                setattr(self, "_%s" % key, dictionary.get(value, None))
 
     @staticmethod
     def _get_attributes_map():

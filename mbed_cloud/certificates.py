@@ -247,7 +247,7 @@ class Certificate(BaseObject):
         :return: The type of the certificate.
         :rtype: CertificateType
         """
-        if self._type == 1:
+        if self._type == 1 or self._service == CertificateType.developer:
             return CertificateType.developer
         elif self._service == CertificateType.bootstrap:
             return CertificateType.bootstrap
