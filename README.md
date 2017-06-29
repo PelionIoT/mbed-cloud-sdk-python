@@ -45,9 +45,9 @@ These instructions can also be found in the [official documentation](https://s3-
     }
     ```
 
-## Resources
+## Documentation and examples
 
-  - Full [documentation and API reference here](https://s3-us-west-2.amazonaws.com/mbed-cloud-sdk-python/index.html).
+See the full documentation and API reference at [https://cloud.mbed.com/](https://cloud.mbed.com/).
 
 ## License
 
