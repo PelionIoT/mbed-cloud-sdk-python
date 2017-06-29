@@ -78,25 +78,25 @@ class AccountManagementAPI(BaseAPI):
         return PaginatedResponse(api.get_all_api_keys, lwrap_type=ApiKey, **kwargs)
 
     @catch_exceptions(ApiException)
-    def get_api_key(self, api_key):
+    def get_api_key(self, api_key_id):
         """Get API key details for key registered in organisation.
 
-        :param str api_key: The ID of the API key to be updated (Required)
+        :param str api_key_id: The ID of the API key to be updated (Required)
         :returns: API key object
         :rtype: ApiKey
         """
         api = iam.DeveloperApi()
-        return ApiKey(api.get_api_key(api_key))
+        return ApiKey(api.get_api_key(api_key_id))
 
     @catch_exceptions(ApiException)
-    def delete_api_key(self, api_key):
+    def delete_api_key(self, api_key_id):
         """Delete an API key registered in the organisation.
 
         :param str api_key: The ID of the API key (Required)
         :returns: void
         """
         api = iam.DeveloperApi()
-        api.delete_api_key(api_key)
+        api.delete_api_key(api_key_id)
         return
 
     @catch_exceptions(ApiException)
@@ -116,10 +116,10 @@ class AccountManagementAPI(BaseAPI):
         return ApiKey(api.create_api_key(body))
 
     @catch_exceptions(ApiException)
-    def update_api_key(self, api_key, **kwargs):
+    def update_api_key(self, api_key_id, **kwargs):
         """Update API key.
 
-        :param str api_key: The ID of the API key to be updated (Required)
+        :param str api_key_id: The ID of the API key to be updated (Required)
         :param str name: The name of the API key
         :param str owner: User ID owning the API key
         :returns: Newly created API key object
@@ -128,7 +128,7 @@ class AccountManagementAPI(BaseAPI):
         api = iam.DeveloperApi()
         apikey = ApiKey.create_request_map(kwargs)
         body = iam.ApiKeyUpdateReq(**apikey)
-        return ApiKey(api.update_api_key(api_key, body))
+        return ApiKey(api.update_api_key(api_key_id, body))
 
     @catch_exceptions(ApiException)
     def list_users(self, **kwargs):
