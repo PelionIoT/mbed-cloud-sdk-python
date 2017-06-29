@@ -427,25 +427,35 @@ class ConnectAPI(BaseAPI):
         t.start()
 
     @catch_exceptions(MdsApiException)
-    def update_presubscription(self, device_id, resource_path, device_type=""):
-        """Create pre-subscription for device and resource path.
+    def update_presubscriptions(self, presubscriptions):
+        """Update pre-subscription data. Pre-subscription data will be removed for empty list.
 
-        :param device_id: ID of device to subscribe on (Required)
-        :param resource_path: The resource path on device to subscribe (Required)
-        :param device_type: Device type
+        :param presubscriptions: list of `Presubscription` objects (Required)
         :returns: void
         """
         api = self.mds.SubscriptionsApi()
+        presubscriptions_list = []
+        for presubscription in presubscriptions:
+            if not isinstance(presubscription, dict):
+                presubscription = presubscription.to_dict()
+            presubscription = {
+                "endpoint_name": presubscription.get("device_id", None),
+                "endpoint_type": presubscription.get("device_type", None),
+                "_resource_path": presubscription.get("resource_paths", None)
+            }
+            presubscriptions_list.append(self.mds.Presubscription(**presubscription))
+        return api.v2_subscriptions_put(presubscriptions_list)
 
-        presubscription = self.mds.Presubscription(
-            endpoint_name=device_id,
-            endpoint_type=device_type,
-            _resource_path=[resource_path]
-        )
-        api.v2_subscriptions_put([presubscription])
+    @catch_exceptions(MdsApiException)
+    def list_presubscriptions(self, **kwargs):
+        """Get a list of pre-subscription data
 
-        # Returns void
-        return
+        :returns: a list of `Presubscription` objects
+        :rtype: list of Presubscription
+        """
+        api = self.mds.SubscriptionsApi()
+        resp = api.v2_subscriptions_get(**kwargs)
+        return [Presubscription(p) for p in resp]
 
     @catch_exceptions(MdsApiException)
     def delete_resource_subscription(self, device_id=None, resource_path=None, fix_path=True):
@@ -1023,3 +1033,42 @@ class Metric(BaseObject):
         :rtype: int
         """
         return self._registered_devices
+
+
+class Presubscription(BaseObject):
+    """Presubscription data object"""
+
+    @staticmethod
+    def _get_attributes_map():
+        return {
+            'device_id': 'endpoint-name',
+            'device_type': 'endpoint-type',
+            'resource_paths': 'resource-path',
+        }
+
+    @property
+    def device_id(self):
+        """The Device ID
+
+        :return: The url of this Webhook.
+        :rtype: str
+        """
+        return self._device_id
+
+    @property
+    def device_type(self):
+        """Device type of this Presubscription.
+
+        :return: The url of this Webhook.
+        :rtype: str
+        """
+        return self._device_type
+
+    @property
+    def resource_paths(self):
+        """Resource paths of this Presubscription.
+
+        :return: The url of this Webhook.
+        :rtype: list[str]
+        """
+        return self._resource_paths
