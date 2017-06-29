@@ -21,7 +21,7 @@ Configuration parameters
 
 Set the following configuration parameters:
 
-- `api_key`: The API key created in https://portal.mbedcloud.com (Required)
+- `api_key`: The API key created in https://portal.us-east-1.mbedcloud.com/ (Required)
 - `host`: Override the default API host to use. Needs to be HTTPS. (Optional)
 
 Example configuration file
@@ -34,7 +34,7 @@ You can place this file in any of the locations listed above.
   $ cat .mbed_cloud_config.json
   {
     "api_key": "ak_*********",
-    "host": "https://custom-api.example.org"
+    "host": "https://api.us-east-1.mbedcloud.com"
   }
 
 Passing in configuration parameters in constructor
@@ -44,5 +44,5 @@ You can also override the configuration on a per-API basis.
 
 .. code-block:: python
 
-  >>> config = { "api_key": "ak_******", "host": "https://custom-api.example.org" }
+  >>> config = { "api_key": "ak_******", "host": "https://api.us-east-1.mbedcloud.com" }
   >>> api = AccountManagementAPI(config)
