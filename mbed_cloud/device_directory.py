@@ -164,14 +164,14 @@ class DeviceDirectoryAPI(BaseAPI):
         return Device(api.device_create(device))
 
     @catch_exceptions(DeviceDirectoryApiException)
-    def delete_device(self, id):
+    def delete_device(self, device_id):
         """Delete device from catalog.
 
-        :param str id: ID of device in catalog to delete (Required)
+        :param str device_id: ID of device in catalog to delete (Required)
         :return: void
         """
         api = self.device_directory.DefaultApi()
-        return api.device_destroy(id=id)
+        return api.device_destroy(id=device_id)
 
     @catch_exceptions(DeviceDirectoryApiException)
     def list_queries(self, **kwargs):

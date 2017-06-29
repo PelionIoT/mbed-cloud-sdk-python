@@ -198,14 +198,14 @@ class UpdateAPI(BaseAPI):
         )
 
     @catch_exceptions(UpdateServiceApiException)
-    def delete_firmware_image(self, firmware_image_id):
+    def delete_firmware_image(self, image_id):
         """Delete a firmware image.
 
-        :param str firmware_image_id: image ID for the firmware to remove/delete (Required)
+        :param str image_id: image ID for the firmware to remove/delete (Required)
         :return: void
         """
         api = self.update_service.DefaultApi()
-        api.firmware_image_destroy(image_id=firmware_image_id)
+        api.firmware_image_destroy(image_id=image_id)
         return
 
     @catch_exceptions(UpdateServiceApiException)
