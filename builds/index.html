@@ -1,0 +1,141 @@
+<html>
+<head>
+	<title>mbed Cloud SDK Python Builds</title>
+	<link href="https://fonts.googleapis.com/css?family=Raleway:400,600" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<h1>mbed Cloud SDK Python Builds</h1>
+
+<div class="container">
+	<div id="branches" class="branch">
+		<h2>Branch builds</h2>
+		<ul></ul>
+	</div>
+	<div id="master" class="branch">
+		<h2>Master builds</h2>
+		<ul></ul>
+	</div>
+</div>
+
+<script>
+	var project = "mbed-cloud-sdk-python";
+	var token = "fd10315b5c18246bb2935c73657336929f80452d";
+</script>
+
+<script type="text/template" id="template">
+
+	<% _.each(builds, function(build) { %>
+		<li class="item">
+			<% if (build.failed) { %>
+				<a title="CircleCI Build" href="<%- build.build_url %>">
+			<% } else { %>
+				<a title="Test Results" href="<%- getArtifactUrl(build, 'results') %>">
+			<% } %>
+
+				<div class="build <%- build.status === 'running' ? 'run' : (build.failed || !build.has_artifacts) ? 'fail' : 'pass' %>">
+					<div class="number"><%- ("0000" + build.build_num).slice(-4) %></div>
+					<div class="details">
+						<div class="title"><%- (build.branch === "master") ? status(build) : build.branch %></div>
+						<div class="details"><%- (build.branch === "master") ? build.subject : status(build) + ": " + build.subject %></div>
+					</div>
+					<div class="stats">
+						<div class="start"><%- formatDate(build.author_date) %></div>
+						<div class="duration"><%- (build.lifecycle === "running") ? "running" : "duration: " + Math.round(build.build_time_millis / 1000 / 60) + "mins" %></div>
+						<div class="name"><%- build.author_name %></div>
+					</div>
+					<div class="gravatar">
+						<img src="https://www.gravatar.com/avatar/<%- getGravatar(build.author_email) %>?d=identicon&s=75" />
+					</div>
+				</div>
+			</a>
+
+			<div class="links">
+				<a title="CircleCI Build" href="<%- build.build_url %>">
+					<img class="logo circleci" src="images/circleci.svg" /></a>
+				<a title="Github Commit" href="<%- build.vcs_url %>/commit/<%- build.vcs_revision %>">
+					<img class="logo github" src="images/github.svg" /></a>
+				<% if (build.has_artifacts) { %>
+					<a title="Documentation" href="<%- getArtifactUrl(build, 'docs') %>">
+						<img class="logo docs" src="images/docs.svg" /></a>
+					<a title="Test Results" href="<%- getArtifactUrl(build, 'results') %>">
+						<img class="logo tests" src="images/tests.svg" /></a>
+				<% } %>
+			</div>
+		</li>
+	<% }); %>
+
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/md5.js"></script>
+<script>
+	$.ajaxSetup({
+  		headers: { "Accept": "application/json" }
+	});
+
+	_.templateSettings.variable = "builds";
+	var template = _.template($("#template").html());
+
+	function getCircle(callback) {
+		url = "https://circleci.com/api/v1.1/project/github/ARMmbed/" + project + "?circle-token=" + token;
+		$.get(url, callback)
+	}
+
+	function formatDate(dateString) {
+		var date = new Date(dateString);
+		var time = [
+			("00" + date.getHours()).slice(-2),
+			("00" + date.getMinutes()).slice(-2),
+		];
+		var day = [
+			("00" + date.getDate()).slice(-2),
+			("00" + (date.getMonth() + 1)).slice(-2),
+			("00" + date.getYear()).slice(-2),
+		];
+		return time.join(":") + " " + day.join('/');
+	}
+
+	function getGravatar(email) {
+		email = email || "";
+		email = email.trim().toLowerCase();
+		return CryptoJS.MD5(email).toString();
+	}
+
+	function status(build) {
+		if (build.outcome) {
+			return (build.has_artifacts) ? build.outcome : "no tests";
+		}
+		return build.lifecycle;
+	}
+
+	function getArtifactUrl(build, base) {
+		return "https://circle-artifacts.com/gh/ARMmbed/" + project + "/" + build.build_num + "/artifacts/0/home/ubuntu/" + project + "/" + base + "/index.html";
+	}
+
+	getCircle(function(builds) {
+		builds = builds.filter(function(build) {
+			return (build.dont_build === null);
+		});
+
+		var masterBuilds = builds.filter(function(build) {
+			return (build.branch === "master");
+		});
+
+		var branchBuilds = builds.filter(function(build) {
+			return (build.branch !== "master");
+		});
+
+		$("#master>ul").html(template(masterBuilds));
+		$("#branches>ul").html(template(branchBuilds));
+	});
+
+	setTimeout(function() {
+		document.location.reload();
+	}, 1000 * 60 * 5);
+
+</script>
+
+</body>

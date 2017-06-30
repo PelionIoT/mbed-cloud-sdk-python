@@ -1,0 +1,93 @@
+* {
+	font-family: 'Raleway', sans-serif;
+}
+
+ul, li {
+	padding: 0;
+	margin: 0;
+	border: 0;
+	list-style-type: none;
+}
+
+.container {
+	display: flex;
+}
+
+.container > .branch {
+	flex: 1;
+}
+
+.item {
+	position: relative;
+}
+
+.item > a {
+	text-decoration: none;
+	color: inherit;
+}
+
+.build {
+	display: flex;
+	margin: 5px;
+	border: 1px solid gray;
+	font-size: 15px;
+}
+
+.build.run {
+	background-color: #fffbb3;
+}
+
+.build.pass {
+	background-color: #b3ffb3;
+}
+
+.build.fail {
+	background-color: #ff8466;
+}
+
+.number {
+	min-width: 120px;
+	font-size: 40px;
+	padding: 5px;
+	height: 75px;
+	text-align: center;
+}
+
+.links {
+	position: absolute;
+	bottom: 0;
+	left: 20px;
+	padding: 5px;
+}
+
+.title {
+	font-size: 22px;
+	text-transform: capitalize;
+}
+
+.details {
+	width: 100%;
+	margin-top: auto;
+	margin-bottom: auto;
+	padding: 5px;
+	text-transform: capitalize;
+}
+
+.stats {
+	min-width: 130px;
+	padding: 5px;
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
+.gravatar {
+	padding: 5px;
+}
+
+.duration {
+	text-transform: capitalize;
+}
+
+.logo {
+	width: 20px;
+}

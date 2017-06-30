@@ -1,7 +1,1 @@
-*.pyc
-*.swp
-*.egg-info
-venv/
-docs/build/
-.mbed_cloud_config.json
-dist/
+.DS_Store

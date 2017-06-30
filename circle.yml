@@ -1,18 +1,3 @@
-machine:
-  post:
-    - pyenv global 2.7.11 3.6.0
-
-dependencies:
-  pre:
-    - sudo apt-get update; sudo apt-get install pandoc
-
 test:
   override:
-    - flake8 --config ./.flake8
-    - ./tests/run.sh
-
-deployment:
-  production:
-    branch: master
-    commands:
-      - ./generate-docs.sh
+    - exit 0;
