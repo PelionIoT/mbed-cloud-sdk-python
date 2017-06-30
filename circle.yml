@@ -1,18 +1,41 @@
+general:
+  artifacts:
+    - ~/docs
+    - ~/tests
+
 machine:
+  node:
+    version: 4.7.0
+  environment:
+    AWS_DEFAULT_REGION: us-west-2
+    PROJECT_NAME: ${CIRCLE_PROJECT_REPONAME}
+    PROJECT_DOCS: ${HOME}/docs
+    PROJECT_TESTS: ${HOME}/tests
+    BUILD_DOCS: ${HOME}/${CIRCLE_PROJECT_REPONAME}/docs/build/html
   post:
     - pyenv global 2.7.11 3.6.0
 
 dependencies:
   pre:
     - sudo apt-get update; sudo apt-get install pandoc
+  post:
+    - bash generate-docs.sh
+    - mkdir ${PROJECT_DOCS}
+    - cp -r ${BUILD_DOCS}/* ${PROJECT_DOCS}/
 
 test:
+  pre:
+    - npm install -g ansi-html-stream
   override:
     - flake8 --config ./.flake8
-    - ./tests/run.sh
+    - mkdir ${PROJECT_TESTS}
+    - echo "<h1>${PROJECT_NAME} (build ${CIRCLE_BUILD_NUM})</h1>" > ${PROJECT_TESTS}/index.html:
+    - bash run.sh 2>&1 | tee /dev/tty | ansi-html >> ${PROJECT_TESTS}/index.html:
+        pwd: tests
 
 deployment:
-  production:
+  staging:
     branch: master
     commands:
-      - ./generate-docs.sh
+      - echo Syncing $PROJECT_NAME to S3...
+      - aws s3 sync --delete --cache-control max-age=3600 ${BUILD_DOCS} s3://$PROJECT_NAME
