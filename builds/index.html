@@ -28,13 +28,13 @@
 
 	<% _.each(builds, function(build) { %>
 		<li class="item">
-			<% if (build.failed) { %>
+			<% if (build.failed || !build.has_artifacts) { %>
 				<a title="CircleCI Build" href="<%- build.build_url %>">
 			<% } else { %>
 				<a title="Test Results" href="<%- getArtifactUrl(build, 'tests') %>">
 			<% } %>
 
-				<div class="build <%- build.status === 'running' ? 'run' : (build.failed || !build.has_artifacts) ? 'fail' : 'pass' %>">
+				<div class="build <%- build.status === 'running' ? 'run' : build.failed ? 'fail' : 'pass' %>">
 					<div class="number"><%- ("0000" + build.build_num).slice(-4) %></div>
 					<div class="details">
 						<div class="title"><%- (build.branch === "master") ? status(build) : build.branch %></div>
