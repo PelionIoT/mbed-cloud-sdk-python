@@ -31,7 +31,7 @@
 			<% if (build.failed) { %>
 				<a title="CircleCI Build" href="<%- build.build_url %>">
 			<% } else { %>
-				<a title="Test Results" href="<%- getArtifactUrl(build, 'results') %>">
+				<a title="Test Results" href="<%- getArtifactUrl(build, 'tests') %>">
 			<% } %>
 
 				<div class="build <%- build.status === 'running' ? 'run' : (build.failed || !build.has_artifacts) ? 'fail' : 'pass' %>">
@@ -59,7 +59,7 @@
 				<% if (build.has_artifacts) { %>
 					<a title="Documentation" href="<%- getArtifactUrl(build, 'docs') %>">
 						<img class="logo docs" src="images/docs.svg" /></a>
-					<a title="Test Results" href="<%- getArtifactUrl(build, 'results') %>">
+					<a title="Test Results" href="<%- getArtifactUrl(build, 'tests') %>">
 						<img class="logo tests" src="images/tests.svg" /></a>
 				<% } %>
 			</div>
@@ -112,7 +112,7 @@
 	}
 
 	function getArtifactUrl(build, base) {
-		return "https://circle-artifacts.com/gh/ARMmbed/" + project + "/" + build.build_num + "/artifacts/0/home/ubuntu/" + project + "/" + base + "/index.html";
+		return "https://circle-artifacts.com/gh/ARMmbed/" + project + "/" + build.build_num + "/artifacts/0/home/ubuntu/" + base + "/index.html";
 	}
 
 	getCircle(function(builds) {
