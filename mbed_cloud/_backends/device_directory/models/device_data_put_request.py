@@ -71,7 +71,7 @@ class DeviceDataPutRequest(object):
     def description(self):
         """
         Gets the description of this DeviceDataPutRequest.
-        The description of the object.
+        The description of the device.
 
         :return: The description of this DeviceDataPutRequest.
         :rtype: str
@@ -82,7 +82,7 @@ class DeviceDataPutRequest(object):
     def description(self, description):
         """
         Sets the description of this DeviceDataPutRequest.
-        The description of the object.
+        The description of the device.
 
         :param description: The description of this DeviceDataPutRequest.
         :type: str
@@ -288,7 +288,7 @@ class DeviceDataPutRequest(object):
     def name(self):
         """
         Gets the name of this DeviceDataPutRequest.
-        The name of the object.
+        The name of the device.
 
         :return: The name of this DeviceDataPutRequest.
         :rtype: str
@@ -299,7 +299,7 @@ class DeviceDataPutRequest(object):
     def name(self, name):
         """
         Sets the name of this DeviceDataPutRequest.
-        The name of the object.
+        The name of the device.
 
         :param name: The name of this DeviceDataPutRequest.
         :type: str

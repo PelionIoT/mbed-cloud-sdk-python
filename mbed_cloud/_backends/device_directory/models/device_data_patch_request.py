@@ -71,7 +71,7 @@ class DeviceDataPatchRequest(object):
     def description(self):
         """
         Gets the description of this DeviceDataPatchRequest.
-        The description of the object.
+        The description of the device.
 
         :return: The description of this DeviceDataPatchRequest.
         :rtype: str
@@ -82,7 +82,7 @@ class DeviceDataPatchRequest(object):
     def description(self, description):
         """
         Sets the description of this DeviceDataPatchRequest.
-        The description of the object.
+        The description of the device.
 
         :param description: The description of this DeviceDataPatchRequest.
         :type: str
@@ -284,7 +284,7 @@ class DeviceDataPatchRequest(object):
     def name(self):
         """
         Gets the name of this DeviceDataPatchRequest.
-        The name of the object.
+        The name of the device.
 
         :return: The name of this DeviceDataPatchRequest.
         :rtype: str
@@ -295,7 +295,7 @@ class DeviceDataPatchRequest(object):
     def name(self, name):
         """
         Sets the name of this DeviceDataPatchRequest.
-        The name of the object.
+        The name of the device.
 
         :param name: The name of this DeviceDataPatchRequest.
         :type: str

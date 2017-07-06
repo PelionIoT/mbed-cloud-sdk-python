@@ -157,7 +157,7 @@ class DeviceData(object):
     def bootstrapped_timestamp(self):
         """
         Gets the bootstrapped_timestamp of this DeviceData.
-        Timestamp of when the device was bootstrapped.
+        Timestamp of when the device last went through the bootstrap process.
 
         :return: The bootstrapped_timestamp of this DeviceData.
         :rtype: datetime
@@ -168,7 +168,7 @@ class DeviceData(object):
     def bootstrapped_timestamp(self, bootstrapped_timestamp):
         """
         Sets the bootstrapped_timestamp of this DeviceData.
-        Timestamp of when the device was bootstrapped.
+        Timestamp of when the device last went through the bootstrap process.
 
         :param bootstrapped_timestamp: The bootstrapped_timestamp of this DeviceData.
         :type: datetime
@@ -180,7 +180,7 @@ class DeviceData(object):
     def connector_expiration_date(self):
         """
         Gets the connector_expiration_date of this DeviceData.
-        Expiration date of the certificate used to connect to connector server.
+        Expiration date of the certificate used to connect to the lwm2m server.
 
         :return: The connector_expiration_date of this DeviceData.
         :rtype: datetime
@@ -191,7 +191,7 @@ class DeviceData(object):
     def connector_expiration_date(self, connector_expiration_date):
         """
         Sets the connector_expiration_date of this DeviceData.
-        Expiration date of the certificate used to connect to connector server.
+        Expiration date of the certificate used to connect to the lwm2m server.
 
         :param connector_expiration_date: The connector_expiration_date of this DeviceData.
         :type: datetime
@@ -242,6 +242,8 @@ class DeviceData(object):
         :param ca_id: The ca_id of this DeviceData.
         :type: str
         """
+        if ca_id is not None and len(ca_id) > 500:
+            raise ValueError("Invalid value for `ca_id`, length must be less than or equal to `500`")
 
         self._ca_id = ca_id
 
@@ -249,7 +251,7 @@ class DeviceData(object):
     def device_class(self):
         """
         Gets the device_class of this DeviceData.
-        The device class.
+        An id representing the model and hardware revision of the device.
 
         :return: The device_class of this DeviceData.
         :rtype: str
@@ -260,11 +262,13 @@ class DeviceData(object):
     def device_class(self, device_class):
         """
         Sets the device_class of this DeviceData.
-        The device class.
+        An id representing the model and hardware revision of the device.
 
         :param device_class: The device_class of this DeviceData.
         :type: str
         """
+        if device_class is not None and len(device_class) > 500:
+            raise ValueError("Invalid value for `device_class`, length must be less than or equal to `500`")
 
         self._device_class = device_class
 
@@ -272,7 +276,7 @@ class DeviceData(object):
     def id(self):
         """
         Gets the id of this DeviceData.
-        The ID of the device.
+        The id of the device. The device id is used to manage a device across all mbed cloud apis.
 
         :return: The id of this DeviceData.
         :rtype: str
@@ -283,7 +287,7 @@ class DeviceData(object):
     def id(self, id):
         """
         Sets the id of this DeviceData.
-        The ID of the device.
+        The id of the device. The device id is used to manage a device across all mbed cloud apis.
 
         :param id: The id of this DeviceData.
         :type: str
@@ -583,7 +587,7 @@ class DeviceData(object):
     def description(self):
         """
         Gets the description of this DeviceData.
-        The description of the object.
+        The description of the device.
 
         :return: The description of this DeviceData.
         :rtype: str
@@ -594,7 +598,7 @@ class DeviceData(object):
     def description(self, description):
         """
         Sets the description of this DeviceData.
-        The description of the object.
+        The description of the device.
 
         :param description: The description of this DeviceData.
         :type: str
@@ -750,7 +754,7 @@ class DeviceData(object):
     def name(self):
         """
         Gets the name of this DeviceData.
-        The name of the object.
+        The name of the device.
 
         :return: The name of this DeviceData.
         :rtype: str
@@ -761,7 +765,7 @@ class DeviceData(object):
     def name(self, name):
         """
         Sets the name of this DeviceData.
-        The name of the object.
+        The name of the device.
 
         :param name: The name of this DeviceData.
         :type: str
@@ -789,6 +793,8 @@ class DeviceData(object):
         :param device_key: The device_key of this DeviceData.
         :type: str
         """
+        if device_key is not None and len(device_key) > 512:
+            raise ValueError("Invalid value for `device_key`, length must be less than or equal to `512`")
 
         self._device_key = device_key
 
@@ -796,7 +802,7 @@ class DeviceData(object):
     def created_at(self):
         """
         Gets the created_at of this DeviceData.
-        The time the object was created.
+        Timestamp of when the device was created in the device directory.
 
         :return: The created_at of this DeviceData.
         :rtype: datetime
@@ -807,7 +813,7 @@ class DeviceData(object):
     def created_at(self, created_at):
         """
         Sets the created_at of this DeviceData.
-        The time the object was created.
+        Timestamp of when the device was created in the device directory.
 
         :param created_at: The created_at of this DeviceData.
         :type: datetime
