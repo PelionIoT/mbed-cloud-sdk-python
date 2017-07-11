@@ -165,7 +165,6 @@ class AccountManagementAPI(BaseAPI):
         :param str username: The unique username of the user
         :param str email: The unique email of the user
         :param str full_name: The full name of the user
-        :param list groups: List of group IDs (`str`) which this user belongs to
         :param str password: The password string of the user.
         :param str phone_number: Phone number of the user
         :param bool terms_accepted: Is 'General Terms & Conditions' accepted

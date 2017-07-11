@@ -10,7 +10,7 @@ Usage
   deviceDirectoryApi = DeviceDirectoryAPI()
 
   # 5 most recent devices from catalog, which are registered
-  filters = { 'state': 'registered' }
+  filters = { 'state': {'$eq' : 'registered' }}
   reg_devices = list(deviceDirectoryApi.list_devices(limit=10, order='desc', filters=filters))
 
   # Get details about specific (registered) device
@@ -18,14 +18,14 @@ Usage
 
   # List device events
   for d in deviceDirectoryApi.list_device_events():
-    print(d.device_event_id)
+    print(d.id)
 
   # 10 oldest device events
   list(deviceDirectoryApi.list_device_events(order='asc'))[:10]
 
   # 10 most recent events for a specific device
   filters = {
-    'device_id': '01588c0460c002420a012c0400000000',
+    'device_id': { '$eq': '01588c0460c002420a012c0400000000' }
   }
   deviceDirectoryApi.list_device_events(limit=10, filters=filters)
 

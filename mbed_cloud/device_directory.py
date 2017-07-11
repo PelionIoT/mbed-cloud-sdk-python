@@ -55,7 +55,7 @@ class DeviceDirectoryAPI(BaseAPI):
 
         .. code-block:: python
 
-            filters = { 'state': 'registered' }
+            filters = { 'state': {'$eq': 'registered' } }
             devices = api.list_devices(order='asc', filters=filters)
             for idx, d in enumerate(devices):
                 print(idx, d.id)
@@ -199,9 +199,11 @@ class DeviceDirectoryAPI(BaseAPI):
 
             f = api.add_query(
                 name = "Query name",
-                query = {},
-                custom_attributes = {
-                    "foo": "bar"
+                filter = {
+                    "device_id": {"$eq": "01234"},
+                    custom_attributes = {
+                        "foo": {"$eq": "bar"}
+                    }
                 }
             )
             print(f.created_at)

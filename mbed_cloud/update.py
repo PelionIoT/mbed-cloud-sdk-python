@@ -85,12 +85,12 @@ class UpdateAPI(BaseAPI):
             device_api, update_api = DeviceDirectoryAPI(), UpdateAPI()
 
             # Get a filter to use for update campaign
-            device_filter_obj = device_api.get_filter(filter_id="MYID")
+            query_obj = device_api.get_query(query_id="MYID")
 
             # Create the campaign
             new_campaign = update_api.add_campaign(
                 name="foo",
-                device_filter=device_filter_obj.query
+                device_filter=query_obj.filter
             )
 
         :param str name: Name of the update campaign (Required)
