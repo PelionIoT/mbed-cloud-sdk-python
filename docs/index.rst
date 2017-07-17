@@ -28,7 +28,7 @@ Concepts
 Prerequisites
 ----------
 
-Python 2.7.9+ / Python 3.4.3+
+Python 2.7.10+ / Python 3.4.3+
 
 Quickstart
 ----------
