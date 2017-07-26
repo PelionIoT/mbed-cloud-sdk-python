@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **updated_at** | **datetime** | The time the object was updated. | 
 **manifest_contents** | [**ManifestContents**](ManifestContents.md) |  | 
 **etag** | **datetime** | The entity instance signature. | 
+**version** | **str** | The format version of the manifest. | 
 **device_class** | **str** | The class of device. | 
 **id** | **str** | The ID of the firmware manifest. | 
 **name** | **str** | The name of the object. | 
