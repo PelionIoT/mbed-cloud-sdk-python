@@ -5,7 +5,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **class_id** | **str** | Hex representation of the 128-bit RFC4122 GUID that represents the device class that the update targets. | [optional] 
 **vendor_id** | **str** | Hex representation of the 128-bit RFC4122 GUID that represents the vendor. | [optional] 
-**manifest_version** | **int** | The version of the manifest format being used. | [optional] 
+**manifest_version** | **str** | The version of the manifest format being used. | [optional] 
 **description** | **str** | A short description of the update. | [optional] 
 **nonce** | **str** | A 128-bit random field | [optional] 
 **timestamp** | **int** | The time the manifest was created. The timestamp is stored as Unix time. | [optional] 

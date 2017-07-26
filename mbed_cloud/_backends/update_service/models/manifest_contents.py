@@ -33,7 +33,7 @@ class ManifestContents(object):
         self.swagger_types = {
             'class_id': 'str',
             'vendor_id': 'str',
-            'manifest_version': 'int',
+            'manifest_version': 'str',
             'description': 'str',
             'nonce': 'str',
             'timestamp': 'int',
@@ -120,7 +120,7 @@ class ManifestContents(object):
         The version of the manifest format being used.
 
         :return: The manifest_version of this ManifestContents.
-        :rtype: int
+        :rtype: str
         """
         return self._manifest_version
 
@@ -131,7 +131,7 @@ class ManifestContents(object):
         The version of the manifest format being used.
 
         :param manifest_version: The manifest_version of this ManifestContents.
-        :type: int
+        :type: str
         """
 
         self._manifest_version = manifest_version
