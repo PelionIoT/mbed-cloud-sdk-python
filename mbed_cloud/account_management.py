@@ -25,7 +25,7 @@ from mbed_cloud import PaginatedResponse
 # Import backend API
 import mbed_cloud._backends.iam as iam
 from mbed_cloud._backends.iam.models import AccountUpdateReq
-import mbed_cloud._backends.iam.rest as ApiException
+from mbed_cloud._backends.iam.rest import ApiException
 
 
 class AccountManagementAPI(BaseAPI):
