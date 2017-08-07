@@ -163,7 +163,7 @@ class ManifestContents(object):
     def nonce(self):
         """
         Gets the nonce of this ManifestContents.
-        A 128-bit random field
+        A 128-bit random field. This is provided by the manifest tool to ensure that the signing algorithm is safe from timing side-channel attacks.
 
         :return: The nonce of this ManifestContents.
         :rtype: str
@@ -174,7 +174,7 @@ class ManifestContents(object):
     def nonce(self, nonce):
         """
         Sets the nonce of this ManifestContents.
-        A 128-bit random field
+        A 128-bit random field. This is provided by the manifest tool to ensure that the signing algorithm is safe from timing side-channel attacks.
 
         :param nonce: The nonce of this ManifestContents.
         :type: str

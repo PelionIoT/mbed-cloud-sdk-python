@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **vendor_id** | **str** | Hex representation of the 128-bit RFC4122 GUID that represents the vendor. | [optional] 
 **manifest_version** | **int** | The version of the manifest format being used. | [optional] 
 **description** | **str** | A short description of the update. | [optional] 
-**nonce** | **str** | A 128-bit random field | [optional] 
+**nonce** | **str** | A 128-bit random field. This is provided by the manifest tool to ensure that the signing algorithm is safe from timing side-channel attacks. | [optional] 
 **timestamp** | **int** | The time the manifest was created. The timestamp is stored as Unix time. | [optional] 
 **encryption_mode** | [**ManifestContentsEncryptionMode**](ManifestContentsEncryptionMode.md) |  | [optional] 
 **apply_immediately** | **bool** | A flag that indicates that the update described by the manifest should be applied as soon as possible. | [optional] 
