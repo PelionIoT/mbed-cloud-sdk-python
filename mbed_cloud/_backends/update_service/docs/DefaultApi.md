@@ -834,7 +834,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v3_campaign_device_metadata_get**
-> v3_campaign_device_metadata_get()
+> CampaignDeviceMetadataPage v3_campaign_device_metadata_get()
 
 
 
@@ -855,7 +855,8 @@ update_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 api_instance = update_service.DefaultApi()
 
 try: 
-    api_instance.v3_campaign_device_metadata_get()
+    api_response = api_instance.v3_campaign_device_metadata_get()
+    pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->v3_campaign_device_metadata_get: %s\n" % e)
 ```
@@ -865,7 +866,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-void (empty response body)
+[**CampaignDeviceMetadataPage**](CampaignDeviceMetadataPage.md)
 
 ### Authorization
 
