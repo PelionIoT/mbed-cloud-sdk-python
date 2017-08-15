@@ -551,6 +551,8 @@ class DeviceDataPostRequest(object):
         :param endpoint_type: The endpoint_type of this DeviceDataPostRequest.
         :type: str
         """
+        if endpoint_type is not None and len(endpoint_type) > 64:
+            raise ValueError("Invalid value for `endpoint_type`, length must be less than or equal to `64`")
 
         self._endpoint_type = endpoint_type
 
