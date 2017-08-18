@@ -410,7 +410,7 @@ class ResourcesApi(object):
             for asynchronous request. (optional)
         :param str device_id: A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  (required)
         :param str _resource_path: Resource URL. (required)
-        :param str resource_value: The value to be set to the resource. (Check accceptable content-types)  (required)
+        :param str resource_value: The value to be set to the resource.  (required)
         :param bool no_resp: **Non-confirmable requests**  All resource APIs have the parameter noResp. If you make a request with `noResp=true`, mbed Cloud Connect makes a CoAP non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code 204 No Content. If the underlying protocol does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code 409 Conflict. 
         :return: AsyncID
                  If the method is called asynchronously,
@@ -439,7 +439,7 @@ class ResourcesApi(object):
             for asynchronous request. (optional)
         :param str device_id: A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  (required)
         :param str _resource_path: Resource URL. (required)
-        :param str resource_value: The value to be set to the resource. (Check accceptable content-types)  (required)
+        :param str resource_value: The value to be set to the resource.  (required)
         :param bool no_resp: **Non-confirmable requests**  All resource APIs have the parameter noResp. If you make a request with `noResp=true`, mbed Cloud Connect makes a CoAP non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code 204 No Content. If the underlying protocol does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code 409 Conflict. 
         :return: AsyncID
                  If the method is called asynchronously,
