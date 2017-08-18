@@ -4,7 +4,7 @@ The `mbed-cloud-sdk` gives developers access to the full mbed suite using Python
 
 ## Prerequisites
 
-Python 2.6+ / Python 3.3+
+Python 2.7.10+ / Python 3.4.3+
 
 ## Installation
 

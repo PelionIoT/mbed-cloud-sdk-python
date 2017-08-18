@@ -13,7 +13,7 @@ Listing users and groups in team/organisation
   >>> print("%r (%s)" % (u.full_name, u.email))
   'David Bowie' (david.bowie@example.org)
   >>>
-  >>> print(len(accountApi.list_groups()))
+  >>> print(len(accountApi.list_groups().data))
   13
 
 Creating and managing a new user
@@ -25,11 +25,8 @@ Creating and managing a new user
   >>> accountApi = AccountManagementAPI()
   >>>
   >>> # Create a new user with the bare minimum required information
-  >>> new_u = accountApi.create_user(username='foo', email='foo@example.org')
+  >>> new_u = accountApi.add_user(username='fooo', email='foo@example.org')
   >>> groups = list(accountApi.list_groups())
-  >>>
-  >>> # Add the new user to first group and set a password
-  >>> new_u = accountApi.update_user(new_u.id, password='hunter2', groups=[groups[0].id,])
 
 Reference
 ---------
