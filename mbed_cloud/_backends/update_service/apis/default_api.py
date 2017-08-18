@@ -1484,3 +1484,185 @@ class DefaultApi(object):
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
+
+    def v3_campaign_device_metadata_campaign_device_metadata_id_get(self, campaign_device_metadata_id, **kwargs):
+        """
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.v3_campaign_device_metadata_campaign_device_metadata_id_get(campaign_device_metadata_id, callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param str campaign_device_metadata_id: The id of the campaign device metadata (required)
+        :return: CampaignDeviceMetadata
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('callback'):
+            return self.v3_campaign_device_metadata_campaign_device_metadata_id_get_with_http_info(campaign_device_metadata_id, **kwargs)
+        else:
+            (data) = self.v3_campaign_device_metadata_campaign_device_metadata_id_get_with_http_info(campaign_device_metadata_id, **kwargs)
+            return data
+
+    def v3_campaign_device_metadata_campaign_device_metadata_id_get_with_http_info(self, campaign_device_metadata_id, **kwargs):
+        """
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.v3_campaign_device_metadata_campaign_device_metadata_id_get_with_http_info(campaign_device_metadata_id, callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param str campaign_device_metadata_id: The id of the campaign device metadata (required)
+        :return: CampaignDeviceMetadata
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['campaign_device_metadata_id']
+        all_params.append('callback')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method v3_campaign_device_metadata_campaign_device_metadata_id_get" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'campaign_device_metadata_id' is set
+        if ('campaign_device_metadata_id' not in params) or (params['campaign_device_metadata_id'] is None):
+            raise ValueError("Missing the required parameter `campaign_device_metadata_id` when calling `v3_campaign_device_metadata_campaign_device_metadata_id_get`")
+
+
+        collection_formats = {}
+
+        resource_path = '/v3/campaign-device-metadata/{campaign_device_metadata_id}'.replace('{format}', 'json')
+        path_params = {}
+        if 'campaign_device_metadata_id' in params:
+            path_params['campaign_device_metadata_id'] = params['campaign_device_metadata_id']
+
+        query_params = {}
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api(resource_path, 'GET',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='CampaignDeviceMetadata',
+                                        auth_settings=auth_settings,
+                                        callback=params.get('callback'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
+    def v3_campaign_device_metadata_get(self, **kwargs):
+        """
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.v3_campaign_device_metadata_get(callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :return: CampaignDeviceMetadataPage
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('callback'):
+            return self.v3_campaign_device_metadata_get_with_http_info(**kwargs)
+        else:
+            (data) = self.v3_campaign_device_metadata_get_with_http_info(**kwargs)
+            return data
+
+    def v3_campaign_device_metadata_get_with_http_info(self, **kwargs):
+        """
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.v3_campaign_device_metadata_get_with_http_info(callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :return: CampaignDeviceMetadataPage
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = []
+        all_params.append('callback')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method v3_campaign_device_metadata_get" % key
+                )
+            params[key] = val
+        del params['kwargs']
+
+        collection_formats = {}
+
+        resource_path = '/v3/campaign-device-metadata'.replace('{format}', 'json')
+        path_params = {}
+
+        query_params = {}
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api(resource_path, 'GET',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='CampaignDeviceMetadataPage',
+                                        auth_settings=auth_settings,
+                                        callback=params.get('callback'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)

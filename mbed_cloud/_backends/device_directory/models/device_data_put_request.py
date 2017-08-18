@@ -71,7 +71,7 @@ class DeviceDataPutRequest(object):
     def description(self):
         """
         Gets the description of this DeviceDataPutRequest.
-        The description of the object.
+        The description of the device.
 
         :return: The description of this DeviceDataPutRequest.
         :rtype: str
@@ -82,7 +82,7 @@ class DeviceDataPutRequest(object):
     def description(self, description):
         """
         Sets the description of this DeviceDataPutRequest.
-        The description of the object.
+        The description of the device.
 
         :param description: The description of this DeviceDataPutRequest.
         :type: str
@@ -254,6 +254,8 @@ class DeviceDataPutRequest(object):
         :param endpoint_type: The endpoint_type of this DeviceDataPutRequest.
         :type: str
         """
+        if endpoint_type is not None and len(endpoint_type) > 64:
+            raise ValueError("Invalid value for `endpoint_type`, length must be less than or equal to `64`")
 
         self._endpoint_type = endpoint_type
 
@@ -288,7 +290,7 @@ class DeviceDataPutRequest(object):
     def name(self):
         """
         Gets the name of this DeviceDataPutRequest.
-        The name of the object.
+        The name of the device.
 
         :return: The name of this DeviceDataPutRequest.
         :rtype: str
@@ -299,7 +301,7 @@ class DeviceDataPutRequest(object):
     def name(self, name):
         """
         Sets the name of this DeviceDataPutRequest.
-        The name of the object.
+        The name of the device.
 
         :param name: The name of this DeviceDataPutRequest.
         :type: str

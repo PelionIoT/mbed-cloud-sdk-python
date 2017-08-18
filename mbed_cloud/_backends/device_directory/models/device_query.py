@@ -87,7 +87,7 @@ class DeviceQuery(object):
     def created_at(self):
         """
         Gets the created_at of this DeviceQuery.
-        The time the object was created.
+        Timestamp of when the device was created in the device directory.
 
         :return: The created_at of this DeviceQuery.
         :rtype: datetime
@@ -98,7 +98,7 @@ class DeviceQuery(object):
     def created_at(self, created_at):
         """
         Sets the created_at of this DeviceQuery.
-        The time the object was created.
+        Timestamp of when the device was created in the device directory.
 
         :param created_at: The created_at of this DeviceQuery.
         :type: datetime

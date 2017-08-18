@@ -18,6 +18,8 @@ Method | HTTP request | Description
 [**update_campaign_partial_update**](DefaultApi.md#update_campaign_partial_update) | **PATCH** /v3/update-campaigns/{campaign_id}/ | 
 [**update_campaign_retrieve**](DefaultApi.md#update_campaign_retrieve) | **GET** /v3/update-campaigns/{campaign_id}/ | 
 [**update_campaign_update**](DefaultApi.md#update_campaign_update) | **PUT** /v3/update-campaigns/{campaign_id}/ | 
+[**v3_campaign_device_metadata_campaign_device_metadata_id_get**](DefaultApi.md#v3_campaign_device_metadata_campaign_device_metadata_id_get) | **GET** /v3/campaign-device-metadata/{campaign_device_metadata_id} | 
+[**v3_campaign_device_metadata_get**](DefaultApi.md#v3_campaign_device_metadata_get) | **GET** /v3/campaign-device-metadata | 
 
 
 # **firmware_image_create**
@@ -769,6 +771,102 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**UpdateCampaign**](UpdateCampaign.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **v3_campaign_device_metadata_campaign_device_metadata_id_get**
+> CampaignDeviceMetadata v3_campaign_device_metadata_campaign_device_metadata_id_get(campaign_device_metadata_id)
+
+
+
+### Example 
+```python
+from __future__ import print_statement
+import time
+import update_service
+from update_service.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+update_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# update_service.configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = update_service.DefaultApi()
+campaign_device_metadata_id = 'campaign_device_metadata_id_example' # str | The id of the campaign device metadata
+
+try: 
+    api_response = api_instance.v3_campaign_device_metadata_campaign_device_metadata_id_get(campaign_device_metadata_id)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->v3_campaign_device_metadata_campaign_device_metadata_id_get: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **campaign_device_metadata_id** | **str**| The id of the campaign device metadata | 
+
+### Return type
+
+[**CampaignDeviceMetadata**](CampaignDeviceMetadata.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **v3_campaign_device_metadata_get**
+> CampaignDeviceMetadataPage v3_campaign_device_metadata_get()
+
+
+
+### Example 
+```python
+from __future__ import print_statement
+import time
+import update_service
+from update_service.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+update_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# update_service.configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = update_service.DefaultApi()
+
+try: 
+    api_response = api_instance.v3_campaign_device_metadata_get()
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->v3_campaign_device_metadata_get: %s\n" % e)
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**CampaignDeviceMetadataPage**](CampaignDeviceMetadataPage.md)
 
 ### Authorization
 

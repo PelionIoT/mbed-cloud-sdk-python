@@ -408,7 +408,7 @@ class FirmwareManifestContents(object):
 
     @property
     def version(self):
-        """Get the URL of the firmware manifest (readonly).
+        """The format version of the manifest (readonly).
 
         :rtype: str
         """
@@ -545,7 +545,8 @@ class FirmwareManifest(BaseObject):
             "contents": "manifest_contents",
             "name": "name",
             "timestamp": "timestamp",
-            "updated_at": "updated_at"
+            "updated_at": "updated_at",
+            "version": "version"
         }
 
     @property
@@ -619,6 +620,14 @@ class FirmwareManifest(BaseObject):
         :rtype: datetime
         """
         return self._updated_at
+
+    @property
+    def version(self):
+        """The time the object was updated (readonly).
+
+        :rtype: str
+        """
+        return self._version
 
 
 class Campaign(BaseObject):
