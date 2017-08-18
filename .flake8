@@ -2,5 +2,5 @@
 exclude = .git,__pycache__,mbed_cloud/_backends,venv,build/lib,docs/conf.py,setup.py
 max-complexity = 10
 max-line-length = 100
-ignore = D400, D401
+ignore = D400,D401
 copyright-check = True
