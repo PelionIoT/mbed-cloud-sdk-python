@@ -1485,7 +1485,7 @@ class DefaultApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
-    def v3_campaign_device_metadata_campaign_device_metadata_id_get(self, campaign_device_metadata_id, **kwargs):
+    def v3_update_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get(self, campaign_id, campaign_device_metadata_id, **kwargs):
         """
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -1493,10 +1493,11 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.v3_campaign_device_metadata_campaign_device_metadata_id_get(campaign_device_metadata_id, callback=callback_function)
+        >>> thread = api.v3_update_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get(campaign_id, campaign_device_metadata_id, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
+        :param str campaign_id: The ID of the update campaign (required)
         :param str campaign_device_metadata_id: The id of the campaign device metadata (required)
         :return: CampaignDeviceMetadata
                  If the method is called asynchronously,
@@ -1504,12 +1505,12 @@ class DefaultApi(object):
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.v3_campaign_device_metadata_campaign_device_metadata_id_get_with_http_info(campaign_device_metadata_id, **kwargs)
+            return self.v3_update_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get_with_http_info(campaign_id, campaign_device_metadata_id, **kwargs)
         else:
-            (data) = self.v3_campaign_device_metadata_campaign_device_metadata_id_get_with_http_info(campaign_device_metadata_id, **kwargs)
+            (data) = self.v3_update_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get_with_http_info(campaign_id, campaign_device_metadata_id, **kwargs)
             return data
 
-    def v3_campaign_device_metadata_campaign_device_metadata_id_get_with_http_info(self, campaign_device_metadata_id, **kwargs):
+    def v3_update_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get_with_http_info(self, campaign_id, campaign_device_metadata_id, **kwargs):
         """
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -1517,17 +1518,18 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.v3_campaign_device_metadata_campaign_device_metadata_id_get_with_http_info(campaign_device_metadata_id, callback=callback_function)
+        >>> thread = api.v3_update_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get_with_http_info(campaign_id, campaign_device_metadata_id, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
+        :param str campaign_id: The ID of the update campaign (required)
         :param str campaign_device_metadata_id: The id of the campaign device metadata (required)
         :return: CampaignDeviceMetadata
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['campaign_device_metadata_id']
+        all_params = ['campaign_id', 'campaign_device_metadata_id']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -1538,19 +1540,24 @@ class DefaultApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method v3_campaign_device_metadata_campaign_device_metadata_id_get" % key
+                    " to method v3_update_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get" % key
                 )
             params[key] = val
         del params['kwargs']
+        # verify the required parameter 'campaign_id' is set
+        if ('campaign_id' not in params) or (params['campaign_id'] is None):
+            raise ValueError("Missing the required parameter `campaign_id` when calling `v3_update_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get`")
         # verify the required parameter 'campaign_device_metadata_id' is set
         if ('campaign_device_metadata_id' not in params) or (params['campaign_device_metadata_id'] is None):
-            raise ValueError("Missing the required parameter `campaign_device_metadata_id` when calling `v3_campaign_device_metadata_campaign_device_metadata_id_get`")
+            raise ValueError("Missing the required parameter `campaign_device_metadata_id` when calling `v3_update_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get`")
 
 
         collection_formats = {}
 
-        resource_path = '/v3/campaign-device-metadata/{campaign_device_metadata_id}'.replace('{format}', 'json')
+        resource_path = '/v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/'.replace('{format}', 'json')
         path_params = {}
+        if 'campaign_id' in params:
+            path_params['campaign_id'] = params['campaign_id']
         if 'campaign_device_metadata_id' in params:
             path_params['campaign_device_metadata_id'] = params['campaign_device_metadata_id']
 
@@ -1580,7 +1587,7 @@ class DefaultApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
-    def v3_campaign_device_metadata_get(self, **kwargs):
+    def v3_update_campaigns_campaign_id_campaign_device_metadata_get(self, campaign_id, **kwargs):
         """
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -1588,22 +1595,23 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.v3_campaign_device_metadata_get(callback=callback_function)
+        >>> thread = api.v3_update_campaigns_campaign_id_campaign_device_metadata_get(campaign_id, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
+        :param str campaign_id: The ID of the update campaign (required)
         :return: CampaignDeviceMetadataPage
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.v3_campaign_device_metadata_get_with_http_info(**kwargs)
+            return self.v3_update_campaigns_campaign_id_campaign_device_metadata_get_with_http_info(campaign_id, **kwargs)
         else:
-            (data) = self.v3_campaign_device_metadata_get_with_http_info(**kwargs)
+            (data) = self.v3_update_campaigns_campaign_id_campaign_device_metadata_get_with_http_info(campaign_id, **kwargs)
             return data
 
-    def v3_campaign_device_metadata_get_with_http_info(self, **kwargs):
+    def v3_update_campaigns_campaign_id_campaign_device_metadata_get_with_http_info(self, campaign_id, **kwargs):
         """
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -1611,16 +1619,17 @@ class DefaultApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.v3_campaign_device_metadata_get_with_http_info(callback=callback_function)
+        >>> thread = api.v3_update_campaigns_campaign_id_campaign_device_metadata_get_with_http_info(campaign_id, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
+        :param str campaign_id: The ID of the update campaign (required)
         :return: CampaignDeviceMetadataPage
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = []
+        all_params = ['campaign_id']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -1631,15 +1640,21 @@ class DefaultApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method v3_campaign_device_metadata_get" % key
+                    " to method v3_update_campaigns_campaign_id_campaign_device_metadata_get" % key
                 )
             params[key] = val
         del params['kwargs']
+        # verify the required parameter 'campaign_id' is set
+        if ('campaign_id' not in params) or (params['campaign_id'] is None):
+            raise ValueError("Missing the required parameter `campaign_id` when calling `v3_update_campaigns_campaign_id_campaign_device_metadata_get`")
+
 
         collection_formats = {}
 
-        resource_path = '/v3/campaign-device-metadata'.replace('{format}', 'json')
+        resource_path = '/v3/update-campaigns/{campaign_id}/campaign-device-metadata/'.replace('{format}', 'json')
         path_params = {}
+        if 'campaign_id' in params:
+            path_params['campaign_id'] = params['campaign_id']
 
         query_params = {}
 
