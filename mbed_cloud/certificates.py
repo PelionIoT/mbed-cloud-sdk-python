@@ -90,6 +90,14 @@ class CertificatesAPI(BaseAPI):
             dev_api = self.cert.DeveloperCertificateApi()
             dev_cert = dev_api.v3_developer_certificates_id_get(certificate.id, self.auth)
             certificate.update_attributes(dev_cert)
+        elif certificate.type == CertificateType.bootstrap:
+            server_api = self.cert.ServerCredentialsApi()
+            credentials = server_api.v3_server_credentials_bootstrap_get(self.auth)
+            certificate.update_attributes(credentials)
+        elif certificate.type == CertificateType.lwm2m:
+            server_api = self.cert.ServerCredentialsApi()
+            credentials = server_api.v3_server_credentials_lwm2m_get(self.auth)
+            certificate.update_attributes(credentials)
 
     @catch_exceptions(ApiException)
     def delete_certificate(self, certificate_id):
@@ -108,7 +116,7 @@ class CertificatesAPI(BaseAPI):
 
         :param str name: name of the certificate (Required)
         :param str type: type of the certificate (Required)
-        :param str certificate: X509.v3 trusted certificate in PEM format.
+        :param str certificate_data: X509.v3 trusted certificate in PEM format.
             Required for types lwm2m and bootstrap.
         :param str signature: Base64 encoded signature of the account ID
             signed by the certificate to be uploaded.
@@ -132,14 +140,15 @@ class CertificatesAPI(BaseAPI):
             kwargs["service"] = type
             certificate = Certificate.create_request_map(kwargs)
             body = iam.TrustedCertificateReq(**certificate)
-            return api.add_certificate(body)
+            prod_cert = api.add_certificate(body)
+            return self.get_certificate(prod_cert.id)
 
     @catch_exceptions(ApiException)
     def update_certificate(self, certificate_id, **kwargs):
         """Update a certificate.
 
         :param str certificate_id: The certificate id (Required)
-        :param str certificate: X509.v3 trusted certificate in PEM format.
+        :param str certificate_data: X509.v3 trusted certificate in PEM format.
             Required for types lwm2m and bootstrap.
         :param str signature: Base64 encoded signature of the account ID
             signed by the certificate to be uploaded.
@@ -192,6 +201,7 @@ class Certificate(BaseObject):
             "status": "status",
             "account_id": "account_id",
             "certificate_data": "certificate",
+            "signature": "signature",
             "created_at": "created_at",
             "issuer": "issuer",
             "subject": "subject",
