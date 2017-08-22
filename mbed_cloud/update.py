@@ -167,7 +167,8 @@ class UpdateAPI(BaseAPI):
         kwargs = self._verify_sort_options(kwargs)
         kwargs = self._verify_filters(kwargs, True)
         kwargs["campaign_id"] = campaign_id
-        return PaginatedResponse(api.v3_update_campaigns_campaign_id_campaign_device_metadata_get, lwrap_type=CampaignDeviceState, **kwargs)
+        return PaginatedResponse(api.v3_update_campaigns_campaign_id_campaign_device_metadata_get,
+                                 lwrap_type=CampaignDeviceState, **kwargs)
 
     @catch_exceptions(UpdateServiceApiException)
     def get_firmware_image(self, image_id):
@@ -902,7 +903,8 @@ class CampaignDeviceState(BaseObject):
     def state(self):
         """The state of the update campaign on the device (readonly).
 
-        values: pending, updated_connector_channel, failed_connector_channel_update, deployed, manifestremoved
+        values: pending, updated_connector_channel, failed_connector_channel_update,
+        deployed, manifestremoved
 
         :rtype: str
         """
