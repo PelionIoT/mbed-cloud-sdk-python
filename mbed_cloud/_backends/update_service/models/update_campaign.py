@@ -96,8 +96,6 @@ class UpdateCampaign(object):
         :param description: The description of this UpdateCampaign.
         :type: str
         """
-        if description is None:
-            raise ValueError("Invalid value for `description`, must not be `None`")
 
         self._description = description
 
@@ -119,8 +117,6 @@ class UpdateCampaign(object):
         :param root_manifest_id: The root_manifest_id of this UpdateCampaign.
         :type: str
         """
-        if root_manifest_id is None:
-            raise ValueError("Invalid value for `root_manifest_id`, must not be `None`")
 
         self._root_manifest_id = root_manifest_id
 
@@ -144,8 +140,6 @@ class UpdateCampaign(object):
         :param created_at: The created_at of this UpdateCampaign.
         :type: str
         """
-        if created_at is None:
-            raise ValueError("Invalid value for `created_at`, must not be `None`")
 
         self._created_at = created_at
 
@@ -169,8 +163,6 @@ class UpdateCampaign(object):
         :param object: The object of this UpdateCampaign.
         :type: str
         """
-        if object is None:
-            raise ValueError("Invalid value for `object`, must not be `None`")
 
         self._object = object
 
@@ -269,8 +261,6 @@ class UpdateCampaign(object):
         :param etag: The etag of this UpdateCampaign.
         :type: str
         """
-        if etag is None:
-            raise ValueError("Invalid value for `etag`, must not be `None`")
 
         self._etag = etag
 
@@ -292,8 +282,6 @@ class UpdateCampaign(object):
         :param root_manifest_url: The root_manifest_url of this UpdateCampaign.
         :type: str
         """
-        if root_manifest_url is None:
-            raise ValueError("Invalid value for `root_manifest_url`, must not be `None`")
 
         self._root_manifest_url = root_manifest_url
 
@@ -338,8 +326,6 @@ class UpdateCampaign(object):
         :param id: The id of this UpdateCampaign.
         :type: str
         """
-        if id is None:
-            raise ValueError("Invalid value for `id`, must not be `None`")
 
         self._id = id
 
@@ -363,8 +349,6 @@ class UpdateCampaign(object):
         :param device_filter: The device_filter of this UpdateCampaign.
         :type: str
         """
-        if device_filter is None:
-            raise ValueError("Invalid value for `device_filter`, must not be `None`")
 
         self._device_filter = device_filter
 
@@ -388,8 +372,6 @@ class UpdateCampaign(object):
         :param name: The name of this UpdateCampaign.
         :type: str
         """
-        if name is None:
-            raise ValueError("Invalid value for `name`, must not be `None`")
 
         self._name = name
 

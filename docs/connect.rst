@@ -19,7 +19,7 @@ Usage
   observable = filter(lambda r: r.observable, resources)
 
   # Subscribe to observable resource
-  connectApi.add_resource_subscription(devices[0].name, observable[0].path)
+  connectApi.add_resource_subscription(devices[0].id, observable[0].path)
 
   # Register a webhook to send all updates to
   connectApi.update_webhook(WEBHOOK_URL)
@@ -45,7 +45,8 @@ Usage
   connectApi = ConnectAPI()
 
   # Get Metrics from the last 30 days grouped in 1 day interval
-  for metric in connectApi.get_metrics(interval="1d", period="30d"):
+  metrics = list(connectApi.list_metrics(interval="1d", period="30d"))
+  for idx, metric in enumerate(metrics):
       print(metric)
 
 

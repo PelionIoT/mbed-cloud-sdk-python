@@ -13,7 +13,7 @@ machine:
     PROJECT_TESTS: ${HOME}/tests
     BUILD_DOCS: ${HOME}/${CIRCLE_PROJECT_REPONAME}/docs/build/html
   post:
-    - pyenv global 2.7.11 3.6.0
+    - pyenv global 2.7.11 3.6.1
 
 dependencies:
   pre:

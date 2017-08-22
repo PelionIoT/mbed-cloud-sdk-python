@@ -14,6 +14,8 @@
 from __future__ import absolute_import
 
 # import models into sdk package
+from .models.campaign_device_metadata import CampaignDeviceMetadata
+from .models.campaign_device_metadata_page import CampaignDeviceMetadataPage
 from .models.firmware_image import FirmwareImage
 from .models.firmware_image_page import FirmwareImagePage
 from .models.firmware_manifest import FirmwareManifest

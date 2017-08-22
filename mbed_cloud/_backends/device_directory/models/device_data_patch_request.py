@@ -71,7 +71,7 @@ class DeviceDataPatchRequest(object):
     def description(self):
         """
         Gets the description of this DeviceDataPatchRequest.
-        The description of the object.
+        The description of the device.
 
         :return: The description of this DeviceDataPatchRequest.
         :rtype: str
@@ -82,7 +82,7 @@ class DeviceDataPatchRequest(object):
     def description(self, description):
         """
         Sets the description of this DeviceDataPatchRequest.
-        The description of the object.
+        The description of the device.
 
         :param description: The description of this DeviceDataPatchRequest.
         :type: str
@@ -252,6 +252,8 @@ class DeviceDataPatchRequest(object):
         :param endpoint_type: The endpoint_type of this DeviceDataPatchRequest.
         :type: str
         """
+        if endpoint_type is not None and len(endpoint_type) > 64:
+            raise ValueError("Invalid value for `endpoint_type`, length must be less than or equal to `64`")
 
         self._endpoint_type = endpoint_type
 
@@ -284,7 +286,7 @@ class DeviceDataPatchRequest(object):
     def name(self):
         """
         Gets the name of this DeviceDataPatchRequest.
-        The name of the object.
+        The name of the device.
 
         :return: The name of this DeviceDataPatchRequest.
         :rtype: str
@@ -295,7 +297,7 @@ class DeviceDataPatchRequest(object):
     def name(self, name):
         """
         Sets the name of this DeviceDataPatchRequest.
-        The name of the object.
+        The name of the device.
 
         :param name: The name of this DeviceDataPatchRequest.
         :type: str

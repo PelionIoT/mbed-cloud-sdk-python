@@ -115,6 +115,8 @@ class Resource(object):
         :param uri: The uri of this Resource.
         :type: str
         """
+        if uri is None:
+            raise ValueError("Invalid value for `uri`, must not be `None`")
 
         self._uri = uri
 

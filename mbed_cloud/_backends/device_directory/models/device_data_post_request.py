@@ -139,7 +139,7 @@ class DeviceDataPostRequest(object):
     def bootstrapped_timestamp(self):
         """
         Gets the bootstrapped_timestamp of this DeviceDataPostRequest.
-        Timestamp of when the device was bootstrapped.
+        Timestamp of when the device last went through the bootstrap process.
 
         :return: The bootstrapped_timestamp of this DeviceDataPostRequest.
         :rtype: datetime
@@ -150,7 +150,7 @@ class DeviceDataPostRequest(object):
     def bootstrapped_timestamp(self, bootstrapped_timestamp):
         """
         Sets the bootstrapped_timestamp of this DeviceDataPostRequest.
-        Timestamp of when the device was bootstrapped.
+        Timestamp of when the device last went through the bootstrap process.
 
         :param bootstrapped_timestamp: The bootstrapped_timestamp of this DeviceDataPostRequest.
         :type: datetime
@@ -162,7 +162,7 @@ class DeviceDataPostRequest(object):
     def connector_expiration_date(self):
         """
         Gets the connector_expiration_date of this DeviceDataPostRequest.
-        Expiration date of the certificate used to connect to connector server.
+        Expiration date of the certificate used to connect to the lwm2m server.
 
         :return: The connector_expiration_date of this DeviceDataPostRequest.
         :rtype: datetime
@@ -173,7 +173,7 @@ class DeviceDataPostRequest(object):
     def connector_expiration_date(self, connector_expiration_date):
         """
         Sets the connector_expiration_date of this DeviceDataPostRequest.
-        Expiration date of the certificate used to connect to connector server.
+        Expiration date of the certificate used to connect to the lwm2m server.
 
         :param connector_expiration_date: The connector_expiration_date of this DeviceDataPostRequest.
         :type: datetime
@@ -214,7 +214,7 @@ class DeviceDataPostRequest(object):
     def device_class(self):
         """
         Gets the device_class of this DeviceDataPostRequest.
-        The device class.
+        An id representing the model and hardware revision of the device.
 
         :return: The device_class of this DeviceDataPostRequest.
         :rtype: str
@@ -225,7 +225,7 @@ class DeviceDataPostRequest(object):
     def device_class(self, device_class):
         """
         Sets the device_class of this DeviceDataPostRequest.
-        The device class.
+        An id representing the model and hardware revision of the device.
 
         :param device_class: The device_class of this DeviceDataPostRequest.
         :type: str
@@ -460,7 +460,7 @@ class DeviceDataPostRequest(object):
     def description(self):
         """
         Gets the description of this DeviceDataPostRequest.
-        The description of the object.
+        The description of the device.
 
         :return: The description of this DeviceDataPostRequest.
         :rtype: str
@@ -471,7 +471,7 @@ class DeviceDataPostRequest(object):
     def description(self, description):
         """
         Sets the description of this DeviceDataPostRequest.
-        The description of the object.
+        The description of the device.
 
         :param description: The description of this DeviceDataPostRequest.
         :type: str
@@ -551,6 +551,8 @@ class DeviceDataPostRequest(object):
         :param endpoint_type: The endpoint_type of this DeviceDataPostRequest.
         :type: str
         """
+        if endpoint_type is not None and len(endpoint_type) > 64:
+            raise ValueError("Invalid value for `endpoint_type`, length must be less than or equal to `64`")
 
         self._endpoint_type = endpoint_type
 
@@ -627,7 +629,7 @@ class DeviceDataPostRequest(object):
     def name(self):
         """
         Gets the name of this DeviceDataPostRequest.
-        The name of the object.
+        The name of the device.
 
         :return: The name of this DeviceDataPostRequest.
         :rtype: str
@@ -638,7 +640,7 @@ class DeviceDataPostRequest(object):
     def name(self, name):
         """
         Sets the name of this DeviceDataPostRequest.
-        The name of the object.
+        The name of the device.
 
         :param name: The name of this DeviceDataPostRequest.
         :type: str

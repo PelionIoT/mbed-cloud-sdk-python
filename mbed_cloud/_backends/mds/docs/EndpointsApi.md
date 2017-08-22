@@ -5,7 +5,7 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**v2_endpoints_device_id_get**](EndpointsApi.md#v2_endpoints_device_id_get) | **GET** /v2/endpoints/{device-id} | List the resources on an endpoint
-[**v2_endpoints_get**](EndpointsApi.md#v2_endpoints_get) | **GET** /v2/endpoints | List endpoints. The number of endpoints is currently limited to 200.
+[**v2_endpoints_get**](EndpointsApi.md#v2_endpoints_get) | **GET** /v2/endpoints | List registered endpoints. The number of endpoints is currently limited to 200.
 
 
 # **v2_endpoints_device_id_get**
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 List the resources on an endpoint
 
-The list of resources is cached by mbed Cloud Connect, so this call does not create a message to the device. 
+The list of resources is cached by mbed Cloud Connect, so this call does not create a message to the device.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id} -H 'authorization: Bearer {api-key}' 
 
 ### Example 
 ```python
@@ -64,9 +64,9 @@ Name | Type | Description  | Notes
 # **v2_endpoints_get**
 > list[Endpoint] v2_endpoints_get(type=type)
 
-List endpoints. The number of endpoints is currently limited to 200.
+List registered endpoints. The number of endpoints is currently limited to 200.
 
-Endpoints are physical devices running mbed Cloud Client. 
+Endpoints are physical devices having valid registration to mbed Cloud Connect. All devices despite the registration status can be requested from Device Directory API ['/v3/devices/ ](/docs/v1.2/api-references/device-directory-api.html#v3-devices).  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/endpoints -H 'authorization: Bearer {api-key}' 
 
 ### Example 
 ```python
@@ -86,7 +86,7 @@ api_instance = mds.EndpointsApi()
 type = 'type_example' # str | Filter endpoints by endpoint-type. (optional)
 
 try: 
-    # List endpoints. The number of endpoints is currently limited to 200.
+    # List registered endpoints. The number of endpoints is currently limited to 200.
     api_response = api_instance.v2_endpoints_get(type=type)
     pprint(api_response)
 except ApiException as e:

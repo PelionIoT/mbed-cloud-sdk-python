@@ -25,6 +25,11 @@ Concepts
   exceptions
   pagination
 
+Prerequisites
+----------
+
+Python 2.7.10+ / Python 3.4.3+
+
 Quickstart
 ----------
 

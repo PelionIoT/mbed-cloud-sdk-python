@@ -89,10 +89,14 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**update_campaign_partial_update**](docs/DefaultApi.md#update_campaign_partial_update) | **PATCH** /v3/update-campaigns/{campaign_id}/ | 
 *DefaultApi* | [**update_campaign_retrieve**](docs/DefaultApi.md#update_campaign_retrieve) | **GET** /v3/update-campaigns/{campaign_id}/ | 
 *DefaultApi* | [**update_campaign_update**](docs/DefaultApi.md#update_campaign_update) | **PUT** /v3/update-campaigns/{campaign_id}/ | 
+*DefaultApi* | [**v3_update_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get**](docs/DefaultApi.md#v3_update_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get) | **GET** /v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/ | 
+*DefaultApi* | [**v3_update_campaigns_campaign_id_campaign_device_metadata_get**](docs/DefaultApi.md#v3_update_campaigns_campaign_id_campaign_device_metadata_get) | **GET** /v3/update-campaigns/{campaign_id}/campaign-device-metadata/ | 
 
 
 ## Documentation For Models
 
+ - [CampaignDeviceMetadata](docs/CampaignDeviceMetadata.md)
+ - [CampaignDeviceMetadataPage](docs/CampaignDeviceMetadataPage.md)
  - [FirmwareImage](docs/FirmwareImage.md)
  - [FirmwareImagePage](docs/FirmwareImagePage.md)
  - [FirmwareManifest](docs/FirmwareManifest.md)

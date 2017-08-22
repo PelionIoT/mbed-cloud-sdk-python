@@ -502,7 +502,7 @@ class ConnectAPI(BaseAPI):
     def get_webhook(self):
         """Get the current callback URL if it exists.
 
-        :return: void
+        :return: The currently set webhook
         """
         api = self.mds.DefaultApi()
         return Webhook(api.v2_notification_callback_get())

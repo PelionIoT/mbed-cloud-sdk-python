@@ -59,7 +59,7 @@ class AsyncIDResponse(object):
     def status(self):
         """
         Gets the status of this AsyncIDResponse.
-        HTTP status code, for example 200 for OK.
+        Asynchronous response status code for a device operation related to a proxy request or manual subscription.
 
         :return: The status of this AsyncIDResponse.
         :rtype: int
@@ -70,7 +70,7 @@ class AsyncIDResponse(object):
     def status(self, status):
         """
         Sets the status of this AsyncIDResponse.
-        HTTP status code, for example 200 for OK.
+        Asynchronous response status code for a device operation related to a proxy request or manual subscription.
 
         :param status: The status of this AsyncIDResponse.
         :type: int

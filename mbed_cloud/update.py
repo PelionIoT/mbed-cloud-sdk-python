@@ -85,12 +85,12 @@ class UpdateAPI(BaseAPI):
             device_api, update_api = DeviceDirectoryAPI(), UpdateAPI()
 
             # Get a filter to use for update campaign
-            device_filter_obj = device_api.get_filter(filter_id="MYID")
+            query_obj = device_api.get_query(query_id="MYID")
 
             # Create the campaign
             new_campaign = update_api.add_campaign(
                 name="foo",
-                device_filter=device_filter_obj.query
+                device_filter=query_obj.filter
             )
 
         :param str name: Name of the update campaign (Required)
@@ -272,6 +272,7 @@ class FirmwareImage(BaseObject):
             "created_at": "created_at",
             "url": "datafile",
             "datafile_checksum": "datafile_checksum",
+            "datafile_size": "datafile_size",
             "description": "description",
             "id": "id",
             "name": "name",
@@ -301,6 +302,14 @@ class FirmwareImage(BaseObject):
         :rtype: str
         """
         return self._datafile_checksum
+
+    @property
+    def datafile_size(self):
+        """Size of the datafile (in bytes) (readonly).
+
+        :rtype: int
+        """
+        return self._datafile_size
 
     @property
     def description(self):
@@ -408,7 +417,7 @@ class FirmwareManifestContents(object):
 
     @property
     def version(self):
-        """Get the URL of the firmware manifest (readonly).
+        """The format version of the manifest (readonly).
 
         :rtype: str
         """
@@ -541,11 +550,14 @@ class FirmwareManifest(BaseObject):
             "url": "datafile",
             "description": "description",
             "device_class": "device_class",
+            "datafile_checksum": "datafile_checksum",
+            "datafile_size": "datafile_size",
             "id": "id",
             "contents": "manifest_contents",
             "name": "name",
             "timestamp": "timestamp",
-            "updated_at": "updated_at"
+            "updated_at": "updated_at",
+            "version": "version"
         }
 
     @property
@@ -579,6 +591,22 @@ class FirmwareManifest(BaseObject):
         :rtype: str
         """
         return self._device_class
+
+    @property
+    def datafile_checksum(self):
+        """The checksum generated for the datafile (readonly).
+
+        :rtype: str
+        """
+        return self._datafile_checksum
+
+    @property
+    def datafile_size(self):
+        """Size of the datafile (in bytes) (readonly).
+
+        :rtype: int
+        """
+        return self._datafile_size
 
     @property
     def id(self):
@@ -619,6 +647,14 @@ class FirmwareManifest(BaseObject):
         :rtype: datetime
         """
         return self._updated_at
+
+    @property
+    def version(self):
+        """The time the object was updated (readonly).
+
+        :rtype: str
+        """
+        return self._version
 
 
 class Campaign(BaseObject):
