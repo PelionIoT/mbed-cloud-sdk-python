@@ -836,7 +836,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v3_update_campaigns_campaign_id_campaign_device_metadata_get**
-> CampaignDeviceMetadataPage v3_update_campaigns_campaign_id_campaign_device_metadata_get(campaign_id)
+> CampaignDeviceMetadataPage v3_update_campaigns_campaign_id_campaign_device_metadata_get(campaign_id, limit=limit, order=order, after=after, include=include)
 
 
 
@@ -856,9 +856,13 @@ update_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = update_service.DefaultApi()
 campaign_id = 'campaign_id_example' # str | The ID of the update campaign
+limit = 56 # int | How many objects to retrieve in the page. (optional)
+order = 'order_example' # str | ASC or DESC (optional)
+after = 'after_example' # str | The ID of the the item after which to retrieve the next page. (optional)
+include = 'include_example' # str | Comma separated list of data fields to return. Currently supported: total_count (optional)
 
 try: 
-    api_response = api_instance.v3_update_campaigns_campaign_id_campaign_device_metadata_get(campaign_id)
+    api_response = api_instance.v3_update_campaigns_campaign_id_campaign_device_metadata_get(campaign_id, limit=limit, order=order, after=after, include=include)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->v3_update_campaigns_campaign_id_campaign_device_metadata_get: %s\n" % e)
@@ -869,6 +873,10 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **campaign_id** | **str**| The ID of the update campaign | 
+ **limit** | **int**| How many objects to retrieve in the page. | [optional] 
+ **order** | **str**| ASC or DESC | [optional] 
+ **after** | **str**| The ID of the the item after which to retrieve the next page. | [optional] 
+ **include** | **str**| Comma separated list of data fields to return. Currently supported: total_count | [optional] 
 
 ### Return type
 

@@ -1600,6 +1600,10 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str campaign_id: The ID of the update campaign (required)
+        :param int limit: How many objects to retrieve in the page.
+        :param str order: ASC or DESC
+        :param str after: The ID of the the item after which to retrieve the next page.
+        :param str include: Comma separated list of data fields to return. Currently supported: total_count
         :return: CampaignDeviceMetadataPage
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1624,12 +1628,16 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str campaign_id: The ID of the update campaign (required)
+        :param int limit: How many objects to retrieve in the page.
+        :param str order: ASC or DESC
+        :param str after: The ID of the the item after which to retrieve the next page.
+        :param str include: Comma separated list of data fields to return. Currently supported: total_count
         :return: CampaignDeviceMetadataPage
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['campaign_id']
+        all_params = ['campaign_id', 'limit', 'order', 'after', 'include']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -1657,6 +1665,14 @@ class DefaultApi(object):
             path_params['campaign_id'] = params['campaign_id']
 
         query_params = {}
+        if 'limit' in params:
+            query_params['limit'] = params['limit']
+        if 'order' in params:
+            query_params['order'] = params['order']
+        if 'after' in params:
+            query_params['after'] = params['after']
+        if 'include' in params:
+            query_params['include'] = params['include']
 
         header_params = {}
 

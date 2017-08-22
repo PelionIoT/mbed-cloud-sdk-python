@@ -284,7 +284,7 @@ class CampaignDeviceMetadata(object):
     def deployment_state(self):
         """
         Gets the deployment_state of this CampaignDeviceMetadata.
-        The state of the update campaign on the device
+        The state of the update campaign on the device.
 
         :return: The deployment_state of this CampaignDeviceMetadata.
         :rtype: str
@@ -295,11 +295,17 @@ class CampaignDeviceMetadata(object):
     def deployment_state(self, deployment_state):
         """
         Sets the deployment_state of this CampaignDeviceMetadata.
-        The state of the update campaign on the device
+        The state of the update campaign on the device.
 
         :param deployment_state: The deployment_state of this CampaignDeviceMetadata.
         :type: str
         """
+        allowed_values = ["pending", "updated_connector_channel", "failed_connector_channel_update", "deployed", "manifestremoved"]
+        if deployment_state not in allowed_values:
+            raise ValueError(
+                "Invalid value for `deployment_state` ({0}), must be one of {1}"
+                .format(deployment_state, allowed_values)
+            )
 
         self._deployment_state = deployment_state
 
