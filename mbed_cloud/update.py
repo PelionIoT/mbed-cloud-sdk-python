@@ -272,6 +272,7 @@ class FirmwareImage(BaseObject):
             "created_at": "created_at",
             "url": "datafile",
             "datafile_checksum": "datafile_checksum",
+            "datafile_size": "datafile_size",
             "description": "description",
             "id": "id",
             "name": "name",
@@ -301,6 +302,14 @@ class FirmwareImage(BaseObject):
         :rtype: str
         """
         return self._datafile_checksum
+
+    @property
+    def datafile_size(self):
+        """Size of the datafile (in bytes) (readonly).
+
+        :rtype: int
+        """
+        return self._datafile_size
 
     @property
     def description(self):
@@ -541,6 +550,8 @@ class FirmwareManifest(BaseObject):
             "url": "datafile",
             "description": "description",
             "device_class": "device_class",
+            "datafile_checksum": "datafile_checksum",
+            "datafile_size": "datafile_size",
             "id": "id",
             "contents": "manifest_contents",
             "name": "name",
@@ -580,6 +591,22 @@ class FirmwareManifest(BaseObject):
         :rtype: str
         """
         return self._device_class
+
+    @property
+    def datafile_checksum(self):
+        """The checksum generated for the datafile (readonly).
+
+        :rtype: str
+        """
+        return self._datafile_checksum
+
+    @property
+    def datafile_size(self):
+        """Size of the datafile (in bytes) (readonly).
+
+        :rtype: int
+        """
+        return self._datafile_size
 
     @property
     def id(self):

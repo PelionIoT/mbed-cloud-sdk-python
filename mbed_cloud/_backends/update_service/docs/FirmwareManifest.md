@@ -12,6 +12,8 @@ Name | Type | Description | Notes
 **manifest_contents** | [**ManifestContents**](ManifestContents.md) |  | 
 **etag** | **datetime** | The entity instance signature. | 
 **device_class** | **str** | The class of device. | 
+**datafile_checksum** | **str** | Checksum generated for the datafile. | [optional] 
+**datafile_size** | **int** | Size of the datafile (in bytes). | [optional] 
 **id** | **str** | The ID of the firmware manifest. | 
 **name** | **str** | The name of the object. | 
 

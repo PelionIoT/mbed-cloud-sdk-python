@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **updated_at** | **datetime** | The time the object was updated. | 
 **etag** | **datetime** | The entity instance signature. | 
 **datafile_checksum** | **str** | Checksum generated for the datafile. | 
+**datafile_size** | **int** | Size of the datafile (in bytes). | [optional] 
 **id** | **str** | The ID of the firmware image. | 
 **name** | **str** | The name of the object. | 
 

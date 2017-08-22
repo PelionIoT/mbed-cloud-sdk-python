@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **name** | **str** | The name of the record | [optional] 
 **etag** | **str** | API resource entity version. | [optional] 
 **mechanism_url** | **str** | The url of cloud connect used | [optional] 
-**deployment_state** | **str** | The state of the update campaign on the device | [optional] 
+**deployment_state** | **str** | The state of the update campaign on the device. | [optional] 
 **id** | **str** | The id of the metadata record | [optional] 
 **device_id** | **str** | The id of the device | [optional] 
 

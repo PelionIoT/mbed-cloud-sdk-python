@@ -18,8 +18,8 @@ Method | HTTP request | Description
 [**update_campaign_partial_update**](DefaultApi.md#update_campaign_partial_update) | **PATCH** /v3/update-campaigns/{campaign_id}/ | 
 [**update_campaign_retrieve**](DefaultApi.md#update_campaign_retrieve) | **GET** /v3/update-campaigns/{campaign_id}/ | 
 [**update_campaign_update**](DefaultApi.md#update_campaign_update) | **PUT** /v3/update-campaigns/{campaign_id}/ | 
-[**v3_campaign_device_metadata_campaign_device_metadata_id_get**](DefaultApi.md#v3_campaign_device_metadata_campaign_device_metadata_id_get) | **GET** /v3/campaign-device-metadata/{campaign_device_metadata_id} | 
-[**v3_campaign_device_metadata_get**](DefaultApi.md#v3_campaign_device_metadata_get) | **GET** /v3/campaign-device-metadata | 
+[**v3_update_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get**](DefaultApi.md#v3_update_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get) | **GET** /v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/ | 
+[**v3_update_campaigns_campaign_id_campaign_device_metadata_get**](DefaultApi.md#v3_update_campaigns_campaign_id_campaign_device_metadata_get) | **GET** /v3/update-campaigns/{campaign_id}/campaign-device-metadata/ | 
 
 
 # **firmware_image_create**
@@ -783,8 +783,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **v3_campaign_device_metadata_campaign_device_metadata_id_get**
-> CampaignDeviceMetadata v3_campaign_device_metadata_campaign_device_metadata_id_get(campaign_device_metadata_id)
+# **v3_update_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get**
+> CampaignDeviceMetadata v3_update_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get(campaign_id, campaign_device_metadata_id)
 
 
 
@@ -803,19 +803,21 @@ update_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = update_service.DefaultApi()
+campaign_id = 'campaign_id_example' # str | The ID of the update campaign
 campaign_device_metadata_id = 'campaign_device_metadata_id_example' # str | The id of the campaign device metadata
 
 try: 
-    api_response = api_instance.v3_campaign_device_metadata_campaign_device_metadata_id_get(campaign_device_metadata_id)
+    api_response = api_instance.v3_update_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get(campaign_id, campaign_device_metadata_id)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->v3_campaign_device_metadata_campaign_device_metadata_id_get: %s\n" % e)
+    print("Exception when calling DefaultApi->v3_update_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get: %s\n" % e)
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **campaign_id** | **str**| The ID of the update campaign | 
  **campaign_device_metadata_id** | **str**| The id of the campaign device metadata | 
 
 ### Return type
@@ -833,8 +835,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **v3_campaign_device_metadata_get**
-> CampaignDeviceMetadataPage v3_campaign_device_metadata_get()
+# **v3_update_campaigns_campaign_id_campaign_device_metadata_get**
+> CampaignDeviceMetadataPage v3_update_campaigns_campaign_id_campaign_device_metadata_get(campaign_id, limit=limit, order=order, after=after, include=include)
 
 
 
@@ -853,16 +855,28 @@ update_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = update_service.DefaultApi()
+campaign_id = 'campaign_id_example' # str | The ID of the update campaign
+limit = 56 # int | How many objects to retrieve in the page. (optional)
+order = 'order_example' # str | ASC or DESC (optional)
+after = 'after_example' # str | The ID of the the item after which to retrieve the next page. (optional)
+include = 'include_example' # str | Comma separated list of data fields to return. Currently supported: total_count (optional)
 
 try: 
-    api_response = api_instance.v3_campaign_device_metadata_get()
+    api_response = api_instance.v3_update_campaigns_campaign_id_campaign_device_metadata_get(campaign_id, limit=limit, order=order, after=after, include=include)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->v3_campaign_device_metadata_get: %s\n" % e)
+    print("Exception when calling DefaultApi->v3_update_campaigns_campaign_id_campaign_device_metadata_get: %s\n" % e)
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **campaign_id** | **str**| The ID of the update campaign | 
+ **limit** | **int**| How many objects to retrieve in the page. | [optional] 
+ **order** | **str**| ASC or DESC | [optional] 
+ **after** | **str**| The ID of the the item after which to retrieve the next page. | [optional] 
+ **include** | **str**| Comma separated list of data fields to return. Currently supported: total_count | [optional] 
 
 ### Return type
 

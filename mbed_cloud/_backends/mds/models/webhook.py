@@ -63,6 +63,8 @@ class Webhook(object):
         :param url: The url of this Webhook.
         :type: str
         """
+        if url is None:
+            raise ValueError("Invalid value for `url`, must not be `None`")
 
         self._url = url
 
