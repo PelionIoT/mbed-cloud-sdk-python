@@ -26,8 +26,8 @@ from mbed_cloud import PaginatedResponse
 
 import mbed_cloud._backends.connector_ca as cert
 from mbed_cloud._backends.connector_ca.rest import ApiException as CaApiException
-from mbed_cloud._backends.iam.rest import ApiException as IamApiException
 import mbed_cloud._backends.iam as iam
+from mbed_cloud._backends.iam.rest import ApiException as IamApiException
 
 
 class CertificatesAPI(BaseAPI):
