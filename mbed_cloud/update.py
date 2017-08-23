@@ -154,6 +154,23 @@ class UpdateAPI(BaseAPI):
         return
 
     @catch_exceptions(UpdateServiceApiException)
+    def list_campaign_devices_state(self, campaign_id, **kwargs):
+        """List campaign devices status.
+
+        :param int limit: number of devices state to retrieve
+        :param str order: sort direction of device state when ordered by creation time (desc|asc)
+        :param str after: get devices state after given id
+        :return: List of :py:class:`CampaignDeviceState` objects
+        :rtype: PaginatedResponse
+        """
+        api = self.update_service.DefaultApi()
+        kwargs = self._verify_sort_options(kwargs)
+        kwargs = self._verify_filters(kwargs, True)
+        kwargs["campaign_id"] = campaign_id
+        return PaginatedResponse(api.v3_update_campaigns_campaign_id_campaign_device_metadata_get,
+                                 lwrap_type=CampaignDeviceState, **kwargs)
+
+    @catch_exceptions(UpdateServiceApiException)
     def get_firmware_image(self, image_id):
         """Get a firmware image with provided image_id.
 
@@ -838,3 +855,105 @@ class Campaign(BaseObject):
         :type: str
         """
         self._scheduled_at = scheduled_at
+
+
+class CampaignDeviceState(BaseObject):
+    """Describes update campaign device state."""
+
+    @staticmethod
+    def _get_attributes_map():
+        return {
+            "id": "id",
+            "device_id": "device_id",
+            "campaign_id": "campaign",
+            "state": "deployment_state",
+            "name": "name",
+            "description": "description",
+            "created_at": "created_at",
+            "updated_at": "updated_at",
+            "mechanism": "mechanism",
+            "mechanism_url": "mechanism_url"
+        }
+
+    @property
+    def id(self):
+        """The id of the metadata record (readonly).
+
+        :rtype: str
+        """
+        return self._id
+
+    @property
+    def device_id(self):
+        """The id of the device (readonly).
+
+        :rtype: str
+        """
+        return self._device_id
+
+    @property
+    def campaign_id(self):
+        """The id of the campaign the device is in (readonly).
+
+        :rtype: str
+        """
+        return self._campaign_id
+
+    @property
+    def state(self):
+        """The state of the update campaign on the device (readonly).
+
+        values: pending, updated_connector_channel, failed_connector_channel_update,
+        deployed, manifestremoved
+
+        :rtype: str
+        """
+        return self._state
+
+    @property
+    def name(self):
+        """The name of the device (readonly).
+
+        :rtype: str
+        """
+        return self._name
+
+    @property
+    def description(self):
+        """Description of the device (readonly).
+
+        :rtype: str
+        """
+        return self._description
+
+    @property
+    def created_at(self):
+        """This time the record was created in the database (readonly).
+
+        :rtype: datetime
+        """
+        return self._created_at
+
+    @property
+    def updated_at(self):
+        """This time this record was modified in the database (readonly).
+
+        :rtype: datetime
+        """
+        return self._updated_at
+
+    @property
+    def mechanism(self):
+        """The mechanism used to deliver the firmware (connector or direct) (readonly).
+
+        :rtype: str
+        """
+        return self._mechanism
+
+    @property
+    def mechanism_url(self):
+        """The url of cloud connect used (readonly).
+
+        :rtype: str
+        """
+        return self._mechanism_url
