@@ -691,7 +691,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_my_user**
-> UserInfoResp get_my_user()
+> MyUserInfoResp get_my_user()
 
 Details of the current user.
 
@@ -726,7 +726,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**UserInfoResp**](UserInfoResp.md)
+[**MyUserInfoResp**](MyUserInfoResp.md)
 
 ### Authorization
 
@@ -958,7 +958,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_my_user**
-> UserInfoResp update_my_user(body)
+> UserUpdateResp update_my_user(body)
 
 Update user details.
 
@@ -997,7 +997,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**UserInfoResp**](UserInfoResp.md)
+[**UserUpdateResp**](UserUpdateResp.md)
 
 ### Authorization
 
