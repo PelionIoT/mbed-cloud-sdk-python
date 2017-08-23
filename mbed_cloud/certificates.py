@@ -25,8 +25,9 @@ from mbed_cloud import PaginatedResponse
 # Import backend API
 
 import mbed_cloud._backends.connector_ca as cert
-from mbed_cloud._backends.connector_ca.rest import ApiException
+from mbed_cloud._backends.connector_ca.rest import ApiException as CaApiException
 import mbed_cloud._backends.iam as iam
+from mbed_cloud._backends.iam.rest import ApiException as IamApiException
 
 
 class CertificatesAPI(BaseAPI):
@@ -41,7 +42,7 @@ class CertificatesAPI(BaseAPI):
         self.iam = self._init_api(iam)
         self.auth = self.cert.configuration.api_key['Authorization']
 
-    @catch_exceptions(ApiException)
+    @catch_exceptions(IamApiException)
     def list_certificates(self, **kwargs):
         """List certificates registered to organisation.
 
@@ -71,7 +72,7 @@ class CertificatesAPI(BaseAPI):
         api = self.iam.DeveloperApi()
         return PaginatedResponse(api.get_all_certificates, lwrap_type=Certificate, **kwargs)
 
-    @catch_exceptions(ApiException)
+    @catch_exceptions(CaApiException, IamApiException)
     def get_certificate(self, certificate_id):
         """Get certificate by id.
 
@@ -99,7 +100,7 @@ class CertificatesAPI(BaseAPI):
             credentials = server_api.v3_server_credentials_lwm2m_get(self.auth)
             certificate.update_attributes(credentials)
 
-    @catch_exceptions(ApiException)
+    @catch_exceptions(IamApiException)
     def delete_certificate(self, certificate_id):
         """Delete a certificate.
 
@@ -110,7 +111,7 @@ class CertificatesAPI(BaseAPI):
         api.delete_certificate(certificate_id)
         return
 
-    @catch_exceptions(ApiException)
+    @catch_exceptions(CaApiException, IamApiException)
     def add_certificate(self, name, type, **kwargs):
         """Add a new certificate.
 
@@ -143,7 +144,7 @@ class CertificatesAPI(BaseAPI):
             prod_cert = api.add_certificate(body)
             return self.get_certificate(prod_cert.id)
 
-    @catch_exceptions(ApiException)
+    @catch_exceptions(IamApiException)
     def update_certificate(self, certificate_id, **kwargs):
         """Update a certificate.
 
