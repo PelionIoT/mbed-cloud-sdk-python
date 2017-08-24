@@ -102,10 +102,9 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v2/notification/callback'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -120,7 +119,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'DELETE',
+        return self.api_client.call_api('/v2/notification/callback', 'DELETE',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -197,10 +196,9 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v2/notification/callback'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -215,7 +213,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v2/notification/callback', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,

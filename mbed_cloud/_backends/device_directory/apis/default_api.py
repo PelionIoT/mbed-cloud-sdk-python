@@ -106,10 +106,9 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/devices/'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -122,7 +121,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'POST',
+        return self.api_client.call_api('/v3/devices/', 'POST',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -203,12 +202,11 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/devices/{id}/'.replace('{format}', 'json')
         path_params = {}
         if 'id' in params:
             path_params['id'] = params['id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -219,7 +217,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'DELETE',
+        return self.api_client.call_api('/v3/devices/{id}/', 'DELETE',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -305,20 +303,19 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/device-events/'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
         if 'limit' in params:
-            query_params['limit'] = params['limit']
+            query_params.append(('limit', params['limit']))
         if 'order' in params:
-            query_params['order'] = params['order']
+            query_params.append(('order', params['order']))
         if 'after' in params:
-            query_params['after'] = params['after']
+            query_params.append(('after', params['after']))
         if 'filter' in params:
-            query_params['filter'] = params['filter']
+            query_params.append(('filter', params['filter']))
         if 'include' in params:
-            query_params['include'] = params['include']
+            query_params.append(('include', params['include']))
 
         header_params = {}
 
@@ -329,7 +326,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/device-events/', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -410,12 +407,11 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/device-events/{device_event_id}/'.replace('{format}', 'json')
         path_params = {}
         if 'device_event_id' in params:
             path_params['device_event_id'] = params['device_event_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -426,7 +422,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/device-events/{device_event_id}/', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -512,20 +508,19 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/devices/'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
         if 'limit' in params:
-            query_params['limit'] = params['limit']
+            query_params.append(('limit', params['limit']))
         if 'order' in params:
-            query_params['order'] = params['order']
+            query_params.append(('order', params['order']))
         if 'after' in params:
-            query_params['after'] = params['after']
+            query_params.append(('after', params['after']))
         if 'filter' in params:
-            query_params['filter'] = params['filter']
+            query_params.append(('filter', params['filter']))
         if 'include' in params:
-            query_params['include'] = params['include']
+            query_params.append(('include', params['include']))
 
         header_params = {}
 
@@ -536,7 +531,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/devices/', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -622,20 +617,19 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/devicelog/'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
         if 'limit' in params:
-            query_params['limit'] = params['limit']
+            query_params.append(('limit', params['limit']))
         if 'order' in params:
-            query_params['order'] = params['order']
+            query_params.append(('order', params['order']))
         if 'after' in params:
-            query_params['after'] = params['after']
+            query_params.append(('after', params['after']))
         if 'filter' in params:
-            query_params['filter'] = params['filter']
+            query_params.append(('filter', params['filter']))
         if 'include' in params:
-            query_params['include'] = params['include']
+            query_params.append(('include', params['include']))
 
         header_params = {}
 
@@ -646,7 +640,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/devicelog/', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -727,12 +721,11 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/devicelog/{device_event_id}/'.replace('{format}', 'json')
         path_params = {}
         if 'device_event_id' in params:
             path_params['device_event_id'] = params['device_event_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -743,7 +736,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/devicelog/{device_event_id}/', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -829,12 +822,11 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/devices/{id}/'.replace('{format}', 'json')
         path_params = {}
         if 'id' in params:
             path_params['id'] = params['id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -847,7 +839,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'PATCH',
+        return self.api_client.call_api('/v3/devices/{id}/', 'PATCH',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -928,10 +920,9 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/device-queries/'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -944,7 +935,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'POST',
+        return self.api_client.call_api('/v3/device-queries/', 'POST',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1025,12 +1016,11 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/device-queries/{query_id}/'.replace('{format}', 'json')
         path_params = {}
         if 'query_id' in params:
             path_params['query_id'] = params['query_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -1041,7 +1031,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'DELETE',
+        return self.api_client.call_api('/v3/device-queries/{query_id}/', 'DELETE',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1127,20 +1117,19 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/device-queries/'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
         if 'limit' in params:
-            query_params['limit'] = params['limit']
+            query_params.append(('limit', params['limit']))
         if 'order' in params:
-            query_params['order'] = params['order']
+            query_params.append(('order', params['order']))
         if 'after' in params:
-            query_params['after'] = params['after']
+            query_params.append(('after', params['after']))
         if 'filter' in params:
-            query_params['filter'] = params['filter']
+            query_params.append(('filter', params['filter']))
         if 'include' in params:
-            query_params['include'] = params['include']
+            query_params.append(('include', params['include']))
 
         header_params = {}
 
@@ -1151,7 +1140,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/device-queries/', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1237,12 +1226,11 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/device-queries/{query_id}/'.replace('{format}', 'json')
         path_params = {}
         if 'query_id' in params:
             path_params['query_id'] = params['query_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -1255,7 +1243,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'PATCH',
+        return self.api_client.call_api('/v3/device-queries/{query_id}/', 'PATCH',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1336,12 +1324,11 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/device-queries/{query_id}/'.replace('{format}', 'json')
         path_params = {}
         if 'query_id' in params:
             path_params['query_id'] = params['query_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -1352,7 +1339,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/device-queries/{query_id}/', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1438,12 +1425,11 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/device-queries/{query_id}/'.replace('{format}', 'json')
         path_params = {}
         if 'query_id' in params:
             path_params['query_id'] = params['query_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -1456,7 +1442,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'PUT',
+        return self.api_client.call_api('/v3/device-queries/{query_id}/', 'PUT',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1537,12 +1523,11 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/devices/{id}/'.replace('{format}', 'json')
         path_params = {}
         if 'id' in params:
             path_params['id'] = params['id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -1553,7 +1538,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/devices/{id}/', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1639,12 +1624,11 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/devices/{id}/'.replace('{format}', 'json')
         path_params = {}
         if 'id' in params:
             path_params['id'] = params['id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -1657,7 +1641,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'PUT',
+        return self.api_client.call_api('/v3/devices/{id}/', 'PUT',
                                         path_params,
                                         query_params,
                                         header_params,

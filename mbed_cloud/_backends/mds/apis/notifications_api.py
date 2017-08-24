@@ -108,10 +108,9 @@ class NotificationsApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v2/notification/callback'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -132,7 +131,7 @@ class NotificationsApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'PUT',
+        return self.api_client.call_api('/v2/notification/callback', 'PUT',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -209,10 +208,9 @@ class NotificationsApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v2/notification/pull'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -227,7 +225,7 @@ class NotificationsApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'DELETE',
+        return self.api_client.call_api('/v2/notification/pull', 'DELETE',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -304,10 +302,9 @@ class NotificationsApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v2/notification/pull'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -322,7 +319,7 @@ class NotificationsApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v2/notification/pull', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,

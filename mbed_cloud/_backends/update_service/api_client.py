@@ -63,20 +63,17 @@ class ApiClient(object):
         """
         Constructor of the class.
         """
-        conf = Configuration()
-
         self.rest_client = RESTClientObject()
         self.default_headers = {}
         if header_name is not None:
             self.default_headers[header_name] = header_value
         if host is None:
-            self.host = conf.host
+            self.host = Configuration().host
         else:
             self.host = host
         self.cookie = cookie
         # Set default User-Agent.
         self.user_agent = 'Swagger-Codegen/1.0.0/python'
-        self.safe_chars = conf.safe_chars
 
     @property
     def user_agent(self):
@@ -102,6 +99,8 @@ class ApiClient(object):
                    _return_http_data_only=None, collection_formats=None, _preload_content=True,
                    _request_timeout=None):
 
+        config = Configuration()
+
         # header parameters
         header_params = header_params or {}
         header_params.update(self.default_headers)
@@ -118,8 +117,9 @@ class ApiClient(object):
             path_params = self.parameters_to_tuples(path_params,
                                                     collection_formats)
             for k, v in path_params:
+                # specified safe chars, encode everything
                 resource_path = resource_path.replace(
-                    '{%s}' % k, quote(str(v), safe=self.safe_chars))
+                    '{%s}' % k, quote(str(v), safe=config.safe_chars_for_path_param))
 
         # query parameters
         if query_params:
@@ -617,16 +617,17 @@ class ApiClient(object):
         :param klass: class literal.
         :return: model object.
         """
-        instance = klass()
-
-        if not instance.swagger_types:
+        if not klass.swagger_types:
             return data
 
-        for attr, attr_type in iteritems(instance.swagger_types):
+        kwargs = {}
+        for attr, attr_type in iteritems(klass.swagger_types):
             if data is not None \
-               and instance.attribute_map[attr] in data \
+               and klass.attribute_map[attr] in data \
                and isinstance(data, (list, dict)):
-                value = data[instance.attribute_map[attr]]
-                setattr(instance, attr, self.__deserialize(value, attr_type))
+                value = data[klass.attribute_map[attr]]
+                kwargs[attr] = self.__deserialize(value, attr_type)
+
+        instance = klass(**kwargs)     
 
         return instance
