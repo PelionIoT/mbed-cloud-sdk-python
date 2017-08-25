@@ -3,7 +3,7 @@
 """
     Update Service API
 
-    This is the API Documentation for the mbed deployment service which is part of the update service.
+    This is the API documentation for the Mbed deployment service, which is part of the update service.
 
     OpenAPI spec version: 3
     
@@ -1498,7 +1498,7 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str campaign_id: The ID of the update campaign (required)
-        :param str campaign_device_metadata_id: The id of the campaign device metadata (required)
+        :param str campaign_device_metadata_id: The ID of the campaign device metadata (required)
         :return: CampaignDeviceMetadata
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1523,7 +1523,7 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str campaign_id: The ID of the update campaign (required)
-        :param str campaign_device_metadata_id: The id of the campaign device metadata (required)
+        :param str campaign_device_metadata_id: The ID of the campaign device metadata (required)
         :return: CampaignDeviceMetadata
                  If the method is called asynchronously,
                  returns the request thread.

@@ -25,6 +25,8 @@ from .feature_policy import FeaturePolicy
 from .field import Field
 from .group_summary import GroupSummary
 from .group_summary_list import GroupSummaryList
+from .login_history import LoginHistory
+from .my_user_info_resp import MyUserInfoResp
 from .subject_list import SubjectList
 from .trusted_certificate_req import TrustedCertificateReq
 from .trusted_certificate_resp import TrustedCertificateResp
@@ -34,3 +36,4 @@ from .user_info_req import UserInfoReq
 from .user_info_resp import UserInfoResp
 from .user_info_resp_list import UserInfoRespList
 from .user_update_req import UserUpdateReq
+from .user_update_resp import UserUpdateResp

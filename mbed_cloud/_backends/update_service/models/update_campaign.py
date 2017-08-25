@@ -3,7 +3,7 @@
 """
     Update Service API
 
-    This is the API Documentation for the mbed deployment service which is part of the update service.
+    This is the API documentation for the Mbed deployment service, which is part of the update service.
 
     OpenAPI spec version: 3
     
@@ -33,11 +33,11 @@ class UpdateCampaign(object):
         self.swagger_types = {
             'description': 'str',
             'root_manifest_id': 'str',
-            'created_at': 'str',
+            'created_at': 'datetime',
             'object': 'str',
             'when': 'str',
             'state': 'str',
-            'finished': 'str',
+            'finished': 'datetime',
             'etag': 'str',
             'root_manifest_url': 'str',
             'started_at': 'datetime',
@@ -127,7 +127,7 @@ class UpdateCampaign(object):
         The time the object was created.
 
         :return: The created_at of this UpdateCampaign.
-        :rtype: str
+        :rtype: datetime
         """
         return self._created_at
 
@@ -138,7 +138,7 @@ class UpdateCampaign(object):
         The time the object was created.
 
         :param created_at: The created_at of this UpdateCampaign.
-        :type: str
+        :type: datetime
         """
 
         self._created_at = created_at
@@ -225,7 +225,7 @@ class UpdateCampaign(object):
         The timestamp when the update campaign finished.
 
         :return: The finished of this UpdateCampaign.
-        :rtype: str
+        :rtype: datetime
         """
         return self._finished
 
@@ -236,7 +236,7 @@ class UpdateCampaign(object):
         The timestamp when the update campaign finished.
 
         :param finished: The finished of this UpdateCampaign.
-        :type: str
+        :type: datetime
         """
 
         self._finished = finished
