@@ -33,7 +33,7 @@ from mbed_cloud.connect import ConnectAPI
 from mbed_cloud.device_directory import DeviceDirectoryAPI
 from mbed_cloud.update import UpdateAPI
 from urllib.parse import parse_qs
-from urllib.parse import unquote
+from urllib.parse import unquote_plus
 
 import json
 import queue
@@ -170,10 +170,11 @@ def main(module, method, methods=["GET"]):
     """Main runner, responding to remote test calls - mapping module and method to SDK"""
     # Check if we've added arguments to function. Unquote and parse the query string,
     # preparing it for argument to function.
-    qs = unquote(request.args.get("args", ""))
+    qs = unquote_plus(request.args.get("args", ""))
+    # quote + char to prevent parse_qs from replacing '+' with space.
+    qs = qs.replace('+', "%2B")
     args_struct = parse_qs(qs)
     args = dict(((k, _get_type(",".join(v))) for k, v in list(args_struct.items())))
-
     # We call the SDK module and function, with provided arguments.
     try:
         return_obj = _call_api(module, method, args)
