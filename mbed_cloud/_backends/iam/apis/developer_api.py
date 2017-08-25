@@ -1346,7 +1346,7 @@ class DeveloperApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :return: UserInfoResp
+        :return: MyUserInfoResp
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -1371,7 +1371,7 @@ class DeveloperApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :return: UserInfoResp
+        :return: MyUserInfoResp
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -1419,7 +1419,7 @@ class DeveloperApi(object):
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='UserInfoResp',
+                                        response_type='MyUserInfoResp',
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -1883,7 +1883,7 @@ class DeveloperApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param UserUpdateReq body: New attributes for the logged in user. (required)
-        :return: UserInfoResp
+        :return: UserUpdateResp
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -1909,7 +1909,7 @@ class DeveloperApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param UserUpdateReq body: New attributes for the logged in user. (required)
-        :return: UserInfoResp
+        :return: UserUpdateResp
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -1967,7 +1967,7 @@ class DeveloperApi(object):
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='UserInfoResp',
+                                        response_type='UserUpdateResp',
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),

@@ -188,6 +188,7 @@ class FirmwareImagePage(object):
     def order(self):
         """
         Gets the order of this FirmwareImagePage.
+        The order of the records to return. Available values: ASC, DESC; by default ASC.
 
         :return: The order of this FirmwareImagePage.
         :rtype: str
@@ -198,10 +199,17 @@ class FirmwareImagePage(object):
     def order(self, order):
         """
         Sets the order of this FirmwareImagePage.
+        The order of the records to return. Available values: ASC, DESC; by default ASC.
 
         :param order: The order of this FirmwareImagePage.
         :type: str
         """
+        allowed_values = ["ASC", "DESC"]
+        if order not in allowed_values:
+            raise ValueError(
+                "Invalid value for `order` ({0}), must be one of {1}"
+                .format(order, allowed_values)
+            )
 
         self._order = order
 

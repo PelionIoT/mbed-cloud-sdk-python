@@ -71,7 +71,7 @@ class FirmwareImage(object):
     def datafile(self):
         """
         Gets the datafile of this FirmwareImage.
-        The binary file of firmware image.
+        The url to binary file of firmware image.
 
         :return: The datafile of this FirmwareImage.
         :rtype: str
@@ -82,7 +82,7 @@ class FirmwareImage(object):
     def datafile(self, datafile):
         """
         Sets the datafile of this FirmwareImage.
-        The binary file of firmware image.
+        The url to binary file of firmware image.
 
         :param datafile: The datafile of this FirmwareImage.
         :type: str
