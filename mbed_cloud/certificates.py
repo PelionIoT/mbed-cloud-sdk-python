@@ -116,7 +116,7 @@ class CertificatesAPI(BaseAPI):
         """Add a new BYOC certificate.
 
         :param str name: name of the certificate (Required)
-        :param str type: type of the certificate. Values: lwm2m and bootstrap (Required)
+        :param str type: type of the certificate. Values: lwm2m or bootstrap (Required)
         :param str certificate_data: X509.v3 trusted certificate in PEM format. (Required)
         :param str signature: Base64 encoded signature of the account ID
             signed by the certificate to be uploaded.
@@ -129,8 +129,9 @@ class CertificatesAPI(BaseAPI):
         :rtype: Certificate
         """
         kwargs.update({'name': name})
+        kwargs.update({'type': type})
         api = self.iam.AccountAdminApi()
-        kwargs["service"] = type
+
         kwargs.update({'certificate_data': certificate_data})
         certificate = Certificate.create_request_map(kwargs)
         certificate.update({'signature': signature})
@@ -163,6 +164,7 @@ class CertificatesAPI(BaseAPI):
         :param str certificate_data: X509.v3 trusted certificate in PEM format.
         :param str signature: Base64 encoded signature of the account ID
             signed by the certificate to be uploaded. Available only for bootstrap and lvm2m types.
+        :param str type: type of the certificate. Values: lwm2m or bootstrap.
         :param str status: Status of the certificate.
             Allowed values: "ACTIVE" | "INACTIVE".
         :param str description: Human readable description of this certificate,
@@ -207,8 +209,8 @@ class Certificate(BaseObject):
             "id": "id",
             "name": "name",
             "description": "description",
-            "type": "device_execution_mode",
-            "service": "service",
+            "type": "service",
+            "device_mode": "device_execution_mode",
             "status": "status",
             "account_id": "account_id",
             "certificate_data": "certificate",
@@ -267,21 +269,12 @@ class Certificate(BaseObject):
         :return: The type of the certificate.
         :rtype: CertificateType
         """
-        if self._type == 1 or self._service == CertificateType.developer:
+        if self._device_mode == 1 or self._type == CertificateType.developer:
             return CertificateType.developer
-        elif self._service == CertificateType.bootstrap:
+        elif self._type == CertificateType.bootstrap:
             return CertificateType.bootstrap
         else:
             return CertificateType.lwm2m
-
-    @property
-    def service(self):
-        """Service name where the certificate is to be used.
-
-        :return: The service name of the certificate.
-        :rtype: str
-        """
-        return self._service
 
     @property
     def created_at(self):

@@ -16,7 +16,7 @@ Usage
     "name": "my_dev_certificate",
     "type": CertificateType.developer
   }
-  new_certificate = certificatesApi.add_certificate(**certificate)
+  new_certificate = certificatesApi.add_developer_certificate(**certificate)
   print("Successfully created developer certificate with id: %r" % new_certificate.id)
 
   # Update certificate
