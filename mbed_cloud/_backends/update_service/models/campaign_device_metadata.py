@@ -3,7 +3,7 @@
 """
     Update Service API
 
-    This is the API Documentation for the mbed deployment service which is part of the update service.
+    This is the API documentation for the Mbed deployment service, which is part of the update service.
 
     OpenAPI spec version: 3
     
@@ -77,7 +77,7 @@ class CampaignDeviceMetadata(object):
     def description(self):
         """
         Gets the description of this CampaignDeviceMetadata.
-        Description of the record
+        Description
 
         :return: The description of this CampaignDeviceMetadata.
         :rtype: str
@@ -88,7 +88,7 @@ class CampaignDeviceMetadata(object):
     def description(self, description):
         """
         Sets the description of this CampaignDeviceMetadata.
-        Description of the record
+        Description
 
         :param description: The description of this CampaignDeviceMetadata.
         :type: str
@@ -100,7 +100,7 @@ class CampaignDeviceMetadata(object):
     def campaign(self):
         """
         Gets the campaign of this CampaignDeviceMetadata.
-        The id of the campaign the device is in
+        The ID of the campaign the device is in
 
         :return: The campaign of this CampaignDeviceMetadata.
         :rtype: str
@@ -111,7 +111,7 @@ class CampaignDeviceMetadata(object):
     def campaign(self, campaign):
         """
         Sets the campaign of this CampaignDeviceMetadata.
-        The id of the campaign the device is in
+        The ID of the campaign the device is in
 
         :param campaign: The campaign of this CampaignDeviceMetadata.
         :type: str
@@ -123,7 +123,7 @@ class CampaignDeviceMetadata(object):
     def created_at(self):
         """
         Gets the created_at of this CampaignDeviceMetadata.
-        This time the record was created in the database
+        The time the campaign was created
 
         :return: The created_at of this CampaignDeviceMetadata.
         :rtype: datetime
@@ -134,7 +134,7 @@ class CampaignDeviceMetadata(object):
     def created_at(self, created_at):
         """
         Sets the created_at of this CampaignDeviceMetadata.
-        This time the record was created in the database
+        The time the campaign was created
 
         :param created_at: The created_at of this CampaignDeviceMetadata.
         :type: datetime
@@ -238,7 +238,7 @@ class CampaignDeviceMetadata(object):
     def etag(self):
         """
         Gets the etag of this CampaignDeviceMetadata.
-        API resource entity version.
+        API resource entity version
 
         :return: The etag of this CampaignDeviceMetadata.
         :rtype: str
@@ -249,7 +249,7 @@ class CampaignDeviceMetadata(object):
     def etag(self, etag):
         """
         Sets the etag of this CampaignDeviceMetadata.
-        API resource entity version.
+        API resource entity version
 
         :param etag: The etag of this CampaignDeviceMetadata.
         :type: str
@@ -261,7 +261,7 @@ class CampaignDeviceMetadata(object):
     def mechanism_url(self):
         """
         Gets the mechanism_url of this CampaignDeviceMetadata.
-        The url of cloud connect used
+        The URL of cloud connect used
 
         :return: The mechanism_url of this CampaignDeviceMetadata.
         :rtype: str
@@ -272,7 +272,7 @@ class CampaignDeviceMetadata(object):
     def mechanism_url(self, mechanism_url):
         """
         Sets the mechanism_url of this CampaignDeviceMetadata.
-        The url of cloud connect used
+        The URL of cloud connect used
 
         :param mechanism_url: The mechanism_url of this CampaignDeviceMetadata.
         :type: str
@@ -284,7 +284,7 @@ class CampaignDeviceMetadata(object):
     def deployment_state(self):
         """
         Gets the deployment_state of this CampaignDeviceMetadata.
-        The state of the update campaign on the device.
+        The state of the update campaign on the device
 
         :return: The deployment_state of this CampaignDeviceMetadata.
         :rtype: str
@@ -295,7 +295,7 @@ class CampaignDeviceMetadata(object):
     def deployment_state(self, deployment_state):
         """
         Sets the deployment_state of this CampaignDeviceMetadata.
-        The state of the update campaign on the device.
+        The state of the update campaign on the device
 
         :param deployment_state: The deployment_state of this CampaignDeviceMetadata.
         :type: str
@@ -313,7 +313,7 @@ class CampaignDeviceMetadata(object):
     def id(self):
         """
         Gets the id of this CampaignDeviceMetadata.
-        The id of the metadata record
+        The ID of the metadata record
 
         :return: The id of this CampaignDeviceMetadata.
         :rtype: str
@@ -324,7 +324,7 @@ class CampaignDeviceMetadata(object):
     def id(self, id):
         """
         Sets the id of this CampaignDeviceMetadata.
-        The id of the metadata record
+        The ID of the metadata record
 
         :param id: The id of this CampaignDeviceMetadata.
         :type: str
@@ -336,7 +336,7 @@ class CampaignDeviceMetadata(object):
     def device_id(self):
         """
         Gets the device_id of this CampaignDeviceMetadata.
-        The id of the device
+        The ID of the device
 
         :return: The device_id of this CampaignDeviceMetadata.
         :rtype: str
@@ -347,7 +347,7 @@ class CampaignDeviceMetadata(object):
     def device_id(self, device_id):
         """
         Sets the device_id of this CampaignDeviceMetadata.
-        The id of the device
+        The ID of the device
 
         :param device_id: The device_id of this CampaignDeviceMetadata.
         :type: str
