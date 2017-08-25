@@ -154,7 +154,7 @@ class UpdateAPI(BaseAPI):
         return
 
     @catch_exceptions(UpdateServiceApiException)
-    def list_campaign_devices_state(self, campaign_id, **kwargs):
+    def list_campaign_device_states(self, campaign_id, **kwargs):
         """List campaign devices status.
 
         :param int limit: number of devices state to retrieve
