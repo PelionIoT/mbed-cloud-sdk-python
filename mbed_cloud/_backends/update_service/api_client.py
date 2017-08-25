@@ -2,7 +2,7 @@
 """
     Update Service API
 
-    This is the API Documentation for the mbed deployment service which is part of the update service.
+    This is the API documentation for the Mbed deployment service, which is part of the update service.
 
     OpenAPI spec version: 3
     

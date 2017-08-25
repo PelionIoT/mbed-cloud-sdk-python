@@ -3,7 +3,7 @@
 """
     Update Service API
 
-    This is the API Documentation for the mbed deployment service which is part of the update service.
+    This is the API documentation for the Mbed deployment service, which is part of the update service.
 
     OpenAPI spec version: 3
     
@@ -80,6 +80,7 @@ class FirmwareManifest(object):
     def datafile(self):
         """
         Gets the datafile of this FirmwareManifest.
+        The url to binary file of firmware manifest.
 
         :return: The datafile of this FirmwareManifest.
         :rtype: str
@@ -90,6 +91,7 @@ class FirmwareManifest(object):
     def datafile(self, datafile):
         """
         Sets the datafile of this FirmwareManifest.
+        The url to binary file of firmware manifest.
 
         :param datafile: The datafile of this FirmwareManifest.
         :type: str

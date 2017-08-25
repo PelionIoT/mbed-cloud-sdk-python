@@ -25,6 +25,8 @@ from .models.feature_policy import FeaturePolicy
 from .models.field import Field
 from .models.group_summary import GroupSummary
 from .models.group_summary_list import GroupSummaryList
+from .models.login_history import LoginHistory
+from .models.my_user_info_resp import MyUserInfoResp
 from .models.subject_list import SubjectList
 from .models.trusted_certificate_req import TrustedCertificateReq
 from .models.trusted_certificate_resp import TrustedCertificateResp
@@ -34,6 +36,7 @@ from .models.user_info_req import UserInfoReq
 from .models.user_info_resp import UserInfoResp
 from .models.user_info_resp_list import UserInfoRespList
 from .models.user_update_req import UserUpdateReq
+from .models.user_update_resp import UserUpdateResp
 
 # import apis into sdk package
 from .apis.account_admin_api import AccountAdminApi

@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **after** | **str** |  | [optional] 
 **limit** | **int** |  | [optional] 
 **data** | [**list[UpdateCampaign]**](UpdateCampaign.md) |  | [optional] 
-**order** | **str** |  | [optional] 
+**order** | **str** | The order of the records to return. Available values: ASC, DESC; by default ASC. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
