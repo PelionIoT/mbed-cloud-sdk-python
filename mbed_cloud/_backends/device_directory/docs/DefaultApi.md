@@ -31,7 +31,7 @@ Create device
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import device_directory
 from device_directory.rest import ApiException
@@ -83,7 +83,7 @@ Delete device
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import device_directory
 from device_directory.rest import ApiException
@@ -134,7 +134,7 @@ List all device events.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import device_directory
 from device_directory.rest import ApiException
@@ -194,7 +194,7 @@ Retrieve device event
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import device_directory
 from device_directory.rest import ApiException
@@ -246,7 +246,7 @@ List all devices.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import device_directory
 from device_directory.rest import ApiException
@@ -306,7 +306,7 @@ List all device events (deprecated, use /v3/device-events/ instead).
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import device_directory
 from device_directory.rest import ApiException
@@ -366,7 +366,7 @@ Retrieve device event (deprecated, use /v3/device-events/{device_event_id}/ inst
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import device_directory
 from device_directory.rest import ApiException
@@ -418,7 +418,7 @@ Update device fields
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import device_directory
 from device_directory.rest import ApiException
@@ -472,7 +472,7 @@ Create device query.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import device_directory
 from device_directory.rest import ApiException
@@ -524,7 +524,7 @@ Delete device query.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import device_directory
 from device_directory.rest import ApiException
@@ -575,7 +575,7 @@ List all device queries. The result will be paged into pages of 100.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import device_directory
 from device_directory.rest import ApiException
@@ -635,7 +635,7 @@ Update device query fields.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import device_directory
 from device_directory.rest import ApiException
@@ -689,7 +689,7 @@ Retrieve device query.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import device_directory
 from device_directory.rest import ApiException
@@ -741,7 +741,7 @@ Update device query.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import device_directory
 from device_directory.rest import ApiException
@@ -795,7 +795,7 @@ Retrieve device
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import device_directory
 from device_directory.rest import ApiException
@@ -847,7 +847,7 @@ Update device
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import device_directory
 from device_directory.rest import ApiException

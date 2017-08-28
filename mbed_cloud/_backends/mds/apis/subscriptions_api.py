@@ -102,10 +102,9 @@ class SubscriptionsApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v2/subscriptions'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -120,7 +119,7 @@ class SubscriptionsApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'DELETE',
+        return self.api_client.call_api('/v2/subscriptions', 'DELETE',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -203,12 +202,11 @@ class SubscriptionsApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v2/subscriptions/{device-id}'.replace('{format}', 'json')
         path_params = {}
         if 'device_id' in params:
             path_params['device-id'] = params['device_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -223,7 +221,7 @@ class SubscriptionsApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'DELETE',
+        return self.api_client.call_api('/v2/subscriptions/{device-id}', 'DELETE',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -306,12 +304,11 @@ class SubscriptionsApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v2/subscriptions/{device-id}'.replace('{format}', 'json')
         path_params = {}
         if 'device_id' in params:
             path_params['device-id'] = params['device_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -326,7 +323,7 @@ class SubscriptionsApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v2/subscriptions/{device-id}', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -414,14 +411,13 @@ class SubscriptionsApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v2/subscriptions/{device-id}/{resourcePath}'.replace('{format}', 'json')
         path_params = {}
         if 'device_id' in params:
             path_params['device-id'] = params['device_id']
         if '_resource_path' in params:
             path_params['resourcePath'] = params['_resource_path']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -436,7 +432,7 @@ class SubscriptionsApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'DELETE',
+        return self.api_client.call_api('/v2/subscriptions/{device-id}/{resourcePath}', 'DELETE',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -522,14 +518,13 @@ class SubscriptionsApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v2/subscriptions/{device-id}/{resourcePath}'.replace('{format}', 'json')
         path_params = {}
         if 'device_id' in params:
             path_params['device-id'] = params['device_id']
         if '_resource_path' in params:
             path_params['resourcePath'] = params['_resource_path']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -544,7 +539,7 @@ class SubscriptionsApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v2/subscriptions/{device-id}/{resourcePath}', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -632,14 +627,13 @@ class SubscriptionsApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v2/subscriptions/{device-id}/{resourcePath}'.replace('{format}', 'json')
         path_params = {}
         if 'device_id' in params:
             path_params['device-id'] = params['device_id']
         if '_resource_path' in params:
             path_params['resourcePath'] = params['_resource_path']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -654,7 +648,7 @@ class SubscriptionsApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'PUT',
+        return self.api_client.call_api('/v2/subscriptions/{device-id}/{resourcePath}', 'PUT',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -731,10 +725,9 @@ class SubscriptionsApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v2/subscriptions'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -749,7 +742,7 @@ class SubscriptionsApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v2/subscriptions', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -832,10 +825,9 @@ class SubscriptionsApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v2/subscriptions'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -856,7 +848,7 @@ class SubscriptionsApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'PUT',
+        return self.api_client.call_api('/v2/subscriptions', 'PUT',
                                         path_params,
                                         query_params,
                                         header_params,

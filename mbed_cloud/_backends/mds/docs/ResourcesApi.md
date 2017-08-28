@@ -19,7 +19,7 @@ A request to delete a resource must be handled by both mbed Cloud Client and mbe
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import mds
 from mds.rest import ApiException
@@ -76,7 +76,7 @@ Requests the resource value and when the response is available, a json AsyncIDRe
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import mds
 from mds.rest import ApiException
@@ -135,7 +135,7 @@ With this API, you can execute a function on an existing resource.  All resource
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import mds
 from mds.rest import ApiException
@@ -194,7 +194,7 @@ With this API, you can write new values to existing resources, or create new  re
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import mds
 from mds.rest import ApiException

@@ -130,26 +130,25 @@ class StatisticsApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/metrics'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
         if 'include' in params:
-            query_params['include'] = params['include']
+            query_params.append(('include', params['include']))
         if 'start' in params:
-            query_params['start'] = params['start']
+            query_params.append(('start', params['start']))
         if 'end' in params:
-            query_params['end'] = params['end']
+            query_params.append(('end', params['end']))
         if 'period' in params:
-            query_params['period'] = params['period']
+            query_params.append(('period', params['period']))
         if 'interval' in params:
-            query_params['interval'] = params['interval']
+            query_params.append(('interval', params['interval']))
         if 'limit' in params:
-            query_params['limit'] = params['limit']
+            query_params.append(('limit', params['limit']))
         if 'after' in params:
-            query_params['after'] = params['after']
+            query_params.append(('after', params['after']))
         if 'order' in params:
-            query_params['order'] = params['order']
+            query_params.append(('order', params['order']))
 
         header_params = {}
         if 'authorization' in params:
@@ -166,7 +165,7 @@ class StatisticsApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/metrics', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
