@@ -799,7 +799,7 @@ Name | Type | Description  | Notes
 
 Update API key details.
 
-An endpoint for updating API key details. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/api-keys/me -d '{\"name\": \"TestApiKey25\"}' -H 'content-type: application/json' -H 'Authorization: Bearer AUTH_TOKEN'
+An endpoint for updating API key details.
 
 ### Example 
 ```python

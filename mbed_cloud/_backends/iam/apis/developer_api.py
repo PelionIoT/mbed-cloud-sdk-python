@@ -1530,7 +1530,7 @@ class DeveloperApi(object):
     def update_api_key(self, api_key, body, **kwargs):
         """
         Update API key details.
-        An endpoint for updating API key details. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/api-keys/me -d '{\"name\": \"TestApiKey25\"}' -H 'content-type: application/json' -H 'Authorization: Bearer AUTH_TOKEN'
+        An endpoint for updating API key details.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1557,7 +1557,7 @@ class DeveloperApi(object):
     def update_api_key_with_http_info(self, api_key, body, **kwargs):
         """
         Update API key details.
-        An endpoint for updating API key details. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/api-keys/me -d '{\"name\": \"TestApiKey25\"}' -H 'content-type: application/json' -H 'Authorization: Bearer AUTH_TOKEN'
+        An endpoint for updating API key details.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
