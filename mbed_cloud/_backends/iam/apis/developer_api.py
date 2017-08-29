@@ -1651,7 +1651,7 @@ class DeveloperApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str cert_id: The ID of the trusted certificate to be updated. (required)
-        :param TrustedCertificateReq body: A trusted certificate object with attributes. (required)
+        :param TrustedCertificateUpdateReq body: A trusted certificate object with attributes. (required)
         :return: TrustedCertificateResp
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1678,7 +1678,7 @@ class DeveloperApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str cert_id: The ID of the trusted certificate to be updated. (required)
-        :param TrustedCertificateReq body: A trusted certificate object with attributes. (required)
+        :param TrustedCertificateUpdateReq body: A trusted certificate object with attributes. (required)
         :return: TrustedCertificateResp
                  If the method is called asynchronously,
                  returns the request thread.

@@ -872,7 +872,7 @@ iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = iam.DeveloperApi()
 cert_id = 'cert_id_example' # str | The ID of the trusted certificate to be updated.
-body = iam.TrustedCertificateReq() # TrustedCertificateReq | A trusted certificate object with attributes.
+body = iam.TrustedCertificateUpdateReq() # TrustedCertificateUpdateReq | A trusted certificate object with attributes.
 
 try: 
     # Update trusted certificate.
@@ -887,7 +887,7 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **cert_id** | **str**| The ID of the trusted certificate to be updated. | 
- **body** | [**TrustedCertificateReq**](TrustedCertificateReq.md)| A trusted certificate object with attributes. | 
+ **body** | [**TrustedCertificateUpdateReq**](TrustedCertificateUpdateReq.md)| A trusted certificate object with attributes. | 
 
 ### Return type
 

@@ -31,6 +31,7 @@ from .models.subject_list import SubjectList
 from .models.trusted_certificate_req import TrustedCertificateReq
 from .models.trusted_certificate_resp import TrustedCertificateResp
 from .models.trusted_certificate_resp_list import TrustedCertificateRespList
+from .models.trusted_certificate_update_req import TrustedCertificateUpdateReq
 from .models.updated_response import UpdatedResponse
 from .models.user_info_req import UserInfoReq
 from .models.user_info_resp import UserInfoResp

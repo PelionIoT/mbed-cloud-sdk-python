@@ -80,7 +80,7 @@ class Field(object):
     def name(self):
         """
         Gets the name of this Field.
-        The field name in the request for which the validation has failed
+        The field name in the request for which the validation has failed.
 
         :return: The name of this Field.
         :rtype: str
@@ -91,7 +91,7 @@ class Field(object):
     def name(self, name):
         """
         Sets the name of this Field.
-        The field name in the request for which the validation has failed
+        The field name in the request for which the validation has failed.
 
         :param name: The name of this Field.
         :type: str

@@ -38,7 +38,6 @@ class Metric(object):
         'registered_devices': 'int',
         'bootstraps_pending': 'int',
         'device_server_rest_api_success': 'int',
-        'handshakes_failed': 'int',
         'handshakes_successful': 'int',
         'bootstraps_successful': 'int',
         'id': 'str'
@@ -52,13 +51,12 @@ class Metric(object):
         'registered_devices': 'registered_devices',
         'bootstraps_pending': 'bootstraps_pending',
         'device_server_rest_api_success': 'device_server_rest_api_success',
-        'handshakes_failed': 'handshakes_failed',
         'handshakes_successful': 'handshakes_successful',
         'bootstraps_successful': 'bootstraps_successful',
         'id': 'id'
     }
 
-    def __init__(self, device_server_rest_api_error=None, bootstraps_failed=None, transactions=None, timestamp=None, registered_devices=None, bootstraps_pending=None, device_server_rest_api_success=None, handshakes_failed=None, handshakes_successful=None, bootstraps_successful=None, id=None):
+    def __init__(self, device_server_rest_api_error=None, bootstraps_failed=None, transactions=None, timestamp=None, registered_devices=None, bootstraps_pending=None, device_server_rest_api_success=None, handshakes_successful=None, bootstraps_successful=None, id=None):
         """
         Metric - a model defined in Swagger
         """
@@ -70,7 +68,6 @@ class Metric(object):
         self._registered_devices = None
         self._bootstraps_pending = None
         self._device_server_rest_api_success = None
-        self._handshakes_failed = None
         self._handshakes_successful = None
         self._bootstraps_successful = None
         self._id = None
@@ -89,8 +86,6 @@ class Metric(object):
           self.bootstraps_pending = bootstraps_pending
         if device_server_rest_api_success is not None:
           self.device_server_rest_api_success = device_server_rest_api_success
-        if handshakes_failed is not None:
-          self.handshakes_failed = handshakes_failed
         if handshakes_successful is not None:
           self.handshakes_successful = handshakes_successful
         if bootstraps_successful is not None:
@@ -102,7 +97,7 @@ class Metric(object):
     def device_server_rest_api_error(self):
         """
         Gets the device_server_rest_api_error of this Metric.
-        Number of failed device server REST API requests the account has used.
+        The number of failed [Connect API](/docs/v1.2/api-references/connect-api.html) requests the account has performed.
 
         :return: The device_server_rest_api_error of this Metric.
         :rtype: int
@@ -113,7 +108,7 @@ class Metric(object):
     def device_server_rest_api_error(self, device_server_rest_api_error):
         """
         Sets the device_server_rest_api_error of this Metric.
-        Number of failed device server REST API requests the account has used.
+        The number of failed [Connect API](/docs/v1.2/api-references/connect-api.html) requests the account has performed.
 
         :param device_server_rest_api_error: The device_server_rest_api_error of this Metric.
         :type: int
@@ -125,7 +120,7 @@ class Metric(object):
     def bootstraps_failed(self):
         """
         Gets the bootstraps_failed of this Metric.
-        Number of failed bootstraps the account has used.
+        The number of failed bootstraps the account has performed.
 
         :return: The bootstraps_failed of this Metric.
         :rtype: int
@@ -136,7 +131,7 @@ class Metric(object):
     def bootstraps_failed(self, bootstraps_failed):
         """
         Sets the bootstraps_failed of this Metric.
-        Number of failed bootstraps the account has used.
+        The number of failed bootstraps the account has performed.
 
         :param bootstraps_failed: The bootstraps_failed of this Metric.
         :type: int
@@ -148,7 +143,7 @@ class Metric(object):
     def transactions(self):
         """
         Gets the transactions of this Metric.
-        Number of transaction events from devices linked to the account.
+        The number of transaction events from or to devices linked to the account. A transaction is a 512-byte block of data processed by mbed Cloud. It can be either sent by the device (device --> mbed cloud) or received by the device (mbed cloud --> device). A transaction does not include IP, TCP or UDP, TLS or DTLS packet overhead. It only contains the packet payload (full CoAP packet including CoAP headers).
 
         :return: The transactions of this Metric.
         :rtype: int
@@ -159,7 +154,7 @@ class Metric(object):
     def transactions(self, transactions):
         """
         Sets the transactions of this Metric.
-        Number of transaction events from devices linked to the account.
+        The number of transaction events from or to devices linked to the account. A transaction is a 512-byte block of data processed by mbed Cloud. It can be either sent by the device (device --> mbed cloud) or received by the device (mbed cloud --> device). A transaction does not include IP, TCP or UDP, TLS or DTLS packet overhead. It only contains the packet payload (full CoAP packet including CoAP headers).
 
         :param transactions: The transactions of this Metric.
         :type: int
@@ -171,7 +166,7 @@ class Metric(object):
     def timestamp(self):
         """
         Gets the timestamp of this Metric.
-        UTC time in RFC3339 format.
+        UTC time in RFC3339 format. The timestamp is the starting point of the interval for which the data is aggregated. Each interval includes data for the time greater than or equal to the timestamp and less than the next interval's starting point.
 
         :return: The timestamp of this Metric.
         :rtype: str
@@ -182,7 +177,7 @@ class Metric(object):
     def timestamp(self, timestamp):
         """
         Sets the timestamp of this Metric.
-        UTC time in RFC3339 format.
+        UTC time in RFC3339 format. The timestamp is the starting point of the interval for which the data is aggregated. Each interval includes data for the time greater than or equal to the timestamp and less than the next interval's starting point.
 
         :param timestamp: The timestamp of this Metric.
         :type: str
@@ -194,7 +189,7 @@ class Metric(object):
     def registered_devices(self):
         """
         Gets the registered_devices of this Metric.
-        Maximum number of registered devices linked to the account.
+        The maximum number of registered devices linked to the account. The registered devices count is calculated based on unique registrations plus registration updates over a period of 5 minutes.
 
         :return: The registered_devices of this Metric.
         :rtype: int
@@ -205,7 +200,7 @@ class Metric(object):
     def registered_devices(self, registered_devices):
         """
         Sets the registered_devices of this Metric.
-        Maximum number of registered devices linked to the account.
+        The maximum number of registered devices linked to the account. The registered devices count is calculated based on unique registrations plus registration updates over a period of 5 minutes.
 
         :param registered_devices: The registered_devices of this Metric.
         :type: int
@@ -217,7 +212,7 @@ class Metric(object):
     def bootstraps_pending(self):
         """
         Gets the bootstraps_pending of this Metric.
-        Number of pending bootstraps the account has used.
+        The number of pending bootstraps the account has performed.
 
         :return: The bootstraps_pending of this Metric.
         :rtype: int
@@ -228,7 +223,7 @@ class Metric(object):
     def bootstraps_pending(self, bootstraps_pending):
         """
         Sets the bootstraps_pending of this Metric.
-        Number of pending bootstraps the account has used.
+        The number of pending bootstraps the account has performed.
 
         :param bootstraps_pending: The bootstraps_pending of this Metric.
         :type: int
@@ -240,7 +235,7 @@ class Metric(object):
     def device_server_rest_api_success(self):
         """
         Gets the device_server_rest_api_success of this Metric.
-        Number of successful device server REST API requests the account has used.
+        The number of successful [Connect API](/docs/v1.2/api-references/connect-api.html) requests the account has performed.
 
         :return: The device_server_rest_api_success of this Metric.
         :rtype: int
@@ -251,7 +246,7 @@ class Metric(object):
     def device_server_rest_api_success(self, device_server_rest_api_success):
         """
         Sets the device_server_rest_api_success of this Metric.
-        Number of successful device server REST API requests the account has used.
+        The number of successful [Connect API](/docs/v1.2/api-references/connect-api.html) requests the account has performed.
 
         :param device_server_rest_api_success: The device_server_rest_api_success of this Metric.
         :type: int
@@ -260,33 +255,10 @@ class Metric(object):
         self._device_server_rest_api_success = device_server_rest_api_success
 
     @property
-    def handshakes_failed(self):
-        """
-        Gets the handshakes_failed of this Metric.
-        Number of failed handshakes the account has used.
-
-        :return: The handshakes_failed of this Metric.
-        :rtype: int
-        """
-        return self._handshakes_failed
-
-    @handshakes_failed.setter
-    def handshakes_failed(self, handshakes_failed):
-        """
-        Sets the handshakes_failed of this Metric.
-        Number of failed handshakes the account has used.
-
-        :param handshakes_failed: The handshakes_failed of this Metric.
-        :type: int
-        """
-
-        self._handshakes_failed = handshakes_failed
-
-    @property
     def handshakes_successful(self):
         """
         Gets the handshakes_successful of this Metric.
-        Number of successful handshakes the account has used.
+        The number of successful handshakes the account has performed.
 
         :return: The handshakes_successful of this Metric.
         :rtype: int
@@ -297,7 +269,7 @@ class Metric(object):
     def handshakes_successful(self, handshakes_successful):
         """
         Sets the handshakes_successful of this Metric.
-        Number of successful handshakes the account has used.
+        The number of successful handshakes the account has performed.
 
         :param handshakes_successful: The handshakes_successful of this Metric.
         :type: int
@@ -309,7 +281,7 @@ class Metric(object):
     def bootstraps_successful(self):
         """
         Gets the bootstraps_successful of this Metric.
-        Number of successful bootstraps the account has used.
+        The number of successful bootstraps the account has performed.
 
         :return: The bootstraps_successful of this Metric.
         :rtype: int
@@ -320,7 +292,7 @@ class Metric(object):
     def bootstraps_successful(self, bootstraps_successful):
         """
         Sets the bootstraps_successful of this Metric.
-        Number of successful bootstraps the account has used.
+        The number of successful bootstraps the account has performed.
 
         :param bootstraps_successful: The bootstraps_successful of this Metric.
         :type: int
@@ -332,7 +304,7 @@ class Metric(object):
     def id(self):
         """
         Gets the id of this Metric.
-        unique metric ID.
+        A unique metric ID.
 
         :return: The id of this Metric.
         :rtype: str
@@ -343,7 +315,7 @@ class Metric(object):
     def id(self, id):
         """
         Sets the id of this Metric.
-        unique metric ID.
+        A unique metric ID.
 
         :param id: The id of this Metric.
         :type: str

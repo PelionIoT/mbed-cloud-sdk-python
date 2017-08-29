@@ -123,6 +123,7 @@ Class | Method | HTTP request | Description
  - [TrustedCertificateReq](docs/TrustedCertificateReq.md)
  - [TrustedCertificateResp](docs/TrustedCertificateResp.md)
  - [TrustedCertificateRespList](docs/TrustedCertificateRespList.md)
+ - [TrustedCertificateUpdateReq](docs/TrustedCertificateUpdateReq.md)
  - [UpdatedResponse](docs/UpdatedResponse.md)
  - [UserInfoReq](docs/UserInfoReq.md)
  - [UserInfoResp](docs/UserInfoResp.md)
