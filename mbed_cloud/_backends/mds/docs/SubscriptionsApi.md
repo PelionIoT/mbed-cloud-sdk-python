@@ -23,7 +23,7 @@ Removes subscriptions from every endpoint and resource. Note that this does not 
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import mds
 from mds.rest import ApiException
@@ -71,7 +71,7 @@ Deletes all resource subscriptions in a single endpoint.  **Example usage:**    
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import mds
 from mds.rest import ApiException
@@ -123,7 +123,7 @@ Lists all subscribed resources from a single endpoint.  **Example usage:**      
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import mds
 from mds.rest import ApiException
@@ -175,7 +175,7 @@ To remove an existing subscription from a resource path.  **Example usage:**    
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import mds
 from mds.rest import ApiException
@@ -227,7 +227,7 @@ Read subscription status
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import mds
 from mds.rest import ApiException
@@ -281,7 +281,7 @@ The mbed Cloud Connect eventing model consists of observable resources.  This me
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import mds
 from mds.rest import ApiException
@@ -335,7 +335,7 @@ You can retrieve the pre-subscription data by using a GET operation. The server 
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import mds
 from mds.rest import ApiException
@@ -384,7 +384,7 @@ Pre-subscription is a set of rules and patterns put by the application. When an 
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import mds
 from mds.rest import ApiException

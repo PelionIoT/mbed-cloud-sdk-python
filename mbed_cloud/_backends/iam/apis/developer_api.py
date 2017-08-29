@@ -43,7 +43,7 @@ class DeveloperApi(object):
     def create_api_key(self, body, **kwargs):
         """
         Create a new API key.
-        An endpoint for creating a new API key.
+        An endpoint for creating a new API key. Example usage: curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys -d '{\"name\": \"MyKey1\",\"owner\": \"ACCOUNT_ID\"}' -H 'content-type: application/json' -H 'Authorization: Bearer AUTH_TOKEN'
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -69,7 +69,7 @@ class DeveloperApi(object):
     def create_api_key_with_http_info(self, body, **kwargs):
         """
         Create a new API key.
-        An endpoint for creating a new API key.
+        An endpoint for creating a new API key. Example usage: curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys -d '{\"name\": \"MyKey1\",\"owner\": \"ACCOUNT_ID\"}' -H 'content-type: application/json' -H 'Authorization: Bearer AUTH_TOKEN'
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -108,10 +108,9 @@ class DeveloperApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/api-keys'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -132,7 +131,7 @@ class DeveloperApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'POST',
+        return self.api_client.call_api('/v3/api-keys', 'POST',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -150,7 +149,7 @@ class DeveloperApi(object):
     def delete_api_key(self, api_key, **kwargs):
         """
         Delete API key.
-        An endpoint for deleting the API key.
+        An endpoint for deleting the API key. Example usage: curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id} -H 'Authorization: Bearer AUTH_TOKEN'
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -176,7 +175,7 @@ class DeveloperApi(object):
     def delete_api_key_with_http_info(self, api_key, **kwargs):
         """
         Delete API key.
-        An endpoint for deleting the API key.
+        An endpoint for deleting the API key. Example usage: curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id} -H 'Authorization: Bearer AUTH_TOKEN'
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -215,12 +214,11 @@ class DeveloperApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/api-keys/{apiKey}'.replace('{format}', 'json')
         path_params = {}
         if 'api_key' in params:
             path_params['apiKey'] = params['api_key']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -235,7 +233,7 @@ class DeveloperApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'DELETE',
+        return self.api_client.call_api('/v3/api-keys/{apiKey}', 'DELETE',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -318,12 +316,11 @@ class DeveloperApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/trusted-certificates/{cert-id}'.replace('{format}', 'json')
         path_params = {}
         if 'cert_id' in params:
             path_params['cert-id'] = params['cert_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -338,7 +335,7 @@ class DeveloperApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'DELETE',
+        return self.api_client.call_api('/v3/trusted-certificates/{cert-id}', 'DELETE',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -356,7 +353,7 @@ class DeveloperApi(object):
     def get_all_api_keys(self, **kwargs):
         """
         Get all API keys
-        An endpoint for retrieving API keys in an array, optionally filtered by the owner.
+        An endpoint for retrieving API keys in an array, optionally filtered by the owner. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/api-keys -H 'Authorization: Bearer AUTH_TOKEN'
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -386,7 +383,7 @@ class DeveloperApi(object):
     def get_all_api_keys_with_http_info(self, **kwargs):
         """
         Get all API keys
-        An endpoint for retrieving API keys in an array, optionally filtered by the owner.
+        An endpoint for retrieving API keys in an array, optionally filtered by the owner. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/api-keys -H 'Authorization: Bearer AUTH_TOKEN'
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -426,20 +423,19 @@ class DeveloperApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/api-keys'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
         if 'limit' in params:
-            query_params['limit'] = params['limit']
+            query_params.append(('limit', params['limit']))
         if 'after' in params:
-            query_params['after'] = params['after']
+            query_params.append(('after', params['after']))
         if 'order' in params:
-            query_params['order'] = params['order']
+            query_params.append(('order', params['order']))
         if 'include' in params:
-            query_params['include'] = params['include']
+            query_params.append(('include', params['include']))
         if 'owner__eq' in params:
-            query_params['owner__eq'] = params['owner__eq']
+            query_params.append(('owner__eq', params['owner__eq']))
 
         header_params = {}
 
@@ -454,7 +450,7 @@ class DeveloperApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/api-keys', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -548,26 +544,25 @@ class DeveloperApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/trusted-certificates'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
         if 'limit' in params:
-            query_params['limit'] = params['limit']
+            query_params.append(('limit', params['limit']))
         if 'after' in params:
-            query_params['after'] = params['after']
+            query_params.append(('after', params['after']))
         if 'order' in params:
-            query_params['order'] = params['order']
+            query_params.append(('order', params['order']))
         if 'include' in params:
-            query_params['include'] = params['include']
+            query_params.append(('include', params['include']))
         if 'service__eq' in params:
-            query_params['service__eq'] = params['service__eq']
+            query_params.append(('service__eq', params['service__eq']))
         if 'expire__eq' in params:
-            query_params['expire__eq'] = params['expire__eq']
+            query_params.append(('expire__eq', params['expire__eq']))
         if 'device_execution_mode__eq' in params:
-            query_params['device_execution_mode__eq'] = params['device_execution_mode__eq']
+            query_params.append(('device_execution_mode__eq', params['device_execution_mode__eq']))
         if 'owner__eq' in params:
-            query_params['owner__eq'] = params['owner__eq']
+            query_params.append(('owner__eq', params['owner__eq']))
 
         header_params = {}
 
@@ -582,7 +577,7 @@ class DeveloperApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/trusted-certificates', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -668,18 +663,17 @@ class DeveloperApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/policy-groups'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
         if 'limit' in params:
-            query_params['limit'] = params['limit']
+            query_params.append(('limit', params['limit']))
         if 'after' in params:
-            query_params['after'] = params['after']
+            query_params.append(('after', params['after']))
         if 'order' in params:
-            query_params['order'] = params['order']
+            query_params.append(('order', params['order']))
         if 'include' in params:
-            query_params['include'] = params['include']
+            query_params.append(('include', params['include']))
 
         header_params = {}
 
@@ -694,7 +688,7 @@ class DeveloperApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/policy-groups', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -777,12 +771,11 @@ class DeveloperApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/api-keys/{apiKey}'.replace('{format}', 'json')
         path_params = {}
         if 'api_key' in params:
             path_params['apiKey'] = params['api_key']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -797,7 +790,7 @@ class DeveloperApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/api-keys/{apiKey}', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -888,20 +881,19 @@ class DeveloperApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/policy-groups/{groupID}/api-keys'.replace('{format}', 'json')
         path_params = {}
         if 'group_id' in params:
             path_params['groupID'] = params['group_id']
 
-        query_params = {}
+        query_params = []
         if 'limit' in params:
-            query_params['limit'] = params['limit']
+            query_params.append(('limit', params['limit']))
         if 'after' in params:
-            query_params['after'] = params['after']
+            query_params.append(('after', params['after']))
         if 'order' in params:
-            query_params['order'] = params['order']
+            query_params.append(('order', params['order']))
         if 'include' in params:
-            query_params['include'] = params['include']
+            query_params.append(('include', params['include']))
 
         header_params = {}
 
@@ -916,7 +908,7 @@ class DeveloperApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/policy-groups/{groupID}/api-keys', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -934,7 +926,7 @@ class DeveloperApi(object):
     def get_certificate(self, cert_id, **kwargs):
         """
         Get trusted certificate by ID.
-        An endpoint for retrieving a trusted certificate by ID.
+        An endpoint for retrieving a trusted certificate by ID. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -H 'Authorization: Bearer AUTH_TOKEN'
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -960,7 +952,7 @@ class DeveloperApi(object):
     def get_certificate_with_http_info(self, cert_id, **kwargs):
         """
         Get trusted certificate by ID.
-        An endpoint for retrieving a trusted certificate by ID.
+        An endpoint for retrieving a trusted certificate by ID. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -H 'Authorization: Bearer AUTH_TOKEN'
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -999,12 +991,11 @@ class DeveloperApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/trusted-certificates/{cert-id}'.replace('{format}', 'json')
         path_params = {}
         if 'cert_id' in params:
             path_params['cert-id'] = params['cert_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -1019,7 +1010,7 @@ class DeveloperApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/trusted-certificates/{cert-id}', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1102,12 +1093,11 @@ class DeveloperApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/policy-groups/{groupID}'.replace('{format}', 'json')
         path_params = {}
         if 'group_id' in params:
             path_params['groupID'] = params['group_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -1122,7 +1112,7 @@ class DeveloperApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/policy-groups/{groupID}', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1140,7 +1130,7 @@ class DeveloperApi(object):
     def get_my_account_info(self, **kwargs):
         """
         Get account info.
-        Returns detailed information about the account.
+        Returns detailed information about the account. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/accounts/me?include=policies -H 'Authorization: Bearer AUTH_TOKEN' .
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1151,7 +1141,7 @@ class DeveloperApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str include: Comma separated additional data to return. Currently supported: limits, policies, sub_accounts
+        :param str include: Comma separated additional data to return. Currently supported: limits, policies, sub_accounts.
         :return: AccountInfo
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1166,7 +1156,7 @@ class DeveloperApi(object):
     def get_my_account_info_with_http_info(self, **kwargs):
         """
         Get account info.
-        Returns detailed information about the account.
+        Returns detailed information about the account. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/accounts/me?include=policies -H 'Authorization: Bearer AUTH_TOKEN' .
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1177,7 +1167,7 @@ class DeveloperApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str include: Comma separated additional data to return. Currently supported: limits, policies, sub_accounts
+        :param str include: Comma separated additional data to return. Currently supported: limits, policies, sub_accounts.
         :return: AccountInfo
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1202,12 +1192,11 @@ class DeveloperApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/accounts/me'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
         if 'include' in params:
-            query_params['include'] = params['include']
+            query_params.append(('include', params['include']))
 
         header_params = {}
 
@@ -1222,7 +1211,7 @@ class DeveloperApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/accounts/me', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1240,7 +1229,7 @@ class DeveloperApi(object):
     def get_my_api_key(self, **kwargs):
         """
         Get API key details.
-        An endpoint for retrieving API key details.
+        An endpoint for retrieving API key details. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/api-keys/me -H 'Authorization: Bearer AUTH_TOKEN'
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1265,7 +1254,7 @@ class DeveloperApi(object):
     def get_my_api_key_with_http_info(self, **kwargs):
         """
         Get API key details.
-        An endpoint for retrieving API key details.
+        An endpoint for retrieving API key details. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/api-keys/me -H 'Authorization: Bearer AUTH_TOKEN'
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1299,10 +1288,9 @@ class DeveloperApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/api-keys/me'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -1317,7 +1305,7 @@ class DeveloperApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/api-keys/me', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1335,7 +1323,7 @@ class DeveloperApi(object):
     def get_my_user(self, **kwargs):
         """
         Details of the current user.
-        An endpoint for retrieving the details of the logged in user.
+        An endpoint for retrieving the details of the logged in user. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/users/me -H 'Authorization: Bearer AUTH_TOKEN'
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1346,7 +1334,7 @@ class DeveloperApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :return: UserInfoResp
+        :return: MyUserInfoResp
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -1360,7 +1348,7 @@ class DeveloperApi(object):
     def get_my_user_with_http_info(self, **kwargs):
         """
         Details of the current user.
-        An endpoint for retrieving the details of the logged in user.
+        An endpoint for retrieving the details of the logged in user. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/users/me -H 'Authorization: Bearer AUTH_TOKEN'
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1371,7 +1359,7 @@ class DeveloperApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :return: UserInfoResp
+        :return: MyUserInfoResp
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -1394,10 +1382,9 @@ class DeveloperApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/users/me'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -1412,14 +1399,14 @@ class DeveloperApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/users/me', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='UserInfoResp',
+                                        response_type='MyUserInfoResp',
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -1500,12 +1487,11 @@ class DeveloperApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/policy-groups/{groupID}/api-keys'.replace('{format}', 'json')
         path_params = {}
         if 'group_id' in params:
             path_params['groupID'] = params['group_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -1526,7 +1512,7 @@ class DeveloperApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'DELETE',
+        return self.api_client.call_api('/v3/policy-groups/{groupID}/api-keys', 'DELETE',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1614,12 +1600,11 @@ class DeveloperApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/api-keys/{apiKey}'.replace('{format}', 'json')
         path_params = {}
         if 'api_key' in params:
             path_params['apiKey'] = params['api_key']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -1636,7 +1621,7 @@ class DeveloperApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'PUT',
+        return self.api_client.call_api('/v3/api-keys/{apiKey}', 'PUT',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1654,7 +1639,7 @@ class DeveloperApi(object):
     def update_certificate(self, cert_id, body, **kwargs):
         """
         Update trusted certificate.
-        An endpoint for updating existing trusted certificates.
+        An endpoint for updating existing trusted certificates. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -d {\"description\": \"very important cert\"} -H 'content-type: application/json' -H 'Authorization: Bearer AUTH_TOKEN'
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1666,7 +1651,7 @@ class DeveloperApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str cert_id: The ID of the trusted certificate to be updated. (required)
-        :param TrustedCertificateReq body: A trusted certificate object with attributes. (required)
+        :param TrustedCertificateUpdateReq body: A trusted certificate object with attributes. (required)
         :return: TrustedCertificateResp
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1681,7 +1666,7 @@ class DeveloperApi(object):
     def update_certificate_with_http_info(self, cert_id, body, **kwargs):
         """
         Update trusted certificate.
-        An endpoint for updating existing trusted certificates.
+        An endpoint for updating existing trusted certificates. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -d {\"description\": \"very important cert\"} -H 'content-type: application/json' -H 'Authorization: Bearer AUTH_TOKEN'
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1693,7 +1678,7 @@ class DeveloperApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str cert_id: The ID of the trusted certificate to be updated. (required)
-        :param TrustedCertificateReq body: A trusted certificate object with attributes. (required)
+        :param TrustedCertificateUpdateReq body: A trusted certificate object with attributes. (required)
         :return: TrustedCertificateResp
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1724,12 +1709,11 @@ class DeveloperApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/trusted-certificates/{cert-id}'.replace('{format}', 'json')
         path_params = {}
         if 'cert_id' in params:
             path_params['cert-id'] = params['cert_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -1750,7 +1734,7 @@ class DeveloperApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'PUT',
+        return self.api_client.call_api('/v3/trusted-certificates/{cert-id}', 'PUT',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1768,7 +1752,7 @@ class DeveloperApi(object):
     def update_my_api_key(self, body, **kwargs):
         """
         Update API key details.
-        An endpoint for updating API key details.
+        An endpoint for updating API key details. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/api-keys/me -d '{\"name\": \"TestApiKey25\"}' -H 'content-type: application/json' -H 'Authorization: Bearer AUTH_TOKEN'
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1794,7 +1778,7 @@ class DeveloperApi(object):
     def update_my_api_key_with_http_info(self, body, **kwargs):
         """
         Update API key details.
-        An endpoint for updating API key details.
+        An endpoint for updating API key details. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/api-keys/me -d '{\"name\": \"TestApiKey25\"}' -H 'content-type: application/json' -H 'Authorization: Bearer AUTH_TOKEN'
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1833,10 +1817,9 @@ class DeveloperApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/api-keys/me'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -1853,7 +1836,7 @@ class DeveloperApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'PUT',
+        return self.api_client.call_api('/v3/api-keys/me', 'PUT',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1871,7 +1854,7 @@ class DeveloperApi(object):
     def update_my_user(self, body, **kwargs):
         """
         Update user details.
-        An endpoint for updating the details of the logged in user.
+        An endpoint for updating the details of the logged in user. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/me -d '{\"address\": \"1007 Mountain Drive\"}' -H 'content-type: application/json' -H 'Authorization: Bearer AUTH_TOKEN'
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1883,7 +1866,7 @@ class DeveloperApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param UserUpdateReq body: New attributes for the logged in user. (required)
-        :return: UserInfoResp
+        :return: UserUpdateResp
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -1897,7 +1880,7 @@ class DeveloperApi(object):
     def update_my_user_with_http_info(self, body, **kwargs):
         """
         Update user details.
-        An endpoint for updating the details of the logged in user.
+        An endpoint for updating the details of the logged in user. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/me -d '{\"address\": \"1007 Mountain Drive\"}' -H 'content-type: application/json' -H 'Authorization: Bearer AUTH_TOKEN'
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1909,7 +1892,7 @@ class DeveloperApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param UserUpdateReq body: New attributes for the logged in user. (required)
-        :return: UserInfoResp
+        :return: UserUpdateResp
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -1936,10 +1919,9 @@ class DeveloperApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/users/me'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -1960,14 +1942,14 @@ class DeveloperApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'PUT',
+        return self.api_client.call_api('/v3/users/me', 'PUT',
                                         path_params,
                                         query_params,
                                         header_params,
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='UserInfoResp',
+                                        response_type='UserUpdateResp',
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),

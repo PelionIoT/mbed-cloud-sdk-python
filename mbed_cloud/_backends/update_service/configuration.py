@@ -3,7 +3,7 @@
 """
     Update Service API
 
-    This is the API Documentation for the mbed deployment service which is part of the update service.
+    This is the API documentation for the Mbed deployment service, which is part of the update service.
 
     OpenAPI spec version: 3
     
@@ -86,9 +86,10 @@ class Configuration(object):
         # client key file
         self.key_file = None
 
-        # Misc. behaviour configuration
-        # Set the safe characters to *not* encode when creating URL. See 'quote' in stdlib.
-        self.safe_chars = ""
+        # Proxy URL
+        self.proxy = None
+        # Safe chars for path_param
+        self.safe_chars_for_path_param = ''
 
     @property
     def logger_file(self):

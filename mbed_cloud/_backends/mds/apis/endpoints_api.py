@@ -108,12 +108,11 @@ class EndpointsApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v2/endpoints/{device-id}'.replace('{format}', 'json')
         path_params = {}
         if 'device_id' in params:
             path_params['device-id'] = params['device_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -128,7 +127,7 @@ class EndpointsApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v2/endpoints/{device-id}', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -208,12 +207,11 @@ class EndpointsApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v2/endpoints'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
         if 'type' in params:
-            query_params['type'] = params['type']
+            query_params.append(('type', params['type']))
 
         header_params = {}
 
@@ -228,7 +226,7 @@ class EndpointsApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v2/endpoints', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,

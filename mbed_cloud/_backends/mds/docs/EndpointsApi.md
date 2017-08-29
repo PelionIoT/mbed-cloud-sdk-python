@@ -17,7 +17,7 @@ The list of resources is cached by mbed Cloud Connect, so this call does not cre
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import mds
 from mds.rest import ApiException
@@ -70,7 +70,7 @@ Endpoints are physical devices having valid registration to mbed Cloud Connect. 
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import mds
 from mds.rest import ApiException

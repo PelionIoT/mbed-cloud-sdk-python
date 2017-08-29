@@ -3,7 +3,7 @@
 """
     Update Service API
 
-    This is the API Documentation for the mbed deployment service which is part of the update service.
+    This is the API documentation for the Mbed deployment service, which is part of the update service.
 
     OpenAPI spec version: 3
     
@@ -115,10 +115,9 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/firmware-images/'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -139,7 +138,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'POST',
+        return self.api_client.call_api('/v3/firmware-images/', 'POST',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -220,12 +219,11 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/firmware-images/{image_id}/'.replace('{format}', 'json')
         path_params = {}
         if 'image_id' in params:
             path_params['image_id'] = params['image_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -236,7 +234,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'DELETE',
+        return self.api_client.call_api('/v3/firmware-images/{image_id}/', 'DELETE',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -322,20 +320,19 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/firmware-images/'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
         if 'limit' in params:
-            query_params['limit'] = params['limit']
+            query_params.append(('limit', params['limit']))
         if 'order' in params:
-            query_params['order'] = params['order']
+            query_params.append(('order', params['order']))
         if 'after' in params:
-            query_params['after'] = params['after']
+            query_params.append(('after', params['after']))
         if 'filter' in params:
-            query_params['filter'] = params['filter']
+            query_params.append(('filter', params['filter']))
         if 'include' in params:
-            query_params['include'] = params['include']
+            query_params.append(('include', params['include']))
 
         header_params = {}
 
@@ -346,7 +343,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/firmware-images/', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -427,12 +424,11 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/firmware-images/{image_id}/'.replace('{format}', 'json')
         path_params = {}
         if 'image_id' in params:
             path_params['image_id'] = params['image_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -443,7 +439,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/firmware-images/{image_id}/', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -533,10 +529,9 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/firmware-manifests/'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -557,7 +552,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'POST',
+        return self.api_client.call_api('/v3/firmware-manifests/', 'POST',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -638,12 +633,11 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/firmware-manifests/{manifest_id}/'.replace('{format}', 'json')
         path_params = {}
         if 'manifest_id' in params:
             path_params['manifest_id'] = params['manifest_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -654,7 +648,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'DELETE',
+        return self.api_client.call_api('/v3/firmware-manifests/{manifest_id}/', 'DELETE',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -740,20 +734,19 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/firmware-manifests/'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
         if 'limit' in params:
-            query_params['limit'] = params['limit']
+            query_params.append(('limit', params['limit']))
         if 'order' in params:
-            query_params['order'] = params['order']
+            query_params.append(('order', params['order']))
         if 'after' in params:
-            query_params['after'] = params['after']
+            query_params.append(('after', params['after']))
         if 'filter' in params:
-            query_params['filter'] = params['filter']
+            query_params.append(('filter', params['filter']))
         if 'include' in params:
-            query_params['include'] = params['include']
+            query_params.append(('include', params['include']))
 
         header_params = {}
 
@@ -764,7 +757,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/firmware-manifests/', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -845,12 +838,11 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/firmware-manifests/{manifest_id}/'.replace('{format}', 'json')
         path_params = {}
         if 'manifest_id' in params:
             path_params['manifest_id'] = params['manifest_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -861,7 +853,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/firmware-manifests/{manifest_id}/', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -942,10 +934,9 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/update-campaigns/'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -958,7 +949,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'POST',
+        return self.api_client.call_api('/v3/update-campaigns/', 'POST',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1039,12 +1030,11 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/update-campaigns/{campaign_id}/'.replace('{format}', 'json')
         path_params = {}
         if 'campaign_id' in params:
             path_params['campaign_id'] = params['campaign_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -1055,7 +1045,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'DELETE',
+        return self.api_client.call_api('/v3/update-campaigns/{campaign_id}/', 'DELETE',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1141,20 +1131,19 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/update-campaigns/'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
         if 'limit' in params:
-            query_params['limit'] = params['limit']
+            query_params.append(('limit', params['limit']))
         if 'order' in params:
-            query_params['order'] = params['order']
+            query_params.append(('order', params['order']))
         if 'after' in params:
-            query_params['after'] = params['after']
+            query_params.append(('after', params['after']))
         if 'filter' in params:
-            query_params['filter'] = params['filter']
+            query_params.append(('filter', params['filter']))
         if 'include' in params:
-            query_params['include'] = params['include']
+            query_params.append(('include', params['include']))
 
         header_params = {}
 
@@ -1165,7 +1154,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/update-campaigns/', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1251,12 +1240,11 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/update-campaigns/{campaign_id}/'.replace('{format}', 'json')
         path_params = {}
         if 'campaign_id' in params:
             path_params['campaign_id'] = params['campaign_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -1269,7 +1257,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'PATCH',
+        return self.api_client.call_api('/v3/update-campaigns/{campaign_id}/', 'PATCH',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1350,12 +1338,11 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/update-campaigns/{campaign_id}/'.replace('{format}', 'json')
         path_params = {}
         if 'campaign_id' in params:
             path_params['campaign_id'] = params['campaign_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -1366,7 +1353,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/update-campaigns/{campaign_id}/', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1452,12 +1439,11 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/update-campaigns/{campaign_id}/'.replace('{format}', 'json')
         path_params = {}
         if 'campaign_id' in params:
             path_params['campaign_id'] = params['campaign_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -1470,7 +1456,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'PUT',
+        return self.api_client.call_api('/v3/update-campaigns/{campaign_id}/', 'PUT',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1498,7 +1484,7 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str campaign_id: The ID of the update campaign (required)
-        :param str campaign_device_metadata_id: The id of the campaign device metadata (required)
+        :param str campaign_device_metadata_id: The ID of the campaign device metadata (required)
         :return: CampaignDeviceMetadata
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1523,7 +1509,7 @@ class DefaultApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str campaign_id: The ID of the update campaign (required)
-        :param str campaign_device_metadata_id: The id of the campaign device metadata (required)
+        :param str campaign_device_metadata_id: The ID of the campaign device metadata (required)
         :return: CampaignDeviceMetadata
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1554,14 +1540,13 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/'.replace('{format}', 'json')
         path_params = {}
         if 'campaign_id' in params:
             path_params['campaign_id'] = params['campaign_id']
         if 'campaign_device_metadata_id' in params:
             path_params['campaign_device_metadata_id'] = params['campaign_device_metadata_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -1572,7 +1557,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1659,20 +1644,19 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/update-campaigns/{campaign_id}/campaign-device-metadata/'.replace('{format}', 'json')
         path_params = {}
         if 'campaign_id' in params:
             path_params['campaign_id'] = params['campaign_id']
 
-        query_params = {}
+        query_params = []
         if 'limit' in params:
-            query_params['limit'] = params['limit']
+            query_params.append(('limit', params['limit']))
         if 'order' in params:
-            query_params['order'] = params['order']
+            query_params.append(('order', params['order']))
         if 'after' in params:
-            query_params['after'] = params['after']
+            query_params.append(('after', params['after']))
         if 'include' in params:
-            query_params['include'] = params['include']
+            query_params.append(('include', params['include']))
 
         header_params = {}
 
@@ -1683,7 +1667,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/update-campaigns/{campaign_id}/campaign-device-metadata/', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,

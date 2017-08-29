@@ -18,7 +18,7 @@ Register a URL to which the server should deliver notifications of the subscribe
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import mds
 from mds.rest import ApiException
@@ -70,7 +70,7 @@ To delete a notification Long Poll channel. This is required to change the chann
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import mds
 from mds.rest import ApiException
@@ -118,7 +118,7 @@ In this case, notifications are delivered through HTTP long poll requests. The H
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import mds
 from mds.rest import ApiException
