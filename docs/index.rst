@@ -24,6 +24,7 @@ Concepts
   configuration
   exceptions
   pagination
+  metadata
 
 Prerequisites
 ----------
