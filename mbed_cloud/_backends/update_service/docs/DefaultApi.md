@@ -804,7 +804,7 @@ update_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = update_service.DefaultApi()
 campaign_id = 'campaign_id_example' # str | The ID of the update campaign
-campaign_device_metadata_id = 'campaign_device_metadata_id_example' # str | The id of the campaign device metadata
+campaign_device_metadata_id = 'campaign_device_metadata_id_example' # str | The ID of the campaign device metadata
 
 try: 
     api_response = api_instance.v3_update_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get(campaign_id, campaign_device_metadata_id)
@@ -818,7 +818,7 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **campaign_id** | **str**| The ID of the update campaign | 
- **campaign_device_metadata_id** | **str**| The id of the campaign device metadata | 
+ **campaign_device_metadata_id** | **str**| The ID of the campaign device metadata | 
 
 ### Return type
 

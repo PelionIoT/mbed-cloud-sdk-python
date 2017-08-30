@@ -3,6 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**end_market** | **str** | Account end market. | 
 **status** | **str** | The status of the account. | 
 **postal_code** | **str** | The postal code part of the postal address. | [optional] 
 **id** | **str** | Account ID. | 
@@ -26,6 +27,7 @@ Name | Type | Description | Notes
 **limits** | **dict(str, str)** | List of limits as key-value pairs if requested. | [optional] 
 **country** | **str** | The country part of the postal address. | [optional] 
 **created_at** | **datetime** | Creation UTC time RFC3339. | [optional] 
+**idle_timeout** | **str** | The reference token expiration time in minutes for this account. | [optional] 
 **contact** | **str** | The name of the contact person for this account. | [optional] 
 **policies** | [**list[FeaturePolicy]**](FeaturePolicy.md) | List of policies if requested. | [optional] 
 **template_id** | **str** | Account template ID. | [optional] 
