@@ -17,6 +17,7 @@ from __future__ import unicode_literals
 from future import standard_library
 standard_library.install_aliases()
 from builtins import object
+import datetime
 from six import iteritems
 from six import string_types
 import sys
@@ -36,7 +37,7 @@ class BaseAPI(object):
     def __init__(self, user_config={}):
         """Ensure the config is valid and has all required fields."""
         config.update(user_config)
-
+        self.apis = []
         if "host" in config:
             # Strip leading and trailing slashes from host
             config.update({'host': config['host'].strip('/')})
@@ -67,7 +68,7 @@ class BaseAPI(object):
 
         # Ensure we don't encode /
         api.configuration.safe_chars = "/"
-
+        self.apis.append(api)
         return api
 
     def _verify_sort_options(self, kwargs):
@@ -150,6 +151,30 @@ class BaseAPI(object):
                     filters[key] = urllib.parse.quote(val)
         # Encode the query string
         return urllib.parse.urlencode(filters)
+
+    def get_last_api_metadata(self):
+        """Get meta data for the last Mbed Cloud API call.
+
+        :returns: meta data of the last Mbed Cloud API call
+        :rtype: ApiMetadata
+        """
+        last_metadata = None
+        for api in self.apis:
+            api_client = api.configuration.api_client
+            if api_client is not None:
+                metadata = api_client.get_last_metadata()
+                if metadata is not None:
+                    if last_metadata is None:
+                        last_metadata = metadata
+                    elif metadata["timestamp"] >= last_metadata["timestamp"]:
+                        last_metadata = metadata
+        if last_metadata is not None:
+            last_metadata = ApiMetadata(last_metadata.get("url"),
+                                        last_metadata.get("method"),
+                                        last_metadata.get("response", None),
+                                        last_metadata.get("return_data", None),
+                                        last_metadata.get("exception", None))
+        return last_metadata
 
 
 class BaseObject(object):
@@ -380,3 +405,141 @@ class PaginatedResponse(object):
     @data.setter
     def data(self, value):
         self._data = value
+
+
+class ApiMetadata(object):
+    """Api meta data."""
+
+    def __init__(self, url, method, response=None, response_data=None, exception=None):
+        """Initialise new api metadata object."""
+        self._url = url
+        self._method = method
+        self._status_code = 400
+        self._headers = []
+        self._request_id = ""
+        self._object = None
+        self._etag = ""
+        self._error_message = ""
+        self._date = datetime.datetime.utcnow()
+        if exception is not None:
+            self._set_exception(exception)
+            self._set_headers(exception)
+        else:
+            self._set_response(response, response_data)
+            self._set_headers(response)
+
+    def _set_headers(self, obj):
+        if hasattr(obj, 'getheaders'):
+            self._headers = obj.getheaders()
+            self._date = self._headers.get("date", datetime.datetime.utcnow())
+            self._request_id = self._headers.get("x-request-id", "")
+        elif hasattr(obj, 'headers'):
+            self._headers = getattr(obj, "headers")
+            self._date = self._headers.get("date", datetime.datetime.utcnow())
+            self._request_id = self._headers.get("x-request-id", "")
+
+    def _set_exception(self, exception):
+        if hasattr(exception, 'status'):
+            self._status_code = getattr(exception, 'status')
+        if hasattr(exception, 'reason'):
+            self._error_message = getattr(exception, 'reason')
+        elif hasattr(exception, 'message'):
+            self._error_message = getattr(exception, 'message')
+        if hasattr(exception, 'body'):
+            self._set_response(getattr(exception, 'body'))
+
+    def _set_response(self, response=None, response_data=None):
+        if response is not None:
+            if hasattr(response, 'status'):
+                self._status_code = getattr(response, 'status')
+            self._set_headers(response)
+        if response_data is not None:
+            if hasattr(response_data, 'object'):
+                self._object = getattr(response_data, 'object')
+            if hasattr(response_data, 'etag'):
+                self._etag = getattr(response_data, 'etag')
+
+    @property
+    def url(self):
+        """URL of the API request.
+
+        :rtype: str
+        """
+        return self._url
+
+    @property
+    def method(self):
+        """Method of the API request.
+
+        :rtype: str
+        """
+        return self._method
+
+    @property
+    def status_code(self):
+        """HTTP Status code of the API response.
+
+        :rtype: int
+        """
+        return self._status_code
+
+    @property
+    def date(self):
+        """Date of the API response.
+
+        :rtype: datetime
+        """
+        return self._date
+
+    @property
+    def headers(self):
+        """Headers in the API response.
+
+        :rtype: list
+        """
+        return self._headers
+
+    @property
+    def request_id(self):
+        """Request ID of the transaction.
+
+        :rtype: str
+        """
+        return self._request_id
+
+    @property
+    def object(self):
+        """Object type of the returned data.
+
+        :rtype: str
+        """
+        return self._object
+
+    @property
+    def etag(self):
+        """Etag of the returned data.
+
+        :rtype: str
+        """
+        return self._etag
+
+    @property
+    def error_message(self):
+        """Error message.
+
+        :rtype: str
+        """
+        return self._error_message
+
+    def to_dict(self):
+        """Return dictionary of object."""
+        dictionary = {}
+        for key, value in self.__dict__.iteritems():
+            property_name = key[1:]
+            if hasattr(self, property_name):
+                dictionary.update({property_name: getattr(self, property_name, None)})
+        return dictionary
+
+    def __repr__(self):
+        """For print and pprint."""
+        return str(self.to_dict())
