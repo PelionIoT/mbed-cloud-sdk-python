@@ -59,7 +59,7 @@ class SuccessfulResponse(object):
     def after(self):
         """
         Gets the after of this SuccessfulResponse.
-        metric ID included in the request or null.
+        The metric ID included in the request or null.
 
         :return: The after of this SuccessfulResponse.
         :rtype: str
@@ -70,7 +70,7 @@ class SuccessfulResponse(object):
     def after(self, after):
         """
         Sets the after of this SuccessfulResponse.
-        metric ID included in the request or null.
+        The metric ID included in the request or null.
 
         :param after: The after of this SuccessfulResponse.
         :type: str
@@ -105,7 +105,7 @@ class SuccessfulResponse(object):
     def total_count(self):
         """
         Gets the total_count of this SuccessfulResponse.
-        total number of records available.
+        The total number of records available.
 
         :return: The total_count of this SuccessfulResponse.
         :rtype: int
@@ -116,7 +116,7 @@ class SuccessfulResponse(object):
     def total_count(self, total_count):
         """
         Sets the total_count of this SuccessfulResponse.
-        total number of records available.
+        The total number of records available.
 
         :param total_count: The total_count of this SuccessfulResponse.
         :type: int
@@ -151,7 +151,7 @@ class SuccessfulResponse(object):
     def limit(self):
         """
         Gets the limit of this SuccessfulResponse.
-        limit used in the request to retrieve the results.
+        The limit used in the request to retrieve the results.
 
         :return: The limit of this SuccessfulResponse.
         :rtype: int
@@ -162,7 +162,7 @@ class SuccessfulResponse(object):
     def limit(self, limit):
         """
         Sets the limit of this SuccessfulResponse.
-        limit used in the request to retrieve the results.
+        The limit used in the request to retrieve the results.
 
         :param limit: The limit of this SuccessfulResponse.
         :type: int

@@ -13,6 +13,8 @@ Name | Type | Description | Notes
 **is_gtc_accepted** | **bool** | A flag indicating that the General Terms and Conditions has been accepted. | [optional] 
 **account_id** | **str** | The UUID of the account. | 
 **email** | **str** | The email address. | 
+**login_history** | [**list[LoginHistory]**](LoginHistory.md) | Timestamps, succeedings, IP addresses and user agent information of the last five logins of the user, with timestamps in RFC3339 format. | [optional] 
+**is_totp_enabled** | **bool** | A flag indicating whether 2-factor authentication (TOTP) has been enabled. | [optional] 
 **is_marketing_accepted** | **bool** | A flag indicating that receiving marketing information has been accepted. | [optional] 
 **etag** | **str** | API resource entity version. | 
 **full_name** | **str** | The full name of the user. | [optional] 

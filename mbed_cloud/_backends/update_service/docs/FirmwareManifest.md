@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**datafile** | **str** |  | 
+**datafile** | **str** | The url to binary file of firmware manifest. | 
 **description** | **str** | The description of the object. | 
 **timestamp** | **datetime** | The version of the firmware manifest (as a timestamp). | 
 **created_at** | **datetime** | The time the object was created. | 

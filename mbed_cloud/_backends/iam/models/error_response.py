@@ -202,7 +202,7 @@ class ErrorResponse(object):
         :param type: The type of this ErrorResponse.
         :type: str
         """
-        allowed_values = ["success", "created", "accepted", "permanently_deleted", "validation_error", "invalid_token", "access_denied", "account_limit_exceeded", "not_found", "method_not_supported", "not_acceptable", "duplicate", "precondition_failed", "unsupported_media_type", "rate_limit_exceeded", "internal_server_error", "system_unavailable"]
+        allowed_values = ["success", "created", "accepted", "permanently_deleted", "validation_error", "invalid_token", "invalid_apikey", "access_denied", "account_limit_exceeded", "not_found", "method_not_supported", "not_acceptable", "duplicate", "precondition_failed", "unsupported_media_type", "rate_limit_exceeded", "internal_server_error", "system_unavailable"]
         if type not in allowed_values:
             raise ValueError(
                 "Invalid value for `type` ({0}), must be one of {1}"

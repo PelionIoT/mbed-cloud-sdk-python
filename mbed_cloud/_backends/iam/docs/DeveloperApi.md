@@ -29,7 +29,7 @@ Method | HTTP request | Description
 
 Create a new API key.
 
-An endpoint for creating a new API key.
+An endpoint for creating a new API key. Example usage: curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys -d '{\"name\": \"MyKey1\",\"owner\": \"ACCOUNT_ID\"}' -H 'content-type: application/json' -H 'Authorization: Bearer AUTH_TOKEN'
 
 ### Example 
 ```python
@@ -82,7 +82,7 @@ Name | Type | Description  | Notes
 
 Delete API key.
 
-An endpoint for deleting the API key.
+An endpoint for deleting the API key. Example usage: curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id} -H 'Authorization: Bearer AUTH_TOKEN'
 
 ### Example 
 ```python
@@ -186,7 +186,7 @@ void (empty response body)
 
 Get all API keys
 
-An endpoint for retrieving API keys in an array, optionally filtered by the owner.
+An endpoint for retrieving API keys in an array, optionally filtered by the owner. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/api-keys -H 'Authorization: Bearer AUTH_TOKEN'
 
 ### Example 
 ```python
@@ -487,7 +487,7 @@ Name | Type | Description  | Notes
 
 Get trusted certificate by ID.
 
-An endpoint for retrieving a trusted certificate by ID.
+An endpoint for retrieving a trusted certificate by ID. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -H 'Authorization: Bearer AUTH_TOKEN'
 
 ### Example 
 ```python
@@ -593,7 +593,7 @@ Name | Type | Description  | Notes
 
 Get account info.
 
-Returns detailed information about the account.
+Returns detailed information about the account. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/accounts/me?include=policies -H 'Authorization: Bearer AUTH_TOKEN' .
 
 ### Example 
 ```python
@@ -610,7 +610,7 @@ iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = iam.DeveloperApi()
-include = 'include_example' # str | Comma separated additional data to return. Currently supported: limits, policies, sub_accounts (optional)
+include = 'include_example' # str | Comma separated additional data to return. Currently supported: limits, policies, sub_accounts. (optional)
 
 try: 
     # Get account info.
@@ -624,7 +624,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **include** | **str**| Comma separated additional data to return. Currently supported: limits, policies, sub_accounts | [optional] 
+ **include** | **str**| Comma separated additional data to return. Currently supported: limits, policies, sub_accounts. | [optional] 
 
 ### Return type
 
@@ -646,7 +646,7 @@ Name | Type | Description  | Notes
 
 Get API key details.
 
-An endpoint for retrieving API key details.
+An endpoint for retrieving API key details. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/api-keys/me -H 'Authorization: Bearer AUTH_TOKEN'
 
 ### Example 
 ```python
@@ -691,11 +691,11 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_my_user**
-> UserInfoResp get_my_user()
+> MyUserInfoResp get_my_user()
 
 Details of the current user.
 
-An endpoint for retrieving the details of the logged in user.
+An endpoint for retrieving the details of the logged in user. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/users/me -H 'Authorization: Bearer AUTH_TOKEN'
 
 ### Example 
 ```python
@@ -726,7 +726,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**UserInfoResp**](UserInfoResp.md)
+[**MyUserInfoResp**](MyUserInfoResp.md)
 
 ### Authorization
 
@@ -854,7 +854,7 @@ Name | Type | Description  | Notes
 
 Update trusted certificate.
 
-An endpoint for updating existing trusted certificates.
+An endpoint for updating existing trusted certificates. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -d {\"description\": \"very important cert\"} -H 'content-type: application/json' -H 'Authorization: Bearer AUTH_TOKEN'
 
 ### Example 
 ```python
@@ -872,7 +872,7 @@ iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = iam.DeveloperApi()
 cert_id = 'cert_id_example' # str | The ID of the trusted certificate to be updated.
-body = iam.TrustedCertificateReq() # TrustedCertificateReq | A trusted certificate object with attributes.
+body = iam.TrustedCertificateUpdateReq() # TrustedCertificateUpdateReq | A trusted certificate object with attributes.
 
 try: 
     # Update trusted certificate.
@@ -887,7 +887,7 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **cert_id** | **str**| The ID of the trusted certificate to be updated. | 
- **body** | [**TrustedCertificateReq**](TrustedCertificateReq.md)| A trusted certificate object with attributes. | 
+ **body** | [**TrustedCertificateUpdateReq**](TrustedCertificateUpdateReq.md)| A trusted certificate object with attributes. | 
 
 ### Return type
 
@@ -909,7 +909,7 @@ Name | Type | Description  | Notes
 
 Update API key details.
 
-An endpoint for updating API key details.
+An endpoint for updating API key details. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/api-keys/me -d '{\"name\": \"TestApiKey25\"}' -H 'content-type: application/json' -H 'Authorization: Bearer AUTH_TOKEN'
 
 ### Example 
 ```python
@@ -958,11 +958,11 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_my_user**
-> UserInfoResp update_my_user(body)
+> UserUpdateResp update_my_user(body)
 
 Update user details.
 
-An endpoint for updating the details of the logged in user.
+An endpoint for updating the details of the logged in user. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/me -d '{\"address\": \"1007 Mountain Drive\"}' -H 'content-type: application/json' -H 'Authorization: Bearer AUTH_TOKEN'
 
 ### Example 
 ```python
@@ -997,7 +997,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**UserInfoResp**](UserInfoResp.md)
+[**UserUpdateResp**](UserUpdateResp.md)
 
 ### Authorization
 

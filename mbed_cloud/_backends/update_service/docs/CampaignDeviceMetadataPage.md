@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **object** | **str** | Entity name: always ‘list’ | [optional] 
 **limit** | **int** | The number of results to return, (range: 2-1000), or equals to total_count | [optional] 
 **data** | [**list[CampaignDeviceMetadata]**](CampaignDeviceMetadata.md) | A list of entities | [optional] 
+**order** | **str** | The order of the records to return. Available values: ASC, DESC; by default ASC. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
