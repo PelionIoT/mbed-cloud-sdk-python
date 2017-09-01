@@ -42,7 +42,6 @@ from .models.user_update_resp import UserUpdateResp
 
 # import apis into sdk package
 from .apis.account_admin_api import AccountAdminApi
-from .apis.default_api import DefaultApi
 from .apis.developer_api import DeveloperApi
 
 # import ApiClient

@@ -462,7 +462,7 @@ class UserUpdateResp(object):
         :param object: The object of this UserUpdateResp.
         :type: str
         """
-        allowed_values = ["user", "api-key", "group", "account", "account-template", "trusted-cert", "list", "error", "agreement", "signed-agreement"]
+        allowed_values = ["user", "api-key", "group", "account", "account-template", "trusted-cert", "list", "error"]
         if object not in allowed_values:
             raise ValueError(
                 "Invalid value for `object` ({0}), must be one of {1}"
