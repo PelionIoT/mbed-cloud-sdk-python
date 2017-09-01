@@ -6,16 +6,12 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**add_certificate**](AccountAdminApi.md#add_certificate) | **POST** /v3/trusted-certificates | Upload a new trusted certificate.
 [**add_subjects_to_group**](AccountAdminApi.md#add_subjects_to_group) | **POST** /v3/policy-groups/{groupID} | Add members to a group.
-[**create_account**](AccountAdminApi.md#create_account) | **POST** /v3/accounts | Create a new account.
 [**create_user**](AccountAdminApi.md#create_user) | **POST** /v3/users | Create a new user.
 [**delete_user**](AccountAdminApi.md#delete_user) | **DELETE** /v3/users/{user-id} | Delete a user.
-[**get_account_info**](AccountAdminApi.md#get_account_info) | **GET** /v3/accounts/{accountID} | Get account info.
-[**get_all_accounts**](AccountAdminApi.md#get_all_accounts) | **GET** /v3/accounts | Get all accounts.
 [**get_all_users**](AccountAdminApi.md#get_all_users) | **GET** /v3/users | Get the details of all users.
 [**get_user**](AccountAdminApi.md#get_user) | **GET** /v3/users/{user-id} | Details of a user.
 [**get_users_of_group**](AccountAdminApi.md#get_users_of_group) | **GET** /v3/policy-groups/{groupID}/users | Get users of a group.
 [**remove_users_from_group**](AccountAdminApi.md#remove_users_from_group) | **DELETE** /v3/policy-groups/{groupID}/users | Remove users from a group.
-[**update_account**](AccountAdminApi.md#update_account) | **PUT** /v3/accounts/{accountID} | Update attributes of an existing account.
 [**update_my_account**](AccountAdminApi.md#update_my_account) | **PUT** /v3/accounts/me | Updates attributes of the account.
 [**update_user**](AccountAdminApi.md#update_user) | **PUT** /v3/users/{user-id} | Update user details.
 
@@ -128,61 +124,6 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **create_account**
-> AccountCreationResp create_account(body, action=action)
-
-Create a new account.
-
-An endpoint for creating a new account.
-
-### Example 
-```python
-from __future__ import print_statement
-import time
-import iam
-from iam.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: Bearer
-iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# iam.configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = iam.AccountAdminApi()
-body = iam.AccountCreationReq() # AccountCreationReq | Details of the account to be created.
-action = 'create' # str | Action, either 'create' or 'enroll'. (optional) (default to create)
-
-try: 
-    # Create a new account.
-    api_response = api_instance.create_account(body, action=action)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling AccountAdminApi->create_account: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **body** | [**AccountCreationReq**](AccountCreationReq.md)| Details of the account to be created. | 
- **action** | **str**| Action, either &#39;create&#39; or &#39;enroll&#39;. | [optional] [default to create]
-
-### Return type
-
-[**AccountCreationResp**](AccountCreationResp.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 # **create_user**
 > UserInfoResp create_user(body, action=action)
 
@@ -205,7 +146,7 @@ iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = iam.AccountAdminApi()
-body = iam.UserCreationReq() # UserCreationReq | A user object with attributes.
+body = iam.UserInfoReq() # UserInfoReq | A user object with attributes.
 action = 'create' # str | Action, either 'create' or 'invite'. (optional) (default to create)
 
 try: 
@@ -220,7 +161,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**UserCreationReq**](UserCreationReq.md)| A user object with attributes. | 
+ **body** | [**UserInfoReq**](UserInfoReq.md)| A user object with attributes. | 
  **action** | **str**| Action, either &#39;create&#39; or &#39;invite&#39;. | [optional] [default to create]
 
 ### Return type
@@ -278,128 +219,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 void (empty response body)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **get_account_info**
-> AccountInfo get_account_info(account_id, include=include)
-
-Get account info.
-
-Returns detailed information about the account.
-
-### Example 
-```python
-from __future__ import print_statement
-import time
-import iam
-from iam.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: Bearer
-iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# iam.configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = iam.AccountAdminApi()
-account_id = 'account_id_example' # str | The ID or alias of the account to be fetched.
-include = 'include_example' # str | Comma separated additional data to return. Currently supported: limits, policies, sub_accounts (optional)
-
-try: 
-    # Get account info.
-    api_response = api_instance.get_account_info(account_id, include=include)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling AccountAdminApi->get_account_info: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **account_id** | **str**| The ID or alias of the account to be fetched. | 
- **include** | **str**| Comma separated additional data to return. Currently supported: limits, policies, sub_accounts | [optional] 
-
-### Return type
-
-[**AccountInfo**](AccountInfo.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **get_all_accounts**
-> AccountInfoList get_all_accounts(status__eq=status__eq, tier__eq=tier__eq, parent__eq=parent__eq, end_market__eq=end_market__eq, limit=limit, after=after, include=include, format=format)
-
-Get all accounts.
-
-Returns an array of account objects, optionally filtered by status and tier level.
-
-### Example 
-```python
-from __future__ import print_statement
-import time
-import iam
-from iam.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: Bearer
-iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# iam.configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = iam.AccountAdminApi()
-status__eq = 'status__eq_example' # str | An optional filter for account status, ENROLLING, ACTIVE, RESTRICTED or SUSPENDED. (optional)
-tier__eq = 'tier__eq_example' # str | An optional filter for tier level, must be 0, 1 or omitted. (optional)
-parent__eq = 'parent__eq_example' # str | An optional filter for parent account ID. (optional)
-end_market__eq = 'end_market__eq_example' # str | An optional filter for account end market. (optional)
-limit = 1000 # int | The number of results to return (2-1000), default is 1000. (optional) (default to 1000)
-after = 'after_example' # str | The entity ID to fetch after the given one. (optional)
-include = 'include_example' # str | Comma separated additional data to return. Currently supported: total_count,limits (optional)
-format = 'format_example' # str | Format information for the response to the query, supported: format=breakdown. (optional)
-
-try: 
-    # Get all accounts.
-    api_response = api_instance.get_all_accounts(status__eq=status__eq, tier__eq=tier__eq, parent__eq=parent__eq, end_market__eq=end_market__eq, limit=limit, after=after, include=include, format=format)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling AccountAdminApi->get_all_accounts: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **status__eq** | **str**| An optional filter for account status, ENROLLING, ACTIVE, RESTRICTED or SUSPENDED. | [optional] 
- **tier__eq** | **str**| An optional filter for tier level, must be 0, 1 or omitted. | [optional] 
- **parent__eq** | **str**| An optional filter for parent account ID. | [optional] 
- **end_market__eq** | **str**| An optional filter for account end market. | [optional] 
- **limit** | **int**| The number of results to return (2-1000), default is 1000. | [optional] [default to 1000]
- **after** | **str**| The entity ID to fetch after the given one. | [optional] 
- **include** | **str**| Comma separated additional data to return. Currently supported: total_count,limits | [optional] 
- **format** | **str**| Format information for the response to the query, supported: format&#x3D;breakdown. | [optional] 
-
-### Return type
-
-[**AccountInfoList**](AccountInfoList.md)
 
 ### Authorization
 
@@ -642,67 +461,12 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **update_account**
-> AccountInfo update_account(account_id, body)
-
-Update attributes of an existing account.
-
-An endpoint for updating an account.
-
-### Example 
-```python
-from __future__ import print_statement
-import time
-import iam
-from iam.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: Bearer
-iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# iam.configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = iam.AccountAdminApi()
-account_id = 'account_id_example' # str | The ID of the account to be updated.
-body = iam.AccountUpdateRootReq() # AccountUpdateRootReq | Details of the account to be updated.
-
-try: 
-    # Update attributes of an existing account.
-    api_response = api_instance.update_account(account_id, body)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling AccountAdminApi->update_account: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **account_id** | **str**| The ID of the account to be updated. | 
- **body** | [**AccountUpdateRootReq**](AccountUpdateRootReq.md)| Details of the account to be updated. | 
-
-### Return type
-
-[**AccountInfo**](AccountInfo.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 # **update_my_account**
 > AccountInfo update_my_account(body)
 
 Updates attributes of the account.
 
-An endpoint for updating the account. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/me -d '{\"phone_number\": \"12345678\"}' -H 'content-type: application/json' -H 'Authorization: Bearer AUTH_TOKEN' 
+An endpoint for updating the account. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/me -d '{\"phone_number\": \"12345678\"}' -H 'content-type: application/json' -H 'Authorization: Bearer AUTH_TOKEN'
 
 ### Example 
 ```python

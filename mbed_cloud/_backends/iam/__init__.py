@@ -14,12 +14,8 @@
 from __future__ import absolute_import
 
 # import models into sdk package
-from .models.account_creation_req import AccountCreationReq
-from .models.account_creation_resp import AccountCreationResp
 from .models.account_info import AccountInfo
-from .models.account_info_list import AccountInfoList
 from .models.account_update_req import AccountUpdateReq
-from .models.account_update_root_req import AccountUpdateRootReq
 from .models.api_key_info_req import ApiKeyInfoReq
 from .models.api_key_info_resp import ApiKeyInfoResp
 from .models.api_key_info_resp_list import ApiKeyInfoRespList
@@ -38,7 +34,7 @@ from .models.trusted_certificate_resp import TrustedCertificateResp
 from .models.trusted_certificate_resp_list import TrustedCertificateRespList
 from .models.trusted_certificate_update_req import TrustedCertificateUpdateReq
 from .models.updated_response import UpdatedResponse
-from .models.user_creation_req import UserCreationReq
+from .models.user_info_req import UserInfoReq
 from .models.user_info_resp import UserInfoResp
 from .models.user_info_resp_list import UserInfoRespList
 from .models.user_update_req import UserUpdateReq

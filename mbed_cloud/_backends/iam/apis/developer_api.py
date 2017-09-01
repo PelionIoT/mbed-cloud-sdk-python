@@ -43,7 +43,7 @@ class DeveloperApi(object):
     def create_api_key(self, body, **kwargs):
         """
         Create a new API key.
-        An endpoint for creating a new API key. Example usage: curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys -d '{\"name\": \"MyKey1\",\"owner\": \"ACCOUNT_ID\"}' -H 'content-type: application/json' -H 'Authorization: Bearer AUTH_TOKEN' 
+        An endpoint for creating a new API key. Example usage: curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys -d '{\"name\": \"MyKey1\",\"owner\": \"ACCOUNT_ID\"}' -H 'content-type: application/json' -H 'Authorization: Bearer AUTH_TOKEN'
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -69,7 +69,7 @@ class DeveloperApi(object):
     def create_api_key_with_http_info(self, body, **kwargs):
         """
         Create a new API key.
-        An endpoint for creating a new API key. Example usage: curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys -d '{\"name\": \"MyKey1\",\"owner\": \"ACCOUNT_ID\"}' -H 'content-type: application/json' -H 'Authorization: Bearer AUTH_TOKEN' 
+        An endpoint for creating a new API key. Example usage: curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys -d '{\"name\": \"MyKey1\",\"owner\": \"ACCOUNT_ID\"}' -H 'content-type: application/json' -H 'Authorization: Bearer AUTH_TOKEN'
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -150,7 +150,7 @@ class DeveloperApi(object):
     def delete_api_key(self, api_key, **kwargs):
         """
         Delete API key.
-        An endpoint for deleting the API key. Example usage: curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id} -H 'Authorization: Bearer AUTH_TOKEN' 
+        An endpoint for deleting the API key. Example usage: curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id} -H 'Authorization: Bearer AUTH_TOKEN'
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -176,7 +176,7 @@ class DeveloperApi(object):
     def delete_api_key_with_http_info(self, api_key, **kwargs):
         """
         Delete API key.
-        An endpoint for deleting the API key. Example usage: curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id} -H 'Authorization: Bearer AUTH_TOKEN' 
+        An endpoint for deleting the API key. Example usage: curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id} -H 'Authorization: Bearer AUTH_TOKEN'
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -356,7 +356,7 @@ class DeveloperApi(object):
     def get_all_api_keys(self, **kwargs):
         """
         Get all API keys
-        An endpoint for retrieving API keys in an array, optionally filtered by the owner. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/api-keys -H 'Authorization: Bearer AUTH_TOKEN' 
+        An endpoint for retrieving API keys in an array, optionally filtered by the owner. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/api-keys -H 'Authorization: Bearer AUTH_TOKEN'
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -386,7 +386,7 @@ class DeveloperApi(object):
     def get_all_api_keys_with_http_info(self, **kwargs):
         """
         Get all API keys
-        An endpoint for retrieving API keys in an array, optionally filtered by the owner. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/api-keys -H 'Authorization: Bearer AUTH_TOKEN' 
+        An endpoint for retrieving API keys in an array, optionally filtered by the owner. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/api-keys -H 'Authorization: Bearer AUTH_TOKEN'
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1151,7 +1151,7 @@ class DeveloperApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str include: Comma separated additional data to return. Currently supported: limits, policies, sub_accounts
+        :param str include: Comma separated additional data to return. Currently supported: limits, policies, sub_accounts.
         :return: AccountInfo
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1177,7 +1177,7 @@ class DeveloperApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str include: Comma separated additional data to return. Currently supported: limits, policies, sub_accounts
+        :param str include: Comma separated additional data to return. Currently supported: limits, policies, sub_accounts.
         :return: AccountInfo
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1240,7 +1240,7 @@ class DeveloperApi(object):
     def get_my_api_key(self, **kwargs):
         """
         Get API key details.
-        An endpoint for retrieving API key details. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/api-keys/me -H 'Authorization: Bearer AUTH_TOKEN' 
+        An endpoint for retrieving API key details. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/api-keys/me -H 'Authorization: Bearer AUTH_TOKEN'
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1265,7 +1265,7 @@ class DeveloperApi(object):
     def get_my_api_key_with_http_info(self, **kwargs):
         """
         Get API key details.
-        An endpoint for retrieving API key details. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/api-keys/me -H 'Authorization: Bearer AUTH_TOKEN' 
+        An endpoint for retrieving API key details. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/api-keys/me -H 'Authorization: Bearer AUTH_TOKEN'
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1773,7 +1773,7 @@ class DeveloperApi(object):
     def update_my_api_key(self, body, **kwargs):
         """
         Update API key details.
-        An endpoint for updating API key details. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/api-keys/me -d '{\"name\": \"TestApiKey25\"}' -H 'content-type: application/json' -H 'Authorization: Bearer AUTH_TOKEN' 
+        An endpoint for updating API key details. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/api-keys/me -d '{\"name\": \"TestApiKey25\"}' -H 'content-type: application/json' -H 'Authorization: Bearer AUTH_TOKEN'
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1799,7 +1799,7 @@ class DeveloperApi(object):
     def update_my_api_key_with_http_info(self, body, **kwargs):
         """
         Update API key details.
-        An endpoint for updating API key details. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/api-keys/me -d '{\"name\": \"TestApiKey25\"}' -H 'content-type: application/json' -H 'Authorization: Bearer AUTH_TOKEN' 
+        An endpoint for updating API key details. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/api-keys/me -d '{\"name\": \"TestApiKey25\"}' -H 'content-type: application/json' -H 'Authorization: Bearer AUTH_TOKEN'
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.

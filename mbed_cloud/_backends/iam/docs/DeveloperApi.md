@@ -29,7 +29,7 @@ Method | HTTP request | Description
 
 Create a new API key.
 
-An endpoint for creating a new API key. Example usage: curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys -d '{\"name\": \"MyKey1\",\"owner\": \"ACCOUNT_ID\"}' -H 'content-type: application/json' -H 'Authorization: Bearer AUTH_TOKEN' 
+An endpoint for creating a new API key. Example usage: curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys -d '{\"name\": \"MyKey1\",\"owner\": \"ACCOUNT_ID\"}' -H 'content-type: application/json' -H 'Authorization: Bearer AUTH_TOKEN'
 
 ### Example 
 ```python
@@ -82,7 +82,7 @@ Name | Type | Description  | Notes
 
 Delete API key.
 
-An endpoint for deleting the API key. Example usage: curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id} -H 'Authorization: Bearer AUTH_TOKEN' 
+An endpoint for deleting the API key. Example usage: curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id} -H 'Authorization: Bearer AUTH_TOKEN'
 
 ### Example 
 ```python
@@ -186,7 +186,7 @@ void (empty response body)
 
 Get all API keys
 
-An endpoint for retrieving API keys in an array, optionally filtered by the owner. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/api-keys -H 'Authorization: Bearer AUTH_TOKEN' 
+An endpoint for retrieving API keys in an array, optionally filtered by the owner. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/api-keys -H 'Authorization: Bearer AUTH_TOKEN'
 
 ### Example 
 ```python
@@ -610,7 +610,7 @@ iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = iam.DeveloperApi()
-include = 'include_example' # str | Comma separated additional data to return. Currently supported: limits, policies, sub_accounts (optional)
+include = 'include_example' # str | Comma separated additional data to return. Currently supported: limits, policies, sub_accounts. (optional)
 
 try: 
     # Get account info.
@@ -624,7 +624,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **include** | **str**| Comma separated additional data to return. Currently supported: limits, policies, sub_accounts | [optional] 
+ **include** | **str**| Comma separated additional data to return. Currently supported: limits, policies, sub_accounts. | [optional] 
 
 ### Return type
 
@@ -646,7 +646,7 @@ Name | Type | Description  | Notes
 
 Get API key details.
 
-An endpoint for retrieving API key details. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/api-keys/me -H 'Authorization: Bearer AUTH_TOKEN' 
+An endpoint for retrieving API key details. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/api-keys/me -H 'Authorization: Bearer AUTH_TOKEN'
 
 ### Example 
 ```python
@@ -913,7 +913,7 @@ Name | Type | Description  | Notes
 
 Update API key details.
 
-An endpoint for updating API key details. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/api-keys/me -d '{\"name\": \"TestApiKey25\"}' -H 'content-type: application/json' -H 'Authorization: Bearer AUTH_TOKEN' 
+An endpoint for updating API key details. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/api-keys/me -d '{\"name\": \"TestApiKey25\"}' -H 'content-type: application/json' -H 'Authorization: Bearer AUTH_TOKEN'
 
 ### Example 
 ```python
