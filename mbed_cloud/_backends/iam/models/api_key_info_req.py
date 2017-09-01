@@ -92,6 +92,12 @@ class ApiKeyInfoReq(object):
         :param status: The status of this ApiKeyInfoReq.
         :type: str
         """
+        allowed_values = ["ACTIVE", "INACTIVE"]
+        if status not in allowed_values:
+            raise ValueError(
+                "Invalid value for `status` ({0}), must be one of {1}"
+                .format(status, allowed_values)
+            )
 
         self._status = status
 
