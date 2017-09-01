@@ -76,14 +76,21 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *AccountAdminApi* | [**add_certificate**](docs/AccountAdminApi.md#add_certificate) | **POST** /v3/trusted-certificates | Upload a new trusted certificate.
 *AccountAdminApi* | [**add_subjects_to_group**](docs/AccountAdminApi.md#add_subjects_to_group) | **POST** /v3/policy-groups/{groupID} | Add members to a group.
+*AccountAdminApi* | [**create_account**](docs/AccountAdminApi.md#create_account) | **POST** /v3/accounts | Create a new account.
 *AccountAdminApi* | [**create_user**](docs/AccountAdminApi.md#create_user) | **POST** /v3/users | Create a new user.
 *AccountAdminApi* | [**delete_user**](docs/AccountAdminApi.md#delete_user) | **DELETE** /v3/users/{user-id} | Delete a user.
+*AccountAdminApi* | [**get_account_info**](docs/AccountAdminApi.md#get_account_info) | **GET** /v3/accounts/{accountID} | Get account info.
+*AccountAdminApi* | [**get_all_accounts**](docs/AccountAdminApi.md#get_all_accounts) | **GET** /v3/accounts | Get all accounts.
 *AccountAdminApi* | [**get_all_users**](docs/AccountAdminApi.md#get_all_users) | **GET** /v3/users | Get the details of all users.
 *AccountAdminApi* | [**get_user**](docs/AccountAdminApi.md#get_user) | **GET** /v3/users/{user-id} | Details of a user.
 *AccountAdminApi* | [**get_users_of_group**](docs/AccountAdminApi.md#get_users_of_group) | **GET** /v3/policy-groups/{groupID}/users | Get users of a group.
 *AccountAdminApi* | [**remove_users_from_group**](docs/AccountAdminApi.md#remove_users_from_group) | **DELETE** /v3/policy-groups/{groupID}/users | Remove users from a group.
+*AccountAdminApi* | [**update_account**](docs/AccountAdminApi.md#update_account) | **PUT** /v3/accounts/{accountID} | Update attributes of an existing account.
 *AccountAdminApi* | [**update_my_account**](docs/AccountAdminApi.md#update_my_account) | **PUT** /v3/accounts/me | Updates attributes of the account.
 *AccountAdminApi* | [**update_user**](docs/AccountAdminApi.md#update_user) | **PUT** /v3/users/{user-id} | Update user details.
+*DefaultApi* | [**download_agreement**](docs/DefaultApi.md#download_agreement) | **GET** /downloads/agreements/{agreement-id} | Download agreement as a document.
+*DefaultApi* | [**head_downloads**](docs/DefaultApi.md#head_downloads) | **HEAD** /downloads/agreements | The heartbeat method for this API.
+*DefaultApi* | [**is_alive**](docs/DefaultApi.md#is_alive) | **GET** /alive | Get alive status
 *DeveloperApi* | [**create_api_key**](docs/DeveloperApi.md#create_api_key) | **POST** /v3/api-keys | Create a new API key.
 *DeveloperApi* | [**delete_api_key**](docs/DeveloperApi.md#delete_api_key) | **DELETE** /v3/api-keys/{apiKey} | Delete API key.
 *DeveloperApi* | [**delete_certificate**](docs/DeveloperApi.md#delete_certificate) | **DELETE** /v3/trusted-certificates/{cert-id} | Delete a trusted certificate by ID.
@@ -106,8 +113,12 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [AccountCreationReq](docs/AccountCreationReq.md)
+ - [AccountCreationResp](docs/AccountCreationResp.md)
  - [AccountInfo](docs/AccountInfo.md)
+ - [AccountInfoList](docs/AccountInfoList.md)
  - [AccountUpdateReq](docs/AccountUpdateReq.md)
+ - [AccountUpdateRootReq](docs/AccountUpdateRootReq.md)
  - [ApiKeyInfoReq](docs/ApiKeyInfoReq.md)
  - [ApiKeyInfoResp](docs/ApiKeyInfoResp.md)
  - [ApiKeyInfoRespList](docs/ApiKeyInfoRespList.md)
@@ -119,13 +130,14 @@ Class | Method | HTTP request | Description
  - [GroupSummaryList](docs/GroupSummaryList.md)
  - [LoginHistory](docs/LoginHistory.md)
  - [MyUserInfoResp](docs/MyUserInfoResp.md)
+ - [PasswordPolicy](docs/PasswordPolicy.md)
  - [SubjectList](docs/SubjectList.md)
  - [TrustedCertificateReq](docs/TrustedCertificateReq.md)
  - [TrustedCertificateResp](docs/TrustedCertificateResp.md)
  - [TrustedCertificateRespList](docs/TrustedCertificateRespList.md)
  - [TrustedCertificateUpdateReq](docs/TrustedCertificateUpdateReq.md)
  - [UpdatedResponse](docs/UpdatedResponse.md)
- - [UserInfoReq](docs/UserInfoReq.md)
+ - [UserCreationReq](docs/UserCreationReq.md)
  - [UserInfoResp](docs/UserInfoResp.md)
  - [UserInfoRespList](docs/UserInfoRespList.md)
  - [UserUpdateReq](docs/UserUpdateReq.md)
