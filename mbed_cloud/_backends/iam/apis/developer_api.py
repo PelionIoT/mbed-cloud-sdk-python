@@ -934,7 +934,7 @@ class DeveloperApi(object):
     def get_certificate(self, cert_id, **kwargs):
         """
         Get trusted certificate by ID.
-        An endpoint for retrieving a trusted certificate by ID. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -H 'Authorization: Bearer AUTH_TOKEN'
+        An endpoint for retrieving a trusted certificate by ID. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -H 'Authorization: Bearer AUTH_TOKEN' 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -960,7 +960,7 @@ class DeveloperApi(object):
     def get_certificate_with_http_info(self, cert_id, **kwargs):
         """
         Get trusted certificate by ID.
-        An endpoint for retrieving a trusted certificate by ID. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -H 'Authorization: Bearer AUTH_TOKEN'
+        An endpoint for retrieving a trusted certificate by ID. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -H 'Authorization: Bearer AUTH_TOKEN' 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1335,7 +1335,7 @@ class DeveloperApi(object):
     def get_my_user(self, **kwargs):
         """
         Details of the current user.
-        An endpoint for retrieving the details of the logged in user. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/users/me -H 'Authorization: Bearer AUTH_TOKEN'
+        An endpoint for retrieving the details of the logged in user. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/users/me -H 'Authorization: Bearer AUTH_TOKEN' 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1346,6 +1346,7 @@ class DeveloperApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
+        :param str scratch_codes: Request to regenerate new emergency scratch codes.
         :return: MyUserInfoResp
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1360,7 +1361,7 @@ class DeveloperApi(object):
     def get_my_user_with_http_info(self, **kwargs):
         """
         Details of the current user.
-        An endpoint for retrieving the details of the logged in user. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/users/me -H 'Authorization: Bearer AUTH_TOKEN'
+        An endpoint for retrieving the details of the logged in user. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/users/me -H 'Authorization: Bearer AUTH_TOKEN' 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1371,12 +1372,13 @@ class DeveloperApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
+        :param str scratch_codes: Request to regenerate new emergency scratch codes.
         :return: MyUserInfoResp
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = []
+        all_params = ['scratch_codes']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -1392,12 +1394,15 @@ class DeveloperApi(object):
             params[key] = val
         del params['kwargs']
 
+
         collection_formats = {}
 
         resource_path = '/v3/users/me'.replace('{format}', 'json')
         path_params = {}
 
         query_params = {}
+        if 'scratch_codes' in params:
+            query_params['scratch_codes'] = params['scratch_codes']
 
         header_params = {}
 
@@ -1654,7 +1659,7 @@ class DeveloperApi(object):
     def update_certificate(self, cert_id, body, **kwargs):
         """
         Update trusted certificate.
-        An endpoint for updating existing trusted certificates. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -d {\"description\": \"very important cert\"} -H 'content-type: application/json' -H 'Authorization: Bearer AUTH_TOKEN'
+        An endpoint for updating existing trusted certificates. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -d {\"description\": \"very important cert\"} -H 'content-type: application/json' -H 'Authorization: Bearer AUTH_TOKEN' 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1681,7 +1686,7 @@ class DeveloperApi(object):
     def update_certificate_with_http_info(self, cert_id, body, **kwargs):
         """
         Update trusted certificate.
-        An endpoint for updating existing trusted certificates. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -d {\"description\": \"very important cert\"} -H 'content-type: application/json' -H 'Authorization: Bearer AUTH_TOKEN'
+        An endpoint for updating existing trusted certificates. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -d {\"description\": \"very important cert\"} -H 'content-type: application/json' -H 'Authorization: Bearer AUTH_TOKEN' 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1871,7 +1876,7 @@ class DeveloperApi(object):
     def update_my_user(self, body, **kwargs):
         """
         Update user details.
-        An endpoint for updating the details of the logged in user. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/me -d '{\"address\": \"1007 Mountain Drive\"}' -H 'content-type: application/json' -H 'Authorization: Bearer AUTH_TOKEN'
+        An endpoint for updating the details of the logged in user. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/me -d '{\"address\": \"1007 Mountain Drive\"}' -H 'content-type: application/json' -H 'Authorization: Bearer AUTH_TOKEN' 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1897,7 +1902,7 @@ class DeveloperApi(object):
     def update_my_user_with_http_info(self, body, **kwargs):
         """
         Update user details.
-        An endpoint for updating the details of the logged in user. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/me -d '{\"address\": \"1007 Mountain Drive\"}' -H 'content-type: application/json' -H 'Authorization: Bearer AUTH_TOKEN'
+        An endpoint for updating the details of the logged in user. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/me -d '{\"address\": \"1007 Mountain Drive\"}' -H 'content-type: application/json' -H 'Authorization: Bearer AUTH_TOKEN' 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.

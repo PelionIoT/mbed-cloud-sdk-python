@@ -294,8 +294,6 @@ class UserUpdateReq(object):
         :param email: The email of this UserUpdateReq.
         :type: str
         """
-        if email is None:
-            raise ValueError("Invalid value for `email`, must not be `None`")
 
         self._email = email
 
