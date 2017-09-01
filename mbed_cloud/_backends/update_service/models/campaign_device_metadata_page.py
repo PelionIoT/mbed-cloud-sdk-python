@@ -62,7 +62,7 @@ class CampaignDeviceMetadataPage(object):
     def after(self):
         """
         Gets the after of this CampaignDeviceMetadataPage.
-        The entity ID to fetch after the given one.
+        The entity ID to fetch after the given one
 
         :return: The after of this CampaignDeviceMetadataPage.
         :rtype: str
@@ -73,7 +73,7 @@ class CampaignDeviceMetadataPage(object):
     def after(self, after):
         """
         Sets the after of this CampaignDeviceMetadataPage.
-        The entity ID to fetch after the given one.
+        The entity ID to fetch after the given one
 
         :param after: The after of this CampaignDeviceMetadataPage.
         :type: str
@@ -85,7 +85,7 @@ class CampaignDeviceMetadataPage(object):
     def has_more(self):
         """
         Gets the has_more of this CampaignDeviceMetadataPage.
-        Flag indicating whether there is more results.
+        Flag indicating whether there are more results
 
         :return: The has_more of this CampaignDeviceMetadataPage.
         :rtype: bool
@@ -96,7 +96,7 @@ class CampaignDeviceMetadataPage(object):
     def has_more(self, has_more):
         """
         Sets the has_more of this CampaignDeviceMetadataPage.
-        Flag indicating whether there is more results.
+        Flag indicating whether there are more results
 
         :param has_more: The has_more of this CampaignDeviceMetadataPage.
         :type: bool
@@ -200,7 +200,7 @@ class CampaignDeviceMetadataPage(object):
     def order(self):
         """
         Gets the order of this CampaignDeviceMetadataPage.
-        The order of the records to return. Available values: ASC, DESC; by default ASC.
+        The order of the records to return. Acceptable values: ASC, DESC. Default: ASC
 
         :return: The order of this CampaignDeviceMetadataPage.
         :rtype: str
@@ -211,7 +211,7 @@ class CampaignDeviceMetadataPage(object):
     def order(self, order):
         """
         Sets the order of this CampaignDeviceMetadataPage.
-        The order of the records to return. Available values: ASC, DESC; by default ASC.
+        The order of the records to return. Acceptable values: ASC, DESC. Default: ASC
 
         :param order: The order of this CampaignDeviceMetadataPage.
         :type: str

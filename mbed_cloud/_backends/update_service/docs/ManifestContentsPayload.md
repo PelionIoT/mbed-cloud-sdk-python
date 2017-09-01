@@ -5,7 +5,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **format** | [**ManifestContentsPayloadFormat**](ManifestContentsPayloadFormat.md) |  | [optional] 
 **reference** | [**ManifestContentsPayloadReference**](ManifestContentsPayloadReference.md) |  | [optional] 
-**storage_identifier** | **str** | An identifier for where the payload is to be located. This identifier indicates where the image should be placed on the device. For example, when an IoT device contains multiple microcontrollers (MCUs) and the decision needs to be made to which MCU to send which firmware image. | [optional] 
+**storage_identifier** | **str** | An payload storage destination identifier. The identifier specifies where to place the firmware image on the device. For example, when an IoT device has multiple microcontrollers (MCUs), the identifier determines which MCU receives the image. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

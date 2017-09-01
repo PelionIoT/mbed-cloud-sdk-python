@@ -62,7 +62,7 @@ class UpdateCampaignPatchRequest(object):
     def description(self):
         """
         Gets the description of this UpdateCampaignPatchRequest.
-        An optional description of the campaign.
+        The optional description of the campaign
 
         :return: The description of this UpdateCampaignPatchRequest.
         :rtype: str
@@ -73,7 +73,7 @@ class UpdateCampaignPatchRequest(object):
     def description(self, description):
         """
         Sets the description of this UpdateCampaignPatchRequest.
-        An optional description of the campaign.
+        The optional description of the campaign
 
         :param description: The description of this UpdateCampaignPatchRequest.
         :type: str
@@ -108,7 +108,7 @@ class UpdateCampaignPatchRequest(object):
     def object(self):
         """
         Gets the object of this UpdateCampaignPatchRequest.
-        The API resource entity.
+        The API resource entity
 
         :return: The object of this UpdateCampaignPatchRequest.
         :rtype: str
@@ -119,7 +119,7 @@ class UpdateCampaignPatchRequest(object):
     def object(self, object):
         """
         Sets the object of this UpdateCampaignPatchRequest.
-        The API resource entity.
+        The API resource entity
 
         :param object: The object of this UpdateCampaignPatchRequest.
         :type: str
@@ -131,7 +131,7 @@ class UpdateCampaignPatchRequest(object):
     def when(self):
         """
         Gets the when of this UpdateCampaignPatchRequest.
-        The timestamp at which update campaign scheduled to start.
+        The scheduled start time for the update campaign
 
         :return: The when of this UpdateCampaignPatchRequest.
         :rtype: str
@@ -142,7 +142,7 @@ class UpdateCampaignPatchRequest(object):
     def when(self, when):
         """
         Sets the when of this UpdateCampaignPatchRequest.
-        The timestamp at which update campaign scheduled to start.
+        The scheduled start time for the update campaign
 
         :param when: The when of this UpdateCampaignPatchRequest.
         :type: str
@@ -154,7 +154,7 @@ class UpdateCampaignPatchRequest(object):
     def state(self):
         """
         Gets the state of this UpdateCampaignPatchRequest.
-        The state of the campaign.
+        The state of the campaign
 
         :return: The state of this UpdateCampaignPatchRequest.
         :rtype: str
@@ -165,7 +165,7 @@ class UpdateCampaignPatchRequest(object):
     def state(self, state):
         """
         Sets the state of this UpdateCampaignPatchRequest.
-        The state of the campaign.
+        The state of the campaign
 
         :param state: The state of this UpdateCampaignPatchRequest.
         :type: str
@@ -183,7 +183,7 @@ class UpdateCampaignPatchRequest(object):
     def device_filter(self):
         """
         Gets the device_filter of this UpdateCampaignPatchRequest.
-        The filter for the devices the campaign will target.
+        The filter for the devices the campaign will target
 
         :return: The device_filter of this UpdateCampaignPatchRequest.
         :rtype: str
@@ -194,7 +194,7 @@ class UpdateCampaignPatchRequest(object):
     def device_filter(self, device_filter):
         """
         Sets the device_filter of this UpdateCampaignPatchRequest.
-        The filter for the devices the campaign will target.
+        The filter for the devices the campaign will target
 
         :param device_filter: The device_filter of this UpdateCampaignPatchRequest.
         :type: str
@@ -206,7 +206,7 @@ class UpdateCampaignPatchRequest(object):
     def name(self):
         """
         Gets the name of this UpdateCampaignPatchRequest.
-        A name for this campaign.
+        The campaign name
 
         :return: The name of this UpdateCampaignPatchRequest.
         :rtype: str
@@ -217,7 +217,7 @@ class UpdateCampaignPatchRequest(object):
     def name(self, name):
         """
         Sets the name of this UpdateCampaignPatchRequest.
-        A name for this campaign.
+        The campaign name
 
         :param name: The name of this UpdateCampaignPatchRequest.
         :type: str

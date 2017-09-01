@@ -100,7 +100,7 @@ class CampaignDeviceMetadata(object):
     def campaign(self):
         """
         Gets the campaign of this CampaignDeviceMetadata.
-        The ID of the campaign the device is in
+        The device's campaign ID
 
         :return: The campaign of this CampaignDeviceMetadata.
         :rtype: str
@@ -111,7 +111,7 @@ class CampaignDeviceMetadata(object):
     def campaign(self, campaign):
         """
         Sets the campaign of this CampaignDeviceMetadata.
-        The ID of the campaign the device is in
+        The device's campaign ID
 
         :param campaign: The campaign of this CampaignDeviceMetadata.
         :type: str
@@ -192,7 +192,7 @@ class CampaignDeviceMetadata(object):
     def mechanism(self):
         """
         Gets the mechanism of this CampaignDeviceMetadata.
-        The mechanism used to deliver the firmware (connector or direct)
+        How the firmware is delivered (connector or direct)
 
         :return: The mechanism of this CampaignDeviceMetadata.
         :rtype: str
@@ -203,7 +203,7 @@ class CampaignDeviceMetadata(object):
     def mechanism(self, mechanism):
         """
         Sets the mechanism of this CampaignDeviceMetadata.
-        The mechanism used to deliver the firmware (connector or direct)
+        How the firmware is delivered (connector or direct)
 
         :param mechanism: The mechanism of this CampaignDeviceMetadata.
         :type: str
@@ -215,7 +215,7 @@ class CampaignDeviceMetadata(object):
     def name(self):
         """
         Gets the name of this CampaignDeviceMetadata.
-        The name of the record
+        The record name
 
         :return: The name of this CampaignDeviceMetadata.
         :rtype: str
@@ -226,7 +226,7 @@ class CampaignDeviceMetadata(object):
     def name(self, name):
         """
         Sets the name of this CampaignDeviceMetadata.
-        The name of the record
+        The record name
 
         :param name: The name of this CampaignDeviceMetadata.
         :type: str
@@ -261,7 +261,7 @@ class CampaignDeviceMetadata(object):
     def mechanism_url(self):
         """
         Gets the mechanism_url of this CampaignDeviceMetadata.
-        The URL of cloud connect used
+        The Cloud Connect URL
 
         :return: The mechanism_url of this CampaignDeviceMetadata.
         :rtype: str
@@ -272,7 +272,7 @@ class CampaignDeviceMetadata(object):
     def mechanism_url(self, mechanism_url):
         """
         Sets the mechanism_url of this CampaignDeviceMetadata.
-        The URL of cloud connect used
+        The Cloud Connect URL
 
         :param mechanism_url: The mechanism_url of this CampaignDeviceMetadata.
         :type: str
@@ -313,7 +313,7 @@ class CampaignDeviceMetadata(object):
     def id(self):
         """
         Gets the id of this CampaignDeviceMetadata.
-        The ID of the metadata record
+        The metadata record ID
 
         :return: The id of this CampaignDeviceMetadata.
         :rtype: str
@@ -324,7 +324,7 @@ class CampaignDeviceMetadata(object):
     def id(self, id):
         """
         Sets the id of this CampaignDeviceMetadata.
-        The ID of the metadata record
+        The metadata record ID
 
         :param id: The id of this CampaignDeviceMetadata.
         :type: str
@@ -336,7 +336,7 @@ class CampaignDeviceMetadata(object):
     def device_id(self):
         """
         Gets the device_id of this CampaignDeviceMetadata.
-        The ID of the device
+        The device ID
 
         :return: The device_id of this CampaignDeviceMetadata.
         :rtype: str
@@ -347,7 +347,7 @@ class CampaignDeviceMetadata(object):
     def device_id(self, device_id):
         """
         Sets the device_id of this CampaignDeviceMetadata.
-        The ID of the device
+        The device ID
 
         :param device_id: The device_id of this CampaignDeviceMetadata.
         :type: str

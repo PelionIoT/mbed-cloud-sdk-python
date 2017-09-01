@@ -80,7 +80,7 @@ class FirmwareManifest(object):
     def datafile(self):
         """
         Gets the datafile of this FirmwareManifest.
-        The url to binary file of firmware manifest.
+        The URL of the firmware manifest binary
 
         :return: The datafile of this FirmwareManifest.
         :rtype: str
@@ -91,7 +91,7 @@ class FirmwareManifest(object):
     def datafile(self, datafile):
         """
         Sets the datafile of this FirmwareManifest.
-        The url to binary file of firmware manifest.
+        The URL of the firmware manifest binary
 
         :param datafile: The datafile of this FirmwareManifest.
         :type: str
@@ -105,7 +105,7 @@ class FirmwareManifest(object):
     def description(self):
         """
         Gets the description of this FirmwareManifest.
-        The description of the object.
+        The description of the firmware manifest
 
         :return: The description of this FirmwareManifest.
         :rtype: str
@@ -116,7 +116,7 @@ class FirmwareManifest(object):
     def description(self, description):
         """
         Sets the description of this FirmwareManifest.
-        The description of the object.
+        The description of the firmware manifest
 
         :param description: The description of this FirmwareManifest.
         :type: str
@@ -130,7 +130,7 @@ class FirmwareManifest(object):
     def timestamp(self):
         """
         Gets the timestamp of this FirmwareManifest.
-        The version of the firmware manifest (as a timestamp).
+        The firmware manifest version as a timestamp
 
         :return: The timestamp of this FirmwareManifest.
         :rtype: datetime
@@ -141,7 +141,7 @@ class FirmwareManifest(object):
     def timestamp(self, timestamp):
         """
         Sets the timestamp of this FirmwareManifest.
-        The version of the firmware manifest (as a timestamp).
+        The firmware manifest version as a timestamp
 
         :param timestamp: The timestamp of this FirmwareManifest.
         :type: datetime
@@ -155,7 +155,7 @@ class FirmwareManifest(object):
     def created_at(self):
         """
         Gets the created_at of this FirmwareManifest.
-        The time the object was created.
+        The time the object was created
 
         :return: The created_at of this FirmwareManifest.
         :rtype: datetime
@@ -166,7 +166,7 @@ class FirmwareManifest(object):
     def created_at(self, created_at):
         """
         Sets the created_at of this FirmwareManifest.
-        The time the object was created.
+        The time the object was created
 
         :param created_at: The created_at of this FirmwareManifest.
         :type: datetime
@@ -180,7 +180,7 @@ class FirmwareManifest(object):
     def object(self):
         """
         Gets the object of this FirmwareManifest.
-        The API resource entity.
+        The API resource entity
 
         :return: The object of this FirmwareManifest.
         :rtype: str
@@ -191,7 +191,7 @@ class FirmwareManifest(object):
     def object(self, object):
         """
         Sets the object of this FirmwareManifest.
-        The API resource entity.
+        The API resource entity
 
         :param object: The object of this FirmwareManifest.
         :type: str
@@ -205,7 +205,7 @@ class FirmwareManifest(object):
     def updated_at(self):
         """
         Gets the updated_at of this FirmwareManifest.
-        The time the object was updated.
+        The time the object was updated
 
         :return: The updated_at of this FirmwareManifest.
         :rtype: datetime
@@ -216,7 +216,7 @@ class FirmwareManifest(object):
     def updated_at(self, updated_at):
         """
         Sets the updated_at of this FirmwareManifest.
-        The time the object was updated.
+        The time the object was updated
 
         :param updated_at: The updated_at of this FirmwareManifest.
         :type: datetime
@@ -253,7 +253,7 @@ class FirmwareManifest(object):
     def etag(self):
         """
         Gets the etag of this FirmwareManifest.
-        The entity instance signature.
+        The entity instance signature
 
         :return: The etag of this FirmwareManifest.
         :rtype: datetime
@@ -264,7 +264,7 @@ class FirmwareManifest(object):
     def etag(self, etag):
         """
         Sets the etag of this FirmwareManifest.
-        The entity instance signature.
+        The entity instance signature
 
         :param etag: The etag of this FirmwareManifest.
         :type: datetime
@@ -278,7 +278,7 @@ class FirmwareManifest(object):
     def device_class(self):
         """
         Gets the device_class of this FirmwareManifest.
-        The class of device.
+        The class of the device
 
         :return: The device_class of this FirmwareManifest.
         :rtype: str
@@ -289,7 +289,7 @@ class FirmwareManifest(object):
     def device_class(self, device_class):
         """
         Sets the device_class of this FirmwareManifest.
-        The class of device.
+        The class of the device
 
         :param device_class: The device_class of this FirmwareManifest.
         :type: str
@@ -303,7 +303,7 @@ class FirmwareManifest(object):
     def datafile_checksum(self):
         """
         Gets the datafile_checksum of this FirmwareManifest.
-        Checksum generated for the datafile.
+        Checksum generated for the datafile
 
         :return: The datafile_checksum of this FirmwareManifest.
         :rtype: str
@@ -314,7 +314,7 @@ class FirmwareManifest(object):
     def datafile_checksum(self, datafile_checksum):
         """
         Sets the datafile_checksum of this FirmwareManifest.
-        Checksum generated for the datafile.
+        Checksum generated for the datafile
 
         :param datafile_checksum: The datafile_checksum of this FirmwareManifest.
         :type: str
@@ -326,7 +326,7 @@ class FirmwareManifest(object):
     def datafile_size(self):
         """
         Gets the datafile_size of this FirmwareManifest.
-        Size of the datafile (in bytes).
+        Size of the datafile in bytes
 
         :return: The datafile_size of this FirmwareManifest.
         :rtype: int
@@ -337,7 +337,7 @@ class FirmwareManifest(object):
     def datafile_size(self, datafile_size):
         """
         Sets the datafile_size of this FirmwareManifest.
-        Size of the datafile (in bytes).
+        Size of the datafile in bytes
 
         :param datafile_size: The datafile_size of this FirmwareManifest.
         :type: int
@@ -349,7 +349,7 @@ class FirmwareManifest(object):
     def id(self):
         """
         Gets the id of this FirmwareManifest.
-        The ID of the firmware manifest.
+        The firmware manifest ID
 
         :return: The id of this FirmwareManifest.
         :rtype: str
@@ -360,7 +360,7 @@ class FirmwareManifest(object):
     def id(self, id):
         """
         Sets the id of this FirmwareManifest.
-        The ID of the firmware manifest.
+        The firmware manifest ID
 
         :param id: The id of this FirmwareManifest.
         :type: str
@@ -374,7 +374,7 @@ class FirmwareManifest(object):
     def name(self):
         """
         Gets the name of this FirmwareManifest.
-        The name of the object.
+        The name of the object
 
         :return: The name of this FirmwareManifest.
         :rtype: str
@@ -385,7 +385,7 @@ class FirmwareManifest(object):
     def name(self, name):
         """
         Sets the name of this FirmwareManifest.
-        The name of the object.
+        The name of the object
 
         :param name: The name of this FirmwareManifest.
         :type: str

@@ -73,7 +73,7 @@ class ManifestContentsPayloadReference(object):
     def uri(self):
         """
         Gets the uri of this ManifestContentsPayloadReference.
-        The URI of the payload.
+        The payload URI
 
         :return: The uri of this ManifestContentsPayloadReference.
         :rtype: str
@@ -84,7 +84,7 @@ class ManifestContentsPayloadReference(object):
     def uri(self, uri):
         """
         Sets the uri of this ManifestContentsPayloadReference.
-        The URI of the payload.
+        The payload URI
 
         :param uri: The uri of this ManifestContentsPayloadReference.
         :type: str
