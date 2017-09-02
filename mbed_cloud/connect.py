@@ -135,6 +135,22 @@ class ConnectAPI(BaseAPI):
         return [Resource(r) for r in api.v2_endpoints_device_id_get(device_id)]
 
     @catch_exceptions(MdsApiException)
+    def delete_resource(self, device_id, resource_path, fix_path=False):
+        """Deletes a resource.
+
+        :param str device_id: The ID of the device (Required)
+        :param str resource_path: Path of the resource to delete
+        :param fix_path: Removes leading / on resource_path if found
+        :returns: Async ID
+        :rtype: str
+        """
+        api = self.mds.ResourcesApi()
+        # When path starts with / we remove the slash, as the API can't handle //.
+        if fix_path and resource_path.startswith("/"):
+            resource_path = resource_path[1:]
+        api.v2_endpoints_device_id_resource_path_delete(device_id, resource_path)
+
+    @catch_exceptions(MdsApiException)
     def get_resource_value(self, device_id, resource_path, fix_path=True, timeout=None):
         """Get a resource value for a given device and resource path by blocking thread.
 
@@ -421,11 +437,29 @@ class ConnectAPI(BaseAPI):
         t.start()
 
     @catch_exceptions(MdsApiException)
+    def get_resource_subscription(self, device_id, resource_path, fix_path=True):
+        """Read subscription status.
+
+        :param device_id: Name of device to subscribe on (Required)
+        :param resource_path: The resource path on device to observe (Required)
+        :param fix_path: Removes leading / on resource_path if found
+        :returns: status of subscription
+        """
+        # When path starts with / we remove the slash, as the API can't handle //.
+        # Keep the original path around however, as we use that for queue registration.
+        fixed_path = resource_path
+        if fix_path and resource_path.startswith("/"):
+            fixed_path = resource_path[1:]
+
+        api = self.mds.SubscriptionsApi()
+        return api.v2_subscriptions_device_id_resource_path_get(device_id, fixed_path)
+
+    @catch_exceptions(MdsApiException)
     def update_presubscriptions(self, presubscriptions):
         """Update pre-subscription data. Pre-subscription data will be removed for empty list.
 
         :param presubscriptions: list of `Presubscription` objects (Required)
-        :returns: void
+        :returns: None
         """
         api = self.mds.SubscriptionsApi()
         presubscriptions_list = []
@@ -441,6 +475,24 @@ class ConnectAPI(BaseAPI):
         return api.v2_subscriptions_put(presubscriptions_list)
 
     @catch_exceptions(MdsApiException)
+    def delete_presubscriptions(self):
+        """Deletes pre-subscription data.
+
+        :returns: None
+        """
+        api = self.mds.SubscriptionsApi()
+        return api.v2_subscriptions_put([])
+
+    @catch_exceptions(MdsApiException)
+    def delete_subscriptions(self):
+        """Remove all subscriptions.
+
+        :returns: None
+        """
+        api = self.mds.SubscriptionsApi()
+        return api.v2_subscriptions_delete()
+
+    @catch_exceptions(MdsApiException)
     def list_presubscriptions(self, **kwargs):
         """Get a list of pre-subscription data
 
@@ -450,6 +502,28 @@ class ConnectAPI(BaseAPI):
         api = self.mds.SubscriptionsApi()
         resp = api.v2_subscriptions_get(**kwargs)
         return [Presubscription(p) for p in resp]
+
+    @catch_exceptions(MdsApiException)
+    def list_device_subscriptions(self, device_id, **kwargs):
+        """List a device's subscriptions
+
+        :param device_id: Id of the device
+        :returns: a list of `Presubscription` objects
+        :rtype: list of Presubscription
+        """
+        api = self.mds.SubscriptionsApi()
+        resp = api.v2_subscriptions_device_id_get(device_id, **kwargs)
+        return [Presubscription(p) for p in resp]
+
+    @catch_exceptions(MdsApiException)
+    def delete_device_subscriptions(self, device_id):
+        """Removes a device's subscriptions
+
+        :param device_id: Id of the device
+        :returns: None
+        """
+        api = self.mds.SubscriptionsApi()
+        return api.v2_subscriptions_device_id_delete(device_id)
 
     @catch_exceptions(MdsApiException)
     def delete_resource_subscription(self, device_id=None, resource_path=None, fix_path=True):
