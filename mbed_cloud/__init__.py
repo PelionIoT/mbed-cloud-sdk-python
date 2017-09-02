@@ -326,12 +326,15 @@ class PaginatedResponse(object):
             return resp.total_count
         return 0
 
-    def __next__(self):
-        """Get the next element in list.
+    def next(self):
+        """Get the next element in response list.
 
-        As one can see in the example we finely control the iteration of the
-        pagination and in total we would here have 50+23=73 users.
+        It will make call to get next page with data if there is still data to retrieve.
         """
+        return self.__next__()
+
+    def __next__(self):
+        """Get the next element in list."""
         # If we don't have any data, then we just return.
         if self._data is None:
             raise StopIteration
