@@ -163,7 +163,7 @@ class TrustedCertificateUpdateReq(object):
     def signature(self):
         """
         Gets the signature of this TrustedCertificateUpdateReq.
-        Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256.
+        Base64 encoded signature of the account ID signed by the certificate whose data to be updated. Signature must be hashed with SHA256.
 
         :return: The signature of this TrustedCertificateUpdateReq.
         :rtype: str
@@ -174,7 +174,7 @@ class TrustedCertificateUpdateReq(object):
     def signature(self, signature):
         """
         Sets the signature of this TrustedCertificateUpdateReq.
-        Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256.
+        Base64 encoded signature of the account ID signed by the certificate whose data to be updated. Signature must be hashed with SHA256.
 
         :param signature: The signature of this TrustedCertificateUpdateReq.
         :type: str

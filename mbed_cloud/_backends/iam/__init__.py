@@ -27,6 +27,7 @@ from .models.group_summary import GroupSummary
 from .models.group_summary_list import GroupSummaryList
 from .models.login_history import LoginHistory
 from .models.my_user_info_resp import MyUserInfoResp
+from .models.password_policy import PasswordPolicy
 from .models.subject_list import SubjectList
 from .models.trusted_certificate_req import TrustedCertificateReq
 from .models.trusted_certificate_resp import TrustedCertificateResp

@@ -47,6 +47,7 @@ class Field(object):
     def message(self):
         """
         Gets the message of this Field.
+        Message describing the erroneous situation.
 
         :return: The message of this Field.
         :rtype: str
@@ -57,10 +58,13 @@ class Field(object):
     def message(self, message):
         """
         Sets the message of this Field.
+        Message describing the erroneous situation.
 
         :param message: The message of this Field.
         :type: str
         """
+        if message is None:
+            raise ValueError("Invalid value for `message`, must not be `None`")
 
         self._message = message
 
@@ -68,6 +72,7 @@ class Field(object):
     def name(self):
         """
         Gets the name of this Field.
+        Name of the erroneous field.
 
         :return: The name of this Field.
         :rtype: str
@@ -78,10 +83,13 @@ class Field(object):
     def name(self, name):
         """
         Sets the name of this Field.
+        Name of the erroneous field.
 
         :param name: The name of this Field.
         :type: str
         """
+        if name is None:
+            raise ValueError("Invalid value for `name`, must not be `None`")
 
         self._name = name
 

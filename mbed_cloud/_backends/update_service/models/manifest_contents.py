@@ -71,7 +71,7 @@ class ManifestContents(object):
     def class_id(self):
         """
         Gets the class_id of this ManifestContents.
-        Hex representation of the 128-bit RFC4122 GUID that represents the device class that the update targets.
+        The device class's 128-bit RFC4122 GUID as a hexidecimal digit string
 
         :return: The class_id of this ManifestContents.
         :rtype: str
@@ -82,7 +82,7 @@ class ManifestContents(object):
     def class_id(self, class_id):
         """
         Sets the class_id of this ManifestContents.
-        Hex representation of the 128-bit RFC4122 GUID that represents the device class that the update targets.
+        The device class's 128-bit RFC4122 GUID as a hexidecimal digit string
 
         :param class_id: The class_id of this ManifestContents.
         :type: str
@@ -94,7 +94,7 @@ class ManifestContents(object):
     def vendor_id(self):
         """
         Gets the vendor_id of this ManifestContents.
-        Hex representation of the 128-bit RFC4122 GUID that represents the vendor.
+        The vendor's 128-bit RFC4122 GUID as a hexidecimal digit string
 
         :return: The vendor_id of this ManifestContents.
         :rtype: str
@@ -105,7 +105,7 @@ class ManifestContents(object):
     def vendor_id(self, vendor_id):
         """
         Sets the vendor_id of this ManifestContents.
-        Hex representation of the 128-bit RFC4122 GUID that represents the vendor.
+        The vendor's 128-bit RFC4122 GUID as a hexidecimal digit string
 
         :param vendor_id: The vendor_id of this ManifestContents.
         :type: str
@@ -117,7 +117,7 @@ class ManifestContents(object):
     def manifest_version(self):
         """
         Gets the manifest_version of this ManifestContents.
-        The version of the manifest format being used.
+        The manifest format version
 
         :return: The manifest_version of this ManifestContents.
         :rtype: int
@@ -128,7 +128,7 @@ class ManifestContents(object):
     def manifest_version(self, manifest_version):
         """
         Sets the manifest_version of this ManifestContents.
-        The version of the manifest format being used.
+        The manifest format version
 
         :param manifest_version: The manifest_version of this ManifestContents.
         :type: int
@@ -140,7 +140,7 @@ class ManifestContents(object):
     def description(self):
         """
         Gets the description of this ManifestContents.
-        A short description of the update.
+        A short description of the update
 
         :return: The description of this ManifestContents.
         :rtype: str
@@ -151,7 +151,7 @@ class ManifestContents(object):
     def description(self, description):
         """
         Sets the description of this ManifestContents.
-        A short description of the update.
+        A short description of the update
 
         :param description: The description of this ManifestContents.
         :type: str
@@ -230,7 +230,7 @@ class ManifestContents(object):
     def apply_immediately(self):
         """
         Gets the apply_immediately of this ManifestContents.
-        A flag that indicates that the update described by the manifest should be applied as soon as possible.
+        A flag that indicates whether the update described by the manifest should be applied as soon as possible
 
         :return: The apply_immediately of this ManifestContents.
         :rtype: bool
@@ -241,7 +241,7 @@ class ManifestContents(object):
     def apply_immediately(self, apply_immediately):
         """
         Sets the apply_immediately of this ManifestContents.
-        A flag that indicates that the update described by the manifest should be applied as soon as possible.
+        A flag that indicates whether the update described by the manifest should be applied as soon as possible
 
         :param apply_immediately: The apply_immediately of this ManifestContents.
         :type: bool
@@ -253,7 +253,7 @@ class ManifestContents(object):
     def device_id(self):
         """
         Gets the device_id of this ManifestContents.
-        Hex representation of the 128-bit RFC4122 GUID that uniquely identifies the device. Each device has a single, unique device ID.
+        The device's 128-bit RFC4122 GUID as a hexidecimal digit string. Each device has a single, unique device ID.
 
         :return: The device_id of this ManifestContents.
         :rtype: str
@@ -264,7 +264,7 @@ class ManifestContents(object):
     def device_id(self, device_id):
         """
         Sets the device_id of this ManifestContents.
-        Hex representation of the 128-bit RFC4122 GUID that uniquely identifies the device. Each device has a single, unique device ID.
+        The device's 128-bit RFC4122 GUID as a hexidecimal digit string. Each device has a single, unique device ID.
 
         :param device_id: The device_id of this ManifestContents.
         :type: str

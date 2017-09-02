@@ -62,7 +62,7 @@ class UpdateCampaignPutRequest(object):
     def description(self):
         """
         Gets the description of this UpdateCampaignPutRequest.
-        An optional description of the campaign.
+        An optional description of the campaign
 
         :return: The description of this UpdateCampaignPutRequest.
         :rtype: str
@@ -73,7 +73,7 @@ class UpdateCampaignPutRequest(object):
     def description(self, description):
         """
         Sets the description of this UpdateCampaignPutRequest.
-        An optional description of the campaign.
+        An optional description of the campaign
 
         :param description: The description of this UpdateCampaignPutRequest.
         :type: str
@@ -112,7 +112,7 @@ class UpdateCampaignPutRequest(object):
     def object(self):
         """
         Gets the object of this UpdateCampaignPutRequest.
-        The API resource entity.
+        The API resource entity
 
         :return: The object of this UpdateCampaignPutRequest.
         :rtype: str
@@ -123,7 +123,7 @@ class UpdateCampaignPutRequest(object):
     def object(self, object):
         """
         Sets the object of this UpdateCampaignPutRequest.
-        The API resource entity.
+        The API resource entity
 
         :param object: The object of this UpdateCampaignPutRequest.
         :type: str
@@ -137,7 +137,7 @@ class UpdateCampaignPutRequest(object):
     def when(self):
         """
         Gets the when of this UpdateCampaignPutRequest.
-        The timestamp at which update campaign scheduled to start.
+        The scheduled start time for the update campaign
 
         :return: The when of this UpdateCampaignPutRequest.
         :rtype: str
@@ -148,7 +148,7 @@ class UpdateCampaignPutRequest(object):
     def when(self, when):
         """
         Sets the when of this UpdateCampaignPutRequest.
-        The timestamp at which update campaign scheduled to start.
+        The scheduled start time for the update campaign
 
         :param when: The when of this UpdateCampaignPutRequest.
         :type: str
@@ -162,7 +162,7 @@ class UpdateCampaignPutRequest(object):
     def state(self):
         """
         Gets the state of this UpdateCampaignPutRequest.
-        The state of the campaign.
+        The state of the campaign
 
         :return: The state of this UpdateCampaignPutRequest.
         :rtype: str
@@ -173,7 +173,7 @@ class UpdateCampaignPutRequest(object):
     def state(self, state):
         """
         Sets the state of this UpdateCampaignPutRequest.
-        The state of the campaign.
+        The state of the campaign
 
         :param state: The state of this UpdateCampaignPutRequest.
         :type: str
@@ -191,7 +191,7 @@ class UpdateCampaignPutRequest(object):
     def device_filter(self):
         """
         Gets the device_filter of this UpdateCampaignPutRequest.
-        The filter for the devices the campaign will target.
+        The filter for the devices the campaign will target
 
         :return: The device_filter of this UpdateCampaignPutRequest.
         :rtype: str
@@ -202,7 +202,7 @@ class UpdateCampaignPutRequest(object):
     def device_filter(self, device_filter):
         """
         Sets the device_filter of this UpdateCampaignPutRequest.
-        The filter for the devices the campaign will target.
+        The filter for the devices the campaign will target
 
         :param device_filter: The device_filter of this UpdateCampaignPutRequest.
         :type: str
@@ -216,7 +216,7 @@ class UpdateCampaignPutRequest(object):
     def name(self):
         """
         Gets the name of this UpdateCampaignPutRequest.
-        A name for this campaign.
+        The campaign's name
 
         :return: The name of this UpdateCampaignPutRequest.
         :rtype: str
@@ -227,7 +227,7 @@ class UpdateCampaignPutRequest(object):
     def name(self, name):
         """
         Sets the name of this UpdateCampaignPutRequest.
-        A name for this campaign.
+        The campaign's name
 
         :param name: The name of this UpdateCampaignPutRequest.
         :type: str

@@ -71,7 +71,7 @@ class FirmwareImage(object):
     def datafile(self):
         """
         Gets the datafile of this FirmwareImage.
-        The url to binary file of firmware image.
+        The firmware image file URL
 
         :return: The datafile of this FirmwareImage.
         :rtype: str
@@ -82,7 +82,7 @@ class FirmwareImage(object):
     def datafile(self, datafile):
         """
         Sets the datafile of this FirmwareImage.
-        The url to binary file of firmware image.
+        The firmware image file URL
 
         :param datafile: The datafile of this FirmwareImage.
         :type: str
@@ -96,7 +96,7 @@ class FirmwareImage(object):
     def description(self):
         """
         Gets the description of this FirmwareImage.
-        The description of the object.
+        The description of the object
 
         :return: The description of this FirmwareImage.
         :rtype: str
@@ -107,7 +107,7 @@ class FirmwareImage(object):
     def description(self, description):
         """
         Sets the description of this FirmwareImage.
-        The description of the object.
+        The description of the object
 
         :param description: The description of this FirmwareImage.
         :type: str
@@ -121,7 +121,7 @@ class FirmwareImage(object):
     def created_at(self):
         """
         Gets the created_at of this FirmwareImage.
-        The time the object was created.
+        The time the object was created
 
         :return: The created_at of this FirmwareImage.
         :rtype: datetime
@@ -132,7 +132,7 @@ class FirmwareImage(object):
     def created_at(self, created_at):
         """
         Sets the created_at of this FirmwareImage.
-        The time the object was created.
+        The time the object was created
 
         :param created_at: The created_at of this FirmwareImage.
         :type: datetime
@@ -146,7 +146,7 @@ class FirmwareImage(object):
     def object(self):
         """
         Gets the object of this FirmwareImage.
-        The API resource entity.
+        The API resource entity
 
         :return: The object of this FirmwareImage.
         :rtype: str
@@ -157,7 +157,7 @@ class FirmwareImage(object):
     def object(self, object):
         """
         Sets the object of this FirmwareImage.
-        The API resource entity.
+        The API resource entity
 
         :param object: The object of this FirmwareImage.
         :type: str
@@ -171,7 +171,7 @@ class FirmwareImage(object):
     def updated_at(self):
         """
         Gets the updated_at of this FirmwareImage.
-        The time the object was updated.
+        The time the object was updated
 
         :return: The updated_at of this FirmwareImage.
         :rtype: datetime
@@ -182,7 +182,7 @@ class FirmwareImage(object):
     def updated_at(self, updated_at):
         """
         Sets the updated_at of this FirmwareImage.
-        The time the object was updated.
+        The time the object was updated
 
         :param updated_at: The updated_at of this FirmwareImage.
         :type: datetime
@@ -196,7 +196,7 @@ class FirmwareImage(object):
     def etag(self):
         """
         Gets the etag of this FirmwareImage.
-        The entity instance signature.
+        The entity instance signature
 
         :return: The etag of this FirmwareImage.
         :rtype: datetime
@@ -207,7 +207,7 @@ class FirmwareImage(object):
     def etag(self, etag):
         """
         Sets the etag of this FirmwareImage.
-        The entity instance signature.
+        The entity instance signature
 
         :param etag: The etag of this FirmwareImage.
         :type: datetime
@@ -221,7 +221,7 @@ class FirmwareImage(object):
     def datafile_checksum(self):
         """
         Gets the datafile_checksum of this FirmwareImage.
-        Checksum generated for the datafile.
+        Checksum generated for the datafile
 
         :return: The datafile_checksum of this FirmwareImage.
         :rtype: str
@@ -232,7 +232,7 @@ class FirmwareImage(object):
     def datafile_checksum(self, datafile_checksum):
         """
         Sets the datafile_checksum of this FirmwareImage.
-        Checksum generated for the datafile.
+        Checksum generated for the datafile
 
         :param datafile_checksum: The datafile_checksum of this FirmwareImage.
         :type: str
@@ -246,7 +246,7 @@ class FirmwareImage(object):
     def datafile_size(self):
         """
         Gets the datafile_size of this FirmwareImage.
-        Size of the datafile (in bytes).
+        Size of the datafile in bytes
 
         :return: The datafile_size of this FirmwareImage.
         :rtype: int
@@ -257,7 +257,7 @@ class FirmwareImage(object):
     def datafile_size(self, datafile_size):
         """
         Sets the datafile_size of this FirmwareImage.
-        Size of the datafile (in bytes).
+        Size of the datafile in bytes
 
         :param datafile_size: The datafile_size of this FirmwareImage.
         :type: int
@@ -269,7 +269,7 @@ class FirmwareImage(object):
     def id(self):
         """
         Gets the id of this FirmwareImage.
-        The ID of the firmware image.
+        The firmware image ID
 
         :return: The id of this FirmwareImage.
         :rtype: str
@@ -280,7 +280,7 @@ class FirmwareImage(object):
     def id(self, id):
         """
         Sets the id of this FirmwareImage.
-        The ID of the firmware image.
+        The firmware image ID
 
         :param id: The id of this FirmwareImage.
         :type: str
@@ -294,7 +294,7 @@ class FirmwareImage(object):
     def name(self):
         """
         Gets the name of this FirmwareImage.
-        The name of the object.
+        The firmware image name
 
         :return: The name of this FirmwareImage.
         :rtype: str
@@ -305,7 +305,7 @@ class FirmwareImage(object):
     def name(self, name):
         """
         Sets the name of this FirmwareImage.
-        The name of the object.
+        The firmware image name
 
         :param name: The name of this FirmwareImage.
         :type: str

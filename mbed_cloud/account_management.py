@@ -188,6 +188,7 @@ class AccountManagementAPI(BaseAPI):
         Add user example:
 
         .. code-block:: python
+
             account_management_api = AccountManagementAPI()
             # Add user
             user = {

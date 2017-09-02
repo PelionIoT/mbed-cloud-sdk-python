@@ -11,7 +11,7 @@
 #   permitted to do so under the terms of a subsisting license agreement
 #   from ARM Limited or its affiliates.
 # --------------------------------------------------------------------------
-"""Example setting up long-polling on a device."""
+"""Example setting up notifications on a device."""
 import time
 
 from mbed_cloud.connect import ConnectAPI

@@ -92,7 +92,7 @@ class ManifestContentsPayload(object):
     def storage_identifier(self):
         """
         Gets the storage_identifier of this ManifestContentsPayload.
-        An identifier for where the payload is to be located. This identifier indicates where the image should be placed on the device. For example, when an IoT device contains multiple microcontrollers (MCUs) and the decision needs to be made to which MCU to send which firmware image.
+        An payload storage destination identifier. The identifier specifies where to place the firmware image on the device. For example, when an IoT device has multiple microcontrollers (MCUs), the identifier determines which MCU receives the image.
 
         :return: The storage_identifier of this ManifestContentsPayload.
         :rtype: str
@@ -103,7 +103,7 @@ class ManifestContentsPayload(object):
     def storage_identifier(self, storage_identifier):
         """
         Sets the storage_identifier of this ManifestContentsPayload.
-        An identifier for where the payload is to be located. This identifier indicates where the image should be placed on the device. For example, when an IoT device contains multiple microcontrollers (MCUs) and the decision needs to be made to which MCU to send which firmware image.
+        An payload storage destination identifier. The identifier specifies where to place the firmware image on the device. For example, when an IoT device has multiple microcontrollers (MCUs), the identifier determines which MCU receives the image.
 
         :param storage_identifier: The storage_identifier of this ManifestContentsPayload.
         :type: str

@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **after** | **str** |  | [optional] 
 **limit** | **int** |  | [optional] 
 **data** | [**list[FirmwareManifest]**](FirmwareManifest.md) |  | [optional] 
-**order** | **str** | The order of the records to return. Available values: ASC, DESC; by default ASC. | [optional] 
+**order** | **str** | The order of the records to return. Acceptable values: ASC, DESC. Default: ASC | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

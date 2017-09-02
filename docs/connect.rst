@@ -24,7 +24,7 @@ Usage
   # Register a webhook to send all updates to
   connectApi.update_webhook(WEBHOOK_URL)
 
-  # Remove webhook, and now use long-polling instead
+  # Remove webhook, and now use notifications instead
   connectApi.delete_webhook()
   connectApi.start_notifications()
 

@@ -27,6 +27,7 @@ from .group_summary import GroupSummary
 from .group_summary_list import GroupSummaryList
 from .login_history import LoginHistory
 from .my_user_info_resp import MyUserInfoResp
+from .password_policy import PasswordPolicy
 from .subject_list import SubjectList
 from .trusted_certificate_req import TrustedCertificateReq
 from .trusted_certificate_resp import TrustedCertificateResp

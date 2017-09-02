@@ -42,7 +42,7 @@ commands. Note that setting up a virtual environment is optional.
   pip install git+https://github.com/ARMmbed/mbed-cloud-sdk-python.git
 
 Next you will need to create an API key. You can do this logging in to the
-`Cloud Portal`_. Subsequently, create a new file `.mbed_cloud_config.json`
+`Cloud Portal`. Subsequently, create a new file `.mbed_cloud_config.json`
 with the following content:
 
 .. code-block:: shell
@@ -52,8 +52,8 @@ with the following content:
     "api_key": "ak_your_api_key_here"
   }
 
-This file will automatically be picked up during API instatiation (take a look
-at the :doc:`configuration` overview, for more details on this topic). You're
+This file will automatically be picked up during API instatiation.
+See :doc:`configuration` for more information. You're
 now ready to use the API.
 
 .. code-block:: python
@@ -92,20 +92,5 @@ virtualenv:
 
     python examples/connect/list-connected-devices.py
 
-Running examples using integration lab
---------------------------------------
-
-Get an API key using the `cloud portal integration environment`_ and enter it
-into `api_key` in the `mbed_cloud_config_integration.json` file. See
-:doc:`configuration` for more information.
-
-Run the following command to list accounts in the organisation:
-
-.. code-block:: shell
-
-  export MBED_CLOUD_SDK_CONFIG=$PWD/mbed_cloud_config_integration.json
-  python examples/account_management/list-details.py
-
-.. _cloud portal integration environment: https://lab.mbedcloudintegration.net
-.. _Cloud Portal: https://portal.mbedcloud.com
+.. _Cloud Portal: https://portal.us-east-1.mbedcloud.com/login
 .. _examples directory: https://github.com/ARMmbed/mbed-cloud-sdk-python/tree/master/examples

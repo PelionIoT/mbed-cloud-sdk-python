@@ -188,7 +188,7 @@ class UpdateCampaignPage(object):
     def order(self):
         """
         Gets the order of this UpdateCampaignPage.
-        The order of the records to return. Available values: ASC, DESC; by default ASC.
+        The order of the records to return. Acceptable values: ASC, DESC. Default: ASC
 
         :return: The order of this UpdateCampaignPage.
         :rtype: str
@@ -199,7 +199,7 @@ class UpdateCampaignPage(object):
     def order(self, order):
         """
         Sets the order of this UpdateCampaignPage.
-        The order of the records to return. Available values: ASC, DESC; by default ASC.
+        The order of the records to return. Acceptable values: ASC, DESC. Default: ASC
 
         :param order: The order of this UpdateCampaignPage.
         :type: str
