@@ -54,11 +54,7 @@ class ConnectAPI(BaseAPI):
     """
 
     def __init__(self, params={}, b64decode=True):
-        """Setup the backend APIs with provided config.
-
-        In addition we need to setup some special handling of background
-        threads for the mDS functionality - as it relies on background polling.
-        """
+        """Setup the backend APIs with provided config."""
         super(ConnectAPI, self).__init__(params)
 
         # Initialize the wrapped APIs
@@ -67,12 +63,12 @@ class ConnectAPI(BaseAPI):
         self._db = {}
         self._queues = defaultdict(lambda: defaultdict(queue.Queue))
 
-        self._long_polling_thread = _LongPollingThread(self._db,
+        self._notifications_thread = _NotificationsThread(self._db,
                                                        self._queues,
                                                        b64decode=b64decode,
                                                        mds=self.mds)
-        self._long_polling_is_active = False
-        self._long_polling_thread.daemon = True
+        self._notifications_are_active = False
+        self._notifications_thread.daemon = True
 
         self.statistics = self._init_api(statistics)
         # This API is a bit weird, so create the "authorization" string
@@ -83,7 +79,7 @@ class ConnectAPI(BaseAPI):
             "bootstraps_successful,bootstraps_failed,bootstraps_pending"
 
     def start_notifications(self):
-        """Start the long-polling thread.
+        """Start the notifications thread.
 
         If not an external callback is setup (using `update_webhook`) then
         calling this function is mandatory to get or set resource.
@@ -97,16 +93,16 @@ class ConnectAPI(BaseAPI):
 
         :returns: void
         """
-        self._long_polling_thread.start()
-        self._long_polling_is_active = True
+        self._notifications_thread.start()
+        self._notifications_are_active = True
 
     def stop_notifications(self):
-        """Stop the long-polling thread.
+        """Stop the notifications thread.
 
         :returns: void
         """
-        self._long_polling_thread.stop()
-        self._long_polling_is_active = False
+        self._notifications_thread.stop()
+        self._notifications_are_active = False
 
     @catch_exceptions(MdsApiException)
     def list_connected_devices(self, **kwargs):
@@ -164,8 +160,8 @@ class ConnectAPI(BaseAPI):
         :returns: The resource value for the requested resource path
         :rtype: str
         """
-        # Ensure we're long polling first
-        if not self._long_polling_is_active:
+        # Ensure we're listening to notifications first
+        if not self._notifications_are_active:
             raise CloudUnhandledError(
                 "start_notifications needs to be called before getting resource value.")
 
@@ -175,7 +171,7 @@ class ConnectAPI(BaseAPI):
         api = self.mds.ResourcesApi()
         resp = api.v2_endpoints_device_id_resource_path_get(device_id, resource_path)
 
-        # The async consumer, which will read data from long-polling thread
+        # The async consumer, which will read data from notifications thread
         consumer = AsyncConsumer(resp.async_response_id, self._db)
 
         # We block the thread and get the value for the user.
@@ -209,7 +205,7 @@ class ConnectAPI(BaseAPI):
         api = self.mds.ResourcesApi()
         resp = api.v2_endpoints_device_id_resource_path_get(device_id, resource_path)
 
-        # The async consumer, which will read data from long-polling thread
+        # The async consumer, which will read data from notifications thread
         return AsyncConsumer(resp.async_response_id, self._db)
 
     @catch_exceptions(MdsApiException)
@@ -237,8 +233,8 @@ class ConnectAPI(BaseAPI):
         :returns: The value of the new resource
         :rtype: str
         """
-        # Ensure we're long polling first
-        if not self._long_polling_is_active:
+        # Ensure we're listening to notifications first
+        if not self._notifications_are_active:
             raise CloudUnhandledError(
                 "start_notifications needs to be called before setting resource value.")
 
@@ -320,8 +316,8 @@ class ConnectAPI(BaseAPI):
         :returns: The value returned from the function executed on the resource
         :rtype: str
         """
-        # Ensure we're long polling first
-        if not self._long_polling_is_active:
+        # Ensure we're listening to notifications first
+        if not self._notifications_are_active:
             raise CloudUnhandledError(
                 "start_notifications needs to be called before setting resource value.")
 
@@ -628,7 +624,7 @@ class ConnectAPI(BaseAPI):
 
 
 class AsyncConsumer(object):
-    """Consumer object for reading values from a long-polling thread.
+    """Consumer object for reading values from a notifications thread.
 
     Example usage:
 
@@ -646,7 +642,7 @@ class AsyncConsumer(object):
     def __init__(self, async_id, db):
         """Setup the consumer, listening for a specific async ID to appear in external DB.
 
-        The DB is populated from the long polling thread.
+        The DB is populated from the notifications thread.
         """
         self.async_id = async_id
         self.db = db
@@ -709,9 +705,9 @@ class AsyncConsumer(object):
         return self.async_id
 
 
-class _LongPollingThread(threading.Thread):
+class _NotificationsThread(threading.Thread):
     def __init__(self, db, queues, b64decode=True, mds=None):
-        super(_LongPollingThread, self).__init__()
+        super(_NotificationsThread, self).__init__()
 
         self.db = db
         self.queues = queues
