@@ -21,6 +21,7 @@ from collections import defaultdict
 import datetime
 import logging
 import re
+from six import iteritems
 from six.moves import queue
 import threading
 import time
@@ -64,9 +65,9 @@ class ConnectAPI(BaseAPI):
         self._queues = defaultdict(lambda: defaultdict(queue.Queue))
 
         self._notifications_thread = _NotificationsThread(self._db,
-                                                       self._queues,
-                                                       b64decode=b64decode,
-                                                       mds=self.mds)
+                                                          self._queues,
+                                                          b64decode=b64decode,
+                                                          mds=self.mds)
         self._notifications_are_active = False
         self._notifications_thread.daemon = True
 
@@ -74,9 +75,6 @@ class ConnectAPI(BaseAPI):
         # This API is a bit weird, so create the "authorization" string
         authorization = self.statistics.configuration.api_key['Authorization']
         self._auth = "Bearer %s" % (authorization,)
-        # API requires to send what fields should be returned in response
-        self._include_all = "registered_devices,transactions,apikeys,"\
-            "bootstraps_successful,bootstraps_failed,bootstraps_pending"
 
     def start_notifications(self):
         """Start the notifications thread.
@@ -542,7 +540,11 @@ class ConnectAPI(BaseAPI):
     def list_metrics(self, include=None, interval="1d", **kwargs):
         """Get statistics.
 
-        :param str include: What fields to include in response. None will return all.
+        :param list[str] include: List of fields included in response.
+        None or empty list will return all fields.
+        Fields: transactions, successful_api_calls, failed_api_calls, successful_handshakes,
+        pending_bootstraps, successful_bootstraps, failed_bootstraps, registrations,
+        updated_registrations, expired_registrations, deleted_registrations
         :param str interval: Group data by this interval in days, weeks or hours.
             Sample values: 2h, 3w, 4d.
         :param datetime start: Fetch the data with timestamp greater than or equal to this value.
@@ -558,11 +560,10 @@ class ConnectAPI(BaseAPI):
         :returns: a list of :py:class:`Metric` objects
         :rtype: PaginatedResponse
         """
-        if not include:
-            include = self._include_all
         self._verify_arguments(interval, kwargs)
         kwargs = self._verify_filters(kwargs)
         api = self.statistics.StatisticsApi()
+        include = Metric._map_includes(include)
         kwargs.update({"include": include})
         kwargs.update({"interval": interval})
         kwargs.update({"authorization": self._auth})
@@ -931,19 +932,38 @@ class Metric(BaseObject):
             "id": "id",
             "timestamp": "timestamp",
             "transactions": "transactions",
-            "successful_device_registrations": "bootstraps_successful",
-            "pending_device_registrations": "bootstraps_pending",
-            "failed_device_registrations": "bootstraps_failed",
             "successful_api_calls": "device_server_rest_api_success",
             "failed_api_calls": "device_server_rest_api_error",
             "successful_handshakes": "handshakes_successful",
-            "failed_handshakes": "handshakes_failed",
-            "registered_devices": "registered_devices"
+            "pending_bootstraps": "bootstraps_pending",
+            "successful_bootstraps": "bootstraps_successful",
+            "failed_bootstraps": "bootstraps_failed",
+            "registrations": "full_registrations",
+            "updated_registrations": "registration_updates",
+            "expired_registrations": "expired_registrations",
+            "deleted_registrations": "deleted_registrations"
         }
+
+    @staticmethod
+    def _map_includes(include):
+        if include is None:
+            include = []
+        includes = []
+        attributes_map = Metric._get_attributes_map()
+        for key in include:
+            val = attributes_map.get(key, None)
+            if val is not None:
+                includes.append(val)
+        if len(includes) == 0:
+            for key, value in iteritems(attributes_map):
+                if key != "id" and key != "timestamp":
+                    includes.append(value)
+        s = ','
+        return s.join(includes)
 
     @property
     def id(self):
-        """Number of transaction events from devices linked to the account.
+        """The ID of the metric.
 
         :rtype: string
         """
@@ -953,46 +973,32 @@ class Metric(BaseObject):
     def timestamp(self):
         """UTC time in RFC3339 format.
 
+        The timestamp is the starting point of the interval for which the data is aggregated.
+        Each interval includes data for the time greater than or equal to the timestamp
+        and less than the next interval's starting point.
+
         :return: The timestamp of this Metric.
-        :rtype: str
+        :rtype: datetime
         """
         return self._timestamp
 
     @property
     def transactions(self):
-        """Number of transaction events from devices linked to the account.
+        """The number of transaction events from or to devices linked to the account.
+
+        A transaction is a 512-byte block of data processed by mbed Cloud.
+        It can be either sent by the device (device --> mbed cloud) or received by the device
+        (mbed cloud --> device). A transaction does not include
+        IP, TCP or UDP, TLS or DTLS packet overhead.
+        It only contains the packet payload (full CoAP packet including CoAP headers).
 
         :rtype: int
         """
         return self._transactions
 
     @property
-    def successful_device_registrations(self):
-        """Number of successful bootstraps the account has used.
-
-        :rtype: int
-        """
-        return self._successful_device_registrations
-
-    @property
-    def pending_device_registrations(self):
-        """Number of pending bootstraps the account has used.
-
-        :rtype: int
-        """
-        return self._pending_device_registrations
-
-    @property
-    def failed_device_registrations(self):
-        """Number of failed bootstraps the account has used.
-
-        :rtype: int
-        """
-        return self._failed_device_registrations
-
-    @property
     def successful_api_calls(self):
-        """Number of successful device server REST API requests the account has used.
+        """The number of successful requests the account has performed.
 
         :rtype: int
         """
@@ -1000,7 +1006,7 @@ class Metric(BaseObject):
 
     @property
     def failed_api_calls(self):
-        """Number of failed device server REST API requests the account has used.
+        """The number of failed requests the account has performed.
 
         :rtype: int
         """
@@ -1008,27 +1014,101 @@ class Metric(BaseObject):
 
     @property
     def successful_handshakes(self):
-        """Number of successful handshakes the account has used.
+        """The number of successful TLS handshakes the account has performed.
+
+        The SSL or TLS handshake enables the SSL or TLS client and server to establish
+        the secret keys with which they communicate.
+        A successful TLS handshake is required for establishing a connection with
+        Mbed Cloud Connect for any operaton such as registration, registration update
+        and deregistration.
 
         :rtype: int
         """
         return self._successful_handshakes
 
     @property
-    def failed_handshakes(self):
-        """Number of failed handshakes the account has used.
+    def pending_bootstraps(self):
+        """The number of pending bootstraps the account has performed.
+
+        Bootstrap is the process of provisioning a Lightweight Machine to Machine Client
+        to a state where it can initiate a management session to a new Lightweight Machine
+        to Machine Server.
 
         :rtype: int
         """
-        return self._failed_handshakes
+        return self._pending_bootstraps
 
     @property
-    def registered_devices(self):
-        """Maximum number of registered devices linked to the account.
+    def successful_bootstraps(self):
+        """The number of successful bootstraps the account has performed.
+
+        Bootstrap is the process of provisioning a Lightweight Machine to Machine Client
+        to a state where it can initiate a management session to a new Lightweight Machine
+        to Machine Server.
 
         :rtype: int
         """
-        return self._registered_devices
+        return self._successful_bootstraps
+
+    @property
+    def failed_bootstraps(self):
+        """The number of failed bootstraps the account has performed.
+
+        Bootstrap is the process of provisioning a Lightweight Machine to Machine Client
+        to a state where it can initiate a management session to
+        a new Lightweight Machine to Machine Server.
+
+        :rtype: int
+        """
+        return self._failed_bootstraps
+
+    @property
+    def registrations(self):
+        """The number of full registrations linked to the account.
+
+        Full registration is the process of registering a device with the Mbed Cloud Connect
+        by providing its lifetime and capabilities such as the resource structure.
+        The registered status of the device does not guarantee that the device is active
+        and accessible from Mebd Cloud Connect at any point of time.
+
+        :rtype: int
+        """
+        return self._registrations
+
+    @property
+    def updated_registrations(self):
+        """The number of registration updates linked to the account.
+
+        Registration update is the process of updating the registration status with
+        the Mbed Cloud Connect to update or extend the lifetime of the device.
+
+        :rtype: int
+        """
+        return self._updated_registrations
+
+    @property
+    def expired_registrations(self):
+        """The number of expired registrations linked to the account.
+
+        Mbed Cloud Connect removes the device registrations when the devices cannot update
+        their registration before the expiry of the lifetime. Mbed Cloud Connect
+        no longer handles requests for a device whose registration has expired already.
+
+        :rtype: int
+        """
+        return self._expired_registrations
+
+    @property
+    def deleted_registrations(self):
+        """The number of deleted registrations (deregistrations) linked to the account.
+
+        Deregistration is the process of removing the device registration from the
+        Mbed Cloud Connect registry. The deregistration is usually initiated by the device.
+        Mbed Cloud Connect no longer handles requests for a deregistered device.
+
+        :rtype: int
+        """
+        return self._deleted_registrations
 
 
 class Presubscription(BaseObject):
