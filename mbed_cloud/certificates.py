@@ -133,7 +133,7 @@ class CertificatesAPI(BaseAPI):
         api = self.iam.AccountAdminApi()
 
         kwargs.update({'certificate_data': certificate_data})
-        certificate = Certificate.create_request_map(kwargs)
+        certificate = Certificate._create_request_map(kwargs)
         certificate.update({'signature': signature})
         body = iam.TrustedCertificateReq(**certificate)
         prod_cert = api.add_certificate(body)
@@ -151,7 +151,7 @@ class CertificatesAPI(BaseAPI):
         """
         kwargs.update({'name': name})
         api = self.cert.DeveloperCertificateApi()
-        certificate = Certificate.create_request_map(kwargs)
+        certificate = Certificate._create_request_map(kwargs)
         body = cert.DeveloperCertificateRequestData(**certificate)
         dev_cert = api.v3_developer_certificates_post(self.auth, body)
         return self.get_certificate(dev_cert.id)
@@ -173,7 +173,7 @@ class CertificatesAPI(BaseAPI):
         :rtype: Certificate
         """
         api = self.iam.DeveloperApi()
-        cert = Certificate.create_request_map(kwargs)
+        cert = Certificate._create_request_map(kwargs)
         body = iam.TrustedCertificateReq(**cert)
         certificate = Certificate(api.update_certificate(certificate_id, body))
         return self.get_certificate(certificate.id)

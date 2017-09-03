@@ -198,7 +198,7 @@ class BaseObject(object):
         pass
 
     @classmethod
-    def create_request_map(cls, input_map):
+    def _create_request_map(cls, input_map):
         """Create request map."""
         request_map = {}
         attributes_map = cls._get_attributes_map()

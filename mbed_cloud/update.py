@@ -106,7 +106,7 @@ class UpdateAPI(BaseAPI):
         """
         api = self.update_service.DefaultApi()
         device_filter = self._encode_query(device_filter)
-        campaign = Campaign.create_request_map(kwargs)
+        campaign = Campaign._create_request_map(kwargs)
         body = self.update_service.UpdateCampaignPostRequest(
             name=name,
             device_filter=device_filter,
@@ -208,7 +208,7 @@ class UpdateAPI(BaseAPI):
         """
         api = self.update_service.DefaultApi()
         kwargs.update({'name': name})
-        firmware_image = FirmwareImage.create_request_map(kwargs)
+        firmware_image = FirmwareImage._create_request_map(kwargs)
         firmware_image.update({'datafile': datafile})
         return FirmwareImage(
             api.firmware_image_create(**firmware_image)
@@ -263,7 +263,7 @@ class UpdateAPI(BaseAPI):
         """
         api = self.update_service.DefaultApi()
         kwargs.update({'name': name})
-        firmware_manifest = FirmwareManifest.create_request_map(kwargs)
+        firmware_manifest = FirmwareManifest._create_request_map(kwargs)
         firmware_manifest.update({'datafile': datafile})
         return FirmwareManifest(
             api.firmware_manifest_create(**firmware_manifest)

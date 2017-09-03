@@ -110,7 +110,7 @@ class DeviceDirectoryAPI(BaseAPI):
         :rtype: Device
         """
         api = self.device_directory.DefaultApi()
-        device = Device.create_request_map(kwargs)
+        device = Device._create_request_map(kwargs)
         body = self.device_directory.DeviceDataPostRequest(**device)
         return Device(api.device_update(device_id, body))
 
@@ -159,7 +159,7 @@ class DeviceDirectoryAPI(BaseAPI):
         :rtype: Device
         """
         api = self.device_directory.DefaultApi()
-        device = Device.create_request_map(kwargs)
+        device = Device._create_request_map(kwargs)
         device = DeviceData(**device)
         return Device(api.device_create(device))
 
@@ -218,7 +218,7 @@ class DeviceDirectoryAPI(BaseAPI):
 
         # Ensure we have the correct types and get the new query object
         query = self._encode_query(filter)
-        query_map = Query.create_request_map(kwargs)
+        query_map = Query._create_request_map(kwargs)
         # Create the query object
         f = self.device_directory.DeviceQuery(name=name, query=query, **query_map)
 
@@ -254,7 +254,7 @@ class DeviceDirectoryAPI(BaseAPI):
         else:
             query = filter
 
-        query_map = Query.create_request_map(kwargs)
+        query_map = Query._create_request_map(kwargs)
         body = self.device_directory.DeviceQueryPatchRequest(
             name=name,
             query=query,

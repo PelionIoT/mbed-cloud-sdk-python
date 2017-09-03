@@ -99,12 +99,13 @@ class AccountManagementAPI(BaseAPI):
         :param str name: The name of the API key (Required)
         :param list groups: List of group IDs (`str`)
         :param str owner: User ID owning the API key
+        :param str status: The status of the API key. Values: ACTIVE, INACTIVE
         :returns: Newly created API key object
         :rtype: ApiKey
         """
         api = self.iam.DeveloperApi()
         kwargs.update({'name': name})
-        api_key = ApiKey.create_request_map(kwargs)
+        api_key = ApiKey._create_request_map(kwargs)
         body = iam.ApiKeyInfoReq(**api_key)
         return ApiKey(api.create_api_key(body))
 
@@ -115,11 +116,12 @@ class AccountManagementAPI(BaseAPI):
         :param str api_key_id: The ID of the API key to be updated (Required)
         :param str name: The name of the API key
         :param str owner: User ID owning the API key
+        :param str status: The status of the API key. Values: ACTIVE, INACTIVE
         :returns: Newly created API key object
         :rtype: ApiKey
         """
         api = self.iam.DeveloperApi()
-        apikey = ApiKey.create_request_map(kwargs)
+        apikey = ApiKey._create_request_map(kwargs)
         body = iam.ApiKeyUpdateReq(**apikey)
         return ApiKey(api.update_api_key(api_key_id, body))
 
@@ -166,7 +168,7 @@ class AccountManagementAPI(BaseAPI):
         :rtype: User
         """
         api = self.iam.AccountAdminApi()
-        user = User.create_request_map(kwargs)
+        user = User._create_request_map(kwargs)
         body = iam.UserUpdateReq(**user)
         return User(api.update_user(user_id, body))
 
@@ -211,7 +213,7 @@ class AccountManagementAPI(BaseAPI):
         """
         api = self.iam.AccountAdminApi()
         kwargs.update({'username': username, 'email': email})
-        user = User.create_request_map(kwargs)
+        user = User._create_request_map(kwargs)
         body = iam.UserInfoReq(**user)
         return User(api.create_user(body))
 
@@ -246,7 +248,7 @@ class AccountManagementAPI(BaseAPI):
         :rtype: Account
         """
         api = self.iam.AccountAdminApi()
-        account = Account.create_request_map(kwargs)
+        account = Account._create_request_map(kwargs)
         body = AccountUpdateReq(**account)
         return Account(api.update_my_account(body))
 
@@ -552,6 +554,14 @@ class User(BaseObject):
                                 password = "hunter2")
     """
 
+    def __init__(self, dictionary):
+        """Initialize object."""
+        super(User, self).__init__(dictionary)
+        loginHistory = []
+        for login in self.login_history:
+            loginHistory.append(LoginHistory(login))
+        self._login_history = loginHistory
+
     @staticmethod
     def _get_attributes_map():
         return {
@@ -571,7 +581,9 @@ class User(BaseObject):
             "created_at": "created_at",
             "creation_time": "creation_time",
             "password_changed_time": "password_changed_time",
-            "last_login_time": "last_login_time"
+            "last_login_time": "last_login_time",
+            "two_factor_authentication": "is_totp_enabled",
+            "login_history": "login_history"
         }
 
     @property
@@ -713,6 +725,23 @@ class User(BaseObject):
         :rtype: int
         """
         return self._last_login_time
+
+    @property
+    def two_factor_authentication(self):
+        """Whether two factor authentication has been enabled for this user (readonly).
+
+        :rtype: bool
+        """
+        return self._two_factor_authentication
+
+    @property
+    def login_history(self):
+        """History of logins for this user (readonly).
+
+        :returns: List of LoginHistory.
+        :rtype: LoginHistory
+        """
+        return self._login_history
 
 
 class Group(BaseObject):
@@ -904,3 +933,48 @@ class ApiKey(BaseObject):
         :rtype: int
         """
         return self._last_login_time
+
+
+class LoginHistory(BaseObject):
+    """Login History."""
+
+    @staticmethod
+    def _get_attributes_map():
+        return {
+            "date": "date",
+            "user_agent": "user_agent",
+            "ip_address": "ip_address",
+            "success": "success"
+        }
+
+    @property
+    def date(self):
+        """Date of login.
+
+        :rtype: datetime
+        """
+        return self._date
+
+    @property
+    def user_agent(self):
+        """User agent used for login.
+
+        :rtype: str
+        """
+        return self._user_agent
+
+    @property
+    def ip_address(self):
+        """IP Address login from.
+
+        :rtype: str
+        """
+        return self._ip_address
+
+    @property
+    def success(self):
+        """Whether login was successful.
+
+        :rtype: bool
+        """
+        return self._success
