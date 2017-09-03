@@ -70,8 +70,8 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'mbed-cloud-sdk-python'
-copyright = u'2017, ARM&reg; mbed&trade;'
-author = u'ARM&reg; mbed&trade;'
+copyright = u'2017, Arm&reg; Mbed&trade;'
+author = u'Arm&reg; Mbed&trade;'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -291,7 +291,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
     (master_doc, 'mbed-cloud-sdk-python.tex', u'mbed-cloud-sdk-python Documentation',
-     u'ARM\\&reg; mbed\\&trade;', 'manual'),
+     u'Arm\\&reg; Mbed\\&trade;', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of

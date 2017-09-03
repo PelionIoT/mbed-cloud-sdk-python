@@ -1,7 +1,7 @@
-mbed Cloud SDK
+Mbed Cloud SDK
 ==============
 
-The mbed Cloud SDK gives developers access to the full mbed suite using Python.
+The Mbed Cloud SDK gives developers access to the full Mbed suite using Python.
 
 Components
 ----------

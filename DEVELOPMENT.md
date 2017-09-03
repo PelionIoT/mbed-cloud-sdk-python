@@ -1,4 +1,4 @@
-# mbed Cloud SDK for Python
+# Mbed Cloud SDK for Python
 
 ## Prerequisites
 
@@ -22,5 +22,5 @@ After cloning this repository, run:
 
 ## License
 
-mbed Cloud SDK for Python is free-to-use and licensed under the Apache License
+Mbed Cloud SDK for Python is free-to-use and licensed under the Apache License
 2.0. See LICENSE file for more information.
