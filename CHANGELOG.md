@@ -12,7 +12,7 @@ $ pip install ARMmbed/mbed-cloud-sdk-python@1.2.0-alpha
 
 ### Changes
 
-- Initial early access release tracking mbed Cloud 1.2 APIs
+- Initial early access release tracking Mbed Cloud 1.2 APIs
 - APIs supported:
   - Account Management
   - Certificates

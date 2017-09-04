@@ -1,6 +1,6 @@
-# mbed Cloud SDK for Python
+# Mbed Cloud SDK for Python
 
-The `mbed-cloud-sdk` gives developers access to the full mbed suite using Python.
+The `mbed-cloud-sdk` gives developers access to the full Mbed suite using Python.
 
 ## Prerequisites
 
@@ -14,7 +14,7 @@ Python 2.7.10+ / Python 3.4.3+
 
 These instructions can also be found in the [official documentation](https://s3-us-west-2.amazonaws.com/mbed-cloud-sdk-python/index.html#quickstart):
 
-1. Create API key in the [mbed Cloud Portal](https://portal.mbedcloud.com/).
+1. Create API key in the [Mbed Cloud Portal](https://portal.mbedcloud.com/).
 
 2. Create configuration file in `$HOME` or project directory (`.mbed_cloud_config.json`):
 
@@ -51,5 +51,5 @@ See the full documentation and API reference at [https://cloud.mbed.com/docs/v1.
 
 ## License
 
-mbed Cloud SDK for Python is free-to-use and licensed under the Apache License
+Mbed Cloud SDK for Python is free-to-use and licensed under the Apache License
 2.0. See LICENSE file for more information.

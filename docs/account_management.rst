@@ -53,3 +53,8 @@ Reference
   :members:
   :inherited-members:
   :exclude-members: to_str, to_dict, object, etag
+
+.. autoclass:: mbed_cloud.account_management.LoginHistory
+  :members:
+  :inherited-members:
+  :exclude-members: to_str, to_dict, object, etag

@@ -1,15 +1,18 @@
 # ---------------------------------------------------------------------------
-#   The confidential and proprietary information contained in this file may
-#   only be used by a person authorised under and to the extent permitted
-#   by a subsisting licensing agreement from ARM Limited or its affiliates.
+# Mbed Cloud Python SDK
+# (C) COPYRIGHT 2017 Arm Limited
 #
-#          (C) COPYRIGHT 2017 ARM Limited or its affiliates.
-#              ALL RIGHTS RESERVED
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
 #
-#   This entire notice must be reproduced on all copies of this file
-#   and copies of this file may only be made by a person if such person is
-#   permitted to do so under the terms of a subsisting license agreement
-#   from ARM Limited or its affiliates.
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 # --------------------------------------------------------------------------
 """Initialise the mbed_cloud config and BaseAPI."""
 from __future__ import print_function
@@ -198,7 +201,7 @@ class BaseObject(object):
         pass
 
     @classmethod
-    def create_request_map(cls, input_map):
+    def _create_request_map(cls, input_map):
         """Create request map."""
         request_map = {}
         attributes_map = cls._get_attributes_map()

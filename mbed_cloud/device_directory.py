@@ -1,15 +1,18 @@
 # ---------------------------------------------------------------------------
-#   The confidential and proprietary information contained in this file may
-#   only be used by a person authorised under and to the extent permitted
-#   by a subsisting licensing agreement from ARM Limited or its affiliates.
+# Mbed Cloud Python SDK
+# (C) COPYRIGHT 2017 Arm Limited
 #
-#          (C) COPYRIGHT 2017 ARM Limited or its affiliates.
-#              ALL RIGHTS RESERVED
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
 #
-#   This entire notice must be reproduced on all copies of this file
-#   and copies of this file may only be made by a person if such person is
-#   permitted to do so under the terms of a subsisting license agreement
-#   from ARM Limited or its affiliates.
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 # --------------------------------------------------------------------------
 """Public API for Device API."""
 from __future__ import absolute_import
@@ -110,7 +113,7 @@ class DeviceDirectoryAPI(BaseAPI):
         :rtype: Device
         """
         api = self.device_directory.DefaultApi()
-        device = Device.create_request_map(kwargs)
+        device = Device._create_request_map(kwargs)
         body = self.device_directory.DeviceDataPostRequest(**device)
         return Device(api.device_update(device_id, body))
 
@@ -159,7 +162,7 @@ class DeviceDirectoryAPI(BaseAPI):
         :rtype: Device
         """
         api = self.device_directory.DefaultApi()
-        device = Device.create_request_map(kwargs)
+        device = Device._create_request_map(kwargs)
         device = DeviceData(**device)
         return Device(api.device_create(device))
 
@@ -218,7 +221,7 @@ class DeviceDirectoryAPI(BaseAPI):
 
         # Ensure we have the correct types and get the new query object
         query = self._encode_query(filter)
-        query_map = Query.create_request_map(kwargs)
+        query_map = Query._create_request_map(kwargs)
         # Create the query object
         f = self.device_directory.DeviceQuery(name=name, query=query, **query_map)
 
@@ -254,7 +257,7 @@ class DeviceDirectoryAPI(BaseAPI):
         else:
             query = filter
 
-        query_map = Query.create_request_map(kwargs)
+        query_map = Query._create_request_map(kwargs)
         body = self.device_directory.DeviceQueryPatchRequest(
             name=name,
             query=query,
