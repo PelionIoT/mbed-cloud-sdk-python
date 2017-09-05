@@ -75,9 +75,6 @@ class ConnectAPI(BaseAPI):
         self._notifications_thread.daemon = True
 
         self.statistics = self._init_api(statistics)
-        # This API is a bit weird, so create the "authorization" string
-        authorization = self.statistics.configuration.api_key['Authorization']
-        self._auth = "Bearer %s" % (authorization,)
 
     def start_notifications(self):
         """Start the notifications thread.
@@ -643,7 +640,6 @@ class ConnectAPI(BaseAPI):
         include = Metric._map_includes(include)
         kwargs.update({"include": include})
         kwargs.update({"interval": interval})
-        kwargs.update({"authorization": self._auth})
         return PaginatedResponse(api.v3_metrics_get, lwrap_type=Metric, **kwargs)
 
     def _subscription_handler(self, queue, device_id, path, callback_fn):
