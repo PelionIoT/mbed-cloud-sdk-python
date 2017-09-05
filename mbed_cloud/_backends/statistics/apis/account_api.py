@@ -40,7 +40,7 @@ class AccountApi(object):
                 config.api_client = ApiClient()
             self.api_client = config.api_client
 
-    def v3_metrics_get(self, include, interval, authorization, **kwargs):
+    def v3_metrics_get(self, include, interval, **kwargs):
         """
         Provides account-specific statistics for other cloud services.
         This REST API is used to get account-specific statistics.
@@ -50,13 +50,12 @@ class AccountApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.v3_metrics_get(include, interval, authorization, callback=callback_function)
+        >>> thread = api.v3_metrics_get(include, interval, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str include: A comma-separated list of requested metrics and total_count (if included, the response will contain total_count to specify the total number of records available). Supported values are:  - `transactions` - `full_registrations` - `registration_updates` - `deleted_registrations` - `expired_registrations` - `bootstraps_successful` - `bootstraps_failed` - `bootstraps_pending` - `handshakes_successful` - `device_server_rest_api_success` - `device_server_rest_api_error` - `total_count`  (required)
         :param str interval: Group the data by this interval in minutes, hours, days or weeks. Sample values: 5m, 2h, 3d, 4w. The maximum interval cannot exceed one year (365 days). The allowed ranges are 5m-525600m/1h-8760h/1d-365d/1w-53w.  (required)
-        :param str authorization: Bearer {Access Token}. A valid API Gateway access token. The token is validated and the associated account identifier is used to retrieve account-specific statistics.  (required)
         :param str start: UTC time/year/date in RFC3339 format. Fetch the data with timestamp greater than or equal to this value. Sample values: 20170207T092056990Z / 2017-02-07T09:20:56.990Z / 2017 / 20170207. The maximum time between start and end parameters cannot exceed more than one year (365 days). The parameter is not mandatory, if the period is specified. 
         :param str end: UTC time/year/date in RFC3339 format. Fetch the data with timestamp less than this value.Sample values: 20170207T092056990Z / 2017-02-07T09:20:56.990Z / 2017 / 20170207. The maximum time between start and end parameters cannot exceed more than one year ( 365 days ). The parameter is not mandatory, if the period is specified. 
         :param str period: Period. Fetch the data for the period in minutes, hours, days or weeks. Sample values: 5m, 2h, 3d, 4w. The parameter is not mandatory, if the start and end time are specified. The maximum period cannot exceed one year (365 days). The allowed ranges are 5m-525600m/1h-8760h/1d-365d/1w-53w. 
@@ -69,12 +68,12 @@ class AccountApi(object):
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.v3_metrics_get_with_http_info(include, interval, authorization, **kwargs)
+            return self.v3_metrics_get_with_http_info(include, interval, **kwargs)
         else:
-            (data) = self.v3_metrics_get_with_http_info(include, interval, authorization, **kwargs)
+            (data) = self.v3_metrics_get_with_http_info(include, interval, **kwargs)
             return data
 
-    def v3_metrics_get_with_http_info(self, include, interval, authorization, **kwargs):
+    def v3_metrics_get_with_http_info(self, include, interval, **kwargs):
         """
         Provides account-specific statistics for other cloud services.
         This REST API is used to get account-specific statistics.
@@ -84,13 +83,12 @@ class AccountApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.v3_metrics_get_with_http_info(include, interval, authorization, callback=callback_function)
+        >>> thread = api.v3_metrics_get_with_http_info(include, interval, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str include: A comma-separated list of requested metrics and total_count (if included, the response will contain total_count to specify the total number of records available). Supported values are:  - `transactions` - `full_registrations` - `registration_updates` - `deleted_registrations` - `expired_registrations` - `bootstraps_successful` - `bootstraps_failed` - `bootstraps_pending` - `handshakes_successful` - `device_server_rest_api_success` - `device_server_rest_api_error` - `total_count`  (required)
         :param str interval: Group the data by this interval in minutes, hours, days or weeks. Sample values: 5m, 2h, 3d, 4w. The maximum interval cannot exceed one year (365 days). The allowed ranges are 5m-525600m/1h-8760h/1d-365d/1w-53w.  (required)
-        :param str authorization: Bearer {Access Token}. A valid API Gateway access token. The token is validated and the associated account identifier is used to retrieve account-specific statistics.  (required)
         :param str start: UTC time/year/date in RFC3339 format. Fetch the data with timestamp greater than or equal to this value. Sample values: 20170207T092056990Z / 2017-02-07T09:20:56.990Z / 2017 / 20170207. The maximum time between start and end parameters cannot exceed more than one year (365 days). The parameter is not mandatory, if the period is specified. 
         :param str end: UTC time/year/date in RFC3339 format. Fetch the data with timestamp less than this value.Sample values: 20170207T092056990Z / 2017-02-07T09:20:56.990Z / 2017 / 20170207. The maximum time between start and end parameters cannot exceed more than one year ( 365 days ). The parameter is not mandatory, if the period is specified. 
         :param str period: Period. Fetch the data for the period in minutes, hours, days or weeks. Sample values: 5m, 2h, 3d, 4w. The parameter is not mandatory, if the start and end time are specified. The maximum period cannot exceed one year (365 days). The allowed ranges are 5m-525600m/1h-8760h/1d-365d/1w-53w. 
@@ -102,7 +100,7 @@ class AccountApi(object):
                  returns the request thread.
         """
 
-        all_params = ['include', 'interval', 'authorization', 'start', 'end', 'period', 'limit', 'after', 'order']
+        all_params = ['include', 'interval', 'start', 'end', 'period', 'limit', 'after', 'order']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -123,9 +121,6 @@ class AccountApi(object):
         # verify the required parameter 'interval' is set
         if ('interval' not in params) or (params['interval'] is None):
             raise ValueError("Missing the required parameter `interval` when calling `v3_metrics_get`")
-        # verify the required parameter 'authorization' is set
-        if ('authorization' not in params) or (params['authorization'] is None):
-            raise ValueError("Missing the required parameter `authorization` when calling `v3_metrics_get`")
 
 
         collection_formats = {}
@@ -152,8 +147,6 @@ class AccountApi(object):
             query_params['order'] = params['order']
 
         header_params = {}
-        if 'authorization' in params:
-            header_params['Authorization'] = params['authorization']
 
         form_params = []
         local_var_files = {}
