@@ -34,7 +34,7 @@ class UpdateCampaignPostRequest(object):
             'description': 'str',
             'root_manifest_id': 'str',
             'object': 'str',
-            'when': 'str',
+            'when': 'datetime',
             'state': 'str',
             'device_filter': 'str',
             'name': 'str'
@@ -134,7 +134,7 @@ class UpdateCampaignPostRequest(object):
         The scheduled start time for the update campaign
 
         :return: The when of this UpdateCampaignPostRequest.
-        :rtype: str
+        :rtype: datetime
         """
         return self._when
 
@@ -145,7 +145,7 @@ class UpdateCampaignPostRequest(object):
         The scheduled start time for the update campaign
 
         :param when: The when of this UpdateCampaignPostRequest.
-        :type: str
+        :type: datetime
         """
 
         self._when = when

@@ -33,7 +33,7 @@ Name | Type | Description | Notes
 **device_key** | **str** | Fingerprint of the device certificate. | [optional] 
 **created_at** | **datetime** | Timestamp of when the device was created in the device directory. | [optional] 
 **manifest** | **str** | DEPRECATED The URL for the current device manifest. | [optional] 
-**custom_attributes** | **object** | Up to 5 custom JSON attributes | [optional] 
+**custom_attributes** | **dict(str, str)** | Custom attributes(key/value). Up to 5 attributes | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 **description** | **str** | An optional description of the campaign | 
 **root_manifest_id** | **str** |  | 
 **object** | **str** | The API resource entity | 
-**when** | **str** | The scheduled start time for the update campaign | 
+**when** | **datetime** | The scheduled start time for the update campaign | 
 **state** | **str** | The state of the campaign | 
 **device_filter** | **str** | The filter for the devices the campaign will target | 
 **name** | **str** | The campaign&#39;s name | 

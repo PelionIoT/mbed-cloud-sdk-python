@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **root_manifest_id** | **str** |  | [optional] 
 **created_at** | **datetime** | The time the update campaign was created | [optional] 
 **object** | **str** | The API resource entity | [optional] 
-**when** | **str** | The scheduled start time for the update campaign | [optional] 
+**when** | **datetime** | The scheduled start time for the update campaign | [optional] 
 **state** | **str** | The state of the campaign | [optional] 
 **finished** | **datetime** | The campaign finish timestamp | [optional] 
 **etag** | **str** | The entity instance signature | [optional] 

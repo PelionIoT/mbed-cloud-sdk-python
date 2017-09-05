@@ -34,7 +34,7 @@ class UpdateCampaignPutRequest(object):
             'description': 'str',
             'root_manifest_id': 'str',
             'object': 'str',
-            'when': 'str',
+            'when': 'datetime',
             'state': 'str',
             'device_filter': 'str',
             'name': 'str'
@@ -140,7 +140,7 @@ class UpdateCampaignPutRequest(object):
         The scheduled start time for the update campaign
 
         :return: The when of this UpdateCampaignPutRequest.
-        :rtype: str
+        :rtype: datetime
         """
         return self._when
 
@@ -151,7 +151,7 @@ class UpdateCampaignPutRequest(object):
         The scheduled start time for the update campaign
 
         :param when: The when of this UpdateCampaignPutRequest.
-        :type: str
+        :type: datetime
         """
         if when is None:
             raise ValueError("Invalid value for `when`, must not be `None`")

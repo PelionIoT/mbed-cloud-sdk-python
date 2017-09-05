@@ -36,7 +36,7 @@ class DeviceDataPatchRequest(object):
             'auto_update': 'bool',
             'host_gateway': 'str',
             'object': 'str',
-            'custom_attributes': 'object',
+            'custom_attributes': 'dict(str, str)',
             'device_key': 'str',
             'endpoint_type': 'str',
             'ca_id': 'str',
@@ -188,10 +188,10 @@ class DeviceDataPatchRequest(object):
     def custom_attributes(self):
         """
         Gets the custom_attributes of this DeviceDataPatchRequest.
-        Up to 5 custom JSON attributes
+        Custom attributes(key/value). Up to 5 attributes
 
         :return: The custom_attributes of this DeviceDataPatchRequest.
-        :rtype: object
+        :rtype: dict(str, str)
         """
         return self._custom_attributes
 
@@ -199,10 +199,10 @@ class DeviceDataPatchRequest(object):
     def custom_attributes(self, custom_attributes):
         """
         Sets the custom_attributes of this DeviceDataPatchRequest.
-        Up to 5 custom JSON attributes
+        Custom attributes(key/value). Up to 5 attributes
 
         :param custom_attributes: The custom_attributes of this DeviceDataPatchRequest.
-        :type: object
+        :type: dict(str, str)
         """
 
         self._custom_attributes = custom_attributes
