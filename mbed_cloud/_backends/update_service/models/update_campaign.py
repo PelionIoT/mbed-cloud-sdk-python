@@ -35,7 +35,7 @@ class UpdateCampaign(object):
             'root_manifest_id': 'str',
             'created_at': 'datetime',
             'object': 'str',
-            'when': 'str',
+            'when': 'datetime',
             'state': 'str',
             'finished': 'datetime',
             'etag': 'str',
@@ -173,7 +173,7 @@ class UpdateCampaign(object):
         The scheduled start time for the update campaign
 
         :return: The when of this UpdateCampaign.
-        :rtype: str
+        :rtype: datetime
         """
         return self._when
 
@@ -184,7 +184,7 @@ class UpdateCampaign(object):
         The scheduled start time for the update campaign
 
         :param when: The when of this UpdateCampaign.
-        :type: str
+        :type: datetime
         """
 
         self._when = when

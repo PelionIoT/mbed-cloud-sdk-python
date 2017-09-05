@@ -40,7 +40,7 @@ class DeviceDataPostRequest(object):
             'auto_update': 'bool',
             'host_gateway': 'str',
             'device_execution_mode': 'int',
-            'custom_attributes': 'object',
+            'custom_attributes': 'dict(str, str)',
             'state': 'str',
             'serial_number': 'str',
             'firmware_checksum': 'str',
@@ -333,10 +333,10 @@ class DeviceDataPostRequest(object):
     def custom_attributes(self):
         """
         Gets the custom_attributes of this DeviceDataPostRequest.
-        Up to 5 custom JSON attributes
+        Custom attributes(key/value). Up to 5 attributes
 
         :return: The custom_attributes of this DeviceDataPostRequest.
-        :rtype: object
+        :rtype: dict(str, str)
         """
         return self._custom_attributes
 
@@ -344,10 +344,10 @@ class DeviceDataPostRequest(object):
     def custom_attributes(self, custom_attributes):
         """
         Sets the custom_attributes of this DeviceDataPostRequest.
-        Up to 5 custom JSON attributes
+        Custom attributes(key/value). Up to 5 attributes
 
         :param custom_attributes: The custom_attributes of this DeviceDataPostRequest.
-        :type: object
+        :type: dict(str, str)
         """
 
         self._custom_attributes = custom_attributes

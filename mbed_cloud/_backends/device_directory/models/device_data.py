@@ -61,7 +61,7 @@ class DeviceData(object):
             'device_key': 'str',
             'created_at': 'datetime',
             'manifest': 'str',
-            'custom_attributes': 'object'
+            'custom_attributes': 'dict(str, str)'
         }
 
         self.attribute_map = {
@@ -850,10 +850,10 @@ class DeviceData(object):
     def custom_attributes(self):
         """
         Gets the custom_attributes of this DeviceData.
-        Up to 5 custom JSON attributes
+        Custom attributes(key/value). Up to 5 attributes
 
         :return: The custom_attributes of this DeviceData.
-        :rtype: object
+        :rtype: dict(str, str)
         """
         return self._custom_attributes
 
@@ -861,10 +861,10 @@ class DeviceData(object):
     def custom_attributes(self, custom_attributes):
         """
         Sets the custom_attributes of this DeviceData.
-        Up to 5 custom JSON attributes
+        Custom attributes(key/value). Up to 5 attributes
 
         :param custom_attributes: The custom_attributes of this DeviceData.
-        :type: object
+        :type: dict(str, str)
         """
 
         self._custom_attributes = custom_attributes
