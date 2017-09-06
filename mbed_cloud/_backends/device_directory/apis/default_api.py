@@ -139,7 +139,7 @@ class DefaultApi(object):
 
     def device_destroy(self, id, **kwargs):
         """
-        Delete device
+        Delete device. Only available for devices with a developer certificate. Attempts to delete a device with a production certicate will return a 400 response.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -164,7 +164,7 @@ class DefaultApi(object):
 
     def device_destroy_with_http_info(self, id, **kwargs):
         """
-        Delete device
+        Delete device. Only available for devices with a developer certificate. Attempts to delete a device with a production certicate will return a 400 response.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
