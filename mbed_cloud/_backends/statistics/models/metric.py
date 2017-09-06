@@ -36,7 +36,7 @@ class Metric(object):
             'full_registrations': 'int',
             'bootstraps_failed': 'int',
             'transactions': 'int',
-            'timestamp': 'str',
+            'timestamp': 'datetime',
             'device_server_rest_api_success': 'int',
             'bootstraps_pending': 'int',
             'expired_registrations': 'int',
@@ -198,7 +198,7 @@ class Metric(object):
         UTC time in RFC3339 format. The timestamp is the starting point of the interval for which the data is aggregated. Each interval includes data for the time greater than or equal to the timestamp and less than the next interval's starting point.
 
         :return: The timestamp of this Metric.
-        :rtype: str
+        :rtype: datetime
         """
         return self._timestamp
 
@@ -209,7 +209,7 @@ class Metric(object):
         UTC time in RFC3339 format. The timestamp is the starting point of the interval for which the data is aggregated. Each interval includes data for the time greater than or equal to the timestamp and less than the next interval's starting point.
 
         :param timestamp: The timestamp of this Metric.
-        :type: str
+        :type: datetime
         """
 
         self._timestamp = timestamp

@@ -32,7 +32,7 @@ class Webhook(object):
         """
         self.swagger_types = {
             'url': 'str',
-            'headers': 'object'
+            'headers': 'dict(str, str)'
         }
 
         self.attribute_map = {
@@ -75,7 +75,7 @@ class Webhook(object):
         Headers (key/value) that are sent with the notification. Optional.
 
         :return: The headers of this Webhook.
-        :rtype: object
+        :rtype: dict(str, str)
         """
         return self._headers
 
@@ -86,7 +86,7 @@ class Webhook(object):
         Headers (key/value) that are sent with the notification. Optional.
 
         :param headers: The headers of this Webhook.
-        :type: object
+        :type: dict(str, str)
         """
 
         self._headers = headers

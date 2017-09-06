@@ -23,6 +23,5 @@ from .notification_message import NotificationMessage
 from .presubscription import Presubscription
 from .presubscription_array import PresubscriptionArray
 from .resource import Resource
-from .resource_path import ResourcePath
 from .resources_data import ResourcesData
 from .webhook import Webhook
