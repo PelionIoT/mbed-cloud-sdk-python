@@ -3,7 +3,7 @@
 """
     Device Directory API
 
-    This is the API Documentation for the mbed device directory update service.
+    This is the API Documentation for the Mbed device directory update service.
 
     OpenAPI spec version: 3
     
@@ -119,7 +119,7 @@ class DeviceDataPatchRequest(object):
     def auto_update(self):
         """
         Gets the auto_update of this DeviceDataPatchRequest.
-        DEPRECATED Mark this device for auto firmware update.
+        DEPRECATED: Mark this device for automatic firmware update.
 
         :return: The auto_update of this DeviceDataPatchRequest.
         :rtype: bool
@@ -130,7 +130,7 @@ class DeviceDataPatchRequest(object):
     def auto_update(self, auto_update):
         """
         Sets the auto_update of this DeviceDataPatchRequest.
-        DEPRECATED Mark this device for auto firmware update.
+        DEPRECATED: Mark this device for automatic firmware update.
 
         :param auto_update: The auto_update of this DeviceDataPatchRequest.
         :type: bool
@@ -142,7 +142,7 @@ class DeviceDataPatchRequest(object):
     def host_gateway(self):
         """
         Gets the host_gateway of this DeviceDataPatchRequest.
-        The endpoint_name of the host gateway, if appropriate.
+        The `endpoint_name` of the host gateway, if appropriate.
 
         :return: The host_gateway of this DeviceDataPatchRequest.
         :rtype: str
@@ -153,7 +153,7 @@ class DeviceDataPatchRequest(object):
     def host_gateway(self, host_gateway):
         """
         Sets the host_gateway of this DeviceDataPatchRequest.
-        The endpoint_name of the host gateway, if appropriate.
+        The `endpoint_name` of the host gateway, if appropriate.
 
         :param host_gateway: The host_gateway of this DeviceDataPatchRequest.
         :type: str
@@ -188,7 +188,7 @@ class DeviceDataPatchRequest(object):
     def custom_attributes(self):
         """
         Gets the custom_attributes of this DeviceDataPatchRequest.
-        Custom attributes(key/value). Up to 5 attributes
+        Up to five custom key-value attributes.
 
         :return: The custom_attributes of this DeviceDataPatchRequest.
         :rtype: dict(str, str)
@@ -199,7 +199,7 @@ class DeviceDataPatchRequest(object):
     def custom_attributes(self, custom_attributes):
         """
         Sets the custom_attributes of this DeviceDataPatchRequest.
-        Custom attributes(key/value). Up to 5 attributes
+        Up to five custom key-value attributes.
 
         :param custom_attributes: The custom_attributes of this DeviceDataPatchRequest.
         :type: dict(str, str)
@@ -211,7 +211,7 @@ class DeviceDataPatchRequest(object):
     def device_key(self):
         """
         Gets the device_key of this DeviceDataPatchRequest.
-        Fingerprint of the device certificate.
+        The fingerprint of the device certificate.
 
         :return: The device_key of this DeviceDataPatchRequest.
         :rtype: str
@@ -222,7 +222,7 @@ class DeviceDataPatchRequest(object):
     def device_key(self, device_key):
         """
         Sets the device_key of this DeviceDataPatchRequest.
-        Fingerprint of the device certificate.
+        The fingerprint of the device certificate.
 
         :param device_key: The device_key of this DeviceDataPatchRequest.
         :type: str
@@ -236,7 +236,7 @@ class DeviceDataPatchRequest(object):
     def endpoint_type(self):
         """
         Gets the endpoint_type of this DeviceDataPatchRequest.
-        The endpoint type of the device - e.g. if the device is a gateway.
+        The endpoint type of the device. For example, the device is a gateway.
 
         :return: The endpoint_type of this DeviceDataPatchRequest.
         :rtype: str
@@ -247,7 +247,7 @@ class DeviceDataPatchRequest(object):
     def endpoint_type(self, endpoint_type):
         """
         Sets the endpoint_type of this DeviceDataPatchRequest.
-        The endpoint type of the device - e.g. if the device is a gateway.
+        The endpoint type of the device. For example, the device is a gateway.
 
         :param endpoint_type: The endpoint_type of this DeviceDataPatchRequest.
         :type: str
@@ -261,7 +261,7 @@ class DeviceDataPatchRequest(object):
     def ca_id(self):
         """
         Gets the ca_id of this DeviceDataPatchRequest.
-        ID of the issuer of the certificate.
+        The certificate issuer's ID.
 
         :return: The ca_id of this DeviceDataPatchRequest.
         :rtype: str
@@ -272,7 +272,7 @@ class DeviceDataPatchRequest(object):
     def ca_id(self, ca_id):
         """
         Sets the ca_id of this DeviceDataPatchRequest.
-        ID of the issuer of the certificate.
+        The certificate issuer's ID.
 
         :param ca_id: The ca_id of this DeviceDataPatchRequest.
         :type: str
