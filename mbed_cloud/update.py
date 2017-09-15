@@ -17,7 +17,6 @@
 """API reference for update components in Mbed Cloud"""
 from __future__ import absolute_import
 from __future__ import unicode_literals
-from builtins import object
 import logging
 
 # Import common functions and exceptions from frontend API
@@ -364,204 +363,12 @@ class FirmwareImage(BaseObject):
         return self._updated_at
 
 
-class FirmwareManifestContents(object):
-    """Describes firmware contents"""
-
-    def __init__(self, dictionary):
-        """Initialize object."""
-        self._class_id = dictionary.get("class_id", None)
-        self._vendor_id = dictionary.get("vendor_id", None)
-        self._version = dictionary.get("manifest_version", None)
-        self._description = dictionary.get("description", None)
-        self._nonce = dictionary.get("nonce", None)
-        self._created_at = dictionary.get("timestamp", None)
-        self._apply_immediately = dictionary.get("apply_immediately", None)
-        self._device_id = dictionary.get("device_id", None)
-        self._encryption_mode = None
-        self._payload_format = None
-        self._payload_storage_identifier = None
-        self._payload_hash = None
-        self._payload_uri = None
-        self._payload_size = None
-        encryption_mode = dictionary.get("encryption_mode", None)
-        if encryption_mode and "enum" in encryption_mode:
-            self._set_encryption_mode(encryption_mode)
-        payload = dictionary.get("payload", None)
-        if payload:
-            self._set_payload(payload)
-
-    def _set_encryption_mode(self, encryption_mode):
-        mode = encryption_mode["enum"]
-        if mode == 1:
-            self._encryption_mode = "none-ecc-secp256r1-sha256"
-        if mode == 2:
-            self._encryption_mode = "aes-128-ctr-ecc-secp256r1-sha256"
-        if mode == 3:
-            self._encryption_mode = "none-none-sha256"
-
-    def _set_payload(self, payload):
-        self._payload_storage_identifier = payload.get("storage_identifier", None)
-        reference = payload.get("reference", None)
-        payload_format = payload.get("format")
-        if payload_format:
-            format_enum = payload_format.get("enum", False)
-            if format_enum:
-                if format_enum == 1:
-                    self._payload_format = "raw-binary"
-                if format_enum == 2:
-                    self._payload_format = "cbor"
-                if format_enum == 3:
-                    self._payload_format = "hex-location-length-data"
-                if format_enum == 4:
-                    self._payload_format = "elf"
-        if reference:
-            self._payload_hash = reference.get("hash", None)
-            self._payload_uri = reference.get("uri", None)
-            self._payload_size = reference.get("size", None)
-
-    @property
-    def class_id(self):
-        """Get the URL of the firmware manifest (readonly).
-
-        :rtype: str
-        """
-        return self._class_id
-
-    @property
-    def vendor_id(self):
-        """Get the URL of the firmware manifest (readonly).
-
-        :rtype: str
-        """
-        return self._vendor_id
-
-    @property
-    def version(self):
-        """The format version of the manifest (readonly).
-
-        :rtype: str
-        """
-        return self._version
-
-    @property
-    def description(self):
-        """Get the URL of the firmware manifest (readonly).
-
-        :rtype: str
-        """
-        return self._description
-
-    @property
-    def nonce(self):
-        """Get the URL of the firmware manifest (readonly).
-
-        :rtype: str
-        """
-        return self._nonce
-
-    @property
-    def created_at(self):
-        """Get the URL of the firmware manifest (readonly).
-
-        :rtype: int
-        """
-        return self._created_at
-
-    @property
-    def encryption_mode(self):
-        """Get the URL of the firmware manifest (readonly).
-
-        :rtype: str
-        """
-        return self._encryption_mode
-
-    @property
-    def apply_immediately(self):
-        """Get the URL of the firmware manifest (readonly).
-
-        :rtype: bool
-        """
-        return self._apply_immediately
-
-    @property
-    def device_id(self):
-        """Get the URL of the firmware manifest (readonly).
-
-        :rtype: str
-        """
-        return self._device_id
-
-    @property
-    def payload_format(self):
-        """Get the URL of the firmware manifest (readonly).
-
-        :rtype: str
-        """
-        return self._payload_format
-
-    @property
-    def payload_storage_identifier(self):
-        """Get the URL of the firmware manifest (readonly).
-
-        :rtype: str
-        """
-        return self._payload_storage_identifier
-
-    @property
-    def payload_hash(self):
-        """Get the URL of the firmware manifest (readonly).
-
-        :rtype: str
-        """
-        return self._payload_hash
-
-    @property
-    def payload_uri(self):
-        """Get the URL of the firmware manifest (readonly).
-
-        :rtype: str
-        """
-        return self._payload_uri
-
-    @property
-    def payload_size(self):
-        """Get the URL of the firmware manifest (readonly).
-
-        :rtype: str
-        """
-        return self._payload_size
-
-    def to_dict(self):
-        """Return the model properties as a dict"""
-        return {
-            "class_id": self.class_id,
-            "vendor_id": self.vendor_id,
-            "version": self.version,
-            "description": self.description,
-            "nonce": self.nonce,
-            "created_at": self.created_at,
-            "encryption_mode": self.encryption_mode,
-            "apply_immediately": self.apply_immediately,
-            "device_id": self.device_id,
-            "payload_format": self.payload_format,
-            "payload_storage_identifier": self.payload_storage_identifier,
-            "payload_hash": self.payload_hash,
-            "payload_uri": self.payload_uri,
-            "payload_size": self.payload_size
-        }
-
-    def __repr__(self):
-        """For print and pprint."""
-        return str(self.to_dict())
-
-
 class FirmwareManifest(BaseObject):
     """Describes firmware object."""
 
     def __init__(self, dictionary):
         """Initialize object."""
         super(FirmwareManifest, self).__init__(dictionary)
-        self._contents = FirmwareManifestContents(self.contents).to_dict()
 
     @staticmethod
     def _get_attributes_map():
@@ -573,7 +380,6 @@ class FirmwareManifest(BaseObject):
             "datafile_checksum": "datafile_checksum",
             "datafile_size": "datafile_size",
             "id": "id",
-            "contents": "manifest_contents",
             "name": "name",
             "timestamp": "timestamp",
             "updated_at": "updated_at",
@@ -635,14 +441,6 @@ class FirmwareManifest(BaseObject):
         :rtype: str
         """
         return self._id
-
-    @property
-    def contents(self):
-        """The contents of the manifest (readonly).
-
-        :rtype: FirmwareManifestContents
-        """
-        return self._contents
 
     @property
     def name(self):
