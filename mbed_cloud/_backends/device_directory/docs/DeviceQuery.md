@@ -4,7 +4,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** | The name of the query. | 
-**created_at** | **datetime** | Timestamp of when the device was created in the device directory. | 
+**created_at** | **datetime** | The timestamp of when the device was created in the device directory. | 
 **object** | **str** | The API resource entity. | 
 **updated_at** | **datetime** | The time the object was updated. | 
 **etag** | **datetime** | The entity instance signature. | 

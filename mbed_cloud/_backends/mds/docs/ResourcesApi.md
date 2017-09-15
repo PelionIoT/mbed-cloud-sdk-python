@@ -150,7 +150,7 @@ mds.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 api_instance = mds.ResourcesApi()
 device_id = 'device_id_example' # str | A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
 _resource_path = '_resource_path_example' # str | The URL of the resource.
-resource_function = 'B' # str | This value is not needed. Most of the time resources do not accept a function but they have their own functions predefined. You can use this to trigger them.  If a function is included, the body of this request is passed as a char* to the function in mbed Cloud Client.  (optional)
+resource_function = 'resource_function_example' # str | This value is not needed. Most of the time resources do not accept a function but they have their own functions predefined. You can use this to trigger them.  If a function is included, the body of this request is passed as a char* to the function in mbed Cloud Client.  (optional)
 no_resp = true # bool | **Non-confirmable requests**  All resource APIs have the parameter noResp. If you make a request with `noResp=true`, mbed Cloud Connect makes a CoAP non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code 204 No Content. If the underlying protocol does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code 409 Conflict.  (optional)
 
 try: 
@@ -209,7 +209,7 @@ mds.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 api_instance = mds.ResourcesApi()
 device_id = 'device_id_example' # str | A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
 _resource_path = '_resource_path_example' # str | Resource URL.
-resource_value = 'B' # str | The value to be set to the resource. 
+resource_value = 'resource_value_example' # str | The value to be set to the resource. 
 no_resp = true # bool | **Non-confirmable requests**  All resource APIs have the parameter noResp. If you make a request with `noResp=true`, mbed Cloud Connect makes a CoAP non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code 204 No Content. If the underlying protocol does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code 409 Conflict.  (optional)
 
 try: 

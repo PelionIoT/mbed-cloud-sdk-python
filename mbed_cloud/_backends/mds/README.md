@@ -104,7 +104,6 @@ Class | Method | HTTP request | Description
  - [Presubscription](docs/Presubscription.md)
  - [PresubscriptionArray](docs/PresubscriptionArray.md)
  - [Resource](docs/Resource.md)
- - [ResourcePath](docs/ResourcePath.md)
  - [ResourcesData](docs/ResourcesData.md)
  - [Webhook](docs/Webhook.md)
 

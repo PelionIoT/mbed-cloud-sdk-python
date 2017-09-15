@@ -3,7 +3,7 @@
 """
     Device Directory API
 
-    This is the API Documentation for the mbed device directory update service.
+    This is the API Documentation for the Mbed device directory update service.
 
     OpenAPI spec version: 3
     
@@ -134,7 +134,7 @@ class DeviceData(object):
     def bootstrap_expiration_date(self):
         """
         Gets the bootstrap_expiration_date of this DeviceData.
-        Expiration date of the certificate used to connect to bootstrap server.
+        The expiration date of the certificate used to connect to bootstrap server.
 
         :return: The bootstrap_expiration_date of this DeviceData.
         :rtype: datetime
@@ -145,7 +145,7 @@ class DeviceData(object):
     def bootstrap_expiration_date(self, bootstrap_expiration_date):
         """
         Sets the bootstrap_expiration_date of this DeviceData.
-        Expiration date of the certificate used to connect to bootstrap server.
+        The expiration date of the certificate used to connect to bootstrap server.
 
         :param bootstrap_expiration_date: The bootstrap_expiration_date of this DeviceData.
         :type: datetime
@@ -157,7 +157,7 @@ class DeviceData(object):
     def bootstrapped_timestamp(self):
         """
         Gets the bootstrapped_timestamp of this DeviceData.
-        Timestamp of when the device last went through the bootstrap process.
+        The timestamp of the device's most recent bootstrap process.
 
         :return: The bootstrapped_timestamp of this DeviceData.
         :rtype: datetime
@@ -168,7 +168,7 @@ class DeviceData(object):
     def bootstrapped_timestamp(self, bootstrapped_timestamp):
         """
         Sets the bootstrapped_timestamp of this DeviceData.
-        Timestamp of when the device last went through the bootstrap process.
+        The timestamp of the device's most recent bootstrap process.
 
         :param bootstrapped_timestamp: The bootstrapped_timestamp of this DeviceData.
         :type: datetime
@@ -180,7 +180,7 @@ class DeviceData(object):
     def connector_expiration_date(self):
         """
         Gets the connector_expiration_date of this DeviceData.
-        Expiration date of the certificate used to connect to the lwm2m server.
+        The expiration date of the certificate used to connect to LWM2M server.
 
         :return: The connector_expiration_date of this DeviceData.
         :rtype: datetime
@@ -191,7 +191,7 @@ class DeviceData(object):
     def connector_expiration_date(self, connector_expiration_date):
         """
         Sets the connector_expiration_date of this DeviceData.
-        Expiration date of the certificate used to connect to the lwm2m server.
+        The expiration date of the certificate used to connect to LWM2M server.
 
         :param connector_expiration_date: The connector_expiration_date of this DeviceData.
         :type: datetime
@@ -226,7 +226,7 @@ class DeviceData(object):
     def ca_id(self):
         """
         Gets the ca_id of this DeviceData.
-        ID of the issuer of the certificate.
+        The certificate issuer's ID.
 
         :return: The ca_id of this DeviceData.
         :rtype: str
@@ -237,7 +237,7 @@ class DeviceData(object):
     def ca_id(self, ca_id):
         """
         Sets the ca_id of this DeviceData.
-        ID of the issuer of the certificate.
+        The certificate issuer's ID.
 
         :param ca_id: The ca_id of this DeviceData.
         :type: str
@@ -251,7 +251,7 @@ class DeviceData(object):
     def device_class(self):
         """
         Gets the device_class of this DeviceData.
-        An id representing the model and hardware revision of the device.
+        An ID representing the model and hardware revision of the device.
 
         :return: The device_class of this DeviceData.
         :rtype: str
@@ -262,7 +262,7 @@ class DeviceData(object):
     def device_class(self, device_class):
         """
         Sets the device_class of this DeviceData.
-        An id representing the model and hardware revision of the device.
+        An ID representing the model and hardware revision of the device.
 
         :param device_class: The device_class of this DeviceData.
         :type: str
@@ -276,7 +276,7 @@ class DeviceData(object):
     def id(self):
         """
         Gets the id of this DeviceData.
-        The id of the device. The device id is used to manage a device across all mbed cloud apis.
+        The ID of the device. The device ID is used to manage a device across all Mbed Cloud APIs.
 
         :return: The id of this DeviceData.
         :rtype: str
@@ -287,7 +287,7 @@ class DeviceData(object):
     def id(self, id):
         """
         Sets the id of this DeviceData.
-        The id of the device. The device id is used to manage a device across all mbed cloud apis.
+        The ID of the device. The device ID is used to manage a device across all Mbed Cloud APIs.
 
         :param id: The id of this DeviceData.
         :type: str
@@ -345,7 +345,7 @@ class DeviceData(object):
     def auto_update(self):
         """
         Gets the auto_update of this DeviceData.
-        DEPRECATED Mark this device for auto firmware update.
+        DEPRECATED: Mark this device for automatic firmware update.
 
         :return: The auto_update of this DeviceData.
         :rtype: bool
@@ -356,7 +356,7 @@ class DeviceData(object):
     def auto_update(self, auto_update):
         """
         Sets the auto_update of this DeviceData.
-        DEPRECATED Mark this device for auto firmware update.
+        DEPRECATED: Mark this device for automatic firmware update.
 
         :param auto_update: The auto_update of this DeviceData.
         :type: bool
@@ -368,7 +368,7 @@ class DeviceData(object):
     def host_gateway(self):
         """
         Gets the host_gateway of this DeviceData.
-        The endpoint_name of the host gateway, if appropriate.
+        The `endpoint_name` of the host gateway, if appropriate.
 
         :return: The host_gateway of this DeviceData.
         :rtype: str
@@ -379,7 +379,7 @@ class DeviceData(object):
     def host_gateway(self, host_gateway):
         """
         Sets the host_gateway of this DeviceData.
-        The endpoint_name of the host gateway, if appropriate.
+        The `endpoint_name` of the host gateway, if appropriate.
 
         :param host_gateway: The host_gateway of this DeviceData.
         :type: str
@@ -391,7 +391,7 @@ class DeviceData(object):
     def device_execution_mode(self):
         """
         Gets the device_execution_mode of this DeviceData.
-        Defines the type of certificate used.
+        The certificate type.
 
         :return: The device_execution_mode of this DeviceData.
         :rtype: int
@@ -402,7 +402,7 @@ class DeviceData(object):
     def device_execution_mode(self, device_execution_mode):
         """
         Sets the device_execution_mode of this DeviceData.
-        Defines the type of certificate used.
+        The certificate type.
 
         :param device_execution_mode: The device_execution_mode of this DeviceData.
         :type: int
@@ -610,7 +610,7 @@ class DeviceData(object):
     def deployed_state(self):
         """
         Gets the deployed_state of this DeviceData.
-        DEPRECATED The state of the device's deployment.
+        DEPRECATED: The state of the device's deployment.
 
         :return: The deployed_state of this DeviceData.
         :rtype: str
@@ -621,7 +621,7 @@ class DeviceData(object):
     def deployed_state(self, deployed_state):
         """
         Sets the deployed_state of this DeviceData.
-        DEPRECATED The state of the device's deployment.
+        DEPRECATED: The state of the device's deployment.
 
         :param deployed_state: The deployed_state of this DeviceData.
         :type: str
@@ -662,7 +662,7 @@ class DeviceData(object):
     def endpoint_type(self):
         """
         Gets the endpoint_type of this DeviceData.
-        The endpoint type of the device - e.g. if the device is a gateway.
+        The endpoint type of the device. For example, the device is a gateway.
 
         :return: The endpoint_type of this DeviceData.
         :rtype: str
@@ -673,7 +673,7 @@ class DeviceData(object):
     def endpoint_type(self, endpoint_type):
         """
         Sets the endpoint_type of this DeviceData.
-        The endpoint type of the device - e.g. if the device is a gateway.
+        The endpoint type of the device. For example, the device is a gateway.
 
         :param endpoint_type: The endpoint_type of this DeviceData.
         :type: str
@@ -687,7 +687,7 @@ class DeviceData(object):
     def deployment(self):
         """
         Gets the deployment of this DeviceData.
-        DEPRECATED The last deployment used on the device.
+        DEPRECATED: The last deployment used on the device.
 
         :return: The deployment of this DeviceData.
         :rtype: str
@@ -698,7 +698,7 @@ class DeviceData(object):
     def deployment(self, deployment):
         """
         Sets the deployment of this DeviceData.
-        DEPRECATED The last deployment used on the device.
+        DEPRECATED: The last deployment used on the device.
 
         :param deployment: The deployment of this DeviceData.
         :type: str
@@ -779,7 +779,7 @@ class DeviceData(object):
     def device_key(self):
         """
         Gets the device_key of this DeviceData.
-        Fingerprint of the device certificate.
+        The fingerprint of the device certificate.
 
         :return: The device_key of this DeviceData.
         :rtype: str
@@ -790,7 +790,7 @@ class DeviceData(object):
     def device_key(self, device_key):
         """
         Sets the device_key of this DeviceData.
-        Fingerprint of the device certificate.
+        The fingerprint of the device certificate.
 
         :param device_key: The device_key of this DeviceData.
         :type: str
@@ -804,7 +804,7 @@ class DeviceData(object):
     def created_at(self):
         """
         Gets the created_at of this DeviceData.
-        Timestamp of when the device was created in the device directory.
+        The timestamp of when the device was created in the device directory.
 
         :return: The created_at of this DeviceData.
         :rtype: datetime
@@ -815,7 +815,7 @@ class DeviceData(object):
     def created_at(self, created_at):
         """
         Sets the created_at of this DeviceData.
-        Timestamp of when the device was created in the device directory.
+        The timestamp of when the device was created in the device directory.
 
         :param created_at: The created_at of this DeviceData.
         :type: datetime
@@ -827,7 +827,7 @@ class DeviceData(object):
     def manifest(self):
         """
         Gets the manifest of this DeviceData.
-        DEPRECATED The URL for the current device manifest.
+        DEPRECATED: The URL for the current device manifest.
 
         :return: The manifest of this DeviceData.
         :rtype: str
@@ -838,7 +838,7 @@ class DeviceData(object):
     def manifest(self, manifest):
         """
         Sets the manifest of this DeviceData.
-        DEPRECATED The URL for the current device manifest.
+        DEPRECATED: The URL for the current device manifest.
 
         :param manifest: The manifest of this DeviceData.
         :type: str
@@ -850,7 +850,7 @@ class DeviceData(object):
     def custom_attributes(self):
         """
         Gets the custom_attributes of this DeviceData.
-        Custom attributes(key/value). Up to 5 attributes
+        Up to five custom key-value attributes.
 
         :return: The custom_attributes of this DeviceData.
         :rtype: dict(str, str)
@@ -861,7 +861,7 @@ class DeviceData(object):
     def custom_attributes(self, custom_attributes):
         """
         Sets the custom_attributes of this DeviceData.
-        Custom attributes(key/value). Up to 5 attributes
+        Up to five custom key-value attributes.
 
         :param custom_attributes: The custom_attributes of this DeviceData.
         :type: dict(str, str)
