@@ -1004,14 +1004,19 @@ class Metric(BaseObject):
         return {
             "id": "id",
             "timestamp": "timestamp",
+            "handshakes": "handshakes_successful",
             "transactions": "transactions",
-            "successful_api_calls": "device_server_rest_api_success",
-            "failed_api_calls": "device_server_rest_api_error",
-            "successful_handshakes": "handshakes_successful",
-            "pending_bootstraps": "bootstraps_pending",
+            "observations": "device_observations",
+            "successful_api_calls": "connect_rest_api_success",
+            "failed_api_calls": "connect_rest_api_error",
+            "successful_proxy_requests": "device_proxy_request_success",
+            "failed_proxy_requests": "device_proxy_request_error",
+            "successful_subscription_requests": "device_subscription_request_success",
+            "failed_subscription_requests": "device_subscription_request_error",
             "successful_bootstraps": "bootstraps_successful",
             "failed_bootstraps": "bootstraps_failed",
-            "registrations": "full_registrations",
+            "pending_bootstraps": "bootstraps_pending",
+            "full_registrations": "full_registrations",
             "updated_registrations": "registration_updates",
             "expired_registrations": "expired_registrations",
             "deleted_registrations": "deleted_registrations"
@@ -1056,6 +1061,18 @@ class Metric(BaseObject):
         return self._timestamp
 
     @property
+    def handshakes(self):
+        """The number of successful TLS handshakes the account has performed.
+
+        The SSL or TLS handshake enables the SSL or TLS client and server to establish the
+        secret keys with which they communicate. A successful TLS handshake is required
+        for establishing a connection with Mbed Cloud Connect for any operaton such as registration,
+        registration update and deregistration.
+        :rtype: int
+        """
+        return self._handshakes
+
+    @property
     def transactions(self):
         """The number of transaction events from or to devices linked to the account.
 
@@ -1068,6 +1085,16 @@ class Metric(BaseObject):
         :rtype: int
         """
         return self._transactions
+
+    @property
+    def observations(self):
+        """The number of observations received by Mbed Cloud Connect from the devices
+
+        linked to the account. The observations are pushed from the device to Mbed Cloud Connect
+        when you have successfully subscribed to the device resources using Connect API endpoints.
+        :rtype: int
+        """
+        return self._observations
 
     @property
     def successful_api_calls(self):
@@ -1086,18 +1113,45 @@ class Metric(BaseObject):
         return self._failed_api_calls
 
     @property
-    def successful_handshakes(self):
-        """The number of successful TLS handshakes the account has performed.
+    def successful_proxy_requests(self):
+        """The number of successful proxy requests from Mbed Cloud Connect to devices linked
 
-        The SSL or TLS handshake enables the SSL or TLS client and server to establish
-        the secret keys with which they communicate.
-        A successful TLS handshake is required for establishing a connection with
-        Mbed Cloud Connect for any operaton such as registration, registration update
-        and deregistration.
+        to the account. The proxy requests are made from Mbed Cloud Connect to devices
+        when you try to read or write values to device resources using Connect API endpoints.
 
         :rtype: int
         """
-        return self._successful_handshakes
+        return self._successful_proxy_requests
+
+    @property
+    def failed_proxy_requests(self):
+        """The number of failed proxy requests from Mbed Cloud Connect to devices linked to
+
+        the account. The proxy requests are made from Mbed Cloud Connect to devices when you try
+        to read or write values to device resources using Connect API endpoints.
+        :rtype: int
+        """
+        return self._failed_proxy_requests
+
+    @property
+    def successful_subscription_requests(self):
+        """The number of successful subscription requests from Mbed Cloud Connect to devices
+
+        linked to the account. The subscription requests are made from Mbed Cloud Connect
+        to devices when you try to subscribe to a resource path using Connect API endpoints.
+        :rtype: int
+        """
+        return self._successful_subscription_requests
+
+    @property
+    def failed_subscription_requests(self):
+        """The number of failed subscription requests from Mbed Cloud Connect to devices linked
+
+        to the account. The subscription requests are made from Mbed Cloud Connect to devices
+        when you try to subscribe to a resource path using Connect API endpoints.
+        :rtype: int
+        """
+        return self._failed_subscription_requests
 
     @property
     def pending_bootstraps(self):
@@ -1136,7 +1190,7 @@ class Metric(BaseObject):
         return self._failed_bootstraps
 
     @property
-    def registrations(self):
+    def full_registrations(self):
         """The number of full registrations linked to the account.
 
         Full registration is the process of registering a device with the Mbed Cloud Connect
@@ -1146,7 +1200,7 @@ class Metric(BaseObject):
 
         :rtype: int
         """
-        return self._registrations
+        return self._full_registrations
 
     @property
     def updated_registrations(self):
