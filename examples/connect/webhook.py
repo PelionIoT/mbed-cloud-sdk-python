@@ -26,11 +26,11 @@ def _main():
     devices = api.list_connected_devices()
     if len(devices) == 0:
         raise Exception("No endpints registered. Aborting")
-
+    # Delete device subscriptions
+    api.delete_device_subscriptions(devices[0].id)
     # First register to webhook
-    api.update_webhook("http://testpython5.requestcatcher.com/")
+    api.update_webhook("http://python.requestcatcher.com/")
     time.sleep(2)
-
     api.add_resource_subscription(devices[0].id, BUTTON_RESOURCE)
     while True:
         print("Webhook registered. Listening to button updates for 10 seconds...")
