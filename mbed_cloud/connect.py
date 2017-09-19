@@ -917,7 +917,7 @@ class Webhook(BaseObject):
         Headers (key/value) that are sent with the notification. Optional.
 
         :return: The headers of this Webhook.
-        :rtype: object
+        :rtype: dict(str, str)
         """
         return self._headers
 
