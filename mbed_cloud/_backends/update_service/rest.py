@@ -140,7 +140,7 @@ class RESTClientObject(object):
                     url += '?' + urlencode(query_params)
                 if re.search('json', headers['Content-Type'], re.IGNORECASE):
                     request_body = None
-                    if body:
+                    if body is not None:
                         if isinstance(body, string_types):
                             request_body = body
                         else:

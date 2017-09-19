@@ -210,7 +210,7 @@ class Metric(object):
     def device_subscription_request_error(self):
         """
         Gets the device_subscription_request_error of this Metric.
-        The number of failed subscription requests from Mbed Cloud Connect to devices linked to the account. The subscription requests are made from Mbed Cloud Connect to devices when you try to subscribe to a resource path using [Connect API](/docs/v1.2/api-references/connect-api.html) endpoints.
+        **(Beta)** The number of failed subscription requests from Mbed Cloud Connect to devices linked to the account. The subscription requests are made from Mbed Cloud Connect to devices when you try to subscribe to a resource path using [Connect API](/docs/v1.2/api-references/connect-api.html) endpoints. 
 
         :return: The device_subscription_request_error of this Metric.
         :rtype: int
@@ -221,7 +221,7 @@ class Metric(object):
     def device_subscription_request_error(self, device_subscription_request_error):
         """
         Sets the device_subscription_request_error of this Metric.
-        The number of failed subscription requests from Mbed Cloud Connect to devices linked to the account. The subscription requests are made from Mbed Cloud Connect to devices when you try to subscribe to a resource path using [Connect API](/docs/v1.2/api-references/connect-api.html) endpoints.
+        **(Beta)** The number of failed subscription requests from Mbed Cloud Connect to devices linked to the account. The subscription requests are made from Mbed Cloud Connect to devices when you try to subscribe to a resource path using [Connect API](/docs/v1.2/api-references/connect-api.html) endpoints. 
 
         :param device_subscription_request_error: The device_subscription_request_error of this Metric.
         :type: int
@@ -256,7 +256,7 @@ class Metric(object):
     def device_proxy_request_success(self):
         """
         Gets the device_proxy_request_success of this Metric.
-        The number of successful proxy requests from Mbed Cloud Connect to devices linked to the account. The proxy requests are made from Mbed Cloud Connect to devices when you try to read or write values to device resources using [Connect API](/docs/v1.2/api-references/connect-api.html) endpoints.
+        **(Beta)** The number of successful proxy requests from Mbed Cloud Connect to devices linked to the account. The proxy requests are made from Mbed Cloud Connect to devices when you try to read or write values to device resources using [Connect API](/docs/v1.2/api-references/connect-api.html) endpoints. 
 
         :return: The device_proxy_request_success of this Metric.
         :rtype: int
@@ -267,7 +267,7 @@ class Metric(object):
     def device_proxy_request_success(self, device_proxy_request_success):
         """
         Sets the device_proxy_request_success of this Metric.
-        The number of successful proxy requests from Mbed Cloud Connect to devices linked to the account. The proxy requests are made from Mbed Cloud Connect to devices when you try to read or write values to device resources using [Connect API](/docs/v1.2/api-references/connect-api.html) endpoints.
+        **(Beta)** The number of successful proxy requests from Mbed Cloud Connect to devices linked to the account. The proxy requests are made from Mbed Cloud Connect to devices when you try to read or write values to device resources using [Connect API](/docs/v1.2/api-references/connect-api.html) endpoints. 
 
         :param device_proxy_request_success: The device_proxy_request_success of this Metric.
         :type: int
@@ -325,7 +325,7 @@ class Metric(object):
     def device_subscription_request_success(self):
         """
         Gets the device_subscription_request_success of this Metric.
-        The number of successful subscription requests from Mbed Cloud Connect to devices linked to the account. The subscription requests are made from Mbed Cloud Connect to devices when you try to subscribe to a resource path using [Connect API](/docs/v1.2/api-references/connect-api.html) endpoints.
+        **(Beta)** The number of successful subscription requests from Mbed Cloud Connect to devices linked to the account. The subscription requests are made from Mbed Cloud Connect to devices when you try to subscribe to a resource path using [Connect API](/docs/v1.2/api-references/connect-api.html) endpoints. 
 
         :return: The device_subscription_request_success of this Metric.
         :rtype: int
@@ -336,7 +336,7 @@ class Metric(object):
     def device_subscription_request_success(self, device_subscription_request_success):
         """
         Sets the device_subscription_request_success of this Metric.
-        The number of successful subscription requests from Mbed Cloud Connect to devices linked to the account. The subscription requests are made from Mbed Cloud Connect to devices when you try to subscribe to a resource path using [Connect API](/docs/v1.2/api-references/connect-api.html) endpoints.
+        **(Beta)** The number of successful subscription requests from Mbed Cloud Connect to devices linked to the account. The subscription requests are made from Mbed Cloud Connect to devices when you try to subscribe to a resource path using [Connect API](/docs/v1.2/api-references/connect-api.html) endpoints. 
 
         :param device_subscription_request_success: The device_subscription_request_success of this Metric.
         :type: int
@@ -394,7 +394,7 @@ class Metric(object):
     def device_observations(self):
         """
         Gets the device_observations of this Metric.
-        The number of observations received by Mbed Cloud Connect from the devices linked to the account. The observations are pushed from the device to Mbed Cloud Connect when you have successfully subscribed to the device resources using [Connect API](/docs/v1.2/api-references/connect-api.html) endpoints.
+        **(Beta)** The number of observations received by Mbed Cloud Connect from the devices linked to the account. The observations are pushed from the device to Mbed Cloud Connect when you have successfully subscribed to the device resources using [Connect API](/docs/v1.2/api-references/connect-api.html) endpoints. 
 
         :return: The device_observations of this Metric.
         :rtype: int
@@ -405,7 +405,7 @@ class Metric(object):
     def device_observations(self, device_observations):
         """
         Sets the device_observations of this Metric.
-        The number of observations received by Mbed Cloud Connect from the devices linked to the account. The observations are pushed from the device to Mbed Cloud Connect when you have successfully subscribed to the device resources using [Connect API](/docs/v1.2/api-references/connect-api.html) endpoints.
+        **(Beta)** The number of observations received by Mbed Cloud Connect from the devices linked to the account. The observations are pushed from the device to Mbed Cloud Connect when you have successfully subscribed to the device resources using [Connect API](/docs/v1.2/api-references/connect-api.html) endpoints. 
 
         :param device_observations: The device_observations of this Metric.
         :type: int
@@ -417,7 +417,7 @@ class Metric(object):
     def device_proxy_request_error(self):
         """
         Gets the device_proxy_request_error of this Metric.
-        The number of failed proxy requests from Mbed Cloud Connect to devices linked to the account. The proxy requests are made from Mbed Cloud Connect to devices when you try to read or write values to device resources using [Connect API](/docs/v1.2/api-references/connect-api.html) endpoints.
+        **(Beta)** The number of failed proxy requests from Mbed Cloud Connect to devices linked to the account. The proxy requests are made from Mbed Cloud Connect to devices when you try to read or write values to device resources using [Connect API](/docs/v1.2/api-references/connect-api.html) endpoints. 
 
         :return: The device_proxy_request_error of this Metric.
         :rtype: int
@@ -428,7 +428,7 @@ class Metric(object):
     def device_proxy_request_error(self, device_proxy_request_error):
         """
         Sets the device_proxy_request_error of this Metric.
-        The number of failed proxy requests from Mbed Cloud Connect to devices linked to the account. The proxy requests are made from Mbed Cloud Connect to devices when you try to read or write values to device resources using [Connect API](/docs/v1.2/api-references/connect-api.html) endpoints.
+        **(Beta)** The number of failed proxy requests from Mbed Cloud Connect to devices linked to the account. The proxy requests are made from Mbed Cloud Connect to devices when you try to read or write values to device resources using [Connect API](/docs/v1.2/api-references/connect-api.html) endpoints. 
 
         :param device_proxy_request_error: The device_proxy_request_error of this Metric.
         :type: int

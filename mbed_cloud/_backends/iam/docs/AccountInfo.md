@@ -5,6 +5,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **end_market** | **str** | Account end market. | 
 **status** | **str** | The status of the account. | 
+**password_policy** | [**PasswordPolicy**](PasswordPolicy.md) | The password policy for this account. | [optional] 
 **postal_code** | **str** | The postal code part of the postal address. | [optional] 
 **id** | **str** | Account ID. | 
 **aliases** | **list[str]** | An array of aliases. | 
