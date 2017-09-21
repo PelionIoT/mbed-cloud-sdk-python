@@ -144,7 +144,7 @@ class BaseAPI(object):
         for k, v in list(query.items()):
             if isinstance(v, dict):
                 for operator, val in list(v.items()):
-                    if isinstance(val, bool):
+                    if not isinstance(val, string_types):
                         val = str(val)
                     suffix = self._get_key_suffix(operator)
                     key = "%s%s" % (k, suffix)
