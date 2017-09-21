@@ -115,7 +115,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v2_subscriptions_device_id_get**
-> v2_subscriptions_device_id_get(device_id)
+> str v2_subscriptions_device_id_get(device_id)
 
 Read endpoints subscriptions
 
@@ -140,7 +140,8 @@ device_id = 'device_id_example' # str | A unique mbed Cloud device ID for the en
 
 try: 
     # Read endpoints subscriptions
-    api_instance.v2_subscriptions_device_id_get(device_id)
+    api_response = api_instance.v2_subscriptions_device_id_get(device_id)
+    pprint(api_response)
 except ApiException as e:
     print("Exception when calling SubscriptionsApi->v2_subscriptions_device_id_get: %s\n" % e)
 ```
@@ -153,7 +154,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+**str**
 
 ### Authorization
 
@@ -380,7 +381,7 @@ This endpoint does not need any parameter.
 
 Set pre-subscriptions
 
-Pre-subscription is a set of rules and patterns put by the application. When an endpoint registers  and its ID, type and registered resources match the pre-subscription data, mbed Cloud Connect sends  subscription requests to the device automatically. The pattern may include the endpoint ID  (optionally having an `*` character at the end), endpoint type, a list of resources or expressions with an `*` character at the end. Subscriptions based on pre-subscriptions are done when device registers or does register update. To remove the pre-subscription data, put an empty array as a rule.  **Limits**:  - The maximum length of the endpoint name and endpoint type is 64 characters. - The maximum lenght of the resource path is 128 characters. - You can listen to 256 separate resource paths.          **Example request:**  ``` curl -X PUT \\   https://api.us-east-1.mbedcloud.com/v2/subscriptions \\   -H 'authorization: Bearer {api-key}' \\   -H 'content-type: application/json' \\   -d '[          {            \"endpoint-name\": \"node-001\",            \"resource-path\": [\"/dev\"]          },          {            \"endpoint-type\": \"Light\",            \"resource-path\": [\"/sen/*\"]          },          {            \"endpoint-name\": \"node*\"          },          {            \"endpoint-type\": \"Sensor\"          },          {            \"resource-path\": [\"/dev/temp\",\"/dev/hum\"]          }       ]' ``` 
+Pre-subscription is a set of rules and patterns put by the application. When an endpoint registers  and its ID, type and registered resources match the pre-subscription data, mbed Cloud Connect sends  subscription requests to the device automatically. The pattern may include the endpoint ID  (optionally having an `*` character at the end), endpoint type, a list of resources or expressions with an `*` character at the end. Subscriptions based on pre-subscriptions are done when device registers or does register update. To remove the pre-subscription data, put an empty array as a rule.  **Limits**:  - The maximum length of the endpoint name and endpoint type is 64 characters. - The maximum length of the resource path is 128 characters. - You can listen to 256 separate resource paths. - The maximum number of pre-subscription entries is 1024.          **Example request:**  ``` curl -X PUT \\   https://api.us-east-1.mbedcloud.com/v2/subscriptions \\   -H 'authorization: Bearer {api-key}' \\   -H 'content-type: application/json' \\   -d '[          {            \"endpoint-name\": \"node-001\",            \"resource-path\": [\"/dev\"]          },          {            \"endpoint-type\": \"Light\",            \"resource-path\": [\"/sen/*\"]          },          {            \"endpoint-name\": \"node*\"          },          {            \"endpoint-type\": \"Sensor\"          },          {            \"resource-path\": [\"/dev/temp\",\"/dev/hum\"]          }       ]' ``` 
 
 ### Example 
 ```python

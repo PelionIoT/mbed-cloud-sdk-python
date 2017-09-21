@@ -9,7 +9,6 @@ Name | Type | Description | Notes
 **created_at** | **datetime** | The time the object was created | 
 **object** | **str** | The API resource entity | 
 **updated_at** | **datetime** | The time the object was updated | 
-**manifest_contents** | [**ManifestContents**](ManifestContents.md) |  | 
 **etag** | **datetime** | The entity instance signature | 
 **device_class** | **str** | The class of the device | 
 **datafile_checksum** | **str** | Checksum generated for the datafile | [optional] 

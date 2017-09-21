@@ -310,7 +310,7 @@ class DeviceDataPostRequest(object):
     def device_execution_mode(self):
         """
         Gets the device_execution_mode of this DeviceDataPostRequest.
-        The certificate type.
+        The execution mode from the certificate of the device. Permitted values:   - 0 - unspecified execution mode (default)   - 1 - development devices   - 5 - production devices
 
         :return: The device_execution_mode of this DeviceDataPostRequest.
         :rtype: int
@@ -321,7 +321,7 @@ class DeviceDataPostRequest(object):
     def device_execution_mode(self, device_execution_mode):
         """
         Sets the device_execution_mode of this DeviceDataPostRequest.
-        The certificate type.
+        The execution mode from the certificate of the device. Permitted values:   - 0 - unspecified execution mode (default)   - 1 - development devices   - 5 - production devices
 
         :param device_execution_mode: The device_execution_mode of this DeviceDataPostRequest.
         :type: int
