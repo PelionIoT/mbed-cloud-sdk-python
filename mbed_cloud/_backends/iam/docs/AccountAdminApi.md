@@ -466,7 +466,7 @@ Name | Type | Description  | Notes
 
 Updates attributes of the account.
 
-An endpoint for updating the account. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/me -d '{\"phone_number\": \"12345678\"}' -H 'content-type: application/json' -H 'Authorization: Bearer AUTH_TOKEN'
+An endpoint for updating the account.   **Example usage:** curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/me -d '{\"phone_number\": \"12345678\"}' -H 'content-type: application/json' -H 'Authorization: Bearer AUTH_TOKEN'
 
 ### Example 
 ```python

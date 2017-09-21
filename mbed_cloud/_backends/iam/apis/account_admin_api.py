@@ -930,7 +930,7 @@ class AccountAdminApi(object):
     def update_my_account(self, body, **kwargs):
         """
         Updates attributes of the account.
-        An endpoint for updating the account. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/me -d '{\"phone_number\": \"12345678\"}' -H 'content-type: application/json' -H 'Authorization: Bearer AUTH_TOKEN'
+        An endpoint for updating the account.   **Example usage:** curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/me -d '{\"phone_number\": \"12345678\"}' -H 'content-type: application/json' -H 'Authorization: Bearer AUTH_TOKEN'
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -956,7 +956,7 @@ class AccountAdminApi(object):
     def update_my_account_with_http_info(self, body, **kwargs):
         """
         Updates attributes of the account.
-        An endpoint for updating the account. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/me -d '{\"phone_number\": \"12345678\"}' -H 'content-type: application/json' -H 'Authorization: Bearer AUTH_TOKEN'
+        An endpoint for updating the account.   **Example usage:** curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/me -d '{\"phone_number\": \"12345678\"}' -H 'content-type: application/json' -H 'Authorization: Bearer AUTH_TOKEN'
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
