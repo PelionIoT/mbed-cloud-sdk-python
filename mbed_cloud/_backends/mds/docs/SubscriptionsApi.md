@@ -115,7 +115,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v2_subscriptions_device_id_get**
-> v2_subscriptions_device_id_get(device_id)
+> str v2_subscriptions_device_id_get(device_id)
 
 Read endpoints subscriptions
 
@@ -140,7 +140,8 @@ device_id = 'device_id_example' # str | A unique mbed Cloud device ID for the en
 
 try: 
     # Read endpoints subscriptions
-    api_instance.v2_subscriptions_device_id_get(device_id)
+    api_response = api_instance.v2_subscriptions_device_id_get(device_id)
+    pprint(api_response)
 except ApiException as e:
     print("Exception when calling SubscriptionsApi->v2_subscriptions_device_id_get: %s\n" % e)
 ```
@@ -153,7 +154,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+**str**
 
 ### Authorization
 
