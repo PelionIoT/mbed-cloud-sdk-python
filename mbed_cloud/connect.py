@@ -505,15 +505,15 @@ class ConnectAPI(BaseAPI):
 
     @catch_exceptions(MdsApiException)
     def list_device_subscriptions(self, device_id, **kwargs):
-        """List a device's subscriptions
+        """Lists all subscribed resources from a single device
 
         :param device_id: Id of the device
-        :returns: a list of `Presubscription` objects
-        :rtype: list of Presubscription
+        :returns: a list of subscribed resources
+        :rtype: list of str
         """
         api = self.mds.SubscriptionsApi()
         resp = api.v2_subscriptions_device_id_get(device_id, **kwargs)
-        return [Presubscription(p) for p in resp]
+        return resp.split("\n")
 
     @catch_exceptions(MdsApiException)
     def delete_device_subscriptions(self, device_id):
