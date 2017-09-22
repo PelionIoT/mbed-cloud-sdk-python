@@ -20,7 +20,7 @@ from mbed_cloud.connect import ConnectAPI
 
 def _main():
     api = ConnectAPI()
-    devices = api.list_connected_devices()
+    devices = api.list_connected_devices().data
     if not devices:
         raise Exception("No connected devices registered. Aborting")
 
