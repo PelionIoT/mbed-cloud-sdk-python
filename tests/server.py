@@ -24,8 +24,7 @@ Run by:
 """
 from __future__ import absolute_import
 from __future__ import unicode_literals
-from future import standard_library
-standard_library.install_aliases()
+
 from builtins import str
 from flask import Flask
 from flask import jsonify
@@ -35,8 +34,7 @@ from mbed_cloud.certificates import CertificatesAPI
 from mbed_cloud.connect import ConnectAPI
 from mbed_cloud.device_directory import DeviceDirectoryAPI
 from mbed_cloud.update import UpdateAPI
-from urllib.parse import parse_qs
-from urllib.parse import unquote_plus
+from six.moves import urllib
 
 import json
 import queue
@@ -173,10 +171,10 @@ def main(module, method, methods=["GET"]):
     """Main runner, responding to remote test calls - mapping module and method to SDK"""
     # Check if we've added arguments to function. Unquote and parse the query string,
     # preparing it for argument to function.
-    qs = unquote_plus(request.args.get("args", ""))
+    qs = urllib.parse.unquote_plus(request.args.get("args", ""))
     # quote + char to prevent parse_qs from replacing '+' with space.
     qs = qs.replace('+', "%2B")
-    args_struct = parse_qs(qs)
+    args_struct = urllib.parse.parse_qs(qs)
     args = dict(((k, _get_type(",".join(v))) for k, v in list(args_struct.items())))
     # We call the SDK module and function, with provided arguments.
     try:

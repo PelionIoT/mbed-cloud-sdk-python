@@ -17,16 +17,13 @@
 """Initialise the mbed_cloud config and BaseAPI."""
 from __future__ import print_function
 from __future__ import unicode_literals
-from future import standard_library
-standard_library.install_aliases()
 from builtins import object
 import datetime
 from six import iteritems
 from six import string_types
 import sys
-import urllib.error
-import urllib.parse
-import urllib.request
+
+from six.moves import urllib
 
 from mbed_cloud.bootstrap import Config
 from mbed_cloud.exceptions import CloudValueError
