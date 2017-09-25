@@ -23,7 +23,6 @@ Name | Type | Description | Notes
 **endpoint_type** | **str** | The endpoint type of the device. For example, the device is a gateway. | [optional] 
 **deployment** | **str** | DEPRECATED: The last deployment used on the device. | [optional] 
 **mechanism_url** | **str** | The address of the connector to use. | [optional] 
-**trust_level** | **int** | The device trust level. | [optional] 
 **name** | **str** | The name of the device. | [optional] 
 **device_key** | **str** | The fingerprint of the device certificate. | 
 **manifest** | **str** | DEPRECATED: The URL for the current device manifest. | [optional] 
