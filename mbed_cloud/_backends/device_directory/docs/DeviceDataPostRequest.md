@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **auto_update** | **bool** | DEPRECATED: Mark this device for automatic firmware update. | [optional] 
 **host_gateway** | **str** | The &#x60;endpoint_name&#x60; of the host gateway, if appropriate. | [optional] 
 **device_execution_mode** | **int** | The execution mode from the certificate of the device. Permitted values:   - 0 - unspecified execution mode (default)   - 1 - development devices   - 5 - production devices | [optional] 
-**custom_attributes** | **dict(str, str)** | Up to five custom key-value attributes. | [optional] 
+**custom_attributes** | **dict(str, str)** | Up to five custom key-value attributes. Note that keys cannot start with a number. | [optional] 
 **state** | **str** | The current state of the device. | [optional] 
 **serial_number** | **str** | The serial number of the device. | [optional] 
 **firmware_checksum** | **str** | The SHA256 checksum of the current firmware image. | [optional] 

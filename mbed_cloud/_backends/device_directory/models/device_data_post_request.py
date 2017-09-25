@@ -330,7 +330,7 @@ class DeviceDataPostRequest(object):
     def custom_attributes(self):
         """
         Gets the custom_attributes of this DeviceDataPostRequest.
-        Up to five custom key-value attributes.
+        Up to five custom key-value attributes. Note that keys cannot start with a number.
 
         :return: The custom_attributes of this DeviceDataPostRequest.
         :rtype: dict(str, str)
@@ -341,7 +341,7 @@ class DeviceDataPostRequest(object):
     def custom_attributes(self, custom_attributes):
         """
         Sets the custom_attributes of this DeviceDataPostRequest.
-        Up to five custom key-value attributes.
+        Up to five custom key-value attributes. Note that keys cannot start with a number.
 
         :param custom_attributes: The custom_attributes of this DeviceDataPostRequest.
         :type: dict(str, str)
