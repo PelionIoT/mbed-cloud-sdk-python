@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **auto_update** | **bool** | DEPRECATED: Mark this device for automatic firmware update. | [optional] 
 **host_gateway** | **str** | The &#x60;endpoint_name&#x60; of the host gateway, if appropriate. | [optional] 
 **object** | **str** | The API resource entity. | [optional] 
-**custom_attributes** | **dict(str, str)** | Up to five custom key-value attributes. | [optional] 
+**custom_attributes** | **dict(str, str)** | Up to five custom key-value attributes. Note that keys cannot start with a number. | [optional] 
 **device_key** | **str** | The fingerprint of the device certificate. | 
 **endpoint_type** | **str** | The endpoint type of the device. For example, the device is a gateway. | [optional] 
 **ca_id** | **str** | The certificate issuer&#39;s ID. | 
