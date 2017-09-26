@@ -21,7 +21,8 @@ from mbed_cloud.connect import ConnectAPI
 def _main():
     api = ConnectAPI()
 
-    for device in api.list_connected_devices():
+    # Print all devices
+    for idx, device in enumerate(api.list_connected_devices(order='desc', limit=10)):
         resources = api.list_resources(device.id)
 
         # Print endpoint name header

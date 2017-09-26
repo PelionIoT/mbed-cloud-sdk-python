@@ -15,14 +15,21 @@
 # limitations under the License.
 # --------------------------------------------------------------------------
 """Example: listing endpoints and filter them by type using Connect API."""
+import datetime
 from mbed_cloud.connect import ConnectAPI
 
 
 def _main():
     api = ConnectAPI()
 
-    # Filter devices by type
-    for device in api.list_connected_devices(type="default"):
+    # Print devices that matches filter
+    filters = {
+        'created_at': {'$gte': datetime.datetime(2017, 1, 1),
+                       '$lte': datetime.datetime(2017, 12, 31)
+                       }
+    }
+    devices = api.list_connected_devices(order='asc', filters=filters)
+    for idx, device in enumerate(devices):
         print(device)
 
 

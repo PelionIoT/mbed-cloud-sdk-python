@@ -98,12 +98,17 @@ class BaseAPI(object):
                         for operator, val in list(v.items()):
                             suffix = self._get_key_suffix(operator, False)
                             key = "%s%s" % (k, suffix)
-                            kwargs[key] = val
+                            kwargs[key] = self._convert_filter_value(val)
                     else:
                         key = "%s__%s" % (k, "eq")
-                        kwargs[key] = v
+                        kwargs[key] = self._convert_filter_value(v)
                 del kwargs['filter']
         return kwargs
+
+    def _convert_filter_value(self, value):
+        if isinstance(value, datetime.datetime):
+            value = value.isoformat() + "Z"
+        return value
 
     def _set_custom_attributes(self, query):
         if "custom_attributes" in query:
@@ -144,6 +149,7 @@ class BaseAPI(object):
         for k, v in list(query.items()):
             if isinstance(v, dict):
                 for operator, val in list(v.items()):
+                    val = self._convert_filter_value(val)
                     if not isinstance(val, string_types):
                         val = str(val)
                     suffix = self._get_key_suffix(operator)

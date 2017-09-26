@@ -12,14 +12,17 @@ Usage
   # List all connected devices
   devices = connectApi.list_connected_devices()
 
+  # Get the first connected device
+  device = devices.data[0]
+  
   # Get resources of the first connected endpoint
-  resources = connectApi.list_resources(devices[0].id)
+  resources = connectApi.list_resources(device.id)
 
   # Get resources which are observable
   observable = filter(lambda r: r.observable, resources)
 
   # Subscribe to observable resource
-  connectApi.add_resource_subscription(devices[0].id, observable[0].path)
+  connectApi.add_resource_subscription(device.id, observable[0].path)
 
   # Register a webhook to send all updates to
   connectApi.update_webhook(WEBHOOK_URL)
@@ -29,10 +32,10 @@ Usage
   connectApi.start_notifications()
 
   # Read the current resource value by blocking
-  resource_value = connectApi.get_resource_value(devices[0].id, observable[0].path)
+  resource_value = connectApi.get_resource_value(device.id, observable[0].path)
 
   # Get next one, but do it async waiting for it to finish
-  async_handler = connectApi.get_resource_value_async(devices[0].id, observable[0].path)
+  async_handler = connectApi.get_resource_value_async(device.id, observable[0].path)
   while not async_handler.is_done:
     time.sleep(1)
   if async_handler.error:
