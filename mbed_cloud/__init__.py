@@ -17,16 +17,13 @@
 """Initialise the mbed_cloud config and BaseAPI."""
 from __future__ import print_function
 from __future__ import unicode_literals
-from future import standard_library
-standard_library.install_aliases()
 from builtins import object
 import datetime
 from six import iteritems
 from six import string_types
 import sys
-import urllib.error
-import urllib.parse
-import urllib.request
+
+from six.moves import urllib
 
 from mbed_cloud.bootstrap import Config
 from mbed_cloud.exceptions import CloudValueError
@@ -101,12 +98,17 @@ class BaseAPI(object):
                         for operator, val in list(v.items()):
                             suffix = self._get_key_suffix(operator, False)
                             key = "%s%s" % (k, suffix)
-                            kwargs[key] = val
+                            kwargs[key] = self._convert_filter_value(val)
                     else:
                         key = "%s__%s" % (k, "eq")
-                        kwargs[key] = v
+                        kwargs[key] = self._convert_filter_value(v)
                 del kwargs['filter']
         return kwargs
+
+    def _convert_filter_value(self, value):
+        if isinstance(value, datetime.datetime):
+            value = value.isoformat() + "Z"
+        return value
 
     def _set_custom_attributes(self, query):
         if "custom_attributes" in query:
@@ -147,6 +149,7 @@ class BaseAPI(object):
         for k, v in list(query.items()):
             if isinstance(v, dict):
                 for operator, val in list(v.items()):
+                    val = self._convert_filter_value(val)
                     if not isinstance(val, string_types):
                         val = str(val)
                     suffix = self._get_key_suffix(operator)

@@ -33,13 +33,18 @@ import time
 from mbed_cloud import BaseAPI
 from mbed_cloud import BaseObject
 from mbed_cloud.decorators import catch_exceptions
+from mbed_cloud.device_directory import Device
 from mbed_cloud.exceptions import CloudAsyncError
 from mbed_cloud.exceptions import CloudTimeoutError
 from mbed_cloud.exceptions import CloudUnhandledError
 from mbed_cloud.exceptions import CloudValueError
+
 from mbed_cloud import PaginatedResponse
 
 # Import backend API
+import mbed_cloud._backends.device_directory as device_directory
+from mbed_cloud._backends.device_directory.rest import \
+    ApiException as DeviceDirectoryApiException
 import mbed_cloud._backends.mds as mds
 from mbed_cloud._backends.mds.rest import ApiException as MdsApiException
 import mbed_cloud._backends.statistics as statistics
@@ -75,6 +80,7 @@ class ConnectAPI(BaseAPI):
         self._notifications_thread.daemon = True
 
         self.statistics = self._init_api(statistics)
+        self.device_directory = self._init_api(device_directory)
 
     def start_notifications(self):
         """Start the notifications thread.
@@ -102,18 +108,57 @@ class ConnectAPI(BaseAPI):
         self._notifications_thread.stop()
         self._notifications_are_active = False
 
-    @catch_exceptions(MdsApiException)
+    @catch_exceptions(DeviceDirectoryApiException)
     def list_connected_devices(self, **kwargs):
         """List connected devices.
 
-        :param str type: Filter endpoints by endpoint-type.
-        :returns: a list of currently *connected* `ConnectedDevice` objects
-        :rtype: list of ConnectedDevice
-        """
-        api = self.mds.EndpointsApi()
+        Example usage, listing all registered devices in the catalog:
 
-        resp = api.v2_endpoints_get(**kwargs)
-        return [ConnectedDevice(e) for e in resp]
+        .. code-block:: python
+
+            filters = {
+                'created_at': {'$gte': datetime.datetime(2017,01,01),
+                               '$lte': datetime.datetime(2017,12,31)
+                              }
+            }
+            devices = api.list_connected_devices(order='asc', filters=filters)
+            for idx, device in enumerate(devices):
+                print(device)
+
+            ## Other example filters
+
+            # Directly connected devices (not via gateways):
+            filters = {
+                'host_gateway': {'$eq': ''},
+                'device_type': {'$eq': ''}
+            }
+
+            # Devices connected via gateways:
+            filters = {
+                'host_gateway': {'$neq': ''}
+            }
+
+            # Gateway devices:
+            filters = {
+                'device_type': {'$eq': 'MBED_GW'}
+            }
+
+
+        :param int limit: The number of devices to retrieve.
+        :param str order: The ordering direction, ascending (asc) or
+            descending (desc)
+        :param str after: Get devices after/starting at given `device_id`
+        :param filters: Dictionary of filters to apply.
+        :returns: a list of connected :py:class:`Device` objects.
+        :rtype: PaginatedResponse
+        """
+        filters = kwargs.get("filters", {})
+        filters.update({'state': {'$eq': 'registered'}})
+        kwargs.update({'filters': filters})
+        kwargs = self._verify_sort_options(kwargs)
+        kwargs = self._verify_filters(kwargs, True)
+        api = self.device_directory.DefaultApi()
+        return PaginatedResponse(api.device_list, lwrap_type=Device, **kwargs)
 
     @catch_exceptions(MdsApiException)
     def list_resources(self, device_id):
@@ -823,69 +868,6 @@ class _NotificationsThread(threading.Thread):
 
     def stop(self):
         self._stopped = True
-
-
-class ConnectedDevice(BaseObject):
-    """Describes device object from the mDS."""
-
-    @staticmethod
-    def _get_attributes_map():
-        return {
-            'state': 'status',
-            'queue_mode': 'q',
-            'type': 'type',
-            'id': 'name'
-        }
-
-    @property
-    def state(self):
-        """Get the state of this Endpoint.
-
-        Possible values ACTIVE, STALE.
-
-        :return: The state of this Endpoint.
-        :rtype: str
-        """
-        return self._state
-
-    @property
-    def queue_mode(self):
-        """Get the queue mode of this Endpoint.
-
-        Determines whether the device is in queue mode.
-        When an endpoint is in Queue mode,
-        messages sent to the endpoint do not wake up the physical device.
-        The messages are queued and delivered when the device
-        wakes up and connects to Mbed Cloud Connect itself.
-        You can also use the Queue mode when the device
-        is behind a NAT and cannot be reached directly by Mbed Cloud Connect.
-
-        :return: The queue_mode of this Endpoint.
-        :rtype: bool
-        """
-        return self._queue_mode
-
-    @property
-    def type(self):
-        """Get the type of this Endpoint.
-
-        Type of endpoint. (Free text)
-
-        :return: The type of this Endpoint.
-        :rtype: str
-        """
-        return self._type
-
-    @property
-    def id(self):
-        """Get the id of this Endpoint.
-
-        Unique Mbed Cloud Device ID representing the endpoint.
-
-        :return: The id of this Endpoint.
-        :rtype: str
-        """
-        return self._id
 
 
 class Webhook(BaseObject):

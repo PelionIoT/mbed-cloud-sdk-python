@@ -15,31 +15,36 @@
 # limitations under the License.
 # --------------------------------------------------------------------------
 """Example showing basic usage of device resource subscriptions."""
-from mbed_cloud.connect import ConnectAPI
 
-WRITEABLE_RESOURCE = "/5001/0/1"
+from mbed_cloud.connect import ConnectAPI
+import time
+
+INCRIMENTAL_RESOURCE = "/5002/0/1"
+VOLTAGE_RESOURCE = "/3316/0/5700"
+CURRENT_RESOURCE = "/3317/0/5700"
+POWER_RESOURCE = "/3328/0/5700"
+
+
+def _callback_fn(device_id, path, value):
+    print("callback path: %r value: %r" % (path, value))
 
 
 def _main():
     api = ConnectAPI()
-    # calling start_notifications is required for getting/setting resource synchronously
     api.start_notifications()
     devices = api.list_connected_devices().data
     if not devices:
         raise Exception("No connected devices registered. Aborting")
+    device_id = "015e9a938ff100000000000100100019"
+    api.delete_device_subscriptions(device_id)
+    api.list_presubscriptions()
 
-    # Synchronously get the initial/current value of the resource
-    value = api.get_resource_value(devices[0].id, WRITEABLE_RESOURCE)
-    print("Current value: %r" % (value,))
-
-    # Set Resource value. Resource needs to have type == "writable_resource"
-    api.set_resource_value(device_id=devices[0].id,
-                           resource_path=WRITEABLE_RESOURCE,
-                           resource_value=10)
-
-    # Synchronously get the current value of the resource
-    value = api.get_resource_value(devices[0].id, WRITEABLE_RESOURCE)
-    print("Current value: %r" % (value,))
+    api.add_resource_subscription_async(device_id, INCRIMENTAL_RESOURCE, _callback_fn)
+    api.add_resource_subscription_async(device_id, VOLTAGE_RESOURCE, _callback_fn)
+    api.add_resource_subscription_async(device_id, CURRENT_RESOURCE, _callback_fn)
+    api.add_resource_subscription_async(device_id, POWER_RESOURCE, _callback_fn)
+    while True:
+        time.sleep(0.1)
 
 
 if __name__ == "__main__":

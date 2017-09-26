@@ -188,7 +188,7 @@ class DeviceDataPatchRequest(object):
     def custom_attributes(self):
         """
         Gets the custom_attributes of this DeviceDataPatchRequest.
-        Up to five custom key-value attributes.
+        Up to five custom key-value attributes. Note that keys cannot start with a number.
 
         :return: The custom_attributes of this DeviceDataPatchRequest.
         :rtype: dict(str, str)
@@ -199,7 +199,7 @@ class DeviceDataPatchRequest(object):
     def custom_attributes(self, custom_attributes):
         """
         Sets the custom_attributes of this DeviceDataPatchRequest.
-        Up to five custom key-value attributes.
+        Up to five custom key-value attributes. Note that keys cannot start with a number.
 
         :param custom_attributes: The custom_attributes of this DeviceDataPatchRequest.
         :type: dict(str, str)

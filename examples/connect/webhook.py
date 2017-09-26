@@ -23,7 +23,7 @@ BUTTON_RESOURCE = "/5002/0/1"
 
 def _main():
     api = ConnectAPI()
-    devices = api.list_connected_devices()
+    devices = api.list_connected_devices().data
     if len(devices) == 0:
         raise Exception("No endpints registered. Aborting")
     # Delete device subscriptions
