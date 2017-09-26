@@ -147,7 +147,6 @@ class DeviceDirectoryAPI(BaseAPI):
         :param str serial_number: The serial number of the device
         :param str state: The current state of the device
         :param int trust_class: The device trust class
-        :param int trust_level: The device trust level
         :param str vendor_id: The device vendor ID
         :param str alias: The alias of the device
         :parama str endpoint_type: The endpoint type of the device - e.g. if the device is a gateway
@@ -343,7 +342,6 @@ class Device(BaseObject):
             "serial_number": "serial_number",
             "state": "state",
             "trust_class": "trust_class",
-            "trust_level": "trust_level",
             "updated_at": "updated_at",
             "vendor_id": "vendor_id",
             "alias": "endpoint_name",
@@ -486,17 +484,6 @@ class Device(BaseObject):
         :rtype: int
         """
         return self._trust_class
-
-    @property
-    def trust_level(self):
-        """The device trust level.
-
-        The time the object was created
-
-        :return: The created_at of this Query.
-        :rtype: int
-        """
-        return self._trust_level
 
     @property
     def updated_at(self):
