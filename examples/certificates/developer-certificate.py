@@ -24,8 +24,7 @@ def _main():
     # Create a new developer certificate
     print("Creating new developer certificate...")
     certificate = {
-        "name": "my_dev_certificate",
-        "type": CertificateType.developer
+        "name": "my_dev_certificate"
     }
     new_certificate = api.add_developer_certificate(**certificate)
     print("Successfully created developer certificate with id: %r" % new_certificate.id)

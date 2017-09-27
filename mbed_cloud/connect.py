@@ -632,6 +632,9 @@ class ConnectAPI(BaseAPI):
         """
         api = self.mds.NotificationsApi()
 
+        # Delete notifications channel
+        api.v2_notification_pull_delete()
+
         # Send the request to register the webhook
         webhook_obj = self.mds.Webhook(url=url, headers=headers)
         api.v2_notification_callback_put(webhook_obj)

@@ -35,7 +35,7 @@ def _main():
     # Set Resource value. Resource needs to have type == "writable_resource"
     api.set_resource_value(device_id=devices[0].id,
                            resource_path=WRITEABLE_RESOURCE,
-                           resource_value=10)
+                           resource_value='10')
 
     # Synchronously get the current value of the resource
     value = api.get_resource_value(devices[0].id, WRITEABLE_RESOURCE)
