@@ -16,7 +16,6 @@
 # --------------------------------------------------------------------------
 """Example showing basic usage of developer certificates."""
 from mbed_cloud.certificates import CertificatesAPI
-from mbed_cloud.certificates import CertificateType
 
 
 def _main():
