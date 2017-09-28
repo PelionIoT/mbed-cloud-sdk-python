@@ -227,8 +227,8 @@ class DeviceDataPostRequest(object):
         :param device_class: The device_class of this DeviceDataPostRequest.
         :type: str
         """
-        if device_class is not None and len(device_class) > 500:
-            raise ValueError("Invalid value for `device_class`, length must be less than or equal to `500`")
+        if device_class is not None and len(device_class) > 32:
+            raise ValueError("Invalid value for `device_class`, length must be less than or equal to `32`")
 
         self._device_class = device_class
 
