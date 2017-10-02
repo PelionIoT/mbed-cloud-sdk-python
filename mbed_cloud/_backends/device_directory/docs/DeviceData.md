@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **endpoint_name** | **str** | The endpoint name given to the device. | [optional] 
 **auto_update** | **bool** | DEPRECATED: Mark this device for automatic firmware update. | [optional] 
 **host_gateway** | **str** | The &#x60;endpoint_name&#x60; of the host gateway, if appropriate. | [optional] 
-**device_execution_mode** | **int** | The execution mode from the certificate of the device. Permitted values:   - 0 - unspecified execution mode (default)   - 1 - development devices   - 5 - production devices | [optional] 
+**device_execution_mode** | **int** | The execution mode from the certificate of the device. Defaults to inheriting from host_gateway device. Permitted values:   - 0 - unspecified execution mode (default if host_gateway invalid or not set)   - 1 - development devices   - 5 - production devices | [optional] 
 **mechanism** | **str** | The ID of the channel used to communicate with the device. | [optional] 
 **state** | **str** | The current state of the device. | [optional] 
 **etag** | **datetime** | The entity instance signature. | [optional] 

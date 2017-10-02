@@ -5,7 +5,7 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**v2_endpoints_device_id_get**](EndpointsApi.md#v2_endpoints_device_id_get) | **GET** /v2/endpoints/{device-id} | List the resources on an endpoint
-[**v2_endpoints_get**](EndpointsApi.md#v2_endpoints_get) | **GET** /v2/endpoints | List registered endpoints. The number of returned endpoints is currently limited to 200.
+[**v2_endpoints_get**](EndpointsApi.md#v2_endpoints_get) | **GET** /v2/endpoints | (DEPRECATED) List registered endpoints. The number of returned endpoints is currently limited to 200.
 
 
 # **v2_endpoints_device_id_get**
@@ -64,9 +64,9 @@ Name | Type | Description  | Notes
 # **v2_endpoints_get**
 > list[Endpoint] v2_endpoints_get(type=type)
 
-List registered endpoints. The number of returned endpoints is currently limited to 200.
+(DEPRECATED) List registered endpoints. The number of returned endpoints is currently limited to 200.
 
-Endpoints are physical devices having valid registration to mbed Cloud Connect. All devices regardless of registration status can be requested from Device Directory API ['/v3/devices/`](/docs/v1.2/api-references/device-directory-api.html#v3-devices).  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/endpoints -H 'authorization: Bearer {api-key}'      
+Endpoints are physical devices having valid registration to mbed Cloud Connect. All devices regardless of registration status can be requested from Device Directory API ['/v3/devices/`](/docs/v1.2/api-references/device-directory-api.html#v3-devices).  **Note:** This endpoint is deprecated and will be removed 1Q/18. You should use the Device Directory API [`/v3/devices/`](/docs/v1.2/api-references/device-directory-api.html#v3-devices). To list only the registered devices, use filter `/v3/devices/?filter=state%3Dregistered`.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/endpoints -H 'authorization: Bearer {api-key}'      
 
 ### Example 
 ```python
@@ -86,7 +86,7 @@ api_instance = mds.EndpointsApi()
 type = 'type_example' # str | Filter endpoints by endpoint-type. (optional)
 
 try: 
-    # List registered endpoints. The number of returned endpoints is currently limited to 200.
+    # (DEPRECATED) List registered endpoints. The number of returned endpoints is currently limited to 200.
     api_response = api_instance.v2_endpoints_get(type=type)
     pprint(api_response)
 except ApiException as e:

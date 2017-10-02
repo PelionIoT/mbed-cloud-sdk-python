@@ -264,8 +264,8 @@ class DeviceData(object):
         :param device_class: The device_class of this DeviceData.
         :type: str
         """
-        if device_class is not None and len(device_class) > 500:
-            raise ValueError("Invalid value for `device_class`, length must be less than or equal to `500`")
+        if device_class is not None and len(device_class) > 32:
+            raise ValueError("Invalid value for `device_class`, length must be less than or equal to `32`")
 
         self._device_class = device_class
 
@@ -388,7 +388,7 @@ class DeviceData(object):
     def device_execution_mode(self):
         """
         Gets the device_execution_mode of this DeviceData.
-        The execution mode from the certificate of the device. Permitted values:   - 0 - unspecified execution mode (default)   - 1 - development devices   - 5 - production devices
+        The execution mode from the certificate of the device. Defaults to inheriting from host_gateway device. Permitted values:   - 0 - unspecified execution mode (default if host_gateway invalid or not set)   - 1 - development devices   - 5 - production devices
 
         :return: The device_execution_mode of this DeviceData.
         :rtype: int
@@ -399,7 +399,7 @@ class DeviceData(object):
     def device_execution_mode(self, device_execution_mode):
         """
         Sets the device_execution_mode of this DeviceData.
-        The execution mode from the certificate of the device. Permitted values:   - 0 - unspecified execution mode (default)   - 1 - development devices   - 5 - production devices
+        The execution mode from the certificate of the device. Defaults to inheriting from host_gateway device. Permitted values:   - 0 - unspecified execution mode (default if host_gateway invalid or not set)   - 1 - development devices   - 5 - production devices
 
         :param device_execution_mode: The device_execution_mode of this DeviceData.
         :type: int
