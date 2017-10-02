@@ -39,11 +39,6 @@ def _print_manifests(mresp):
         print("%s | %s | %s" % (m.name, m.url, m.created_at.strftime("%Y-%m-%d %H:%M:%S")))
 
 
-def _print_manifest_details(m):
-    print("Manifest details:")
-    print(m.contents)
-
-
 def _main():
     update_api = UpdateAPI()
 
@@ -58,7 +53,6 @@ def _main():
         datafile=filename,
         description="Manifest uploaded using Mbed Cloud SDK")
     print("Successfully uploaded manifest %r\n\tURL: %s\nProperties:" % (mobj.name, mobj.url))
-    _print_manifest_details(mobj)
 
     # List all manifests currently uploaded
     mresp = update_api.list_firmware_manifests(limit=10)
