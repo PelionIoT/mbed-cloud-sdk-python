@@ -30,7 +30,7 @@ if [ -z $API_KEY ]; then
 fi
 
 # Clone the test runner repo and install virtual environment
-git clone https://${GITHUB_TOKEN:-git}@github.com/ARMmbed/mbed-cloud-sdk-testrunner.git "$TMPDIR"
+git clone -b unittestify https://${GITHUB_TOKEN:-git}@github.com/ARMmbed/mbed-cloud-sdk-testrunner.git "$TMPDIR"
 pip install -r $ROOT_DIR/requirements.txt
 pip install -r $TMPDIR/requirements.txt
 pip3 install -r $ROOT_DIR/requirements.txt
@@ -60,7 +60,7 @@ if [ -n "${MBED_CLOUD_API_HOST}" ]; then
 fi
 
 # Start the test runner
-python $TRUNNER_DIR/bin/trunner ${PARAMS[@]}
+python3 $TRUNNER_DIR/bin/trunner ${PARAMS[@]}
 RET_CODE=$?
 
 # Kill the backend server & cleanup
@@ -80,7 +80,7 @@ if [ $RET_CODE -eq 0 ]; then
     exit 1
   fi
   # Start the test runner
-  python $TRUNNER_DIR/bin/trunner ${PARAMS[@]}
+  python3 $TRUNNER_DIR/bin/trunner ${PARAMS[@]}
   RET_CODE=$?
 fi
 # Remove temp folder
