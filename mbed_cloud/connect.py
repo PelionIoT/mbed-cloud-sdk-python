@@ -156,7 +156,7 @@ class ConnectAPI(BaseAPI):
         filters.update({'state': {'$eq': 'registered'}})
         kwargs.update({'filters': filters})
         kwargs = self._verify_sort_options(kwargs)
-        kwargs = self._verify_filters(kwargs, True)
+        kwargs = self._verify_filters(kwargs, Device, True)
         api = self.device_directory.DefaultApi()
         return PaginatedResponse(api.device_list, lwrap_type=Device, **kwargs)
 
@@ -683,7 +683,7 @@ class ConnectAPI(BaseAPI):
         :rtype: PaginatedResponse
         """
         self._verify_arguments(interval, kwargs)
-        kwargs = self._verify_filters(kwargs)
+        kwargs = self._verify_filters(kwargs, Metric)
         api = self.statistics.StatisticsApi()
         include = Metric._map_includes(include)
         kwargs.update({"include": include})
