@@ -219,7 +219,7 @@ class DeviceDirectoryAPI(BaseAPI):
         api = self.device_directory.DefaultApi()
 
         # Ensure we have the correct types and get the new query object
-        query = self._encode_query(filter)
+        query = self._encode_query(filter, Device)
         query_map = Query._create_request_map(kwargs)
         # Create the query object
         f = self.device_directory.DeviceQuery(name=name, query=query, **query_map)
@@ -252,7 +252,7 @@ class DeviceDirectoryAPI(BaseAPI):
 
         # Get urlencoded query attribute
         if filter is not None:
-            query = self._encode_query(filter)
+            query = self._encode_query(filter, Device)
         else:
             query = filter
 

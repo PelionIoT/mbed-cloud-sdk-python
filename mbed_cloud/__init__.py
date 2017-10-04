@@ -93,22 +93,29 @@ class BaseAPI(object):
             filters = kwargs.get('filter')
             if filters and not isinstance(filters, dict):
                 raise CloudValueError("'filters' parameter needs to be of type dict")
-            updated_filters = {}
-            for k, v in list(filters.items()):
-                val = obj._get_attributes_map().get(k, None)
-                if val is not None:
-                    updated_filters[val] = filters[k]
-                else:
-                    updated_filters[k] = v
-            self._set_custom_attributes(updated_filters)
-            filters = self._create_filters_dict(updated_filters, encode)
+            filters = self._encode_query(filters, obj, encode)
             if encode:
-                kwargs.update({'filter': urllib.parse.urlencode(filters)})
+                kwargs.update({'filter': filters})
             else:
                 for k, v in list(filters.items()):
                     kwargs[k] = v
                 del kwargs['filter']
         return kwargs
+
+    def _encode_query(self, filters, obj, encode=True):
+        updated_filters = {}
+        for k, v in list(filters.items()):
+            val = obj._get_attributes_map().get(k, None)
+            if val is not None:
+                updated_filters[val] = filters[k]
+            else:
+                updated_filters[k] = v
+        self._set_custom_attributes(updated_filters)
+        filters = self._create_filters_dict(updated_filters, encode)
+        if encode:
+            return urllib.parse.urlencode(filters)
+        else:
+            return filters
 
     def _create_filters_dict(self, query, encode):
         filters = {}
