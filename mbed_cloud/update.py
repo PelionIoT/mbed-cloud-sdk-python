@@ -78,7 +78,7 @@ class UpdateAPI(BaseAPI):
         return Campaign(api.update_campaign_retrieve(campaign_id))
 
     @catch_exceptions(UpdateServiceApiException)
-    def add_campaign(self, name, device_filter, manifest_id, **kwargs):
+    def add_campaign(self, name, device_filter, **kwargs):
         """Add new update campaign.
 
         Add an update campaign with given name and device filtering. Example:
@@ -98,7 +98,7 @@ class UpdateAPI(BaseAPI):
 
         :param str name: Name of the update campaign (Required)
         :param str device_filter: The device filter to use. (Required)
-        :param str manifest_id: ID of the manifest with description of the update (Required)
+        :param str manifest_id: ID of the manifest with description of the update. (Required)
         :param str description: Description of the campaign
         :param date when: The timestamp at which update campaign scheduled to start
         :param str state: The state of the campaign. Values:
