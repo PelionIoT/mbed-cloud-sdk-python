@@ -85,25 +85,48 @@ class BaseAPI(object):
                                  "Currently: %r" % kwargs.get('limit'))
         return kwargs
 
-    def _verify_filters(self, kwargs, encode=False):
+    def _verify_filters(self, kwargs, obj, encode=False):
         if kwargs.get('filters'):
             kwargs.update({'filter': kwargs.get('filters')})
             del kwargs['filters']
         if 'filter' in kwargs:
+            filters = kwargs.get('filter')
+            if filters and not isinstance(filters, dict):
+                raise CloudValueError("'filters' parameter needs to be of type dict")
+            updated_filters = {}
+            for k, v in list(filters.items()):
+                val = obj._get_attributes_map().get(k, None)
+                if val is not None:
+                    updated_filters[val] = filters[k]
+                else:
+                    updated_filters[k] = v
+            self._set_custom_attributes(updated_filters)
+            filters = self._create_filters_dict(updated_filters, encode)
             if encode:
-                kwargs.update({'filter': self._encode_query(kwargs.get('filter'))})
+                kwargs.update({'filter': urllib.parse.urlencode(filters)})
             else:
-                for k, v in list(kwargs.get('filter').items()):
-                    if isinstance(v, dict):
-                        for operator, val in list(v.items()):
-                            suffix = self._get_key_suffix(operator, False)
-                            key = "%s%s" % (k, suffix)
-                            kwargs[key] = self._convert_filter_value(val)
-                    else:
-                        key = "%s__%s" % (k, "eq")
-                        kwargs[key] = self._convert_filter_value(v)
+                for k, v in list(filters.items()):
+                    kwargs[k] = v
                 del kwargs['filter']
         return kwargs
+
+    def _create_filters_dict(self, query, encode):
+        filters = {}
+        for k, v in list(query.items()):
+            if not isinstance(v, dict):
+                # Set default operator as eq
+                v = {'$eq': v}
+            for operator, val in list(v.items()):
+                val = self._convert_filter_value(val)
+                suffix = self._get_key_suffix(operator, encode)
+                key = "%s%s" % (k, suffix)
+                if encode:
+                    if not isinstance(val, string_types):
+                        val = str(val)
+                    filters[key] = urllib.parse.quote(val)
+                else:
+                    filters[key] = val
+        return filters
 
     def _convert_filter_value(self, value):
         if isinstance(value, datetime.datetime):
@@ -133,30 +156,6 @@ class BaseAPI(object):
         else:
             suffix = "__%s" % (operator)
         return suffix
-
-    def _encode_query(self, query):
-        # Ensure the query is of dict type
-        if query and not isinstance(query, dict):
-            raise CloudValueError("'query' parameter needs to be of type dict")
-
-        # Add custom attributes, if provided
-        self._set_custom_attributes(query)
-
-        # Ensure query is valid
-        if not list(query.keys()):
-            raise CloudValueError("'query' parameter not valid, needs to contain query keys")
-        filters = {}
-        for k, v in list(query.items()):
-            if isinstance(v, dict):
-                for operator, val in list(v.items()):
-                    val = self._convert_filter_value(val)
-                    if not isinstance(val, string_types):
-                        val = str(val)
-                    suffix = self._get_key_suffix(operator)
-                    key = "%s%s" % (k, suffix)
-                    filters[key] = urllib.parse.quote(val)
-        # Encode the query string
-        return urllib.parse.urlencode(filters)
 
     def get_last_api_metadata(self):
         """Get meta data for the last Mbed Cloud API call.
@@ -204,10 +203,10 @@ class BaseObject(object):
         pass
 
     @classmethod
-    def _create_request_map(cls, input_map):
+    def _create_request_map(obj, input_map):
         """Create request map."""
         request_map = {}
-        attributes_map = cls._get_attributes_map()
+        attributes_map = obj._get_attributes_map()
         for key, value in iteritems(input_map):
             val = attributes_map.get(key, None)
             if val is not None:

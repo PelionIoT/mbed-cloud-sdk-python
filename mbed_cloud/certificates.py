@@ -58,7 +58,7 @@ class CertificatesAPI(BaseAPI):
         :rtype: Certificate
         """
         kwargs = self._verify_sort_options(kwargs)
-        kwargs = self._verify_filters(kwargs)
+        kwargs = self._verify_filters(kwargs, Certificate)
 
         if "type__eq" in kwargs:
             if kwargs["type__eq"] == CertificateType.bootstrap:

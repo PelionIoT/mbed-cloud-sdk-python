@@ -66,7 +66,7 @@ class AccountManagementAPI(BaseAPI):
         :rtype: PaginatedResponse
         """
         kwargs = self._verify_sort_options(kwargs)
-        kwargs = self._verify_filters(kwargs)
+        kwargs = self._verify_filters(kwargs, ApiKey)
 
         api = self.iam.DeveloperApi()
 
@@ -140,7 +140,7 @@ class AccountManagementAPI(BaseAPI):
         :rtype: PaginatedResponse
         """
         kwargs = self._verify_sort_options(kwargs)
-        kwargs = self._verify_filters(kwargs)
+        kwargs = self._verify_filters(kwargs, User)
         api = self.iam.AccountAdminApi()
         return PaginatedResponse(api.get_all_users, lwrap_type=User, **kwargs)
 

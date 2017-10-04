@@ -62,7 +62,7 @@ class UpdateAPI(BaseAPI):
         """
         api = self.update_service.DefaultApi()
         kwargs = self._verify_sort_options(kwargs)
-        kwargs = self._verify_filters(kwargs, True)
+        kwargs = self._verify_filters(kwargs, Campaign, True)
         return PaginatedResponse(api.update_campaign_list, lwrap_type=Campaign, **kwargs)
 
     @catch_exceptions(UpdateServiceApiException)
@@ -167,7 +167,7 @@ class UpdateAPI(BaseAPI):
         """
         api = self.update_service.DefaultApi()
         kwargs = self._verify_sort_options(kwargs)
-        kwargs = self._verify_filters(kwargs, True)
+        kwargs = self._verify_filters(kwargs, CampaignDeviceState, True)
         kwargs["campaign_id"] = campaign_id
         return PaginatedResponse(api.v3_update_campaigns_campaign_id_campaign_device_metadata_get,
                                  lwrap_type=CampaignDeviceState, **kwargs)
@@ -194,7 +194,7 @@ class UpdateAPI(BaseAPI):
         :rtype: PaginatedResponse
         """
         kwargs = self._verify_sort_options(kwargs)
-        kwargs = self._verify_filters(kwargs, True)
+        kwargs = self._verify_filters(kwargs, FirmwareImage, True)
         api = self.update_service.DefaultApi()
         return PaginatedResponse(api.firmware_image_list, lwrap_type=FirmwareImage, **kwargs)
 
@@ -249,7 +249,7 @@ class UpdateAPI(BaseAPI):
         :rtype: PaginatedResponse
         """
         kwargs = self._verify_sort_options(kwargs)
-        kwargs = self._verify_filters(kwargs, True)
+        kwargs = self._verify_filters(kwargs, FirmwareManifest, True)
         api = self.update_service.DefaultApi()
         return PaginatedResponse(api.firmware_manifest_list, lwrap_type=FirmwareManifest, **kwargs)
 
