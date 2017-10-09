@@ -1,31 +1,28 @@
 # python 2 / 3 compatible tlv parser
-from base64 import b64decode
 from binascii import a2b_base64
-from functools import partial
-from functools import reduce
 
 b64decoder = a2b_base64
 
-type_mask = int("11000000", 2)
-id_length_mask = int("00100000", 2)
-length_type_mask = int("00011000", 2)
-length_mask = int("00000111", 2)
+type_mask        = 0b11000000
+id_length_mask   = 0b00100000
+length_type_mask = 0b00011000
+length_mask      = 0b00000111
 
 path_sep = '/'
 
 
 class Types(object):
-    OBJECT = int("00000000", 2)  # Object Instance with one or more TLVs
-    RESOURCE = int("01000000", 2)  # Resource Instance with Value in multi Resource TLV
-    MULTI = int("10000000", 2)  # Multiple Resource, Value contains one or more Resource Instance
-    VALUE = int("11000000", 2)  # Resource with Value
+    OBJECT = 0b00000000  # Object Instance with one or more TLVs
+    RESOURCE = 0b01000000  # Resource Instance with Value in multi Resource TLV
+    MULTI = 0b10000000  # Multiple Resource, Value contains one or more Resource Instance
+    VALUE = 0b11000000  # Resource with Value
 
 
 class LengthTypes(object):
-    ONE_BYTE = int("00001000", 2)  # Length is 8-bits
-    TWO_BYTE = int("00010000", 2)  # Length is 16-bits
-    THR_BYTE = int("00011000", 2)  # Length is 24-bits
-    SET_BYTE = int("00000000", 2)  # Length is specified in bits 2-0
+    ONE_BYTE = 0b00001000  # Length is 8-bits
+    TWO_BYTE = 0b00010000  # Length is 16-bits
+    THR_BYTE = 0b00011000  # Length is 24-bits
+    SET_BYTE = 0b00000000  # Length is specified in bits 2-0
 
     to_ints = {
         ONE_BYTE: 1,
@@ -35,12 +32,12 @@ class LengthTypes(object):
 
 
 def get_id_length(byte):
-    return 2 if byte & length_type_mask == id_length_mask else 1
+    return 2 if byte & id_length_mask == id_length_mask else 1
 
 
 def get_value_length(byte):
-    length_value = byte & length_mask
-    return LengthTypes.to_ints.get(length_value, length_value)
+    length_value = byte & length_type_mask
+    return LengthTypes.to_ints.get(length_value, byte & length_mask)
 
 
 def combine_bytes(bytearr):
@@ -51,8 +48,12 @@ def combine_bytes(bytearr):
     :param bytearr:
     :return:
     """
-    # FIXME: if this is terrible, do the bitshifting stuff instead
-    return int(''.join(['{0:08b}'.format(b) for b in bytearr]), 2)
+    bytes_count = len(bytearr)
+    result = 0b0
+    for index, byt in enumerate(bytearr):
+        offset_bytes = bytes_count - index - 1
+        result += byt << (8 * offset_bytes)
+    return result
 
 
 def binary_tlv_to_python(binary_string, result=None, path=''):
@@ -77,7 +78,7 @@ def binary_tlv_to_python(binary_string, result=None, path=''):
     offset = 1
     item_id = combine_bytes(binary_string[offset:offset + id_length])
     offset += id_length
-    new_path = path_sep.join((path, item_id))
+    new_path = path_sep.join((path, str(item_id)))
 
     # get length of payload from specifier
     value_length = payload_length
@@ -88,10 +89,9 @@ def binary_tlv_to_python(binary_string, result=None, path=''):
     if kind == Types.MULTI:
         binary_tlv_to_python(binary_string[offset:offset + value_length], result, new_path)
     else:
-        value_binary = binary_string[offset, offset + value_length]
-        value = combine_bytes(value_binary)
-        # TODO has_zero = ??
-        result[new_path] = value
+        value_binary = binary_string[offset: offset + value_length]
+        result[new_path] = combine_bytes(value_binary) if not all(value_binary) else value_binary.decode('utf8')
+        #''.join(chr(x) for x in value_binary)
 
     offset += value_length
     binary_tlv_to_python(binary_string[offset:], result, path)
