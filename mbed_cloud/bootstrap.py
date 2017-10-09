@@ -34,7 +34,7 @@ class Config(dict):
         """
         CONFIG_FILES = [_f for _f in [
             # Global config in /etc
-            "/etc/mbed_cloud_config.json",
+            "/etc/.mbed_cloud_config.json",
 
             # Config file in home directory
             os.path.join(os.path.expanduser("~"), ".mbed_cloud_config.json"),
