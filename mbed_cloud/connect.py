@@ -195,7 +195,6 @@ class ConnectAPI(BaseAPI):
                 return r
         raise CloudApiException("Resource not found")
 
-
     @catch_exceptions(MdsApiException)
     def delete_resource(self, device_id, resource_path, fix_path=False):
         """Deletes a resource.
