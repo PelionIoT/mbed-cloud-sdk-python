@@ -24,7 +24,7 @@ try:
     import pypandoc
     long_description = pypandoc.convert('README.md', 'rst')
     long_description = long_description.replace("\r","")
-except(IOError, ImportError):
+except(OSError, IOError, ImportError):
     long_description = open('README.md').read()
 
 # Version number is composed based on API backend version and SDK version.
