@@ -1,1 +1,1 @@
-from .decode import binary_tlv_to_python as decode
+from .decode import maybe_decode_payload as decode

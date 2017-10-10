@@ -40,6 +40,8 @@ from mbed_cloud.exceptions import CloudTimeoutError
 from mbed_cloud.exceptions import CloudUnhandledError
 from mbed_cloud.exceptions import CloudValueError
 
+from mbed_cloud.tlv import decode
+
 from mbed_cloud import PaginatedResponse
 
 # Import backend API
@@ -274,8 +276,8 @@ class ConnectAPI(BaseAPI):
         :rtype: AsyncConsumer
         """
         # When path starts with / we remove the slash, as the API can't handle //.
-        if fix_path and resource_path.startswith("/"):
-            resource_path = resource_path[1:]
+        if fix_path:
+            resource_path = resource_path.lstrip('/')
 
         api = self.mds.ResourcesApi()
         resp = api.v2_endpoints_device_id_resource_path_get(device_id, resource_path)
@@ -877,7 +879,7 @@ class _NotificationsThread(threading.Thread):
                     # Check if we have a payload, and decode it if required
                     payload = r.payload if r.payload else None
                     should_b64 = self._b64decode and payload
-                    payload = base64.b64decode(payload) if should_b64 else payload
+                    payload = base64.b64decode(payload) if should_b64 else decode(payload=payload, content_type=r.ct)
 
                     self.db[r.id] = {
                         "payload": payload,
