@@ -1,7 +1,7 @@
 FROM python:3.6.2
 EXPOSE 5000
 RUN python -m pip install -U pip==9.0.1 pipenv==8.2.6
-#WORKDIR /sdk
+WORKDIR /sdk
 
 # move all the packaging files in
 ADD setup.py .
