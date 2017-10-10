@@ -2,13 +2,13 @@
 set -o pipefail
 IFS=$'\n\t'
 
-TMPDIR=$(mktemp -d 2>/dev/null || mktemp -d -t 'tmprunner');
+TRUNNER_DIR=$(mktemp -d 2>/dev/null || mktemp -d -t 'tmprunner');
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
 ROOT_DIR=$(dirname "$DIR");
 BACKEND_URL="${BACKEND_URL:-"http://localhost:5000"}";
 
 cleanup() {
-  echo "Test run finished. Cleaning up. Deleting tmp directory: $TMPDIR";
+  echo "Test run finished. Cleaning up. Deleting tmp directory: $TRUNNER_DIR";
   if is_running $BACKEND_PID; then
     echo "Killing backend SDK server: $BACKEND_PID";
     kill $BACKEND_PID;
@@ -30,12 +30,10 @@ if [ -z $API_KEY ]; then
 fi
 
 # Clone the test runner repo and install virtual environment
-git clone https://${GITHUB_TOKEN:-git}@github.com/ARMmbed/mbed-cloud-sdk-testrunner.git "$TMPDIR"
+git clone -b dockerise https://${GITHUB_TOKEN:-git}@github.com/ARMmbed/mbed-cloud-sdk-testrunner.git "$TRUNNER_DIR"
 pip install -r $ROOT_DIR/requirements.txt
-pip install -r $TMPDIR/requirements.txt
 pip3 install -r $ROOT_DIR/requirements.txt
-TRUNNER_DIR=$TMPDIR;
-export PYTHONPATH="$TRUNNER_DIR:$ROOT_DIR:$PYTHONPATH"
+export PYTHONPATH="$ROOT_DIR:$PYTHONPATH"
 
 # Start the Python SDK test backend server. Send to background.
 CMD="python $DIR/server.py"
@@ -51,16 +49,7 @@ if ! is_running $BACKEND_PID; then
   exit 1
 fi
 
-# Set the parameters to the test runner
-PARAMS=()
-PARAMS+=(-s $BACKEND_URL)
-PARAMS+=(-k $API_KEY)
-if [ -n "${MBED_CLOUD_API_HOST}" ]; then
-  PARAMS+=(-u $MBED_CLOUD_API_HOST)
-fi
-
-# Start the test runner
-python $TRUNNER_DIR/bin/trunner ${PARAMS[@]}
+docker build -t trunner . && docker run --rm -it --name runner --net="host" -p 5000:5000 trunner
 RET_CODE=$?
 
 # Kill the backend server & cleanup
@@ -80,10 +69,10 @@ if [ $RET_CODE -eq 0 ]; then
     exit 1
   fi
   # Start the test runner
-  python $TRUNNER_DIR/bin/trunner ${PARAMS[@]}
+  docker build -t trunner . && docker run --rm -it --name runner --net="host" -p 5000:5000 trunner
   RET_CODE=$?
 fi
 # Remove temp folder
-rm -rf "$TMPDIR";
+rm -rf "$TRUNNER_DIR";
 
 exit $RET_CODE
