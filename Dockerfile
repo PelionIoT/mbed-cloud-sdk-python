@@ -1,16 +1,19 @@
 FROM python:3.6.2
+RUN apt-get update &&\
+  apt-get install -y\
+  python2.7\
+  python3.4
 EXPOSE 5000
-RUN python -m pip install -U pip==9.0.1 pipenv==8.2.6
+RUN python -m pip install -U pip==9.0.1 tox==2.9.1
 WORKDIR /sdk
 
 # move all the packaging files in
 ADD setup.py .
 ADD requirements.txt .
-#ADD Pip* ./
+ADD tox.ini .
+ADD README.md .
 
-# build and cache dependencies
-RUN pipenv install --python $PYTHON_VERSION
+RUN tox --notest
 
 ADD . .
-RUN pipenv run pip install .
-CMD pipenv run python tests/server.py
+CMD tox -e $PYTHON_SDIST
