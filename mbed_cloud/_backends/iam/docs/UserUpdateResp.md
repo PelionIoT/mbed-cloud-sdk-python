@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 **groups** | **list[str]** | A list of IDs of the groups this user belongs to. | [optional] 
 **address** | **str** | Address. | [optional] 
 **totp_secret** | **str** | Secret for the 2-factor authenticator app. Visible only when 2FA is requested to be enabled. | [optional] 
-**password** | **str** | The password when creating a new user. It will will generated when not present in the request. | [optional] 
+**password** | **str** | The password when creating a new user. It will be generated when not present in the request. | [optional] 
 **email_verified** | **bool** | A flag indicating whether the user&#39;s email address has been verified or not. | [optional] 
 **created_at** | **datetime** | Creation UTC time RFC3339. | [optional] 
 **is_totp_enabled** | **bool** | A flag indicating whether 2-factor authentication (TOTP) has been enabled. | [optional] 
