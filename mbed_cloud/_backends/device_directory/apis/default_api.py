@@ -119,6 +119,10 @@ class DefaultApi(object):
         body_params = None
         if 'device' in params:
             body_params = params['device']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -216,6 +220,10 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -326,6 +334,10 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -423,6 +435,10 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -533,6 +549,10 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -643,6 +663,10 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -740,6 +764,10 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -844,6 +872,10 @@ class DefaultApi(object):
         body_params = None
         if 'device' in params:
             body_params = params['device']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -941,6 +973,10 @@ class DefaultApi(object):
         body_params = None
         if 'device' in params:
             body_params = params['device']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -1038,6 +1074,10 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -1148,6 +1188,10 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -1252,6 +1296,10 @@ class DefaultApi(object):
         body_params = None
         if 'device_query' in params:
             body_params = params['device_query']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -1349,6 +1397,10 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -1453,6 +1505,10 @@ class DefaultApi(object):
         body_params = None
         if 'body' in params:
             body_params = params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -1550,6 +1606,10 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -1654,6 +1714,10 @@ class DefaultApi(object):
         body_params = None
         if 'device' in params:
             body_params = params['device']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 

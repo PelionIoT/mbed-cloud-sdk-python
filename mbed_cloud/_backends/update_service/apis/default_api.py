@@ -132,6 +132,10 @@ class DefaultApi(object):
             form_params.append(('name', params['name']))
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.\
             select_header_content_type(['multipart/form-data'])
@@ -233,6 +237,10 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -343,6 +351,10 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -440,6 +452,10 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -550,6 +566,10 @@ class DefaultApi(object):
             form_params.append(('name', params['name']))
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.\
             select_header_content_type(['multipart/form-data'])
@@ -651,6 +671,10 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -761,6 +785,10 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -858,6 +886,10 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -955,6 +987,10 @@ class DefaultApi(object):
         body_params = None
         if 'campaign' in params:
             body_params = params['campaign']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -1052,6 +1088,10 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -1162,6 +1202,10 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -1266,6 +1310,10 @@ class DefaultApi(object):
         body_params = None
         if 'campaign' in params:
             body_params = params['campaign']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -1363,6 +1411,10 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -1467,6 +1519,10 @@ class DefaultApi(object):
         body_params = None
         if 'campaign' in params:
             body_params = params['campaign']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -1571,6 +1627,10 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -1684,6 +1744,10 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
