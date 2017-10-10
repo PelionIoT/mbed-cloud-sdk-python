@@ -1,12 +1,16 @@
 # python 2 / 3 compatible tlv parser
 from binascii import a2b_base64
+import itertools
 
-b64decoder = a2b_base64
 
-type_mask        = 0b11000000
-id_length_mask   = 0b00100000
+def b64decoder(input):
+    return bytearray(a2b_base64(input))
+
+
+type_mask = 0b11000000
+id_length_mask = 0b00100000
 length_type_mask = 0b00011000
-length_mask      = 0b00000111
+length_mask = 0b00000111
 
 
 class Types(object):
@@ -76,7 +80,7 @@ def binary_tlv_to_python(binary_string, result=None, path=tuple()):
     offset = 1
     item_id = combine_bytes(binary_string[offset:offset + id_length])
     offset += id_length
-    new_path = tuple([*path, item_id])
+    new_path = tuple(itertools.chain(path, (item_id,)))
 
     # get length of payload from specifier
     value_length = payload_length
@@ -96,7 +100,13 @@ def binary_tlv_to_python(binary_string, result=None, path=tuple()):
 
 
 def maybe_decode_payload(payload, content_type='application/nanoservice-tlv'):
+    """
+    if the payload is tlv, decode it, otherwise passthrough
+    :param payload:
+    :param content_type:
+    :return:
+    """
     if 'tlv' in content_type.lower():
-        binary = a2b_base64(payload)
+        binary = b64decoder(payload)
         return binary_tlv_to_python(binary)
     return payload
