@@ -385,7 +385,7 @@ class AccountUpdateReq(object):
     def email(self):
         """
         Gets the email of this AccountUpdateReq.
-        The company email address for this account, not longer than 100 characters. Required for commercial accounts only.
+        The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
 
         :return: The email of this AccountUpdateReq.
         :rtype: str
@@ -396,7 +396,7 @@ class AccountUpdateReq(object):
     def email(self, email):
         """
         Sets the email of this AccountUpdateReq.
-        The company email address for this account, not longer than 100 characters. Required for commercial accounts only.
+        The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
 
         :param email: The email of this AccountUpdateReq.
         :type: str
