@@ -8,8 +8,6 @@ id_length_mask   = 0b00100000
 length_type_mask = 0b00011000
 length_mask      = 0b00000111
 
-path_sep = '/'
-
 
 class Types(object):
     OBJECT = 0b00000000  # Object Instance with one or more TLVs
@@ -56,7 +54,7 @@ def combine_bytes(bytearr):
     return result
 
 
-def binary_tlv_to_python(binary_string, result=None, path=''):
+def binary_tlv_to_python(binary_string, result=None, path=tuple()):
     """
     recursively decode a binary string and store output in result object
     :param binary_string:
@@ -78,7 +76,7 @@ def binary_tlv_to_python(binary_string, result=None, path=''):
     offset = 1
     item_id = combine_bytes(binary_string[offset:offset + id_length])
     offset += id_length
-    new_path = path_sep.join((path, str(item_id)))
+    new_path = tuple([*path, item_id])
 
     # get length of payload from specifier
     value_length = payload_length
@@ -91,7 +89,6 @@ def binary_tlv_to_python(binary_string, result=None, path=''):
     else:
         value_binary = binary_string[offset: offset + value_length]
         result[new_path] = combine_bytes(value_binary) if not all(value_binary) else value_binary.decode('utf8')
-        #''.join(chr(x) for x in value_binary)
 
     offset += value_length
     binary_tlv_to_python(binary_string[offset:], result, path)

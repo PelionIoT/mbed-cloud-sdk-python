@@ -24,23 +24,39 @@ class TestDevice(B64.TestCase):
     """
     b64 = "iAsLSAAIAAAAAAAAAADBEFXIABAAAAAAAAAAAAAAAAAAAAAAyAEQAAAAAAAAAAAAAAAAAAAAAMECMMgRD2Rldl9kZXZpY2VfdHlwZcgSFGRldl9oYXJkd2FyZV92ZXJzaW9uyBUIAAAAAAAAAADIDQgAAAAAWdH0Bw=="
     result = {
-        '/0': 0,
-        '/1': 0,
-        '/11/0': 0,
-        '/13': 1506931719,
-        '/16': 'U',
-        '/17': 'dev_device_type',
-        '/18': 'dev_hardware_version',
-        '/2': '0',
-        '/21': 0
+        (0,): 0,
+        (1,): 0,
+        (11, 0): 0,
+        (13,): 1506931719,
+        (16,): 'U',
+        (17,): 'dev_device_type',
+        (18,): 'dev_hardware_version',
+        (2,): '0',
+        (21,): 0
     }
+
+
+class TestFirmware(B64.TestCase):
+    """
+    a random device from the integration lab
+    """
+    b64 = "CAAeyAMIAAAAAAAAAADIBQj//////////8IGLTHCBy0x"
+    result = {(0,): 1380430991696447557863828761305475282422786975014656077075657751739706673}
+
+
+class TestResource(B64.TestCase):
+    """
+    a random device from the integration lab
+    """
+    b64 = "CAALyAEIAAAAAAAAACI="
+    result = {(0,): 241790033863361294262861858}
 
 
 class TestValueBlank(B64.TestCase):
     b64 = "VQ=="
-    result = {'/0': ''}
+    result = {(0,): ''}
 
 
 class TestValueZero(B64.TestCase):
     b64 = "iAsLSAAIAAAAAAAAAAA="
-    result = {'/11/0': 0}
+    result = {(11, 0): 0}
