@@ -83,6 +83,8 @@ if [ $RET_CODE -eq 0 ]; then
   python -u $TRUNNER_DIR/bin/trunner ${PARAMS[@]}
   RET_CODE=$?
 fi
+# Kill the backend server & cleanup
+cleanup
 # Remove temp folder
 rm -rf "$TMPDIR";
 
