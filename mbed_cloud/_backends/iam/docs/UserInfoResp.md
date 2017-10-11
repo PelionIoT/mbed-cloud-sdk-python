@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**status** | **str** | The status of the user. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. | 
+**status** | **str** | The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system. | 
 **username** | **str** | A username containing alphanumerical letters and -,._@+&#x3D; characters. | [optional] 
 **groups** | **list[str]** | A list of IDs of the groups this user belongs to. | [optional] 
 **password_changed_time** | **int** | A timestamp of the latest change of the user password, in milliseconds. | [optional] 

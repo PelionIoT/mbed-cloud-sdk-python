@@ -362,7 +362,7 @@ class AccountUpdateReq(object):
     def phone_number(self):
         """
         Gets the phone_number of this AccountUpdateReq.
-        The phone number of the company, not longer than 100 characters.
+        The phone number of a representative of the company, not longer than 100 characters.
 
         :return: The phone_number of this AccountUpdateReq.
         :rtype: str
@@ -373,7 +373,7 @@ class AccountUpdateReq(object):
     def phone_number(self, phone_number):
         """
         Sets the phone_number of this AccountUpdateReq.
-        The phone number of the company, not longer than 100 characters.
+        The phone number of a representative of the company, not longer than 100 characters.
 
         :param phone_number: The phone_number of this AccountUpdateReq.
         :type: str

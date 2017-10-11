@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **etag** | **str** | API resource entity version. | 
 **is_provisioning_allowed** | **bool** | Flag (true/false) indicating whether Factory Tool is allowed to download or not. | 
 **email** | **str** | The company email address for this account. | [optional] 
-**phone_number** | **str** | The phone number of the company. | [optional] 
+**phone_number** | **str** | The phone number of a representative of the company. | [optional] 
 **company** | **str** | The name of the company. | [optional] 
 **object** | **str** | Entity name: always &#39;account&#39; | 
 **reason** | **str** | A reason note for updating the status of the account | [optional] 
