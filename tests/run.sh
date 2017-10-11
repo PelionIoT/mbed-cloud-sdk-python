@@ -80,9 +80,11 @@ if [ $RET_CODE -eq 0 ]; then
     exit 1
   fi
   # Start the test runner
-  python $TRUNNER_DIR/bin/trunner ${PARAMS[@]}
+  python -u $TRUNNER_DIR/bin/trunner ${PARAMS[@]}
   RET_CODE=$?
 fi
+# Kill the backend server & cleanup
+cleanup
 # Remove temp folder
 rm -rf "$TMPDIR";
 
