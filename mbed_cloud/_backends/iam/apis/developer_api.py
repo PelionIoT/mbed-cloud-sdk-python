@@ -369,7 +369,7 @@ class DeveloperApi(object):
             for asynchronous request. (optional)
         :param int limit: The number of results to return (2-1000), default is 50.
         :param str after: The entity ID to fetch after the given one.
-        :param str order: The order of the records, ASC or DESC; by default ASC
+        :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
         :param str include: Comma separated additional data to return. Currently supported: total_count
         :param str owner__eq: Owner name filter.
         :return: ApiKeyInfoRespList
@@ -399,7 +399,7 @@ class DeveloperApi(object):
             for asynchronous request. (optional)
         :param int limit: The number of results to return (2-1000), default is 50.
         :param str after: The entity ID to fetch after the given one.
-        :param str order: The order of the records, ASC or DESC; by default ASC
+        :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
         :param str include: Comma separated additional data to return. Currently supported: total_count
         :param str owner__eq: Owner name filter.
         :return: ApiKeyInfoRespList
@@ -485,7 +485,7 @@ class DeveloperApi(object):
             for asynchronous request. (optional)
         :param int limit: The number of results to return (2-1000), default is 50.
         :param str after: The entity ID to fetch after the given one.
-        :param str order: The order of the records, ASC or DESC; by default ASC
+        :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
         :param str include: Comma separated additional data to return. Currently supported: total_count
         :param str service__eq: Service filter, either lwm2m or bootstrap
         :param int expire__eq: Expire filter in days
@@ -518,7 +518,7 @@ class DeveloperApi(object):
             for asynchronous request. (optional)
         :param int limit: The number of results to return (2-1000), default is 50.
         :param str after: The entity ID to fetch after the given one.
-        :param str order: The order of the records, ASC or DESC; by default ASC
+        :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
         :param str include: Comma separated additional data to return. Currently supported: total_count
         :param str service__eq: Service filter, either lwm2m or bootstrap
         :param int expire__eq: Expire filter in days
@@ -613,7 +613,7 @@ class DeveloperApi(object):
             for asynchronous request. (optional)
         :param int limit: The number of results to return (2-1000), default is 50.
         :param str after: The entity ID to fetch after the given one.
-        :param str order: The order of the records, ASC or DESC; by default ASC
+        :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
         :param str include: Comma separated additional data to return. Currently supported: total_count
         :return: GroupSummaryList
                  If the method is called asynchronously,
@@ -642,7 +642,7 @@ class DeveloperApi(object):
             for asynchronous request. (optional)
         :param int limit: The number of results to return (2-1000), default is 50.
         :param str after: The entity ID to fetch after the given one.
-        :param str order: The order of the records, ASC or DESC; by default ASC
+        :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
         :param str include: Comma separated additional data to return. Currently supported: total_count
         :return: GroupSummaryList
                  If the method is called asynchronously,
@@ -829,7 +829,7 @@ class DeveloperApi(object):
         :param str group_id: The ID of the group whose API keys are retrieved. (required)
         :param int limit: The number of results to return (2-1000), default is 50.
         :param str after: The entity ID to fetch after the given one.
-        :param str order: The order of the records, ASC or DESC; by default ASC
+        :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
         :param str include: Comma separated additional data to return. Currently supported: total_count
         :return: ApiKeyInfoRespList
                  If the method is called asynchronously,
@@ -859,7 +859,7 @@ class DeveloperApi(object):
         :param str group_id: The ID of the group whose API keys are retrieved. (required)
         :param int limit: The number of results to return (2-1000), default is 50.
         :param str after: The entity ID to fetch after the given one.
-        :param str order: The order of the records, ASC or DESC; by default ASC
+        :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
         :param str include: Comma separated additional data to return. Currently supported: total_count
         :return: ApiKeyInfoRespList
                  If the method is called asynchronously,

@@ -491,7 +491,7 @@ class AccountAdminApi(object):
             for asynchronous request. (optional)
         :param int limit: The number of results to return (2-1000), default is 50.
         :param str after: The entity ID to fetch after the given one.
-        :param str order: The order of the records, ASC or DESC; by default ASC
+        :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
         :param str include: Comma separated additional data to return. Currently supported: total_count
         :param str status__eq: Filter for status, for example active or reset
         :return: UserInfoRespList
@@ -521,7 +521,7 @@ class AccountAdminApi(object):
             for asynchronous request. (optional)
         :param int limit: The number of results to return (2-1000), default is 50.
         :param str after: The entity ID to fetch after the given one.
-        :param str order: The order of the records, ASC or DESC; by default ASC
+        :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
         :param str include: Comma separated additional data to return. Currently supported: total_count
         :param str status__eq: Filter for status, for example active or reset
         :return: UserInfoRespList
@@ -711,7 +711,7 @@ class AccountAdminApi(object):
         :param str group_id: The ID of the group whose users are retrieved. (required)
         :param int limit: The number of results to return (2-1000), default is 50.
         :param str after: The entity ID to fetch after the given one.
-        :param str order: The order of the records, ASC or DESC; by default ASC
+        :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
         :param str include: Comma separated additional data to return. Currently supported: total_count
         :return: UserInfoRespList
                  If the method is called asynchronously,
@@ -741,7 +741,7 @@ class AccountAdminApi(object):
         :param str group_id: The ID of the group whose users are retrieved. (required)
         :param int limit: The number of results to return (2-1000), default is 50.
         :param str after: The entity ID to fetch after the given one.
-        :param str order: The order of the records, ASC or DESC; by default ASC
+        :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
         :param str include: Comma separated additional data to return. Currently supported: total_count
         :return: UserInfoRespList
                  If the method is called asynchronously,

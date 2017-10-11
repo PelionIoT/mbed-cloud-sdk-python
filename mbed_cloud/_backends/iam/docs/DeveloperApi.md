@@ -205,7 +205,7 @@ iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 api_instance = iam.DeveloperApi()
 limit = 50 # int | The number of results to return (2-1000), default is 50. (optional) (default to 50)
 after = 'after_example' # str | The entity ID to fetch after the given one. (optional)
-order = 'ASC' # str | The order of the records, ASC or DESC; by default ASC (optional) (default to ASC)
+order = 'ASC' # str | The order of the records based on creation time, ASC or DESC; by default ASC (optional) (default to ASC)
 include = 'include_example' # str | Comma separated additional data to return. Currently supported: total_count (optional)
 owner__eq = 'owner__eq_example' # str | Owner name filter. (optional)
 
@@ -223,7 +223,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **limit** | **int**| The number of results to return (2-1000), default is 50. | [optional] [default to 50]
  **after** | **str**| The entity ID to fetch after the given one. | [optional] 
- **order** | **str**| The order of the records, ASC or DESC; by default ASC | [optional] [default to ASC]
+ **order** | **str**| The order of the records based on creation time, ASC or DESC; by default ASC | [optional] [default to ASC]
  **include** | **str**| Comma separated additional data to return. Currently supported: total_count | [optional] 
  **owner__eq** | **str**| Owner name filter. | [optional] 
 
@@ -266,7 +266,7 @@ iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 api_instance = iam.DeveloperApi()
 limit = 50 # int | The number of results to return (2-1000), default is 50. (optional) (default to 50)
 after = 'after_example' # str | The entity ID to fetch after the given one. (optional)
-order = 'ASC' # str | The order of the records, ASC or DESC; by default ASC (optional) (default to ASC)
+order = 'ASC' # str | The order of the records based on creation time, ASC or DESC; by default ASC (optional) (default to ASC)
 include = 'include_example' # str | Comma separated additional data to return. Currently supported: total_count (optional)
 service__eq = 'service__eq_example' # str | Service filter, either lwm2m or bootstrap (optional)
 expire__eq = 56 # int | Expire filter in days (optional)
@@ -287,7 +287,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **limit** | **int**| The number of results to return (2-1000), default is 50. | [optional] [default to 50]
  **after** | **str**| The entity ID to fetch after the given one. | [optional] 
- **order** | **str**| The order of the records, ASC or DESC; by default ASC | [optional] [default to ASC]
+ **order** | **str**| The order of the records based on creation time, ASC or DESC; by default ASC | [optional] [default to ASC]
  **include** | **str**| Comma separated additional data to return. Currently supported: total_count | [optional] 
  **service__eq** | **str**| Service filter, either lwm2m or bootstrap | [optional] 
  **expire__eq** | **int**| Expire filter in days | [optional] 
@@ -333,7 +333,7 @@ iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 api_instance = iam.DeveloperApi()
 limit = 50 # int | The number of results to return (2-1000), default is 50. (optional) (default to 50)
 after = 'after_example' # str | The entity ID to fetch after the given one. (optional)
-order = 'ASC' # str | The order of the records, ASC or DESC; by default ASC (optional) (default to ASC)
+order = 'ASC' # str | The order of the records based on creation time, ASC or DESC; by default ASC (optional) (default to ASC)
 include = 'include_example' # str | Comma separated additional data to return. Currently supported: total_count (optional)
 
 try: 
@@ -350,7 +350,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **limit** | **int**| The number of results to return (2-1000), default is 50. | [optional] [default to 50]
  **after** | **str**| The entity ID to fetch after the given one. | [optional] 
- **order** | **str**| The order of the records, ASC or DESC; by default ASC | [optional] [default to ASC]
+ **order** | **str**| The order of the records based on creation time, ASC or DESC; by default ASC | [optional] [default to ASC]
  **include** | **str**| Comma separated additional data to return. Currently supported: total_count | [optional] 
 
 ### Return type
@@ -446,7 +446,7 @@ api_instance = iam.DeveloperApi()
 group_id = 'group_id_example' # str | The ID of the group whose API keys are retrieved.
 limit = 50 # int | The number of results to return (2-1000), default is 50. (optional) (default to 50)
 after = 'after_example' # str | The entity ID to fetch after the given one. (optional)
-order = 'ASC' # str | The order of the records, ASC or DESC; by default ASC (optional) (default to ASC)
+order = 'ASC' # str | The order of the records based on creation time, ASC or DESC; by default ASC (optional) (default to ASC)
 include = 'include_example' # str | Comma separated additional data to return. Currently supported: total_count (optional)
 
 try: 
@@ -464,7 +464,7 @@ Name | Type | Description  | Notes
  **group_id** | **str**| The ID of the group whose API keys are retrieved. | 
  **limit** | **int**| The number of results to return (2-1000), default is 50. | [optional] [default to 50]
  **after** | **str**| The entity ID to fetch after the given one. | [optional] 
- **order** | **str**| The order of the records, ASC or DESC; by default ASC | [optional] [default to ASC]
+ **order** | **str**| The order of the records based on creation time, ASC or DESC; by default ASC | [optional] [default to ASC]
  **include** | **str**| Comma separated additional data to return. Currently supported: total_count | [optional] 
 
 ### Return type
