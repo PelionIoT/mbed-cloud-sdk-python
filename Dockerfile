@@ -5,6 +5,9 @@ RUN apt-get update &&\
   python3.4
 EXPOSE 5000
 RUN python -m pip install -U pip==9.0.1 tox==2.9.1
+
+# set the working directory (explicit mkdir needed for docker <= 1.9.1 i.e. circleci)
+RUN mkdir -p /sdk
 WORKDIR /sdk
 
 # move all the packaging files in
