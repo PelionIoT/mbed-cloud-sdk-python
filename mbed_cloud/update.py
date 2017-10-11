@@ -1,26 +1,29 @@
 # ---------------------------------------------------------------------------
-#   The confidential and proprietary information contained in this file may
-#   only be used by a person authorised under and to the extent permitted
-#   by a subsisting licensing agreement from ARM Limited or its affiliates.
+# Mbed Cloud Python SDK
+# (C) COPYRIGHT 2017 Arm Limited
 #
-#          (C) COPYRIGHT 2017 ARM Limited or its affiliates.
-#              ALL RIGHTS RESERVED
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
 #
-#   This entire notice must be reproduced on all copies of this file
-#   and copies of this file may only be made by a person if such person is
-#   permitted to do so under the terms of a subsisting license agreement
-#   from ARM Limited or its affiliates.
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 # --------------------------------------------------------------------------
-"""API reference for update components in mbed Cloud"""
+"""API reference for update components in Mbed Cloud"""
 from __future__ import absolute_import
 from __future__ import unicode_literals
-from builtins import object
 import logging
 
 # Import common functions and exceptions from frontend API
 from mbed_cloud import BaseAPI
 from mbed_cloud import BaseObject
 from mbed_cloud.decorators import catch_exceptions
+from mbed_cloud.device_directory import Device
 from mbed_cloud import PaginatedResponse
 from six import iteritems
 
@@ -60,7 +63,7 @@ class UpdateAPI(BaseAPI):
         """
         api = self.update_service.DefaultApi()
         kwargs = self._verify_sort_options(kwargs)
-        kwargs = self._verify_filters(kwargs, True)
+        kwargs = self._verify_filters(kwargs, Campaign, True)
         return PaginatedResponse(api.update_campaign_list, lwrap_type=Campaign, **kwargs)
 
     @catch_exceptions(UpdateServiceApiException)
@@ -94,8 +97,8 @@ class UpdateAPI(BaseAPI):
             )
 
         :param str name: Name of the update campaign (Required)
-        :param str device_filter: Devices to apply the update on. Provide filter ID (Required)
-        :param str manifest_id: Manifest with metadata/description of the update
+        :param str device_filter: The device filter to use. (Required)
+        :param str manifest_id: ID of the manifest with description of the update. (Required)
         :param str description: Description of the campaign
         :param date when: The timestamp at which update campaign scheduled to start
         :param str state: The state of the campaign. Values:
@@ -105,8 +108,8 @@ class UpdateAPI(BaseAPI):
         :rtype: Campaign
         """
         api = self.update_service.DefaultApi()
-        device_filter = self._encode_query(device_filter)
-        campaign = Campaign.create_request_map(kwargs)
+        device_filter = self._encode_query(device_filter, Device)
+        campaign = Campaign._create_request_map(kwargs)
         body = self.update_service.UpdateCampaignPostRequest(
             name=name,
             device_filter=device_filter,
@@ -154,6 +157,23 @@ class UpdateAPI(BaseAPI):
         return
 
     @catch_exceptions(UpdateServiceApiException)
+    def list_campaign_device_states(self, campaign_id, **kwargs):
+        """List campaign devices status.
+
+        :param int limit: number of devices state to retrieve
+        :param str order: sort direction of device state when ordered by creation time (desc|asc)
+        :param str after: get devices state after given id
+        :return: List of :py:class:`CampaignDeviceState` objects
+        :rtype: PaginatedResponse
+        """
+        api = self.update_service.DefaultApi()
+        kwargs = self._verify_sort_options(kwargs)
+        kwargs = self._verify_filters(kwargs, CampaignDeviceState, True)
+        kwargs["campaign_id"] = campaign_id
+        return PaginatedResponse(api.v3_update_campaigns_campaign_id_campaign_device_metadata_get,
+                                 lwrap_type=CampaignDeviceState, **kwargs)
+
+    @catch_exceptions(UpdateServiceApiException)
     def get_firmware_image(self, image_id):
         """Get a firmware image with provided image_id.
 
@@ -175,7 +195,7 @@ class UpdateAPI(BaseAPI):
         :rtype: PaginatedResponse
         """
         kwargs = self._verify_sort_options(kwargs)
-        kwargs = self._verify_filters(kwargs, True)
+        kwargs = self._verify_filters(kwargs, FirmwareImage, True)
         api = self.update_service.DefaultApi()
         return PaginatedResponse(api.firmware_image_list, lwrap_type=FirmwareImage, **kwargs)
 
@@ -191,7 +211,7 @@ class UpdateAPI(BaseAPI):
         """
         api = self.update_service.DefaultApi()
         kwargs.update({'name': name})
-        firmware_image = FirmwareImage.create_request_map(kwargs)
+        firmware_image = FirmwareImage._create_request_map(kwargs)
         firmware_image.update({'datafile': datafile})
         return FirmwareImage(
             api.firmware_image_create(**firmware_image)
@@ -230,7 +250,7 @@ class UpdateAPI(BaseAPI):
         :rtype: PaginatedResponse
         """
         kwargs = self._verify_sort_options(kwargs)
-        kwargs = self._verify_filters(kwargs, True)
+        kwargs = self._verify_filters(kwargs, FirmwareManifest, True)
         api = self.update_service.DefaultApi()
         return PaginatedResponse(api.firmware_manifest_list, lwrap_type=FirmwareManifest, **kwargs)
 
@@ -246,7 +266,7 @@ class UpdateAPI(BaseAPI):
         """
         api = self.update_service.DefaultApi()
         kwargs.update({'name': name})
-        firmware_manifest = FirmwareManifest.create_request_map(kwargs)
+        firmware_manifest = FirmwareManifest._create_request_map(kwargs)
         firmware_manifest.update({'datafile': datafile})
         return FirmwareManifest(
             api.firmware_manifest_create(**firmware_manifest)
@@ -344,204 +364,12 @@ class FirmwareImage(BaseObject):
         return self._updated_at
 
 
-class FirmwareManifestContents(object):
-    """Describes firmware contents"""
-
-    def __init__(self, dictionary):
-        """Initialize object."""
-        self._class_id = dictionary.get("class_id", None)
-        self._vendor_id = dictionary.get("vendor_id", None)
-        self._version = dictionary.get("manifest_version", None)
-        self._description = dictionary.get("description", None)
-        self._nonce = dictionary.get("nonce", None)
-        self._created_at = dictionary.get("timestamp", None)
-        self._apply_immediately = dictionary.get("apply_immediately", None)
-        self._device_id = dictionary.get("device_id", None)
-        self._encryption_mode = None
-        self._payload_format = None
-        self._payload_storage_identifier = None
-        self._payload_hash = None
-        self._payload_uri = None
-        self._payload_size = None
-        encryption_mode = dictionary.get("encryption_mode", None)
-        if encryption_mode and "enum" in encryption_mode:
-            self._set_encryption_mode(encryption_mode)
-        payload = dictionary.get("payload", None)
-        if payload:
-            self._set_payload(payload)
-
-    def _set_encryption_mode(self, encryption_mode):
-        mode = encryption_mode["enum"]
-        if mode == 1:
-            self._encryption_mode = "none-ecc-secp256r1-sha256"
-        if mode == 2:
-            self._encryption_mode = "aes-128-ctr-ecc-secp256r1-sha256"
-        if mode == 3:
-            self._encryption_mode = "none-none-sha256"
-
-    def _set_payload(self, payload):
-        self._payload_storage_identifier = payload.get("storage_identifier", None)
-        reference = payload.get("reference", None)
-        payload_format = payload.get("format")
-        if payload_format:
-            format_enum = payload_format.get("enum", False)
-            if format_enum:
-                if format_enum == 1:
-                    self._payload_format = "raw-binary"
-                if format_enum == 2:
-                    self._payload_format = "cbor"
-                if format_enum == 3:
-                    self._payload_format = "hex-location-length-data"
-                if format_enum == 4:
-                    self._payload_format = "elf"
-        if reference:
-            self._payload_hash = reference.get("hash", None)
-            self._payload_uri = reference.get("uri", None)
-            self._payload_size = reference.get("size", None)
-
-    @property
-    def class_id(self):
-        """Get the URL of the firmware manifest (readonly).
-
-        :rtype: str
-        """
-        return self._class_id
-
-    @property
-    def vendor_id(self):
-        """Get the URL of the firmware manifest (readonly).
-
-        :rtype: str
-        """
-        return self._vendor_id
-
-    @property
-    def version(self):
-        """The format version of the manifest (readonly).
-
-        :rtype: str
-        """
-        return self._version
-
-    @property
-    def description(self):
-        """Get the URL of the firmware manifest (readonly).
-
-        :rtype: str
-        """
-        return self._description
-
-    @property
-    def nonce(self):
-        """Get the URL of the firmware manifest (readonly).
-
-        :rtype: str
-        """
-        return self._nonce
-
-    @property
-    def created_at(self):
-        """Get the URL of the firmware manifest (readonly).
-
-        :rtype: int
-        """
-        return self._created_at
-
-    @property
-    def encryption_mode(self):
-        """Get the URL of the firmware manifest (readonly).
-
-        :rtype: str
-        """
-        return self._encryption_mode
-
-    @property
-    def apply_immediately(self):
-        """Get the URL of the firmware manifest (readonly).
-
-        :rtype: bool
-        """
-        return self._apply_immediately
-
-    @property
-    def device_id(self):
-        """Get the URL of the firmware manifest (readonly).
-
-        :rtype: str
-        """
-        return self._device_id
-
-    @property
-    def payload_format(self):
-        """Get the URL of the firmware manifest (readonly).
-
-        :rtype: str
-        """
-        return self._payload_format
-
-    @property
-    def payload_storage_identifier(self):
-        """Get the URL of the firmware manifest (readonly).
-
-        :rtype: str
-        """
-        return self._payload_storage_identifier
-
-    @property
-    def payload_hash(self):
-        """Get the URL of the firmware manifest (readonly).
-
-        :rtype: str
-        """
-        return self._payload_hash
-
-    @property
-    def payload_uri(self):
-        """Get the URL of the firmware manifest (readonly).
-
-        :rtype: str
-        """
-        return self._payload_uri
-
-    @property
-    def payload_size(self):
-        """Get the URL of the firmware manifest (readonly).
-
-        :rtype: str
-        """
-        return self._payload_size
-
-    def to_dict(self):
-        """Return the model properties as a dict"""
-        return {
-            "class_id": self.class_id,
-            "vendor_id": self.vendor_id,
-            "version": self.version,
-            "description": self.description,
-            "nonce": self.nonce,
-            "created_at": self.created_at,
-            "encryption_mode": self.encryption_mode,
-            "apply_immediately": self.apply_immediately,
-            "device_id": self.device_id,
-            "payload_format": self.payload_format,
-            "payload_storage_identifier": self.payload_storage_identifier,
-            "payload_hash": self.payload_hash,
-            "payload_uri": self.payload_uri,
-            "payload_size": self.payload_size
-        }
-
-    def __repr__(self):
-        """For print and pprint."""
-        return str(self.to_dict())
-
-
 class FirmwareManifest(BaseObject):
     """Describes firmware object."""
 
     def __init__(self, dictionary):
         """Initialize object."""
         super(FirmwareManifest, self).__init__(dictionary)
-        self._contents = FirmwareManifestContents(self.contents).to_dict()
 
     @staticmethod
     def _get_attributes_map():
@@ -553,7 +381,6 @@ class FirmwareManifest(BaseObject):
             "datafile_checksum": "datafile_checksum",
             "datafile_size": "datafile_size",
             "id": "id",
-            "contents": "manifest_contents",
             "name": "name",
             "timestamp": "timestamp",
             "updated_at": "updated_at",
@@ -615,14 +442,6 @@ class FirmwareManifest(BaseObject):
         :rtype: str
         """
         return self._id
-
-    @property
-    def contents(self):
-        """The contents of the manifest (readonly).
-
-        :rtype: FirmwareManifestContents
-        """
-        return self._contents
 
     @property
     def name(self):
@@ -838,3 +657,105 @@ class Campaign(BaseObject):
         :type: str
         """
         self._scheduled_at = scheduled_at
+
+
+class CampaignDeviceState(BaseObject):
+    """Describes update campaign device state."""
+
+    @staticmethod
+    def _get_attributes_map():
+        return {
+            "id": "id",
+            "device_id": "device_id",
+            "campaign_id": "campaign",
+            "state": "deployment_state",
+            "name": "name",
+            "description": "description",
+            "created_at": "created_at",
+            "updated_at": "updated_at",
+            "mechanism": "mechanism",
+            "mechanism_url": "mechanism_url"
+        }
+
+    @property
+    def id(self):
+        """The id of the metadata record (readonly).
+
+        :rtype: str
+        """
+        return self._id
+
+    @property
+    def device_id(self):
+        """The id of the device (readonly).
+
+        :rtype: str
+        """
+        return self._device_id
+
+    @property
+    def campaign_id(self):
+        """The id of the campaign the device is in (readonly).
+
+        :rtype: str
+        """
+        return self._campaign_id
+
+    @property
+    def state(self):
+        """The state of the update campaign on the device (readonly).
+
+        values: pending, updated_connector_channel, failed_connector_channel_update,
+        deployed, manifestremoved
+
+        :rtype: str
+        """
+        return self._state
+
+    @property
+    def name(self):
+        """The name of the device (readonly).
+
+        :rtype: str
+        """
+        return self._name
+
+    @property
+    def description(self):
+        """Description of the device (readonly).
+
+        :rtype: str
+        """
+        return self._description
+
+    @property
+    def created_at(self):
+        """This time the record was created in the database (readonly).
+
+        :rtype: datetime
+        """
+        return self._created_at
+
+    @property
+    def updated_at(self):
+        """This time this record was modified in the database (readonly).
+
+        :rtype: datetime
+        """
+        return self._updated_at
+
+    @property
+    def mechanism(self):
+        """The mechanism used to deliver the firmware (connector or direct) (readonly).
+
+        :rtype: str
+        """
+        return self._mechanism
+
+    @property
+    def mechanism_url(self):
+        """The url of cloud connect used (readonly).
+
+        :rtype: str
+        """
+        return self._mechanism_url

@@ -1,15 +1,18 @@
 # ---------------------------------------------------------------------------
-#   The confidential and proprietary information contained in this file may
-#   only be used by a person authorised under and to the extent permitted
-#   by a subsisting licensing agreement from ARM Limited or its affiliates.
+# Mbed Cloud Python SDK
+# (C) COPYRIGHT 2017 Arm Limited
 #
-#          (C) COPYRIGHT 2017 ARM Limited or its affiliates.
-#              ALL RIGHTS RESERVED
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
 #
-#   This entire notice must be reproduced on all copies of this file
-#   and copies of this file may only be made by a person if such person is
-#   permitted to do so under the terms of a subsisting license agreement
-#   from ARM Limited or its affiliates.
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 # --------------------------------------------------------------------------
 """Reference API for certificates component."""
 from __future__ import absolute_import
@@ -25,8 +28,9 @@ from mbed_cloud import PaginatedResponse
 # Import backend API
 
 import mbed_cloud._backends.connector_ca as cert
-from mbed_cloud._backends.connector_ca.rest import ApiException
+from mbed_cloud._backends.connector_ca.rest import ApiException as CaApiException
 import mbed_cloud._backends.iam as iam
+from mbed_cloud._backends.iam.rest import ApiException as IamApiException
 
 
 class CertificatesAPI(BaseAPI):
@@ -41,7 +45,7 @@ class CertificatesAPI(BaseAPI):
         self.iam = self._init_api(iam)
         self.auth = self.cert.configuration.api_key['Authorization']
 
-    @catch_exceptions(ApiException)
+    @catch_exceptions(IamApiException)
     def list_certificates(self, **kwargs):
         """List certificates registered to organisation.
 
@@ -54,7 +58,7 @@ class CertificatesAPI(BaseAPI):
         :rtype: Certificate
         """
         kwargs = self._verify_sort_options(kwargs)
-        kwargs = self._verify_filters(kwargs)
+        kwargs = self._verify_filters(kwargs, Certificate)
 
         if "type__eq" in kwargs:
             if kwargs["type__eq"] == CertificateType.bootstrap:
@@ -71,7 +75,7 @@ class CertificatesAPI(BaseAPI):
         api = self.iam.DeveloperApi()
         return PaginatedResponse(api.get_all_certificates, lwrap_type=Certificate, **kwargs)
 
-    @catch_exceptions(ApiException)
+    @catch_exceptions(CaApiException, IamApiException)
     def get_certificate(self, certificate_id):
         """Get certificate by id.
 
@@ -99,7 +103,7 @@ class CertificatesAPI(BaseAPI):
             credentials = server_api.v3_server_credentials_lwm2m_get(self.auth)
             certificate.update_attributes(credentials)
 
-    @catch_exceptions(ApiException)
+    @catch_exceptions(IamApiException)
     def delete_certificate(self, certificate_id):
         """Delete a certificate.
 
@@ -110,17 +114,16 @@ class CertificatesAPI(BaseAPI):
         api.delete_certificate(certificate_id)
         return
 
-    @catch_exceptions(ApiException)
-    def add_certificate(self, name, type, **kwargs):
-        """Add a new certificate.
+    @catch_exceptions(CaApiException, IamApiException)
+    def add_certificate(self, name, type, certificate_data, signature, **kwargs):
+        """Add a new BYOC certificate.
 
         :param str name: name of the certificate (Required)
-        :param str type: type of the certificate (Required)
-        :param str certificate_data: X509.v3 trusted certificate in PEM format.
-            Required for types lwm2m and bootstrap.
+        :param str type: type of the certificate. Values: lwm2m or bootstrap (Required)
+        :param str certificate_data: X509.v3 trusted certificate in PEM format. (Required)
         :param str signature: Base64 encoded signature of the account ID
             signed by the certificate to be uploaded.
-            Signature must be hashed with SHA256. Required for types lwm2m and bootstrap.
+            Signature must be hashed with SHA256. (Required)
         :param str status: Status of the certificate.
             Allowed values: "ACTIVE" | "INACTIVE".
         :param str description: Human readable description of this certificate,
@@ -129,29 +132,42 @@ class CertificatesAPI(BaseAPI):
         :rtype: Certificate
         """
         kwargs.update({'name': name})
-        if type == CertificateType.developer:
-            api = self.cert.DeveloperCertificateApi()
-            certificate = Certificate.create_request_map(kwargs)
-            body = cert.DeveloperCertificateRequestData(**certificate)
-            dev_cert = api.v3_developer_certificates_post(self.auth, body)
-            return self.get_certificate(dev_cert.id)
-        else:
-            api = self.iam.AccountAdminApi()
-            kwargs["service"] = type
-            certificate = Certificate.create_request_map(kwargs)
-            body = iam.TrustedCertificateReq(**certificate)
-            prod_cert = api.add_certificate(body)
-            return self.get_certificate(prod_cert.id)
+        kwargs.update({'type': type})
+        api = self.iam.AccountAdminApi()
 
-    @catch_exceptions(ApiException)
+        kwargs.update({'certificate_data': certificate_data})
+        certificate = Certificate._create_request_map(kwargs)
+        certificate.update({'signature': signature})
+        body = iam.TrustedCertificateReq(**certificate)
+        prod_cert = api.add_certificate(body)
+        return self.get_certificate(prod_cert.id)
+
+    @catch_exceptions(CaApiException, IamApiException)
+    def add_developer_certificate(self, name, **kwargs):
+        """Add a new developer certificate.
+
+        :param str name: name of the certificate (Required)
+        :param str description: Human readable description of this certificate,
+            not longer than 500 characters.
+        :returns: Certificate object
+        :rtype: Certificate
+        """
+        kwargs.update({'name': name})
+        api = self.cert.DeveloperCertificateApi()
+        certificate = Certificate._create_request_map(kwargs)
+        body = cert.DeveloperCertificateRequestData(**certificate)
+        dev_cert = api.v3_developer_certificates_post(self.auth, body)
+        return self.get_certificate(dev_cert.id)
+
+    @catch_exceptions(IamApiException)
     def update_certificate(self, certificate_id, **kwargs):
         """Update a certificate.
 
         :param str certificate_id: The certificate id (Required)
         :param str certificate_data: X509.v3 trusted certificate in PEM format.
-            Required for types lwm2m and bootstrap.
         :param str signature: Base64 encoded signature of the account ID
-            signed by the certificate to be uploaded.
+            signed by the certificate to be uploaded. Available only for bootstrap and lvm2m types.
+        :param str type: type of the certificate. Values: lwm2m or bootstrap.
         :param str status: Status of the certificate.
             Allowed values: "ACTIVE" | "INACTIVE".
         :param str description: Human readable description of this certificate,
@@ -160,7 +176,7 @@ class CertificatesAPI(BaseAPI):
         :rtype: Certificate
         """
         api = self.iam.DeveloperApi()
-        cert = Certificate.create_request_map(kwargs)
+        cert = Certificate._create_request_map(kwargs)
         body = iam.TrustedCertificateReq(**cert)
         certificate = Certificate(api.update_certificate(certificate_id, body))
         return self.get_certificate(certificate.id)
@@ -196,12 +212,11 @@ class Certificate(BaseObject):
             "id": "id",
             "name": "name",
             "description": "description",
-            "type": "device_execution_mode",
-            "service": "service",
+            "type": "service",
+            "device_mode": "device_execution_mode",
             "status": "status",
             "account_id": "account_id",
             "certificate_data": "certificate",
-            "signature": "signature",
             "created_at": "created_at",
             "issuer": "issuer",
             "subject": "subject",
@@ -257,9 +272,9 @@ class Certificate(BaseObject):
         :return: The type of the certificate.
         :rtype: CertificateType
         """
-        if self._type == 1 or self._service == CertificateType.developer:
+        if self._device_mode == 1 or self._type == CertificateType.developer:
             return CertificateType.developer
-        elif self._service == CertificateType.bootstrap:
+        elif self._type == CertificateType.bootstrap:
             return CertificateType.bootstrap
         else:
             return CertificateType.lwm2m
@@ -328,18 +343,19 @@ class Certificate(BaseObject):
     def header_file(self):
         """The content of the `security.c` file that is flashed into the device
 
-        to provide the security credentials.
+        to provide the security credentials. Set only for developer certificate.
         :rtype: str
         """
-        return self._header_file
+        return getattr(self, '_header_file', None)
 
     @property
     def developer_certificate(self):
         """The PEM format X.509 developer certificate.
 
+        Set only for developer certificate.
         :rtype: str
         """
-        return self._developer_certificate
+        return getattr(self, '_developer_certificate', None)
 
     @property
     def server_uri(self):
@@ -347,15 +363,16 @@ class Certificate(BaseObject):
 
         :rtype: str
         """
-        return self._server_uri
+        return getattr(self, '_server_uri', None)
 
     @property
     def developer_private_key(self):
-        """The PEM format developer private key associated to the certificate.
+        """The PEM format developer private key associated with the certificate.
 
+        Set only for developer certificate.
         :rtype: str
         """
-        return self._developer_private_key
+        return getattr(self, '_developer_private_key', None)
 
     @property
     def server_certificate(self):
@@ -365,4 +382,4 @@ class Certificate(BaseObject):
 
         :rtype: str
         """
-        return self._server_certificate
+        return getattr(self, '_server_certificate', None)

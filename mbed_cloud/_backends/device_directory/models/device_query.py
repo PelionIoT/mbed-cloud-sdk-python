@@ -3,7 +3,7 @@
 """
     Device Directory API
 
-    This is the API Documentation for the mbed device directory update service.
+    This is the API Documentation for the Mbed Device Directory service.
 
     OpenAPI spec version: 3
     
@@ -87,7 +87,7 @@ class DeviceQuery(object):
     def created_at(self):
         """
         Gets the created_at of this DeviceQuery.
-        Timestamp of when the device was created in the device directory.
+        The timestamp of when the device was created in the device directory.
 
         :return: The created_at of this DeviceQuery.
         :rtype: datetime
@@ -98,7 +98,7 @@ class DeviceQuery(object):
     def created_at(self, created_at):
         """
         Sets the created_at of this DeviceQuery.
-        Timestamp of when the device was created in the device directory.
+        The timestamp of when the device was created in the device directory.
 
         :param created_at: The created_at of this DeviceQuery.
         :type: datetime

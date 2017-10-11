@@ -2,7 +2,7 @@
 """
     Device Directory API
 
-    This is the API Documentation for the mbed device directory update service.
+    This is the API Documentation for the Mbed Device Directory service.
 
     OpenAPI spec version: 3
     
@@ -17,6 +17,8 @@ import json
 import mimetypes
 import tempfile
 import threading
+import functools
+import time
 
 from datetime import date, datetime
 
@@ -77,6 +79,8 @@ class ApiClient(object):
         # Set default User-Agent.
         self.user_agent = 'Swagger-Codegen/1.0.0/python'
         self.safe_chars = conf.safe_chars
+        # Store last api call metadata
+        self.last_metadata = {}
 
     @property
     def user_agent(self):
@@ -95,6 +99,25 @@ class ApiClient(object):
     def set_default_header(self, header_name, header_value):
         self.default_headers[header_name] = header_value
 
+    def metadata_wrapper(fn):
+        """Save metadata of last api call."""
+        @functools.wraps(fn)
+        def wrapped_f(self, *args, **kwargs):
+            self.last_metadata = {}
+            self.last_metadata["url"] = self.host + args[0]
+            self.last_metadata["method"] = args[1]
+            self.last_metadata["timestamp"] = time.time()
+            try:
+                return fn(self, *args, **kwargs)
+            except Exception as e:
+                self.last_metadata["exception"] = e
+                raise
+        return wrapped_f
+
+    def get_last_metadata(self):
+        return self.last_metadata
+
+    @metadata_wrapper
     def __call_api(self, resource_path, method,
                    path_params=None, query_params=None, header_params=None,
                    body=None, post_params=None, files=None,
@@ -161,6 +184,9 @@ class ApiClient(object):
                 return_data = self.deserialize(response_data, response_type)
             else:
                 return_data = None
+
+        self.last_metadata["response"] = response_data
+        self.last_metadata["return_data"] = return_data
 
         if callback:
             if _return_http_data_only:
@@ -627,6 +653,6 @@ class ApiClient(object):
                and instance.attribute_map[attr] in data \
                and isinstance(data, (list, dict)):
                 value = data[instance.attribute_map[attr]]
-                setattr(instance, attr, self.__deserialize(value, attr_type))
+                setattr(instance, "_%s" % attr, self.__deserialize(value, attr_type))
 
         return instance

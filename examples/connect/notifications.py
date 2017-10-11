@@ -1,17 +1,20 @@
 # ---------------------------------------------------------------------------
-#   The confidential and proprietary information contained in this file may
-#   only be used by a person authorised under and to the extent permitted
-#   by a subsisting licensing agreement from ARM Limited or its affiliates.
+# Mbed Cloud Python SDK
+# (C) COPYRIGHT 2017 Arm Limited
 #
-#          (C) COPYRIGHT 2017 ARM Limited or its affiliates.
-#              ALL RIGHTS RESERVED
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
 #
-#   This entire notice must be reproduced on all copies of this file
-#   and copies of this file may only be made by a person if such person is
-#   permitted to do so under the terms of a subsisting license agreement
-#   from ARM Limited or its affiliates.
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 # --------------------------------------------------------------------------
-"""Example setting up long-polling on a device."""
+"""Example setting up notifications on a device."""
 import time
 
 from mbed_cloud.connect import ConnectAPI
@@ -22,7 +25,7 @@ BUTTON_RESOURCE = "/5002/0/1"
 def _run_synchronized():
     api = ConnectAPI()
     api.start_notifications()
-    devices = api.list_connected_devices()
+    devices = api.list_connected_devices().data
     if not devices:
         raise Exception("No devices registered. Aborting")
 
@@ -45,7 +48,7 @@ def _run_synchronized():
 def _run_async():
     api = ConnectAPI()
     api.start_notifications()
-    devices = api.list_connected_devices()
+    devices = api.list_connected_devices().data
     if not devices:
         raise Exception("No devices registered. Aborting")
 

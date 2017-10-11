@@ -23,7 +23,6 @@ from .models.notification_message import NotificationMessage
 from .models.presubscription import Presubscription
 from .models.presubscription_array import PresubscriptionArray
 from .models.resource import Resource
-from .models.resource_path import ResourcePath
 from .models.resources_data import ResourcesData
 from .models.webhook import Webhook
 

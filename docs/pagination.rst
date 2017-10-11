@@ -36,6 +36,17 @@ Manual control of iteration
   >>> print len(elements)
   4
 
+.. code-block:: python
+
+    >>> from mbed_cloud.account_management import AccountManagementAPI
+    >>> accountManagementApi = AccountManagementAPI()
+    >>> usersResponse = accountManagementApi.list_users()
+    >>> users = []
+    >>> while usersResponse.has_more:
+          elements.append(usersResponse.next())
+    >>> print len(elements)
+    78
+
 Reference
 ---------
 

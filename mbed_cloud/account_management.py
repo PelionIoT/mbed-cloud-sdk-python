@@ -1,24 +1,26 @@
 # ---------------------------------------------------------------------------
-#   The confidential and proprietary information contained in this file may
-#   only be used by a person authorised under and to the extent permitted
-#   by a subsisting licensing agreement from ARM Limited or its affiliates.
+# Mbed Cloud Python SDK
+# (C) COPYRIGHT 2017 Arm Limited
 #
-#          (C) COPYRIGHT 2017 ARM Limited or its affiliates.
-#              ALL RIGHTS RESERVED
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
 #
-#   This entire notice must be reproduced on all copies of this file
-#   and copies of this file may only be made by a person if such person is
-#   permitted to do so under the terms of a subsisting license agreement
-#   from ARM Limited or its affiliates.
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 # --------------------------------------------------------------------------
-"""Functionality for Account Management related actions in mbed Cloud."""
+"""Functionality for Account Management related actions in Mbed Cloud."""
 from __future__ import absolute_import
 from __future__ import unicode_literals
 
 # Import common functions and exceptions from frontend API
 from mbed_cloud import BaseAPI
 from mbed_cloud import BaseObject
-from mbed_cloud import config
 from mbed_cloud.decorators import catch_exceptions
 from mbed_cloud import PaginatedResponse
 
@@ -39,13 +41,7 @@ class AccountManagementAPI(BaseAPI):
         """Setup the backend APIs with provided config."""
         super(AccountManagementAPI, self).__init__(params)
 
-        # Set the api_key for the requests
-        iam.configuration.api_key['Authorization'] = config.get("api_key")
-        iam.configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-        # Override host, if defined
-        if config.get("host"):
-            iam.configuration.host = config.get("host")
+        self.iam = self._init_api(iam)
 
     @catch_exceptions(ApiException)
     def list_api_keys(self, **kwargs):
@@ -70,9 +66,9 @@ class AccountManagementAPI(BaseAPI):
         :rtype: PaginatedResponse
         """
         kwargs = self._verify_sort_options(kwargs)
-        kwargs = self._verify_filters(kwargs)
+        kwargs = self._verify_filters(kwargs, ApiKey)
 
-        api = iam.DeveloperApi()
+        api = self.iam.DeveloperApi()
 
         # Return the data array
         return PaginatedResponse(api.get_all_api_keys, lwrap_type=ApiKey, **kwargs)
@@ -85,7 +81,7 @@ class AccountManagementAPI(BaseAPI):
         :returns: API key object
         :rtype: ApiKey
         """
-        api = iam.DeveloperApi()
+        api = self.iam.DeveloperApi()
         return ApiKey(api.get_api_key(api_key_id))
 
     @catch_exceptions(ApiException)
@@ -95,7 +91,7 @@ class AccountManagementAPI(BaseAPI):
         :param str api_key: The ID of the API key (Required)
         :returns: void
         """
-        api = iam.DeveloperApi()
+        api = self.iam.DeveloperApi()
         api.delete_api_key(api_key_id)
         return
 
@@ -106,12 +102,13 @@ class AccountManagementAPI(BaseAPI):
         :param str name: The name of the API key (Required)
         :param list groups: List of group IDs (`str`)
         :param str owner: User ID owning the API key
+        :param str status: The status of the API key. Values: ACTIVE, INACTIVE
         :returns: Newly created API key object
         :rtype: ApiKey
         """
-        api = iam.DeveloperApi()
+        api = self.iam.DeveloperApi()
         kwargs.update({'name': name})
-        api_key = ApiKey.create_request_map(kwargs)
+        api_key = ApiKey._create_request_map(kwargs)
         body = iam.ApiKeyInfoReq(**api_key)
         return ApiKey(api.create_api_key(body))
 
@@ -122,11 +119,12 @@ class AccountManagementAPI(BaseAPI):
         :param str api_key_id: The ID of the API key to be updated (Required)
         :param str name: The name of the API key
         :param str owner: User ID owning the API key
+        :param str status: The status of the API key. Values: ACTIVE, INACTIVE
         :returns: Newly created API key object
         :rtype: ApiKey
         """
-        api = iam.DeveloperApi()
-        apikey = ApiKey.create_request_map(kwargs)
+        api = self.iam.DeveloperApi()
+        apikey = ApiKey._create_request_map(kwargs)
         body = iam.ApiKeyUpdateReq(**apikey)
         return ApiKey(api.update_api_key(api_key_id, body))
 
@@ -142,8 +140,8 @@ class AccountManagementAPI(BaseAPI):
         :rtype: PaginatedResponse
         """
         kwargs = self._verify_sort_options(kwargs)
-        kwargs = self._verify_filters(kwargs)
-        api = iam.AccountAdminApi()
+        kwargs = self._verify_filters(kwargs, User)
+        api = self.iam.AccountAdminApi()
         return PaginatedResponse(api.get_all_users, lwrap_type=User, **kwargs)
 
     @catch_exceptions(ApiException)
@@ -154,7 +152,7 @@ class AccountManagementAPI(BaseAPI):
         :returns: the user object with details about the user.
         :rtype: User
         """
-        api = iam.AccountAdminApi()
+        api = self.iam.AccountAdminApi()
         return User(api.get_user(user_id))
 
     @catch_exceptions(ApiException)
@@ -172,8 +170,8 @@ class AccountManagementAPI(BaseAPI):
         :returns: the updated user object
         :rtype: User
         """
-        api = iam.AccountAdminApi()
-        user = User.create_request_map(kwargs)
+        api = self.iam.AccountAdminApi()
+        user = User._create_request_map(kwargs)
         body = iam.UserUpdateReq(**user)
         return User(api.update_user(user_id, body))
 
@@ -184,7 +182,7 @@ class AccountManagementAPI(BaseAPI):
         :param str user_id: the ID of the user to delete (Required)
         :returns: void
         """
-        api = iam.AccountAdminApi()
+        api = self.iam.AccountAdminApi()
         api.delete_user(user_id)
         return
 
@@ -195,6 +193,7 @@ class AccountManagementAPI(BaseAPI):
         Add user example:
 
         .. code-block:: python
+
             account_management_api = AccountManagementAPI()
             # Add user
             user = {
@@ -215,9 +214,9 @@ class AccountManagementAPI(BaseAPI):
         :returns: the new user object
         :rtype: User
         """
-        api = iam.AccountAdminApi()
+        api = self.iam.AccountAdminApi()
         kwargs.update({'username': username, 'email': email})
-        user = User.create_request_map(kwargs)
+        user = User._create_request_map(kwargs)
         body = iam.UserInfoReq(**user)
         return User(api.create_user(body))
 
@@ -228,7 +227,7 @@ class AccountManagementAPI(BaseAPI):
         :returns: an account object.
         :rtype: Account
         """
-        api = iam.DeveloperApi()
+        api = self.iam.DeveloperApi()
         return Account(api.get_my_account_info(include="limits, policies"))
 
     @catch_exceptions(ApiException)
@@ -251,8 +250,8 @@ class AccountManagementAPI(BaseAPI):
         :returns: an account object.
         :rtype: Account
         """
-        api = iam.AccountAdminApi()
-        account = Account.create_request_map(kwargs)
+        api = self.iam.AccountAdminApi()
+        account = Account._create_request_map(kwargs)
         body = AccountUpdateReq(**account)
         return Account(api.update_my_account(body))
 
@@ -267,7 +266,7 @@ class AccountManagementAPI(BaseAPI):
         :rtype: PaginatedResponse
         """
         kwargs = self._verify_sort_options(kwargs)
-        api = iam.DeveloperApi()
+        api = self.iam.DeveloperApi()
         return PaginatedResponse(api.get_all_groups, lwrap_type=Group, **kwargs)
 
     @catch_exceptions(ApiException)
@@ -280,7 +279,7 @@ class AccountManagementAPI(BaseAPI):
         :returns: :py:class:`Group` object.
         :rtype: Group
         """
-        api = iam.DeveloperApi()
+        api = self.iam.DeveloperApi()
         return Group(api.get_group_summary(group_id))
 
     @catch_exceptions(ApiException)
@@ -296,7 +295,7 @@ class AccountManagementAPI(BaseAPI):
         """
         kwargs["group_id"] = group_id
         kwargs = self._verify_sort_options(kwargs)
-        api = iam.AccountAdminApi()
+        api = self.iam.AccountAdminApi()
         return PaginatedResponse(api.get_users_of_group, lwrap_type=User, **kwargs)
 
     @catch_exceptions(ApiException)
@@ -312,7 +311,7 @@ class AccountManagementAPI(BaseAPI):
         """
         kwargs["group_id"] = group_id
         kwargs = self._verify_sort_options(kwargs)
-        api = iam.DeveloperApi()
+        api = self.iam.DeveloperApi()
         return PaginatedResponse(api.get_api_keys_of_group, lwrap_type=ApiKey, **kwargs)
 
 
@@ -558,6 +557,14 @@ class User(BaseObject):
                                 password = "hunter2")
     """
 
+    def __init__(self, dictionary):
+        """Initialize object."""
+        super(User, self).__init__(dictionary)
+        loginHistory = []
+        for login in self.login_history:
+            loginHistory.append(LoginHistory(login))
+        self._login_history = loginHistory
+
     @staticmethod
     def _get_attributes_map():
         return {
@@ -577,7 +584,9 @@ class User(BaseObject):
             "created_at": "created_at",
             "creation_time": "creation_time",
             "password_changed_time": "password_changed_time",
-            "last_login_time": "last_login_time"
+            "last_login_time": "last_login_time",
+            "two_factor_authentication": "is_totp_enabled",
+            "login_history": "login_history"
         }
 
     @property
@@ -719,6 +728,23 @@ class User(BaseObject):
         :rtype: int
         """
         return self._last_login_time
+
+    @property
+    def two_factor_authentication(self):
+        """Whether two factor authentication has been enabled for this user (readonly).
+
+        :rtype: bool
+        """
+        return self._two_factor_authentication
+
+    @property
+    def login_history(self):
+        """History of logins for this user (readonly).
+
+        :returns: List of LoginHistory.
+        :rtype: LoginHistory
+        """
+        return self._login_history
 
 
 class Group(BaseObject):
@@ -910,3 +936,48 @@ class ApiKey(BaseObject):
         :rtype: int
         """
         return self._last_login_time
+
+
+class LoginHistory(BaseObject):
+    """Login History."""
+
+    @staticmethod
+    def _get_attributes_map():
+        return {
+            "date": "date",
+            "user_agent": "user_agent",
+            "ip_address": "ip_address",
+            "success": "success"
+        }
+
+    @property
+    def date(self):
+        """Date of login.
+
+        :rtype: datetime
+        """
+        return self._date
+
+    @property
+    def user_agent(self):
+        """User agent used for login.
+
+        :rtype: str
+        """
+        return self._user_agent
+
+    @property
+    def ip_address(self):
+        """IP Address login from.
+
+        :rtype: str
+        """
+        return self._ip_address
+
+    @property
+    def success(self):
+        """Whether login was successful.
+
+        :rtype: bool
+        """
+        return self._success

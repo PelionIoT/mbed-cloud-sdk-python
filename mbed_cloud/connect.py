@@ -1,15 +1,18 @@
 # ---------------------------------------------------------------------------
-#   The confidential and proprietary information contained in this file may
-#   only be used by a person authorised under and to the extent permitted
-#   by a subsisting licensing agreement from ARM Limited or its affiliates.
+# Mbed Cloud Python SDK
+# (C) COPYRIGHT 2017 Arm Limited
 #
-#          (C) COPYRIGHT 2017 ARM Limited or its affiliates.
-#              ALL RIGHTS RESERVED
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
 #
-#   This entire notice must be reproduced on all copies of this file
-#   and copies of this file may only be made by a person if such person is
-#   permitted to do so under the terms of a subsisting license agreement
-#   from ARM Limited or its affiliates.
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 # --------------------------------------------------------------------------
 """Public API for mDS and Statistics APIs."""
 from __future__ import absolute_import
@@ -21,6 +24,7 @@ from collections import defaultdict
 import datetime
 import logging
 import re
+from six import iteritems
 from six.moves import queue
 import threading
 import time
@@ -29,13 +33,19 @@ import time
 from mbed_cloud import BaseAPI
 from mbed_cloud import BaseObject
 from mbed_cloud.decorators import catch_exceptions
+from mbed_cloud.device_directory import Device
+from mbed_cloud.exceptions import CloudApiException
 from mbed_cloud.exceptions import CloudAsyncError
 from mbed_cloud.exceptions import CloudTimeoutError
 from mbed_cloud.exceptions import CloudUnhandledError
 from mbed_cloud.exceptions import CloudValueError
+
 from mbed_cloud import PaginatedResponse
 
 # Import backend API
+import mbed_cloud._backends.device_directory as device_directory
+from mbed_cloud._backends.device_directory.rest import \
+    ApiException as DeviceDirectoryApiException
 import mbed_cloud._backends.mds as mds
 from mbed_cloud._backends.mds.rest import ApiException as MdsApiException
 import mbed_cloud._backends.statistics as statistics
@@ -54,11 +64,7 @@ class ConnectAPI(BaseAPI):
     """
 
     def __init__(self, params={}, b64decode=True):
-        """Setup the backend APIs with provided config.
-
-        In addition we need to setup some special handling of background
-        threads for the mDS functionality - as it relies on background polling.
-        """
+        """Setup the backend APIs with provided config."""
         super(ConnectAPI, self).__init__(params)
 
         # Initialize the wrapped APIs
@@ -67,23 +73,18 @@ class ConnectAPI(BaseAPI):
         self._db = {}
         self._queues = defaultdict(lambda: defaultdict(queue.Queue))
 
-        self._long_polling_thread = _LongPollingThread(self._db,
-                                                       self._queues,
-                                                       b64decode=b64decode,
-                                                       mds=self.mds)
-        self._long_polling_is_active = False
-        self._long_polling_thread.daemon = True
+        self._notifications_thread = _NotificationsThread(self._db,
+                                                          self._queues,
+                                                          b64decode=b64decode,
+                                                          mds=self.mds)
+        self._notifications_are_active = False
+        self._notifications_thread.daemon = True
 
         self.statistics = self._init_api(statistics)
-        # This API is a bit weird, so create the "authorization" string
-        authorization = self.statistics.configuration.api_key['Authorization']
-        self._auth = "Bearer %s" % (authorization,)
-        # API requires to send what fields should be returned in response
-        self._include_all = "registered_devices,transactions,apikeys,"\
-            "bootstraps_successful,bootstraps_failed,bootstraps_pending"
+        self.device_directory = self._init_api(device_directory)
 
     def start_notifications(self):
-        """Start the long-polling thread.
+        """Start the notifications thread.
 
         If not an external callback is setup (using `update_webhook`) then
         calling this function is mandatory to get or set resource.
@@ -97,33 +98,72 @@ class ConnectAPI(BaseAPI):
 
         :returns: void
         """
-        self._long_polling_thread.start()
-        self._long_polling_is_active = True
+        self._notifications_thread.start()
+        self._notifications_are_active = True
 
     def stop_notifications(self):
-        """Stop the long-polling thread.
+        """Stop the notifications thread.
 
         :returns: void
         """
-        self._long_polling_thread.stop()
-        self._long_polling_is_active = False
+        self._notifications_thread.stop()
+        self._notifications_are_active = False
 
-    @catch_exceptions(MdsApiException)
+    @catch_exceptions(DeviceDirectoryApiException)
     def list_connected_devices(self, **kwargs):
         """List connected devices.
 
-        :param str type: Filter endpoints by endpoint-type.
-        :returns: a list of currently *connected* `ConnectedDevice` objects
-        :rtype: list of ConnectedDevice
-        """
-        api = self.mds.EndpointsApi()
+        Example usage, listing all registered devices in the catalog:
 
-        resp = api.v2_endpoints_get(**kwargs)
-        return [ConnectedDevice(e) for e in resp]
+        .. code-block:: python
+
+            filters = {
+                'created_at': {'$gte': datetime.datetime(2017,01,01),
+                               '$lte': datetime.datetime(2017,12,31)
+                              }
+            }
+            devices = api.list_connected_devices(order='asc', filters=filters)
+            for idx, device in enumerate(devices):
+                print(device)
+
+            ## Other example filters
+
+            # Directly connected devices (not via gateways):
+            filters = {
+                'host_gateway': {'$eq': ''},
+                'device_type': {'$eq': ''}
+            }
+
+            # Devices connected via gateways:
+            filters = {
+                'host_gateway': {'$neq': ''}
+            }
+
+            # Gateway devices:
+            filters = {
+                'device_type': {'$eq': 'MBED_GW'}
+            }
+
+
+        :param int limit: The number of devices to retrieve.
+        :param str order: The ordering direction, ascending (asc) or
+            descending (desc)
+        :param str after: Get devices after/starting at given `device_id`
+        :param filters: Dictionary of filters to apply.
+        :returns: a list of connected :py:class:`Device` objects.
+        :rtype: PaginatedResponse
+        """
+        filters = kwargs.get("filters", {})
+        filters.update({'state': {'$eq': 'registered'}})
+        kwargs.update({'filters': filters})
+        kwargs = self._verify_sort_options(kwargs)
+        kwargs = self._verify_filters(kwargs, Device, True)
+        api = self.device_directory.DefaultApi()
+        return PaginatedResponse(api.device_list, lwrap_type=Device, **kwargs)
 
     @catch_exceptions(MdsApiException)
     def list_resources(self, device_id):
-        """List all resources registered to a connected device/device.
+        """List all resources registered to a connected device.
 
         .. code-block:: python
 
@@ -139,6 +179,37 @@ class ConnectAPI(BaseAPI):
         """
         api = self.mds.EndpointsApi()
         return [Resource(r) for r in api.v2_endpoints_device_id_get(device_id)]
+
+    @catch_exceptions(MdsApiException)
+    def get_resource(self, device_id, resource_path):
+        """Get a resource.
+
+        :param str device_id: ID of the device (Required)
+        :param str path: Path of the resource to get (Required)
+        :returns: Device resource
+        :rtype Resource
+        """
+        resources = self.list_resources(device_id)
+        for r in resources:
+            if r.path == resource_path:
+                return r
+        raise CloudApiException("Resource not found")
+
+    @catch_exceptions(MdsApiException)
+    def delete_resource(self, device_id, resource_path, fix_path=False):
+        """Deletes a resource.
+
+        :param str device_id: The ID of the device (Required)
+        :param str resource_path: Path of the resource to delete
+        :param fix_path: Removes leading / on resource_path if found
+        :returns: Async ID
+        :rtype: str
+        """
+        api = self.mds.ResourcesApi()
+        # When path starts with / we remove the slash, as the API can't handle //.
+        if fix_path and resource_path.startswith("/"):
+            resource_path = resource_path[1:]
+        api.v2_endpoints_device_id_resource_path_delete(device_id, resource_path)
 
     @catch_exceptions(MdsApiException)
     def get_resource_value(self, device_id, resource_path, fix_path=True, timeout=None):
@@ -164,8 +235,8 @@ class ConnectAPI(BaseAPI):
         :returns: The resource value for the requested resource path
         :rtype: str
         """
-        # Ensure we're long polling first
-        if not self._long_polling_is_active:
+        # Ensure we're listening to notifications first
+        if not self._notifications_are_active:
             raise CloudUnhandledError(
                 "start_notifications needs to be called before getting resource value.")
 
@@ -175,7 +246,7 @@ class ConnectAPI(BaseAPI):
         api = self.mds.ResourcesApi()
         resp = api.v2_endpoints_device_id_resource_path_get(device_id, resource_path)
 
-        # The async consumer, which will read data from long-polling thread
+        # The async consumer, which will read data from notifications thread
         consumer = AsyncConsumer(resp.async_response_id, self._db)
 
         # We block the thread and get the value for the user.
@@ -209,7 +280,7 @@ class ConnectAPI(BaseAPI):
         api = self.mds.ResourcesApi()
         resp = api.v2_endpoints_device_id_resource_path_get(device_id, resource_path)
 
-        # The async consumer, which will read data from long-polling thread
+        # The async consumer, which will read data from notifications thread
         return AsyncConsumer(resp.async_response_id, self._db)
 
     @catch_exceptions(MdsApiException)
@@ -237,8 +308,8 @@ class ConnectAPI(BaseAPI):
         :returns: The value of the new resource
         :rtype: str
         """
-        # Ensure we're long polling first
-        if not self._long_polling_is_active:
+        # Ensure we're listening to notifications first
+        if not self._notifications_are_active:
             raise CloudUnhandledError(
                 "start_notifications needs to be called before setting resource value.")
 
@@ -320,8 +391,8 @@ class ConnectAPI(BaseAPI):
         :returns: The value returned from the function executed on the resource
         :rtype: str
         """
-        # Ensure we're long polling first
-        if not self._long_polling_is_active:
+        # Ensure we're listening to notifications first
+        if not self._notifications_are_active:
             raise CloudUnhandledError(
                 "start_notifications needs to be called before setting resource value.")
 
@@ -427,11 +498,29 @@ class ConnectAPI(BaseAPI):
         t.start()
 
     @catch_exceptions(MdsApiException)
+    def get_resource_subscription(self, device_id, resource_path, fix_path=True):
+        """Read subscription status.
+
+        :param device_id: Name of device to subscribe on (Required)
+        :param resource_path: The resource path on device to observe (Required)
+        :param fix_path: Removes leading / on resource_path if found
+        :returns: status of subscription
+        """
+        # When path starts with / we remove the slash, as the API can't handle //.
+        # Keep the original path around however, as we use that for queue registration.
+        fixed_path = resource_path
+        if fix_path and resource_path.startswith("/"):
+            fixed_path = resource_path[1:]
+
+        api = self.mds.SubscriptionsApi()
+        return api.v2_subscriptions_device_id_resource_path_get(device_id, fixed_path)
+
+    @catch_exceptions(MdsApiException)
     def update_presubscriptions(self, presubscriptions):
         """Update pre-subscription data. Pre-subscription data will be removed for empty list.
 
         :param presubscriptions: list of `Presubscription` objects (Required)
-        :returns: void
+        :returns: None
         """
         api = self.mds.SubscriptionsApi()
         presubscriptions_list = []
@@ -447,6 +536,24 @@ class ConnectAPI(BaseAPI):
         return api.v2_subscriptions_put(presubscriptions_list)
 
     @catch_exceptions(MdsApiException)
+    def delete_presubscriptions(self):
+        """Deletes pre-subscription data.
+
+        :returns: None
+        """
+        api = self.mds.SubscriptionsApi()
+        return api.v2_subscriptions_put([])
+
+    @catch_exceptions(MdsApiException)
+    def delete_subscriptions(self):
+        """Remove all subscriptions.
+
+        :returns: None
+        """
+        api = self.mds.SubscriptionsApi()
+        return api.v2_subscriptions_delete()
+
+    @catch_exceptions(MdsApiException)
     def list_presubscriptions(self, **kwargs):
         """Get a list of pre-subscription data
 
@@ -456,6 +563,28 @@ class ConnectAPI(BaseAPI):
         api = self.mds.SubscriptionsApi()
         resp = api.v2_subscriptions_get(**kwargs)
         return [Presubscription(p) for p in resp]
+
+    @catch_exceptions(MdsApiException)
+    def list_device_subscriptions(self, device_id, **kwargs):
+        """Lists all subscribed resources from a single device
+
+        :param device_id: Id of the device
+        :returns: a list of subscribed resources
+        :rtype: list of str
+        """
+        api = self.mds.SubscriptionsApi()
+        resp = api.v2_subscriptions_device_id_get(device_id, **kwargs)
+        return resp.split("\n")
+
+    @catch_exceptions(MdsApiException)
+    def delete_device_subscriptions(self, device_id):
+        """Removes a device's subscriptions
+
+        :param device_id: Id of the device
+        :returns: None
+        """
+        api = self.mds.SubscriptionsApi()
+        return api.v2_subscriptions_device_id_delete(device_id)
 
     @catch_exceptions(MdsApiException)
     def delete_resource_subscription(self, device_id=None, resource_path=None, fix_path=True):
@@ -519,6 +648,9 @@ class ConnectAPI(BaseAPI):
         """
         api = self.mds.NotificationsApi()
 
+        # Delete notifications channel
+        api.v2_notification_pull_delete()
+
         # Send the request to register the webhook
         webhook_obj = self.mds.Webhook(url=url, headers=headers)
         api.v2_notification_callback_put(webhook_obj)
@@ -546,7 +678,11 @@ class ConnectAPI(BaseAPI):
     def list_metrics(self, include=None, interval="1d", **kwargs):
         """Get statistics.
 
-        :param str include: What fields to include in response. None will return all.
+        :param list[str] include: List of fields included in response.
+        None or empty list will return all fields.
+        Fields: transactions, successful_api_calls, failed_api_calls, successful_handshakes,
+        pending_bootstraps, successful_bootstraps, failed_bootstraps, registrations,
+        updated_registrations, expired_registrations, deleted_registrations
         :param str interval: Group data by this interval in days, weeks or hours.
             Sample values: 2h, 3w, 4d.
         :param datetime start: Fetch the data with timestamp greater than or equal to this value.
@@ -562,14 +698,12 @@ class ConnectAPI(BaseAPI):
         :returns: a list of :py:class:`Metric` objects
         :rtype: PaginatedResponse
         """
-        if not include:
-            include = self._include_all
         self._verify_arguments(interval, kwargs)
-        kwargs = self._verify_filters(kwargs)
+        kwargs = self._verify_filters(kwargs, Metric)
         api = self.statistics.StatisticsApi()
+        include = Metric._map_includes(include)
         kwargs.update({"include": include})
         kwargs.update({"interval": interval})
-        kwargs.update({"authorization": self._auth})
         return PaginatedResponse(api.v3_metrics_get, lwrap_type=Metric, **kwargs)
 
     def _subscription_handler(self, queue, device_id, path, callback_fn):
@@ -628,7 +762,7 @@ class ConnectAPI(BaseAPI):
 
 
 class AsyncConsumer(object):
-    """Consumer object for reading values from a long-polling thread.
+    """Consumer object for reading values from a notifications thread.
 
     Example usage:
 
@@ -646,7 +780,7 @@ class AsyncConsumer(object):
     def __init__(self, async_id, db):
         """Setup the consumer, listening for a specific async ID to appear in external DB.
 
-        The DB is populated from the long polling thread.
+        The DB is populated from the notifications thread.
         """
         self.async_id = async_id
         self.db = db
@@ -709,9 +843,9 @@ class AsyncConsumer(object):
         return self.async_id
 
 
-class _LongPollingThread(threading.Thread):
+class _NotificationsThread(threading.Thread):
     def __init__(self, db, queues, b64decode=True, mds=None):
-        super(_LongPollingThread, self).__init__()
+        super(_NotificationsThread, self).__init__()
 
         self.db = db
         self.queues = queues
@@ -755,69 +889,6 @@ class _LongPollingThread(threading.Thread):
         self._stopped = True
 
 
-class ConnectedDevice(BaseObject):
-    """Describes device object from the mDS."""
-
-    @staticmethod
-    def _get_attributes_map():
-        return {
-            'state': 'status',
-            'queue_mode': 'q',
-            'type': 'type',
-            'id': 'name'
-        }
-
-    @property
-    def state(self):
-        """Get the state of this Endpoint.
-
-        Possible values ACTIVE, STALE.
-
-        :return: The state of this Endpoint.
-        :rtype: str
-        """
-        return self._state
-
-    @property
-    def queue_mode(self):
-        """Get the queue mode of this Endpoint.
-
-        Determines whether the device is in queue mode.
-        When an endpoint is in Queue mode,
-        messages sent to the endpoint do not wake up the physical device.
-        The messages are queued and delivered when the device
-        wakes up and connects to mbed Cloud Connect itself.
-        You can also use the Queue mode when the device
-        is behind a NAT and cannot be reached directly by mbed Cloud Connect.
-
-        :return: The queue_mode of this Endpoint.
-        :rtype: bool
-        """
-        return self._queue_mode
-
-    @property
-    def type(self):
-        """Get the type of this Endpoint.
-
-        Type of endpoint. (Free text)
-
-        :return: The type of this Endpoint.
-        :rtype: str
-        """
-        return self._type
-
-    @property
-    def id(self):
-        """Get the id of this Endpoint.
-
-        Unique mbed Cloud Device ID representing the endpoint.
-
-        :return: The id of this Endpoint.
-        :rtype: str
-        """
-        return self._id
-
-
 class Webhook(BaseObject):
     """Describes webhook object."""
 
@@ -847,7 +918,7 @@ class Webhook(BaseObject):
         Headers (key/value) that are sent with the notification. Optional.
 
         :return: The headers of this Webhook.
-        :rtype: object
+        :rtype: dict(str, str)
         """
         return self._headers
 
@@ -934,20 +1005,44 @@ class Metric(BaseObject):
         return {
             "id": "id",
             "timestamp": "timestamp",
+            "handshakes": "handshakes_successful",
             "transactions": "transactions",
-            "successful_device_registrations": "bootstraps_successful",
-            "pending_device_registrations": "bootstraps_pending",
-            "failed_device_registrations": "bootstraps_failed",
-            "successful_api_calls": "device_server_rest_api_success",
-            "failed_api_calls": "device_server_rest_api_error",
-            "successful_handshakes": "handshakes_successful",
-            "failed_handshakes": "handshakes_failed",
-            "registered_devices": "registered_devices"
+            "observations": "device_observations",
+            "successful_api_calls": "connect_rest_api_success",
+            "failed_api_calls": "connect_rest_api_error",
+            "successful_proxy_requests": "device_proxy_request_success",
+            "failed_proxy_requests": "device_proxy_request_error",
+            "successful_subscription_requests": "device_subscription_request_success",
+            "failed_subscription_requests": "device_subscription_request_error",
+            "successful_bootstraps": "bootstraps_successful",
+            "failed_bootstraps": "bootstraps_failed",
+            "pending_bootstraps": "bootstraps_pending",
+            "full_registrations": "full_registrations",
+            "updated_registrations": "registration_updates",
+            "expired_registrations": "expired_registrations",
+            "deleted_registrations": "deleted_registrations"
         }
+
+    @staticmethod
+    def _map_includes(include):
+        if include is None:
+            include = []
+        includes = []
+        attributes_map = Metric._get_attributes_map()
+        for key in include:
+            val = attributes_map.get(key, None)
+            if val is not None:
+                includes.append(val)
+        if len(includes) == 0:
+            for key, value in iteritems(attributes_map):
+                if key != "id" and key != "timestamp":
+                    includes.append(value)
+        s = ','
+        return s.join(includes)
 
     @property
     def id(self):
-        """Number of transaction events from devices linked to the account.
+        """The ID of the metric.
 
         :rtype: string
         """
@@ -957,46 +1052,54 @@ class Metric(BaseObject):
     def timestamp(self):
         """UTC time in RFC3339 format.
 
+        The timestamp is the starting point of the interval for which the data is aggregated.
+        Each interval includes data for the time greater than or equal to the timestamp
+        and less than the next interval's starting point.
+
         :return: The timestamp of this Metric.
-        :rtype: str
+        :rtype: datetime
         """
         return self._timestamp
 
     @property
+    def handshakes(self):
+        """The number of successful TLS handshakes the account has performed.
+
+        The SSL or TLS handshake enables the SSL or TLS client and server to establish the
+        secret keys with which they communicate. A successful TLS handshake is required
+        for establishing a connection with Mbed Cloud Connect for any operaton such as registration,
+        registration update and deregistration.
+        :rtype: int
+        """
+        return self._handshakes
+
+    @property
     def transactions(self):
-        """Number of transaction events from devices linked to the account.
+        """The number of transaction events from or to devices linked to the account.
+
+        A transaction is a 512-byte block of data processed by Mbed Cloud.
+        It can be either sent by the device (device --> Mbed Cloud) or received by the device
+        (Mbed Cloud --> device). A transaction does not include
+        IP, TCP or UDP, TLS or DTLS packet overhead.
+        It only contains the packet payload (full CoAP packet including CoAP headers).
 
         :rtype: int
         """
         return self._transactions
 
     @property
-    def successful_device_registrations(self):
-        """Number of successful bootstraps the account has used.
+    def observations(self):
+        """The number of observations received by Mbed Cloud Connect from the devices
 
+        linked to the account. The observations are pushed from the device to Mbed Cloud Connect
+        when you have successfully subscribed to the device resources using Connect API endpoints.
         :rtype: int
         """
-        return self._successful_device_registrations
-
-    @property
-    def pending_device_registrations(self):
-        """Number of pending bootstraps the account has used.
-
-        :rtype: int
-        """
-        return self._pending_device_registrations
-
-    @property
-    def failed_device_registrations(self):
-        """Number of failed bootstraps the account has used.
-
-        :rtype: int
-        """
-        return self._failed_device_registrations
+        return self._observations
 
     @property
     def successful_api_calls(self):
-        """Number of successful device server REST API requests the account has used.
+        """The number of successful requests the account has performed.
 
         :rtype: int
         """
@@ -1004,35 +1107,136 @@ class Metric(BaseObject):
 
     @property
     def failed_api_calls(self):
-        """Number of failed device server REST API requests the account has used.
+        """The number of failed requests the account has performed.
 
         :rtype: int
         """
         return self._failed_api_calls
 
     @property
-    def successful_handshakes(self):
-        """Number of successful handshakes the account has used.
+    def successful_proxy_requests(self):
+        """The number of successful proxy requests from Mbed Cloud Connect to devices linked
+
+        to the account. The proxy requests are made from Mbed Cloud Connect to devices
+        when you try to read or write values to device resources using Connect API endpoints.
 
         :rtype: int
         """
-        return self._successful_handshakes
+        return self._successful_proxy_requests
 
     @property
-    def failed_handshakes(self):
-        """Number of failed handshakes the account has used.
+    def failed_proxy_requests(self):
+        """The number of failed proxy requests from Mbed Cloud Connect to devices linked to
 
+        the account. The proxy requests are made from Mbed Cloud Connect to devices when you try
+        to read or write values to device resources using Connect API endpoints.
         :rtype: int
         """
-        return self._failed_handshakes
+        return self._failed_proxy_requests
 
     @property
-    def registered_devices(self):
-        """Maximum number of registered devices linked to the account.
+    def successful_subscription_requests(self):
+        """The number of successful subscription requests from Mbed Cloud Connect to devices
+
+        linked to the account. The subscription requests are made from Mbed Cloud Connect
+        to devices when you try to subscribe to a resource path using Connect API endpoints.
+        :rtype: int
+        """
+        return self._successful_subscription_requests
+
+    @property
+    def failed_subscription_requests(self):
+        """The number of failed subscription requests from Mbed Cloud Connect to devices linked
+
+        to the account. The subscription requests are made from Mbed Cloud Connect to devices
+        when you try to subscribe to a resource path using Connect API endpoints.
+        :rtype: int
+        """
+        return self._failed_subscription_requests
+
+    @property
+    def pending_bootstraps(self):
+        """The number of pending bootstraps the account has performed.
+
+        Bootstrap is the process of provisioning a Lightweight Machine to Machine Client
+        to a state where it can initiate a management session to a new Lightweight Machine
+        to Machine Server.
 
         :rtype: int
         """
-        return self._registered_devices
+        return self._pending_bootstraps
+
+    @property
+    def successful_bootstraps(self):
+        """The number of successful bootstraps the account has performed.
+
+        Bootstrap is the process of provisioning a Lightweight Machine to Machine Client
+        to a state where it can initiate a management session to a new Lightweight Machine
+        to Machine Server.
+
+        :rtype: int
+        """
+        return self._successful_bootstraps
+
+    @property
+    def failed_bootstraps(self):
+        """The number of failed bootstraps the account has performed.
+
+        Bootstrap is the process of provisioning a Lightweight Machine to Machine Client
+        to a state where it can initiate a management session to
+        a new Lightweight Machine to Machine Server.
+
+        :rtype: int
+        """
+        return self._failed_bootstraps
+
+    @property
+    def full_registrations(self):
+        """The number of full registrations linked to the account.
+
+        Full registration is the process of registering a device with the Mbed Cloud Connect
+        by providing its lifetime and capabilities such as the resource structure.
+        The registered status of the device does not guarantee that the device is active
+        and accessible from Mebd Cloud Connect at any point of time.
+
+        :rtype: int
+        """
+        return self._full_registrations
+
+    @property
+    def updated_registrations(self):
+        """The number of registration updates linked to the account.
+
+        Registration update is the process of updating the registration status with
+        the Mbed Cloud Connect to update or extend the lifetime of the device.
+
+        :rtype: int
+        """
+        return self._updated_registrations
+
+    @property
+    def expired_registrations(self):
+        """The number of expired registrations linked to the account.
+
+        Mbed Cloud Connect removes the device registrations when the devices cannot update
+        their registration before the expiry of the lifetime. Mbed Cloud Connect
+        no longer handles requests for a device whose registration has expired already.
+
+        :rtype: int
+        """
+        return self._expired_registrations
+
+    @property
+    def deleted_registrations(self):
+        """The number of deleted registrations (deregistrations) linked to the account.
+
+        Deregistration is the process of removing the device registration from the
+        Mbed Cloud Connect registry. The deregistration is usually initiated by the device.
+        Mbed Cloud Connect no longer handles requests for a deregistered device.
+
+        :rtype: int
+        """
+        return self._deleted_registrations
 
 
 class Presubscription(BaseObject):

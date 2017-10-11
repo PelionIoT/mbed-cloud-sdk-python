@@ -3,7 +3,7 @@
 """
     Update Service API
 
-    This is the API Documentation for the mbed deployment service which is part of the update service.
+    This is the API documentation for the Mbed deployment service, which is part of the update service.
 
     OpenAPI spec version: 3
     
@@ -20,11 +20,6 @@ from .models.firmware_image import FirmwareImage
 from .models.firmware_image_page import FirmwareImagePage
 from .models.firmware_manifest import FirmwareManifest
 from .models.firmware_manifest_page import FirmwareManifestPage
-from .models.manifest_contents import ManifestContents
-from .models.manifest_contents_encryption_mode import ManifestContentsEncryptionMode
-from .models.manifest_contents_payload import ManifestContentsPayload
-from .models.manifest_contents_payload_format import ManifestContentsPayloadFormat
-from .models.manifest_contents_payload_reference import ManifestContentsPayloadReference
 from .models.update_campaign import UpdateCampaign
 from .models.update_campaign_page import UpdateCampaignPage
 from .models.update_campaign_patch_request import UpdateCampaignPatchRequest

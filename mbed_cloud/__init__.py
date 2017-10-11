@@ -1,28 +1,29 @@
 # ---------------------------------------------------------------------------
-#   The confidential and proprietary information contained in this file may
-#   only be used by a person authorised under and to the extent permitted
-#   by a subsisting licensing agreement from ARM Limited or its affiliates.
+# Mbed Cloud Python SDK
+# (C) COPYRIGHT 2017 Arm Limited
 #
-#          (C) COPYRIGHT 2017 ARM Limited or its affiliates.
-#              ALL RIGHTS RESERVED
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
 #
-#   This entire notice must be reproduced on all copies of this file
-#   and copies of this file may only be made by a person if such person is
-#   permitted to do so under the terms of a subsisting license agreement
-#   from ARM Limited or its affiliates.
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 # --------------------------------------------------------------------------
 """Initialise the mbed_cloud config and BaseAPI."""
 from __future__ import print_function
 from __future__ import unicode_literals
-from future import standard_library
-standard_library.install_aliases()
 from builtins import object
+import datetime
 from six import iteritems
 from six import string_types
 import sys
-import urllib.error
-import urllib.parse
-import urllib.request
+
+from six.moves import urllib
 
 from mbed_cloud.bootstrap import Config
 from mbed_cloud.exceptions import CloudValueError
@@ -36,7 +37,7 @@ class BaseAPI(object):
     def __init__(self, user_config={}):
         """Ensure the config is valid and has all required fields."""
         config.update(user_config)
-
+        self.apis = []
         if "host" in config:
             # Strip leading and trailing slashes from host
             config.update({'host': config['host'].strip('/')})
@@ -67,7 +68,7 @@ class BaseAPI(object):
 
         # Ensure we don't encode /
         api.configuration.safe_chars = "/"
-
+        self.apis.append(api)
         return api
 
     def _verify_sort_options(self, kwargs):
@@ -84,25 +85,60 @@ class BaseAPI(object):
                                  "Currently: %r" % kwargs.get('limit'))
         return kwargs
 
-    def _verify_filters(self, kwargs, encode=False):
+    def _verify_filters(self, kwargs, obj, encode=False):
         if kwargs.get('filters'):
             kwargs.update({'filter': kwargs.get('filters')})
             del kwargs['filters']
         if 'filter' in kwargs:
+            filters = kwargs.get('filter')
+            if filters and not isinstance(filters, dict):
+                raise CloudValueError("'filters' parameter needs to be of type dict")
+            filters = self._encode_query(filters, obj, encode)
             if encode:
-                kwargs.update({'filter': self._encode_query(kwargs.get('filter'))})
+                kwargs.update({'filter': filters})
             else:
-                for k, v in list(kwargs.get('filter').items()):
-                    if isinstance(v, dict):
-                        for operator, val in list(v.items()):
-                            suffix = self._get_key_suffix(operator, False)
-                            key = "%s%s" % (k, suffix)
-                            kwargs[key] = val
-                    else:
-                        key = "%s__%s" % (k, "eq")
-                        kwargs[key] = v
+                for k, v in list(filters.items()):
+                    kwargs[k] = v
                 del kwargs['filter']
         return kwargs
+
+    def _encode_query(self, filters, obj, encode=True):
+        updated_filters = {}
+        for k, v in list(filters.items()):
+            val = obj._get_attributes_map().get(k, None)
+            if val is not None:
+                updated_filters[val] = filters[k]
+            else:
+                updated_filters[k] = v
+        self._set_custom_attributes(updated_filters)
+        filters = self._create_filters_dict(updated_filters, encode)
+        if encode:
+            return urllib.parse.urlencode(filters)
+        else:
+            return filters
+
+    def _create_filters_dict(self, query, encode):
+        filters = {}
+        for k, v in list(query.items()):
+            if not isinstance(v, dict):
+                # Set default operator as eq
+                v = {'$eq': v}
+            for operator, val in list(v.items()):
+                val = self._convert_filter_value(val)
+                suffix = self._get_key_suffix(operator, encode)
+                key = "%s%s" % (k, suffix)
+                if encode:
+                    if not isinstance(val, string_types):
+                        val = str(val)
+                    filters[key] = urllib.parse.quote(val)
+                else:
+                    filters[key] = val
+        return filters
+
+    def _convert_filter_value(self, value):
+        if isinstance(value, datetime.datetime):
+            value = value.isoformat() + "Z"
+        return value
 
     def _set_custom_attributes(self, query):
         if "custom_attributes" in query:
@@ -128,28 +164,29 @@ class BaseAPI(object):
             suffix = "__%s" % (operator)
         return suffix
 
-    def _encode_query(self, query):
-        # Ensure the query is of dict type
-        if query and not isinstance(query, dict):
-            raise CloudValueError("'query' parameter needs to be of type dict")
+    def get_last_api_metadata(self):
+        """Get meta data for the last Mbed Cloud API call.
 
-        # Add custom attributes, if provided
-        self._set_custom_attributes(query)
-
-        # Ensure query is valid
-        if not list(query.keys()):
-            raise CloudValueError("'query' parameter not valid, needs to contain query keys")
-        filters = {}
-        for k, v in list(query.items()):
-            if isinstance(v, dict):
-                for operator, val in list(v.items()):
-                    if isinstance(val, bool):
-                        val = str(val)
-                    suffix = self._get_key_suffix(operator)
-                    key = "%s%s" % (k, suffix)
-                    filters[key] = urllib.parse.quote(val)
-        # Encode the query string
-        return urllib.parse.urlencode(filters)
+        :returns: meta data of the last Mbed Cloud API call
+        :rtype: ApiMetadata
+        """
+        last_metadata = None
+        for api in self.apis:
+            api_client = api.configuration.api_client
+            if api_client is not None:
+                metadata = api_client.get_last_metadata()
+                if metadata is not None:
+                    if last_metadata is None:
+                        last_metadata = metadata
+                    elif metadata["timestamp"] >= last_metadata["timestamp"]:
+                        last_metadata = metadata
+        if last_metadata is not None:
+            last_metadata = ApiMetadata(last_metadata.get("url"),
+                                        last_metadata.get("method"),
+                                        last_metadata.get("response", None),
+                                        last_metadata.get("return_data", None),
+                                        last_metadata.get("exception", None))
+        return last_metadata
 
 
 class BaseObject(object):
@@ -164,7 +201,7 @@ class BaseObject(object):
         if not isinstance(dictionary, dict):
             dictionary = dictionary.to_dict()
         for key, value in iteritems(self._get_attributes_map()):
-            if value in dictionary:
+            if value in dictionary and not hasattr(self, "_%s" % key):
                 setattr(self, "_%s" % key, dictionary.get(value, None))
 
     @staticmethod
@@ -173,10 +210,10 @@ class BaseObject(object):
         pass
 
     @classmethod
-    def create_request_map(cls, input_map):
+    def _create_request_map(obj, input_map):
         """Create request map."""
         request_map = {}
-        attributes_map = cls._get_attributes_map()
+        attributes_map = obj._get_attributes_map()
         for key, value in iteritems(input_map):
             val = attributes_map.get(key, None)
             if val is not None:
@@ -301,12 +338,15 @@ class PaginatedResponse(object):
             return resp.total_count
         return 0
 
-    def __next__(self):
-        """Get the next element in list.
+    def next(self):
+        """Get the next element in response list.
 
-        As one can see in the example we finely control the iteration of the
-        pagination and in total we would here have 50+23=73 users.
+        It will make call to get next page with data if there is still data to retrieve.
         """
+        return self.__next__()
+
+    def __next__(self):
+        """Get the next element in list."""
         # If we don't have any data, then we just return.
         if self._data is None:
             raise StopIteration
@@ -380,3 +420,141 @@ class PaginatedResponse(object):
     @data.setter
     def data(self, value):
         self._data = value
+
+
+class ApiMetadata(object):
+    """Api meta data."""
+
+    def __init__(self, url, method, response=None, response_data=None, exception=None):
+        """Initialise new api metadata object."""
+        self._url = url
+        self._method = method
+        self._status_code = 400
+        self._headers = []
+        self._request_id = ""
+        self._object = None
+        self._etag = ""
+        self._error_message = ""
+        self._date = datetime.datetime.utcnow()
+        if exception is not None:
+            self._set_exception(exception)
+            self._set_headers(exception)
+        else:
+            self._set_response(response, response_data)
+            self._set_headers(response)
+
+    def _set_headers(self, obj):
+        if hasattr(obj, 'getheaders'):
+            self._headers = obj.getheaders()
+            self._date = self._headers.get("date", datetime.datetime.utcnow())
+            self._request_id = self._headers.get("x-request-id", "")
+        elif hasattr(obj, 'headers'):
+            self._headers = getattr(obj, "headers")
+            self._date = self._headers.get("date", datetime.datetime.utcnow())
+            self._request_id = self._headers.get("x-request-id", "")
+
+    def _set_exception(self, exception):
+        if hasattr(exception, 'status'):
+            self._status_code = getattr(exception, 'status')
+        if hasattr(exception, 'reason'):
+            self._error_message = getattr(exception, 'reason')
+        elif hasattr(exception, 'message'):
+            self._error_message = getattr(exception, 'message')
+        if hasattr(exception, 'body'):
+            self._set_response(getattr(exception, 'body'))
+
+    def _set_response(self, response=None, response_data=None):
+        if response is not None:
+            if hasattr(response, 'status'):
+                self._status_code = getattr(response, 'status')
+            self._set_headers(response)
+        if response_data is not None:
+            if hasattr(response_data, 'object'):
+                self._object = getattr(response_data, 'object')
+            if hasattr(response_data, 'etag'):
+                self._etag = getattr(response_data, 'etag')
+
+    @property
+    def url(self):
+        """URL of the API request.
+
+        :rtype: str
+        """
+        return self._url
+
+    @property
+    def method(self):
+        """Method of the API request.
+
+        :rtype: str
+        """
+        return self._method
+
+    @property
+    def status_code(self):
+        """HTTP Status code of the API response.
+
+        :rtype: int
+        """
+        return self._status_code
+
+    @property
+    def date(self):
+        """Date of the API response.
+
+        :rtype: datetime
+        """
+        return self._date
+
+    @property
+    def headers(self):
+        """Headers in the API response.
+
+        :rtype: list
+        """
+        return self._headers
+
+    @property
+    def request_id(self):
+        """Request ID of the transaction.
+
+        :rtype: str
+        """
+        return self._request_id
+
+    @property
+    def object(self):
+        """Object type of the returned data.
+
+        :rtype: str
+        """
+        return self._object
+
+    @property
+    def etag(self):
+        """Etag of the returned data.
+
+        :rtype: str
+        """
+        return self._etag
+
+    @property
+    def error_message(self):
+        """Error message.
+
+        :rtype: str
+        """
+        return self._error_message
+
+    def to_dict(self):
+        """Return dictionary of object."""
+        dictionary = {}
+        for key, value in self.__dict__.iteritems():
+            property_name = key[1:]
+            if hasattr(self, property_name):
+                dictionary.update({property_name: getattr(self, property_name, None)})
+        return dictionary
+
+    def __repr__(self):
+        """For print and pprint."""
+        return str(self.to_dict())

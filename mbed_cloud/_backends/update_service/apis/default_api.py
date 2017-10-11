@@ -3,7 +3,7 @@
 """
     Update Service API
 
-    This is the API Documentation for the mbed deployment service which is part of the update service.
+    This is the API documentation for the Mbed deployment service, which is part of the update service.
 
     OpenAPI spec version: 3
     
@@ -53,9 +53,9 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param file datafile: The firmware image file to upload. (required)
-        :param str name: The name of the object. (required)
-        :param str description: The description of the object.
+        :param file datafile: The firmware image file to upload (required)
+        :param str name: The name of the firmware image (required)
+        :param str description: The description of the firmware image
         :return: FirmwareImage
                  If the method is called asynchronously,
                  returns the request thread.
@@ -80,9 +80,9 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param file datafile: The firmware image file to upload. (required)
-        :param str name: The name of the object. (required)
-        :param str description: The description of the object.
+        :param file datafile: The firmware image file to upload (required)
+        :param str name: The name of the firmware image (required)
+        :param str description: The description of the firmware image
         :return: FirmwareImage
                  If the method is called asynchronously,
                  returns the request thread.
@@ -132,6 +132,10 @@ class DefaultApi(object):
             form_params.append(('name', params['name']))
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.\
             select_header_content_type(['multipart/form-data'])
@@ -167,7 +171,7 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str image_id: The ID of the firmware image. (required)
+        :param str image_id: The firmware image ID (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -192,7 +196,7 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str image_id: The ID of the firmware image. (required)
+        :param str image_id: The firmware image ID (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -233,6 +237,10 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -253,7 +261,7 @@ class DefaultApi(object):
 
     def firmware_image_list(self, **kwargs):
         """
-        List all firmware images
+        List all firmware images.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -264,11 +272,11 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param int limit: How many objects to retrieve in the page.
+        :param int limit: How many firmware images to retrieve
         :param str order: ASC or DESC
-        :param str after: The ID of the the item after which to retrieve the next page.
-        :param str filter: URL encoded query string parameter to filter returned data. The result will be paged into pages of 50.  ##### Filtering ```?filter={URL encoded query string}```  The query string is made up of key/value pairs separated by ampersands. So for a query of ```key1=value1&key2=value2&key3=value3``` this would be encoded as follows: ```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3``` The examples below show the queries in *unencoded* form.  ###### By firmware image properties (all properties are filterable): For example: ```name={value}``` ###### On date-time fields: Date-time fields should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &ndash; field name suffixed with ```__gte``` * less than or equal to &ndash; field name suffixed with ```__lte```  Lower and upper limits to a date-time range may be specified by including both the ```__gte``` and ```__lte``` forms in the filter.  ```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```  ##### Multi-field example ```name=MyName&bootstrapped&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z```  Encoded: ```?filter=name%3DMyName%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z```
-        :param str include: Comma separated list of data fields to return. Currently supported: total_count
+        :param str after: The ID of the the item after which to retrieve the next page
+        :param str filter: URL-encoded query string parameter to filter returned data. The results are paginated into groups of 50.  <br/> ?filter={URL-encoded query string} <br/>  The query string is made up of key-value pairs separated by ampersands. For example, this query: key1=value1&key2=value2&key3=value3  would be URL-encoded as: ?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3 <br/>  The examples below show the queries in *unencoded* form.<br/>  <br/>**Filtering by campaign properties** state=[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired]  <br/> root_manifest_id=43217771234242e594ddb433816c498a  <br/>**Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  {field name}[|__lte|__gte]={UTC RFC3339 date-time} <br/>  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z  <br/>**Filtering on multiple fields**  Example: state=deployed&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z  The example after URL encoding: ?filter=state%3Ddeployed%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z
+        :param str include: Comma-separated list of data fields to return. Currently supported: total_count
         :return: FirmwareImagePage
                  If the method is called asynchronously,
                  returns the request thread.
@@ -282,7 +290,7 @@ class DefaultApi(object):
 
     def firmware_image_list_with_http_info(self, **kwargs):
         """
-        List all firmware images
+        List all firmware images.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -293,11 +301,11 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param int limit: How many objects to retrieve in the page.
+        :param int limit: How many firmware images to retrieve
         :param str order: ASC or DESC
-        :param str after: The ID of the the item after which to retrieve the next page.
-        :param str filter: URL encoded query string parameter to filter returned data. The result will be paged into pages of 50.  ##### Filtering ```?filter={URL encoded query string}```  The query string is made up of key/value pairs separated by ampersands. So for a query of ```key1=value1&key2=value2&key3=value3``` this would be encoded as follows: ```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3``` The examples below show the queries in *unencoded* form.  ###### By firmware image properties (all properties are filterable): For example: ```name={value}``` ###### On date-time fields: Date-time fields should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &ndash; field name suffixed with ```__gte``` * less than or equal to &ndash; field name suffixed with ```__lte```  Lower and upper limits to a date-time range may be specified by including both the ```__gte``` and ```__lte``` forms in the filter.  ```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```  ##### Multi-field example ```name=MyName&bootstrapped&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z```  Encoded: ```?filter=name%3DMyName%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z```
-        :param str include: Comma separated list of data fields to return. Currently supported: total_count
+        :param str after: The ID of the the item after which to retrieve the next page
+        :param str filter: URL-encoded query string parameter to filter returned data. The results are paginated into groups of 50.  <br/> ?filter={URL-encoded query string} <br/>  The query string is made up of key-value pairs separated by ampersands. For example, this query: key1=value1&key2=value2&key3=value3  would be URL-encoded as: ?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3 <br/>  The examples below show the queries in *unencoded* form.<br/>  <br/>**Filtering by campaign properties** state=[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired]  <br/> root_manifest_id=43217771234242e594ddb433816c498a  <br/>**Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  {field name}[|__lte|__gte]={UTC RFC3339 date-time} <br/>  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z  <br/>**Filtering on multiple fields**  Example: state=deployed&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z  The example after URL encoding: ?filter=state%3Ddeployed%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z
+        :param str include: Comma-separated list of data fields to return. Currently supported: total_count
         :return: FirmwareImagePage
                  If the method is called asynchronously,
                  returns the request thread.
@@ -343,6 +351,10 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -374,7 +386,7 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str image_id: The ID of the firmware image. (required)
+        :param str image_id: The firmware image ID (required)
         :return: FirmwareImage
                  If the method is called asynchronously,
                  returns the request thread.
@@ -399,7 +411,7 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str image_id: The ID of the firmware image. (required)
+        :param str image_id: The firmware image ID (required)
         :return: FirmwareImage
                  If the method is called asynchronously,
                  returns the request thread.
@@ -440,6 +452,10 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -471,9 +487,9 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param file datafile: The manifest file to create. The size of the file is account specific and enforced by the api gateway. (required)
-        :param str name: The name of the object. (required)
-        :param str description: The description of the object.
+        :param file datafile: The manifest file to create. The API gateway enforces the account-specific file size. (required)
+        :param str name: The name of the firmware manifest (required)
+        :param str description: The description of the firmware manifest
         :return: FirmwareManifest
                  If the method is called asynchronously,
                  returns the request thread.
@@ -498,9 +514,9 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param file datafile: The manifest file to create. The size of the file is account specific and enforced by the api gateway. (required)
-        :param str name: The name of the object. (required)
-        :param str description: The description of the object.
+        :param file datafile: The manifest file to create. The API gateway enforces the account-specific file size. (required)
+        :param str name: The name of the firmware manifest (required)
+        :param str description: The description of the firmware manifest
         :return: FirmwareManifest
                  If the method is called asynchronously,
                  returns the request thread.
@@ -550,6 +566,10 @@ class DefaultApi(object):
             form_params.append(('name', params['name']))
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.\
             select_header_content_type(['multipart/form-data'])
@@ -585,7 +605,7 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str manifest_id: The ID of the firmware manifest. (required)
+        :param str manifest_id: The firmware manifest ID (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -610,7 +630,7 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str manifest_id: The ID of the firmware manifest. (required)
+        :param str manifest_id: The firmware manifest ID (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -651,6 +671,10 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -671,7 +695,7 @@ class DefaultApi(object):
 
     def firmware_manifest_list(self, **kwargs):
         """
-        List all firmware manifests.
+        List firmware manifests.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -682,11 +706,11 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param int limit: How many objects to retrieve in the page.
+        :param int limit: How many firmware manifests to retrieve
         :param str order: ASC or DESC
         :param str after: The ID of the the item after which to retrieve the next page.
-        :param str filter: URL-encoded query string parameter to filter returned data.  ##### Filtering ```?filter={URL-encoded query string}```  The query string is made up of key/value pairs separated by ampersands. So for a query of ```key1=value1&key2=value2&key3=value3``` this would be encoded as follows: ```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3``` The examples below show the queries in *unencoded* form.  ##### By manifest ID: ```manifest_id={id}```  ##### By firmware manifest properties (all properties are filterable):  ```device_class={value}```  ###### On date-time fields: Date-time fields should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &ndash; field name suffixed with ```__gte``` * less than or equal to &ndash; field name suffixed with ```__lte```  Lower and upper limits to a date-time range may be specified by including both the ```__gte``` and ```__lte``` forms in the filter.  ```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```  ##### Multi-field example ```device_class=1234&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z```  Encoded: ```?filter=device_class%3D1234%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z```
-        :param str include: Comma separated list of data fields to return. Currently supported: total_count
+        :param str filter: URL-encoded query string parameter to filter returned data  <br/> ?filter={URL-encoded query string} <br/>  The query string is made up of key-value pairs separated by ampersands. For example, this query: key1=value1&key2=value2&key3=value3  would be URL-encoded as: ?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3 <br/>  The examples below show the queries in *unencoded* form.<br/>  <br/>**Filtering by campaign properties** state=[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired]  <br/> root_manifest_id=43217771234242e594ddb433816c498a  <br/>**Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  {field name}[|__lte|__gte]={UTC RFC3339 date-time} <br/>  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z  <br/>**Filtering on multiple fields**  Example: state=deployed&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z  The example after URL encoding: ?filter=state%3Ddeployed%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z
+        :param str include: Comma-separated list of data fields to return. Currently supported: total_count
         :return: FirmwareManifestPage
                  If the method is called asynchronously,
                  returns the request thread.
@@ -700,7 +724,7 @@ class DefaultApi(object):
 
     def firmware_manifest_list_with_http_info(self, **kwargs):
         """
-        List all firmware manifests.
+        List firmware manifests.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -711,11 +735,11 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param int limit: How many objects to retrieve in the page.
+        :param int limit: How many firmware manifests to retrieve
         :param str order: ASC or DESC
         :param str after: The ID of the the item after which to retrieve the next page.
-        :param str filter: URL-encoded query string parameter to filter returned data.  ##### Filtering ```?filter={URL-encoded query string}```  The query string is made up of key/value pairs separated by ampersands. So for a query of ```key1=value1&key2=value2&key3=value3``` this would be encoded as follows: ```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3``` The examples below show the queries in *unencoded* form.  ##### By manifest ID: ```manifest_id={id}```  ##### By firmware manifest properties (all properties are filterable):  ```device_class={value}```  ###### On date-time fields: Date-time fields should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &ndash; field name suffixed with ```__gte``` * less than or equal to &ndash; field name suffixed with ```__lte```  Lower and upper limits to a date-time range may be specified by including both the ```__gte``` and ```__lte``` forms in the filter.  ```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```  ##### Multi-field example ```device_class=1234&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z```  Encoded: ```?filter=device_class%3D1234%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z```
-        :param str include: Comma separated list of data fields to return. Currently supported: total_count
+        :param str filter: URL-encoded query string parameter to filter returned data  <br/> ?filter={URL-encoded query string} <br/>  The query string is made up of key-value pairs separated by ampersands. For example, this query: key1=value1&key2=value2&key3=value3  would be URL-encoded as: ?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3 <br/>  The examples below show the queries in *unencoded* form.<br/>  <br/>**Filtering by campaign properties** state=[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired]  <br/> root_manifest_id=43217771234242e594ddb433816c498a  <br/>**Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  {field name}[|__lte|__gte]={UTC RFC3339 date-time} <br/>  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z  <br/>**Filtering on multiple fields**  Example: state=deployed&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z  The example after URL encoding: ?filter=state%3Ddeployed%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z
+        :param str include: Comma-separated list of data fields to return. Currently supported: total_count
         :return: FirmwareManifestPage
                  If the method is called asynchronously,
                  returns the request thread.
@@ -761,6 +785,10 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -792,7 +820,7 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str manifest_id: The ID of the firmware manifest. (required)
+        :param str manifest_id: The firmware manifest ID (required)
         :return: FirmwareManifest
                  If the method is called asynchronously,
                  returns the request thread.
@@ -817,7 +845,7 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str manifest_id: The ID of the firmware manifest. (required)
+        :param str manifest_id: The firmware manifest ID (required)
         :return: FirmwareManifest
                  If the method is called asynchronously,
                  returns the request thread.
@@ -858,6 +886,10 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -878,7 +910,7 @@ class DefaultApi(object):
 
     def update_campaign_create(self, campaign, **kwargs):
         """
-        <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Create update campaign</p>
+        Create an update campaign.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -903,7 +935,7 @@ class DefaultApi(object):
 
     def update_campaign_create_with_http_info(self, campaign, **kwargs):
         """
-        <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Create update campaign</p>
+        Create an update campaign.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -955,6 +987,10 @@ class DefaultApi(object):
         body_params = None
         if 'campaign' in params:
             body_params = params['campaign']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -975,7 +1011,7 @@ class DefaultApi(object):
 
     def update_campaign_destroy(self, campaign_id, **kwargs):
         """
-        <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Delete update campaign</p>
+        Delete an update campaign.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1000,7 +1036,7 @@ class DefaultApi(object):
 
     def update_campaign_destroy_with_http_info(self, campaign_id, **kwargs):
         """
-        <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Delete update campaign</p>
+        Delete an update campaign.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1052,6 +1088,10 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -1072,7 +1112,7 @@ class DefaultApi(object):
 
     def update_campaign_list(self, **kwargs):
         """
-        The APIs for creating and manipulating update campaigns.
+        Get update campaigns for devices specified by a filter.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1083,11 +1123,11 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param int limit: How many objects to retrieve in the page.
-        :param str order: ASC or DESC
-        :param str after: The ID of the the item after which to retrieve the next page.
-        :param str filter: URL encoded query string parameter to filter returned data.  ##### Filtering ```?filter={URL encoded query string}```  The query string is made up of key/value pairs separated by ampersands. So for a query of ```key1=value1&key2=value2&key3=value3``` this would be encoded as follows: ```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3``` The examples below show the queries in *unencoded* form.  ###### By campaign properties (all properties are filterable): For example: ```state=[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired]```  ```root_manifest_id=43217771234242e594ddb433816c498a```  ###### On date-time fields: Date-time fields should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &ndash; field name suffixed with ```__gte``` * less than or equal to &ndash; field name suffixed with ```__lte```  Lower and upper limits to a date-time range may be specified by including both the ```__gte``` and ```__lte``` forms in the filter.  ```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```  ##### Multi-field example ```state=deployed&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z``` Encoded: ```?filter=state%3Ddeployed%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z```
-        :param str include: Comma separated list of data fields to return. Currently supported: total_count
+        :param int limit: How many update campaigns to retrieve
+        :param str order: The order of the records. Acceptable values: ASC, DESC. Default: ASC
+        :param str after: The ID of the the item after which to retrieve the next page
+        :param str filter: URL-encoded query string parameter to filter returned data  <br/>             ?filter={URL-encoded query string} <br/>  The query string is made up of key-value pairs separated by ampersands. For example, this query: key1=value1&key2=value2&key3=value3  would be URL-encoded as: ?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3 <br/>  The examples below show the queries in *unencoded* form.<br/>  <br/>**Filtering by campaign properties** state=[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired]  <br/> root_manifest_id=43217771234242e594ddb433816c498a  <br/>**Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  {field name}[|__lte|__gte]={UTC RFC3339 date-time} <br/>  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z  <br/>**Filtering on multiple fields**  Example: state=deployed&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z  The example after URL encoding: ?filter=state%3Ddeployed%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z
+        :param str include: Comma-separated list of data fields to return. Currently supported: total_count
         :return: UpdateCampaignPage
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1101,7 +1141,7 @@ class DefaultApi(object):
 
     def update_campaign_list_with_http_info(self, **kwargs):
         """
-        The APIs for creating and manipulating update campaigns.
+        Get update campaigns for devices specified by a filter.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1112,11 +1152,11 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param int limit: How many objects to retrieve in the page.
-        :param str order: ASC or DESC
-        :param str after: The ID of the the item after which to retrieve the next page.
-        :param str filter: URL encoded query string parameter to filter returned data.  ##### Filtering ```?filter={URL encoded query string}```  The query string is made up of key/value pairs separated by ampersands. So for a query of ```key1=value1&key2=value2&key3=value3``` this would be encoded as follows: ```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3``` The examples below show the queries in *unencoded* form.  ###### By campaign properties (all properties are filterable): For example: ```state=[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired]```  ```root_manifest_id=43217771234242e594ddb433816c498a```  ###### On date-time fields: Date-time fields should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &ndash; field name suffixed with ```__gte``` * less than or equal to &ndash; field name suffixed with ```__lte```  Lower and upper limits to a date-time range may be specified by including both the ```__gte``` and ```__lte``` forms in the filter.  ```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```  ##### Multi-field example ```state=deployed&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z``` Encoded: ```?filter=state%3Ddeployed%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z```
-        :param str include: Comma separated list of data fields to return. Currently supported: total_count
+        :param int limit: How many update campaigns to retrieve
+        :param str order: The order of the records. Acceptable values: ASC, DESC. Default: ASC
+        :param str after: The ID of the the item after which to retrieve the next page
+        :param str filter: URL-encoded query string parameter to filter returned data  <br/>             ?filter={URL-encoded query string} <br/>  The query string is made up of key-value pairs separated by ampersands. For example, this query: key1=value1&key2=value2&key3=value3  would be URL-encoded as: ?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3 <br/>  The examples below show the queries in *unencoded* form.<br/>  <br/>**Filtering by campaign properties** state=[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired]  <br/> root_manifest_id=43217771234242e594ddb433816c498a  <br/>**Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  {field name}[|__lte|__gte]={UTC RFC3339 date-time} <br/>  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z  <br/>**Filtering on multiple fields**  Example: state=deployed&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z  The example after URL encoding: ?filter=state%3Ddeployed%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z
+        :param str include: Comma-separated list of data fields to return. Currently supported: total_count
         :return: UpdateCampaignPage
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1162,6 +1202,10 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -1182,7 +1226,7 @@ class DefaultApi(object):
 
     def update_campaign_partial_update(self, campaign_id, campaign, **kwargs):
         """
-        <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Update campaign fields</p>
+        Modify a subset of an update campaign's fields.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1208,7 +1252,7 @@ class DefaultApi(object):
 
     def update_campaign_partial_update_with_http_info(self, campaign_id, campaign, **kwargs):
         """
-        <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Update campaign fields</p>
+        Modify a subset of an update campaign's fields.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1266,6 +1310,10 @@ class DefaultApi(object):
         body_params = None
         if 'campaign' in params:
             body_params = params['campaign']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -1286,7 +1334,7 @@ class DefaultApi(object):
 
     def update_campaign_retrieve(self, campaign_id, **kwargs):
         """
-        <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Retrieve campaign</p>
+        Get an update campaign.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1297,7 +1345,7 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str campaign_id: The ID of the campaign (required)
+        :param str campaign_id: The campaign ID (required)
         :return: UpdateCampaign
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1311,7 +1359,7 @@ class DefaultApi(object):
 
     def update_campaign_retrieve_with_http_info(self, campaign_id, **kwargs):
         """
-        <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Retrieve campaign</p>
+        Get an update campaign.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1322,7 +1370,7 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str campaign_id: The ID of the campaign (required)
+        :param str campaign_id: The campaign ID (required)
         :return: UpdateCampaign
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1363,6 +1411,10 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -1383,7 +1435,7 @@ class DefaultApi(object):
 
     def update_campaign_update(self, campaign_id, campaign, **kwargs):
         """
-        <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Update campaign</p>
+        Modify an update campaign.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1409,7 +1461,7 @@ class DefaultApi(object):
 
     def update_campaign_update_with_http_info(self, campaign_id, campaign, **kwargs):
         """
-        <p>The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  </p> <p>Update campaign</p>
+        Modify an update campaign.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1467,6 +1519,10 @@ class DefaultApi(object):
         body_params = None
         if 'campaign' in params:
             body_params = params['campaign']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -1487,6 +1543,7 @@ class DefaultApi(object):
 
     def v3_update_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get(self, campaign_id, campaign_device_metadata_id, **kwargs):
         """
+        Get update campaign metadata.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1497,8 +1554,8 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str campaign_id: The ID of the update campaign (required)
-        :param str campaign_device_metadata_id: The id of the campaign device metadata (required)
+        :param str campaign_id: The update campaign ID (required)
+        :param str campaign_device_metadata_id: The campaign device metadata ID (required)
         :return: CampaignDeviceMetadata
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1512,6 +1569,7 @@ class DefaultApi(object):
 
     def v3_update_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get_with_http_info(self, campaign_id, campaign_device_metadata_id, **kwargs):
         """
+        Get update campaign metadata.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1522,8 +1580,8 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str campaign_id: The ID of the update campaign (required)
-        :param str campaign_device_metadata_id: The id of the campaign device metadata (required)
+        :param str campaign_id: The update campaign ID (required)
+        :param str campaign_device_metadata_id: The campaign device metadata ID (required)
         :return: CampaignDeviceMetadata
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1569,6 +1627,10 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -1589,6 +1651,7 @@ class DefaultApi(object):
 
     def v3_update_campaigns_campaign_id_campaign_device_metadata_get(self, campaign_id, **kwargs):
         """
+        Get campaign device metadata.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1599,11 +1662,11 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str campaign_id: The ID of the update campaign (required)
-        :param int limit: How many objects to retrieve in the page.
+        :param str campaign_id: The update campaign ID (required)
+        :param int limit: How many objects to retrieve in the page
         :param str order: ASC or DESC
-        :param str after: The ID of the the item after which to retrieve the next page.
-        :param str include: Comma separated list of data fields to return. Currently supported: total_count
+        :param str after: The ID of the the item after which to retrieve the next page
+        :param str include: Comma-separated list of data fields to return. Currently supported: total_count
         :return: CampaignDeviceMetadataPage
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1617,6 +1680,7 @@ class DefaultApi(object):
 
     def v3_update_campaigns_campaign_id_campaign_device_metadata_get_with_http_info(self, campaign_id, **kwargs):
         """
+        Get campaign device metadata.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1627,11 +1691,11 @@ class DefaultApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str campaign_id: The ID of the update campaign (required)
-        :param int limit: How many objects to retrieve in the page.
+        :param str campaign_id: The update campaign ID (required)
+        :param int limit: How many objects to retrieve in the page
         :param str order: ASC or DESC
-        :param str after: The ID of the the item after which to retrieve the next page.
-        :param str include: Comma separated list of data fields to return. Currently supported: total_count
+        :param str after: The ID of the the item after which to retrieve the next page
+        :param str include: Comma-separated list of data fields to return. Currently supported: total_count
         :return: CampaignDeviceMetadataPage
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1680,6 +1744,10 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 

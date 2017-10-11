@@ -117,15 +117,20 @@ Class | Method | HTTP request | Description
  - [Field](docs/Field.md)
  - [GroupSummary](docs/GroupSummary.md)
  - [GroupSummaryList](docs/GroupSummaryList.md)
+ - [LoginHistory](docs/LoginHistory.md)
+ - [MyUserInfoResp](docs/MyUserInfoResp.md)
+ - [PasswordPolicy](docs/PasswordPolicy.md)
  - [SubjectList](docs/SubjectList.md)
  - [TrustedCertificateReq](docs/TrustedCertificateReq.md)
  - [TrustedCertificateResp](docs/TrustedCertificateResp.md)
  - [TrustedCertificateRespList](docs/TrustedCertificateRespList.md)
+ - [TrustedCertificateUpdateReq](docs/TrustedCertificateUpdateReq.md)
  - [UpdatedResponse](docs/UpdatedResponse.md)
  - [UserInfoReq](docs/UserInfoReq.md)
  - [UserInfoResp](docs/UserInfoResp.md)
  - [UserInfoRespList](docs/UserInfoRespList.md)
  - [UserUpdateReq](docs/UserUpdateReq.md)
+ - [UserUpdateResp](docs/UserUpdateResp.md)
 
 
 ## Documentation For Authorization

@@ -214,7 +214,7 @@ class ApiKeyInfoRespList(object):
     def order(self):
         """
         Gets the order of this ApiKeyInfoRespList.
-        The order of the records to return. Available values: ASC, DESC; by default ASC.
+        The order of the records to return based on creation time. Available values: ASC, DESC; by default ASC.
 
         :return: The order of this ApiKeyInfoRespList.
         :rtype: str
@@ -225,7 +225,7 @@ class ApiKeyInfoRespList(object):
     def order(self, order):
         """
         Sets the order of this ApiKeyInfoRespList.
-        The order of the records to return. Available values: ASC, DESC; by default ASC.
+        The order of the records to return based on creation time. Available values: ASC, DESC; by default ASC.
 
         :param order: The order of this ApiKeyInfoRespList.
         :type: str

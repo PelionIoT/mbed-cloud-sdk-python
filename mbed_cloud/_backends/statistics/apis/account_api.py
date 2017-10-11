@@ -40,7 +40,7 @@ class AccountApi(object):
                 config.api_client = ApiClient()
             self.api_client = config.api_client
 
-    def v3_metrics_get(self, include, interval, authorization, **kwargs):
+    def v3_metrics_get(self, include, interval, **kwargs):
         """
         Provides account-specific statistics for other cloud services.
         This REST API is used to get account-specific statistics.
@@ -50,18 +50,17 @@ class AccountApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.v3_metrics_get(include, interval, authorization, callback=callback_function)
+        >>> thread = api.v3_metrics_get(include, interval, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str include: A comma-separated list of requested metrics and total_count ( if included, the response will contain total_count to specify total number of records available). Supported values are:  - `transactions` - `registered_devices` - `bootstraps_successful` - `bootstraps_failed` - `bootstraps_pending` - `handshakes_successful` - `handshakes_failed` - `device_server_rest_api_success` - `device_server_rest_api_error` - `total_count`  (required)
-        :param str interval: Group data by this interval in minutes, hours, days or weeks. Sample values: 5m, 2h, 3d, 4w. The maximum interval cannot exceed more than one year ( 365 days ) and so the allowed ranges are 5m - 525600m / 1h - 8760h / 1d - 365d / 1w - 53w.  (required)
-        :param str authorization: Bearer {Access Token}. A valid API Gateway access token. The token is validated and the associated account identifier is used to retrieve account-specific statistics.  (required)
-        :param str start: UTC time/year/date in RFC3339 format. Fetch the data with timestamp greater than or equal to this value. Sample values: 20170207T092056990Z / 2017-02-07T09:20:56.990Z / 2017 / 20170207. The maximum time between start and end parameters cannot exceed more than one year (365 days). The parameter is not mandatory, if the period is specified. 
-        :param str end: UTC time/year/date in RFC3339 format. Fetch the data with timestamp less than this value.Sample values: 20170207T092056990Z / 2017-02-07T09:20:56.990Z / 2017 / 20170207. The maximum time between start and end parameters cannot exceed more than one year ( 365 days ). The parameter is not mandatory, if the period is specified. 
-        :param str period: Period. Fetch the data for the period in minutes, hours, days or weeks. Sample values: 5m, 2h, 3d, 4w. The parameter is not mandatory, if the start and end time are specified. The maximum period cannot exceed more than one year ( 365 days ) and so the allowed ranges are 5m - 525600m / 1h - 8760h / 1d - 365d / 1w - 53w. 
-        :param int limit: The number of results to return. Default value is 50, minimum value is 2 and maximum value is 1000. 
-        :param str after: The metric ID after which to start fetching. 
+        :param str include: A comma-separated list of requested metrics and total_count (if included, the response will contain total_count to specify the total number of records available). Supported values are:  - `transactions` - `full_registrations` - `registration_updates` - `deleted_registrations` - `expired_registrations` - `bootstraps_successful` - `bootstraps_failed` - `bootstraps_pending` - `handshakes_successful` - `connect_rest_api_success` - `connect_rest_api_error` - `device_proxy_request_success` - `device_proxy_request_error` - `device_subscription_request_success` - `device_subscription_request_error` - `device_observations` - `total_count`  **Note:**  The metrics device_proxy_request_success, device_proxy_request_error, device_subscription_request_success, device_subscription_request_error and device_observations monitor only the response from the device to Mbed Cloud Connect and they do not confirm that the response is delivered to client callback urls used when you try to access device resources using  [Connect API](/docs/v1.2/api-references/connect-api.html) endpoints. New metrics will be added to monitor the response delivery to client callback urls later.  **Example usage:**  ``` curl  -X GET \\       -H \"Authorization : Bearer <valid access Token>\"        'https://api.us-east-1.mbedcloud.com/v3/metrics?include=transactions,total_count&start=20170207&end=20170407&interval=1d'  {     \"object\": \"list\",     \"limit\": 20,     \"total_count\": 54,     \"after\": \"2017-07-26T00:00:00Z\",     \"has_more\": true,     \"data\": [         {             \"id\": \"015d8157c800015e306fffff005374617473000\",             \"timestamp\": \"2017-07-27T00:00:00Z\",             \"transactions\": 27366         },         {             \"id\": \"015d867e2400015e306fffff005374617473000\",             \"timestamp\": \"2017-07-28T00:00:00Z\",             \"transactions\": 27480         }     ] } ```  (required)
+        :param str interval: Group the data by this interval in minutes, hours, days or weeks. Sample values: 5m, 2h, 3d, 4w. The maximum interval cannot exceed one year (365 days). The allowed ranges are 5m-525600m/1h-8760h/1d-365d/1w-53w.  (required)
+        :param date start: UTC time/year/date in RFC3339 format. Fetch the data with timestamp greater than or equal to this value. Sample values: 20170207T092056990Z / 2017-02-07T09:20:56.990Z / 2017 / 20170207. The maximum time between start and end parameters cannot exceed more than one year (365 days). The parameter is not mandatory, if the period is specified. 
+        :param date end: UTC time/year/date in RFC3339 format. Fetch the data with timestamp less than this value.Sample values: 20170207T092056990Z / 2017-02-07T09:20:56.990Z / 2017 / 20170207. The maximum time between start and end parameters cannot exceed more than one year ( 365 days ). The parameter is not mandatory, if the period is specified. 
+        :param str period: Period. Fetch the data for the period in minutes, hours, days or weeks. Sample values: 5m, 2h, 3d, 4w. The parameter is not mandatory, if the start and end time are specified. The maximum period cannot exceed one year (365 days). The allowed ranges are 5m-525600m/1h-8760h/1d-365d/1w-53w. 
+        :param int limit: The number of results to return. The default value is 50, minimum 2 and maximum 1000. 
+        :param str after: The metric ID after which to start fetching. This also can be used for pagination as follows.  **Example usage:**  ``` curl  -X GET \\       -H \"Authorization : Bearer <valid access Token>\"        'https://api.us-east-1.mbedcloud.com/v3/metrics?include=transactions,total_count&start=20170707&end=20170829&interval=1d&limit=20' {    \"object\": \"list\",    \"limit\": 20,    \"total_count\": 54,    \"has_more\": true,    \"data\": [        {            \"id\": \"015d1a589800015e306fffff005374617473000\",            \"timestamp\": \"2017-07-07T00:00:00Z\",            \"transactions\": 26381        },        .        .        .        {            \"id\": \"015d7c316c00015e306fffff005374617473000\",            \"timestamp\": \"2017-07-26T00:00:00Z\",            \"transactions\": 25569        }    ] } ```  If the parameter “has more” is true, it indicates that the list is not complete and more values are available. You can give the last ID of the list as the value of the “after” query parameter, and you get the next page of values. You can keep doing this until “has more” is false. ``` curl -X GET \\      -H \"Authorization : Bearer <valid access Token>\"      'https://api.us-east-1.mbedcloud.com/v3/metrics?include=transactions,total_count&start=20170707&end=20170829&interval=1d&limit=20&after=015d7c316c00015e306fffff005374617473000'  {    \"object\": \"list\",    \"limit\": 20,    \"total_count\": 54,    \"after\": \"2017-07-26T00:00:00Z\",    \"has_more\": true,    \"data\": [        {            \"id\": \"015d8157c800015e306fffff005374617473000\",            \"timestamp\": \"2017-07-27T00:00:00Z\",            \"transactions\": 27366        },      .      .      .        {            \"id\": \"015de3309c00015e306fffff005374617473000\",            \"timestamp\": \"2017-08-15T00:00:00Z\",            \"transactions\": 24707        }    ] } ``` 
         :param str order: The order of the records to return. Available values are ASC and DESC. The default value is ASC. 
         :return: SuccessfulResponse
                  If the method is called asynchronously,
@@ -69,12 +68,12 @@ class AccountApi(object):
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.v3_metrics_get_with_http_info(include, interval, authorization, **kwargs)
+            return self.v3_metrics_get_with_http_info(include, interval, **kwargs)
         else:
-            (data) = self.v3_metrics_get_with_http_info(include, interval, authorization, **kwargs)
+            (data) = self.v3_metrics_get_with_http_info(include, interval, **kwargs)
             return data
 
-    def v3_metrics_get_with_http_info(self, include, interval, authorization, **kwargs):
+    def v3_metrics_get_with_http_info(self, include, interval, **kwargs):
         """
         Provides account-specific statistics for other cloud services.
         This REST API is used to get account-specific statistics.
@@ -84,25 +83,24 @@ class AccountApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.v3_metrics_get_with_http_info(include, interval, authorization, callback=callback_function)
+        >>> thread = api.v3_metrics_get_with_http_info(include, interval, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str include: A comma-separated list of requested metrics and total_count ( if included, the response will contain total_count to specify total number of records available). Supported values are:  - `transactions` - `registered_devices` - `bootstraps_successful` - `bootstraps_failed` - `bootstraps_pending` - `handshakes_successful` - `handshakes_failed` - `device_server_rest_api_success` - `device_server_rest_api_error` - `total_count`  (required)
-        :param str interval: Group data by this interval in minutes, hours, days or weeks. Sample values: 5m, 2h, 3d, 4w. The maximum interval cannot exceed more than one year ( 365 days ) and so the allowed ranges are 5m - 525600m / 1h - 8760h / 1d - 365d / 1w - 53w.  (required)
-        :param str authorization: Bearer {Access Token}. A valid API Gateway access token. The token is validated and the associated account identifier is used to retrieve account-specific statistics.  (required)
-        :param str start: UTC time/year/date in RFC3339 format. Fetch the data with timestamp greater than or equal to this value. Sample values: 20170207T092056990Z / 2017-02-07T09:20:56.990Z / 2017 / 20170207. The maximum time between start and end parameters cannot exceed more than one year (365 days). The parameter is not mandatory, if the period is specified. 
-        :param str end: UTC time/year/date in RFC3339 format. Fetch the data with timestamp less than this value.Sample values: 20170207T092056990Z / 2017-02-07T09:20:56.990Z / 2017 / 20170207. The maximum time between start and end parameters cannot exceed more than one year ( 365 days ). The parameter is not mandatory, if the period is specified. 
-        :param str period: Period. Fetch the data for the period in minutes, hours, days or weeks. Sample values: 5m, 2h, 3d, 4w. The parameter is not mandatory, if the start and end time are specified. The maximum period cannot exceed more than one year ( 365 days ) and so the allowed ranges are 5m - 525600m / 1h - 8760h / 1d - 365d / 1w - 53w. 
-        :param int limit: The number of results to return. Default value is 50, minimum value is 2 and maximum value is 1000. 
-        :param str after: The metric ID after which to start fetching. 
+        :param str include: A comma-separated list of requested metrics and total_count (if included, the response will contain total_count to specify the total number of records available). Supported values are:  - `transactions` - `full_registrations` - `registration_updates` - `deleted_registrations` - `expired_registrations` - `bootstraps_successful` - `bootstraps_failed` - `bootstraps_pending` - `handshakes_successful` - `connect_rest_api_success` - `connect_rest_api_error` - `device_proxy_request_success` - `device_proxy_request_error` - `device_subscription_request_success` - `device_subscription_request_error` - `device_observations` - `total_count`  **Note:**  The metrics device_proxy_request_success, device_proxy_request_error, device_subscription_request_success, device_subscription_request_error and device_observations monitor only the response from the device to Mbed Cloud Connect and they do not confirm that the response is delivered to client callback urls used when you try to access device resources using  [Connect API](/docs/v1.2/api-references/connect-api.html) endpoints. New metrics will be added to monitor the response delivery to client callback urls later.  **Example usage:**  ``` curl  -X GET \\       -H \"Authorization : Bearer <valid access Token>\"        'https://api.us-east-1.mbedcloud.com/v3/metrics?include=transactions,total_count&start=20170207&end=20170407&interval=1d'  {     \"object\": \"list\",     \"limit\": 20,     \"total_count\": 54,     \"after\": \"2017-07-26T00:00:00Z\",     \"has_more\": true,     \"data\": [         {             \"id\": \"015d8157c800015e306fffff005374617473000\",             \"timestamp\": \"2017-07-27T00:00:00Z\",             \"transactions\": 27366         },         {             \"id\": \"015d867e2400015e306fffff005374617473000\",             \"timestamp\": \"2017-07-28T00:00:00Z\",             \"transactions\": 27480         }     ] } ```  (required)
+        :param str interval: Group the data by this interval in minutes, hours, days or weeks. Sample values: 5m, 2h, 3d, 4w. The maximum interval cannot exceed one year (365 days). The allowed ranges are 5m-525600m/1h-8760h/1d-365d/1w-53w.  (required)
+        :param date start: UTC time/year/date in RFC3339 format. Fetch the data with timestamp greater than or equal to this value. Sample values: 20170207T092056990Z / 2017-02-07T09:20:56.990Z / 2017 / 20170207. The maximum time between start and end parameters cannot exceed more than one year (365 days). The parameter is not mandatory, if the period is specified. 
+        :param date end: UTC time/year/date in RFC3339 format. Fetch the data with timestamp less than this value.Sample values: 20170207T092056990Z / 2017-02-07T09:20:56.990Z / 2017 / 20170207. The maximum time between start and end parameters cannot exceed more than one year ( 365 days ). The parameter is not mandatory, if the period is specified. 
+        :param str period: Period. Fetch the data for the period in minutes, hours, days or weeks. Sample values: 5m, 2h, 3d, 4w. The parameter is not mandatory, if the start and end time are specified. The maximum period cannot exceed one year (365 days). The allowed ranges are 5m-525600m/1h-8760h/1d-365d/1w-53w. 
+        :param int limit: The number of results to return. The default value is 50, minimum 2 and maximum 1000. 
+        :param str after: The metric ID after which to start fetching. This also can be used for pagination as follows.  **Example usage:**  ``` curl  -X GET \\       -H \"Authorization : Bearer <valid access Token>\"        'https://api.us-east-1.mbedcloud.com/v3/metrics?include=transactions,total_count&start=20170707&end=20170829&interval=1d&limit=20' {    \"object\": \"list\",    \"limit\": 20,    \"total_count\": 54,    \"has_more\": true,    \"data\": [        {            \"id\": \"015d1a589800015e306fffff005374617473000\",            \"timestamp\": \"2017-07-07T00:00:00Z\",            \"transactions\": 26381        },        .        .        .        {            \"id\": \"015d7c316c00015e306fffff005374617473000\",            \"timestamp\": \"2017-07-26T00:00:00Z\",            \"transactions\": 25569        }    ] } ```  If the parameter “has more” is true, it indicates that the list is not complete and more values are available. You can give the last ID of the list as the value of the “after” query parameter, and you get the next page of values. You can keep doing this until “has more” is false. ``` curl -X GET \\      -H \"Authorization : Bearer <valid access Token>\"      'https://api.us-east-1.mbedcloud.com/v3/metrics?include=transactions,total_count&start=20170707&end=20170829&interval=1d&limit=20&after=015d7c316c00015e306fffff005374617473000'  {    \"object\": \"list\",    \"limit\": 20,    \"total_count\": 54,    \"after\": \"2017-07-26T00:00:00Z\",    \"has_more\": true,    \"data\": [        {            \"id\": \"015d8157c800015e306fffff005374617473000\",            \"timestamp\": \"2017-07-27T00:00:00Z\",            \"transactions\": 27366        },      .      .      .        {            \"id\": \"015de3309c00015e306fffff005374617473000\",            \"timestamp\": \"2017-08-15T00:00:00Z\",            \"transactions\": 24707        }    ] } ``` 
         :param str order: The order of the records to return. Available values are ASC and DESC. The default value is ASC. 
         :return: SuccessfulResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['include', 'interval', 'authorization', 'start', 'end', 'period', 'limit', 'after', 'order']
+        all_params = ['include', 'interval', 'start', 'end', 'period', 'limit', 'after', 'order']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -123,9 +121,6 @@ class AccountApi(object):
         # verify the required parameter 'interval' is set
         if ('interval' not in params) or (params['interval'] is None):
             raise ValueError("Missing the required parameter `interval` when calling `v3_metrics_get`")
-        # verify the required parameter 'authorization' is set
-        if ('authorization' not in params) or (params['authorization'] is None):
-            raise ValueError("Missing the required parameter `authorization` when calling `v3_metrics_get`")
 
 
         collection_formats = {}
@@ -152,8 +147,6 @@ class AccountApi(object):
             query_params['order'] = params['order']
 
         header_params = {}
-        if 'authorization' in params:
-            header_params['Authorization'] = params['authorization']
 
         form_params = []
         local_var_files = {}

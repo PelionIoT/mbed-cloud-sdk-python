@@ -43,7 +43,7 @@ class DeveloperApi(object):
     def create_api_key(self, body, **kwargs):
         """
         Create a new API key.
-        An endpoint for creating a new API key.
+        An endpoint for creating a new API key.   **Example usage:** `curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys -d '{\"name\": \"MyKey1\",\"owner\": \"ACCOUNT_ID\"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -69,7 +69,7 @@ class DeveloperApi(object):
     def create_api_key_with_http_info(self, body, **kwargs):
         """
         Create a new API key.
-        An endpoint for creating a new API key.
+        An endpoint for creating a new API key.   **Example usage:** `curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys -d '{\"name\": \"MyKey1\",\"owner\": \"ACCOUNT_ID\"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -150,7 +150,7 @@ class DeveloperApi(object):
     def delete_api_key(self, api_key, **kwargs):
         """
         Delete API key.
-        An endpoint for deleting the API key.
+        An endpoint for deleting the API key.   **Example usage:** `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id} -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -176,7 +176,7 @@ class DeveloperApi(object):
     def delete_api_key_with_http_info(self, api_key, **kwargs):
         """
         Delete API key.
-        An endpoint for deleting the API key.
+        An endpoint for deleting the API key.   **Example usage:** `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id} -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -356,7 +356,7 @@ class DeveloperApi(object):
     def get_all_api_keys(self, **kwargs):
         """
         Get all API keys
-        An endpoint for retrieving API keys in an array, optionally filtered by the owner.
+        An endpoint for retrieving API keys in an array, optionally filtered by the owner.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/api-keys -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -369,7 +369,7 @@ class DeveloperApi(object):
             for asynchronous request. (optional)
         :param int limit: The number of results to return (2-1000), default is 50.
         :param str after: The entity ID to fetch after the given one.
-        :param str order: The order of the records, ASC or DESC; by default ASC
+        :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
         :param str include: Comma separated additional data to return. Currently supported: total_count
         :param str owner__eq: Owner name filter.
         :return: ApiKeyInfoRespList
@@ -386,7 +386,7 @@ class DeveloperApi(object):
     def get_all_api_keys_with_http_info(self, **kwargs):
         """
         Get all API keys
-        An endpoint for retrieving API keys in an array, optionally filtered by the owner.
+        An endpoint for retrieving API keys in an array, optionally filtered by the owner.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/api-keys -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -399,7 +399,7 @@ class DeveloperApi(object):
             for asynchronous request. (optional)
         :param int limit: The number of results to return (2-1000), default is 50.
         :param str after: The entity ID to fetch after the given one.
-        :param str order: The order of the records, ASC or DESC; by default ASC
+        :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
         :param str include: Comma separated additional data to return. Currently supported: total_count
         :param str owner__eq: Owner name filter.
         :return: ApiKeyInfoRespList
@@ -485,7 +485,7 @@ class DeveloperApi(object):
             for asynchronous request. (optional)
         :param int limit: The number of results to return (2-1000), default is 50.
         :param str after: The entity ID to fetch after the given one.
-        :param str order: The order of the records, ASC or DESC; by default ASC
+        :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
         :param str include: Comma separated additional data to return. Currently supported: total_count
         :param str service__eq: Service filter, either lwm2m or bootstrap
         :param int expire__eq: Expire filter in days
@@ -518,7 +518,7 @@ class DeveloperApi(object):
             for asynchronous request. (optional)
         :param int limit: The number of results to return (2-1000), default is 50.
         :param str after: The entity ID to fetch after the given one.
-        :param str order: The order of the records, ASC or DESC; by default ASC
+        :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
         :param str include: Comma separated additional data to return. Currently supported: total_count
         :param str service__eq: Service filter, either lwm2m or bootstrap
         :param int expire__eq: Expire filter in days
@@ -613,7 +613,7 @@ class DeveloperApi(object):
             for asynchronous request. (optional)
         :param int limit: The number of results to return (2-1000), default is 50.
         :param str after: The entity ID to fetch after the given one.
-        :param str order: The order of the records, ASC or DESC; by default ASC
+        :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
         :param str include: Comma separated additional data to return. Currently supported: total_count
         :return: GroupSummaryList
                  If the method is called asynchronously,
@@ -642,7 +642,7 @@ class DeveloperApi(object):
             for asynchronous request. (optional)
         :param int limit: The number of results to return (2-1000), default is 50.
         :param str after: The entity ID to fetch after the given one.
-        :param str order: The order of the records, ASC or DESC; by default ASC
+        :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
         :param str include: Comma separated additional data to return. Currently supported: total_count
         :return: GroupSummaryList
                  If the method is called asynchronously,
@@ -829,7 +829,7 @@ class DeveloperApi(object):
         :param str group_id: The ID of the group whose API keys are retrieved. (required)
         :param int limit: The number of results to return (2-1000), default is 50.
         :param str after: The entity ID to fetch after the given one.
-        :param str order: The order of the records, ASC or DESC; by default ASC
+        :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
         :param str include: Comma separated additional data to return. Currently supported: total_count
         :return: ApiKeyInfoRespList
                  If the method is called asynchronously,
@@ -859,7 +859,7 @@ class DeveloperApi(object):
         :param str group_id: The ID of the group whose API keys are retrieved. (required)
         :param int limit: The number of results to return (2-1000), default is 50.
         :param str after: The entity ID to fetch after the given one.
-        :param str order: The order of the records, ASC or DESC; by default ASC
+        :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
         :param str include: Comma separated additional data to return. Currently supported: total_count
         :return: ApiKeyInfoRespList
                  If the method is called asynchronously,
@@ -934,7 +934,7 @@ class DeveloperApi(object):
     def get_certificate(self, cert_id, **kwargs):
         """
         Get trusted certificate by ID.
-        An endpoint for retrieving a trusted certificate by ID.
+        An endpoint for retrieving a trusted certificate by ID.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -H 'Authorization: Bearer API_KEY'` 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -960,7 +960,7 @@ class DeveloperApi(object):
     def get_certificate_with_http_info(self, cert_id, **kwargs):
         """
         Get trusted certificate by ID.
-        An endpoint for retrieving a trusted certificate by ID.
+        An endpoint for retrieving a trusted certificate by ID.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -H 'Authorization: Bearer API_KEY'` 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1140,7 +1140,7 @@ class DeveloperApi(object):
     def get_my_account_info(self, **kwargs):
         """
         Get account info.
-        Returns detailed information about the account.
+        Returns detailed information about the account.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/accounts/me?include=policies -H 'Authorization: Bearer API_KEY'` .
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1151,7 +1151,7 @@ class DeveloperApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str include: Comma separated additional data to return. Currently supported: limits, policies, sub_accounts
+        :param str include: Comma separated additional data to return. Currently supported: limits, policies, sub_accounts.
         :return: AccountInfo
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1166,7 +1166,7 @@ class DeveloperApi(object):
     def get_my_account_info_with_http_info(self, **kwargs):
         """
         Get account info.
-        Returns detailed information about the account.
+        Returns detailed information about the account.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/accounts/me?include=policies -H 'Authorization: Bearer API_KEY'` .
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1177,7 +1177,7 @@ class DeveloperApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str include: Comma separated additional data to return. Currently supported: limits, policies, sub_accounts
+        :param str include: Comma separated additional data to return. Currently supported: limits, policies, sub_accounts.
         :return: AccountInfo
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1240,7 +1240,7 @@ class DeveloperApi(object):
     def get_my_api_key(self, **kwargs):
         """
         Get API key details.
-        An endpoint for retrieving API key details.
+        An endpoint for retrieving API key details.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/api-keys/me -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1265,7 +1265,7 @@ class DeveloperApi(object):
     def get_my_api_key_with_http_info(self, **kwargs):
         """
         Get API key details.
-        An endpoint for retrieving API key details.
+        An endpoint for retrieving API key details.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/api-keys/me -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1335,7 +1335,7 @@ class DeveloperApi(object):
     def get_my_user(self, **kwargs):
         """
         Details of the current user.
-        An endpoint for retrieving the details of the logged in user.
+        An endpoint for retrieving the details of the logged in user.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/users/me -H 'Authorization: Bearer API_KEY'` 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1346,7 +1346,8 @@ class DeveloperApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :return: UserInfoResp
+        :param str scratch_codes: Request to regenerate new emergency scratch codes.
+        :return: MyUserInfoResp
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -1360,7 +1361,7 @@ class DeveloperApi(object):
     def get_my_user_with_http_info(self, **kwargs):
         """
         Details of the current user.
-        An endpoint for retrieving the details of the logged in user.
+        An endpoint for retrieving the details of the logged in user.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/users/me -H 'Authorization: Bearer API_KEY'` 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1371,12 +1372,13 @@ class DeveloperApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :return: UserInfoResp
+        :param str scratch_codes: Request to regenerate new emergency scratch codes.
+        :return: MyUserInfoResp
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = []
+        all_params = ['scratch_codes']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -1392,12 +1394,15 @@ class DeveloperApi(object):
             params[key] = val
         del params['kwargs']
 
+
         collection_formats = {}
 
         resource_path = '/v3/users/me'.replace('{format}', 'json')
         path_params = {}
 
         query_params = {}
+        if 'scratch_codes' in params:
+            query_params['scratch_codes'] = params['scratch_codes']
 
         header_params = {}
 
@@ -1419,7 +1424,7 @@ class DeveloperApi(object):
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='UserInfoResp',
+                                        response_type='MyUserInfoResp',
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -1654,7 +1659,7 @@ class DeveloperApi(object):
     def update_certificate(self, cert_id, body, **kwargs):
         """
         Update trusted certificate.
-        An endpoint for updating existing trusted certificates.
+        An endpoint for updating existing trusted certificates.   **Example usage:** `curl -X PUT https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -d {\"description\": \"very important cert\"} -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'` 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1666,7 +1671,7 @@ class DeveloperApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str cert_id: The ID of the trusted certificate to be updated. (required)
-        :param TrustedCertificateReq body: A trusted certificate object with attributes. (required)
+        :param TrustedCertificateUpdateReq body: A trusted certificate object with attributes. (required)
         :return: TrustedCertificateResp
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1681,7 +1686,7 @@ class DeveloperApi(object):
     def update_certificate_with_http_info(self, cert_id, body, **kwargs):
         """
         Update trusted certificate.
-        An endpoint for updating existing trusted certificates.
+        An endpoint for updating existing trusted certificates.   **Example usage:** `curl -X PUT https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -d {\"description\": \"very important cert\"} -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'` 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1693,7 +1698,7 @@ class DeveloperApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str cert_id: The ID of the trusted certificate to be updated. (required)
-        :param TrustedCertificateReq body: A trusted certificate object with attributes. (required)
+        :param TrustedCertificateUpdateReq body: A trusted certificate object with attributes. (required)
         :return: TrustedCertificateResp
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1768,7 +1773,7 @@ class DeveloperApi(object):
     def update_my_api_key(self, body, **kwargs):
         """
         Update API key details.
-        An endpoint for updating API key details.
+        An endpoint for updating API key details.   **Example usage:** `curl -X PUT https://api.us-east-1.mbedcloud.com/v3/api-keys/me -d '{\"name\": \"TestApiKey25\"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1794,7 +1799,7 @@ class DeveloperApi(object):
     def update_my_api_key_with_http_info(self, body, **kwargs):
         """
         Update API key details.
-        An endpoint for updating API key details.
+        An endpoint for updating API key details.   **Example usage:** `curl -X PUT https://api.us-east-1.mbedcloud.com/v3/api-keys/me -d '{\"name\": \"TestApiKey25\"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1871,7 +1876,7 @@ class DeveloperApi(object):
     def update_my_user(self, body, **kwargs):
         """
         Update user details.
-        An endpoint for updating the details of the logged in user.
+        An endpoint for updating the details of the logged in user.   **Example usage:** `curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/me -d '{\"address\": \"1007 Mountain Drive\"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'` 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1883,7 +1888,7 @@ class DeveloperApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param UserUpdateReq body: New attributes for the logged in user. (required)
-        :return: UserInfoResp
+        :return: UserUpdateResp
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -1897,7 +1902,7 @@ class DeveloperApi(object):
     def update_my_user_with_http_info(self, body, **kwargs):
         """
         Update user details.
-        An endpoint for updating the details of the logged in user.
+        An endpoint for updating the details of the logged in user.   **Example usage:** `curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/me -d '{\"address\": \"1007 Mountain Drive\"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'` 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -1909,7 +1914,7 @@ class DeveloperApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param UserUpdateReq body: New attributes for the logged in user. (required)
-        :return: UserInfoResp
+        :return: UserUpdateResp
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -1967,7 +1972,7 @@ class DeveloperApi(object):
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='UserInfoResp',
+                                        response_type='UserUpdateResp',
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),

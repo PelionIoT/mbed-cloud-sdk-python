@@ -1,15 +1,18 @@
 # ---------------------------------------------------------------------------
-#   The confidential and proprietary information contained in this file may
-#   only be used by a person authorised under and to the extent permitted
-#   by a subsisting licensing agreement from ARM Limited or its affiliates.
+# Mbed Cloud Python SDK
+# (C) COPYRIGHT 2017 Arm Limited
 #
-#          (C) COPYRIGHT 2017 ARM Limited or its affiliates.
-#              ALL RIGHTS RESERVED
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
 #
-#   This entire notice must be reproduced on all copies of this file
-#   and copies of this file may only be made by a person if such person is
-#   permitted to do so under the terms of a subsisting license agreement
-#   from ARM Limited or its affiliates.
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 # --------------------------------------------------------------------------
 """Test server for remote execution of test tasks.
 
@@ -21,8 +24,7 @@ Run by:
 """
 from __future__ import absolute_import
 from __future__ import unicode_literals
-from future import standard_library
-standard_library.install_aliases()
+
 from builtins import str
 from flask import Flask
 from flask import jsonify
@@ -32,8 +34,7 @@ from mbed_cloud.certificates import CertificatesAPI
 from mbed_cloud.connect import ConnectAPI
 from mbed_cloud.device_directory import DeviceDirectoryAPI
 from mbed_cloud.update import UpdateAPI
-from urllib.parse import parse_qs
-from urllib.parse import unquote
+from six.moves import urllib
 
 import json
 import queue
@@ -170,10 +171,11 @@ def main(module, method, methods=["GET"]):
     """Main runner, responding to remote test calls - mapping module and method to SDK"""
     # Check if we've added arguments to function. Unquote and parse the query string,
     # preparing it for argument to function.
-    qs = unquote(request.args.get("args", ""))
-    args_struct = parse_qs(qs)
+    qs = urllib.parse.unquote_plus(request.args.get("args", ""))
+    # quote + char to prevent parse_qs from replacing '+' with space.
+    qs = qs.replace('+', "%2B")
+    args_struct = urllib.parse.parse_qs(qs)
     args = dict(((k, _get_type(",".join(v))) for k, v in list(args_struct.items())))
-
     # We call the SDK module and function, with provided arguments.
     try:
         return_obj = _call_api(module, method, args)

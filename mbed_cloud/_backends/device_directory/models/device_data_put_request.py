@@ -3,7 +3,7 @@
 """
     Device Directory API
 
-    This is the API Documentation for the mbed device directory update service.
+    This is the API Documentation for the Mbed Device Directory service.
 
     OpenAPI spec version: 3
     
@@ -36,7 +36,7 @@ class DeviceDataPutRequest(object):
             'auto_update': 'bool',
             'host_gateway': 'str',
             'object': 'str',
-            'custom_attributes': 'object',
+            'custom_attributes': 'dict(str, str)',
             'device_key': 'str',
             'endpoint_type': 'str',
             'ca_id': 'str',
@@ -119,7 +119,7 @@ class DeviceDataPutRequest(object):
     def auto_update(self):
         """
         Gets the auto_update of this DeviceDataPutRequest.
-        DEPRECATED Mark this device for auto firmware update.
+        DEPRECATED: Mark this device for automatic firmware update.
 
         :return: The auto_update of this DeviceDataPutRequest.
         :rtype: bool
@@ -130,7 +130,7 @@ class DeviceDataPutRequest(object):
     def auto_update(self, auto_update):
         """
         Sets the auto_update of this DeviceDataPutRequest.
-        DEPRECATED Mark this device for auto firmware update.
+        DEPRECATED: Mark this device for automatic firmware update.
 
         :param auto_update: The auto_update of this DeviceDataPutRequest.
         :type: bool
@@ -142,7 +142,7 @@ class DeviceDataPutRequest(object):
     def host_gateway(self):
         """
         Gets the host_gateway of this DeviceDataPutRequest.
-        The endpoint_name of the host gateway, if appropriate.
+        The `endpoint_name` of the host gateway, if appropriate.
 
         :return: The host_gateway of this DeviceDataPutRequest.
         :rtype: str
@@ -153,7 +153,7 @@ class DeviceDataPutRequest(object):
     def host_gateway(self, host_gateway):
         """
         Sets the host_gateway of this DeviceDataPutRequest.
-        The endpoint_name of the host gateway, if appropriate.
+        The `endpoint_name` of the host gateway, if appropriate.
 
         :param host_gateway: The host_gateway of this DeviceDataPutRequest.
         :type: str
@@ -188,10 +188,10 @@ class DeviceDataPutRequest(object):
     def custom_attributes(self):
         """
         Gets the custom_attributes of this DeviceDataPutRequest.
-        Up to 5 custom JSON attributes
+        Up to five custom key-value attributes. Note that keys cannot start with a number.
 
         :return: The custom_attributes of this DeviceDataPutRequest.
-        :rtype: object
+        :rtype: dict(str, str)
         """
         return self._custom_attributes
 
@@ -199,10 +199,10 @@ class DeviceDataPutRequest(object):
     def custom_attributes(self, custom_attributes):
         """
         Sets the custom_attributes of this DeviceDataPutRequest.
-        Up to 5 custom JSON attributes
+        Up to five custom key-value attributes. Note that keys cannot start with a number.
 
         :param custom_attributes: The custom_attributes of this DeviceDataPutRequest.
-        :type: object
+        :type: dict(str, str)
         """
 
         self._custom_attributes = custom_attributes
@@ -211,7 +211,7 @@ class DeviceDataPutRequest(object):
     def device_key(self):
         """
         Gets the device_key of this DeviceDataPutRequest.
-        Fingerprint of the device certificate.
+        The fingerprint of the device certificate.
 
         :return: The device_key of this DeviceDataPutRequest.
         :rtype: str
@@ -222,7 +222,7 @@ class DeviceDataPutRequest(object):
     def device_key(self, device_key):
         """
         Sets the device_key of this DeviceDataPutRequest.
-        Fingerprint of the device certificate.
+        The fingerprint of the device certificate.
 
         :param device_key: The device_key of this DeviceDataPutRequest.
         :type: str
@@ -238,7 +238,7 @@ class DeviceDataPutRequest(object):
     def endpoint_type(self):
         """
         Gets the endpoint_type of this DeviceDataPutRequest.
-        The endpoint type of the device - e.g. if the device is a gateway.
+        The endpoint type of the device. For example, the device is a gateway.
 
         :return: The endpoint_type of this DeviceDataPutRequest.
         :rtype: str
@@ -249,7 +249,7 @@ class DeviceDataPutRequest(object):
     def endpoint_type(self, endpoint_type):
         """
         Sets the endpoint_type of this DeviceDataPutRequest.
-        The endpoint type of the device - e.g. if the device is a gateway.
+        The endpoint type of the device. For example, the device is a gateway.
 
         :param endpoint_type: The endpoint_type of this DeviceDataPutRequest.
         :type: str
@@ -263,7 +263,7 @@ class DeviceDataPutRequest(object):
     def ca_id(self):
         """
         Gets the ca_id of this DeviceDataPutRequest.
-        ID of the issuer of the certificate.
+        The certificate issuer's ID.
 
         :return: The ca_id of this DeviceDataPutRequest.
         :rtype: str
@@ -274,7 +274,7 @@ class DeviceDataPutRequest(object):
     def ca_id(self, ca_id):
         """
         Sets the ca_id of this DeviceDataPutRequest.
-        ID of the issuer of the certificate.
+        The certificate issuer's ID.
 
         :param ca_id: The ca_id of this DeviceDataPutRequest.
         :type: str

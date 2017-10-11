@@ -255,7 +255,7 @@ iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 api_instance = iam.AccountAdminApi()
 limit = 50 # int | The number of results to return (2-1000), default is 50. (optional) (default to 50)
 after = 'after_example' # str | The entity ID to fetch after the given one. (optional)
-order = 'ASC' # str | The order of the records, ASC or DESC; by default ASC (optional) (default to ASC)
+order = 'ASC' # str | The order of the records based on creation time, ASC or DESC; by default ASC (optional) (default to ASC)
 include = 'include_example' # str | Comma separated additional data to return. Currently supported: total_count (optional)
 status__eq = 'status__eq_example' # str | Filter for status, for example active or reset (optional)
 
@@ -273,7 +273,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **limit** | **int**| The number of results to return (2-1000), default is 50. | [optional] [default to 50]
  **after** | **str**| The entity ID to fetch after the given one. | [optional] 
- **order** | **str**| The order of the records, ASC or DESC; by default ASC | [optional] [default to ASC]
+ **order** | **str**| The order of the records based on creation time, ASC or DESC; by default ASC | [optional] [default to ASC]
  **include** | **str**| Comma separated additional data to return. Currently supported: total_count | [optional] 
  **status__eq** | **str**| Filter for status, for example active or reset | [optional] 
 
@@ -370,7 +370,7 @@ api_instance = iam.AccountAdminApi()
 group_id = 'group_id_example' # str | The ID of the group whose users are retrieved.
 limit = 50 # int | The number of results to return (2-1000), default is 50. (optional) (default to 50)
 after = 'after_example' # str | The entity ID to fetch after the given one. (optional)
-order = 'ASC' # str | The order of the records, ASC or DESC; by default ASC (optional) (default to ASC)
+order = 'ASC' # str | The order of the records based on creation time, ASC or DESC; by default ASC (optional) (default to ASC)
 include = 'include_example' # str | Comma separated additional data to return. Currently supported: total_count (optional)
 
 try: 
@@ -388,7 +388,7 @@ Name | Type | Description  | Notes
  **group_id** | **str**| The ID of the group whose users are retrieved. | 
  **limit** | **int**| The number of results to return (2-1000), default is 50. | [optional] [default to 50]
  **after** | **str**| The entity ID to fetch after the given one. | [optional] 
- **order** | **str**| The order of the records, ASC or DESC; by default ASC | [optional] [default to ASC]
+ **order** | **str**| The order of the records based on creation time, ASC or DESC; by default ASC | [optional] [default to ASC]
  **include** | **str**| Comma separated additional data to return. Currently supported: total_count | [optional] 
 
 ### Return type
@@ -466,7 +466,7 @@ Name | Type | Description  | Notes
 
 Updates attributes of the account.
 
-An endpoint for updating the account.
+An endpoint for updating the account.   **Example usage:** `curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/me -d '{\"phone_number\": \"12345678\"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
 
 ### Example 
 ```python

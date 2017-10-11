@@ -3,7 +3,7 @@
 """
     Update Service API
 
-    This is the API Documentation for the mbed deployment service which is part of the update service.
+    This is the API documentation for the Mbed deployment service, which is part of the update service.
 
     OpenAPI spec version: 3
     
@@ -22,6 +22,7 @@ import re
 
 # python 2 and python 3 compatibility library
 from six import PY3
+from six import string_types
 from six.moves.urllib.parse import urlencode
 
 from .configuration import Configuration
@@ -139,8 +140,11 @@ class RESTClientObject(object):
                     url += '?' + urlencode(query_params)
                 if re.search('json', headers['Content-Type'], re.IGNORECASE):
                     request_body = None
-                    if body:
-                        request_body = json.dumps(body)
+                    if body is not None:
+                        if isinstance(body, string_types):
+                            request_body = body
+                        else:
+                            request_body = json.dumps(body)
                     r = self.pool_manager.request(method, url,
                                                   body=request_body,
                                                   preload_content=_preload_content,
