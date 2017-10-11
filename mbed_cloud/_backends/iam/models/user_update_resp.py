@@ -369,7 +369,7 @@ class UserUpdateResp(object):
     def status(self):
         """
         Gets the status of this UserUpdateResp.
-        The status of the user. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately.
+        The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.
 
         :return: The status of this UserUpdateResp.
         :rtype: str
@@ -380,7 +380,7 @@ class UserUpdateResp(object):
     def status(self, status):
         """
         Sets the status of this UserUpdateResp.
-        The status of the user. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately.
+        The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.
 
         :param status: The status of this UserUpdateResp.
         :type: str
