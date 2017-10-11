@@ -518,7 +518,7 @@ class MyUserInfoResp(object):
     def password(self):
         """
         Gets the password of this MyUserInfoResp.
-        The password when creating a new user. It will will generated when not present in the request.
+        The password when creating a new user. It will be generated when not present in the request.
 
         :return: The password of this MyUserInfoResp.
         :rtype: str
@@ -529,7 +529,7 @@ class MyUserInfoResp(object):
     def password(self, password):
         """
         Sets the password of this MyUserInfoResp.
-        The password when creating a new user. It will will generated when not present in the request.
+        The password when creating a new user. It will be generated when not present in the request.
 
         :param password: The password of this MyUserInfoResp.
         :type: str

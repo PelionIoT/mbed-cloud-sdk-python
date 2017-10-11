@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 **object** | **str** | Entity name: always &#39;user&#39; | 
 **groups** | **list[str]** | A list of IDs of the groups this user belongs to. | [optional] 
 **address** | **str** | Address. | [optional] 
-**password** | **str** | The password when creating a new user. It will will generated when not present in the request. | [optional] 
+**password** | **str** | The password when creating a new user. It will be generated when not present in the request. | [optional] 
 **email_verified** | **bool** | A flag indicating whether the user&#39;s email address has been verified or not. | [optional] 
 **created_at** | **datetime** | Creation UTC time RFC3339. | [optional] 
 **is_totp_enabled** | **bool** | A flag indicating whether 2-factor authentication (TOTP) has been enabled. | [optional] 
