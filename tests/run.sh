@@ -80,7 +80,7 @@ if [ $RET_CODE -eq 0 ]; then
     exit 1
   fi
   # Start the test runner
-  python -u $TRUNNER_DIR/bin/trunner ${PARAMS[@]}
+  python $TRUNNER_DIR/bin/trunner ${PARAMS[@]}
   RET_CODE=$?
 fi
 # Remove temp folder
