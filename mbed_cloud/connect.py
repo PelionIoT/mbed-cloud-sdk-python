@@ -32,6 +32,9 @@ import time
 # Import common functions and exceptions from frontend API
 from mbed_cloud import BaseAPI
 from mbed_cloud import BaseObject
+from mbed_cloud import PaginatedResponse
+from mbed_cloud import tlv
+
 from mbed_cloud.decorators import catch_exceptions
 from mbed_cloud.device_directory import Device
 from mbed_cloud.exceptions import CloudApiException
@@ -39,9 +42,6 @@ from mbed_cloud.exceptions import CloudAsyncError
 from mbed_cloud.exceptions import CloudTimeoutError
 from mbed_cloud.exceptions import CloudUnhandledError
 from mbed_cloud.exceptions import CloudValueError
-
-from mbed_cloud import tlv
-from mbed_cloud import PaginatedResponse
 
 # Import backend API
 import mbed_cloud._backends.device_directory as device_directory
@@ -877,7 +877,8 @@ class _NotificationsThread(threading.Thread):
                     # Check if we have a payload, and decode it if required
                     payload = r.payload if r.payload else None
                     should_b64 = self._b64decode and payload
-                    payload = base64.b64decode(payload) if should_b64 else tlv.decode(payload=payload, content_type=r.ct)
+                    payload = (base64.b64decode(payload) if should_b64 else
+                               tlv.decode(payload=payload, content_type=r.ct))
 
                     self.db[r.id] = {
                         "payload": payload,

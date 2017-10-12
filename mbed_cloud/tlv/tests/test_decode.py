@@ -37,7 +37,8 @@ class TestDecode(test_common.BaseCase):
     def test_combine_bytes_two(self):
         b1 = 0b00000001  # 1
         b2 = 0b00000101  # 5
-        b3 = b1 + b2     # 261
+        b3 = b1 + b2     # 261 instead of 6
+        self.assertEqual(b3, 6)
         self.assertEqual(
             combine_bytes((b1, b2)),
             261
@@ -47,7 +48,8 @@ class TestDecode(test_common.BaseCase):
         b1 = 0b00000001    # 1
         b2 = 0b00000101    # 5
         b3 = 0b00011111    # 31
-        b4 = b1 + b2 + b3  # 66847 [NOT 37]
+        b4 = b1 + b2 + b3  # 66847 instead of 37
+        self.assertEqual(b3, 37)
         self.assertEqual(
             combine_bytes((b1, b2, b3)),
             66847

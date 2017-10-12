@@ -1,11 +1,31 @@
-# python 2 / 3 compatible tlv parser
+# ---------------------------------------------------------------------------
+# Mbed Cloud Python SDK
+# (C) COPYRIGHT 2017 Arm Limited
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# --------------------------------------------------------------------------
+
+"""python 2 / 3 compatible tlv parser
+
+TLV spec: http://www.openmobilealliance.org/release/LightweightM2M/
+"""
 from binascii import a2b_base64
 import itertools
 
 
-def b64decoder(input):
-    # common approach to b64 decode for this module
-    return bytearray(a2b_base64(input))
+def b64decoder(data):
+    """Common approach to b64 decode for this module"""
+    return bytearray(a2b_base64(data))
 
 
 type_mask = 0b11000000
@@ -15,6 +35,8 @@ length_mask = 0b00000111
 
 
 class Types(object):
+    """TLV object type flags"""
+
     OBJECT = 0b00000000  # Object Instance with one or more TLVs
     RESOURCE = 0b01000000  # Resource Instance with Value in multi Resource TLV
     MULTI = 0b10000000  # Multiple Resource, Value contains one or more Resource Instance
@@ -22,6 +44,8 @@ class Types(object):
 
 
 class LengthTypes(object):
+    """TLV length flags"""
+
     ONE_BYTE = 0b00001000  # Length is 8-bits
     TWO_BYTE = 0b00010000  # Length is 16-bits
     THR_BYTE = 0b00011000  # Length is 24-bits
@@ -35,8 +59,8 @@ class LengthTypes(object):
 
 
 def get_id_length(byte):
-    """
-    length of the identifier, in bytes (id can be 8 or 16 bits)
+    """Length of the identifier, in bytes (id can be 8 or 16 bits)
+
     :param byte:
     :return:
     """
@@ -44,8 +68,8 @@ def get_id_length(byte):
 
 
 def get_value_length(byte):
-    """
-    length of the value, in bytes (value can be 8/16/24/custom bits)
+    """Length of the value, in bytes (value can be 8/16/24/custom bits)
+
     :param byte:
     :return:
     """
@@ -54,10 +78,10 @@ def get_value_length(byte):
 
 
 def combine_bytes(bytearr):
-    """
-    given some bytes
-    join them together to make one long binary
+    """Given some bytes, join them together to make one long binary
+
     (e.g. 00001000 00000000   ->    0000100000000000)
+
     :param bytearr:
     :return:
     """
@@ -70,8 +94,8 @@ def combine_bytes(bytearr):
 
 
 def binary_tlv_to_python(binary_string, result=None, _path=tuple()):
-    """
-    recursively decode a binary string and store output in result object
+    """Recursively decode a binary string and store output in result object
+
     :param binary_string: a bytearray object of tlv data
     :param result: result store for recursion
     :param _path: internal, current path for recursion
@@ -103,7 +127,8 @@ def binary_tlv_to_python(binary_string, result=None, _path=tuple()):
         binary_tlv_to_python(binary_string[offset:offset + value_length], result, new_path)
     else:
         value_binary = binary_string[offset: offset + value_length]
-        result[new_path] = combine_bytes(value_binary) if not all(value_binary) else value_binary.decode('utf8')
+        result[new_path] = (combine_bytes(value_binary) if not all(value_binary) else
+                            value_binary.decode('utf8'))
 
     offset += value_length
     binary_tlv_to_python(binary_string[offset:], result, _path)
@@ -111,8 +136,8 @@ def binary_tlv_to_python(binary_string, result=None, _path=tuple()):
 
 
 def maybe_decode_payload(payload, content_type='application/nanoservice-tlv', decode_b64=True):
-    """
-    if the payload is tlv, decode it, otherwise passthrough
+    """If the payload is tlv, decode it, otherwise passthrough
+
     :param payload: some data
     :param content_type: http content type
     :param decode_b64: by default, payload is assumed to be b64 encoded
