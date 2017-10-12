@@ -4,6 +4,7 @@ import itertools
 
 
 def b64decoder(input):
+    # common approach to b64 decode for this module
     return bytearray(a2b_base64(input))
 
 
@@ -34,10 +35,20 @@ class LengthTypes(object):
 
 
 def get_id_length(byte):
+    """
+    length of the identifier, in bytes (id can be 8 or 16 bits)
+    :param byte:
+    :return:
+    """
     return 2 if byte & id_length_mask == id_length_mask else 1
 
 
 def get_value_length(byte):
+    """
+    length of the value, in bytes (value can be 8/16/24/custom bits)
+    :param byte:
+    :return:
+    """
     length_value = byte & length_type_mask
     return LengthTypes.to_ints.get(length_value, byte & length_mask)
 
@@ -58,12 +69,12 @@ def combine_bytes(bytearr):
     return result
 
 
-def binary_tlv_to_python(binary_string, result=None, path=tuple()):
+def binary_tlv_to_python(binary_string, result=None, _path=tuple()):
     """
     recursively decode a binary string and store output in result object
-    :param binary_string:
-    :param result:
-    :param path:
+    :param binary_string: a bytearray object of tlv data
+    :param result: result store for recursion
+    :param _path: internal, current path for recursion
     :return:
     """
     result = {} if result is None else result
@@ -80,7 +91,7 @@ def binary_tlv_to_python(binary_string, result=None, path=tuple()):
     offset = 1
     item_id = combine_bytes(binary_string[offset:offset + id_length])
     offset += id_length
-    new_path = tuple(itertools.chain(path, (item_id,)))
+    new_path = tuple(itertools.chain(_path, (item_id,)))
 
     # get length of payload from specifier
     value_length = payload_length
@@ -95,18 +106,19 @@ def binary_tlv_to_python(binary_string, result=None, path=tuple()):
         result[new_path] = combine_bytes(value_binary) if not all(value_binary) else value_binary.decode('utf8')
 
     offset += value_length
-    binary_tlv_to_python(binary_string[offset:], result, path)
+    binary_tlv_to_python(binary_string[offset:], result, _path)
     return result
 
 
-def maybe_decode_payload(payload, content_type='application/nanoservice-tlv'):
+def maybe_decode_payload(payload, content_type='application/nanoservice-tlv', decode_b64=True):
     """
     if the payload is tlv, decode it, otherwise passthrough
-    :param payload:
-    :param content_type:
+    :param payload: some data
+    :param content_type: http content type
+    :param decode_b64: by default, payload is assumed to be b64 encoded
     :return:
     """
     if 'tlv' in content_type.lower():
-        binary = b64decoder(payload)
+        binary = b64decoder(payload) if decode_b64 else bytearray(payload)
         return binary_tlv_to_python(binary)
     return payload
