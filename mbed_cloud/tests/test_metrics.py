@@ -11,4 +11,4 @@ class TestMetrics(BaseCase):
         subp.wait()
         if subp.returncode:
             indented = '\n'.join(['\t%s' % s for s in subp.stdout.readlines()])
-            print('Saw flake8 failures running in %s:\n%s' % (project_root, indented))
+            raise ValueError('Saw flake8 failures running in %s:\n%s' % (project_root, indented))
