@@ -2,23 +2,22 @@ machine:
   services:
     - docker
   post:
-    - pyenv global 2.7.11 3.6.1
+    - pyenv global 2.7.11 3.4.2 3.6.2
 
 dependencies:
   pre:
-    - docker build -t sdk_test_server .
-    - git clone -b dockerise https://${GITHUB_TOKEN:-git}@github.com/ARMmbed/mbed-cloud-sdk-testrunner.git testrunner
-    - docker build -t testrunner testrunner
-    #- sudo apt-get update; sudo apt-get install pandoc
-
+    - |
+      pip install awscli
+      login="$(aws ecr get-login --no-include-email)"
+      ${login}
 
 test:
   override:
-    - flake8 --config ./.flake8
-    - ./tests/run.sh
+    - tox
 
 deployment:
   production:
     branch: master
     commands:
+      - pip install pandoc
       - ./generate-docs.sh
