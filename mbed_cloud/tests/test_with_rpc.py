@@ -1,4 +1,3 @@
-from mbed_cloud.tests.common import BaseCase
 import os
 import sys
 import shlex
@@ -6,7 +5,12 @@ import subprocess
 import traceback
 import unittest
 
-docker_image = 'mbed/sdk-testrunner:latest'
+from mbed_cloud.tests.common import BaseCase
+
+docker_image = os.environ.get(
+    'TESTRUNNER_DOCKER_IMAGE',
+    '104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner'
+)
 
 
 def have_docker_image(image):
@@ -21,11 +25,11 @@ def have_docker_image(image):
 
 @unittest.skipIf(not have_docker_image(docker_image), 'missing docker image %s' % docker_image)
 class TestWithRPC(BaseCase):
-    image = "mbed/sdk-testrunner"
 
     @classmethod
     def setUpClass(cls):
-        pass
+        cmd = 'docker pull %s' % docker_image
+        subprocess.check_call(shlex.split(cmd))
 
     def setUp(self):
         exe = sys.executable
@@ -37,7 +41,7 @@ class TestWithRPC(BaseCase):
         cmd = shlex.split(
             'docker run --rm --net="host"'
             ' -p 5000:5000'
-            ' -e "SERVER_URL=http://10.0.75.1:5000"'
+            ' -e "TEST_SERVER_URL=http://10.0.75.1:5000"'
             ' -v results:/runner/results'
             ' %s' % docker_image
         )
@@ -46,7 +50,7 @@ class TestWithRPC(BaseCase):
         except subprocess.CalledProcessError as e:
             if e.returncode > 0:
                 # polite re-raise
-                self.fail('remote testrunner sequence failed: %s' % results_file)
+                self.fail('remote testrunner sequence failed. results should be at: %s' % results_file)
             raise
 
     def tearDown(self):
