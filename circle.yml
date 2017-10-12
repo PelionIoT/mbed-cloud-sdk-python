@@ -6,7 +6,11 @@ machine:
 
 dependencies:
   pre:
-    - sudo apt-get update; sudo apt-get install pandoc
+    - docker build -t sdk_test_server .
+    - git clone -b dockerise https://${GITHUB_TOKEN:-git}@github.com/ARMmbed/mbed-cloud-sdk-testrunner.git testrunner
+    - docker build -t testrunner testrunner
+    #- sudo apt-get update; sudo apt-get install pandoc
+
 
 test:
   override:
