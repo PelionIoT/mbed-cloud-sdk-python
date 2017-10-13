@@ -2,6 +2,10 @@ machine:
   services:
     - docker
 
+general:
+  artifacts:
+    - results
+
 dependencies:
   override:
     - sudo apt-get update
@@ -16,7 +20,7 @@ dependencies:
       ${login}
     - docker pull $TESTRUNNER_DOCKER_IMAGE
     - pip install tox tox-pyenv
-    - pyenv local 2.7.12 3.4.3 3.6.2
+    - pyenv local 2.7.12 3.6.2
 
 test:
   override:

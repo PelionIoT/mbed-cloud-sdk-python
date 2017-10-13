@@ -33,7 +33,7 @@ class TestWithRPC(BaseCase):
 
     def setUp(self):
         exe = sys.executable
-        target = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), 'tests', 'server.py')
+        target = os.path.join(os.path.dirname(__file__), 'server.py')
         self.process = subprocess.Popen(args=[exe, target])
 
     def test_run(self):
@@ -44,9 +44,13 @@ class TestWithRPC(BaseCase):
             ' -p 5000:5000'
             ' -e "TEST_SERVER_URL=http://10.0.75.1:5000"'
             ' -e "TEST_FIXTURES_DIR=fixtures"'
-            ' -v fixtures:/runner/test_fixtures'
-            ' -v results:/runner/results'
-            ' %s' % docker_image
+            ' -v {fixtures}:/runner/test_fixtures'
+            ' -v {results}:/runner/results'
+            ' {images}'.format(
+                images=docker_image,
+                fixtures=os.path.join(os.path.dirname(__file__), 'fixtures'),
+                results=os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'results'),
+            )
         )
         try:
             subprocess.check_call(cmd)
