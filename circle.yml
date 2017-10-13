@@ -10,7 +10,7 @@ dependencies:
   override:
     - sudo apt-get update
     - sudo apt-get install pandoc
-    - pip install awscli
+    - pip install awscli codecov
     # AWS and docker and circleci do not get along well:
     # for safety, try both ways of assigning credentials
     - |
