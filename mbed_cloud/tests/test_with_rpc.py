@@ -1,6 +1,7 @@
 import os
 import sys
 import shlex
+import platform
 import subprocess
 import traceback
 import unittest
@@ -39,6 +40,7 @@ class TestWithRPC(BaseCase):
     def test_run(self):
         # this is in lieu of having a docker-compose...
         results_file = 'file://results/results.html'
+        version = platform.python_version()
         cmd = shlex.split(
             'docker run --rm --net="host"'
             ' -p 5000:5000'
@@ -49,7 +51,7 @@ class TestWithRPC(BaseCase):
             ' {images}'.format(
                 images=docker_image,
                 fixtures=os.path.join(os.path.dirname(__file__), 'fixtures'),
-                results=os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'results'),
+                results=os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'results', version),
             )
         )
         try:
