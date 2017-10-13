@@ -37,11 +37,14 @@ class TestWithRPC(BaseCase):
         self.process = subprocess.Popen(args=[exe, target])
 
     def test_run(self):
+        # this is in lieu of having a docker-compose...
         results_file = 'file://results/results.html'
         cmd = shlex.split(
             'docker run --rm --net="host"'
             ' -p 5000:5000'
             ' -e "TEST_SERVER_URL=http://10.0.75.1:5000"'
+            ' -e "TEST_FIXTURES_DIR=fixtures"'
+            ' -v fixtures:/runner/test_fixtures'
             ' -v results:/runner/results'
             ' %s' % docker_image
         )
