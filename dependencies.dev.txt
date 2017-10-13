@@ -12,6 +12,7 @@ pytest-cov
 pytest-html
 pytest-json
 coverage
+codecov
 
 # Code analysis
 bandit

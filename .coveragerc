@@ -1,4 +1,5 @@
 [run]
+source=mbed_cloud
 [report]
 [html]
 title = mbed Python SDK coverage

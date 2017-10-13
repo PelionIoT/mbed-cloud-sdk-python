@@ -16,6 +16,9 @@ dependencies:
 test:
   override:
     - tox
+  post:
+    # upload to codecov.io
+    - codecov
 
 deployment:
   production:
