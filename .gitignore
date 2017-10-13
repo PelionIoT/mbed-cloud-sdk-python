@@ -1,3 +1,5 @@
+.cache
+.coverage
 *.pyc
 *.swp
 *.egg-info

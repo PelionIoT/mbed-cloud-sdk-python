@@ -8,6 +8,7 @@
 # For testing
 Flask
 pytest
+pytest-cov
 coverage
 
 # Code analysis

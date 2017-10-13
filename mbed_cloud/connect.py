@@ -260,7 +260,7 @@ class ConnectAPI(BaseAPI):
         # When path starts with / we remove the slash, as the API can't handle //.
         if fix_path and resource_path.startswith("/"):
             resource_path = resource_path[1:]
-        banana
+
         api = self.mds.ResourcesApi()
         resp = api.v2_endpoints_device_id_resource_path_get(device_id, resource_path)
 

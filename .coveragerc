@@ -1,0 +1,7 @@
+[run]
+[report]
+[html]
+title = mbed Python SDK coverage
+directory = /results/coverage.html
+[xml]
+output = /results/coverage.xml
