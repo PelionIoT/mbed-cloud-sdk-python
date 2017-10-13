@@ -6,6 +6,8 @@ dependencies:
   pre:
     - pip install awscli
     - |
+      login="$(aws ecr get-login)"
+      ${login}
       login="$(aws ecr get-login --no-include-email)"
       ${login}
     - docker pull $TESTRUNNER_DOCKER_IMAGE
