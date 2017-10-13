@@ -5,6 +5,8 @@ machine:
 dependencies:
   pre:
     - pip install awscli
+    # AWS and docker and circleci do not get along well:
+    # for safety, try both ways of assigning credentials
     - |
       login="$(aws ecr get-login)"
       ${login}

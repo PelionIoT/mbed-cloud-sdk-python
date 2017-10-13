@@ -16,10 +16,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # --------------------------------------------------------------------------
+import os
+
 from setuptools import find_packages
 from setuptools import setup
-from version import VERSION
-import os
+from mbed_cloud.__version__ import VERSION
 
 # To install, run:
 # pip install .
