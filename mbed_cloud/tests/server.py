@@ -38,6 +38,7 @@ from six.moves import urllib
 
 import json
 import queue
+import os
 import sys
 import traceback
 
@@ -68,8 +69,8 @@ def _call_api(module, method, args):
 
 def _get_params(request_headers):
     params = {}
-    api_key = request_headers.get('X-API-KEY', '')
-    host = request_headers.get('X-API-HOST', '')
+    api_key = request_headers.get('X-API-KEY', os.environ.get('MBED_CLOUD_API_KEY', ''))
+    host = request_headers.get('X-API-HOST', os.environ.get('MBED_CLOUD_API_HOST', ''))
     if api_key:
         params["api_key"] = api_key
     if host:
