@@ -4,6 +4,7 @@ machine:
 
 dependencies:
   pre:
+    - apt-get install -y pandoc
     - pip install awscli
     # AWS and docker and circleci do not get along well:
     # for safety, try both ways of assigning credentials
@@ -28,5 +29,4 @@ deployment:
   production:
     branch: master
     commands:
-      - pip install pandoc
       - ./generate-docs.sh
