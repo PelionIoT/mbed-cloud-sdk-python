@@ -4,11 +4,11 @@ machine:
 
 dependencies:
   pre:
+    - pip install awscli
     - |
-      pip install awscli
       login="$(aws ecr get-login --no-include-email)"
       ${login}
-      docker pull $TESTRUNNER_DOCKER_IMAGE
+    - docker pull $TESTRUNNER_DOCKER_IMAGE
   override:
     - pip install tox tox-pyenv
     - pyenv local 2.7.12 3.4.3 3.6.2
