@@ -9,6 +9,8 @@
 Flask
 pytest
 pytest-cov
+pytest-html
+pytest-json
 coverage
 
 # Code analysis

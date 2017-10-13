@@ -1,4 +1,4 @@
-#  dependencies.dev.txt: these are the minimum dependencies for using the SDK
+#  dependencies.dev.txt: these are the minimum dependencies for developing the SDK
 #  requirements.dev.txt: these are pinned versions for all dependencies for a reproducible environment
 #                    to update this file, clear your environment and reinstall dependencies:
 #                    pip freeze > .remove && pip uninstall -y -r .remove
@@ -8,6 +8,9 @@
 # For testing
 Flask==0.12.2
 pytest==3.2.3
+pytest-cov==2.5.1
+pytest-html==1.16.0
+pytest-json==0.4.0
 coverage==4.4.1
 # Code analysis
 bandit==1.4.0
@@ -42,6 +45,7 @@ py==1.4.34
 pydocstyle==2.1.1
 pyflakes==0.8.1
 Pygments==2.2.0
+pytest-metadata==1.5.0
 python-dateutil==2.6.1
 pytz==2017.2
 PyYAML==3.12

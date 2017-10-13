@@ -1,9 +1,12 @@
 import os
 import subprocess
 
+import pytest
+
 from mbed_cloud.tests.common import BaseCase
 
 
+@pytest.mark.meta
 class TestMetrics(BaseCase):
     def test_metrics(self):
         project_root = os.path.abspath(os.path.dirname(os.path.dirname((os.path.dirname(__file__)))))
