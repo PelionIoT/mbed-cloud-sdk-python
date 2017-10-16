@@ -5,6 +5,7 @@ machine:
 general:
   artifacts:
     - ~/results
+    - ~/rpc_results
 
 dependencies:
   override:
