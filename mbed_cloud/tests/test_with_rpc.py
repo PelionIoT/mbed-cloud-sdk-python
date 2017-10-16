@@ -6,6 +6,8 @@ import subprocess
 import traceback
 import unittest
 
+import requests
+
 from mbed_cloud.tests.common import BaseCase
 
 docker_image = os.environ.get(
@@ -38,6 +40,10 @@ class TestWithRPC(BaseCase):
         self.process = subprocess.Popen(args=[exe, target], universal_newlines=True)
         if self.process.poll():
             raise Exception('test server failed to start: %s' % self.process.stdout)
+
+        # try pinging the server
+        response = requests.get('http://1270.0.01:5000/_init')
+        response.raise_for_status()
 
     def test_run(self):
         # this is in lieu of having a docker-compose...
