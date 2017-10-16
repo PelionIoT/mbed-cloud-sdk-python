@@ -58,7 +58,7 @@ class TestWithRPC(BaseCase):
         if not self.host:
             raise Exception('no host address determined')
         if self.host.startswith('ip'):
-            self.host = self.host[3].strip('.').replace('-', '.')
+            self.host = self.host[3:].strip('.').replace('-', '.')
         print('determined host address to be: "%s"' % self.host)
 
         try:
