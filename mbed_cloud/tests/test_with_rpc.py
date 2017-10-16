@@ -41,23 +41,36 @@ class TestWithRPC(BaseCase):
         if self.process.poll():
             raise Exception('test server failed to start: %s' % self.process.stdout)
 
-        # try pinging the server
+        # ping the server to make sure it's up
         response = requests.get('http://127.0.0.1:5000/_init')
         response.raise_for_status()
+
+        # check the host route from inside the docker container
+        routes = subprocess.check_output('docker run --rm --net=host {image} route'.format(
+            image=docker_image
+        ))
+        for routing in routes.splitlines():
+            if routing.lower().startswith('default'):
+                self.host = routing.split()[1]
+                break
+        if not self.host:
+            raise Exception('no host address determined')
 
     def test_run(self):
         # this is in lieu of having a docker-compose...
         version = platform.python_version()
         results_file = os.path.join(os.path.expanduser('~'), 'rpc_results', version)
+
         cmd = shlex.split(
-            'docker run --rm --net="host" --name=testrunner_container'
+            'docker run --rm --net=host --name=testrunner_container'
             ' -p 5000:5000'
-            ' -e "TEST_SERVER_URL=http://10.0.75.1:5000"'
+            ' -e "TEST_SERVER_URL=http://{host}:5000"'
             ' -e "TEST_FIXTURES_DIR=fixtures"'
             ' -v {fixtures}:/runner/test_fixtures'
             ' -v {results}:/runner/results'
-            ' {images}'.format(
-                images=docker_image,
+            ' {image}'.format(
+                image=docker_image,
+                host=self.host,
                 fixtures=os.path.join(os.path.dirname(__file__), 'fixtures'),
                 results=results_file,
             )
