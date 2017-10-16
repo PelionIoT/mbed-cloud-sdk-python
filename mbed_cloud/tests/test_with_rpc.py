@@ -67,7 +67,7 @@ class TestWithRPC(BaseCase):
             print('didnt see an lxcbr0 interface', exception)
         else:
             if address:
-                self.host = address
+                self.host = address.strip()
         print('determined host address to be: "%s"' % self.host)
 
         try:
