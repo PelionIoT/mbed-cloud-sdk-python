@@ -51,7 +51,7 @@ class TestWithRPC(BaseCase):
             ' {images}'.format(
                 images=docker_image,
                 fixtures=os.path.join(os.path.dirname(__file__), 'fixtures'),
-                results=os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'results', version),
+                results=os.path.join(os.path.expanduser('~'), 'results', version),
             )
         )
         try:
