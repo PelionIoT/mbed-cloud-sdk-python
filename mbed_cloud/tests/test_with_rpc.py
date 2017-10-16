@@ -42,9 +42,12 @@ class TestWithRPC(BaseCase):
             raise Exception('test server failed to start: %s' % self.process.stdout)
 
         # check the host route from inside the docker container
-        routes = subprocess.check_output('docker run --rm --net=host {image} route'.format(
-            image=docker_image
-        ))
+        cmd=shlex.split(
+            'docker run --rm --net=host {image} route'.format(
+                image=docker_image
+            )
+        )
+        routes = subprocess.check_output(cmd)
         for routing in routes.splitlines():
             if routing.lower().startswith('default'):
                 self.host = routing.split()[1]
@@ -84,8 +87,6 @@ class TestWithRPC(BaseCase):
                 # polite re-raise
                 self.fail('remote testrunner sequence failed. results should be at: %s' % results_file)
             raise
-        finally:
-            subprocess.Popen('docker kill testrunner_container')
 
     def tearDown(self):
         if self.process.poll():
