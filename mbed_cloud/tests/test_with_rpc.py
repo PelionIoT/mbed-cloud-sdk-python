@@ -49,7 +49,7 @@ class TestWithRPC(BaseCase):
                 image=docker_image
             )
         )
-        routes = subprocess.check_output(cmd)
+        routes = subprocess.check_output(args=cmd, universal_newlines=True)
         print('routes table:\n%s' % routes)
         for routing in routes.splitlines():
             if routing.lower().startswith('default'):
@@ -62,7 +62,7 @@ class TestWithRPC(BaseCase):
 
         cmd = """ifconfig lxcbr0 | awk '/inet addr/{split($2,a,":"); print a[2]}'"""
         try:
-            address = subprocess.check_output(args=cmd, shell=True)
+            address = subprocess.check_output(args=cmd, shell=True, universal_newlines=True)
         except Exception as exception:
             print('didnt see an lxcbr0 interface', exception)
         else:
