@@ -23,6 +23,8 @@ dependencies:
     - pyenv local 2.7.12 3.6.2
 
 test:
+  pre:
+    - echo '{"api_key":"$MBED_CLOUD_API_KEY", "host":"$MBED_CLOUD_API_HOST"}' > .mbed_cloud_config.json
   override:
     - tox
   post:
