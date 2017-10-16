@@ -41,10 +41,6 @@ class TestWithRPC(BaseCase):
         if self.process.poll():
             raise Exception('test server failed to start: %s' % self.process.stdout)
 
-        # ping the server to make sure it's up
-        response = requests.get('http://127.0.0.1:5000/_init')
-        response.raise_for_status()
-
         # check the host route from inside the docker container
         routes = subprocess.check_output('docker run --rm --net=host {image} route'.format(
             image=docker_image
@@ -56,6 +52,13 @@ class TestWithRPC(BaseCase):
         if not self.host:
             raise Exception('no host address determined')
 
+        try:
+            # ping the server to make sure it's up
+            response = requests.get('http://127.0.0.1:5000/_init')
+            response.raise_for_status()
+        except Exception as exception:
+            print('welp, couldnt get the server on 127.0.0.1, maybe docker will have better luck. %s' % exception)
+
     def test_run(self):
         # this is in lieu of having a docker-compose...
         version = platform.python_version()
@@ -63,11 +66,10 @@ class TestWithRPC(BaseCase):
 
         cmd = shlex.split(
             'docker run --rm --net=host --name=testrunner_container'
-            ' -p 5000:5000'
-            ' -e "TEST_SERVER_URL=http://{host}:5000"'
-            ' -e "TEST_FIXTURES_DIR=fixtures"'
-            ' -v {fixtures}:/runner/test_fixtures'
-            ' -v {results}:/runner/results'
+            ' -e "TEST_SERVER_URL=http://{host}:5000"'  # where our SDK server is located
+            ' -e "TEST_FIXTURES_DIR=fixtures"'          # host-relative path to fixtures mountpoint
+            ' -v {fixtures}:/runner/test_fixtures'      # configure the fixtures mountpoint
+            ' -v {results}:/runner/results'             # configure the results mountpoint
             ' {image}'.format(
                 image=docker_image,
                 host=self.host,
