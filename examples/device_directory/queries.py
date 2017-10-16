@@ -70,10 +70,10 @@ def _main():
     )
     # Check it was successful
     assert updated_gf.filter['serial_number']['$eq'] == '12345'
-    print ("Updated query with new serial number")
+    print("Updated query with new serial number")
 
     # Find device using query object
-    print ("Find devices that are matching the created query")
+    print("Find devices that are matching the created query")
     devicesResponse = api.list_devices(filters=updated_gf.filter)
     # Print all devices that are matching provided query
     print(list(devicesResponse))
