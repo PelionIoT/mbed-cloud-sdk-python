@@ -65,6 +65,8 @@ class TestWithRPC(BaseCase):
             response.raise_for_status()
         except Exception as exception:
             print('welp, couldnt get the server on 127.0.0.1, maybe docker will have better luck. %s' % exception)
+            print(subprocess.check_output(shlex.split('ps -aux')))
+            print(subprocess.check_output(shlex.split('netstat -aon')))
             raise
 
     def test_run(self):
