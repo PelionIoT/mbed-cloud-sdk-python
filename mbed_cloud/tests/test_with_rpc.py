@@ -56,7 +56,7 @@ class TestWithRPC(BaseCase):
         if not self.host:
             raise Exception('no host address determined')
         if self.host.startswith('ip'):
-            self.host = self.host[3:-1].replace('-', '.')
+            self.host = self.host[3].strip('.').replace('-', '.')
         print('determined host address to be: "%s"' % self.host)
 
         try:
@@ -68,6 +68,8 @@ class TestWithRPC(BaseCase):
             print(subprocess.check_output(shlex.split('ps -aux')))
             print(subprocess.check_output(shlex.split('netstat -aon')))
             raise
+        else:
+            print('looks like the server is ok')
 
     def test_run(self):
         # this is in lieu of having a docker-compose...
