@@ -29,7 +29,7 @@ dependencies:
 
 test:
   pre:
-    - echo '{"api_key":"$MBED_CLOUD_API_KEY", "host":"$MBED_CLOUD_API_HOST"}' > .mbed_cloud_config.json
+    - echo "{\"api_key\":\"$MBED_CLOUD_API_KEY\", \"host\":\"$MBED_CLOUD_API_HOST\"}" > .mbed_cloud_config.json
     - cat .mbed_cloud_config.json
   override:
     - tox
