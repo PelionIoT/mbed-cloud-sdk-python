@@ -39,7 +39,7 @@ class TestWithRPC(BaseCase):
         target = os.path.join(os.path.dirname(__file__), 'server.py')
         cmd = [exe, target]
         print('running: %s' % cmd)
-        self.process = subprocess.Popen(args=, universal_newlines=True)
+        self.process = subprocess.Popen(args=cmd, universal_newlines=True)
         if self.process.poll():
             raise Exception('test server failed to start: %s' % self.process.stdout)
 
