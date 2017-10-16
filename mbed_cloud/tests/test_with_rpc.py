@@ -64,5 +64,5 @@ class TestWithRPC(BaseCase):
 
     def tearDown(self):
         if self.process.poll():
-            raise subprocess.CalledProcessError('server exited prematurely')
+            raise Exception('test server has exited prematurely')
         self.process.kill()
