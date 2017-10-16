@@ -35,7 +35,9 @@ class TestWithRPC(BaseCase):
     def setUp(self):
         exe = sys.executable
         target = os.path.join(os.path.dirname(__file__), 'server.py')
-        self.process = subprocess.Popen(args=[exe, target])
+        self.process = subprocess.Popen(args=[exe, target], universal_newlines=True)
+        if self.process.poll():
+            raise Exception('test server failed to start: %s' % self.process.stdout)
 
     def test_run(self):
         # this is in lieu of having a docker-compose...
