@@ -48,12 +48,16 @@ class TestWithRPC(BaseCase):
             )
         )
         routes = subprocess.check_output(cmd)
+        print('routes table:\n%s' % routes)
         for routing in routes.splitlines():
             if routing.lower().startswith('default'):
                 self.host = routing.split()[1]
                 break
         if not self.host:
             raise Exception('no host address determined')
+        if self.host.startswith('ip'):
+            self.host = self.host[2:-1].replace('-', '.')
+        print('determined host address to be: "%s"' % self.host)
 
         try:
             # ping the server to make sure it's up
