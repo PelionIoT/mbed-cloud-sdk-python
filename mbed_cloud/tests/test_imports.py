@@ -9,3 +9,7 @@ class TestImports(BaseCase):
         from mbed_cloud import connect
         from mbed_cloud import device_directory
         from mbed_cloud import update
+
+    def test_config(self):
+        from mbed_cloud import config
+        self.assertIn('lab.', config.get('api_key'))
