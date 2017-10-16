@@ -60,11 +60,9 @@ class TestWithRPC(BaseCase):
         if self.host.startswith('ip'):
             self.host = self.host[3:].strip('.').replace('-', '.')
 
-        cmd = shlex.split(
-            """ifconfig lxcbr0 | awk '/inet addr/{split($2,a,":"); print a[2]}'"""
-        )
+        cmd = """ifconfig lxcbr0 | awk '/inet addr/{split($2,a,":"); print a[2]}'"""
         try:
-            address = subprocess.check_output(args=cmd)
+            address = subprocess.check_output(args=cmd, shell=True)
         except Exception as exception:
             print('didnt see an lxcbr0 interface', exception)
         else:
