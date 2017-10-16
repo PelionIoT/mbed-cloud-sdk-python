@@ -42,24 +42,24 @@ class TestWithRPC(BaseCase):
             raise Exception('test server failed to start: %s' % self.process.stdout)
 
         # try pinging the server
-        response = requests.get('http://1270.0.01:5000/_init')
+        response = requests.get('http://127.0.0.1:5000/_init')
         response.raise_for_status()
 
     def test_run(self):
         # this is in lieu of having a docker-compose...
-        results_file = 'file://results/results.html'
         version = platform.python_version()
+        results_file = os.path.join(os.path.expanduser('~'), 'rpc_results', version)
         cmd = shlex.split(
-            'docker run --rm --net="host"'
+            'docker run --rm --net="host" --name=testrunner_container'
             ' -p 5000:5000'
-            ' -e "TEST_SERVER_URL=http://127.0.0.1:5000"'
+            ' -e "TEST_SERVER_URL=http://10.0.75.1:5000"'
             ' -e "TEST_FIXTURES_DIR=fixtures"'
             ' -v {fixtures}:/runner/test_fixtures'
             ' -v {results}:/runner/results'
             ' {images}'.format(
                 images=docker_image,
                 fixtures=os.path.join(os.path.dirname(__file__), 'fixtures'),
-                results=os.path.join(os.path.expanduser('~'), 'rpc_results', version),
+                results=results_file,
             )
         )
         try:
@@ -69,6 +69,8 @@ class TestWithRPC(BaseCase):
                 # polite re-raise
                 self.fail('remote testrunner sequence failed. results should be at: %s' % results_file)
             raise
+        finally:
+            subprocess.Popen('docker kill testrunner_container')
 
     def tearDown(self):
         if self.process.poll():
