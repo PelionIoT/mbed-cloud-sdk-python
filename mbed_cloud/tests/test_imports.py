@@ -12,4 +12,4 @@ class TestImports(BaseCase):
 
     def test_config(self):
         from mbed_cloud import config
-        self.assertIn('lab.', config.get('host'))
+        self.assertIn('lab-api', config.get('host'))

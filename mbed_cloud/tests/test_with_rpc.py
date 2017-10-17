@@ -91,7 +91,7 @@ class TestWithRPC(BaseCase):
         cmd = shlex.split(
             'docker run --rm --net=host --name=testrunner_container'
             ' -e "TEST_SERVER_URL=http://{host}:5000"'  # where our SDK server is located
-            ' -e "TEST_FIXTURES_DIR={fixtures}"'          # host-relative path to fixtures mountpoint
+            ' -e "TEST_FIXTURES_DIR={fixtures}"'        # host-relative path to fixtures mountpoint
             ' -v {fixtures}:/runner/test_fixtures'      # configure the fixtures mountpoint
             ' -v {results}:/runner/results'             # configure the results mountpoint
             ' {image}'.format(
