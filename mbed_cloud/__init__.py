@@ -113,7 +113,7 @@ class BaseAPI(object):
         self._set_custom_attributes(updated_filters)
         filters = self._create_filters_dict(updated_filters, encode)
         if encode:
-            return urllib.parse.urlencode(filters)
+            return urllib.parse.urlencode(sorted(filters.items()))
         else:
             return filters
 

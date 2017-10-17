@@ -16,7 +16,7 @@ class TestFilters(BaseCase):
 
     def _run(self, expected, encode=True, **kwargs):
         outcome = self.api._verify_filters(kwargs, Device, encode)
-        self.assertEqual(outcome, expected)
+        self.assertEqual(expected, outcome)
 
     def test_simple_invalid(self):
         with self.assertRaises(CloudValueError):
@@ -29,7 +29,7 @@ class TestFilters(BaseCase):
                            }
         }
         self._run(
-            {u'filter': 'created_at__lte=2017-12-31T00%253A00%253A00Z&created_at__gte=2017-01-01T00%253A00%253A00Z'},
+            {u'filter': 'created_at__gte=2017-01-01T00%253A00%253A00Z&created_at__lte=2017-12-31T00%253A00%253A00Z'},
             filter=filters
         )
 
@@ -40,7 +40,7 @@ class TestFilters(BaseCase):
                            }
         }
         self._run(
-            {u'filter': 'created_at__lte=2017-12-31T00%253A00%253A00Z&created_at__gte=2017-01-01T00%253A00%253A00Z'},
+            {u'filter': 'created_at__gte=2017-01-01T00%253A00%253A00Z&created_at__lte=2017-12-31T00%253A00%253A00Z'},
             filters=filters
         )
 
@@ -73,7 +73,7 @@ class TestFilters(BaseCase):
                         }
         }
         self._run(
-            {u'filter': 'nuthing__lte=2017-12-31T00%253A00%253A00Z&nuthing__gte=2017-01-01T00%253A00%253A00Z'},
+            {u'filter': 'nuthing__gte=2017-01-01T00%253A00%253A00Z&nuthing__lte=2017-12-31T00%253A00%253A00Z'},
             filters=filters
         )
 
