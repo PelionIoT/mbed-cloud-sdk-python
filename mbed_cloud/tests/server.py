@@ -25,9 +25,6 @@ Run by:
 from __future__ import absolute_import
 from __future__ import unicode_literals
 
-import coverage
-coverage.process_startup()
-
 from builtins import str
 from flask import Flask
 from flask import jsonify
@@ -44,7 +41,6 @@ import queue
 import os
 import sys
 import traceback
-
 
 app = Flask(__name__)
 
@@ -136,6 +132,13 @@ def _get_dict(obj):
     if hasattr(obj, 'to_dict'):
         obj = obj.to_dict()
     return obj
+
+
+@app.route("/_bye")
+def bye(methods=["GET"]):
+    request.environ.get('werkzeug.server.shutdown')()
+    print('shutting down server')
+    return 'shutdown'
 
 
 @app.route("/_init")

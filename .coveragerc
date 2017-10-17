@@ -1,7 +1,9 @@
 [run]
-source = mbed_cloud
-omit = tests/*
 parallel = true
+source = mbed_cloud
+omit =
+    mbed_cloud/tests/*
+    mbed_cloud/_backends/*
 [report]
 [html]
 title = mbed Python SDK coverage

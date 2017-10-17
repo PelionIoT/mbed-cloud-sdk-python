@@ -7,8 +7,10 @@ import traceback
 import unittest
 
 import requests
+import pytest
 
 from mbed_cloud.tests.common import BaseCase
+
 
 docker_image = os.environ.get(
     'TESTRUNNER_DOCKER_IMAGE',
@@ -27,6 +29,7 @@ def have_docker_image(image):
 
 
 @unittest.skipIf(not have_docker_image(docker_image), 'missing docker image %s' % docker_image)
+@pytest.mark.remote
 class TestWithRPC(BaseCase):
 
     @classmethod
@@ -37,7 +40,7 @@ class TestWithRPC(BaseCase):
     def setUp(self):
         exe = sys.executable
         target = os.path.join(os.path.dirname(__file__), 'server.py')
-        cmd = [exe, target]
+        cmd = [exe, '-m', 'coverage', 'run', target]
         print('running: %s' % cmd)
         self.process = subprocess.Popen(args=cmd, universal_newlines=True)
         if self.process.poll():
@@ -82,6 +85,7 @@ class TestWithRPC(BaseCase):
         else:
             print('looks like the server is ok')
 
+    @unittest.expectedFailure
     def test_run(self):
         # this is in lieu of having a docker-compose...
         version = platform.python_version()
@@ -110,6 +114,6 @@ class TestWithRPC(BaseCase):
             raise
 
     def tearDown(self):
-        if self.process.poll():
-            raise Exception('test server has exited prematurely')
-        self.process.kill()
+        # graceful shutdown
+        requests.get('http://localhost:5000/_bye')
+        self.process.wait()
