@@ -1,6 +1,8 @@
 [run]
-source=mbed_cloud
+source = mbed_cloud
+omit = tests/*
+parallel = true
 [report]
 [html]
 title = mbed Python SDK coverage
-directory = ~/results/$PYVER/coverage.html
+directory = ~/results/coverage.html
