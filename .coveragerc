@@ -5,6 +5,6 @@ parallel = true
 [report]
 [html]
 title = mbed Python SDK coverage
-directory = ~/results/$PYVER/coverage.html
+directory = $HOMEDIR/results/$PYVER/coverage.html
 [xml]
-output = ~/results/$PYVER/coverage.xml
+output = $HOMEDIR/results/$PYVER/coverage.xml
