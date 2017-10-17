@@ -6,7 +6,6 @@ general:
   artifacts:
     - ~/results
     - ~/rpc_results
-    - .mbed_cloud_config.json
 
 dependencies:
   override:

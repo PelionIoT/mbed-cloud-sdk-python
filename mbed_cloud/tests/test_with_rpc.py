@@ -86,17 +86,18 @@ class TestWithRPC(BaseCase):
         # this is in lieu of having a docker-compose...
         version = platform.python_version()
         results_file = os.path.join(os.path.expanduser('~'), 'rpc_results', version)
+        fixtures_path = os.path.join(os.path.dirname(__file__), 'fixtures')
 
         cmd = shlex.split(
             'docker run --rm --net=host --name=testrunner_container'
             ' -e "TEST_SERVER_URL=http://{host}:5000"'  # where our SDK server is located
-            ' -e "TEST_FIXTURES_DIR=fixtures"'          # host-relative path to fixtures mountpoint
+            ' -e "TEST_FIXTURES_DIR={fixtures}"'          # host-relative path to fixtures mountpoint
             ' -v {fixtures}:/runner/test_fixtures'      # configure the fixtures mountpoint
             ' -v {results}:/runner/results'             # configure the results mountpoint
             ' {image}'.format(
                 image=docker_image,
                 host=self.host,
-                fixtures=os.path.join(os.path.dirname(__file__), 'fixtures'),
+                fixtures=fixtures_path,
                 results=results_file,
             )
         )
