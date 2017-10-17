@@ -14,8 +14,8 @@ class TestFilters(BaseCase):
     def setUpClass(cls):
         cls.api = BaseAPI()
 
-    def _run(self, expected, **kwargs):
-        outcome = self.api._verify_filters(kwargs, Device, True)
+    def _run(self, expected, encode=True, **kwargs):
+        outcome = self.api._verify_filters(kwargs, Device, encode)
         self.assertEqual(outcome, expected)
 
     def test_simple_invalid(self):
@@ -42,6 +42,17 @@ class TestFilters(BaseCase):
         self._run(
             {u'filter': 'created_at__lte=2017-12-31T00%253A00%253A00Z&created_at__gte=2017-01-01T00%253A00%253A00Z'},
             filters=filters
+        )
+
+    def test_simple_noencode(self):
+        filters = {
+            'banana': {'eq': 'yellow'},
+            'apple': 'green',
+        }
+        self._run(
+            {u'apple__eq': 'green', u'banana__eq': 'yellow'},
+            filters=filters,
+            encode=False
         )
 
     @unittest.expectedFailure
