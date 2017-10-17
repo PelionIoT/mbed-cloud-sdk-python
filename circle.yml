@@ -1,8 +1,3 @@
-general:
-  artifacts:
-    - ~/docs
-    - ~/tests
-
 machine:
   services:
     - docker
@@ -11,6 +6,8 @@ general:
   artifacts:
     - ~/results
     - ~/rpc_results
+#    - ~/docs
+#    - ~/tests
 
 dependencies:
   override:
@@ -31,11 +28,11 @@ dependencies:
   cache_directories:
     - ".tox"
 
-compile:
-  post:
-    - bash generate-docs.sh
-    - mkdir ${PROJECT_DOCS}
-    - cp -r ${BUILD_DOCS}/* ${PROJECT_DOCS}/
+#compile:
+#  post:
+#    - bash generate-docs.sh
+#    - mkdir ${PROJECT_DOCS}
+#    - cp -r ${BUILD_DOCS}/* ${PROJECT_DOCS}/
 
 test:
   pre:
@@ -47,9 +44,9 @@ test:
     # upload to codecov.io
     - codecov
 
-deployment:
-  staging:
-    branch: master
-    commands:
-      - echo Syncing $PROJECT_NAME to S3...
-      - aws s3 sync --delete --cache-control max-age=3600 ${BUILD_DOCS} s3://$PROJECT_NAME
+#deployment:
+#  staging:
+#    branch: master
+#    commands:
+#      - echo Syncing $PROJECT_NAME to S3...
+#      - aws s3 sync --delete --cache-control max-age=3600 ${BUILD_DOCS} s3://$PROJECT_NAME
