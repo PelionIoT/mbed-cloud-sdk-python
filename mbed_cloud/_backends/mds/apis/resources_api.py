@@ -132,10 +132,6 @@ class ResourcesApi(object):
         local_var_files = {}
 
         body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept(['application/json'])
-
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -250,10 +246,6 @@ class ResourcesApi(object):
         local_var_files = {}
 
         body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept(['application/json'])
-
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -368,10 +360,6 @@ class ResourcesApi(object):
         body_params = None
         if 'resource_function' in params:
             body_params = params['resource_function']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept(['application/json'])
-
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.\
             select_header_content_type(['text/plain', 'application/xml', 'application/octet-stream', 'application/exi', 'application/json', 'application/link-format', 'application/senml+json', 'application/nanoservice-tlv', 'application/vnd.oma.lwm2m+text', 'application/vnd.oma.lwm2m+opaq', 'application/vnd.oma.lwm2m+tlv', 'application/vnd.oma.lwm2m+json'])
@@ -493,10 +481,6 @@ class ResourcesApi(object):
         body_params = None
         if 'resource_value' in params:
             body_params = params['resource_value']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept(['application/json'])
-
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.\
             select_header_content_type(['text/plain', 'application/xml', 'application/octet-stream', 'application/exi', 'application/json', 'application/link-format', 'application/senml+json', 'application/nanoservice-tlv', 'application/vnd.oma.lwm2m+text', 'application/vnd.oma.lwm2m+opaq', 'application/vnd.oma.lwm2m+tlv', 'application/vnd.oma.lwm2m+json'])

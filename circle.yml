@@ -1,3 +1,8 @@
+general:
+  artifacts:
+    - ~/docs
+    - ~/tests
+
 machine:
   services:
     - docker
@@ -26,6 +31,12 @@ dependencies:
   cache_directories:
     - ".tox"
 
+compile:
+  post:
+    - bash generate-docs.sh
+    - mkdir ${PROJECT_DOCS}
+    - cp -r ${BUILD_DOCS}/* ${PROJECT_DOCS}/
+
 test:
   pre:
     - echo "{\"api_key\":\"$MBED_CLOUD_API_KEY\", \"host\":\"$MBED_CLOUD_API_HOST\"}" > .mbed_cloud_config.json
@@ -37,7 +48,8 @@ test:
     - codecov
 
 deployment:
-  production:
+  staging:
     branch: master
     commands:
-      - ./generate-docs.sh
+      - echo Syncing $PROJECT_NAME to S3...
+      - aws s3 sync --delete --cache-control max-age=3600 ${BUILD_DOCS} s3://$PROJECT_NAME

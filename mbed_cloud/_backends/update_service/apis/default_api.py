@@ -132,6 +132,10 @@ class DefaultApi(object):
             form_params.append(('name', params['name']))
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.\
             select_header_content_type(['multipart/form-data'])
@@ -233,6 +237,10 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -267,7 +275,7 @@ class DefaultApi(object):
         :param int limit: How many firmware images to retrieve
         :param str order: ASC or DESC
         :param str after: The ID of the the item after which to retrieve the next page
-        :param str filter: URL-encoded query string parameter to filter returned data. The results are paginated into groups of 50.  <br/> ``` ?filter={URL-encoded query string} ``` <br/>  The query string is made up of key-value pairs separated by ampersands. For example, this query: ``` key1=value1&key2=value2&key3=value3 ```  would be URL-encoded as: ``` ?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3 ``` <br/>  The examples below show the queries in *unencoded* form.<br/>  <br/>**Filtering by campaign properties** ``` state=[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired] ```  <br/> ``` root_manifest_id=43217771234242e594ddb433816c498a ```  <br/>**Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  ``` {field name}[|__lte|__gte]={UTC RFC3339 date-time} ``` <br/>  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  ``` created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z ```  <br/>**Filtering on multiple fields**  Example: ``` state=deployed&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z ```  The example after URL encoding: ``` ?filter=state%3Ddeployed%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z ```
+        :param str filter: URL-encoded query string parameter to filter returned data. The results are paginated into groups of 50.  <br/> ?filter={URL-encoded query string} <br/>  The query string is made up of key-value pairs separated by ampersands. For example, this query: key1=value1&key2=value2&key3=value3  would be URL-encoded as: ?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3 <br/>  The examples below show the queries in *unencoded* form.<br/>  <br/>**Filtering by campaign properties** state=[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired]  <br/> root_manifest_id=43217771234242e594ddb433816c498a  <br/>**Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  {field name}[|__lte|__gte]={UTC RFC3339 date-time} <br/>  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z  <br/>**Filtering on multiple fields**  Example: state=deployed&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z  The example after URL encoding: ?filter=state%3Ddeployed%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z
         :param str include: Comma-separated list of data fields to return. Currently supported: total_count
         :return: FirmwareImagePage
                  If the method is called asynchronously,
@@ -296,7 +304,7 @@ class DefaultApi(object):
         :param int limit: How many firmware images to retrieve
         :param str order: ASC or DESC
         :param str after: The ID of the the item after which to retrieve the next page
-        :param str filter: URL-encoded query string parameter to filter returned data. The results are paginated into groups of 50.  <br/> ``` ?filter={URL-encoded query string} ``` <br/>  The query string is made up of key-value pairs separated by ampersands. For example, this query: ``` key1=value1&key2=value2&key3=value3 ```  would be URL-encoded as: ``` ?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3 ``` <br/>  The examples below show the queries in *unencoded* form.<br/>  <br/>**Filtering by campaign properties** ``` state=[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired] ```  <br/> ``` root_manifest_id=43217771234242e594ddb433816c498a ```  <br/>**Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  ``` {field name}[|__lte|__gte]={UTC RFC3339 date-time} ``` <br/>  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  ``` created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z ```  <br/>**Filtering on multiple fields**  Example: ``` state=deployed&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z ```  The example after URL encoding: ``` ?filter=state%3Ddeployed%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z ```
+        :param str filter: URL-encoded query string parameter to filter returned data. The results are paginated into groups of 50.  <br/> ?filter={URL-encoded query string} <br/>  The query string is made up of key-value pairs separated by ampersands. For example, this query: key1=value1&key2=value2&key3=value3  would be URL-encoded as: ?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3 <br/>  The examples below show the queries in *unencoded* form.<br/>  <br/>**Filtering by campaign properties** state=[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired]  <br/> root_manifest_id=43217771234242e594ddb433816c498a  <br/>**Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  {field name}[|__lte|__gte]={UTC RFC3339 date-time} <br/>  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z  <br/>**Filtering on multiple fields**  Example: state=deployed&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z  The example after URL encoding: ?filter=state%3Ddeployed%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z
         :param str include: Comma-separated list of data fields to return. Currently supported: total_count
         :return: FirmwareImagePage
                  If the method is called asynchronously,
@@ -343,6 +351,10 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -440,6 +452,10 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -550,6 +566,10 @@ class DefaultApi(object):
             form_params.append(('name', params['name']))
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.\
             select_header_content_type(['multipart/form-data'])
@@ -651,6 +671,10 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -685,7 +709,7 @@ class DefaultApi(object):
         :param int limit: How many firmware manifests to retrieve
         :param str order: ASC or DESC
         :param str after: The ID of the the item after which to retrieve the next page.
-        :param str filter: URL-encoded query string parameter to filter returned data  <br/> ``` ?filter={URL-encoded query string} ``` <br/>  The query string is made up of key-value pairs separated by ampersands. For example, this query: ``` key1=value1&key2=value2&key3=value3 ```  would be URL-encoded as: ``` ?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3 ``` <br/>  The examples below show the queries in *unencoded* form.<br/>  <br/>**Filtering by campaign properties** ``` state=[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired] ```  <br/> ``` root_manifest_id=43217771234242e594ddb433816c498a ```  <br/>**Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  ``` {field name}[|__lte|__gte]={UTC RFC3339 date-time} ``` <br/>  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  ``` created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z ```  <br/>**Filtering on multiple fields**  Example: ``` state=deployed&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z ```  The example after URL encoding: ``` ?filter=state%3Ddeployed%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z ```
+        :param str filter: URL-encoded query string parameter to filter returned data  <br/> ?filter={URL-encoded query string} <br/>  The query string is made up of key-value pairs separated by ampersands. For example, this query: key1=value1&key2=value2&key3=value3  would be URL-encoded as: ?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3 <br/>  The examples below show the queries in *unencoded* form.<br/>  <br/>**Filtering by campaign properties** state=[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired]  <br/> root_manifest_id=43217771234242e594ddb433816c498a  <br/>**Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  {field name}[|__lte|__gte]={UTC RFC3339 date-time} <br/>  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z  <br/>**Filtering on multiple fields**  Example: state=deployed&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z  The example after URL encoding: ?filter=state%3Ddeployed%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z
         :param str include: Comma-separated list of data fields to return. Currently supported: total_count
         :return: FirmwareManifestPage
                  If the method is called asynchronously,
@@ -714,7 +738,7 @@ class DefaultApi(object):
         :param int limit: How many firmware manifests to retrieve
         :param str order: ASC or DESC
         :param str after: The ID of the the item after which to retrieve the next page.
-        :param str filter: URL-encoded query string parameter to filter returned data  <br/> ``` ?filter={URL-encoded query string} ``` <br/>  The query string is made up of key-value pairs separated by ampersands. For example, this query: ``` key1=value1&key2=value2&key3=value3 ```  would be URL-encoded as: ``` ?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3 ``` <br/>  The examples below show the queries in *unencoded* form.<br/>  <br/>**Filtering by campaign properties** ``` state=[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired] ```  <br/> ``` root_manifest_id=43217771234242e594ddb433816c498a ```  <br/>**Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  ``` {field name}[|__lte|__gte]={UTC RFC3339 date-time} ``` <br/>  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  ``` created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z ```  <br/>**Filtering on multiple fields**  Example: ``` state=deployed&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z ```  The example after URL encoding: ``` ?filter=state%3Ddeployed%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z ```
+        :param str filter: URL-encoded query string parameter to filter returned data  <br/> ?filter={URL-encoded query string} <br/>  The query string is made up of key-value pairs separated by ampersands. For example, this query: key1=value1&key2=value2&key3=value3  would be URL-encoded as: ?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3 <br/>  The examples below show the queries in *unencoded* form.<br/>  <br/>**Filtering by campaign properties** state=[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired]  <br/> root_manifest_id=43217771234242e594ddb433816c498a  <br/>**Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  {field name}[|__lte|__gte]={UTC RFC3339 date-time} <br/>  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z  <br/>**Filtering on multiple fields**  Example: state=deployed&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z  The example after URL encoding: ?filter=state%3Ddeployed%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z
         :param str include: Comma-separated list of data fields to return. Currently supported: total_count
         :return: FirmwareManifestPage
                  If the method is called asynchronously,
@@ -761,6 +785,10 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -858,6 +886,10 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -955,6 +987,10 @@ class DefaultApi(object):
         body_params = None
         if 'campaign' in params:
             body_params = params['campaign']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -1052,6 +1088,10 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -1086,7 +1126,7 @@ class DefaultApi(object):
         :param int limit: How many update campaigns to retrieve
         :param str order: The order of the records. Acceptable values: ASC, DESC. Default: ASC
         :param str after: The ID of the the item after which to retrieve the next page
-        :param str filter: URL-encoded query string parameter to filter returned data  <br/> ``` ?filter={URL-encoded query string} ``` <br/>  The query string is made up of key-value pairs separated by ampersands. For example, this query: ``` key1=value1&key2=value2&key3=value3 ```  would be URL-encoded as: ``` ?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3 ``` <br/>  The examples below show the queries in *unencoded* form.<br/>  <br/>**Filtering by campaign properties** ``` state=[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired] ```  <br/> ``` root_manifest_id=43217771234242e594ddb433816c498a ```  <br/>**Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  ``` {field name}[|__lte|__gte]={UTC RFC3339 date-time} ``` <br/>  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  ``` created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z ```  <br/>**Filtering on multiple fields**  Example: ``` state=deployed&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z ```  The example after URL encoding: ``` ?filter=state%3Ddeployed%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z ```
+        :param str filter: URL-encoded query string parameter to filter returned data  <br/>             ?filter={URL-encoded query string} <br/>  The query string is made up of key-value pairs separated by ampersands. For example, this query: key1=value1&key2=value2&key3=value3  would be URL-encoded as: ?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3 <br/>  The examples below show the queries in *unencoded* form.<br/>  <br/>**Filtering by campaign properties** state=[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired]  <br/> root_manifest_id=43217771234242e594ddb433816c498a  <br/>**Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  {field name}[|__lte|__gte]={UTC RFC3339 date-time} <br/>  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z  <br/>**Filtering on multiple fields**  Example: state=deployed&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z  The example after URL encoding: ?filter=state%3Ddeployed%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z
         :param str include: Comma-separated list of data fields to return. Currently supported: total_count
         :return: UpdateCampaignPage
                  If the method is called asynchronously,
@@ -1115,7 +1155,7 @@ class DefaultApi(object):
         :param int limit: How many update campaigns to retrieve
         :param str order: The order of the records. Acceptable values: ASC, DESC. Default: ASC
         :param str after: The ID of the the item after which to retrieve the next page
-        :param str filter: URL-encoded query string parameter to filter returned data  <br/> ``` ?filter={URL-encoded query string} ``` <br/>  The query string is made up of key-value pairs separated by ampersands. For example, this query: ``` key1=value1&key2=value2&key3=value3 ```  would be URL-encoded as: ``` ?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3 ``` <br/>  The examples below show the queries in *unencoded* form.<br/>  <br/>**Filtering by campaign properties** ``` state=[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired] ```  <br/> ``` root_manifest_id=43217771234242e594ddb433816c498a ```  <br/>**Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  ``` {field name}[|__lte|__gte]={UTC RFC3339 date-time} ``` <br/>  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  ``` created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z ```  <br/>**Filtering on multiple fields**  Example: ``` state=deployed&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z ```  The example after URL encoding: ``` ?filter=state%3Ddeployed%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z ```
+        :param str filter: URL-encoded query string parameter to filter returned data  <br/>             ?filter={URL-encoded query string} <br/>  The query string is made up of key-value pairs separated by ampersands. For example, this query: key1=value1&key2=value2&key3=value3  would be URL-encoded as: ?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3 <br/>  The examples below show the queries in *unencoded* form.<br/>  <br/>**Filtering by campaign properties** state=[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired]  <br/> root_manifest_id=43217771234242e594ddb433816c498a  <br/>**Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  {field name}[|__lte|__gte]={UTC RFC3339 date-time} <br/>  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z  <br/>**Filtering on multiple fields**  Example: state=deployed&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z  The example after URL encoding: ?filter=state%3Ddeployed%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z
         :param str include: Comma-separated list of data fields to return. Currently supported: total_count
         :return: UpdateCampaignPage
                  If the method is called asynchronously,
@@ -1162,6 +1202,10 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -1266,6 +1310,10 @@ class DefaultApi(object):
         body_params = None
         if 'campaign' in params:
             body_params = params['campaign']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -1363,6 +1411,10 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -1467,6 +1519,10 @@ class DefaultApi(object):
         body_params = None
         if 'campaign' in params:
             body_params = params['campaign']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -1571,6 +1627,10 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -1684,6 +1744,10 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 

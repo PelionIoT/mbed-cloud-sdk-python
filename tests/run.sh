@@ -69,9 +69,11 @@ if [ $RET_CODE -eq 0 ]; then
     exit 1
   fi
   # Start the test runner
-  docker build -t trunner . && docker run --rm -it --name runner --net="host" -p 5000:5000 trunner
+  python -u $TRUNNER_DIR/bin/trunner ${PARAMS[@]}
   RET_CODE=$?
 fi
+# Kill the backend server & cleanup
+cleanup
 # Remove temp folder
 rm -rf "$TRUNNER_DIR";
 

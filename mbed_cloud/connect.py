@@ -34,6 +34,7 @@ from mbed_cloud import BaseAPI
 from mbed_cloud import BaseObject
 from mbed_cloud.decorators import catch_exceptions
 from mbed_cloud.device_directory import Device
+from mbed_cloud.exceptions import CloudApiException
 from mbed_cloud.exceptions import CloudAsyncError
 from mbed_cloud.exceptions import CloudTimeoutError
 from mbed_cloud.exceptions import CloudUnhandledError
@@ -162,7 +163,7 @@ class ConnectAPI(BaseAPI):
 
     @catch_exceptions(MdsApiException)
     def list_resources(self, device_id):
-        """List all resources registered to a connected device/device.
+        """List all resources registered to a connected device.
 
         .. code-block:: python
 
@@ -178,6 +179,21 @@ class ConnectAPI(BaseAPI):
         """
         api = self.mds.EndpointsApi()
         return [Resource(r) for r in api.v2_endpoints_device_id_get(device_id)]
+
+    @catch_exceptions(MdsApiException)
+    def get_resource(self, device_id, resource_path):
+        """Get a resource.
+
+        :param str device_id: ID of the device (Required)
+        :param str path: Path of the resource to get (Required)
+        :returns: Device resource
+        :rtype Resource
+        """
+        resources = self.list_resources(device_id)
+        for r in resources:
+            if r.path == resource_path:
+                return r
+        raise CloudApiException("Resource not found")
 
     @catch_exceptions(MdsApiException)
     def delete_resource(self, device_id, resource_path, fix_path=False):

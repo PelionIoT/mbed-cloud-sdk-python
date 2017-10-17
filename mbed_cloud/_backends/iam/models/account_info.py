@@ -489,7 +489,7 @@ class AccountInfo(object):
     def phone_number(self):
         """
         Gets the phone_number of this AccountInfo.
-        The phone number of the company.
+        The phone number of a representative of the company.
 
         :return: The phone_number of this AccountInfo.
         :rtype: str
@@ -500,7 +500,7 @@ class AccountInfo(object):
     def phone_number(self, phone_number):
         """
         Sets the phone_number of this AccountInfo.
-        The phone number of the company.
+        The phone number of a representative of the company.
 
         :param phone_number: The phone_number of this AccountInfo.
         :type: str
@@ -610,7 +610,7 @@ class AccountInfo(object):
     def tier(self):
         """
         Gets the tier of this AccountInfo.
-        The tier level of the account; '0': free tier, '1': commercial account. Other values are reserved for the future.
+        The tier level of the account; '0': free tier, '1': commercial account, '2': partner tier. Other values are reserved for the future.
 
         :return: The tier of this AccountInfo.
         :rtype: str
@@ -621,7 +621,7 @@ class AccountInfo(object):
     def tier(self, tier):
         """
         Sets the tier of this AccountInfo.
-        The tier level of the account; '0': free tier, '1': commercial account. Other values are reserved for the future.
+        The tier level of the account; '0': free tier, '1': commercial account, '2': partner tier. Other values are reserved for the future.
 
         :param tier: The tier of this AccountInfo.
         :type: str

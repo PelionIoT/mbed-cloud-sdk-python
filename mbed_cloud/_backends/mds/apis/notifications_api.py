@@ -121,10 +121,6 @@ class NotificationsApi(object):
         body_params = None
         if 'webhook' in params:
             body_params = params['webhook']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept(['application/json'])
-
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.\
             select_header_content_type(['application/json'])
@@ -220,10 +216,6 @@ class NotificationsApi(object):
         local_var_files = {}
 
         body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept(['application/json'])
-
         # Authentication setting
         auth_settings = ['Bearer']
 
