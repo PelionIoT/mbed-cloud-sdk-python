@@ -9,6 +9,7 @@ class TestImports(BaseCase):
         from mbed_cloud import connect
         from mbed_cloud import device_directory
         from mbed_cloud import update
+        from mbed_cloud import __version__
 
     def test_config(self):
         from mbed_cloud import config
