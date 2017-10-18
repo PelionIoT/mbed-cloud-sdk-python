@@ -49,7 +49,7 @@ class TestDecode(test_common.BaseCase):
         b2 = 0b00000101    # 5
         b3 = 0b00011111    # 31
         b4 = b1 + b2 + b3  # 66847 instead of 37
-        self.assertEqual(b3, 37)
+        self.assertEqual(b4, 37)
         self.assertEqual(
             combine_bytes((b1, b2, b3)),
             66847
