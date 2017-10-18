@@ -20,7 +20,6 @@
 TLV spec: http://www.openmobilealliance.org/release/LightweightM2M/
 """
 from binascii import a2b_base64
-import itertools
 
 
 def b64decoder(data):
@@ -122,11 +121,15 @@ def binary_tlv_to_python(binary_string, result=None):
         offset += payload_length
 
     if kind == Types.MULTI:
-        binary_tlv_to_python(binary_string[offset:offset + value_length], result.setdefault(item_id, {}))
+        binary_tlv_to_python(
+            binary_string[offset:offset + value_length],
+            result.setdefault(item_id, {})
+        )
     else:
         value_binary = binary_string[offset: offset + value_length]
-        result[item_id] = (combine_bytes(value_binary) if not all(value_binary) else
-                            value_binary.decode('utf8'))
+        result[item_id] = (
+            combine_bytes(value_binary) if not all(value_binary) else value_binary.decode('utf8')
+        )
 
     offset += value_length
     binary_tlv_to_python(binary_string[offset:], result)
