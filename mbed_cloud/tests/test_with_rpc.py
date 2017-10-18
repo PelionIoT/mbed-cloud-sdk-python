@@ -85,7 +85,6 @@ class TestWithRPC(BaseCase):
         else:
             print('looks like the server is ok')
 
-    @unittest.expectedFailure
     def test_run(self):
         # this is in lieu of having a docker-compose...
         version = platform.python_version()
