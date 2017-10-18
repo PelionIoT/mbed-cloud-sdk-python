@@ -56,14 +56,11 @@ class TestMetrics(BaseCase):
         self.assertIn('start is required', e.exception.message)
 
     def test_metrics(self):
-        metrics = list(self.metrics)
-        # 5 days with interval of 1 day, so one metric per day
-        self.assertEqual(len(metrics), 5)
-        a_metric = metrics[-1]
         props = Metric._get_attributes_map()
-        # exercise all the getters
+        inverse_props = {v: k for k, v in props.items()}
+        a_metric = Metric(inverse_props)
         parts = {prop: getattr(a_metric, prop) for prop in props}
-        self.assertEqual(parts['handshakes'], 0)
+        self.assertEqual(parts['successful_bootstraps'], 'successful_bootstraps')
 
     def test_metrics_map_include(self):
         included = Metric._map_includes(['handshakes'])
