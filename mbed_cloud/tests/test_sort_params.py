@@ -5,7 +5,6 @@ from mbed_cloud import BaseAPI
 
 
 class TestSortParams(BaseCase):
-    """Check filters"""
 
     @classmethod
     def setUpClass(cls):

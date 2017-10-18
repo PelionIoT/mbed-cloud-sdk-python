@@ -8,7 +8,6 @@ from mbed_cloud import CloudValueError
 
 
 class TestFilters(BaseCase):
-    """Check filters"""
 
     @classmethod
     def setUpClass(cls):

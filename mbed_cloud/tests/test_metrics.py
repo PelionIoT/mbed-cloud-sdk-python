@@ -10,7 +10,6 @@ end = datetime.datetime(year=2017, month=6, day=20)
 
 
 class TestMetrics(BaseCase):
-    """Check filters"""
 
     @classmethod
     def setUpClass(cls):

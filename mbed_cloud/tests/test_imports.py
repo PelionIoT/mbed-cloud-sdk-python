@@ -3,7 +3,8 @@ from mbed_cloud import BaseAPI
 
 
 class TestImports(BaseCase):
-    """A simple test for validating coverage etc"""
+    """A simple test for validating coverage"""
+
     def test_run(self):
         from mbed_cloud import account_management
         from mbed_cloud import certificates
