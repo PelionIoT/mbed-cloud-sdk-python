@@ -93,12 +93,11 @@ def combine_bytes(bytearr):
     return result
 
 
-def binary_tlv_to_python(binary_string, result=None, _path=tuple()):
+def binary_tlv_to_python(binary_string, result=None):
     """Recursively decode a binary string and store output in result object
 
     :param binary_string: a bytearray object of tlv data
     :param result: result store for recursion
-    :param _path: internal, current path for recursion
     :return:
     """
     result = {} if result is None else result
@@ -113,9 +112,8 @@ def binary_tlv_to_python(binary_string, result=None, _path=tuple()):
 
     # start after the type indicator
     offset = 1
-    item_id = combine_bytes(binary_string[offset:offset + id_length])
+    item_id = str(combine_bytes(binary_string[offset:offset + id_length]))
     offset += id_length
-    new_path = tuple(itertools.chain(_path, (item_id,)))
 
     # get length of payload from specifier
     value_length = payload_length
@@ -124,14 +122,14 @@ def binary_tlv_to_python(binary_string, result=None, _path=tuple()):
         offset += payload_length
 
     if kind == Types.MULTI:
-        binary_tlv_to_python(binary_string[offset:offset + value_length], result, new_path)
+        binary_tlv_to_python(binary_string[offset:offset + value_length], result.setdefault(item_id, {}))
     else:
         value_binary = binary_string[offset: offset + value_length]
-        result[new_path] = (combine_bytes(value_binary) if not all(value_binary) else
+        result[item_id] = (combine_bytes(value_binary) if not all(value_binary) else
                             value_binary.decode('utf8'))
 
     offset += value_length
-    binary_tlv_to_python(binary_string[offset:], result, _path)
+    binary_tlv_to_python(binary_string[offset:], result)
     return result
 
 

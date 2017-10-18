@@ -16,6 +16,6 @@ class TestIntegration(test_common.BaseCase):
         device = devices[0]
         path = "/3/0"
         result = api.get_resource_value(device.id, path)
-        self.assertEqual(result[(11, 0)], 0)
-        self.assertEqual(result[(18,)], 'dev_hardware_version')
-        self.assertEqual(result[(17,)], 'dev_device_type')
+        self.assertEqual(result['11']['0'], 0)
+        self.assertEqual(result['18'], 'dev_hardware_version')
+        self.assertEqual(result['17'], 'dev_device_type')
