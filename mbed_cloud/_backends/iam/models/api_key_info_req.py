@@ -53,7 +53,7 @@ class ApiKeyInfoReq(object):
     def owner(self):
         """
         Gets the owner of this ApiKeyInfoReq.
-        The owner of this API key, who is the creator by default.
+        The owner of this API key.
 
         :return: The owner of this ApiKeyInfoReq.
         :rtype: str
@@ -64,7 +64,7 @@ class ApiKeyInfoReq(object):
     def owner(self, owner):
         """
         Sets the owner of this ApiKeyInfoReq.
-        The owner of this API key, who is the creator by default.
+        The owner of this API key.
 
         :param owner: The owner of this ApiKeyInfoReq.
         :type: str

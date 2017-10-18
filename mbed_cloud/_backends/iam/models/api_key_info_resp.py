@@ -276,7 +276,7 @@ class ApiKeyInfoResp(object):
     def owner(self):
         """
         Gets the owner of this ApiKeyInfoResp.
-        The owner of this API key, who is the creator by default.
+        The owner of this API key.
 
         :return: The owner of this ApiKeyInfoResp.
         :rtype: str
@@ -287,7 +287,7 @@ class ApiKeyInfoResp(object):
     def owner(self, owner):
         """
         Sets the owner of this ApiKeyInfoResp.
-        The owner of this API key, who is the creator by default.
+        The owner of this API key.
 
         :param owner: The owner of this ApiKeyInfoResp.
         :type: str
