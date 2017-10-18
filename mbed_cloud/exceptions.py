@@ -37,9 +37,7 @@ class CloudBackendError(CloudApiException):
     or invalid usage of the API.
     """
 
-    def __init__(self, e):
-        """Init CloudBackendError class"""
-        super(CloudBackendError, self).__init__(e.message, e.reason, e.status)
+    pass
 
 
 class CloudValueError(CloudApiException):
@@ -50,9 +48,7 @@ class CloudValueError(CloudApiException):
     or invalid usage of the API.
     """
 
-    def __init__(self, message, reason=None, status=400):
-        """Init CloudValueError class"""
-        super(CloudValueError, self).__init__(message, reason, status)
+    pass
 
 
 class CloudUnhandledError(CloudApiException):
@@ -62,9 +58,7 @@ class CloudUnhandledError(CloudApiException):
     and `error` before getting value.
     """
 
-    def __init__(self, message, reason=None, status=400):
-        """Init CloudUnhandledError class"""
-        super(CloudUnhandledError, self).__init__(message, reason, status)
+    pass
 
 
 class CloudAsyncError(CloudApiException):
@@ -74,14 +68,10 @@ class CloudAsyncError(CloudApiException):
     handled by the user.
     """
 
-    def __init__(self, message, reason=None, status=400):
-        """Init CloudAsyncError class"""
-        super(CloudAsyncError, self).__init__(message, reason, status)
+    pass
 
 
 class CloudTimeoutError(CloudApiException):
     """Thrown when running in synchronized/blocking mode, and the request times out."""
 
-    def __init__(self, message, reason=None, status=400):
-        """Init CloudTimeoutError class"""
-        super(CloudTimeoutError, self).__init__(message, reason, status)
+    pass
