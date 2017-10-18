@@ -8,7 +8,7 @@ class TestFilters(BaseCase):
     @classmethod
     def setUpClass(cls):
         cls.api = DeviceDirectoryAPI()
-        cls.api.list_devices(filter=dict(connected=True))
+        cls.devices = cls.api.list_devices(filter=dict(connected=True))
 
     def test_meta(self):
         meta = self.api.get_last_api_metadata()
