@@ -1,5 +1,6 @@
 from mbed_cloud.tests.common import BaseCase
 from mbed_cloud.device_directory import DeviceDirectoryAPI
+from mbed_cloud import ApiMetadata
 
 
 class TestFilters(BaseCase):
@@ -11,6 +12,7 @@ class TestFilters(BaseCase):
         cls.devices = cls.api.list_devices(filter=dict(connected=True))
 
     def test_meta(self):
+        # exercise all the getters for metadata objects
         meta = self.api.get_last_api_metadata()
         props = (
             'url',
@@ -23,10 +25,20 @@ class TestFilters(BaseCase):
             'etag',
             'error_message',
         )
-        # exercise all the getters
         parts = {prop: getattr(meta, prop) for prop in props}
         self.assertEqual(parts['method'], 'GET')
         self.assertEqual(parts['object'], 'list')
+        self.assertIn('Strict-Transport', repr(meta))
         as_dict = meta.to_dict()
         for prop in props:
             self.assertIn(prop, as_dict)
+
+    def test_meta_exception(self):
+        # check what happens if an exception is passed to the metadata object
+        msg = 'just a test'
+        exception = Exception(msg)
+        exception.status = 5
+        exception.body = 'the body'
+        meta = ApiMetadata('http://not.real', 'GET', exception=exception)
+        self.assertEqual(meta.error_message, msg)
+
