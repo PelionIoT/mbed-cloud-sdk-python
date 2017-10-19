@@ -458,8 +458,8 @@ class ApiMetadata(object):
             self._status_code = getattr(exception, 'status')
         if hasattr(exception, 'reason'):
             self._error_message = getattr(exception, 'reason')
-        elif hasattr(exception, 'message'):
-            self._error_message = getattr(exception, 'message')
+        else:
+            self._error_message = str(exception) or ''
         if hasattr(exception, 'body'):
             self._set_response(getattr(exception, 'body'))
 
