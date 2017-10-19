@@ -549,7 +549,7 @@ class ApiMetadata(object):
     def to_dict(self):
         """Return dictionary of object."""
         dictionary = {}
-        for key, value in self.__dict__.iteritems():
+        for key, value in iteritems(self.__dict__):
             property_name = key[1:]
             if hasattr(self, property_name):
                 dictionary.update({property_name: getattr(self, property_name, None)})
