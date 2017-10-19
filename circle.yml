@@ -10,6 +10,15 @@ general:
 #    - ~/tests
 
 dependencies:
+  pre:
+    # switch out environment variables depending on branch
+    -|
+      if [[ $CIRCLE_BRANCH==production ]] ;
+      then
+        $MBED_CLOUD_API_HOST = $MBED_CLOUD_API_HOST_PROD;
+        $MBED_CLOUD_API_KEY = $MBED_CLOUD_API_KEY_PROD;
+      fi
+
   override:
     - sudo apt-get update
     - sudo apt-get install pandoc
