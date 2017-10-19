@@ -14,7 +14,7 @@ from mbed_cloud.tests.common import BaseCase
 
 docker_image = os.environ.get(
     'TESTRUNNER_DOCKER_IMAGE',
-    '104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner'
+    '104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:latest'
 )
 
 
