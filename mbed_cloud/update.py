@@ -705,7 +705,7 @@ class CampaignDeviceState(BaseObject):
         """The state of the update campaign on the device (readonly).
 
         values: pending, updated_connector_channel, failed_connector_channel_update,
-        deployed, manifestremoved
+        deployed, manifestremoved, deregistered
 
         :rtype: str
         """

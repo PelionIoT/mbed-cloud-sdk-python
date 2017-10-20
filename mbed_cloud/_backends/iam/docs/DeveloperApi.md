@@ -29,7 +29,7 @@ Method | HTTP request | Description
 
 Create a new API key.
 
-An endpoint for creating a new API key.   **Example usage:** `curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys -d '{\"name\": \"MyKey1\",\"owner\": \"ACCOUNT_ID\"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
+An endpoint for creating a new API key.   **Example usage:** `curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys -d '{\"name\": \"MyKey1\"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
 
 ### Example 
 ```python
