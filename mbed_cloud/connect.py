@@ -17,7 +17,6 @@
 """Public API for mDS and Statistics APIs."""
 from __future__ import absolute_import
 from __future__ import unicode_literals
-import base64
 from builtins import object
 from builtins import str
 from collections import defaultdict
@@ -729,7 +728,7 @@ class ConnectAPI(BaseAPI):
         if consumer.error:
             raise CloudAsyncError(consumer.error)
         value = consumer.value
-        if value is not None:
+        if value is not None and isinstance(value, basestring):
             value = value.decode('utf-8')
         return value
 
@@ -868,18 +867,20 @@ class _NotificationsThread(threading.Thread):
                             "Ignoring notification on %s (%s) as no subscription is registered" %
                             (n.ep, n.path))
 
-                    # Decode b64 encoded data
-                    payload = base64.b64decode(n.payload) if self._b64decode else n.payload
+                    payload = tlv.decode(
+                        payload=n.payload,
+                        content_type=n.ct,
+                        decode_b64=self._b64decode
+                    )
                     self.queues[n.ep][n.path].put(payload)
 
             if resp.async_responses:
                 for r in resp.async_responses:
-                    # Check if we have a payload, and decode it if required
-                    payload = r.payload if r.payload else None
-                    should_b64 = self._b64decode and payload
-                    payload = (base64.b64decode(payload) if should_b64 else
-                               tlv.decode(payload=payload, content_type=r.ct))
-
+                    payload = tlv.decode(
+                        payload=r.payload,
+                        content_type=r.ct,
+                        decode_b64=self._b64decode
+                    )
                     self.db[r.id] = {
                         "payload": payload,
                         "error": r.error,

@@ -19,13 +19,7 @@
 
 TLV spec: http://www.openmobilealliance.org/release/LightweightM2M/
 """
-from binascii import a2b_base64
-
-
-def b64decoder(data):
-    """Common approach to b64 decode for this module"""
-    return bytearray(a2b_base64(data))
-
+from binascii import a2b_base64 as b64decoder
 
 type_mask = 0b11000000
 id_length_mask = 0b00100000
@@ -144,7 +138,10 @@ def maybe_decode_payload(payload, content_type='application/nanoservice-tlv', de
     :param decode_b64: by default, payload is assumed to be b64 encoded
     :return:
     """
+    if not payload:
+        return None
+
+    binary = b64decoder(payload) if decode_b64 else payload
     if content_type and 'tlv' in content_type.lower():
-        binary = b64decoder(payload) if decode_b64 else bytearray(payload)
-        return binary_tlv_to_python(binary)
-    return payload
+        return binary_tlv_to_python(bytearray(binary))
+    return binary
