@@ -2,7 +2,7 @@
 parallel = true
 source = mbed_cloud
 omit =
-    mbed_cloud/tests/*
+    **/tests/*
     mbed_cloud/_backends/*
 [report]
 [html]

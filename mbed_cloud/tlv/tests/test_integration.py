@@ -1,12 +1,10 @@
-import unittest
+import pytest
 from mbed_cloud.tlv.tests import test_common
 
 from mbed_cloud.connect import ConnectAPI
 
-no_integration_tests = False
 
-
-@unittest.skipIf(no_integration_tests, 'no integration tests')
+@pytest.mark.integration
 class TestIntegration(test_common.BaseCase):
     def test_real_connection(self):
         api = ConnectAPI()
