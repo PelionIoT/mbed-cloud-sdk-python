@@ -13,7 +13,7 @@ dependencies:
   pre:
     # switch out environment variables depending on branch
     - |
-      if [[ $CIRCLE_BRANCH==production ]]; then
+      if [[ $CIRCLE_BRANCH == production ]]; then
         echo 'export MBED_CLOUD_API_HOST=$MBED_CLOUD_API_HOST_PROD' >> ~/.circlerc;
         echo 'export MBED_CLOUD_API_KEY=$MBED_CLOUD_API_KEY_PROD' >> ~/.circlerc;
         echo 'environment variables swapped';
