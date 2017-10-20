@@ -300,7 +300,7 @@ class CampaignDeviceMetadata(object):
         :param deployment_state: The deployment_state of this CampaignDeviceMetadata.
         :type: str
         """
-        allowed_values = ["pending", "updated_connector_channel", "failed_connector_channel_update", "deployed", "manifestremoved"]
+        allowed_values = ["pending", "updated_connector_channel", "failed_connector_channel_update", "deployed", "manifestremoved", "deregistered"]
         if deployment_state not in allowed_values:
             raise ValueError(
                 "Invalid value for `deployment_state` ({0}), must be one of {1}"
