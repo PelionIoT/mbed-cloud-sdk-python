@@ -28,6 +28,9 @@ class CloudApiException(Exception):
         self.status = status
         self.reason = reason
 
+    def __str__(self):
+        print('%s: (%s) "%s" %s' % (self.__class__.__name__, self.status, self.reason, self.message))
+
 
 class CloudBackendError(CloudApiException):
     """Common exception thrown when ApiException is raised from backend API.
