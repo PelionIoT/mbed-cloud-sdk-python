@@ -730,7 +730,7 @@ class ConnectAPI(BaseAPI):
             raise CloudAsyncError(consumer.error)
         value = consumer.value
         if value is not None:
-            value = tlv.decode(value, decode_b64=False)
+            value = value.decode('utf-8')
         return value
 
     def _convert_to_UTC_RFC3339(self, time, name):

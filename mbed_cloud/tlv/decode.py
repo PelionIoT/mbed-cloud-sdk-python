@@ -144,7 +144,7 @@ def maybe_decode_payload(payload, content_type='application/nanoservice-tlv', de
     :param decode_b64: by default, payload is assumed to be b64 encoded
     :return:
     """
-    if 'tlv' in content_type.lower():
+    if content_type and 'tlv' in content_type.lower():
         binary = b64decoder(payload) if decode_b64 else bytearray(payload)
         return binary_tlv_to_python(binary)
     return payload
