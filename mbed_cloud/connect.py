@@ -17,13 +17,13 @@
 """Public API for mDS and Statistics APIs."""
 from __future__ import absolute_import
 from __future__ import unicode_literals
-import base64
 from builtins import object
 from builtins import str
 from collections import defaultdict
 import datetime
 import logging
 import re
+import six
 from six import iteritems
 from six.moves import queue
 import threading
@@ -32,6 +32,9 @@ import time
 # Import common functions and exceptions from frontend API
 from mbed_cloud import BaseAPI
 from mbed_cloud import BaseObject
+from mbed_cloud import PaginatedResponse
+from mbed_cloud import tlv
+
 from mbed_cloud.decorators import catch_exceptions
 from mbed_cloud.device_directory import Device
 from mbed_cloud.exceptions import CloudApiException
@@ -40,12 +43,9 @@ from mbed_cloud.exceptions import CloudTimeoutError
 from mbed_cloud.exceptions import CloudUnhandledError
 from mbed_cloud.exceptions import CloudValueError
 
-from mbed_cloud import PaginatedResponse
-
 # Import backend API
 import mbed_cloud._backends.device_directory as device_directory
-from mbed_cloud._backends.device_directory.rest import \
-    ApiException as DeviceDirectoryApiException
+from mbed_cloud._backends.device_directory.rest import ApiException as DeviceDirectoryApiException
 import mbed_cloud._backends.mds as mds
 from mbed_cloud._backends.mds.rest import ApiException as MdsApiException
 import mbed_cloud._backends.statistics as statistics
@@ -274,8 +274,8 @@ class ConnectAPI(BaseAPI):
         :rtype: AsyncConsumer
         """
         # When path starts with / we remove the slash, as the API can't handle //.
-        if fix_path and resource_path.startswith("/"):
-            resource_path = resource_path[1:]
+        if fix_path:
+            resource_path = resource_path.lstrip('/')
 
         api = self.mds.ResourcesApi()
         resp = api.v2_endpoints_device_id_resource_path_get(device_id, resource_path)
@@ -729,7 +729,7 @@ class ConnectAPI(BaseAPI):
         if consumer.error:
             raise CloudAsyncError(consumer.error)
         value = consumer.value
-        if value is not None:
+        if value is not None and isinstance(value, six.binary_type):
             value = value.decode('utf-8')
         return value
 
@@ -868,17 +868,20 @@ class _NotificationsThread(threading.Thread):
                             "Ignoring notification on %s (%s) as no subscription is registered" %
                             (n.ep, n.path))
 
-                    # Decode b64 encoded data
-                    payload = base64.b64decode(n.payload) if self._b64decode else n.payload
+                    payload = tlv.decode(
+                        payload=n.payload,
+                        content_type=n.ct,
+                        decode_b64=self._b64decode
+                    )
                     self.queues[n.ep][n.path].put(payload)
 
             if resp.async_responses:
                 for r in resp.async_responses:
-                    # Check if we have a payload, and decode it if required
-                    payload = r.payload if r.payload else None
-                    should_b64 = self._b64decode and payload
-                    payload = base64.b64decode(payload) if should_b64 else payload
-
+                    payload = tlv.decode(
+                        payload=r.payload,
+                        content_type=r.ct,
+                        decode_b64=self._b64decode
+                    )
                     self.db[r.id] = {
                         "payload": payload,
                         "error": r.error,

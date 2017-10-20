@@ -89,18 +89,6 @@ def _fix_paginated_response(resp):
 
 def _get_type(v):
     """Try to get value as original type, if possible. If not, we just return original value."""
-    # Check int
-    try:
-        return int(v)
-    except ValueError:
-        pass
-
-    # Check float
-    try:
-        return float(v)
-    except ValueError:
-        pass
-
     # Check JSON
     try:
         return json.loads(v)
