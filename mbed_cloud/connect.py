@@ -23,6 +23,7 @@ from collections import defaultdict
 import datetime
 import logging
 import re
+import six
 from six import iteritems
 from six.moves import queue
 import threading
@@ -728,7 +729,7 @@ class ConnectAPI(BaseAPI):
         if consumer.error:
             raise CloudAsyncError(consumer.error)
         value = consumer.value
-        if value is not None and isinstance(value, basestring):
+        if value is not None and isinstance(value, six.binary_type):
             value = value.decode('utf-8')
         return value
 
