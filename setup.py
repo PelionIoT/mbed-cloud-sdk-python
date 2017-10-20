@@ -36,7 +36,7 @@ try:
     long_description = long_description.replace('\r', '')
 except(OSError, IOError, ImportError):
     with open(os.path.join(os.path.dirname(__file__), 'README.md')) as fh:
-        long_description = fh.readlines()
+        long_description = fh.read()
 
 NAME = 'mbed-cloud-sdk'
 
