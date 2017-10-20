@@ -29,7 +29,13 @@ class CloudApiException(Exception):
         self.reason = reason
 
     def __str__(self):
-        print('%s: (%s) "%s" %s' % (self.__class__.__name__, self.status, self.reason, self.message))
+        """Print the exception"""
+        return ('%s: (%s) "%s" %s' % (
+            self.__class__.__name__,
+            self.status,
+            self.reason,
+            self.message)
+        )
 
 
 class CloudBackendError(CloudApiException):
