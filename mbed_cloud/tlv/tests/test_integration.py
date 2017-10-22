@@ -1,19 +1,17 @@
-import unittest
+import pytest
 from mbed_cloud.tlv.tests import test_common
 
 from mbed_cloud.connect import ConnectAPI
 
-no_integration_tests = False
 
-
-@unittest.skipIf(no_integration_tests, 'no integration tests')
+@pytest.mark.integration
 class TestIntegration(test_common.BaseCase):
     def test_real_connection(self):
         api = ConnectAPI()
         api.start_notifications()
         devices = api.list_connected_devices().data
-
         device = devices[0]
+        print(device)
         path = "/3/0"
         result = api.get_resource_value(device.id, path)
         self.assertEqual(result['11']['0'], 0)

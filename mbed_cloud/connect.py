@@ -73,12 +73,9 @@ class ConnectAPI(BaseAPI):
         self._db = {}
         self._queues = defaultdict(lambda: defaultdict(queue.Queue))
 
-        self._notifications_thread = _NotificationsThread(self._db,
-                                                          self._queues,
-                                                          b64decode=b64decode,
-                                                          mds=self.mds)
+        self.b64decode = b64decode
         self._notifications_are_active = False
-        self._notifications_thread.daemon = True
+        self._notifications_thread = None
 
         self.statistics = self._init_api(statistics)
         self.device_directory = self._init_api(device_directory)
@@ -98,6 +95,15 @@ class ConnectAPI(BaseAPI):
 
         :returns: void
         """
+        if self._notifications_are_active:
+            return
+        self._notifications_thread = _NotificationsThread(
+            self._db,
+            self._queues,
+            b64decode=self.b64decode,
+            mds=self.mds
+        )
+        self._notifications_thread.daemon = True
         self._notifications_thread.start()
         self._notifications_are_active = True
 
@@ -106,7 +112,10 @@ class ConnectAPI(BaseAPI):
 
         :returns: void
         """
+        if not self._notifications_are_active:
+            return
         self._notifications_thread.stop()
+        self._notifications_thread = None
         self._notifications_are_active = False
 
     @catch_exceptions(DeviceDirectoryApiException)

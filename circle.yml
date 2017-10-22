@@ -1,49 +1,60 @@
+machine:
+  services:
+    - docker
+
 general:
   artifacts:
-    - ~/docs
-    - ~/tests
-
-machine:
-  node:
-    version: 4.7.0
-  environment:
-    AWS_DEFAULT_REGION: us-west-2
-    PROJECT_NAME: ${CIRCLE_PROJECT_REPONAME}
-    PROJECT_DOCS: ${HOME}/docs
-    PROJECT_TESTS: ${HOME}/tests
-    BUILD_DOCS: ${HOME}/${CIRCLE_PROJECT_REPONAME}/docs/build/html
-  post:
-    - pyenv global 2.7.11 3.6.1
+    - ~/results
+    - ~/rpc_results
+#    - ~/docs
+#    - ~/tests
 
 dependencies:
   pre:
-    - sudo apt-get update; sudo apt-get install pandoc
+    # switch out environment variables depending on branch
     - |
-      if [[ $CIRCLE_BRANCH==production ]]; then
+      if [[ $CIRCLE_BRANCH == production ]]; then
         echo 'export MBED_CLOUD_API_HOST=$MBED_CLOUD_API_HOST_PROD' >> ~/.circlerc;
         echo 'export MBED_CLOUD_API_KEY=$MBED_CLOUD_API_KEY_PROD' >> ~/.circlerc;
         echo 'environment variables swapped';
       fi
+  override:
+    - sudo apt-get update
+    - sudo apt-get install pandoc
+    - pip install awscli codecov
+    # AWS and docker and circleci do not get along well:
+    # for safety, try both ways of assigning credentials
+    - |
+      login="$(aws ecr get-login)"
+      ${login}
+      login="$(aws ecr get-login --no-include-email)"
+      ${login}
+    - docker pull $TESTRUNNER_DOCKER_IMAGE
+    - pip install tox tox-pyenv
+    - pyenv local 2.7.12 3.6.2
+    - tox --notest
+  cache_directories:
+    - ".tox"
 
-compile:
-  post:
-    - bash generate-docs.sh
-    - mkdir ${PROJECT_DOCS}
-    - cp -r ${BUILD_DOCS}/* ${PROJECT_DOCS}/
+#compile:
+#  post:
+#    - bash generate-docs.sh
+#    - mkdir ${PROJECT_DOCS}
+#    - cp -r ${BUILD_DOCS}/* ${PROJECT_DOCS}/
 
 test:
   pre:
-    - npm install -g ansi-html-stream
+    - echo "{\"api_key\":\"$MBED_CLOUD_API_KEY\", \"host\":\"$MBED_CLOUD_API_HOST\"}" > .mbed_cloud_config.json
+    - cat .mbed_cloud_config.json
   override:
-    - flake8 --config ./.flake8
-    - mkdir ${PROJECT_TESTS}
-    - echo "<h1>${PROJECT_NAME} (build ${CIRCLE_BUILD_NUM})</h1>" > ${PROJECT_TESTS}/index.html:
-    - bash run.sh 2>&1 | tee /dev/tty | ansi-html >> ${PROJECT_TESTS}/index.html:
-        pwd: tests
+    - tox
+  post:
+    # upload to codecov.io
+    - codecov
 
-deployment:
-  staging:
-    branch: master
-    commands:
-      - echo Syncing $PROJECT_NAME to S3...
-      - aws s3 sync --delete --cache-control max-age=3600 ${BUILD_DOCS} s3://$PROJECT_NAME
+#deployment:
+#  staging:
+#    branch: master
+#    commands:
+#      - echo Syncing $PROJECT_NAME to S3...
+#      - aws s3 sync --delete --cache-control max-age=3600 ${BUILD_DOCS} s3://$PROJECT_NAME

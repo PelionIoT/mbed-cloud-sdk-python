@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 # ---------------------------------------------------------------------------
 # Mbed Cloud Python SDK
 # (C) COPYRIGHT 2017 Arm Limited
@@ -14,29 +16,35 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # --------------------------------------------------------------------------
-#!/usr/bin/python
+import os
+
 from setuptools import find_packages
 from setuptools import setup
+from mbed_cloud.__version__ import VERSION
+
+# To install, run:
+# pip install .
+
+# To install in dev mode, run:
+# pip install .[dev]
 
 # Render the README in reST
 # http://stackoverflow.com/a/26737672
 try:
     import pypandoc
     long_description = pypandoc.convert('README.md', 'rst')
-    long_description = long_description.replace("\r","")
+    long_description = long_description.replace('\r', '')
 except(OSError, IOError, ImportError):
-    long_description = open('README.md').read()
+    with open(os.path.join(os.path.dirname(__file__), 'README.md')) as fh:
+        long_description = fh.read()
 
-# Version number is composed based on API backend version and SDK version.
-# Breaking changes in SDK will increment major version number.
-# API version number will follow Mbed release schedule (~quarterly releases).
-API_VERSION = "1.2"
-SDK_MAJOR_MINOR = "2"
-SDK_SUFFIX = ""
-VERSION = "%s.%s%s" % (API_VERSION, SDK_MAJOR_MINOR, SDK_SUFFIX)
+NAME = 'mbed-cloud-sdk'
 
-NAME = "mbed-cloud-sdk"
-REQUIRES = ["urllib3 >= 1.15", "six >= 1.10", "certifi", "python-dateutil", "future"]
+with open(os.path.join(os.path.dirname(__file__), 'dependencies.txt')) as fh:
+    dependencies = fh.readlines()
+
+with open(os.path.join(os.path.dirname(__file__), 'requirements.dev.txt')) as fh:
+    dev_requirements = fh.readlines()
 
 setup(
     name=NAME,
@@ -45,7 +53,10 @@ setup(
     author="Arkadiusz Zaluski, Herman Schistad",
     author_email="arkadiusz.zaluski@arm.com",
     url="https://github.com/ARMmbed/mbed-cloud-sdk-python",
-    install_requires=REQUIRES,
+    install_requires=dependencies,
+    extras_require={
+        'dev': dev_requirements
+    },
     packages=find_packages(),
     include_package_data=True,
     long_description=long_description

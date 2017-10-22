@@ -38,9 +38,9 @@ from six.moves import urllib
 
 import json
 import queue
+import os
 import sys
 import traceback
-
 
 app = Flask(__name__)
 
@@ -68,8 +68,8 @@ def _call_api(module, method, args):
 
 def _get_params(request_headers):
     params = {}
-    api_key = request_headers.get('X-API-KEY', '')
-    host = request_headers.get('X-API-HOST', '')
+    api_key = request_headers.get('X-API-KEY', os.environ.get('MBED_CLOUD_API_KEY', ''))
+    host = request_headers.get('X-API-HOST', os.environ.get('MBED_CLOUD_API_HOST', ''))
     if api_key:
         params["api_key"] = api_key
     if host:
@@ -132,6 +132,13 @@ def _get_dict(obj):
     if hasattr(obj, 'to_dict'):
         obj = obj.to_dict()
     return obj
+
+
+@app.route("/_bye")
+def bye(methods=["GET"]):
+    request.environ.get('werkzeug.server.shutdown')()
+    print('shutting down server')
+    return 'shutdown'
 
 
 @app.route("/_init")
@@ -210,4 +217,4 @@ def main(module, method, methods=["GET"]):
 
 
 if __name__ == "__main__":
-    app.run(port=5000)
+    app.run(host='0.0.0.0', port=5000)  # nosec (only used in testing)

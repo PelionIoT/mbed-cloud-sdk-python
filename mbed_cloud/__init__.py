@@ -113,7 +113,7 @@ class BaseAPI(object):
         self._set_custom_attributes(updated_filters)
         filters = self._create_filters_dict(updated_filters, encode)
         if encode:
-            return urllib.parse.urlencode(filters)
+            return urllib.parse.urlencode(sorted(filters.items()))
         else:
             return filters
 
@@ -458,8 +458,8 @@ class ApiMetadata(object):
             self._status_code = getattr(exception, 'status')
         if hasattr(exception, 'reason'):
             self._error_message = getattr(exception, 'reason')
-        elif hasattr(exception, 'message'):
-            self._error_message = getattr(exception, 'message')
+        else:
+            self._error_message = str(exception) or ''
         if hasattr(exception, 'body'):
             self._set_response(getattr(exception, 'body'))
 
@@ -549,7 +549,7 @@ class ApiMetadata(object):
     def to_dict(self):
         """Return dictionary of object."""
         dictionary = {}
-        for key, value in self.__dict__.iteritems():
+        for key, value in iteritems(self.__dict__):
             property_name = key[1:]
             if hasattr(self, property_name):
                 dictionary.update({property_name: getattr(self, property_name, None)})
