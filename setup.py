@@ -21,7 +21,11 @@ import os
 from setuptools import find_packages
 from setuptools import setup
 
-from __version__ import VERSION
+API_VERSION = "1.2"
+SDK_MAJOR_MINOR = "2"
+SDK_SUFFIX = ""
+VERSION = "%s.%s%s" % (API_VERSION, SDK_MAJOR_MINOR, SDK_SUFFIX)
+
 
 # To install, run:
 # pip install .
