@@ -37,7 +37,7 @@ class AccountManagementAPI(BaseAPI):
     users, groups and API keys in the organisation.
     """
 
-    def __init__(self, params={}):
+    def __init__(self, params=None):
         """Setup the backend APIs with provided config."""
         super(AccountManagementAPI, self).__init__(params)
 
@@ -62,8 +62,9 @@ class AccountManagementAPI(BaseAPI):
         :param str after: Entity ID after which to start fetching
         :param str order: Order of the records to return (asc|desc)
         :param dict filters: Dictionary of filters to apply: str owner (eq)
-        :returns: a list of :py:class:`ApiKey` objects
+        :returns: a list of :class:`ApiKey` objects
         :rtype: PaginatedResponse
+        :raises: ApiException
         """
         kwargs = self._verify_sort_options(kwargs)
         kwargs = self._verify_filters(kwargs, ApiKey)
@@ -88,7 +89,7 @@ class AccountManagementAPI(BaseAPI):
     def delete_api_key(self, api_key_id):
         """Delete an API key registered in the organisation.
 
-        :param str api_key: The ID of the API key (Required)
+        :param str api_key_id: The ID of the API key (Required)
         :returns: void
         """
         api = self.iam.DeveloperApi()
@@ -274,8 +275,6 @@ class AccountManagementAPI(BaseAPI):
         """Get details of the group.
 
         :param str group_id: The group ID (Required)
-        :param str order: The ordering direction, ascending (asc) or descending (desc)
-        :param str after: Get groups after/starting at given group ID
         :returns: :py:class:`Group` object.
         :rtype: Group
         """
@@ -560,10 +559,7 @@ class User(BaseObject):
     def __init__(self, dictionary):
         """Initialize object."""
         super(User, self).__init__(dictionary)
-        loginHistory = []
-        for login in self.login_history:
-            loginHistory.append(LoginHistory(login))
-        self._login_history = loginHistory
+        self._login_history = [LoginHistory(login) for login in getattr(self, 'login_history')]
 
     @staticmethod
     def _get_attributes_map():
@@ -768,7 +764,7 @@ class Group(BaseObject):
             "account_id": "account_id",
             "name": "name",
             "user_count": "user_count",
-            "apikey_count": "apikey_count",
+            "api_key_count": "apikey_count",
             "created_at": "created_at",
             "creation_time": "creation_time",
             "last_update_time": "last_update_time"
@@ -807,12 +803,12 @@ class Group(BaseObject):
         return self._user_count
 
     @property
-    def apikey_count(self):
+    def api_key_count(self):
         """The number of API keys in this group. (readonly)
 
         :rtype: int
         """
-        return self._apikey_count
+        return self._api_key_count
 
     @property
     def created_at(self):

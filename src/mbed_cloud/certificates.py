@@ -36,7 +36,7 @@ from mbed_cloud._backends.iam.rest import ApiException as IamApiException
 class CertificatesAPI(BaseAPI):
     """Certificates API reference."""
 
-    def __init__(self, params={}):
+    def __init__(self, params=None):
         """Initialise the certificates API, optionally passing in overriding config."""
         super(CertificatesAPI, self).__init__(params)
 

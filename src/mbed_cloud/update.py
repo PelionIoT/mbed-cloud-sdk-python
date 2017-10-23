@@ -44,7 +44,7 @@ class UpdateAPI(BaseAPI):
         - Manifest management
     """
 
-    def __init__(self, params={}):
+    def __init__(self, params=None):
         """Setup the backend APIs with provided config."""
         super(UpdateAPI, self).__init__(params)
 
@@ -131,7 +131,7 @@ class UpdateAPI(BaseAPI):
     def update_campaign(self, campaign_object):
         """Update an update campaign.
 
-        :param str campaign_object: Campaign object to update (Required)
+        :param :class:`Campaign` campaign_object: Campaign object to update (Required)
         :return: updated campaign object
         :rtype: Campaign
         """
@@ -365,10 +365,6 @@ class FirmwareImage(BaseObject):
 
 class FirmwareManifest(BaseObject):
     """Describes firmware object."""
-
-    def __init__(self, dictionary):
-        """Initialize object."""
-        super(FirmwareManifest, self).__init__(dictionary)
 
     @staticmethod
     def _get_attributes_map():

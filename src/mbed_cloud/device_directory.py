@@ -43,7 +43,7 @@ class DeviceDirectoryAPI(BaseAPI):
         - Create and manage device queries
     """
 
-    def __init__(self, params={}, b64decode=True):
+    def __init__(self, params=None):
         """Setup the backend APIs with provided config."""
         super(DeviceDirectoryAPI, self).__init__(params)
 

@@ -63,7 +63,7 @@ class ConnectAPI(BaseAPI):
         - Setup resource subscriptions and webhooks for resource monitoring
     """
 
-    def __init__(self, params={}, b64decode=True):
+    def __init__(self, params=None):
         """Setup the backend APIs with provided config."""
         super(ConnectAPI, self).__init__(params)
 
@@ -73,7 +73,7 @@ class ConnectAPI(BaseAPI):
         self._db = {}
         self._queues = defaultdict(lambda: defaultdict(queue.Queue))
 
-        self.b64decode = b64decode
+        self.b64decode = True
         self._notifications_are_active = False
         self._notifications_thread = None
 
@@ -646,7 +646,7 @@ class ConnectAPI(BaseAPI):
         return Webhook(api.v2_notification_callback_get())
 
     @catch_exceptions(MdsApiException)
-    def update_webhook(self, url, headers={}):
+    def update_webhook(self, url, headers=None):
         """Register new webhook for incoming subscriptions.
 
         If a webhook is already set, this will do an overwrite.
@@ -655,6 +655,7 @@ class ConnectAPI(BaseAPI):
         :param dict headers: K/V dict with additional headers to send with request
         :return: void
         """
+        headers = headers or {}
         api = self.mds.NotificationsApi()
 
         # Delete notifications channel
