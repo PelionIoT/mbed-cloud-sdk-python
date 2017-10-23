@@ -275,8 +275,6 @@ class AccountManagementAPI(BaseAPI):
         """Get details of the group.
 
         :param str group_id: The group ID (Required)
-        :param str order: The ordering direction, ascending (asc) or descending (desc)
-        :param str after: Get groups after/starting at given group ID
         :returns: :py:class:`Group` object.
         :rtype: Group
         """
@@ -604,10 +602,7 @@ class User(BaseObject):
         self._last_login_time = None
         self._two_factor_authentication = None
         self._password = None
-        login_history_array = []
-        for login in self.login_history:
-            login_history_array.append(LoginHistory(login))
-        self._login_history = login_history_array
+        self._login_history = [LoginHistory(login) for login in getattr(self, 'login_history')]
 
     @staticmethod
     def _get_attributes_map():
