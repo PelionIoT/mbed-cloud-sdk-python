@@ -3,7 +3,7 @@ import subprocess
 
 import pytest
 
-from mbed_cloud.tests.common import BaseCase
+from tests.common import BaseCase
 
 
 @pytest.mark.meta

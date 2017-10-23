@@ -9,7 +9,7 @@ import unittest
 import requests
 import pytest
 
-from mbed_cloud.tests.common import BaseCase
+from tests.common import BaseCase
 
 
 docker_image = os.environ.get(

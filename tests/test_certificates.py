@@ -1,4 +1,4 @@
-from mbed_cloud.tests.common import BaseCase
+from tests.common import BaseCase
 from mbed_cloud.certificates import CertificatesAPI
 from mbed_cloud.certificates import CertificateType
 from mbed_cloud.exceptions import CloudValueError

@@ -1,11 +1,11 @@
-from mbed_cloud.tlv.tests import test_common
+from tests.common import BaseCase
 from mbed_cloud.tlv.decode import maybe_decode_payload
 
 
 class B64(object):
     # hides the inheritance from unittest
 
-    class TestCase(test_common.BaseCase):
+    class TestCase(BaseCase):
         b64 = None  # an ascii string containing b64 encoded data
         result = None  # the python-native data we expect to decode
         decoded = None  # we'll store the result here in the test
