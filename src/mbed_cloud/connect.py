@@ -282,10 +282,6 @@ class ConnectAPI(BaseAPI):
         :returns: Consumer object to control asynchronous request
         :rtype: AsyncConsumer
         """
-        # Ensure we're listening to notifications first
-        if not self._notifications_are_active:
-            raise CloudUnhandledError(
-                "start_notifications needs to be called before getting resource value.")
         # When path starts with / we remove the slash, as the API can't handle //.
         if fix_path:
             resource_path = resource_path.lstrip('/')
@@ -366,10 +362,6 @@ class ConnectAPI(BaseAPI):
         :returns: An async consumer object holding reference to request
         :rtype: AsyncConsumer
         """
-        # Ensure we're listening to notifications first
-        if not self._notifications_are_active:
-            raise CloudUnhandledError(
-                "start_notifications needs to be called before getting resource value.")
         # When path starts with / we remove the slash, as the API can't handle //.
         if fix_path and resource_path.startswith("/"):
             resource_path = resource_path[1:]
