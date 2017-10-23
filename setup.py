@@ -16,22 +16,26 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # --------------------------------------------------------------------------
-import os
-
-from setuptools import find_packages
-from setuptools import setup
-
-API_VERSION = "1.2"
-SDK_MAJOR_MINOR = "2"
-SDK_SUFFIX = ""
-VERSION = "%s.%s%s" % (API_VERSION, SDK_MAJOR_MINOR, SDK_SUFFIX)
-
 
 # To install, run:
 # pip install .
 
 # To install in dev mode, run:
 # pip install .[dev]
+
+import os
+
+from setuptools import find_packages
+from setuptools import setup
+
+NAME = 'mbed-cloud-sdk'
+__version__ = None
+
+repository_dir = os.path.dirname(__file__)
+
+# single source for version information without side effects
+with open(os.path.join(repository_dir, 'src', 'mbed_cloud', '_version.py')) as fh:
+    exec(fh.read())
 
 # Render the README in reST
 # http://stackoverflow.com/a/26737672
@@ -40,20 +44,18 @@ try:
     long_description = pypandoc.convert('README.md', 'rst')
     long_description = long_description.replace('\r', '')
 except(OSError, IOError, ImportError):
-    with open(os.path.join(os.path.dirname(__file__), 'README.md')) as fh:
+    with open(os.path.join(repository_dir, 'README.md')) as fh:
         long_description = fh.read()
 
-NAME = 'mbed-cloud-sdk'
-
-with open(os.path.join(os.path.dirname(__file__), 'dependencies.txt')) as fh:
+with open(os.path.join(repository_dir, 'dependencies.txt')) as fh:
     dependencies = fh.readlines()
 
-with open(os.path.join(os.path.dirname(__file__), 'requirements.dev.txt')) as fh:
+with open(os.path.join(repository_dir, 'requirements.dev.txt')) as fh:
     dev_requirements = fh.readlines()
 
 setup(
     name=NAME,
-    version=VERSION,
+    version=__version__,
     description="Mbed Cloud Python SDK",
     author="Arkadiusz Zaluski, Herman Schistad",
     author_email="arkadiusz.zaluski@arm.com",
@@ -62,7 +64,15 @@ setup(
     extras_require={
         'dev': dev_requirements
     },
-    packages=find_packages(),
+    packages=find_packages('src'),
+    package_dir={'': 'src'},
     include_package_data=True,
-    long_description=long_description
+    long_description=long_description,
+    python_requires='>=2.7.10, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.0, !=3.4.1, !=3.4.2, <4',
+    classifiers=(
+        'License :: OSI Approved :: Apache Software License',
+        'Intended Audience :: Developers',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.6',
+    )
 )

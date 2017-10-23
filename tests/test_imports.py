@@ -1,4 +1,4 @@
-from mbed_cloud.tests.common import BaseCase
+from tests.common import BaseCase
 from mbed_cloud import BaseAPI
 
 
@@ -11,6 +11,7 @@ class TestImports(BaseCase):
         from mbed_cloud import connect
         from mbed_cloud import device_directory
         from mbed_cloud import update
+        from mbed_cloud import _version
 
     def test_config(self):
         from mbed_cloud import config

@@ -1,7 +1,7 @@
 import datetime
 import unittest
 
-from mbed_cloud.tests.common import BaseCase
+from tests.common import BaseCase
 from mbed_cloud.device_directory import Device
 from mbed_cloud import BaseAPI
 from mbed_cloud import CloudValueError

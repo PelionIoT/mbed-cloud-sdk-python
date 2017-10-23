@@ -1,11 +1,11 @@
-from mbed_cloud.tlv.tests import test_common
+from tests.common import BaseCase
 from mbed_cloud.tlv.decode import binary_tlv_to_python
 from mbed_cloud.tlv.decode import combine_bytes
 from mbed_cloud.tlv.decode import get_value_length
 from mbed_cloud.tlv.decode import get_id_length
 
 
-class TestDecode(test_common.BaseCase):
+class TestDecode(BaseCase):
     def test_nullstring(self):
         self.assertEqual(
             binary_tlv_to_python(''.encode()),
