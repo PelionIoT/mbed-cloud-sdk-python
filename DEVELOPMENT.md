@@ -7,17 +7,34 @@
 
 ## Prerequisites
 
-Python 2.6+ / Python 3.3+
+Development should be undertaken using virtual environments. See:
+- https://github.com/kennethreitz/pipenv
 
 ## Installing
 
-After cloning this repository, run:
+```bash
+pip install -e git+https://github.com/ARMmbed/mbed-cloud-sdk-python.git
+```
+
+Or more directly, clone the repository and in the resulting directory:
 
 ```bash
-> python setup.py develop
+pip install -e .
 ```
 
 ## Tests
 
-1. Clone [mbed-cloud-sdk-testrunner](https://github.com/ARMmbed/mbed-cloud-sdk-testrunner)
-2. See example usage
+```bash
+python -m unittest discover tests
+```
+
+Tests are written using the unittest framework, so you can
+use more feature-rich testrunners if desired. See:
+- https://github.com/pytest-dev/pytest
+- https://github.com/CleanCut/green
+
+Refer to `tox.ini` for examples.
+
+To run the full cross-language TestRunner suite you will also need to
+set up AWS credentials and clone the latest
+[TestRunner](https://github.com/ARMmbed/mbed-cloud-sdk-testrunner).
