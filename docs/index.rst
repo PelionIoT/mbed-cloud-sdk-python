@@ -1,7 +1,7 @@
-Mbed Cloud SDK
-==============
+Mbed Cloud SDK for Python
+=========================
 
-The Mbed Cloud SDK gives developers access to the full Mbed suite using Python.
+The ``mbed-cloud-sdk`` gives developers access to the full `Arm Mbed <https://docs.mbed.com/>`__ suite using Python.
 
 Components
 ----------
@@ -27,53 +27,62 @@ Concepts
   metadata
 
 Prerequisites
-----------
+-------------
 
-Python 2.7.10+ / Python 3.4.3+
+Python 2.7.10+ / Python 3.4.3+, built with SSL support.
 
-Quickstart
-----------
+Use of `virtual
+environments <http://docs.python-guide.org/en/latest/dev/virtualenvs/>`__
+or *pipenv* is recommended to manage python versions and dependencies.
 
-You can install the SDK by cloning this repository and then run the following
-commands. Note that setting up a virtual environment is optional.
+Installation
+------------
 
-.. code-block:: shell
+.. code:: bash
 
-  pip install git+https://github.com/ARMmbed/mbed-cloud-sdk-python.git
+    pip install mbed-cloud-sdk
 
-Next you will need to create an API key. You can do this logging in to the
-`Cloud Portal`. Subsequently, create a new file `.mbed_cloud_config.json`
-with the following content:
+Usage
+-----
 
-.. code-block:: shell
+These instructions can also be found in the `official
+documentation <https://cloud.mbed.com/docs/v1.2/mbed-cloud-sdk-python/>`__:
 
-  $ cat .mbed_cloud_config.json
-  {
-    "api_key": "ak_your_api_key_here"
-  }
+1. Create an API key in the `Mbed Cloud
+   Portal <https://portal.us-east-1.mbedcloud.com/>`__.
 
-This file will automatically be picked up during API instatiation.
-See :doc:`configuration` for more information. You're
-now ready to use the API.
+2. Create a configuration file in your ``$HOME`` or project directory
+   (``.mbed_cloud_config.json``):
 
-.. code-block:: python
+   .. code:: javascript
 
-  >>> from mbed_cloud.connect import ConnectAPI
-  >>> connect_api = ConnectAPI()
-  >>> connect_api.list_connected_devices().data[0]
-  {
-    "id": "Device #1",
-    "state": "registered",
-    ...
-  }
-  >>> from mbed_cloud.account_management import AccountManagementAPI
-  >>> account_api = AccountManagementAPI()
-  >>> list(account_api.list_users())[0]
-  {
-    "email": "username@example.org",
-    "full_name": "Mrs Example",
-    ...
-  }
+       {
+           "api_key": "your_api_key_here"
+       }
+
+3. Import the library and you're ready to go.
+
+   .. code:: python
+
+       from mbed_cloud.connect import ConnectAPI
+       connect_api = ConnectAPI()
+       connect_api.list_connected_devices().data[0]
+       {
+         "id": "Device #1",
+         "state": "unenrolled",
+         ...
+       }
+
+   .. code:: python
+
+       from mbed_cloud.account_management import AccountManagementAPI
+       api = AccountManagementAPI()
+       list(api.list_users())[0]
+       {
+         "email": "username@example.org",
+         "full_name": "A.N. Individual",
+         ...
+       }
 
 More examples
 -------------

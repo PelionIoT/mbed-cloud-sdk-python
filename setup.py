@@ -43,6 +43,8 @@ try:
     import pypandoc
     long_description = pypandoc.convert('README.md', 'rst')
     long_description = long_description.replace('\r', '')
+    with open(os.path.join(repository_dir, 'README.rst'), 'w') as fh:
+        fh.write(long_description)
 except(OSError, IOError, ImportError):
     with open(os.path.join(repository_dir, 'README.md')) as fh:
         long_description = fh.read()
@@ -59,7 +61,7 @@ setup(
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: Apache Software License',
-        'Programming Language :: Python :: 2'
+        'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.4',
@@ -74,6 +76,7 @@ setup(
     extras_require=dict(dev=dev_requirements),
     include_package_data=True,
     install_requires=dependencies,
+    license='Apache 2.0',
     long_description=long_description,
     name=NAME,
     package_dir={'': 'src'},
