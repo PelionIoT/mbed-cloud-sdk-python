@@ -21,7 +21,7 @@ import os
 from setuptools import find_packages
 from setuptools import setup
 
-from __version__ import VERSION
+from mbed_cloud.__version__ import VERSION
 
 # To install, run:
 # pip install .
