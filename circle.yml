@@ -44,7 +44,7 @@ test:
   post:
     # upload to codecov.io
     - codecov
-    - sphinx-build -a -b -html -c docs/ docs/ ~/docs
+    - sphinx-build -a -b html -c docs/ docs/ ~/docs
 
 deployment:
   staging:
