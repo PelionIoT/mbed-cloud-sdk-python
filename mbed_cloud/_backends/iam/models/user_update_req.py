@@ -255,7 +255,7 @@ class UserUpdateReq(object):
     def password(self):
         """
         Gets the password of this UserUpdateReq.
-        The password when creating a new user. It will will generated when not present in the request.
+        The password when creating a new user. It will be generated when not present in the request.
 
         :return: The password of this UserUpdateReq.
         :rtype: str
@@ -266,7 +266,7 @@ class UserUpdateReq(object):
     def password(self, password):
         """
         Sets the password of this UserUpdateReq.
-        The password when creating a new user. It will will generated when not present in the request.
+        The password when creating a new user. It will be generated when not present in the request.
 
         :param password: The password of this UserUpdateReq.
         :type: str

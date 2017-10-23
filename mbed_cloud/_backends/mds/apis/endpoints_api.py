@@ -123,7 +123,7 @@ class EndpointsApi(object):
         body_params = None
         # HTTP header `Accept`
         header_params['Accept'] = self.api_client.\
-            select_header_accept(['application/json', 'application/link-format'])
+            select_header_accept(['application/json'])
 
         # Authentication setting
         auth_settings = ['Bearer']
@@ -223,7 +223,7 @@ class EndpointsApi(object):
         body_params = None
         # HTTP header `Accept`
         header_params['Accept'] = self.api_client.\
-            select_header_accept(['application/json', 'application/link-format'])
+            select_header_accept(['application/json'])
 
         # Authentication setting
         auth_settings = ['Bearer']

@@ -1,20 +1,14 @@
+#  dependencies.txt: these are the minimum dependencies for using the SDK
+#  requirements.txt: these are pinned versions for all dependencies for a reproducible environment
+#                    to update this file, clear your environment and reinstall dependencies:
+#                    pip freeze > .remove && pip uninstall -y -r .remove
+#                    pip install -r dependencies.txt
+#                    pip freeze -r dependencies.txt > requirements.txt
+
 # See hardcoded required packages in swagger-codegen
 # https://github.com/swagger-api/swagger-codegen/blob/master/modules/swagger-codegen/src/main/resources/python/setup.mustache#L18
-urllib3 >= 1.15
-six >= 1.10
-certifi
-python-dateutil
-future
-
-# For development (static analysis)
-hacking == 0.12.0
-flake8-docstrings == 1.1.0
-flake8-copyright == 0.2.0
-pycodestyle == 2.0.0
-
-# For generating documentation
-Sphinx == 1.4.9
-pypandoc == 1.3.3
-
-# For testing
-flask == 0.12
+urllib3==1.22
+six==1.11.0
+certifi==2017.7.27.1
+python-dateutil==2.6.1
+future==0.16.0

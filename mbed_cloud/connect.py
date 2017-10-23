@@ -17,13 +17,13 @@
 """Public API for mDS and Statistics APIs."""
 from __future__ import absolute_import
 from __future__ import unicode_literals
-import base64
 from builtins import object
 from builtins import str
 from collections import defaultdict
 import datetime
 import logging
 import re
+import six
 from six import iteritems
 from six.moves import queue
 import threading
@@ -32,19 +32,20 @@ import time
 # Import common functions and exceptions from frontend API
 from mbed_cloud import BaseAPI
 from mbed_cloud import BaseObject
+from mbed_cloud import PaginatedResponse
+from mbed_cloud import tlv
+
 from mbed_cloud.decorators import catch_exceptions
 from mbed_cloud.device_directory import Device
+from mbed_cloud.exceptions import CloudApiException
 from mbed_cloud.exceptions import CloudAsyncError
 from mbed_cloud.exceptions import CloudTimeoutError
 from mbed_cloud.exceptions import CloudUnhandledError
 from mbed_cloud.exceptions import CloudValueError
 
-from mbed_cloud import PaginatedResponse
-
 # Import backend API
 import mbed_cloud._backends.device_directory as device_directory
-from mbed_cloud._backends.device_directory.rest import \
-    ApiException as DeviceDirectoryApiException
+from mbed_cloud._backends.device_directory.rest import ApiException as DeviceDirectoryApiException
 import mbed_cloud._backends.mds as mds
 from mbed_cloud._backends.mds.rest import ApiException as MdsApiException
 import mbed_cloud._backends.statistics as statistics
@@ -72,12 +73,9 @@ class ConnectAPI(BaseAPI):
         self._db = {}
         self._queues = defaultdict(lambda: defaultdict(queue.Queue))
 
-        self._notifications_thread = _NotificationsThread(self._db,
-                                                          self._queues,
-                                                          b64decode=b64decode,
-                                                          mds=self.mds)
+        self.b64decode = b64decode
         self._notifications_are_active = False
-        self._notifications_thread.daemon = True
+        self._notifications_thread = None
 
         self.statistics = self._init_api(statistics)
         self.device_directory = self._init_api(device_directory)
@@ -97,6 +95,15 @@ class ConnectAPI(BaseAPI):
 
         :returns: void
         """
+        if self._notifications_are_active:
+            return
+        self._notifications_thread = _NotificationsThread(
+            self._db,
+            self._queues,
+            b64decode=self.b64decode,
+            mds=self.mds
+        )
+        self._notifications_thread.daemon = True
         self._notifications_thread.start()
         self._notifications_are_active = True
 
@@ -105,7 +112,10 @@ class ConnectAPI(BaseAPI):
 
         :returns: void
         """
+        if not self._notifications_are_active:
+            return
         self._notifications_thread.stop()
+        self._notifications_thread = None
         self._notifications_are_active = False
 
     @catch_exceptions(DeviceDirectoryApiException)
@@ -162,7 +172,7 @@ class ConnectAPI(BaseAPI):
 
     @catch_exceptions(MdsApiException)
     def list_resources(self, device_id):
-        """List all resources registered to a connected device/device.
+        """List all resources registered to a connected device.
 
         .. code-block:: python
 
@@ -178,6 +188,21 @@ class ConnectAPI(BaseAPI):
         """
         api = self.mds.EndpointsApi()
         return [Resource(r) for r in api.v2_endpoints_device_id_get(device_id)]
+
+    @catch_exceptions(MdsApiException)
+    def get_resource(self, device_id, resource_path):
+        """Get a resource.
+
+        :param str device_id: ID of the device (Required)
+        :param str path: Path of the resource to get (Required)
+        :returns: Device resource
+        :rtype Resource
+        """
+        resources = self.list_resources(device_id)
+        for r in resources:
+            if r.path == resource_path:
+                return r
+        raise CloudApiException("Resource not found")
 
     @catch_exceptions(MdsApiException)
     def delete_resource(self, device_id, resource_path, fix_path=False):
@@ -258,8 +283,8 @@ class ConnectAPI(BaseAPI):
         :rtype: AsyncConsumer
         """
         # When path starts with / we remove the slash, as the API can't handle //.
-        if fix_path and resource_path.startswith("/"):
-            resource_path = resource_path[1:]
+        if fix_path:
+            resource_path = resource_path.lstrip('/')
 
         api = self.mds.ResourcesApi()
         resp = api.v2_endpoints_device_id_resource_path_get(device_id, resource_path)
@@ -713,7 +738,7 @@ class ConnectAPI(BaseAPI):
         if consumer.error:
             raise CloudAsyncError(consumer.error)
         value = consumer.value
-        if value is not None:
+        if value is not None and isinstance(value, six.binary_type):
             value = value.decode('utf-8')
         return value
 
@@ -852,17 +877,20 @@ class _NotificationsThread(threading.Thread):
                             "Ignoring notification on %s (%s) as no subscription is registered" %
                             (n.ep, n.path))
 
-                    # Decode b64 encoded data
-                    payload = base64.b64decode(n.payload) if self._b64decode else n.payload
+                    payload = tlv.decode(
+                        payload=n.payload,
+                        content_type=n.ct,
+                        decode_b64=self._b64decode
+                    )
                     self.queues[n.ep][n.path].put(payload)
 
             if resp.async_responses:
                 for r in resp.async_responses:
-                    # Check if we have a payload, and decode it if required
-                    payload = r.payload if r.payload else None
-                    should_b64 = self._b64decode and payload
-                    payload = base64.b64decode(payload) if should_b64 else payload
-
+                    payload = tlv.decode(
+                        payload=r.payload,
+                        content_type=r.ct,
+                        decode_b64=self._b64decode
+                    )
                     self.db[r.id] = {
                         "payload": payload,
                         "error": r.error,

@@ -137,11 +137,10 @@ class UpdateAPI(BaseAPI):
         """
         api = self.update_service.DefaultApi()
         campaign_id = campaign_object.id
-        print(campaign_object)
         campaign_object = campaign_object._create_patch_request()
-        print(campaign_object)
         if 'device_filter' in campaign_object:
-            campaign_object["device_filter"] = self._encode_query(campaign_object["device_filter"])
+            campaign_object["device_filter"] = self._encode_query(campaign_object["device_filter"],
+                                                                  Device)
         return Campaign(api.update_campaign_partial_update(campaign_id=campaign_id,
                                                            campaign=campaign_object))
 
@@ -706,7 +705,7 @@ class CampaignDeviceState(BaseObject):
         """The state of the update campaign on the device (readonly).
 
         values: pending, updated_connector_channel, failed_connector_channel_update,
-        deployed, manifestremoved
+        deployed, manifestremoved, deregistered
 
         :rtype: str
         """

@@ -1,18 +1,60 @@
 machine:
-  post:
-    - pyenv global 2.7.11 3.6.1
+  services:
+    - docker
+
+general:
+  artifacts:
+    - ~/results
+    - ~/rpc_results
+#    - ~/docs
+#    - ~/tests
 
 dependencies:
   pre:
-    - sudo apt-get update; sudo apt-get install pandoc
+    # switch out environment variables depending on branch
+    - |
+      if [[ $CIRCLE_BRANCH == production ]]; then
+        echo 'export MBED_CLOUD_API_HOST=$MBED_CLOUD_API_HOST_PROD' >> ~/.circlerc;
+        echo 'export MBED_CLOUD_API_KEY=$MBED_CLOUD_API_KEY_PROD' >> ~/.circlerc;
+        echo 'environment variables swapped';
+      fi
+  override:
+    - sudo apt-get update
+    - sudo apt-get install pandoc
+    - pip install awscli codecov
+    # AWS and docker and circleci do not get along well:
+    # for safety, try both ways of assigning credentials
+    - |
+      login="$(aws ecr get-login)"
+      ${login}
+      login="$(aws ecr get-login --no-include-email)"
+      ${login}
+    - docker pull $TESTRUNNER_DOCKER_IMAGE
+    - pip install tox tox-pyenv
+    - pyenv local 2.7.12 3.6.2
+    - tox --notest
+  cache_directories:
+    - ".tox"
+
+#compile:
+#  post:
+#    - bash generate-docs.sh
+#    - mkdir ${PROJECT_DOCS}
+#    - cp -r ${BUILD_DOCS}/* ${PROJECT_DOCS}/
 
 test:
+  pre:
+    - echo "{\"api_key\":\"$MBED_CLOUD_API_KEY\", \"host\":\"$MBED_CLOUD_API_HOST\"}" > .mbed_cloud_config.json
+    - cat .mbed_cloud_config.json
   override:
-    - flake8 --config ./.flake8
-    - ./tests/run.sh
+    - tox
+  post:
+    # upload to codecov.io
+    - codecov
 
-deployment:
-  production:
-    branch: master
-    commands:
-      - ./generate-docs.sh
+#deployment:
+#  staging:
+#    branch: master
+#    commands:
+#      - echo Syncing $PROJECT_NAME to S3...
+#      - aws s3 sync --delete --cache-control max-age=3600 ${BUILD_DOCS} s3://$PROJECT_NAME

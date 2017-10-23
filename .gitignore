@@ -1,3 +1,6 @@
+.cache
+.coverage
+*coverage.*
 *.pyc
 *.swp
 *.egg-info
@@ -6,3 +9,4 @@ docs/build/
 .mbed_cloud_config.json
 dist/
 *.idea
+results/
