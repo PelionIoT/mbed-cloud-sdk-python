@@ -63,7 +63,7 @@ class ConnectAPI(BaseAPI):
         - Setup resource subscriptions and webhooks for resource monitoring
     """
 
-    def __init__(self, params=None, b64decode=True):
+    def __init__(self, params=None):
         """Setup the backend APIs with provided config."""
         super(ConnectAPI, self).__init__(params)
 
@@ -73,7 +73,7 @@ class ConnectAPI(BaseAPI):
         self._db = {}
         self._queues = defaultdict(lambda: defaultdict(queue.Queue))
 
-        self.b64decode = b64decode
+        self.b64decode = True
         self._notifications_are_active = False
         self._notifications_thread = None
 
@@ -282,6 +282,10 @@ class ConnectAPI(BaseAPI):
         :returns: Consumer object to control asynchronous request
         :rtype: AsyncConsumer
         """
+        # Ensure we're listening to notifications first
+        if not self._notifications_are_active:
+            raise CloudUnhandledError(
+                "start_notifications needs to be called before getting resource value.")
         # When path starts with / we remove the slash, as the API can't handle //.
         if fix_path:
             resource_path = resource_path.lstrip('/')
@@ -362,6 +366,10 @@ class ConnectAPI(BaseAPI):
         :returns: An async consumer object holding reference to request
         :rtype: AsyncConsumer
         """
+        # Ensure we're listening to notifications first
+        if not self._notifications_are_active:
+            raise CloudUnhandledError(
+                "start_notifications needs to be called before getting resource value.")
         # When path starts with / we remove the slash, as the API can't handle //.
         if fix_path and resource_path.startswith("/"):
             resource_path = resource_path[1:]
@@ -655,8 +663,7 @@ class ConnectAPI(BaseAPI):
         :param dict headers: K/V dict with additional headers to send with request
         :return: void
         """
-        if not headers:
-            headers = {}
+        headers = headers or {}
         api = self.mds.NotificationsApi()
 
         # Delete notifications channel
