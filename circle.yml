@@ -6,8 +6,7 @@ general:
   artifacts:
     - ~/results
     - ~/rpc_results
-#    - ~/docs
-#    - ~/tests
+    - ~/docs
 
 dependencies:
   pre:
@@ -36,12 +35,6 @@ dependencies:
   cache_directories:
     - ".tox"
 
-#compile:
-#  post:
-#    - bash generate-docs.sh
-#    - mkdir ${PROJECT_DOCS}
-#    - cp -r ${BUILD_DOCS}/* ${PROJECT_DOCS}/
-
 test:
   pre:
     - echo "{\"api_key\":\"$MBED_CLOUD_API_KEY\", \"host\":\"$MBED_CLOUD_API_HOST\"}" > .mbed_cloud_config.json
@@ -51,10 +44,10 @@ test:
   post:
     # upload to codecov.io
     - codecov
+    - sphinx-build -a -b -html -c docs/ docs/ ~/docs
 
-#deployment:
-#  staging:
-#    branch: master
-#    commands:
-#      - echo Syncing $PROJECT_NAME to S3...
-#      - aws s3 sync --delete --cache-control max-age=3600 ${BUILD_DOCS} s3://$PROJECT_NAME
+deployment:
+  staging:
+    branch: master
+    commands:
+      - aws s3 sync --delete --cache-control max-age=3600 ~/docs s3://mbed-cloud-sdk-python
