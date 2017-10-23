@@ -64,7 +64,14 @@ setup(
     extras_require={
         'dev': dev_requirements
     },
-    packages=find_packages(),
+    packages=find_packages('src'),
     include_package_data=True,
-    long_description=long_description
+    long_description=long_description,
+    python_requires='>=2.7.10,>=3.4.3',
+    classifiers=(
+        'License :: OSI Approved :: Apache Software License',
+        'Intended Audience :: Developers',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.6',
+    )
 )
