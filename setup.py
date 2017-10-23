@@ -55,7 +55,7 @@ with open(os.path.join(repository_dir, 'requirements.dev.txt')) as fh:
 
 setup(
     name=NAME,
-    version=VERSION,
+    version=__version__,
     description="Mbed Cloud Python SDK",
     author="Arkadiusz Zaluski, Herman Schistad",
     author_email="arkadiusz.zaluski@arm.com",
