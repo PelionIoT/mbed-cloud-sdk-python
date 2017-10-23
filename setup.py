@@ -16,17 +16,26 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # --------------------------------------------------------------------------
-import os
-
-from setuptools import find_packages
-from setuptools import setup
-from mbed_cloud.__version__ import VERSION
 
 # To install, run:
 # pip install .
 
 # To install in dev mode, run:
 # pip install .[dev]
+
+import os
+
+from setuptools import find_packages
+from setuptools import setup
+
+NAME = 'mbed-cloud-sdk'
+__version__ = None
+
+repository_dir = os.path.dirname(__file__)
+
+# single source for version information without side effects
+with open(os.path.join(repository_dir, 'src', 'mbed_cloud', '_version.py')) as fh:
+    exec(fh.read())
 
 # Render the README in reST
 # http://stackoverflow.com/a/26737672
@@ -35,29 +44,41 @@ try:
     long_description = pypandoc.convert('README.md', 'rst')
     long_description = long_description.replace('\r', '')
 except(OSError, IOError, ImportError):
-    with open(os.path.join(os.path.dirname(__file__), 'README.md')) as fh:
+    with open(os.path.join(repository_dir, 'README.md')) as fh:
         long_description = fh.read()
 
-NAME = 'mbed-cloud-sdk'
-
-with open(os.path.join(os.path.dirname(__file__), 'dependencies.txt')) as fh:
+with open(os.path.join(repository_dir, 'dependencies.txt')) as fh:
     dependencies = fh.readlines()
 
-with open(os.path.join(os.path.dirname(__file__), 'requirements.dev.txt')) as fh:
+with open(os.path.join(repository_dir, 'requirements.dev.txt')) as fh:
     dev_requirements = fh.readlines()
 
 setup(
-    name=NAME,
-    version=VERSION,
+    author="Arkadiusz Zaluski, David Hyman, Herman Schistad",
+    classifiers=(
+        'Development Status :: 4 - Beta',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: Apache Software License',
+        'Programming Language :: Python :: 2'
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python'
+        'Topic :: Internet',
+        'Topic :: Software Development :: Embedded Systems',
+        'Topic :: Software Development :: Object Brokering',
+    ),
     description="Mbed Cloud Python SDK",
-    author="Arkadiusz Zaluski, Herman Schistad",
-    author_email="arkadiusz.zaluski@arm.com",
-    url="https://github.com/ARMmbed/mbed-cloud-sdk-python",
-    install_requires=dependencies,
-    extras_require={
-        'dev': dev_requirements
-    },
-    packages=find_packages(),
+    extras_require=dict(dev=dev_requirements),
     include_package_data=True,
-    long_description=long_description
+    install_requires=dependencies,
+    long_description=long_description,
+    name=NAME,
+    package_dir={'': 'src'},
+    packages=find_packages('src'),
+    python_requires='>=2.7.10, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.0, !=3.4.1, !=3.4.2, <4',
+    url="https://github.com/ARMmbed/mbed-cloud-sdk-python",
+    version=__version__,
 )

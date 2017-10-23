@@ -1,11 +1,11 @@
 import pytest
-from mbed_cloud.tlv.tests import test_common
+from tests.common import BaseCase
 
 from mbed_cloud.connect import ConnectAPI
 
 
 @pytest.mark.integration
-class TestIntegration(test_common.BaseCase):
+class TestIntegration(BaseCase):
     def test_real_connection(self):
         api = ConnectAPI()
         api.start_notifications()
