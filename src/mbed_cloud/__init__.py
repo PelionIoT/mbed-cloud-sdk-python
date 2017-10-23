@@ -26,9 +26,9 @@ import sys
 
 from six.moves import urllib
 
+from mbed_cloud._version import VERSION as __version__  # noqa
 from mbed_cloud.bootstrap import Config
 from mbed_cloud.exceptions import CloudValueError
-from mbed_cloud._version import VERSION as __version__
 
 config = Config()
 

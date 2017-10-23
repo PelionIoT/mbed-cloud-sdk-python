@@ -15,6 +15,7 @@ coverage
 codecov
 
 # Code analysis
+flake8<3
 flake8-copyright
 flake8-docstrings
 hacking
