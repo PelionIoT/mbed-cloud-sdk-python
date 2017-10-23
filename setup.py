@@ -54,25 +54,31 @@ with open(os.path.join(repository_dir, 'requirements.dev.txt')) as fh:
     dev_requirements = fh.readlines()
 
 setup(
-    name=NAME,
-    version=__version__,
-    description="Mbed Cloud Python SDK",
-    author="Arkadiusz Zaluski, Herman Schistad",
-    author_email="arkadiusz.zaluski@arm.com",
-    url="https://github.com/ARMmbed/mbed-cloud-sdk-python",
-    install_requires=dependencies,
-    extras_require={
-        'dev': dev_requirements
-    },
-    packages=find_packages('src'),
-    package_dir={'': 'src'},
-    include_package_data=True,
-    long_description=long_description,
-    python_requires='>=2.7.10, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.0, !=3.4.1, !=3.4.2, <4',
+    author="Arkadiusz Zaluski, David Hyman, Herman Schistad",
     classifiers=(
-        'License :: OSI Approved :: Apache Software License',
+        'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
+        'License :: OSI Approved :: Apache Software License',
+        'Programming Language :: Python :: 2'
         'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
-    )
+        'Programming Language :: Python'
+        'Topic :: Internet',
+        'Topic :: Software Development :: Embedded Systems',
+        'Topic :: Software Development :: Object Brokering',
+    ),
+    description="Mbed Cloud Python SDK",
+    extras_require=dict(dev=dev_requirements),
+    include_package_data=True,
+    install_requires=dependencies,
+    long_description=long_description,
+    name=NAME,
+    package_dir={'': 'src'},
+    packages=find_packages('src'),
+    python_requires='>=2.7.10, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.0, !=3.4.1, !=3.4.2, <4',
+    url="https://github.com/ARMmbed/mbed-cloud-sdk-python",
+    version=__version__,
 )
