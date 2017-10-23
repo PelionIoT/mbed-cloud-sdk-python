@@ -34,8 +34,10 @@ config = Config()
 class BaseAPI(object):
     """BaseAPI is parent class for all APIs. Ensuring config is valid and available."""
 
-    def __init__(self, user_config={}):
+    def __init__(self, user_config=None):
         """Ensure the config is valid and has all required fields."""
+        if not user_config:
+            user_config = {}
         config.update(user_config)
         self.apis = []
         if "host" in config:

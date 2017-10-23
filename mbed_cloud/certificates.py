@@ -36,7 +36,7 @@ from mbed_cloud._backends.iam.rest import ApiException as IamApiException
 class CertificatesAPI(BaseAPI):
     """Certificates API reference."""
 
-    def __init__(self, params={}):
+    def __init__(self, params=None):
         """Initialise the certificates API, optionally passing in overriding config."""
         super(CertificatesAPI, self).__init__(params)
 
@@ -205,6 +205,22 @@ CertificateType = Enumeration(["developer", "bootstrap", "lwm2m"])
 
 class Certificate(BaseObject):
     """Describes device certificate object."""
+
+    def __init__(self, dictionary):
+        super(Certificate, self).__init__(dictionary)
+        self._description = None
+        self._certificate_data = None
+        self._issuer = None
+        self._device_mode = None
+        self._type = None
+        self._created_at = None
+        self._subject = None
+        self._account_id = None
+        self._validity = None
+        self._status = None
+        self._owner_id = None
+        self._id = None
+        self._name = None
 
     @staticmethod
     def _get_attributes_map():

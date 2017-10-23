@@ -37,7 +37,7 @@ class AccountManagementAPI(BaseAPI):
     users, groups and API keys in the organisation.
     """
 
-    def __init__(self, params={}):
+    def __init__(self, params=None):
         """Setup the backend APIs with provided config."""
         super(AccountManagementAPI, self).__init__(params)
 
@@ -62,8 +62,9 @@ class AccountManagementAPI(BaseAPI):
         :param str after: Entity ID after which to start fetching
         :param str order: Order of the records to return (asc|desc)
         :param dict filters: Dictionary of filters to apply: str owner (eq)
-        :returns: a list of :py:class:`ApiKey` objects
+        :returns: a list of :class:`ApiKey` objects
         :rtype: PaginatedResponse
+        :raises: ApiException
         """
         kwargs = self._verify_sort_options(kwargs)
         kwargs = self._verify_filters(kwargs, ApiKey)
@@ -88,7 +89,7 @@ class AccountManagementAPI(BaseAPI):
     def delete_api_key(self, api_key_id):
         """Delete an API key registered in the organisation.
 
-        :param str api_key: The ID of the API key (Required)
+        :param str api_key_id: The ID of the API key (Required)
         :returns: void
         """
         api = self.iam.DeveloperApi()
@@ -329,6 +330,31 @@ class Account(BaseObject):
         print(current_account.company)
     """
 
+    def __init__(self, dictionary):
+        super(Account, self).__init__(dictionary)
+        self._display_name = None
+        self._aliases = None
+        self._company = None
+        self._contact = None
+        self._email = None
+        self._phone_number = None
+        self._address_line1 = None
+        self._address_line2 = None
+        self._city = None
+        self._state = None
+        self._postcode = None
+        self._country = None
+        self._id = None
+        self._status = None
+        self._tier = None
+        self._limits = None
+        self._policies = None
+        self._provisioning_allowed = None
+        self._created_at = None
+        self._upgraded_at = None
+        self._reason = None
+        self._template_id = None
+
     @staticmethod
     def _get_attributes_map():
         return {
@@ -560,10 +586,28 @@ class User(BaseObject):
     def __init__(self, dictionary):
         """Initialize object."""
         super(User, self).__init__(dictionary)
-        loginHistory = []
+        self._id = None
+        self._email_verified = None
+        self._account_id = None
+        self._status = None
+        self._groups = None
+        self._marketing_accepted = None
+        self._terms_accepted = None
+        self._phone_number = None
+        self._email = None
+        self._username = None
+        self._full_name = None
+        self._address = None
+        self._created_at = None
+        self._creation_time = None
+        self._password_changed_time = None
+        self._last_login_time = None
+        self._two_factor_authentication = None
+        self._password = None
+        login_history_array = []
         for login in self.login_history:
-            loginHistory.append(LoginHistory(login))
-        self._login_history = loginHistory
+            login_history_array.append(LoginHistory(login))
+        self._login_history = login_history_array
 
     @staticmethod
     def _get_attributes_map():
@@ -761,6 +805,16 @@ class Group(BaseObject):
             print(g.name)
     """
 
+    def __init__(self, dictionary):
+        super(Group, self).__init__(dictionary)
+        self._name = None
+        self._id = None
+        self._account_id = None
+        self._user_count = None
+        self._api_key_count = None
+        self._created_at = None
+        self._creation_time = None
+
     @staticmethod
     def _get_attributes_map():
         return {
@@ -768,7 +822,7 @@ class Group(BaseObject):
             "account_id": "account_id",
             "name": "name",
             "user_count": "user_count",
-            "apikey_count": "apikey_count",
+            "api_key_count": "apikey_count",
             "created_at": "created_at",
             "creation_time": "creation_time",
             "last_update_time": "last_update_time"
@@ -807,12 +861,12 @@ class Group(BaseObject):
         return self._user_count
 
     @property
-    def apikey_count(self):
+    def api_key_count(self):
         """The number of API keys in this group. (readonly)
 
         :rtype: int
         """
-        return self._apikey_count
+        return self._api_key_count
 
     @property
     def created_at(self):
@@ -848,6 +902,18 @@ class ApiKey(BaseObject):
         new_k = api.add_api_key("New key name")
         print(new_k.key)
     """
+
+    def __init__(self, dictionary):
+        super(ApiKey, self).__init__(dictionary)
+        self._key = None
+        self._id = None
+        self._groups = None
+        self._owner = None
+        self._name = None
+        self._status = None
+        self._created_at = None
+        self._creation_time = None
+        self._last_login_time = None
 
     @staticmethod
     def _get_attributes_map():
@@ -940,6 +1006,13 @@ class ApiKey(BaseObject):
 
 class LoginHistory(BaseObject):
     """Login History."""
+
+    def __init__(self, dictionary):
+        super(LoginHistory, self).__init__(dictionary)
+        self._date = None
+        self._user_agent = None
+        self._ip_address = None
+        self._success = None
 
     @staticmethod
     def _get_attributes_map():
