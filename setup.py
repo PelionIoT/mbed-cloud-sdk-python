@@ -16,18 +16,26 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # --------------------------------------------------------------------------
-import os
-
-from setuptools import find_packages
-from setuptools import setup
-
-from mbed_cloud.__version__ import VERSION
 
 # To install, run:
 # pip install .
 
 # To install in dev mode, run:
 # pip install .[dev]
+
+import os
+
+from setuptools import find_packages
+from setuptools import setup
+
+NAME = 'mbed-cloud-sdk'
+__version__ = None
+
+repository_dir = os.path.dirname(__file__)
+
+# single source for version information without side effects
+with open(os.path.join(repository_dir, 'src', 'mbed_cloud', '_version.py')) as fh:
+    exec(fh.read())
 
 # Render the README in reST
 # http://stackoverflow.com/a/26737672
@@ -36,15 +44,13 @@ try:
     long_description = pypandoc.convert('README.md', 'rst')
     long_description = long_description.replace('\r', '')
 except(OSError, IOError, ImportError):
-    with open(os.path.join(os.path.dirname(__file__), 'README.md')) as fh:
+    with open(os.path.join(repository_dir, 'README.md')) as fh:
         long_description = fh.read()
 
-NAME = 'mbed-cloud-sdk'
-
-with open(os.path.join(os.path.dirname(__file__), 'dependencies.txt')) as fh:
+with open(os.path.join(repository_dir, 'dependencies.txt')) as fh:
     dependencies = fh.readlines()
 
-with open(os.path.join(os.path.dirname(__file__), 'requirements.dev.txt')) as fh:
+with open(os.path.join(repository_dir, 'requirements.dev.txt')) as fh:
     dev_requirements = fh.readlines()
 
 setup(
