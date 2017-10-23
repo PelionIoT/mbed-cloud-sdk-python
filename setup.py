@@ -50,8 +50,8 @@ setup(
     name=NAME,
     version=VERSION,
     description="Mbed Cloud Python SDK",
-    author="Arkadiusz Zaluski, Herman Schistad",
-    author_email="arkadiusz.zaluski@arm.com",
+    author="Arkadiusz Zaluski, David Hyman, Herman Schistad",
+    author_email="arkadiusz.zaluski@arm.com, david.hyman@arm.com",
     url="https://github.com/ARMmbed/mbed-cloud-sdk-python",
     install_requires=dependencies,
     extras_require={
