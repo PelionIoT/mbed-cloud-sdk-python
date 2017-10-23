@@ -1,6 +1,6 @@
 # Mbed Cloud SDK for Python
 
-The `mbed-cloud-sdk` gives developers access to the full Mbed suite using Python.
+The `mbed-cloud-sdk` gives developers access to the full Arm [Mbed](https://docs.mbed.com/) suite using Python.
 
 ## Prerequisites
 

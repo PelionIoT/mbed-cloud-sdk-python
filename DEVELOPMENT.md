@@ -34,3 +34,7 @@ use more feature-rich testrunners if desired. See:
 - https://github.com/CleanCut/green
 
 Refer to `tox.ini` for examples.
+
+To run the full cross-language TestRunner suite you will also need to
+set up AWS credentials and clone the latest
+[TestRunner](https://github.com/ARMmbed/mbed-cloud-sdk-testrunner).
