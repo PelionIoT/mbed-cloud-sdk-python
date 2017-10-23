@@ -906,11 +906,6 @@ class _NotificationsThread(threading.Thread):
 class Webhook(BaseObject):
     """Describes webhook object."""
 
-    def __init__(self, dictionary):
-        super(Webhook, self).__init__(dictionary)
-        self._headers = None
-        self._url = None
-
     @staticmethod
     def _get_attributes_map():
         return {
@@ -1018,27 +1013,6 @@ class Resource(object):
 
 class Metric(BaseObject):
     """Describes Metric object from statistics."""
-
-    def __init__(self, dictionary):
-        super(Metric, self).__init__(dictionary)
-        self._id = None
-        self._timestamp = None
-        self._handshakes = None
-        self._transactions = None
-        self._observations = None
-        self._successful_api_calls = None
-        self._failed_api_calls = None
-        self._successful_proxy_requests = None
-        self._failed_proxy_requests = None
-        self._successful_subscription_requests = None
-        self._failed_subscription_requests = None
-        self._pending_bootstraps = None
-        self._successful_bootstraps = None
-        self._failed_bootstraps = None
-        self._full_registrations = None
-        self._updated_registrations = None
-        self._expired_registrations = None
-        self._deleted_registrations = None
 
     @staticmethod
     def _get_attributes_map():
@@ -1281,12 +1255,6 @@ class Metric(BaseObject):
 
 class Presubscription(BaseObject):
     """Presubscription data object"""
-
-    def __init__(self, dictionary):
-        super(Presubscription, self).__init__(dictionary)
-        self._device_id = None
-        self._device_type = None
-        self._resource_paths = None
 
     @staticmethod
     def _get_attributes_map():

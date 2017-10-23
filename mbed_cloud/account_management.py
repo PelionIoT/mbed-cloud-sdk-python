@@ -328,31 +328,6 @@ class Account(BaseObject):
         print(current_account.company)
     """
 
-    def __init__(self, dictionary):
-        super(Account, self).__init__(dictionary)
-        self._display_name = None
-        self._aliases = None
-        self._company = None
-        self._contact = None
-        self._email = None
-        self._phone_number = None
-        self._address_line1 = None
-        self._address_line2 = None
-        self._city = None
-        self._state = None
-        self._postcode = None
-        self._country = None
-        self._id = None
-        self._status = None
-        self._tier = None
-        self._limits = None
-        self._policies = None
-        self._provisioning_allowed = None
-        self._created_at = None
-        self._upgraded_at = None
-        self._reason = None
-        self._template_id = None
-
     @staticmethod
     def _get_attributes_map():
         return {
@@ -581,29 +556,6 @@ class User(BaseObject):
                                 password = "hunter2")
     """
 
-    def __init__(self, dictionary):
-        """Initialize object."""
-        super(User, self).__init__(dictionary)
-        self._id = None
-        self._email_verified = None
-        self._account_id = None
-        self._status = None
-        self._groups = None
-        self._marketing_accepted = None
-        self._terms_accepted = None
-        self._phone_number = None
-        self._email = None
-        self._username = None
-        self._full_name = None
-        self._address = None
-        self._created_at = None
-        self._creation_time = None
-        self._password_changed_time = None
-        self._last_login_time = None
-        self._two_factor_authentication = None
-        self._password = None
-        self._login_history = [LoginHistory(login) for login in getattr(self, 'login_history')]
-
     @staticmethod
     def _get_attributes_map():
         return {
@@ -800,16 +752,6 @@ class Group(BaseObject):
             print(g.name)
     """
 
-    def __init__(self, dictionary):
-        super(Group, self).__init__(dictionary)
-        self._name = None
-        self._id = None
-        self._account_id = None
-        self._user_count = None
-        self._api_key_count = None
-        self._created_at = None
-        self._creation_time = None
-
     @staticmethod
     def _get_attributes_map():
         return {
@@ -897,18 +839,6 @@ class ApiKey(BaseObject):
         new_k = api.add_api_key("New key name")
         print(new_k.key)
     """
-
-    def __init__(self, dictionary):
-        super(ApiKey, self).__init__(dictionary)
-        self._key = None
-        self._id = None
-        self._groups = None
-        self._owner = None
-        self._name = None
-        self._status = None
-        self._created_at = None
-        self._creation_time = None
-        self._last_login_time = None
 
     @staticmethod
     def _get_attributes_map():
@@ -1001,13 +931,6 @@ class ApiKey(BaseObject):
 
 class LoginHistory(BaseObject):
     """Login History."""
-
-    def __init__(self, dictionary):
-        super(LoginHistory, self).__init__(dictionary)
-        self._date = None
-        self._user_agent = None
-        self._ip_address = None
-        self._success = None
 
     @staticmethod
     def _get_attributes_map():

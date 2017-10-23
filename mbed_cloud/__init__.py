@@ -36,8 +36,7 @@ class BaseAPI(object):
 
     def __init__(self, user_config=None):
         """Ensure the config is valid and has all required fields."""
-        if not user_config:
-            user_config = {}
+        user_config = user_config or {}
         config.update(user_config)
         self.apis = []
         if "host" in config:

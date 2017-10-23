@@ -285,17 +285,6 @@ class UpdateAPI(BaseAPI):
 class FirmwareImage(BaseObject):
     """Describes firmware object."""
 
-    def __init__(self, dictionary):
-        super(FirmwareImage, self).__init__(dictionary)
-        self._created_at = None
-        self._url = None
-        self._datafile_checksum = None
-        self._datafile_size = None
-        self._description = None
-        self._id = None
-        self._name = None
-        self._updated_at = None
-
     @staticmethod
     def _get_attributes_map():
         return {
@@ -376,21 +365,6 @@ class FirmwareImage(BaseObject):
 
 class FirmwareManifest(BaseObject):
     """Describes firmware object."""
-
-    def __init__(self, dictionary):
-        """Initialize object."""
-        super(FirmwareManifest, self).__init__(dictionary)
-        self._created_at = None
-        self._url = None
-        self._description = None
-        self._device_class = None
-        self._datafile_checksum = None
-        self._datafile_size = None
-        self._id = None
-        self._name = None
-        self._timestamp = None
-        self._updated_at = None
-        self._version = None
 
     @staticmethod
     def _get_attributes_map():
@@ -499,20 +473,6 @@ class FirmwareManifest(BaseObject):
 
 class Campaign(BaseObject):
     """Describes update campaign object."""
-
-    def __init__(self, dictionary):
-        super(Campaign, self).__init__(dictionary)
-        self._device_filter = None
-        self._created_at = None
-        self._finished_at = None
-        self._id = None
-        self._name = None
-        self._manifest_url = None
-        self._started_at = None
-        self._state = None
-        self._scheduled_at = None
-        self._manifest_id = None
-        self._description = None
 
     @staticmethod
     def _get_attributes_map():
@@ -696,19 +656,6 @@ class Campaign(BaseObject):
 
 class CampaignDeviceState(BaseObject):
     """Describes update campaign device state."""
-
-    def __init__(self, dictionary):
-        super(CampaignDeviceState, self).__init__(dictionary)
-        self._id = None
-        self._device_id = None
-        self._campaign_id = None
-        self._state = None
-        self._name = None
-        self._description = None
-        self._created_at = None
-        self._updated_at = None
-        self._mechanism = None
-        self._mechanism_url = None
 
     @staticmethod
     def _get_attributes_map():

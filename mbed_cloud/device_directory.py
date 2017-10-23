@@ -319,37 +319,6 @@ class DeviceDirectoryAPI(BaseAPI):
 class Device(BaseObject):
     """Describes device object from the catalog."""
 
-    def __init__(self, dictionary):
-        super(Device, self).__init__(dictionary)
-        self._account_id = None
-        self._bootstrapped_timestamp = None
-        self._created_at = None
-        self._custom_attributes = None
-        self._deployed_state = None
-        self._last_deployment = None
-        self._description = None
-        self._device_class = None
-        self._id = None
-        self._manifest_url = None
-        self._mechanism = None
-        self._mechanism_url = None
-        self._name = None
-        self._host_gateway = None
-        self._device_type = None
-        self._serial_number = None
-        self._state = None
-        self._trust_class = None
-        self._updated_at = None
-        self._vendor_id = None
-        self._alias = None
-        self._bootstrap_certificate_expiration = None
-        self._certificate_fingerprint = None
-        self._certificate_issuer_id = None
-        self._connector_certificate_expiration = None
-        self._device_execution_mode = None
-        self._firmware_checksum = None
-        self._manifest_timestamp = None
-
     @staticmethod
     def _get_attributes_map():
         return {
@@ -616,15 +585,6 @@ class Device(BaseObject):
 
 class Query(BaseObject):
     """Describes device query object."""
-
-    def __init__(self, dictionary):
-        super(Query, self).__init__(dictionary)
-        self._created_at = None
-        self._id = None
-        self._description = None
-        self._name = None
-        self._updated_at = None
-        self._filter = None
 
     @staticmethod
     def _get_attributes_map():
