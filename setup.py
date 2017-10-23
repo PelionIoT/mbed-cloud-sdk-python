@@ -65,9 +65,10 @@ setup(
         'dev': dev_requirements
     },
     packages=find_packages('src'),
+    package_dir={'': 'src'},
     include_package_data=True,
     long_description=long_description,
-    python_requires='>=2.7.10,>=3.4.3',
+    python_requires='>=2.7.10, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.0, !=3.4.1, !=3.4.2, <4',
     classifiers=(
         'License :: OSI Approved :: Apache Software License',
         'Intended Audience :: Developers',

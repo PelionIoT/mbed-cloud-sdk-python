@@ -1,3 +1,4 @@
+graft src
 include README.md
 include LICENSE
 include dependencies.txt
