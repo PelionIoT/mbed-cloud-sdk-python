@@ -4,43 +4,49 @@ The `mbed-cloud-sdk` gives developers access to the full Mbed suite using Python
 
 ## Prerequisites
 
-Python 2.7.10+ / Python 3.4.3+
+Python 2.7.10+ / Python 3.4.3+, built with SSL support.
+
+Use of [virtual environments](http://docs.python-guide.org/en/latest/dev/virtualenvs/)
+or _pipenv_ is recommended to manage python versions and dependencies.
 
 ## Installation
 
-    pip install git+https://github.com/ARMmbed/mbed-cloud-sdk-python.git
+```bash
+pip install mbed-cloud-sdk
+```
 
 ## Usage
 
 These instructions can also be found in the [official documentation](https://s3-us-west-2.amazonaws.com/mbed-cloud-sdk-python/index.html#quickstart):
 
-1. Create API key in the [Mbed Cloud Portal](https://portal.mbedcloud.com/).
+1. Create an API key in the [Mbed Cloud Portal](https://portal.mbedcloud.com/).
 
-2. Create configuration file in `$HOME` or project directory (`.mbed_cloud_config.json`):
+2. Create a configuration file in your `$HOME` or project directory (`.mbed_cloud_config.json`):
 
     ```javascript
     {
-        "api_key": "ak_your_api_key_here"
+        "api_key": "your_api_key_here"
     }
     ```
 
 3. Import the library and you're ready to go.
-
     ```python
-    >>> from mbed_cloud.connect import ConnectAPI
-    >>> connect_api = ConnectAPI()
-    >>> connect_api.list_connected_devices().data[0]
+    from mbed_cloud.connect import ConnectAPI
+    connect_api = ConnectAPI()
+    connect_api.list_connected_devices().data[0]
     {
       "id": "Device #1",
       "state": "unenrolled",
       ...
     }
-    >>> from mbed_cloud.account_management import AccountManagementAPI
-    >>> api = AccountManagementAPI()
-    >>> list(api.list_users())[0]
+    ```
+    ```python
+    from mbed_cloud.account_management import AccountManagementAPI
+    api = AccountManagementAPI()
+    list(api.list_users())[0]
     {
       "email": "username@example.org",
-      "full_name": "Mrs Example",
+      "full_name": "A.N. Individual",
       ...
     }
     ```
@@ -49,7 +55,7 @@ These instructions can also be found in the [official documentation](https://s3-
 
 See the full documentation and API reference at [https://cloud.mbed.com/docs/v1.2/mbed-cloud-sdk-python/](https://cloud.mbed.com/docs/v1.2/mbed-cloud-sdk-python/).
 
-## License
+## Licence
 
-Mbed Cloud SDK for Python is free-to-use and licensed under the Apache License
-2.0. See LICENSE file for more information.
+Mbed Cloud SDK for Python is free to use and licensed under the Apache License
+2.0. See [LICENCE](LICENCE) for more information.

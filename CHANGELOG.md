@@ -1,5 +1,25 @@
 # Changelog
 
+## 1.2.3
+
+### Deliverables
+
+The application is additionally hosted on pypi at https://pypi.python.org/mbed-cloud-sdk and can be installed using pip:
+
+```
+$ pip install mbed-cloud-sdk
+```
+
+### Changes
+
+- Initial early access release tracking Mbed Cloud 1.2 APIs
+- Added unittests
+- Added coverage collection
+- Python versions supported:
+  - 2.7.10+
+  - 3.4.3+
+- Examples working with both Python 2.7.10+ and 3.4.3+
+
 ## 1.2.0-alpha
 
 ### Deliverables
