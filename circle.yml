@@ -44,7 +44,6 @@ test:
   post:
     # upload to codecov.io
     - codecov
-    - pip install -e .
     - sphinx-build -a -b html -c docs/ docs/ ~/docs
 
 deployment:
