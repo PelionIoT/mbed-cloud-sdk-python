@@ -79,7 +79,7 @@ class ResourcesData(object):
     def rf(self):
         """
         Gets the rf of this ResourcesData.
-        Resource type [created by Client side application](/docs/v1.2/device-dev/connecting-devices-to-the-cloud-with-mbed-cloud-client.html#the-create-operation). For example \"speed_sensor\"
+        Resource type [created by Client side application](/docs/v1.2/collecting/resource-setup-in-mbed-cloud-client.html). For example \"speed_sensor\"
 
         :return: The rf of this ResourcesData.
         :rtype: str
@@ -90,7 +90,7 @@ class ResourcesData(object):
     def rf(self, rf):
         """
         Sets the rf of this ResourcesData.
-        Resource type [created by Client side application](/docs/v1.2/device-dev/connecting-devices-to-the-cloud-with-mbed-cloud-client.html#the-create-operation). For example \"speed_sensor\"
+        Resource type [created by Client side application](/docs/v1.2/collecting/resource-setup-in-mbed-cloud-client.html). For example \"speed_sensor\"
 
         :param rf: The rf of this ResourcesData.
         :type: str
