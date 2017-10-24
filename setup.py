@@ -37,17 +37,11 @@ repository_dir = os.path.dirname(__file__)
 with open(os.path.join(repository_dir, 'src', 'mbed_cloud', '_version.py')) as fh:
     exec(fh.read())
 
-# Render the README in reST
-# http://stackoverflow.com/a/26737672
 try:
-    import pypandoc
-    long_description = pypandoc.convert('README.md', 'rst')
-    long_description = long_description.replace('\r', '')
-    with open(os.path.join(repository_dir, 'README.rst'), 'w') as fh:
-        fh.write(long_description)
-except(OSError, IOError, ImportError):
-    with open(os.path.join(repository_dir, 'README.md')) as fh:
+    with open(os.path.join(repository_dir, 'README.rst')) as fh:
         long_description = fh.read()
+except(OSError, IOError):
+    long_description = ""
 
 with open(os.path.join(repository_dir, 'dependencies.txt')) as fh:
     dependencies = fh.readlines()

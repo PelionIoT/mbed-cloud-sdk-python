@@ -1,5 +1,5 @@
 graft src
-include README.md
+include README.rst
 include LICENSE
 include dependencies.txt
 include requirements.dev.txt

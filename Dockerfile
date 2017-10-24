@@ -14,7 +14,7 @@ WORKDIR /sdk
 ADD setup.py .
 ADD requirements.txt .
 ADD tox.ini .
-ADD README.md .
+ADD README.rst .
 
 RUN tox --notest
 
