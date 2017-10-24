@@ -76,7 +76,7 @@ class Resource(object):
     def type(self):
         """
         Gets the type of this Resource.
-        The content type of the resource. <br/><br/><b>Important</b><br/> You are encouraged to use the resource types listed in the [LWM2M specification](http://technical.openmobilealliance.org/Technical/technical-information/omna/lightweight-m2m-lwm2m-object-registry). 
+        The content type of the resource. <br/><br/><b>Important</b><br/> You are encouraged to use the resource types listed in the [LwM2M specification](http://technical.openmobilealliance.org/Technical/technical-information/omna/lightweight-m2m-lwm2m-object-registry). 
 
         :return: The type of this Resource.
         :rtype: str
@@ -87,7 +87,7 @@ class Resource(object):
     def type(self, type):
         """
         Sets the type of this Resource.
-        The content type of the resource. <br/><br/><b>Important</b><br/> You are encouraged to use the resource types listed in the [LWM2M specification](http://technical.openmobilealliance.org/Technical/technical-information/omna/lightweight-m2m-lwm2m-object-registry). 
+        The content type of the resource. <br/><br/><b>Important</b><br/> You are encouraged to use the resource types listed in the [LwM2M specification](http://technical.openmobilealliance.org/Technical/technical-information/omna/lightweight-m2m-lwm2m-object-registry). 
 
         :param type: The type of this Resource.
         :type: str
