@@ -9,6 +9,5 @@
 build/
 dist/
 docs/build/
-readme.rst
 results/
 venv/

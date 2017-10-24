@@ -37,11 +37,8 @@ repository_dir = os.path.dirname(__file__)
 with open(os.path.join(repository_dir, 'src', 'mbed_cloud', '_version.py')) as fh:
     exec(fh.read())
 
-try:
-    with open(os.path.join(repository_dir, 'README.rst')) as fh:
-        long_description = fh.read()
-except(OSError, IOError):
-    long_description = ""
+with open(os.path.join(repository_dir, 'README.rst')) as fh:
+    long_description = fh.read()
 
 with open(os.path.join(repository_dir, 'dependencies.txt')) as fh:
     dependencies = fh.readlines()
