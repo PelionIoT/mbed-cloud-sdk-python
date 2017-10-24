@@ -1,30 +1,8 @@
 Mbed Cloud SDK for Python
 =========================
 
-The ``mbed-cloud-sdk`` gives developers access to the full `Arm Mbed <https://docs.mbed.com/>`__ suite using Python.
-
-Components
-----------
-
-.. toctree::
-  :maxdepth: 1
-
-  account_management
-  certificates
-  connect
-  device_directory
-  update
-
-Concepts
---------
-
-.. toctree::
-  :maxdepth: 1
-
-  configuration
-  exceptions
-  pagination
-  metadata
+The ``mbed-cloud-sdk`` gives developers access to the full `Arm
+Mbed <https://docs.mbed.com/>`__ suite using Python.
 
 Prerequisites
 -------------
@@ -84,22 +62,14 @@ documentation <https://cloud.mbed.com/docs/v1.2/mbed-cloud-sdk-python/>`__:
          ...
        }
 
-More examples
--------------
+Documentation and examples
+--------------------------
 
-See `examples directory`_ for a collection of use-cases of this API.
+See the full documentation and API reference at
+https://cloud.mbed.com/docs/v1.2/mbed-cloud-sdk-python/.
 
-To run the examples, you would need to setup your environment by installing the
-dependencies in the `requirements.txt` file. This can be easily done using
-virtualenv:
+Licence
+-------
 
-.. code-block:: shell
-
-    virtualenv venv/
-    source venv/bin/activate
-    pip install -r requirements.txt
-
-    python examples/connect/list-connected-devices.py
-
-.. _Cloud Portal: https://portal.us-east-1.mbedcloud.com/login
-.. _examples directory: https://github.com/ARMmbed/mbed-cloud-sdk-python/tree/master/examples
+Mbed Cloud SDK for Python is free to use and licensed under the Apache
+License 2.0. See LICENCE for more information.

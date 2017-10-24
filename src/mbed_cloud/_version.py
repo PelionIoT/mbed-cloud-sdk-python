@@ -20,7 +20,18 @@
 Breaking changes in SDK will increment major version number.
 API version number will follow Mbed release schedule (~quarterly releases).
 """
-API_VERSION = "1.2"
-SDK_MAJOR_MINOR = "3"
-SDK_SUFFIX = ""
-__version__ = "%s.%s%s" % (API_VERSION, SDK_MAJOR_MINOR, SDK_SUFFIX)
+API_MAJOR = '1'
+API_MINOR = '2'
+API_VERSION = '.'.join((API_MAJOR, API_MINOR))
+
+SDK_MAJOR = '3'
+SDK_MINOR = '0'
+SDK_SUFFIX = ''
+
+__version__ = '.'.join(part for part in (
+    API_MAJOR,
+    API_MINOR,
+    SDK_MAJOR,
+    SDK_MINOR,
+    SDK_SUFFIX,
+) if part)

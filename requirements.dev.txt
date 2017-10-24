@@ -20,7 +20,6 @@ hacking==1.0.0
 pycodestyle==2.3.1
 # Documentation
 Sphinx==1.6.5
-pypandoc==1.4
 ## The following requirements were added by pip freeze:
 alabaster==0.7.10
 Babel==2.5.1

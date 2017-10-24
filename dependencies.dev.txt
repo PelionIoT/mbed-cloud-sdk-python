@@ -23,4 +23,3 @@ pycodestyle
 
 # Documentation
 Sphinx
-pypandoc
