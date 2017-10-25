@@ -4,6 +4,8 @@ Mbed Cloud SDK for Python
 The ``mbed-cloud-sdk`` gives developers access to the full `Arm
 Mbed <https://docs.mbed.com/>`__ suite using Python.
 
+.. common_content_anchor
+
 Prerequisites
 -------------
 
@@ -65,11 +67,34 @@ documentation <https://cloud.mbed.com/docs/v1.2/mbed-cloud-sdk-python/>`__:
 Documentation and examples
 --------------------------
 
-See the full documentation and API reference at
+The full documentation and API reference is hosted here:
 https://cloud.mbed.com/docs/v1.2/mbed-cloud-sdk-python/.
+
+.. _examples directory: https://github.com/ARMmbed/mbed-cloud-sdk-python/tree/master/examples
+See the `examples directory`_ for a collection of use-cases of this API, e.g.:
+
+    .. code:: python
+
+       python examples/connect/list-connected-devices.py
 
 Licence
 -------
 
 Mbed Cloud SDK for Python is free to use and licensed under the Apache
 License 2.0. See LICENCE for more information.
+
+Troubleshooting
+---------------
+Suggestions for issues that have been reported when using the SDK.
+
+- SSL version / :code:`SSLV3_ALERT_HANDSHAKE_FAILURE`
+    .. code:: python
+
+      urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='api.us-east-1.mbedcloud.com', port=443):
+      Max retries exceeded with url: /v3/firmware-images/
+      (Caused by SSLError(SSLError(1, u'[SSL: SSLV3_ALERT_HANDSHAKE_FAILURE] sslv3 alert handshake failure (_ssl.c:590)'),))
+
+    This probably means the Python interpreter being used has an old version of SSL.
+    Best security practice is to use the latest available version of SSL, so it is recommended to upgrade/rebuild the Python
+    interpreter with the latest SSL. You can find the latest SSL versions here: https://www.openssl.org. You can check
+    the version in use by the Python interpreter using :code:`python -c "import ssl; print(ssl.OPENSSL_VERSION)"`
