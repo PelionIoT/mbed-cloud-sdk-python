@@ -35,7 +35,12 @@ class TestWithRPC(BaseCase):
     @classmethod
     def setUpClass(cls):
         cmd = 'docker pull %s' % docker_image
-        subprocess.check_call(shlex.split(cmd))
+        try:
+            subprocess.check_call(shlex.split(cmd), stderr=subprocess.STDOUT)
+        except subprocess.CalledProcessError as e:
+            if 'docker login' in e.output:
+                raise unittest.SkipTest('missing docker login')
+            raise
 
     def setUp(self):
         exe = sys.executable
