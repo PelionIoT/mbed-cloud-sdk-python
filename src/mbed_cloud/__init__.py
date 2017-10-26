@@ -41,18 +41,20 @@ class BaseAPI(object):
         """Ensure the config is valid and has all required fields."""
         self.apis = []
         user_config = user_config or {}
-        self.config = copy.copy(config)
+        self.config = copy.deepcopy(config)
         self.config.update(user_config)
-        config.setdefault('host', 'https://api.us-east-1.mbedcloud.com')
-        config['host'] = config['host'].strip('/')
-        if not config["host"].startswith("https"):
-            raise ValueError("'host' config needs to use protocol HTTPS. Saw %s" % config['host'])
+        self.config['host'] = self.config.setdefault(
+            'host',
+            'https://api.us-east-1.mbedcloud.com'
+        ).strip('/')
+        if not self.config["host"].startswith("https"):
+            raise ValueError("URI scheme for host must be HTTPS: %s" % self.config['host'])
         if "api_key" not in config:
             raise ValueError("api_key not found in config. Please see documentation.")
 
     def _init_api(self, api):
-        api.configuration.api_key['Authorization'] = config.get('api_key')
         api.configuration.api_key_prefix['Authorization'] = 'Bearer'
+        api.configuration.api_key['Authorization'] = self.config['api_key']
         api.configuration.host = self.config['host']
 
         # Ensure URL is base string, not unicode (Issue22231)

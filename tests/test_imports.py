@@ -1,6 +1,9 @@
-from tests.common import BaseCase
 from mbed_cloud import BaseAPI
+from mbed_cloud import config
+from mbed_cloud import connect
+from tests.common import BaseCase
 import urllib3
+import imp
 
 
 class TestImports(BaseCase):
@@ -14,37 +17,35 @@ class TestImports(BaseCase):
         from mbed_cloud import update
         from mbed_cloud import _version
 
-    def test_config(self):
-        from mbed_cloud import config
+
+class TestConfig(BaseCase):
+
+    def test_base_config(self):
         self.assertIn('https', config.get('host'))
 
     def test_config_insecure(self):
-        from mbed_cloud import config
-        old = config.get('host')
-        try:
-            config['host'] = 'http://insecure.invalidhost'
-            with self.assertRaises(ValueError):
-                BaseAPI()
-        finally:
-            config['host'] = old
+        with self.assertRaises(ValueError):
+            BaseAPI(dict(host='http://insecure.invalidhost'))
 
     def test_config_default(self):
-        from mbed_cloud import config
-        old = config.pop('host')
+        default_host = config.pop('host')
         try:
             api = BaseAPI()
-            self.assertIn('api.us-east-1', config.get('host'))
+            self.assertIn('api.us-east-1', api.config.get('host'))
         finally:
-            config['host'] = old
+            config['host'] = default_host
 
     def test_config_invalid_host(self):
-        from mbed_cloud import config
-        old = config.pop('host')
+        default_host = config.get('host')
         try:
-            # an invalid host
-            config['host'] = 'https://0.0.0.0'
-            from mbed_cloud import connect
+            api = connect.ConnectAPI(dict(host='https://0.0.0.0'))
             with self.assertRaises(urllib3.exceptions.MaxRetryError):
-                connect.ConnectAPI().list_connected_devices().data
+                api.list_connected_devices().data
         finally:
-            config['host'] = old
+            # reset the mds configuration singleton x_x
+            # FIXME!!!
+            imp.reload(connect)
+            from mbed_cloud._backends.mds.configuration import Configuration
+            c = Configuration()
+            c.host = default_host
+            api.apis[:] = []
