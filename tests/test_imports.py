@@ -2,8 +2,8 @@ from mbed_cloud import BaseAPI
 from mbed_cloud import config
 from mbed_cloud import connect
 from tests.common import BaseCase
+import multiprocessing
 import urllib3
-import imp
 
 
 class TestImports(BaseCase):
@@ -36,16 +36,19 @@ class TestConfig(BaseCase):
             config['host'] = default_host
 
     def test_config_invalid_host(self):
-        default_host = config.get('host')
-        try:
-            api = connect.ConnectAPI(dict(host='https://0.0.0.0'))
-            with self.assertRaises(urllib3.exceptions.MaxRetryError):
-                api.list_connected_devices().data
-        finally:
-            # reset the mds configuration singleton x_x
-            # FIXME!!!
-            imp.reload(connect)
-            from mbed_cloud._backends.mds.configuration import Configuration
-            c = Configuration()
-            c.host = default_host
-            api.apis[:] = []
+        ok = multiprocessing.Event()
+        p = multiprocessing.Process(target=execute_connect, args=(ok,))
+        p.start()
+        p.join()
+        self.assertTrue(ok.is_set())
+
+
+def execute_connect(completion_event):
+    # FIXME: this is suboptimal but necessary due to
+    # use of singletons and other oddities by the codegen SDK backend
+    # i.e. you cannot change api host in a single process
+    api = connect.ConnectAPI(dict(host='https://0.0.0.0'))
+    try:
+        api.list_connected_devices().data
+    except urllib3.exceptions.MaxRetryError:
+        completion_event.set()
