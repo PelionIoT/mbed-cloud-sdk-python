@@ -22,8 +22,8 @@ class TestImports(BaseCase):
         old = config.get('host')
         try:
             config['host'] = 'http://insecure.invalidhost'
-            api = BaseAPI()
-            self.assertEqual(None, config.get('host'))
+            with self.assertRaises(ValueError):
+                api = BaseAPI()
         finally:
             config['host'] = old
 

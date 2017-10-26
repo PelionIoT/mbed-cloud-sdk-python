@@ -18,13 +18,14 @@
 from __future__ import print_function
 from __future__ import unicode_literals
 
-from builtins import object
+import copy
 import datetime
-from six import iteritems
-from six import string_types
-import sys
 
+from builtins import object
+from six import iteritems
 from six.moves import urllib
+from six import string_types
+
 
 from mbed_cloud._version import __version__  # noqa
 from mbed_cloud.bootstrap import Config
@@ -38,28 +39,21 @@ class BaseAPI(object):
 
     def __init__(self, user_config=None):
         """Ensure the config is valid and has all required fields."""
-        user_config = user_config or {}
-        config.update(user_config)
         self.apis = []
-        if "host" in config:
-            # Strip leading and trailing slashes from host
-            config.update({'host': config['host'].strip('/')})
-            if not config["host"].startswith("https"):
-                sys.stderr.write("'host' config needs to use protocol HTTPS. Ignoring.\n")
-                sys.stderr.flush()
-                del config["host"]
-        else:
-            # Host is not set. Set default host.
-            config.update({'host': 'https://api.us-east-1.mbedcloud.com'})
-
+        user_config = user_config or {}
+        self.config = copy.copy(config)
+        self.config.update(user_config)
+        config.setdefault('host', 'https://api.us-east-1.mbedcloud.com')
+        config['host'] = config['host'].strip('/')
+        if not config["host"].startswith("https"):
+            raise ValueError("'host' config needs to use protocol HTTPS. Saw %s" % config['host'])
         if "api_key" not in config:
             raise ValueError("api_key not found in config. Please see documentation.")
 
     def _init_api(self, api):
         api.configuration.api_key['Authorization'] = config.get('api_key')
         api.configuration.api_key_prefix['Authorization'] = 'Bearer'
-        if config.get('host'):
-            api.configuration.host = config.get('host')
+        api.configuration.host = self.config['host']
 
         # Ensure URL is base string, not unicode (Issue22231)
         url = api.configuration.host
