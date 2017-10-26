@@ -1,5 +1,6 @@
 from tests.common import BaseCase
 from mbed_cloud import BaseAPI
+import urllib3
 
 
 class TestImports(BaseCase):
@@ -23,7 +24,7 @@ class TestImports(BaseCase):
         try:
             config['host'] = 'http://insecure.invalidhost'
             with self.assertRaises(ValueError):
-                api = BaseAPI()
+                BaseAPI()
         finally:
             config['host'] = old
 
@@ -36,3 +37,14 @@ class TestImports(BaseCase):
         finally:
             config['host'] = old
 
+    def test_config_invalid_host(self):
+        from mbed_cloud import config
+        old = config.pop('host')
+        try:
+            # an invalid host
+            config['host'] = 'https://0.0.0.0'
+            from mbed_cloud import connect
+            with self.assertRaises(urllib3.exceptions.MaxRetryError):
+                connect.ConnectAPI().list_connected_devices().data
+        finally:
+            config['host'] = old

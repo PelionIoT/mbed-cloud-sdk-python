@@ -313,21 +313,18 @@ class PaginatedResponse(object):
     def _get_page(self):
         resp = self._func(**self._kwargs)
         self._raw_response = resp
+        data_stream = resp.data or []
 
         # Update properties
         self._has_more = resp.has_more
-        self._data = [self._lwrap_type(e) if self._lwrap_type else e for e in resp.data]
-        if hasattr(resp, 'total_count'):
-            self._total_count = resp.total_count
-        else:
-            self._total_count = len(self._data)
+        self._data = [self._lwrap_type(e) if self._lwrap_type else e for e in data_stream]
+        self._total_count = getattr(resp, 'total_count', len(self._data))
 
-        if len(resp.data) > 0:
+        if len(data_stream) > 0:
             # Update 'after' by taking the last element ID
-            self._kwargs['after'] = resp.data[-1].id
+            self._kwargs['after'] = data_stream[-1].id
         else:
-            if 'after' in self._kwargs:
-                del self._kwargs['after']
+            self._kwargs.pop('after', None)
 
     def _get_total_count(self):
         resp = self._func(**{'include': 'total_count', 'limit': 2})
