@@ -48,6 +48,10 @@ class BaseAPI(object):
                 sys.stderr.write("'host' config needs to use protocol HTTPS. Ignoring.\n")
                 sys.stderr.flush()
                 del config["host"]
+            elif "api" not in config["host"]:
+                sys.stderr.write("'host' config needs to point to the API hostname.. Ignoring.\n")
+                sys.stderr.flush()
+                del config["host"]
         else:
             # Host is not set. Set default host.
             config.update({'host': 'https://api.us-east-1.mbedcloud.com'})
