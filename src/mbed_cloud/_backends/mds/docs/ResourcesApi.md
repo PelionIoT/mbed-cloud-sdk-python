@@ -72,7 +72,7 @@ Name | Type | Description  | Notes
 
 Read from a resource
 
-Requests the resource value and when the response is available, a json AsyncIDResponse object is received in the notification channel. The preferred way to get resource values is to use [subscribe](/docs/v1.2/api-references/connect-api.html#v2-subscriptions-device-id-resourcepath) and [callback](/docs/v1.2/api-references/connect-api.html#v2-notification-callback) methods.  All resource APIs are asynchronous. These APIs only respond if the device is turned on and connected to mbed Cloud Connect.  **Example usage:**      curl -X GET \\       https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id}/{resourcePath} \\       -H 'authorization: Bearer {api-key}'        
+Requests the resource value and when the response is available, a json AsyncIDResponse object is received in the notification channel. The preferred way to get resource values is to use [subscribe](/docs/v1.2/service-api-references/connect-api.html#v2-notification-callback) and [callback](/docs/v1.2/service-api-references/connect-api.html#v2-notification-callback) methods.  All resource APIs are asynchronous. These APIs only respond if the device is turned on and connected to mbed Cloud Connect.  **Example usage:**      curl -X GET \\       https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id}/{resourcePath} \\       -H 'authorization: Bearer {api-key}'        
 
 ### Example 
 ```python
@@ -91,7 +91,7 @@ mds.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 api_instance = mds.ResourcesApi()
 device_id = 'device_id_example' # str | Unique mbed Cloud device ID for the endpoint. Note that the ID needs to be an exact match. You cannot use wildcards here. 
 _resource_path = '_resource_path_example' # str | The URL of the resource. 
-cache_only = true # bool | If true, the response comes only from the cache. Default: false. mbed Cloud Connect caches the received resource values for the time of [max_age](/docs/v1.2/device-dev/connecting-devices-to-the-cloud-with-mbed-cloud-client.html#use-mbed-cloud-client-data-types) defined in the client side.  (optional)
+cache_only = true # bool | If true, the response comes only from the cache. Default: false. mbed Cloud Connect caches the received resource values for the time of [max_age](/docs/v1.2/collecting/handle-resources.html#working-with-the-server-cache) defined in the client side.  (optional)
 no_resp = true # bool | **Non-confirmable requests**   All resource APIs have the parameter `noResp`. If a request is made with `noResp=true`, mbed Cloud Connect makes a CoAP  non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back  an async-response-id.  If calls with this parameter enabled succeed, they return with the status code 204 No Content. If the underlying protocol  does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code  409 Conflict.  (optional)
 
 try: 
@@ -108,7 +108,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **device_id** | **str**| Unique mbed Cloud device ID for the endpoint. Note that the ID needs to be an exact match. You cannot use wildcards here.  | 
  **_resource_path** | **str**| The URL of the resource.  | 
- **cache_only** | **bool**| If true, the response comes only from the cache. Default: false. mbed Cloud Connect caches the received resource values for the time of [max_age](/docs/v1.2/device-dev/connecting-devices-to-the-cloud-with-mbed-cloud-client.html#use-mbed-cloud-client-data-types) defined in the client side.  | [optional] 
+ **cache_only** | **bool**| If true, the response comes only from the cache. Default: false. mbed Cloud Connect caches the received resource values for the time of [max_age](/docs/v1.2/collecting/handle-resources.html#working-with-the-server-cache) defined in the client side.  | [optional] 
  **no_resp** | **bool**| **Non-confirmable requests**   All resource APIs have the parameter &#x60;noResp&#x60;. If a request is made with &#x60;noResp&#x3D;true&#x60;, mbed Cloud Connect makes a CoAP  non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back  an async-response-id.  If calls with this parameter enabled succeed, they return with the status code 204 No Content. If the underlying protocol  does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code  409 Conflict.  | [optional] 
 
 ### Return type

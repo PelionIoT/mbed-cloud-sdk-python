@@ -3,7 +3,7 @@ parallel = true
 source = mbed_cloud
 omit =
     **/tests/*
-    mbed_cloud/_backends/*
+    **/mbed_cloud/_backends/*
 [report]
 [html]
 title = mbed Python SDK coverage
