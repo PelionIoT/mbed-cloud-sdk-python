@@ -223,7 +223,7 @@ class BaseObject(object):
         """Return dictionary of object."""
         dictionary = {}
         for key, value in iteritems(self._get_attributes_map()):
-            dictionary[key] = getattr(self, key, None)
+            dictionary[key] = getattr(self, str(key), None)
         return dictionary
 
     def _get_operator(self, key):
