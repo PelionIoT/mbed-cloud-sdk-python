@@ -57,10 +57,21 @@
 				<a title="Github Commit" href="<%- build.vcs_url %>/commit/<%- build.vcs_revision %>">
 					<img class="logo github" src="images/github.svg" /></a>
 				<% if (build.has_artifacts) { %>
-					<a title="Documentation" href="<%- getArtifactUrl(build, 'docs') %>">
+					<a title="Documentation" href="<%- getArtifactUrl(build, { path: 'docs' }) %>">
 						<img class="logo docs" src="images/docs.svg" /></a>
-					<a title="Test Results" href="<%- getArtifactUrl(build, 'tests') %>">
+					<br />
+					<a title="Unit Tests Results (2.7)" href="<%- getArtifactUrl(build, { path: 'results/py27', file: 'unittests.html' }) %>">
+						<img class="logo tests" src="images/unittests.svg" /></a>
+					<a title="Integration Test Results (2.7)" href="<%- getArtifactUrl(build, { path: 'rpc_results/py27', file: 'results.html' }) %>">
 						<img class="logo tests" src="images/tests.svg" /></a>
+					<a title="Test Coverage (2.7)" href="<%- getArtifactUrl(build, { path: 'results/py27/coverage.html' }) %>">
+						<img class="logo tests" src="images/coverage.svg" /></a>
+					<a title="Unit Tests Results (3.6)" href="<%- getArtifactUrl(build, { path: 'results/py36', file: 'unittests.html' }) %>">
+						<img class="logo tests" src="images/unittests.svg" /></a>
+					<a title="Integration Test Results (3.6)" href="<%- getArtifactUrl(build, { path: 'rpc_results/py36', file: 'results.html' }) %>">
+						<img class="logo tests" src="images/tests.svg" /></a>
+					<a title="Test Coverage (3.6)" href="<%- getArtifactUrl(build, { path: 'results/py36/coverage.html' }) %>">
+						<img class="logo tests" src="images/coverage.svg" /></a>
 				<% } %>
 			</div>
 		</li>
@@ -111,8 +122,9 @@
 		return build.lifecycle;
 	}
 
-	function getArtifactUrl(build, base) {
-		return "https://circle-artifacts.com/gh/ARMmbed/" + project + "/" + build.build_num + "/artifacts/0/home/ubuntu/" + base + "/index.html";
+	function getArtifactUrl(build, options) {
+		options.file = options.file || "index.html";
+		return "https://circle-artifacts.com/gh/ARMmbed/" + project + "/" + build.build_num + "/artifacts/0/home/ubuntu/" + options.path + "/" + options.file;
 	}
 
 	getCircle(function(builds) {
