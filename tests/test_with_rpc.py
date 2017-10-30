@@ -86,8 +86,7 @@ class TestWithRPC(BaseCase):
             print('looks like the server is ok')
 
     def test_run(self):
-        # this is in lieu of having a docker-compose...
-        version = platform.python_version()
+        version = 'py%s%s' % platform.python_version_tuple()[:2]  # build a directory that matches tox's {envvar}
         results_file = os.path.join(os.path.expanduser('~'), 'rpc_results', version)
         fixtures_path = os.path.join(os.path.dirname(__file__), 'fixtures')
 

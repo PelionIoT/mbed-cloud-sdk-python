@@ -6,6 +6,7 @@
 .cache
 .coverage
 .mbed_cloud_config.json
+.tox
 build/
 dist/
 docs/build/
