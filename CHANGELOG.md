@@ -4,7 +4,7 @@
 
 ### Deliverables
 
-The application is additionally hosted on pypi at https://pypi.python.org/mbed-cloud-sdk and can be installed using pip:
+The application is additionally hosted on pypi at https://pypi.org/project/mbed-cloud-sdk and can be installed using pip:
 
 ```
 $ pip install mbed-cloud-sdk

@@ -6,7 +6,7 @@ your file system and environment variables.
 
 In particular, it will look for the following files - listed in order:
 
-- `/etc/mbed_cloud_config.json`
+- `/etc/.mbed_cloud_config.json`
 - `$HOME/.mbed_cloud_config.json`
 - `$PWD/.mbed_cloud_config.json`
 - `$MBED_CLOUD_SDK_CONFIG`
