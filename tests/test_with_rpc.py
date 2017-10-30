@@ -79,9 +79,11 @@ class TestWithRPC(BaseCase):
         print('determined host address to be: "%s"' % self.host)
 
         try:
-            # ping the server to make sure it's up
-            response = requests.get('http://127.0.0.1:5000/_init')
-            response.raise_for_status()
+            # ping the server to make sure it's up (don't use _init, may not be idempotent)
+            response = requests.get('http://127.0.0.1:5000/invalid_url')
+            # we expect to receive 404, any other failure is bad news (200 OK is unlikely)
+            if response.status_code != 404:
+                response.raise_for_status()
         except Exception as exception:
             print('welp, couldnt get the server on 127.0.0.1, maybe docker will have better luck. %s' % exception)
             print(subprocess.check_output(shlex.split('ps -aux')))
