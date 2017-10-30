@@ -45,6 +45,7 @@ test:
     # upload to codecov.io
     - codecov
     - sphinx-build -a -b html -c docs/ docs/ ~/docs
+    - cp ~/results/py36/unittests.xml $CIRCLE_TEST_REPORTS/tests/
 
 deployment:
   staging:
