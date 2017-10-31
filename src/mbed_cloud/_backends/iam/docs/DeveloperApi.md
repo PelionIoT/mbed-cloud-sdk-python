@@ -33,7 +33,7 @@ An endpoint for creating a new API key.   **Example usage:** `curl -X POST https
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import iam
 from iam.rest import ApiException
@@ -86,7 +86,7 @@ An endpoint for deleting the API key.   **Example usage:** `curl -X DELETE https
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import iam
 from iam.rest import ApiException
@@ -138,7 +138,7 @@ An endpoint for deleting a trusted certificate.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import iam
 from iam.rest import ApiException
@@ -190,7 +190,7 @@ An endpoint for retrieving API keys in an array, optionally filtered by the owne
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import iam
 from iam.rest import ApiException
@@ -251,7 +251,7 @@ An endpoint for retrieving trusted certificates in an array.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import iam
 from iam.rest import ApiException
@@ -318,7 +318,7 @@ An endpoint for retrieving all group information.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import iam
 from iam.rest import ApiException
@@ -377,7 +377,7 @@ An endpoint for retrieving API key details.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import iam
 from iam.rest import ApiException
@@ -430,7 +430,7 @@ An endpoint for listing the API keys of the group with details.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import iam
 from iam.rest import ApiException
@@ -491,7 +491,7 @@ An endpoint for retrieving a trusted certificate by ID.   **Example usage:** `cu
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import iam
 from iam.rest import ApiException
@@ -544,7 +544,7 @@ An endpoint for getting general information about the group.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import iam
 from iam.rest import ApiException
@@ -597,7 +597,7 @@ Returns detailed information about the account.   **Example usage:** `curl https
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import iam
 from iam.rest import ApiException
@@ -650,7 +650,7 @@ An endpoint for retrieving API key details.   **Example usage:** `curl https://a
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import iam
 from iam.rest import ApiException
@@ -699,7 +699,7 @@ An endpoint for retrieving the details of the logged in user.   **Example usage:
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import iam
 from iam.rest import ApiException
@@ -752,7 +752,7 @@ An endpoint for removing API keys from groups.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import iam
 from iam.rest import ApiException
@@ -807,7 +807,7 @@ An endpoint for updating API key details.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import iam
 from iam.rest import ApiException
@@ -862,7 +862,7 @@ An endpoint for updating existing trusted certificates.   **Example usage:** `cu
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import iam
 from iam.rest import ApiException
@@ -917,7 +917,7 @@ An endpoint for updating API key details.   **Example usage:** `curl -X PUT http
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import iam
 from iam.rest import ApiException
@@ -970,7 +970,7 @@ An endpoint for updating the details of the logged in user.   **Example usage:**
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import iam
 from iam.rest import ApiException

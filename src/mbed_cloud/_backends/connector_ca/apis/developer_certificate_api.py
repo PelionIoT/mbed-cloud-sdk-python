@@ -113,12 +113,11 @@ class DeveloperCertificateApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/developer-certificates/{id}'.replace('{format}', 'json')
         path_params = {}
         if 'id' in params:
             path_params['id'] = params['id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
         if 'authorization' in params:
@@ -135,7 +134,7 @@ class DeveloperCertificateApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/developer-certificates/{id}', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -223,10 +222,9 @@ class DeveloperCertificateApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/developer-certificates'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
         if 'authorization' in params:
@@ -245,7 +243,7 @@ class DeveloperCertificateApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'POST',
+        return self.api_client.call_api('/v3/developer-certificates', 'POST',
                                         path_params,
                                         query_params,
                                         header_params,

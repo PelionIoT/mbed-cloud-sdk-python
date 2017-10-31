@@ -108,10 +108,9 @@ class DeveloperApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/api-keys'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -132,7 +131,7 @@ class DeveloperApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'POST',
+        return self.api_client.call_api('/v3/api-keys', 'POST',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -215,12 +214,11 @@ class DeveloperApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/api-keys/{apiKey}'.replace('{format}', 'json')
         path_params = {}
         if 'api_key' in params:
             path_params['apiKey'] = params['api_key']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -235,7 +233,7 @@ class DeveloperApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'DELETE',
+        return self.api_client.call_api('/v3/api-keys/{apiKey}', 'DELETE',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -318,12 +316,11 @@ class DeveloperApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/trusted-certificates/{cert-id}'.replace('{format}', 'json')
         path_params = {}
         if 'cert_id' in params:
             path_params['cert-id'] = params['cert_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -338,7 +335,7 @@ class DeveloperApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'DELETE',
+        return self.api_client.call_api('/v3/trusted-certificates/{cert-id}', 'DELETE',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -426,20 +423,19 @@ class DeveloperApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/api-keys'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
         if 'limit' in params:
-            query_params['limit'] = params['limit']
+            query_params.append(('limit', params['limit']))
         if 'after' in params:
-            query_params['after'] = params['after']
+            query_params.append(('after', params['after']))
         if 'order' in params:
-            query_params['order'] = params['order']
+            query_params.append(('order', params['order']))
         if 'include' in params:
-            query_params['include'] = params['include']
+            query_params.append(('include', params['include']))
         if 'owner__eq' in params:
-            query_params['owner__eq'] = params['owner__eq']
+            query_params.append(('owner__eq', params['owner__eq']))
 
         header_params = {}
 
@@ -454,7 +450,7 @@ class DeveloperApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/api-keys', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -548,26 +544,25 @@ class DeveloperApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/trusted-certificates'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
         if 'limit' in params:
-            query_params['limit'] = params['limit']
+            query_params.append(('limit', params['limit']))
         if 'after' in params:
-            query_params['after'] = params['after']
+            query_params.append(('after', params['after']))
         if 'order' in params:
-            query_params['order'] = params['order']
+            query_params.append(('order', params['order']))
         if 'include' in params:
-            query_params['include'] = params['include']
+            query_params.append(('include', params['include']))
         if 'service__eq' in params:
-            query_params['service__eq'] = params['service__eq']
+            query_params.append(('service__eq', params['service__eq']))
         if 'expire__eq' in params:
-            query_params['expire__eq'] = params['expire__eq']
+            query_params.append(('expire__eq', params['expire__eq']))
         if 'device_execution_mode__eq' in params:
-            query_params['device_execution_mode__eq'] = params['device_execution_mode__eq']
+            query_params.append(('device_execution_mode__eq', params['device_execution_mode__eq']))
         if 'owner__eq' in params:
-            query_params['owner__eq'] = params['owner__eq']
+            query_params.append(('owner__eq', params['owner__eq']))
 
         header_params = {}
 
@@ -582,7 +577,7 @@ class DeveloperApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/trusted-certificates', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -668,18 +663,17 @@ class DeveloperApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/policy-groups'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
         if 'limit' in params:
-            query_params['limit'] = params['limit']
+            query_params.append(('limit', params['limit']))
         if 'after' in params:
-            query_params['after'] = params['after']
+            query_params.append(('after', params['after']))
         if 'order' in params:
-            query_params['order'] = params['order']
+            query_params.append(('order', params['order']))
         if 'include' in params:
-            query_params['include'] = params['include']
+            query_params.append(('include', params['include']))
 
         header_params = {}
 
@@ -694,7 +688,7 @@ class DeveloperApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/policy-groups', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -777,12 +771,11 @@ class DeveloperApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/api-keys/{apiKey}'.replace('{format}', 'json')
         path_params = {}
         if 'api_key' in params:
             path_params['apiKey'] = params['api_key']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -797,7 +790,7 @@ class DeveloperApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/api-keys/{apiKey}', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -888,20 +881,19 @@ class DeveloperApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/policy-groups/{groupID}/api-keys'.replace('{format}', 'json')
         path_params = {}
         if 'group_id' in params:
             path_params['groupID'] = params['group_id']
 
-        query_params = {}
+        query_params = []
         if 'limit' in params:
-            query_params['limit'] = params['limit']
+            query_params.append(('limit', params['limit']))
         if 'after' in params:
-            query_params['after'] = params['after']
+            query_params.append(('after', params['after']))
         if 'order' in params:
-            query_params['order'] = params['order']
+            query_params.append(('order', params['order']))
         if 'include' in params:
-            query_params['include'] = params['include']
+            query_params.append(('include', params['include']))
 
         header_params = {}
 
@@ -916,7 +908,7 @@ class DeveloperApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/policy-groups/{groupID}/api-keys', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -999,12 +991,11 @@ class DeveloperApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/trusted-certificates/{cert-id}'.replace('{format}', 'json')
         path_params = {}
         if 'cert_id' in params:
             path_params['cert-id'] = params['cert_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -1019,7 +1010,7 @@ class DeveloperApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/trusted-certificates/{cert-id}', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1102,12 +1093,11 @@ class DeveloperApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/policy-groups/{groupID}'.replace('{format}', 'json')
         path_params = {}
         if 'group_id' in params:
             path_params['groupID'] = params['group_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -1122,7 +1112,7 @@ class DeveloperApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/policy-groups/{groupID}', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1202,12 +1192,11 @@ class DeveloperApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/accounts/me'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
         if 'include' in params:
-            query_params['include'] = params['include']
+            query_params.append(('include', params['include']))
 
         header_params = {}
 
@@ -1222,7 +1211,7 @@ class DeveloperApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/accounts/me', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1299,10 +1288,9 @@ class DeveloperApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/api-keys/me'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -1317,7 +1305,7 @@ class DeveloperApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/api-keys/me', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1397,12 +1385,11 @@ class DeveloperApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/users/me'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
         if 'scratch_codes' in params:
-            query_params['scratch_codes'] = params['scratch_codes']
+            query_params.append(('scratch_codes', params['scratch_codes']))
 
         header_params = {}
 
@@ -1417,7 +1404,7 @@ class DeveloperApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/users/me', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1505,12 +1492,11 @@ class DeveloperApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/policy-groups/{groupID}/api-keys'.replace('{format}', 'json')
         path_params = {}
         if 'group_id' in params:
             path_params['groupID'] = params['group_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -1531,7 +1517,7 @@ class DeveloperApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'DELETE',
+        return self.api_client.call_api('/v3/policy-groups/{groupID}/api-keys', 'DELETE',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1619,12 +1605,11 @@ class DeveloperApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/api-keys/{apiKey}'.replace('{format}', 'json')
         path_params = {}
         if 'api_key' in params:
             path_params['apiKey'] = params['api_key']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -1641,7 +1626,7 @@ class DeveloperApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'PUT',
+        return self.api_client.call_api('/v3/api-keys/{apiKey}', 'PUT',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1729,12 +1714,11 @@ class DeveloperApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/trusted-certificates/{cert-id}'.replace('{format}', 'json')
         path_params = {}
         if 'cert_id' in params:
             path_params['cert-id'] = params['cert_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -1755,7 +1739,7 @@ class DeveloperApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'PUT',
+        return self.api_client.call_api('/v3/trusted-certificates/{cert-id}', 'PUT',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1838,10 +1822,9 @@ class DeveloperApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/api-keys/me'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -1858,7 +1841,7 @@ class DeveloperApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'PUT',
+        return self.api_client.call_api('/v3/api-keys/me', 'PUT',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1941,10 +1924,9 @@ class DeveloperApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/users/me'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -1965,7 +1947,7 @@ class DeveloperApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'PUT',
+        return self.api_client.call_api('/v3/users/me', 'PUT',
                                         path_params,
                                         query_params,
                                         header_params,

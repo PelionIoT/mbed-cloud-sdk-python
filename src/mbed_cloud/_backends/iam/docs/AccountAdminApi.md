@@ -25,7 +25,7 @@ An endpoint for uploading new trusted certificates.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import iam
 from iam.rest import ApiException
@@ -78,7 +78,7 @@ An endpoint for adding users and API keys to groups.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import iam
 from iam.rest import ApiException
@@ -133,7 +133,7 @@ An endpoint for creating or inviting a new user to the account. In case of invit
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import iam
 from iam.rest import ApiException
@@ -188,7 +188,7 @@ An endpoint for deleting a user.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import iam
 from iam.rest import ApiException
@@ -240,7 +240,7 @@ An endpoint for retrieving the details of all users.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import iam
 from iam.rest import ApiException
@@ -301,7 +301,7 @@ An endpoint for retrieving the details of a user.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import iam
 from iam.rest import ApiException
@@ -354,7 +354,7 @@ An endpoint for listing the users of a group with details.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import iam
 from iam.rest import ApiException
@@ -415,7 +415,7 @@ An endpoint for removing users from groups.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import iam
 from iam.rest import ApiException
@@ -470,7 +470,7 @@ An endpoint for updating the account.   **Example usage:** `curl -X PUT https://
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import iam
 from iam.rest import ApiException
@@ -523,7 +523,7 @@ An endpoint for updating user details.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import iam
 from iam.rest import ApiException

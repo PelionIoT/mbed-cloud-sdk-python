@@ -115,16 +115,15 @@ class ResourcesApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v2/endpoints/{device-id}/{resourcePath}'.replace('{format}', 'json')
         path_params = {}
         if 'device_id' in params:
             path_params['device-id'] = params['device_id']
         if '_resource_path' in params:
             path_params['resourcePath'] = params['_resource_path']
 
-        query_params = {}
+        query_params = []
         if 'no_resp' in params:
-            query_params['noResp'] = params['no_resp']
+            query_params.append(('noResp', params['no_resp']))
 
         header_params = {}
 
@@ -135,7 +134,7 @@ class ResourcesApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'DELETE',
+        return self.api_client.call_api('/v2/endpoints/{device-id}/{resourcePath}', 'DELETE',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -227,18 +226,17 @@ class ResourcesApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v2/endpoints/{device-id}/{resourcePath}'.replace('{format}', 'json')
         path_params = {}
         if 'device_id' in params:
             path_params['device-id'] = params['device_id']
         if '_resource_path' in params:
             path_params['resourcePath'] = params['_resource_path']
 
-        query_params = {}
+        query_params = []
         if 'cache_only' in params:
-            query_params['cacheOnly'] = params['cache_only']
+            query_params.append(('cacheOnly', params['cache_only']))
         if 'no_resp' in params:
-            query_params['noResp'] = params['no_resp']
+            query_params.append(('noResp', params['no_resp']))
 
         header_params = {}
 
@@ -249,7 +247,7 @@ class ResourcesApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v2/endpoints/{device-id}/{resourcePath}', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -341,16 +339,15 @@ class ResourcesApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v2/endpoints/{device-id}/{resourcePath}'.replace('{format}', 'json')
         path_params = {}
         if 'device_id' in params:
             path_params['device-id'] = params['device_id']
         if '_resource_path' in params:
             path_params['resourcePath'] = params['_resource_path']
 
-        query_params = {}
+        query_params = []
         if 'no_resp' in params:
-            query_params['noResp'] = params['no_resp']
+            query_params.append(('noResp', params['no_resp']))
 
         header_params = {}
 
@@ -367,7 +364,7 @@ class ResourcesApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'POST',
+        return self.api_client.call_api('/v2/endpoints/{device-id}/{resourcePath}', 'POST',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -462,16 +459,15 @@ class ResourcesApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v2/endpoints/{device-id}/{resourcePath}'.replace('{format}', 'json')
         path_params = {}
         if 'device_id' in params:
             path_params['device-id'] = params['device_id']
         if '_resource_path' in params:
             path_params['resourcePath'] = params['_resource_path']
 
-        query_params = {}
+        query_params = []
         if 'no_resp' in params:
-            query_params['noResp'] = params['no_resp']
+            query_params.append(('noResp', params['no_resp']))
 
         header_params = {}
 
@@ -488,7 +484,7 @@ class ResourcesApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'PUT',
+        return self.api_client.call_api('/v2/endpoints/{device-id}/{resourcePath}', 'PUT',
                                         path_params,
                                         query_params,
                                         header_params,
