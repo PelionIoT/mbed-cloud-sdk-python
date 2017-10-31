@@ -3,7 +3,7 @@
 """
     Connect API
 
-    mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
+    Mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
 
     OpenAPI spec version: 2
     
@@ -43,7 +43,7 @@ class EndpointsApi(object):
     def v2_endpoints_device_id_get(self, device_id, **kwargs):
         """
         List the resources on an endpoint
-        The list of resources is cached by mbed Cloud Connect, so this call does not create a message to the device.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id} -H 'authorization: Bearer {api-key}'      
+        The list of resources is cached by Mbed Cloud Connect, so this call does not create a message to the device.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id} -H 'authorization: Bearer {api-key}'      
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -54,7 +54,7 @@ class EndpointsApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str device_id: A unique mbed Cloud device ID for an endpoint. Note that the ID needs to be an exact match. You cannot use wildcards here.  (required)
+        :param str device_id: A unique Mbed Cloud device ID for an endpoint. Note that the ID needs to be an exact match. You cannot use wildcards here.  (required)
         :return: list[Resource]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -69,7 +69,7 @@ class EndpointsApi(object):
     def v2_endpoints_device_id_get_with_http_info(self, device_id, **kwargs):
         """
         List the resources on an endpoint
-        The list of resources is cached by mbed Cloud Connect, so this call does not create a message to the device.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id} -H 'authorization: Bearer {api-key}'      
+        The list of resources is cached by Mbed Cloud Connect, so this call does not create a message to the device.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id} -H 'authorization: Bearer {api-key}'      
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -80,7 +80,7 @@ class EndpointsApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str device_id: A unique mbed Cloud device ID for an endpoint. Note that the ID needs to be an exact match. You cannot use wildcards here.  (required)
+        :param str device_id: A unique Mbed Cloud device ID for an endpoint. Note that the ID needs to be an exact match. You cannot use wildcards here.  (required)
         :return: list[Resource]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -146,7 +146,7 @@ class EndpointsApi(object):
     def v2_endpoints_get(self, **kwargs):
         """
         (DEPRECATED) List registered endpoints. The number of returned endpoints is currently limited to 200.
-        Endpoints are physical devices having valid registration to mbed Cloud Connect. All devices regardless of registration status can be requested from Device Directory API ['/v3/devices/`](/docs/v1.2/service-api-references/device-directory-api.html#v3-devices).  **Note:** This endpoint is deprecated and will be removed 1Q/18. You should use the Device Directory API [`/v3/devices/`](/docs/v1.2/service-api-references/device-directory-api.html#v3-devices). To list only the registered devices, use filter `/v3/devices/?filter=state%3Dregistered`.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/endpoints -H 'authorization: Bearer {api-key}'      
+        Endpoints are physical devices having valid registration to Mbed Cloud Connect. All devices regardless of registration status can be requested from Device Directory API ['/v3/devices/`](/docs/v1.2/service-api-references/device-directory-api.html#v3-devices).  **Note:** This endpoint is deprecated and will be removed 1Q/18. You should use the Device Directory API [`/v3/devices/`](/docs/v1.2/service-api-references/device-directory-api.html#v3-devices). To list only the registered devices, use filter `/v3/devices/?filter=state%3Dregistered`.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/endpoints -H 'authorization: Bearer {api-key}'      
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -172,7 +172,7 @@ class EndpointsApi(object):
     def v2_endpoints_get_with_http_info(self, **kwargs):
         """
         (DEPRECATED) List registered endpoints. The number of returned endpoints is currently limited to 200.
-        Endpoints are physical devices having valid registration to mbed Cloud Connect. All devices regardless of registration status can be requested from Device Directory API ['/v3/devices/`](/docs/v1.2/service-api-references/device-directory-api.html#v3-devices).  **Note:** This endpoint is deprecated and will be removed 1Q/18. You should use the Device Directory API [`/v3/devices/`](/docs/v1.2/service-api-references/device-directory-api.html#v3-devices). To list only the registered devices, use filter `/v3/devices/?filter=state%3Dregistered`.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/endpoints -H 'authorization: Bearer {api-key}'      
+        Endpoints are physical devices having valid registration to Mbed Cloud Connect. All devices regardless of registration status can be requested from Device Directory API ['/v3/devices/`](/docs/v1.2/service-api-references/device-directory-api.html#v3-devices).  **Note:** This endpoint is deprecated and will be removed 1Q/18. You should use the Device Directory API [`/v3/devices/`](/docs/v1.2/service-api-references/device-directory-api.html#v3-devices). To list only the registered devices, use filter `/v3/devices/?filter=state%3Dregistered`.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/endpoints -H 'authorization: Bearer {api-key}'      
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.

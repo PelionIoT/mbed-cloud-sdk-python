@@ -3,7 +3,7 @@
 """
     Connect API
 
-    mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
+    Mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
 
     OpenAPI spec version: 2
     
@@ -102,7 +102,7 @@ class EndpointData(object):
     def original_ep(self):
         """
         Gets the original_ep of this EndpointData.
-        In case of a self-provided endpoint name that is used to initiate the device registration, mbed Cloud provides a new Device ID to be used from that point on. The new mbed-Cloud-provided Device ID is forwarded as the 'ep' property and the original self-provided one as the optional 'original-ep' property in a registration notification. The name and ID can then be mapped accordingly. mbed Cloud saves the original endpoint name in Device Catalog for future device registrations so there is no need to do the mapping again.  
+        In case of a self-provided endpoint name that is used to initiate the device registration, Mbed Cloud provides a new Device ID to be used from that point on. The new Mbed-Cloud-provided Device ID is forwarded as the 'ep' property and the original self-provided one as the optional 'original-ep' property in a registration notification. The name and ID can then be mapped accordingly. Mbed Cloud saves the original endpoint name in Device Directory for future device registrations so there is no need to do the mapping again.  
 
         :return: The original_ep of this EndpointData.
         :rtype: str
@@ -113,7 +113,7 @@ class EndpointData(object):
     def original_ep(self, original_ep):
         """
         Sets the original_ep of this EndpointData.
-        In case of a self-provided endpoint name that is used to initiate the device registration, mbed Cloud provides a new Device ID to be used from that point on. The new mbed-Cloud-provided Device ID is forwarded as the 'ep' property and the original self-provided one as the optional 'original-ep' property in a registration notification. The name and ID can then be mapped accordingly. mbed Cloud saves the original endpoint name in Device Catalog for future device registrations so there is no need to do the mapping again.  
+        In case of a self-provided endpoint name that is used to initiate the device registration, Mbed Cloud provides a new Device ID to be used from that point on. The new Mbed-Cloud-provided Device ID is forwarded as the 'ep' property and the original self-provided one as the optional 'original-ep' property in a registration notification. The name and ID can then be mapped accordingly. Mbed Cloud saves the original endpoint name in Device Directory for future device registrations so there is no need to do the mapping again.  
 
         :param original_ep: The original_ep of this EndpointData.
         :type: str
@@ -146,7 +146,7 @@ class EndpointData(object):
     def ep(self):
         """
         Gets the ep of this EndpointData.
-        Unique mbed Cloud Device ID.
+        Unique Mbed Cloud Device ID.
 
         :return: The ep of this EndpointData.
         :rtype: str
@@ -157,7 +157,7 @@ class EndpointData(object):
     def ep(self, ep):
         """
         Sets the ep of this EndpointData.
-        Unique mbed Cloud Device ID.
+        Unique Mbed Cloud Device ID.
 
         :param ep: The ep of this EndpointData.
         :type: str

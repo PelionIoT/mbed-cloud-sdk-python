@@ -3,7 +3,7 @@
 """
     Connect API
 
-    mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
+    Mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
 
     OpenAPI spec version: 2
     
@@ -79,7 +79,7 @@ class ResourcesData(object):
     def rf(self):
         """
         Gets the rf of this ResourcesData.
-        Resource type [created by Client side application](/docs/v1.2/collecting/resource-setup-in-mbed-cloud-client.html). For example \"speed_sensor\"
+        Resource type [created by the client side application](/docs/v1.2/collecting/resource-setup-in-mbed-cloud-client.html). For example \"speed_sensor\"
 
         :return: The rf of this ResourcesData.
         :rtype: str
@@ -90,7 +90,7 @@ class ResourcesData(object):
     def rf(self, rf):
         """
         Sets the rf of this ResourcesData.
-        Resource type [created by Client side application](/docs/v1.2/collecting/resource-setup-in-mbed-cloud-client.html). For example \"speed_sensor\"
+        Resource type [created by the client side application](/docs/v1.2/collecting/resource-setup-in-mbed-cloud-client.html). For example \"speed_sensor\"
 
         :param rf: The rf of this ResourcesData.
         :type: str
