@@ -16,8 +16,10 @@ import re
 import json
 import mimetypes
 import tempfile
+########### Change
 import threading
 import functools
+########### End Change
 import time
 
 from datetime import date, datetime
@@ -65,22 +67,22 @@ class ApiClient(object):
         """
         Constructor of the class.
         """
-        conf = Configuration()
 
         self.rest_client = RESTClientObject()
         self.default_headers = {}
         if header_name is not None:
             self.default_headers[header_name] = header_value
         if host is None:
-            self.host = conf.host
+            self.host = Configuration().host
         else:
             self.host = host
         self.cookie = cookie
         # Set default User-Agent.
         self.user_agent = 'Swagger-Codegen/1.0.0/python'
-        self.safe_chars = conf.safe_chars
+        ########### Change
         # Store last api call metadata
         self.last_metadata = {}
+        ########### End Change
 
     @property
     def user_agent(self):
@@ -99,6 +101,7 @@ class ApiClient(object):
     def set_default_header(self, header_name, header_value):
         self.default_headers[header_name] = header_value
 
+    ########### Change
     def metadata_wrapper(fn):
         """Save metadata of last api call."""
         @functools.wraps(fn)
@@ -116,6 +119,7 @@ class ApiClient(object):
 
     def get_last_metadata(self):
         return self.last_metadata
+    ########### End Change
 
     @metadata_wrapper
     def __call_api(self, resource_path, method,
@@ -141,8 +145,9 @@ class ApiClient(object):
             path_params = self.parameters_to_tuples(path_params,
                                                     collection_formats)
             for k, v in path_params:
+                # specified safe chars, encode everything
                 resource_path = resource_path.replace(
-                    '{%s}' % k, quote(str(v), safe=self.safe_chars))
+                    '{%s}' % k, quote(str(v), safe=config.safe_chars_for_path_param))
 
         # query parameters
         if query_params:
@@ -185,8 +190,10 @@ class ApiClient(object):
             else:
                 return_data = None
 
+        ########### Change
         self.last_metadata["response"] = response_data
         self.last_metadata["return_data"] = return_data
+        ########### End Change
 
         if callback:
             if _return_http_data_only:
@@ -643,16 +650,17 @@ class ApiClient(object):
         :param klass: class literal.
         :return: model object.
         """
-        instance = klass()
-
-        if not instance.swagger_types:
+        if not klass.swagger_types:
             return data
 
-        for attr, attr_type in iteritems(instance.swagger_types):
+        kwargs = {}
+        for attr, attr_type in iteritems(klass.swagger_types):
             if data is not None \
-               and instance.attribute_map[attr] in data \
+               and klass.attribute_map[attr] in data \
                and isinstance(data, (list, dict)):
-                value = data[instance.attribute_map[attr]]
-                setattr(instance, "_%s" % attr, self.__deserialize(value, attr_type))
+                value = data[klass.attribute_map[attr]]
+                kwargs[attr] = self.__deserialize(value, attr_type)
+
+        instance = klass(**kwargs)
 
         return instance

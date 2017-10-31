@@ -17,7 +17,7 @@ This REST API is intended to be used by customers to fetch an existing developer
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import connector_ca
 from connector_ca.rest import ApiException
@@ -72,7 +72,7 @@ This REST API is intended to be used by customers to get a developer certificate
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import connector_ca
 from connector_ca.rest import ApiException

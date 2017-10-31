@@ -31,7 +31,7 @@ Create firmware image.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import update_service
 from update_service.rest import ApiException
@@ -87,7 +87,7 @@ Delete firmware image.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import update_service
 from update_service.rest import ApiException
@@ -138,7 +138,7 @@ List all firmware images.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import update_service
 from update_service.rest import ApiException
@@ -198,7 +198,7 @@ Retrieve firmware image.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import update_service
 from update_service.rest import ApiException
@@ -250,7 +250,7 @@ Create firmware manifest.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import update_service
 from update_service.rest import ApiException
@@ -306,7 +306,7 @@ Delete firmware manifest.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import update_service
 from update_service.rest import ApiException
@@ -357,7 +357,7 @@ List firmware manifests.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import update_service
 from update_service.rest import ApiException
@@ -417,7 +417,7 @@ Retrieve firmware manifest.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import update_service
 from update_service.rest import ApiException
@@ -469,7 +469,7 @@ Create an update campaign.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import update_service
 from update_service.rest import ApiException
@@ -521,7 +521,7 @@ Delete an update campaign.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import update_service
 from update_service.rest import ApiException
@@ -572,7 +572,7 @@ Get update campaigns for devices specified by a filter.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import update_service
 from update_service.rest import ApiException
@@ -632,7 +632,7 @@ Modify a subset of an update campaign's fields.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import update_service
 from update_service.rest import ApiException
@@ -686,7 +686,7 @@ Get an update campaign.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import update_service
 from update_service.rest import ApiException
@@ -738,7 +738,7 @@ Modify an update campaign.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import update_service
 from update_service.rest import ApiException
@@ -792,7 +792,7 @@ Get update campaign metadata.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import update_service
 from update_service.rest import ApiException
@@ -846,7 +846,7 @@ Get campaign device metadata.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import update_service
 from update_service.rest import ApiException

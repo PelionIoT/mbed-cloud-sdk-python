@@ -17,7 +17,7 @@ Deletes the callback URL.  **Example usage:**      curl -X DELETE https://api.us
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import mds
 from mds.rest import ApiException
@@ -65,7 +65,7 @@ Shows the current callback URL if it exists.  **Example usage:**      curl -X GE
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import mds
 from mds.rest import ApiException

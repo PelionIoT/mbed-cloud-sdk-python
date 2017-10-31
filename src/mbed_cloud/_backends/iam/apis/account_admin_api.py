@@ -108,10 +108,9 @@ class AccountAdminApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/trusted-certificates'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -132,7 +131,7 @@ class AccountAdminApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'POST',
+        return self.api_client.call_api('/v3/trusted-certificates', 'POST',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -220,12 +219,11 @@ class AccountAdminApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/policy-groups/{groupID}'.replace('{format}', 'json')
         path_params = {}
         if 'group_id' in params:
             path_params['groupID'] = params['group_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -246,7 +244,7 @@ class AccountAdminApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'POST',
+        return self.api_client.call_api('/v3/policy-groups/{groupID}', 'POST',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -331,12 +329,11 @@ class AccountAdminApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/users'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
         if 'action' in params:
-            query_params['action'] = params['action']
+            query_params.append(('action', params['action']))
 
         header_params = {}
 
@@ -357,7 +354,7 @@ class AccountAdminApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'POST',
+        return self.api_client.call_api('/v3/users', 'POST',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -440,12 +437,11 @@ class AccountAdminApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/users/{user-id}'.replace('{format}', 'json')
         path_params = {}
         if 'user_id' in params:
             path_params['user-id'] = params['user_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -460,7 +456,7 @@ class AccountAdminApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'DELETE',
+        return self.api_client.call_api('/v3/users/{user-id}', 'DELETE',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -548,20 +544,19 @@ class AccountAdminApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/users'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
         if 'limit' in params:
-            query_params['limit'] = params['limit']
+            query_params.append(('limit', params['limit']))
         if 'after' in params:
-            query_params['after'] = params['after']
+            query_params.append(('after', params['after']))
         if 'order' in params:
-            query_params['order'] = params['order']
+            query_params.append(('order', params['order']))
         if 'include' in params:
-            query_params['include'] = params['include']
+            query_params.append(('include', params['include']))
         if 'status__eq' in params:
-            query_params['status__eq'] = params['status__eq']
+            query_params.append(('status__eq', params['status__eq']))
 
         header_params = {}
 
@@ -576,7 +571,7 @@ class AccountAdminApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/users', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -659,12 +654,11 @@ class AccountAdminApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/users/{user-id}'.replace('{format}', 'json')
         path_params = {}
         if 'user_id' in params:
             path_params['user-id'] = params['user_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -679,7 +673,7 @@ class AccountAdminApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/users/{user-id}', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -770,20 +764,19 @@ class AccountAdminApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/policy-groups/{groupID}/users'.replace('{format}', 'json')
         path_params = {}
         if 'group_id' in params:
             path_params['groupID'] = params['group_id']
 
-        query_params = {}
+        query_params = []
         if 'limit' in params:
-            query_params['limit'] = params['limit']
+            query_params.append(('limit', params['limit']))
         if 'after' in params:
-            query_params['after'] = params['after']
+            query_params.append(('after', params['after']))
         if 'order' in params:
-            query_params['order'] = params['order']
+            query_params.append(('order', params['order']))
         if 'include' in params:
-            query_params['include'] = params['include']
+            query_params.append(('include', params['include']))
 
         header_params = {}
 
@@ -798,7 +791,7 @@ class AccountAdminApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/policy-groups/{groupID}/users', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -886,12 +879,11 @@ class AccountAdminApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/policy-groups/{groupID}/users'.replace('{format}', 'json')
         path_params = {}
         if 'group_id' in params:
             path_params['groupID'] = params['group_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -912,7 +904,7 @@ class AccountAdminApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'DELETE',
+        return self.api_client.call_api('/v3/policy-groups/{groupID}/users', 'DELETE',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -995,10 +987,9 @@ class AccountAdminApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/accounts/me'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -1019,7 +1010,7 @@ class AccountAdminApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'PUT',
+        return self.api_client.call_api('/v3/accounts/me', 'PUT',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1107,12 +1098,11 @@ class AccountAdminApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/users/{user-id}'.replace('{format}', 'json')
         path_params = {}
         if 'user_id' in params:
             path_params['user-id'] = params['user_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -1133,7 +1123,7 @@ class AccountAdminApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'PUT',
+        return self.api_client.call_api('/v3/users/{user-id}', 'PUT',
                                         path_params,
                                         query_params,
                                         header_params,
