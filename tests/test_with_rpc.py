@@ -7,7 +7,6 @@ import traceback
 import unittest
 
 import requests
-import pytest
 
 from tests.common import BaseCase
 
@@ -29,7 +28,6 @@ def have_docker_image(image):
 
 
 @unittest.skipIf(not have_docker_image(docker_image), 'missing docker image %s' % docker_image)
-@pytest.mark.remote
 class TestWithRPC(BaseCase):
 
     @classmethod
