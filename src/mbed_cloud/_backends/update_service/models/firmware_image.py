@@ -114,6 +114,8 @@ class FirmwareImage(object):
         """
         if description is None:
             raise ValueError("Invalid value for `description`, must not be `None`")
+        if description is not None and len(description) > 2000:
+            raise ValueError("Invalid value for `description`, length must be less than or equal to `2000`")
 
         self._description = description
 
@@ -312,6 +314,8 @@ class FirmwareImage(object):
         """
         if name is None:
             raise ValueError("Invalid value for `name`, must not be `None`")
+        if name is not None and len(name) > 128:
+            raise ValueError("Invalid value for `name`, length must be less than or equal to `128`")
 
         self._name = name
 

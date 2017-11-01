@@ -80,6 +80,8 @@ class UpdateCampaignPutRequest(object):
         """
         if description is None:
             raise ValueError("Invalid value for `description`, must not be `None`")
+        if description is not None and len(description) > 2000:
+            raise ValueError("Invalid value for `description`, length must be less than or equal to `2000`")
 
         self._description = description
 

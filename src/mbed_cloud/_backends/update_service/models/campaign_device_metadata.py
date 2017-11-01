@@ -93,6 +93,8 @@ class CampaignDeviceMetadata(object):
         :param description: The description of this CampaignDeviceMetadata.
         :type: str
         """
+        if description is not None and len(description) > 2000:
+            raise ValueError("Invalid value for `description`, length must be less than or equal to `2000`")
 
         self._description = description
 
@@ -231,6 +233,8 @@ class CampaignDeviceMetadata(object):
         :param name: The name of this CampaignDeviceMetadata.
         :type: str
         """
+        if name is not None and len(name) > 128:
+            raise ValueError("Invalid value for `name`, length must be less than or equal to `128`")
 
         self._name = name
 
