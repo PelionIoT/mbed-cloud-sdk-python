@@ -3,7 +3,7 @@
 """
     Connect API
 
-    mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
+    Mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
 
     OpenAPI spec version: 2
     
@@ -20,7 +20,6 @@ import re
 # python 2 and python 3 compatibility library
 from six import iteritems
 
-from ..configuration import Configuration
 from ..api_client import ApiClient
 
 
@@ -32,34 +31,26 @@ class SubscriptionsApi(object):
     """
 
     def __init__(self, api_client=None):
-        config = Configuration()
-        if api_client:
-            self.api_client = api_client
-        else:
-            if not config.api_client:
-                config.api_client = ApiClient()
-            self.api_client = config.api_client
+        if api_client is None:
+            api_client = ApiClient()
+        self.api_client = api_client
 
     def v2_subscriptions_delete(self, **kwargs):
         """
         Remove all subscriptions
         Removes subscriptions from every endpoint and resource. Note that this does not remove pre-subscriptions.  **Example usage:**      curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/subscriptions -H 'authorization: Bearer {api-key}'      
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.v2_subscriptions_delete(callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.v2_subscriptions_delete(async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.v2_subscriptions_delete_with_http_info(**kwargs)
         else:
             (data) = self.v2_subscriptions_delete_with_http_info(**kwargs)
@@ -70,22 +61,18 @@ class SubscriptionsApi(object):
         Remove all subscriptions
         Removes subscriptions from every endpoint and resource. Note that this does not remove pre-subscriptions.  **Example usage:**      curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/subscriptions -H 'authorization: Bearer {api-key}'      
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.v2_subscriptions_delete_with_http_info(callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.v2_subscriptions_delete_with_http_info(async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
         all_params = []
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -102,10 +89,9 @@ class SubscriptionsApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v2/subscriptions'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -116,7 +102,7 @@ class SubscriptionsApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'DELETE',
+        return self.api_client.call_api('/v2/subscriptions', 'DELETE',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -125,7 +111,7 @@ class SubscriptionsApi(object):
                                         files=local_var_files,
                                         response_type=None,
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -136,22 +122,18 @@ class SubscriptionsApi(object):
         Delete subscriptions from an endpoint
         Deletes all resource subscriptions in a single endpoint.  **Example usage:**      curl -X DELETE \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id} \\       -H 'authorization: Bearer {api-key}'        
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.v2_subscriptions_device_id_delete(device_id, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.v2_subscriptions_device_id_delete(device_id, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str device_id: A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  (required)
+        :param async bool
+        :param str device_id: A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.v2_subscriptions_device_id_delete_with_http_info(device_id, **kwargs)
         else:
             (data) = self.v2_subscriptions_device_id_delete_with_http_info(device_id, **kwargs)
@@ -162,23 +144,19 @@ class SubscriptionsApi(object):
         Delete subscriptions from an endpoint
         Deletes all resource subscriptions in a single endpoint.  **Example usage:**      curl -X DELETE \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id} \\       -H 'authorization: Bearer {api-key}'        
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.v2_subscriptions_device_id_delete_with_http_info(device_id, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.v2_subscriptions_device_id_delete_with_http_info(device_id, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str device_id: A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  (required)
+        :param async bool
+        :param str device_id: A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
         all_params = ['device_id']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -199,12 +177,11 @@ class SubscriptionsApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v2/subscriptions/{device-id}'.replace('{format}', 'json')
         path_params = {}
         if 'device_id' in params:
             path_params['device-id'] = params['device_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -215,7 +192,7 @@ class SubscriptionsApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'DELETE',
+        return self.api_client.call_api('/v2/subscriptions/{device-id}', 'DELETE',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -224,7 +201,7 @@ class SubscriptionsApi(object):
                                         files=local_var_files,
                                         response_type=None,
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -235,22 +212,18 @@ class SubscriptionsApi(object):
         Read endpoints subscriptions
         Lists all subscribed resources from a single endpoint.  **Example usage:**      curl -X GET \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id} \\       -H 'authorization: Bearer {api-key}'        
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.v2_subscriptions_device_id_get(device_id, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.v2_subscriptions_device_id_get(device_id, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str device_id: A unique mbed Cloud device ID for the endpoint. Note that ID must be an exact match. You cannot use wildcards here.  (required)
+        :param async bool
+        :param str device_id: A unique Mbed Cloud device ID for the endpoint. Note that ID must be an exact match. You cannot use wildcards here.  (required)
         :return: str
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.v2_subscriptions_device_id_get_with_http_info(device_id, **kwargs)
         else:
             (data) = self.v2_subscriptions_device_id_get_with_http_info(device_id, **kwargs)
@@ -261,23 +234,19 @@ class SubscriptionsApi(object):
         Read endpoints subscriptions
         Lists all subscribed resources from a single endpoint.  **Example usage:**      curl -X GET \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id} \\       -H 'authorization: Bearer {api-key}'        
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.v2_subscriptions_device_id_get_with_http_info(device_id, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.v2_subscriptions_device_id_get_with_http_info(device_id, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str device_id: A unique mbed Cloud device ID for the endpoint. Note that ID must be an exact match. You cannot use wildcards here.  (required)
+        :param async bool
+        :param str device_id: A unique Mbed Cloud device ID for the endpoint. Note that ID must be an exact match. You cannot use wildcards here.  (required)
         :return: str
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
         all_params = ['device_id']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -298,12 +267,11 @@ class SubscriptionsApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v2/subscriptions/{device-id}'.replace('{format}', 'json')
         path_params = {}
         if 'device_id' in params:
             path_params['device-id'] = params['device_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -318,7 +286,7 @@ class SubscriptionsApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v2/subscriptions/{device-id}', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -327,7 +295,7 @@ class SubscriptionsApi(object):
                                         files=local_var_files,
                                         response_type='str',
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -338,23 +306,19 @@ class SubscriptionsApi(object):
         Remove a subscription
         To remove an existing subscription from a resource path.  **Example usage:**      curl -X DELETE \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id}/{resourcePath} \\       -H 'authorization: Bearer {api-key}'        
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.v2_subscriptions_device_id_resource_path_delete(device_id, _resource_path, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.v2_subscriptions_device_id_resource_path_delete(device_id, _resource_path, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str device_id: A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  (required)
+        :param async bool
+        :param str device_id: A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  (required)
         :param str _resource_path: The URL of the resource.  (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.v2_subscriptions_device_id_resource_path_delete_with_http_info(device_id, _resource_path, **kwargs)
         else:
             (data) = self.v2_subscriptions_device_id_resource_path_delete_with_http_info(device_id, _resource_path, **kwargs)
@@ -365,16 +329,12 @@ class SubscriptionsApi(object):
         Remove a subscription
         To remove an existing subscription from a resource path.  **Example usage:**      curl -X DELETE \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id}/{resourcePath} \\       -H 'authorization: Bearer {api-key}'        
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.v2_subscriptions_device_id_resource_path_delete_with_http_info(device_id, _resource_path, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.v2_subscriptions_device_id_resource_path_delete_with_http_info(device_id, _resource_path, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str device_id: A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  (required)
+        :param async bool
+        :param str device_id: A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  (required)
         :param str _resource_path: The URL of the resource.  (required)
         :return: None
                  If the method is called asynchronously,
@@ -382,7 +342,7 @@ class SubscriptionsApi(object):
         """
 
         all_params = ['device_id', '_resource_path']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -406,14 +366,13 @@ class SubscriptionsApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v2/subscriptions/{device-id}/{resourcePath}'.replace('{format}', 'json')
         path_params = {}
         if 'device_id' in params:
             path_params['device-id'] = params['device_id']
         if '_resource_path' in params:
             path_params['resourcePath'] = params['_resource_path']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -424,7 +383,7 @@ class SubscriptionsApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'DELETE',
+        return self.api_client.call_api('/v2/subscriptions/{device-id}/{resourcePath}', 'DELETE',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -433,7 +392,7 @@ class SubscriptionsApi(object):
                                         files=local_var_files,
                                         response_type=None,
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -443,23 +402,19 @@ class SubscriptionsApi(object):
         """
         Read subscription status
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.v2_subscriptions_device_id_resource_path_get(device_id, _resource_path, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.v2_subscriptions_device_id_resource_path_get(device_id, _resource_path, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str device_id: A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  (required)
+        :param async bool
+        :param str device_id: A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  (required)
         :param str _resource_path: The URL of the resource.  (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.v2_subscriptions_device_id_resource_path_get_with_http_info(device_id, _resource_path, **kwargs)
         else:
             (data) = self.v2_subscriptions_device_id_resource_path_get_with_http_info(device_id, _resource_path, **kwargs)
@@ -469,16 +424,12 @@ class SubscriptionsApi(object):
         """
         Read subscription status
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.v2_subscriptions_device_id_resource_path_get_with_http_info(device_id, _resource_path, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.v2_subscriptions_device_id_resource_path_get_with_http_info(device_id, _resource_path, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str device_id: A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  (required)
+        :param async bool
+        :param str device_id: A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  (required)
         :param str _resource_path: The URL of the resource.  (required)
         :return: None
                  If the method is called asynchronously,
@@ -486,7 +437,7 @@ class SubscriptionsApi(object):
         """
 
         all_params = ['device_id', '_resource_path']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -510,14 +461,13 @@ class SubscriptionsApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v2/subscriptions/{device-id}/{resourcePath}'.replace('{format}', 'json')
         path_params = {}
         if 'device_id' in params:
             path_params['device-id'] = params['device_id']
         if '_resource_path' in params:
             path_params['resourcePath'] = params['_resource_path']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -528,7 +478,7 @@ class SubscriptionsApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v2/subscriptions/{device-id}/{resourcePath}', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -537,7 +487,7 @@ class SubscriptionsApi(object):
                                         files=local_var_files,
                                         response_type=None,
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -546,25 +496,21 @@ class SubscriptionsApi(object):
     def v2_subscriptions_device_id_resource_path_put(self, device_id, _resource_path, **kwargs):
         """
         Subscribe to a resource path
-        The mbed Cloud Connect eventing model consists of observable resources.  This means that endpoints can deliver updated resource content, periodically or with a more sophisticated  solution-dependent logic. The OMA LWM2M resource model including objects, object instances,  resources and resource instances is also supported.  Applications can subscribe to objects, object instances or individual resources to make the device  to provide value change notifications to mbed Cloud Connect service. An application needs to call a `/notification/callback` method to get mbed Cloud Connect to push notifications of the resource changes.  The manual subscriptions are removed during a full device registration and applications need to  re-subscribe at that point. To avoid this, you can use `/subscriptions` to set a pre-subscription.  **Example usage:**      curl -X PUT \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id}/{resourcePath} \\       -H 'authorization: Bearer {api-key}' 
+        The Mbed Cloud Connect eventing model consists of observable resources.  This means that endpoints can deliver updated resource content, periodically or with a more sophisticated  solution-dependent logic. The OMA LwM2M resource model including objects, object instances,  resources and resource instances is also supported.  Applications can subscribe to objects, object instances or individual resources to make the device  to provide value change notifications to Mbed Cloud Connect service. An application needs to call a `/notification/callback` method to get Mbed Cloud Connect to push notifications of the resource changes.  The manual subscriptions are removed during a full device registration and applications need to  re-subscribe at that point. To avoid this, you can use `/subscriptions` to set a pre-subscription.  **Example usage:**      curl -X PUT \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id}/{resourcePath} \\       -H 'authorization: Bearer {api-key}' 
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.v2_subscriptions_device_id_resource_path_put(device_id, _resource_path, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.v2_subscriptions_device_id_resource_path_put(device_id, _resource_path, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str device_id: A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  (required)
+        :param async bool
+        :param str device_id: A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  (required)
         :param str _resource_path: The URL of the resource.  (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.v2_subscriptions_device_id_resource_path_put_with_http_info(device_id, _resource_path, **kwargs)
         else:
             (data) = self.v2_subscriptions_device_id_resource_path_put_with_http_info(device_id, _resource_path, **kwargs)
@@ -573,18 +519,14 @@ class SubscriptionsApi(object):
     def v2_subscriptions_device_id_resource_path_put_with_http_info(self, device_id, _resource_path, **kwargs):
         """
         Subscribe to a resource path
-        The mbed Cloud Connect eventing model consists of observable resources.  This means that endpoints can deliver updated resource content, periodically or with a more sophisticated  solution-dependent logic. The OMA LWM2M resource model including objects, object instances,  resources and resource instances is also supported.  Applications can subscribe to objects, object instances or individual resources to make the device  to provide value change notifications to mbed Cloud Connect service. An application needs to call a `/notification/callback` method to get mbed Cloud Connect to push notifications of the resource changes.  The manual subscriptions are removed during a full device registration and applications need to  re-subscribe at that point. To avoid this, you can use `/subscriptions` to set a pre-subscription.  **Example usage:**      curl -X PUT \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id}/{resourcePath} \\       -H 'authorization: Bearer {api-key}' 
+        The Mbed Cloud Connect eventing model consists of observable resources.  This means that endpoints can deliver updated resource content, periodically or with a more sophisticated  solution-dependent logic. The OMA LwM2M resource model including objects, object instances,  resources and resource instances is also supported.  Applications can subscribe to objects, object instances or individual resources to make the device  to provide value change notifications to Mbed Cloud Connect service. An application needs to call a `/notification/callback` method to get Mbed Cloud Connect to push notifications of the resource changes.  The manual subscriptions are removed during a full device registration and applications need to  re-subscribe at that point. To avoid this, you can use `/subscriptions` to set a pre-subscription.  **Example usage:**      curl -X PUT \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id}/{resourcePath} \\       -H 'authorization: Bearer {api-key}' 
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.v2_subscriptions_device_id_resource_path_put_with_http_info(device_id, _resource_path, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.v2_subscriptions_device_id_resource_path_put_with_http_info(device_id, _resource_path, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str device_id: A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  (required)
+        :param async bool
+        :param str device_id: A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  (required)
         :param str _resource_path: The URL of the resource.  (required)
         :return: None
                  If the method is called asynchronously,
@@ -592,7 +534,7 @@ class SubscriptionsApi(object):
         """
 
         all_params = ['device_id', '_resource_path']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -616,14 +558,13 @@ class SubscriptionsApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v2/subscriptions/{device-id}/{resourcePath}'.replace('{format}', 'json')
         path_params = {}
         if 'device_id' in params:
             path_params['device-id'] = params['device_id']
         if '_resource_path' in params:
             path_params['resourcePath'] = params['_resource_path']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -638,7 +579,7 @@ class SubscriptionsApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'PUT',
+        return self.api_client.call_api('/v2/subscriptions/{device-id}/{resourcePath}', 'PUT',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -647,7 +588,7 @@ class SubscriptionsApi(object):
                                         files=local_var_files,
                                         response_type=None,
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -658,21 +599,17 @@ class SubscriptionsApi(object):
         Get pre-subscriptions
         You can retrieve the pre-subscription data with the GET operation. The server returns with the same JSON structure  as described above. If there are no pre-subscribed resources, it returns with an empty array.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/subscriptions -H 'authorization: Bearer {api-key}'      
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.v2_subscriptions_get(callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.v2_subscriptions_get(async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :return: PresubscriptionArray
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.v2_subscriptions_get_with_http_info(**kwargs)
         else:
             (data) = self.v2_subscriptions_get_with_http_info(**kwargs)
@@ -683,22 +620,18 @@ class SubscriptionsApi(object):
         Get pre-subscriptions
         You can retrieve the pre-subscription data with the GET operation. The server returns with the same JSON structure  as described above. If there are no pre-subscribed resources, it returns with an empty array.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/subscriptions -H 'authorization: Bearer {api-key}'      
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.v2_subscriptions_get_with_http_info(callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.v2_subscriptions_get_with_http_info(async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :return: PresubscriptionArray
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
         all_params = []
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -715,10 +648,9 @@ class SubscriptionsApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v2/subscriptions'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -733,7 +665,7 @@ class SubscriptionsApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v2/subscriptions', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -742,7 +674,7 @@ class SubscriptionsApi(object):
                                         files=local_var_files,
                                         response_type='PresubscriptionArray',
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -751,24 +683,20 @@ class SubscriptionsApi(object):
     def v2_subscriptions_put(self, presubsription, **kwargs):
         """
         Set pre-subscriptions
-        Pre-subscription is a set of rules and patterns put by the application. When an endpoint registers  and its ID, type and registered resources match the pre-subscription data, mbed Cloud Connect sends  subscription requests to the device automatically. The pattern may include the endpoint ID  (optionally having an `*` character at the end), endpoint type, a list of resources or expressions with an `*` character at the end. Subscriptions based on pre-subscriptions are done when device registers or does register update. To remove the pre-subscription data, put an empty array as a rule.  **Limits**:  - The maximum length of the endpoint name and endpoint type is 64 characters. - The maximum length of the resource path is 128 characters. - You can listen to 256 separate resource paths. - The maximum number of pre-subscription entries is 1024.          **Example request:**  ``` curl -X PUT \\   https://api.us-east-1.mbedcloud.com/v2/subscriptions \\   -H 'authorization: Bearer {api-key}' \\   -H 'content-type: application/json' \\   -d '[          {            \"endpoint-name\": \"node-001\",            \"resource-path\": [\"/dev\"]          },          {            \"endpoint-type\": \"Light\",            \"resource-path\": [\"/sen/*\"]          },          {            \"endpoint-name\": \"node*\"          },          {            \"endpoint-type\": \"Sensor\"          },          {            \"resource-path\": [\"/dev/temp\",\"/dev/hum\"]          }       ]' ``` 
+        Pre-subscription is a set of rules and patterns put by the application. When an endpoint registers  and its ID, type and registered resources match the pre-subscription data, Mbed Cloud Connect sends  subscription requests to the device automatically. The pattern may include the endpoint ID  (optionally having an `*` character at the end), endpoint type, a list of resources or expressions with an `*` character at the end. Subscriptions based on pre-subscriptions are done when device registers or does register update. To remove the pre-subscription data, put an empty array as a rule.  **Limits**:  - The maximum length of the endpoint name and endpoint type is 64 characters. - The maximum length of the resource path is 128 characters. - You can listen to 256 separate resource paths. - The maximum number of pre-subscription entries is 1024.          **Example request:**  ``` curl -X PUT \\   https://api.us-east-1.mbedcloud.com/v2/subscriptions \\   -H 'authorization: Bearer {api-key}' \\   -H 'content-type: application/json' \\   -d '[          {            \"endpoint-name\": \"node-001\",            \"resource-path\": [\"/dev\"]          },          {            \"endpoint-type\": \"Light\",            \"resource-path\": [\"/sen/*\"]          },          {            \"endpoint-name\": \"node*\"          },          {            \"endpoint-type\": \"Sensor\"          },          {            \"resource-path\": [\"/dev/temp\",\"/dev/hum\"]          }       ]' ``` 
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.v2_subscriptions_put(presubsription, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.v2_subscriptions_put(presubsription, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param PresubscriptionArray presubsription: Array of pre-subscriptions. (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.v2_subscriptions_put_with_http_info(presubsription, **kwargs)
         else:
             (data) = self.v2_subscriptions_put_with_http_info(presubsription, **kwargs)
@@ -777,17 +705,13 @@ class SubscriptionsApi(object):
     def v2_subscriptions_put_with_http_info(self, presubsription, **kwargs):
         """
         Set pre-subscriptions
-        Pre-subscription is a set of rules and patterns put by the application. When an endpoint registers  and its ID, type and registered resources match the pre-subscription data, mbed Cloud Connect sends  subscription requests to the device automatically. The pattern may include the endpoint ID  (optionally having an `*` character at the end), endpoint type, a list of resources or expressions with an `*` character at the end. Subscriptions based on pre-subscriptions are done when device registers or does register update. To remove the pre-subscription data, put an empty array as a rule.  **Limits**:  - The maximum length of the endpoint name and endpoint type is 64 characters. - The maximum length of the resource path is 128 characters. - You can listen to 256 separate resource paths. - The maximum number of pre-subscription entries is 1024.          **Example request:**  ``` curl -X PUT \\   https://api.us-east-1.mbedcloud.com/v2/subscriptions \\   -H 'authorization: Bearer {api-key}' \\   -H 'content-type: application/json' \\   -d '[          {            \"endpoint-name\": \"node-001\",            \"resource-path\": [\"/dev\"]          },          {            \"endpoint-type\": \"Light\",            \"resource-path\": [\"/sen/*\"]          },          {            \"endpoint-name\": \"node*\"          },          {            \"endpoint-type\": \"Sensor\"          },          {            \"resource-path\": [\"/dev/temp\",\"/dev/hum\"]          }       ]' ``` 
+        Pre-subscription is a set of rules and patterns put by the application. When an endpoint registers  and its ID, type and registered resources match the pre-subscription data, Mbed Cloud Connect sends  subscription requests to the device automatically. The pattern may include the endpoint ID  (optionally having an `*` character at the end), endpoint type, a list of resources or expressions with an `*` character at the end. Subscriptions based on pre-subscriptions are done when device registers or does register update. To remove the pre-subscription data, put an empty array as a rule.  **Limits**:  - The maximum length of the endpoint name and endpoint type is 64 characters. - The maximum length of the resource path is 128 characters. - You can listen to 256 separate resource paths. - The maximum number of pre-subscription entries is 1024.          **Example request:**  ``` curl -X PUT \\   https://api.us-east-1.mbedcloud.com/v2/subscriptions \\   -H 'authorization: Bearer {api-key}' \\   -H 'content-type: application/json' \\   -d '[          {            \"endpoint-name\": \"node-001\",            \"resource-path\": [\"/dev\"]          },          {            \"endpoint-type\": \"Light\",            \"resource-path\": [\"/sen/*\"]          },          {            \"endpoint-name\": \"node*\"          },          {            \"endpoint-type\": \"Sensor\"          },          {            \"resource-path\": [\"/dev/temp\",\"/dev/hum\"]          }       ]' ``` 
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.v2_subscriptions_put_with_http_info(presubsription, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.v2_subscriptions_put_with_http_info(presubsription, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param PresubscriptionArray presubsription: Array of pre-subscriptions. (required)
         :return: None
                  If the method is called asynchronously,
@@ -795,7 +719,7 @@ class SubscriptionsApi(object):
         """
 
         all_params = ['presubsription']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -816,10 +740,9 @@ class SubscriptionsApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v2/subscriptions'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -840,7 +763,7 @@ class SubscriptionsApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'PUT',
+        return self.api_client.call_api('/v2/subscriptions', 'PUT',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -849,7 +772,7 @@ class SubscriptionsApi(object):
                                         files=local_var_files,
                                         response_type=None,
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),

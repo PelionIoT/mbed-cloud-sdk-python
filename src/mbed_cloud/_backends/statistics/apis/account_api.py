@@ -20,7 +20,6 @@ import re
 # python 2 and python 3 compatibility library
 from six import iteritems
 
-from ..configuration import Configuration
 from ..api_client import ApiClient
 
 
@@ -32,28 +31,20 @@ class AccountApi(object):
     """
 
     def __init__(self, api_client=None):
-        config = Configuration()
-        if api_client:
-            self.api_client = api_client
-        else:
-            if not config.api_client:
-                config.api_client = ApiClient()
-            self.api_client = config.api_client
+        if api_client is None:
+            api_client = ApiClient()
+        self.api_client = api_client
 
     def v3_metrics_get(self, include, interval, **kwargs):
         """
         Provides account-specific statistics for other cloud services.
         This REST API is used to get account-specific statistics.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.v3_metrics_get(include, interval, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.v3_metrics_get(include, interval, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str include: A comma-separated list of requested metrics and total_count (if included, the response will contain total_count to specify the total number of records available). Supported values are:  - `transactions` - `full_registrations` - `registration_updates` - `deleted_registrations` - `expired_registrations` - `bootstraps_successful` - `bootstraps_failed` - `bootstraps_pending` - `handshakes_successful` - `connect_rest_api_success` - `connect_rest_api_error` - `device_proxy_request_success` - `device_proxy_request_error` - `device_subscription_request_success` - `device_subscription_request_error` - `device_observations` - `total_count`  **Note:**  The metrics device_proxy_request_success, device_proxy_request_error, device_subscription_request_success, device_subscription_request_error and device_observations monitor only the response from the device to Mbed Cloud Connect and they do not confirm that the response is delivered to client callback urls used when you try to access device resources using [Connect API](/docs/v1.2/service-api-references/connect-api.html) endpoints.  **Example usage:**  ``` curl  -X GET \\       -H \"Authorization : Bearer <valid access Token>\"        'https://api.us-east-1.mbedcloud.com/v3/metrics?include=transactions,total_count&start=20170207&end=20170407&interval=1d'  {     \"object\": \"list\",     \"limit\": 20,     \"total_count\": 54,     \"after\": \"2017-07-26T00:00:00Z\",     \"has_more\": true,     \"data\": [         {             \"id\": \"015d8157c800015e306fffff005374617473000\",             \"timestamp\": \"2017-07-27T00:00:00Z\",             \"transactions\": 27366         },         {             \"id\": \"015d867e2400015e306fffff005374617473000\",             \"timestamp\": \"2017-07-28T00:00:00Z\",             \"transactions\": 27480         }     ] } ```  (required)
         :param str interval: Group the data by this interval in minutes, hours, days or weeks. Sample values: 5m, 2h, 3d, 4w. The maximum interval cannot exceed one year (365 days). The allowed ranges are 5m-525600m/1h-8760h/1d-365d/1w-53w.  (required)
         :param date start: UTC time/year/date in RFC3339 format. Fetch the data with timestamp greater than or equal to this value. Sample values: 20170207T092056990Z / 2017-02-07T09:20:56.990Z / 2017 / 20170207. The maximum time between start and end parameters cannot exceed more than one year (365 days). The parameter is not mandatory, if the period is specified. 
@@ -67,7 +58,7 @@ class AccountApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.v3_metrics_get_with_http_info(include, interval, **kwargs)
         else:
             (data) = self.v3_metrics_get_with_http_info(include, interval, **kwargs)
@@ -78,15 +69,11 @@ class AccountApi(object):
         Provides account-specific statistics for other cloud services.
         This REST API is used to get account-specific statistics.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.v3_metrics_get_with_http_info(include, interval, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.v3_metrics_get_with_http_info(include, interval, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str include: A comma-separated list of requested metrics and total_count (if included, the response will contain total_count to specify the total number of records available). Supported values are:  - `transactions` - `full_registrations` - `registration_updates` - `deleted_registrations` - `expired_registrations` - `bootstraps_successful` - `bootstraps_failed` - `bootstraps_pending` - `handshakes_successful` - `connect_rest_api_success` - `connect_rest_api_error` - `device_proxy_request_success` - `device_proxy_request_error` - `device_subscription_request_success` - `device_subscription_request_error` - `device_observations` - `total_count`  **Note:**  The metrics device_proxy_request_success, device_proxy_request_error, device_subscription_request_success, device_subscription_request_error and device_observations monitor only the response from the device to Mbed Cloud Connect and they do not confirm that the response is delivered to client callback urls used when you try to access device resources using [Connect API](/docs/v1.2/service-api-references/connect-api.html) endpoints.  **Example usage:**  ``` curl  -X GET \\       -H \"Authorization : Bearer <valid access Token>\"        'https://api.us-east-1.mbedcloud.com/v3/metrics?include=transactions,total_count&start=20170207&end=20170407&interval=1d'  {     \"object\": \"list\",     \"limit\": 20,     \"total_count\": 54,     \"after\": \"2017-07-26T00:00:00Z\",     \"has_more\": true,     \"data\": [         {             \"id\": \"015d8157c800015e306fffff005374617473000\",             \"timestamp\": \"2017-07-27T00:00:00Z\",             \"transactions\": 27366         },         {             \"id\": \"015d867e2400015e306fffff005374617473000\",             \"timestamp\": \"2017-07-28T00:00:00Z\",             \"transactions\": 27480         }     ] } ```  (required)
         :param str interval: Group the data by this interval in minutes, hours, days or weeks. Sample values: 5m, 2h, 3d, 4w. The maximum interval cannot exceed one year (365 days). The allowed ranges are 5m-525600m/1h-8760h/1d-365d/1w-53w.  (required)
         :param date start: UTC time/year/date in RFC3339 format. Fetch the data with timestamp greater than or equal to this value. Sample values: 20170207T092056990Z / 2017-02-07T09:20:56.990Z / 2017 / 20170207. The maximum time between start and end parameters cannot exceed more than one year (365 days). The parameter is not mandatory, if the period is specified. 
@@ -101,7 +88,7 @@ class AccountApi(object):
         """
 
         all_params = ['include', 'interval', 'start', 'end', 'period', 'limit', 'after', 'order']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -125,26 +112,25 @@ class AccountApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/metrics'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
         if 'include' in params:
-            query_params['include'] = params['include']
+            query_params.append(('include', params['include']))
         if 'start' in params:
-            query_params['start'] = params['start']
+            query_params.append(('start', params['start']))
         if 'end' in params:
-            query_params['end'] = params['end']
+            query_params.append(('end', params['end']))
         if 'period' in params:
-            query_params['period'] = params['period']
+            query_params.append(('period', params['period']))
         if 'interval' in params:
-            query_params['interval'] = params['interval']
+            query_params.append(('interval', params['interval']))
         if 'limit' in params:
-            query_params['limit'] = params['limit']
+            query_params.append(('limit', params['limit']))
         if 'after' in params:
-            query_params['after'] = params['after']
+            query_params.append(('after', params['after']))
         if 'order' in params:
-            query_params['order'] = params['order']
+            query_params.append(('order', params['order']))
 
         header_params = {}
 
@@ -159,7 +145,7 @@ class AccountApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/metrics', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -168,7 +154,7 @@ class AccountApi(object):
                                         files=local_var_files,
                                         response_type='SuccessfulResponse',
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),

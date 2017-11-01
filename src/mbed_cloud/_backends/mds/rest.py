@@ -3,7 +3,7 @@
 """
     Connect API
 
-    mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
+    Mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
 
     OpenAPI spec version: 2
     
@@ -22,10 +22,10 @@ import re
 
 # python 2 and python 3 compatibility library
 from six import PY3
+########### Change
 from six import string_types
+########### End Change
 from six.moves.urllib.parse import urlencode
-
-from .configuration import Configuration
 
 try:
     import urllib3
@@ -59,42 +59,58 @@ class RESTResponse(io.IOBase):
 
 class RESTClientObject(object):
 
-    def __init__(self, pools_size=4, maxsize=4):
+    def __init__(self, configuration, pools_size=4, maxsize=None):
         # urllib3.PoolManager will pass all kw parameters to connectionpool
         # https://github.com/shazow/urllib3/blob/f9409436f83aeb79fbaf090181cd81b784f1b8ce/urllib3/poolmanager.py#L75
         # https://github.com/shazow/urllib3/blob/f9409436f83aeb79fbaf090181cd81b784f1b8ce/urllib3/connectionpool.py#L680
         # maxsize is the number of requests to host that are allowed in parallel
-        # ca_certs vs cert_file vs key_file
-        # http://stackoverflow.com/a/23957365/2985775
+        # Custom SSL certificates and client certificates: http://urllib3.readthedocs.io/en/latest/advanced-usage.html
 
         # cert_reqs
-        if Configuration().verify_ssl:
+        if configuration.verify_ssl:
             cert_reqs = ssl.CERT_REQUIRED
         else:
             cert_reqs = ssl.CERT_NONE
 
         # ca_certs
-        if Configuration().ssl_ca_cert:
-            ca_certs = Configuration().ssl_ca_cert
+        if configuration.ssl_ca_cert:
+            ca_certs = configuration.ssl_ca_cert
         else:
             # if not set certificate file, use Mozilla's root certificates.
             ca_certs = certifi.where()
 
-        # cert_file
-        cert_file = Configuration().cert_file
+        addition_pool_args = {}
+        if configuration.assert_hostname is not None:
+            addition_pool_args['assert_hostname'] = configuration.assert_hostname
 
-        # key file
-        key_file = Configuration().key_file
+        if maxsize is None:
+            if configuration.connection_pool_maxsize is not None:
+                maxsize = configuration.connection_pool_maxsize
+            else:
+                maxsize = 4
 
         # https pool manager
-        self.pool_manager = urllib3.PoolManager(
-            num_pools=pools_size,
-            maxsize=maxsize,
-            cert_reqs=cert_reqs,
-            ca_certs=ca_certs,
-            cert_file=cert_file,
-            key_file=key_file
-        )
+        if configuration.proxy:
+            self.pool_manager = urllib3.ProxyManager(
+                num_pools=pools_size,
+                maxsize=maxsize,
+                cert_reqs=cert_reqs,
+                ca_certs=ca_certs,
+                cert_file=configuration.cert_file,
+                key_file=configuration.key_file,
+                proxy_url=configuration.proxy,
+                **addition_pool_args
+            )
+        else:
+            self.pool_manager = urllib3.PoolManager(
+                num_pools=pools_size,
+                maxsize=maxsize,
+                cert_reqs=cert_reqs,
+                ca_certs=ca_certs,
+                cert_file=configuration.cert_file,
+                key_file=configuration.key_file,
+                **addition_pool_args
+            )
 
     def request(self, method, url, query_params=None, headers=None,
                 body=None, post_params=None, _preload_content=True, _request_timeout=None):
@@ -140,11 +156,13 @@ class RESTClientObject(object):
                     url += '?' + urlencode(query_params)
                 if re.search('json', headers['Content-Type'], re.IGNORECASE):
                     request_body = None
+                    ########### Change
                     if body is not None:
                         if isinstance(body, string_types):
                             request_body = body
                         else:
                             request_body = json.dumps(body)
+                    ########### End Change
                     r = self.pool_manager.request(method, url,
                                                   body=request_body,
                                                   preload_content=_preload_content,
@@ -204,7 +222,7 @@ class RESTClientObject(object):
             # log response body
             logger.debug("response body: %s", r.data)
 
-        if r.status not in range(200, 206):
+        if not 200 <= r.status <= 299:
             raise ApiException(http_resp=r)
 
         return r

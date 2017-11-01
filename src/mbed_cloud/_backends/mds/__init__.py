@@ -3,7 +3,7 @@
 """
     Connect API
 
-    mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
+    Mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
 
     OpenAPI spec version: 2
     
@@ -27,15 +27,13 @@ from .models.resources_data import ResourcesData
 from .models.webhook import Webhook
 
 # import apis into sdk package
-from .apis.default_api import DefaultApi
 from .apis.endpoints_api import EndpointsApi
 from .apis.notifications_api import NotificationsApi
 from .apis.resources_api import ResourcesApi
 from .apis.subscriptions_api import SubscriptionsApi
+from .apis.default_api import DefaultApi
 
 # import ApiClient
 from .api_client import ApiClient
 
 from .configuration import Configuration
-
-configuration = Configuration()
