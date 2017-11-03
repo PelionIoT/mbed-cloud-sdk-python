@@ -16,9 +16,6 @@ import re
 import json
 import mimetypes
 import tempfile
-########### Change
-import functools
-########### End Change
 from multiprocessing.pool import ThreadPool
 
 from datetime import date, datetime
@@ -47,9 +44,9 @@ class ApiClient(object):
 
     :param configuration: .Configuration object for this client
     :param header_name: a header to pass when making calls to the API.
-    :param header_value: a header value to pass when making calls to
+    :param header_value: a header value to pass when making calls to 
         the API.
-    :param cookie: a cookie to include in the header when making calls
+    :param cookie: a cookie to include in the header when making calls 
         to the API
     """
 
@@ -78,11 +75,7 @@ class ApiClient(object):
         self.cookie = cookie
         # Set default User-Agent.
         self.user_agent = 'Swagger-Codegen/1.0.0/python'
-        ########### Change
-        # Store last api call metadata
-        self.last_metadata = {}
-        ########### End Change
-
+    
     def __del__(self):
         self.pool.close()
         self.pool.join()
@@ -99,27 +92,6 @@ class ApiClient(object):
     def set_default_header(self, header_name, header_value):
         self.default_headers[header_name] = header_value
 
-    ########### Change
-    def metadata_wrapper(fn):
-        """Save metadata of last api call."""
-        @functools.wraps(fn)
-        def wrapped_f(self, *args, **kwargs):
-            self.last_metadata = {}
-            self.last_metadata["url"] = self.host + args[0]
-            self.last_metadata["method"] = args[1]
-            self.last_metadata["timestamp"] = time.time()
-            try:
-                return fn(self, *args, **kwargs)
-            except Exception as e:
-                self.last_metadata["exception"] = e
-                raise
-        return wrapped_f
-
-    def get_last_metadata(self):
-        return self.last_metadata
-    ########### End Change
-
-    @metadata_wrapper
     def __call_api(self, resource_path, method,
                    path_params=None, query_params=None, header_params=None,
                    body=None, post_params=None, files=None,
@@ -189,11 +161,6 @@ class ApiClient(object):
                 return_data = self.deserialize(response_data, response_type)
             else:
                 return_data = None
-
-        ########### Change
-        self.last_metadata["response"] = response_data
-        self.last_metadata["return_data"] = return_data
-        ########### End Change
 
         if _return_http_data_only:
             return (return_data)
