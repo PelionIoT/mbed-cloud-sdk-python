@@ -20,6 +20,7 @@ from __future__ import unicode_literals
 
 from builtins import object
 import datetime
+import json
 from six import iteritems
 from six import string_types
 import sys
@@ -264,9 +265,25 @@ class BaseObject(object):
                 query[key] = val
         return query
 
+    def __str__(self):
+        """Return a human-readable string with info about this object."""
+        return json.dumps(self.to_dict(),
+                          separators=(',', ': '),
+                          sort_keys=True,
+                          indent=4,
+                          cls=DeviceEncoder)
+
     def __repr__(self):
         """For print and pprint."""
         return str(self.to_dict())
+
+
+class DeviceEncoder(json.JSONEncoder):
+    """Add support for displaying datetime objects with this."""
+    def default(self, obj):
+        if isinstance(obj, datetime.datetime):
+            return obj.isoformat()
+        return json.JSONEncoder.default(self, obj)
 
 
 class _FakePaginatedResponse(object):
