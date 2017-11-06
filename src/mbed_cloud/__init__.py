@@ -166,11 +166,11 @@ class BaseAPI(object):
         :rtype: ApiMetadata
         """
         last_metadata = None
-        for api in self.apis:
+        for key, api in iteritems(self.apis):
             api_client = api.api_client
             if api_client is not None:
                 metadata = api_client.get_last_metadata()
-                if metadata is not None:
+                if metadata is not None and metadata.get('timestamp', None) is not None:
                     if last_metadata is None:
                         last_metadata = metadata
                     elif metadata["timestamp"] >= last_metadata["timestamp"]:

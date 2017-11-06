@@ -50,7 +50,7 @@ import mbed_cloud._backends.mds as mds
 from mbed_cloud._backends.mds.rest import ApiException as MdsApiException
 import mbed_cloud._backends.statistics as statistics
 from mbed_cloud._backends.statistics.rest import ApiException as StatisticsApiException
-from mbed_cloud._backends.mds.models.presubscription import Presubscription
+from mbed_cloud._backends.mds.models.presubscription import Presubscription as PresubscriptionData
 from mbed_cloud._backends.mds.models.webhook import Webhook as WebhookData
 
 LOG = logging.getLogger(__name__)
@@ -543,7 +543,7 @@ class ConnectAPI(BaseAPI):
                 "endpoint_type": presubscription.get("device_type", None),
                 "_resource_path": presubscription.get("resource_paths", None)
             }
-            presubscriptions_list.append(Presubscription(**presubscription))
+            presubscriptions_list.append(PresubscriptionData(**presubscription))
         return api.v2_subscriptions_put(presubscriptions_list)
 
     @catch_exceptions(MdsApiException)
