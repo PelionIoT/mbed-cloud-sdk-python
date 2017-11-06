@@ -41,9 +41,10 @@ class CertificatesAPI(BaseAPI):
         super(CertificatesAPI, self).__init__(params)
 
         # Set the api_key for the requests
-        self.cert = self._init_api(cert)
-        self.iam = self._init_api(iam)
-        self.auth = self.cert.configuration.api_key['Authorization']
+        cert_api_client = self._init_api(cert, [cert.DeveloperCertificateApi,
+                                                cert.ServerCredentialsApi])
+        self._init_api(iam, [iam.AccountAdminApi, iam.DeveloperApi])
+        self.auth = cert_api_client.configuration.api_key['Authorization']
 
     @catch_exceptions(IamApiException)
     def list_certificates(self, **kwargs):
@@ -72,7 +73,7 @@ class CertificatesAPI(BaseAPI):
             else:
                 raise CloudValueError("Incorrect filter 'type': %s" % (kwargs["type__eq"]))
             del kwargs["type__eq"]
-        api = self.iam.DeveloperApi()
+        api = self._get_api(iam.DeveloperApi)
         return PaginatedResponse(api.get_all_certificates, lwrap_type=Certificate, **kwargs)
 
     @catch_exceptions(CaApiException, IamApiException)
@@ -83,7 +84,7 @@ class CertificatesAPI(BaseAPI):
         :returns: Certificate object
         :rtype: Certificate
         """
-        api = self.iam.DeveloperApi()
+        api = self._get_api(iam.DeveloperApi)
         certificate = Certificate(api.get_certificate(certificate_id))
         self._extend_certificate(certificate)
         return certificate
@@ -91,15 +92,15 @@ class CertificatesAPI(BaseAPI):
     def _extend_certificate(self, certificate):
         # extend certificate with developer_certificate properties
         if certificate.type == CertificateType.developer:
-            dev_api = self.cert.DeveloperCertificateApi()
+            dev_api = self._get_api(cert.DeveloperCertificateApi)
             dev_cert = dev_api.v3_developer_certificates_id_get(certificate.id, self.auth)
             certificate.update_attributes(dev_cert)
         elif certificate.type == CertificateType.bootstrap:
-            server_api = self.cert.ServerCredentialsApi()
+            server_api = self._get_api(cert.ServerCredentialsApi)
             credentials = server_api.v3_server_credentials_bootstrap_get(self.auth)
             certificate.update_attributes(credentials)
         elif certificate.type == CertificateType.lwm2m:
-            server_api = self.cert.ServerCredentialsApi()
+            server_api = self._get_api(cert.ServerCredentialsApi)
             credentials = server_api.v3_server_credentials_lwm2m_get(self.auth)
             certificate.update_attributes(credentials)
 
@@ -110,7 +111,7 @@ class CertificatesAPI(BaseAPI):
         :param str certificate_id: The certificate id (Required)
         :returns: void
         """
-        api = self.iam.DeveloperApi()
+        api = self._get_api(iam.DeveloperApi)
         api.delete_certificate(certificate_id)
         return
 
@@ -133,7 +134,7 @@ class CertificatesAPI(BaseAPI):
         """
         kwargs.update({'name': name})
         kwargs.update({'type': type})
-        api = self.iam.AccountAdminApi()
+        api = self._get_api(iam.AccountAdminApi)
 
         kwargs.update({'certificate_data': certificate_data})
         certificate = Certificate._create_request_map(kwargs)
@@ -153,7 +154,7 @@ class CertificatesAPI(BaseAPI):
         :rtype: Certificate
         """
         kwargs.update({'name': name})
-        api = self.cert.DeveloperCertificateApi()
+        api = self._get_api(cert.DeveloperCertificateApi)
         certificate = Certificate._create_request_map(kwargs)
         body = cert.DeveloperCertificateRequestData(**certificate)
         dev_cert = api.v3_developer_certificates_post(self.auth, body)
@@ -175,7 +176,7 @@ class CertificatesAPI(BaseAPI):
         :returns: Certificate object
         :rtype: Certificate
         """
-        api = self.iam.DeveloperApi()
+        api = self._get_api(iam.DeveloperApi)
         cert = Certificate._create_request_map(kwargs)
         body = iam.TrustedCertificateReq(**cert)
         certificate = Certificate(api.update_certificate(certificate_id, body))

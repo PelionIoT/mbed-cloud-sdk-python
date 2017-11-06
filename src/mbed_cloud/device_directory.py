@@ -28,7 +28,10 @@ from mbed_cloud import PaginatedResponse
 # Import backend API
 import mbed_cloud._backends.device_directory as device_directory
 from mbed_cloud._backends.device_directory.models import DeviceData
+from mbed_cloud._backends.device_directory.models import DeviceDataPostRequest
 from mbed_cloud._backends.device_directory.models import DeviceEventData
+from mbed_cloud._backends.device_directory.models import DeviceQuery
+from mbed_cloud._backends.device_directory.models import DeviceQueryPatchRequest
 from mbed_cloud._backends.device_directory.rest import \
     ApiException as DeviceDirectoryApiException
 
@@ -48,7 +51,7 @@ class DeviceDirectoryAPI(BaseAPI):
         super(DeviceDirectoryAPI, self).__init__(params)
 
         # Initialize the wrapped APIs
-        self.device_directory = self._init_api(device_directory)
+        self._init_api(device_directory, [device_directory.DefaultApi])
 
     @catch_exceptions(DeviceDirectoryApiException)
     def list_devices(self, **kwargs):
@@ -73,7 +76,7 @@ class DeviceDirectoryAPI(BaseAPI):
         """
         kwargs = self._verify_sort_options(kwargs)
         kwargs = self._verify_filters(kwargs, Device, True)
-        api = self.device_directory.DefaultApi()
+        api = self._get_api(device_directory.DefaultApi)
         return PaginatedResponse(api.device_list, lwrap_type=Device, **kwargs)
 
     @catch_exceptions(DeviceDirectoryApiException)
@@ -84,7 +87,7 @@ class DeviceDirectoryAPI(BaseAPI):
         :returns: device object matching the `device_id`.
         :rtype: Device
         """
-        api = self.device_directory.DefaultApi()
+        api = self._get_api(device_directory.DefaultApi)
         return Device(api.device_retrieve(device_id))
 
     @catch_exceptions(DeviceDirectoryApiException)
@@ -111,9 +114,9 @@ class DeviceDirectoryAPI(BaseAPI):
         :returns: the updated device object
         :rtype: Device
         """
-        api = self.device_directory.DefaultApi()
+        api = self._get_api(device_directory.DefaultApi)
         device = Device._create_request_map(kwargs)
-        body = self.device_directory.DeviceDataPostRequest(**device)
+        body = DeviceDataPostRequest(**device)
         return Device(api.device_update(device_id, body))
 
     @catch_exceptions(DeviceDirectoryApiException)
@@ -158,7 +161,7 @@ class DeviceDirectoryAPI(BaseAPI):
         :return: the newly created device object.
         :rtype: Device
         """
-        api = self.device_directory.DefaultApi()
+        api = self._get_api(device_directory.DefaultApi)
         if "device_execution_mode" not in kwargs:
             kwargs.update({"device_execution_mode": 1})
         device = Device._create_request_map(kwargs)
@@ -172,7 +175,7 @@ class DeviceDirectoryAPI(BaseAPI):
         :param str device_id: ID of device in catalog to delete (Required)
         :return: void
         """
-        api = self.device_directory.DefaultApi()
+        api = self._get_api(device_directory.DefaultApi)
         return api.device_destroy(id=device_id)
 
     @catch_exceptions(DeviceDirectoryApiException)
@@ -189,8 +192,7 @@ class DeviceDirectoryAPI(BaseAPI):
         """
         kwargs = self._verify_sort_options(kwargs)
         kwargs = self._verify_filters(kwargs, Query, True)
-        api = self.device_directory.DefaultApi()
-
+        api = self._get_api(device_directory.DefaultApi)
         return PaginatedResponse(api.device_query_list, lwrap_type=Query, **kwargs)
 
     @catch_exceptions(DeviceDirectoryApiException)
@@ -216,14 +218,12 @@ class DeviceDirectoryAPI(BaseAPI):
         :return: the newly created query object
         :rtype: Query
         """
-        api = self.device_directory.DefaultApi()
-
         # Ensure we have the correct types and get the new query object
         query = self._encode_query(filter, Device)
         query_map = Query._create_request_map(kwargs)
         # Create the query object
-        f = self.device_directory.DeviceQuery(name=name, query=query, **query_map)
-
+        f = DeviceQuery(name=name, query=query, **query_map)
+        api = self._get_api(device_directory.DefaultApi)
         return Query(api.device_query_create(f))
 
     @catch_exceptions(DeviceDirectoryApiException)
@@ -248,8 +248,6 @@ class DeviceDirectoryAPI(BaseAPI):
         :return: the newly updated query object.
         :rtype: Query
         """
-        api = self.device_directory.DefaultApi()
-
         # Get urlencoded query attribute
         if filter is not None:
             query = self._encode_query(filter, Device)
@@ -257,12 +255,12 @@ class DeviceDirectoryAPI(BaseAPI):
             query = filter
 
         query_map = Query._create_request_map(kwargs)
-        body = self.device_directory.DeviceQueryPatchRequest(
+        body = DeviceQueryPatchRequest(
             name=name,
             query=query,
             **query_map
         )
-
+        api = self._get_api(device_directory.DefaultApi)
         return Query(api.device_query_partial_update(query_id, body))
 
     @catch_exceptions(DeviceDirectoryApiException)
@@ -272,7 +270,7 @@ class DeviceDirectoryAPI(BaseAPI):
         :param int query_id: id of the query to delete (Required)
         :return: void
         """
-        api = self.device_directory.DefaultApi()
+        api = self._get_api(device_directory.DefaultApi)
         api.device_query_destroy(query_id)
         return
 
@@ -284,7 +282,7 @@ class DeviceDirectoryAPI(BaseAPI):
         :returns: device query object
         :rtype: Query
         """
-        api = self.device_directory.DefaultApi()
+        api = self._get_api(device_directory.DefaultApi)
         return Query(api.device_query_retrieve(query_id))
 
     @catch_exceptions(DeviceDirectoryApiException)
@@ -302,7 +300,7 @@ class DeviceDirectoryAPI(BaseAPI):
         kwargs = self._verify_sort_options(kwargs)
         kwargs = self._verify_filters(kwargs, DeviceEvent, True)
 
-        api = self.device_directory.DefaultApi()
+        api = self._get_api(device_directory.DefaultApi)
         return PaginatedResponse(api.device_log_list, lwrap_type=DeviceEvent, **kwargs)
 
     @catch_exceptions(DeviceDirectoryApiException)
@@ -312,7 +310,7 @@ class DeviceDirectoryAPI(BaseAPI):
         :param int device_event_id: id of the event to get (Required)
         :rtype: DeviceEvent
         """
-        api = self.device_directory.DefaultApi()
+        api = self._get_api(device_directory.DefaultApi)
         return DeviceEvent(api.device_log_retrieve(device_event_id))
 
 
