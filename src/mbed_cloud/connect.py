@@ -47,11 +47,11 @@ from mbed_cloud.exceptions import CloudValueError
 import mbed_cloud._backends.device_directory as device_directory
 from mbed_cloud._backends.device_directory.rest import ApiException as DeviceDirectoryApiException
 import mbed_cloud._backends.mds as mds
+from mbed_cloud._backends.mds.models.presubscription import Presubscription as PresubscriptionData
+from mbed_cloud._backends.mds.models.webhook import Webhook as WebhookData
 from mbed_cloud._backends.mds.rest import ApiException as MdsApiException
 import mbed_cloud._backends.statistics as statistics
 from mbed_cloud._backends.statistics.rest import ApiException as StatisticsApiException
-from mbed_cloud._backends.mds.models.presubscription import Presubscription as PresubscriptionData
-from mbed_cloud._backends.mds.models.webhook import Webhook as WebhookData
 
 LOG = logging.getLogger(__name__)
 
