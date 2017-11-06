@@ -166,9 +166,7 @@ class BaseAPI(object):
         :rtype: ApiMetadata
         """
         last_metadata = None
-        for apis in self.apis:
-            # All apis share the same api_client
-            api = apis.items()[0]
+        for api in self.apis:
             api_client = api.api_client
             if api_client is not None:
                 metadata = api_client.get_last_metadata()

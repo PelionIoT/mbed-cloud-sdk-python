@@ -50,6 +50,8 @@ import mbed_cloud._backends.mds as mds
 from mbed_cloud._backends.mds.rest import ApiException as MdsApiException
 import mbed_cloud._backends.statistics as statistics
 from mbed_cloud._backends.statistics.rest import ApiException as StatisticsApiException
+from mbed_cloud._backends.mds.models.presubscription import Presubscription
+from mbed_cloud._backends.mds.models.webhook import Webhook as WebhookData
 
 LOG = logging.getLogger(__name__)
 
@@ -94,13 +96,14 @@ class ConnectAPI(BaseAPI):
 
         :returns: void
         """
+        api = self._get_api(mds.NotificationsApi)
         if self._notifications_are_active:
             return
         self._notifications_thread = _NotificationsThread(
             self._db,
             self._queues,
             b64decode=self.b64decode,
-            mds=self.mds
+            notifications_api=api
         )
         self._notifications_thread.daemon = True
         self._notifications_thread.start()
@@ -540,7 +543,7 @@ class ConnectAPI(BaseAPI):
                 "endpoint_type": presubscription.get("device_type", None),
                 "_resource_path": presubscription.get("resource_paths", None)
             }
-            presubscriptions_list.append(self.mds.Presubscription(**presubscription))
+            presubscriptions_list.append(Presubscription(**presubscription))
         return api.v2_subscriptions_put(presubscriptions_list)
 
     @catch_exceptions(MdsApiException)
@@ -661,7 +664,7 @@ class ConnectAPI(BaseAPI):
         api.v2_notification_pull_delete()
 
         # Send the request to register the webhook
-        webhook_obj = self.mds.Webhook(url=url, headers=headers)
+        webhook_obj = WebhookData(url=url, headers=headers)
         api.v2_notification_callback_put(webhook_obj)
         return
 
@@ -853,12 +856,12 @@ class AsyncConsumer(object):
 
 
 class _NotificationsThread(threading.Thread):
-    def __init__(self, db, queues, b64decode=True, mds=None):
+    def __init__(self, db, queues, b64decode=True, notifications_api=None):
         super(_NotificationsThread, self).__init__()
 
         self.db = db
         self.queues = queues
-        self.mds = mds
+        self.notifications_api = notifications_api
 
         self._b64decode = b64decode
         self._stopped = False
@@ -866,8 +869,7 @@ class _NotificationsThread(threading.Thread):
     @catch_exceptions(MdsApiException)
     def run(self):
         while not self._stopped:
-            api = self._get_api(mds.NotificationsApi)
-            resp = api.v2_notification_pull_get()
+            resp = self.notifications_api.v2_notification_pull_get()
 
             if resp.notifications:
                 for n in resp.notifications:
