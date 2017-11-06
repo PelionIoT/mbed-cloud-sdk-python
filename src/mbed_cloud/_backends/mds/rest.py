@@ -22,6 +22,9 @@ import re
 
 # python 2 and python 3 compatibility library
 from six import PY3
+########### Change
+from six import string_types
+########### End Change
 from six.moves.urllib.parse import urlencode
 
 try:
@@ -153,8 +156,13 @@ class RESTClientObject(object):
                     url += '?' + urlencode(query_params)
                 if re.search('json', headers['Content-Type'], re.IGNORECASE):
                     request_body = None
+                    ########### Change
                     if body is not None:
-                        request_body = json.dumps(body)
+                        if isinstance(body, string_types):
+                            request_body = body
+                        else:
+                            request_body = json.dumps(body)
+                    ########### End Change
                     r = self.pool_manager.request(method, url,
                                                   body=request_body,
                                                   preload_content=_preload_content,
