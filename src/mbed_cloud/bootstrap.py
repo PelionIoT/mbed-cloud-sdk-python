@@ -32,7 +32,7 @@ class Config(dict):
         Of highest priority is using the `MBED_CLOUD_SDK_CONFIG` environment
         variable, to specify a config JSON file.
         """
-        CONFIG_FILES = [_f for _f in [
+        files = [
             # Global config in /etc
             "/etc/.mbed_cloud_config.json",
 
@@ -44,11 +44,9 @@ class Config(dict):
 
             # Config file specified using environment variable
             os.environ.get("MBED_CLOUD_SDK_CONFIG")
-        ] if _f]
+        ]
 
         # Go through in order and override the config
-        for f in CONFIG_FILES:
-            if os.path.isfile(f):
-                with open(f) as fh:
-                    c = json.loads(fh.read())
-                    self.update(c)
+        for path in (f for f in files if f and os.path.isfile(f)):
+            with open(path) as fh:
+                self.update(json.load(fh))

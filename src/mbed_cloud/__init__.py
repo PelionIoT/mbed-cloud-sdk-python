@@ -18,13 +18,14 @@
 from __future__ import print_function
 from __future__ import unicode_literals
 
-from builtins import object
+import copy
 import datetime
-from six import iteritems
-from six import string_types
-import sys
 
+from builtins import object
+from six import iteritems
 from six.moves import urllib
+from six import string_types
+
 
 from mbed_cloud._version import __version__  # noqa
 from mbed_cloud.bootstrap import Config
@@ -38,28 +39,23 @@ class BaseAPI(object):
 
     def __init__(self, user_config=None):
         """Ensure the config is valid and has all required fields."""
-        user_config = user_config or {}
-        config.update(user_config)
         self.apis = []
-        if "host" in config:
-            # Strip leading and trailing slashes from host
-            config.update({'host': config['host'].strip('/')})
-            if not config["host"].startswith("https"):
-                sys.stderr.write("'host' config needs to use protocol HTTPS. Ignoring.\n")
-                sys.stderr.flush()
-                del config["host"]
-        else:
-            # Host is not set. Set default host.
-            config.update({'host': 'https://api.us-east-1.mbedcloud.com'})
-
+        user_config = user_config or {}
+        self.config = copy.deepcopy(config)
+        self.config.update(user_config)
+        self.config['host'] = self.config.setdefault(
+            'host',
+            'https://api.us-east-1.mbedcloud.com'
+        ).strip('/')
+        if not self.config["host"].startswith("https"):
+            raise ValueError("URI scheme for host must be HTTPS: %s" % self.config['host'])
         if "api_key" not in config:
             raise ValueError("api_key not found in config. Please see documentation.")
 
     def _init_api(self, api):
-        api.configuration.api_key['Authorization'] = config.get('api_key')
         api.configuration.api_key_prefix['Authorization'] = 'Bearer'
-        if config.get('host'):
-            api.configuration.host = config.get('host')
+        api.configuration.api_key['Authorization'] = self.config['api_key']
+        api.configuration.host = self.config['host']
 
         # Ensure URL is base string, not unicode (Issue22231)
         url = api.configuration.host
@@ -227,7 +223,7 @@ class BaseObject(object):
         """Return dictionary of object."""
         dictionary = {}
         for key, value in iteritems(self._get_attributes_map()):
-            dictionary[key] = getattr(self, key, None)
+            dictionary[key] = getattr(self, str(key), None)
         return dictionary
 
     def _get_operator(self, key):
@@ -319,21 +315,18 @@ class PaginatedResponse(object):
     def _get_page(self):
         resp = self._func(**self._kwargs)
         self._raw_response = resp
+        data_stream = resp.data or []
 
         # Update properties
         self._has_more = resp.has_more
-        self._data = [self._lwrap_type(e) if self._lwrap_type else e for e in resp.data]
-        if hasattr(resp, 'total_count'):
-            self._total_count = resp.total_count
-        else:
-            self._total_count = len(self._data)
+        self._data = [self._lwrap_type(e) if self._lwrap_type else e for e in data_stream]
+        self._total_count = getattr(resp, 'total_count', len(self._data))
 
-        if len(resp.data) > 0:
+        if len(data_stream) > 0:
             # Update 'after' by taking the last element ID
-            self._kwargs['after'] = resp.data[-1].id
+            self._kwargs['after'] = data_stream[-1].id
         else:
-            if 'after' in self._kwargs:
-                del self._kwargs['after']
+            self._kwargs.pop('after', None)
 
     def _get_total_count(self):
         resp = self._func(**{'include': 'total_count', 'limit': 2})
