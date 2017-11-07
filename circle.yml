@@ -47,6 +47,7 @@ test:
     - sphinx-build -a -b html -c docs/ docs/ ~/docs
     - mkdir -p $CIRCLE_TEST_REPORTS/tests/
     - cp ~/results/py36/unittests.xml $CIRCLE_TEST_REPORTS/tests/
+    - cp ~/rpc_results/py36/results.xml $CIRCLE_TEST_REPORTS/tests/
 
 deployment:
   staging:
