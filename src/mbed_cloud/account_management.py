@@ -41,7 +41,7 @@ class AccountManagementAPI(BaseAPI):
         """Setup the backend APIs with provided config."""
         super(AccountManagementAPI, self).__init__(params)
 
-        self.iam = self._init_api(iam)
+        self._init_api(iam, [iam.DeveloperApi, iam.AccountAdminApi])
 
     @catch_exceptions(ApiException)
     def list_api_keys(self, **kwargs):
@@ -69,7 +69,7 @@ class AccountManagementAPI(BaseAPI):
         kwargs = self._verify_sort_options(kwargs)
         kwargs = self._verify_filters(kwargs, ApiKey)
 
-        api = self.iam.DeveloperApi()
+        api = self._get_api(iam.DeveloperApi)
 
         # Return the data array
         return PaginatedResponse(api.get_all_api_keys, lwrap_type=ApiKey, **kwargs)
@@ -82,7 +82,7 @@ class AccountManagementAPI(BaseAPI):
         :returns: API key object
         :rtype: ApiKey
         """
-        api = self.iam.DeveloperApi()
+        api = self._get_api(iam.DeveloperApi)
         return ApiKey(api.get_api_key(api_key_id))
 
     @catch_exceptions(ApiException)
@@ -92,7 +92,7 @@ class AccountManagementAPI(BaseAPI):
         :param str api_key_id: The ID of the API key (Required)
         :returns: void
         """
-        api = self.iam.DeveloperApi()
+        api = self._get_api(iam.DeveloperApi)
         api.delete_api_key(api_key_id)
         return
 
@@ -107,7 +107,7 @@ class AccountManagementAPI(BaseAPI):
         :returns: Newly created API key object
         :rtype: ApiKey
         """
-        api = self.iam.DeveloperApi()
+        api = self._get_api(iam.DeveloperApi)
         kwargs.update({'name': name})
         api_key = ApiKey._create_request_map(kwargs)
         body = iam.ApiKeyInfoReq(**api_key)
@@ -124,7 +124,7 @@ class AccountManagementAPI(BaseAPI):
         :returns: Newly created API key object
         :rtype: ApiKey
         """
-        api = self.iam.DeveloperApi()
+        api = self._get_api(iam.DeveloperApi)
         apikey = ApiKey._create_request_map(kwargs)
         body = iam.ApiKeyUpdateReq(**apikey)
         return ApiKey(api.update_api_key(api_key_id, body))
@@ -142,7 +142,7 @@ class AccountManagementAPI(BaseAPI):
         """
         kwargs = self._verify_sort_options(kwargs)
         kwargs = self._verify_filters(kwargs, User)
-        api = self.iam.AccountAdminApi()
+        api = self._get_api(iam.AccountAdminApi)
         return PaginatedResponse(api.get_all_users, lwrap_type=User, **kwargs)
 
     @catch_exceptions(ApiException)
@@ -153,7 +153,7 @@ class AccountManagementAPI(BaseAPI):
         :returns: the user object with details about the user.
         :rtype: User
         """
-        api = self.iam.AccountAdminApi()
+        api = self._get_api(iam.AccountAdminApi)
         return User(api.get_user(user_id))
 
     @catch_exceptions(ApiException)
@@ -171,7 +171,7 @@ class AccountManagementAPI(BaseAPI):
         :returns: the updated user object
         :rtype: User
         """
-        api = self.iam.AccountAdminApi()
+        api = self._get_api(iam.AccountAdminApi)
         user = User._create_request_map(kwargs)
         body = iam.UserUpdateReq(**user)
         return User(api.update_user(user_id, body))
@@ -183,7 +183,7 @@ class AccountManagementAPI(BaseAPI):
         :param str user_id: the ID of the user to delete (Required)
         :returns: void
         """
-        api = self.iam.AccountAdminApi()
+        api = self._get_api(iam.AccountAdminApi)
         api.delete_user(user_id)
         return
 
@@ -215,7 +215,7 @@ class AccountManagementAPI(BaseAPI):
         :returns: the new user object
         :rtype: User
         """
-        api = self.iam.AccountAdminApi()
+        api = self._get_api(iam.AccountAdminApi)
         kwargs.update({'username': username, 'email': email})
         user = User._create_request_map(kwargs)
         body = iam.UserInfoReq(**user)
@@ -228,7 +228,7 @@ class AccountManagementAPI(BaseAPI):
         :returns: an account object.
         :rtype: Account
         """
-        api = self.iam.DeveloperApi()
+        api = self._get_api(iam.DeveloperApi)
         return Account(api.get_my_account_info(include="limits, policies"))
 
     @catch_exceptions(ApiException)
@@ -251,7 +251,7 @@ class AccountManagementAPI(BaseAPI):
         :returns: an account object.
         :rtype: Account
         """
-        api = self.iam.AccountAdminApi()
+        api = self._get_api(iam.AccountAdminApi)
         account = Account._create_request_map(kwargs)
         body = AccountUpdateReq(**account)
         return Account(api.update_my_account(body))
@@ -267,7 +267,7 @@ class AccountManagementAPI(BaseAPI):
         :rtype: PaginatedResponse
         """
         kwargs = self._verify_sort_options(kwargs)
-        api = self.iam.DeveloperApi()
+        api = self._get_api(iam.DeveloperApi)
         return PaginatedResponse(api.get_all_groups, lwrap_type=Group, **kwargs)
 
     @catch_exceptions(ApiException)
@@ -278,7 +278,7 @@ class AccountManagementAPI(BaseAPI):
         :returns: :py:class:`Group` object.
         :rtype: Group
         """
-        api = self.iam.DeveloperApi()
+        api = self._get_api(iam.DeveloperApi)
         return Group(api.get_group_summary(group_id))
 
     @catch_exceptions(ApiException)
@@ -294,7 +294,7 @@ class AccountManagementAPI(BaseAPI):
         """
         kwargs["group_id"] = group_id
         kwargs = self._verify_sort_options(kwargs)
-        api = self.iam.AccountAdminApi()
+        api = self._get_api(iam.AccountAdminApi)
         return PaginatedResponse(api.get_users_of_group, lwrap_type=User, **kwargs)
 
     @catch_exceptions(ApiException)
@@ -310,7 +310,7 @@ class AccountManagementAPI(BaseAPI):
         """
         kwargs["group_id"] = group_id
         kwargs = self._verify_sort_options(kwargs)
-        api = self.iam.DeveloperApi()
+        api = self._get_api(iam.DeveloperApi)
         return PaginatedResponse(api.get_api_keys_of_group, lwrap_type=ApiKey, **kwargs)
 
 

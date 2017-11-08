@@ -14,25 +14,12 @@ class TestImports(BaseCase):
         from mbed_cloud import _version
 
     def test_config(self):
-        from mbed_cloud import config
-        self.assertIn('https', config.get('host'))
+        api = BaseAPI()
+        self.assertIn('https', api.config.get('host'))
 
-    def test_config_insecure(self):
-        from mbed_cloud import config
-        old = config.get('host')
-        try:
-            config['host'] = 'http://insecure.invalidhost'
-            api = BaseAPI()
-            self.assertEqual(None, config.get('host'))
-        finally:
-            config['host'] = old
-
-    def test_config_default(self):
-        from mbed_cloud import config
-        old = config.pop('host')
-        try:
-            api = BaseAPI()
-            self.assertIn('api.us-east-1', config.get('host'))
-        finally:
-            config['host'] = old
+    def test_config_set_user_config(self):
+        key = 'test_key'
+        config = {'api_key': key}
+        api = BaseAPI(config)
+        self.assertIn(key, api.config.get('api_key'))
 

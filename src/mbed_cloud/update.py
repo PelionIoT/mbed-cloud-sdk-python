@@ -28,6 +28,7 @@ from mbed_cloud import PaginatedResponse
 from six import iteritems
 
 import mbed_cloud._backends.update_service as update_service
+from mbed_cloud._backends.update_service.models import UpdateCampaignPostRequest
 from mbed_cloud._backends.update_service.rest\
     import ApiException as UpdateServiceApiException
 
@@ -48,7 +49,7 @@ class UpdateAPI(BaseAPI):
         """Setup the backend APIs with provided config."""
         super(UpdateAPI, self).__init__(params)
 
-        self.update_service = self._init_api(update_service)
+        self._init_api(update_service, [update_service.DefaultApi])
 
     @catch_exceptions(UpdateServiceApiException)
     def list_campaigns(self, **kwargs):
@@ -61,9 +62,9 @@ class UpdateAPI(BaseAPI):
         :return: List of :py:class:`Campaign` objects
         :rtype: PaginatedResponse
         """
-        api = self.update_service.DefaultApi()
         kwargs = self._verify_sort_options(kwargs)
         kwargs = self._verify_filters(kwargs, Campaign, True)
+        api = self._get_api(update_service.DefaultApi)
         return PaginatedResponse(api.update_campaign_list, lwrap_type=Campaign, **kwargs)
 
     @catch_exceptions(UpdateServiceApiException)
@@ -74,7 +75,7 @@ class UpdateAPI(BaseAPI):
         :return: Update campaign object matching provided ID.
         :rtype: Campaign
         """
-        api = self.update_service.DefaultApi()
+        api = self._get_api(update_service.DefaultApi)
         return Campaign(api.update_campaign_retrieve(campaign_id))
 
     @catch_exceptions(UpdateServiceApiException)
@@ -107,13 +108,13 @@ class UpdateAPI(BaseAPI):
         :return: newly created campaign object
         :rtype: Campaign
         """
-        api = self.update_service.DefaultApi()
         device_filter = self._encode_query(device_filter, Device)
         campaign = Campaign._create_request_map(kwargs)
-        body = self.update_service.UpdateCampaignPostRequest(
+        body = UpdateCampaignPostRequest(
             name=name,
             device_filter=device_filter,
             **campaign)
+        api = self._get_api(update_service.DefaultApi)
         return Campaign(api.update_campaign_create(body))
 
     @catch_exceptions(UpdateServiceApiException)
@@ -135,7 +136,7 @@ class UpdateAPI(BaseAPI):
         :return: updated campaign object
         :rtype: Campaign
         """
-        api = self.update_service.DefaultApi()
+        api = self._get_api(update_service.DefaultApi)
         campaign_id = campaign_object.id
         campaign_object = campaign_object._create_patch_request()
         if 'device_filter' in campaign_object:
@@ -151,7 +152,7 @@ class UpdateAPI(BaseAPI):
         :param str campaign_id: Campaign ID to delete (Required)
         :return: void
         """
-        api = self.update_service.DefaultApi()
+        api = self._get_api(update_service.DefaultApi)
         api.update_campaign_destroy(campaign_id)
         return
 
@@ -165,10 +166,10 @@ class UpdateAPI(BaseAPI):
         :return: List of :py:class:`CampaignDeviceState` objects
         :rtype: PaginatedResponse
         """
-        api = self.update_service.DefaultApi()
         kwargs = self._verify_sort_options(kwargs)
         kwargs = self._verify_filters(kwargs, CampaignDeviceState, True)
         kwargs["campaign_id"] = campaign_id
+        api = self._get_api(update_service.DefaultApi)
         return PaginatedResponse(api.v3_update_campaigns_campaign_id_campaign_device_metadata_get,
                                  lwrap_type=CampaignDeviceState, **kwargs)
 
@@ -179,7 +180,7 @@ class UpdateAPI(BaseAPI):
         :param str image_id: The firmware ID for the image to retrieve (Required)
         :return: FirmwareImage
         """
-        api = self.update_service.DefaultApi()
+        api = self._get_api(update_service.DefaultApi)
         return FirmwareImage(api.firmware_image_retrieve(image_id))
 
     @catch_exceptions(UpdateServiceApiException)
@@ -195,7 +196,7 @@ class UpdateAPI(BaseAPI):
         """
         kwargs = self._verify_sort_options(kwargs)
         kwargs = self._verify_filters(kwargs, FirmwareImage, True)
-        api = self.update_service.DefaultApi()
+        api = self._get_api(update_service.DefaultApi)
         return PaginatedResponse(api.firmware_image_list, lwrap_type=FirmwareImage, **kwargs)
 
     @catch_exceptions(UpdateServiceApiException)
@@ -208,10 +209,10 @@ class UpdateAPI(BaseAPI):
         :return: the newly created firmware file object
         :rtype: FirmwareImage
         """
-        api = self.update_service.DefaultApi()
         kwargs.update({'name': name})
         firmware_image = FirmwareImage._create_request_map(kwargs)
         firmware_image.update({'datafile': datafile})
+        api = self._get_api(update_service.DefaultApi)
         return FirmwareImage(
             api.firmware_image_create(**firmware_image)
         )
@@ -223,7 +224,7 @@ class UpdateAPI(BaseAPI):
         :param str image_id: image ID for the firmware to remove/delete (Required)
         :return: void
         """
-        api = self.update_service.DefaultApi()
+        api = self._get_api(update_service.DefaultApi)
         api.firmware_image_destroy(image_id=image_id)
         return
 
@@ -234,7 +235,7 @@ class UpdateAPI(BaseAPI):
         :param str manifest_id: ID of manifest to retrieve (Required)
         :return: FirmwareManifest
         """
-        api = self.update_service.DefaultApi()
+        api = self._get_api(update_service.DefaultApi)
         return FirmwareManifest(api.firmware_manifest_retrieve(manifest_id=manifest_id))
 
     @catch_exceptions(UpdateServiceApiException)
@@ -250,7 +251,7 @@ class UpdateAPI(BaseAPI):
         """
         kwargs = self._verify_sort_options(kwargs)
         kwargs = self._verify_filters(kwargs, FirmwareManifest, True)
-        api = self.update_service.DefaultApi()
+        api = self._get_api(update_service.DefaultApi)
         return PaginatedResponse(api.firmware_manifest_list, lwrap_type=FirmwareManifest, **kwargs)
 
     @catch_exceptions(UpdateServiceApiException)
@@ -263,10 +264,10 @@ class UpdateAPI(BaseAPI):
         :return: the newly created manifest file object
         :rtype: FirmwareManifest
         """
-        api = self.update_service.DefaultApi()
         kwargs.update({'name': name})
         firmware_manifest = FirmwareManifest._create_request_map(kwargs)
         firmware_manifest.update({'datafile': datafile})
+        api = self._get_api(update_service.DefaultApi)
         return FirmwareManifest(
             api.firmware_manifest_create(**firmware_manifest)
         )
@@ -278,7 +279,7 @@ class UpdateAPI(BaseAPI):
         :param str manifest_id: Manifest file ID to delete (Required)
         :return: void
         """
-        api = self.update_service.DefaultApi()
+        api = self._get_api(update_service.DefaultApi)
         return api.firmware_manifest_destroy(manifest_id)
 
 
