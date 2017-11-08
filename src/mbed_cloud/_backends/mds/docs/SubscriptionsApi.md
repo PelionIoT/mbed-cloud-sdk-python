@@ -23,19 +23,20 @@ Removes subscriptions from every endpoint and resource. Note that this does not 
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import mds
 from mds.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-mds.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = mds.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# mds.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = mds.SubscriptionsApi()
+api_instance = mds.SubscriptionsApi(mds.ApiClient(configuration))
 
 try: 
     # Remove all subscriptions
@@ -71,19 +72,20 @@ Deletes all resource subscriptions in a single endpoint.  **Example usage:**    
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import mds
 from mds.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-mds.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = mds.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# mds.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = mds.SubscriptionsApi()
+api_instance = mds.SubscriptionsApi(mds.ApiClient(configuration))
 device_id = 'device_id_example' # str | A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
 
 try: 
@@ -123,19 +125,20 @@ Lists all subscribed resources from a single endpoint.  **Example usage:**      
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import mds
 from mds.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-mds.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = mds.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# mds.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = mds.SubscriptionsApi()
+api_instance = mds.SubscriptionsApi(mds.ApiClient(configuration))
 device_id = 'device_id_example' # str | A unique Mbed Cloud device ID for the endpoint. Note that ID must be an exact match. You cannot use wildcards here. 
 
 try: 
@@ -176,19 +179,20 @@ To remove an existing subscription from a resource path.  **Example usage:**    
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import mds
 from mds.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-mds.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = mds.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# mds.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = mds.SubscriptionsApi()
+api_instance = mds.SubscriptionsApi(mds.ApiClient(configuration))
 device_id = 'device_id_example' # str | A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
 _resource_path = '_resource_path_example' # str | The URL of the resource. 
 
@@ -228,19 +232,20 @@ Read subscription status
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import mds
 from mds.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-mds.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = mds.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# mds.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = mds.SubscriptionsApi()
+api_instance = mds.SubscriptionsApi(mds.ApiClient(configuration))
 device_id = 'device_id_example' # str | A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
 _resource_path = '_resource_path_example' # str | The URL of the resource. 
 
@@ -282,19 +287,20 @@ The Mbed Cloud Connect eventing model consists of observable resources.  This me
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import mds
 from mds.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-mds.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = mds.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# mds.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = mds.SubscriptionsApi()
+api_instance = mds.SubscriptionsApi(mds.ApiClient(configuration))
 device_id = 'device_id_example' # str | A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
 _resource_path = '_resource_path_example' # str | The URL of the resource. 
 
@@ -336,19 +342,20 @@ You can retrieve the pre-subscription data with the GET operation. The server re
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import mds
 from mds.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-mds.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = mds.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# mds.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = mds.SubscriptionsApi()
+api_instance = mds.SubscriptionsApi(mds.ApiClient(configuration))
 
 try: 
     # Get pre-subscriptions
@@ -385,19 +392,20 @@ Pre-subscription is a set of rules and patterns put by the application. When an 
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import mds
 from mds.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-mds.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = mds.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# mds.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = mds.SubscriptionsApi()
+api_instance = mds.SubscriptionsApi(mds.ApiClient(configuration))
 presubsription = mds.PresubscriptionArray() # PresubscriptionArray | Array of pre-subscriptions.
 
 try: 

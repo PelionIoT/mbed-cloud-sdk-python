@@ -20,7 +20,6 @@ import re
 # python 2 and python 3 compatibility library
 from six import iteritems
 
-from ..configuration import Configuration
 from ..api_client import ApiClient
 
 
@@ -32,35 +31,27 @@ class AccountAdminApi(object):
     """
 
     def __init__(self, api_client=None):
-        config = Configuration()
-        if api_client:
-            self.api_client = api_client
-        else:
-            if not config.api_client:
-                config.api_client = ApiClient()
-            self.api_client = config.api_client
+        if api_client is None:
+            api_client = ApiClient()
+        self.api_client = api_client
 
     def add_certificate(self, body, **kwargs):
         """
         Upload a new trusted certificate.
         An endpoint for uploading new trusted certificates.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.add_certificate(body, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.add_certificate(body, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param TrustedCertificateReq body: A trusted certificate object with attributes. (required)
         :return: TrustedCertificateResp
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.add_certificate_with_http_info(body, **kwargs)
         else:
             (data) = self.add_certificate_with_http_info(body, **kwargs)
@@ -71,15 +62,11 @@ class AccountAdminApi(object):
         Upload a new trusted certificate.
         An endpoint for uploading new trusted certificates.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.add_certificate_with_http_info(body, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.add_certificate_with_http_info(body, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param TrustedCertificateReq body: A trusted certificate object with attributes. (required)
         :return: TrustedCertificateResp
                  If the method is called asynchronously,
@@ -87,7 +74,7 @@ class AccountAdminApi(object):
         """
 
         all_params = ['body']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -108,10 +95,9 @@ class AccountAdminApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/trusted-certificates'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -132,7 +118,7 @@ class AccountAdminApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'POST',
+        return self.api_client.call_api('/v3/trusted-certificates', 'POST',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -141,7 +127,7 @@ class AccountAdminApi(object):
                                         files=local_var_files,
                                         response_type='TrustedCertificateResp',
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -152,15 +138,11 @@ class AccountAdminApi(object):
         Add members to a group.
         An endpoint for adding users and API keys to groups.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.add_subjects_to_group(group_id, body, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.add_subjects_to_group(group_id, body, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str group_id: The ID of the group to be updated. (required)
         :param SubjectList body: A list of users and API keys to be added to the group. (required)
         :return: UpdatedResponse
@@ -168,7 +150,7 @@ class AccountAdminApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.add_subjects_to_group_with_http_info(group_id, body, **kwargs)
         else:
             (data) = self.add_subjects_to_group_with_http_info(group_id, body, **kwargs)
@@ -179,15 +161,11 @@ class AccountAdminApi(object):
         Add members to a group.
         An endpoint for adding users and API keys to groups.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.add_subjects_to_group_with_http_info(group_id, body, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.add_subjects_to_group_with_http_info(group_id, body, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str group_id: The ID of the group to be updated. (required)
         :param SubjectList body: A list of users and API keys to be added to the group. (required)
         :return: UpdatedResponse
@@ -196,7 +174,7 @@ class AccountAdminApi(object):
         """
 
         all_params = ['group_id', 'body']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -220,12 +198,11 @@ class AccountAdminApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/policy-groups/{groupID}'.replace('{format}', 'json')
         path_params = {}
         if 'group_id' in params:
             path_params['groupID'] = params['group_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -246,7 +223,7 @@ class AccountAdminApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'POST',
+        return self.api_client.call_api('/v3/policy-groups/{groupID}', 'POST',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -255,7 +232,7 @@ class AccountAdminApi(object):
                                         files=local_var_files,
                                         response_type='UpdatedResponse',
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -266,15 +243,11 @@ class AccountAdminApi(object):
         Create a new user.
         An endpoint for creating or inviting a new user to the account. In case of invitation email address is used only, other attributes are set in the 2nd step.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.create_user(body, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.create_user(body, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param UserInfoReq body: A user object with attributes. (required)
         :param str action: Action, either 'create' or 'invite'.
         :return: UserInfoResp
@@ -282,7 +255,7 @@ class AccountAdminApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.create_user_with_http_info(body, **kwargs)
         else:
             (data) = self.create_user_with_http_info(body, **kwargs)
@@ -293,15 +266,11 @@ class AccountAdminApi(object):
         Create a new user.
         An endpoint for creating or inviting a new user to the account. In case of invitation email address is used only, other attributes are set in the 2nd step.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.create_user_with_http_info(body, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.create_user_with_http_info(body, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param UserInfoReq body: A user object with attributes. (required)
         :param str action: Action, either 'create' or 'invite'.
         :return: UserInfoResp
@@ -310,7 +279,7 @@ class AccountAdminApi(object):
         """
 
         all_params = ['body', 'action']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -331,12 +300,11 @@ class AccountAdminApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/users'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
         if 'action' in params:
-            query_params['action'] = params['action']
+            query_params.append(('action', params['action']))
 
         header_params = {}
 
@@ -357,7 +325,7 @@ class AccountAdminApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'POST',
+        return self.api_client.call_api('/v3/users', 'POST',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -366,7 +334,7 @@ class AccountAdminApi(object):
                                         files=local_var_files,
                                         response_type='UserInfoResp',
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -377,22 +345,18 @@ class AccountAdminApi(object):
         Delete a user.
         An endpoint for deleting a user.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.delete_user(user_id, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.delete_user(user_id, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str user_id: The ID of the user to be deleted. (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.delete_user_with_http_info(user_id, **kwargs)
         else:
             (data) = self.delete_user_with_http_info(user_id, **kwargs)
@@ -403,15 +367,11 @@ class AccountAdminApi(object):
         Delete a user.
         An endpoint for deleting a user.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.delete_user_with_http_info(user_id, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.delete_user_with_http_info(user_id, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str user_id: The ID of the user to be deleted. (required)
         :return: None
                  If the method is called asynchronously,
@@ -419,7 +379,7 @@ class AccountAdminApi(object):
         """
 
         all_params = ['user_id']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -440,12 +400,11 @@ class AccountAdminApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/users/{user-id}'.replace('{format}', 'json')
         path_params = {}
         if 'user_id' in params:
             path_params['user-id'] = params['user_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -460,7 +419,7 @@ class AccountAdminApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'DELETE',
+        return self.api_client.call_api('/v3/users/{user-id}', 'DELETE',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -469,7 +428,7 @@ class AccountAdminApi(object):
                                         files=local_var_files,
                                         response_type=None,
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -480,15 +439,11 @@ class AccountAdminApi(object):
         Get the details of all users.
         An endpoint for retrieving the details of all users.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.get_all_users(callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.get_all_users(async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param int limit: The number of results to return (2-1000), default is 50.
         :param str after: The entity ID to fetch after the given one.
         :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
@@ -499,7 +454,7 @@ class AccountAdminApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.get_all_users_with_http_info(**kwargs)
         else:
             (data) = self.get_all_users_with_http_info(**kwargs)
@@ -510,15 +465,11 @@ class AccountAdminApi(object):
         Get the details of all users.
         An endpoint for retrieving the details of all users.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.get_all_users_with_http_info(callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.get_all_users_with_http_info(async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param int limit: The number of results to return (2-1000), default is 50.
         :param str after: The entity ID to fetch after the given one.
         :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
@@ -530,7 +481,7 @@ class AccountAdminApi(object):
         """
 
         all_params = ['limit', 'after', 'order', 'include', 'status__eq']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -548,20 +499,19 @@ class AccountAdminApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/users'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
         if 'limit' in params:
-            query_params['limit'] = params['limit']
+            query_params.append(('limit', params['limit']))
         if 'after' in params:
-            query_params['after'] = params['after']
+            query_params.append(('after', params['after']))
         if 'order' in params:
-            query_params['order'] = params['order']
+            query_params.append(('order', params['order']))
         if 'include' in params:
-            query_params['include'] = params['include']
+            query_params.append(('include', params['include']))
         if 'status__eq' in params:
-            query_params['status__eq'] = params['status__eq']
+            query_params.append(('status__eq', params['status__eq']))
 
         header_params = {}
 
@@ -576,7 +526,7 @@ class AccountAdminApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/users', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -585,7 +535,7 @@ class AccountAdminApi(object):
                                         files=local_var_files,
                                         response_type='UserInfoRespList',
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -596,22 +546,18 @@ class AccountAdminApi(object):
         Details of a user.
         An endpoint for retrieving the details of a user.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.get_user(user_id, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.get_user(user_id, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str user_id: The ID or name of the user whose details are retrieved. (required)
         :return: UserInfoResp
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.get_user_with_http_info(user_id, **kwargs)
         else:
             (data) = self.get_user_with_http_info(user_id, **kwargs)
@@ -622,15 +568,11 @@ class AccountAdminApi(object):
         Details of a user.
         An endpoint for retrieving the details of a user.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.get_user_with_http_info(user_id, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.get_user_with_http_info(user_id, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str user_id: The ID or name of the user whose details are retrieved. (required)
         :return: UserInfoResp
                  If the method is called asynchronously,
@@ -638,7 +580,7 @@ class AccountAdminApi(object):
         """
 
         all_params = ['user_id']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -659,12 +601,11 @@ class AccountAdminApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/users/{user-id}'.replace('{format}', 'json')
         path_params = {}
         if 'user_id' in params:
             path_params['user-id'] = params['user_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -679,7 +620,7 @@ class AccountAdminApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/users/{user-id}', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -688,7 +629,7 @@ class AccountAdminApi(object):
                                         files=local_var_files,
                                         response_type='UserInfoResp',
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -699,15 +640,11 @@ class AccountAdminApi(object):
         Get users of a group.
         An endpoint for listing the users of a group with details.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.get_users_of_group(group_id, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.get_users_of_group(group_id, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str group_id: The ID of the group whose users are retrieved. (required)
         :param int limit: The number of results to return (2-1000), default is 50.
         :param str after: The entity ID to fetch after the given one.
@@ -718,7 +655,7 @@ class AccountAdminApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.get_users_of_group_with_http_info(group_id, **kwargs)
         else:
             (data) = self.get_users_of_group_with_http_info(group_id, **kwargs)
@@ -729,15 +666,11 @@ class AccountAdminApi(object):
         Get users of a group.
         An endpoint for listing the users of a group with details.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.get_users_of_group_with_http_info(group_id, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.get_users_of_group_with_http_info(group_id, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str group_id: The ID of the group whose users are retrieved. (required)
         :param int limit: The number of results to return (2-1000), default is 50.
         :param str after: The entity ID to fetch after the given one.
@@ -749,7 +682,7 @@ class AccountAdminApi(object):
         """
 
         all_params = ['group_id', 'limit', 'after', 'order', 'include']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -770,20 +703,19 @@ class AccountAdminApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/policy-groups/{groupID}/users'.replace('{format}', 'json')
         path_params = {}
         if 'group_id' in params:
             path_params['groupID'] = params['group_id']
 
-        query_params = {}
+        query_params = []
         if 'limit' in params:
-            query_params['limit'] = params['limit']
+            query_params.append(('limit', params['limit']))
         if 'after' in params:
-            query_params['after'] = params['after']
+            query_params.append(('after', params['after']))
         if 'order' in params:
-            query_params['order'] = params['order']
+            query_params.append(('order', params['order']))
         if 'include' in params:
-            query_params['include'] = params['include']
+            query_params.append(('include', params['include']))
 
         header_params = {}
 
@@ -798,7 +730,7 @@ class AccountAdminApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/policy-groups/{groupID}/users', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -807,7 +739,7 @@ class AccountAdminApi(object):
                                         files=local_var_files,
                                         response_type='UserInfoRespList',
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -818,15 +750,11 @@ class AccountAdminApi(object):
         Remove users from a group.
         An endpoint for removing users from groups.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.remove_users_from_group(group_id, body, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.remove_users_from_group(group_id, body, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str group_id: The ID of the group whose users are removed. (required)
         :param SubjectList body: A list of users to be removed from the group. (required)
         :return: UpdatedResponse
@@ -834,7 +762,7 @@ class AccountAdminApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.remove_users_from_group_with_http_info(group_id, body, **kwargs)
         else:
             (data) = self.remove_users_from_group_with_http_info(group_id, body, **kwargs)
@@ -845,15 +773,11 @@ class AccountAdminApi(object):
         Remove users from a group.
         An endpoint for removing users from groups.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.remove_users_from_group_with_http_info(group_id, body, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.remove_users_from_group_with_http_info(group_id, body, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str group_id: The ID of the group whose users are removed. (required)
         :param SubjectList body: A list of users to be removed from the group. (required)
         :return: UpdatedResponse
@@ -862,7 +786,7 @@ class AccountAdminApi(object):
         """
 
         all_params = ['group_id', 'body']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -886,12 +810,11 @@ class AccountAdminApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/policy-groups/{groupID}/users'.replace('{format}', 'json')
         path_params = {}
         if 'group_id' in params:
             path_params['groupID'] = params['group_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -912,7 +835,7 @@ class AccountAdminApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'DELETE',
+        return self.api_client.call_api('/v3/policy-groups/{groupID}/users', 'DELETE',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -921,7 +844,7 @@ class AccountAdminApi(object):
                                         files=local_var_files,
                                         response_type='UpdatedResponse',
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -932,22 +855,18 @@ class AccountAdminApi(object):
         Updates attributes of the account.
         An endpoint for updating the account.   **Example usage:** `curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/me -d '{\"phone_number\": \"12345678\"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.update_my_account(body, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.update_my_account(body, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param AccountUpdateReq body: Details of the account to be updated. (required)
         :return: AccountInfo
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.update_my_account_with_http_info(body, **kwargs)
         else:
             (data) = self.update_my_account_with_http_info(body, **kwargs)
@@ -958,15 +877,11 @@ class AccountAdminApi(object):
         Updates attributes of the account.
         An endpoint for updating the account.   **Example usage:** `curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/me -d '{\"phone_number\": \"12345678\"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.update_my_account_with_http_info(body, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.update_my_account_with_http_info(body, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param AccountUpdateReq body: Details of the account to be updated. (required)
         :return: AccountInfo
                  If the method is called asynchronously,
@@ -974,7 +889,7 @@ class AccountAdminApi(object):
         """
 
         all_params = ['body']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -995,10 +910,9 @@ class AccountAdminApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/accounts/me'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -1019,7 +933,7 @@ class AccountAdminApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'PUT',
+        return self.api_client.call_api('/v3/accounts/me', 'PUT',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1028,7 +942,7 @@ class AccountAdminApi(object):
                                         files=local_var_files,
                                         response_type='AccountInfo',
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -1039,15 +953,11 @@ class AccountAdminApi(object):
         Update user details.
         An endpoint for updating user details.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.update_user(user_id, body, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.update_user(user_id, body, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str user_id: The ID of the user whose details are updated. (required)
         :param UserUpdateReq body: A user object with attributes. (required)
         :return: UserInfoResp
@@ -1055,7 +965,7 @@ class AccountAdminApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.update_user_with_http_info(user_id, body, **kwargs)
         else:
             (data) = self.update_user_with_http_info(user_id, body, **kwargs)
@@ -1066,15 +976,11 @@ class AccountAdminApi(object):
         Update user details.
         An endpoint for updating user details.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.update_user_with_http_info(user_id, body, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.update_user_with_http_info(user_id, body, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str user_id: The ID of the user whose details are updated. (required)
         :param UserUpdateReq body: A user object with attributes. (required)
         :return: UserInfoResp
@@ -1083,7 +989,7 @@ class AccountAdminApi(object):
         """
 
         all_params = ['user_id', 'body']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -1107,12 +1013,11 @@ class AccountAdminApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/users/{user-id}'.replace('{format}', 'json')
         path_params = {}
         if 'user_id' in params:
             path_params['user-id'] = params['user_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -1133,7 +1038,7 @@ class AccountAdminApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'PUT',
+        return self.api_client.call_api('/v3/users/{user-id}', 'PUT',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1142,7 +1047,7 @@ class AccountAdminApi(object):
                                         files=local_var_files,
                                         response_type='UserInfoResp',
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),

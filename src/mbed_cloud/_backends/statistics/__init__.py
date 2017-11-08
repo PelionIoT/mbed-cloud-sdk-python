@@ -27,5 +27,3 @@ from .apis.statistics_api import StatisticsApi
 from .api_client import ApiClient
 
 from .configuration import Configuration
-
-configuration = Configuration()

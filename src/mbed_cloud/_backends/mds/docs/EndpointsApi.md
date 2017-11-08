@@ -17,19 +17,20 @@ The list of resources is cached by Mbed Cloud Connect, so this call does not cre
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import mds
 from mds.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-mds.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = mds.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# mds.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = mds.EndpointsApi()
+api_instance = mds.EndpointsApi(mds.ApiClient(configuration))
 device_id = 'device_id_example' # str | A unique Mbed Cloud device ID for an endpoint. Note that the ID needs to be an exact match. You cannot use wildcards here. 
 
 try: 
@@ -70,19 +71,20 @@ Endpoints are physical devices having valid registration to Mbed Cloud Connect. 
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import mds
 from mds.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-mds.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = mds.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# mds.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = mds.EndpointsApi()
+api_instance = mds.EndpointsApi(mds.ApiClient(configuration))
 type = 'type_example' # str | Filter endpoints by endpoint-type. (optional)
 
 try: 

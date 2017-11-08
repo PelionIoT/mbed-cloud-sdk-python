@@ -19,19 +19,20 @@ A request to delete a resource must be handled by both Mbed Cloud Client and Mbe
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import mds
 from mds.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-mds.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = mds.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# mds.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = mds.ResourcesApi()
+api_instance = mds.ResourcesApi(mds.ApiClient(configuration))
 device_id = 'device_id_example' # str | A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
 _resource_path = '_resource_path_example' # str | The URL of the resource. 
 no_resp = true # bool | <br/><br/><b>Non-confirmable requests</b><br/>  All resource APIs have the parameter noResp. If you make a request with `noResp=true`, Mbed Cloud Connect makes a CoAP non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code `204 No Content`. If the underlying protocol does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code `409 Conflict`.  (optional)
@@ -76,19 +77,20 @@ Requests the resource value and when the response is available, an `AsyncIDRespo
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import mds
 from mds.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-mds.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = mds.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# mds.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = mds.ResourcesApi()
+api_instance = mds.ResourcesApi(mds.ApiClient(configuration))
 device_id = 'device_id_example' # str | Unique Mbed Cloud device ID for the endpoint. Note that the ID needs to be an exact match. You cannot use wildcards here. 
 _resource_path = '_resource_path_example' # str | The URL of the resource. 
 cache_only = true # bool | If true, the response comes only from the cache. Default: false. Mbed Cloud Connect caches the received resource values for the time of [max_age](/docs/v1.2/collecting/handle-resources.html#working-with-the-server-cache) defined in the client side.  (optional)
@@ -135,19 +137,20 @@ With this API, you can execute a function on an existing resource.  All resource
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import mds
 from mds.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-mds.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = mds.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# mds.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = mds.ResourcesApi()
+api_instance = mds.ResourcesApi(mds.ApiClient(configuration))
 device_id = 'device_id_example' # str | A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
 _resource_path = '_resource_path_example' # str | The URL of the resource.
 resource_function = 'resource_function_example' # str | This value is not needed. Most of the time resources do not accept a function but they have their own functions predefined. You can use this to trigger them.  If a function is included, the body of this request is passed as a char* to the function in Mbed Cloud Client.  (optional)
@@ -194,19 +197,20 @@ With this API, you can write new values to existing resources, or create new  re
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import mds
 from mds.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-mds.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = mds.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# mds.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = mds.ResourcesApi()
+api_instance = mds.ResourcesApi(mds.ApiClient(configuration))
 device_id = 'device_id_example' # str | A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
 _resource_path = '_resource_path_example' # str | Resource URL.
 resource_value = 'resource_value_example' # str | The value to be set to the resource. 

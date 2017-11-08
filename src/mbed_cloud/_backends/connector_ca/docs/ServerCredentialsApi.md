@@ -17,19 +17,20 @@ This REST API is intended to be used by customers to fetch bootstrap server cred
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import connector_ca
 from connector_ca.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-connector_ca.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = connector_ca.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# connector_ca.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = connector_ca.ServerCredentialsApi()
+api_instance = connector_ca.ServerCredentialsApi(connector_ca.ApiClient(configuration))
 authorization = 'authorization_example' # str | Bearer {Access Token}. 
 
 try: 
@@ -70,19 +71,20 @@ This REST API is intended to be used by customers to fetch LWM2M server credenti
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import connector_ca
 from connector_ca.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-connector_ca.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = connector_ca.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# connector_ca.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = connector_ca.ServerCredentialsApi()
+api_instance = connector_ca.ServerCredentialsApi(connector_ca.ApiClient(configuration))
 authorization = 'authorization_example' # str | Bearer {Access Token}. 
 
 try: 

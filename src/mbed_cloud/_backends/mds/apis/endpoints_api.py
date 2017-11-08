@@ -20,7 +20,6 @@ import re
 # python 2 and python 3 compatibility library
 from six import iteritems
 
-from ..configuration import Configuration
 from ..api_client import ApiClient
 
 
@@ -32,35 +31,27 @@ class EndpointsApi(object):
     """
 
     def __init__(self, api_client=None):
-        config = Configuration()
-        if api_client:
-            self.api_client = api_client
-        else:
-            if not config.api_client:
-                config.api_client = ApiClient()
-            self.api_client = config.api_client
+        if api_client is None:
+            api_client = ApiClient()
+        self.api_client = api_client
 
     def v2_endpoints_device_id_get(self, device_id, **kwargs):
         """
         List the resources on an endpoint
         The list of resources is cached by Mbed Cloud Connect, so this call does not create a message to the device.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id} -H 'authorization: Bearer {api-key}'      
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.v2_endpoints_device_id_get(device_id, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.v2_endpoints_device_id_get(device_id, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str device_id: A unique Mbed Cloud device ID for an endpoint. Note that the ID needs to be an exact match. You cannot use wildcards here.  (required)
         :return: list[Resource]
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.v2_endpoints_device_id_get_with_http_info(device_id, **kwargs)
         else:
             (data) = self.v2_endpoints_device_id_get_with_http_info(device_id, **kwargs)
@@ -71,15 +62,11 @@ class EndpointsApi(object):
         List the resources on an endpoint
         The list of resources is cached by Mbed Cloud Connect, so this call does not create a message to the device.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id} -H 'authorization: Bearer {api-key}'      
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.v2_endpoints_device_id_get_with_http_info(device_id, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.v2_endpoints_device_id_get_with_http_info(device_id, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str device_id: A unique Mbed Cloud device ID for an endpoint. Note that the ID needs to be an exact match. You cannot use wildcards here.  (required)
         :return: list[Resource]
                  If the method is called asynchronously,
@@ -87,7 +74,7 @@ class EndpointsApi(object):
         """
 
         all_params = ['device_id']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -108,12 +95,11 @@ class EndpointsApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v2/endpoints/{device-id}'.replace('{format}', 'json')
         path_params = {}
         if 'device_id' in params:
             path_params['device-id'] = params['device_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -128,7 +114,7 @@ class EndpointsApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v2/endpoints/{device-id}', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -137,7 +123,7 @@ class EndpointsApi(object):
                                         files=local_var_files,
                                         response_type='list[Resource]',
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -148,22 +134,18 @@ class EndpointsApi(object):
         (DEPRECATED) List registered endpoints. The number of returned endpoints is currently limited to 200.
         Endpoints are physical devices having valid registration to Mbed Cloud Connect. All devices regardless of registration status can be requested from Device Directory API ['/v3/devices/`](/docs/v1.2/service-api-references/device-directory-api.html#v3-devices).  **Note:** This endpoint is deprecated and will be removed 1Q/18. You should use the Device Directory API [`/v3/devices/`](/docs/v1.2/service-api-references/device-directory-api.html#v3-devices). To list only the registered devices, use filter `/v3/devices/?filter=state%3Dregistered`.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/endpoints -H 'authorization: Bearer {api-key}'      
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.v2_endpoints_get(callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.v2_endpoints_get(async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str type: Filter endpoints by endpoint-type.
         :return: list[Endpoint]
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.v2_endpoints_get_with_http_info(**kwargs)
         else:
             (data) = self.v2_endpoints_get_with_http_info(**kwargs)
@@ -174,15 +156,11 @@ class EndpointsApi(object):
         (DEPRECATED) List registered endpoints. The number of returned endpoints is currently limited to 200.
         Endpoints are physical devices having valid registration to Mbed Cloud Connect. All devices regardless of registration status can be requested from Device Directory API ['/v3/devices/`](/docs/v1.2/service-api-references/device-directory-api.html#v3-devices).  **Note:** This endpoint is deprecated and will be removed 1Q/18. You should use the Device Directory API [`/v3/devices/`](/docs/v1.2/service-api-references/device-directory-api.html#v3-devices). To list only the registered devices, use filter `/v3/devices/?filter=state%3Dregistered`.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/endpoints -H 'authorization: Bearer {api-key}'      
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.v2_endpoints_get_with_http_info(callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.v2_endpoints_get_with_http_info(async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str type: Filter endpoints by endpoint-type.
         :return: list[Endpoint]
                  If the method is called asynchronously,
@@ -190,7 +168,7 @@ class EndpointsApi(object):
         """
 
         all_params = ['type']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -208,12 +186,11 @@ class EndpointsApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v2/endpoints'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
         if 'type' in params:
-            query_params['type'] = params['type']
+            query_params.append(('type', params['type']))
 
         header_params = {}
 
@@ -228,7 +205,7 @@ class EndpointsApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v2/endpoints', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -237,7 +214,7 @@ class EndpointsApi(object):
                                         files=local_var_files,
                                         response_type='list[Endpoint]',
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),

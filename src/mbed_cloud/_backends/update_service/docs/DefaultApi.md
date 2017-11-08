@@ -31,19 +31,20 @@ Create firmware image.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import update_service
 from update_service.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-update_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = update_service.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# update_service.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = update_service.DefaultApi()
+api_instance = update_service.DefaultApi(update_service.ApiClient(configuration))
 datafile = '/path/to/file.txt' # file | The firmware image file to upload
 name = 'name_example' # str | The name of the firmware image
 description = 'description_example' # str | The description of the firmware image (optional)
@@ -87,19 +88,20 @@ Delete firmware image.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import update_service
 from update_service.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-update_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = update_service.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# update_service.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = update_service.DefaultApi()
+api_instance = update_service.DefaultApi(update_service.ApiClient(configuration))
 image_id = 'image_id_example' # str | The firmware image ID
 
 try: 
@@ -138,19 +140,20 @@ List all firmware images.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import update_service
 from update_service.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-update_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = update_service.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# update_service.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = update_service.DefaultApi()
+api_instance = update_service.DefaultApi(update_service.ApiClient(configuration))
 limit = 56 # int | How many firmware images to retrieve (optional)
 order = 'order_example' # str | ASC or DESC (optional)
 after = 'after_example' # str | The ID of the the item after which to retrieve the next page (optional)
@@ -198,19 +201,20 @@ Retrieve firmware image.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import update_service
 from update_service.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-update_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = update_service.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# update_service.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = update_service.DefaultApi()
+api_instance = update_service.DefaultApi(update_service.ApiClient(configuration))
 image_id = 'image_id_example' # str | The firmware image ID
 
 try: 
@@ -250,19 +254,20 @@ Create firmware manifest.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import update_service
 from update_service.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-update_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = update_service.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# update_service.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = update_service.DefaultApi()
+api_instance = update_service.DefaultApi(update_service.ApiClient(configuration))
 datafile = '/path/to/file.txt' # file | The manifest file to create. The API gateway enforces the account-specific file size.
 name = 'name_example' # str | The name of the firmware manifest
 description = 'description_example' # str | The description of the firmware manifest (optional)
@@ -306,19 +311,20 @@ Delete firmware manifest.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import update_service
 from update_service.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-update_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = update_service.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# update_service.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = update_service.DefaultApi()
+api_instance = update_service.DefaultApi(update_service.ApiClient(configuration))
 manifest_id = 'manifest_id_example' # str | The firmware manifest ID
 
 try: 
@@ -357,19 +363,20 @@ List firmware manifests.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import update_service
 from update_service.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-update_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = update_service.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# update_service.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = update_service.DefaultApi()
+api_instance = update_service.DefaultApi(update_service.ApiClient(configuration))
 limit = 56 # int | How many firmware manifests to retrieve (optional)
 order = 'order_example' # str | ASC or DESC (optional)
 after = 'after_example' # str | The ID of the the item after which to retrieve the next page. (optional)
@@ -417,19 +424,20 @@ Retrieve firmware manifest.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import update_service
 from update_service.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-update_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = update_service.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# update_service.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = update_service.DefaultApi()
+api_instance = update_service.DefaultApi(update_service.ApiClient(configuration))
 manifest_id = 'manifest_id_example' # str | The firmware manifest ID
 
 try: 
@@ -469,19 +477,20 @@ Create an update campaign.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import update_service
 from update_service.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-update_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = update_service.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# update_service.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = update_service.DefaultApi()
+api_instance = update_service.DefaultApi(update_service.ApiClient(configuration))
 campaign = update_service.UpdateCampaignPostRequest() # UpdateCampaignPostRequest | Update campaign
 
 try: 
@@ -521,19 +530,20 @@ Delete an update campaign.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import update_service
 from update_service.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-update_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = update_service.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# update_service.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = update_service.DefaultApi()
+api_instance = update_service.DefaultApi(update_service.ApiClient(configuration))
 campaign_id = 'campaign_id_example' # str | The ID of the update campaign
 
 try: 
@@ -572,19 +582,20 @@ Get update campaigns for devices specified by a filter.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import update_service
 from update_service.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-update_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = update_service.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# update_service.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = update_service.DefaultApi()
+api_instance = update_service.DefaultApi(update_service.ApiClient(configuration))
 limit = 56 # int | How many update campaigns to retrieve (optional)
 order = 'order_example' # str | The order of the records. Acceptable values: ASC, DESC. Default: ASC (optional)
 after = 'after_example' # str | The ID of the the item after which to retrieve the next page (optional)
@@ -632,19 +643,20 @@ Modify a subset of an update campaign's fields.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import update_service
 from update_service.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-update_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = update_service.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# update_service.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = update_service.DefaultApi()
+api_instance = update_service.DefaultApi(update_service.ApiClient(configuration))
 campaign_id = 'campaign_id_example' # str | 
 campaign = update_service.UpdateCampaignPatchRequest() # UpdateCampaignPatchRequest | Update campaign
 
@@ -686,19 +698,20 @@ Get an update campaign.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import update_service
 from update_service.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-update_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = update_service.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# update_service.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = update_service.DefaultApi()
+api_instance = update_service.DefaultApi(update_service.ApiClient(configuration))
 campaign_id = 'campaign_id_example' # str | The campaign ID
 
 try: 
@@ -738,19 +751,20 @@ Modify an update campaign.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import update_service
 from update_service.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-update_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = update_service.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# update_service.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = update_service.DefaultApi()
+api_instance = update_service.DefaultApi(update_service.ApiClient(configuration))
 campaign_id = 'campaign_id_example' # str | 
 campaign = update_service.UpdateCampaignPutRequest() # UpdateCampaignPutRequest | Update campaign
 
@@ -792,19 +806,20 @@ Get update campaign metadata.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import update_service
 from update_service.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-update_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = update_service.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# update_service.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = update_service.DefaultApi()
+api_instance = update_service.DefaultApi(update_service.ApiClient(configuration))
 campaign_id = 'campaign_id_example' # str | The update campaign ID
 campaign_device_metadata_id = 'campaign_device_metadata_id_example' # str | The campaign device metadata ID
 
@@ -846,19 +861,20 @@ Get campaign device metadata.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import update_service
 from update_service.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-update_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = update_service.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# update_service.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = update_service.DefaultApi()
+api_instance = update_service.DefaultApi(update_service.ApiClient(configuration))
 campaign_id = 'campaign_id_example' # str | The update campaign ID
 limit = 56 # int | How many objects to retrieve in the page (optional)
 order = 'order_example' # str | ASC or DESC (optional)

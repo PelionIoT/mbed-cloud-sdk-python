@@ -18,19 +18,20 @@ Register a URL to which the server should deliver notifications of the subscribe
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import mds
 from mds.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-mds.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = mds.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# mds.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = mds.NotificationsApi()
+api_instance = mds.NotificationsApi(mds.ApiClient(configuration))
 webhook = mds.Webhook() # Webhook | A json object that contains the optional headers and the URL to which the notifications need to be sent. 
 
 try: 
@@ -70,19 +71,20 @@ To delete a notification Long Poll channel. This is required to change the chann
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import mds
 from mds.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-mds.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = mds.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# mds.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = mds.NotificationsApi()
+api_instance = mds.NotificationsApi(mds.ApiClient(configuration))
 
 try: 
     # Delete notification Long Poll channel
@@ -118,19 +120,20 @@ In this case, notifications are delivered through HTTP long poll requests. The H
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import mds
 from mds.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-mds.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = mds.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# mds.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = mds.NotificationsApi()
+api_instance = mds.NotificationsApi(mds.ApiClient(configuration))
 
 try: 
     # Get notifications using Long Poll
