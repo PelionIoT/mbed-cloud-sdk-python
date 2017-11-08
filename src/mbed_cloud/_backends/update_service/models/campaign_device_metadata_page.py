@@ -131,7 +131,7 @@ class CampaignDeviceMetadataPage(object):
     def object(self):
         """
         Gets the object of this CampaignDeviceMetadataPage.
-        Entity name: always ‘list’
+        Entity name: always 'list'
 
         :return: The object of this CampaignDeviceMetadataPage.
         :rtype: str
@@ -142,7 +142,7 @@ class CampaignDeviceMetadataPage(object):
     def object(self, object):
         """
         Sets the object of this CampaignDeviceMetadataPage.
-        Entity name: always ‘list’
+        Entity name: always 'list'
 
         :param object: The object of this CampaignDeviceMetadataPage.
         :type: str
