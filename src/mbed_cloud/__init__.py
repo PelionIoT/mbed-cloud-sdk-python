@@ -41,10 +41,6 @@ class BaseAPI(object):
         self.apis = {}
         if "host" in self.config:
             url = self.config['host']
-            if not isinstance(url, string_types):
-                url = '%s' % url
-            if not isinstance(url, str):
-                url = url.encode('utf-8')
             # Strip leading and trailing slashes from host
             url = url.strip('/')
             self.config.update({'host': url})
@@ -59,7 +55,14 @@ class BaseAPI(object):
         api_client.configuration.api_key['Authorization'] = self.config.get('api_key')
         api_client.configuration.api_key_prefix['Authorization'] = 'Bearer'
         if self.config.get('host'):
-            api_client.configuration.host = self.config.get('host')
+            url = self.config.get('host')
+        else:
+            url = api_client.configuration.host
+        if not isinstance(url, string_types):
+            url = '%s' % url
+        if not isinstance(url, str):
+            url = url.encode('utf-8')
+        api_client.configuration.host = url
         # Ensure we don't encode /
         api_client.configuration.safe_chars_for_path_param = "/"
         for api in apis:
