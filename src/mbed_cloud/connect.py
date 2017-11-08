@@ -47,6 +47,8 @@ from mbed_cloud.exceptions import CloudValueError
 import mbed_cloud._backends.device_directory as device_directory
 from mbed_cloud._backends.device_directory.rest import ApiException as DeviceDirectoryApiException
 import mbed_cloud._backends.mds as mds
+from mbed_cloud._backends.mds.models.presubscription import Presubscription as PresubscriptionData
+from mbed_cloud._backends.mds.models.webhook import Webhook as WebhookData
 from mbed_cloud._backends.mds.rest import ApiException as MdsApiException
 import mbed_cloud._backends.statistics as statistics
 from mbed_cloud._backends.statistics.rest import ApiException as StatisticsApiException
@@ -67,9 +69,6 @@ class ConnectAPI(BaseAPI):
         """Setup the backend APIs with provided config."""
         super(ConnectAPI, self).__init__(params)
 
-        # Initialize the wrapped APIs
-        self.mds = self._init_api(mds)
-
         self._db = {}
         self._queues = defaultdict(lambda: defaultdict(queue.Queue))
 
@@ -77,8 +76,10 @@ class ConnectAPI(BaseAPI):
         self._notifications_are_active = False
         self._notifications_thread = None
 
-        self.statistics = self._init_api(statistics)
-        self.device_directory = self._init_api(device_directory)
+        self._init_api(mds, [mds.DefaultApi, mds.EndpointsApi, mds.NotificationsApi,
+                             mds.ResourcesApi, mds.SubscriptionsApi])
+        self._init_api(statistics, [statistics.AccountApi, statistics.StatisticsApi])
+        self._init_api(device_directory, [device_directory.DefaultApi])
 
     def start_notifications(self):
         """Start the notifications thread.
@@ -95,13 +96,14 @@ class ConnectAPI(BaseAPI):
 
         :returns: void
         """
+        api = self._get_api(mds.NotificationsApi)
         if self._notifications_are_active:
             return
         self._notifications_thread = _NotificationsThread(
             self._db,
             self._queues,
             b64decode=self.b64decode,
-            mds=self.mds
+            notifications_api=api
         )
         self._notifications_thread.daemon = True
         self._notifications_thread.start()
@@ -167,7 +169,7 @@ class ConnectAPI(BaseAPI):
         kwargs.update({'filters': filters})
         kwargs = self._verify_sort_options(kwargs)
         kwargs = self._verify_filters(kwargs, Device, True)
-        api = self.device_directory.DefaultApi()
+        api = self._get_api(device_directory.DefaultApi)
         return PaginatedResponse(api.device_list, lwrap_type=Device, **kwargs)
 
     @catch_exceptions(MdsApiException)
@@ -186,7 +188,7 @@ class ConnectAPI(BaseAPI):
         :returns: A list of :py:class:`Resource` objects for the device
         :rtype: list
         """
-        api = self.mds.EndpointsApi()
+        api = self._get_api(mds.EndpointsApi)
         return [Resource(r) for r in api.v2_endpoints_device_id_get(device_id)]
 
     @catch_exceptions(MdsApiException)
@@ -214,7 +216,7 @@ class ConnectAPI(BaseAPI):
         :returns: Async ID
         :rtype: str
         """
-        api = self.mds.ResourcesApi()
+        api = self._get_api(mds.ResourcesApi)
         # When path starts with / we remove the slash, as the API can't handle //.
         if fix_path and resource_path.startswith("/"):
             resource_path = resource_path[1:]
@@ -252,7 +254,7 @@ class ConnectAPI(BaseAPI):
         # When path starts with / we remove the slash, as the API can't handle //.
         if fix_path and resource_path.startswith("/"):
             resource_path = resource_path[1:]
-        api = self.mds.ResourcesApi()
+        api = self._get_api(mds.ResourcesApi)
         resp = api.v2_endpoints_device_id_resource_path_get(device_id, resource_path)
 
         # The async consumer, which will read data from notifications thread
@@ -286,7 +288,7 @@ class ConnectAPI(BaseAPI):
         if fix_path:
             resource_path = resource_path.lstrip('/')
 
-        api = self.mds.ResourcesApi()
+        api = self._get_api(mds.ResourcesApi)
         resp = api.v2_endpoints_device_id_resource_path_get(device_id, resource_path)
 
         # The async consumer, which will read data from notifications thread
@@ -326,7 +328,7 @@ class ConnectAPI(BaseAPI):
         if fix_path and resource_path.startswith("/"):
             resource_path = resource_path[1:]
 
-        api = self.mds.ResourcesApi()
+        api = self._get_api(mds.ResourcesApi)
 
         if resource_value:
             resp = api.v2_endpoints_device_id_resource_path_put(device_id,
@@ -366,7 +368,7 @@ class ConnectAPI(BaseAPI):
         if fix_path and resource_path.startswith("/"):
             resource_path = resource_path[1:]
 
-        api = self.mds.ResourcesApi()
+        api = self._get_api(mds.ResourcesApi)
 
         if resource_value:
             resp = api.v2_endpoints_device_id_resource_path_put(device_id,
@@ -409,7 +411,7 @@ class ConnectAPI(BaseAPI):
         if fix_path and resource_path.startswith("/"):
             resource_path = resource_path[1:]
 
-        api = self.mds.ResourcesApi()
+        api = self._get_api(mds.ResourcesApi)
         resp = api.v2_endpoints_device_id_resource_path_post(device_id,
                                                              resource_path,
                                                              **kwargs)
@@ -443,7 +445,7 @@ class ConnectAPI(BaseAPI):
         if fix_path and resource_path.startswith("/"):
             resource_path = resource_path[1:]
 
-        api = self.mds.ResourcesApi()
+        api = self._get_api(mds.ResourcesApi)
 
         resp = api.v2_endpoints_device_id_resource_path_post(device_id,
                                                              resource_path,
@@ -477,7 +479,7 @@ class ConnectAPI(BaseAPI):
         self._queues[device_id][resource_path] = q
 
         # Send subscription request
-        api = self.mds.SubscriptionsApi()
+        api = self._get_api(mds.SubscriptionsApi)
         api.v2_subscriptions_device_id_resource_path_put(device_id, fixed_path)
 
         # Return the Queue object to the user
@@ -521,7 +523,7 @@ class ConnectAPI(BaseAPI):
         if fix_path and resource_path.startswith("/"):
             fixed_path = resource_path[1:]
 
-        api = self.mds.SubscriptionsApi()
+        api = self._get_api(mds.SubscriptionsApi)
         return api.v2_subscriptions_device_id_resource_path_get(device_id, fixed_path)
 
     @catch_exceptions(MdsApiException)
@@ -531,7 +533,7 @@ class ConnectAPI(BaseAPI):
         :param presubscriptions: list of `Presubscription` objects (Required)
         :returns: None
         """
-        api = self.mds.SubscriptionsApi()
+        api = self._get_api(mds.SubscriptionsApi)
         presubscriptions_list = []
         for presubscription in presubscriptions:
             if not isinstance(presubscription, dict):
@@ -541,7 +543,7 @@ class ConnectAPI(BaseAPI):
                 "endpoint_type": presubscription.get("device_type", None),
                 "_resource_path": presubscription.get("resource_paths", None)
             }
-            presubscriptions_list.append(self.mds.Presubscription(**presubscription))
+            presubscriptions_list.append(PresubscriptionData(**presubscription))
         return api.v2_subscriptions_put(presubscriptions_list)
 
     @catch_exceptions(MdsApiException)
@@ -550,7 +552,7 @@ class ConnectAPI(BaseAPI):
 
         :returns: None
         """
-        api = self.mds.SubscriptionsApi()
+        api = self._get_api(mds.SubscriptionsApi)
         return api.v2_subscriptions_put([])
 
     @catch_exceptions(MdsApiException)
@@ -559,7 +561,7 @@ class ConnectAPI(BaseAPI):
 
         :returns: None
         """
-        api = self.mds.SubscriptionsApi()
+        api = self._get_api(mds.SubscriptionsApi)
         return api.v2_subscriptions_delete()
 
     @catch_exceptions(MdsApiException)
@@ -569,7 +571,7 @@ class ConnectAPI(BaseAPI):
         :returns: a list of `Presubscription` objects
         :rtype: list of Presubscription
         """
-        api = self.mds.SubscriptionsApi()
+        api = self._get_api(mds.SubscriptionsApi)
         resp = api.v2_subscriptions_get(**kwargs)
         return [Presubscription(p) for p in resp]
 
@@ -581,7 +583,7 @@ class ConnectAPI(BaseAPI):
         :returns: a list of subscribed resources
         :rtype: list of str
         """
-        api = self.mds.SubscriptionsApi()
+        api = self._get_api(mds.SubscriptionsApi)
         resp = api.v2_subscriptions_device_id_get(device_id, **kwargs)
         return resp.split("\n")
 
@@ -592,7 +594,7 @@ class ConnectAPI(BaseAPI):
         :param device_id: Id of the device
         :returns: None
         """
-        api = self.mds.SubscriptionsApi()
+        api = self._get_api(mds.SubscriptionsApi)
         return api.v2_subscriptions_device_id_delete(device_id)
 
     @catch_exceptions(MdsApiException)
@@ -621,7 +623,7 @@ class ConnectAPI(BaseAPI):
                 resource_paths.extend(list(self._queues[e].keys()))
 
         # Delete the subscriptions
-        api = self.mds.SubscriptionsApi()
+        api = self._get_api(mds.SubscriptionsApi)
         for e in devices:
             for r in resource_paths:
                 # Fix the path, if required.
@@ -642,7 +644,7 @@ class ConnectAPI(BaseAPI):
 
         :return: The currently set webhook
         """
-        api = self.mds.DefaultApi()
+        api = self._get_api(mds.DefaultApi)
         return Webhook(api.v2_notification_callback_get())
 
     @catch_exceptions(MdsApiException)
@@ -656,13 +658,13 @@ class ConnectAPI(BaseAPI):
         :return: void
         """
         headers = headers or {}
-        api = self.mds.NotificationsApi()
+        api = self._get_api(mds.NotificationsApi)
 
         # Delete notifications channel
         api.v2_notification_pull_delete()
 
         # Send the request to register the webhook
-        webhook_obj = self.mds.Webhook(url=url, headers=headers)
+        webhook_obj = WebhookData(url=url, headers=headers)
         api.v2_notification_callback_put(webhook_obj)
         return
 
@@ -677,7 +679,7 @@ class ConnectAPI(BaseAPI):
 
         :return: void
         """
-        api = self.mds.DefaultApi()
+        api = self._get_api(mds.DefaultApi)
         api.v2_notification_callback_delete()
 
         # Every subscription will be deleted, so we can clear the queues too.
@@ -710,7 +712,7 @@ class ConnectAPI(BaseAPI):
         """
         self._verify_arguments(interval, kwargs)
         kwargs = self._verify_filters(kwargs, Metric)
-        api = self.statistics.StatisticsApi()
+        api = self._get_api(statistics.StatisticsApi)
         include = Metric._map_includes(include)
         kwargs.update({"include": include})
         kwargs.update({"interval": interval})
@@ -854,12 +856,12 @@ class AsyncConsumer(object):
 
 
 class _NotificationsThread(threading.Thread):
-    def __init__(self, db, queues, b64decode=True, mds=None):
+    def __init__(self, db, queues, b64decode=True, notifications_api=None):
         super(_NotificationsThread, self).__init__()
 
         self.db = db
         self.queues = queues
-        self.mds = mds
+        self.notifications_api = notifications_api
 
         self._b64decode = b64decode
         self._stopped = False
@@ -867,8 +869,7 @@ class _NotificationsThread(threading.Thread):
     @catch_exceptions(MdsApiException)
     def run(self):
         while not self._stopped:
-            api = self.mds.NotificationsApi()
-            resp = api.v2_notification_pull_get()
+            resp = self.notifications_api.v2_notification_pull_get()
 
             if resp.notifications:
                 for n in resp.notifications:

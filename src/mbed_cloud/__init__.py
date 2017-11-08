@@ -22,7 +22,6 @@ from builtins import object
 import datetime
 from six import iteritems
 from six import string_types
-import sys
 
 from six.moves import urllib
 
@@ -30,49 +29,45 @@ from mbed_cloud._version import __version__  # noqa
 from mbed_cloud.bootstrap import Config
 from mbed_cloud.exceptions import CloudValueError
 
-config = Config()
-
 
 class BaseAPI(object):
     """BaseAPI is parent class for all APIs. Ensuring config is valid and available."""
 
     def __init__(self, user_config=None):
         """Ensure the config is valid and has all required fields."""
+        self.config = Config()
         user_config = user_config or {}
-        config.update(user_config)
-        self.apis = []
-        if "host" in config:
+        self.config.update(user_config)
+        self.apis = {}
+        if "host" in self.config:
+            url = self.config['host']
             # Strip leading and trailing slashes from host
-            config.update({'host': config['host'].strip('/')})
-            if not config["host"].startswith("https"):
-                sys.stderr.write("'host' config needs to use protocol HTTPS. Ignoring.\n")
-                sys.stderr.flush()
-                del config["host"]
-        else:
-            # Host is not set. Set default host.
-            config.update({'host': 'https://api.us-east-1.mbedcloud.com'})
-
-        if "api_key" not in config:
+            url = url.strip('/')
+            self.config.update({'host': url})
+        if "api_key" not in self.config:
             raise ValueError("api_key not found in config. Please see documentation.")
 
-    def _init_api(self, api):
-        api.configuration.api_key['Authorization'] = config.get('api_key')
-        api.configuration.api_key_prefix['Authorization'] = 'Bearer'
-        if config.get('host'):
-            api.configuration.host = config.get('host')
+    def _get_api(self, api_class):
+        return self.apis.get(api_class, None)
 
-        # Ensure URL is base string, not unicode (Issue22231)
-        url = api.configuration.host
+    def _init_api(self, api_class, apis):
+        api_client = api_class.ApiClient()
+        api_client.configuration.api_key['Authorization'] = self.config.get('api_key')
+        api_client.configuration.api_key_prefix['Authorization'] = 'Bearer'
+        if self.config.get('host'):
+            url = self.config.get('host')
+        else:
+            url = api_client.configuration.host
         if not isinstance(url, string_types):
             url = '%s' % url
         if not isinstance(url, str):
             url = url.encode('utf-8')
-        api.configuration.host = url
-
+        api_client.configuration.host = url
         # Ensure we don't encode /
-        api.configuration.safe_chars = "/"
-        self.apis.append(api)
-        return api
+        api_client.configuration.safe_chars_for_path_param = "/"
+        for api in apis:
+            self.apis[api] = api(api_client)
+        return api_client
 
     def _verify_sort_options(self, kwargs):
         if kwargs.get('order'):
@@ -174,11 +169,11 @@ class BaseAPI(object):
         :rtype: ApiMetadata
         """
         last_metadata = None
-        for api in self.apis:
-            api_client = api.configuration.api_client
+        for key, api in iteritems(self.apis):
+            api_client = api.api_client
             if api_client is not None:
                 metadata = api_client.get_last_metadata()
-                if metadata is not None:
+                if metadata is not None and metadata.get('timestamp', None) is not None:
                     if last_metadata is None:
                         last_metadata = metadata
                     elif metadata["timestamp"] >= last_metadata["timestamp"]:

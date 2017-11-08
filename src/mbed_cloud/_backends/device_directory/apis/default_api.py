@@ -20,7 +20,6 @@ import re
 # python 2 and python 3 compatibility library
 from six import iteritems
 
-from ..configuration import Configuration
 from ..api_client import ApiClient
 
 
@@ -32,34 +31,26 @@ class DefaultApi(object):
     """
 
     def __init__(self, api_client=None):
-        config = Configuration()
-        if api_client:
-            self.api_client = api_client
-        else:
-            if not config.api_client:
-                config.api_client = ApiClient()
-            self.api_client = config.api_client
+        if api_client is None:
+            api_client = ApiClient()
+        self.api_client = api_client
 
     def device_create(self, device, **kwargs):
         """
         Create device.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.device_create(device, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.device_create(device, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param DeviceDataPostRequest device: (required)
         :return: DeviceData
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.device_create_with_http_info(device, **kwargs)
         else:
             (data) = self.device_create_with_http_info(device, **kwargs)
@@ -69,15 +60,11 @@ class DefaultApi(object):
         """
         Create device.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.device_create_with_http_info(device, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.device_create_with_http_info(device, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param DeviceDataPostRequest device: (required)
         :return: DeviceData
                  If the method is called asynchronously,
@@ -85,7 +72,7 @@ class DefaultApi(object):
         """
 
         all_params = ['device']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -106,10 +93,9 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/devices/'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -126,7 +112,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'POST',
+        return self.api_client.call_api('/v3/devices/', 'POST',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -135,7 +121,7 @@ class DefaultApi(object):
                                         files=local_var_files,
                                         response_type='DeviceData',
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -145,22 +131,18 @@ class DefaultApi(object):
         """
         Delete device. Only available for devices with a developer certificate. Attempts to delete a device with a production certicate will return a 400 response.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.device_destroy(id, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.device_destroy(id, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str id: (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.device_destroy_with_http_info(id, **kwargs)
         else:
             (data) = self.device_destroy_with_http_info(id, **kwargs)
@@ -170,15 +152,11 @@ class DefaultApi(object):
         """
         Delete device. Only available for devices with a developer certificate. Attempts to delete a device with a production certicate will return a 400 response.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.device_destroy_with_http_info(id, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.device_destroy_with_http_info(id, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str id: (required)
         :return: None
                  If the method is called asynchronously,
@@ -186,7 +164,7 @@ class DefaultApi(object):
         """
 
         all_params = ['id']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -207,12 +185,11 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/devices/{id}/'.replace('{format}', 'json')
         path_params = {}
         if 'id' in params:
             path_params['id'] = params['id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -227,7 +204,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'DELETE',
+        return self.api_client.call_api('/v3/devices/{id}/', 'DELETE',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -236,7 +213,7 @@ class DefaultApi(object):
                                         files=local_var_files,
                                         response_type=None,
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -246,15 +223,11 @@ class DefaultApi(object):
         """
         List all device events.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.device_event_list(callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.device_event_list(async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param int limit: How many objects to retrieve in the page.
         :param str order: The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.
         :param str after: The ID of The item after which to retrieve the next page.
@@ -265,7 +238,7 @@ class DefaultApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.device_event_list_with_http_info(**kwargs)
         else:
             (data) = self.device_event_list_with_http_info(**kwargs)
@@ -275,15 +248,11 @@ class DefaultApi(object):
         """
         List all device events.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.device_event_list_with_http_info(callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.device_event_list_with_http_info(async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param int limit: How many objects to retrieve in the page.
         :param str order: The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.
         :param str after: The ID of The item after which to retrieve the next page.
@@ -295,7 +264,7 @@ class DefaultApi(object):
         """
 
         all_params = ['limit', 'order', 'after', 'filter', 'include']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -313,20 +282,19 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/device-events/'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
         if 'limit' in params:
-            query_params['limit'] = params['limit']
+            query_params.append(('limit', params['limit']))
         if 'order' in params:
-            query_params['order'] = params['order']
+            query_params.append(('order', params['order']))
         if 'after' in params:
-            query_params['after'] = params['after']
+            query_params.append(('after', params['after']))
         if 'filter' in params:
-            query_params['filter'] = params['filter']
+            query_params.append(('filter', params['filter']))
         if 'include' in params:
-            query_params['include'] = params['include']
+            query_params.append(('include', params['include']))
 
         header_params = {}
 
@@ -341,7 +309,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/device-events/', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -350,7 +318,7 @@ class DefaultApi(object):
                                         files=local_var_files,
                                         response_type='DeviceEventPage',
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -360,22 +328,18 @@ class DefaultApi(object):
         """
         Retrieve device event.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.device_event_retrieve(device_event_id, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.device_event_retrieve(device_event_id, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str device_event_id: (required)
         :return: DeviceEventData
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.device_event_retrieve_with_http_info(device_event_id, **kwargs)
         else:
             (data) = self.device_event_retrieve_with_http_info(device_event_id, **kwargs)
@@ -385,15 +349,11 @@ class DefaultApi(object):
         """
         Retrieve device event.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.device_event_retrieve_with_http_info(device_event_id, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.device_event_retrieve_with_http_info(device_event_id, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str device_event_id: (required)
         :return: DeviceEventData
                  If the method is called asynchronously,
@@ -401,7 +361,7 @@ class DefaultApi(object):
         """
 
         all_params = ['device_event_id']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -422,12 +382,11 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/device-events/{device_event_id}/'.replace('{format}', 'json')
         path_params = {}
         if 'device_event_id' in params:
             path_params['device_event_id'] = params['device_event_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -442,7 +401,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/device-events/{device_event_id}/', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -451,7 +410,7 @@ class DefaultApi(object):
                                         files=local_var_files,
                                         response_type='DeviceEventData',
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -461,15 +420,11 @@ class DefaultApi(object):
         """
         List all devices.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.device_list(callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.device_list(async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param int limit: How many objects to retrieve in the page.
         :param str order: The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.
         :param str after: The ID of The item after which to retrieve the next page.
@@ -480,7 +435,7 @@ class DefaultApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.device_list_with_http_info(**kwargs)
         else:
             (data) = self.device_list_with_http_info(**kwargs)
@@ -490,15 +445,11 @@ class DefaultApi(object):
         """
         List all devices.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.device_list_with_http_info(callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.device_list_with_http_info(async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param int limit: How many objects to retrieve in the page.
         :param str order: The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.
         :param str after: The ID of The item after which to retrieve the next page.
@@ -510,7 +461,7 @@ class DefaultApi(object):
         """
 
         all_params = ['limit', 'order', 'after', 'filter', 'include']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -528,20 +479,19 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/devices/'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
         if 'limit' in params:
-            query_params['limit'] = params['limit']
+            query_params.append(('limit', params['limit']))
         if 'order' in params:
-            query_params['order'] = params['order']
+            query_params.append(('order', params['order']))
         if 'after' in params:
-            query_params['after'] = params['after']
+            query_params.append(('after', params['after']))
         if 'filter' in params:
-            query_params['filter'] = params['filter']
+            query_params.append(('filter', params['filter']))
         if 'include' in params:
-            query_params['include'] = params['include']
+            query_params.append(('include', params['include']))
 
         header_params = {}
 
@@ -556,7 +506,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/devices/', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -565,7 +515,7 @@ class DefaultApi(object):
                                         files=local_var_files,
                                         response_type='DevicePage',
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -575,15 +525,11 @@ class DefaultApi(object):
         """
         DEPRECATED: List all device events. Use `/v3/device-events/` instead.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.device_log_list(callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.device_log_list(async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param int limit: How many objects to retrieve in the page.
         :param str order: The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.
         :param str after: The ID of The item after which to retrieve the next page.
@@ -594,7 +540,7 @@ class DefaultApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.device_log_list_with_http_info(**kwargs)
         else:
             (data) = self.device_log_list_with_http_info(**kwargs)
@@ -604,15 +550,11 @@ class DefaultApi(object):
         """
         DEPRECATED: List all device events. Use `/v3/device-events/` instead.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.device_log_list_with_http_info(callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.device_log_list_with_http_info(async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param int limit: How many objects to retrieve in the page.
         :param str order: The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.
         :param str after: The ID of The item after which to retrieve the next page.
@@ -624,7 +566,7 @@ class DefaultApi(object):
         """
 
         all_params = ['limit', 'order', 'after', 'filter', 'include']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -642,20 +584,19 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/devicelog/'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
         if 'limit' in params:
-            query_params['limit'] = params['limit']
+            query_params.append(('limit', params['limit']))
         if 'order' in params:
-            query_params['order'] = params['order']
+            query_params.append(('order', params['order']))
         if 'after' in params:
-            query_params['after'] = params['after']
+            query_params.append(('after', params['after']))
         if 'filter' in params:
-            query_params['filter'] = params['filter']
+            query_params.append(('filter', params['filter']))
         if 'include' in params:
-            query_params['include'] = params['include']
+            query_params.append(('include', params['include']))
 
         header_params = {}
 
@@ -670,7 +611,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/devicelog/', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -679,7 +620,7 @@ class DefaultApi(object):
                                         files=local_var_files,
                                         response_type='DeviceEventPage',
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -689,22 +630,18 @@ class DefaultApi(object):
         """
         Retrieve device event (deprecated, use /v3/device-events/{device_event_id}/ instead)
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.device_log_retrieve(device_event_id, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.device_log_retrieve(device_event_id, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str device_event_id: (required)
         :return: DeviceEventData
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.device_log_retrieve_with_http_info(device_event_id, **kwargs)
         else:
             (data) = self.device_log_retrieve_with_http_info(device_event_id, **kwargs)
@@ -714,15 +651,11 @@ class DefaultApi(object):
         """
         Retrieve device event (deprecated, use /v3/device-events/{device_event_id}/ instead)
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.device_log_retrieve_with_http_info(device_event_id, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.device_log_retrieve_with_http_info(device_event_id, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str device_event_id: (required)
         :return: DeviceEventData
                  If the method is called asynchronously,
@@ -730,7 +663,7 @@ class DefaultApi(object):
         """
 
         all_params = ['device_event_id']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -751,12 +684,11 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/devicelog/{device_event_id}/'.replace('{format}', 'json')
         path_params = {}
         if 'device_event_id' in params:
             path_params['device_event_id'] = params['device_event_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -771,7 +703,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/devicelog/{device_event_id}/', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -780,7 +712,7 @@ class DefaultApi(object):
                                         files=local_var_files,
                                         response_type='DeviceEventData',
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -790,15 +722,11 @@ class DefaultApi(object):
         """
         Update device fields.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.device_partial_update(id, device, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.device_partial_update(id, device, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str id: The ID of the device. (required)
         :param DeviceDataPatchRequest device: (required)
         :return: DeviceData
@@ -806,7 +734,7 @@ class DefaultApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.device_partial_update_with_http_info(id, device, **kwargs)
         else:
             (data) = self.device_partial_update_with_http_info(id, device, **kwargs)
@@ -816,15 +744,11 @@ class DefaultApi(object):
         """
         Update device fields.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.device_partial_update_with_http_info(id, device, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.device_partial_update_with_http_info(id, device, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str id: The ID of the device. (required)
         :param DeviceDataPatchRequest device: (required)
         :return: DeviceData
@@ -833,7 +757,7 @@ class DefaultApi(object):
         """
 
         all_params = ['id', 'device']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -857,12 +781,11 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/devices/{id}/'.replace('{format}', 'json')
         path_params = {}
         if 'id' in params:
             path_params['id'] = params['id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -879,7 +802,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'PATCH',
+        return self.api_client.call_api('/v3/devices/{id}/', 'PATCH',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -888,7 +811,7 @@ class DefaultApi(object):
                                         files=local_var_files,
                                         response_type='DeviceData',
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -898,22 +821,18 @@ class DefaultApi(object):
         """
         Create device query.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.device_query_create(device, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.device_query_create(device, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param DeviceQueryPostPutRequest device: (required)
         :return: DeviceQuery
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.device_query_create_with_http_info(device, **kwargs)
         else:
             (data) = self.device_query_create_with_http_info(device, **kwargs)
@@ -923,15 +842,11 @@ class DefaultApi(object):
         """
         Create device query.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.device_query_create_with_http_info(device, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.device_query_create_with_http_info(device, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param DeviceQueryPostPutRequest device: (required)
         :return: DeviceQuery
                  If the method is called asynchronously,
@@ -939,7 +854,7 @@ class DefaultApi(object):
         """
 
         all_params = ['device']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -960,10 +875,9 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/device-queries/'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -980,7 +894,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'POST',
+        return self.api_client.call_api('/v3/device-queries/', 'POST',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -989,7 +903,7 @@ class DefaultApi(object):
                                         files=local_var_files,
                                         response_type='DeviceQuery',
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -999,22 +913,18 @@ class DefaultApi(object):
         """
         Delete device query.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.device_query_destroy(query_id, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.device_query_destroy(query_id, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str query_id: (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.device_query_destroy_with_http_info(query_id, **kwargs)
         else:
             (data) = self.device_query_destroy_with_http_info(query_id, **kwargs)
@@ -1024,15 +934,11 @@ class DefaultApi(object):
         """
         Delete device query.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.device_query_destroy_with_http_info(query_id, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.device_query_destroy_with_http_info(query_id, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str query_id: (required)
         :return: None
                  If the method is called asynchronously,
@@ -1040,7 +946,7 @@ class DefaultApi(object):
         """
 
         all_params = ['query_id']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -1061,12 +967,11 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/device-queries/{query_id}/'.replace('{format}', 'json')
         path_params = {}
         if 'query_id' in params:
             path_params['query_id'] = params['query_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -1081,7 +986,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'DELETE',
+        return self.api_client.call_api('/v3/device-queries/{query_id}/', 'DELETE',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1090,7 +995,7 @@ class DefaultApi(object):
                                         files=local_var_files,
                                         response_type=None,
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -1100,15 +1005,11 @@ class DefaultApi(object):
         """
         List all device queries. The result will be paged into pages of 100.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.device_query_list(callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.device_query_list(async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param int limit: How many objects to retrieve in the page.
         :param str order: The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.
         :param str after: The ID of The item after which to retrieve the next page.
@@ -1119,7 +1020,7 @@ class DefaultApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.device_query_list_with_http_info(**kwargs)
         else:
             (data) = self.device_query_list_with_http_info(**kwargs)
@@ -1129,15 +1030,11 @@ class DefaultApi(object):
         """
         List all device queries. The result will be paged into pages of 100.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.device_query_list_with_http_info(callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.device_query_list_with_http_info(async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param int limit: How many objects to retrieve in the page.
         :param str order: The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.
         :param str after: The ID of The item after which to retrieve the next page.
@@ -1149,7 +1046,7 @@ class DefaultApi(object):
         """
 
         all_params = ['limit', 'order', 'after', 'filter', 'include']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -1167,20 +1064,19 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/device-queries/'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
         if 'limit' in params:
-            query_params['limit'] = params['limit']
+            query_params.append(('limit', params['limit']))
         if 'order' in params:
-            query_params['order'] = params['order']
+            query_params.append(('order', params['order']))
         if 'after' in params:
-            query_params['after'] = params['after']
+            query_params.append(('after', params['after']))
         if 'filter' in params:
-            query_params['filter'] = params['filter']
+            query_params.append(('filter', params['filter']))
         if 'include' in params:
-            query_params['include'] = params['include']
+            query_params.append(('include', params['include']))
 
         header_params = {}
 
@@ -1195,7 +1091,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/device-queries/', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1204,7 +1100,7 @@ class DefaultApi(object):
                                         files=local_var_files,
                                         response_type='DeviceQueryPage',
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -1214,15 +1110,11 @@ class DefaultApi(object):
         """
         Update device query fields.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.device_query_partial_update(query_id, device_query, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.device_query_partial_update(query_id, device_query, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str query_id: (required)
         :param DeviceQueryPatchRequest device_query: (required)
         :return: DeviceQuery
@@ -1230,7 +1122,7 @@ class DefaultApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.device_query_partial_update_with_http_info(query_id, device_query, **kwargs)
         else:
             (data) = self.device_query_partial_update_with_http_info(query_id, device_query, **kwargs)
@@ -1240,15 +1132,11 @@ class DefaultApi(object):
         """
         Update device query fields.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.device_query_partial_update_with_http_info(query_id, device_query, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.device_query_partial_update_with_http_info(query_id, device_query, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str query_id: (required)
         :param DeviceQueryPatchRequest device_query: (required)
         :return: DeviceQuery
@@ -1257,7 +1145,7 @@ class DefaultApi(object):
         """
 
         all_params = ['query_id', 'device_query']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -1281,12 +1169,11 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/device-queries/{query_id}/'.replace('{format}', 'json')
         path_params = {}
         if 'query_id' in params:
             path_params['query_id'] = params['query_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -1303,7 +1190,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'PATCH',
+        return self.api_client.call_api('/v3/device-queries/{query_id}/', 'PATCH',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1312,7 +1199,7 @@ class DefaultApi(object):
                                         files=local_var_files,
                                         response_type='DeviceQuery',
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -1322,22 +1209,18 @@ class DefaultApi(object):
         """
         Retrieve device query.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.device_query_retrieve(query_id, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.device_query_retrieve(query_id, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str query_id: (required)
         :return: DeviceQuery
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.device_query_retrieve_with_http_info(query_id, **kwargs)
         else:
             (data) = self.device_query_retrieve_with_http_info(query_id, **kwargs)
@@ -1347,15 +1230,11 @@ class DefaultApi(object):
         """
         Retrieve device query.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.device_query_retrieve_with_http_info(query_id, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.device_query_retrieve_with_http_info(query_id, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str query_id: (required)
         :return: DeviceQuery
                  If the method is called asynchronously,
@@ -1363,7 +1242,7 @@ class DefaultApi(object):
         """
 
         all_params = ['query_id']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -1384,12 +1263,11 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/device-queries/{query_id}/'.replace('{format}', 'json')
         path_params = {}
         if 'query_id' in params:
             path_params['query_id'] = params['query_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -1404,7 +1282,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/device-queries/{query_id}/', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1413,7 +1291,7 @@ class DefaultApi(object):
                                         files=local_var_files,
                                         response_type='DeviceQuery',
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -1423,15 +1301,11 @@ class DefaultApi(object):
         """
         Update device query.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.device_query_update(query_id, body, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.device_query_update(query_id, body, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str query_id: (required)
         :param DeviceQueryPostPutRequest body: Device query update object. (required)
         :return: DeviceQuery
@@ -1439,7 +1313,7 @@ class DefaultApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.device_query_update_with_http_info(query_id, body, **kwargs)
         else:
             (data) = self.device_query_update_with_http_info(query_id, body, **kwargs)
@@ -1449,15 +1323,11 @@ class DefaultApi(object):
         """
         Update device query.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.device_query_update_with_http_info(query_id, body, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.device_query_update_with_http_info(query_id, body, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str query_id: (required)
         :param DeviceQueryPostPutRequest body: Device query update object. (required)
         :return: DeviceQuery
@@ -1466,7 +1336,7 @@ class DefaultApi(object):
         """
 
         all_params = ['query_id', 'body']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -1490,12 +1360,11 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/device-queries/{query_id}/'.replace('{format}', 'json')
         path_params = {}
         if 'query_id' in params:
             path_params['query_id'] = params['query_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -1512,7 +1381,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'PUT',
+        return self.api_client.call_api('/v3/device-queries/{query_id}/', 'PUT',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1521,7 +1390,7 @@ class DefaultApi(object):
                                         files=local_var_files,
                                         response_type='DeviceQuery',
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -1531,22 +1400,18 @@ class DefaultApi(object):
         """
         Retrieve device.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.device_retrieve(id, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.device_retrieve(id, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str id: (required)
         :return: DeviceData
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.device_retrieve_with_http_info(id, **kwargs)
         else:
             (data) = self.device_retrieve_with_http_info(id, **kwargs)
@@ -1556,15 +1421,11 @@ class DefaultApi(object):
         """
         Retrieve device.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.device_retrieve_with_http_info(id, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.device_retrieve_with_http_info(id, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str id: (required)
         :return: DeviceData
                  If the method is called asynchronously,
@@ -1572,7 +1433,7 @@ class DefaultApi(object):
         """
 
         all_params = ['id']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -1593,12 +1454,11 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/devices/{id}/'.replace('{format}', 'json')
         path_params = {}
         if 'id' in params:
             path_params['id'] = params['id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -1613,7 +1473,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/devices/{id}/', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1622,7 +1482,7 @@ class DefaultApi(object):
                                         files=local_var_files,
                                         response_type='DeviceData',
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -1632,15 +1492,11 @@ class DefaultApi(object):
         """
         Update device.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.device_update(id, device, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.device_update(id, device, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str id: The ID of the device. (required)
         :param DeviceDataPutRequest device: (required)
         :return: DeviceData
@@ -1648,7 +1504,7 @@ class DefaultApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.device_update_with_http_info(id, device, **kwargs)
         else:
             (data) = self.device_update_with_http_info(id, device, **kwargs)
@@ -1658,15 +1514,11 @@ class DefaultApi(object):
         """
         Update device.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.device_update_with_http_info(id, device, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.device_update_with_http_info(id, device, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str id: The ID of the device. (required)
         :param DeviceDataPutRequest device: (required)
         :return: DeviceData
@@ -1675,7 +1527,7 @@ class DefaultApi(object):
         """
 
         all_params = ['id', 'device']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -1699,12 +1551,11 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/devices/{id}/'.replace('{format}', 'json')
         path_params = {}
         if 'id' in params:
             path_params['id'] = params['id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -1721,7 +1572,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'PUT',
+        return self.api_client.call_api('/v3/devices/{id}/', 'PUT',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1730,7 +1581,7 @@ class DefaultApi(object):
                                         files=local_var_files,
                                         response_type='DeviceData',
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),

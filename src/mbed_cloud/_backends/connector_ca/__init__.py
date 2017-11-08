@@ -27,5 +27,3 @@ from .apis.server_credentials_api import ServerCredentialsApi
 from .api_client import ApiClient
 
 from .configuration import Configuration
-
-configuration = Configuration()

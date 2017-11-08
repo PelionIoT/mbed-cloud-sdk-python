@@ -20,7 +20,6 @@ import re
 # python 2 and python 3 compatibility library
 from six import iteritems
 
-from ..configuration import Configuration
 from ..api_client import ApiClient
 
 
@@ -32,27 +31,19 @@ class DefaultApi(object):
     """
 
     def __init__(self, api_client=None):
-        config = Configuration()
-        if api_client:
-            self.api_client = api_client
-        else:
-            if not config.api_client:
-                config.api_client = ApiClient()
-            self.api_client = config.api_client
+        if api_client is None:
+            api_client = ApiClient()
+        self.api_client = api_client
 
     def firmware_image_create(self, datafile, name, **kwargs):
         """
         Create firmware image.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.firmware_image_create(datafile, name, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.firmware_image_create(datafile, name, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param file datafile: The firmware image file to upload (required)
         :param str name: The name of the firmware image (required)
         :param str description: The description of the firmware image
@@ -61,7 +52,7 @@ class DefaultApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.firmware_image_create_with_http_info(datafile, name, **kwargs)
         else:
             (data) = self.firmware_image_create_with_http_info(datafile, name, **kwargs)
@@ -71,15 +62,11 @@ class DefaultApi(object):
         """
         Create firmware image.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.firmware_image_create_with_http_info(datafile, name, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.firmware_image_create_with_http_info(datafile, name, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param file datafile: The firmware image file to upload (required)
         :param str name: The name of the firmware image (required)
         :param str description: The description of the firmware image
@@ -89,7 +76,7 @@ class DefaultApi(object):
         """
 
         all_params = ['datafile', 'name', 'description']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -115,10 +102,9 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/firmware-images/'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -143,7 +129,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'POST',
+        return self.api_client.call_api('/v3/firmware-images/', 'POST',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -152,7 +138,7 @@ class DefaultApi(object):
                                         files=local_var_files,
                                         response_type='FirmwareImage',
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -162,22 +148,18 @@ class DefaultApi(object):
         """
         Delete firmware image.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.firmware_image_destroy(image_id, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.firmware_image_destroy(image_id, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str image_id: The firmware image ID (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.firmware_image_destroy_with_http_info(image_id, **kwargs)
         else:
             (data) = self.firmware_image_destroy_with_http_info(image_id, **kwargs)
@@ -187,15 +169,11 @@ class DefaultApi(object):
         """
         Delete firmware image.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.firmware_image_destroy_with_http_info(image_id, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.firmware_image_destroy_with_http_info(image_id, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str image_id: The firmware image ID (required)
         :return: None
                  If the method is called asynchronously,
@@ -203,7 +181,7 @@ class DefaultApi(object):
         """
 
         all_params = ['image_id']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -224,12 +202,11 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/firmware-images/{image_id}/'.replace('{format}', 'json')
         path_params = {}
         if 'image_id' in params:
             path_params['image_id'] = params['image_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -244,7 +221,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'DELETE',
+        return self.api_client.call_api('/v3/firmware-images/{image_id}/', 'DELETE',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -253,7 +230,7 @@ class DefaultApi(object):
                                         files=local_var_files,
                                         response_type=None,
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -263,15 +240,11 @@ class DefaultApi(object):
         """
         List all firmware images.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.firmware_image_list(callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.firmware_image_list(async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param int limit: How many firmware images to retrieve
         :param str order: ASC or DESC
         :param str after: The ID of the the item after which to retrieve the next page
@@ -282,7 +255,7 @@ class DefaultApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.firmware_image_list_with_http_info(**kwargs)
         else:
             (data) = self.firmware_image_list_with_http_info(**kwargs)
@@ -292,15 +265,11 @@ class DefaultApi(object):
         """
         List all firmware images.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.firmware_image_list_with_http_info(callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.firmware_image_list_with_http_info(async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param int limit: How many firmware images to retrieve
         :param str order: ASC or DESC
         :param str after: The ID of the the item after which to retrieve the next page
@@ -312,7 +281,7 @@ class DefaultApi(object):
         """
 
         all_params = ['limit', 'order', 'after', 'filter', 'include']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -330,20 +299,19 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/firmware-images/'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
         if 'limit' in params:
-            query_params['limit'] = params['limit']
+            query_params.append(('limit', params['limit']))
         if 'order' in params:
-            query_params['order'] = params['order']
+            query_params.append(('order', params['order']))
         if 'after' in params:
-            query_params['after'] = params['after']
+            query_params.append(('after', params['after']))
         if 'filter' in params:
-            query_params['filter'] = params['filter']
+            query_params.append(('filter', params['filter']))
         if 'include' in params:
-            query_params['include'] = params['include']
+            query_params.append(('include', params['include']))
 
         header_params = {}
 
@@ -358,7 +326,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/firmware-images/', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -367,7 +335,7 @@ class DefaultApi(object):
                                         files=local_var_files,
                                         response_type='FirmwareImagePage',
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -377,22 +345,18 @@ class DefaultApi(object):
         """
         Retrieve firmware image.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.firmware_image_retrieve(image_id, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.firmware_image_retrieve(image_id, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str image_id: The firmware image ID (required)
         :return: FirmwareImage
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.firmware_image_retrieve_with_http_info(image_id, **kwargs)
         else:
             (data) = self.firmware_image_retrieve_with_http_info(image_id, **kwargs)
@@ -402,15 +366,11 @@ class DefaultApi(object):
         """
         Retrieve firmware image.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.firmware_image_retrieve_with_http_info(image_id, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.firmware_image_retrieve_with_http_info(image_id, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str image_id: The firmware image ID (required)
         :return: FirmwareImage
                  If the method is called asynchronously,
@@ -418,7 +378,7 @@ class DefaultApi(object):
         """
 
         all_params = ['image_id']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -439,12 +399,11 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/firmware-images/{image_id}/'.replace('{format}', 'json')
         path_params = {}
         if 'image_id' in params:
             path_params['image_id'] = params['image_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -459,7 +418,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/firmware-images/{image_id}/', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -468,7 +427,7 @@ class DefaultApi(object):
                                         files=local_var_files,
                                         response_type='FirmwareImage',
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -478,15 +437,11 @@ class DefaultApi(object):
         """
         Create firmware manifest.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.firmware_manifest_create(datafile, name, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.firmware_manifest_create(datafile, name, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param file datafile: The manifest file to create. The API gateway enforces the account-specific file size. (required)
         :param str name: The name of the firmware manifest (required)
         :param str description: The description of the firmware manifest
@@ -495,7 +450,7 @@ class DefaultApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.firmware_manifest_create_with_http_info(datafile, name, **kwargs)
         else:
             (data) = self.firmware_manifest_create_with_http_info(datafile, name, **kwargs)
@@ -505,15 +460,11 @@ class DefaultApi(object):
         """
         Create firmware manifest.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.firmware_manifest_create_with_http_info(datafile, name, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.firmware_manifest_create_with_http_info(datafile, name, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param file datafile: The manifest file to create. The API gateway enforces the account-specific file size. (required)
         :param str name: The name of the firmware manifest (required)
         :param str description: The description of the firmware manifest
@@ -523,7 +474,7 @@ class DefaultApi(object):
         """
 
         all_params = ['datafile', 'name', 'description']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -549,10 +500,9 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/firmware-manifests/'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -577,7 +527,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'POST',
+        return self.api_client.call_api('/v3/firmware-manifests/', 'POST',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -586,7 +536,7 @@ class DefaultApi(object):
                                         files=local_var_files,
                                         response_type='FirmwareManifest',
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -596,22 +546,18 @@ class DefaultApi(object):
         """
         Delete firmware manifest.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.firmware_manifest_destroy(manifest_id, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.firmware_manifest_destroy(manifest_id, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str manifest_id: The firmware manifest ID (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.firmware_manifest_destroy_with_http_info(manifest_id, **kwargs)
         else:
             (data) = self.firmware_manifest_destroy_with_http_info(manifest_id, **kwargs)
@@ -621,15 +567,11 @@ class DefaultApi(object):
         """
         Delete firmware manifest.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.firmware_manifest_destroy_with_http_info(manifest_id, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.firmware_manifest_destroy_with_http_info(manifest_id, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str manifest_id: The firmware manifest ID (required)
         :return: None
                  If the method is called asynchronously,
@@ -637,7 +579,7 @@ class DefaultApi(object):
         """
 
         all_params = ['manifest_id']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -658,12 +600,11 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/firmware-manifests/{manifest_id}/'.replace('{format}', 'json')
         path_params = {}
         if 'manifest_id' in params:
             path_params['manifest_id'] = params['manifest_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -678,7 +619,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'DELETE',
+        return self.api_client.call_api('/v3/firmware-manifests/{manifest_id}/', 'DELETE',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -687,7 +628,7 @@ class DefaultApi(object):
                                         files=local_var_files,
                                         response_type=None,
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -697,15 +638,11 @@ class DefaultApi(object):
         """
         List firmware manifests.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.firmware_manifest_list(callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.firmware_manifest_list(async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param int limit: How many firmware manifests to retrieve
         :param str order: ASC or DESC
         :param str after: The ID of the the item after which to retrieve the next page.
@@ -716,7 +653,7 @@ class DefaultApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.firmware_manifest_list_with_http_info(**kwargs)
         else:
             (data) = self.firmware_manifest_list_with_http_info(**kwargs)
@@ -726,15 +663,11 @@ class DefaultApi(object):
         """
         List firmware manifests.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.firmware_manifest_list_with_http_info(callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.firmware_manifest_list_with_http_info(async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param int limit: How many firmware manifests to retrieve
         :param str order: ASC or DESC
         :param str after: The ID of the the item after which to retrieve the next page.
@@ -746,7 +679,7 @@ class DefaultApi(object):
         """
 
         all_params = ['limit', 'order', 'after', 'filter', 'include']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -764,20 +697,19 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/firmware-manifests/'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
         if 'limit' in params:
-            query_params['limit'] = params['limit']
+            query_params.append(('limit', params['limit']))
         if 'order' in params:
-            query_params['order'] = params['order']
+            query_params.append(('order', params['order']))
         if 'after' in params:
-            query_params['after'] = params['after']
+            query_params.append(('after', params['after']))
         if 'filter' in params:
-            query_params['filter'] = params['filter']
+            query_params.append(('filter', params['filter']))
         if 'include' in params:
-            query_params['include'] = params['include']
+            query_params.append(('include', params['include']))
 
         header_params = {}
 
@@ -792,7 +724,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/firmware-manifests/', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -801,7 +733,7 @@ class DefaultApi(object):
                                         files=local_var_files,
                                         response_type='FirmwareManifestPage',
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -811,22 +743,18 @@ class DefaultApi(object):
         """
         Retrieve firmware manifest.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.firmware_manifest_retrieve(manifest_id, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.firmware_manifest_retrieve(manifest_id, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str manifest_id: The firmware manifest ID (required)
         :return: FirmwareManifest
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.firmware_manifest_retrieve_with_http_info(manifest_id, **kwargs)
         else:
             (data) = self.firmware_manifest_retrieve_with_http_info(manifest_id, **kwargs)
@@ -836,15 +764,11 @@ class DefaultApi(object):
         """
         Retrieve firmware manifest.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.firmware_manifest_retrieve_with_http_info(manifest_id, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.firmware_manifest_retrieve_with_http_info(manifest_id, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str manifest_id: The firmware manifest ID (required)
         :return: FirmwareManifest
                  If the method is called asynchronously,
@@ -852,7 +776,7 @@ class DefaultApi(object):
         """
 
         all_params = ['manifest_id']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -873,12 +797,11 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/firmware-manifests/{manifest_id}/'.replace('{format}', 'json')
         path_params = {}
         if 'manifest_id' in params:
             path_params['manifest_id'] = params['manifest_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -893,7 +816,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/firmware-manifests/{manifest_id}/', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -902,7 +825,7 @@ class DefaultApi(object):
                                         files=local_var_files,
                                         response_type='FirmwareManifest',
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -912,22 +835,18 @@ class DefaultApi(object):
         """
         Create an update campaign.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.update_campaign_create(campaign, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.update_campaign_create(campaign, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param UpdateCampaignPostRequest campaign: Update campaign (required)
         :return: UpdateCampaign
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.update_campaign_create_with_http_info(campaign, **kwargs)
         else:
             (data) = self.update_campaign_create_with_http_info(campaign, **kwargs)
@@ -937,15 +856,11 @@ class DefaultApi(object):
         """
         Create an update campaign.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.update_campaign_create_with_http_info(campaign, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.update_campaign_create_with_http_info(campaign, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param UpdateCampaignPostRequest campaign: Update campaign (required)
         :return: UpdateCampaign
                  If the method is called asynchronously,
@@ -953,7 +868,7 @@ class DefaultApi(object):
         """
 
         all_params = ['campaign']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -974,10 +889,9 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/update-campaigns/'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -994,7 +908,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'POST',
+        return self.api_client.call_api('/v3/update-campaigns/', 'POST',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1003,7 +917,7 @@ class DefaultApi(object):
                                         files=local_var_files,
                                         response_type='UpdateCampaign',
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -1013,22 +927,18 @@ class DefaultApi(object):
         """
         Delete an update campaign.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.update_campaign_destroy(campaign_id, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.update_campaign_destroy(campaign_id, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str campaign_id: The ID of the update campaign (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.update_campaign_destroy_with_http_info(campaign_id, **kwargs)
         else:
             (data) = self.update_campaign_destroy_with_http_info(campaign_id, **kwargs)
@@ -1038,15 +948,11 @@ class DefaultApi(object):
         """
         Delete an update campaign.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.update_campaign_destroy_with_http_info(campaign_id, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.update_campaign_destroy_with_http_info(campaign_id, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str campaign_id: The ID of the update campaign (required)
         :return: None
                  If the method is called asynchronously,
@@ -1054,7 +960,7 @@ class DefaultApi(object):
         """
 
         all_params = ['campaign_id']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -1075,12 +981,11 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/update-campaigns/{campaign_id}/'.replace('{format}', 'json')
         path_params = {}
         if 'campaign_id' in params:
             path_params['campaign_id'] = params['campaign_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -1095,7 +1000,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'DELETE',
+        return self.api_client.call_api('/v3/update-campaigns/{campaign_id}/', 'DELETE',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1104,7 +1009,7 @@ class DefaultApi(object):
                                         files=local_var_files,
                                         response_type=None,
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -1114,26 +1019,22 @@ class DefaultApi(object):
         """
         Get update campaigns for devices specified by a filter.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.update_campaign_list(callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.update_campaign_list(async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param int limit: How many update campaigns to retrieve
         :param str order: The order of the records. Acceptable values: ASC, DESC. Default: ASC
         :param str after: The ID of the the item after which to retrieve the next page
-        :param str filter: URL-encoded query string parameter to filter returned data  <br/>             ?filter={URL-encoded query string} <br/>  The query string is made up of key-value pairs separated by ampersands. For example, this query: key1=value1&key2=value2&key3=value3  would be URL-encoded as: ?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3 <br/>  The examples below show the queries in *unencoded* form.<br/>  <br/>**Filtering by campaign properties** state=[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired]  <br/> root_manifest_id=43217771234242e594ddb433816c498a  <br/>**Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  {field name}[|__lte|__gte]={UTC RFC3339 date-time} <br/>  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z  <br/>**Filtering on multiple fields**  Example: state=deployed&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z  The example after URL encoding: ?filter=state%3Ddeployed%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z
+        :param str filter: URL-encoded query string parameter to filter returned data  <br/> ?filter={URL-encoded query string} <br/>  The query string is made up of key-value pairs separated by ampersands. For example, this query: key1=value1&key2=value2&key3=value3  would be URL-encoded as: ?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3 <br/>  The examples below show the queries in *unencoded* form.<br/>  <br/>**Filtering by campaign properties** state=[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired]  <br/> root_manifest_id=43217771234242e594ddb433816c498a  <br/>**Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  {field name}[|__lte|__gte]={UTC RFC3339 date-time} <br/>  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z  <br/>**Filtering on multiple fields**  Example: state=deployed&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z  The example after URL encoding: ?filter=state%3Ddeployed%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z
         :param str include: Comma-separated list of data fields to return. Currently supported: total_count
         :return: UpdateCampaignPage
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.update_campaign_list_with_http_info(**kwargs)
         else:
             (data) = self.update_campaign_list_with_http_info(**kwargs)
@@ -1143,19 +1044,15 @@ class DefaultApi(object):
         """
         Get update campaigns for devices specified by a filter.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.update_campaign_list_with_http_info(callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.update_campaign_list_with_http_info(async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param int limit: How many update campaigns to retrieve
         :param str order: The order of the records. Acceptable values: ASC, DESC. Default: ASC
         :param str after: The ID of the the item after which to retrieve the next page
-        :param str filter: URL-encoded query string parameter to filter returned data  <br/>             ?filter={URL-encoded query string} <br/>  The query string is made up of key-value pairs separated by ampersands. For example, this query: key1=value1&key2=value2&key3=value3  would be URL-encoded as: ?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3 <br/>  The examples below show the queries in *unencoded* form.<br/>  <br/>**Filtering by campaign properties** state=[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired]  <br/> root_manifest_id=43217771234242e594ddb433816c498a  <br/>**Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  {field name}[|__lte|__gte]={UTC RFC3339 date-time} <br/>  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z  <br/>**Filtering on multiple fields**  Example: state=deployed&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z  The example after URL encoding: ?filter=state%3Ddeployed%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z
+        :param str filter: URL-encoded query string parameter to filter returned data  <br/> ?filter={URL-encoded query string} <br/>  The query string is made up of key-value pairs separated by ampersands. For example, this query: key1=value1&key2=value2&key3=value3  would be URL-encoded as: ?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3 <br/>  The examples below show the queries in *unencoded* form.<br/>  <br/>**Filtering by campaign properties** state=[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired]  <br/> root_manifest_id=43217771234242e594ddb433816c498a  <br/>**Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  {field name}[|__lte|__gte]={UTC RFC3339 date-time} <br/>  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z  <br/>**Filtering on multiple fields**  Example: state=deployed&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z  The example after URL encoding: ?filter=state%3Ddeployed%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z
         :param str include: Comma-separated list of data fields to return. Currently supported: total_count
         :return: UpdateCampaignPage
                  If the method is called asynchronously,
@@ -1163,7 +1060,7 @@ class DefaultApi(object):
         """
 
         all_params = ['limit', 'order', 'after', 'filter', 'include']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -1181,20 +1078,19 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/update-campaigns/'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
         if 'limit' in params:
-            query_params['limit'] = params['limit']
+            query_params.append(('limit', params['limit']))
         if 'order' in params:
-            query_params['order'] = params['order']
+            query_params.append(('order', params['order']))
         if 'after' in params:
-            query_params['after'] = params['after']
+            query_params.append(('after', params['after']))
         if 'filter' in params:
-            query_params['filter'] = params['filter']
+            query_params.append(('filter', params['filter']))
         if 'include' in params:
-            query_params['include'] = params['include']
+            query_params.append(('include', params['include']))
 
         header_params = {}
 
@@ -1209,7 +1105,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/update-campaigns/', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1218,7 +1114,7 @@ class DefaultApi(object):
                                         files=local_var_files,
                                         response_type='UpdateCampaignPage',
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -1228,15 +1124,11 @@ class DefaultApi(object):
         """
         Modify a subset of an update campaign's fields.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.update_campaign_partial_update(campaign_id, campaign, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.update_campaign_partial_update(campaign_id, campaign, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str campaign_id: (required)
         :param UpdateCampaignPatchRequest campaign: Update campaign (required)
         :return: UpdateCampaign
@@ -1244,7 +1136,7 @@ class DefaultApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.update_campaign_partial_update_with_http_info(campaign_id, campaign, **kwargs)
         else:
             (data) = self.update_campaign_partial_update_with_http_info(campaign_id, campaign, **kwargs)
@@ -1254,15 +1146,11 @@ class DefaultApi(object):
         """
         Modify a subset of an update campaign's fields.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.update_campaign_partial_update_with_http_info(campaign_id, campaign, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.update_campaign_partial_update_with_http_info(campaign_id, campaign, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str campaign_id: (required)
         :param UpdateCampaignPatchRequest campaign: Update campaign (required)
         :return: UpdateCampaign
@@ -1271,7 +1159,7 @@ class DefaultApi(object):
         """
 
         all_params = ['campaign_id', 'campaign']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -1295,12 +1183,11 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/update-campaigns/{campaign_id}/'.replace('{format}', 'json')
         path_params = {}
         if 'campaign_id' in params:
             path_params['campaign_id'] = params['campaign_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -1317,7 +1204,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'PATCH',
+        return self.api_client.call_api('/v3/update-campaigns/{campaign_id}/', 'PATCH',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1326,7 +1213,7 @@ class DefaultApi(object):
                                         files=local_var_files,
                                         response_type='UpdateCampaign',
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -1336,22 +1223,18 @@ class DefaultApi(object):
         """
         Get an update campaign.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.update_campaign_retrieve(campaign_id, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.update_campaign_retrieve(campaign_id, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str campaign_id: The campaign ID (required)
         :return: UpdateCampaign
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.update_campaign_retrieve_with_http_info(campaign_id, **kwargs)
         else:
             (data) = self.update_campaign_retrieve_with_http_info(campaign_id, **kwargs)
@@ -1361,15 +1244,11 @@ class DefaultApi(object):
         """
         Get an update campaign.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.update_campaign_retrieve_with_http_info(campaign_id, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.update_campaign_retrieve_with_http_info(campaign_id, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str campaign_id: The campaign ID (required)
         :return: UpdateCampaign
                  If the method is called asynchronously,
@@ -1377,7 +1256,7 @@ class DefaultApi(object):
         """
 
         all_params = ['campaign_id']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -1398,12 +1277,11 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/update-campaigns/{campaign_id}/'.replace('{format}', 'json')
         path_params = {}
         if 'campaign_id' in params:
             path_params['campaign_id'] = params['campaign_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -1418,7 +1296,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/update-campaigns/{campaign_id}/', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1427,7 +1305,7 @@ class DefaultApi(object):
                                         files=local_var_files,
                                         response_type='UpdateCampaign',
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -1437,15 +1315,11 @@ class DefaultApi(object):
         """
         Modify an update campaign.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.update_campaign_update(campaign_id, campaign, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.update_campaign_update(campaign_id, campaign, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str campaign_id: (required)
         :param UpdateCampaignPutRequest campaign: Update campaign (required)
         :return: UpdateCampaign
@@ -1453,7 +1327,7 @@ class DefaultApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.update_campaign_update_with_http_info(campaign_id, campaign, **kwargs)
         else:
             (data) = self.update_campaign_update_with_http_info(campaign_id, campaign, **kwargs)
@@ -1463,15 +1337,11 @@ class DefaultApi(object):
         """
         Modify an update campaign.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.update_campaign_update_with_http_info(campaign_id, campaign, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.update_campaign_update_with_http_info(campaign_id, campaign, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str campaign_id: (required)
         :param UpdateCampaignPutRequest campaign: Update campaign (required)
         :return: UpdateCampaign
@@ -1480,7 +1350,7 @@ class DefaultApi(object):
         """
 
         all_params = ['campaign_id', 'campaign']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -1504,12 +1374,11 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/update-campaigns/{campaign_id}/'.replace('{format}', 'json')
         path_params = {}
         if 'campaign_id' in params:
             path_params['campaign_id'] = params['campaign_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -1526,7 +1395,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'PUT',
+        return self.api_client.call_api('/v3/update-campaigns/{campaign_id}/', 'PUT',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1535,7 +1404,7 @@ class DefaultApi(object):
                                         files=local_var_files,
                                         response_type='UpdateCampaign',
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -1545,15 +1414,11 @@ class DefaultApi(object):
         """
         Get update campaign metadata.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.v3_update_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get(campaign_id, campaign_device_metadata_id, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.v3_update_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get(campaign_id, campaign_device_metadata_id, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str campaign_id: The update campaign ID (required)
         :param str campaign_device_metadata_id: The campaign device metadata ID (required)
         :return: CampaignDeviceMetadata
@@ -1561,7 +1426,7 @@ class DefaultApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.v3_update_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get_with_http_info(campaign_id, campaign_device_metadata_id, **kwargs)
         else:
             (data) = self.v3_update_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get_with_http_info(campaign_id, campaign_device_metadata_id, **kwargs)
@@ -1571,15 +1436,11 @@ class DefaultApi(object):
         """
         Get update campaign metadata.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.v3_update_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get_with_http_info(campaign_id, campaign_device_metadata_id, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.v3_update_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get_with_http_info(campaign_id, campaign_device_metadata_id, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str campaign_id: The update campaign ID (required)
         :param str campaign_device_metadata_id: The campaign device metadata ID (required)
         :return: CampaignDeviceMetadata
@@ -1588,7 +1449,7 @@ class DefaultApi(object):
         """
 
         all_params = ['campaign_id', 'campaign_device_metadata_id']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -1612,14 +1473,13 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/'.replace('{format}', 'json')
         path_params = {}
         if 'campaign_id' in params:
             path_params['campaign_id'] = params['campaign_id']
         if 'campaign_device_metadata_id' in params:
             path_params['campaign_device_metadata_id'] = params['campaign_device_metadata_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -1634,7 +1494,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1643,7 +1503,7 @@ class DefaultApi(object):
                                         files=local_var_files,
                                         response_type='CampaignDeviceMetadata',
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -1653,15 +1513,11 @@ class DefaultApi(object):
         """
         Get campaign device metadata.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.v3_update_campaigns_campaign_id_campaign_device_metadata_get(campaign_id, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.v3_update_campaigns_campaign_id_campaign_device_metadata_get(campaign_id, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str campaign_id: The update campaign ID (required)
         :param int limit: How many objects to retrieve in the page
         :param str order: ASC or DESC
@@ -1672,7 +1528,7 @@ class DefaultApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.v3_update_campaigns_campaign_id_campaign_device_metadata_get_with_http_info(campaign_id, **kwargs)
         else:
             (data) = self.v3_update_campaigns_campaign_id_campaign_device_metadata_get_with_http_info(campaign_id, **kwargs)
@@ -1682,15 +1538,11 @@ class DefaultApi(object):
         """
         Get campaign device metadata.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.v3_update_campaigns_campaign_id_campaign_device_metadata_get_with_http_info(campaign_id, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.v3_update_campaigns_campaign_id_campaign_device_metadata_get_with_http_info(campaign_id, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str campaign_id: The update campaign ID (required)
         :param int limit: How many objects to retrieve in the page
         :param str order: ASC or DESC
@@ -1702,7 +1554,7 @@ class DefaultApi(object):
         """
 
         all_params = ['campaign_id', 'limit', 'order', 'after', 'include']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -1723,20 +1575,19 @@ class DefaultApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/update-campaigns/{campaign_id}/campaign-device-metadata/'.replace('{format}', 'json')
         path_params = {}
         if 'campaign_id' in params:
             path_params['campaign_id'] = params['campaign_id']
 
-        query_params = {}
+        query_params = []
         if 'limit' in params:
-            query_params['limit'] = params['limit']
+            query_params.append(('limit', params['limit']))
         if 'order' in params:
-            query_params['order'] = params['order']
+            query_params.append(('order', params['order']))
         if 'after' in params:
-            query_params['after'] = params['after']
+            query_params.append(('after', params['after']))
         if 'include' in params:
-            query_params['include'] = params['include']
+            query_params.append(('include', params['include']))
 
         header_params = {}
 
@@ -1751,7 +1602,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/update-campaigns/{campaign_id}/campaign-device-metadata/', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1760,7 +1611,7 @@ class DefaultApi(object):
                                         files=local_var_files,
                                         response_type='CampaignDeviceMetadataPage',
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),

@@ -31,19 +31,20 @@ Create device.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import device_directory
 from device_directory.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-device_directory.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = device_directory.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# device_directory.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = device_directory.DefaultApi()
+api_instance = device_directory.DefaultApi(device_directory.ApiClient(configuration))
 device = device_directory.DeviceDataPostRequest() # DeviceDataPostRequest | 
 
 try: 
@@ -83,19 +84,20 @@ Delete device. Only available for devices with a developer certificate. Attempts
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import device_directory
 from device_directory.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-device_directory.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = device_directory.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# device_directory.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = device_directory.DefaultApi()
+api_instance = device_directory.DefaultApi(device_directory.ApiClient(configuration))
 id = 'id_example' # str | 
 
 try: 
@@ -134,19 +136,20 @@ List all device events.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import device_directory
 from device_directory.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-device_directory.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = device_directory.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# device_directory.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = device_directory.DefaultApi()
+api_instance = device_directory.DefaultApi(device_directory.ApiClient(configuration))
 limit = 56 # int | How many objects to retrieve in the page. (optional)
 order = 'order_example' # str | The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`. (optional)
 after = 'after_example' # str | The ID of The item after which to retrieve the next page. (optional)
@@ -194,19 +197,20 @@ Retrieve device event.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import device_directory
 from device_directory.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-device_directory.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = device_directory.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# device_directory.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = device_directory.DefaultApi()
+api_instance = device_directory.DefaultApi(device_directory.ApiClient(configuration))
 device_event_id = 'device_event_id_example' # str | 
 
 try: 
@@ -246,19 +250,20 @@ List all devices.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import device_directory
 from device_directory.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-device_directory.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = device_directory.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# device_directory.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = device_directory.DefaultApi()
+api_instance = device_directory.DefaultApi(device_directory.ApiClient(configuration))
 limit = 56 # int | How many objects to retrieve in the page. (optional)
 order = 'order_example' # str | The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`. (optional)
 after = 'after_example' # str | The ID of The item after which to retrieve the next page. (optional)
@@ -306,19 +311,20 @@ DEPRECATED: List all device events. Use `/v3/device-events/` instead.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import device_directory
 from device_directory.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-device_directory.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = device_directory.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# device_directory.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = device_directory.DefaultApi()
+api_instance = device_directory.DefaultApi(device_directory.ApiClient(configuration))
 limit = 56 # int | How many objects to retrieve in the page. (optional)
 order = 'order_example' # str | The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`. (optional)
 after = 'after_example' # str | The ID of The item after which to retrieve the next page. (optional)
@@ -366,19 +372,20 @@ Retrieve device event (deprecated, use /v3/device-events/{device_event_id}/ inst
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import device_directory
 from device_directory.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-device_directory.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = device_directory.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# device_directory.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = device_directory.DefaultApi()
+api_instance = device_directory.DefaultApi(device_directory.ApiClient(configuration))
 device_event_id = 'device_event_id_example' # str | 
 
 try: 
@@ -418,19 +425,20 @@ Update device fields.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import device_directory
 from device_directory.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-device_directory.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = device_directory.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# device_directory.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = device_directory.DefaultApi()
+api_instance = device_directory.DefaultApi(device_directory.ApiClient(configuration))
 id = 'id_example' # str | The ID of the device.
 device = device_directory.DeviceDataPatchRequest() # DeviceDataPatchRequest | 
 
@@ -472,19 +480,20 @@ Create device query.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import device_directory
 from device_directory.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-device_directory.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = device_directory.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# device_directory.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = device_directory.DefaultApi()
+api_instance = device_directory.DefaultApi(device_directory.ApiClient(configuration))
 device = device_directory.DeviceQueryPostPutRequest() # DeviceQueryPostPutRequest | 
 
 try: 
@@ -524,19 +533,20 @@ Delete device query.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import device_directory
 from device_directory.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-device_directory.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = device_directory.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# device_directory.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = device_directory.DefaultApi()
+api_instance = device_directory.DefaultApi(device_directory.ApiClient(configuration))
 query_id = 'query_id_example' # str | 
 
 try: 
@@ -575,19 +585,20 @@ List all device queries. The result will be paged into pages of 100.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import device_directory
 from device_directory.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-device_directory.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = device_directory.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# device_directory.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = device_directory.DefaultApi()
+api_instance = device_directory.DefaultApi(device_directory.ApiClient(configuration))
 limit = 56 # int | How many objects to retrieve in the page. (optional)
 order = 'order_example' # str | The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`. (optional)
 after = 'after_example' # str | The ID of The item after which to retrieve the next page. (optional)
@@ -635,19 +646,20 @@ Update device query fields.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import device_directory
 from device_directory.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-device_directory.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = device_directory.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# device_directory.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = device_directory.DefaultApi()
+api_instance = device_directory.DefaultApi(device_directory.ApiClient(configuration))
 query_id = 'query_id_example' # str | 
 device_query = device_directory.DeviceQueryPatchRequest() # DeviceQueryPatchRequest | 
 
@@ -689,19 +701,20 @@ Retrieve device query.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import device_directory
 from device_directory.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-device_directory.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = device_directory.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# device_directory.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = device_directory.DefaultApi()
+api_instance = device_directory.DefaultApi(device_directory.ApiClient(configuration))
 query_id = 'query_id_example' # str | 
 
 try: 
@@ -741,19 +754,20 @@ Update device query.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import device_directory
 from device_directory.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-device_directory.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = device_directory.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# device_directory.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = device_directory.DefaultApi()
+api_instance = device_directory.DefaultApi(device_directory.ApiClient(configuration))
 query_id = 'query_id_example' # str | 
 body = device_directory.DeviceQueryPostPutRequest() # DeviceQueryPostPutRequest | Device query update object.
 
@@ -795,19 +809,20 @@ Retrieve device.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import device_directory
 from device_directory.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-device_directory.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = device_directory.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# device_directory.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = device_directory.DefaultApi()
+api_instance = device_directory.DefaultApi(device_directory.ApiClient(configuration))
 id = 'id_example' # str | 
 
 try: 
@@ -847,19 +862,20 @@ Update device.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import device_directory
 from device_directory.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-device_directory.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = device_directory.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# device_directory.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = device_directory.DefaultApi()
+api_instance = device_directory.DefaultApi(device_directory.ApiClient(configuration))
 id = 'id_example' # str | The ID of the device.
 device = device_directory.DeviceDataPutRequest() # DeviceDataPutRequest | 
 
