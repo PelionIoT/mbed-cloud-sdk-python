@@ -25,19 +25,20 @@ An endpoint for uploading new trusted certificates.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import iam
 from iam.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = iam.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# iam.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = iam.AccountAdminApi()
+api_instance = iam.AccountAdminApi(iam.ApiClient(configuration))
 body = iam.TrustedCertificateReq() # TrustedCertificateReq | A trusted certificate object with attributes.
 
 try: 
@@ -78,19 +79,20 @@ An endpoint for adding users and API keys to groups.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import iam
 from iam.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = iam.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# iam.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = iam.AccountAdminApi()
+api_instance = iam.AccountAdminApi(iam.ApiClient(configuration))
 group_id = 'group_id_example' # str | The ID of the group to be updated.
 body = iam.SubjectList() # SubjectList | A list of users and API keys to be added to the group.
 
@@ -133,19 +135,20 @@ An endpoint for creating or inviting a new user to the account. In case of invit
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import iam
 from iam.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = iam.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# iam.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = iam.AccountAdminApi()
+api_instance = iam.AccountAdminApi(iam.ApiClient(configuration))
 body = iam.UserInfoReq() # UserInfoReq | A user object with attributes.
 action = 'create' # str | Action, either 'create' or 'invite'. (optional) (default to create)
 
@@ -188,19 +191,20 @@ An endpoint for deleting a user.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import iam
 from iam.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = iam.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# iam.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = iam.AccountAdminApi()
+api_instance = iam.AccountAdminApi(iam.ApiClient(configuration))
 user_id = 'user_id_example' # str | The ID of the user to be deleted.
 
 try: 
@@ -240,19 +244,20 @@ An endpoint for retrieving the details of all users.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import iam
 from iam.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = iam.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# iam.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = iam.AccountAdminApi()
+api_instance = iam.AccountAdminApi(iam.ApiClient(configuration))
 limit = 50 # int | The number of results to return (2-1000), default is 50. (optional) (default to 50)
 after = 'after_example' # str | The entity ID to fetch after the given one. (optional)
 order = 'ASC' # str | The order of the records based on creation time, ASC or DESC; by default ASC (optional) (default to ASC)
@@ -301,19 +306,20 @@ An endpoint for retrieving the details of a user.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import iam
 from iam.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = iam.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# iam.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = iam.AccountAdminApi()
+api_instance = iam.AccountAdminApi(iam.ApiClient(configuration))
 user_id = 'user_id_example' # str | The ID or name of the user whose details are retrieved.
 
 try: 
@@ -354,19 +360,20 @@ An endpoint for listing the users of a group with details.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import iam
 from iam.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = iam.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# iam.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = iam.AccountAdminApi()
+api_instance = iam.AccountAdminApi(iam.ApiClient(configuration))
 group_id = 'group_id_example' # str | The ID of the group whose users are retrieved.
 limit = 50 # int | The number of results to return (2-1000), default is 50. (optional) (default to 50)
 after = 'after_example' # str | The entity ID to fetch after the given one. (optional)
@@ -415,19 +422,20 @@ An endpoint for removing users from groups.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import iam
 from iam.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = iam.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# iam.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = iam.AccountAdminApi()
+api_instance = iam.AccountAdminApi(iam.ApiClient(configuration))
 group_id = 'group_id_example' # str | The ID of the group whose users are removed.
 body = iam.SubjectList() # SubjectList | A list of users to be removed from the group.
 
@@ -470,19 +478,20 @@ An endpoint for updating the account.   **Example usage:** `curl -X PUT https://
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import iam
 from iam.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = iam.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# iam.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = iam.AccountAdminApi()
+api_instance = iam.AccountAdminApi(iam.ApiClient(configuration))
 body = iam.AccountUpdateReq() # AccountUpdateReq | Details of the account to be updated.
 
 try: 
@@ -523,19 +532,20 @@ An endpoint for updating user details.
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import iam
 from iam.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = iam.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# iam.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = iam.AccountAdminApi()
+api_instance = iam.AccountAdminApi(iam.ApiClient(configuration))
 user_id = 'user_id_example' # str | The ID of the user whose details are updated.
 body = iam.UserUpdateReq() # UserUpdateReq | A user object with attributes.
 

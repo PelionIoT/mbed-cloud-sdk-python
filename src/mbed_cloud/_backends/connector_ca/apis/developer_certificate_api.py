@@ -20,7 +20,6 @@ import re
 # python 2 and python 3 compatibility library
 from six import iteritems
 
-from ..configuration import Configuration
 from ..api_client import ApiClient
 
 
@@ -32,28 +31,20 @@ class DeveloperCertificateApi(object):
     """
 
     def __init__(self, api_client=None):
-        config = Configuration()
-        if api_client:
-            self.api_client = api_client
-        else:
-            if not config.api_client:
-                config.api_client = ApiClient()
-            self.api_client = config.api_client
+        if api_client is None:
+            api_client = ApiClient()
+        self.api_client = api_client
 
     def v3_developer_certificates_id_get(self, id, authorization, **kwargs):
         """
         Fetch an existing developer certificate to connect to the bootstrap server.
         This REST API is intended to be used by customers to fetch an existing developer certificate (a certificate that can be flashed into multiple devices to connect to bootstrap server). 
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.v3_developer_certificates_id_get(id, authorization, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.v3_developer_certificates_id_get(id, authorization, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str id: A unique identifier for the developer certificate.  (required)
         :param str authorization: Bearer {Access Token}.  (required)
         :return: DeveloperCertificateResponseData
@@ -61,7 +52,7 @@ class DeveloperCertificateApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.v3_developer_certificates_id_get_with_http_info(id, authorization, **kwargs)
         else:
             (data) = self.v3_developer_certificates_id_get_with_http_info(id, authorization, **kwargs)
@@ -72,15 +63,11 @@ class DeveloperCertificateApi(object):
         Fetch an existing developer certificate to connect to the bootstrap server.
         This REST API is intended to be used by customers to fetch an existing developer certificate (a certificate that can be flashed into multiple devices to connect to bootstrap server). 
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.v3_developer_certificates_id_get_with_http_info(id, authorization, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.v3_developer_certificates_id_get_with_http_info(id, authorization, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str id: A unique identifier for the developer certificate.  (required)
         :param str authorization: Bearer {Access Token}.  (required)
         :return: DeveloperCertificateResponseData
@@ -89,7 +76,7 @@ class DeveloperCertificateApi(object):
         """
 
         all_params = ['id', 'authorization']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -113,12 +100,11 @@ class DeveloperCertificateApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/developer-certificates/{id}'.replace('{format}', 'json')
         path_params = {}
         if 'id' in params:
             path_params['id'] = params['id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
         if 'authorization' in params:
@@ -135,7 +121,7 @@ class DeveloperCertificateApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/v3/developer-certificates/{id}', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -144,7 +130,7 @@ class DeveloperCertificateApi(object):
                                         files=local_var_files,
                                         response_type='DeveloperCertificateResponseData',
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -155,15 +141,11 @@ class DeveloperCertificateApi(object):
         Create a new developer certificate to connect to the bootstrap server.
         This REST API is intended to be used by customers to get a developer certificate (a certificate that can be flashed into multiple devices to connect to bootstrap server).  Limitations:    - One developer certificate allows up to 100 devices to connect to bootstrap server.   - Only 10 developer certificates are allowed per account. 
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.v3_developer_certificates_post(authorization, body, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.v3_developer_certificates_post(authorization, body, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str authorization: Bearer {Access Token}.  (required)
         :param DeveloperCertificateRequestData body: (required)
         :return: DeveloperCertificateResponseData
@@ -171,7 +153,7 @@ class DeveloperCertificateApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
+        if kwargs.get('async'):
             return self.v3_developer_certificates_post_with_http_info(authorization, body, **kwargs)
         else:
             (data) = self.v3_developer_certificates_post_with_http_info(authorization, body, **kwargs)
@@ -182,15 +164,11 @@ class DeveloperCertificateApi(object):
         Create a new developer certificate to connect to the bootstrap server.
         This REST API is intended to be used by customers to get a developer certificate (a certificate that can be flashed into multiple devices to connect to bootstrap server).  Limitations:    - One developer certificate allows up to 100 devices to connect to bootstrap server.   - Only 10 developer certificates are allowed per account. 
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.v3_developer_certificates_post_with_http_info(authorization, body, callback=callback_function)
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.v3_developer_certificates_post_with_http_info(authorization, body, async=True)
+        >>> result = thread.get()
 
-        :param callback function: The callback function
-            for asynchronous request. (optional)
+        :param async bool
         :param str authorization: Bearer {Access Token}.  (required)
         :param DeveloperCertificateRequestData body: (required)
         :return: DeveloperCertificateResponseData
@@ -199,7 +177,7 @@ class DeveloperCertificateApi(object):
         """
 
         all_params = ['authorization', 'body']
-        all_params.append('callback')
+        all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -223,10 +201,9 @@ class DeveloperCertificateApi(object):
 
         collection_formats = {}
 
-        resource_path = '/v3/developer-certificates'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
         if 'authorization' in params:
@@ -245,7 +222,7 @@ class DeveloperCertificateApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'POST',
+        return self.api_client.call_api('/v3/developer-certificates', 'POST',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -254,7 +231,7 @@ class DeveloperCertificateApi(object):
                                         files=local_var_files,
                                         response_type='DeveloperCertificateResponseData',
                                         auth_settings=auth_settings,
-                                        callback=params.get('callback'),
+                                        async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),

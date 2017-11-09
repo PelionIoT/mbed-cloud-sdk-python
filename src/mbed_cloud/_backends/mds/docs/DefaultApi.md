@@ -17,19 +17,20 @@ Deletes the callback URL.  **Example usage:**      curl -X DELETE https://api.us
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import mds
 from mds.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-mds.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = mds.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# mds.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = mds.DefaultApi()
+api_instance = mds.DefaultApi(mds.ApiClient(configuration))
 
 try: 
     # Delete callback URL
@@ -65,19 +66,20 @@ Shows the current callback URL if it exists.  **Example usage:**      curl -X GE
 
 ### Example 
 ```python
-from __future__ import print_statement
+from __future__ import print_function
 import time
 import mds
 from mds.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Bearer
-mds.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = mds.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# mds.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = mds.DefaultApi()
+api_instance = mds.DefaultApi(mds.ApiClient(configuration))
 
 try: 
     # Check callback URL
