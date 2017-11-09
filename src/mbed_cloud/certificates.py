@@ -35,13 +35,14 @@ from mbed_cloud._backends.iam.rest import ApiException as IamApiException
 
 class CertificatesAPI(BaseAPI):
     """Certificates API reference."""
+    api_structure = {
+        cert: [cert.DeveloperCertificateApi, cert.ServerCredentialsApi],
+        iam: [iam.AccountAdminApi, iam.DeveloperApi],
+    }
 
     def __init__(self, params=None):
         """Initialise the certificates API, optionally passing in overriding config."""
         super(CertificatesAPI, self).__init__(params)
-
-        self._init_api(cert, [cert.DeveloperCertificateApi, cert.ServerCredentialsApi])
-        self._init_api(iam, [iam.AccountAdminApi, iam.DeveloperApi])
         self.auth = self.api_clients[cert].configuration.api_key['Authorization']
 
     @catch_exceptions(IamApiException)

@@ -64,6 +64,12 @@ class ConnectAPI(BaseAPI):
         - Exploring and managing resources and resource values on said devices
         - Setup resource subscriptions and webhooks for resource monitoring
     """
+    api_structure = {
+        mds: [mds.DefaultApi, mds.EndpointsApi, mds.NotificationsApi,
+                             mds.ResourcesApi, mds.SubscriptionsApi],
+        statistics: [statistics.AccountApi, statistics.StatisticsApi],
+        device_directory: [device_directory.DefaultApi],
+    }
 
     def __init__(self, params=None):
         """Setup the backend APIs with provided config."""
@@ -75,11 +81,6 @@ class ConnectAPI(BaseAPI):
         self.b64decode = True
         self._notifications_are_active = False
         self._notifications_thread = None
-
-        self._init_api(mds, [mds.DefaultApi, mds.EndpointsApi, mds.NotificationsApi,
-                             mds.ResourcesApi, mds.SubscriptionsApi])
-        self._init_api(statistics, [statistics.AccountApi, statistics.StatisticsApi])
-        self._init_api(device_directory, [device_directory.DefaultApi])
 
     def start_notifications(self):
         """Start the notifications thread.

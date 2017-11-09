@@ -33,12 +33,15 @@ from mbed_cloud.exceptions import CloudValueError
 
 class BaseAPI(object):
     """BaseAPI is parent class for all APIs. Ensuring config is valid and available."""
+    api_structure = {}
 
-    def __init__(self, user_config=None):
+    def __init__(self, params=None):
         """Ensure the config is valid and has all required fields."""
-        self.config = Config(user_config)
+        self.config = Config(params)
         self.apis = {}
         self.api_clients = {}
+        for api_parent_class, child_classes in self.api_structure.items():
+            self._init_api(api_parent_class, child_classes)
 
     def _get_api(self, api_class):
         return self.apis.get(api_class, None)

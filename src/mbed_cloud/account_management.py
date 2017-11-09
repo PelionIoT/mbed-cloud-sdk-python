@@ -36,12 +36,7 @@ class AccountManagementAPI(BaseAPI):
     Exposing functionality for creating and managing accounts,
     users, groups and API keys in the organisation.
     """
-
-    def __init__(self, params=None):
-        """Setup the backend APIs with provided config."""
-        super(AccountManagementAPI, self).__init__(params)
-
-        self._init_api(iam, [iam.DeveloperApi, iam.AccountAdminApi])
+    api_structure = {iam: [iam.DeveloperApi, iam.AccountAdminApi]}
 
     @catch_exceptions(ApiException)
     def list_api_keys(self, **kwargs):

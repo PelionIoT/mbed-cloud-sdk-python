@@ -45,13 +45,7 @@ class DeviceDirectoryAPI(BaseAPI):
         - Listing registered devices
         - Create and manage device queries
     """
-
-    def __init__(self, params=None):
-        """Setup the backend APIs with provided config."""
-        super(DeviceDirectoryAPI, self).__init__(params)
-
-        # Initialize the wrapped APIs
-        self._init_api(device_directory, [device_directory.DefaultApi])
+    api_structure = {device_directory: [device_directory.DefaultApi]}
 
     @catch_exceptions(DeviceDirectoryApiException)
     def list_devices(self, **kwargs):

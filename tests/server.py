@@ -196,6 +196,7 @@ def main(module, method, methods=["GET"]):
         _, _, tb = sys.exc_info()
         tb_info = traceback.extract_tb(tb)
         filename, line, func, text = tb_info[-1]
+        text = traceback.format_exc()
         message = str(e)
         if hasattr(e, "message"):
             message = e.message

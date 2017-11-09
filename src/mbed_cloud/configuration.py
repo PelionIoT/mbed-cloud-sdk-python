@@ -59,4 +59,14 @@ class Config(dict):
             raise ValueError("api_key not found in config. Please see documentation.")
         host = self.get('host')
         if host:
-            self['host'] = host.strip('/')
+            # remove extraneous slashes and force to byte string
+            # otherwise msg += message_body in httplib will fail in python2
+            # when message_body contains binary data, and url is unicode
+
+            # remaining failure modes include at least:
+            # passing bytes in python3 will fail as we try to strip unicode '/' characters
+            # passing unicode code points in python2 will fail due to httplib host.encode('ascii')
+            host = host.strip('/')
+            if not isinstance(host, str):
+                host = host.encode('utf-8')
+            self['host'] = host
