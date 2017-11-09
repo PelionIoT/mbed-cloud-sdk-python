@@ -36,17 +36,8 @@ class BaseAPI(object):
 
     def __init__(self, user_config=None):
         """Ensure the config is valid and has all required fields."""
-        self.config = Config()
-        user_config = user_config or {}
-        self.config.update(user_config)
+        self.config = Config(user_config)
         self.apis = {}
-        if "host" in self.config:
-            url = self.config['host']
-            # Strip leading and trailing slashes from host
-            url = url.strip('/')
-            self.config.update({'host': url})
-        if "api_key" not in self.config:
-            raise ValueError("api_key not found in config. Please see documentation.")
 
     def _get_api(self, api_class):
         return self.apis.get(api_class, None)
@@ -56,17 +47,8 @@ class BaseAPI(object):
         api_client.configuration.__class__._default = None
         api_client.configuration.api_key['Authorization'] = self.config.get('api_key')
         api_client.configuration.api_key_prefix['Authorization'] = 'Bearer'
-        if self.config.get('host'):
-            url = self.config.get('host')
-        else:
-            url = api_client.configuration.host
-        if not isinstance(url, string_types):
-            url = '%s' % url
-        if not isinstance(url, str):
-            url = url.encode('utf-8')
-        api_client.configuration.host = url
-        # Ensure we don't encode /
-        api_client.configuration.safe_chars_for_path_param = "/"
+        api_client.configuration.host = self.config.get('host') or api_client.configuration.host
+        api_client.configuration.safe_chars_for_path_param = "/"  # Ensure we don't encode `/` for resource paths
         for api in apis:
             self.apis[api] = api(api_client)
         return api_client

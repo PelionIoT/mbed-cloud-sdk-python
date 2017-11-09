@@ -2,7 +2,6 @@ from mbed_cloud import BaseAPI
 from mbed_cloud import connect
 from mbed_cloud._backends.mds.apis.endpoints_api import EndpointsApi
 from tests.common import BaseCase
-import multiprocessing
 import urllib3
 
 
