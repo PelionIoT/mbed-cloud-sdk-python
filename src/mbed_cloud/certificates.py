@@ -40,11 +40,9 @@ class CertificatesAPI(BaseAPI):
         """Initialise the certificates API, optionally passing in overriding config."""
         super(CertificatesAPI, self).__init__(params)
 
-        # Set the api_key for the requests
-        cert_api_client = self._init_api(cert, [cert.DeveloperCertificateApi,
-                                                cert.ServerCredentialsApi])
+        self._init_api(cert, [cert.DeveloperCertificateApi, cert.ServerCredentialsApi])
         self._init_api(iam, [iam.AccountAdminApi, iam.DeveloperApi])
-        self.auth = cert_api_client.configuration.api_key['Authorization']
+        self.auth = self.api_clients[cert].configuration.api_key['Authorization']
 
     @catch_exceptions(IamApiException)
     def list_certificates(self, **kwargs):

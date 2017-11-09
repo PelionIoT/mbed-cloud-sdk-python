@@ -38,20 +38,28 @@ class BaseAPI(object):
         """Ensure the config is valid and has all required fields."""
         self.config = Config(user_config)
         self.apis = {}
+        self.api_clients = {}
 
     def _get_api(self, api_class):
         return self.apis.get(api_class, None)
 
-    def _init_api(self, api_class, apis):
-        api_client = api_class.ApiClient()
-        api_client.configuration.__class__._default = None
-        api_client.configuration.api_key['Authorization'] = self.config.get('api_key')
+    def _init_api(self, api_parent_class, apis):
+        api_client = api_parent_class.ApiClient()
+        self.api_clients[api_parent_class] = api_client
+
+        api_client.configuration.__class__._default = None  # disable codegen's singleton behaviour
         api_client.configuration.api_key_prefix['Authorization'] = 'Bearer'
-        api_client.configuration.host = self.config.get('host') or api_client.configuration.host
-        api_client.configuration.safe_chars_for_path_param = "/"  # Ensure we don't encode `/` for resource paths
-        for api in apis:
-            self.apis[api] = api(api_client)
-        return api_client
+        api_client.configuration.safe_chars_for_path_param = "/"  # ensure we don't encode `/` for resource paths
+        self._update_api_client(api_parent_class)
+
+        self.apis.update({api_cls: api_cls(api_client) for api_cls in apis})
+
+    def _update_api_client(self, api_parent_class=None):
+        """Updates the ApiClient object of specified parent api (or all of them)"""
+        clients = [self.api_clients[api_parent_class]] if api_parent_class else self.api_clients.values()
+        for api_client in clients:
+            api_client.configuration.host = self.config.get('host') or self.api_client.configuration.host
+            api_client.configuration.api_key['Authorization'] = self.config['api_key']
 
     def _verify_sort_options(self, kwargs):
         if kwargs.get('order'):
