@@ -33,6 +33,7 @@ from mbed_cloud.exceptions import CloudValueError
 
 class BaseAPI(object):
     """BaseAPI is parent class for all APIs. Ensuring config is valid and available."""
+
     api_structure = {}
 
     def __init__(self, params=None):
@@ -52,16 +53,19 @@ class BaseAPI(object):
 
         api_client.configuration.__class__._default = None  # disable codegen's singleton behaviour
         api_client.configuration.api_key_prefix['Authorization'] = 'Bearer'
-        api_client.configuration.safe_chars_for_path_param = "/"  # ensure we don't encode `/` for resource paths
+        api_client.configuration.safe_chars_for_path_param = "/"  # don't encode (resource paths)
         self._update_api_client(api_parent_class)
 
         self.apis.update({api_cls: api_cls(api_client) for api_cls in apis})
 
     def _update_api_client(self, api_parent_class=None):
         """Updates the ApiClient object of specified parent api (or all of them)"""
-        clients = [self.api_clients[api_parent_class]] if api_parent_class else self.api_clients.values()
+        clients = ([self.api_clients[api_parent_class]]
+                   if api_parent_class else self.api_clients.values())
+
         for api_client in clients:
-            api_client.configuration.host = self.config.get('host') or self.api_client.configuration.host
+            api_client.configuration.host = (self.config.get('host') or
+                                             self.api_client.configuration.host)
             api_client.configuration.api_key['Authorization'] = self.config['api_key']
 
     def _verify_sort_options(self, kwargs):

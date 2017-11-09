@@ -55,6 +55,7 @@ class Config(dict):
         self.validate()
 
     def validate(self):
+        """Validate / fix up the current config"""
         if not self.get('api_key'):
             raise ValueError("api_key not found in config. Please see documentation.")
         host = self.get('host')

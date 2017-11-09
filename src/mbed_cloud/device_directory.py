@@ -45,6 +45,7 @@ class DeviceDirectoryAPI(BaseAPI):
         - Listing registered devices
         - Create and manage device queries
     """
+
     api_structure = {device_directory: [device_directory.DefaultApi]}
 
     @catch_exceptions(DeviceDirectoryApiException)

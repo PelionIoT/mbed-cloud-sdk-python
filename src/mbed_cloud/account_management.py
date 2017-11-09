@@ -36,6 +36,7 @@ class AccountManagementAPI(BaseAPI):
     Exposing functionality for creating and managing accounts,
     users, groups and API keys in the organisation.
     """
+
     api_structure = {iam: [iam.DeveloperApi, iam.AccountAdminApi]}
 
     @catch_exceptions(ApiException)

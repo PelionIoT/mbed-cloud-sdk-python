@@ -35,6 +35,7 @@ from mbed_cloud._backends.iam.rest import ApiException as IamApiException
 
 class CertificatesAPI(BaseAPI):
     """Certificates API reference."""
+
     api_structure = {
         cert: [cert.DeveloperCertificateApi, cert.ServerCredentialsApi],
         iam: [iam.AccountAdminApi, iam.DeveloperApi],

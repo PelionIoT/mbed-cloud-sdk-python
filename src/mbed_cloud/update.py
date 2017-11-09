@@ -44,6 +44,7 @@ class UpdateAPI(BaseAPI):
         - Update campaigns
         - Manifest management
     """
+
     api_structure = {update_service: [update_service.DefaultApi]}
 
     @catch_exceptions(UpdateServiceApiException)

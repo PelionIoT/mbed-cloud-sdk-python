@@ -64,9 +64,15 @@ class ConnectAPI(BaseAPI):
         - Exploring and managing resources and resource values on said devices
         - Setup resource subscriptions and webhooks for resource monitoring
     """
+
     api_structure = {
-        mds: [mds.DefaultApi, mds.EndpointsApi, mds.NotificationsApi,
-                             mds.ResourcesApi, mds.SubscriptionsApi],
+        mds: [
+            mds.DefaultApi,
+            mds.EndpointsApi,
+            mds.NotificationsApi,
+            mds.ResourcesApi,
+            mds.SubscriptionsApi
+        ],
         statistics: [statistics.AccountApi, statistics.StatisticsApi],
         device_directory: [device_directory.DefaultApi],
     }
