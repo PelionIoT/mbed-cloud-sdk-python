@@ -18,12 +18,13 @@
 from __future__ import print_function
 from __future__ import unicode_literals
 
-from builtins import object
 import datetime
+
+from builtins import object
 from six import iteritems
+from six.moves import urllib
 from six import string_types
 
-from six.moves import urllib
 
 from mbed_cloud._version import __version__  # noqa
 from mbed_cloud.bootstrap import Config
@@ -52,6 +53,7 @@ class BaseAPI(object):
 
     def _init_api(self, api_class, apis):
         api_client = api_class.ApiClient()
+        api_client.configuration.__class__._default = None
         api_client.configuration.api_key['Authorization'] = self.config.get('api_key')
         api_client.configuration.api_key_prefix['Authorization'] = 'Bearer'
         if self.config.get('host'):
@@ -222,7 +224,7 @@ class BaseObject(object):
         """Return dictionary of object."""
         dictionary = {}
         for key, value in iteritems(self._get_attributes_map()):
-            dictionary[key] = getattr(self, key, None)
+            dictionary[key] = getattr(self, str(key), None)
         return dictionary
 
     def _get_operator(self, key):
@@ -314,21 +316,18 @@ class PaginatedResponse(object):
     def _get_page(self):
         resp = self._func(**self._kwargs)
         self._raw_response = resp
+        data_stream = resp.data or []
 
         # Update properties
         self._has_more = resp.has_more
-        self._data = [self._lwrap_type(e) if self._lwrap_type else e for e in resp.data]
-        if hasattr(resp, 'total_count'):
-            self._total_count = resp.total_count
-        else:
-            self._total_count = len(self._data)
+        self._data = [self._lwrap_type(e) if self._lwrap_type else e for e in data_stream]
+        self._total_count = getattr(resp, 'total_count', len(self._data))
 
-        if len(resp.data) > 0:
+        if len(data_stream) > 0:
             # Update 'after' by taking the last element ID
-            self._kwargs['after'] = resp.data[-1].id
+            self._kwargs['after'] = data_stream[-1].id
         else:
-            if 'after' in self._kwargs:
-                del self._kwargs['after']
+            self._kwargs.pop('after', None)
 
     def _get_total_count(self):
         resp = self._func(**{'include': 'total_count', 'limit': 2})
