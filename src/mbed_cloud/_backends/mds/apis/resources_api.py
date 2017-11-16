@@ -150,7 +150,7 @@ class ResourcesApi(object):
         :param str _resource_path: The URL of the resource.  (required)
         :param bool cache_only: If true, the response comes only from the cache. Default: false. Mbed Cloud Connect caches the received resource values for the time of [max_age](/docs/v1.2/collecting/handle-resources.html#working-with-the-server-cache) defined in the client side. 
         :param bool no_resp: <br/><br/><b>Non-confirmable requests</b><br/>  All resource APIs have the parameter `noResp`. If a request is made with `noResp=true`, Mbed Cloud Connect makes a CoAP  non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back  an async-response-id.  If calls with this parameter enabled succeed, they return with the status code `204 No Content`. If the underlying protocol  does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code  `409 Conflict`. 
-        :return: AsyncID
+        :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -175,7 +175,7 @@ class ResourcesApi(object):
         :param str _resource_path: The URL of the resource.  (required)
         :param bool cache_only: If true, the response comes only from the cache. Default: false. Mbed Cloud Connect caches the received resource values for the time of [max_age](/docs/v1.2/collecting/handle-resources.html#working-with-the-server-cache) defined in the client side. 
         :param bool no_resp: <br/><br/><b>Non-confirmable requests</b><br/>  All resource APIs have the parameter `noResp`. If a request is made with `noResp=true`, Mbed Cloud Connect makes a CoAP  non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back  an async-response-id.  If calls with this parameter enabled succeed, they return with the status code `204 No Content`. If the underlying protocol  does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code  `409 Conflict`. 
-        :return: AsyncID
+        :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -233,7 +233,7 @@ class ResourcesApi(object):
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='AsyncID',
+                                        response_type=None,
                                         auth_settings=auth_settings,
                                         async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
