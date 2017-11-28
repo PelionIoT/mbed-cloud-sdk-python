@@ -5,7 +5,10 @@ from tests.common import BaseCase
 from mbed_cloud.device_directory import Device, DeviceDirectoryAPI
 from mbed_cloud import BaseAPI
 from mbed_cloud import CloudValueError
-from unittest import mock
+try:
+    from unittest import mock
+except ImportError:  # < Python 3
+    import mock
 
 
 class MockResponseObject:
