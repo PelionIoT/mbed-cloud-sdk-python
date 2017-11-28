@@ -200,7 +200,7 @@ class UpdateAPI(BaseAPI):
         """Add a new firmware reference.
 
         :param str name: Firmware file short name (Required)
-        :param str datafile: Required. The *path* to the firmware file
+        :param str datafile: The file object or *path* to the firmware image file (Required)
         :param str description: Firmware file description
         :return: the newly created firmware file object
         :rtype: FirmwareImage
@@ -255,7 +255,7 @@ class UpdateAPI(BaseAPI):
         """Add a new manifest reference.
 
         :param str name: Manifest file short name (Required)
-        :param str datafile: The *path* to the manifest file (Required)
+        :param str datafile: The file object or *path* to the manifest file (Required)
         :param str description: Manifest file description
         :return: the newly created manifest file object
         :rtype: FirmwareManifest
