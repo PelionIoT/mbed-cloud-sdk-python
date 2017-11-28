@@ -29,6 +29,7 @@ from six import string_types
 from mbed_cloud._version import __version__  # noqa
 from mbed_cloud.bootstrap import Config
 from mbed_cloud.exceptions import CloudValueError
+from six.moves.urllib_parse import unquote
 
 
 class BaseAPI(object):
@@ -95,7 +96,7 @@ class BaseAPI(object):
                 raise CloudValueError("'filters' parameter needs to be of type dict")
             filters = self._encode_query(filters, obj, encode)
             if encode:
-                kwargs.update({'filter': filters})
+                kwargs.update({'filter': unquote(unquote(filters))})
             else:
                 for k, v in list(filters.items()):
                     kwargs[k] = v

@@ -51,7 +51,7 @@ class DeviceDirectoryAPI(BaseAPI):
         super(DeviceDirectoryAPI, self).__init__(params)
 
         # Initialize the wrapped APIs
-        self._init_api(device_directory, [device_directory.DefaultApi])
+        self.api_client = self._init_api(device_directory, [device_directory.DefaultApi])
 
     @catch_exceptions(DeviceDirectoryApiException)
     def list_devices(self, **kwargs):
