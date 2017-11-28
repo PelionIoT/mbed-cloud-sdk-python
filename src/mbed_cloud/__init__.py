@@ -29,6 +29,7 @@ from six import string_types
 from mbed_cloud._version import __version__  # noqa
 from mbed_cloud.bootstrap import Config
 from mbed_cloud.exceptions import CloudValueError
+from urllib.parse import unquote
 
 
 class BaseAPI(object):
@@ -93,16 +94,16 @@ class BaseAPI(object):
             filters = kwargs.get('filter')
             if filters and not isinstance(filters, dict):
                 raise CloudValueError("'filters' parameter needs to be of type dict")
-            filters = self._encode_query(filters, obj, encode)
+            filters = self._encode_query(filters, obj, encode, quote_via=lambda *a, **kw: a[0])
             if encode:
-                kwargs.update({'filter': filters})
+                kwargs.update({'filter': unquote(filters)})
             else:
                 for k, v in list(filters.items()):
                     kwargs[k] = v
                 del kwargs['filter']
         return kwargs
 
-    def _encode_query(self, filters, obj, encode=True):
+    def _encode_query(self, filters, obj, encode=True, quote_via=urllib.parse.quote_plus):
         updated_filters = {}
         for k, v in list(filters.items()):
             val = obj._get_attributes_map().get(k, None)
@@ -113,7 +114,7 @@ class BaseAPI(object):
         self._set_custom_attributes(updated_filters)
         filters = self._create_filters_dict(updated_filters, encode)
         if encode:
-            return urllib.parse.urlencode(sorted(filters.items()))
+            return urllib.parse.urlencode(sorted(filters.items()), quote_via=quote_via)
         else:
             return filters
 
