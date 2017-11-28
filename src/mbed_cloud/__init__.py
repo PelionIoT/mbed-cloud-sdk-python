@@ -29,7 +29,7 @@ from six import string_types
 from mbed_cloud._version import __version__  # noqa
 from mbed_cloud.bootstrap import Config
 from mbed_cloud.exceptions import CloudValueError
-from urllib.parse import unquote
+from six.moves.urllib_parse import unquote
 
 
 class BaseAPI(object):
