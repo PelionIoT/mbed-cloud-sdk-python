@@ -70,7 +70,7 @@ def write_csv_file(tpip_pkgs):
 
     :param List tpip_pkgs: a list of dictionaries compatible with DictWriter.
     """
-    with open('tpip.csv', 'w', newline='') as csvfile:
+    with open('tpip.csv', 'wb') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=FIELDNAMES)
         writer.writeheader()
         for pkg_dict in tpip_pkgs:
