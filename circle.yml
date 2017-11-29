@@ -1,12 +1,16 @@
 machine:
   services:
     - docker
+  environment:
+    PROJECT_REPORTS: ${HOME}/reports
+    SCRIPTS_DIR: ${HOME}/${CIRCLE_PROJECT_REPONAME}/scripts
 
 general:
   artifacts:
     - ~/results
     - ~/rpc_results
     - ~/docs
+    - ~/reports
 
 dependencies:
   pre:
@@ -41,6 +45,9 @@ test:
     - cat .mbed_cloud_config.json
   override:
     - tox
+    - mkdir -p ${PROJECT_REPORTS}
+    - python ${SCRIPTS_DIR}/tpip.py
+    - mv tpip.csv ${PROJECT_REPORTS}/
   post:
     # upload to codecov.io
     - codecov
