@@ -1,6 +1,8 @@
 machine:
   services:
     - docker
+  environment:
+    PROJECT_REPORTS: ${HOME}/reports
 
 general:
   artifacts:
@@ -45,6 +47,8 @@ test:
     - tox
     # Create a third party IP report
     - tox -e tpip
+    - mkdir -p ${PROJECT_REPORTS}
+    - mv tpip.csv ${PROJECT_REPORTS}/
   post:
     # upload to codecov.io
     - codecov
