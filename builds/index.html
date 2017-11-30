@@ -72,6 +72,8 @@
 						<img class="logo tests" src="images/tests.svg" /></a>
 					<a title="Test Coverage (3.6)" href="<%- getArtifactUrl(build, { path: 'results/py36/coverage.html' }) %>">
 						<img class="logo tests" src="images/coverage.svg" /></a>
+					<a title="TPIP Report" href="<%- getArtifactUrl(build, { path: 'reports', file: 'tpip.csv' }) %>">
+						<img class="logo tpip" src="images/tpip.svg" /></a>
 				<% } %>
 			</div>
 		</li>
