@@ -1,9 +1,6 @@
 machine:
   services:
     - docker
-  environment:
-    PROJECT_REPORTS: ${HOME}/reports
-    SCRIPTS_DIR: ${HOME}/${CIRCLE_PROJECT_REPONAME}/scripts
 
 general:
   artifacts:
@@ -14,10 +11,6 @@ general:
 
 dependencies:
   pre:
-    # Create third party IP report excluding test dependencies
-    - mkdir -p ${PROJECT_REPORTS}
-    - python ${SCRIPTS_DIR}/tpip.py
-    - mv tpip.csv ${PROJECT_REPORTS}/
     # switch out environment variables depending on branch
     - |
       if [[ $CIRCLE_BRANCH == production ]]; then
@@ -48,6 +41,7 @@ test:
     - echo "{\"api_key\":\"$MBED_CLOUD_API_KEY\", \"host\":\"$MBED_CLOUD_API_HOST\"}" > .mbed_cloud_config.json
     - cat .mbed_cloud_config.json
   override:
+  # Run tests and create a third party IP report
     - tox
   post:
     # upload to codecov.io

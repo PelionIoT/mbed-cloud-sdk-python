@@ -19,6 +19,8 @@
 The report is output as a CSV file to the local directory.
 """
 
+import os
+import argparse
 import csv
 import pkg_resources
 
@@ -28,7 +30,7 @@ EXCLUDED_PACKAGES = ('python', 'wheel', 'setuptools', 'pip')
 # Report field names in CSV
 FIELDNAMES = ('name', 'version', 'repository', 'licence', 'classifier')
 
-# Licence strings to exclide from the report as they don't add vaue
+# Licence strings to exclude from the report as they don't add value
 EXCLUDED_LICENSE_STRINGS = ('unknown', 'license', 'licence', 'licensing', 'licencing')
 
 
@@ -40,56 +42,78 @@ def get_metadata(item):
     :param item: pkg_resources WorkingSet item
     :returns: metadata resource as list of non-blank non-comment lines
     """
-    try:
-        metadata_lines = item.get_metadata_lines('METADATA')
-    except (KeyError, IOError):
+    for metadata_key in ('METADATA', 'PKG-INFO'):
         try:
-            metadata_lines = item.get_metadata_lines('PKG-INFO')
+            metadata_lines = item.get_metadata_lines(metadata_key)
+            break
         except (KeyError, IOError):
             # The package will be shown in the report without any license information
+            # if a metadata key is not found.
             metadata_lines = []
 
     return metadata_lines
 
 
 def process_metadata(pkg_name, metadata_lines):
-    """Create a dictionary containing the relevent fields.
+    """Create a dictionary containing the relevant fields.
+
+    The following is an example of the generated dictionary:
+
+    :Example:
+
+    {
+        'name': 'six',
+        'version': '1.11.0',
+        'repository': 'pypi.python.org/pypi/six',
+        'licence': 'MIT',
+        'classifier': 'MIT License'
+    }
 
     :param str pkg_name: name of the package
     :param metadata_lines: metadata resource as list of non-blank non-comment lines
     :returns: Dictionary of each of the fields
     :rtype: Dict[str, str]
     """
-
     # Initialise a dictionary with all the fields to report on.
     tpip_pkg = dict(zip(FIELDNAMES, [[pkg_name], [], [], [], []]))
 
     # Extract the metadata into a list for each field as there may be multiple
     # entries for each one.
     for line in metadata_lines:
-        lower_line = line.lower()
-        if lower_line.startswith('version'):
-            tpip_pkg['version'].append(line.rsplit(':', 1)[-1].strip())
-        elif lower_line.startswith('home-page'):
-            tpip_pkg['repository'].append(line.rsplit(':', 1)[-1].strip(' /'))
+        try:
+            metadata_key, metadata_value = line.rsplit(':', 1)
+        except ValueError:
+            continue
+
+        metadata_key = metadata_key.strip().lower()
+        metadata_value = metadata_value.strip()
+
+        if metadata_key.startswith('version'):
+            tpip_pkg['version'].append(metadata_value)
+        elif metadata_key.startswith('home-page'):
+            tpip_pkg['repository'].append(metadata_value.strip(' /'))
         # Handle british and american spelling of licence/license
-        elif lower_line.startswith('licen'):
-            licence_str = lower_line.rsplit(':', 1)[-1].strip()
-            if licence_str.lower() not in EXCLUDED_LICENSE_STRINGS:
-                tpip_pkg['licence'].append(licence_str)
-        elif lower_line.startswith('classifier') and 'licen' in lower_line:
-            tpip_pkg['classifier'].append(line.rsplit(':', 1)[-1].strip())
+        elif metadata_key.startswith('licen'):
+            if metadata_value.lower() not in EXCLUDED_LICENSE_STRINGS:
+                tpip_pkg['licence'].append(metadata_value)
+        elif metadata_key.startswith('classifier') and 'licen' in metadata_key:
+            tpip_pkg['classifier'].append(metadata_value)
 
     # Convert to a flat structure to be written out in the CSV
     return dict((key, '; '.join(value)) for (key, value) in tpip_pkg.items())
 
 
-def write_csv_file(tpip_pkgs):
+def write_csv_file(output_filename, tpip_pkgs):
     """Write the TPIP report out to a CSV file.
 
+    :param str output_filename: filename for CSV.
     :param List tpip_pkgs: a list of dictionaries compatible with DictWriter.
     """
-    with open('tpip.csv', 'wb') as csvfile:
+    dirname = os.path.dirname(output_filename)
+    if dirname and not os.path.exists(dirname):
+        os.makedirs(dirname)
+
+    with open(output_filename, 'wb') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=FIELDNAMES)
         writer.writeheader()
         for pkg_dict in tpip_pkgs:
@@ -97,7 +121,12 @@ def write_csv_file(tpip_pkgs):
 
 
 def main():
-    """Generat a the TPIP report."""
+    """Generate a TPIP report."""
+    parser = argparse.ArgumentParser(description='Generate a TPIP report as a CSV file.')
+    parser.add_argument('output_filename', type=str, metavar='output-file',
+                        help='the output path and filename')
+    args = parser.parse_args()
+
     tpip_pkgs = []
     for pkg_name, pkg_item in pkg_resources.working_set.by_key.items():
         if pkg_name not in EXCLUDED_PACKAGES:
@@ -105,7 +134,7 @@ def main():
             tpip_pkg = process_metadata(pkg_name, metadata_lines)
             tpip_pkgs.append(tpip_pkg)
 
-    write_csv_file(tpip_pkgs)
+    write_csv_file(args.output_filename, tpip_pkgs)
 
 
 if __name__ == '__main__':
