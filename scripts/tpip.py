@@ -109,7 +109,7 @@ def write_csv_file(output_filename, tpip_pkgs):
     :param str output_filename: filename for CSV.
     :param List tpip_pkgs: a list of dictionaries compatible with DictWriter.
     """
-    dirname = os.path.dirname(os.path.abspath(os.path.expanduser(output_filename))
+    dirname = os.path.dirname(os.path.abspath(os.path.expanduser(output_filename)))
 
     if dirname and not os.path.exists(dirname):
         os.makedirs(dirname)
