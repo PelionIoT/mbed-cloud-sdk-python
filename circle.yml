@@ -14,6 +14,10 @@ general:
 
 dependencies:
   pre:
+    # Create third party IP report excluding test dependencies
+    - mkdir -p ${PROJECT_REPORTS}
+    - python ${SCRIPTS_DIR}/tpip.py
+    - mv tpip.csv ${PROJECT_REPORTS}/
     # switch out environment variables depending on branch
     - |
       if [[ $CIRCLE_BRANCH == production ]]; then
@@ -45,9 +49,6 @@ test:
     - cat .mbed_cloud_config.json
   override:
     - tox
-    - mkdir -p ${PROJECT_REPORTS}
-    - python ${SCRIPTS_DIR}/tpip.py
-    - mv tpip.csv ${PROJECT_REPORTS}/
   post:
     # upload to codecov.io
     - codecov
