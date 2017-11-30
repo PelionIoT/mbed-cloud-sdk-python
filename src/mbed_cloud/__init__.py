@@ -27,49 +27,46 @@ from six import string_types
 
 
 from mbed_cloud._version import __version__  # noqa
-from mbed_cloud.bootstrap import Config
+from mbed_cloud.configuration import Config
 from mbed_cloud.exceptions import CloudValueError
 
 
 class BaseAPI(object):
     """BaseAPI is parent class for all APIs. Ensuring config is valid and available."""
 
-    def __init__(self, user_config=None):
+    api_structure = {}
+
+    def __init__(self, params=None):
         """Ensure the config is valid and has all required fields."""
-        self.config = Config()
-        user_config = user_config or {}
-        self.config.update(user_config)
+        self.config = Config(params)
         self.apis = {}
-        if "host" in self.config:
-            url = self.config['host']
-            # Strip leading and trailing slashes from host
-            url = url.strip('/')
-            self.config.update({'host': url})
-        if "api_key" not in self.config:
-            raise ValueError("api_key not found in config. Please see documentation.")
+        self.api_clients = {}
+        for api_parent_class, child_classes in self.api_structure.items():
+            self._init_api(api_parent_class, child_classes)
 
     def _get_api(self, api_class):
         return self.apis.get(api_class, None)
 
-    def _init_api(self, api_class, apis):
-        api_client = api_class.ApiClient()
-        api_client.configuration.__class__._default = None
-        api_client.configuration.api_key['Authorization'] = self.config.get('api_key')
+    def _init_api(self, api_parent_class, apis):
+        api_client = api_parent_class.ApiClient()
+        self.api_clients[api_parent_class] = api_client
+
+        api_client.configuration.__class__._default = None  # disable codegen's singleton behaviour
         api_client.configuration.api_key_prefix['Authorization'] = 'Bearer'
-        if self.config.get('host'):
-            url = self.config.get('host')
-        else:
-            url = api_client.configuration.host
-        if not isinstance(url, string_types):
-            url = '%s' % url
-        if not isinstance(url, str):
-            url = url.encode('utf-8')
-        api_client.configuration.host = url
-        # Ensure we don't encode /
-        api_client.configuration.safe_chars_for_path_param = "/"
-        for api in apis:
-            self.apis[api] = api(api_client)
-        return api_client
+        api_client.configuration.safe_chars_for_path_param = "/"  # don't encode (resource paths)
+        self._update_api_client(api_parent_class)
+
+        self.apis.update({api_cls: api_cls(api_client) for api_cls in apis})
+
+    def _update_api_client(self, api_parent_class=None):
+        """Updates the ApiClient object of specified parent api (or all of them)"""
+        clients = ([self.api_clients[api_parent_class]]
+                   if api_parent_class else self.api_clients.values())
+
+        for api_client in clients:
+            api_client.configuration.host = (self.config.get('host') or
+                                             self.api_client.configuration.host)
+            api_client.configuration.api_key['Authorization'] = self.config['api_key']
 
     def _verify_sort_options(self, kwargs):
         if kwargs.get('order'):

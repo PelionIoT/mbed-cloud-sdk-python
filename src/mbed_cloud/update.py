@@ -45,11 +45,7 @@ class UpdateAPI(BaseAPI):
         - Manifest management
     """
 
-    def __init__(self, params=None):
-        """Setup the backend APIs with provided config."""
-        super(UpdateAPI, self).__init__(params)
-
-        self._init_api(update_service, [update_service.DefaultApi])
+    api_structure = {update_service: [update_service.DefaultApi]}
 
     @catch_exceptions(UpdateServiceApiException)
     def list_campaigns(self, **kwargs):

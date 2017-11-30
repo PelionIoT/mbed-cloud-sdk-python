@@ -42,12 +42,11 @@ test:
   override:
     - tox
   post:
-    # upload to codecov.io
-    - codecov
-    - sphinx-build -a -b html -c docs/ docs/ ~/docs
+    - source .tox/py36/bin/activate && sphinx-build -a -b html -c docs/ docs/ ~/docs
     - mkdir -p $CIRCLE_TEST_REPORTS/tests/
     - cp ~/results/py36/unittests.xml $CIRCLE_TEST_REPORTS/tests/
     - cp ~/rpc_results/py36/results.xml $CIRCLE_TEST_REPORTS/tests/
+    - codecov
 
 deployment:
   staging:
