@@ -41,8 +41,10 @@ test:
     - echo "{\"api_key\":\"$MBED_CLOUD_API_KEY\", \"host\":\"$MBED_CLOUD_API_HOST\"}" > .mbed_cloud_config.json
     - cat .mbed_cloud_config.json
   override:
-  # Run tests and create a third party IP report
+    # Run tests
     - tox
+    # Create a third party IP report
+    - tox -e tpip
   post:
     # upload to codecov.io
     - codecov

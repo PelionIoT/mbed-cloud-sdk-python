@@ -19,9 +19,9 @@
 The report is output as a CSV file to the local directory.
 """
 
-import os
 import argparse
 import csv
+import os
 import pkg_resources
 
 # Python packages to exclude form the TPIP report
@@ -113,7 +113,7 @@ def write_csv_file(output_filename, tpip_pkgs):
     if dirname and not os.path.exists(dirname):
         os.makedirs(dirname)
 
-    with open(output_filename, 'wb') as csvfile:
+    with open(output_filename, 'w', newline='') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=FIELDNAMES)
         writer.writeheader()
         for pkg_dict in tpip_pkgs:
