@@ -15,6 +15,8 @@ class AsyncBase(BaseCase):
     unique_string = None
     target = None
 
+    test_delay = 0.02
+
     def setUp(self):
         self.unique_string = str(uuid.uuid4())
 
@@ -22,13 +24,13 @@ class AsyncBase(BaseCase):
         self.assertEqual(result, self.unique_string * 2)
 
     def get_async(self):
-        return self.thing.defer(self.unique_string, delay=0.1)
+        return self.thing.defer(self.unique_string, delay=self.test_delay)
 
     def get_async_value(self, defer):
         raise NotImplementedError()
 
     def test_sync(self):
-        self.check_result(self.thing.block(self.unique_string, delay=0.1))
+        self.check_result(self.thing.block(self.unique_string, delay=self.test_delay))
 
     def test_async(self):
         defer = self.get_async()
@@ -41,7 +43,7 @@ class Test2(AsyncBase):
     @classmethod
     def setUpClass(cls):
         super(Test2, cls).setUpClass()
-        from b_call import slow
+        from tests.async.b_call import slow
         cls.thing = Thing(func=slow)
 
     def get_async_value(self, defer):
@@ -52,7 +54,7 @@ class Test2CustomLoop(Test2):
     @classmethod
     def setUpClass(cls):
         super(Test2CustomLoop, cls).setUpClass()
-        from b_call import slow
+        from tests.async.b_call import slow
         tp = pool.ThreadPool(processes=1)
         cls.thing = Thing(func=slow, concurrency_provider=tp)
 
@@ -65,7 +67,7 @@ class Test3(AsyncBase):
     def setUpClass(cls):
         super().setUpClass()
         import asyncio
-        from a_call import slow
+        from tests.async.a_call import slow
         cls.target = slow
         cls.loop = asyncio.get_event_loop()
         cls.thing = Thing(func=cls.target)
@@ -100,7 +102,7 @@ class Test3DoesThreadsToo(Test3):
     def setUpClass(cls):
         super().setUpClass()
         # if we wanted to, we could make our Thing use ThreadPools in python3.
-        from b_call import slow
+        from tests.async.b_call import slow
         cls.target = slow
         tp = pool.ThreadPool(processes=1)
         cls.thing = Thing(concurrency_provider=tp, func=cls.target)
