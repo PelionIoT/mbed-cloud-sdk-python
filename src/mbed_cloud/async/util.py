@@ -52,9 +52,10 @@ class ConcurrentCall(object):
         :param kwargs:
         :return:
         """
-        if self.is_asyncio:
-            return asyncio.ensure_future(self.func(*args, **kwargs), loop=self.concurrency_provider)
-        return self.concurrency_provider.apply_async(self.func, args, kwargs)
+        return (
+            asyncio.ensure_future(self.func(*args, **kwargs), loop=self.concurrency_provider)
+            if self.is_asyncio else self.concurrency_provider.apply_async(self.func, args, kwargs)
+        )
 
     def block(self, *args, **kwargs):
         """Call the wrapped function in a blocking fashion - returns the result of the function call
@@ -63,9 +64,7 @@ class ConcurrentCall(object):
         :param kwargs:
         :return: result of function call
         """
-        if self.is_asyncio:
-            promise = self.promise(*args, **kwargs)
-            return self.concurrency_provider.run_until_complete(promise)
-        # alternatively, to force using the threadpool in py2, self.defer(*,**).get()
-        # (but this seems wasteful)
-        return self.func(*args, **kwargs)
+        return (
+            self.concurrency_provider.run_until_complete(self.defer(*args, **kwargs))
+            if self.is_asyncio else self.func(*args, **kwargs)
+        )
