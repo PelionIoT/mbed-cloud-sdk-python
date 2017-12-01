@@ -13,7 +13,7 @@ from tests.common import BaseCase
 
 docker_image = os.environ.get(
     'TESTRUNNER_DOCKER_IMAGE',
-    '104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:latest'
+    '104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master'
 )
 
 
