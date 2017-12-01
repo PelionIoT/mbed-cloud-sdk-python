@@ -24,8 +24,11 @@ if six.PY3:
 
 
 class ConcurrentCall(object):
+    """Wraps a potentially asynchronous function to provide a consistent API
+    """
+
     def __init__(self, func=None, concurrency_provider=None):
-        """Wraps a potentially asynchronous function to provide a consistent API
+        """Creates a wrapper for a potentially asynchronous function
 
         :param func: blocking call, asyncio coroutine or future
         :param concurrency_provider: ThreadPool or asyncio BaseEventLoop
