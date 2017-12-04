@@ -1,3 +1,20 @@
+# --------------------------------------------------------------------------
+# Mbed Cloud Python SDK
+# (C) COPYRIGHT 2017 Arm Limited
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# --------------------------------------------------------------------------
+"""Notifications"""
 import logging
 import threading
 import time
@@ -5,11 +22,13 @@ import time
 import six
 
 from mbed_cloud import tlv
-from mbed_cloud._backends.mds.rest import ApiException as MdsApiException
+
+from mbed_cloud._backends import mds
+
 from mbed_cloud.decorators import catch_exceptions
-from mbed_cloud.exceptions import CloudUnhandledError
 from mbed_cloud.exceptions import CloudAsyncError
 from mbed_cloud.exceptions import CloudTimeoutError
+from mbed_cloud.exceptions import CloudUnhandledError
 
 LOG = logging.getLogger(__name__)
 
@@ -38,14 +57,19 @@ class AsyncConsumer(object):
         self.async_id = async_id
         self.db = db
 
-    def wait(self, timeout):
+    def wait(self, timeout=0):
+        """Blocks until timeout (seconds) or forever
+
+        :param timeout: time to wait, in seconds
+        :return:
+        """
         start_time = time.time()
 
         # We return synchronously, so we block in a busy loop waiting for the
         # request to be done.
         while not self.is_done:
             duration = time.time() - start_time
-            if timeout and duration > timeout:
+            if timeout > 0 and duration > timeout:
                 raise CloudTimeoutError(
                     "Timeout getting async value. Timeout: %d seconds" % timeout
                 )
@@ -116,6 +140,17 @@ class AsyncConsumer(object):
 
 
 def handle_channel_message(db, queues, b64decode, notification_object):
+    """Handler for notification channels
+
+    Given a NotificationMessage object, update internal state, notify
+    any subscribers and resolve async deferred tasks.
+
+    :param db:
+    :param queues:
+    :param b64decode:
+    :param notification_object:
+    :return:
+    """
     for notification in getattr(notification_object, 'notifications') or []:
         # Ensure we have subscribed for the path we received a notification for
         subscriber_queue = queues.get(notification.ep, {}).get(notification.path)
@@ -170,11 +205,11 @@ class _NotificationsThread(threading.Thread):
         self._b64decode = b64decode
         self._stopped = False
 
-    @catch_exceptions(MdsApiException)
+    @catch_exceptions(mds.rest.ApiException)
     def run(self):
         while not self._stopped:
             resp = self.notifications_api.v2_notification_pull_get()
-            handle_channel_message(self.db, self.queues, self._b64decode, response_object=resp)
+            handle_channel_message(self.db, self.queues, self._b64decode, notification_object=resp)
 
     def stop(self):
         self._stopped = True

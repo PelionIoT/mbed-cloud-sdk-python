@@ -1,4 +1,4 @@
-# ---------------------------------------------------------------------------
+# --------------------------------------------------------------------------
 # Mbed Cloud Python SDK
 # (C) COPYRIGHT 2017 Arm Limited
 #
@@ -18,24 +18,17 @@
 from __future__ import absolute_import
 from __future__ import unicode_literals
 
+from collections import defaultdict
 import datetime
 import logging
 import re
 import threading
-from collections import defaultdict
 
-# Import backend API
-import mbed_cloud._backends.device_directory as device_directory
-import mbed_cloud._backends.mds as mds
-import mbed_cloud._backends.statistics as statistics
-# Import common functions and exceptions from frontend API
+from six.moves import queue
+
 from mbed_cloud import BaseAPI
 from mbed_cloud import PaginatedResponse
-from mbed_cloud._backends.device_directory.rest import ApiException as DeviceDirectoryApiException
-from mbed_cloud._backends.mds.models.presubscription import Presubscription as PresubscriptionData
-from mbed_cloud._backends.mds.models.webhook import Webhook as WebhookData
-from mbed_cloud._backends.mds.rest import ApiException as MdsApiException
-from mbed_cloud._backends.statistics.rest import ApiException as StatisticsApiException
+
 from mbed_cloud.decorators import catch_exceptions
 from mbed_cloud.device_directory import Device
 from mbed_cloud.exceptions import CloudApiException
@@ -48,7 +41,13 @@ from mbed_cloud.notifications import handle_channel_message
 from mbed_cloud.presubscription import Presubscription
 from mbed_cloud.resource import Resource
 from mbed_cloud.webhooks import Webhook
-from six.moves import queue
+
+from mbed_cloud._backends import device_directory
+from mbed_cloud._backends import mds
+from mbed_cloud._backends import statistics
+
+from mbed_cloud._backends.mds.models.presubscription import Presubscription as PresubscriptionData
+from mbed_cloud._backends.mds.models.webhook import Webhook as WebhookData
 
 LOG = logging.getLogger(__name__)
 
@@ -124,7 +123,7 @@ class ConnectAPI(BaseAPI):
         self._notifications_thread = None
         self._notifications_are_active = False
 
-    @catch_exceptions(DeviceDirectoryApiException)
+    @catch_exceptions(device_directory.rest.ApiException)
     def list_connected_devices(self, **kwargs):
         """List connected devices.
 
@@ -176,7 +175,7 @@ class ConnectAPI(BaseAPI):
         api = self._get_api(device_directory.DefaultApi)
         return PaginatedResponse(api.device_list, lwrap_type=Device, **kwargs)
 
-    @catch_exceptions(MdsApiException)
+    @catch_exceptions(mds.rest.ApiException)
     def list_resources(self, device_id):
         """List all resources registered to a connected device.
 
@@ -195,7 +194,7 @@ class ConnectAPI(BaseAPI):
         api = self._get_api(mds.EndpointsApi)
         return [Resource(r) for r in api.v2_endpoints_device_id_get(device_id)]
 
-    @catch_exceptions(MdsApiException)
+    @catch_exceptions(mds.rest.ApiException)
     def get_resource(self, device_id, resource_path):
         """Get a resource.
 
@@ -210,7 +209,7 @@ class ConnectAPI(BaseAPI):
                 return r
         raise CloudApiException("Resource not found")
 
-    @catch_exceptions(MdsApiException)
+    @catch_exceptions(mds.rest.ApiException)
     def delete_resource(self, device_id, resource_path, fix_path=False):
         """Deletes a resource.
 
@@ -226,7 +225,7 @@ class ConnectAPI(BaseAPI):
             resource_path = resource_path[1:]
         api.v2_endpoints_device_id_resource_path_delete(device_id, resource_path)
 
-    @catch_exceptions(MdsApiException)
+    @catch_exceptions(mds.rest.ApiException)
     def get_resource_value(self, device_id, resource_path, fix_path=True, timeout=None):
         """Get a resource value for a given device and resource path by blocking thread.
 
@@ -260,7 +259,7 @@ class ConnectAPI(BaseAPI):
         # We block the thread and get the value for the user.
         return consumer.wait(timeout)
 
-    @catch_exceptions(MdsApiException)
+    @catch_exceptions(mds.rest.ApiException)
     def get_resource_value_async(self, device_id, resource_path, fix_path=True):
         """Get a resource value for a given device and resource path.
 
@@ -291,7 +290,7 @@ class ConnectAPI(BaseAPI):
         # The async consumer, which will read data from notifications thread
         return AsyncConsumer(resp.async_response_id, self._db)
 
-    @catch_exceptions(MdsApiException)
+    @catch_exceptions(mds.rest.ApiException)
     def set_resource_value(self, device_id, resource_path,
                            resource_value=None, fix_path=True):
         """Set resource value for given resource path, on device.
@@ -336,7 +335,7 @@ class ConnectAPI(BaseAPI):
         consumer = AsyncConsumer(resp.async_response_id, self._db)
         return self._get_value_synchronized(consumer)
 
-    @catch_exceptions(MdsApiException)
+    @catch_exceptions(mds.rest.ApiException)
     def set_resource_value_async(self, device_id, resource_path,
                                  resource_value=None, fix_path=True):
         """Set resource value for given resource path, on device.
@@ -376,7 +375,7 @@ class ConnectAPI(BaseAPI):
 
         return AsyncConsumer(resp.async_response_id, self._db)
 
-    @catch_exceptions(MdsApiException)
+    @catch_exceptions(mds.rest.ApiException)
     def execute_resource(self, device_id, resource_path, fix_path=True, **kwargs):
         """Execute a function on a resource.
 
@@ -415,7 +414,7 @@ class ConnectAPI(BaseAPI):
         consumer = AsyncConsumer(resp.async_response_id, self._db)
         return self._get_value_synchronized(consumer)
 
-    @catch_exceptions(MdsApiException)
+    @catch_exceptions(mds.rest.ApiException)
     def execute_resource_async(self, device_id, resource_path, fix_path=True, **kwargs):
         """Execute a function on a resource.
 
@@ -450,7 +449,7 @@ class ConnectAPI(BaseAPI):
 
         return AsyncConsumer(resp.async_response_id, self._db)
 
-    @catch_exceptions(MdsApiException)
+    @catch_exceptions(mds.rest.ApiException)
     def add_resource_subscription(self, device_id, resource_path, fix_path=True, queue_size=5):
         """Subscribe to resource updates.
 
@@ -482,7 +481,7 @@ class ConnectAPI(BaseAPI):
         # Return the Queue object to the user
         return q
 
-    @catch_exceptions(MdsApiException)
+    @catch_exceptions(mds.rest.ApiException)
     def add_resource_subscription_async(self, device_id, resource_path, callback_fn,
                                         fix_path=True, queue_size=5):
         """Subscribe to resource updates with callback function.
@@ -505,7 +504,7 @@ class ConnectAPI(BaseAPI):
         t.daemon = True
         t.start()
 
-    @catch_exceptions(MdsApiException)
+    @catch_exceptions(mds.rest.ApiException)
     def get_resource_subscription(self, device_id, resource_path, fix_path=True):
         """Read subscription status.
 
@@ -523,7 +522,7 @@ class ConnectAPI(BaseAPI):
         api = self._get_api(mds.SubscriptionsApi)
         return api.v2_subscriptions_device_id_resource_path_get(device_id, fixed_path)
 
-    @catch_exceptions(MdsApiException)
+    @catch_exceptions(mds.rest.ApiException)
     def update_presubscriptions(self, presubscriptions):
         """Update pre-subscription data. Pre-subscription data will be removed for empty list.
 
@@ -543,7 +542,7 @@ class ConnectAPI(BaseAPI):
             presubscriptions_list.append(PresubscriptionData(**presubscription))
         return api.v2_subscriptions_put(presubscriptions_list)
 
-    @catch_exceptions(MdsApiException)
+    @catch_exceptions(mds.rest.ApiException)
     def delete_presubscriptions(self):
         """Deletes pre-subscription data.
 
@@ -552,7 +551,7 @@ class ConnectAPI(BaseAPI):
         api = self._get_api(mds.SubscriptionsApi)
         return api.v2_subscriptions_put([])
 
-    @catch_exceptions(MdsApiException)
+    @catch_exceptions(mds.rest.ApiException)
     def delete_subscriptions(self):
         """Remove all subscriptions.
 
@@ -561,7 +560,7 @@ class ConnectAPI(BaseAPI):
         api = self._get_api(mds.SubscriptionsApi)
         return api.v2_subscriptions_delete()
 
-    @catch_exceptions(MdsApiException)
+    @catch_exceptions(mds.rest.ApiException)
     def list_presubscriptions(self, **kwargs):
         """Get a list of pre-subscription data
 
@@ -572,7 +571,7 @@ class ConnectAPI(BaseAPI):
         resp = api.v2_subscriptions_get(**kwargs)
         return [Presubscription(p) for p in resp]
 
-    @catch_exceptions(MdsApiException)
+    @catch_exceptions(mds.rest.ApiException)
     def list_device_subscriptions(self, device_id, **kwargs):
         """Lists all subscribed resources from a single device
 
@@ -584,7 +583,7 @@ class ConnectAPI(BaseAPI):
         resp = api.v2_subscriptions_device_id_get(device_id, **kwargs)
         return resp.split("\n")
 
-    @catch_exceptions(MdsApiException)
+    @catch_exceptions(mds.rest.ApiException)
     def delete_device_subscriptions(self, device_id):
         """Removes a device's subscriptions
 
@@ -594,7 +593,7 @@ class ConnectAPI(BaseAPI):
         api = self._get_api(mds.SubscriptionsApi)
         return api.v2_subscriptions_device_id_delete(device_id)
 
-    @catch_exceptions(MdsApiException)
+    @catch_exceptions(mds.rest.ApiException)
     def delete_resource_subscription(self, device_id=None, resource_path=None, fix_path=True):
         """Unsubscribe from device and/or resource_path updates.
 
@@ -643,8 +642,7 @@ class ConnectAPI(BaseAPI):
 
         :param str payload: the encoded payload, as sent by the notification channel
         """
-
-        class PayloadContainer:
+        class PayloadContainer:  # noqa
             # bodge to give attribute lookup
             data = payload
 
@@ -658,7 +656,7 @@ class ConnectAPI(BaseAPI):
             notification_object=notification
         )
 
-    @catch_exceptions(MdsApiException)
+    @catch_exceptions(mds.rest.ApiException)
     def get_webhook(self):
         """Get the current callback URL if it exists.
 
@@ -667,7 +665,7 @@ class ConnectAPI(BaseAPI):
         api = self._get_api(mds.DefaultApi)
         return Webhook(api.v2_notification_callback_get())
 
-    @catch_exceptions(MdsApiException)
+    @catch_exceptions(mds.rest.ApiException)
     def update_webhook(self, url, headers=None):
         """Register new webhook for incoming subscriptions.
 
@@ -688,7 +686,7 @@ class ConnectAPI(BaseAPI):
         api.v2_notification_callback_put(webhook_obj)
         return
 
-    @catch_exceptions(MdsApiException)
+    @catch_exceptions(mds.rest.ApiException)
     def delete_webhook(self):
         """Delete/remove registered webhook.
 
@@ -706,7 +704,7 @@ class ConnectAPI(BaseAPI):
         self._queues.clear()
         return
 
-    @catch_exceptions(StatisticsApiException)
+    @catch_exceptions(statistics.rest.ApiException)
     def list_metrics(self, include=None, interval="1d", **kwargs):
         """Get statistics.
 
