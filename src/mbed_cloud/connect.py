@@ -253,17 +253,10 @@ class ConnectAPI(BaseAPI):
             raise CloudUnhandledError(
                 "start_notifications needs to be called before getting resource value.")
 
-        # When path starts with / we remove the slash, as the API can't handle //.
-        if fix_path and resource_path.startswith("/"):
-            resource_path = resource_path[1:]
-        api = self._get_api(mds.ResourcesApi)
-        resp = api.v2_endpoints_device_id_resource_path_get(device_id, resource_path)
-
-        # The async consumer, which will read data from notifications thread
-        consumer = AsyncConsumer(resp.async_response_id, self._db)
+        consumer = self.get_resource_value_async(device_id, resource_path, fix_path)
 
         # We block the thread and get the value for the user.
-        return self._get_value_synchronized(consumer, timeout)
+        return consumer.wait(timeout)
 
     @catch_exceptions(MdsApiException)
     def get_resource_value_async(self, device_id, resource_path, fix_path=True):
