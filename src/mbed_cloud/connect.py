@@ -635,18 +635,21 @@ class ConnectAPI(BaseAPI):
                 del self._queues[e][r]
         return
 
-    def notify_webhook_received(self, ep, path, payload):
+    def notify_webhook_received(self, payload):
         """Callback function for triggering notification channel handlers.
 
         Use this in conjunction with a webserver to complete the loop when using
         webhooks as the notification channel.
 
-        :param str ep: the Device ID
-        :param str path: the resource path
-        :param str payload: the encoded payload
+        :param str payload: the encoded payload, as sent by the notification channel
         """
-        notification = self._get_api(mds.DefaultApi).api_client.deserialise(
-            payload, mds.NotificationMessage.__name__
+
+        class PayloadContainer:
+            # bodge to give attribute lookup
+            data = payload
+
+        notification = self._get_api(mds.DefaultApi).api_client.deserialize(
+            PayloadContainer, mds.NotificationMessage.__name__
         )
         handle_channel_message(
             db=self._db,
