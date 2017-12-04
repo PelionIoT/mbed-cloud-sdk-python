@@ -3,7 +3,7 @@ import datetime
 from tests.common import BaseCase
 from mbed_cloud.exceptions import CloudValueError
 from mbed_cloud.connect import ConnectAPI
-from mbed_cloud.connect import Metric
+from mbed_cloud.metric import Metric
 
 start = datetime.datetime(year=2017, month=6, day=15)
 end = datetime.datetime(year=2017, month=6, day=20)
