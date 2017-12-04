@@ -42,7 +42,9 @@ from mbed_cloud.exceptions import CloudApiException
 from mbed_cloud.exceptions import CloudUnhandledError
 from mbed_cloud.exceptions import CloudValueError
 from mbed_cloud.metric import Metric
-from mbed_cloud.notifications import AsyncConsumer, _NotificationsThread
+from mbed_cloud.notifications import _NotificationsThread
+from mbed_cloud.notifications import AsyncConsumer
+from mbed_cloud.notifications import handle_channel_message
 from mbed_cloud.presubscription import Presubscription
 from mbed_cloud.resource import Resource
 from mbed_cloud.webhooks import Webhook
@@ -632,6 +634,26 @@ class ConnectAPI(BaseAPI):
                 # Remove Queue from dictionary
                 del self._queues[e][r]
         return
+
+    def notify_webhook_received(self, ep, path, payload):
+        """Callback function for triggering notification channel handlers.
+
+        Use this in conjunction with a webserver to complete the loop when using
+        webhooks as the notification channel.
+
+        :param str ep: the Device ID
+        :param str path: the resource path
+        :param str payload: the encoded payload
+        """
+        notification = self._get_api(mds.DefaultApi).api_client.deserialise(
+            payload, mds.NotificationMessage.__name__
+        )
+        handle_channel_message(
+            db=self._db,
+            queues=self._queues,
+            b64decode=self.b64decode,
+            notification_object=notification
+        )
 
     @catch_exceptions(MdsApiException)
     def get_webhook(self):

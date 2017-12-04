@@ -115,8 +115,8 @@ class AsyncConsumer(object):
         return self.async_id
 
 
-def handle_channel_message(db, queues, b64decode, response_object):
-    for notification in getattr(response_object, 'notifications', []):
+def handle_channel_message(db, queues, b64decode, notification_object):
+    for notification in getattr(notification_object, 'notifications', []):
         # Ensure we have subscribed for the path we received a notification for
         subscriber_queue = queues.get(notification.ep, {}).get(notification.path)
         if subscriber_queue is None:
@@ -134,7 +134,7 @@ def handle_channel_message(db, queues, b64decode, response_object):
         )
         subscriber_queue.put(payload)
 
-    for response in getattr(response_object, 'async_responses', []):
+    for response in getattr(notification_object, 'async_responses', []):
         payload = tlv.decode(
             payload=response.payload,
             content_type=response.ct,
@@ -146,16 +146,16 @@ def handle_channel_message(db, queues, b64decode, response_object):
             status_code=response.status
         )})
 
-    for registration in getattr(response_object, 'registrations', []):
+    for registration in getattr(notification_object, 'registrations', []):
         LOG.info('Registration: %s', registration)
 
-    for registration in getattr(response_object, 'de-registrations', []):
+    for registration in getattr(notification_object, 'de-registrations', []):
         LOG.info('De-registration: %s', registration)
 
-    for registration in getattr(response_object, 'reg-updates', []):
+    for registration in getattr(notification_object, 'reg-updates', []):
         LOG.info('Re-registration: %s', registration)
 
-    for registration in getattr(response_object, 'registrations-expired', []):
+    for registration in getattr(notification_object, 'registrations-expired', []):
         LOG.info('Registration Expired: %s', registration)
 
 
