@@ -153,14 +153,14 @@ def handle_channel_message(db, queues, b64decode, notification_object):
     """
     for notification in getattr(notification_object, 'notifications') or []:
         # Ensure we have subscribed for the path we received a notification for
-        subscriber_queue = queues.get(notification.ep, {}).get(notification.path)
+        subscriber_queue = queues[notification.ep].get(notification.path)
         if subscriber_queue is None:
             LOG.warning(
                 "Ignoring notification on %s (%s) as no subscription is registered",
                 notification.ep,
                 notification.path
             )
-            return
+            break
 
         payload = tlv.decode(
             payload=notification.payload,

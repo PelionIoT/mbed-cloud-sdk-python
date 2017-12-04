@@ -78,7 +78,7 @@ class ConnectAPI(BaseAPI):
         super(ConnectAPI, self).__init__(params)
 
         self._db = {}
-        self._queues = defaultdict(lambda: defaultdict(queue.Queue))
+        self._queues = defaultdict(dict)
 
         self.b64decode = True
         self._notifications_are_active = False
@@ -472,6 +472,8 @@ class ConnectAPI(BaseAPI):
 
         # Create the queue and register it with the dict holding all queues
         q = queue.Queue(queue_size) if queue_size > 0 else None
+
+        # FIXME: explicit behaviour on replacing an existing queue
         self._queues[device_id][resource_path] = q
 
         # Send subscription request
