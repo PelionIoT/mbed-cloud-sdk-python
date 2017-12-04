@@ -115,6 +115,50 @@ class AsyncConsumer(object):
         return self.async_id
 
 
+def handle_channel_message(db, queues, b64decode, response_object):
+    for notification in getattr(response_object, 'notifications', []):
+        # Ensure we have subscribed for the path we received a notification for
+        subscriber_queue = queues.get(notification.ep, {}).get(notification.path)
+        if subscriber_queue is None:
+            LOG.warning(
+                "Ignoring notification on %s (%s) as no subscription is registered",
+                notification.ep,
+                notification.path
+            )
+            return
+
+        payload = tlv.decode(
+            payload=notification.payload,
+            content_type=notification.ct,
+            decode_b64=b64decode
+        )
+        subscriber_queue.put(payload)
+
+    for response in getattr(response_object, 'async_responses', []):
+        payload = tlv.decode(
+            payload=response.payload,
+            content_type=response.ct,
+            decode_b64=b64decode
+        )
+        db.update({response.id: dict(
+            payload=payload,
+            error=response.error,
+            status_code=response.status
+        )})
+
+    for registration in getattr(response_object, 'registrations', []):
+        LOG.info('Registration: %s', registration)
+
+    for registration in getattr(response_object, 'de-registrations', []):
+        LOG.info('De-registration: %s', registration)
+
+    for registration in getattr(response_object, 'reg-updates', []):
+        LOG.info('Re-registration: %s', registration)
+
+    for registration in getattr(response_object, 'registrations-expired', []):
+        LOG.info('Registration Expired: %s', registration)
+
+
 class _NotificationsThread(threading.Thread):
     def __init__(self, db, queues, b64decode=True, notifications_api=None):
         super(_NotificationsThread, self).__init__()
@@ -130,34 +174,7 @@ class _NotificationsThread(threading.Thread):
     def run(self):
         while not self._stopped:
             resp = self.notifications_api.v2_notification_pull_get()
-
-            if resp.notifications:
-                for n in resp.notifications:
-                    # Ensure we have subscribed for the path we received a notification for
-                    if n.ep not in self.queues and n.path not in self.queues[n.ep]:
-                        LOG.warning(
-                            "Ignoring notification on %s (%s) as no subscription is registered" %
-                            (n.ep, n.path))
-
-                    payload = tlv.decode(
-                        payload=n.payload,
-                        content_type=n.ct,
-                        decode_b64=self._b64decode
-                    )
-                    self.queues[n.ep][n.path].put(payload)
-
-            if resp.async_responses:
-                for r in resp.async_responses:
-                    payload = tlv.decode(
-                        payload=r.payload,
-                        content_type=r.ct,
-                        decode_b64=self._b64decode
-                    )
-                    self.db[r.id] = {
-                        "payload": payload,
-                        "error": r.error,
-                        "status_code": r.status
-                    }
+            handle_channel_message(self.db, self.queues, self._b64decode, response_object=resp)
 
     def stop(self):
         self._stopped = True
