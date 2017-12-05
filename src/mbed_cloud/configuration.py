@@ -23,7 +23,7 @@ import os
 class Config(dict):
     """Create configuration dict, reading config file(s) on initialisation."""
 
-    def __init__(self):
+    def __init__(self, updates=None):
         """Go through list of directories in priority order and add to config.
 
         For each file which is found and valid, we extend/overwrite the existing
@@ -50,3 +50,24 @@ class Config(dict):
         for path in (f for f in files if f and os.path.isfile(f)):
             with open(path) as fh:
                 self.update(json.load(fh))
+        if updates:
+            self.update(updates)
+        self.validate()
+
+    def validate(self):
+        """Validate / fix up the current config"""
+        if not self.get('api_key'):
+            raise ValueError("api_key not found in config. Please see documentation.")
+        host = self.get('host')
+        if host:
+            # remove extraneous slashes and force to byte string
+            # otherwise msg += message_body in httplib will fail in python2
+            # when message_body contains binary data, and url is unicode
+
+            # remaining failure modes include at least:
+            # passing bytes in python3 will fail as we try to strip unicode '/' characters
+            # passing unicode code points in python2 will fail due to httplib host.encode('ascii')
+            host = host.strip('/')
+            if not isinstance(host, str):
+                host = host.encode('utf-8')
+            self['host'] = host
