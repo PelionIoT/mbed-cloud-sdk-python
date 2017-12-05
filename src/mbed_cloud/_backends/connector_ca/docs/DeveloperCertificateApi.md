@@ -1,15 +1,15 @@
 # connector_ca.DeveloperCertificateApi
 
-All URIs are relative to *http://api.mbedcloud.com*
+All URIs are relative to *http://api.us-east-1.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**v3_developer_certificates_id_get**](DeveloperCertificateApi.md#v3_developer_certificates_id_get) | **GET** /v3/developer-certificates/{id} | Fetch an existing developer certificate to connect to the bootstrap server.
+[**v3_developer_certificates_muuid_get**](DeveloperCertificateApi.md#v3_developer_certificates_muuid_get) | **GET** /v3/developer-certificates/{muuid} | Fetch an existing developer certificate to connect to the bootstrap server.
 [**v3_developer_certificates_post**](DeveloperCertificateApi.md#v3_developer_certificates_post) | **POST** /v3/developer-certificates | Create a new developer certificate to connect to the bootstrap server.
 
 
-# **v3_developer_certificates_id_get**
-> DeveloperCertificateResponseData v3_developer_certificates_id_get(id, authorization)
+# **v3_developer_certificates_muuid_get**
+> DeveloperCertificateResponseData v3_developer_certificates_muuid_get(muuid, authorization)
 
 Fetch an existing developer certificate to connect to the bootstrap server.
 
@@ -31,22 +31,22 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = connector_ca.DeveloperCertificateApi(connector_ca.ApiClient(configuration))
-id = 'id_example' # str | A unique identifier for the developer certificate. 
+muuid = 'muuid_example' # str | A unique identifier for the developer certificate. 
 authorization = 'authorization_example' # str | Bearer {Access Token}. 
 
 try: 
     # Fetch an existing developer certificate to connect to the bootstrap server.
-    api_response = api_instance.v3_developer_certificates_id_get(id, authorization)
+    api_response = api_instance.v3_developer_certificates_muuid_get(muuid, authorization)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DeveloperCertificateApi->v3_developer_certificates_id_get: %s\n" % e)
+    print("Exception when calling DeveloperCertificateApi->v3_developer_certificates_muuid_get: %s\n" % e)
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| A unique identifier for the developer certificate.  | 
+ **muuid** | **str**| A unique identifier for the developer certificate.  | 
  **authorization** | **str**| Bearer {Access Token}.  | 
 
 ### Return type

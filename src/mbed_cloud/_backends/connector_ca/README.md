@@ -57,27 +57,27 @@ connector_ca.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # connector_ca.configuration.api_key_prefix['Authorization'] = 'Bearer'
 # create an instance of the API class
 api_instance = connector_ca.DeveloperCertificateApi()
-id = 'id_example' # str | A unique identifier for the developer certificate. 
+muuid = 'muuid_example' # str | A unique identifier for the developer certificate. 
 authorization = 'authorization_example' # str | Bearer {Access Token}. 
 
 try:
     # Fetch an existing developer certificate to connect to the bootstrap server.
-    api_response = api_instance.v3_developer_certificates_id_get(id, authorization)
+    api_response = api_instance.v3_developer_certificates_muuid_get(muuid, authorization)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DeveloperCertificateApi->v3_developer_certificates_id_get: %s\n" % e)
+    print("Exception when calling DeveloperCertificateApi->v3_developer_certificates_muuid_get: %s\n" % e)
 
 ```
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://api.mbedcloud.com*
+All URIs are relative to *http://api.us-east-1.mbedcloud.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DeveloperCertificateApi* | [**v3_developer_certificates_id_get**](docs/DeveloperCertificateApi.md#v3_developer_certificates_id_get) | **GET** /v3/developer-certificates/{id} | Fetch an existing developer certificate to connect to the bootstrap server.
+*DeveloperCertificateApi* | [**v3_developer_certificates_muuid_get**](docs/DeveloperCertificateApi.md#v3_developer_certificates_muuid_get) | **GET** /v3/developer-certificates/{muuid} | Fetch an existing developer certificate to connect to the bootstrap server.
 *DeveloperCertificateApi* | [**v3_developer_certificates_post**](docs/DeveloperCertificateApi.md#v3_developer_certificates_post) | **POST** /v3/developer-certificates | Create a new developer certificate to connect to the bootstrap server.
-*ExternalAPIApi* | [**v3_developer_certificates_id_get**](docs/ExternalAPIApi.md#v3_developer_certificates_id_get) | **GET** /v3/developer-certificates/{id} | Fetch an existing developer certificate to connect to the bootstrap server.
+*ExternalAPIApi* | [**v3_developer_certificates_muuid_get**](docs/ExternalAPIApi.md#v3_developer_certificates_muuid_get) | **GET** /v3/developer-certificates/{muuid} | Fetch an existing developer certificate to connect to the bootstrap server.
 *ExternalAPIApi* | [**v3_developer_certificates_post**](docs/ExternalAPIApi.md#v3_developer_certificates_post) | **POST** /v3/developer-certificates | Create a new developer certificate to connect to the bootstrap server.
 *ExternalAPIApi* | [**v3_server_credentials_bootstrap_get**](docs/ExternalAPIApi.md#v3_server_credentials_bootstrap_get) | **GET** /v3/server-credentials/bootstrap | Fetch bootstrap server credentials.
 *ExternalAPIApi* | [**v3_server_credentials_lwm2m_get**](docs/ExternalAPIApi.md#v3_server_credentials_lwm2m_get) | **GET** /v3/server-credentials/lwm2m | Fetch LWM2M server credentials.
