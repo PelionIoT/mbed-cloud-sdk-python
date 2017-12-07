@@ -69,7 +69,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v2_endpoints_device_id_resource_path_get**
-> v2_endpoints_device_id_resource_path_get(device_id, _resource_path, cache_only=cache_only, no_resp=no_resp)
+> AsyncID v2_endpoints_device_id_resource_path_get(device_id, _resource_path, cache_only=cache_only, no_resp=no_resp)
 
 Read from a resource
 
@@ -98,7 +98,8 @@ no_resp = true # bool | <br/><br/><b>Non-confirmable requests</b><br/>  All reso
 
 try: 
     # Read from a resource
-    api_instance.v2_endpoints_device_id_resource_path_get(device_id, _resource_path, cache_only=cache_only, no_resp=no_resp)
+    api_response = api_instance.v2_endpoints_device_id_resource_path_get(device_id, _resource_path, cache_only=cache_only, no_resp=no_resp)
+    pprint(api_response)
 except ApiException as e:
     print("Exception when calling ResourcesApi->v2_endpoints_device_id_resource_path_get: %s\n" % e)
 ```
@@ -114,7 +115,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**AsyncID**](AsyncID.md)
 
 ### Authorization
 
