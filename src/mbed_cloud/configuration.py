@@ -16,12 +16,15 @@
 # --------------------------------------------------------------------------
 """Custom decorator functions used in mbed_cloud."""
 from __future__ import unicode_literals
+import logging
 import json
 import os
+import traceback
 
 
 class Config(dict):
     """Create configuration dict, reading config file(s) on initialisation."""
+    logger = logging.getLogger(__name__)
 
     def __init__(self, updates=None):
         """Go through list of directories in priority order and add to config.
@@ -32,7 +35,22 @@ class Config(dict):
         Of highest priority is using the `MBED_CLOUD_SDK_CONFIG` environment
         variable, to specify a config JSON file.
         """
-        files = [
+        logging.basicConfig(level=logging.INFO)
+        self._using_paths = []
+
+        try:
+            self.load(updates=updates)
+        except Exception as e:
+            raise Exception(
+                "There was a problem loading the SDK configuration file.\n"
+                "Paths attempted, in priority order: \n\t%s\n"
+                "The original traceback is recorded below:\n"
+                "\n%s"
+                % (',\n\t'.join(self._using_paths), traceback.format_exc())
+            )
+
+    def paths(self):
+        return [
             # Global config in /etc
             "/etc/.mbed_cloud_config.json",
 
@@ -46,9 +64,16 @@ class Config(dict):
             os.environ.get("MBED_CLOUD_SDK_CONFIG")
         ]
 
+    def load(self, updates):
+        paths = self.paths()
+
         # Go through in order and override the config
-        for path in (f for f in files if f and os.path.isfile(f)):
-            with open(path) as fh:
+        for path in paths:
+            abs_path = os.path.abspath(os.path.expanduser(path))
+            if not os.path.exists(abs_path):
+                continue
+            self._using_paths.append(abs_path)
+            with open(abs_path) as fh:
                 self.update(json.load(fh))
         if updates:
             self.update(updates)
