@@ -69,7 +69,7 @@ class AsyncConsumer(object):
         # request to be done.
         while not self.is_done:
             duration = time.time() - start_time
-            if timeout > 0 and duration > timeout:
+            if timeout and duration > timeout:
                 raise CloudTimeoutError(
                     "Timeout getting async value. Timeout: %d seconds" % timeout
                 )
@@ -208,8 +208,12 @@ class _NotificationsThread(threading.Thread):
     @catch_exceptions(mds.rest.ApiException)
     def run(self):
         while not self._stopped:
-            resp = self.notifications_api.v2_notification_pull_get()
-            handle_channel_message(self.db, self.queues, self._b64decode, notification_object=resp)
+            handle_channel_message(
+                db=self.db,
+                queues=self.queues,
+                b64decode=self._b64decode,
+                notification_object=self.notifications_api.v2_notification_pull_get()
+            )
 
     def stop(self):
         self._stopped = True
