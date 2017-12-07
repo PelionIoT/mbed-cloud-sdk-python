@@ -218,7 +218,7 @@ class ConnectAPI(BaseAPI):
         """Deletes a resource.
 
         :param str device_id: The ID of the device (Required)
-        :param str resource_path: Path of the resource to delete
+        :param str resource_path: Path of the resource to delete (Required)
         :param fix_path: Removes leading / on resource_path if found
         :returns: Async ID
         :rtype: str
@@ -586,7 +586,7 @@ class ConnectAPI(BaseAPI):
     def list_device_subscriptions(self, device_id, **kwargs):
         """Lists all subscribed resources from a single device
 
-        :param device_id: Id of the device
+        :param device_id: Id of the device (Required)
         :returns: a list of subscribed resources
         :rtype: list of str
         """
@@ -598,7 +598,7 @@ class ConnectAPI(BaseAPI):
     def delete_device_subscriptions(self, device_id):
         """Removes a device's subscriptions
 
-        :param device_id: Id of the device
+        :param device_id: Id of the device (Required)
         :returns: None
         """
         api = self._get_api(mds.SubscriptionsApi)
