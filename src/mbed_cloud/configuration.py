@@ -16,14 +16,15 @@
 # --------------------------------------------------------------------------
 """Custom decorator functions used in mbed_cloud."""
 from __future__ import unicode_literals
-import logging
 import json
+import logging
 import os
 import traceback
 
 
 class Config(dict):
     """Create configuration dict, reading config file(s) on initialisation."""
+
     logger = logging.getLogger(__name__)
 
     def __init__(self, updates=None):
@@ -40,7 +41,7 @@ class Config(dict):
 
         try:
             self.load(updates=updates)
-        except Exception as e:
+        except Exception:
             raise Exception(
                 "There was a problem loading the SDK configuration file.\n"
                 "Paths attempted, in priority order: \n\t%s\n"
@@ -50,6 +51,7 @@ class Config(dict):
             )
 
     def paths(self):
+        """Get list of paths to look in for configuration data"""
         return [
             # Global config in /etc
             "/etc/.mbed_cloud_config.json",
@@ -65,6 +67,7 @@ class Config(dict):
         ]
 
     def load(self, updates):
+        """Load configuration data"""
         paths = self.paths()
 
         # Go through in order and override the config
