@@ -69,6 +69,8 @@ class Config(dict):
 
         # Go through in order and override the config
         for path in paths:
+            if not path:
+                continue
             abs_path = os.path.abspath(os.path.expanduser(path))
             if not os.path.exists(abs_path):
                 continue
