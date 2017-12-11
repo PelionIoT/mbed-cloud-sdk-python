@@ -1,7 +1,7 @@
 import unittest
 
 from tests.common import BaseCase
-from mbed_cloud import BaseAPI
+from mbed_cloud.core import BaseAPI
 
 
 class TestSortParams(BaseCase):

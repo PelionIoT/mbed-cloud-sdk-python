@@ -15,6 +15,7 @@
 # limitations under the License.
 # --------------------------------------------------------------------------
 """Notifications"""
+import functools
 import logging
 import threading
 import time
@@ -194,9 +195,12 @@ def handle_channel_message(db, queues, b64decode, notification_object):
         LOG.info('Registration Expired: %s', registration)
 
 
-class _NotificationsThread(threading.Thread):
+class NotificationsThread(threading.Thread):
+    """A thread object"""
+
     def __init__(self, db, queues, b64decode=True, notifications_api=None):
-        super(_NotificationsThread, self).__init__()
+        """Stoppable thread"""
+        super(NotificationsThread, self).__init__()
 
         self.db = db
         self.queues = queues
@@ -206,7 +210,9 @@ class _NotificationsThread(threading.Thread):
         self._stopped = False
 
     @catch_exceptions(mds.rest.ApiException)
+    @functools.wraps(threading.Thread.run)
     def run(self):
+        """Thread main loop"""
         while not self._stopped:
             handle_channel_message(
                 db=self.db,
@@ -216,4 +222,5 @@ class _NotificationsThread(threading.Thread):
             )
 
     def stop(self):
+        """Request thread stop"""
         self._stopped = True

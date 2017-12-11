@@ -2,10 +2,10 @@ import json
 import time
 
 import mock
+from mbed_cloud import ConnectAPI
+from mbed_cloud.connect.notifications import AsyncConsumer
 
 from tests.common import BaseCase
-from mbed_cloud.connect import ConnectAPI
-from mbed_cloud.notifications import AsyncConsumer
 
 
 class Test(BaseCase):

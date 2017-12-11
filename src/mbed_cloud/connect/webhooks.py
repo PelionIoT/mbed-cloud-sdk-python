@@ -15,7 +15,7 @@
 # limitations under the License.
 # --------------------------------------------------------------------------
 """Webhooks"""
-from mbed_cloud import BaseObject
+from mbed_cloud.core import BaseObject
 
 
 class Webhook(BaseObject):

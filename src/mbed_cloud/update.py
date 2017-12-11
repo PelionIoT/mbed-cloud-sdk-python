@@ -20,17 +20,19 @@ from __future__ import unicode_literals
 import logging
 
 # Import common functions and exceptions from frontend API
-from mbed_cloud import BaseAPI
-from mbed_cloud import BaseObject
+from mbed_cloud.core import BaseAPI
+from mbed_cloud.core import BaseObject
+from mbed_cloud.core import PaginatedResponse
+
 from mbed_cloud.decorators import catch_exceptions
+
 from mbed_cloud.device_directory import Device
-from mbed_cloud import PaginatedResponse
+
 from six import iteritems
 
 import mbed_cloud._backends.update_service as update_service
 from mbed_cloud._backends.update_service.models import UpdateCampaignPostRequest
-from mbed_cloud._backends.update_service.rest\
-    import ApiException as UpdateServiceApiException
+from mbed_cloud._backends.update_service.rest import ApiException as UpdateServiceApiException
 
 LOG = logging.getLogger(__name__)
 

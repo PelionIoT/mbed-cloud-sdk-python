@@ -15,7 +15,7 @@
 # limitations under the License.
 # --------------------------------------------------------------------------
 """Metrics"""
-from mbed_cloud import BaseObject
+from mbed_cloud.core import BaseObject
 from six import iteritems
 
 

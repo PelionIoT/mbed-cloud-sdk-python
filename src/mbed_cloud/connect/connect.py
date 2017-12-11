@@ -18,36 +18,39 @@
 from __future__ import absolute_import
 from __future__ import unicode_literals
 
-from collections import defaultdict
 import datetime
 import logging
 import re
 import threading
 
-from six.moves import queue
-
-from mbed_cloud import BaseAPI
-from mbed_cloud import PaginatedResponse
-
-from mbed_cloud.decorators import catch_exceptions
-from mbed_cloud.device_directory import Device
-from mbed_cloud.exceptions import CloudApiException
-from mbed_cloud.exceptions import CloudUnhandledError
-from mbed_cloud.exceptions import CloudValueError
-from mbed_cloud.metric import Metric
-from mbed_cloud.notifications import _NotificationsThread
-from mbed_cloud.notifications import AsyncConsumer
-from mbed_cloud.notifications import handle_channel_message
-from mbed_cloud.presubscription import Presubscription
-from mbed_cloud.resource import Resource
-from mbed_cloud.webhooks import Webhook
+from collections import defaultdict
 
 from mbed_cloud._backends import device_directory
 from mbed_cloud._backends import mds
-from mbed_cloud._backends import statistics
-
 from mbed_cloud._backends.mds.models.presubscription import Presubscription as PresubscriptionData
 from mbed_cloud._backends.mds.models.webhook import Webhook as WebhookData
+from mbed_cloud._backends import statistics
+
+from mbed_cloud.connect.metric import Metric
+from mbed_cloud.connect.notifications import AsyncConsumer
+from mbed_cloud.connect.notifications import handle_channel_message
+from mbed_cloud.connect.notifications import NotificationsThread
+from mbed_cloud.connect.presubscription import Presubscription
+from mbed_cloud.connect.resource import Resource
+from mbed_cloud.connect.webhooks import Webhook
+
+from mbed_cloud.core import BaseAPI
+from mbed_cloud.core import PaginatedResponse
+
+from mbed_cloud.decorators import catch_exceptions
+
+from mbed_cloud.device_directory import Device
+
+from mbed_cloud.exceptions import CloudApiException
+from mbed_cloud.exceptions import CloudUnhandledError
+from mbed_cloud.exceptions import CloudValueError
+
+from six.moves import queue
 
 LOG = logging.getLogger(__name__)
 
@@ -102,7 +105,7 @@ class ConnectAPI(BaseAPI):
         api = self._get_api(mds.NotificationsApi)
         if self._notifications_are_active:
             return
-        self._notifications_thread = _NotificationsThread(
+        self._notifications_thread = NotificationsThread(
             self._db,
             self._queues,
             b64decode=self.b64decode,

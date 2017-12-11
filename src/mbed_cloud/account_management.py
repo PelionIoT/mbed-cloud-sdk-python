@@ -19,13 +19,14 @@ from __future__ import absolute_import
 from __future__ import unicode_literals
 
 # Import common functions and exceptions from frontend API
-from mbed_cloud import BaseAPI
-from mbed_cloud import BaseObject
+from mbed_cloud.core import BaseAPI
+from mbed_cloud.core import BaseObject
+from mbed_cloud.core import PaginatedResponse
+
 from mbed_cloud.decorators import catch_exceptions
-from mbed_cloud import PaginatedResponse
 
 # Import backend API
-import mbed_cloud._backends.iam as iam
+from mbed_cloud._backends import iam
 from mbed_cloud._backends.iam.models import AccountUpdateReq
 from mbed_cloud._backends.iam.rest import ApiException
 
