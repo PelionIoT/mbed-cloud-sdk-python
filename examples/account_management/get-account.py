@@ -15,7 +15,7 @@
 # limitations under the License.
 # --------------------------------------------------------------------------
 """Example showing basic usage of AccountManagement API."""
-from mbed_cloud.account_management import AccountManagementAPI
+from mbed_cloud.accounts.account_management import AccountManagementAPI
 
 
 def _main():

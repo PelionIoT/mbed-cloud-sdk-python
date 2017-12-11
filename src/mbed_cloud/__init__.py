@@ -19,7 +19,7 @@
 
 from mbed_cloud._version import __version__  # noqa
 
-from mbed_cloud.account_management import AccountManagementAPI
+from mbed_cloud.accounts.account_management import AccountManagementAPI
 from mbed_cloud.certificates import CertificatesAPI
 from mbed_cloud.connect.connect import ConnectAPI
 from mbed_cloud.device_directory import DeviceDirectoryAPI

@@ -16,7 +16,8 @@
 # --------------------------------------------------------------------------
 """Example showing basic usage of AccountManagement API."""
 import datetime
-from mbed_cloud.account_management import AccountManagementAPI
+
+from mbed_cloud.accounts.account_management import AccountManagementAPI
 
 
 def _main():

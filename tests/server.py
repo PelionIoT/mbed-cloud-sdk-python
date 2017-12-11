@@ -25,22 +25,22 @@ Run by:
 from __future__ import absolute_import
 from __future__ import unicode_literals
 
+import json
+import os
+import sys
+import traceback
+
+import queue
 from builtins import str
 from flask import Flask
 from flask import jsonify
 from flask import request
-from mbed_cloud.account_management import AccountManagementAPI
+from mbed_cloud.accounts.account_management import AccountManagementAPI
 from mbed_cloud.certificates import CertificatesAPI
 from mbed_cloud.connect import ConnectAPI
 from mbed_cloud.device_directory import DeviceDirectoryAPI
 from mbed_cloud.update import UpdateAPI
 from six.moves import urllib
-
-import json
-import queue
-import os
-import sys
-import traceback
 
 app = Flask(__name__)
 
