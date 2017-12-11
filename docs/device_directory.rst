@@ -6,7 +6,7 @@ Usage
 
 .. code-block:: python
 
-  from mbed_cloud.device_directory import DeviceDirectoryAPI
+  from mbed_cloud import DeviceDirectoryAPI
   deviceDirectoryApi = DeviceDirectoryAPI()
 
   # 5 most recent devices from catalog, which are registered

@@ -6,7 +6,7 @@ Usage
 
 .. code-block:: python
 
-  from mbed_cloud.connect import ConnectAPI
+  from mbed_cloud import ConnectAPI
   connectApi = ConnectAPI()
 
   # List all connected devices
@@ -44,7 +44,7 @@ Usage
 
 .. code-block:: python
 
-  from mbed_cloud.connect import ConnectAPI
+  from mbed_cloud import ConnectAPI
   connectApi = ConnectAPI()
 
   # Get Metrics from the last 30 days grouped in 1 day interval
@@ -65,11 +65,6 @@ Reference
 
 .. automodule:: mbed_cloud.connect
   :members: ConnectAPI, AsyncConsumer
-
-.. autoclass:: mbed_cloud.connect.ConnectedDevice
-  :members:
-  :inherited-members:
-  :exclude-members: to_dict, to_str
 
 .. autoclass:: mbed_cloud.connect.Metric
   :members:

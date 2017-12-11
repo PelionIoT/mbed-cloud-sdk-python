@@ -1,7 +1,7 @@
 import datetime
 
 from mbed_cloud import ConnectAPI
-from mbed_cloud.connect.metric import Metric
+from mbed_cloud.connect import Metric
 from mbed_cloud.exceptions import CloudValueError
 
 from tests.common import BaseCase

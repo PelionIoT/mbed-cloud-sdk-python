@@ -10,7 +10,7 @@ Basic iteration
 
 .. code-block:: python
 
-  >>> from mbed_cloud.device_directory import DeviceDirectoryAPI
+  >>> from mbed_cloud import DeviceDirectoryAPI
   >>> deviceDirectoryApi = DeviceDirectoryAPI()
   >>> for idx, f in enumerate(deviceDirectoryApi.list_queries(limit=2)):
         print(idx, f)
@@ -24,7 +24,7 @@ Manual control of iteration
 
 .. code-block:: python
 
-  >>> from mbed_cloud.device_directory import DeviceDirectoryAPI
+  >>> from mbed_cloud import DeviceDirectoryAPI
   >>> deviceDirectoryApi = DeviceDirectoryAPI()
   >>> presp = deviceDirectoryApi.list_queries(limit=2)
   >>> elements = []
@@ -38,7 +38,7 @@ Manual control of iteration
 
 .. code-block:: python
 
-    >>> from mbed_cloud.account_management import AccountManagementAPI
+    >>> from mbed_cloud import AccountManagementAPI
     >>> accountManagementApi = AccountManagementAPI()
     >>> usersResponse = accountManagementApi.list_users()
     >>> users = []

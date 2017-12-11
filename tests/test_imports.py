@@ -19,7 +19,6 @@ class Test(BaseCase):
     def test_connect(self):
         from mbed_cloud import ConnectAPI
         from mbed_cloud.connect import AsyncConsumer
-        from mbed_cloud.connect import ConnectedDevice
         from mbed_cloud.connect import Resource
         from mbed_cloud.connect import Webhook
 

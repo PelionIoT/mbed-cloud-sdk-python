@@ -15,7 +15,7 @@
 # limitations under the License.
 # --------------------------------------------------------------------------
 """Example showing devices from device catalog."""
-from mbed_cloud.device_directory import DeviceDirectoryAPI
+from mbed_cloud import DeviceDirectoryAPI
 
 
 def _print_device(idx, d):
