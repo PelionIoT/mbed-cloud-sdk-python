@@ -35,11 +35,11 @@ from builtins import str
 from flask import Flask
 from flask import jsonify
 from flask import request
-from mbed_cloud.accounts.account_management import AccountManagementAPI
-from mbed_cloud.certificates import CertificatesAPI
-from mbed_cloud.connect import ConnectAPI
-from mbed_cloud.device_directory import DeviceDirectoryAPI
-from mbed_cloud.update import UpdateAPI
+from mbed_cloud import AccountManagementAPI
+from mbed_cloud import CertificatesAPI
+from mbed_cloud import ConnectAPI
+from mbed_cloud import DeviceDirectoryAPI
+from mbed_cloud import UpdateAPI
 from six.moves import urllib
 
 app = Flask(__name__)

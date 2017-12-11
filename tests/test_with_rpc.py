@@ -51,18 +51,18 @@ class TestWithRPC(BaseCase):
             raise Exception('test server failed to start: %s' % self.process.stdout)
 
         # check the host route from inside the docker container
-        cmd=shlex.split(
+        cmd = shlex.split(
             'docker run --rm --net=host {image} route'.format(
                 image=docker_image
             )
         )
         routes = subprocess.check_output(args=cmd, universal_newlines=True)
-        print('routes table:\n%s' % routes)
         for routing in routes.splitlines():
             if routing.lower().startswith('default'):
                 self.host = routing.split()[1]
                 break
         if not self.host:
+            print('routes table:\n%s' % routes)
             raise Exception('no host address determined')
         if self.host.startswith('ip'):
             self.host = self.host[3:].strip('.').replace('-', '.')
@@ -85,8 +85,8 @@ class TestWithRPC(BaseCase):
             # we expect to receive 404, any other failure is bad news (200 OK is unlikely)
             if response.status_code != 404:
                 response.raise_for_status()
-        except Exception as exception:
-            print('welp, couldnt get the server on 127.0.0.1, maybe docker will have better luck. %s' % exception)
+        except Exception:
+            print('could not reach local test server.')
             print(subprocess.check_output(shlex.split('ps -aux')))
             print(subprocess.check_output(shlex.split('netstat -aon')))
             raise
