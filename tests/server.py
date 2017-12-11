@@ -31,15 +31,13 @@ import sys
 import traceback
 
 import queue
+
+import mbed_cloud
+
 from builtins import str
 from flask import Flask
 from flask import jsonify
 from flask import request
-from mbed_cloud import AccountManagementAPI
-from mbed_cloud import CertificatesAPI
-from mbed_cloud import ConnectAPI
-from mbed_cloud import DeviceDirectoryAPI
-from mbed_cloud import UpdateAPI
 from six.moves import urllib
 
 app = Flask(__name__)
@@ -150,11 +148,11 @@ def init(methods=["GET"]):
     # Initialise all the APIs with settings.
     global MODULES
     MODULES = {
-        'account_management': AccountManagementAPI(params=params),
-        'certificates': CertificatesAPI(params=params),
-        'connect': ConnectAPI(params=params),
-        'device_directory': DeviceDirectoryAPI(params=params),
-        'update': UpdateAPI(params=params)
+        'account_management': mbed_cloud.AccountManagementAPI(params=params),
+        'certificates': mbed_cloud.CertificatesAPI(params=params),
+        'connect': mbed_cloud.ConnectAPI(params=params),
+        'device_directory': mbed_cloud.DeviceDirectoryAPI(params=params),
+        'update': mbed_cloud.UpdateAPI(params=params)
     }
 
     # Return empty JSON for now. Might change in the future.
