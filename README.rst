@@ -82,7 +82,8 @@ Contributing
 ------------
 
 Mbed Cloud SDK for Python is open source and we would like your help,
-there is a brief guide on how to get started in CONTRIBUTING.md.
+there is a brief guide on how to get started in `CONTRIBUTING.md
+ <CONTRIBUTING.md>`_.
 
 Licence
 -------
