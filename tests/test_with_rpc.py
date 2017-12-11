@@ -80,7 +80,7 @@ class TestWithRPC(BaseCase):
         try:
             # ping the server to make sure it's up (don't use _init, may not be idempotent)
             s = requests.Session()
-            s.mount(HTTPAdapter(max_retries=5))
+            s.mount('htt', adapter=HTTPAdapter(max_retries=5))
             response = s.get('http://127.0.0.1:5000/invalid_url', timeout=(15, 15))
             # we expect to receive 404, any other failure is bad news (200 OK is unlikely)
             if response.status_code != 404:
