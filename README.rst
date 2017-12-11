@@ -94,7 +94,10 @@ Suggestions for issues that have been reported when using the SDK.
       Max retries exceeded with url: /v3/firmware-images/
       (Caused by SSLError(SSLError(1, u'[SSL: SSLV3_ALERT_HANDSHAKE_FAILURE] sslv3 alert handshake failure (_ssl.c:590)'),))
 
-    This probably means the Python interpreter being used has an old version of SSL.
-    Best security practice is to use the latest available version of SSL, so it is recommended to upgrade/rebuild the Python
-    interpreter with the latest SSL. You can find the latest SSL versions here: https://www.openssl.org. You can check
-    the version in use by the Python interpreter using :code:`python -c "import ssl; print(ssl.OPENSSL_VERSION)"`
+    This probably means the Python interpreter being used has an old version of SSL. The recommended minimum version for the SDK is
+    :code:`1.0.2`,
+    however security best practice is to use the latest available version of SSL, which can be found here:
+    https://www.openssl.org.
+    It is recommended to upgrade/rebuild the Python interpreter with the latest available SSL library.
+    The SSL version currently in use by the Python interpreter can be found using
+    :code:`python -c "import ssl; print(ssl.OPENSSL_VERSION)"`

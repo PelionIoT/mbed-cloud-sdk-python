@@ -97,7 +97,7 @@ class UpdateAPI(BaseAPI):
 
         :param str name: Name of the update campaign (Required)
         :param str device_filter: The device filter to use. (Required)
-        :param str manifest_id: ID of the manifest with description of the update. (Required)
+        :param str manifest_id: ID of the manifest with description of the update.
         :param str description: Description of the campaign
         :param date when: The timestamp at which update campaign scheduled to start
         :param str state: The state of the campaign. Values:
@@ -158,6 +158,7 @@ class UpdateAPI(BaseAPI):
     def list_campaign_device_states(self, campaign_id, **kwargs):
         """List campaign devices status.
 
+        :param str campaign_id: Id of the update campaign (Required)
         :param int limit: number of devices state to retrieve
         :param str order: sort direction of device state when ordered by creation time (desc|asc)
         :param str after: get devices state after given id

@@ -298,7 +298,7 @@ class AccountManagementAPI(BaseAPI):
     def list_group_api_keys(self, group_id, **kwargs):
         """List API keys of a group.
 
-        :param str group_id: The group ID.
+        :param str group_id: The group ID (Required)
         :param int limit: The number of api keys to retrieve.
         :param str order: The ordering direction, ascending (asc) or descending (desc).
         :param str after: Get api keys after/starting at given api key ID.
