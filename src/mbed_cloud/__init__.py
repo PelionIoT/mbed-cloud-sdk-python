@@ -19,6 +19,7 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import datetime
+import copy
 
 from builtins import object
 from six import iteritems
@@ -82,80 +83,165 @@ class BaseAPI(object):
                                  "Currently: %r" % kwargs.get('limit'))
         return kwargs
 
-    def _verify_filters(self, kwargs, obj, encode=False):
-        if kwargs.get('filters'):
-            kwargs.update({'filter': kwargs.get('filters')})
-            del kwargs['filters']
-        if 'filter' in kwargs:
-            filters = kwargs.get('filter')
-            if filters and not isinstance(filters, dict):
-                raise CloudValueError("'filters' parameter needs to be of type dict")
-            filters = self._encode_query(filters, obj, encode)
-            if encode:
-                kwargs.update({'filter': filters})
-            else:
-                for k, v in list(filters.items()):
-                    kwargs[k] = v
-                del kwargs['filter']
+    def _normalise_kwargs_filter(self, kwargs):
+        """Filter/Filters -> Filter
+        """
+        if 'filters' in kwargs:
+            kwargs['filter'] = kwargs.pop('filters')
         return kwargs
 
-    def _encode_query(self, filters, obj, encode=True):
-        updated_filters = {}
-        for k, v in list(filters.items()):
-            val = obj._get_attributes_map().get(k, None)
-            if val is not None:
-                updated_filters[val] = filters[k]
-            else:
-                updated_filters[k] = v
-        self._set_custom_attributes(updated_filters)
-        filters = self._create_filters_dict(updated_filters, encode)
-        if encode:
-            return urllib.parse.urlencode(sorted(filters.items()))
-        else:
-            return filters
+    filter_operator_aliases = {
+        'ne': 'neq',
+        'eq': 'eq',
+        'neq': 'neq',
+        'gte': 'gte',
+        'lte': 'lte'
+    }
 
-    def _create_filters_dict(self, query, encode):
-        filters = {}
-        for k, v in query.items():
-            if not isinstance(v, dict):
-                v = {'$eq': v}
-            for operator, val in v.items():
-                val = self._convert_filter_value(val)
-                suffix = self._get_key_suffix(operator, encode)
-                key = "%s%s" % (k, suffix)
-                if encode:
-                    val = urllib.parse.quote(str(val))
-                filters[key] = val
-        return filters
+    def _normalise_key_values(self, filter_obj, attr_map=None):
+        new_filter = {}
+        for key, constraints in filter_obj.items():
+            if attr_map is not None:
+                key = attr_map.get(key, key) # FIXME: should default to None
+                # if key is None:
+                #     raise CloudValueError(
+                #         'Invalid key %r for filter attribute; must be one of:\n%s' % (
+                #             key,
+                #             attr_map.keys()
+                #         )
+                #     )
+            if not isinstance(constraints, dict):
+                constraints = {'eq': constraints}
+            for operator, value in constraints.items():
+                # FIXME: deprecate this $ nonsense
+                canonical_operator = self.filter_operator_aliases.get(operator.lstrip('$'))
+                if canonical_operator is None:
+                    raise CloudValueError('Invalid operator %r for filter key %s; must be one of:\n%s' % (
+                        operator,
+                        key,
+                        self.filter_operator_aliases.keys()
+                    ))
+                canonical_key = '%s__%s' % (key, canonical_operator)
+                new_filter[canonical_key] = self._normalise_value(value)
+        return new_filter
 
-    def _convert_filter_value(self, value):
+    def _normalise_value(self, value):
         if isinstance(value, datetime.datetime):
             value = value.isoformat() + "Z"
         return value
 
-    def _set_custom_attributes(self, query):
-        if "custom_attributes" in query:
-            custom_attributes = query["custom_attributes"]
-            del query["custom_attributes"]
-            if not isinstance(custom_attributes, dict):
-                raise CloudValueError("Custom attributes when creating query"
-                                      "needs to be dict object")
-            for k, v in list(custom_attributes.items()):
-                if not k:
-                    print("Ignoring custom attribute with value %r as key is empty" % (v,))
-                    continue
-                query['custom_attributes__' + k] = v
+    def _legacy_filter_formatter(self, kwargs, attr_map):
+        """
+        :param kwargs: expected to contain filter/filters={filter dict}
+        :returns: {'filter': 'url-encoded-validated-filter-string'}
+        """
+        params = self._filter_formatter(kwargs=kwargs, attr_map=attr_map, filter_only=True)
+        new_filter = params.get('filter')
+        if new_filter:
+            new_filter = {k.rsplit('__eq')[0]: v for k, v in params.pop('filter', {}).items()}
+            params['filter'] = urllib.parse.urlencode(sorted(new_filter.items()))
+        return params
 
-    def _get_key_suffix(self, operator, replace_eq=True):
-        suffix = ""
-        operator = operator.replace("$", "")
-        if replace_eq and operator == "eq":
-            suffix = ""
-        elif operator == "ne":
-            suffix = "__neq"
-        else:
-            suffix = "__%s" % (operator)
-        return suffix
+    def _filter_formatter(self, kwargs, attr_map, filter_only=False):
+        """
+        :param kwargs: expected to contain filter={filter dict}
+        :returns: {validated filter dict}
+        """
+        params = self._normalise_kwargs_filter(copy.copy(kwargs))
+        new_filter = params.pop('filter', {})
+        if not isinstance(new_filter, dict):
+            raise CloudValueError('filter value must be a dictionary, was %r' % (new_filter,))
+        custom = new_filter.pop('custom_attributes', {})
+        new_filter.update(self._normalise_key_values(filter_obj=new_filter, attr_map=attr_map))
+        new_filter.update({
+            'custom_attribute__%s' % k: v for k, v in self._normalise_key_values(filter_obj=custom).items()
+        })
+        if filter_only:
+            return new_filter
+        params.update(new_filter)
+        return params
+
+    def _verify_filters(self, kwargs, obj, encode=False):
+        return (self._legacy_filter_formatter if encode else self._filter_formatter)(
+            kwargs,
+            obj._get_attributes_map()
+        )
+
+
+    # def _verify_filters(self, kwargs, obj, encode=False):
+    #     if kwargs.get('filters'):
+    #         kwargs.update({'filter': kwargs.get('filters')})
+    #         del kwargs['filters']
+    #     if 'filter' in kwargs:
+    #         filters = kwargs.get('filter')
+    #         if filters and not isinstance(filters, dict):
+    #             raise CloudValueError("'filters' parameter needs to be of type dict")
+    #         filters = self._encode_query(filters, obj, encode)
+    #         if encode:
+    #             kwargs.update({'filter': filters})
+    #         else:
+    #             for k, v in list(filters.items()):
+    #                 kwargs[k] = v
+    #             del kwargs['filter']
+    #     return kwargs
+    #
+    # def _encode_query(self, filters, obj, encode=True):
+    #     updated_filters = {}
+    #     for k, v in list(filters.items()):
+    #         val = obj._get_attributes_map().get(k, None)
+    #         if val is not None:
+    #             updated_filters[val] = filters[k]
+    #         else:
+    #             updated_filters[k] = v
+    #     self._set_custom_attributes(updated_filters)
+    #     filters = self._create_filters_dict(updated_filters, encode)
+    #     if encode:
+    #         return urllib.parse.urlencode(sorted(filters.items()))
+    #     else:
+    #         return filters
+    #
+    # def _create_filters_dict(self, query, encode):
+    #     filters = {}
+    #     for k, v in query.items():
+    #         if not isinstance(v, dict):
+    #             v = {'$eq': v}
+    #         for operator, val in v.items():
+    #             val = self._convert_filter_value(val)
+    #             suffix = self._get_key_suffix(operator, encode)
+    #             key = "%s%s" % (k, suffix)
+    #             if encode:
+    #                 val = urllib.parse.quote(str(val))
+    #             filters[key] = val
+    #     return filters
+    #
+    # def _convert_filter_value(self, value):
+    #     if isinstance(value, datetime.datetime):
+    #         value = value.isoformat() + "Z"
+    #     return value
+    #
+    # def _set_custom_attributes(self, query):
+    #     if "custom_attributes" in query:
+    #         custom_attributes = query["custom_attributes"]
+    #         del query["custom_attributes"]
+    #         if not isinstance(custom_attributes, dict):
+    #             raise CloudValueError("Custom attributes when creating query"
+    #                                   "needs to be dict object")
+    #         for k, v in list(custom_attributes.items()):
+    #             if not k:
+    #                 print("Ignoring custom attribute with value %r as key is empty" % (v,))
+    #                 continue
+    #             query['custom_attributes__' + k] = v
+    #
+    # def _get_key_suffix(self, operator, replace_eq=True):
+    #     suffix = ""
+    #     operator = operator.replace("$", "")
+    #     if replace_eq and operator == "eq":
+    #         suffix = ""
+    #     elif operator == "ne":
+    #         suffix = "__neq"
+    #     else:
+    #         suffix = "__%s" % (operator)
+    #     return suffix
 
     def get_last_api_metadata(self):
         """Get meta data for the last Mbed Cloud API call.
