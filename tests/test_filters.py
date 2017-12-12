@@ -1,5 +1,4 @@
 import datetime
-import unittest
 
 from tests.common import BaseCase
 from mbed_cloud.device_directory import Device
@@ -14,17 +13,17 @@ simple_filter = {
 }
 
 many_types_filter = {
-    'banana': {
+    'last_deployment': {
         'eq': 'yellow',
         '$gte': datetime.datetime(2017, 1, 1),
     },
-    'apple': 'green',
-    'size': {
+    'vendor_id': 'green',
+    'trust_class': {
         'gte': 5,
     },
-    'on': True,
-    'off': False,
-    'nill': None,
+    'state': True,
+    'name': False,
+    'firmware_checksum': None,
 }
 
 
@@ -44,14 +43,14 @@ class TestFilters(BaseCase):
 
     def test_simple_valid(self):
         self._run(
-            {u'filter': 'created_at__gte=2017-01-01T00%253A00%253A00Z&created_at__lte=2017-12-31T00%253A00%253A00Z'},
+            {u'filter': 'created_at__gte=2017-01-01T00%3A00%3A00Z&created_at__lte=2017-12-31T00%3A00%3A00Z'},
             filter=simple_filter
         )
 
     def test_simple_plural_valid(self):
         # FIXME: why are we allowed to use `filter` or `filters`? too permissive.
         self._run(
-            {u'filter': 'created_at__gte=2017-01-01T00%253A00%253A00Z&created_at__lte=2017-12-31T00%253A00%253A00Z'},
+            {u'filter': 'created_at__gte=2017-01-01T00%3A00%3A00Z&created_at__lte=2017-12-31T00%3A00%3A00Z'},
             # note plural 'filters' phrase
             filters=simple_filter
         )
@@ -59,25 +58,32 @@ class TestFilters(BaseCase):
     def test_noencode(self):
         self._run(
             {
-                'apple__eq': 'green', 'banana__eq': 'yellow', 'banana__gte': '2017-01-01T00:00:00Z',
-                'nill__eq': None, 'off__eq': False, 'on__eq': True, 'size__gte': 5,
+                'vendor_id__eq': 'green', 'deployment__eq': 'yellow', 'deployment__gte': '2017-01-01T00:00:00Z',
+                'firmware_checksum__eq': None, 'name__eq': False, 'state__eq': True, 'trust_class__gte': 5,
             },
             filters=many_types_filter,
             encode=False
         )
 
-    # @unittest.expectedFailure
     def test_encode(self):
-        # FIXME: Update team needs this to pass as defined below.
+        this_filter = {'device_class': 'red & "yellow", <green>'}
+        this_filter.update(many_types_filter)
         self._run(
-            {'filter': 'apple=green&banana=yellow&banana__gte=2017-01-01T00:00:00Z&nill=None&off=False&on=True&size__gte=5'},
-            filters=many_types_filter,
+            {'filter': (
+                'deployment=yellow'
+                '&deployment__gte=2017-01-01T00%3A00%3A00Z'
+                '&device_class=red+%26+%22yellow%22%2C+%3Cgreen%3E'
+                '&firmware_checksum=None'
+                '&name=False'
+                '&state=True'
+                '&trust_class__gte=5'
+                '&vendor_id=green'
+            )},
+            filters=this_filter,
             encode=True
         )
 
-    # @unittest.expectedFailure
     def test_simple_empty(self):
-        # FIXME: stupidity
         filters = {}
         self._run({}, filter=filters)
 
@@ -91,20 +97,20 @@ class TestFilters(BaseCase):
         self._run(dict(sort=5, order=6, other='yes'), filter=filters, sort=5, order=6, other='yes')
 
     def test_simple_unknown_field(self):
-        # we are highly permissive about filtering on unknown fields
         filters = {
             'nuthing': {'$gte': datetime.datetime(2017, 1, 1),
                         '$lte': datetime.datetime(2017, 12, 31)
             }
         }
-        self._run(
-            {
-                u'filter': 'nuthing__gte=2017-01-01T00%253A00%253A00Z&nuthing__lte=2017-12-31T00%253A00%253A00Z',
-                'other_stuff': None
-            },
-            filters=filters,
-            other_stuff=None
-        )
+        with self.assertRaises(CloudValueError):
+            self._run(
+                {
+                    u'filter': 'nuthing__gte=2017-01-01T00%3A00%3A00Z&nuthing__lte=2017-12-31T00%3A00%3A00Z',
+                    'other_stuff': None
+                },
+                filters=filters,
+                other_stuff=None
+            )
 
     def test_simple_known_field_remap(self):
         # 'alias' -> 'endpoint_name'
@@ -113,19 +119,21 @@ class TestFilters(BaseCase):
         }
         self._run({u'filter': 'endpoint_name=5'}, filters=filters)
 
-    # @unittest.expectedFailure
     def test_custom_fields(self):
-        # FIXME: Update team needs this to pass as defined below.
-        # custom fields are an explicit thing...
         filters = {
-            'custom_attributes': many_types_filter
+            'custom_attributes': many_types_filter,
+            'name': 'red & yellow'
         }
+        self.maxDiff = 1e5
         self._run({u'filter': (
-            'custom_attributes__apple=green'
-            '&custom_attributes__banana=yellow'
-            '&custom_attributes__banana__gte=2017-01-01T00:00:00Z'
-            '&custom_attributes__nill=None'
-            '&custom_attributes__off=False'
-            '&custom_attributes__on=True'
-            '&custom_attributes__size__gte=5'
-        )}, filters=filters)
+                'custom_attributes__firmware_checksum=None'
+                '&custom_attributes__last_deployment=yellow'
+                '&custom_attributes__last_deployment__gte=2017-01-01T00%3A00%3A00Z'
+                '&custom_attributes__name=False'
+                '&custom_attributes__state=True'
+                '&custom_attributes__trust_class__gte=5'
+                '&custom_attributes__vendor_id=green'
+                '&name=red+%26+yellow'
+            ),
+            'other_stuff': 'yes'
+        }, filters=filters, other_stuff='yes')
