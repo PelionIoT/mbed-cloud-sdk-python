@@ -4,6 +4,7 @@ from tests.common import BaseCase
 from mbed_cloud.device_directory import Device
 from mbed_cloud import BaseAPI
 from mbed_cloud import CloudValueError
+import json
 
 simple_filter = {
     'created_at': {
@@ -118,6 +119,22 @@ class TestFilters(BaseCase):
             'alias': {'$eq': 5}
         }
         self._run({u'filter': 'endpoint_name=5'}, filters=filters)
+
+    def test_dont_mutate_my_stuff(self):
+        # a direct call to the filter generator, checking that the input kwargs dictionary
+        # is not modified by the call
+        kwargs = dict(
+            filters={
+                'alias': {'$eq': 5}
+            },
+            other_thing={
+                5: [6, 7, 8]
+            }
+        )
+        before = json.dumps(kwargs)
+        result = self.api._verify_filters(kwargs, Device, True)
+        self.assertEqual(dict(filter='endpoint_name=5', other_thing={5: [6, 7, 8]}), result)
+        self.assertEqual(before, json.dumps(kwargs))
 
     def test_custom_fields(self):
         filters = {
