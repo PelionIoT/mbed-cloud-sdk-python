@@ -116,20 +116,16 @@ class BaseAPI(object):
 
     def _create_filters_dict(self, query, encode):
         filters = {}
-        for k, v in list(query.items()):
+        for k, v in query.items():
             if not isinstance(v, dict):
-                # Set default operator as eq
                 v = {'$eq': v}
-            for operator, val in list(v.items()):
+            for operator, val in v.items():
                 val = self._convert_filter_value(val)
                 suffix = self._get_key_suffix(operator, encode)
                 key = "%s%s" % (k, suffix)
                 if encode:
-                    if not isinstance(val, string_types):
-                        val = str(val)
-                    filters[key] = urllib.parse.quote(val)
-                else:
-                    filters[key] = val
+                    val = urllib.parse.quote(str(val))
+                filters[key] = val
         return filters
 
     def _convert_filter_value(self, value):
