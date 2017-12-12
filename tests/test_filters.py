@@ -61,12 +61,12 @@ class TestFilters(BaseCase):
             {
                 'apple__eq': 'green', 'banana__eq': 'yellow', 'banana__gte': '2017-01-01T00:00:00Z',
                 'nill__eq': None, 'off__eq': False, 'on__eq': True, 'size__gte': 5,
-             },
+            },
             filters=many_types_filter,
             encode=False
         )
 
-    @unittest.expectedFailure
+    # @unittest.expectedFailure
     def test_encode(self):
         # FIXME: Update team needs this to pass as defined below.
         self._run(
@@ -75,26 +75,35 @@ class TestFilters(BaseCase):
             encode=True
         )
 
-    @unittest.expectedFailure
+    # @unittest.expectedFailure
     def test_simple_empty(self):
         # FIXME: stupidity
         filters = {}
-        self._run({'filters': {}}, filter=filters)
+        self._run({}, filter=filters)
 
     def test_simple_plural_empty(self):
         filters = {}
-        self._run({'filters': {}}, filters=filters)
+        self._run({}, filters=filters)
+
+    def test_empty_with_other_params(self):
+        # noop for non-filter fields
+        filters = {}
+        self._run(dict(sort=5, order=6, other='yes'), filter=filters, sort=5, order=6, other='yes')
 
     def test_simple_unknown_field(self):
         # we are highly permissive about filtering on unknown fields
         filters = {
             'nuthing': {'$gte': datetime.datetime(2017, 1, 1),
                         '$lte': datetime.datetime(2017, 12, 31)
-                        }
+            }
         }
         self._run(
-            {u'filter': 'nuthing__gte=2017-01-01T00%253A00%253A00Z&nuthing__lte=2017-12-31T00%253A00%253A00Z'},
-            filters=filters
+            {
+                u'filter': 'nuthing__gte=2017-01-01T00%253A00%253A00Z&nuthing__lte=2017-12-31T00%253A00%253A00Z',
+                'other_stuff': None
+            },
+            filters=filters,
+            other_stuff=None
         )
 
     def test_simple_known_field_remap(self):
@@ -104,7 +113,7 @@ class TestFilters(BaseCase):
         }
         self._run({u'filter': 'endpoint_name=5'}, filters=filters)
 
-    @unittest.expectedFailure
+    # @unittest.expectedFailure
     def test_custom_fields(self):
         # FIXME: Update team needs this to pass as defined below.
         # custom fields are an explicit thing...
