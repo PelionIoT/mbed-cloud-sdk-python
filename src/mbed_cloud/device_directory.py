@@ -24,6 +24,7 @@ from mbed_cloud import BaseAPI
 from mbed_cloud import BaseObject
 from mbed_cloud.decorators import catch_exceptions
 from mbed_cloud import PaginatedResponse
+from mbed_cloud import filters
 
 # Import backend API
 import mbed_cloud._backends.device_directory as device_directory
@@ -213,11 +214,12 @@ class DeviceDirectoryAPI(BaseAPI):
         :return: the newly created query object
         :rtype: Query
         """
-        # Ensure we have the correct types and get the new query object
-        query = self._encode_query(filter, Device)
+        # Build a Device filter
+        filter_obj = filters.legacy_filter_formatter(dict(filter=filter), Device._get_attributes_map())
+        # Remap the extra params to the Query object
         query_map = Query._create_request_map(kwargs)
-        # Create the query object
-        f = DeviceQuery(name=name, query=query, **query_map)
+        # Create the DeviceQuery object
+        f = DeviceQuery(name=name, query=filter_obj['filter'], **query_map)
         api = self._get_api(device_directory.DefaultApi)
         return Query(api.device_query_create(f))
 
@@ -244,15 +246,11 @@ class DeviceDirectoryAPI(BaseAPI):
         :rtype: Query
         """
         # Get urlencoded query attribute
-        if filter is not None:
-            query = self._encode_query(filter, Device)
-        else:
-            query = filter
-
+        filter_obj = filters.legacy_filter_formatter(dict(filter=filter), Device._get_attributes_map()) if filter else None
         query_map = Query._create_request_map(kwargs)
         body = DeviceQueryPatchRequest(
             name=name,
-            query=query,
+            query=filter_obj['filter'],
             **query_map
         )
         api = self._get_api(device_directory.DefaultApi)
