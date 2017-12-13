@@ -14,7 +14,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # --------------------------------------------------------------------------
-"""Example showing extended usage of the webhook functionality."""
+"""Example showing extended usage of the webhook functionality.
+
+Prerequisites
+
+Two third party tools are used in this example:
+    hug - a simple python3 webserver
+    ngrok - a tool to tunnel public http requests to localhost
+
+Install python libraries:
+    pip install ngrok hug
+Install ngrok from https://ngrok.com/
+Follow the ngrok instructions to configure a tunnel
+Set the resulting tunnel url in the variable below
+Run the example with:
+   hug -f examples\webhook_ngrok.py
+Finally, visit 127.0.0.1:8000 in your browser to initiate the sequence
+"""
 from mbed_cloud.connect import ConnectAPI
 import traceback
 import threading
