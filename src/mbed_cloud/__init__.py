@@ -30,6 +30,8 @@ from mbed_cloud._version import __version__  # noqa
 from mbed_cloud.configuration import Config
 from mbed_cloud.exceptions import CloudValueError
 
+from mbed_cloud import filters
+
 
 class BaseAPI(object):
     """BaseAPI is parent class for all APIs. Ensuring config is valid and available."""
@@ -82,92 +84,9 @@ class BaseAPI(object):
                                  "Currently: %r" % kwargs.get('limit'))
         return kwargs
 
-    filter_operator_aliases = {
-        'ne': 'neq',
-        'eq': 'eq',
-        'neq': 'neq',
-        'gte': 'gte',
-        'lte': 'lte'
-    }
-
-    def _normalise_kwargs_filter(self, kwargs):
-        """Filter/Filters -> Filter
-        """
-        if 'filters' in kwargs:
-            kwargs['filter'] = kwargs.pop('filters')
-        return kwargs
-
-    def _normalise_value(self, value):
-        if isinstance(value, datetime.datetime):
-            value = value.isoformat() + "Z"
-        return value
-
-    def _normalise_key_values(self, filter_obj, attr_map=None):
-        new_filter = {}
-        for key, constraints in filter_obj.items():
-            aliased_key = key
-            if attr_map is not None:
-                aliased_key = attr_map.get(key)
-                if aliased_key is None:
-                    raise CloudValueError(
-                        'Invalid key %r for filter attribute; must be one of:\n%s' % (
-                            key,
-                            attr_map.keys()
-                        )
-                    )
-            if not isinstance(constraints, dict):
-                constraints = {'eq': constraints}
-            for operator, value in constraints.items():
-                # FIXME: deprecate this $ nonsense
-                canonical_operator = self.filter_operator_aliases.get(operator.lstrip('$'))
-                if canonical_operator is None:
-                    raise CloudValueError('Invalid operator %r for filter key %s; must be one of:\n%s' % (
-                        operator,
-                        key,
-                        self.filter_operator_aliases.keys()
-                    ))
-                canonical_key = str('%s__%s' % (aliased_key, canonical_operator))
-                new_filter[canonical_key] = self._normalise_value(value)
-        return new_filter
-
-    def _get_filter(self, sdk_filter, attr_map):
-        """
-        :param sdk_filter: {field:constraint, field:{operator:constraint}, ...}
-        :return: {field__operator: constraint, ...}
-        """
-        if not isinstance(sdk_filter, dict):
-            raise CloudValueError('filter value must be a dictionary, was %r' % (sdk_filter,))
-        custom = sdk_filter.pop('custom_attributes', {})
-        new_filter = self._normalise_key_values(filter_obj=sdk_filter, attr_map=attr_map)
-        new_filter.update({
-            'custom_attributes__%s' % k: v for k, v in self._normalise_key_values(filter_obj=custom).items()
-        })
-        return new_filter
-
-    def _legacy_filter_formatter(self, kwargs, attr_map):
-        """
-        :param kwargs: expected to contain filter/filters={filter dict}
-        :returns: {'filter': 'url-encoded-validated-filter-string'}
-        """
-        params = self._normalise_kwargs_filter(copy.copy(kwargs))
-        new_filter = self._get_filter(sdk_filter=params.pop('filter', {}), attr_map=attr_map)
-        if new_filter:
-            new_filter = sorted([(k.rsplit('__eq')[0], v) for k, v in new_filter.items()])
-            params['filter'] = urllib.parse.urlencode(new_filter)
-        return params
-
-    def _filter_formatter(self, kwargs, attr_map):
-        """
-        :param kwargs: expected to contain filter={filter dict}
-        :returns: {validated filter dict}
-        """
-        params = self._normalise_kwargs_filter(copy.copy(kwargs))
-        params.update(self._get_filter(sdk_filter=params.pop('filter', {}), attr_map=attr_map))
-        return params
-
     def _verify_filters(self, kwargs, obj, encode=False):
         """legacy entrypoint with 'encode' flag"""
-        return (self._legacy_filter_formatter if encode else self._filter_formatter)(
+        return (filters._legacy_filter_formatter if encode else filters._filter_formatter)(
             kwargs,
             obj._get_attributes_map()
         )

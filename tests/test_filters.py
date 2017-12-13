@@ -4,18 +4,19 @@ from tests.common import BaseCase
 from mbed_cloud.device_directory import Device
 from mbed_cloud import BaseAPI
 from mbed_cloud import CloudValueError
+from mbed_cloud.filters import OP
 import json
 
 simple_filter = {
     'created_at': {
-        '$gte': datetime.datetime(2017, 1, 1),
-        '$lte': datetime.datetime(2017, 12, 31),
+        OP.GTE: datetime.datetime(2017, 1, 1),
+        OP.LTE: datetime.datetime(2017, 12, 31),
    },
 }
 
 many_types_filter = {
     'last_deployment': {
-        'eq': 'yellow',
+        OP.EQ: 'yellow',
         '$gte': datetime.datetime(2017, 1, 1),
     },
     'vendor_id': 'green',
