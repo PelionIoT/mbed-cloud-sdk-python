@@ -132,7 +132,7 @@ class DeviceDirectoryAPI(BaseAPI):
         :param str certificate_fingerprint: Fingerprint of the device certificate
         :param str certificate_issuer_id: ID of the issuer of the certificate
         :param str name: The name of the device
-        :param str account_id: The owning IAM account ID
+        :param str account_id: The owning Identity and Access Management (IAM) account ID
         :param obj custom_attributes: Up to 5 custom JSON attributes
         :param str description: The description of the device
         :param str device_class: Class of the device
@@ -153,7 +153,7 @@ class DeviceDirectoryAPI(BaseAPI):
         :param int device_execution_mode: The device class
         :param str firmware_checksum: The SHA256 checksum of the current firmware image
         :param datetime manifest_timestamp: The timestamp of the current manifest version
-        :return: the newly created device object.
+        :return: The newly created device object.
         :rtype: Device
         """
         api = self._get_api(device_directory.DefaultApi)
@@ -262,7 +262,7 @@ class DeviceDirectoryAPI(BaseAPI):
     def delete_query(self, query_id):
         """Delete query in device query service.
 
-        :param int query_id: id of the query to delete (Required)
+        :param int query_id: ID of the query to delete (Required)
         :return: void
         """
         api = self._get_api(device_directory.DefaultApi)
@@ -273,7 +273,7 @@ class DeviceDirectoryAPI(BaseAPI):
     def get_query(self, query_id):
         """Get query in device query service.
 
-        :param int query_id: id of the query to get (Required)
+        :param int query_id: ID of the query to get (Required)
         :returns: device query object
         :rtype: Query
         """
@@ -302,7 +302,7 @@ class DeviceDirectoryAPI(BaseAPI):
     def get_device_event(self, device_event_id):
         """Get device event with provided ID.
 
-        :param int device_event_id: id of the event to get (Required)
+        :param int device_event_id: ID of the event to get (Required)
         :rtype: DeviceEvent
         """
         api = self._get_api(device_directory.DefaultApi)
@@ -355,7 +355,7 @@ class Device(BaseObject):
 
     @property
     def bootstrapped_timestamp(self):
-        """The time device was created..
+        """The time device was created.
 
         :rtype: datetime
         """
@@ -495,8 +495,6 @@ class Device(BaseObject):
     def updated_at(self):
         """The time the device was updated.
 
-        The time the object was created
-
         :rtype: datetime
         """
         return self._updated_at
@@ -504,8 +502,6 @@ class Device(BaseObject):
     @property
     def vendor_id(self):
         """The device vendor ID.
-
-        The time the object was created
 
         :rtype: str
         """

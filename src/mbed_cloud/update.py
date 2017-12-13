@@ -67,7 +67,7 @@ class UpdateAPI(BaseAPI):
     def get_campaign(self, campaign_id):
         """Get existing update campaign.
 
-        :param str campaign_id: Campaign id to retrieve (Required)
+        :param str campaign_id: Campaign ID to retrieve (Required)
         :return: Update campaign object matching provided ID.
         :rtype: Campaign
         """
@@ -78,7 +78,7 @@ class UpdateAPI(BaseAPI):
     def add_campaign(self, name, device_filter, **kwargs):
         """Add new update campaign.
 
-        Add an update campaign with given name and device filtering. Example:
+        Add an update campaign with a name and device filtering. Example:
 
         .. code-block:: python
 
@@ -94,7 +94,7 @@ class UpdateAPI(BaseAPI):
             )
 
         :param str name: Name of the update campaign (Required)
-        :param str device_filter: The device filter to use. (Required)
+        :param str device_filter: The device filter to use (Required)
         :param str manifest_id: ID of the manifest with description of the update.
         :param str description: Description of the campaign
         :param date when: The timestamp at which update campaign scheduled to start
@@ -115,7 +115,7 @@ class UpdateAPI(BaseAPI):
 
     @catch_exceptions(UpdateServiceApiException)
     def start_campaign(self, campaign_object):
-        """Start an update campaign in draft state.
+        """Start a draft update campaign. [[[Please clarify that this rephrase is correct]]]
 
         :param Campaign campaign_object: Campaign object to schedule for immediate start (Required)
         :return: newly edited campaign object
@@ -587,7 +587,7 @@ class Campaign(BaseObject):
 
     @property
     def manifest_url(self):
-        """The URl of the manifest used (readonly).
+        """The URL of the manifest used (readonly).
 
         :rtype: str
         """
@@ -617,7 +617,7 @@ class Campaign(BaseObject):
 
     @property
     def started_at(self):
-        """The timestamp at which update campaign scheduled to start (readonly).
+        """The timestamp at which update campaign is scheduled to start (readonly).
 
         :rtype: datetime
         """
@@ -629,6 +629,7 @@ class Campaign(BaseObject):
 
         values: draft, scheduled, devicefetch, devicecopy, devicecopycomplete, publishing,
         deploying, deployed, manifestremoved, expired
+        [[[Would it be useful to explain what each of these states means?]]]
 
         :rtype: str
         """
