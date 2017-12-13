@@ -129,8 +129,8 @@ class DeviceDirectoryAPI(BaseAPI):
             resp = api.add_device(**device)
             print(resp.created_at)
 
-        :param str certificate_fingerprint: Fingerprint of the device certificate (Required)
-        :param str certificate_issuer_id: ID of the issuer of the certificate (Required)
+        :param str certificate_fingerprint: Fingerprint of the device certificate
+        :param str certificate_issuer_id: ID of the issuer of the certificate
         :param str name: The name of the device
         :param str account_id: The owning IAM account ID
         :param obj custom_attributes: Up to 5 custom JSON attributes
