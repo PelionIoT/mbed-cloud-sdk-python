@@ -1,5 +1,5 @@
 version: 2
-iteration: 3
+iteration: 7
 aliases:
   - &build_cache_key 'v1-{{ .Branch }}'
   - &partial_build_cache_key 'v1-{{ .Branch }}-partial'
@@ -12,8 +12,7 @@ aliases:
       DEPLOY_TARGET: null
       MBED_CLOUD_API_KEY: null
       MBED_CLOUD_API_HOST: null
-    docker:
-      - image: docker:17.10.0-ce-rc1-git
+    machine: true
   - &step_test_pre
     run: |
         echo "{\"api_key\":\"$MBED_CLOUD_API_KEY\", \"host\":\"$MBED_CLOUD_API_HOST\"}" > .mbed_cloud_config.json
@@ -27,7 +26,6 @@ aliases:
   - &step_test_post
     store_artifacts:
       path: ${RESULTS}
-
   - &step_deploy_common
     run:
       name: Deploy the build
@@ -46,14 +44,11 @@ jobs:
   build:
     <<: *container_config
     steps:
-      - setup_remote_docker:
-          version: 17.07.0-ce
       - checkout
       - restore_cache:
           keys: [*build_cache_key, *partial_build_cache_key]
-      - run: sudo apt-get update
-      - run: sudo apt-get install pandoc
-      - run: pip install awscli codecov tox tox-pyenv
+      - run: sudo pip install awscli tox tox-pyenv
+      - run: sudo apt-get install python python3
       - run: pyenv local 2.7.12 3.6.2
       - save_cache:
           key: *partial_build_cache_key
@@ -83,6 +78,8 @@ jobs:
     steps:
       - restore_cache:
           keys: [*build_cache_key]
+      - run: sudo apt-get update
+      - run: sudo apt-get install pandoc
       - run: source .tox/py36/bin/activate && sphinx-build -a -b html -c docs/ docs/ ${DOCS}
       - store_artifacts:
           path: ${DOCS}
@@ -92,11 +89,13 @@ jobs:
     environment:
       MBED_CLOUD_API_HOST: integration
     steps:
+      - setup_remote_docker
       - *step_test_pre
-      restore_cache:
+      - restore_cache:
           keys: [*build_cache_key]
       - *step_test_run
       - *step_test_post
+      - run: pip install codecov
       - run: codecov --file=/home/ubuntu/results/py36/coverage.xml
 
   test_production:
@@ -104,8 +103,9 @@ jobs:
     environment:
       MBED_CLOUD_API_HOST: production
     steps:
+      - setup_remote_docker
       - *step_test_pre
-      restore_cache:
+      - restore_cache:
           keys: [*build_cache_key]
       - *step_test_run
       - *step_test_post
