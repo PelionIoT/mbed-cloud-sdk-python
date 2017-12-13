@@ -36,9 +36,10 @@ class UpdateCampaign(object):
         'created_at': 'datetime',
         'object': 'str',
         'when': 'datetime',
+        'updated_at': 'datetime',
         'state': 'str',
-        'finished': 'datetime',
         'etag': 'str',
+        'finished': 'datetime',
         'root_manifest_url': 'str',
         'started_at': 'datetime',
         'id': 'str',
@@ -52,9 +53,10 @@ class UpdateCampaign(object):
         'created_at': 'created_at',
         'object': 'object',
         'when': 'when',
+        'updated_at': 'updated_at',
         'state': 'state',
-        'finished': 'finished',
         'etag': 'etag',
+        'finished': 'finished',
         'root_manifest_url': 'root_manifest_url',
         'started_at': 'started_at',
         'id': 'id',
@@ -62,7 +64,7 @@ class UpdateCampaign(object):
         'name': 'name'
     }
 
-    def __init__(self, description=None, root_manifest_id=None, created_at=None, object=None, when=None, state=None, finished=None, etag=None, root_manifest_url=None, started_at=None, id=None, device_filter=None, name=None):
+    def __init__(self, description=None, root_manifest_id=None, created_at=None, object=None, when=None, updated_at=None, state=None, etag=None, finished=None, root_manifest_url=None, started_at=None, id=None, device_filter=None, name=None):
         """
         UpdateCampaign - a model defined in Swagger
         """
@@ -72,9 +74,10 @@ class UpdateCampaign(object):
         self._created_at = created_at
         self._object = object
         self._when = when
+        self._updated_at = updated_at
         self._state = state
-        self._finished = finished
         self._etag = etag
+        self._finished = finished
         self._root_manifest_url = root_manifest_url
         self._started_at = started_at
         self._id = id
@@ -198,6 +201,29 @@ class UpdateCampaign(object):
         self._when = when
 
     @property
+    def updated_at(self):
+        """
+        Gets the updated_at of this UpdateCampaign.
+        The time the object was updated
+
+        :return: The updated_at of this UpdateCampaign.
+        :rtype: datetime
+        """
+        return self._updated_at
+
+    @updated_at.setter
+    def updated_at(self, updated_at):
+        """
+        Sets the updated_at of this UpdateCampaign.
+        The time the object was updated
+
+        :param updated_at: The updated_at of this UpdateCampaign.
+        :type: datetime
+        """
+
+        self._updated_at = updated_at
+
+    @property
     def state(self):
         """
         Gets the state of this UpdateCampaign.
@@ -227,29 +253,6 @@ class UpdateCampaign(object):
         self._state = state
 
     @property
-    def finished(self):
-        """
-        Gets the finished of this UpdateCampaign.
-        The campaign finish timestamp
-
-        :return: The finished of this UpdateCampaign.
-        :rtype: datetime
-        """
-        return self._finished
-
-    @finished.setter
-    def finished(self, finished):
-        """
-        Sets the finished of this UpdateCampaign.
-        The campaign finish timestamp
-
-        :param finished: The finished of this UpdateCampaign.
-        :type: datetime
-        """
-
-        self._finished = finished
-
-    @property
     def etag(self):
         """
         Gets the etag of this UpdateCampaign.
@@ -271,6 +274,29 @@ class UpdateCampaign(object):
         """
 
         self._etag = etag
+
+    @property
+    def finished(self):
+        """
+        Gets the finished of this UpdateCampaign.
+        The campaign finish timestamp
+
+        :return: The finished of this UpdateCampaign.
+        :rtype: datetime
+        """
+        return self._finished
+
+    @finished.setter
+    def finished(self, finished):
+        """
+        Sets the finished of this UpdateCampaign.
+        The campaign finish timestamp
+
+        :param finished: The finished of this UpdateCampaign.
+        :type: datetime
+        """
+
+        self._finished = finished
 
     @property
     def root_manifest_url(self):

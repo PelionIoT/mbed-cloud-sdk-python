@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **object** | **str** | The API resource entity | 
 **updated_at** | **datetime** | The time the object was updated | 
 **etag** | **datetime** | The entity instance signature | 
-**datafile_checksum** | **str** | Checksum generated for the datafile | 
+**datafile_checksum** | **str** | Checksum (sha256) generated for the datafile | 
 **datafile_size** | **int** | Size of the datafile in bytes | [optional] 
 **id** | **str** | The firmware image ID | 
 **name** | **str** | The firmware image name | 

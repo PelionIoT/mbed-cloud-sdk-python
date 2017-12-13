@@ -39,7 +39,6 @@ class FirmwareManifest(object):
         'updated_at': 'datetime',
         'etag': 'datetime',
         'device_class': 'str',
-        'datafile_checksum': 'str',
         'datafile_size': 'int',
         'id': 'str',
         'name': 'str'
@@ -54,13 +53,12 @@ class FirmwareManifest(object):
         'updated_at': 'updated_at',
         'etag': 'etag',
         'device_class': 'device_class',
-        'datafile_checksum': 'datafile_checksum',
         'datafile_size': 'datafile_size',
         'id': 'id',
         'name': 'name'
     }
 
-    def __init__(self, datafile=None, description=None, timestamp=None, created_at=None, object=None, updated_at=None, etag=None, device_class=None, datafile_checksum=None, datafile_size=None, id=None, name=None):
+    def __init__(self, datafile=None, description=None, timestamp=None, created_at=None, object=None, updated_at=None, etag=None, device_class=None, datafile_size=None, id=None, name=None):
         """
         FirmwareManifest - a model defined in Swagger
         """
@@ -73,7 +71,6 @@ class FirmwareManifest(object):
         self._updated_at = updated_at
         self._etag = etag
         self._device_class = device_class
-        self._datafile_checksum = datafile_checksum
         self._datafile_size = datafile_size
         self._id = id
         self._name = name
@@ -280,29 +277,6 @@ class FirmwareManifest(object):
             raise ValueError("Invalid value for `device_class`, must not be `None`")
 
         self._device_class = device_class
-
-    @property
-    def datafile_checksum(self):
-        """
-        Gets the datafile_checksum of this FirmwareManifest.
-        Checksum generated for the datafile
-
-        :return: The datafile_checksum of this FirmwareManifest.
-        :rtype: str
-        """
-        return self._datafile_checksum
-
-    @datafile_checksum.setter
-    def datafile_checksum(self, datafile_checksum):
-        """
-        Sets the datafile_checksum of this FirmwareManifest.
-        Checksum generated for the datafile
-
-        :param datafile_checksum: The datafile_checksum of this FirmwareManifest.
-        :type: str
-        """
-
-        self._datafile_checksum = datafile_checksum
 
     @property
     def datafile_size(self):
