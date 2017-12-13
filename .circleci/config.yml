@@ -1,4 +1,5 @@
 version: 2
+iteration: 3
 aliases:
   - &build_cache_key 'v1-{{ .Branch }}'
   - &partial_build_cache_key 'v1-{{ .Branch }}-partial'
@@ -13,22 +14,31 @@ aliases:
       MBED_CLOUD_API_HOST: null
     docker:
       - image: docker:17.10.0-ce-rc1-git
-  - &step_test_common
-      - run: |
-              login="$(aws ecr get-login)"
-              ${login}
-              login="$(aws ecr get-login --no-include-email)"
-              ${login}
-      - run: docker pull ${TESTRUNNER_DOCKER_IMAGE}
-      - restore_cache:
-          keys: [*build_cache_key]
-      - run: echo "{\"api_key\":\"$MBED_CLOUD_API_KEY\", \"host\":\"$MBED_CLOUD_API_HOST\"}" > .mbed_cloud_config.json
-      - run: tox
-      - store_artifacts:
-          path: ${RESULTS}
+  - &step_test_pre
+    run: |
+        echo "{\"api_key\":\"$MBED_CLOUD_API_KEY\", \"host\":\"$MBED_CLOUD_API_HOST\"}" > .mbed_cloud_config.json
+        login="$(aws ecr get-login)"
+        ${login}
+        login="$(aws ecr get-login --no-include-email)"
+        ${login}
+        docker pull ${TESTRUNNER_DOCKER_IMAGE}
+  - &step_test_run
+    run: tox
+  - &step_test_post
+    store_artifacts:
+      path: ${RESULTS}
 
   - &step_deploy_common
-    - run: echo 'I would deploy to ${}'
+    run:
+      name: Deploy the build
+      command: |
+              echo 'I would deploy to ${DEPLOY_TARGET}'
+              pip install twine
+              python setup.py sdist bdist_wheel
+              twine register dist
+    # TODO: envvar configuration from https://pypi.python.org/pypi/twine
+#    - run: twine upload dist/*
+    # TODO: docs upload may need to load from cache
     #- run: aws s3 sync --delete --cache-control max-age=3600 ~/docs s3://mbed-cloud-sdk-python
 
 
@@ -82,7 +92,11 @@ jobs:
     environment:
       MBED_CLOUD_API_HOST: integration
     steps:
-      - *step_test_common
+      - *step_test_pre
+      restore_cache:
+          keys: [*build_cache_key]
+      - *step_test_run
+      - *step_test_post
       - run: codecov --file=/home/ubuntu/results/py36/coverage.xml
 
   test_production:
@@ -90,7 +104,11 @@ jobs:
     environment:
       MBED_CLOUD_API_HOST: production
     steps:
-      - *step_test_common
+      - *step_test_pre
+      restore_cache:
+          keys: [*build_cache_key]
+      - *step_test_run
+      - *step_test_post
 
   deploy_beta:
     <<: *container_config
