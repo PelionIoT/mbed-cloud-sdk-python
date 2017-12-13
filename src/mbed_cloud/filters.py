@@ -105,7 +105,7 @@ def _get_filter(sdk_filter, attr_map):
     return new_filter
 
 
-def _legacy_filter_formatter(kwargs, attr_map):
+def legacy_filter_formatter(kwargs, attr_map):
     """Builds a filter for update and device apis
 
     :param kwargs: expected to contain filter/filters={filter dict}
@@ -119,7 +119,7 @@ def _legacy_filter_formatter(kwargs, attr_map):
     return params
 
 
-def _filter_formatter(kwargs, attr_map):
+def filter_formatter(kwargs, attr_map):
     """Builds a filter according to the cross-api specification
 
     :param kwargs: expected to contain filter={filter dict}

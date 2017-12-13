@@ -86,7 +86,7 @@ class BaseAPI(object):
 
     def _verify_filters(self, kwargs, obj, encode=False):
         """legacy entrypoint with 'encode' flag"""
-        return (filters._legacy_filter_formatter if encode else filters._filter_formatter)(
+        return (filters.legacy_filter_formatter if encode else filters.filter_formatter)(
             kwargs,
             obj._get_attributes_map()
         )
