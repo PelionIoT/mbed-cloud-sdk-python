@@ -55,7 +55,7 @@ test:
     - mkdir -p $CIRCLE_TEST_REPORTS/tests/
     - cp ~/results/py36/unittests.xml $CIRCLE_TEST_REPORTS/tests/
     - cp ~/rpc_results/py36/results.xml $CIRCLE_TEST_REPORTS/tests/
-    - codecov --file=~/results/py36/coverage.xml
+    - codecov --file=/home/ubuntu/results/py36/coverage.xml
 
 deployment:
   staging:
