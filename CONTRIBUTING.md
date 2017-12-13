@@ -6,8 +6,6 @@ We really appreciate your contributions! You can contribute by letting us know
 about any [SDK issues](https://github.com/ARMmbed/mbed-cloud-sdk-python/issues)
 you have found, or by creating a [pull request](https://github.com/ARMmbed/mbed-cloud-sdk-python/pulls)
 with a bug fix or new feature you find necessary, important or just attractive.
-We will review your proposal, give you feedback and merge your changes if we
-decide your contribution satisfy criteria such as quality.
 
 ## How to Contribute Code
 
@@ -23,6 +21,9 @@ changes.
   and be sure to mention the issue if contributing a bug fix.
 - Push to your fork.
 - Submit a pull request.
+
+We will review your proposal, give you feedback and merge your changes if we
+feel your contribution is generally useful and meets our quality criteria.
 
 For us to accept your code contributions, we will need you to agree to our [Mbed
 Contributor Agreement](http://developer.mbed.org/contributor_agreement/) to give
