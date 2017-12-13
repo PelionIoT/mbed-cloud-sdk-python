@@ -670,6 +670,10 @@ class Query(BaseObject):
 class DeviceEvent(DeviceEventData):
     """Describes device event object."""
 
+    @staticmethod
+    def _get_attributes_map():
+        return None
+
     def __init__(self, device_event_obj):
         """Override __init__ and allow passing in backend object."""
         super(DeviceEvent, self).__init__(**device_event_obj.to_dict())
