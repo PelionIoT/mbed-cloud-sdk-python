@@ -106,7 +106,10 @@ class UpdateAPI(BaseAPI):
         :return: newly created campaign object
         :rtype: Campaign
         """
-        device_filter = filters.legacy_filter_formatter(dict(filter=device_filter), Device._get_attributes_map())
+        device_filter = filters.legacy_filter_formatter(
+            dict(filter=device_filter),
+            Device._get_attributes_map()
+        )
         campaign = Campaign._create_request_map(kwargs)
         body = UpdateCampaignPostRequest(
             name=name,

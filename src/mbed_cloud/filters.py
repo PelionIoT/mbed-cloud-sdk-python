@@ -23,8 +23,9 @@ from six.moves import urllib
 from mbed_cloud.exceptions import CloudValueError
 
 
-class OP:
+class OP:  # noqa
     """Filter Operators"""
+
     NE = 'ne'
     EQ = 'eq'
     GTE = 'gte'
@@ -41,8 +42,7 @@ FILTER_OPERATOR_ALIASES = {
 
 
 def _normalise_kwargs_filter(kwargs):
-    """Filter/Filters -> Filter
-    """
+    """Filter/Filters -> Filter"""
     if 'filters' in kwargs:
         kwargs['filter'] = kwargs.pop('filters')
     return kwargs
@@ -79,11 +79,13 @@ def _normalise_key_values(filter_obj, attr_map=None):
             # FIXME: deprecate this $ nonsense
             canonical_operator = FILTER_OPERATOR_ALIASES.get(operator.lstrip('$'))
             if canonical_operator is None:
-                raise CloudValueError('Invalid operator %r for filter key %s; must be one of:\n%s' % (
-                    operator,
-                    key,
-                    FILTER_OPERATOR_ALIASES.keys()
-                ))
+                raise CloudValueError(
+                    'Invalid operator %r for filter key %s; must be one of:\n%s' % (
+                        operator,
+                        key,
+                        FILTER_OPERATOR_ALIASES.keys()
+                    )
+                )
             canonical_key = str('%s__%s' % (aliased_key, canonical_operator))
             new_filter[canonical_key] = _normalise_value(value)
     return new_filter

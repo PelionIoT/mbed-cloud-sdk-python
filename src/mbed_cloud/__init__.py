@@ -19,7 +19,6 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import datetime
-import copy
 
 from builtins import object
 from six import iteritems
@@ -28,7 +27,6 @@ from six.moves import urllib
 
 from mbed_cloud._version import __version__  # noqa
 from mbed_cloud.configuration import Config
-from mbed_cloud.exceptions import CloudValueError
 
 from mbed_cloud import filters
 
@@ -85,7 +83,7 @@ class BaseAPI(object):
         return kwargs
 
     def _verify_filters(self, kwargs, obj, encode=False):
-        """legacy entrypoint with 'encode' flag"""
+        """Legacy entrypoint with 'encode' flag"""
         return (filters.legacy_filter_formatter if encode else filters.filter_formatter)(
             kwargs,
             obj._get_attributes_map()

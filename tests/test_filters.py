@@ -3,7 +3,7 @@ import datetime
 from tests.common import BaseCase
 from mbed_cloud.device_directory import Device
 from mbed_cloud import BaseAPI
-from mbed_cloud import CloudValueError
+from mbed_cloud.exceptions import CloudValueError
 from mbed_cloud.filters import OP
 import json
 
