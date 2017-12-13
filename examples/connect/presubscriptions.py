@@ -15,7 +15,7 @@
 # limitations under the License.
 # --------------------------------------------------------------------------
 """Example showing basic usage of device presubscriptions."""
-from mbed_cloud.connect import ConnectAPI
+from mbed_cloud import ConnectAPI
 
 
 def _main():

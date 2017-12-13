@@ -15,7 +15,7 @@
 # limitations under the License.
 # --------------------------------------------------------------------------
 """Example showing devices from device query service."""
-from mbed_cloud.device_directory import DeviceDirectoryAPI
+from mbed_cloud import DeviceDirectoryAPI
 import random
 import string
 import uuid

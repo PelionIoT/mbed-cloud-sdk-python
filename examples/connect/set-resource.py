@@ -15,7 +15,7 @@
 # limitations under the License.
 # --------------------------------------------------------------------------
 """Example showing basic usage of device resource subscriptions."""
-from mbed_cloud.connect import ConnectAPI
+from mbed_cloud import ConnectAPI
 
 WRITEABLE_RESOURCE = "/5001/0/1"
 

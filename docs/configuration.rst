@@ -1,48 +1,38 @@
 Configuration
 -------------
-
-When instantiating a new API object it will look for configuration files on
-your file system and environment variables.
-
-In particular, it will look for the following files - listed in order:
-
-- `/etc/.mbed_cloud_config.json`
-- `$HOME/.mbed_cloud_config.json`
-- `$PWD/.mbed_cloud_config.json`
-- `$MBED_CLOUD_SDK_CONFIG`
-- Passed in as `dict` to API constructor
-
-It gives priority to the last file or property. In other words, you can override the config
-file in `/etc` by placing a local config file in the project directory or
-passing it directly to the API object constructor.
+Configuration parameters can be set in the following ways:
+- In json file(s)
+- Directly when instantiating a new API object
 
 Configuration parameters
 ========================
 
 Set the following configuration parameters:
-
 - `api_key`: The API key created in https://portal.us-east-1.mbedcloud.com/ (Required)
-- `host`: Override the default API host to use. Needs to be HTTPS. (Optional)
 
-Example configuration file
+Configuration files
 ==========================
-
-You can place this file in any of the locations listed above.
+The file should be named `.mbed_cloud_config.json` and placed in any of the following directories, with
+more specific directories taking precedence for conflicting parameters. In order of specificity:
+- on unix: `/etc/`
+- current user home
+- current working directory
+- the path specified by the environment variable: `MBED_CLOUD_SDK_CONFIG`
 
 .. code-block:: text
 
   $ cat .mbed_cloud_config.json
   {
-    "api_key": "ak_*********",
-    "host": "https://api.us-east-1.mbedcloud.com"
+    "api_key": "ak_*********"
   }
 
-Passing in configuration parameters in constructor
-==================================================
+Configuration on instantiation
+==============================
 
-You can also override the configuration on a per-API basis.
+Configuration on a per-object basis takes precedence over any other configuration source:
 
 .. code-block:: python
 
-  >>> config = { "api_key": "ak_******", "host": "https://api.us-east-1.mbedcloud.com" }
-  >>> api = AccountManagementAPI(config)
+  from mbed_cloud import AccountManagementAPI
+  config = { "api_key": "ak_*********" }
+  api = AccountManagementAPI(config)
