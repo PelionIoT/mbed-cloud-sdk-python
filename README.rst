@@ -44,7 +44,7 @@ documentation <https://cloud.mbed.com/docs/v1.2/mbed-cloud-sdk-python/>`__:
 
    .. code:: python
 
-       from mbed_cloud.connect import ConnectAPI
+       from mbed_cloud import ConnectAPI
        connect_api = ConnectAPI()
        connect_api.list_connected_devices().data[0]
        {
@@ -55,7 +55,7 @@ documentation <https://cloud.mbed.com/docs/v1.2/mbed-cloud-sdk-python/>`__:
 
    .. code:: python
 
-       from mbed_cloud.account_management import AccountManagementAPI
+       from mbed_cloud import AccountManagementAPI
        api = AccountManagementAPI()
        list(api.list_users())[0]
        {

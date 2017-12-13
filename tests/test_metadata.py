@@ -1,6 +1,6 @@
 from tests.common import BaseCase
 from mbed_cloud.device_directory import DeviceDirectoryAPI
-from mbed_cloud import ApiMetadata
+from mbed_cloud.core import ApiMetadata
 
 
 class TestFilters(BaseCase):

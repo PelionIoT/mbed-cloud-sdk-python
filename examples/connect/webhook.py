@@ -15,7 +15,7 @@
 # limitations under the License.
 # --------------------------------------------------------------------------
 """Example showing basic usage of the webhook functionality."""
-from mbed_cloud.connect import ConnectAPI
+from mbed_cloud import ConnectAPI
 import time
 
 BUTTON_RESOURCE = "/5002/0/1"

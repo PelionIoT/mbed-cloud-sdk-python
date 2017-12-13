@@ -20,10 +20,11 @@ from __future__ import unicode_literals
 import logging
 
 # Import common functions and exceptions from frontend API
-from mbed_cloud import BaseAPI
-from mbed_cloud import BaseObject
+from mbed_cloud.core import BaseAPI
+from mbed_cloud.core import BaseObject
+from mbed_cloud.core import PaginatedResponse
+
 from mbed_cloud.decorators import catch_exceptions
-from mbed_cloud import PaginatedResponse
 
 # Import backend API
 import mbed_cloud._backends.device_directory as device_directory
@@ -32,8 +33,7 @@ from mbed_cloud._backends.device_directory.models import DeviceDataPostRequest
 from mbed_cloud._backends.device_directory.models import DeviceEventData
 from mbed_cloud._backends.device_directory.models import DeviceQuery
 from mbed_cloud._backends.device_directory.models import DeviceQueryPatchRequest
-from mbed_cloud._backends.device_directory.rest import \
-    ApiException as DeviceDirectoryApiException
+from mbed_cloud._backends.device_directory.rest import ApiException as DeviceDirectoryApiException
 
 LOG = logging.getLogger(__name__)
 
