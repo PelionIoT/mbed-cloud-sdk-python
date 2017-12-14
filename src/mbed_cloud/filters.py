@@ -18,7 +18,6 @@
 
 import copy
 import datetime
-from six.moves import urllib
 
 from mbed_cloud.exceptions import CloudValueError
 
@@ -116,8 +115,8 @@ def legacy_filter_formatter(kwargs, attr_map):
     params = _normalise_kwargs_filter(copy.copy(kwargs))
     new_filter = _get_filter(sdk_filter=params.pop('filter', {}), attr_map=attr_map)
     if new_filter:
-        new_filter = sorted([(k.rsplit('__eq')[0], v) for k, v in new_filter.items()])
-        params['filter'] = urllib.parse.urlencode(new_filter)
+        new_filter = sorted(['%s=%s' % (k.rsplit('__eq')[0], v) for k, v in new_filter.items()])
+        params['filter'] = '&'.join(new_filter)
     return params
 
 
