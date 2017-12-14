@@ -66,6 +66,7 @@ class TestWithRPC(BaseCase):
             raise Exception('no host address determined')
         if self.host.startswith('ip'):
             self.host = self.host[3:].strip('.').replace('-', '.')
+        print('host from routing table:', self.host)
 
         cmd = """ifconfig lxcbr0 | awk '/inet addr/{split($2,a,":"); print a[2]}'"""
         try:
@@ -92,6 +93,10 @@ class TestWithRPC(BaseCase):
             raise
         else:
             print('looks like the server is ok')
+        # FIXME: remove these
+        print(subprocess.check_output(shlex.split('ps -aux')))
+        print(subprocess.check_output(shlex.split('netstat -aon')))
+        print('routes table:\n%s' % routes)
 
     def test_run(self):
         version = 'py%s%s' % platform.python_version_tuple()[:2]  # build a directory that matches tox's {envvar}

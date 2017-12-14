@@ -1,5 +1,9 @@
 # validate this file using:
 #   python -c "import sys, yaml, json; json.dump(yaml.load(sys.stdin), sys.stdout, indent=4)" < .circleci/config.yml > out.json
+#
+# this document makes use of yaml aliases and merging to attempt to keep it DRY - http://www.yaml.org/refcard.html
+#
+# the build matrix is the combinatoric result of [Py2, Py3] * [Production, Staging, etc...]
 
 version: 2
 iteration: 7
@@ -21,11 +25,10 @@ aliases:
 
   - &job_build_common
     steps:
-#    - run: python -c "import os; import pprint;  pprint.pprint(os.environ)"
     - restore_cache:
         keys: [*branch_cache_key]
-    - run: sudo pip install pipenv
     - checkout
+    - run: sudo pip install pipenv
     - run: pipenv install --dev
     - run: pipenv install '-e .' --skip-lock
     - save_cache:
@@ -36,44 +39,41 @@ aliases:
         root: .
         paths:
           - ./*
-#    - save_cache:
-#        key: *branch_cache_key
-#        paths:
-#          - *venv_dir
 
   - &job_test_common
-    # FIXME: 'build' here is same as build_dir, needs DRYing
     steps:
       - run: echo 'assuming all ok'
-#      - restore_cache:
-#          keys: [*branch_cache_key]
-#      - setup_remote_docker
-#      - run: sudo pip install pipenv awscli
-#      - attach_workspace:
-#          <<: *workspace
-#      - run: |
-#              echo "{\"api_key\":\"$MBED_CLOUD_API_KEY\", \"host\":\"$MBED_CLOUD_API_HOST\"}" > .mbed_cloud_config.json
-#              login="$(aws ecr get-login --no-include-email)"
-#              ${login}
-#              docker pull ${TESTRUNNER_DOCKER_IMAGE}
-#      - run: mkdir -p results
-#      - run: pipenv run pytest --tb=short --cov=mbed_cloud --cov-config=.coveragerc --cov-report=html --cov-report=xml --junitxml=results/unittests.xml --self-contained-html --html=results/unittests.html
-#      - run: pipenv run python -c "from xml.etree import\
-#              ElementTree; import json, os; json.dump(\{k:ElementTree.parse(v).getroot().attrib\
-#              for k,v in (('integration',r'results/rpc/results.xml'),\
-#              ('unittests',r'results/unittests.xml'),\
-#              ('coverage',r'results/coverage.xml'))},\
-#              open(os.path.expanduser('results/summary.json'), 'w'))"
-#      - store_artifacts:
-#          path: results
-#      - store_artifacts:
-#          path: rpc_results
-#      - run: codecov --file=results/coverage.xml -e PYVER,CLOUD_VERSION
+      - attach_workspace:
+          <<: *workspace
+      - restore_cache:
+          keys: [*branch_cache_key]
+      - setup_remote_docker
+      - run: sudo pip install pipenv awscli
+      - run: |
+              echo "{\"api_key\":\"$MBED_CLOUD_API_KEY\", \"host\":\"$MBED_CLOUD_API_HOST\"}" > .mbed_cloud_config.json
+              login="$(aws ecr get-login --no-include-email)"
+              ${login}
+              docker pull ${TESTRUNNER_DOCKER_IMAGE}
+      - run: mkdir -p results
+      - run: pipenv run pytest --tb=short --cov=mbed_cloud --cov-config=.coveragerc --cov-report=html --cov-report=xml --junitxml=results/unittests.xml --self-contained-html --html=results/unittests.html
+      - run: pipenv run python -c "from xml.etree import\
+              ElementTree; import json, os; json.dump(\{k:ElementTree.parse(v).getroot().attrib\
+              for k,v in (('integration',r'results/rpc/results.xml'),\
+              ('unittests',r'results/unittests.xml'),\
+              ('coverage',r'results/coverage.xml'))},\
+              open(os.path.expanduser('results/summary.json'), 'w'))"
+      - store_artifacts:
+          path: results
+      - store_artifacts:
+          path: rpc_results
+      - run: codecov --file=results/coverage.xml -e PYVER,CLOUD_VERSION
 
   - &job_deploy_common
     steps:
       - attach_workspace:
           <<: *workspace
+      - restore_cache:
+          keys: [*branch_cache_key]
       - run: sudo pip install pipenv
       - run: pipenv install twine
       - run:
@@ -87,11 +87,6 @@ aliases:
                   echo 'registering and deploying package to ${DEPLOY_TARGET}'
                   ls dist
                   pipenv run twine upload dist/*
-
-    # TODO: envvar configuration from https://pypi.python.org/pypi/twine
-#    - run: twine upload dist/*
-    # TODO: docs upload may need to load from cache
-    #- run: aws s3 sync --delete --cache-control max-age=3600 ~/docs s3://mbed-cloud-sdk-python
 
 jobs:
   build_2:
@@ -114,11 +109,11 @@ jobs:
     docker:
       - image: circleci/python:3.6.1
     steps:
+      - attach_workspace:
+          <<: *workspace
       - restore_cache:
           keys: [*branch_cache_key]
       - run: sudo pip install pipenv
-      - attach_workspace:
-          <<: *workspace
       - run: pipenv run python scripts/tpip.py python_tpip.csv
       - store_artifacts:
           path: python_tpip.csv
@@ -131,6 +126,8 @@ jobs:
     steps:
       - attach_workspace:
           <<: *workspace
+      - restore_cache:
+          keys: [*branch_cache_key]
       - run: sudo apt-get update
       - run: sudo apt-get install pandoc
       - run: sudo pip install pipenv
@@ -198,14 +195,14 @@ workflows:
   version: 2
   build_test_deploy:
     jobs:
-#      - build_2
+      - build_2
       - build_3
-#      - test_integration_2:
-#          requires:
-#            - build_2
-#      - test_production_2:
-#          requires:
-#            - build_2
+      - test_integration_2:
+          requires:
+            - build_2
+      - test_production_2:
+          requires:
+            - build_2
       - test_integration_3:
           requires:
             - build_3
@@ -222,12 +219,12 @@ workflows:
       - release_beta:
           type: approval
           requires:
-#            - test_integration_2
+            - test_integration_2
             - test_integration_3
       - release_production:
           type: approval
           requires:
-#            - test_production_2
+            - test_production_2
             - test_production_3
           filters:
             branches:
