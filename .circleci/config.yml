@@ -2,29 +2,23 @@ version: 2
 iteration: 7
 aliases:
   - &build_cache_key 'v1-{{ .Branch }}'
+
   - &environ
     RESULTS: ${HOME}/results
     PROJECT_REPORTS: ${HOME}/reports
     DOCS: ${HOME}/docs
+    PIPENV_VENV_IN_PROJECT: true
     TESTRUNNER_DOCKER_IMAGE: 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
     DEPLOY_TARGET: null
     MBED_CLOUD_API_KEY: null
     MBED_CLOUD_API_HOST: null
-  - &step_deploy_common
-    run:
-      name: Deploy the build
-      command: |
-              echo 'I would deploy to ${DEPLOY_TARGET}'
-              pip install twine
-              python setup.py sdist bdist_wheel
-              twine register dist
+
   - &job_test_common
     steps:
       - setup_remote_docker
+      - run: sudo pip install pipenv
       - restore_cache:
           keys: [*build_cache_key]
-      - run: sudo pip install awscli
-      - run: sudo pip install -r requirements.dev.txt
       - run: |
               echo "{\"api_key\":\"$MBED_CLOUD_API_KEY\", \"host\":\"$MBED_CLOUD_API_HOST\"}" > .mbed_cloud_config.json
               login="$(aws ecr get-login)"
@@ -32,10 +26,10 @@ aliases:
               login="$(aws ecr get-login --no-include-email)"
               ${login}
               docker pull ${TESTRUNNER_DOCKER_IMAGE}
-      - run: pytest --tb=short --cov=mbed_cloud --cov-config .coveragerc\
+      - run: pipenv run pytest --tb=short --cov=mbed_cloud --cov-config .coveragerc\
               --cov-report html --cov-report xml --junitxml=~/results/unittests.xml\
               --html=~/results/unittests.html --self-contained-html
-      - run: python -c "from xml.etree import\
+      - run: pipenv run python -c "from xml.etree import\
               ElementTree; import json, os; json.dump(\{k:ElementTree.parse(os.path.expanduser(v)).getroot().attrib\
               for k,v in (('integration',r'~/rpc_results/results.xml'),\
               ('unittests',r'~/results/unittests.xml'),\
@@ -44,9 +38,16 @@ aliases:
       - store_artifacts:
           path: ${RESULTS}
           destination: ${PYVER}/${CLOUD_VERSION}
-      - run: pip install codecov
       - run: codecov --file=/home/ubuntu/results/coverage.xml -e PYVER,CLOUD_VERSION
 
+  - &step_deploy_common
+    run:
+      name: Deploy the build
+      command: |
+              echo 'I would deploy to ${DEPLOY_TARGET}'
+              pipenv install twine
+              pipenv run python setup.py sdist bdist_wheel
+              twine register dist
     # TODO: envvar configuration from https://pypi.python.org/pypi/twine
 #    - run: twine upload dist/*
     # TODO: docs upload may need to load from cache
@@ -60,15 +61,16 @@ jobs:
     docker:
       - image: circleci/python:3.6.1
     steps:
-      - checkout
+      - run: sudo pip install pipenv
       - restore_cache:
           keys: [*build_cache_key]
-      - run: sudo pip install awscli
-      - run: sudo pip install -r requirements.dev.txt
+      - checkout
+      - run: pipenv install -r requirements.dev.txt
+      - run: pipenv install --skip-lock awscli codecov
       - save_cache:
           key: *build_cache_key
           paths:
-            - ~/.cache/pip
+            - $CIRCLE_WORKING_DIRECTORY
 
   tpip_report:
     environment:
@@ -78,8 +80,7 @@ jobs:
     steps:
       - restore_cache:
           keys: [*build_cache_key]
-      - run: sudo pip install -r requirements.txt
-      - run: python scripts/tpip.py ${PROJECT_REPORTS}/tpip.csv
+      - run: pipenv run python scripts/tpip.py ${PROJECT_REPORTS}/tpip.csv
       - store_artifacts:
           path: ${PROJECT_REPORTS}
 
@@ -91,10 +92,9 @@ jobs:
     steps:
       - restore_cache:
           keys: [*build_cache_key]
-      - run: sudo pip install -r requirements.dev.txt
       - run: sudo apt-get update
       - run: sudo apt-get install pandoc
-      - run: sphinx-build -a -b html -c docs/ docs/ ${DOCS}
+      - run: pipenv run sphinx-build -a -b html -c docs/ docs/ ${DOCS}
       - store_artifacts:
           path: ${DOCS}
 
