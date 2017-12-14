@@ -1,7 +1,8 @@
 version: 2
 iteration: 7
 aliases:
-  - &build_cache_key 'v1-{{ .Branch }}'
+  - &build_cache_key 'v1-{{ .Branch }}-{{ .Revision }}'
+  - &branch_cache_key 'v1-{{ .Branch }}'
 
   - &environ
     RESULTS: ${HOME}/results
@@ -21,9 +22,9 @@ aliases:
           keys: [*build_cache_key]
       - run: |
               echo "{\"api_key\":\"$MBED_CLOUD_API_KEY\", \"host\":\"$MBED_CLOUD_API_HOST\"}" > .mbed_cloud_config.json
-              login="$(aws ecr get-login)"
+              login="$(pipenv run aws ecr get-login)"
               ${login}
-              login="$(aws ecr get-login --no-include-email)"
+              login="$(pipenv run aws ecr get-login --no-include-email)"
               ${login}
               docker pull ${TESTRUNNER_DOCKER_IMAGE}
       - run: pipenv run pytest --tb=short --cov=mbed_cloud --cov-config .coveragerc\
@@ -63,12 +64,16 @@ jobs:
     steps:
       - run: sudo pip install pipenv
       - restore_cache:
-          keys: [*build_cache_key]
+          keys: [*branch_cache_key]
       - checkout
       - run: pipenv install -r requirements.dev.txt
       - run: pipenv install --skip-lock awscli codecov
       - save_cache:
           key: *build_cache_key
+          paths:
+            - $CIRCLE_WORKING_DIRECTORY
+      - save_cache:
+          key: *branch_cache_key
           paths:
             - $CIRCLE_WORKING_DIRECTORY
 

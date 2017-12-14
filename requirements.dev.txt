@@ -7,20 +7,23 @@
 
 # For testing
 Flask==0.12.2
-pytest==3.2.3
+pytest==3.3.1
 pytest-cov==2.5.1
 pytest-html==1.16.0
-coverage==4.4.1
-codecov==2.0.9
+coverage==4.4.2
+codecov==2.0.10
+mock==2.0.0
 # Code analysis
+flake8==2.5.5
 flake8-copyright==0.2.0
 flake8-docstrings==1.1.0
 hacking==1.0.0
-pycodestyle==2.3.1
+pycodestyle==2.0.0
 # Documentation
 Sphinx==1.6.5
 ## The following requirements were added by pip freeze:
 alabaster==0.7.10
+attrs==17.3.0
 Babel==2.5.1
 certifi==2017.7.27.1
 chardet==3.0.4
@@ -29,22 +32,24 @@ colorama==0.3.9
 configparser==3.5.0
 docutils==0.14
 enum34==1.1.6
-flake8==2.6.2
 flake8-polyfill==1.0.1
+funcsigs==1.0.2
+future==0.16.0
 idna==2.6
 imagesize==0.7.1
 itsdangerous==0.24
 Jinja2==2.9.6
 MarkupSafe==1.0
 mccabe==0.2.1
-mock==2.0.0
 pbr==3.1.1
 pep8==1.5.7
-py==1.4.34
+pluggy==0.6.0
+py==1.5.2
 pydocstyle==2.1.1
 pyflakes==0.8.1
 Pygments==2.2.0
 pytest-metadata==1.5.0
+python-dateutil==2.6.1
 pytz==2017.2
 requests==2.18.4
 six==1.11.0
