@@ -95,8 +95,12 @@ class TestWithRPC(BaseCase):
 
     def test_run(self):
         version = 'py%s%s' % platform.python_version_tuple()[:2]  # build a directory that matches tox's {envvar}
-        results_file = os.getenv('TESTRUNNER_OUTPUT_DIR', os.path.join(os.path.expanduser('~'), 'rpc_results', version))
-        fixtures_path = os.path.join(os.path.dirname(__file__), 'fixtures')
+        results_file = os.path.abspath(
+            os.getenv('TESTRUNNER_OUTPUT_DIR', os.path.join(os.path.expanduser('~'), 'rpc_results', version))
+        )
+        fixtures_path = os.path.abspath(
+            os.path.join(os.path.dirname(__file__), 'fixtures')
+        )
 
         cmd = shlex.split(
             'docker run --rm --net=host --name=testrunner_container'

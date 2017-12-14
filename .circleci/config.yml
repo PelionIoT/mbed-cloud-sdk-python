@@ -4,7 +4,7 @@
 version: 2
 iteration: 7
 aliases:
-  - &branch_cache_key 'v2-{{ .Branch }}'
+  - &branch_cache_key 'v3-{{ checksum "Pipfile.lock" }}'
   - &build_dir build
   - &build_dir_glob build/*
   - &venv_dir build/.venv
@@ -12,25 +12,26 @@ aliases:
     at: ~/project
 
   - &environ
-    PROJECT_REPORTS: ${HOME}/reports
-    DOCS: ${HOME}/docs
     BUILD_DIR: *build_dir
+    PYTHONUNBUFFERED: true
     PIPENV_VENV_IN_PROJECT: true
     TESTRUNNER_DOCKER_IMAGE: 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
-    TESTRUNNER_OUTPUT_DIR: results/rpc
+    TESTRUNNER_OUTPUT_DIR: rpc_results
     DEPLOY_TARGET: null
-    MBED_CLOUD_API_KEY: null
-    MBED_CLOUD_API_HOST: null
 
   - &job_build_common
     steps:
 #    - run: python -c "import os; import pprint;  pprint.pprint(os.environ)"
     - run: sudo pip install pipenv
     - checkout
-# FIXME: cache, if its useful at all, is per-python
-#    - restore_cache:
-#        keys: [*branch_cache_key]
-    - run: pipenv install '-e .' --dev
+    - restore_cache:
+        keys: [*branch_cache_key]
+    - run: pipenv install --dev
+    - run: pipenv install '-e .' --skip-lock
+    - save_cache:
+        key: *branch_cache_key
+        paths:
+          - ~/.cache/pip
     - persist_to_workspace:
         root: .
         paths:
@@ -61,9 +62,10 @@ aliases:
               ('coverage',r'results/coverage.xml'))},\
               open(os.path.expanduser('results/summary.json'), 'w'))"
       - store_artifacts:
-          path: ${RESULTS}
-          destination: ${PYVER}/${CLOUD_VERSION}
-      - run: codecov --file=/home/ubuntu/results/coverage.xml -e PYVER,CLOUD_VERSION
+          path: results
+      - store_artifacts:
+          path: rpc_results
+      - run: codecov --file=results/coverage.xml -e PYVER,CLOUD_VERSION
 
   - &job_deploy_common
     steps:
@@ -118,15 +120,14 @@ jobs:
       - run: sudo apt-get update
       - run: sudo apt-get install pandoc
       - run: sudo pip install pipenv
-      - run: pipenv run sphinx-build -a -b html -c docs/ docs/ ${DOCS}
+      - run: pipenv run sphinx-build -a -b html -c docs/ docs/ built_docs
       - store_artifacts:
-          path: ${DOCS}
+          path: built_docs
 
   test_integration_2:
     <<: *job_test_common
     environment:
       <<: *environ
-      MBED_CLOUD_API_HOST: integration
       CLOUD_VERSION: integration
       PYVER: 2
     docker:
@@ -136,7 +137,6 @@ jobs:
     <<: *job_test_common
     environment:
       <<: *environ
-      MBED_CLOUD_API_HOST: integration
       CLOUD_VERSION: integration
       PYVER: 3
     docker:
@@ -146,7 +146,8 @@ jobs:
     <<: *job_test_common
     environment:
       <<: *environ
-      MBED_CLOUD_API_HOST: production
+      MBED_CLOUD_API_HOST: production_host
+      MBED_CLOUD_API_KEY: production_key
       CLOUD_VERSION: production
       PYVER: 2
     docker:
@@ -156,7 +157,8 @@ jobs:
     <<: *job_test_common
     environment:
       <<: *environ
-      MBED_CLOUD_API_HOST: production
+      MBED_CLOUD_API_HOST: production_host
+      MBED_CLOUD_API_KEY: production_key
       CLOUD_VERSION: production
       PYVER: 3
     docker:
