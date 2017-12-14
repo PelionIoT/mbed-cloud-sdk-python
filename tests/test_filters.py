@@ -45,14 +45,14 @@ class TestFilters(BaseCase):
 
     def test_simple_valid(self):
         self._run(
-            {u'filter': 'created_at__gte=2017-01-01T00:00:00Z&created_at__lte=2017-12-31T00:00:00Z'},
+            {u'filter': 'created_at__gte=2017-01-01T00%3A00%3A00Z&created_at__lte=2017-12-31T00%3A00%3A00Z'},
             filter=simple_filter
         )
 
     def test_simple_plural_valid(self):
         # FIXME: why are we allowed to use `filter` or `filters`? too permissive.
         self._run(
-            {u'filter': 'created_at__gte=2017-01-01T00:00:00Z&created_at__lte=2017-12-31T00:00:00Z'},
+            {u'filter': 'created_at__gte=2017-01-01T00%3A00%3A00Z&created_at__lte=2017-12-31T00%3A00%3A00Z'},
             # note plural 'filters' phrase
             filters=simple_filter
         )
@@ -73,8 +73,8 @@ class TestFilters(BaseCase):
         self._run(
             {'filter': (
                 'deployment=yellow'
-                '&deployment__gte=2017-01-01T00:00:00Z'
-                '&device_class=red & "yellow", <green>'
+                '&deployment__gte=2017-01-01T00%3A00%3A00Z'
+                '&device_class=red+%26+%22yellow%22%2C+%3Cgreen%3E'
                 '&firmware_checksum=None'
                 '&name=False'
                 '&state=True'
@@ -107,7 +107,7 @@ class TestFilters(BaseCase):
         with self.assertRaises(CloudValueError):
             self._run(
                 {
-                    u'filter': 'nuthing__gte=2017-01-01T00:00:00Z&nuthing__lte=2017-12-31T00:00:00Z',
+                    u'filter': 'nuthing__gte=2017-01-01T00%3A00%3A00Z&nuthing__lte=2017-12-31T00%3A00%3A00Z',
                     'other_stuff': None
                 },
                 filters=filters,
@@ -146,12 +146,12 @@ class TestFilters(BaseCase):
         self._run({u'filter': (
                 'custom_attributes__firmware_checksum=None'
                 '&custom_attributes__last_deployment=yellow'
-                '&custom_attributes__last_deployment__gte=2017-01-01T00:00:00Z'
+                '&custom_attributes__last_deployment__gte=2017-01-01T00%3A00%3A00Z'
                 '&custom_attributes__name=False'
                 '&custom_attributes__state=True'
                 '&custom_attributes__trust_class__gte=5'
                 '&custom_attributes__vendor_id=green'
-                '&name=red & yellow'
+                '&name=red+%26+yellow'
             ),
             'other_stuff': 'yes'
         }, filters=filters, other_stuff='yes')
