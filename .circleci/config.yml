@@ -2,30 +2,14 @@ version: 2
 iteration: 7
 aliases:
   - &build_cache_key 'v1-{{ .Branch }}'
-  - &partial_build_cache_key 'v1-{{ .Branch }}-partial'
-  - &container_config
-    environment:
-      RESULTS: ${HOME}/results
-      PROJECT_REPORTS: ${HOME}/reports
-      DOCS: ${HOME}/docs
-      TESTRUNNER_DOCKER_IMAGE: 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
-      DEPLOY_TARGET: null
-      MBED_CLOUD_API_KEY: null
-      MBED_CLOUD_API_HOST: null
-    machine: true
-  - &step_test_pre
-    run: |
-        echo "{\"api_key\":\"$MBED_CLOUD_API_KEY\", \"host\":\"$MBED_CLOUD_API_HOST\"}" > .mbed_cloud_config.json
-        login="$(aws ecr get-login)"
-        ${login}
-        login="$(aws ecr get-login --no-include-email)"
-        ${login}
-        docker pull ${TESTRUNNER_DOCKER_IMAGE}
-  - &step_test_run
-    run: tox
-  - &step_test_post
-    store_artifacts:
-      path: ${RESULTS}
+  - &environ
+    RESULTS: ${HOME}/results
+    PROJECT_REPORTS: ${HOME}/reports
+    DOCS: ${HOME}/docs
+    TESTRUNNER_DOCKER_IMAGE: 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
+    DEPLOY_TARGET: null
+    MBED_CLOUD_API_KEY: null
+    MBED_CLOUD_API_HOST: null
   - &step_deploy_common
     run:
       name: Deploy the build
@@ -34,6 +18,35 @@ aliases:
               pip install twine
               python setup.py sdist bdist_wheel
               twine register dist
+  - &job_test_common
+    steps:
+      - setup_remote_docker
+      - restore_cache:
+          keys: [*build_cache_key]
+      - run: sudo pip install awscli
+      - run: sudo pip install -r requirements.dev.txt
+      - run: |
+              echo "{\"api_key\":\"$MBED_CLOUD_API_KEY\", \"host\":\"$MBED_CLOUD_API_HOST\"}" > .mbed_cloud_config.json
+              login="$(aws ecr get-login)"
+              ${login}
+              login="$(aws ecr get-login --no-include-email)"
+              ${login}
+              docker pull ${TESTRUNNER_DOCKER_IMAGE}
+      - run: pytest --tb=short --cov=mbed_cloud --cov-config .coveragerc\
+              --cov-report html --cov-report xml --junitxml=~/results/unittests.xml\
+              --html=~/results/unittests.html --self-contained-html
+      - run: python -c "from xml.etree import\
+              ElementTree; import json, os; json.dump(\{k:ElementTree.parse(os.path.expanduser(v)).getroot().attrib\
+              for k,v in (('integration',r'~/rpc_results/results.xml'),\
+              ('unittests',r'~/results/unittests.xml'),\
+              ('coverage',r'~/results/coverage.xml'))},\
+              open(os.path.expanduser('~/results/summary.json'), 'w'))"
+      - store_artifacts:
+          path: ${RESULTS}
+          destination: ${PYVER}/${CLOUD_VERSION}
+      - run: pip install codecov
+      - run: codecov --file=/home/ubuntu/results/coverage.xml -e PYVER,CLOUD_VERSION
+
     # TODO: envvar configuration from https://pypi.python.org/pypi/twine
 #    - run: twine upload dist/*
     # TODO: docs upload may need to load from cache
@@ -42,147 +55,106 @@ aliases:
 
 jobs:
   build:
-    <<: *container_config
+    environment:
+      <<: *environ
+    docker:
+      - image: circleci/python:3.6.1
     steps:
       - checkout
       - restore_cache:
-          keys: [*build_cache_key, *partial_build_cache_key]
-      - run: sudo pip install awscli tox tox-pyenv
-      - run: sudo apt-get install python python3
-      - run: pyenv local 2.7.12 3.6.2
-      - save_cache:
-          key: *partial_build_cache_key
-          paths:
-            - ~/.cache/pip
-      - run: tox --notest
+          keys: [*build_cache_key]
+      - run: sudo pip install awscli
+      - run: sudo pip install -r requirements.dev.txt
       - save_cache:
           key: *build_cache_key
           paths:
             - ~/.cache/pip
-            - .tox
-    environment:
-      PROJECT_REPORTS: ${HOME}/reports
-      TESTRUNNER_DOCKER_IMAGE: 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
 
   tpip_report:
-    <<: *container_config
+    environment:
+      <<: *environ
+    docker:
+      - image: circleci/python:3.6.1
     steps:
       - restore_cache:
           keys: [*build_cache_key]
-      - run: tox -e tpip ${PROJECT_REPORTS}
+      - run: sudo pip install -r requirements.txt
+      - run: python scripts/tpip.py ${PROJECT_REPORTS}/tpip.csv
       - store_artifacts:
           path: ${PROJECT_REPORTS}
 
   docs_build:
-    <<: *container_config
+    environment:
+      <<: *environ
+    docker:
+      - image: circleci/python:3.6.1
     steps:
       - restore_cache:
           keys: [*build_cache_key]
+      - run: sudo pip install -r requirements.dev.txt
       - run: sudo apt-get update
       - run: sudo apt-get install pandoc
-      - run: source .tox/py36/bin/activate && sphinx-build -a -b html -c docs/ docs/ ${DOCS}
+      - run: sphinx-build -a -b html -c docs/ docs/ ${DOCS}
       - store_artifacts:
           path: ${DOCS}
 
-  test_integration:
-    <<: *container_config
+  test_integration_2:
+    <<: *job_test_common
     environment:
+      <<: *environ
       MBED_CLOUD_API_HOST: integration
-    steps:
-      - setup_remote_docker
-      - *step_test_pre
-      - restore_cache:
-          keys: [*build_cache_key]
-      - *step_test_run
-      - *step_test_post
-      - run: pip install codecov
-      - run: codecov --file=/home/ubuntu/results/py36/coverage.xml
+      CLOUD_VERSION: integration
+      PYVER: 2
+    docker:
+      - image: circleci/python:2.7.13
 
-  test_production:
-    <<: *container_config
+  test_integration_3:
+    <<: *job_test_common
     environment:
+      <<: *environ
+      MBED_CLOUD_API_HOST: integration
+      CLOUD_VERSION: integration
+      PYVER: 3
+    docker:
+      - image: circleci/python:3.6.1
+
+  test_production_2:
+    <<: *job_test_common
+    environment:
+      <<: *environ
       MBED_CLOUD_API_HOST: production
-    steps:
-      - setup_remote_docker
-      - *step_test_pre
-      - restore_cache:
-          keys: [*build_cache_key]
-      - *step_test_run
-      - *step_test_post
+      CLOUD_VERSION: production
+      PYVER: 2
+    docker:
+      - image: circleci/python:2.7.13
+
+  test_production_3:
+    <<: *job_test_common
+    environment:
+      <<: *environ
+      MBED_CLOUD_API_HOST: production
+      CLOUD_VERSION: production
+      PYVER: 3
+    docker:
+      - image: circleci/python:3.6.1
 
   deploy_beta:
-    <<: *container_config
     environment:
+      <<: *environ
       DEPLOY_TARGET: testpypi
+    docker:
+      - image: circleci/python:3.6.1
     steps:
       - *step_deploy_common
 
   deploy_production:
-    <<: *container_config
     environment:
+      <<: *environ
       DEPLOY_TARGET: realpypi
+    docker:
+      - image: circleci/python:3.6.1
     steps:
       - *step_deploy_common
-
-#
-#general:
-#  artifacts:
-#    - ~/results
-#    - ~/rpc_results
-#    - ~/docs
-#    - ~/reports
-#
-#dependencies:
-#  pre:
-#    # switch out environment variables depending on branch
-#    - |
-#      if [[ $CIRCLE_BRANCH == production ]]; then
-#        echo 'export MBED_CLOUD_API_HOST=$MBED_CLOUD_API_HOST_PROD' >> ~/.circlerc;
-#        echo 'export MBED_CLOUD_API_KEY=$MBED_CLOUD_API_KEY_PROD' >> ~/.circlerc;
-#        echo 'environment variables swapped';
-#      fi
-#  override:
-#    - sudo apt-get update
-#    - sudo apt-get install pandoc
-#    - pip install awscli codecov
-#    # AWS and docker and circleci do not get along well:
-#    # for safety, try both ways of assigning credentials
-#    - |
-#      login="$(aws ecr get-login)"
-#      ${login}
-#      login="$(aws ecr get-login --no-include-email)"
-#      ${login}
-#    - docker pull $TESTRUNNER_DOCKER_IMAGE
-#    - pip install tox tox-pyenv
-#    - pyenv local 2.7.12 3.6.2
-#    - tox --notest
-#  cache_directories:
-#    - ".tox"
-#
-#test:
-#  pre:
-#    - echo "{\"api_key\":\"$MBED_CLOUD_API_KEY\", \"host\":\"$MBED_CLOUD_API_HOST\"}" > .mbed_cloud_config.json
-#    - cat .mbed_cloud_config.json
-#  override:
-#    # Run tests
-#    - tox
-#    # Create a third party IP report
-#    - tox -e tpip
-#    - mkdir -p ${PROJECT_REPORTS}
-#    - mv tpip.csv ${PROJECT_REPORTS}/
-#  post:
-#    - source .tox/py36/bin/activate && sphinx-build -a -b html -c docs/ docs/ ~/docs
-#    - mkdir -p $CIRCLE_TEST_REPORTS/tests/
-#    - cp ~/results/py36/unittests.xml $CIRCLE_TEST_REPORTS/tests/
-#    - cp ~/rpc_results/py36/results.xml $CIRCLE_TEST_REPORTS/tests/
-#    - codecov --file=/home/ubuntu/results/py36/coverage.xml
-#
-#deployment:
-#  staging:
-#    branch: master
-#    commands:
-#      - aws s3 sync --delete --cache-control max-age=3600 ~/docs s3://mbed-cloud-sdk-python
-#
 
 workflows:
   version: 2
@@ -192,23 +164,32 @@ workflows:
       - tpip_report:
           requires:
             - build
-      - test_integration:
+      - test_integration_2:
           requires:
             - build
-      - test_production:
+      - test_integration_3:
+          requires:
+            - build
+      - test_production_2:
+          requires:
+            - build
+      - test_production_3:
           requires:
             - build
       - docs_build:
           requires:
-            - test_integration
+            - test_integration_2
+            - test_integration_3
       - release_beta:
           type: approval
           requires:
-            - test_integration
+            - test_integration_2
+            - test_integration_3
       - release_production:
           type: approval
           requires:
-            - test_production
+            - test_production_2
+            - test_production_3
           filters:
             branches:
               only: production
