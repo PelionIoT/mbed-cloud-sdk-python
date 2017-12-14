@@ -95,9 +95,12 @@ class TestWithRPC(BaseCase):
 
     def test_run(self):
         version = 'py%s%s' % platform.python_version_tuple()[:2]  # build a directory that matches tox's {envvar}
-        results_file = os.path.abspath(
+        results_dir = os.path.abspath(
             os.getenv('TESTRUNNER_OUTPUT_DIR', os.path.join(os.path.expanduser('~'), 'rpc_results', version))
         )
+        if not os.path.exists(results_dir):
+            os.makedirs(results_dir)
+
         fixtures_path = os.path.abspath(
             os.path.join(os.path.dirname(__file__), 'fixtures')
         )
@@ -112,7 +115,7 @@ class TestWithRPC(BaseCase):
                 image=docker_image,
                 host=self.host,
                 fixtures=fixtures_path,
-                results=results_file,
+                results=results_dir,
             )
         )
         try:
