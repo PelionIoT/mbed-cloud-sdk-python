@@ -1,29 +1,52 @@
+# validate this file using:
+#   python -c "import sys, yaml, json; json.dump(yaml.load(sys.stdin), sys.stdout, indent=4)" < .circleci/config.yml > out.json
+
 version: 2
 iteration: 7
 aliases:
-  - &build_cache_key 'v1-{{ .Branch }}-{{ .Revision }}'
-  - &branch_cache_key 'v1-{{ .Branch }}'
+  - &branch_cache_key 'v2-{{ .Branch }}'
+  - &build_dir build
+  - &build_dir_glob build/*
+  - &venv_dir build/.venv
 
   - &environ
     RESULTS: ${HOME}/results
     PROJECT_REPORTS: ${HOME}/reports
     DOCS: ${HOME}/docs
+    BUILD_DIR: *build_dir
     PIPENV_VENV_IN_PROJECT: true
     TESTRUNNER_DOCKER_IMAGE: 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
     DEPLOY_TARGET: null
     MBED_CLOUD_API_KEY: null
     MBED_CLOUD_API_HOST: null
 
+  - &job_build_common
+    steps:
+#    - run: python -c "import os; import pprint;  pprint.pprint(os.environ)"
+    - run: sudo pip install pipenv
+    - checkout
+# FIXME: cache, if its useful at all, is per-python
+#    - restore_cache:
+#        keys: [*branch_cache_key]
+    - run: pipenv install --skip-lock -r requirements.dev.txt
+    - persist_to_workspace:
+        root: .
+        paths:
+          - ./*
+#    - save_cache:
+#        key: *branch_cache_key
+#        paths:
+#          - *venv_dir
+
   - &job_test_common
+    # FIXME: 'build' here is same as build_dir, needs DRYing
     steps:
       - setup_remote_docker
       - run: sudo pip install pipenv
-      - restore_cache:
-          keys: [*build_cache_key]
+      - attach_workspace:
+          at: ~/project/
       - run: |
               echo "{\"api_key\":\"$MBED_CLOUD_API_KEY\", \"host\":\"$MBED_CLOUD_API_HOST\"}" > .mbed_cloud_config.json
-              login="$(pipenv run aws ecr get-login)"
-              ${login}
               login="$(pipenv run aws ecr get-login --no-include-email)"
               ${login}
               docker pull ${TESTRUNNER_DOCKER_IMAGE}
@@ -41,50 +64,45 @@ aliases:
           destination: ${PYVER}/${CLOUD_VERSION}
       - run: codecov --file=/home/ubuntu/results/coverage.xml -e PYVER,CLOUD_VERSION
 
-  - &step_deploy_common
-    run:
-      name: Deploy the build
-      command: |
-              echo 'I would deploy to ${DEPLOY_TARGET}'
-              pipenv install twine
-              pipenv run python setup.py sdist bdist_wheel
-              twine register dist
+  - &job_deploy_common
+    steps:
+      - run:
+          name: Deploy the build
+          command: |
+                  echo 'I would deploy to ${DEPLOY_TARGET}'
+                  pipenv install twine
+                  pipenv run python setup.py sdist bdist_wheel
+                  twine register dist
     # TODO: envvar configuration from https://pypi.python.org/pypi/twine
 #    - run: twine upload dist/*
     # TODO: docs upload may need to load from cache
     #- run: aws s3 sync --delete --cache-control max-age=3600 ~/docs s3://mbed-cloud-sdk-python
 
-
 jobs:
-  build:
+  build_2:
+    <<: *job_build_common
+    environment:
+      <<: *environ
+    docker:
+      - image: circleci/python:2.7.13
+
+  build_3:
+    <<: *job_build_common
     environment:
       <<: *environ
     docker:
       - image: circleci/python:3.6.1
-    steps:
-      - run: sudo pip install pipenv
-      - restore_cache:
-          keys: [*branch_cache_key]
-      - checkout
-      - run: pipenv install -r requirements.dev.txt
-      - run: pipenv install --skip-lock awscli codecov
-      - save_cache:
-          key: *build_cache_key
-          paths:
-            - $CIRCLE_WORKING_DIRECTORY
-      - save_cache:
-          key: *branch_cache_key
-          paths:
-            - $CIRCLE_WORKING_DIRECTORY
 
   tpip_report:
     environment:
       <<: *environ
     docker:
       - image: circleci/python:3.6.1
+    working_directory: ~/project/build
     steps:
-      - restore_cache:
-          keys: [*build_cache_key]
+      - attach_workspace:
+          at: ~/project
+      - run: sudo pip install pipenv
       - run: pipenv run python scripts/tpip.py ${PROJECT_REPORTS}/tpip.csv
       - store_artifacts:
           path: ${PROJECT_REPORTS}
@@ -94,11 +112,13 @@ jobs:
       <<: *environ
     docker:
       - image: circleci/python:3.6.1
+    working_directory: ~/project/build
     steps:
-      - restore_cache:
-          keys: [*build_cache_key]
+      - attach_workspace:
+          at: ~/project
       - run: sudo apt-get update
       - run: sudo apt-get install pandoc
+      - run: sudo pip install pipenv
       - run: pipenv run sphinx-build -a -b html -c docs/ docs/ ${DOCS}
       - store_artifacts:
           path: ${DOCS}
@@ -144,56 +164,54 @@ jobs:
       - image: circleci/python:3.6.1
 
   deploy_beta:
+    <<: *job_deploy_common
     environment:
       <<: *environ
       DEPLOY_TARGET: testpypi
     docker:
       - image: circleci/python:3.6.1
-    steps:
-      - *step_deploy_common
 
   deploy_production:
+    <<: *job_deploy_common
     environment:
       <<: *environ
       DEPLOY_TARGET: realpypi
     docker:
       - image: circleci/python:3.6.1
-    steps:
-      - *step_deploy_common
 
 workflows:
   version: 2
   build_test_deploy:
     jobs:
-      - build
-      - tpip_report:
-          requires:
-            - build
-      - test_integration_2:
-          requires:
-            - build
+#      - build_2
+      - build_3
+#      - test_integration_2:
+#          requires:
+#            - build_2
+#      - test_production_2:
+#          requires:
+#            - build_2
       - test_integration_3:
           requires:
-            - build
-      - test_production_2:
-          requires:
-            - build
+            - build_3
       - test_production_3:
           requires:
-            - build
+            - build_3
       - docs_build:
           requires:
-            - test_integration_2
-            - test_integration_3
+            - build_3
+      - tpip_report:
+          requires:
+            - build_3
       - release_beta:
           type: approval
           requires:
-            - test_integration_2
+#            - test_integration_2
             - test_integration_3
       - release_production:
           type: approval
           requires:
-            - test_production_2
+#            - test_production_2
             - test_production_3
           filters:
             branches:
