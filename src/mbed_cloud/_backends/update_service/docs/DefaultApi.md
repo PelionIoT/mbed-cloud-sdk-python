@@ -246,7 +246,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **firmware_manifest_create**
-> FirmwareManifest firmware_manifest_create(datafile, name, description=description)
+> FirmwareManifest firmware_manifest_create(datafile, name, description=description, key_table=key_table)
 
 
 
@@ -271,9 +271,10 @@ api_instance = update_service.DefaultApi(update_service.ApiClient(configuration)
 datafile = '/path/to/file.txt' # file | The manifest file to create. The API gateway enforces the account-specific file size.
 name = 'name_example' # str | The name of the firmware manifest
 description = 'description_example' # str | The description of the firmware manifest (optional)
+key_table = '/path/to/file.txt' # file | The optional key table file to create. (optional)
 
 try: 
-    api_response = api_instance.firmware_manifest_create(datafile, name, description=description)
+    api_response = api_instance.firmware_manifest_create(datafile, name, description=description, key_table=key_table)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->firmware_manifest_create: %s\n" % e)
@@ -286,6 +287,7 @@ Name | Type | Description  | Notes
  **datafile** | **file**| The manifest file to create. The API gateway enforces the account-specific file size. | 
  **name** | **str**| The name of the firmware manifest | 
  **description** | **str**| The description of the firmware manifest | [optional] 
+ **key_table** | **file**| The optional key table file to create. | [optional] 
 
 ### Return type
 
