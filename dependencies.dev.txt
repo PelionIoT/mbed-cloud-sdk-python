@@ -15,15 +15,12 @@ codecov
 mock
 
 # Code analysis
-flake8
 flake8-copyright
 flake8-docstrings
-hacking
 pycodestyle
 
 # Documentation
 Sphinx
 
 # Deployment
-awscli
 twine

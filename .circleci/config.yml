@@ -8,14 +8,16 @@ aliases:
   - &build_dir build
   - &build_dir_glob build/*
   - &venv_dir build/.venv
+  - &workspace
+    at: ~/project
 
   - &environ
-    RESULTS: ${HOME}/results
     PROJECT_REPORTS: ${HOME}/reports
     DOCS: ${HOME}/docs
     BUILD_DIR: *build_dir
     PIPENV_VENV_IN_PROJECT: true
     TESTRUNNER_DOCKER_IMAGE: 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
+    TESTRUNNER_OUTPUT_DIR: results/rpc
     DEPLOY_TARGET: null
     MBED_CLOUD_API_KEY: null
     MBED_CLOUD_API_HOST: null
@@ -28,7 +30,7 @@ aliases:
 # FIXME: cache, if its useful at all, is per-python
 #    - restore_cache:
 #        keys: [*branch_cache_key]
-    - run: pipenv install --skip-lock -r requirements.dev.txt
+    - run: pipenv install
     - persist_to_workspace:
         root: .
         paths:
@@ -42,23 +44,24 @@ aliases:
     # FIXME: 'build' here is same as build_dir, needs DRYing
     steps:
       - setup_remote_docker
-      - run: sudo pip install pipenv
+      - run: sudo pip install pipenv awscli
       - attach_workspace:
-          at: ~/project/
+          <<: *workspace
       - run: |
               echo "{\"api_key\":\"$MBED_CLOUD_API_KEY\", \"host\":\"$MBED_CLOUD_API_HOST\"}" > .mbed_cloud_config.json
-              login="$(pipenv run aws ecr get-login --no-include-email)"
+              login="$(aws ecr get-login --no-include-email)"
               ${login}
               docker pull ${TESTRUNNER_DOCKER_IMAGE}
-      - run: pipenv run pytest --tb=short --cov=mbed_cloud --cov-config .coveragerc\
-              --cov-report html --cov-report xml --junitxml=~/results/unittests.xml\
-              --html=~/results/unittests.html --self-contained-html
+      - run: mkdir -p results
+      - run: pipenv run pytest --tb=short --cov=mbed_cloud --cov-config=.coveragerc\
+              --cov-report=html --cov-report=xml --junitxml=results/unittests.xml\
+              --self-contained-html --html=results/unittests.html
       - run: pipenv run python -c "from xml.etree import\
-              ElementTree; import json, os; json.dump(\{k:ElementTree.parse(os.path.expanduser(v)).getroot().attrib\
-              for k,v in (('integration',r'~/rpc_results/results.xml'),\
-              ('unittests',r'~/results/unittests.xml'),\
-              ('coverage',r'~/results/coverage.xml'))},\
-              open(os.path.expanduser('~/results/summary.json'), 'w'))"
+              ElementTree; import json, os; json.dump(\{k:ElementTree.parse(v).getroot().attrib\
+              for k,v in (('integration',r'results/rpc/results.xml'),\
+              ('unittests',r'results/unittests.xml'),\
+              ('coverage',r'results/coverage.xml'))},\
+              open(os.path.expanduser('results/summary.json'), 'w'))"
       - store_artifacts:
           path: ${RESULTS}
           destination: ${PYVER}/${CLOUD_VERSION}
@@ -98,24 +101,22 @@ jobs:
       <<: *environ
     docker:
       - image: circleci/python:3.6.1
-    working_directory: ~/project/build
     steps:
       - attach_workspace:
-          at: ~/project
+          <<: *workspace
       - run: sudo pip install pipenv
-      - run: pipenv run python scripts/tpip.py ${PROJECT_REPORTS}/tpip.csv
+      - run: pipenv run python scripts/tpip.py python_tpip.csv
       - store_artifacts:
-          path: ${PROJECT_REPORTS}
+          path: python_tpip.csv
 
   docs_build:
     environment:
       <<: *environ
     docker:
       - image: circleci/python:3.6.1
-    working_directory: ~/project/build
     steps:
       - attach_workspace:
-          at: ~/project
+          <<: *workspace
       - run: sudo apt-get update
       - run: sudo apt-get install pandoc
       - run: sudo pip install pipenv

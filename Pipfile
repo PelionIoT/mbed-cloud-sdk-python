@@ -1,0 +1,22 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+# defer to setup.py
+"-e ." = "*"
+
+[dev-packages]
+flask = "*"
+pytest = "*"
+pytest-cov = "*"
+pytest-html = "*"
+coverage = "*"
+codecov = "*"
+mock = "*"
+flake8-copyright = "*"
+flake8-docstrings = "*"
+pycodestyle = "*"
+sphinx = "*"
+hacking = "*"
