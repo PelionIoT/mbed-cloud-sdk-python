@@ -24,6 +24,8 @@ from mbed_cloud.core import BaseAPI
 from mbed_cloud.core import BaseObject
 from mbed_cloud.core import PaginatedResponse
 
+from mbed_cloud import filters
+
 from mbed_cloud.decorators import catch_exceptions
 
 # Import backend API
@@ -214,10 +216,13 @@ class DeviceDirectoryAPI(BaseAPI):
         :rtype: Query
         """
         # Ensure we have the correct types and get the new query object
-        query = self._encode_query(filter, Device)
+        filter_obj = filters.legacy_filter_formatter(
+            dict(filter=filter),
+            Device._get_attributes_map()
+        ) if filter else None
         query_map = Query._create_request_map(kwargs)
-        # Create the query object
-        f = DeviceQuery(name=name, query=query, **query_map)
+        # Create the DeviceQuery object
+        f = DeviceQuery(name=name, query=filter_obj['filter'], **query_map)
         api = self._get_api(device_directory.DefaultApi)
         return Query(api.device_query_create(f))
 
@@ -244,17 +249,13 @@ class DeviceDirectoryAPI(BaseAPI):
         :rtype: Query
         """
         # Get urlencoded query attribute
-        if filter is not None:
-            query = self._encode_query(filter, Device)
-        else:
-            query = filter
+        filter_obj = filters.legacy_filter_formatter(
+            dict(filter=filter),
+            Device._get_attributes_map()
+        ) if filter else None
 
         query_map = Query._create_request_map(kwargs)
-        body = DeviceQueryPatchRequest(
-            name=name,
-            query=query,
-            **query_map
-        )
+        body = DeviceQueryPatchRequest(name=name, query=filter_obj['filter'], **query_map)
         api = self._get_api(device_directory.DefaultApi)
         return Query(api.device_query_partial_update(query_id, body))
 
@@ -665,6 +666,10 @@ class Query(BaseObject):
 
 class DeviceEvent(DeviceEventData):
     """Describes device event object."""
+
+    @ staticmethod
+    def _get_attributes_map():
+        return None
 
     def __init__(self, device_event_obj):
         """Override __init__ and allow passing in backend object."""
