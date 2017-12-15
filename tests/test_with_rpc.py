@@ -119,6 +119,10 @@ class TestWithRPC(BaseCase):
         else:
             print('sdk test server is running locally on %s' % (test_server_local_address,))
         self.host = find_test_server_host(docker_image, find_host_address_potentials(docker_image))
+        print('rpc testrun ready - host: %r key: ***%s' % (
+            os.getenv('MBED_CLOUD_API_HOST', 'default'),
+            os.getenv('MBED_CLOUD_API_KEY', 'default')[-7:]
+        ))
 
     def test_run(self):
         version = 'py%s%s' % platform.python_version_tuple()[:2]  # build a directory that matches tox's {envvar}
