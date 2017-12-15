@@ -3,6 +3,7 @@ import sys
 import shlex
 import platform
 import subprocess
+import time
 import traceback
 import unittest
 
@@ -100,6 +101,7 @@ class TestWithRPC(BaseCase):
         target = os.path.join(os.path.dirname(__file__), 'server.py')
         cmd = [exe, '-u', '-m', 'coverage', 'run', target]
         self.process = subprocess.Popen(args=cmd, universal_newlines=True)
+        time.sleep(0.5)
         try:
             # ping the server to make sure it's up
             test_server_local_address = 'http://127.0.0.1:5000'
@@ -144,7 +146,7 @@ class TestWithRPC(BaseCase):
             )
         )
         try:
-            subprocess.check_call(cmd)
+            subprocess.check_output(cmd, universal_newlines=True)
         except subprocess.CalledProcessError as e:
             if e.returncode > 0:
                 # polite re-raise

@@ -42,13 +42,16 @@ aliases:
 
   - &job_test_common
     steps:
-#      - attach_workspace:
-#          <<: *workspace
       - checkout
       - restore_cache:
           keys: [*branch_cache_key]
-#      - setup_remote_docker
       - run: sudo pip install pipenv awscli
+      # FIXME:
+      # unfortunately we must do the 'build' again here
+      # as the machine executor isn't the same environment as docker
+      # (e.g. python3.5 instead of 3.6.1)
+      # and use of docker for the testing is fraught with peril
+      # worst case ... we're not testing in the same environment we're releasing from 😕 😬
       - run: pipenv install --dev --${PYVER}
       - run: pipenv install '-e .' --skip-lock
       - run: |
@@ -58,12 +61,7 @@ aliases:
               docker pull ${TESTRUNNER_DOCKER_IMAGE}
       - run: mkdir -p results
       - run: pipenv run pytest --tb=short --cov=mbed_cloud --cov-config=.coveragerc --cov-report=html --cov-report=xml --junitxml=results/unittests.xml --self-contained-html --html=results/unittests.html
-      - run: pipenv run python -c "from xml.etree import\
-              ElementTree; import json, os; json.dump(\{k:ElementTree.parse(v).getroot().attrib\
-              for k,v in (('integration',r'results/rpc/results.xml'),\
-              ('unittests',r'results/unittests.xml'),\
-              ('coverage',r'results/coverage.xml'))},\
-              open(os.path.expanduser('results/summary.json'), 'w'))"
+      - run: pipenv run python scripts\ci_summary.py
       - store_artifacts:
           path: results
       - store_artifacts:
@@ -198,20 +196,20 @@ workflows:
   version: 2
   build_test_deploy:
     jobs:
-#      - build_2
+      - build_2
       - build_3
-#      - test_integration_2:
-#          requires:
-#            - build_2
-#      - test_production_2:
-#          requires:
-#            - build_2
+      - test_integration_2:
+          requires:
+            - build_2
+      - test_production_2:
+          requires:
+            - build_2
       - test_integration_3:
           requires:
             - build_3
-#      - test_production_3:
-#          requires:
-#            - build_3
+      - test_production_3:
+          requires:
+            - build_3
       - docs_build:
           requires:
             - build_3
@@ -222,19 +220,19 @@ workflows:
       - release_beta:
           type: approval
           requires:
-#            - test_integration_2
+            - test_integration_2
             - test_integration_3
-#      - release_production:
-#          type: approval
-#          requires:
-#            - test_production_2
-#            - test_production_3
-#          filters:
-#            branches:
-#              only: production
+      - release_production:
+          type: approval
+          requires:
+            - test_production_2
+            - test_production_3
+          filters:
+            branches:
+              only: production
       - deploy_beta:
           requires:
             - release_beta
-#      - deploy_production:
-#          requires:
-#            - release_production
+      - deploy_production:
+          requires:
+            - release_production
