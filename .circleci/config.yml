@@ -51,7 +51,7 @@ aliases:
       # as the machine executor isn't the same environment as docker
       # (e.g. python3.5 instead of 3.6.1)
       # and use of docker for the testing is fraught with peril
-      # worst case ... we're not testing in the same environment we're releasing from 😕 😬
+      # worst case ... we're not testing in the same environment we're releasing from >_>
       - run: pipenv install --dev --${PYVER}
       - run: pipenv install '-e .' --skip-lock
       - run: |
@@ -61,7 +61,7 @@ aliases:
               docker pull ${TESTRUNNER_DOCKER_IMAGE}
       - run: mkdir -p results
       - run: pipenv run pytest --tb=short --cov=mbed_cloud --cov-config=.coveragerc --cov-report=html --cov-report=xml --junitxml=results/unittests.xml --self-contained-html --html=results/unittests.html
-      - run: pipenv run python scripts\ci_summary.py
+      - run: pipenv run python scripts/ci_summary.py --noblock
       - store_artifacts:
           path: results
       - store_artifacts:
@@ -143,8 +143,7 @@ jobs:
       <<: *environ
       CLOUD_VERSION: integration
       PYVER: two
-    docker:
-      - image: circleci/python:2.7.13
+    machine: true
 
   test_integration_3:
     <<: *job_test_common
@@ -162,8 +161,7 @@ jobs:
       MBED_CLOUD_API_KEY: production_key
       CLOUD_VERSION: production
       PYVER: two
-    docker:
-      - image: circleci/python:2.7.13
+    machine: true
 
   test_production_3:
     <<: *job_test_common
@@ -173,8 +171,7 @@ jobs:
       MBED_CLOUD_API_KEY: production_key
       CLOUD_VERSION: production
       PYVER: three
-    docker:
-      - image: circleci/python:3.6.1
+    machine: true
 
   deploy_beta:
     <<: *job_deploy_common
@@ -194,7 +191,7 @@ jobs:
 
 workflows:
   version: 2
-  build_test_deploy:
+  python_sdk_workflow:
     jobs:
       - build_2
       - build_3

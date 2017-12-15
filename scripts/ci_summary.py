@@ -15,15 +15,17 @@
 # limitations under the License.
 # --------------------------------------------------------------------------
 """Collects results from CI run"""
+import argparse
 import json
 import os
+import traceback
 from xml.etree import ElementTree
 
 
 def main():
     """Collects results from CI run"""
     source_files = (
-        ('integration', r'results/rpc/results.xml'),
+        ('integration', r'rpc_results/results.xml'),
         ('unittests', r'results/unittests.xml'),
         ('coverage', r'results/coverage.xml')
     )
@@ -35,4 +37,13 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--noblock', action='store_true', help='always passes')
+    opts = parser.parse_args()
+    try:
+        main()
+    except Exception:
+        if opts.noblock:
+            traceback.print_exc()
+        else:
+            raise
