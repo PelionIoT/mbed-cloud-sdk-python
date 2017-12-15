@@ -445,7 +445,6 @@ class DefaultApi(object):
         :param file datafile: The manifest file to create. The API gateway enforces the account-specific file size. (required)
         :param str name: The name of the firmware manifest (required)
         :param str description: The description of the firmware manifest
-        :param file key_table: The optional key table file to create.
         :return: FirmwareManifest
                  If the method is called asynchronously,
                  returns the request thread.
@@ -469,13 +468,12 @@ class DefaultApi(object):
         :param file datafile: The manifest file to create. The API gateway enforces the account-specific file size. (required)
         :param str name: The name of the firmware manifest (required)
         :param str description: The description of the firmware manifest
-        :param file key_table: The optional key table file to create.
         :return: FirmwareManifest
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['datafile', 'name', 'description', 'key_table']
+        all_params = ['datafile', 'name', 'description']
         all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -516,8 +514,6 @@ class DefaultApi(object):
             form_params.append(('description', params['description']))
         if 'name' in params:
             form_params.append(('name', params['name']))
-        if 'key_table' in params:
-            local_var_files['key_table'] = params['key_table']
 
         body_params = None
         # HTTP header `Accept`
