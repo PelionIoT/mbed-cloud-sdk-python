@@ -42,13 +42,15 @@ aliases:
 
   - &job_test_common
     steps:
-      - run: echo 'assuming all ok'
-      - attach_workspace:
-          <<: *workspace
+#      - attach_workspace:
+#          <<: *workspace
+      - checkout
       - restore_cache:
           keys: [*branch_cache_key]
 #      - setup_remote_docker
       - run: sudo pip install pipenv awscli
+      - run: pipenv install --dev --${PYVER}
+      - run: pipenv install '-e .' --skip-lock
       - run: |
               echo "{\"api_key\":\"$MBED_CLOUD_API_KEY\", \"host\":\"$MBED_CLOUD_API_HOST\"}" > .mbed_cloud_config.json
               login="$(aws ecr get-login --no-include-email)"

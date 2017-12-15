@@ -108,8 +108,9 @@ class TestWithRPC(BaseCase):
             response.raise_for_status()
         except Exception:
             print('could not reach test server locally: %s' % (cmd,))
-            print(subprocess.check_output(shlex.split('ps -aux')))
-            print(subprocess.check_output(shlex.split('netstat -aon')))
+            print('server status', self.process.poll(), self.process.pid)
+            print(subprocess.check_output(shlex.split('ps -aux'), universal_newlines=True))
+            print(subprocess.check_output(shlex.split('netstat -aon'), universal_newlines=True))
             raise
         else:
             print('sdk test server is running locally on %s' % (test_server_local_address,))
