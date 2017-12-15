@@ -157,8 +157,8 @@ jobs:
     <<: *job_test_common
     environment:
       <<: *environ
-      MBED_CLOUD_API_HOST: production_host
-      MBED_CLOUD_API_KEY: production_key
+      MBED_CLOUD_API_HOST: $MBED_CLOUD_API_HOST_PROD
+      MBED_CLOUD_API_KEY: $MBED_CLOUD_API_KEY_PROD
       CLOUD_VERSION: production
       PYVER: two
     machine: true
@@ -167,8 +167,8 @@ jobs:
     <<: *job_test_common
     environment:
       <<: *environ
-      MBED_CLOUD_API_HOST: production_host
-      MBED_CLOUD_API_KEY: production_key
+      MBED_CLOUD_API_HOST: $MBED_CLOUD_API_HOST_PROD
+      MBED_CLOUD_API_KEY: $MBED_CLOUD_API_KEY_PROD
       CLOUD_VERSION: production
       PYVER: three
     machine: true
