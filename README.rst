@@ -77,6 +77,13 @@ See the `examples directory`_ for a collection of use-cases of this API, e.g.:
 
        python examples/connect/list-connected-devices.py
 
+
+Contributing
+------------
+
+Mbed Cloud SDK for Python is open source and we would like your help; there
+is a brief guide on how to get started in `CONTRIBUTING.md <CONTRIBUTING.md>`__.
+
 Licence
 -------
 
