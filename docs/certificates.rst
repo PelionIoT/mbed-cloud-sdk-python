@@ -6,7 +6,7 @@ Usage
 
 .. code-block:: python
 
-  from mbed_cloud.certificates import CertificatesAPI
+  from mbed_cloud import CertificatesAPI
   from mbed_cloud.certificates import CertificateType
 
   certificatesApi = CertificatesAPI()

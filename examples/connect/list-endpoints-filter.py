@@ -16,7 +16,7 @@
 # --------------------------------------------------------------------------
 """Example: listing endpoints and filter them by type using Connect API."""
 import datetime
-from mbed_cloud.connect import ConnectAPI
+from mbed_cloud import ConnectAPI
 
 
 def _main():

@@ -15,7 +15,7 @@
 # limitations under the License.
 # --------------------------------------------------------------------------
 """Example: listing firmware images and manifests using Update API."""
-from mbed_cloud.update import UpdateAPI
+from mbed_cloud import UpdateAPI
 import os
 import random
 import string

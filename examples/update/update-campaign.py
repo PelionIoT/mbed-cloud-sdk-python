@@ -15,8 +15,8 @@
 # limitations under the License.
 # --------------------------------------------------------------------------
 """Example: Listing and creating update campaigns."""
-from mbed_cloud.device_directory import DeviceDirectoryAPI
-from mbed_cloud.update import UpdateAPI
+from mbed_cloud import DeviceDirectoryAPI
+from mbed_cloud import UpdateAPI
 import os
 import random
 import string

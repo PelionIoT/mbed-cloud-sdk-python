@@ -1,5 +1,5 @@
-from mbed_cloud import BaseAPI
-from mbed_cloud import connect
+from mbed_cloud.core import BaseAPI
+from mbed_cloud import ConnectAPI
 from mbed_cloud._backends.mds.apis.endpoints_api import EndpointsApi
 from tests.common import BaseCase
 import urllib3
@@ -29,14 +29,14 @@ class Test(BaseCase):
 
     def test_config_invalid_host(self):
         # regression check - give a sane error for invalid hosts
-        api = connect.ConnectAPI(dict(host='https://0.0.0.0'))
+        api = ConnectAPI(dict(host='https://0.0.0.0'))
         with self.assertRaises(urllib3.exceptions.MaxRetryError):
             api.list_connected_devices().data
 
     def test_config_singleton(self):
         # check two different api configs don't clobber each other
-        a = connect.ConnectAPI(dict(api_key='apple'))
-        b = connect.ConnectAPI(dict(api_key='banana'))
+        a = ConnectAPI(dict(api_key='apple'))
+        b = ConnectAPI(dict(api_key='banana'))
         api_key = EndpointsApi
         self.assertNotEqual(
             a.apis[api_key].api_client.configuration.api_key,

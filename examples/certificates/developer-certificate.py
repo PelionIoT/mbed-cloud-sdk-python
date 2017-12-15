@@ -15,7 +15,7 @@
 # limitations under the License.
 # --------------------------------------------------------------------------
 """Example showing basic usage of developer certificates."""
-from mbed_cloud.certificates import CertificatesAPI
+from mbed_cloud import CertificatesAPI
 
 
 def _main():

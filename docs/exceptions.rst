@@ -18,7 +18,7 @@ Basic exceptions handling.
 .. code-block:: python
 
   from mbed_cloud.exceptions import CloudApiException
-  from mbed_cloud.account_management import AccountManagementAPI
+  from mbed_cloud import AccountManagementAPI
   accountApi = AccountManagementAPI()
   try:
     u = list(accountApi.list_users())[0]
