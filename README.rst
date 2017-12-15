@@ -88,7 +88,7 @@ Licence
 -------
 
 Mbed Cloud SDK for Python is free to use and licensed under the Apache
-License 2.0. See LICENCE for more information.
+License 2.0. See `LICENCE <LICENCE>`__ for more information.
 
 Troubleshooting
 ---------------
