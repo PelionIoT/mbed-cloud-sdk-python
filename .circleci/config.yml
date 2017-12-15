@@ -25,11 +25,11 @@ aliases:
 
   - &job_build_common
     steps:
+    - checkout
     - restore_cache:
         keys: [*branch_cache_key]
-    - checkout
     - run: sudo pip install pipenv
-    - run: pipenv install --dev
+    - run: pipenv install --dev --${PYVER}
     - run: pipenv install '-e .' --skip-lock
     - save_cache:
         key: *branch_cache_key
@@ -47,7 +47,7 @@ aliases:
           <<: *workspace
       - restore_cache:
           keys: [*branch_cache_key]
-      - setup_remote_docker
+#      - setup_remote_docker
       - run: sudo pip install pipenv awscli
       - run: |
               echo "{\"api_key\":\"$MBED_CLOUD_API_KEY\", \"host\":\"$MBED_CLOUD_API_HOST\"}" > .mbed_cloud_config.json
@@ -93,6 +93,7 @@ jobs:
     <<: *job_build_common
     environment:
       <<: *environ
+      PYVER: two
     docker:
       - image: circleci/python:2.7.13
 
@@ -100,6 +101,7 @@ jobs:
     <<: *job_build_common
     environment:
       <<: *environ
+      PYVER: three
     docker:
       - image: circleci/python:3.6.1
 
@@ -140,7 +142,7 @@ jobs:
     environment:
       <<: *environ
       CLOUD_VERSION: integration
-      PYVER: 2
+      PYVER: two
     docker:
       - image: circleci/python:2.7.13
 
@@ -149,9 +151,8 @@ jobs:
     environment:
       <<: *environ
       CLOUD_VERSION: integration
-      PYVER: 3
-    docker:
-      - image: circleci/python:3.6.1
+      PYVER: three
+    machine: true
 
   test_production_2:
     <<: *job_test_common
@@ -160,7 +161,7 @@ jobs:
       MBED_CLOUD_API_HOST: production_host
       MBED_CLOUD_API_KEY: production_key
       CLOUD_VERSION: production
-      PYVER: 2
+      PYVER: two
     docker:
       - image: circleci/python:2.7.13
 
@@ -171,7 +172,7 @@ jobs:
       MBED_CLOUD_API_HOST: production_host
       MBED_CLOUD_API_KEY: production_key
       CLOUD_VERSION: production
-      PYVER: 3
+      PYVER: three
     docker:
       - image: circleci/python:3.6.1
 
@@ -195,20 +196,20 @@ workflows:
   version: 2
   build_test_deploy:
     jobs:
-      - build_2
+#      - build_2
       - build_3
-      - test_integration_2:
-          requires:
-            - build_2
-      - test_production_2:
-          requires:
-            - build_2
+#      - test_integration_2:
+#          requires:
+#            - build_2
+#      - test_production_2:
+#          requires:
+#            - build_2
       - test_integration_3:
           requires:
             - build_3
-      - test_production_3:
-          requires:
-            - build_3
+#      - test_production_3:
+#          requires:
+#            - build_3
       - docs_build:
           requires:
             - build_3
@@ -219,19 +220,19 @@ workflows:
       - release_beta:
           type: approval
           requires:
-            - test_integration_2
+#            - test_integration_2
             - test_integration_3
-      - release_production:
-          type: approval
-          requires:
-            - test_production_2
-            - test_production_3
-          filters:
-            branches:
-              only: production
+#      - release_production:
+#          type: approval
+#          requires:
+#            - test_production_2
+#            - test_production_3
+#          filters:
+#            branches:
+#              only: production
       - deploy_beta:
           requires:
             - release_beta
-      - deploy_production:
-          requires:
-            - release_production
+#      - deploy_production:
+#          requires:
+#            - release_production

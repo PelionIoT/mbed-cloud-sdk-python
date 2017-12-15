@@ -132,6 +132,11 @@ def _get_dict(obj):
     return obj
 
 
+@app.route("/ping")
+def ping(methods=["GET"]):
+    return 'pong'
+
+
 @app.route("/_bye")
 def bye(methods=["GET"]):
     request.environ.get('werkzeug.server.shutdown')()

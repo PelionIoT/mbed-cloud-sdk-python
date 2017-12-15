@@ -28,8 +28,61 @@ def have_docker_image(image):
     return bool(output)
 
 
+def find_host_address_potentials(image):
+    potentials = ['127.0.0.1', '']
+
+    # check the host route from inside the docker container
+    cmd = shlex.split(
+        'docker run --rm --net=host {image} route'.format(
+            image=image
+        )
+    )
+    routes = subprocess.check_output(args=cmd, universal_newlines=True)
+    for routing in routes.splitlines():
+        if routing.lower().startswith('default'):
+            host = routing.split()[1]
+            if host.startswith('ip'):
+                host = host[3:].strip('.').replace('-', '.')
+            potentials.append(host)
+            # break
+
+    if platform.system().lower() == 'linux':
+        cmd = """ifconfig lxcbr0 | awk '/inet addr/{split($2,a,":"); print a[2]}'"""
+        try:
+            address = subprocess.check_output(args=cmd, shell=True, universal_newlines=True)
+            if address:
+                potentials.append(address.strip())
+        except Exception as exception:
+            print('didnt see an lxcbr0 interface:', exception)
+
+    if not potentials:
+        raise Exception('did not find any potential addresses inside docker')
+    return potentials
+
+
+def find_test_server_host(image, potentials):
+    for potential in potentials:
+        cmd = shlex.split(
+            'docker run --rm --net=host {image} wget http://{host}:5000/ping'.format(
+                image=image,
+                host=potential
+            )
+        )
+        try:
+            subprocess.check_output(args=cmd, stderr=subprocess.STDOUT, universal_newlines=True)
+            break
+        except Exception as e:
+            print('this address did not work: %s - %s' % (potential, e))
+    else:
+        raise Exception('Did not find working address inside docker. Potentials: %s' % (potentials,))
+    print('determined host to be:', potential)
+    return potential
+
+
 @unittest.skipIf(not have_docker_image(docker_image), 'missing docker image %s' % docker_image)
 class TestWithRPC(BaseCase):
+
+    host = None
 
     @classmethod
     def setUpClass(cls):
@@ -44,59 +97,23 @@ class TestWithRPC(BaseCase):
     def setUp(self):
         exe = sys.executable
         target = os.path.join(os.path.dirname(__file__), 'server.py')
-        cmd = [exe, '-m', 'coverage', 'run', target]
-        print('running: %s' % cmd)
+        cmd = [exe, '-u', '-m', 'coverage', 'run', target]
         self.process = subprocess.Popen(args=cmd, universal_newlines=True)
-        if self.process.poll():
-            raise Exception('test server failed to start: %s' % self.process.stdout)
-
-        # check the host route from inside the docker container
-        cmd = shlex.split(
-            'docker run --rm --net=host {image} route'.format(
-                image=docker_image
-            )
-        )
-        routes = subprocess.check_output(args=cmd, universal_newlines=True)
-        for routing in routes.splitlines():
-            if routing.lower().startswith('default'):
-                self.host = routing.split()[1]
-                break
-        if not self.host:
-            print('routes table:\n%s' % routes)
-            raise Exception('no host address determined')
-        if self.host.startswith('ip'):
-            self.host = self.host[3:].strip('.').replace('-', '.')
-        print('host from routing table:', self.host)
-
-        cmd = """ifconfig lxcbr0 | awk '/inet addr/{split($2,a,":"); print a[2]}'"""
         try:
-            address = subprocess.check_output(args=cmd, shell=True, universal_newlines=True)
-        except Exception as exception:
-            print('didnt see an lxcbr0 interface', exception)
-        else:
-            if address:
-                self.host = address.strip()
-        print('determined host address to be: "%s"' % self.host)
-
-        try:
-            # ping the server to make sure it's up (don't use _init, may not be idempotent)
+            # ping the server to make sure it's up
             s = requests.Session()
             s.mount('htt', adapter=HTTPAdapter(max_retries=5))
-            response = s.get('http://127.0.0.1:5000/invalid_url', timeout=(15, 15))
-            # we expect to receive 404, any other failure is bad news (200 OK is unlikely)
-            if response.status_code != 404:
-                response.raise_for_status()
+            test_server_local_address = 'http://127.0.0.1:5000'
+            response = s.get('%s/ping' % test_server_local_address, timeout=(15, 15))
+            response.raise_for_status()
         except Exception:
-            print('could not reach local test server.')
+            print('could not reach test server locally: %s' % (cmd,))
             print(subprocess.check_output(shlex.split('ps -aux')))
             print(subprocess.check_output(shlex.split('netstat -aon')))
             raise
         else:
-            print('looks like the server is ok')
-        # FIXME: remove these
-        print(subprocess.check_output(shlex.split('ps -aux')))
-        print(subprocess.check_output(shlex.split('netstat -aon')))
-        print('routes table:\n%s' % routes)
+            print('sdk test server is running locally on %s' % (test_server_local_address,))
+        self.host = find_test_server_host(docker_image, find_host_address_potentials(docker_image))
 
     def test_run(self):
         version = 'py%s%s' % platform.python_version_tuple()[:2]  # build a directory that matches tox's {envvar}
@@ -128,7 +145,7 @@ class TestWithRPC(BaseCase):
         except subprocess.CalledProcessError as e:
             if e.returncode > 0:
                 # polite re-raise
-                self.fail('remote testrunner sequence failed. results should be at: %s' % results_file)
+                self.fail('remote testrunner sequence failed. results should be at: %s' % results_dir)
             raise
 
     def tearDown(self):
