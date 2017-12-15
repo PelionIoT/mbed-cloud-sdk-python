@@ -8,6 +8,7 @@ import unittest
 
 import requests
 from requests.adapters import HTTPAdapter
+from requests.packages.urllib3.util.retry import Retry
 
 from tests.common import BaseCase
 
@@ -101,13 +102,14 @@ class TestWithRPC(BaseCase):
         self.process = subprocess.Popen(args=cmd, universal_newlines=True)
         try:
             # ping the server to make sure it's up
-            s = requests.Session()
-            s.mount('htt', adapter=HTTPAdapter(max_retries=5))
             test_server_local_address = 'http://127.0.0.1:5000'
-            response = s.get('%s/ping' % test_server_local_address, timeout=(15, 15))
+            url = '%s/ping' % test_server_local_address
+            s = requests.Session()
+            s.mount(url, adapter=HTTPAdapter(max_retries=Retry(total=20, connect=5, read=15, backoff_factor=0.4)))
+            response = s.get(url, timeout=(15, 15))
             response.raise_for_status()
-        except Exception:
-            print('could not reach test server locally: %s' % (cmd,))
+        except Exception as e:
+            print('could not reach test server locally: %s\n%s' % (cmd, e))
             print('server status', self.process.poll(), self.process.pid)
             print(subprocess.check_output(shlex.split('ps -aux'), universal_newlines=True))
             print(subprocess.check_output(shlex.split('netstat -aon'), universal_newlines=True))
