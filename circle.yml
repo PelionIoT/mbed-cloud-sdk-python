@@ -1,12 +1,16 @@
 machine:
   services:
     - docker
+  environment:
+    PROJECT_REPORTS: ${HOME}/reports
+    TESTRUNNER_DOCKER_IMAGE: 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
 
 general:
   artifacts:
     - ~/results
     - ~/rpc_results
     - ~/docs
+    - ~/reports
 
 dependencies:
   pre:
@@ -40,14 +44,18 @@ test:
     - echo "{\"api_key\":\"$MBED_CLOUD_API_KEY\", \"host\":\"$MBED_CLOUD_API_HOST\"}" > .mbed_cloud_config.json
     - cat .mbed_cloud_config.json
   override:
+    # Run tests
     - tox
+    # Create a third party IP report
+    - tox -e tpip
+    - mkdir -p ${PROJECT_REPORTS}
+    - mv tpip.csv ${PROJECT_REPORTS}/
   post:
-    # upload to codecov.io
-    - codecov
-    - sphinx-build -a -b html -c docs/ docs/ ~/docs
+    - source .tox/py36/bin/activate && sphinx-build -a -b html -c docs/ docs/ ~/docs
     - mkdir -p $CIRCLE_TEST_REPORTS/tests/
     - cp ~/results/py36/unittests.xml $CIRCLE_TEST_REPORTS/tests/
     - cp ~/rpc_results/py36/results.xml $CIRCLE_TEST_REPORTS/tests/
+    - codecov --file=/home/ubuntu/results/py36/coverage.xml
 
 deployment:
   staging:

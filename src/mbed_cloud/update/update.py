@@ -20,17 +20,19 @@ from __future__ import unicode_literals
 import logging
 
 # Import common functions and exceptions from frontend API
-from mbed_cloud import BaseAPI
-from mbed_cloud import BaseObject
+from mbed_cloud.core import BaseAPI
+from mbed_cloud.core import BaseObject
+from mbed_cloud.core import PaginatedResponse
+
 from mbed_cloud.decorators import catch_exceptions
+
 from mbed_cloud.device_directory import Device
-from mbed_cloud import PaginatedResponse
+
 from six import iteritems
 
 import mbed_cloud._backends.update_service as update_service
 from mbed_cloud._backends.update_service.models import UpdateCampaignPostRequest
-from mbed_cloud._backends.update_service.rest\
-    import ApiException as UpdateServiceApiException
+from mbed_cloud._backends.update_service.rest import ApiException as UpdateServiceApiException
 
 LOG = logging.getLogger(__name__)
 
@@ -45,11 +47,7 @@ class UpdateAPI(BaseAPI):
         - Manifest management
     """
 
-    def __init__(self, params=None):
-        """Setup the backend APIs with provided config."""
-        super(UpdateAPI, self).__init__(params)
-
-        self._init_api(update_service, [update_service.DefaultApi])
+    api_structure = {update_service: [update_service.DefaultApi]}
 
     @catch_exceptions(UpdateServiceApiException)
     def list_campaigns(self, **kwargs):
@@ -99,7 +97,7 @@ class UpdateAPI(BaseAPI):
 
         :param str name: Name of the update campaign (Required)
         :param str device_filter: The device filter to use. (Required)
-        :param str manifest_id: ID of the manifest with description of the update. (Required)
+        :param str manifest_id: ID of the manifest with description of the update.
         :param str description: Description of the campaign
         :param date when: The timestamp at which update campaign scheduled to start
         :param str state: The state of the campaign. Values:
@@ -160,6 +158,7 @@ class UpdateAPI(BaseAPI):
     def list_campaign_device_states(self, campaign_id, **kwargs):
         """List campaign devices status.
 
+        :param str campaign_id: Id of the update campaign (Required)
         :param int limit: number of devices state to retrieve
         :param str order: sort direction of device state when ordered by creation time (desc|asc)
         :param str after: get devices state after given id
@@ -204,7 +203,7 @@ class UpdateAPI(BaseAPI):
         """Add a new firmware reference.
 
         :param str name: Firmware file short name (Required)
-        :param str datafile: Required. The *path* to the firmware file
+        :param str datafile: The file object or *path* to the firmware image file (Required)
         :param str description: Firmware file description
         :return: the newly created firmware file object
         :rtype: FirmwareImage
@@ -259,7 +258,7 @@ class UpdateAPI(BaseAPI):
         """Add a new manifest reference.
 
         :param str name: Manifest file short name (Required)
-        :param str datafile: The *path* to the manifest file (Required)
+        :param str datafile: The file object or *path* to the manifest file (Required)
         :param str description: Manifest file description
         :return: the newly created manifest file object
         :rtype: FirmwareManifest

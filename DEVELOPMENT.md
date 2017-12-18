@@ -1,6 +1,10 @@
 # Mbed Cloud SDK for Python
 
-[![Circle CI](https://circleci.com/gh/ARMmbed/mbed-cloud-sdk-python.svg?style=shield&circle-token=ec05043ded945f81984e7fd2fce23fe793e7b634)](https://circleci.com/gh/ARMmbed/mbed-cloud-sdk-python/)
+[![CircleCI](https://circleci.com/gh/ARMmbed/mbed-cloud-sdk-python/tree/master.svg?style=shield&circle-token=ec05043ded945f81984e7fd2fce23fe793e7b634)](https://circleci.com/gh/ARMmbed/mbed-cloud-sdk-python/tree/master) - Master
+
+[![CircleCI](https://circleci.com/gh/ARMmbed/mbed-cloud-sdk-python/tree/production.svg?style=shield&circle-token=ec05043ded945f81984e7fd2fce23fe793e7b634)](https://circleci.com/gh/ARMmbed/mbed-cloud-sdk-python/tree/production) - Release
+
+[![CircleCI](https://circleci.com/gh/ARMmbed/mbed-cloud-sdk-python/tree/swagger-branch.svg?style=shield&circle-token=ec05043ded945f81984e7fd2fce23fe793e7b634)](https://circleci.com/gh/ARMmbed/mbed-cloud-sdk-python/tree/swagger-branch) - OpenAPI
 
 [![Builds](https://img.shields.io/badge/sdk-builds-blue.svg)](http://armmbed.github.io/mbed-cloud-sdk-python/builds/)
 [![Docs](https://img.shields.io/badge/sdk-documentation-blue.svg)](https://s3-us-west-2.amazonaws.com/mbed-cloud-sdk-python/index.html)

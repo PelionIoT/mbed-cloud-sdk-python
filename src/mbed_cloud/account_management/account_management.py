@@ -19,13 +19,14 @@ from __future__ import absolute_import
 from __future__ import unicode_literals
 
 # Import common functions and exceptions from frontend API
-from mbed_cloud import BaseAPI
-from mbed_cloud import BaseObject
+from mbed_cloud.core import BaseAPI
+from mbed_cloud.core import BaseObject
+from mbed_cloud.core import PaginatedResponse
+
 from mbed_cloud.decorators import catch_exceptions
-from mbed_cloud import PaginatedResponse
 
 # Import backend API
-import mbed_cloud._backends.iam as iam
+from mbed_cloud._backends import iam
 from mbed_cloud._backends.iam.models import AccountUpdateReq
 from mbed_cloud._backends.iam.rest import ApiException
 
@@ -37,11 +38,7 @@ class AccountManagementAPI(BaseAPI):
     users, groups and API keys in the organisation.
     """
 
-    def __init__(self, params=None):
-        """Setup the backend APIs with provided config."""
-        super(AccountManagementAPI, self).__init__(params)
-
-        self._init_api(iam, [iam.DeveloperApi, iam.AccountAdminApi])
+    api_structure = {iam: [iam.DeveloperApi, iam.AccountAdminApi]}
 
     @catch_exceptions(ApiException)
     def list_api_keys(self, **kwargs):
@@ -301,7 +298,7 @@ class AccountManagementAPI(BaseAPI):
     def list_group_api_keys(self, group_id, **kwargs):
         """List API keys of a group.
 
-        :param str group_id: The group ID.
+        :param str group_id: The group ID (Required)
         :param int limit: The number of api keys to retrieve.
         :param str order: The ordering direction, ascending (asc) or descending (desc).
         :param str after: Get api keys after/starting at given api key ID.

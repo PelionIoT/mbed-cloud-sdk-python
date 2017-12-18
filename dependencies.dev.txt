@@ -12,6 +12,7 @@ pytest-cov
 pytest-html
 coverage
 codecov
+mock
 
 # Code analysis
 flake8<3

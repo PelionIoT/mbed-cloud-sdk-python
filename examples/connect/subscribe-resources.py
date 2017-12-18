@@ -16,7 +16,7 @@
 # --------------------------------------------------------------------------
 """Example showing basic usage of device resource subscriptions."""
 
-from mbed_cloud.connect import ConnectAPI
+from mbed_cloud import ConnectAPI
 import time
 
 INCRIMENTAL_RESOURCE = "/5002/0/1"

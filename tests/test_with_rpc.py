@@ -7,13 +7,14 @@ import traceback
 import unittest
 
 import requests
+from requests.adapters import HTTPAdapter
 
 from tests.common import BaseCase
 
 
 docker_image = os.environ.get(
     'TESTRUNNER_DOCKER_IMAGE',
-    '104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:latest'
+    '104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master'
 )
 
 
@@ -50,18 +51,18 @@ class TestWithRPC(BaseCase):
             raise Exception('test server failed to start: %s' % self.process.stdout)
 
         # check the host route from inside the docker container
-        cmd=shlex.split(
+        cmd = shlex.split(
             'docker run --rm --net=host {image} route'.format(
                 image=docker_image
             )
         )
         routes = subprocess.check_output(args=cmd, universal_newlines=True)
-        print('routes table:\n%s' % routes)
         for routing in routes.splitlines():
             if routing.lower().startswith('default'):
                 self.host = routing.split()[1]
                 break
         if not self.host:
+            print('routes table:\n%s' % routes)
             raise Exception('no host address determined')
         if self.host.startswith('ip'):
             self.host = self.host[3:].strip('.').replace('-', '.')
@@ -78,12 +79,14 @@ class TestWithRPC(BaseCase):
 
         try:
             # ping the server to make sure it's up (don't use _init, may not be idempotent)
-            response = requests.get('http://127.0.0.1:5000/invalid_url')
+            s = requests.Session()
+            s.mount('htt', adapter=HTTPAdapter(max_retries=5))
+            response = s.get('http://127.0.0.1:5000/invalid_url', timeout=(15, 15))
             # we expect to receive 404, any other failure is bad news (200 OK is unlikely)
             if response.status_code != 404:
                 response.raise_for_status()
-        except Exception as exception:
-            print('welp, couldnt get the server on 127.0.0.1, maybe docker will have better luck. %s' % exception)
+        except Exception:
+            print('could not reach local test server.')
             print(subprocess.check_output(shlex.split('ps -aux')))
             print(subprocess.check_output(shlex.split('netstat -aon')))
             raise

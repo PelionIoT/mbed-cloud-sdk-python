@@ -15,7 +15,7 @@
 # limitations under the License.
 # --------------------------------------------------------------------------
 """Example: listing devices events."""
-from mbed_cloud.device_directory import DeviceDirectoryAPI
+from mbed_cloud import DeviceDirectoryAPI
 
 
 def _print_event(idx, l):

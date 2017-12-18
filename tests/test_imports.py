@@ -1,48 +1,35 @@
-from mbed_cloud import BaseAPI
-from mbed_cloud import connect
-from mbed_cloud._backends.mds.apis.endpoints_api import EndpointsApi
 from tests.common import BaseCase
-import multiprocessing
-import urllib3
 
 
-class TestImports(BaseCase):
-    """A simple test for validating coverage"""
+class Test(BaseCase):
+    """Verify high level APIs are importable in the expected manner"""
 
-    def test_run(self):
-        from mbed_cloud import account_management
-        from mbed_cloud import certificates
-        from mbed_cloud import connect
-        from mbed_cloud import device_directory
-        from mbed_cloud import update
-        from mbed_cloud import _version
+    def test_account(self):
+        from mbed_cloud import AccountManagementAPI
+        from mbed_cloud.account_management import User
+        from mbed_cloud.account_management import Group
+        from mbed_cloud.account_management import ApiKey
+        from mbed_cloud.account_management import AccountManagementAPI
 
+    def test_certs(self):
+        from mbed_cloud import CertificatesAPI
+        from mbed_cloud.certificates import Certificate
+        from mbed_cloud.certificates import CertificateType
 
-class TestConfig(BaseCase):
-    def test_config_default(self):
-        # check host default from codegen is set to production
-        api = EndpointsApi()
-        self.assertIn('api.us-east-1', api.api_client.configuration.host)
+    def test_connect(self):
+        from mbed_cloud import ConnectAPI
+        from mbed_cloud.connect import AsyncConsumer
+        from mbed_cloud.connect import Resource
+        from mbed_cloud.connect import Webhook
 
-    def test_config_set_user_config(self):
-        # check top-level config setter
-        key = 'test_key'
-        config = {'api_key': key}
-        api = BaseAPI(config)
-        self.assertIn(key, api.config.get('api_key'))
+    def test_device(self):
+        from mbed_cloud import DeviceDirectoryAPI
+        from mbed_cloud.device_directory import Device
+        from mbed_cloud.device_directory import DeviceEvent
+        from mbed_cloud.device_directory import Query
 
-    def test_config_invalid_host(self):
-        # regression check - give a sane error for invalid hosts
-        api = connect.ConnectAPI(dict(host='https://0.0.0.0'))
-        with self.assertRaises(urllib3.exceptions.MaxRetryError):
-            api.list_connected_devices().data
-
-    def test_config_singleton(self):
-        # check two different api configs don't clobber each other
-        a = connect.ConnectAPI(dict(api_key='apple'))
-        b = connect.ConnectAPI(dict(api_key='banana'))
-        api_key = EndpointsApi
-        self.assertNotEqual(
-            a.apis[api_key].api_client.configuration.api_key,
-            b.apis[api_key].api_client.configuration.api_key
-        )
+    def test_update(self):
+        from mbed_cloud import UpdateAPI
+        from mbed_cloud.update import Campaign
+        from mbed_cloud.update import FirmwareImage
+        from mbed_cloud.update import FirmwareManifest

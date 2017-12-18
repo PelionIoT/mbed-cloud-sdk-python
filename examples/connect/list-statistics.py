@@ -16,7 +16,7 @@
 # --------------------------------------------------------------------------
 """Example showing basic usage of getting device statistics."""
 from datetime import datetime
-from mbed_cloud.connect import ConnectAPI
+from mbed_cloud import ConnectAPI
 
 
 def _main():

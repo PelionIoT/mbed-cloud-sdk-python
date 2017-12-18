@@ -19,14 +19,13 @@ from __future__ import absolute_import
 from __future__ import unicode_literals
 
 # Import common functions and exceptions from frontend API
-from mbed_cloud import BaseAPI
-from mbed_cloud import BaseObject
+from mbed_cloud.core import BaseAPI
+from mbed_cloud.core import BaseObject
+from mbed_cloud.core import PaginatedResponse
 from mbed_cloud.decorators import catch_exceptions
 from mbed_cloud.exceptions import CloudValueError
-from mbed_cloud import PaginatedResponse
 
 # Import backend API
-
 import mbed_cloud._backends.connector_ca as cert
 from mbed_cloud._backends.connector_ca.rest import ApiException as CaApiException
 import mbed_cloud._backends.iam as iam
@@ -36,15 +35,15 @@ from mbed_cloud._backends.iam.rest import ApiException as IamApiException
 class CertificatesAPI(BaseAPI):
     """Certificates API reference."""
 
+    api_structure = {
+        cert: [cert.DeveloperCertificateApi, cert.ServerCredentialsApi],
+        iam: [iam.AccountAdminApi, iam.DeveloperApi],
+    }
+
     def __init__(self, params=None):
         """Initialise the certificates API, optionally passing in overriding config."""
         super(CertificatesAPI, self).__init__(params)
-
-        # Set the api_key for the requests
-        cert_api_client = self._init_api(cert, [cert.DeveloperCertificateApi,
-                                                cert.ServerCredentialsApi])
-        self._init_api(iam, [iam.AccountAdminApi, iam.DeveloperApi])
-        self.auth = cert_api_client.configuration.api_key['Authorization']
+        self.auth = self.api_clients[cert].configuration.api_key['Authorization']
 
     @catch_exceptions(IamApiException)
     def list_certificates(self, **kwargs):

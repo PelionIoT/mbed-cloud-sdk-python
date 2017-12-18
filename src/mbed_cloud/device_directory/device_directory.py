@@ -20,10 +20,11 @@ from __future__ import unicode_literals
 import logging
 
 # Import common functions and exceptions from frontend API
-from mbed_cloud import BaseAPI
-from mbed_cloud import BaseObject
+from mbed_cloud.core import BaseAPI
+from mbed_cloud.core import BaseObject
+from mbed_cloud.core import PaginatedResponse
+
 from mbed_cloud.decorators import catch_exceptions
-from mbed_cloud import PaginatedResponse
 
 # Import backend API
 import mbed_cloud._backends.device_directory as device_directory
@@ -32,8 +33,7 @@ from mbed_cloud._backends.device_directory.models import DeviceDataPostRequest
 from mbed_cloud._backends.device_directory.models import DeviceEventData
 from mbed_cloud._backends.device_directory.models import DeviceQuery
 from mbed_cloud._backends.device_directory.models import DeviceQueryPatchRequest
-from mbed_cloud._backends.device_directory.rest import \
-    ApiException as DeviceDirectoryApiException
+from mbed_cloud._backends.device_directory.rest import ApiException as DeviceDirectoryApiException
 
 LOG = logging.getLogger(__name__)
 
@@ -46,12 +46,7 @@ class DeviceDirectoryAPI(BaseAPI):
         - Create and manage device queries
     """
 
-    def __init__(self, params=None):
-        """Setup the backend APIs with provided config."""
-        super(DeviceDirectoryAPI, self).__init__(params)
-
-        # Initialize the wrapped APIs
-        self._init_api(device_directory, [device_directory.DefaultApi])
+    api_structure = {device_directory: [device_directory.DefaultApi]}
 
     @catch_exceptions(DeviceDirectoryApiException)
     def list_devices(self, **kwargs):
@@ -134,8 +129,8 @@ class DeviceDirectoryAPI(BaseAPI):
             resp = api.add_device(**device)
             print(resp.created_at)
 
-        :param str certificate_fingerprint: Fingerprint of the device certificate (Required)
-        :param str certificate_issuer_id: ID of the issuer of the certificate (Required)
+        :param str certificate_fingerprint: Fingerprint of the device certificate
+        :param str certificate_issuer_id: ID of the issuer of the certificate
         :param str name: The name of the device
         :param str account_id: The owning IAM account ID
         :param obj custom_attributes: Up to 5 custom JSON attributes

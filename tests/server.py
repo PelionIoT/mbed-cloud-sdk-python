@@ -25,22 +25,20 @@ Run by:
 from __future__ import absolute_import
 from __future__ import unicode_literals
 
+import json
+import os
+import sys
+import traceback
+
+import queue
+
+import mbed_cloud
+
 from builtins import str
 from flask import Flask
 from flask import jsonify
 from flask import request
-from mbed_cloud.account_management import AccountManagementAPI
-from mbed_cloud.certificates import CertificatesAPI
-from mbed_cloud.connect import ConnectAPI
-from mbed_cloud.device_directory import DeviceDirectoryAPI
-from mbed_cloud.update import UpdateAPI
 from six.moves import urllib
-
-import json
-import queue
-import os
-import sys
-import traceback
 
 app = Flask(__name__)
 
@@ -150,11 +148,11 @@ def init(methods=["GET"]):
     # Initialise all the APIs with settings.
     global MODULES
     MODULES = {
-        'account_management': AccountManagementAPI(params=params),
-        'certificates': CertificatesAPI(params=params),
-        'connect': ConnectAPI(params=params),
-        'device_directory': DeviceDirectoryAPI(params=params),
-        'update': UpdateAPI(params=params)
+        'account_management': mbed_cloud.AccountManagementAPI(params=params),
+        'certificates': mbed_cloud.CertificatesAPI(params=params),
+        'connect': mbed_cloud.ConnectAPI(params=params),
+        'device_directory': mbed_cloud.DeviceDirectoryAPI(params=params),
+        'update': mbed_cloud.UpdateAPI(params=params)
     }
 
     # Return empty JSON for now. Might change in the future.
@@ -196,6 +194,7 @@ def main(module, method, methods=["GET"]):
         _, _, tb = sys.exc_info()
         tb_info = traceback.extract_tb(tb)
         filename, line, func, text = tb_info[-1]
+        text = traceback.format_exc()
         message = str(e)
         if hasattr(e, "message"):
             message = e.message
