@@ -145,9 +145,9 @@ jobs:
       - run: sudo pip install pipenv
       - run: pipenv run sphinx-build -a -b html -c docs/ docs/ built_docs
       - persist_to_workspace:
-        root: .
-        paths:
-          - built_docs
+          root: .
+          paths:
+            - built_docs
       - store_artifacts:
           path: built_docs
 
