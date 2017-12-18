@@ -201,6 +201,7 @@ jobs:
     environment:
       <<: *environ
       DEPLOY_TARGET: testpypi
+      TWINE_REPOSITORY_URL: https://test.pypi.org/legacy/
     docker:
       - image: circleci/python:3.6.1
 
