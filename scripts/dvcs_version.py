@@ -22,6 +22,7 @@ https://www.python.org/dev/peps/pep-0440/
 https://pypi.python.org/pypi/semver
 https://pypi.python.org/pypi/bumpversion
 https://github.com/warner/python-versioneer
+
 """
 import fileinput
 import os
@@ -34,7 +35,9 @@ def write_out(**params):
 
     (imports during setup.py are fraught with peril)
     """
-    target = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'src', 'mbed_cloud', '_version.py')
+    target = os.path.join(
+        os.path.dirname(os.path.dirname(__file__)), 'src', 'mbed_cloud', '_version.py'
+    )
     fh = fileinput.FileInput(target, inplace=True)
     try:
         for line in fh:

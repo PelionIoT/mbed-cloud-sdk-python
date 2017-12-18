@@ -144,8 +144,25 @@ jobs:
       - run: sudo apt-get install pandoc
       - run: sudo pip install pipenv
       - run: pipenv run sphinx-build -a -b html -c docs/ docs/ built_docs
+      - persist_to_workspace:
+        root: .
+        paths:
+          - built_docs
       - store_artifacts:
           path: built_docs
+
+  docs_upload:
+    environment:
+      <<: *environ
+    docker:
+      - image: circleci/python:3.6.1
+    steps:
+      - attach_workspace:
+          <<: *workspace
+      - run: sudo pip install awscli
+      - run:
+          name: Upload docs to Amazon S3
+          command: aws s3 sync --delete --cache-control max-age=3600 built_docs s3://mbed-cloud-sdk-python
 
   test_integration_2:
     <<: *job_test_common
@@ -218,6 +235,12 @@ workflows:
       - docs_build:
           requires:
             - build_3
+      - docs_upload:
+          requires:
+            - docs_build
+          filters:
+            branches:
+              only: master
       - tpip_report:
           requires:
             - build_3
