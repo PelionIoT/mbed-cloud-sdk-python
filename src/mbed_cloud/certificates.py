@@ -50,12 +50,12 @@ class CertificatesAPI(BaseAPI):
     def list_certificates(self, **kwargs):
         """List certificates registered to organisation.
 
-        :param int limit: The number of certificates to retrieve.
+        :param int limit: The number of logs to retrieve.
         :param str order: The ordering direction, ascending (asc) or
             descending (desc).
-        :param str after: Get certificates after/starting at given `certificate_id`.
+        :param str after: Get logs after/starting at given `device_log_id`.
         :param dict filters: Dictionary of filters to apply: type (eq), expire (eq), owner (eq)
-        :return: list of :py:class:`DeviceLog` objects [[[I think this is a copy/paste error?]]]
+        :return: list of :py:class:`DeviceLog` objects
         :rtype: Certificate
         """
         kwargs = self._verify_sort_options(kwargs)
@@ -167,7 +167,7 @@ class CertificatesAPI(BaseAPI):
         :param str certificate_id: The certificate id (Required)
         :param str certificate_data: X509.v3 trusted certificate in PEM format.
         :param str signature: Base64 encoded signature of the account ID
-            signed by the certificate to be uploaded. Available only for bootstrap and lwm2m types.
+            signed by the certificate to be uploaded. Available only for bootstrap and lvm2m types.
         :param str type: type of the certificate. Values: lwm2m or bootstrap.
         :param str status: Status of the certificate.
             Allowed values: "ACTIVE" | "INACTIVE".

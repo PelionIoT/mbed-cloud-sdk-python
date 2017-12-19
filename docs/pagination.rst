@@ -1,9 +1,9 @@
 Pagination
 ~~~~~~~~~~
 
-The API provides a paginated response to requests,
-encapsulated in the Python client, returning an object that you can
-use to iterate over and explore the data.
+The API behind the scenes responds to requests in a paginated fashion, which we
+encapsulate in the Python client by returning an object where the developer can
+fine control the behaviour when iterating and exploring the data.
 
 Basic iteration
 ---------------
