@@ -137,8 +137,9 @@ class Metric(BaseObject):
 
     @property
     def successful_proxy_requests(self):
-        """The number of successful proxy requests from Mbed Cloud Connect to devices linked
-        to the account. The proxy requests are made from Mbed Cloud Connect to devices
+        """The number of successful proxy requests from Mbed Cloud Connect to devices linked to the account.
+        
+        The proxy requests are made from Mbed Cloud Connect to devices
         when you try to read or write values to device resources using Connect API endpoints.
 
         :rtype: int
@@ -147,8 +148,9 @@ class Metric(BaseObject):
 
     @property
     def failed_proxy_requests(self):
-        """The number of failed proxy requests from Mbed Cloud Connect to devices linked to
-        the account. The proxy requests are made from Mbed Cloud Connect to devices when you try
+        """The number of failed proxy requests from Mbed Cloud Connect to devices linked to the account.
+        
+        The proxy requests are made from Mbed Cloud Connect to devices when you try
         to read or write values to device resources using Connect API endpoints.
 
         :rtype: int
@@ -157,8 +159,9 @@ class Metric(BaseObject):
 
     @property
     def successful_subscription_requests(self):
-        """The number of successful subscription requests from Mbed Cloud Connect to devices
-        linked to the account. The subscription requests are made from Mbed Cloud Connect
+        """The number of successful subscription requests from Mbed Cloud Connect to devices linked to the account.
+         
+        The subscription requests are made from Mbed Cloud Connect
         to devices when you try to subscribe to a resource path using Connect API endpoints.
 
         :rtype: int
@@ -167,8 +170,9 @@ class Metric(BaseObject):
 
     @property
     def failed_subscription_requests(self):
-        """The number of failed subscription requests from Mbed Cloud Connect to devices linked
-        to the account. The subscription requests are made from Mbed Cloud Connect to devices
+        """The number of failed subscription requests from Mbed Cloud Connect to devices linked to the account.
+        
+        The subscription requests are made from Mbed Cloud Connect to devices
         when you try to subscribe to a resource path using Connect API endpoints.
 
         :rtype: int
