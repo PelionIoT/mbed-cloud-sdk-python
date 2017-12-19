@@ -336,7 +336,7 @@ class ConnectAPI(BaseAPI):
         else:
             resp = api.v2_endpoints_device_id_resource_path_post(device_id, resource_path)
         consumer = AsyncConsumer(resp.async_response_id, self._db)
-        return self._get_value_synchronized(consumer)
+        return consumer.wait()
 
     @catch_exceptions(mds.rest.ApiException)
     def set_resource_value_async(self, device_id, resource_path,
@@ -415,7 +415,7 @@ class ConnectAPI(BaseAPI):
                                                              resource_path,
                                                              **kwargs)
         consumer = AsyncConsumer(resp.async_response_id, self._db)
-        return self._get_value_synchronized(consumer)
+        return consumer.wait()
 
     @catch_exceptions(mds.rest.ApiException)
     def execute_resource_async(self, device_id, resource_path, fix_path=True, **kwargs):
