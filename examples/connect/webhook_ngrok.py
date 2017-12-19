@@ -28,13 +28,15 @@ Install ngrok from https://ngrok.com/
 Follow the ngrok instructions to configure a tunnel
 Set the resulting tunnel url in the variable below
 Run the example with:
-   hug -f examples\webhook_ngrok.py
+   hug -f examples/webhook_ngrok.py
 Finally, visit 127.0.0.1:8000 in your browser to initiate the sequence
 """
 from mbed_cloud.connect import ConnectAPI
-import traceback
-import threading
+
 import hug
+
+import threading
+import traceback
 
 api = ConnectAPI()
 ngrok_url = 'https://8b5e7ff1.ngrok.io'
@@ -42,6 +44,10 @@ resource_path = "/3/0"
 
 
 def blocking_code(api):
+    """The bulk of this example
+
+    Registers a webhook with mbed cloud services, waits for data to arrive.
+    """
     device = api.list_connected_devices().data[0]
     print('using device #', device.id)
     api.delete_device_subscriptions(device.id)
@@ -64,7 +70,10 @@ def blocking_code(api):
 
 @hug.put('/', parse_body=False)
 def webhook_handler(request):
-    # passes the raw http body to mbed sdk, to notify that webhook was received
+    """Receives the webhook from mbed cloud services
+
+    Passes the raw http body directly to mbed sdk, to notify that a webhook was received
+    """
     body = request.stream.read().decode('utf8')
     print('webhook handler saw:', body)
     api.notify_webhook_received(payload=body)
@@ -73,8 +82,12 @@ def webhook_handler(request):
 
 @hug.get('/')
 def main():
-    # does something with our device
-    #   (we are doing this in the same process to be certain we are sharing the api instance)
+    """Does something with our device
+
+    We must do this in the same process to be certain we are sharing the api instance
+    (ideally in future the async id database will be capable of being more than
+    just a dictionary)
+    """
     print('doing something!...')
     t = threading.Thread(target=blocking_code, kwargs=dict(api=api))
     t.daemon = True
