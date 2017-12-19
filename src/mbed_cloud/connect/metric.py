@@ -138,7 +138,6 @@ class Metric(BaseObject):
     @property
     def successful_proxy_requests(self):
         """The number of successful proxy requests from Mbed Cloud Connect to devices linked
-
         to the account. The proxy requests are made from Mbed Cloud Connect to devices
         when you try to read or write values to device resources using Connect API endpoints.
 
@@ -149,9 +148,9 @@ class Metric(BaseObject):
     @property
     def failed_proxy_requests(self):
         """The number of failed proxy requests from Mbed Cloud Connect to devices linked to
-
         the account. The proxy requests are made from Mbed Cloud Connect to devices when you try
         to read or write values to device resources using Connect API endpoints.
+
         :rtype: int
         """
         return self._failed_proxy_requests
@@ -159,9 +158,9 @@ class Metric(BaseObject):
     @property
     def successful_subscription_requests(self):
         """The number of successful subscription requests from Mbed Cloud Connect to devices
-
         linked to the account. The subscription requests are made from Mbed Cloud Connect
         to devices when you try to subscribe to a resource path using Connect API endpoints.
+
         :rtype: int
         """
         return self._successful_subscription_requests
@@ -169,9 +168,9 @@ class Metric(BaseObject):
     @property
     def failed_subscription_requests(self):
         """The number of failed subscription requests from Mbed Cloud Connect to devices linked
-
         to the account. The subscription requests are made from Mbed Cloud Connect to devices
         when you try to subscribe to a resource path using Connect API endpoints.
+
         :rtype: int
         """
         return self._failed_subscription_requests
@@ -228,7 +227,7 @@ class Metric(BaseObject):
     @property
     def updated_registrations(self):
         """The number of registration updates linked to the account.
-
+        
         Registration update is the process of updating the registration status with
         the Mbed Cloud Connect to update or extend the lifetime of the device.
 
