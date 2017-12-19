@@ -132,7 +132,7 @@ class DeviceDirectoryAPI(BaseAPI):
         :param str certificate_fingerprint: Fingerprint of the device certificate
         :param str certificate_issuer_id: ID of the issuer of the certificate
         :param str name: The name of the device
-        :param str account_id: The owning IAM account ID
+        :param str account_id: The owning Identity and Access Managment (IAM) account ID
         :param obj custom_attributes: Up to 5 custom JSON attributes
         :param str description: The description of the device
         :param str device_class: Class of the device
@@ -209,7 +209,7 @@ class DeviceDirectoryAPI(BaseAPI):
 
         :param str name: Name of query (Required)
         :param dict filter: Filter properties to apply (Required)
-        :param return: the newly created query object.
+        :param return: The newly created query object.
         :return: the newly created query object
         :rtype: Query
         """
@@ -262,7 +262,7 @@ class DeviceDirectoryAPI(BaseAPI):
     def delete_query(self, query_id):
         """Delete query in device query service.
 
-        :param int query_id: id of the query to delete (Required)
+        :param int query_id: ID of the query to delete (Required)
         :return: void
         """
         api = self._get_api(device_directory.DefaultApi)
@@ -273,7 +273,7 @@ class DeviceDirectoryAPI(BaseAPI):
     def get_query(self, query_id):
         """Get query in device query service.
 
-        :param int query_id: id of the query to get (Required)
+        :param int query_id: ID of the query to get (Required)
         :returns: device query object
         :rtype: Query
         """
@@ -355,7 +355,7 @@ class Device(BaseObject):
 
     @property
     def bootstrapped_timestamp(self):
-        """The time device was created..
+        """The time the device was created.
 
         :rtype: datetime
         """
@@ -495,8 +495,6 @@ class Device(BaseObject):
     def updated_at(self):
         """The time the device was updated.
 
-        The time the object was created
-
         :rtype: datetime
         """
         return self._updated_at
@@ -504,8 +502,6 @@ class Device(BaseObject):
     @property
     def vendor_id(self):
         """The device vendor ID.
-
-        The time the object was created
 
         :rtype: str
         """

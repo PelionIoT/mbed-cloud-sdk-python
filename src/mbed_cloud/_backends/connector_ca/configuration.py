@@ -50,7 +50,7 @@ class Configuration(with_metaclass(TypeWithDefault, object)):
         Constructor
         """
         # Default Base url
-        self.host = "http://api.mbedcloud.com"
+        self.host = "http://api.us-east-1.mbedcloud.com"
         # Temp file folder for downloading files
         self.temp_folder_path = None
 

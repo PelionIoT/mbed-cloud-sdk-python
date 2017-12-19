@@ -33,7 +33,7 @@ class Presubscription(BaseObject):
     def device_id(self):
         """The Device ID
 
-        :return: The url of this Webhook.
+        :return: The URL of this Webhook.
         :rtype: str
         """
         return self._device_id
@@ -42,7 +42,7 @@ class Presubscription(BaseObject):
     def device_type(self):
         """Device type of this Presubscription.
 
-        :return: The url of this Webhook.
+        :return: The URL of this Webhook.
         :rtype: str
         """
         return self._device_type
@@ -51,7 +51,7 @@ class Presubscription(BaseObject):
     def resource_paths(self):
         """Resource paths of this Presubscription.
 
-        :return: The url of this Webhook.
+        :return: The URL of this Webhook.
         :rtype: list[str]
         """
         return self._resource_paths
