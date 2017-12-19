@@ -235,8 +235,6 @@ class DeviceDataPutRequest(object):
         :param device_key: The device_key of this DeviceDataPutRequest.
         :type: str
         """
-        if device_key is None:
-            raise ValueError("Invalid value for `device_key`, must not be `None`")
         if device_key is not None and len(device_key) > 512:
             raise ValueError("Invalid value for `device_key`, length must be less than or equal to `512`")
 
@@ -287,8 +285,6 @@ class DeviceDataPutRequest(object):
         :param ca_id: The ca_id of this DeviceDataPutRequest.
         :type: str
         """
-        if ca_id is None:
-            raise ValueError("Invalid value for `ca_id`, must not be `None`")
         if ca_id is not None and len(ca_id) > 500:
             raise ValueError("Invalid value for `ca_id`, length must be less than or equal to `500`")
 

@@ -362,7 +362,7 @@ class PaginatedResponse(object):
         """Get the total count from the meta data.
 
         As the count, due to backend cost, doesn't always respond with the
-        total count of elements we can explicitly request the total of elements
+        total count of elements, you can explicitly request the total of elements
         that will be returned by a paginated request.
 
         .. code-block:: python

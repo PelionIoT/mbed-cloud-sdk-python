@@ -30,7 +30,7 @@ class Webhook(BaseObject):
 
     @property
     def url(self):
-        """Get the url of this Webhook.
+        """Get the URL of this Webhook.
 
         The URL to which the notifications are sent.
         We recommend that you serve this URL over HTTPS.
