@@ -65,7 +65,7 @@ class BaseAPI(object):
 
         for api_client in clients:
             api_client.configuration.host = (self.config.get('host') or
-                                             self.api_client.configuration.host)
+                                             api_client.configuration.host)
             api_client.configuration.api_key['Authorization'] = self.config['api_key']
 
     def _verify_sort_options(self, kwargs):
