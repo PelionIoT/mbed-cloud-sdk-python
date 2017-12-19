@@ -60,7 +60,7 @@ class ConnectAPI(BaseAPI):
 
     Exposing functionality for doing a range of device related actions:
         - Listing connected devices
-        - Exploring and managing resources and resource values on said devices
+        - Exploring and managing resources and resource values on connected devices
         - Setup resource subscriptions and webhooks for resource monitoring
     """
 
@@ -90,7 +90,7 @@ class ConnectAPI(BaseAPI):
     def start_notifications(self):
         """Start the notifications thread.
 
-        If not an external callback is setup (using `update_webhook`) then
+        If an external callback is not set up (using `update_webhook`) then
         calling this function is mandatory to get or set resource.
 
         .. code-block:: python
@@ -247,7 +247,7 @@ class ConnectAPI(BaseAPI):
         :param fix_path: if True then the leading /, if found, will be stripped before
             doing request to backend. This is a requirement for the API to work properly
         :param timeout: Seconds to request value for before timeout. If not provided, the
-            program might hang indefinitly.
+            program might hang indefinitely.
         :raises: CloudAsyncError, CloudTimeoutError
         :returns: The resource value for the requested resource path
         :rtype: str
@@ -456,14 +456,14 @@ class ConnectAPI(BaseAPI):
     def add_resource_subscription(self, device_id, resource_path, fix_path=True, queue_size=5):
         """Subscribe to resource updates.
 
-        When called on valid device and resource path a subscription is setup so that
+        When called on a valid device and resource path a subscription is setup so that
         any update on the resource path value triggers a new element on the FIFO queue.
         The returned object is a native Python Queue object.
 
         :param device_id: Name of device to subscribe on (Required)
         :param resource_path: The resource path on device to observe (Required)
         :param fix_path: Removes leading / on resource_path if found
-        :param queue_size: set the Queue size. If set to 0, no queue object will be created
+        :param queue_size: Sets the Queue size. If set to 0, no queue object will be created
         :returns: a queue of resource updates
         :rtype: Queue
         """
@@ -491,14 +491,14 @@ class ConnectAPI(BaseAPI):
                                         fix_path=True, queue_size=5):
         """Subscribe to resource updates with callback function.
 
-        When called on valid device and resource path a subscription is setup so that
+        When called on a valid device and resource path a subscription is setup so that
         any update on the resource path value triggers an update on the callback function.
 
-        :param device_id: Name of device to subscribe on (Required)
+        :param device_id: Name of device to set the subscription on (Required)
         :param resource_path: The resource path on device to observe (Required)
         :param callback_fn: Callback function to be executed on update to subscribed resource
         :param fix_path: Removes leading / on resource_path if found
-        :param queue_size: set the Queue size. If set to 0, no queue object will be created
+        :param queue_size: Sets the Queue size. If set to 0, no queue object will be created
         :returns: void
         """
         queue = self.add_resource_subscription(device_id, resource_path, fix_path, queue_size)
@@ -513,7 +513,7 @@ class ConnectAPI(BaseAPI):
     def get_resource_subscription(self, device_id, resource_path, fix_path=True):
         """Read subscription status.
 
-        :param device_id: Name of device to subscribe on (Required)
+        :param device_id: Name of device to set the subscription on (Required)
         :param resource_path: The resource path on device to observe (Required)
         :param fix_path: Removes leading / on resource_path if found
         :returns: status of subscription
@@ -580,7 +580,7 @@ class ConnectAPI(BaseAPI):
     def list_device_subscriptions(self, device_id, **kwargs):
         """Lists all subscribed resources from a single device
 
-        :param device_id: Id of the device (Required)
+        :param device_id: ID of the device (Required)
         :returns: a list of subscribed resources
         :rtype: list of str
         """
@@ -592,7 +592,7 @@ class ConnectAPI(BaseAPI):
     def delete_device_subscriptions(self, device_id):
         """Removes a device's subscriptions
 
-        :param device_id: Id of the device (Required)
+        :param device_id: ID of the device (Required)
         :returns: None
         """
         api = self._get_api(mds.SubscriptionsApi)
@@ -602,9 +602,9 @@ class ConnectAPI(BaseAPI):
     def delete_resource_subscription(self, device_id=None, resource_path=None, fix_path=True):
         """Unsubscribe from device and/or resource_path updates.
 
-        If device_id or resource_path is None, we remove every subscripton
-        for them. I.e. calling this method without arguments removes all subscriptions,
-        but calling it with only device_id removes subscriptions for all resources
+        If device_id or resource_path is None, or this method is called without arguments,
+        all subscriptions are removed.
+        Calling it with only device_id removes subscriptions for all resources
         on the given device.
 
         :param device_id: device to unsubscribe events from. If not
@@ -714,7 +714,7 @@ class ConnectAPI(BaseAPI):
         """Get statistics.
 
         :param list[str] include: List of fields included in response.
-        None or empty list will return all fields.
+        None, or an empty list will return all fields.
         Fields: transactions, successful_api_calls, failed_api_calls, successful_handshakes,
         pending_bootstraps, successful_bootstraps, failed_bootstraps, registrations,
         updated_registrations, expired_registrations, deleted_registrations

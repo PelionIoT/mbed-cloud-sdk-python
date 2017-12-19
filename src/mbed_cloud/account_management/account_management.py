@@ -130,9 +130,9 @@ class AccountManagementAPI(BaseAPI):
     def list_users(self, **kwargs):
         """List all users in organisation.
 
-        :param int limit: The number of devices to retrieve
+        :param int limit: The number of users to retrieve
         :param str order: The ordering direction, ascending (asc) or descending (desc)
-        :param str after: Get devices after/starting at given user ID
+        :param str after: Get users after/starting at given user ID
         :param dict filters: Dictionary of filters to apply: str status (eq)
         :returns: a list of :py:class:`User` objects
         :rtype: PaginatedResponse
@@ -285,7 +285,7 @@ class AccountManagementAPI(BaseAPI):
         :param str group_id: The group ID (Required)
         :param int limit: The number of users to retrieve
         :param str order: The ordering direction, ascending (asc) or descending (desc)
-        :param str after: Get api keys after/starting at given user ID
+        :param str after: Get API keys after/starting at given user ID
         :returns: a list of :py:class:`User` objects.
         :rtype: PaginatedResponse
         """
@@ -301,7 +301,7 @@ class AccountManagementAPI(BaseAPI):
         :param str group_id: The group ID (Required)
         :param int limit: The number of api keys to retrieve.
         :param str order: The ordering direction, ascending (asc) or descending (desc).
-        :param str after: Get api keys after/starting at given api key ID.
+        :param str after: Get API keys after/starting at given api key ID.
         :returns: a list of :py:class:`ApiKey` objects.
         :rtype: PaginatedResponse
         """
@@ -518,7 +518,7 @@ class Account(BaseObject):
 
     @property
     def reason(self):
-        """A reason note for updating the status of the account.
+        """A note about the reason for updating the status of the account.
 
         :rtype: str
         """
@@ -600,7 +600,7 @@ class User(BaseObject):
 
     @property
     def password(self):
-        """The password when creating a new user. It will will generated when not present in the request.
+        """The password when creating a new user. It will be generated when not present in the request.
 
         :rtype: str
         """
