@@ -213,22 +213,6 @@ class ConnectAPI(BaseAPI):
         raise CloudApiException("Resource not found")
 
     @catch_exceptions(mds.rest.ApiException)
-    def delete_resource(self, device_id, resource_path, fix_path=False):
-        """Deletes a resource.
-
-        :param str device_id: The ID of the device (Required)
-        :param str resource_path: Path of the resource to delete (Required)
-        :param fix_path: Removes leading / on resource_path if found
-        :returns: Async ID
-        :rtype: str
-        """
-        api = self._get_api(mds.ResourcesApi)
-        # When path starts with / we remove the slash, as the API can't handle //.
-        if fix_path and resource_path.startswith("/"):
-            resource_path = resource_path[1:]
-        api.v2_endpoints_device_id_resource_path_delete(device_id, resource_path)
-
-    @catch_exceptions(mds.rest.ApiException)
     def get_resource_value(self, device_id, resource_path, fix_path=True, timeout=None):
         """Get a resource value for a given device and resource path by blocking thread.
 
@@ -336,7 +320,7 @@ class ConnectAPI(BaseAPI):
         else:
             resp = api.v2_endpoints_device_id_resource_path_post(device_id, resource_path)
         consumer = AsyncConsumer(resp.async_response_id, self._db)
-        return self._get_value_synchronized(consumer)
+        return consumer.wait()
 
     @catch_exceptions(mds.rest.ApiException)
     def set_resource_value_async(self, device_id, resource_path,
@@ -415,7 +399,7 @@ class ConnectAPI(BaseAPI):
                                                              resource_path,
                                                              **kwargs)
         consumer = AsyncConsumer(resp.async_response_id, self._db)
-        return self._get_value_synchronized(consumer)
+        return consumer.wait()
 
     @catch_exceptions(mds.rest.ApiException)
     def execute_resource_async(self, device_id, resource_path, fix_path=True, **kwargs):
