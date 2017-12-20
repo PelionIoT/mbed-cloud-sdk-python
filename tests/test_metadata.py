@@ -9,7 +9,7 @@ class TestFilters(BaseCase):
     @classmethod
     def setUpClass(cls):
         cls.api = DeviceDirectoryAPI()
-        cls.devices = cls.api.list_devices(filter=dict(connected=True))
+        cls.devices = cls.api.list_devices(filter=dict(state='bootstrapped'))
 
     def test_meta(self):
         # exercise all the getters for metadata objects

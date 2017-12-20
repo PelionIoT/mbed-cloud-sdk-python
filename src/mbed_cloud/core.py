@@ -22,13 +22,12 @@ from __future__ import unicode_literals
 import datetime
 
 from mbed_cloud.configuration import Config
-from mbed_cloud.exceptions import CloudValueError
+from mbed_cloud import filters
 
 from builtins import object
 from six.moves import urllib
 
 from six import iteritems
-from six import string_types
 
 
 class BaseAPI(object):
@@ -83,83 +82,11 @@ class BaseAPI(object):
         return kwargs
 
     def _verify_filters(self, kwargs, obj, encode=False):
-        if kwargs.get('filters'):
-            kwargs.update({'filter': kwargs.get('filters')})
-            del kwargs['filters']
-        if 'filter' in kwargs:
-            filters = kwargs.get('filter')
-            if filters and not isinstance(filters, dict):
-                raise CloudValueError("'filters' parameter needs to be of type dict")
-            filters = self._encode_query(filters, obj, encode)
-            if encode:
-                kwargs.update({'filter': filters})
-            else:
-                for k, v in list(filters.items()):
-                    kwargs[k] = v
-                del kwargs['filter']
-        return kwargs
-
-    def _encode_query(self, filters, obj, encode=True):
-        updated_filters = {}
-        for k, v in list(filters.items()):
-            val = obj._get_attributes_map().get(k, None)
-            if val is not None:
-                updated_filters[val] = filters[k]
-            else:
-                updated_filters[k] = v
-        self._set_custom_attributes(updated_filters)
-        filters = self._create_filters_dict(updated_filters, encode)
-        if encode:
-            return urllib.parse.urlencode(sorted(filters.items()))
-        else:
-            return filters
-
-    def _create_filters_dict(self, query, encode):
-        filters = {}
-        for k, v in list(query.items()):
-            if not isinstance(v, dict):
-                # Set default operator as eq
-                v = {'$eq': v}
-            for operator, val in list(v.items()):
-                val = self._convert_filter_value(val)
-                suffix = self._get_key_suffix(operator, encode)
-                key = "%s%s" % (k, suffix)
-                if encode:
-                    if not isinstance(val, string_types):
-                        val = str(val)
-                    filters[key] = urllib.parse.quote(val)
-                else:
-                    filters[key] = val
-        return filters
-
-    def _convert_filter_value(self, value):
-        if isinstance(value, datetime.datetime):
-            value = value.isoformat() + "Z"
-        return value
-
-    def _set_custom_attributes(self, query):
-        if "custom_attributes" in query:
-            custom_attributes = query["custom_attributes"]
-            del query["custom_attributes"]
-            if not isinstance(custom_attributes, dict):
-                raise CloudValueError("Custom attributes when creating query"
-                                      "needs to be dict object")
-            for k, v in list(custom_attributes.items()):
-                if not k:
-                    print("Ignoring custom attribute with value %r as key is empty" % (v,))
-                    continue
-                query['custom_attributes__' + k] = v
-
-    def _get_key_suffix(self, operator, replace_eq=True):
-        suffix = ""
-        operator = operator.replace("$", "")
-        if replace_eq and operator == "eq":
-            suffix = ""
-        elif operator == "ne":
-            suffix = "__neq"
-        else:
-            suffix = "__%s" % (operator)
-        return suffix
+        """Legacy entrypoint with 'encode' flag"""
+        return (filters.legacy_filter_formatter if encode else filters.filter_formatter)(
+            kwargs,
+            obj._get_attributes_map()
+        )
 
     def get_last_api_metadata(self):
         """Get meta data for the last Mbed Cloud API call.
