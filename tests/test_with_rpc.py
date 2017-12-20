@@ -13,6 +13,8 @@ from requests.packages.urllib3.util.retry import Retry
 
 from tests.common import BaseCase
 
+from mbed_cloud.configuration import Config
+
 
 docker_image = os.environ.get(
     'TESTRUNNER_DOCKER_IMAGE',
@@ -119,9 +121,10 @@ class TestWithRPC(BaseCase):
         else:
             print('sdk test server is running locally on %s' % (test_server_local_address,))
         self.host = find_test_server_host(docker_image, find_host_address_potentials(docker_image))
-        print('rpc testrun ready - host: %r key: ***%s' % (
-            os.getenv('MBED_CLOUD_API_HOST', 'default'),
-            os.getenv('MBED_CLOUD_API_KEY', 'default')[-7:]
+        config = Config()
+        print("rpc testrun ready - host: %r key: '***%s'" % (
+            config.get('host', 'default'),
+            config.get('api_key', 'default')[-7:]
         ))
 
     def test_run(self):
