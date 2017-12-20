@@ -698,10 +698,10 @@ class ConnectAPI(BaseAPI):
         """Get statistics.
 
         :param list[str] include: List of fields included in response.
-        None, or an empty list will return all fields.
-        Fields: transactions, successful_api_calls, failed_api_calls, successful_handshakes,
-        pending_bootstraps, successful_bootstraps, failed_bootstraps, registrations,
-        updated_registrations, expired_registrations, deleted_registrations
+            None, or an empty list will return all fields.
+            Fields: transactions, successful_api_calls, failed_api_calls, successful_handshakes,
+            pending_bootstraps, successful_bootstraps, failed_bootstraps, registrations,
+            updated_registrations, expired_registrations, deleted_registrations
         :param str interval: Group data by this interval in days, weeks or hours.
             Sample values: 2h, 3w, 4d.
         :param datetime start: Fetch the data with timestamp greater than or equal to this value.

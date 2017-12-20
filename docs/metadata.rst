@@ -17,5 +17,5 @@ Get meta data
 Reference
 ---------
 
-.. automodule:: mbed_cloud
+.. automodule:: mbed_cloud.core
   :members: ApiMetadata
