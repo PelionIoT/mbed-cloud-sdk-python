@@ -229,7 +229,7 @@ class FirmwareImage(object):
     def datafile_checksum(self):
         """
         Gets the datafile_checksum of this FirmwareImage.
-        Checksum generated for the datafile
+        Checksum (sha256) generated for the datafile
 
         :return: The datafile_checksum of this FirmwareImage.
         :rtype: str
@@ -240,7 +240,7 @@ class FirmwareImage(object):
     def datafile_checksum(self, datafile_checksum):
         """
         Sets the datafile_checksum of this FirmwareImage.
-        Checksum generated for the datafile
+        Checksum (sha256) generated for the datafile
 
         :param datafile_checksum: The datafile_checksum of this FirmwareImage.
         :type: str

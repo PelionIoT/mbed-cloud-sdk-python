@@ -52,15 +52,16 @@ class Config(dict):
 
     def paths(self):
         """Get list of paths to look in for configuration data"""
+        filename = '.mbed_cloud_config.json'
         return [
-            # Global config in /etc
-            "/etc/.mbed_cloud_config.json",
+            # Global config in /etc for *nix users
+            "/etc/%s" % filename,
 
             # Config file in home directory
-            os.path.join(os.path.expanduser("~"), ".mbed_cloud_config.json"),
+            os.path.join(os.path.expanduser("~"), filename),
 
             # Config file in current directory
-            os.path.join(os.getcwd(), ".mbed_cloud_config.json"),
+            os.path.join(os.getcwd(), filename),
 
             # Config file specified using environment variable
             os.environ.get("MBED_CLOUD_SDK_CONFIG")
@@ -75,9 +76,10 @@ class Config(dict):
             if not path:
                 continue
             abs_path = os.path.abspath(os.path.expanduser(path))
-            self._using_paths.append(abs_path)
             if not os.path.isfile(abs_path):
+                self._using_paths.append('missing: %s' % abs_path)
                 continue
+            self._using_paths.append(' exists: %s' % abs_path)
             with open(abs_path) as fh:
                 self.update(json.load(fh))
         if updates:

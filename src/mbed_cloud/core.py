@@ -64,7 +64,7 @@ class BaseAPI(object):
 
         for api_client in clients:
             api_client.configuration.host = (self.config.get('host') or
-                                             self.api_client.configuration.host)
+                                             api_client.configuration.host)
             api_client.configuration.api_key['Authorization'] = self.config['api_key']
 
     def _verify_sort_options(self, kwargs):
@@ -289,7 +289,7 @@ class PaginatedResponse(object):
         """Get the total count from the meta data.
 
         As the count, due to backend cost, doesn't always respond with the
-        total count of elements we can explicitly request the total of elements
+        total count of elements, you can explicitly request the total of elements
         that will be returned by a paginated request.
 
         .. code-block:: python

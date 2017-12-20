@@ -35,17 +35,17 @@ class ExternalAPIApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def v3_developer_certificates_id_get(self, id, authorization, **kwargs):
+    def v3_developer_certificates_muuid_get(self, muuid, authorization, **kwargs):
         """
         Fetch an existing developer certificate to connect to the bootstrap server.
         This REST API is intended to be used by customers to fetch an existing developer certificate (a certificate that can be flashed into multiple devices to connect to bootstrap server). 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
-        >>> thread = api.v3_developer_certificates_id_get(id, authorization, async=True)
+        >>> thread = api.v3_developer_certificates_muuid_get(muuid, authorization, async=True)
         >>> result = thread.get()
 
         :param async bool
-        :param str id: A unique identifier for the developer certificate.  (required)
+        :param str muuid: A unique identifier for the developer certificate.  (required)
         :param str authorization: Bearer {Access Token}.  (required)
         :return: DeveloperCertificateResponseData
                  If the method is called asynchronously,
@@ -53,29 +53,29 @@ class ExternalAPIApi(object):
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async'):
-            return self.v3_developer_certificates_id_get_with_http_info(id, authorization, **kwargs)
+            return self.v3_developer_certificates_muuid_get_with_http_info(muuid, authorization, **kwargs)
         else:
-            (data) = self.v3_developer_certificates_id_get_with_http_info(id, authorization, **kwargs)
+            (data) = self.v3_developer_certificates_muuid_get_with_http_info(muuid, authorization, **kwargs)
             return data
 
-    def v3_developer_certificates_id_get_with_http_info(self, id, authorization, **kwargs):
+    def v3_developer_certificates_muuid_get_with_http_info(self, muuid, authorization, **kwargs):
         """
         Fetch an existing developer certificate to connect to the bootstrap server.
         This REST API is intended to be used by customers to fetch an existing developer certificate (a certificate that can be flashed into multiple devices to connect to bootstrap server). 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
-        >>> thread = api.v3_developer_certificates_id_get_with_http_info(id, authorization, async=True)
+        >>> thread = api.v3_developer_certificates_muuid_get_with_http_info(muuid, authorization, async=True)
         >>> result = thread.get()
 
         :param async bool
-        :param str id: A unique identifier for the developer certificate.  (required)
+        :param str muuid: A unique identifier for the developer certificate.  (required)
         :param str authorization: Bearer {Access Token}.  (required)
         :return: DeveloperCertificateResponseData
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['id', 'authorization']
+        all_params = ['muuid', 'authorization']
         all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -86,23 +86,23 @@ class ExternalAPIApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method v3_developer_certificates_id_get" % key
+                    " to method v3_developer_certificates_muuid_get" % key
                 )
             params[key] = val
         del params['kwargs']
-        # verify the required parameter 'id' is set
-        if ('id' not in params) or (params['id'] is None):
-            raise ValueError("Missing the required parameter `id` when calling `v3_developer_certificates_id_get`")
+        # verify the required parameter 'muuid' is set
+        if ('muuid' not in params) or (params['muuid'] is None):
+            raise ValueError("Missing the required parameter `muuid` when calling `v3_developer_certificates_muuid_get`")
         # verify the required parameter 'authorization' is set
         if ('authorization' not in params) or (params['authorization'] is None):
-            raise ValueError("Missing the required parameter `authorization` when calling `v3_developer_certificates_id_get`")
+            raise ValueError("Missing the required parameter `authorization` when calling `v3_developer_certificates_muuid_get`")
 
 
         collection_formats = {}
 
         path_params = {}
-        if 'id' in params:
-            path_params['id'] = params['id']
+        if 'muuid' in params:
+            path_params['muuid'] = params['muuid']
 
         query_params = []
 
@@ -121,7 +121,7 @@ class ExternalAPIApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api('/v3/developer-certificates/{id}', 'GET',
+        return self.api_client.call_api('/v3/developer-certificates/{muuid}', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,

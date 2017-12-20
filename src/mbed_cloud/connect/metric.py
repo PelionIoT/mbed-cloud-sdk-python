@@ -91,6 +91,7 @@ class Metric(BaseObject):
         secret keys with which they communicate. A successful TLS handshake is required
         for establishing a connection with Mbed Cloud Connect for any operaton such as registration,
         registration update and deregistration.
+
         :rtype: int
         """
         return self._handshakes
@@ -111,10 +112,11 @@ class Metric(BaseObject):
 
     @property
     def observations(self):
-        """The number of observations received by Mbed Cloud Connect from the devices
+        """The number of observations received by Mbed Cloud Connect from the devices.
 
-        linked to the account. The observations are pushed from the device to Mbed Cloud Connect
+        The observations are pushed from the devices linked to the account to Mbed Cloud Connect
         when you have successfully subscribed to the device resources using Connect API endpoints.
+
         :rtype: int
         """
         return self._observations
@@ -137,10 +139,11 @@ class Metric(BaseObject):
 
     @property
     def successful_proxy_requests(self):
-        """The number of successful proxy requests from Mbed Cloud Connect to devices linked
+        """The number of successful proxy requests from Mbed Cloud Connect to devices.
 
-        to the account. The proxy requests are made from Mbed Cloud Connect to devices
-        when you try to read or write values to device resources using Connect API endpoints.
+        The proxy requests are made from Mbed Cloud Connect to devices linked to
+        the account when you try to read or write values to device resources
+        using Connect API endpoints.
 
         :rtype: int
         """
@@ -148,30 +151,34 @@ class Metric(BaseObject):
 
     @property
     def failed_proxy_requests(self):
-        """The number of failed proxy requests from Mbed Cloud Connect to devices linked to
+        """The number of failed proxy requests from Mbed Cloud Connect to devices.
 
-        the account. The proxy requests are made from Mbed Cloud Connect to devices when you try
-        to read or write values to device resources using Connect API endpoints.
+        The proxy requests are made from Mbed Cloud Connect to devices linked to
+        the account when you try to read or write values to device resources
+        using Connect API endpoints.
+
         :rtype: int
         """
         return self._failed_proxy_requests
 
     @property
     def successful_subscription_requests(self):
-        """The number of successful subscription requests from Mbed Cloud Connect to devices
+        """The number of successful subscription requests from Mbed Cloud Connect to devices.
 
-        linked to the account. The subscription requests are made from Mbed Cloud Connect
-        to devices when you try to subscribe to a resource path using Connect API endpoints.
+        The subscription requests are made from Mbed Cloud Connect to devices linked to
+        the account when you try to subscribe to a resource path using Connect API endpoints.
+
         :rtype: int
         """
         return self._successful_subscription_requests
 
     @property
     def failed_subscription_requests(self):
-        """The number of failed subscription requests from Mbed Cloud Connect to devices linked
+        """The number of failed subscription requests from Mbed Cloud Connect to devices.
 
-        to the account. The subscription requests are made from Mbed Cloud Connect to devices
-        when you try to subscribe to a resource path using Connect API endpoints.
+        The subscription requests are made from Mbed Cloud Connect to devices linked to
+        the account when you try to subscribe to a resource path using Connect API endpoints.
+
         :rtype: int
         """
         return self._failed_subscription_requests

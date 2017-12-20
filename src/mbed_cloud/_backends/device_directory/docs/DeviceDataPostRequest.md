@@ -23,9 +23,9 @@ Name | Type | Description | Notes
 **deployment** | **str** | DEPRECATED: The last deployment used on the device. | [optional] 
 **mechanism_url** | **str** | The address of the connector to use. | [optional] 
 **name** | **str** | The name of the device. | [optional] 
-**device_key** | **str** | The fingerprint of the device certificate. | 
+**device_key** | **str** | The fingerprint of the device certificate. | [optional] 
 **manifest** | **str** | DEPRECATED: The URL for the current device manifest. | [optional] 
-**ca_id** | **str** | The certificate issuer&#39;s ID. | 
+**ca_id** | **str** | The certificate issuer&#39;s ID. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

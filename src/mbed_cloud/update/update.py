@@ -71,8 +71,8 @@ class UpdateAPI(BaseAPI):
     def get_campaign(self, campaign_id):
         """Get existing update campaign.
 
-        :param str campaign_id: Campaign id to retrieve (Required)
-        :return: Update campaign object matching provided ID.
+        :param str campaign_id: Campaign ID to retrieve (Required)
+        :return: Update campaign object matching provided ID
         :rtype: Campaign
         """
         api = self._get_api(update_service.DefaultApi)
@@ -82,7 +82,7 @@ class UpdateAPI(BaseAPI):
     def add_campaign(self, name, device_filter, **kwargs):
         """Add new update campaign.
 
-        Add an update campaign with given name and device filtering. Example:
+        Add an update campaign with a name and device filtering. Example:
 
         .. code-block:: python
 
@@ -98,10 +98,10 @@ class UpdateAPI(BaseAPI):
             )
 
         :param str name: Name of the update campaign (Required)
-        :param str device_filter: The device filter to use. (Required)
-        :param str manifest_id: ID of the manifest with description of the update.
+        :param str device_filter: The device filter to use (Required)
+        :param str manifest_id: ID of the manifest with description of the update
         :param str description: Description of the campaign
-        :param date when: The timestamp at which update campaign scheduled to start
+        :param date when: The timestamp at which update campaign is scheduled to start
         :param str state: The state of the campaign. Values:
             "draft", "scheduled", "devicefetch", "devicecopy", "publishing",
             "deploying", "deployed", "manifestremoved", "expired"
@@ -122,7 +122,7 @@ class UpdateAPI(BaseAPI):
 
     @catch_exceptions(UpdateServiceApiException)
     def start_campaign(self, campaign_object):
-        """Start an update campaign in draft state.
+        """Start a draft update campaign.
 
         :param Campaign campaign_object: Campaign object to schedule for immediate start (Required)
         :return: newly edited campaign object
@@ -596,7 +596,7 @@ class Campaign(BaseObject):
 
     @property
     def manifest_url(self):
-        """The URl of the manifest used (readonly).
+        """The URL of the manifest used (readonly).
 
         :rtype: str
         """
@@ -626,7 +626,7 @@ class Campaign(BaseObject):
 
     @property
     def started_at(self):
-        """The timestamp at which update campaign scheduled to start (readonly).
+        """The timestamp at which update campaign is scheduled to start (readonly).
 
         :rtype: datetime
         """
@@ -653,7 +653,7 @@ class Campaign(BaseObject):
 
     @scheduled_at.setter
     def scheduled_at(self, scheduled_at):
-        """The timestamp at which update campaign scheduled to start.
+        """The timestamp at which update campaign is scheduled to start.
 
         :param scheduled_at: The timestamp of this Cmapaign.
         :type: str
