@@ -15,7 +15,7 @@
 # limitations under the License.
 # --------------------------------------------------------------------------
 """Example: listing endpoints and their resources using Connect API."""
-from mbed_cloud.connect import ConnectAPI
+from mbed_cloud import ConnectAPI
 
 
 def _main():

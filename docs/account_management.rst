@@ -6,7 +6,7 @@ Listing users and groups in team/organisation
 
 .. code-block:: python
 
-  >>> from mbed_cloud.account_management import AccountManagementAPI
+  >>> from mbed_cloud import AccountManagementAPI
   >>> accountApi = AccountManagementAPI()
   >>>
   >>> u = list(accountApi.list_users())[0]
@@ -21,7 +21,7 @@ Creating and managing a new user
 
 .. code-block:: python
 
-  >>> from mbed_cloud.account_management import AccountManagementAPI
+  >>> from mbed_cloud import AccountManagementAPI
   >>> accountApi = AccountManagementAPI()
   >>>
   >>> # Create a new user with the bare minimum required information

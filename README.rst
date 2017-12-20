@@ -44,7 +44,7 @@ documentation <https://cloud.mbed.com/docs/v1.2/mbed-cloud-sdk-python/>`__:
 
    .. code:: python
 
-       from mbed_cloud.connect import ConnectAPI
+       from mbed_cloud import ConnectAPI
        connect_api = ConnectAPI()
        connect_api.list_connected_devices().data[0]
        {
@@ -55,7 +55,7 @@ documentation <https://cloud.mbed.com/docs/v1.2/mbed-cloud-sdk-python/>`__:
 
    .. code:: python
 
-       from mbed_cloud.account_management import AccountManagementAPI
+       from mbed_cloud import AccountManagementAPI
        api = AccountManagementAPI()
        list(api.list_users())[0]
        {
@@ -77,11 +77,18 @@ See the `examples directory`_ for a collection of use-cases of this API, e.g.:
 
        python examples/connect/list-connected-devices.py
 
+
+Contributing
+------------
+
+Mbed Cloud SDK for Python is open source and we would like your help; there
+is a brief guide on how to get started in `CONTRIBUTING.md <CONTRIBUTING.md>`__.
+
 Licence
 -------
 
 Mbed Cloud SDK for Python is free to use and licensed under the Apache
-License 2.0. See LICENCE for more information.
+License 2.0. See `LICENCE <LICENCE>`__ for more information.
 
 Troubleshooting
 ---------------

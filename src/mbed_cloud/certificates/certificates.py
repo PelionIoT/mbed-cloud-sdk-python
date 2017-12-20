@@ -19,14 +19,13 @@ from __future__ import absolute_import
 from __future__ import unicode_literals
 
 # Import common functions and exceptions from frontend API
-from mbed_cloud import BaseAPI
-from mbed_cloud import BaseObject
+from mbed_cloud.core import BaseAPI
+from mbed_cloud.core import BaseObject
+from mbed_cloud.core import PaginatedResponse
 from mbed_cloud.decorators import catch_exceptions
 from mbed_cloud.exceptions import CloudValueError
-from mbed_cloud import PaginatedResponse
 
 # Import backend API
-
 import mbed_cloud._backends.connector_ca as cert
 from mbed_cloud._backends.connector_ca.rest import ApiException as CaApiException
 import mbed_cloud._backends.iam as iam
@@ -50,12 +49,12 @@ class CertificatesAPI(BaseAPI):
     def list_certificates(self, **kwargs):
         """List certificates registered to organisation.
 
-        :param int limit: The number of logs to retrieve.
+        :param int limit: The number of certificates to retrieve.
         :param str order: The ordering direction, ascending (asc) or
             descending (desc).
-        :param str after: Get logs after/starting at given `device_log_id`.
+        :param str after: Get certificates after/starting at given `certificate_id`.
         :param dict filters: Dictionary of filters to apply: type (eq), expire (eq), owner (eq)
-        :return: list of :py:class:`DeviceLog` objects
+        :return: list of :py:class:`Certificate` objects
         :rtype: Certificate
         """
         kwargs = self._verify_sort_options(kwargs)
@@ -93,7 +92,7 @@ class CertificatesAPI(BaseAPI):
         # extend certificate with developer_certificate properties
         if certificate.type == CertificateType.developer:
             dev_api = self._get_api(cert.DeveloperCertificateApi)
-            dev_cert = dev_api.v3_developer_certificates_id_get(certificate.id, self.auth)
+            dev_cert = dev_api.v3_developer_certificates_muuid_get(certificate.id, self.auth)
             certificate.update_attributes(dev_cert)
         elif certificate.type == CertificateType.bootstrap:
             server_api = self._get_api(cert.ServerCredentialsApi)
@@ -167,7 +166,7 @@ class CertificatesAPI(BaseAPI):
         :param str certificate_id: The certificate id (Required)
         :param str certificate_data: X509.v3 trusted certificate in PEM format.
         :param str signature: Base64 encoded signature of the account ID
-            signed by the certificate to be uploaded. Available only for bootstrap and lvm2m types.
+            signed by the certificate to be uploaded. Available only for bootstrap and lwm2m types.
         :param str type: type of the certificate. Values: lwm2m or bootstrap.
         :param str status: Status of the certificate.
             Allowed values: "ACTIVE" | "INACTIVE".

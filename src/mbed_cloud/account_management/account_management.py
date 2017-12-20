@@ -19,13 +19,14 @@ from __future__ import absolute_import
 from __future__ import unicode_literals
 
 # Import common functions and exceptions from frontend API
-from mbed_cloud import BaseAPI
-from mbed_cloud import BaseObject
+from mbed_cloud.core import BaseAPI
+from mbed_cloud.core import BaseObject
+from mbed_cloud.core import PaginatedResponse
+
 from mbed_cloud.decorators import catch_exceptions
-from mbed_cloud import PaginatedResponse
 
 # Import backend API
-import mbed_cloud._backends.iam as iam
+from mbed_cloud._backends import iam
 from mbed_cloud._backends.iam.models import AccountUpdateReq
 from mbed_cloud._backends.iam.rest import ApiException
 
@@ -129,9 +130,9 @@ class AccountManagementAPI(BaseAPI):
     def list_users(self, **kwargs):
         """List all users in organisation.
 
-        :param int limit: The number of devices to retrieve
+        :param int limit: The number of users to retrieve
         :param str order: The ordering direction, ascending (asc) or descending (desc)
-        :param str after: Get devices after/starting at given user ID
+        :param str after: Get users after/starting at given user ID
         :param dict filters: Dictionary of filters to apply: str status (eq)
         :returns: a list of :py:class:`User` objects
         :rtype: PaginatedResponse
@@ -284,7 +285,7 @@ class AccountManagementAPI(BaseAPI):
         :param str group_id: The group ID (Required)
         :param int limit: The number of users to retrieve
         :param str order: The ordering direction, ascending (asc) or descending (desc)
-        :param str after: Get api keys after/starting at given user ID
+        :param str after: Get API keys after/starting at given user ID
         :returns: a list of :py:class:`User` objects.
         :rtype: PaginatedResponse
         """
@@ -300,7 +301,7 @@ class AccountManagementAPI(BaseAPI):
         :param str group_id: The group ID (Required)
         :param int limit: The number of api keys to retrieve.
         :param str order: The ordering direction, ascending (asc) or descending (desc).
-        :param str after: Get api keys after/starting at given api key ID.
+        :param str after: Get API keys after/starting at given api key ID.
         :returns: a list of :py:class:`ApiKey` objects.
         :rtype: PaginatedResponse
         """
@@ -517,7 +518,7 @@ class Account(BaseObject):
 
     @property
     def reason(self):
-        """A reason note for updating the status of the account.
+        """A note about the reason for updating the status of the account.
 
         :rtype: str
         """
@@ -599,7 +600,7 @@ class User(BaseObject):
 
     @property
     def password(self):
-        """The password when creating a new user. It will will generated when not present in the request.
+        """The password when creating a new user. It will be generated when not present in the request.
 
         :rtype: str
         """

@@ -1,16 +1,16 @@
 Pagination
 ~~~~~~~~~~
 
-The API behind the scenes responds to requests in a paginated fashion, which we
-encapsulate in the Python client by returning an object where the developer can
-fine control the behaviour when iterating and exploring the data.
+The API provides a paginated response to requests, encapsulated
+in the Python client, returning an object that you can
+use to iterate over and explore the data.
 
 Basic iteration
 ---------------
 
 .. code-block:: python
 
-  >>> from mbed_cloud.device_directory import DeviceDirectoryAPI
+  >>> from mbed_cloud import DeviceDirectoryAPI
   >>> deviceDirectoryApi = DeviceDirectoryAPI()
   >>> for idx, f in enumerate(deviceDirectoryApi.list_queries(limit=2)):
         print(idx, f)
@@ -24,7 +24,7 @@ Manual control of iteration
 
 .. code-block:: python
 
-  >>> from mbed_cloud.device_directory import DeviceDirectoryAPI
+  >>> from mbed_cloud import DeviceDirectoryAPI
   >>> deviceDirectoryApi = DeviceDirectoryAPI()
   >>> presp = deviceDirectoryApi.list_queries(limit=2)
   >>> elements = []
@@ -38,7 +38,7 @@ Manual control of iteration
 
 .. code-block:: python
 
-    >>> from mbed_cloud.account_management import AccountManagementAPI
+    >>> from mbed_cloud import AccountManagementAPI
     >>> accountManagementApi = AccountManagementAPI()
     >>> usersResponse = accountManagementApi.list_users()
     >>> users = []

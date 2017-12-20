@@ -17,7 +17,7 @@
 """Example setting up notifications on a device."""
 import time
 
-from mbed_cloud.connect import ConnectAPI
+from mbed_cloud import ConnectAPI
 
 BUTTON_RESOURCE = "/5002/0/1"
 

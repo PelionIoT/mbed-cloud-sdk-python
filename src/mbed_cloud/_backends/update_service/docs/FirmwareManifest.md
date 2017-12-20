@@ -11,7 +11,6 @@ Name | Type | Description | Notes
 **updated_at** | **datetime** | The time the object was updated | 
 **etag** | **datetime** | The entity instance signature | 
 **device_class** | **str** | The class of the device | 
-**datafile_checksum** | **str** | Checksum generated for the datafile | [optional] 
 **datafile_size** | **int** | Size of the datafile in bytes | [optional] 
 **id** | **str** | The firmware manifest ID | 
 **name** | **str** | The name of the object | 
