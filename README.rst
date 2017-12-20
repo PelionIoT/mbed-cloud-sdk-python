@@ -77,7 +77,6 @@ See the `examples directory`_ for a collection of use-cases of this API, e.g.:
 
        python examples/connect/list-connected-devices.py
 
-
 Contributing
 ------------
 
@@ -89,6 +88,12 @@ Licence
 
 Mbed Cloud SDK for Python is free to use and licensed under the Apache
 License 2.0. See `LICENCE <LICENCE>`__ for more information.
+
+Versioning
+----------
+
+The current version scheme used by the SDK reflects the version of the API it abstracts, and otherwise follows PEP440:
+:code:`<API major>.<API minor>.<SDK major>.<SDK minor>.<SDK patch>`
 
 Troubleshooting
 ---------------

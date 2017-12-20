@@ -1,5 +1,31 @@
 # Changelog
 
+## 1.2.4
+
+### Deliverables
+
+The application is primarily hosted on pypi at https://pypi.org/project/mbed-cloud-sdk and can be installed using pip:
+
+```
+$ pip install mbed-cloud-sdk
+```
+
+### Changes
+
+- Filter construction logic reworked
+- Added webhook notification handler
+- AsyncConsumer.wait()
+- Various bugfixes
+
+### Known Issues
+
+- Testing shows that `get_resource_value` will fail
+when the cloud service returns a value directly, rather than
+through an open notification channel. This affects all previous versions.
+- The only known workaround at present is to ensure the cloud cache is not used by:
+  - Waiting between calls to get_resource_value
+  - Reducing the configured TTL on the cloud client image on the device
+
 ## 1.2.3
 
 ### Deliverables
