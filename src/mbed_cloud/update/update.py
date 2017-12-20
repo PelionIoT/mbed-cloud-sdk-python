@@ -30,6 +30,8 @@ from mbed_cloud.device_directory import Device
 
 from six import iteritems
 
+from mbed_cloud import filters
+
 import mbed_cloud._backends.update_service as update_service
 from mbed_cloud._backends.update_service.models import UpdateCampaignPostRequest
 from mbed_cloud._backends.update_service.rest import ApiException as UpdateServiceApiException
@@ -106,11 +108,14 @@ class UpdateAPI(BaseAPI):
         :return: newly created campaign object
         :rtype: Campaign
         """
-        device_filter = self._encode_query(device_filter, Device)
+        device_filter = filters.legacy_filter_formatter(
+            dict(filter=device_filter),
+            Device._get_attributes_map()
+        )
         campaign = Campaign._create_request_map(kwargs)
         body = UpdateCampaignPostRequest(
             name=name,
-            device_filter=device_filter,
+            device_filter=device_filter['filter'],
             **campaign)
         api = self._get_api(update_service.DefaultApi)
         return Campaign(api.update_campaign_create(body))
@@ -138,8 +143,10 @@ class UpdateAPI(BaseAPI):
         campaign_id = campaign_object.id
         campaign_object = campaign_object._create_patch_request()
         if 'device_filter' in campaign_object:
-            campaign_object["device_filter"] = self._encode_query(campaign_object["device_filter"],
-                                                                  Device)
+            campaign_object["device_filter"] = filters.legacy_filter_formatter(
+                dict(filter=campaign_object["device_filter"]),
+                Device._get_attributes_map()
+            )['filter']
         return Campaign(api.update_campaign_partial_update(campaign_id=campaign_id,
                                                            campaign=campaign_object))
 

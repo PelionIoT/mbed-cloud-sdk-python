@@ -76,11 +76,11 @@ class Config(dict):
             if not path:
                 continue
             abs_path = os.path.abspath(os.path.expanduser(path))
-            if not os.path.exists(abs_path):
+            if not os.path.isfile(abs_path):
                 self._using_paths.append('missing: %s' % abs_path)
                 continue
             self._using_paths.append(' exists: %s' % abs_path)
-            with open(abs_path, 'r') as fh:
+            with open(abs_path) as fh:
                 self.update(json.load(fh))
         if updates:
             self.update(updates)
