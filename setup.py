@@ -34,7 +34,6 @@ with open(os.path.join(repository_dir, 'src', 'mbed_cloud', '_version.py')) as f
 with open(os.path.join(repository_dir, 'README.rst')) as fh:
     long_description = fh.read()
 
-# Unlocked approximate version dependencies
 # some of the dependencies are inherited from swagger-codegen
 # https://github.com/swagger-api/swagger-codegen/blob/master/modules/swagger-codegen/src/main/resources/python/setup.mustache#L18
 with open(os.path.join(repository_dir, 'requirements.txt')) as fh:
