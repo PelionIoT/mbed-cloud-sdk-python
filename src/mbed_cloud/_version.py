@@ -38,7 +38,7 @@ API_VERSION = '.'.join((API_MAJOR, API_MINOR))
 SDK_MAJOR = '4'
 SDK_MINOR = ''
 LOCAL = None
-BETA = True
+BETA = False
 DEV = not COMMIT
 
 if BETA:
