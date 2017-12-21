@@ -1,14 +1,5 @@
-#  dependencies.txt: these are the minimum dependencies for using the SDK
-#  requirements.txt: these are pinned versions for all dependencies for a reproducible environment
-#                    to update this file, clear your environment and reinstall dependencies:
-#                    pip freeze > .remove && pip uninstall -y -r .remove
-#                    pip install -r dependencies.txt
-#                    pip freeze -r dependencies.txt > requirements.txt
-
-# See hardcoded required packages in swagger-codegen
-# https://github.com/swagger-api/swagger-codegen/blob/master/modules/swagger-codegen/src/main/resources/python/setup.mustache#L18
-urllib3==1.22
-six==1.11.0
-certifi==2017.7.27.1
-python-dateutil==2.6.1
-future==0.16.0
+urllib3 >= 1.15
+six >= 1.10
+certifi >= 2017
+python-dateutil>= 2
+future >= 0.16

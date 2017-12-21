@@ -2,4 +2,3 @@ graft src
 include README.rst
 include LICENSE
 include dependencies.txt
-include requirements.dev.txt
