@@ -45,6 +45,7 @@ with open(os.path.join(repository_dir, 'dependencies.txt')) as fh:
 
 setup(
     author="Arkadiusz Zaluski, David Hyman, Herman Schistad",
+    author_email="support@mbed.com",
     classifiers=(
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',

@@ -18,10 +18,9 @@ aliases:
   - &environ
     BUILD_DIR: *build_dir
     PYTHONUNBUFFERED: true
-    PIPENV_VENV_IN_PROJECT: true
+    PIPENV_VENV_IN_PROJECT: true # instruct pipenv to build the venv in current working dir
     TESTRUNNER_DOCKER_IMAGE: 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
     TESTRUNNER_OUTPUT_DIR: rpc_results
-    DEPLOY_TARGET: null
 
   - &job_build_common
     steps:
@@ -93,7 +92,7 @@ aliases:
           command: |
                   pipenv install twine
                   pipenv run python setup.py bdist_wheel
-                  echo 'registering and deploying package to ${DEPLOY_TARGET}'
+                  echo 'registering and deploying package to "${TWINE_REPOSITORY_URL}" (or default)'
                   ls dist
                   pipenv run twine upload dist/*
 
@@ -142,7 +141,13 @@ jobs:
       - run: sudo apt-get update
       - run: sudo apt-get install pandoc
       - run: sudo pip install pipenv
-      - run: pipenv run sphinx-build -a -b html -c docs/ docs/ built_docs
+      - run: pipenv install readme_renderer
+      - run:
+          name: Build documentation
+          command: pipenv run sphinx-build -a -b html -c docs/ docs/ built_docs
+      - run:
+          name: Validate README.rst
+          command: pipenv run python setup.py check -r -s
       - persist_to_workspace:
           root: .
           paths:
@@ -199,7 +204,6 @@ jobs:
     <<: *job_deploy_common
     environment:
       <<: *environ
-      DEPLOY_TARGET: testpypi
       TWINE_REPOSITORY_URL: https://test.pypi.org/legacy/
     docker:
       - image: circleci/python:3.6.1
@@ -208,7 +212,6 @@ jobs:
     <<: *job_deploy_common
     environment:
       <<: *environ
-      DEPLOY_TARGET: realpypi
     docker:
       - image: circleci/python:3.6.1
 
@@ -244,7 +247,6 @@ workflows:
       - tpip_report:
           requires:
             - build_3
-      # Just comment the beta release flow out - or assign it to a specific branch
       - release_beta:
           type: approval
           requires:
