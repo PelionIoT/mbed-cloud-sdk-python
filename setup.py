@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 # ---------------------------------------------------------------------------
 # Mbed Cloud Python SDK
 # (C) COPYRIGHT 2017 Arm Limited
