@@ -43,9 +43,6 @@ with open(os.path.join(repository_dir, 'README.rst')) as fh:
 with open(os.path.join(repository_dir, 'dependencies.txt')) as fh:
     dependencies = fh.readlines()
 
-with open(os.path.join(repository_dir, 'requirements.dev.txt')) as fh:
-    dev_requirements = fh.readlines()
-
 setup(
     author="Arkadiusz Zaluski, David Hyman, Herman Schistad",
     classifiers=(
@@ -64,7 +61,6 @@ setup(
         'Topic :: Software Development :: Object Brokering',
     ),
     description="Mbed Cloud Python SDK",
-    extras_require=dict(dev=dev_requirements),
     include_package_data=True,
     install_requires=dependencies,
     license='Apache 2.0',
