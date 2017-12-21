@@ -2,7 +2,7 @@ Exceptions
 ~~~~~~~~~~
 
 Exception hierarchy
-----------------
+-------------------
 
 - Exception
     - CloudApiException
@@ -13,7 +13,7 @@ Exception hierarchy
         - CloudTimeoutError
 
 Basic exceptions handling.
----------------
+--------------------------
 
 .. code-block:: python
 

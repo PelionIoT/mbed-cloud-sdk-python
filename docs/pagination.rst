@@ -50,5 +50,5 @@ Manual control of iteration
 Reference
 ---------
 
-.. automodule:: mbed_cloud
+.. automodule:: mbed_cloud.core
   :members: PaginatedResponse
