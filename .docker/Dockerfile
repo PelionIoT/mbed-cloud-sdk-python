@@ -11,12 +11,12 @@ RUN mkdir -p /sdk
 WORKDIR /sdk
 
 # move all the packaging files in
-ADD setup.py .
-ADD requirements.txt .
+ADD ../setup.py .
+ADD ../requirements.txt .
 ADD tox.ini .
-ADD README.rst .
+ADD ../README.rst .
 
 RUN tox --notest
 
-ADD . .
+ADD ../ .
 CMD tox -e $PYTHON_SDIST

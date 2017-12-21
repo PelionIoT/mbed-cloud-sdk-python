@@ -1,5 +1,6 @@
 #  dependencies.txt: these are the minimum dependencies for using the SDK
-#  requirements.txt: these are pinned versions for all dependencies for a reproducible environment
+#  requirements.txt: these are pinned versions of dependencies for a reproducible environment
+#                      (nb: better to use pipenv - this will be removed in future)
 #                    to update this file, clear your environment and reinstall dependencies:
 #                    pip freeze > .remove && pip uninstall -y -r .remove
 #                    pip install -r dependencies.txt
