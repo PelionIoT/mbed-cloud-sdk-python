@@ -1,7 +1,16 @@
+.. image:: https://img.shields.io/pypi/v/mbed-cloud-sdk.svg
+    :target: https://pypi.org/project/mbed-cloud-sdk/
+
+.. image:: https://img.shields.io/pypi/status/mbed-cloud-sdk.svg
+    :target: https://pypi.org/project/mbed-cloud-sdk/
+    
+.. image:: https://circleci.com/gh/ARMmbed/mbed-cloud-sdk-python/tree/master.svg?style=shield&circle-token=ec05043ded945f81984e7fd2fce23fe793e7b634
+    :target: https://circleci.com/gh/ARMmbed/mbed-cloud-sdk-python/tree/master
+
 Mbed Cloud SDK for Python
 =========================
 
-The ``mbed-cloud-sdk`` gives developers access to the full `Mbed Cloud <https://cloud.mbed.com/>`__ suite using Python.
+The ``mbed-cloud-sdk`` gives developers access to the full `Mbed Cloud suite <https://cloud.mbed.com/>`__ using Python.
 
 .. common_content_anchor
 
