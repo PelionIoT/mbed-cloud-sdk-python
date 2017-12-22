@@ -3,11 +3,11 @@ Mbed Cloud SDK for Python
 
 The ``mbed-cloud-sdk`` gives developers access to the full `Mbed Cloud suite <https://cloud.mbed.com/>`__ using Python.
 
-.. image:: https://img.shields.io/pypi/v/mbed-cloud-sdk.svg
-    :target: https://pypi.org/project/mbed-cloud-sdk/
-
 .. image:: https://img.shields.io/pypi/l/mbed-cloud-sdk.svg
     :target: https://github.com/ARMmbed/mbed-cloud-sdk-python/blob/master/LICENCE
+
+.. image:: https://img.shields.io/pypi/v/mbed-cloud-sdk.svg
+    :target: https://pypi.org/project/mbed-cloud-sdk/
 
 .. image:: https://img.shields.io/pypi/status/mbed-cloud-sdk.svg
     :target: https://pypi.org/project/mbed-cloud-sdk/
