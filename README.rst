@@ -18,6 +18,9 @@ The ``mbed-cloud-sdk`` gives developers access to the full `Mbed Cloud suite <ht
 .. image:: https://circleci.com/gh/ARMmbed/mbed-cloud-sdk-python/tree/master.svg?style=shield&circle-token=ec05043ded945f81984e7fd2fce23fe793e7b634
     :target: https://circleci.com/gh/ARMmbed/mbed-cloud-sdk-python/tree/master
 
+.. image:: https://codecov.io/gh/ARMmbed/mbed-cloud-sdk-python/branch/master/graph/badge.svg
+  :target: https://codecov.io/gh/ARMmbed/mbed-cloud-sdk-python
+
 .. common_content_anchor
 
 Prerequisites
