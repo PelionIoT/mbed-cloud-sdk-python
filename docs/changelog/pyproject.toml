@@ -1,0 +1,6 @@
+[tool.towncrier]
+package = 'mbed_cloud'
+package_dir = 'src'
+filename = '../../NEWS.rst'
+directory = 'docs/changelog/changes'
+template = 'docs/changelog/template.rst'

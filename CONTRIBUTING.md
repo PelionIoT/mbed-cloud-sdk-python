@@ -17,8 +17,9 @@ changes.
 - Fork the repository.
 - Make your change and write unit tests, please do match the existing coding
   style.
-- Write a [good commit message](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)
-  and be sure to mention the issue if contributing a bug fix.
+- Write a [good commit message](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html).
+- Write a news fragment for any non-trivial changes as a new file in `docs/changelog/changes`
+  e.g. `123.feature`. (see [towncrier](https://github.com/hawkowl/towncrier#news-fragments) for more fragment types).
 - Push to your fork.
 - Submit a pull request.
 
@@ -26,7 +27,7 @@ We will review your proposal, give you feedback and merge your changes if we
 feel your contribution is generally useful and meets our quality criteria.
 
 For us to accept your code contributions, we will need you to agree to our [Mbed
-Contributor Agreement](http://developer.mbed.org/contributor_agreement/) to give
+Contributor Agreement](https://os.mbed.com/contributor_agreement/) to give
 us the necessary rights to use and distribute your contributions.
 
 Thank you :smiley:
