@@ -190,26 +190,8 @@ class BaseObject(object):
         return str(self.to_dict())
 
 
-class _FakePaginatedResponse(object):
-    """Fake a summary page that is returned from API when mocking paginated response."""
-
-    def __init__(self, data):
-        self.data = data
-
-    def to_dict(self):
-        return {
-            'data': [e.to_dict() for e in self.data],
-            'total_count': len(self.data),
-            'has_more': False
-        }
-
-
 class PaginatedResponse(object):
-    """Paginated response object wrapper.
-
-    Used to access multiple pages of data, either through manually
-    iterating pages or using iterators.
-    """
+    """Abstract server pagination behaviour to look like an iterable"""
 
     def __init__(self, func, lwrap_type=None, init_data=None, **kwargs):
         """Initialize wrapper by passing in object with metadata structure.
@@ -220,72 +202,59 @@ class PaginatedResponse(object):
         self._func = func
         self._lwrap_type = lwrap_type
         self._kwargs = kwargs
-        self._data = None
 
         # Initial values, will be updated in first response
-        self._raw_response = None
-        self._has_more = False
-        self._idx = 0
-        if init_data is not None:
-            self._data = init_data
-            self._raw_response = _FakePaginatedResponse(init_data)
+        self._total_count = None
+        self._has_more = not bool(init_data)
+        self._current_data_page = init_data or []
+        self._current_count = 0
+        self._limit = kwargs.get('limit')
 
-        # Calculate total count on initial data, if set.
-        self._total_count = None if self._data is None else len(self._data)
+    def to_dict(self):
+        # SDK compatibility / testing
+        return dict(
+            data=list(self),
+            has_more=self._has_more,
+            total_count=len(self),
+            limit=self._limit,
+            after=self._kwargs.get('after'),
+            order=self._kwargs.get('order', 'ASC')
+        )
 
-        # Do initial request, if needed.
-        if self._data is None:
-            self._get_page()
-
-    def _get_page(self):
-        resp = self._func(**self._kwargs)
-        self._raw_response = resp
-        data_stream = resp.data or []
-
-        # Update properties
-        self._has_more = resp.has_more
-        self._data = [self._lwrap_type(e) if self._lwrap_type else e for e in data_stream]
-        self._total_count = getattr(resp, 'total_count', len(self._data))
-
-        if len(data_stream) > 0:
-            # Update 'after' by taking the last element ID
-            self._kwargs['after'] = data_stream[-1].id
-        else:
-            self._kwargs.pop('after', None)
-
-    def _get_total_count(self):
-        resp = self._func(**{'include': 'total_count', 'limit': 2})
-        if hasattr(resp, 'total_count'):
-            return resp.total_count
-        return 0
+    def __iter__(self):
+        return self
 
     def next(self):
-        """Get the next element in response list.
-
-        It will make call to get next page with data if there is still data to retrieve.
-        """
+        # Python 2 compatibility
         return self.__next__()
+
+    def _get_next_page(self):
+        resp = self._func(**self._kwargs)
+        self._has_more = resp.has_more
+        self._current_data_page = [self._lwrap_type(e) if self._lwrap_type else e for e in resp.data or []]
+        self._total_count = getattr(resp, 'total_count', None)
+        if self._current_data_page:
+            self._kwargs['after'] = self._current_data_page[-1].id
+
+    def _get_total_count(self):
+        resp = self._func(include='total_count', limit=2)
+        return getattr(resp, 'total_count', 0)
 
     def __next__(self):
         """Get the next element in list."""
-        # If we don't have any data, then we just return.
-        if self._data is None:
-            raise StopIteration
+        if self._current_count >= self._limit:
+            raise StopIteration()
 
-        # If we have an empty data array, but more data in the pipe we
-        # fetch it. If not we're done iterating.
-        if len(self._data) == 0 and self.has_more:
-            self._get_page()
-        if len(self._data) == 0 and not self.has_more:
-            raise StopIteration
+        if not self._current_data_page:
+            if self._has_more:
+                self._get_next_page()
+            else:
+                raise StopIteration()
 
-        # Grab first item and return
-        r_value = self._data[0]
-        self._data = self._data[1:]
-        self._idx += 1
-        return r_value
+        self._current_count += 1
+        return self._current_data_page.pop(0)
 
-    def count(self):
+    def __len__(self):
         """Get the total count from the meta data.
 
         As the count, due to backend cost, doesn't always respond with the
@@ -295,52 +264,14 @@ class PaginatedResponse(object):
         .. code-block:: python
 
             # Will only do 1-2 requests, regardless of how many pages of users
-            # there are. If initial page respons contains the total count it will
+            # there are. If initial page response contains the total count it will
             # only require one request.
             >>> api.list_users().count()
             73
         """
         if self._total_count is None:
-            return self._get_total_count()
+            self._total_count = self._get_total_count()
         return self._total_count
-
-    def to_dict(self):
-        """Propagate the to_dict of the inner response for the paginated response."""
-        return self._raw_response.to_dict()
-
-    def __iter__(self):
-        """Override iter, as to provide iterable interface to Pagination object.
-
-        This was you can iterate over PaginatinatedResponse objects like so:
-
-        .. code-block:: python
-
-            obj = PaginatedResponse(..)
-            for x in obj:
-                print(x)
-
-        """
-        return self
-
-    @property
-    def has_more(self):
-        """Get status of whether the paginated response has more content."""
-        return self._has_more
-
-    @property
-    def data(self):
-        """The current data from doing last paginated request.
-
-        .. code-block:: python
-
-            >>> api.list_users().data[0].full_name
-            "David Bowie"
-        """
-        return self._data
-
-    @data.setter
-    def data(self, value):
-        self._data = value
 
 
 class ApiMetadata(object):
