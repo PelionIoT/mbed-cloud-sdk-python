@@ -1,6 +1,6 @@
 from functools import partial
 
-from mbed_cloud.core import PaginatedResponse
+from mbed_cloud.pagination import PaginatedResponse
 
 from tests.common import BaseCase
 
@@ -41,7 +41,7 @@ def get_response(total=5, per_page=2, include=None, **kwargs):
 
 
 class ListCompatMixin(object):
-    def compat_equal(self, a, b):
+    def assert_list_compat(self, a, b):
         return (
                 getattr(self, 'assertCountEqual', None) or
                 getattr(self, 'assertItemsEqual', None)  # Python2 compat
@@ -56,7 +56,7 @@ class TestStubber(BaseCase, ListCompatMixin):
     def test_stubber_at_zero(self):
         R = get_response()
         self.assertTrue(R.has_more)
-        self.compat_equal(R.data, [D(0), D(1)])
+        self.assert_list_compat(R.data, [D(0), D(1)])
 
     def test_stubber_after(self):
         R = get_response(after=2)
@@ -94,7 +94,7 @@ class Test(BaseCase, ListCompatMixin):
 
     def test_one_response(self):
         p = PaginatedResponse(get_response, total=2)
-        self.compat_equal(p, [D(0), D(1)])
+        self.assert_list_compat(p, [D(0), D(1)])
 
     def test_has_more(self):
         getter = partial(get_response)
@@ -107,15 +107,16 @@ class Test(BaseCase, ListCompatMixin):
         p._current_data_page = [D(i) for i in range(5, 9)]  # 5, 6, 7, 8
         p._next_id = 8
         self.assertEqual(None, p._total_count)
-        self.assertEqual(15, len(p))
-        self.compat_equal([D(i) for i in range(5, 15)], p)
+        self.assertEqual(4, len(p))
+        self.assertEqual(15, p.count())
+        self.assert_list_compat([D(i) for i in range(5, 15)], p)
 
     def test_single_page_state(self):
         # cheats a bit, reads internal state
         p = PaginatedResponse(get_response, total=12, per_page=4)
         d = next(p)
         self.assertEqual(d, D(0))  # 0
-        self.compat_equal(p._current_data_page, [D(i) for i in range(1, 4)])  # 1, 2, 3
+        self.assert_list_compat(p._current_data_page, [D(i) for i in range(1, 4)])  # 1, 2, 3
 
     def test_exhausted(self):
         p = PaginatedResponse(get_response)
@@ -125,3 +126,27 @@ class Test(BaseCase, ListCompatMixin):
 
         with self.assertRaises(IndexError):
             next(p)
+
+    def test_repr(self):
+        p = PaginatedResponse(get_response)
+        r = repr(p)
+        self.assertEqual('<PaginatedResponse D<0>,D<1>,D<2>...>', r)
+
+    def test_all(self):
+        p = PaginatedResponse(get_response)
+        self.assert_list_compat(p.all(), [D(0), D(1), D(2), D(3), D(4)])
+
+    def test_first(self):
+        p = PaginatedResponse(get_response)
+        self.assertEqual(p.first(), D(0))
+
+    def test_first_all_iter(self):
+        p = PaginatedResponse(get_response)
+        iter_first = next(p)
+        iter_rest = list(p)
+        explicit_first = p.first()
+        explicit_all = p.all()
+        self.assertEqual(iter_first, D(0))
+        self.assertEqual(explicit_first, D(0))
+        self.assert_list_compat(iter_rest, [D(1), D(2), D(3), D(4)])
+        self.assert_list_compat(explicit_all, [D(0), D(1), D(2), D(3), D(4)])
