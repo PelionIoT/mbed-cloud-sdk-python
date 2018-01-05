@@ -33,7 +33,7 @@ class PaginatedResponse(object):
     [item for item in response]   [{}, ...] iteration over generator
     """
 
-    def __init__(self, func, lwrap_type=None, **kwargs):
+    def __init__(self, func, lwrap_type=None, _results_cache=True, **kwargs):
         """Initialize wrapper by passing in object with metadata structure.
 
         :param lwrap_type: Wrap each response element in type
@@ -49,29 +49,18 @@ class PaginatedResponse(object):
         self._total_count = None
         self._next_id = None
         self._has_more = True
-        self._exhausted = False
+        self._is_exhausted = False
+        self._results_cache = [] if _results_cache else None
         self._current_data_page = []
         self._current_count = 0
         self._limit = kwargs.get('limit')
 
-    def to_dict(self):
-        """Internal state"""
-        return dict(
-            data=list(self),
-            has_more=self._has_more,
-            total_count=len(self),
-            limit=self._limit,
-            after=self._kwargs.get('after'),
-            order=self._kwargs.get('order', 'ASC')
-        )
+    @property
+    def _is_caching(self):
+        return self._results_cache is not None
 
-    def __iter__(self):
-        """This instance can be iterated"""
-        return self
-
-    def next(self):
-        """Next item in sequence (Python 2 compatibility)"""
-        return self.__next__()
+    def _get_total_concrete(self):
+        return self._current_count + len(self._current_data_page)
 
     def _get_next_page(self):
         query = {}
@@ -95,39 +84,57 @@ class PaginatedResponse(object):
         resp = self._func(**len_query)
         return getattr(resp, 'total_count', 0)
 
+    def count(self):
+        """Approximate number of results, according to the API"""
+        if self._total_count is None:
+            self._total_count = self._get_total_count()
+        return self._total_count
+
     def all(self):
-        """Returns the full query"""
-        return PaginatedResponse(func=self._func, lwrap_type=self._lwrap_type, **self._kwargs)
+        """A fresh instance of the query guaranteed to return all available results"""
+        return list(self)
 
     def first(self):
         """Returns the first item from the query, or None if there are no results"""
+        if self._results_cache:
+            return self._results_cache[0]
+
         query = PaginatedResponse(func=self._func, lwrap_type=self._lwrap_type, **self._kwargs)
         try:
             return next(query)
         except StopIteration:
             return None
 
+    def next(self):
+        """Next item in sequence (Python 2 compatibility)"""
+        return self.__next__()
+
     def __next__(self):
         """Get the next element"""
-        if self._exhausted:
-            # protect from list(p); list(p) where the second call returns an empty iterable
-            raise IndexError('No more results, the paginator is already exhausted')
-
         if not self._current_data_page and self._has_more:
             self._get_next_page()
 
         if not self._current_data_page:
-            self._exhausted = True
+            self._is_exhausted = True
             raise StopIteration()
 
         self._current_count += 1
-        return self._current_data_page.pop(0)
+        result = self._current_data_page.pop(0)
+        if self._is_caching:
+            self._results_cache.append(result)
+        return result
+
+    def __iter__(self):
+        """This instance can be iterated"""
+        if self._is_exhausted:
+            if self._is_caching:
+                return iter(self._results_cache)
+            raise StopIteration()
+        return self
 
     def __len__(self):
-        """Approximate number of results, according to the API"""
-        if self._total_count is None:
-            self._total_count = self._get_total_count()
-        return self._total_count
+        """Approximate number of results"""
+        return self.count()
 
     def __repr__(self):
         """First few elements of a query result"""
@@ -137,4 +144,15 @@ class PaginatedResponse(object):
             self.__class__.__name__,
             ','.join(str(s) for s in some[:limit]),
             '...' if len(some) > limit else ''
+        )
+
+    def to_dict(self):
+        """Internal state"""
+        return dict(
+            data=list(self),
+            has_more=self._has_more,
+            total_count=self.count(),
+            limit=self._limit,
+            after=self._kwargs.get('after'),
+            order=self._kwargs.get('order', 'ASC')
         )

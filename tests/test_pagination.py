@@ -82,22 +82,26 @@ class TestStubber(BaseCase, ListCompatMixin):
 
 
 class Test(BaseCase, ListCompatMixin):
+    paginator = PaginatedResponse
+
     def test_wrapped(self):
         def wrapper(x):
             x.wrapped = True
             return x
 
-        p = PaginatedResponse(get_response, wrapper)
+        p = self.paginator(get_response, wrapper)
         first = next(p)
+        second = p.next()
         self.assertEqual(first, D(0))
         self.assertTrue(first.wrapped)
+        self.assertTrue(second.wrapped)
 
     def test_empty_response(self):
-        p = PaginatedResponse(get_response, total=0)
+        p = self.paginator(get_response, total=0)
         self.assert_list_compat(p, [])
 
     def test_one_response(self):
-        p = PaginatedResponse(get_response, total=2)
+        p = self.paginator(get_response, total=2)
         self.assert_list_compat(p, [D(0), D(1)])
 
     def test_has_more(self):
@@ -107,7 +111,7 @@ class Test(BaseCase, ListCompatMixin):
 
     def test_partial_state(self):
         # cheats a bit, writes internal state
-        p = PaginatedResponse(get_response, total=12)
+        p = self.paginator(get_response, total=12)
         p._current_data_page = [D(i) for i in range(5, 9)]  # 5, 6, 7, 8
         p._next_id = 8
         self.assertEqual(None, p._total_count)
@@ -116,53 +120,90 @@ class Test(BaseCase, ListCompatMixin):
 
     def test_single_page_state(self):
         # cheats a bit, reads internal state
-        p = PaginatedResponse(get_response, total=12, per_page=4)
+        p = self.paginator(get_response, total=12, per_page=4)
         d = next(p)
         self.assertEqual(d, D(0))  # 0
         self.assert_list_compat(p._current_data_page, [D(i) for i in range(1, 4)])  # 1, 2, 3
 
     def test_exhausted(self):
-        p = PaginatedResponse(get_response)
-        list(p)  # exhaust the generator
-        with self.assertRaises(IndexError):
-            list(p)
+        p = self.paginator(get_response)
+        self.assertFalse(p._is_exhausted)
+        x = list(p)  # exhaust the generator
+        self.assertTrue(p._is_exhausted)
+        self.assertEqual(5, len(x))
+        if p._is_caching:
+            self.assert_list_compat(x, list(p))  # iterating again returns same data
 
-        with self.assertRaises(IndexError):
+        with self.assertRaises(StopIteration):
             next(p)
+
+    def test_count(self):
+        # check boolean of object is exactly a boolean False
+        p = self.paginator(get_response, total=7)
+        self.assertEqual(7, p.count())
 
     def test_bool_false(self):
         # check boolean of object is exactly a boolean False
-        p = PaginatedResponse(get_response, total=0)
+        p = self.paginator(get_response, total=0)
         self.assertIs(bool(p), False)
 
     def test_bool_true(self):
         # check boolean of object is exactly a boolean True
-        p = PaginatedResponse(get_response)
+        p = self.paginator(get_response)
         self.assertIs(bool(p), True)
 
     def test_repr(self):
-        p = PaginatedResponse(get_response)
+        p = self.paginator(get_response)
         self.assertEqual('<PaginatedResponse D<0>,D<1>,D<2>...>', repr(p))
 
     def test_all(self):
-        p = PaginatedResponse(get_response)
+        p = self.paginator(get_response)
         self.assert_list_compat(p.all(), [D(0), D(1), D(2), D(3), D(4)])
 
     def test_first(self):
-        p = PaginatedResponse(get_response)
+        p = self.paginator(get_response)
         self.assertEqual(p.first(), D(0))
 
     def test_first_or_none(self):
-        p = PaginatedResponse(get_response, total=0)
+        p = self.paginator(get_response, total=0)
         self.assertIs(p.first(), None)
 
     def test_first_all_iter(self):
-        p = PaginatedResponse(get_response)
+        p = self.paginator(get_response)
         iter_first = next(p)
         iter_rest = list(p)
         explicit_first = p.first()
-        explicit_all = p.all()
         self.assertEqual(iter_first, D(0))
         self.assertEqual(explicit_first, D(0))
         self.assert_list_compat(iter_rest, [D(1), D(2), D(3), D(4)])
-        self.assert_list_compat(explicit_all, [D(0), D(1), D(2), D(3), D(4)])
+
+        if p._is_caching:
+            explicit_all = iter(p)
+            self.assert_list_compat(explicit_all, [D(0), D(1), D(2), D(3), D(4)])
+        else:
+            with self.assertRaises(StopIteration):
+                iter(p)
+
+    def test_to_dict(self):
+        p = self.paginator(get_response, total=2)
+        self.assertEqual(
+            {
+                'after': None,
+                'data': [D(0), D(1)],
+                'has_more': False,
+                'limit': None,
+                'order': 'ASC',
+                'total_count': 2
+            },
+            p.to_dict()
+        )
+
+
+class TestNoCache(Test):
+    paginator = partial(PaginatedResponse, _results_cache=False)
+
+    def test_is_not_caching(self):
+        p = self.paginator(get_response)
+        self.assertFalse(p._is_caching)
+        all(p)
+        self.assertIsNone(p._results_cache)
