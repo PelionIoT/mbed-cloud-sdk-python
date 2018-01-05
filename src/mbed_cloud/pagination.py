@@ -2,7 +2,19 @@ from itertools import islice
 
 
 class PaginatedResponse(object):
-    """Abstract server pagination behaviour to look like an iterable"""
+    """Represents a sequence of results from the API
+
+    To represent the potentially large number of results
+    returned from an API query, the PaginatedResponse provides
+    a lazily-evaluated generator which can be used to step through
+    the full result set, fetching new pages of results as needed.
+
+    response = PaginatedResponse(api_function)
+    response.first()              {} first item
+    response.all()                [{}, ...] all items
+    list(response)                [{}, ...] all items from generator
+    [item for item in response]   [{}, ...] iteration over generator
+    """
 
     def __init__(self, func, lwrap_type=None, **kwargs):
         """Initialize wrapper by passing in object with metadata structure.
@@ -82,15 +94,15 @@ class PaginatedResponse(object):
     def __next__(self):
         """Get the next element"""
         if self._exhausted:
-            # protect users from list(p); list(p) where the second call returns an empty iterable
+            # protect from list(p); list(p) where the second call returns an empty iterable
             raise IndexError('No more results, the paginator is already exhausted')
 
+        if not self._current_data_page and self._has_more:
+            self._get_next_page()
+
         if not self._current_data_page:
-            if self._has_more:
-                self._get_next_page()
-            else:
-                self._exhausted = True
-                raise StopIteration()
+            self._exhausted = True
+            raise StopIteration()
 
         self._current_count += 1
         return self._current_data_page.pop(0)

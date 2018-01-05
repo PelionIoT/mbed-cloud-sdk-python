@@ -92,6 +92,10 @@ class Test(BaseCase, ListCompatMixin):
         self.assertEqual(first, D(0))
         self.assertTrue(first.wrapped)
 
+    def test_empty_response(self):
+        p = PaginatedResponse(get_response, total=0)
+        self.assert_list_compat(p, [])
+
     def test_one_response(self):
         p = PaginatedResponse(get_response, total=2)
         self.assert_list_compat(p, [D(0), D(1)])
