@@ -77,19 +77,17 @@ class PaginatedResponse(object):
         resp = self._func(**len_query)
         return getattr(resp, 'total_count', 0)
 
-    def count(self):
-        """Approximate number of results, according to the API"""
-        if self._total_count is None:
-            self._total_count = self._get_total_count()
-        return self._total_count
-
     def all(self):
-        """Re-runs the full query, to fetch all items"""
+        """Returns the full query"""
         return PaginatedResponse(func=self._func, lwrap_type=self._lwrap_type, **self._kwargs)
 
     def first(self):
-        """Returns the first item from the query"""
-        return next(PaginatedResponse(func=self._func, lwrap_type=self._lwrap_type, **self._kwargs))
+        """Returns the first item from the query, or None if there are no results"""
+        query = PaginatedResponse(func=self._func, lwrap_type=self._lwrap_type, **self._kwargs)
+        try:
+            return next(query)
+        except StopIteration:
+            return None
 
     def __next__(self):
         """Get the next element"""
@@ -108,8 +106,10 @@ class PaginatedResponse(object):
         return self._current_data_page.pop(0)
 
     def __len__(self):
-        """Exact number of results discovered so far"""
-        return len(self._current_data_page) + self._current_count
+        """Approximate number of results, according to the API"""
+        if self._total_count is None:
+            self._total_count = self._get_total_count()
+        return self._total_count
 
     def __repr__(self):
         limit = 3

@@ -111,8 +111,7 @@ class Test(BaseCase, ListCompatMixin):
         p._current_data_page = [D(i) for i in range(5, 9)]  # 5, 6, 7, 8
         p._next_id = 8
         self.assertEqual(None, p._total_count)
-        self.assertEqual(4, len(p))
-        self.assertEqual(15, p.count())
+        self.assertEqual(15, len(p))
         self.assert_list_compat([D(i) for i in range(5, 15)], p)
 
     def test_single_page_state(self):
@@ -131,6 +130,16 @@ class Test(BaseCase, ListCompatMixin):
         with self.assertRaises(IndexError):
             next(p)
 
+    def test_bool_false(self):
+        # check boolean of object is exactly a boolean False
+        p = PaginatedResponse(get_response, total=0)
+        self.assertIs(bool(p), False)
+
+    def test_bool_true(self):
+        # check boolean of object is exactly a boolean True
+        p = PaginatedResponse(get_response)
+        self.assertIs(bool(p), True)
+
     def test_repr(self):
         p = PaginatedResponse(get_response)
         r = repr(p)
@@ -143,6 +152,10 @@ class Test(BaseCase, ListCompatMixin):
     def test_first(self):
         p = PaginatedResponse(get_response)
         self.assertEqual(p.first(), D(0))
+
+    def test_first_or_none(self):
+        p = PaginatedResponse(get_response, total=0)
+        self.assertIs(p.first(), None)
 
     def test_first_all_iter(self):
         p = PaginatedResponse(get_response)
