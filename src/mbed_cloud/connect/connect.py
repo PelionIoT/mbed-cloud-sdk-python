@@ -40,7 +40,7 @@ from mbed_cloud.connect.resource import Resource
 from mbed_cloud.connect.webhooks import Webhook
 
 from mbed_cloud.core import BaseAPI
-from mbed_cloud.core import PaginatedResponse
+from mbed_cloud.pagination import PaginatedResponse
 
 from mbed_cloud.decorators import catch_exceptions
 
