@@ -130,6 +130,8 @@ class Test(BaseCase, ListCompatMixin):
         self.assertFalse(p._is_exhausted)
         x = list(p)  # exhaust the generator
         self.assertTrue(p._is_exhausted)
+        self.assertEqual(p._current_count, 5)
+        self.assertEqual(p._get_total_concrete(), 5)
         self.assertEqual(5, len(x))
         if p._is_caching:
             self.assert_list_compat(x, list(p))  # iterating again returns same data
@@ -158,6 +160,7 @@ class Test(BaseCase, ListCompatMixin):
 
     def test_all(self):
         p = self.paginator(get_response)
+        next(p)
         self.assert_list_compat(p.all(), [D(0), D(1), D(2), D(3), D(4)])
 
     def test_first(self):
@@ -207,3 +210,8 @@ class TestNoCache(Test):
         self.assertFalse(p._is_caching)
         all(p)
         self.assertIsNone(p._results_cache)
+
+    def test_all(self):
+        p = self.paginator(get_response)
+        next(p)
+        self.assert_list_compat(p.all(), [D(1), D(2), D(3), D(4)])

@@ -70,8 +70,8 @@ class PaginatedResponse(object):
 
         resp = self._func(**query)
 
-        for e in resp.data or []:
-            self._current_data_page.append(self._lwrap_type(e) if self._lwrap_type else e)
+        for item in resp.data or []:
+            self._current_data_page.append(self._lwrap_type(item) if self._lwrap_type else item)
         self._has_more = resp.has_more
         self._total_count = getattr(resp, 'total_count', None)
         if self._current_data_page:
@@ -91,8 +91,11 @@ class PaginatedResponse(object):
         return self._total_count
 
     def all(self):
-        """A fresh instance of the query guaranteed to return all available results"""
-        return list(self)
+        """All results"""
+        all = list(self)
+        if self._results_cache:
+            return iter(self._results_cache)
+        return all
 
     def first(self):
         """Returns the first item from the query, or None if there are no results"""
@@ -126,15 +129,15 @@ class PaginatedResponse(object):
 
     def __iter__(self):
         """This instance can be iterated"""
-        if self._is_exhausted:
-            if self._is_caching:
-                return iter(self._results_cache)
-            raise StopIteration()
-        return self
+        if not self._is_exhausted:
+            return self
+        if self._is_caching:
+            return iter(self._results_cache)
+        raise StopIteration()
 
     def __len__(self):
-        """Approximate number of results"""
-        return self.count()
+        """Most accurate known number of results"""
+        return self._get_total_concrete() if self._is_exhausted else self.count()
 
     def __repr__(self):
         """First few elements of a query result"""
