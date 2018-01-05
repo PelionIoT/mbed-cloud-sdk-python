@@ -107,12 +107,12 @@ class Test(BaseCase, ListCompatMixin):
 
     def test_partial_state(self):
         # cheats a bit, writes internal state
-        p = PaginatedResponse(get_response, total=15)
+        p = PaginatedResponse(get_response, total=12)
         p._current_data_page = [D(i) for i in range(5, 9)]  # 5, 6, 7, 8
         p._next_id = 8
         self.assertEqual(None, p._total_count)
-        self.assertEqual(15, len(p))
-        self.assert_list_compat([D(i) for i in range(5, 15)], p)
+        self.assertEqual(12, len(p))
+        self.assert_list_compat([D(i) for i in range(5, 12)], p)  # 5, 6, 7, 8, 9, 10, 11
 
     def test_single_page_state(self):
         # cheats a bit, reads internal state
@@ -142,8 +142,7 @@ class Test(BaseCase, ListCompatMixin):
 
     def test_repr(self):
         p = PaginatedResponse(get_response)
-        r = repr(p)
-        self.assertEqual('<PaginatedResponse D<0>,D<1>,D<2>...>', r)
+        self.assertEqual('<PaginatedResponse D<0>,D<1>,D<2>...>', repr(p))
 
     def test_all(self):
         p = PaginatedResponse(get_response)
