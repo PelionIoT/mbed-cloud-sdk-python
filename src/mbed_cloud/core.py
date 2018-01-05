@@ -193,7 +193,7 @@ class BaseObject(object):
 class PaginatedResponse(object):
     """Abstract server pagination behaviour to look like an iterable"""
 
-    def __init__(self, func, lwrap_type=None, init_data=None, **kwargs):
+    def __init__(self, func, lwrap_type=None, **kwargs):
         """Initialize wrapper by passing in object with metadata structure.
 
         :param lwrap_type: Wrap each response element in type
@@ -201,12 +201,16 @@ class PaginatedResponse(object):
         """
         self._func = func
         self._lwrap_type = lwrap_type
-        self._kwargs = kwargs
+        self._kwargs = {}
+        self._kwargs.update(kwargs)
+        self._kwargs.update(dict(include='total_count'))
 
         # Initial values, will be updated in first response
         self._total_count = None
-        self._has_more = not bool(init_data)
-        self._current_data_page = init_data or []
+        self._next_id = None
+        self._has_more = True
+        self._exhausted = False
+        self._current_data_page = []
         self._current_count = 0
         self._limit = kwargs.get('limit')
 
@@ -229,26 +233,38 @@ class PaginatedResponse(object):
         return self.__next__()
 
     def _get_next_page(self):
-        resp = self._func(**self._kwargs)
+        query = {}
+        query.update(self._kwargs)
+        if self._next_id is not None:
+            query.update(dict(after=self._next_id))
+
+        resp = self._func(**query)
+
+        for e in resp.data or []:
+            self._current_data_page.append(self._lwrap_type(e) if self._lwrap_type else e)
         self._has_more = resp.has_more
-        self._current_data_page = [self._lwrap_type(e) if self._lwrap_type else e for e in resp.data or []]
         self._total_count = getattr(resp, 'total_count', None)
         if self._current_data_page:
-            self._kwargs['after'] = self._current_data_page[-1].id
+            self._next_id = self._current_data_page[-1].id
 
     def _get_total_count(self):
-        resp = self._func(include='total_count', limit=2)
+        len_query = {}
+        len_query.update(self._kwargs)
+        len_query.update(dict(limit=2))
+        resp = self._func(**len_query)
         return getattr(resp, 'total_count', 0)
 
     def __next__(self):
         """Get the next element in list."""
-        if self._current_count >= self._limit:
-            raise StopIteration()
+        if self._exhausted:
+            # protect users from list(p); list(p) where the second call returns an empty iterable
+            raise IndexError('No more results, the paginator is already exhausted')
 
         if not self._current_data_page:
             if self._has_more:
                 self._get_next_page()
             else:
+                self._exhausted = True
                 raise StopIteration()
 
         self._current_count += 1
