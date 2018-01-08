@@ -764,7 +764,7 @@ class Group(BaseObject):
             "api_key_count": "apikey_count",
             "created_at": "created_at",
             "creation_time": "creation_time",
-            "last_update_time": "last_update_time"
+            "last_update_time": "last_update_time",
         }
 
     @property
@@ -822,6 +822,14 @@ class Group(BaseObject):
         :rtype: int
         """
         return self._creation_time
+
+    @property
+    def last_update_time(self):
+        """The last update time
+
+        :rtype: datetime
+        """
+        return self._last_update_time
 
 
 class ApiKey(BaseObject):
