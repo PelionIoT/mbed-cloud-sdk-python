@@ -846,7 +846,7 @@ class ApiKey(BaseObject):
     def _get_attributes_map():
         return {
             "name": "name",
-            "owner": "owner",
+            "owner_id": "owner",
             "groups": "groups",
             "id": "id",
             "key": "key",
@@ -865,12 +865,12 @@ class ApiKey(BaseObject):
         return self._name
 
     @property
-    def owner(self):
+    def owner_id(self):
         """The owner of this API key, who is the creator by default.
 
         :rtype: str
         """
-        return self._owner
+        return self._owner_id
 
     @property
     def groups(self):
