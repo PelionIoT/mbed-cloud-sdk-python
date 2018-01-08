@@ -509,7 +509,13 @@ class ConnectAPI(BaseAPI):
             fixed_path = resource_path[1:]
 
         api = self._get_api(mds.SubscriptionsApi)
-        return api.v2_subscriptions_device_id_resource_path_get(device_id, fixed_path)
+        try:
+            api.v2_subscriptions_device_id_resource_path_get(device_id, fixed_path)
+        except Exception as e:
+            if e.status == 404:
+                return False
+            raise
+        return True
 
     @catch_exceptions(mds.rest.ApiException)
     def update_presubscriptions(self, presubscriptions):
