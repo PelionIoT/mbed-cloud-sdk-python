@@ -248,6 +248,14 @@ class Certificate(BaseObject):
         return self._description
 
     @property
+    def device_mode(self):
+        """The device mode
+
+        :rtype: str
+        """
+        return self._device_mode
+
+    @property
     def certificate_data(self):
         """X509.v3 trusted certificate data in PEM format.
 
