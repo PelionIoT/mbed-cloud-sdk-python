@@ -139,6 +139,10 @@ class Test(BaseCase, ListCompatMixin):
         with self.assertRaises(StopIteration):
             next(p)
 
+    def test_limit(self):
+        p = self.paginator(get_response, total=7, limit=5)
+        self.assertEqual(5, len(list(p)))
+
     def test_count(self):
         # check boolean of object is exactly a boolean False
         p = self.paginator(get_response, total=7)

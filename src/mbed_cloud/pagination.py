@@ -36,14 +36,15 @@ class PaginatedResponse(object):
     def __init__(self, func, lwrap_type=None, _results_cache=True, **kwargs):
         """Initialize wrapper by passing in object with metadata structure.
 
-        :param lwrap_type: Wrap each response element in type
-        :param init_data: Initialize pagination object with data
+        :param func: API function called to obtain a page of results
+        :param lwrap_type: Wrapper called for each returned result object
+        :param _results_cache: Retains a copy of all returned results to reduce API calls
+                               Set to None to disable (for use as a pure generator)
         """
         self._func = func
         self._lwrap_type = lwrap_type
         self._kwargs = {}
         self._kwargs.update(kwargs)
-        self._kwargs.update(dict(include='total_count'))
 
         # Initial values, will be updated in first response
         self._total_count = None
@@ -59,7 +60,13 @@ class PaginatedResponse(object):
     def _is_caching(self):
         return self._results_cache is not None
 
+    @property
+    def _is_at_query_limit(self):
+        # we track query limit ourselves in case the API is too lenient
+        return self._limit is not None and self._current_count >= self._limit
+
     def _get_total_concrete(self):
+        # total number of results seen for certain, ignoring 'total_count' responses
         return self._current_count + len(self._current_data_page)
 
     def _get_next_page(self):
@@ -79,6 +86,7 @@ class PaginatedResponse(object):
 
     def _get_total_count(self):
         len_query = {}
+        len_query.update(dict(include='total_count'))
         len_query.update(self._kwargs)
         len_query.update(dict(limit=2))
         resp = self._func(**len_query)
@@ -117,7 +125,7 @@ class PaginatedResponse(object):
         if not self._current_data_page and self._has_more:
             self._get_next_page()
 
-        if not self._current_data_page:
+        if not self._current_data_page or self._is_at_query_limit:
             self._is_exhausted = True
             raise StopIteration()
 
