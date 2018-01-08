@@ -23,6 +23,7 @@ import logging
 from mbed_cloud.core import BaseAPI
 from mbed_cloud.core import BaseObject
 from mbed_cloud.pagination import PaginatedResponse
+from mbed_cloud.utils import force_utc
 
 from mbed_cloud.decorators import catch_exceptions
 
@@ -101,7 +102,7 @@ class UpdateAPI(BaseAPI):
         :param str device_filter: The device filter to use (Required)
         :param str manifest_id: ID of the manifest with description of the update
         :param str description: Description of the campaign
-        :param date when: The timestamp at which update campaign is scheduled to start
+        :param date scheduled_at: The timestamp at which update campaign is scheduled to start
         :param str state: The state of the campaign. Values:
             "draft", "scheduled", "devicefetch", "devicecopy", "publishing",
             "deploying", "deployed", "manifestremoved", "expired"
@@ -113,6 +114,9 @@ class UpdateAPI(BaseAPI):
             Device._get_attributes_map()
         )
         campaign = Campaign._create_request_map(kwargs)
+        if 'when' in campaign:
+            # FIXME: randomly validating an input here is a sure route to nasty surprises elsewhere
+            campaign['when'] = force_utc(campaign['when'])
         body = UpdateCampaignPostRequest(
             name=name,
             device_filter=device_filter['filter'],

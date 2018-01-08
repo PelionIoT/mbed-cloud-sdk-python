@@ -83,13 +83,14 @@ def _get_type(obj):
         obj = json.loads(obj)
     except ValueError:
         pass
-    try:
-        # some tests try tricking us with timezones - but we assume naive datetime objects in utc
-        x = obj
-        obj = du_parser.parse(obj).astimezone(tz=du_tz.tzoffset(None, 0)).replace(tzinfo=None)
-        logging.info('datetime rehydrated: %s -> %s (%s)' % (x, obj, obj.isoformat()))
-    except (TypeError, ValueError):
-        pass
+    if isinstance(obj, str) and len(obj) < 30:
+        try:
+            # some tests try tricking us with timezones - but we assume naive datetime objects in utc
+            x = obj
+            obj = du_parser.parse(obj).astimezone(tz=du_tz.tzoffset(None, 0)).replace(tzinfo=None)
+            logging.info('datetime rehydrated: %s -> %s (%s)' % (x, obj, obj.isoformat()))
+        except (TypeError, ValueError):
+            pass
     return obj
 
 

@@ -49,6 +49,7 @@ from mbed_cloud.device_directory import Device
 from mbed_cloud.exceptions import CloudApiException
 from mbed_cloud.exceptions import CloudUnhandledError
 from mbed_cloud.exceptions import CloudValueError
+from mbed_cloud.utils import force_utc
 
 from six.moves import queue
 
@@ -724,22 +725,16 @@ class ConnectAPI(BaseAPI):
         :rtype: PaginatedResponse
         """
         self._verify_arguments(interval, kwargs)
+        include = Metric._map_includes(include)
+        kwargs.update(dict(include=include, interval=interval))
         kwargs = self._verify_filters(kwargs, Metric)
         api = self._get_api(statistics.StatisticsApi)
-        include = Metric._map_includes(include)
-        kwargs.update({"include": include})
-        kwargs.update({"interval": interval})
         return PaginatedResponse(api.v3_metrics_get, lwrap_type=Metric, **kwargs)
 
     def _subscription_handler(self, queue, device_id, path, callback_fn):
         while True:
             value = queue.get()
             callback_fn(device_id, path, value)
-
-    def _convert_to_UTC_RFC3339(self, time, name):
-        if not isinstance(time, datetime.datetime):
-            raise CloudValueError("%s should be of type datetime" % (name))
-        return time.isoformat() + "Z"
 
     def _verify_arguments(self, interval, kwargs):
         start = kwargs.get("start", None)
@@ -758,7 +753,7 @@ class ConnectAPI(BaseAPI):
             raise CloudValueError("interval is incorrect. Sample values: 2h, 3w, 4d.")
         # convert start into UTC RFC3339 format
         if start:
-            kwargs['start'] = self._convert_to_UTC_RFC3339(start, 'start')
+            kwargs['start'] = force_utc(start, 'start')
         # convert end into UTC RFC3339 format
         if end:
-            kwargs['end'] = self._convert_to_UTC_RFC3339(end, 'end')
+            kwargs['end'] = force_utc(end, 'end')
