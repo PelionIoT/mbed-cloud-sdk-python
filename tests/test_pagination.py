@@ -28,7 +28,6 @@ def get_response(total=5, per_page=2, include=None, **kwargs):
     class X:
         data = [D(i) for i in range(total)]
         after = kwargs.get('after')
-        has_more = (after + 1 if after is not None else 0) + per_page < total
         if after is not None:
             after += 1  # because 'after' refers to IDs (right-aligned) rather than indices (left-aligned)
             data = data[after:after + per_page]
@@ -36,7 +35,7 @@ def get_response(total=5, per_page=2, include=None, **kwargs):
             data = data[:per_page]
         if include:
             total_count = total
-
+        has_more = (after or 0) + per_page < total
     return X
 
 
