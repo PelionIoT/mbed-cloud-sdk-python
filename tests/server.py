@@ -27,9 +27,12 @@ from __future__ import unicode_literals
 
 import datetime
 import json
+import logging
 import os
-import sys
 import traceback
+
+from dateutil import parser as du_parser
+from dateutil import tz as du_tz
 
 import queue
 
@@ -74,13 +77,20 @@ def _fix_paginated_response(resp):
     return return_obj
 
 
-def _get_type(v):
+def _get_type(obj):
     """Try to get value as original type, if possible. If not, we just return original value."""
     try:
-        v = json.loads(v)
+        obj = json.loads(obj)
     except ValueError:
         pass
-    return v
+    try:
+        # some tests try tricking us with timezones - but we assume naive datetime objects in utc
+        x = obj
+        obj = du_parser.parse(obj).astimezone(tz=du_tz.tzoffset(None, 0)).replace(tzinfo=None)
+        logging.info('datetime rehydrated: %s -> %s (%s)' % (x, obj, obj.isoformat()))
+    except (TypeError, ValueError):
+        pass
+    return obj
 
 
 class ApiCallException(Exception):
@@ -155,7 +165,7 @@ def default_handler(obj):
         return obj.isoformat()
 
     if isinstance(obj, queue.Queue):
-        return obj.queue
+        return {}
 
     raise TypeError("Object of type '%s' is not JSON serializable" %
                     obj.__class__.__name__)
@@ -174,22 +184,10 @@ def main(module, method, methods=["GET"]):
     # We call the SDK module and function, with provided arguments.
     try:
         obj = _call_api(module, method, kwargs)
-        serialised = json.dumps(obj, default=default_handler)
+        serialised = json.dumps(obj if obj is not None else {}, default=default_handler)  # FIXME: remove 'or {}'
         return app.response_class(response=serialised, status=200, mimetype='application/json')
     except Exception as exc:
-        _, _, tb = sys.exc_info()
-        tb_info = traceback.extract_tb(tb)
-        filename, line, func, text = tb_info[-1]
-        text = traceback.format_exc()
-        message = getattr(exc, 'message', str(exc))
-
-        error_msg = "%s: An error occurred on line %s in statement '%s': %s" % (
-            filename,
-            line,
-            text,
-            message,
-        )
-        raise ApiCallException(error_msg, status_code=getattr(exc, 'status', 500))
+        raise ApiCallException(traceback.format_exc(limit=5), status_code=getattr(exc, 'status', 500))
 
 
 if __name__ == "__main__":
