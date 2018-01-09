@@ -37,7 +37,7 @@ class TestConfigObj(BaseCase):
         # regression check - give a sane error for invalid hosts
         api = ConnectAPI(dict(host='https://0.0.0.0'))
         with self.assertRaises(urllib3.exceptions.MaxRetryError):
-            api.list_connected_devices().data
+            api.list_connected_devices()
 
     def test_config_singleton(self):
         # check two different api configs don't clobber each other
