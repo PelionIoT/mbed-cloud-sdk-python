@@ -6,9 +6,8 @@ import uuid
 import flask
 from flask import request
 from flask import jsonify
-from werkzeug.exceptions import HTTPException
 
-from tests.module_runner import run_module
+from module_runner import run_module
 
 from mbed_cloud.core import BaseAPI
 

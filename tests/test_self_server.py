@@ -13,9 +13,9 @@ class Test(BaseCase):
 
     @classmethod
     def setUpClass(cls):
-        server_path = os.path.join(cls._project_root_dir, 'tests')
+        server_path = os.path.join('tests', 'server2.py')
         cls.server = subprocess.Popen(
-            ['python', 'server2.py'], cwd=server_path, stderr=subprocess.STDOUT
+            ['python', server_path], cwd=cls._project_root_dir, stderr=subprocess.STDOUT
         )
 
     @property
