@@ -52,7 +52,7 @@ def create_instance(module):
     item = Item(module, idee)
     instance = MODULES.get(module)(**request.get_json())
     STORE[item] = LockedInstance(lock, instance)
-    return idee
+    return jsonify(idee)
 
 
 @app.route('/<module>/<instance>/<method>', methods=['POST'])
@@ -98,13 +98,14 @@ def delete_instance(module, instance):
 
 @app.route('/ping')
 def ping():
-    return 'pong'
+    return jsonify('pong')
 
 
 @app.route('/shutdown', methods=['PUT'])
 def shutdown():
     # do some clean shutdown logic for coverage
-    pass
+    request.environ.get('werkzeug.server.shutdown')()
+    return jsonify(True)
 
 
 if __name__ == '__main__':
