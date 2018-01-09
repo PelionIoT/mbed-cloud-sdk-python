@@ -113,6 +113,23 @@ class BaseAPI(object):
         return last_metadata
 
 
+class StubAPI(BaseAPI):
+    """Used in test framework"""
+    api_name = 'test_stub'
+
+    def __init__(self, **kwargs):
+        self.kwargs = kwargs
+
+    def exception(self):
+        raise ValueError('just a test')
+
+    def success(self, **kwargs):
+        response = {'success': True}
+        response.update(kwargs)
+        response.update(self.kwargs)
+        return response
+
+
 class BaseObject(object):
     """Base class for APIs classes."""
 
