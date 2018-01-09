@@ -25,10 +25,14 @@ Run by:
 from __future__ import absolute_import
 from __future__ import unicode_literals
 
+import datetime
 import json
+import logging
 import os
-import sys
 import traceback
+
+from dateutil import parser as du_parser
+from dateutil import tz as du_tz
 
 import queue
 
@@ -46,22 +50,10 @@ app = Flask(__name__)
 MODULES = {}
 
 
-def _call_api(module, method, args):
-    if module not in MODULES:
-        raise ApiCallException("Invalid module: %r" % (module), status_code=400)
-
-    # Get API object
-    api = MODULES.get(module)
-
-    # Get function contained in API object
-    api_functions = list([f for f in dir(api) if not f.startswith("_")])
-    if method not in api_functions:
-        raise ApiCallException(
-            "%r not found in %r" % (method, ", ".join(api_functions)),
-            status_code=400)
-
-    # Call SDK function
-    return getattr(api, method)(**args)
+def _call_api(module, method, kwargs):
+    api = MODULES[module]
+    method = getattr(api, method)
+    return method(**kwargs)
 
 
 def _get_params(request_headers):
@@ -85,16 +77,21 @@ def _fix_paginated_response(resp):
     return return_obj
 
 
-def _get_type(v):
+def _get_type(obj):
     """Try to get value as original type, if possible. If not, we just return original value."""
-    # Check JSON
     try:
-        return json.loads(v)
+        obj = json.loads(obj)
     except ValueError:
         pass
-
-    # Return original value
-    return v
+    if isinstance(obj, str) and len(obj) < 30:
+        try:
+            # some tests try tricking us with timezones - but we assume naive datetime objects in utc
+            x = obj
+            obj = du_parser.parse(obj).astimezone(tz=du_tz.tzoffset(None, 0)).replace(tzinfo=None)
+            logging.info('datetime rehydrated: %s -> %s (%s)' % (x, obj, obj.isoformat()))
+        except (TypeError, ValueError):
+            pass
+    return obj
 
 
 class ApiCallException(Exception):
@@ -124,12 +121,6 @@ def _handle_api_call_error(error):
     response = jsonify(error.to_dict())
     response.status_code = error.status_code
     return response
-
-
-def _get_dict(obj):
-    if hasattr(obj, 'to_dict'):
-        obj = obj.to_dict()
-    return obj
 
 
 @app.route("/ping")
@@ -164,6 +155,23 @@ def init(methods=["GET"]):
     return jsonify({})
 
 
+def default_handler(obj):
+    """Serialises custom datatypes used in the SDK"""
+    try:
+        return obj.to_dict()
+    except AttributeError:
+        pass
+
+    if isinstance(obj, datetime.datetime):
+        return obj.isoformat()
+
+    if isinstance(obj, queue.Queue):
+        return {}
+
+    raise TypeError("Object of type '%s' is not JSON serializable" %
+                    obj.__class__.__name__)
+
+
 @app.route("/<module>/<method>/")
 def main(module, method, methods=["GET"]):
     """Main runner, responding to remote test calls - mapping module and method to SDK"""
@@ -173,51 +181,14 @@ def main(module, method, methods=["GET"]):
     # quote + char to prevent parse_qs from replacing '+' with space.
     qs = qs.replace('+', "%2B")
     args_struct = urllib.parse.parse_qs(qs)
-    args = dict(((k, _get_type(",".join(v))) for k, v in list(args_struct.items())))
+    kwargs = dict(((k, _get_type(",".join(v))) for k, v in list(args_struct.items())))
     # We call the SDK module and function, with provided arguments.
     try:
-        return_obj = _call_api(module, method, args)
-
-        # Handle functions which returns void
-        if not return_obj:
-            return jsonify({})
-
-        # Check if we can concert to dict for inner objects in a list
-        if isinstance(return_obj, list):
-            return_obj = [_get_dict(o) for o in return_obj]
-
-        # Check if we can convert to dict before returning (we can for most models)
-        if not isinstance(return_obj, dict):
-            return_obj = _get_dict(return_obj)
-
-        # Check if type is Queue (device subscriptions), in which case we just return empty
-        if isinstance(return_obj, queue.Queue):
-            return_obj = {}
-
-        return jsonify(return_obj)
-    except Exception as e:
-        _, _, tb = sys.exc_info()
-        tb_info = traceback.extract_tb(tb)
-        filename, line, func, text = tb_info[-1]
-        text = traceback.format_exc()
-        message = str(e)
-        if hasattr(e, "message"):
-            message = e.message
-
-        error_msg = "{}: An error occurred on line {} in statement '{}': {}".format(
-            filename,
-            line,
-            text,
-            message
-        )
-
-        # Set default status_code as 500
-        status_code = 500
-        # Check if error contains code status, return it if it does
-        if hasattr(e, 'status'):
-            status_code = e.status
-
-        raise ApiCallException(str(error_msg), status_code=status_code)
+        obj = _call_api(module, method, kwargs)
+        serialised = json.dumps(obj if obj is not None else {}, default=default_handler)  # FIXME: remove 'or {}'
+        return app.response_class(response=serialised, status=200, mimetype='application/json')
+    except Exception as exc:
+        raise ApiCallException(traceback.format_exc(limit=5), status_code=getattr(exc, 'status', 500))
 
 
 if __name__ == "__main__":

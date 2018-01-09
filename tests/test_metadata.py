@@ -9,7 +9,7 @@ class TestFilters(BaseCase):
     @classmethod
     def setUpClass(cls):
         cls.api = DeviceDirectoryAPI()
-        cls.devices = cls.api.list_devices(filter=dict(state='bootstrapped'))
+        cls.devices = cls.api.list_devices(filter=dict(state='registered')).next()
 
     def test_meta(self):
         # exercise all the getters for metadata objects
@@ -25,7 +25,7 @@ class TestFilters(BaseCase):
             'etag',
             'error_message',
         )
-        parts = {prop: getattr(meta, prop) for prop in props}
+        parts = {prop: getattr(meta, prop, None) for prop in props}
         self.assertEqual(parts['method'], 'GET')
         self.assertEqual(parts['object'], 'list')
         self.assertIn('Strict-Transport', repr(meta))

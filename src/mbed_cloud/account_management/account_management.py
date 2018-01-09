@@ -21,7 +21,7 @@ from __future__ import unicode_literals
 # Import common functions and exceptions from frontend API
 from mbed_cloud.core import BaseAPI
 from mbed_cloud.core import BaseObject
-from mbed_cloud.core import PaginatedResponse
+from mbed_cloud.pagination import PaginatedResponse
 
 from mbed_cloud.decorators import catch_exceptions
 
@@ -764,7 +764,7 @@ class Group(BaseObject):
             "api_key_count": "apikey_count",
             "created_at": "created_at",
             "creation_time": "creation_time",
-            "last_update_time": "last_update_time"
+            "last_update_time": "last_update_time",
         }
 
     @property
@@ -823,6 +823,14 @@ class Group(BaseObject):
         """
         return self._creation_time
 
+    @property
+    def last_update_time(self):
+        """The last update time
+
+        :rtype: datetime
+        """
+        return self._last_update_time
+
 
 class ApiKey(BaseObject):
     """Describes API key object.
@@ -846,7 +854,7 @@ class ApiKey(BaseObject):
     def _get_attributes_map():
         return {
             "name": "name",
-            "owner": "owner",
+            "owner_id": "owner",
             "groups": "groups",
             "id": "id",
             "key": "key",
@@ -865,12 +873,12 @@ class ApiKey(BaseObject):
         return self._name
 
     @property
-    def owner(self):
+    def owner_id(self):
         """The owner of this API key, who is the creator by default.
 
         :rtype: str
         """
-        return self._owner
+        return self._owner_id
 
     @property
     def groups(self):

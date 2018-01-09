@@ -21,9 +21,9 @@ from __future__ import unicode_literals
 # Import common functions and exceptions from frontend API
 from mbed_cloud.core import BaseAPI
 from mbed_cloud.core import BaseObject
-from mbed_cloud.core import PaginatedResponse
 from mbed_cloud.decorators import catch_exceptions
 from mbed_cloud.exceptions import CloudValueError
+from mbed_cloud.pagination import PaginatedResponse
 
 # Import backend API
 import mbed_cloud._backends.connector_ca as cert
@@ -246,6 +246,14 @@ class Certificate(BaseObject):
         :rtype: str
         """
         return self._description
+
+    @property
+    def device_mode(self):
+        """The device mode
+
+        :rtype: str
+        """
+        return self._device_mode
 
     @property
     def certificate_data(self):
