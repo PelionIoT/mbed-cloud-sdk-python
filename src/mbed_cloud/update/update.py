@@ -384,7 +384,6 @@ class FirmwareManifest(BaseObject):
             "url": "datafile",
             "description": "description",
             "device_class": "device_class",
-            "datafile_checksum": "datafile_checksum",
             "datafile_size": "datafile_size",
             "id": "id",
             "name": "name",
@@ -424,14 +423,6 @@ class FirmwareManifest(BaseObject):
         :rtype: str
         """
         return self._device_class
-
-    @property
-    def datafile_checksum(self):
-        """The checksum generated for the datafile (readonly).
-
-        :rtype: str
-        """
-        return self._datafile_checksum
 
     @property
     def datafile_size(self):
