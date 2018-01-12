@@ -30,7 +30,7 @@ class Test(BaseCase):
 
     def test_a2(self):
         # list methods
-        self.assertEqual(requests.get(server_addr).json(), [
+        self.assertEqual(requests.get(server_addr + '/modules').json(), [
             'AccountManagementAPI',
             'DeviceDirectoryAPI',
             'UpdateAPI',
@@ -41,20 +41,29 @@ class Test(BaseCase):
 
     def test_b(self):
         # create an instance
-        response = requests.post(server_addr + '/test_stub', json=dict(more=0))
+        response = requests.post(server_addr + '/modules/test_stub/instances', json=dict(more=0))
         response.raise_for_status()
         self.instance.append(response.json())
         self.assertTrue(self.idee)
 
     def test_c(self):
         # read instance list
-        response = requests.get(server_addr + '/test_stub')
+        response = requests.get(server_addr + '/modules/test_stub/instances')
         response.raise_for_status()
-        self.assertEqual(response.json()[0], self.idee)
+        self.assertEqual(response.json()[0]['id'], self.idee)
 
     def test_d(self):
         # read instance
-        response = requests.get(server_addr + '/test_stub/%s' % self.idee)
+        response = requests.get(server_addr + '/instances/%s' % self.idee)
+        response.raise_for_status()
+        result = response.json()
+        self.assertIn('createdAt', result)
+        self.assertEqual(result['id'], self.idee)
+        self.assertEqual(result['module'], 'test_stub')
+
+    def test_d2(self):
+        # read instance methods
+        response = requests.get(server_addr + '/instances/%s/methods' % self.idee)
         response.raise_for_status()
         result = response.json()
         self.assertIn('success', result)
@@ -63,13 +72,13 @@ class Test(BaseCase):
 
     def test_e(self):
         # call a method
-        response = requests.post(server_addr + '/test_stub/%s/success' % self.idee, json=dict(extra=1))
+        response = requests.post(server_addr + '/instances/%s/methods/success' % self.idee, json=dict(extra=1))
         response.raise_for_status()
         self.assertEquals(response.json(), dict(more=0, extra=1, success=True))
 
     def test_f(self):
         # call a failing method
-        response = requests.post(server_addr + '/test_stub/%s/exception' % self.idee)
+        response = requests.post(server_addr + '/instances/%s/methods/exception' % self.idee)
         with self.assertRaises(requests.HTTPError):
             response.raise_for_status()
         result = response.json()
@@ -83,14 +92,14 @@ class Test(BaseCase):
 
     def test_h(self):
         # invalid method
-        response = requests.post(server_addr + '/test_stub/%s/invalid_method' % self.idee)
+        response = requests.post(server_addr + '/instances/%s/methods/invalid_method' % self.idee)
         with self.assertRaises(requests.HTTPError):
             response.raise_for_status()
         self.assertIn('no such method', response.json().get('message').lower())
 
     def test_i(self):
         # invalid instance
-        response = requests.post(server_addr + '/test_stub/invalid_id/invalid_method')
+        response = requests.post(server_addr + '/instances/invalid_id/methods/invalid_method')
         print(response.text)
         with self.assertRaises(requests.HTTPError):
             response.raise_for_status()
@@ -98,11 +107,11 @@ class Test(BaseCase):
 
     def test_j(self):
         # delete instance
-        response = requests.delete(server_addr + '/test_stub/%s' % self.idee)
+        response = requests.delete(server_addr + '/instances/%s' % self.idee)
         response.raise_for_status()
         self.assertEqual(response.json(), True)
 
-        response = requests.get(server_addr + '/test_stub/%s' % self.idee)
+        response = requests.get(server_addr + '/instances/%s' % self.idee)
         self.assertEqual(404, response.status_code)
 
     def test_k(self):
