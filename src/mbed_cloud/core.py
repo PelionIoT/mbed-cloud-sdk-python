@@ -115,15 +115,19 @@ class BaseAPI(object):
 
 class StubAPI(BaseAPI):
     """Used in test framework"""
+
     api_name = 'test_stub'
 
     def __init__(self, **kwargs):
+        """For use in test verification"""
         self.kwargs = kwargs
 
     def exception(self):
+        """Raises an exception"""
         raise ValueError('just a test')
 
     def success(self, **kwargs):
+        """Returns all arguments received in init and this method call"""
         response = {'success': True}
         response.update(kwargs)
         response.update(self.kwargs)
