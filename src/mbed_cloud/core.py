@@ -116,8 +116,6 @@ class BaseAPI(object):
 class StubAPI(BaseAPI):
     """Used in test framework"""
 
-    api_name = 'test_stub'
-
     def __init__(self, **kwargs):
         """For use in test verification"""
         self.kwargs = kwargs

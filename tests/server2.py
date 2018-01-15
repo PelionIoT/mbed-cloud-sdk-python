@@ -33,7 +33,15 @@ from mbed_cloud import __version__
 
 app = flask.Flask(__name__)
 STORE = {}
-MODULES = {vars(kls).get('api_name', kls.__name__): kls for kls in BaseAPI.__subclasses__()}
+MODULE_REMAP = dict(  # to avoid writing these as attributes in the SDK, we map them here
+    AccountManagementAPI='account_management',
+    CertificatesAPI='certificates',
+    ConnectAPI='connect',
+    DeviceDirectoryAPI='device_directory',
+    StubAPI='test_stub',
+    UpdateAPI='update',
+)
+MODULES = {MODULE_REMAP[kls.__name__]: kls for kls in BaseAPI.__subclasses__()}
 LockedInstance = namedtuple('LockedInstance', ['lock', 'instance', 'module', 'uuid', 'created_at'])
 
 _BANNER = """

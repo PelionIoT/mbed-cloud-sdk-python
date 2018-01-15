@@ -31,12 +31,12 @@ class Test(BaseCase):
     def test_a2(self):
         # list methods
         self.assertEqual(requests.get(server_addr + '/modules').json(), [
-            'AccountManagementAPI',
-            'DeviceDirectoryAPI',
-            'UpdateAPI',
+            'account_management',
+            'device_directory',
+            'update',
             'test_stub',
-            'CertificatesAPI',
-            'ConnectAPI'
+            'certificates',
+            'connect'
         ])
 
     def test_b(self):
