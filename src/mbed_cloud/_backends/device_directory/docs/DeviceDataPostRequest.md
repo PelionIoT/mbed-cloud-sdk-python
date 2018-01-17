@@ -4,7 +4,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **bootstrap_expiration_date** | **datetime** | The expiration date of the certificate used to connect to bootstrap server. | [optional] 
-**bootstrapped_timestamp** | **datetime** | The timestamp of the device&#39;s most recent bootstrap process.. | [optional] 
+**bootstrapped_timestamp** | **datetime** | The timestamp of the device&#39;s most recent bootstrap process. | [optional] 
 **connector_expiration_date** | **datetime** | The expiration date of the certificate used to connect to the LWM2M server. | [optional] 
 **mechanism** | **str** | The ID of the channel used to communicate with the device. | [optional] 
 **device_class** | **str** | An ID representing the model and hardware revision of the device. | [optional] 
@@ -24,6 +24,7 @@ Name | Type | Description | Notes
 **mechanism_url** | **str** | The address of the connector to use. | [optional] 
 **name** | **str** | The name of the device. | [optional] 
 **device_key** | **str** | The fingerprint of the device certificate. | [optional] 
+**enrolment_list_timestamp** | **datetime** | The claim date/time. | [optional] 
 **manifest** | **str** | DEPRECATED: The URL for the current device manifest. | [optional] 
 **ca_id** | **str** | The certificate issuer&#39;s ID. | [optional] 
 

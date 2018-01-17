@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **endpoint_name** | **str** | The endpoint name given to the device. | [optional] 
 **auto_update** | **bool** | DEPRECATED: Mark this device for automatic firmware update. | [optional] 
 **host_gateway** | **str** | The &#x60;endpoint_name&#x60; of the host gateway, if appropriate. | [optional] 
+**enrolment_list_timestamp** | **datetime** | The claim date/time. | [optional] 
 **object** | **str** | The API resource entity. | [optional] 
 **custom_attributes** | **dict(str, str)** | Up to five custom key-value attributes. Note that keys cannot start with a number. | [optional] 
 **device_key** | **str** | The fingerprint of the device certificate. | [optional] 
