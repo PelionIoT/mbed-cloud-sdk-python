@@ -497,6 +497,7 @@ class Campaign(BaseObject):
             "manifest_url": "root_manifest_url",
             "name": "name",
             "started_at": "started_at",
+            "updated_at": "updated_at",
             "state": "state",
             "scheduled_at": "when"
         }
@@ -545,6 +546,14 @@ class Campaign(BaseObject):
         :rtype: datetime
         """
         return self._created_at
+
+    @property
+    def updated_at(self):
+        """The time the object was last updated (readonly).
+
+        :rtype: datetime
+        """
+        return self._updated_at
 
     @property
     def description(self):
