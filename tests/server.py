@@ -80,7 +80,7 @@ def startup():
 def get_instance_or_404(uuid):
     instance = STORE.get(uuid)
     if not instance:
-        raise DoesNotExist('No such instance %s' % (uuid,))
+        raise DoesNotExist('SDK server: no such instance %s' % (uuid,))
     return instance
 
 
@@ -120,7 +120,7 @@ def modules_new_instance(module):
         created_at=datetime.datetime.utcnow(),
     )
     STORE[instance.uuid] = instance
-    return jsonify(instance.uuid)
+    return jsonify(serialise_instance(instance))
 
 
 @app.route('/instances')
@@ -137,6 +137,10 @@ def instances_detail(uuid):
 def instances_delete(uuid):
     locked_instance = get_instance_or_404(uuid)
     with locked_instance.lock:
+        try:
+            locked_instance.instance.stop_notifications()
+        except AttributeError:
+            pass
         STORE.pop(uuid)
     return jsonify(True)
 
@@ -153,7 +157,7 @@ def instances_call_rpc(uuid, method):
     with locked_instance.lock:
         method = getattr(locked_instance.instance, method, None)
         if method is None:
-            raise DoesNotExist('No such method on %s' % (uuid,))
+            raise DoesNotExist('SDK server: no such method on %s' % (uuid,))
         return app.response_class(
             response=run_module(method, request.get_json() or {}),
             status=200,
@@ -166,7 +170,7 @@ def server_ping():
     return jsonify('pong')
 
 
-@app.route('/reset')
+@app.route('/reset', methods=['POST'])
 def server_reset():
     return app.response_class(
         response=None,
@@ -174,7 +178,7 @@ def server_reset():
     )
 
 
-@app.route('/shutdown', methods=['PUT'])
+@app.route('/shutdown', methods=['POST'])
 def server_shutdown():
     # do some clean shutdown logic for coverage
     request.environ.get('werkzeug.server.shutdown')()
