@@ -221,7 +221,7 @@ class Certificate(BaseObject):
             "issuer": "issuer",
             "subject": "subject",
             "validity": "validity",
-            "owner_id": "owner",
+            "owner_id": "owner_id",
             "server_uri": "server_uri",
             "server_certificate": "server_certificate",
             "header_file": "security_file_content",
