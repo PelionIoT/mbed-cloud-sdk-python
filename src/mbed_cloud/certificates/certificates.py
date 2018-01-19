@@ -57,21 +57,24 @@ class CertificatesAPI(BaseAPI):
         :return: list of :py:class:`Certificate` objects
         :rtype: Certificate
         """
+
+        # TODO: THINK ABOUT ALL THIS MADNESS
+        import json
+        print('a', json.dumps(kwargs))
         kwargs = self._verify_sort_options(kwargs)
         kwargs = self._verify_filters(kwargs, Certificate)
-
-        if "type__eq" in kwargs:
-            if kwargs["type__eq"] == CertificateType.bootstrap:
-                kwargs["service__eq"] = CertificateType.bootstrap
-                kwargs["device_execution_mode__eq"] = 0
-            elif kwargs["type__eq"] == CertificateType.developer:
+        print('b', json.dumps(kwargs))
+        if "service__eq" in kwargs:
+            if kwargs["service__eq"] == CertificateType.bootstrap:
+                pass
+            elif kwargs["service__eq"] == CertificateType.developer:
                 kwargs["device_execution_mode__eq"] = 1
-            elif kwargs["type__eq"] == CertificateType.lwm2m:
-                kwargs["service__eq"] = CertificateType.lwm2m
-                kwargs["device_execution_mode__eq"] = 0
+                kwargs.pop("service__eq")
+            elif kwargs["service__eq"] == CertificateType.lwm2m:
+                pass
             else:
                 raise CloudValueError("Incorrect filter 'type': %s" % (kwargs["type__eq"]))
-            del kwargs["type__eq"]
+        print(kwargs)
         api = self._get_api(iam.DeveloperApi)
         return PaginatedResponse(api.get_all_certificates, lwrap_type=Certificate, **kwargs)
 
@@ -221,7 +224,7 @@ class Certificate(BaseObject):
             "issuer": "issuer",
             "subject": "subject",
             "validity": "validity",
-            "owner_id": "owner_id",
+            "owner_id": "owner",
             "server_uri": "server_uri",
             "server_certificate": "server_certificate",
             "header_file": "security_file_content",

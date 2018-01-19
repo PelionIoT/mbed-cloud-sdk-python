@@ -172,6 +172,8 @@ def server_ping():
 
 @app.route('/reset', methods=['POST'])
 def server_reset():
+    for uuid in list(STORE):
+        instances_delete(uuid)
     return app.response_class(
         response=None,
         status=205,

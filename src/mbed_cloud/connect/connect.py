@@ -170,9 +170,8 @@ class ConnectAPI(BaseAPI):
         :returns: a list of connected :py:class:`Device` objects.
         :rtype: PaginatedResponse
         """
-        filters = kwargs.get("filters", {})
-        filters.update({'state': {'$eq': 'registered'}})
-        kwargs.update({'filters': filters})
+        filter_or_filters = 'filter' if 'filter' in kwargs else 'filters'  # TODO: why???
+        kwargs.setdefault(filter_or_filters, {}).setdefault('state', {'$eq': 'registered'})
         kwargs = self._verify_sort_options(kwargs)
         kwargs = self._verify_filters(kwargs, Device, True)
         api = self._get_api(device_directory.DefaultApi)
