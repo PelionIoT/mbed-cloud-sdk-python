@@ -70,6 +70,9 @@ class CertificatesAPI(BaseAPI):
                 pass
             else:
                 raise CloudValueError("Incorrect filter 'type': %s" % (kwargs["type__eq"]))
+        owner = kwargs.pop('owner_id__eq', None)
+        if owner is not None:
+            kwargs['owner__eq'] = owner
         api = self._get_api(iam.DeveloperApi)
         return PaginatedResponse(api.get_all_certificates, lwrap_type=Certificate, **kwargs)
 
@@ -219,7 +222,7 @@ class Certificate(BaseObject):
             "issuer": "issuer",
             "subject": "subject",
             "validity": "validity",
-            "owner_id": "owner",
+            "owner_id": "owner_id",
             "server_uri": "server_uri",
             "server_certificate": "server_certificate",
             "header_file": "security_file_content",
