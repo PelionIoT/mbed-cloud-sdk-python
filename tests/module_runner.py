@@ -46,6 +46,6 @@ def run_module(method, kwargs):
     for k, v in kwargs.items():
         kwargs[k] = deserialise(v)
 
-    result = method(**kwargs)
+    result = dict(payload=method(**kwargs))
 
     return json.dumps(result, default=serialise)

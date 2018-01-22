@@ -159,7 +159,7 @@ def instances_call_rpc(uuid, method):
         if method is None:
             raise DoesNotExist('SDK server: no such method on %s' % (uuid,))
         return app.response_class(
-            response=dict(payload=run_module(method, request.get_json() or {})),
+            response=run_module(method, request.get_json() or {}),
             status=200,
             mimetype='application/json'
         )
