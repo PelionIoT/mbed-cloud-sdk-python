@@ -58,12 +58,8 @@ class CertificatesAPI(BaseAPI):
         :rtype: Certificate
         """
 
-        # TODO: THINK ABOUT ALL THIS MADNESS
-        import json
-        print('a', json.dumps(kwargs))
         kwargs = self._verify_sort_options(kwargs)
         kwargs = self._verify_filters(kwargs, Certificate)
-        print('b', json.dumps(kwargs))
         if "service__eq" in kwargs:
             if kwargs["service__eq"] == CertificateType.bootstrap:
                 pass
@@ -74,7 +70,6 @@ class CertificatesAPI(BaseAPI):
                 pass
             else:
                 raise CloudValueError("Incorrect filter 'type': %s" % (kwargs["type__eq"]))
-        print(kwargs)
         api = self._get_api(iam.DeveloperApi)
         return PaginatedResponse(api.get_all_certificates, lwrap_type=Certificate, **kwargs)
 
