@@ -57,7 +57,6 @@ class CertificatesAPI(BaseAPI):
         :return: list of :py:class:`Certificate` objects
         :rtype: Certificate
         """
-
         kwargs = self._verify_sort_options(kwargs)
         kwargs = self._verify_filters(kwargs, Certificate)
         if "service__eq" in kwargs:
@@ -69,7 +68,9 @@ class CertificatesAPI(BaseAPI):
             elif kwargs["service__eq"] == CertificateType.lwm2m:
                 pass
             else:
-                raise CloudValueError("Incorrect filter 'type': %s" % (kwargs["type__eq"]))
+                raise CloudValueError(
+                    "Incorrect value for CertificateType filter: %s" % (kwargs["service__eq"])
+                )
         owner = kwargs.pop('owner_id__eq', None)
         if owner is not None:
             kwargs['owner__eq'] = owner

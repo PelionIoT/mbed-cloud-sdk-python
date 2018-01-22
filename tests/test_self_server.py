@@ -27,10 +27,10 @@ class Test(BaseCase):
         self.assertEqual(requests.get(server_addr + '/ping').json(), 'pong')
 
     def test_shutdown(self):
-        response = requests.put(server_addr + '/shutdown')
+        response = requests.post(server_addr + '/shutdown')
         response.raise_for_status()
-        for _ in range(10):
-            time.sleep(0.01)
+        for _ in range(50):
+            time.sleep(0.02)
             result = self.server.poll()
             if result is not None:
                 break
