@@ -71,7 +71,7 @@ aliases:
       - run:
           name: run all tests
           command: pipenv run pytest --tb=short --cov=mbed_cloud --cov-config=.coveragerc --cov-report=html --cov-report=xml --junitxml=results/unittests.xml --self-contained-html --html=results/unittests.html
-          no_output_timeout: 30m
+          no_output_timeout: 5m
       - run: pipenv run python scripts/ci_summary.py --noblock
       - store_artifacts:
           path: results

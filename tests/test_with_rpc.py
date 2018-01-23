@@ -153,7 +153,7 @@ class TestWithRPC(BaseCase):
             )
         )
         try:
-            subprocess.check_output(cmd, universal_newlines=True)
+            subprocess.check_output(cmd, universal_newlines=True, timeout=300)
         except subprocess.CalledProcessError as e:
             if e.returncode > 0:
                 # polite re-raise
@@ -162,5 +162,5 @@ class TestWithRPC(BaseCase):
 
     def tearDown(self):
         # graceful shutdown
-        requests.get('http://localhost:5000/_bye')
-        self.process.wait()
+        requests.post('http://localhost:5000/shutdown')
+        self.process.wait(timeout=30)
