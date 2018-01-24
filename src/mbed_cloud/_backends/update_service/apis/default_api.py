@@ -324,105 +324,6 @@ class DefaultApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
-    def campaign_partial_update(self, campaign_id, campaign, **kwargs):
-        """
-        DEPRECATED (use /v3/campaigns/{campaign_id}/ instead) Modify a subset of an update campaign's fields.
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.campaign_partial_update(campaign_id, campaign, async=True)
-        >>> result = thread.get()
-
-        :param async bool
-        :param str campaign_id: (required)
-        :param UpdateCampaignPatchRequest campaign: Update campaign (required)
-        :return: UpdateCampaign
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
-            return self.campaign_partial_update_with_http_info(campaign_id, campaign, **kwargs)
-        else:
-            (data) = self.campaign_partial_update_with_http_info(campaign_id, campaign, **kwargs)
-            return data
-
-    def campaign_partial_update_with_http_info(self, campaign_id, campaign, **kwargs):
-        """
-        DEPRECATED (use /v3/campaigns/{campaign_id}/ instead) Modify a subset of an update campaign's fields.
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.campaign_partial_update_with_http_info(campaign_id, campaign, async=True)
-        >>> result = thread.get()
-
-        :param async bool
-        :param str campaign_id: (required)
-        :param UpdateCampaignPatchRequest campaign: Update campaign (required)
-        :return: UpdateCampaign
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['campaign_id', 'campaign']
-        all_params.append('async')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method campaign_partial_update" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'campaign_id' is set
-        if ('campaign_id' not in params) or (params['campaign_id'] is None):
-            raise ValueError("Missing the required parameter `campaign_id` when calling `campaign_partial_update`")
-        # verify the required parameter 'campaign' is set
-        if ('campaign' not in params) or (params['campaign'] is None):
-            raise ValueError("Missing the required parameter `campaign` when calling `campaign_partial_update`")
-
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'campaign_id' in params:
-            path_params['campaign_id'] = params['campaign_id']
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'campaign' in params:
-            body_params = params['campaign']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept(['application/json'])
-
-        # Authentication setting
-        auth_settings = ['Bearer']
-
-        return self.api_client.call_api('/v3/update-campaigns/{campaign_id}/', 'PATCH',
-                                        path_params,
-                                        query_params,
-                                        header_params,
-                                        body=body_params,
-                                        post_params=form_params,
-                                        files=local_var_files,
-                                        response_type='UpdateCampaign',
-                                        auth_settings=auth_settings,
-                                        async=params.get('async'),
-                                        _return_http_data_only=params.get('_return_http_data_only'),
-                                        _preload_content=params.get('_preload_content', True),
-                                        _request_timeout=params.get('_request_timeout'),
-                                        collection_formats=collection_formats)
-
     def campaign_retrieve(self, campaign_id, **kwargs):
         """
         DEPRECATED (use /v3/campaigns/{campaign_id}/ instead) Get an update campaign.
@@ -1699,45 +1600,51 @@ class DefaultApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
-    def update_campaign_partial_update(self, campaign_id, campaign, **kwargs):
+    def update_campaign_metadata_list(self, campaign_id, **kwargs):
         """
-        Modify a subset of an update campaign's fields.
+        Get campaign device metadata.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
-        >>> thread = api.update_campaign_partial_update(campaign_id, campaign, async=True)
+        >>> thread = api.update_campaign_metadata_list(campaign_id, async=True)
         >>> result = thread.get()
 
         :param async bool
-        :param str campaign_id: (required)
-        :param UpdateCampaignPatchRequest campaign: Update campaign (required)
-        :return: UpdateCampaign
+        :param str campaign_id: The update campaign ID (required)
+        :param int limit: How many objects to retrieve in the page
+        :param str order: ASC or DESC
+        :param str after: The ID of the the item after which to retrieve the next page
+        :param str include: Comma-separated list of data fields to return. Currently supported: total_count
+        :return: CampaignDeviceMetadataPage
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async'):
-            return self.update_campaign_partial_update_with_http_info(campaign_id, campaign, **kwargs)
+            return self.update_campaign_metadata_list_with_http_info(campaign_id, **kwargs)
         else:
-            (data) = self.update_campaign_partial_update_with_http_info(campaign_id, campaign, **kwargs)
+            (data) = self.update_campaign_metadata_list_with_http_info(campaign_id, **kwargs)
             return data
 
-    def update_campaign_partial_update_with_http_info(self, campaign_id, campaign, **kwargs):
+    def update_campaign_metadata_list_with_http_info(self, campaign_id, **kwargs):
         """
-        Modify a subset of an update campaign's fields.
+        Get campaign device metadata.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
-        >>> thread = api.update_campaign_partial_update_with_http_info(campaign_id, campaign, async=True)
+        >>> thread = api.update_campaign_metadata_list_with_http_info(campaign_id, async=True)
         >>> result = thread.get()
 
         :param async bool
-        :param str campaign_id: (required)
-        :param UpdateCampaignPatchRequest campaign: Update campaign (required)
-        :return: UpdateCampaign
+        :param str campaign_id: The update campaign ID (required)
+        :param int limit: How many objects to retrieve in the page
+        :param str order: ASC or DESC
+        :param str after: The ID of the the item after which to retrieve the next page
+        :param str include: Comma-separated list of data fields to return. Currently supported: total_count
+        :return: CampaignDeviceMetadataPage
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['campaign_id', 'campaign']
+        all_params = ['campaign_id', 'limit', 'order', 'after', 'include']
         all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -1748,16 +1655,13 @@ class DefaultApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method update_campaign_partial_update" % key
+                    " to method update_campaign_metadata_list" % key
                 )
             params[key] = val
         del params['kwargs']
         # verify the required parameter 'campaign_id' is set
         if ('campaign_id' not in params) or (params['campaign_id'] is None):
-            raise ValueError("Missing the required parameter `campaign_id` when calling `update_campaign_partial_update`")
-        # verify the required parameter 'campaign' is set
-        if ('campaign' not in params) or (params['campaign'] is None):
-            raise ValueError("Missing the required parameter `campaign` when calling `update_campaign_partial_update`")
+            raise ValueError("Missing the required parameter `campaign_id` when calling `update_campaign_metadata_list`")
 
 
         collection_formats = {}
@@ -1767,6 +1671,14 @@ class DefaultApi(object):
             path_params['campaign_id'] = params['campaign_id']
 
         query_params = []
+        if 'limit' in params:
+            query_params.append(('limit', params['limit']))
+        if 'order' in params:
+            query_params.append(('order', params['order']))
+        if 'after' in params:
+            query_params.append(('after', params['after']))
+        if 'include' in params:
+            query_params.append(('include', params['include']))
 
         header_params = {}
 
@@ -1774,8 +1686,6 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
-        if 'campaign' in params:
-            body_params = params['campaign']
         # HTTP header `Accept`
         header_params['Accept'] = self.api_client.\
             select_header_accept(['application/json'])
@@ -1783,14 +1693,113 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api('/v3/campaigns/{campaign_id}/', 'PATCH',
+        return self.api_client.call_api('/v3/campaigns/{campaign_id}/campaign-device-metadata/', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='UpdateCampaign',
+                                        response_type='CampaignDeviceMetadataPage',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
+    def update_campaign_metadata_retreive(self, campaign_id, campaign_device_metadata_id, **kwargs):
+        """
+        Get update campaign metadata.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.update_campaign_metadata_retreive(campaign_id, campaign_device_metadata_id, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str campaign_id: The update campaign ID (required)
+        :param str campaign_device_metadata_id: The campaign device metadata ID (required)
+        :return: CampaignDeviceMetadata
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.update_campaign_metadata_retreive_with_http_info(campaign_id, campaign_device_metadata_id, **kwargs)
+        else:
+            (data) = self.update_campaign_metadata_retreive_with_http_info(campaign_id, campaign_device_metadata_id, **kwargs)
+            return data
+
+    def update_campaign_metadata_retreive_with_http_info(self, campaign_id, campaign_device_metadata_id, **kwargs):
+        """
+        Get update campaign metadata.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.update_campaign_metadata_retreive_with_http_info(campaign_id, campaign_device_metadata_id, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str campaign_id: The update campaign ID (required)
+        :param str campaign_device_metadata_id: The campaign device metadata ID (required)
+        :return: CampaignDeviceMetadata
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['campaign_id', 'campaign_device_metadata_id']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method update_campaign_metadata_retreive" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'campaign_id' is set
+        if ('campaign_id' not in params) or (params['campaign_id'] is None):
+            raise ValueError("Missing the required parameter `campaign_id` when calling `update_campaign_metadata_retreive`")
+        # verify the required parameter 'campaign_device_metadata_id' is set
+        if ('campaign_device_metadata_id' not in params) or (params['campaign_device_metadata_id'] is None):
+            raise ValueError("Missing the required parameter `campaign_device_metadata_id` when calling `update_campaign_metadata_retreive`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'campaign_id' in params:
+            path_params['campaign_id'] = params['campaign_id']
+        if 'campaign_device_metadata_id' in params:
+            path_params['campaign_device_metadata_id'] = params['campaign_device_metadata_id']
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/', 'GET',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='CampaignDeviceMetadata',
                                         auth_settings=auth_settings,
                                         async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -2074,213 +2083,6 @@ class DefaultApi(object):
                                         post_params=form_params,
                                         files=local_var_files,
                                         response_type='UpdateCampaign',
-                                        auth_settings=auth_settings,
-                                        async=params.get('async'),
-                                        _return_http_data_only=params.get('_return_http_data_only'),
-                                        _preload_content=params.get('_preload_content', True),
-                                        _request_timeout=params.get('_request_timeout'),
-                                        collection_formats=collection_formats)
-
-    def v3_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get(self, campaign_id, campaign_device_metadata_id, **kwargs):
-        """
-        Get update campaign metadata.
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.v3_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get(campaign_id, campaign_device_metadata_id, async=True)
-        >>> result = thread.get()
-
-        :param async bool
-        :param str campaign_id: The update campaign ID (required)
-        :param str campaign_device_metadata_id: The campaign device metadata ID (required)
-        :return: CampaignDeviceMetadata
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
-            return self.v3_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get_with_http_info(campaign_id, campaign_device_metadata_id, **kwargs)
-        else:
-            (data) = self.v3_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get_with_http_info(campaign_id, campaign_device_metadata_id, **kwargs)
-            return data
-
-    def v3_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get_with_http_info(self, campaign_id, campaign_device_metadata_id, **kwargs):
-        """
-        Get update campaign metadata.
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.v3_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get_with_http_info(campaign_id, campaign_device_metadata_id, async=True)
-        >>> result = thread.get()
-
-        :param async bool
-        :param str campaign_id: The update campaign ID (required)
-        :param str campaign_device_metadata_id: The campaign device metadata ID (required)
-        :return: CampaignDeviceMetadata
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['campaign_id', 'campaign_device_metadata_id']
-        all_params.append('async')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method v3_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'campaign_id' is set
-        if ('campaign_id' not in params) or (params['campaign_id'] is None):
-            raise ValueError("Missing the required parameter `campaign_id` when calling `v3_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get`")
-        # verify the required parameter 'campaign_device_metadata_id' is set
-        if ('campaign_device_metadata_id' not in params) or (params['campaign_device_metadata_id'] is None):
-            raise ValueError("Missing the required parameter `campaign_device_metadata_id` when calling `v3_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get`")
-
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'campaign_id' in params:
-            path_params['campaign_id'] = params['campaign_id']
-        if 'campaign_device_metadata_id' in params:
-            path_params['campaign_device_metadata_id'] = params['campaign_device_metadata_id']
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept(['application/json'])
-
-        # Authentication setting
-        auth_settings = ['Bearer']
-
-        return self.api_client.call_api('/v3/campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/', 'GET',
-                                        path_params,
-                                        query_params,
-                                        header_params,
-                                        body=body_params,
-                                        post_params=form_params,
-                                        files=local_var_files,
-                                        response_type='CampaignDeviceMetadata',
-                                        auth_settings=auth_settings,
-                                        async=params.get('async'),
-                                        _return_http_data_only=params.get('_return_http_data_only'),
-                                        _preload_content=params.get('_preload_content', True),
-                                        _request_timeout=params.get('_request_timeout'),
-                                        collection_formats=collection_formats)
-
-    def v3_campaigns_campaign_id_campaign_device_metadata_get(self, campaign_id, **kwargs):
-        """
-        Get campaign device metadata.
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.v3_campaigns_campaign_id_campaign_device_metadata_get(campaign_id, async=True)
-        >>> result = thread.get()
-
-        :param async bool
-        :param str campaign_id: The update campaign ID (required)
-        :param int limit: How many objects to retrieve in the page
-        :param str order: ASC or DESC
-        :param str after: The ID of the the item after which to retrieve the next page
-        :param str include: Comma-separated list of data fields to return. Currently supported: total_count
-        :return: CampaignDeviceMetadataPage
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
-            return self.v3_campaigns_campaign_id_campaign_device_metadata_get_with_http_info(campaign_id, **kwargs)
-        else:
-            (data) = self.v3_campaigns_campaign_id_campaign_device_metadata_get_with_http_info(campaign_id, **kwargs)
-            return data
-
-    def v3_campaigns_campaign_id_campaign_device_metadata_get_with_http_info(self, campaign_id, **kwargs):
-        """
-        Get campaign device metadata.
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.v3_campaigns_campaign_id_campaign_device_metadata_get_with_http_info(campaign_id, async=True)
-        >>> result = thread.get()
-
-        :param async bool
-        :param str campaign_id: The update campaign ID (required)
-        :param int limit: How many objects to retrieve in the page
-        :param str order: ASC or DESC
-        :param str after: The ID of the the item after which to retrieve the next page
-        :param str include: Comma-separated list of data fields to return. Currently supported: total_count
-        :return: CampaignDeviceMetadataPage
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['campaign_id', 'limit', 'order', 'after', 'include']
-        all_params.append('async')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method v3_campaigns_campaign_id_campaign_device_metadata_get" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'campaign_id' is set
-        if ('campaign_id' not in params) or (params['campaign_id'] is None):
-            raise ValueError("Missing the required parameter `campaign_id` when calling `v3_campaigns_campaign_id_campaign_device_metadata_get`")
-
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'campaign_id' in params:
-            path_params['campaign_id'] = params['campaign_id']
-
-        query_params = []
-        if 'limit' in params:
-            query_params.append(('limit', params['limit']))
-        if 'order' in params:
-            query_params.append(('order', params['order']))
-        if 'after' in params:
-            query_params.append(('after', params['after']))
-        if 'include' in params:
-            query_params.append(('include', params['include']))
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept(['application/json'])
-
-        # Authentication setting
-        auth_settings = ['Bearer']
-
-        return self.api_client.call_api('/v3/campaigns/{campaign_id}/campaign-device-metadata/', 'GET',
-                                        path_params,
-                                        query_params,
-                                        header_params,
-                                        body=body_params,
-                                        post_params=form_params,
-                                        files=local_var_files,
-                                        response_type='CampaignDeviceMetadataPage',
                                         auth_settings=auth_settings,
                                         async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),

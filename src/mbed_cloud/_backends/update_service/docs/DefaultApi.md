@@ -7,7 +7,6 @@ Method | HTTP request | Description
 [**campaign_create**](DefaultApi.md#campaign_create) | **POST** /v3/campaigns/ | 
 [**campaign_destroy**](DefaultApi.md#campaign_destroy) | **DELETE** /v3/update-campaigns/{campaign_id}/ | 
 [**campaign_list**](DefaultApi.md#campaign_list) | **GET** /v3/campaigns/ | 
-[**campaign_partial_update**](DefaultApi.md#campaign_partial_update) | **PATCH** /v3/update-campaigns/{campaign_id}/ | 
 [**campaign_retrieve**](DefaultApi.md#campaign_retrieve) | **GET** /v3/update-campaigns/{campaign_id}/ | 
 [**campaign_update**](DefaultApi.md#campaign_update) | **PUT** /v3/update-campaigns/{campaign_id}/ | 
 [**firmware_image_create**](DefaultApi.md#firmware_image_create) | **POST** /v3/firmware-images/ | 
@@ -21,12 +20,11 @@ Method | HTTP request | Description
 [**update_campaign_create**](DefaultApi.md#update_campaign_create) | **POST** /v3/update-campaigns/ | 
 [**update_campaign_destroy**](DefaultApi.md#update_campaign_destroy) | **DELETE** /v3/campaigns/{campaign_id}/ | 
 [**update_campaign_list**](DefaultApi.md#update_campaign_list) | **GET** /v3/update-campaigns/ | 
-[**update_campaign_partial_update**](DefaultApi.md#update_campaign_partial_update) | **PATCH** /v3/campaigns/{campaign_id}/ | 
+[**update_campaign_metadata_list**](DefaultApi.md#update_campaign_metadata_list) | **GET** /v3/campaigns/{campaign_id}/campaign-device-metadata/ | 
+[**update_campaign_metadata_retreive**](DefaultApi.md#update_campaign_metadata_retreive) | **GET** /v3/campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/ | 
 [**update_campaign_retrieve**](DefaultApi.md#update_campaign_retrieve) | **GET** /v3/campaigns/{campaign_id}/ | 
 [**update_campaign_stop**](DefaultApi.md#update_campaign_stop) | **POST** /v3/update-campaigns/{campaign_id}/stop | 
 [**update_campaign_update**](DefaultApi.md#update_campaign_update) | **PUT** /v3/campaigns/{campaign_id}/ | 
-[**v3_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get**](DefaultApi.md#v3_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get) | **GET** /v3/campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/ | 
-[**v3_campaigns_campaign_id_campaign_device_metadata_get**](DefaultApi.md#v3_campaigns_campaign_id_campaign_device_metadata_get) | **GET** /v3/campaigns/{campaign_id}/campaign-device-metadata/ | 
 [**v3_update_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get**](DefaultApi.md#v3_update_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get) | **GET** /v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/ | 
 [**v3_update_campaigns_campaign_id_campaign_device_metadata_get**](DefaultApi.md#v3_update_campaigns_campaign_id_campaign_device_metadata_get) | **GET** /v3/update-campaigns/{campaign_id}/campaign-device-metadata/ | 
 
@@ -185,61 +183,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**UpdateCampaignPage**](UpdateCampaignPage.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **campaign_partial_update**
-> UpdateCampaign campaign_partial_update(campaign_id, campaign)
-
-
-
-DEPRECATED (use /v3/campaigns/{campaign_id}/ instead) Modify a subset of an update campaign's fields.
-
-### Example 
-```python
-from __future__ import print_function
-import time
-import update_service
-from update_service.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: Bearer
-configuration = update_service.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = update_service.DefaultApi(update_service.ApiClient(configuration))
-campaign_id = 'campaign_id_example' # str | 
-campaign = update_service.UpdateCampaignPatchRequest() # UpdateCampaignPatchRequest | Update campaign
-
-try: 
-    api_response = api_instance.campaign_partial_update(campaign_id, campaign)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling DefaultApi->campaign_partial_update: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **campaign_id** | **str**|  | 
- **campaign** | [**UpdateCampaignPatchRequest**](UpdateCampaignPatchRequest.md)| Update campaign | 
-
-### Return type
-
-[**UpdateCampaign**](UpdateCampaign.md)
 
 ### Authorization
 
@@ -972,12 +915,12 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **update_campaign_partial_update**
-> UpdateCampaign update_campaign_partial_update(campaign_id, campaign)
+# **update_campaign_metadata_list**
+> CampaignDeviceMetadataPage update_campaign_metadata_list(campaign_id, limit=limit, order=order, after=after, include=include)
 
 
 
-Modify a subset of an update campaign's fields.
+Get campaign device metadata.
 
 ### Example 
 ```python
@@ -995,26 +938,87 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = update_service.DefaultApi(update_service.ApiClient(configuration))
-campaign_id = 'campaign_id_example' # str | 
-campaign = update_service.UpdateCampaignPatchRequest() # UpdateCampaignPatchRequest | Update campaign
+campaign_id = 'campaign_id_example' # str | The update campaign ID
+limit = 56 # int | How many objects to retrieve in the page (optional)
+order = 'order_example' # str | ASC or DESC (optional)
+after = 'after_example' # str | The ID of the the item after which to retrieve the next page (optional)
+include = 'include_example' # str | Comma-separated list of data fields to return. Currently supported: total_count (optional)
 
 try: 
-    api_response = api_instance.update_campaign_partial_update(campaign_id, campaign)
+    api_response = api_instance.update_campaign_metadata_list(campaign_id, limit=limit, order=order, after=after, include=include)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->update_campaign_partial_update: %s\n" % e)
+    print("Exception when calling DefaultApi->update_campaign_metadata_list: %s\n" % e)
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **campaign_id** | **str**|  | 
- **campaign** | [**UpdateCampaignPatchRequest**](UpdateCampaignPatchRequest.md)| Update campaign | 
+ **campaign_id** | **str**| The update campaign ID | 
+ **limit** | **int**| How many objects to retrieve in the page | [optional] 
+ **order** | **str**| ASC or DESC | [optional] 
+ **after** | **str**| The ID of the the item after which to retrieve the next page | [optional] 
+ **include** | **str**| Comma-separated list of data fields to return. Currently supported: total_count | [optional] 
 
 ### Return type
 
-[**UpdateCampaign**](UpdateCampaign.md)
+[**CampaignDeviceMetadataPage**](CampaignDeviceMetadataPage.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **update_campaign_metadata_retreive**
+> CampaignDeviceMetadata update_campaign_metadata_retreive(campaign_id, campaign_device_metadata_id)
+
+
+
+Get update campaign metadata.
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import update_service
+from update_service.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+configuration = update_service.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = update_service.DefaultApi(update_service.ApiClient(configuration))
+campaign_id = 'campaign_id_example' # str | The update campaign ID
+campaign_device_metadata_id = 'campaign_device_metadata_id_example' # str | The campaign device metadata ID
+
+try: 
+    api_response = api_instance.update_campaign_metadata_retreive(campaign_id, campaign_device_metadata_id)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->update_campaign_metadata_retreive: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **campaign_id** | **str**| The update campaign ID | 
+ **campaign_device_metadata_id** | **str**| The campaign device metadata ID | 
+
+### Return type
+
+[**CampaignDeviceMetadata**](CampaignDeviceMetadata.md)
 
 ### Authorization
 
@@ -1176,122 +1180,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**UpdateCampaign**](UpdateCampaign.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **v3_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get**
-> CampaignDeviceMetadata v3_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get(campaign_id, campaign_device_metadata_id)
-
-
-
-Get update campaign metadata.
-
-### Example 
-```python
-from __future__ import print_function
-import time
-import update_service
-from update_service.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: Bearer
-configuration = update_service.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = update_service.DefaultApi(update_service.ApiClient(configuration))
-campaign_id = 'campaign_id_example' # str | The update campaign ID
-campaign_device_metadata_id = 'campaign_device_metadata_id_example' # str | The campaign device metadata ID
-
-try: 
-    api_response = api_instance.v3_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get(campaign_id, campaign_device_metadata_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling DefaultApi->v3_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **campaign_id** | **str**| The update campaign ID | 
- **campaign_device_metadata_id** | **str**| The campaign device metadata ID | 
-
-### Return type
-
-[**CampaignDeviceMetadata**](CampaignDeviceMetadata.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **v3_campaigns_campaign_id_campaign_device_metadata_get**
-> CampaignDeviceMetadataPage v3_campaigns_campaign_id_campaign_device_metadata_get(campaign_id, limit=limit, order=order, after=after, include=include)
-
-
-
-Get campaign device metadata.
-
-### Example 
-```python
-from __future__ import print_function
-import time
-import update_service
-from update_service.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: Bearer
-configuration = update_service.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = update_service.DefaultApi(update_service.ApiClient(configuration))
-campaign_id = 'campaign_id_example' # str | The update campaign ID
-limit = 56 # int | How many objects to retrieve in the page (optional)
-order = 'order_example' # str | ASC or DESC (optional)
-after = 'after_example' # str | The ID of the the item after which to retrieve the next page (optional)
-include = 'include_example' # str | Comma-separated list of data fields to return. Currently supported: total_count (optional)
-
-try: 
-    api_response = api_instance.v3_campaigns_campaign_id_campaign_device_metadata_get(campaign_id, limit=limit, order=order, after=after, include=include)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling DefaultApi->v3_campaigns_campaign_id_campaign_device_metadata_get: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **campaign_id** | **str**| The update campaign ID | 
- **limit** | **int**| How many objects to retrieve in the page | [optional] 
- **order** | **str**| ASC or DESC | [optional] 
- **after** | **str**| The ID of the the item after which to retrieve the next page | [optional] 
- **include** | **str**| Comma-separated list of data fields to return. Currently supported: total_count | [optional] 
-
-### Return type
-
-[**CampaignDeviceMetadataPage**](CampaignDeviceMetadataPage.md)
 
 ### Authorization
 
