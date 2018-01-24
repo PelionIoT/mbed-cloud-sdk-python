@@ -127,8 +127,10 @@ class StubAPI(BaseAPI):
     def success(self, **kwargs):
         """Returns all arguments received in init and this method call"""
         response = {'success': True}
+        # check dates can be manipulated
         response.update(kwargs)
         response.update(self.kwargs)
+        response['test_argument3'] = datetime.timedelta(days=1) + response['test_argument3']
         return response
 
 

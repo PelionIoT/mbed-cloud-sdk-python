@@ -61,7 +61,7 @@ _BANNER = """
 
 
 def serialise_instance(instance):
-    return dict(createdAt=instance.created_at.isoformat(), id=instance.uuid, module=instance.module)
+    return dict(created_at=instance.created_at.isoformat(), id=instance.uuid, module=instance.module)
 
 
 class DoesNotExist(Exception):
@@ -148,7 +148,11 @@ def instances_delete(uuid):
 @app.route('/instances/<uuid>/methods')
 def instances_methods(uuid):
     locked_instance = get_instance_or_404(uuid)
-    return jsonify({k: str(v) for k, v in vars(locked_instance.instance.__class__).items() if not k.startswith('_')})
+    return jsonify([
+        dict(name=k, signature=str(v))
+        for k, v in vars(locked_instance.instance.__class__).items()
+        if not k.startswith('_')
+    ])
 
 
 @app.route('/instances/<uuid>/methods/<method>', methods=['POST'])
