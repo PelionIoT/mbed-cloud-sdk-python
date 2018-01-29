@@ -236,6 +236,14 @@ class Certificate(BaseObject):
             "developer_private_key": "developer_private_key"
         }
 
+    @classmethod
+    def _create_request_map(cls, input_map):
+        """Create request map."""
+        mapped = super(Certificate, cls)._create_request_map(input_map)
+        if mapped.get('service') == CertificateType.developer:
+            mapped['service'] = CertificateType.bootstrap
+        return mapped
+
     @property
     def status(self):
         """The status of the certificate.
