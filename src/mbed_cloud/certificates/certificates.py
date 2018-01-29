@@ -154,9 +154,14 @@ class CertificatesAPI(BaseAPI):
         :returns: Certificate object
         :rtype: Certificate
         """
-        kwargs.update({'name': name})
+        kwargs['name'] = name
         api = self._get_api(cert.DeveloperCertificateApi)
         certificate = Certificate._create_request_map(kwargs)
+
+        # just pull the fields we care about
+        subset = cert.DeveloperCertificateRequestData.attribute_map
+        certificate = {k: v for k, v in certificate.items() if k in subset}
+
         body = cert.DeveloperCertificateRequestData(**certificate)
         dev_cert = api.v3_developer_certificates_post(self.auth, body)
         return self.get_certificate(dev_cert.id)
