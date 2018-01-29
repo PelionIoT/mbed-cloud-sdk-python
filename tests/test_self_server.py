@@ -24,7 +24,7 @@ class Test(BaseCase):
 
     def test_ping_pong(self):
         self.assertIsNone(self.server.poll())
-        self.assertEqual(requests.get(server_addr + '/ping').json(), 'pong')
+        self.assertEqual(requests.get(server_addr + '/ping', timeout=(15, 15)).json(), 'pong')
 
     def test_shutdown(self):
         response = requests.post(server_addr + '/shutdown')
