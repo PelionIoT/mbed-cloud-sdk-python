@@ -141,13 +141,14 @@ class BaseObject(object):
         """Initialize object."""
         self.update_attributes(dictionary)
 
-    def update_attributes(self, dictionary):
+    def update_attributes(self, updates):
         """Update attributes."""
-        if not isinstance(dictionary, dict):
-            dictionary = dictionary.to_dict()
-        for key, value in iteritems(self._get_attributes_map()):
-            if value in dictionary and not hasattr(self, "_%s" % key):
-                setattr(self, "_%s" % key, dictionary.get(value, None))
+        if not isinstance(updates, dict):
+            updates = updates.to_dict()
+        for sdk_key, spec_key in self._get_attributes_map().items():
+            attr = '_%s' % sdk_key
+            if spec_key in updates and not hasattr(self, attr):
+                setattr(self, attr, updates[spec_key])
 
     @staticmethod
     def _get_attributes_map():
@@ -155,22 +156,14 @@ class BaseObject(object):
         pass
 
     @classmethod
-    def _create_request_map(obj, input_map):
+    def _create_request_map(cls, input_map):
         """Create request map."""
-        request_map = {}
-        attributes_map = obj._get_attributes_map()
-        for key, value in iteritems(input_map):
-            val = attributes_map.get(key, None)
-            if val is not None:
-                request_map[val] = value
-        return request_map
+        field_map = cls._get_attributes_map()
+        return {field_map[k]: v for k, v in input_map.items() if k in field_map}
 
     def to_dict(self):
         """Return dictionary of object."""
-        dictionary = {}
-        for key, value in iteritems(self._get_attributes_map()):
-            dictionary[key] = getattr(self, str(key), None)
-        return dictionary
+        return {sdk_key: getattr(self, sdk_key, None) for sdk_key in self._get_attributes_map()}
 
     def _get_operator(self, key):
         operator = ""
