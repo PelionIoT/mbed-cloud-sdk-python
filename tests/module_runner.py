@@ -19,7 +19,7 @@ def serialise(obj):
 
     if isinstance(obj, datetime.datetime):
         # maybe assume UTC (as deserialise does the reverse)
-        return obj.isoformat() + 'Z'
+        return obj.replace(tzinfo=du_tz.tzutc()).isoformat()
 
     if isinstance(obj, queue.Queue):
         return {}
@@ -35,9 +35,9 @@ def deserialise(obj):
             # some tests try tricking us with timezones - but we assume naive datetime objects in utc
             # 1970-01-21T21:14:37+12:45 -> 1970-01-21 08:29:37 (1970-01-21T08:29:37)
             x = obj
-            obj = du_parser.parse(obj).astimezone(tz=du_tz.tzoffset(None, 0)).replace(tzinfo=None)
+            obj = du_parser.parse(obj).astimezone(tz=du_tz.tzutc()).replace(tzinfo=None)
             logging.info('datetime rehydrated: %s -> %s (%s)' % (x, obj, obj.isoformat()))
-        except (TypeError, ValueError) as e:
+        except Exception as e:
             logging.debug('not a date: %s (%s)' % (obj, e))
     return obj
 
