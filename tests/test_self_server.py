@@ -2,11 +2,13 @@ import subprocess
 import os
 import requests
 import time
+import unittest
 from tests.common import BaseCase
 
 server_addr = 'http://127.0.0.1:5000'
 
 
+@unittest.skipIf(os.environ.get('CI'), 'Does not run in CI')
 class Test(BaseCase):
     server = None
     instance = []
