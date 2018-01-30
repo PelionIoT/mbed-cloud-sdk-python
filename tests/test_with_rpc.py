@@ -43,7 +43,7 @@ def timeout_check_output(timeout=5, process=None, *args, **kwargs):
 def have_docker_image(image):
     cmd = 'docker images -q %s' % image
     try:
-        output = subprocess.check_output(shlex.split(cmd))
+        output = timeout_check_output(args=shlex.split(cmd))
     except subprocess.CalledProcessError as e:
         traceback.print_exc()
         return False
@@ -71,7 +71,7 @@ def find_host_address_potentials(image):
     if platform.system().lower() == 'linux':
         cmd = """ifconfig lxcbr0 | awk '/inet addr/{split($2,a,":"); print a[2]}'"""
         try:
-            address = subprocess.check_output(args=cmd, shell=True, universal_newlines=True)
+            address = timeout_check_output(args=cmd, shell=True)
             if address:
                 potentials.append(address.strip())
         except Exception as exception:
@@ -97,7 +97,6 @@ def find_test_server_host(image, potentials):
             print('this address did not work: %s - %s' % (potential, e))
     else:
         raise Exception('Did not find working address inside docker. Potentials: %s' % (potentials,))
-    print('determined host to be:', potential)
     return potential
 
 
@@ -138,12 +137,14 @@ class TestWithRPC(BaseCase):
             print(timeout_check_output(args=shlex.split('netstat -aon')))
             raise
         else:
-            print('sdk test server is running locally on %s' % (test_server_local_address,))
+            print('SDK test server is running locally on %s' % (test_server_local_address,))
         self.host = find_test_server_host(docker_image, find_host_address_potentials(docker_image))
         config = Config()
-        print("rpc testrun ready - host: %r key: '***%s'" % (
+        print("RPC test ready:\n\tserver: %s\n\tcloud host: %r\n\tapi key: '***%s'\n\timage: %s" % (
+            self.host,
             config.get('host', 'default'),
-            config.get('api_key', 'default')[-7:]
+            config.get('api_key', 'default')[-5:],
+            docker_image,
         ))
 
     def test_run(self):
@@ -172,7 +173,7 @@ class TestWithRPC(BaseCase):
             )
         )
         try:
-            timeout_check_output(timeout=300, args=cmd)
+            print(timeout_check_output(timeout=240, args=cmd))
         except subprocess.CalledProcessError as e:
             if e.returncode > 0:
                 # polite re-raise
