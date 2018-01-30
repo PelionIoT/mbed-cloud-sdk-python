@@ -44,7 +44,7 @@ def have_docker_image(image):
     cmd = 'docker images -q %s' % image
     try:
         output = timeout_check_output(args=shlex.split(cmd))
-    except subprocess.CalledProcessError as e:
+    except (subprocess.CalledProcessError, OSError) as e:
         traceback.print_exc()
         return False
     return bool(output)
@@ -173,7 +173,7 @@ class TestWithRPC(BaseCase):
             )
         )
         try:
-            print(timeout_check_output(timeout=240, args=cmd))
+            print(timeout_check_output(timeout=600, args=cmd))
         except subprocess.CalledProcessError as e:
             if e.returncode > 0:
                 # polite re-raise
