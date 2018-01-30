@@ -89,10 +89,12 @@ class ConnectAPI(BaseAPI):
 
     @property
     def has_active_notification_thread(self):
+        """Has active notification thread"""
         with self._notifications_lock:
             return bool(self._notifications_thread)
 
-    def assert_notifications_thread(self):
+    def ensure_notifications_thread(self):
+        """Ensure notification thread is running"""
         if not self.has_active_notification_thread:
             if self.config.get('autostart_notification_thread'):
                 self.start_notifications()
@@ -249,7 +251,7 @@ class ConnectAPI(BaseAPI):
         :rtype: str
         """
         # Ensure we're listening to notifications first
-        self.assert_notifications_thread()
+        self.ensure_notifications_thread()
 
         consumer = self.get_resource_value_async(device_id, resource_path, fix_path)
 
@@ -313,7 +315,7 @@ class ConnectAPI(BaseAPI):
         :rtype: str
         """
         # Ensure we're listening to notifications first
-        self.assert_notifications_thread()
+        self.ensure_notifications_thread()
 
         # When path starts with / we remove the slash, as the API can't handle //.
         if fix_path and resource_path.startswith("/"):
@@ -394,7 +396,7 @@ class ConnectAPI(BaseAPI):
         :rtype: str
         """
         # Ensure we're listening to notifications first
-        self.assert_notifications_thread()
+        self.ensure_notifications_thread()
 
         # When path starts with / we remove the slash, as the API can't handle //.
         if fix_path and resource_path.startswith("/"):
