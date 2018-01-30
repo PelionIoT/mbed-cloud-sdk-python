@@ -7,6 +7,8 @@ import time
 import traceback
 import unittest
 
+from threading import Timer
+
 import requests
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.util.retry import Retry
@@ -20,6 +22,22 @@ docker_image = os.environ.get(
     'TESTRUNNER_DOCKER_IMAGE',
     '104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master'
 )
+
+
+def timeout_check_output(timeout=5, process=None, *args, **kwargs):
+    process = process or subprocess.Popen(
+        *args,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        universal_newlines=True,
+        **kwargs
+    )
+    timer = Timer(timeout, process.kill)
+    try:
+        stdout, stderr = process.communicate()
+    finally:
+        timer.cancel()
+    return stdout
 
 
 def have_docker_image(image):
@@ -41,14 +59,14 @@ def find_host_address_potentials(image):
             image=image
         )
     )
-    routes = subprocess.check_output(args=cmd, universal_newlines=True)
+    # routes = subprocess.check_output(args=cmd, universal_newlines=True)
+    routes = timeout_check_output(args=cmd)
     for routing in routes.splitlines():
         if routing.lower().startswith('default'):
             host = routing.split()[1]
             if host.startswith('ip'):
                 host = host[3:].strip('.').replace('-', '.')
             potentials.append(host)
-            # break
 
     if platform.system().lower() == 'linux':
         cmd = """ifconfig lxcbr0 | awk '/inet addr/{split($2,a,":"); print a[2]}'"""
@@ -73,7 +91,7 @@ def find_test_server_host(image, potentials):
             )
         )
         try:
-            subprocess.check_output(args=cmd, stderr=subprocess.STDOUT, universal_newlines=True)
+            timeout_check_output(args=cmd)
             break
         except Exception as e:
             print('this address did not work: %s - %s' % (potential, e))
@@ -87,12 +105,13 @@ def find_test_server_host(image, potentials):
 class TestWithRPC(BaseCase):
 
     host = None
+    process = None
 
     @classmethod
     def setUpClass(cls):
         cmd = 'docker pull %s' % docker_image
         try:
-            subprocess.check_output(shlex.split(cmd), stderr=subprocess.STDOUT)
+            timeout_check_output(timeout=120, args=shlex.split(cmd))
         except subprocess.CalledProcessError as e:
             if 'docker login' in e.output:
                 raise unittest.SkipTest('missing docker login')
@@ -115,8 +134,8 @@ class TestWithRPC(BaseCase):
         except Exception as e:
             print('could not reach test server locally: %s\n%s' % (cmd, e))
             print('server status', self.process.poll(), self.process.pid)
-            print(subprocess.check_output(shlex.split('ps -aux'), universal_newlines=True))
-            print(subprocess.check_output(shlex.split('netstat -aon'), universal_newlines=True))
+            print(timeout_check_output(args=shlex.split('ps -aux')))
+            print(timeout_check_output(args=shlex.split('netstat -aon')))
             raise
         else:
             print('sdk test server is running locally on %s' % (test_server_local_address,))
@@ -153,7 +172,7 @@ class TestWithRPC(BaseCase):
             )
         )
         try:
-            subprocess.check_output(cmd, universal_newlines=True, timeout=300)
+            timeout_check_output(timeout=300, args=cmd)
         except subprocess.CalledProcessError as e:
             if e.returncode > 0:
                 # polite re-raise
@@ -163,4 +182,4 @@ class TestWithRPC(BaseCase):
     def tearDown(self):
         # graceful shutdown
         requests.post('http://localhost:5000/shutdown')
-        self.process.wait(timeout=30)
+        timeout_check_output(process=self.process)
