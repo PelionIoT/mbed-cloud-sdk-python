@@ -102,7 +102,7 @@ def handle_unknown_errors(exc):
 
 @app.route('/modules')
 def modules_all():
-    return jsonify(MODULES.keys())
+    return jsonify(list(MODULES.keys()))
 
 
 @app.route('/modules/<module>/instances')
