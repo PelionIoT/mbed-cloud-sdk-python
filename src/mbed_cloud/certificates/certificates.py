@@ -21,9 +21,9 @@ from __future__ import unicode_literals
 # Import common functions and exceptions from frontend API
 from mbed_cloud.core import BaseAPI
 from mbed_cloud.core import BaseObject
-from mbed_cloud.core import PaginatedResponse
 from mbed_cloud.decorators import catch_exceptions
 from mbed_cloud.exceptions import CloudValueError
+from mbed_cloud.pagination import PaginatedResponse
 
 # Import backend API
 import mbed_cloud._backends.connector_ca as cert
@@ -59,19 +59,21 @@ class CertificatesAPI(BaseAPI):
         """
         kwargs = self._verify_sort_options(kwargs)
         kwargs = self._verify_filters(kwargs, Certificate)
-
-        if "type__eq" in kwargs:
-            if kwargs["type__eq"] == CertificateType.bootstrap:
-                kwargs["service__eq"] = CertificateType.bootstrap
-                kwargs["device_execution_mode__eq"] = 0
-            elif kwargs["type__eq"] == CertificateType.developer:
+        if "service__eq" in kwargs:
+            if kwargs["service__eq"] == CertificateType.bootstrap:
+                pass
+            elif kwargs["service__eq"] == CertificateType.developer:
                 kwargs["device_execution_mode__eq"] = 1
-            elif kwargs["type__eq"] == CertificateType.lwm2m:
-                kwargs["service__eq"] = CertificateType.lwm2m
-                kwargs["device_execution_mode__eq"] = 0
+                kwargs.pop("service__eq")
+            elif kwargs["service__eq"] == CertificateType.lwm2m:
+                pass
             else:
-                raise CloudValueError("Incorrect filter 'type': %s" % (kwargs["type__eq"]))
-            del kwargs["type__eq"]
+                raise CloudValueError(
+                    "Incorrect value for CertificateType filter: %s" % (kwargs["service__eq"])
+                )
+        owner = kwargs.pop('owner_id__eq', None)
+        if owner is not None:
+            kwargs['owner__eq'] = owner
         api = self._get_api(iam.DeveloperApi)
         return PaginatedResponse(api.get_all_certificates, lwrap_type=Certificate, **kwargs)
 
@@ -152,9 +154,14 @@ class CertificatesAPI(BaseAPI):
         :returns: Certificate object
         :rtype: Certificate
         """
-        kwargs.update({'name': name})
+        kwargs['name'] = name
         api = self._get_api(cert.DeveloperCertificateApi)
         certificate = Certificate._create_request_map(kwargs)
+
+        # just pull the fields we care about
+        subset = cert.DeveloperCertificateRequestData.attribute_map
+        certificate = {k: v for k, v in certificate.items() if k in subset}
+
         body = cert.DeveloperCertificateRequestData(**certificate)
         dev_cert = api.v3_developer_certificates_post(self.auth, body)
         return self.get_certificate(dev_cert.id)
@@ -229,6 +236,14 @@ class Certificate(BaseObject):
             "developer_private_key": "developer_private_key"
         }
 
+    @classmethod
+    def _create_request_map(cls, input_map):
+        """Create request map."""
+        mapped = super(Certificate, cls)._create_request_map(input_map)
+        if mapped.get('service') == CertificateType.developer:
+            mapped['service'] = CertificateType.bootstrap
+        return mapped
+
     @property
     def status(self):
         """The status of the certificate.
@@ -246,6 +261,14 @@ class Certificate(BaseObject):
         :rtype: str
         """
         return self._description
+
+    @property
+    def device_mode(self):
+        """The device mode
+
+        :rtype: str
+        """
+        return self._device_mode
 
     @property
     def certificate_data(self):

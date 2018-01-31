@@ -1,4 +1,4 @@
-# ---------------------------------------------------------------------------
+# --------------------------------------------------------------------------
 # Mbed Cloud Python SDK
 # (C) COPYRIGHT 2017 Arm Limited
 #
@@ -14,211 +14,185 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # --------------------------------------------------------------------------
-"""Test server for remote execution of test tasks.
+"""This test server is executed by CI test runs with a common"""
 
-Run by:
-
-    $ FLASK_APP=server.py flask run
-    * Serving Flask app "server"
-    * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
-"""
-from __future__ import absolute_import
-from __future__ import unicode_literals
-
-import json
-import os
-import sys
+from collections import namedtuple
+import datetime
 import traceback
+import threading
+import uuid
 
-import queue
-
-import mbed_cloud
-
-from builtins import str
-from flask import Flask
-from flask import jsonify
+import flask
 from flask import request
-from six.moves import urllib
+from flask import jsonify
 
-app = Flask(__name__)
+from module_runner import run_module
 
-# Empty on purpose. Initialized later.
-MODULES = {}
+from mbed_cloud.core import BaseAPI
+from mbed_cloud import __version__
 
+app = flask.Flask(__name__)
+STORE = {}
+MODULE_REMAP = dict(  # to avoid writing these as attributes in the SDK, we map them here
+    AccountManagementAPI='account_management',
+    CertificatesAPI='certificates',
+    ConnectAPI='connect',
+    DeviceDirectoryAPI='device_directory',
+    StubAPI='test_stub',
+    UpdateAPI='update',
+)
+MODULES = {MODULE_REMAP[kls.__name__]: kls for kls in BaseAPI.__subclasses__()}
+LockedInstance = namedtuple('LockedInstance', ['lock', 'instance', 'module', 'uuid', 'created_at'])
 
-def _call_api(module, method, args):
-    if module not in MODULES:
-        raise ApiCallException("Invalid module: %r" % (module), status_code=400)
+_BANNER = """
+            _              _        _                 _     
+           | |            | |      | |               | |    
+  _ __ ___ | |__   ___  __| |   ___| | ___  _   _  __| |    
+ | '_ ` _ \| '_ \ / _ \/ _` |  / __| |/ _ \| | | |/ _` |    
+ | | | | | | |_) |  __/ (_| | | (__| | (_) | |_| | (_| |    
+ |_| |_| |_|_.__/ \___|\__,_|  \___|_|\___/ \__,_|\__,_|    
+                    | | |                                   
+             ___  __| | | __   ___  ___ _ ____   _____ _ __ 
+            / __|/ _` | |/ /  / __|/ _ \ '__\ \ / / _ \ '__|
+            \__ \ (_| |   <   \__ \  __/ |   \ V /  __/ |   
+            |___/\__,_|_|\_\  |___/\___|_|    \_/ \___|_|   
 
-    # Get API object
-    api = MODULES.get(module)
-
-    # Get function contained in API object
-    api_functions = list([f for f in dir(api) if not f.startswith("_")])
-    if method not in api_functions:
-        raise ApiCallException(
-            "%r not found in %r" % (method, ", ".join(api_functions)),
-            status_code=400)
-
-    # Call SDK function
-    return getattr(api, method)(**args)
-
-
-def _get_params(request_headers):
-    params = {}
-    api_key = request_headers.get('X-API-KEY', os.environ.get('MBED_CLOUD_API_KEY', ''))
-    host = request_headers.get('X-API-HOST', os.environ.get('MBED_CLOUD_API_HOST', ''))
-    if api_key:
-        params["api_key"] = api_key
-    if host:
-        params["host"] = host
-    return params
-
-
-def _fix_paginated_response(resp):
-    return_obj = list(resp)
-
-    # Convert each inner object to Python dictionary.
-    if return_obj and hasattr(return_obj[0], 'to_dict'):
-        return_obj = [o.to_dict() for o in return_obj]
-
-    return return_obj
+"""
 
 
-def _get_type(v):
-    """Try to get value as original type, if possible. If not, we just return original value."""
-    # Check JSON
-    try:
-        return json.loads(v)
-    except ValueError:
-        pass
-
-    # Return original value
-    return v
+def serialise_instance(instance):
+    return dict(created_at=instance.created_at.isoformat(), id=instance.uuid, module=instance.module)
 
 
-class ApiCallException(Exception):
-    """HTTP exception, accepting dynamic status code.
-
-    http://flask.pocoo.org/docs/0.12/patterns/apierrors/
-    """
-
-    def __init__(self, message, status_code=None, payload=None):
-        """Initialise the exception with custom message."""
-        Exception.__init__(self)
-        self.message = message
-        if status_code is not None:
-            self.status_code = status_code
-            self.status = status_code
-        self.payload = payload
-
-    def to_dict(self):
-        """Convert to dict in prep for JSON output."""
-        rv = dict(self.payload or ())
-        rv['message'] = self.message
-        return rv
+class DoesNotExist(Exception):
+    pass
 
 
-@app.errorhandler(ApiCallException)
-def _handle_api_call_error(error):
-    response = jsonify(error.to_dict())
-    response.status_code = error.status_code
-    return response
+@app.before_first_request
+def startup():
+    print('{banner}{line}\n\n\tcRPC server\tSDK version: {version}\n'.format(
+        banner=_BANNER,
+        line=30*' =',
+        version=__version__
+    ))
 
 
-def _get_dict(obj):
-    if hasattr(obj, 'to_dict'):
-        obj = obj.to_dict()
-    return obj
+def get_instance_or_404(uuid):
+    instance = STORE.get(uuid)
+    if not instance:
+        raise DoesNotExist('SDK server: no such instance %s' % (uuid,))
+    return instance
 
 
-@app.route("/ping")
-def ping(methods=["GET"]):
-    return 'pong'
+@app.errorhandler(DoesNotExist)
+def handle_missing_objects(exc):
+    # missing objects are subtly different from missing API
+    return jsonify(dict(
+        message=str(exc)
+    )), 404
 
 
-@app.route("/_bye")
-def bye(methods=["GET"]):
-    request.environ.get('werkzeug.server.shutdown')()
-    print('shutting down server')
-    return 'shutdown'
+@app.errorhandler(Exception)
+def handle_unknown_errors(exc):
+    return jsonify(dict(
+        traceback=traceback.format_exc(),
+        message=str(exc),
+    )), 500
 
 
-@app.route("/_init")
-def init(methods=["GET"]):
-    """Initialse the APIs and pong the server to say it's up and ready."""
-    # Check if api_key or host is provided through header
-    params = _get_params(request.headers)
-
-    # Initialise all the APIs with settings.
-    global MODULES
-    MODULES = {
-        'account_management': mbed_cloud.AccountManagementAPI(params=params),
-        'certificates': mbed_cloud.CertificatesAPI(params=params),
-        'connect': mbed_cloud.ConnectAPI(params=params),
-        'device_directory': mbed_cloud.DeviceDirectoryAPI(params=params),
-        'update': mbed_cloud.UpdateAPI(params=params)
-    }
-
-    # Return empty JSON for now. Might change in the future.
-    return jsonify({})
+@app.route('/modules')
+def modules_all():
+    return jsonify(list(MODULES.keys()))
 
 
-@app.route("/<module>/<method>/")
-def main(module, method, methods=["GET"]):
-    """Main runner, responding to remote test calls - mapping module and method to SDK"""
-    # Check if we've added arguments to function. Unquote and parse the query string,
-    # preparing it for argument to function.
-    qs = urllib.parse.unquote_plus(request.args.get("args", ""))
-    # quote + char to prevent parse_qs from replacing '+' with space.
-    qs = qs.replace('+', "%2B")
-    args_struct = urllib.parse.parse_qs(qs)
-    args = dict(((k, _get_type(",".join(v))) for k, v in list(args_struct.items())))
-    # We call the SDK module and function, with provided arguments.
-    try:
-        return_obj = _call_api(module, method, args)
+@app.route('/modules/<module>/instances')
+def modules_all_instances(module):
+    return jsonify([serialise_instance(i) for i in STORE.values() if i.module == module])
 
-        # Handle functions which returns void
-        if not return_obj:
-            return jsonify({})
 
-        # Check if we can concert to dict for inner objects in a list
-        if isinstance(return_obj, list):
-            return_obj = [_get_dict(o) for o in return_obj]
+@app.route('/modules/<module>/instances', methods=['POST'])
+def modules_new_instance(module):
+    instance = LockedInstance(
+        lock=threading.Lock(),
+        instance=MODULES.get(module)(**request.get_json()),
+        module=module,
+        uuid=str(uuid.uuid4().hex),
+        created_at=datetime.datetime.utcnow(),
+    )
+    STORE[instance.uuid] = instance
+    return jsonify(serialise_instance(instance))
 
-        # Check if we can convert to dict before returning (we can for most models)
-        if not isinstance(return_obj, dict):
-            return_obj = _get_dict(return_obj)
 
-        # Check if type is Queue (device subscriptions), in which case we just return empty
-        if isinstance(return_obj, queue.Queue):
-            return_obj = {}
+@app.route('/instances')
+def instances_all():
+    return jsonify([serialise_instance(i) for i in STORE.values()])
 
-        return jsonify(return_obj)
-    except Exception as e:
-        _, _, tb = sys.exc_info()
-        tb_info = traceback.extract_tb(tb)
-        filename, line, func, text = tb_info[-1]
-        text = traceback.format_exc()
-        message = str(e)
-        if hasattr(e, "message"):
-            message = e.message
 
-        error_msg = "{}: An error occurred on line {} in statement '{}': {}".format(
-            filename,
-            line,
-            text,
-            message
+@app.route('/instances/<uuid>')
+def instances_detail(uuid):
+    return jsonify(serialise_instance(get_instance_or_404(uuid)))
+
+
+@app.route('/instances/<uuid>', methods=['DELETE'])
+def instances_delete(uuid):
+    locked_instance = get_instance_or_404(uuid)
+    with locked_instance.lock:
+        try:
+            locked_instance.instance.stop_notifications()
+        except AttributeError:
+            pass
+        STORE.pop(uuid)
+    return jsonify(True)
+
+
+@app.route('/instances/<uuid>/methods')
+def instances_methods(uuid):
+    locked_instance = get_instance_or_404(uuid)
+    return jsonify([
+        dict(name=k, signature=str(v))
+        for k, v in vars(locked_instance.instance.__class__).items()
+        if not k.startswith('_')
+    ])
+
+
+@app.route('/instances/<uuid>/methods/<method>', methods=['POST'])
+def instances_call_rpc(uuid, method):
+    locked_instance = get_instance_or_404(uuid)
+    with locked_instance.lock:
+        method = getattr(locked_instance.instance, method, None)
+        if method is None:
+            raise DoesNotExist('SDK server: no such method on %s' % (uuid,))
+        return app.response_class(
+            response=run_module(method, request.get_json() or {}),
+            status=200,
+            mimetype='application/json'
         )
 
-        # Set default status_code as 500
-        status_code = 500
-        # Check if error contains code status, return it if it does
-        if hasattr(e, 'status'):
-            status_code = e.status
 
-        raise ApiCallException(str(error_msg), status_code=status_code)
+@app.route('/ping')
+def server_ping():
+    return jsonify('pong')
 
 
-if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000)  # nosec (only used in testing)
+@app.route('/reset', methods=['POST'])
+def server_reset():
+    for uuid in list(STORE):
+        instances_delete(uuid)
+    return app.response_class(
+        response=None,
+        status=205,
+    )
+
+
+@app.route('/shutdown', methods=['POST'])
+def server_shutdown():
+    # do some clean shutdown logic for coverage
+    request.environ.get('werkzeug.server.shutdown')()
+    return app.response_class(
+        response=None,
+        status=202,
+    )
+
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)

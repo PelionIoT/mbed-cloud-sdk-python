@@ -33,3 +33,17 @@ class Test(BaseCase):
         from mbed_cloud.update import Campaign
         from mbed_cloud.update import FirmwareImage
         from mbed_cloud.update import FirmwareManifest
+
+    def test_z_object_attr_maps(self):
+        from mbed_cloud.core import BaseObject
+        all_objs_classes = BaseObject.__subclasses__()
+        self.assertEqual(len(all_objs_classes), 15)
+        fail = {}
+        for obj in all_objs_classes:
+            attr_map = obj._get_attributes_map()
+            in_attr_map_not_object = [k for k in attr_map if not hasattr(obj, k)]
+            in_object_not_attr_map = [k for k in vars(obj) if (not k.startswith('_') and k not in attr_map)]
+            if in_attr_map_not_object or in_object_not_attr_map:
+                fail[str(obj)] = dict(missing=in_attr_map_not_object, excess=in_object_not_attr_map)
+        if fail:
+            raise self.failureException('mapped fields are wrong.\n%s' % (fail,))

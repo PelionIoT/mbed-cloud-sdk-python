@@ -41,7 +41,7 @@ FILTER_OPERATOR_ALIASES = {
 }
 
 
-def _normalise_kwargs_filter(kwargs):
+def _depluralise_filters_key(kwargs):
     """Filter/Filters -> Filter"""
     if 'filters' in kwargs:
         kwargs['filter'] = kwargs.pop('filters')
@@ -110,10 +110,10 @@ def _get_filter(sdk_filter, attr_map):
 def legacy_filter_formatter(kwargs, attr_map):
     """Builds a filter for update and device apis
 
-    :param kwargs: expected to contain filter/filters={filter dict}
+    :param kwargs: expected to contain {'filter/filters': {filter dict}}
     :returns: {'filter': 'url-encoded-validated-filter-string'}
     """
-    params = _normalise_kwargs_filter(copy.copy(kwargs))
+    params = _depluralise_filters_key(copy.copy(kwargs))
     new_filter = _get_filter(sdk_filter=params.pop('filter', {}), attr_map=attr_map)
     if new_filter:
         new_filter = sorted([(k.rsplit('__eq')[0], v) for k, v in new_filter.items()])
@@ -124,9 +124,9 @@ def legacy_filter_formatter(kwargs, attr_map):
 def filter_formatter(kwargs, attr_map):
     """Builds a filter according to the cross-api specification
 
-    :param kwargs: expected to contain filter={filter dict}
+    :param kwargs: expected to contain {'filter': {filter dict}}
     :returns: {validated filter dict}
     """
-    params = _normalise_kwargs_filter(copy.copy(kwargs))
+    params = _depluralise_filters_key(copy.copy(kwargs))
     params.update(_get_filter(sdk_filter=params.pop('filter', {}), attr_map=attr_map))
     return params
