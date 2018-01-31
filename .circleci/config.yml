@@ -61,12 +61,12 @@ aliases:
               if [[ ${CLOUD_VERSION} == production ]]; then
                 export MBED_CLOUD_API_HOST=${MBED_CLOUD_API_HOST_PROD};
                 export MBED_CLOUD_API_KEY=${MBED_CLOUD_API_KEY_PROD};
-                echo 'environment variables swapped: ${CLOUD_VERSION}';
+                echo "environment variables swapped: ${CLOUD_VERSION}";
               fi
               if [[ ${CLOUD_VERSION} == os2 ]]; then
                 export MBED_CLOUD_API_HOST=${MBED_CLOUD_API_HOST_OS2};
                 export MBED_CLOUD_API_KEY=${MBED_CLOUD_API_KEY_OS2};
-                echo 'environment variables swapped: ${CLOUD_VERSION}';
+                echo "environment variables swapped: ${CLOUD_VERSION}";
               fi
               echo "{\"api_key\":\"$MBED_CLOUD_API_KEY\", \"host\":\"$MBED_CLOUD_API_HOST\"}" > .mbed_cloud_config.json
               login="$(aws ecr get-login --no-include-email)"
