@@ -16,37 +16,65 @@
 # --------------------------------------------------------------------------
 """Example showing extended usage of the webhook functionality.
 
-Prerequisites
+== What's happening here?
 
-Two third party tools are used in this example:
-    hug - a simple python3 webserver
-    ngrok - a tool to tunnel public http requests to localhost
+This example implements the following sequence:
+(each column is a thread of control)
 
-Install python libraries:
-    pip install ngrok hug
-Install ngrok from https://ngrok.com/
-Follow the ngrok instructions to configure a tunnel
-Set the resulting tunnel url in the variable below
-Run the example with:
-   hug -f examples/webhook_ngrok.py
-Finally, visit 127.0.0.1:8000 in your browser to initiate the sequence
+|app thread|            |server thread|        |mbed cloud|
+register webhook
+                                                webhook created
+request resource value
+                                                value requested
+                        asyncid stored
+wait for value
+    -                       -                       -
+                                                a value appears!
+                                                trigger webhook
+                        webhook received
+                        notify SDK
+value received
+
+
+== Prerequisites
+
+Two third-party tools are used in this example:
+- hug: a simple python3 webserver
+- ngrok: a tool to tunnel public http requests to localhost
+        (because webhook urls must be on the public internet
+        and presumably your development machine isn't...)
+
+
+== Instructions
+
+- Install python libraries: `pip install ngrok hug`
+- Install ngrok from https://ngrok.com/
+    - Follow the ngrok instructions to configure a tunnel
+- Run the example in a terminal with the following command:
+    - `hug -f examples/webhook_ngrok.py https://YOUR_NGROK_ID_GOES_HERE.ngrok.io`
+- Visit `http://127.0.0.1:8000` in your browser to initiate the sequence
+- View the result of the application in the terminal
+
 """
 from mbed_cloud.connect import ConnectAPI
 
 import hug
 
+import sys
 import threading
 import traceback
 
 api = ConnectAPI()
-ngrok_url = 'https://8b5e7ff1.ngrok.io'
+ngrok_url = sys.argv[1] if len(sys.argv) == 2 else 'https://YOUR_NGROK_ID_GOES_HERE.ngrok.io'
 resource_path = "/3/0"
 
 
-def blocking_code(api):
-    """The bulk of this example
+def my_application(api):
+    """An example application.
 
-    Registers a webhook with mbed cloud services, waits for data to arrive.
+    - Registers a webhook with mbed cloud services
+    - Requests the value of a resource
+    - Prints the value when it arrives
     """
     device = api.list_connected_devices().data[0]
     print('using device #', device.id)
@@ -81,15 +109,17 @@ def webhook_handler(request):
 
 
 @hug.get('/')
-def main():
-    """Does something with our device
+def start_sequence():
+    """Start the demo sequence
 
-    We must do this in the same process to be certain we are sharing the api instance
+    We must start this thread in the same process as the webserver to be certain
+    we are sharing the api instance in memory.
+
     (ideally in future the async id database will be capable of being more than
     just a dictionary)
     """
     print('doing something!...')
-    t = threading.Thread(target=blocking_code, kwargs=dict(api=api))
+    t = threading.Thread(target=my_application, kwargs=dict(api=api))
     t.daemon = True
     t.start()
     return 'ok'
