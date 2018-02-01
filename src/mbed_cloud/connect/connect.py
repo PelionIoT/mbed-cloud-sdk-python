@@ -84,8 +84,22 @@ class ConnectAPI(BaseAPI):
         self._queues = defaultdict(dict)
 
         self.b64decode = True
-        self._notifications_are_active = False
         self._notifications_thread = None
+        self._notifications_lock = threading.RLock()
+
+    @property
+    def has_active_notification_thread(self):
+        """Has active notification thread"""
+        with self._notifications_lock:
+            return bool(self._notifications_thread)
+
+    def ensure_notifications_thread(self):
+        """Ensure notification thread is running"""
+        if not self.has_active_notification_thread:
+            if self.config.get('autostart_notification_thread'):
+                self.start_notifications()
+            else:
+                raise CloudUnhandledError("notifications thread required for this API call")
 
     def start_notifications(self):
         """Start the notifications thread.
@@ -102,29 +116,29 @@ class ConnectAPI(BaseAPI):
 
         :returns: void
         """
-        api = self._get_api(mds.NotificationsApi)
-        if self._notifications_are_active:
-            return
-        self._notifications_thread = NotificationsThread(
-            self._db,
-            self._queues,
-            b64decode=self.b64decode,
-            notifications_api=api
-        )
-        self._notifications_thread.daemon = True
-        self._notifications_thread.start()
-        self._notifications_are_active = True
+        with self._notifications_lock:
+            api = self._get_api(mds.NotificationsApi)
+            if self.has_active_notification_thread:
+                return
+            self._notifications_thread = NotificationsThread(
+                self._db,
+                self._queues,
+                b64decode=self.b64decode,
+                notifications_api=api
+            )
+            self._notifications_thread.daemon = True
+            self._notifications_thread.start()
 
     def stop_notifications(self):
         """Stop the notifications thread.
 
         :returns: void
         """
-        if not self._notifications_are_active:
-            return
-        self._notifications_thread.stop()
-        self._notifications_thread = None
-        self._notifications_are_active = False
+        with self._notifications_lock:
+            if not self.has_active_notification_thread:
+                return
+            self._notifications_thread.stop()
+            self._notifications_thread = None
 
     @catch_exceptions(device_directory.rest.ApiException)
     def list_connected_devices(self, **kwargs):
@@ -237,9 +251,7 @@ class ConnectAPI(BaseAPI):
         :rtype: str
         """
         # Ensure we're listening to notifications first
-        if not self._notifications_are_active:
-            raise CloudUnhandledError(
-                "start_notifications needs to be called before getting resource value.")
+        self.ensure_notifications_thread()
 
         consumer = self.get_resource_value_async(device_id, resource_path, fix_path)
 
@@ -303,9 +315,7 @@ class ConnectAPI(BaseAPI):
         :rtype: str
         """
         # Ensure we're listening to notifications first
-        if not self._notifications_are_active:
-            raise CloudUnhandledError(
-                "start_notifications needs to be called before setting resource value.")
+        self.ensure_notifications_thread()
 
         # When path starts with / we remove the slash, as the API can't handle //.
         if fix_path and resource_path.startswith("/"):
@@ -386,9 +396,7 @@ class ConnectAPI(BaseAPI):
         :rtype: str
         """
         # Ensure we're listening to notifications first
-        if not self._notifications_are_active:
-            raise CloudUnhandledError(
-                "start_notifications needs to be called before setting resource value.")
+        self.ensure_notifications_thread()
 
         # When path starts with / we remove the slash, as the API can't handle //.
         if fix_path and resource_path.startswith("/"):
