@@ -49,6 +49,9 @@ class CertificatesAPI(BaseAPI):
     def list_certificates(self, **kwargs):
         """List certificates registered to organisation.
 
+        Currently returns partially populated certificates. To obtain the full certificate object:
+        `[get_certificate(certificate_id=cert['id') for cert in list_certificates]`
+
         :param int limit: The number of certificates to retrieve.
         :param str order: The ordering direction, ascending (asc) or
             descending (desc).
