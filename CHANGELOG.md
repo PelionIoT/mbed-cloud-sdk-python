@@ -15,7 +15,10 @@ $ pip install mbed-cloud-sdk
 - Added 'last_update_time' to Groups
 - Added 'device_mode' to Certificate
 - Renamed 'owner' -> 'owner_id' on ApiKey
-- Re-implemented PaginatedResponse
+- Re-implemented PaginatedResponse to match the API spec
+  - Deprecation: No longer uses '.data' attribute
+  - Iterable but not indexable
+  - Ease-of-use functionality such as `.first()`
 - Improvements to BaseObject data handling
 - Various small improvements to correctness and consistency with other SDKs
 
