@@ -105,7 +105,10 @@ def webhook_handler(request):
     body = request.stream.read().decode('utf8')
     print('webhook handler saw:', body)
     api.notify_webhook_received(payload=body)
-    print('keys handler', api._db.keys())
+
+    # nb. protected references are not part of the API.
+    # this is just to demonstrate that the asyncid is stored
+    print('key store contains:', api._db.keys())
 
 
 @hug.get('/')
