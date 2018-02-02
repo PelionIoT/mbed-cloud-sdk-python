@@ -204,6 +204,19 @@ class Test(BaseCase, ListCompatMixin):
             p.to_dict()
         )
 
+    def test_data_deprecation(self):
+        p = self.paginator(get_response, total=2)
+        if p._is_caching:
+            # this is how a lot of old code was written (.data[0])
+            self.assertEqual(list(p)[0], p.data[0])
+
+        # elevate warnings to errors and check we throw one on calling .data
+        import warnings
+        warnings.simplefilter('error')
+        with self.assertRaises(DeprecationWarning):
+            self.assertTrue(p.data)
+        warnings.resetwarnings()
+
 
 class TestNoCache(Test):
     paginator = partial(PaginatedResponse, _results_cache=False)

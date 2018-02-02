@@ -167,3 +167,14 @@ class PaginatedResponse(object):
             after=self._kwargs.get('after'),
             order=self._kwargs.get('order', 'ASC')
         )
+
+    @property
+    def data(self):
+        import warnings
+        warnings.warn(
+            '`data` attribute is deprecated and will be removed in a future release, '
+            'use %s as an iterable instead' % (PaginatedResponse,),
+            category=DeprecationWarning,
+            stacklevel=2  # log wherever '.data' is referenced, rather than this line
+        )
+        return list(self)
