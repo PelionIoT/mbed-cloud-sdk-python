@@ -43,6 +43,7 @@ Two third-party tools are used in this example:
 - ngrok: a tool to tunnel public http requests to localhost
         (because webhook urls must be on the public internet
         and presumably your development machine isn't...)
+        Other providers are available, such as https://localtunnel.github.io
 
 
 == Instructions
@@ -52,7 +53,8 @@ Two third-party tools are used in this example:
     - Follow the ngrok instructions to configure a tunnel
 - Run the example in a terminal with the following command:
     - `hug -f examples/webhook_ngrok.py https://YOUR_NGROK_ID_GOES_HERE.ngrok.io`
-- Visit `http://127.0.0.1:8000` in your browser to initiate the sequence
+- [optional] Visit `https://YOUR_NGROK_ID_GOES_HERE.ngrok.io/404` - a 404 page will indicate your connection works
+- Visit `http://127.0.0.1:8000/start` in your browser to initiate the sequence
 - View the result of the application in the terminal
 
 """
@@ -60,13 +62,15 @@ from mbed_cloud.connect import ConnectAPI
 
 import hug
 
+import os
 import sys
 import threading
 import traceback
 
 api = ConnectAPI()
-ngrok_url = sys.argv[1] if len(sys.argv) == 2 else 'https://YOUR_NGROK_ID_GOES_HERE.ngrok.io'
-resource_path = "/3/0"
+ngrok_url = sys.argv[-1] if len(sys.argv) == 4 else os.environ.get('NGROK_URL') or 'https://YOUR_NGROK_ID_GOES_HERE.ngrok.io'
+os.environ['NGROK_URL'] = ngrok_url
+resource_path = "/3/0/2"
 
 
 def my_application(api):
@@ -76,7 +80,7 @@ def my_application(api):
     - Requests the value of a resource
     - Prints the value when it arrives
     """
-    device = api.list_connected_devices().data[0]
+    device = api.list_connected_devices().first()
     print('using device #', device.id)
     api.delete_device_subscriptions(device.id)
 
@@ -87,7 +91,7 @@ def my_application(api):
         deferred = api.get_resource_value_async(device_id=device.id, resource_path=resource_path)
         print('waiting for async #', deferred.async_id)
         result = deferred.wait(15)
-        print('webhook sent us:', result)
+        print('webhook sent us:', repr(result))
         return result
     except Exception:
         print(traceback.format_exc())
@@ -111,7 +115,7 @@ def webhook_handler(request):
     print('key store contains:', api._db.keys())
 
 
-@hug.get('/')
+@hug.get('/start')
 def start_sequence():
     """Start the demo sequence
 
@@ -125,4 +129,4 @@ def start_sequence():
     t = threading.Thread(target=my_application, kwargs=dict(api=api))
     t.daemon = True
     t.start()
-    return 'ok'
+    return 'ok, starting webhook to: %s' % (ngrok_url,)
