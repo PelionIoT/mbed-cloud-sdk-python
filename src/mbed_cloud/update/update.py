@@ -22,7 +22,8 @@ import logging
 # Import common functions and exceptions from frontend API
 from mbed_cloud.core import BaseAPI
 from mbed_cloud.core import BaseObject
-from mbed_cloud.core import PaginatedResponse
+from mbed_cloud.pagination import PaginatedResponse
+from mbed_cloud.utils import force_utc
 
 from mbed_cloud.decorators import catch_exceptions
 
@@ -101,7 +102,7 @@ class UpdateAPI(BaseAPI):
         :param str device_filter: The device filter to use (Required)
         :param str manifest_id: ID of the manifest with description of the update
         :param str description: Description of the campaign
-        :param date when: The timestamp at which update campaign is scheduled to start
+        :param date scheduled_at: The timestamp at which update campaign is scheduled to start
         :param str state: The state of the campaign. Values:
             "draft", "scheduled", "devicefetch", "devicecopy", "publishing",
             "deploying", "deployed", "manifestremoved", "expired"
@@ -113,6 +114,9 @@ class UpdateAPI(BaseAPI):
             Device._get_attributes_map()
         )
         campaign = Campaign._create_request_map(kwargs)
+        if 'when' in campaign:
+            # FIXME: randomly validating an input here is a sure route to nasty surprises elsewhere
+            campaign['when'] = force_utc(campaign['when'])
         body = UpdateCampaignPostRequest(
             name=name,
             device_filter=device_filter['filter'],
@@ -380,7 +384,6 @@ class FirmwareManifest(BaseObject):
             "url": "datafile",
             "description": "description",
             "device_class": "device_class",
-            "datafile_checksum": "datafile_checksum",
             "datafile_size": "datafile_size",
             "id": "id",
             "name": "name",
@@ -420,14 +423,6 @@ class FirmwareManifest(BaseObject):
         :rtype: str
         """
         return self._device_class
-
-    @property
-    def datafile_checksum(self):
-        """The checksum generated for the datafile (readonly).
-
-        :rtype: str
-        """
-        return self._datafile_checksum
 
     @property
     def datafile_size(self):
@@ -493,6 +488,7 @@ class Campaign(BaseObject):
             "manifest_url": "root_manifest_url",
             "name": "name",
             "started_at": "started_at",
+            "updated_at": "updated_at",
             "state": "state",
             "scheduled_at": "when"
         }
@@ -541,6 +537,14 @@ class Campaign(BaseObject):
         :rtype: datetime
         """
         return self._created_at
+
+    @property
+    def updated_at(self):
+        """The time the object was last updated (readonly).
+
+        :rtype: datetime
+        """
+        return self._updated_at
 
     @property
     def description(self):

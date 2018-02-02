@@ -1,5 +1,5 @@
 Device Directory
-~~~~~~~
+~~~~~~~~~~~~~~~~
 
 Usage
 -----

@@ -1,8 +1,25 @@
 Mbed Cloud SDK for Python
 =========================
 
-The ``mbed-cloud-sdk`` gives developers access to the full `Arm
-Mbed <https://docs.mbed.com/>`__ suite using Python.
+The ``mbed-cloud-sdk`` gives developers access to the full `Mbed Cloud suite <https://cloud.mbed.com/>`__ using Python.
+
+.. image:: https://img.shields.io/pypi/l/mbed-cloud-sdk.svg
+    :target: https://github.com/ARMmbed/mbed-cloud-sdk-python/blob/master/LICENCE
+
+.. image:: https://img.shields.io/pypi/v/mbed-cloud-sdk.svg
+    :target: https://pypi.org/project/mbed-cloud-sdk/
+
+.. image:: https://img.shields.io/pypi/pyversions/mbed-cloud-sdk.svg
+    :target: https://pypi.org/project/mbed-cloud-sdk/
+
+.. image:: https://img.shields.io/pypi/status/mbed-cloud-sdk.svg
+    :target: https://pypi.org/project/mbed-cloud-sdk/
+
+.. image:: https://circleci.com/gh/ARMmbed/mbed-cloud-sdk-python/tree/master.svg?style=shield&circle-token=ec05043ded945f81984e7fd2fce23fe793e7b634
+    :target: https://circleci.com/gh/ARMmbed/mbed-cloud-sdk-python/tree/master
+
+.. image:: https://codecov.io/gh/ARMmbed/mbed-cloud-sdk-python/branch/master/graph/badge.svg
+  :target: https://codecov.io/gh/ARMmbed/mbed-cloud-sdk-python
 
 .. common_content_anchor
 
@@ -67,15 +84,15 @@ documentation <https://cloud.mbed.com/docs/v1.2/mbed-cloud-sdk-python/>`__:
 Documentation and examples
 --------------------------
 
-The full documentation and API reference is hosted here:
-https://cloud.mbed.com/docs/v1.2/mbed-cloud-sdk-python/.
+The full documentation and API reference is hosted here: https://cloud.mbed.com/docs/v1.2/mbed-cloud-sdk-python/.
 
 .. _examples directory: https://github.com/ARMmbed/mbed-cloud-sdk-python/tree/master/examples
+
 See the `examples directory`_ for a collection of use-cases of this API, e.g.:
 
     .. code:: python
 
-       python examples/connect/list-connected-devices.py
+        python examples/connect/list-connected-devices.py
 
 Contributing
 ------------
@@ -102,9 +119,9 @@ Suggestions for issues that have been reported when using the SDK.
 - SSL version / :code:`SSLV3_ALERT_HANDSHAKE_FAILURE`
     .. code:: python
 
-      urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='api.us-east-1.mbedcloud.com', port=443):
-      Max retries exceeded with url: /v3/firmware-images/
-      (Caused by SSLError(SSLError(1, u'[SSL: SSLV3_ALERT_HANDSHAKE_FAILURE] sslv3 alert handshake failure (_ssl.c:590)'),))
+        urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='api.us-east-1.mbedcloud.com', port=443):
+        Max retries exceeded with url: /v3/firmware-images/
+        (Caused by SSLError(SSLError(1, u'[SSL: SSLV3_ALERT_HANDSHAKE_FAILURE] sslv3 alert handshake failure (_ssl.c:590)'),))
 
     This probably means the Python interpreter being used has an old version of SSL. The recommended minimum version for the SDK is
     :code:`1.0.2`,

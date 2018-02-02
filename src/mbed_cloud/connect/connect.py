@@ -18,7 +18,6 @@
 from __future__ import absolute_import
 from __future__ import unicode_literals
 
-import datetime
 import logging
 import re
 import threading
@@ -40,7 +39,7 @@ from mbed_cloud.connect.resource import Resource
 from mbed_cloud.connect.webhooks import Webhook
 
 from mbed_cloud.core import BaseAPI
-from mbed_cloud.core import PaginatedResponse
+from mbed_cloud.pagination import PaginatedResponse
 
 from mbed_cloud.decorators import catch_exceptions
 
@@ -49,6 +48,7 @@ from mbed_cloud.device_directory import Device
 from mbed_cloud.exceptions import CloudApiException
 from mbed_cloud.exceptions import CloudUnhandledError
 from mbed_cloud.exceptions import CloudValueError
+from mbed_cloud.utils import force_utc
 
 from six.moves import queue
 
@@ -84,8 +84,22 @@ class ConnectAPI(BaseAPI):
         self._queues = defaultdict(dict)
 
         self.b64decode = True
-        self._notifications_are_active = False
         self._notifications_thread = None
+        self._notifications_lock = threading.RLock()
+
+    @property
+    def has_active_notification_thread(self):
+        """Has active notification thread"""
+        with self._notifications_lock:
+            return bool(self._notifications_thread)
+
+    def ensure_notifications_thread(self):
+        """Ensure notification thread is running"""
+        if not self.has_active_notification_thread:
+            if self.config.get('autostart_notification_thread'):
+                self.start_notifications()
+            else:
+                raise CloudUnhandledError("notifications thread required for this API call")
 
     def start_notifications(self):
         """Start the notifications thread.
@@ -102,29 +116,29 @@ class ConnectAPI(BaseAPI):
 
         :returns: void
         """
-        api = self._get_api(mds.NotificationsApi)
-        if self._notifications_are_active:
-            return
-        self._notifications_thread = NotificationsThread(
-            self._db,
-            self._queues,
-            b64decode=self.b64decode,
-            notifications_api=api
-        )
-        self._notifications_thread.daemon = True
-        self._notifications_thread.start()
-        self._notifications_are_active = True
+        with self._notifications_lock:
+            api = self._get_api(mds.NotificationsApi)
+            if self.has_active_notification_thread:
+                return
+            self._notifications_thread = NotificationsThread(
+                self._db,
+                self._queues,
+                b64decode=self.b64decode,
+                notifications_api=api
+            )
+            self._notifications_thread.daemon = True
+            self._notifications_thread.start()
 
     def stop_notifications(self):
         """Stop the notifications thread.
 
         :returns: void
         """
-        if not self._notifications_are_active:
-            return
-        self._notifications_thread.stop()
-        self._notifications_thread = None
-        self._notifications_are_active = False
+        with self._notifications_lock:
+            if not self.has_active_notification_thread:
+                return
+            self._notifications_thread.stop()
+            self._notifications_thread = None
 
     @catch_exceptions(device_directory.rest.ApiException)
     def list_connected_devices(self, **kwargs):
@@ -170,9 +184,9 @@ class ConnectAPI(BaseAPI):
         :returns: a list of connected :py:class:`Device` objects.
         :rtype: PaginatedResponse
         """
-        filters = kwargs.get("filters", {})
-        filters.update({'state': {'$eq': 'registered'}})
-        kwargs.update({'filters': filters})
+        # TODO(pick one of these)
+        filter_or_filters = 'filter' if 'filter' in kwargs else 'filters'
+        kwargs.setdefault(filter_or_filters, {}).setdefault('state', {'$eq': 'registered'})
         kwargs = self._verify_sort_options(kwargs)
         kwargs = self._verify_filters(kwargs, Device, True)
         api = self._get_api(device_directory.DefaultApi)
@@ -237,9 +251,7 @@ class ConnectAPI(BaseAPI):
         :rtype: str
         """
         # Ensure we're listening to notifications first
-        if not self._notifications_are_active:
-            raise CloudUnhandledError(
-                "start_notifications needs to be called before getting resource value.")
+        self.ensure_notifications_thread()
 
         consumer = self.get_resource_value_async(device_id, resource_path, fix_path)
 
@@ -303,9 +315,7 @@ class ConnectAPI(BaseAPI):
         :rtype: str
         """
         # Ensure we're listening to notifications first
-        if not self._notifications_are_active:
-            raise CloudUnhandledError(
-                "start_notifications needs to be called before setting resource value.")
+        self.ensure_notifications_thread()
 
         # When path starts with / we remove the slash, as the API can't handle //.
         if fix_path and resource_path.startswith("/"):
@@ -386,9 +396,7 @@ class ConnectAPI(BaseAPI):
         :rtype: str
         """
         # Ensure we're listening to notifications first
-        if not self._notifications_are_active:
-            raise CloudUnhandledError(
-                "start_notifications needs to be called before setting resource value.")
+        self.ensure_notifications_thread()
 
         # When path starts with / we remove the slash, as the API can't handle //.
         if fix_path and resource_path.startswith("/"):
@@ -509,7 +517,13 @@ class ConnectAPI(BaseAPI):
             fixed_path = resource_path[1:]
 
         api = self._get_api(mds.SubscriptionsApi)
-        return api.v2_subscriptions_device_id_resource_path_get(device_id, fixed_path)
+        try:
+            api.v2_subscriptions_device_id_resource_path_get(device_id, fixed_path)
+        except Exception as e:
+            if e.status == 404:
+                return False
+            raise
+        return True
 
     @catch_exceptions(mds.rest.ApiException)
     def update_presubscriptions(self, presubscriptions):
@@ -698,10 +712,10 @@ class ConnectAPI(BaseAPI):
         """Get statistics.
 
         :param list[str] include: List of fields included in response.
-        None, or an empty list will return all fields.
-        Fields: transactions, successful_api_calls, failed_api_calls, successful_handshakes,
-        pending_bootstraps, successful_bootstraps, failed_bootstraps, registrations,
-        updated_registrations, expired_registrations, deleted_registrations
+            None, or an empty list will return all fields.
+            Fields: transactions, successful_api_calls, failed_api_calls, successful_handshakes,
+            pending_bootstraps, successful_bootstraps, failed_bootstraps, registrations,
+            updated_registrations, expired_registrations, deleted_registrations
         :param str interval: Group data by this interval in days, weeks or hours.
             Sample values: 2h, 3w, 4d.
         :param datetime start: Fetch the data with timestamp greater than or equal to this value.
@@ -718,22 +732,16 @@ class ConnectAPI(BaseAPI):
         :rtype: PaginatedResponse
         """
         self._verify_arguments(interval, kwargs)
+        include = Metric._map_includes(include)
+        kwargs.update(dict(include=include, interval=interval))
         kwargs = self._verify_filters(kwargs, Metric)
         api = self._get_api(statistics.StatisticsApi)
-        include = Metric._map_includes(include)
-        kwargs.update({"include": include})
-        kwargs.update({"interval": interval})
         return PaginatedResponse(api.v3_metrics_get, lwrap_type=Metric, **kwargs)
 
     def _subscription_handler(self, queue, device_id, path, callback_fn):
         while True:
             value = queue.get()
             callback_fn(device_id, path, value)
-
-    def _convert_to_UTC_RFC3339(self, time, name):
-        if not isinstance(time, datetime.datetime):
-            raise CloudValueError("%s should be of type datetime" % (name))
-        return time.isoformat() + "Z"
 
     def _verify_arguments(self, interval, kwargs):
         start = kwargs.get("start", None)
@@ -752,7 +760,7 @@ class ConnectAPI(BaseAPI):
             raise CloudValueError("interval is incorrect. Sample values: 2h, 3w, 4d.")
         # convert start into UTC RFC3339 format
         if start:
-            kwargs['start'] = self._convert_to_UTC_RFC3339(start, 'start')
+            kwargs['start'] = force_utc(start, 'start')
         # convert end into UTC RFC3339 format
         if end:
-            kwargs['end'] = self._convert_to_UTC_RFC3339(end, 'end')
+            kwargs['end'] = force_utc(end, 'end')

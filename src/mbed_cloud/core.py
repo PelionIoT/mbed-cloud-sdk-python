@@ -113,6 +113,27 @@ class BaseAPI(object):
         return last_metadata
 
 
+class StubAPI(BaseAPI):
+    """Used in test framework"""
+
+    def __init__(self, **kwargs):
+        """For use in test verification"""
+        self.kwargs = kwargs
+
+    def exception(self):
+        """Raises an exception"""
+        raise ValueError('just a test')
+
+    def success(self, **kwargs):
+        """Returns all arguments received in init and this method call"""
+        response = {'success': True}
+        # check dates can be manipulated
+        response.update(kwargs)
+        response.update(self.kwargs)
+        response['test_argument3'] = datetime.timedelta(days=1) + response['test_argument3']
+        return response
+
+
 class BaseObject(object):
     """Base class for APIs classes."""
 
@@ -120,13 +141,14 @@ class BaseObject(object):
         """Initialize object."""
         self.update_attributes(dictionary)
 
-    def update_attributes(self, dictionary):
+    def update_attributes(self, updates):
         """Update attributes."""
-        if not isinstance(dictionary, dict):
-            dictionary = dictionary.to_dict()
-        for key, value in iteritems(self._get_attributes_map()):
-            if value in dictionary and not hasattr(self, "_%s" % key):
-                setattr(self, "_%s" % key, dictionary.get(value, None))
+        if not isinstance(updates, dict):
+            updates = updates.to_dict()
+        for sdk_key, spec_key in self._get_attributes_map().items():
+            attr = '_%s' % sdk_key
+            if spec_key in updates and not hasattr(self, attr):
+                setattr(self, attr, updates[spec_key])
 
     @staticmethod
     def _get_attributes_map():
@@ -134,22 +156,14 @@ class BaseObject(object):
         pass
 
     @classmethod
-    def _create_request_map(obj, input_map):
+    def _create_request_map(cls, input_map):
         """Create request map."""
-        request_map = {}
-        attributes_map = obj._get_attributes_map()
-        for key, value in iteritems(input_map):
-            val = attributes_map.get(key, None)
-            if val is not None:
-                request_map[val] = value
-        return request_map
+        field_map = cls._get_attributes_map()
+        return {field_map[k]: v for k, v in input_map.items() if k in field_map}
 
     def to_dict(self):
         """Return dictionary of object."""
-        dictionary = {}
-        for key, value in iteritems(self._get_attributes_map()):
-            dictionary[key] = getattr(self, str(key), None)
-        return dictionary
+        return {sdk_key: getattr(self, sdk_key, None) for sdk_key in self._get_attributes_map()}
 
     def _get_operator(self, key):
         operator = ""
@@ -188,159 +202,6 @@ class BaseObject(object):
     def __repr__(self):
         """For print and pprint."""
         return str(self.to_dict())
-
-
-class _FakePaginatedResponse(object):
-    """Fake a summary page that is returned from API when mocking paginated response."""
-
-    def __init__(self, data):
-        self.data = data
-
-    def to_dict(self):
-        return {
-            'data': [e.to_dict() for e in self.data],
-            'total_count': len(self.data),
-            'has_more': False
-        }
-
-
-class PaginatedResponse(object):
-    """Paginated response object wrapper.
-
-    Used to access multiple pages of data, either through manually
-    iterating pages or using iterators.
-    """
-
-    def __init__(self, func, lwrap_type=None, init_data=None, **kwargs):
-        """Initialize wrapper by passing in object with metadata structure.
-
-        :param lwrap_type: Wrap each response element in type
-        :param init_data: Initialize pagination object with data
-        """
-        self._func = func
-        self._lwrap_type = lwrap_type
-        self._kwargs = kwargs
-        self._data = None
-
-        # Initial values, will be updated in first response
-        self._raw_response = None
-        self._has_more = False
-        self._idx = 0
-        if init_data is not None:
-            self._data = init_data
-            self._raw_response = _FakePaginatedResponse(init_data)
-
-        # Calculate total count on initial data, if set.
-        self._total_count = None if self._data is None else len(self._data)
-
-        # Do initial request, if needed.
-        if self._data is None:
-            self._get_page()
-
-    def _get_page(self):
-        resp = self._func(**self._kwargs)
-        self._raw_response = resp
-        data_stream = resp.data or []
-
-        # Update properties
-        self._has_more = resp.has_more
-        self._data = [self._lwrap_type(e) if self._lwrap_type else e for e in data_stream]
-        self._total_count = getattr(resp, 'total_count', len(self._data))
-
-        if len(data_stream) > 0:
-            # Update 'after' by taking the last element ID
-            self._kwargs['after'] = data_stream[-1].id
-        else:
-            self._kwargs.pop('after', None)
-
-    def _get_total_count(self):
-        resp = self._func(**{'include': 'total_count', 'limit': 2})
-        if hasattr(resp, 'total_count'):
-            return resp.total_count
-        return 0
-
-    def next(self):
-        """Get the next element in response list.
-
-        It will make call to get next page with data if there is still data to retrieve.
-        """
-        return self.__next__()
-
-    def __next__(self):
-        """Get the next element in list."""
-        # If we don't have any data, then we just return.
-        if self._data is None:
-            raise StopIteration
-
-        # If we have an empty data array, but more data in the pipe we
-        # fetch it. If not we're done iterating.
-        if len(self._data) == 0 and self.has_more:
-            self._get_page()
-        if len(self._data) == 0 and not self.has_more:
-            raise StopIteration
-
-        # Grab first item and return
-        r_value = self._data[0]
-        self._data = self._data[1:]
-        self._idx += 1
-        return r_value
-
-    def count(self):
-        """Get the total count from the meta data.
-
-        As the count, due to backend cost, doesn't always respond with the
-        total count of elements, you can explicitly request the total of elements
-        that will be returned by a paginated request.
-
-        .. code-block:: python
-
-            # Will only do 1-2 requests, regardless of how many pages of users
-            # there are. If initial page respons contains the total count it will
-            # only require one request.
-            >>> api.list_users().count()
-            73
-        """
-        if self._total_count is None:
-            return self._get_total_count()
-        return self._total_count
-
-    def to_dict(self):
-        """Propagate the to_dict of the inner response for the paginated response."""
-        return self._raw_response.to_dict()
-
-    def __iter__(self):
-        """Override iter, as to provide iterable interface to Pagination object.
-
-        This was you can iterate over PaginatinatedResponse objects like so:
-
-        .. code-block:: python
-
-            obj = PaginatedResponse(..)
-            for x in obj:
-                print(x)
-
-        """
-        return self
-
-    @property
-    def has_more(self):
-        """Get status of whether the paginated response has more content."""
-        return self._has_more
-
-    @property
-    def data(self):
-        """The current data from doing last paginated request.
-
-        .. code-block:: python
-
-            >>> api.list_users().data[0].full_name
-            "David Bowie"
-        """
-        return self._data
-
-    @data.setter
-    def data(self, value):
-        self._data = value
 
 
 class ApiMetadata(object):

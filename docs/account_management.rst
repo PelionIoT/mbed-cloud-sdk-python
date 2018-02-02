@@ -1,5 +1,5 @@
 Account Management
-~~~~~~
+~~~~~~~~~~~~~~~~~~
 
 Listing users and groups in team/organisation
 ---------------------------------------------

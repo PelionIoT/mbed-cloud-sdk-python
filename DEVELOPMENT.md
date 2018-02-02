@@ -11,34 +11,41 @@
 
 ## Prerequisites
 
-Development should be undertaken using virtual environments. See:
-- https://github.com/kennethreitz/pipenv
+It is recommended that contributors use virtual environments for development:
+- https://github.com/pypa/pipenv
 
 ## Installing
 
 ```bash
-pip install -e git+https://github.com/ARMmbed/mbed-cloud-sdk-python.git
+pipenv install -e git+https://github.com/ARMmbed/mbed-cloud-sdk-python.git#egg=mbed-cloud-sdk --dev
 ```
 
-Or more directly, clone the repository and in the resulting directory:
+alternatively:
 
 ```bash
-pip install -e .
+git clone https://github.com/ARMmbed/mbed-cloud-sdk-python.git
+pipenv install "-e ." --dev
 ```
 
 ## Tests
 
 ```bash
-python -m unittest discover tests
+pipenv run python -m unittest discover tests
 ```
 
 Tests are written using the unittest framework, so you can
-use more feature-rich testrunners if desired. See:
+use any compatible Python testrunner. For example:
 - https://github.com/pytest-dev/pytest
 - https://github.com/CleanCut/green
 
-Refer to `tox.ini` for examples.
-
 To run the full cross-language TestRunner suite you will also need to
-set up AWS credentials and clone the latest
-[TestRunner](https://github.com/ARMmbed/mbed-cloud-sdk-testrunner).
+set up AWS credentials and pull the latest docker image.
+This may not be available to public contributors.
+
+Some tests may require valid API credentials.
+
+## Documentation
+
+```bash
+pipenv run sphinx-build -a -b html -c docs/ docs/ docs/build/
+```

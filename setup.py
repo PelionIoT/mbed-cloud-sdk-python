@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 # ---------------------------------------------------------------------------
 # Mbed Cloud Python SDK
 # (C) COPYRIGHT 2017 Arm Limited
@@ -16,13 +14,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # --------------------------------------------------------------------------
-
-# To install, run:
-# pip install .
-
-# To install in dev mode, run:
-# pip install .[dev]
-
 import os
 
 from setuptools import find_packages
@@ -33,21 +24,22 @@ __version__ = None
 
 repository_dir = os.path.dirname(__file__)
 
-# single source for version information without side effects
+# single source for project version information without side effects
 with open(os.path.join(repository_dir, 'src', 'mbed_cloud', '_version.py')) as fh:
     exec(fh.read())
 
+# .rst readme needed for pypi
 with open(os.path.join(repository_dir, 'README.rst')) as fh:
     long_description = fh.read()
 
-with open(os.path.join(repository_dir, 'dependencies.txt')) as fh:
-    dependencies = fh.readlines()
-
-with open(os.path.join(repository_dir, 'requirements.dev.txt')) as fh:
-    dev_requirements = fh.readlines()
+# some of the dependencies are inherited from swagger-codegen
+# https://github.com/swagger-api/swagger-codegen/blob/master/modules/swagger-codegen/src/main/resources/python/setup.mustache#L18
+with open(os.path.join(repository_dir, 'requirements.txt')) as fh:
+    requirements = fh.readlines()
 
 setup(
     author="Arkadiusz Zaluski, David Hyman, Herman Schistad",
+    author_email="support@mbed.com",
     classifiers=(
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
@@ -64,9 +56,8 @@ setup(
         'Topic :: Software Development :: Object Brokering',
     ),
     description="Mbed Cloud Python SDK",
-    extras_require=dict(dev=dev_requirements),
     include_package_data=True,
-    install_requires=dependencies,
+    install_requires=requirements,
     license='Apache 2.0',
     long_description=long_description,
     name=NAME,

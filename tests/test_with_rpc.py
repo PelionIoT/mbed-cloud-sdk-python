@@ -3,13 +3,19 @@ import sys
 import shlex
 import platform
 import subprocess
+import time
 import traceback
 import unittest
 
+from threading import Timer
+
 import requests
 from requests.adapters import HTTPAdapter
+from requests.packages.urllib3.util.retry import Retry
 
 from tests.common import BaseCase
+
+from mbed_cloud.configuration import Config
 
 
 docker_image = os.environ.get(
@@ -18,24 +24,112 @@ docker_image = os.environ.get(
 )
 
 
+def timeout_check_output(timeout=5, process=None, _or_fail=True, *args, **kwargs):
+    process = process or subprocess.Popen(
+        *args,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        universal_newlines=True,
+        **kwargs
+    )
+
+    stdout = '<no output collected>'
+    now = time.time()
+
+    def killer():
+        # called by timer thread to terminate process
+        process.timed_out = time.time() - now
+        process.kill()
+
+    timer = Timer(timeout, killer)
+    timer.start()
+    try:
+        stdout, stderr = process.communicate()
+    finally:
+        timer.cancel()
+    status_code = process.poll()
+    if _or_fail and status_code != 0:
+        timed_out = getattr(process, 'timed_out', '')
+        raise subprocess.CalledProcessError(
+            status_code,
+            (timed_out and '<TIMED OUT (%.2fs)>\'' % timed_out) + str(kwargs.get('args', args)),
+            output=stdout
+        )
+    return stdout
+
+
 def have_docker_image(image):
     cmd = 'docker images -q %s' % image
     try:
-        output = subprocess.check_output(shlex.split(cmd))
-    except subprocess.CalledProcessError as e:
+        output = timeout_check_output(args=shlex.split(cmd))
+    except (subprocess.CalledProcessError, OSError):
         traceback.print_exc()
         return False
     return bool(output)
 
 
+def find_host_address_potentials(image):
+    potentials = ['127.0.0.1', '', '10.0.75.1']
+
+    # check the host route from inside the docker container
+    cmd = shlex.split(
+        'docker run --rm --net=host {image} route'.format(
+            image=image
+        )
+    )
+    # routes = subprocess.check_output(args=cmd, universal_newlines=True)
+    routes = timeout_check_output(args=cmd)
+    for routing in routes.splitlines():
+        if routing.lower().startswith('default'):
+            host = routing.split()[1]
+            if host.startswith('ip'):
+                host = host[3:].strip('.').replace('-', '.')
+            potentials.append(host)
+
+    if platform.system().lower() == 'linux':
+        cmd = """ifconfig lxcbr0 | awk '/inet addr/{split($2,a,":"); print a[2]}'"""
+        try:
+            address = timeout_check_output(args=cmd, shell=True)
+            if address:
+                potentials.append(address.strip())
+        except Exception as exception:
+            print('didnt see an lxcbr0 interface:', exception)
+
+    if not potentials:
+        raise Exception('did not find any potential addresses inside docker')
+    return list(reversed(sorted(potentials)))
+
+
+def find_test_server_host(image, potentials):
+    for potential in potentials:
+        cmd = shlex.split(
+            'docker run --rm --net=host {image} wget -T 2 -t 3 http://{host}:5000/ping'.format(
+                image=image,
+                host=potential
+            )
+        )
+        try:
+            print('checking for sdk server at: %r' % (potential,))
+            timeout_check_output(args=cmd)
+            break
+        except Exception as e:
+            print('this address did not work: %r - %s' % (potential, e))
+    else:
+        raise Exception('Did not find working address inside docker. Potentials: %s' % (potentials,))
+    return potential
+
+
 @unittest.skipIf(not have_docker_image(docker_image), 'missing docker image %s' % docker_image)
 class TestWithRPC(BaseCase):
+
+    host = None
+    process = None
 
     @classmethod
     def setUpClass(cls):
         cmd = 'docker pull %s' % docker_image
         try:
-            subprocess.check_output(shlex.split(cmd), stderr=subprocess.STDOUT)
+            timeout_check_output(timeout=120, args=shlex.split(cmd))
         except subprocess.CalledProcessError as e:
             if 'docker login' in e.output:
                 raise unittest.SkipTest('missing docker login')
@@ -44,59 +138,45 @@ class TestWithRPC(BaseCase):
     def setUp(self):
         exe = sys.executable
         target = os.path.join(os.path.dirname(__file__), 'server.py')
-        cmd = [exe, '-m', 'coverage', 'run', target]
-        print('running: %s' % cmd)
+        cmd = [exe, '-u', '-m', 'coverage', 'run', target]
         self.process = subprocess.Popen(args=cmd, universal_newlines=True)
-        if self.process.poll():
-            raise Exception('test server failed to start: %s' % self.process.stdout)
-
-        # check the host route from inside the docker container
-        cmd = shlex.split(
-            'docker run --rm --net=host {image} route'.format(
-                image=docker_image
-            )
-        )
-        routes = subprocess.check_output(args=cmd, universal_newlines=True)
-        for routing in routes.splitlines():
-            if routing.lower().startswith('default'):
-                self.host = routing.split()[1]
-                break
-        if not self.host:
-            print('routes table:\n%s' % routes)
-            raise Exception('no host address determined')
-        if self.host.startswith('ip'):
-            self.host = self.host[3:].strip('.').replace('-', '.')
-
-        cmd = """ifconfig lxcbr0 | awk '/inet addr/{split($2,a,":"); print a[2]}'"""
+        time.sleep(0.5)
         try:
-            address = subprocess.check_output(args=cmd, shell=True, universal_newlines=True)
-        except Exception as exception:
-            print('didnt see an lxcbr0 interface', exception)
-        else:
-            if address:
-                self.host = address.strip()
-        print('determined host address to be: "%s"' % self.host)
-
-        try:
-            # ping the server to make sure it's up (don't use _init, may not be idempotent)
+            # ping the server to make sure it's up
+            test_server_local_address = 'http://127.0.0.1:5000'
+            url = '%s/ping' % test_server_local_address
             s = requests.Session()
-            s.mount('htt', adapter=HTTPAdapter(max_retries=5))
-            response = s.get('http://127.0.0.1:5000/invalid_url', timeout=(15, 15))
-            # we expect to receive 404, any other failure is bad news (200 OK is unlikely)
-            if response.status_code != 404:
-                response.raise_for_status()
-        except Exception:
-            print('could not reach local test server.')
-            print(subprocess.check_output(shlex.split('ps -aux')))
-            print(subprocess.check_output(shlex.split('netstat -aon')))
+            s.mount(url, adapter=HTTPAdapter(max_retries=Retry(total=20, connect=5, read=15, backoff_factor=0.4)))
+            response = s.get(url, timeout=(15, 15))
+            response.raise_for_status()
+        except Exception as e:
+            print('could not reach test server locally: %s\n%s' % (cmd, e))
+            print('server status', self.process.poll(), self.process.pid)
+            print(timeout_check_output(args=shlex.split('ps -aux')))
+            print(timeout_check_output(args=shlex.split('netstat -aon')))
             raise
         else:
-            print('looks like the server is ok')
+            print('SDK test server is running locally on %s' % (test_server_local_address,))
+        self.host = find_test_server_host(docker_image, find_host_address_potentials(docker_image))
+        config = Config()
+        print("RPC test ready:\n\tserver: %s\n\tcloud host: %r\n\tapi key: '***%s'\n\timage: %s" % (
+            self.host,
+            config.get('host', 'default'),
+            config.get('api_key', 'default')[-5:],
+            docker_image,
+        ))
 
     def test_run(self):
         version = 'py%s%s' % platform.python_version_tuple()[:2]  # build a directory that matches tox's {envvar}
-        results_file = os.path.join(os.path.expanduser('~'), 'rpc_results', version)
-        fixtures_path = os.path.join(os.path.dirname(__file__), 'fixtures')
+        results_dir = os.path.abspath(
+            os.getenv('TESTRUNNER_OUTPUT_DIR', os.path.join(os.path.expanduser('~'), 'rpc_results', version))
+        )
+        if not os.path.exists(results_dir):
+            os.makedirs(results_dir)
+
+        fixtures_path = os.path.abspath(
+            os.path.join(os.path.dirname(__file__), 'fixtures')
+        )
 
         cmd = shlex.split(
             'docker run --rm --net=host --name=testrunner_container'
@@ -108,18 +188,15 @@ class TestWithRPC(BaseCase):
                 image=docker_image,
                 host=self.host,
                 fixtures=fixtures_path,
-                results=results_file,
+                results=results_dir,
             )
         )
         try:
-            subprocess.check_call(cmd)
-        except subprocess.CalledProcessError as e:
-            if e.returncode > 0:
-                # polite re-raise
-                self.fail('remote testrunner sequence failed. results should be at: %s' % results_file)
-            raise
+            print(timeout_check_output(timeout=600, args=cmd, _or_fail=True))
+        except subprocess.CalledProcessError:
+            self.fail('remote testrunner sequence failed. results should be at: %s' % results_dir)
 
     def tearDown(self):
         # graceful shutdown
-        requests.get('http://localhost:5000/_bye')
-        self.process.wait()
+        requests.post('http://localhost:5000/shutdown')
+        timeout_check_output(process=self.process)
