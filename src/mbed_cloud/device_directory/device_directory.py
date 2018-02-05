@@ -343,7 +343,8 @@ class Device(BaseObject):
             "connector_certificate_expiration": "connector_expiration_date",
             "device_execution_mode": "device_execution_mode",
             "firmware_checksum": "firmware_checksum",
-            "manifest_timestamp": "manifest_timestamp"
+            "manifest_timestamp": "manifest_timestamp",
+            "claimed_at": "enrolment_list_timestamp",
         }
 
     @property
@@ -571,6 +572,14 @@ class Device(BaseObject):
         :rtype: datetime
         """
         return self._manifest_timestamp
+
+    @property
+    def claimed_at(self):
+        """When the device was first claimed/enrolled.
+
+        :rtype: datetime
+        """
+        return self._claimed_at
 
 
 class Query(BaseObject):
