@@ -16,13 +16,13 @@ class TestCertificates(BaseCase):
 
     def test_invalid_type(self):
         with self.assertRaises(CloudValueError):
-            self._run(None, type__eq='banana')
+            self._run(None, service__eq='banana')
 
     def test_bootstrap(self):
-        self._run([], type__eq=CertificateType.bootstrap)
+        self._run([], service__eq=CertificateType.bootstrap)
 
     def test_developer(self):
-        self._run([], type__eq=CertificateType.developer)
+        self._run([], service__eq=CertificateType.developer)
 
     def test_lwm2m(self):
-        self._run([], type__eq=CertificateType.lwm2m)
+        self._run([], service__eq=CertificateType.lwm2m)
