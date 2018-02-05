@@ -454,6 +454,15 @@ class ApiClient(object):
                 new_params.append((k, v))
         return new_params
 
+    ########### Change
+
+    def get_file_data_tuple(self, key, f):
+        filename = os.path.basename(f.name)
+        filedata = f.read()
+        mimetype = mimetypes.\
+            guess_type(filename)[0] or 'application/octet-stream'
+        return tuple([key, tuple([filename, filedata, mimetype])])
+
     def prepare_post_parameters(self, post_params=None, files=None):
         """
         Builds form parameters.
@@ -471,16 +480,16 @@ class ApiClient(object):
             for k, v in iteritems(files):
                 if not v:
                     continue
-                file_names = v if type(v) is list else [v]
-                for n in file_names:
-                    with open(n, 'rb') as f:
-                        filename = os.path.basename(f.name)
-                        filedata = f.read()
-                        mimetype = mimetypes.\
-                            guess_type(filename)[0] or 'application/octet-stream'
-                        params.append(tuple([k, tuple([filename, filedata, mimetype])]))
-
+                files = v if type(v) is list else [v]
+                for n in files:
+                    if isinstance(n, file):
+                        params.append(self.get_file_data_tuple(k, n))
+                    else:
+                        with open(n, 'rb') as f:
+                            params.append(self.get_file_data_tuple(k, f))
         return params
+
+    ########### End Change
 
     def select_header_accept(self, accepts):
         """
