@@ -243,7 +243,7 @@ class UpdateCampaign(object):
         :param state: The state of this UpdateCampaign.
         :type: str
         """
-        allowed_values = ["draft", "scheduled", "devicefetch", "devicecopy", "publishing", "deploying", "deployed", "manifestremoved", "expired"]
+        allowed_values = ["draft", "scheduled", "allocatingquota", "allocatedquota", "insufficientquota", "checkingmanifest", "checkedmanifest", "devicefetch", "devicecopy", "devicecheck", "publishing", "deploying", "deployed", "manifestremoved", "expired", "stopping", "autostopped", "userstopped", "conflict"]
         if state not in allowed_values:
             raise ValueError(
                 "Invalid value for `state` ({0}), must be one of {1}"

@@ -11,11 +11,9 @@ Method | HTTP request | Description
 [**device_list**](DefaultApi.md#device_list) | **GET** /v3/devices/ | 
 [**device_log_list**](DefaultApi.md#device_log_list) | **GET** /v3/devicelog/ | 
 [**device_log_retrieve**](DefaultApi.md#device_log_retrieve) | **GET** /v3/devicelog/{device_event_id}/ | 
-[**device_partial_update**](DefaultApi.md#device_partial_update) | **PATCH** /v3/devices/{id}/ | 
 [**device_query_create**](DefaultApi.md#device_query_create) | **POST** /v3/device-queries/ | 
 [**device_query_destroy**](DefaultApi.md#device_query_destroy) | **DELETE** /v3/device-queries/{query_id}/ | 
 [**device_query_list**](DefaultApi.md#device_query_list) | **GET** /v3/device-queries/ | 
-[**device_query_partial_update**](DefaultApi.md#device_query_partial_update) | **PATCH** /v3/device-queries/{query_id}/ | 
 [**device_query_retrieve**](DefaultApi.md#device_query_retrieve) | **GET** /v3/device-queries/{query_id}/ | 
 [**device_query_update**](DefaultApi.md#device_query_update) | **PUT** /v3/device-queries/{query_id}/ | 
 [**device_retrieve**](DefaultApi.md#device_retrieve) | **GET** /v3/devices/{id}/ | 
@@ -416,61 +414,6 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **device_partial_update**
-> DeviceData device_partial_update(id, device)
-
-
-
-Update device fields.
-
-### Example 
-```python
-from __future__ import print_function
-import time
-import device_directory
-from device_directory.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: Bearer
-configuration = device_directory.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = device_directory.DefaultApi(device_directory.ApiClient(configuration))
-id = 'id_example' # str | The ID of the device.
-device = device_directory.DeviceDataPatchRequest() # DeviceDataPatchRequest | 
-
-try: 
-    api_response = api_instance.device_partial_update(id, device)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling DefaultApi->device_partial_update: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **str**| The ID of the device. | 
- **device** | [**DeviceDataPatchRequest**](DeviceDataPatchRequest.md)|  | 
-
-### Return type
-
-[**DeviceData**](DeviceData.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 # **device_query_create**
 > DeviceQuery device_query_create(device)
 
@@ -625,61 +568,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**DeviceQueryPage**](DeviceQueryPage.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **device_query_partial_update**
-> DeviceQuery device_query_partial_update(query_id, device_query)
-
-
-
-Update device query fields.
-
-### Example 
-```python
-from __future__ import print_function
-import time
-import device_directory
-from device_directory.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: Bearer
-configuration = device_directory.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = device_directory.DefaultApi(device_directory.ApiClient(configuration))
-query_id = 'query_id_example' # str | 
-device_query = device_directory.DeviceQueryPatchRequest() # DeviceQueryPatchRequest | 
-
-try: 
-    api_response = api_instance.device_query_partial_update(query_id, device_query)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling DefaultApi->device_query_partial_update: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **query_id** | **str**|  | 
- **device_query** | [**DeviceQueryPatchRequest**](DeviceQueryPatchRequest.md)|  | 
-
-### Return type
-
-[**DeviceQuery**](DeviceQuery.md)
 
 ### Authorization
 
