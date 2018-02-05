@@ -81,6 +81,14 @@ class TestStubber(BaseCase, ListCompatMixin):
 
 
 class Test(BaseCase, ListCompatMixin):
+    """
+    Ths test sequence uses a stub implementation of a 'list' API endpoint
+    Which uses 'after' as a form of cursor to perform pagination
+
+    The sequence is run a second time with TestNoCache, wherein
+    `_is_caching` is set False. Some tests behave differently without caching.
+    (namely, without the cache you can't repeatedly list an exhausted iterator).
+    """
     paginator = PaginatedResponse
 
     def test_wrapped(self):
@@ -143,7 +151,6 @@ class Test(BaseCase, ListCompatMixin):
         self.assertEqual(5, len(list(p)))
 
     def test_count(self):
-        # check boolean of object is exactly a boolean False
         p = self.paginator(get_response, total=7)
         self.assertEqual(7, p.count())
 
