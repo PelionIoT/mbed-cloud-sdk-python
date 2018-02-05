@@ -170,6 +170,7 @@ class PaginatedResponse(object):
 
     @property
     def data(self):
+        """Deprecated. Returns the data as a `list`"""
         import warnings
         warnings.warn(
             '`data` attribute is deprecated and will be removed in a future release, '
