@@ -92,7 +92,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**update_campaign_metadata_list**](docs/DefaultApi.md#update_campaign_metadata_list) | **GET** /v3/campaigns/{campaign_id}/campaign-device-metadata/ | 
 *DefaultApi* | [**update_campaign_metadata_retreive**](docs/DefaultApi.md#update_campaign_metadata_retreive) | **GET** /v3/campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/ | 
 *DefaultApi* | [**update_campaign_retrieve**](docs/DefaultApi.md#update_campaign_retrieve) | **GET** /v3/campaigns/{campaign_id}/ | 
-*DefaultApi* | [**update_campaign_stop**](docs/DefaultApi.md#update_campaign_stop) | **POST** /v3/update-campaigns/{campaign_id}/stop | 
+*DefaultApi* | [**update_campaign_stop**](docs/DefaultApi.md#update_campaign_stop) | **POST** /v3/campaigns/{campaign_id}/stop | 
 *DefaultApi* | [**update_campaign_update**](docs/DefaultApi.md#update_campaign_update) | **PUT** /v3/campaigns/{campaign_id}/ | 
 *DefaultApi* | [**v3_update_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get**](docs/DefaultApi.md#v3_update_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get) | **GET** /v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/ | 
 *DefaultApi* | [**v3_update_campaigns_campaign_id_campaign_device_metadata_get**](docs/DefaultApi.md#v3_update_campaigns_campaign_id_campaign_device_metadata_get) | **GET** /v3/update-campaigns/{campaign_id}/campaign-device-metadata/ | 
