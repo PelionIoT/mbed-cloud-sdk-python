@@ -57,14 +57,16 @@ iam.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # iam.configuration.api_key_prefix['Authorization'] = 'Bearer'
 # create an instance of the API class
 api_instance = iam.AccountAdminApi()
-body = iam.TrustedCertificateReq() # TrustedCertificateReq | A trusted certificate object with attributes.
+account_id = 'account_id_example' # str | Account ID.
+api_key = 'api_key_example' # str | The ID of the API key to be added to the group.
+body = [iam.list[str]()] # list[str] | A list of IDs of the groups to be updated.
 
 try:
-    # Upload a new trusted certificate.
-    api_response = api_instance.add_certificate(body)
+    # Add API key to a list of groups.
+    api_response = api_instance.add_account_api_key_to_groups(account_id, api_key, body)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling AccountAdminApi->add_certificate: %s\n" % e)
+    print("Exception when calling AccountAdminApi->add_account_api_key_to_groups: %s\n" % e)
 
 ```
 
@@ -74,16 +76,61 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*AccountAdminApi* | [**add_account_api_key_to_groups**](docs/AccountAdminApi.md#add_account_api_key_to_groups) | **POST** /v3/accounts/{accountID}/api-keys/{apiKey}/groups | Add API key to a list of groups.
+*AccountAdminApi* | [**add_api_key_to_groups**](docs/AccountAdminApi.md#add_api_key_to_groups) | **POST** /v3/api-keys/{apiKey}/groups | Add API key to a list of groups.
 *AccountAdminApi* | [**add_certificate**](docs/AccountAdminApi.md#add_certificate) | **POST** /v3/trusted-certificates | Upload a new trusted certificate.
 *AccountAdminApi* | [**add_subjects_to_group**](docs/AccountAdminApi.md#add_subjects_to_group) | **POST** /v3/policy-groups/{groupID} | Add members to a group.
+*AccountAdminApi* | [**add_user_to_groups**](docs/AccountAdminApi.md#add_user_to_groups) | **POST** /v3/users/{user-id}/groups | Add user to a list of groups.
+*AccountAdminApi* | [**create_group**](docs/AccountAdminApi.md#create_group) | **POST** /v3/policy-groups | Create a new group.
 *AccountAdminApi* | [**create_user**](docs/AccountAdminApi.md#create_user) | **POST** /v3/users | Create a new user.
+*AccountAdminApi* | [**delete_group**](docs/AccountAdminApi.md#delete_group) | **DELETE** /v3/policy-groups/{groupID} | Delete a group.
 *AccountAdminApi* | [**delete_user**](docs/AccountAdminApi.md#delete_user) | **DELETE** /v3/users/{user-id} | Delete a user.
 *AccountAdminApi* | [**get_all_users**](docs/AccountAdminApi.md#get_all_users) | **GET** /v3/users | Get the details of all users.
+*AccountAdminApi* | [**get_groups_of_account_apikey**](docs/AccountAdminApi.md#get_groups_of_account_apikey) | **GET** /v3/accounts/{accountID}/api-keys/{apiKey}/groups | Get groups of the API key.
+*AccountAdminApi* | [**get_groups_of_apikey**](docs/AccountAdminApi.md#get_groups_of_apikey) | **GET** /v3/api-keys/{apiKey}/groups | Get groups of the API key.
+*AccountAdminApi* | [**get_groups_of_user**](docs/AccountAdminApi.md#get_groups_of_user) | **GET** /v3/users/{user-id}/groups | Get groups of the user.
 *AccountAdminApi* | [**get_user**](docs/AccountAdminApi.md#get_user) | **GET** /v3/users/{user-id} | Details of a user.
 *AccountAdminApi* | [**get_users_of_group**](docs/AccountAdminApi.md#get_users_of_group) | **GET** /v3/policy-groups/{groupID}/users | Get users of a group.
+*AccountAdminApi* | [**remove_account_api_key_from_groups**](docs/AccountAdminApi.md#remove_account_api_key_from_groups) | **DELETE** /v3/accounts/{accountID}/api-keys/{apiKey}/groups | Remove API key from groups.
+*AccountAdminApi* | [**remove_api_key_from_groups**](docs/AccountAdminApi.md#remove_api_key_from_groups) | **DELETE** /v3/api-keys/{apiKey}/groups | Remove API key from groups.
+*AccountAdminApi* | [**remove_user_from_groups**](docs/AccountAdminApi.md#remove_user_from_groups) | **DELETE** /v3/users/{user-id}/groups | Remove user from groups.
 *AccountAdminApi* | [**remove_users_from_group**](docs/AccountAdminApi.md#remove_users_from_group) | **DELETE** /v3/policy-groups/{groupID}/users | Remove users from a group.
 *AccountAdminApi* | [**update_my_account**](docs/AccountAdminApi.md#update_my_account) | **PUT** /v3/accounts/me | Updates attributes of the account.
 *AccountAdminApi* | [**update_user**](docs/AccountAdminApi.md#update_user) | **PUT** /v3/users/{user-id} | Update user details.
+*AggregatorAccountAdminApi* | [**add_account_certificate**](docs/AggregatorAccountAdminApi.md#add_account_certificate) | **POST** /v3/accounts/{accountID}/trusted-certificates | Upload new trusted certificate.
+*AggregatorAccountAdminApi* | [**add_account_user_to_groups**](docs/AggregatorAccountAdminApi.md#add_account_user_to_groups) | **POST** /v3/accounts/{accountID}/users/{user-id}/groups | Add user to a list of groups.
+*AggregatorAccountAdminApi* | [**add_subjects_to_account_group**](docs/AggregatorAccountAdminApi.md#add_subjects_to_account_group) | **POST** /v3/accounts/{accountID}/policy-groups/{groupID} | Add members to a group.
+*AggregatorAccountAdminApi* | [**check_account_api_key**](docs/AggregatorAccountAdminApi.md#check_account_api_key) | **POST** /v3/accounts/{accountID}/api-keys/{apiKey} | Check the API key.
+*AggregatorAccountAdminApi* | [**create_account**](docs/AggregatorAccountAdminApi.md#create_account) | **POST** /v3/accounts | Create a new account.
+*AggregatorAccountAdminApi* | [**create_account_api_key**](docs/AggregatorAccountAdminApi.md#create_account_api_key) | **POST** /v3/accounts/{accountID}/api-keys | Create a new API key.
+*AggregatorAccountAdminApi* | [**create_account_user**](docs/AggregatorAccountAdminApi.md#create_account_user) | **POST** /v3/accounts/{accountID}/users | Create a new user.
+*AggregatorAccountAdminApi* | [**delete_account_api_key**](docs/AggregatorAccountAdminApi.md#delete_account_api_key) | **DELETE** /v3/accounts/{accountID}/api-keys/{apiKey} | Delete the API key.
+*AggregatorAccountAdminApi* | [**delete_account_certificate**](docs/AggregatorAccountAdminApi.md#delete_account_certificate) | **DELETE** /v3/accounts/{accountID}/trusted-certificates/{cert-id} | Delete trusted certificate by ID.
+*AggregatorAccountAdminApi* | [**delete_account_user**](docs/AggregatorAccountAdminApi.md#delete_account_user) | **DELETE** /v3/accounts/{accountID}/users/{user-id} | Delete a user.
+*AggregatorAccountAdminApi* | [**get_account_api_key**](docs/AggregatorAccountAdminApi.md#get_account_api_key) | **GET** /v3/accounts/{accountID}/api-keys/{apiKey} | Get API key details.
+*AggregatorAccountAdminApi* | [**get_account_certificate**](docs/AggregatorAccountAdminApi.md#get_account_certificate) | **GET** /v3/accounts/{accountID}/trusted-certificates/{cert-id} | Get trusted certificate by ID.
+*AggregatorAccountAdminApi* | [**get_account_group_summary**](docs/AggregatorAccountAdminApi.md#get_account_group_summary) | **GET** /v3/accounts/{accountID}/policy-groups/{groupID} | Get group information.
+*AggregatorAccountAdminApi* | [**get_account_info**](docs/AggregatorAccountAdminApi.md#get_account_info) | **GET** /v3/accounts/{accountID} | Get account info.
+*AggregatorAccountAdminApi* | [**get_account_user**](docs/AggregatorAccountAdminApi.md#get_account_user) | **GET** /v3/accounts/{accountID}/users/{user-id} | Details of the user.
+*AggregatorAccountAdminApi* | [**get_all_account_api_keys**](docs/AggregatorAccountAdminApi.md#get_all_account_api_keys) | **GET** /v3/accounts/{accountID}/api-keys | Get all API keys.
+*AggregatorAccountAdminApi* | [**get_all_account_certificates**](docs/AggregatorAccountAdminApi.md#get_all_account_certificates) | **GET** /v3/accounts/{accountID}/trusted-certificates | Get all trusted certificates.
+*AggregatorAccountAdminApi* | [**get_all_account_groups**](docs/AggregatorAccountAdminApi.md#get_all_account_groups) | **GET** /v3/accounts/{accountID}/policy-groups | Get all group information.
+*AggregatorAccountAdminApi* | [**get_all_account_users**](docs/AggregatorAccountAdminApi.md#get_all_account_users) | **GET** /v3/accounts/{accountID}/users | Get all user details.
+*AggregatorAccountAdminApi* | [**get_all_accounts**](docs/AggregatorAccountAdminApi.md#get_all_accounts) | **GET** /v3/accounts | Get all accounts.
+*AggregatorAccountAdminApi* | [**get_api_keys_of_account_group**](docs/AggregatorAccountAdminApi.md#get_api_keys_of_account_group) | **GET** /v3/accounts/{accountID}/policy-groups/{groupID}/api-keys | Get API keys of a group.
+*AggregatorAccountAdminApi* | [**get_groups_of_account_user**](docs/AggregatorAccountAdminApi.md#get_groups_of_account_user) | **GET** /v3/accounts/{accountID}/users/{user-id}/groups | Get groups of the user.
+*AggregatorAccountAdminApi* | [**get_users_of_account_group**](docs/AggregatorAccountAdminApi.md#get_users_of_account_group) | **GET** /v3/accounts/{accountID}/policy-groups/{groupID}/users | Get users of a group.
+*AggregatorAccountAdminApi* | [**remove_account_user_from_groups**](docs/AggregatorAccountAdminApi.md#remove_account_user_from_groups) | **DELETE** /v3/accounts/{accountID}/users/{user-id}/groups | Remove user from groups.
+*AggregatorAccountAdminApi* | [**remove_api_keys_from_account_group**](docs/AggregatorAccountAdminApi.md#remove_api_keys_from_account_group) | **DELETE** /v3/accounts/{accountID}/policy-groups/{groupID}/api-keys | Remove API keys from a group.
+*AggregatorAccountAdminApi* | [**remove_users_from_account_group**](docs/AggregatorAccountAdminApi.md#remove_users_from_account_group) | **DELETE** /v3/accounts/{accountID}/policy-groups/{groupID}/users | Remove users from a group.
+*AggregatorAccountAdminApi* | [**reset_account_api_key_secret**](docs/AggregatorAccountAdminApi.md#reset_account_api_key_secret) | **POST** /v3/accounts/{accountID}/api-keys/{apiKey}/reset-secret | Reset the secret key.
+*AggregatorAccountAdminApi* | [**update_account**](docs/AggregatorAccountAdminApi.md#update_account) | **PUT** /v3/accounts/{accountID} | Update attributes of an existing account.
+*AggregatorAccountAdminApi* | [**update_account_api_key**](docs/AggregatorAccountAdminApi.md#update_account_api_key) | **PUT** /v3/accounts/{accountID}/api-keys/{apiKey} | Update API key details.
+*AggregatorAccountAdminApi* | [**update_account_certificate**](docs/AggregatorAccountAdminApi.md#update_account_certificate) | **PUT** /v3/accounts/{accountID}/trusted-certificates/{cert-id} | Update trusted certificate.
+*AggregatorAccountAdminApi* | [**update_account_user**](docs/AggregatorAccountAdminApi.md#update_account_user) | **PUT** /v3/accounts/{accountID}/users/{user-id} | Update user details.
+*AggregatorAccountAdminApi* | [**validate_account_user_email**](docs/AggregatorAccountAdminApi.md#validate_account_user_email) | **POST** /v3/accounts/{accountID}/users/{user-id}/validate-email | Validate the user email.
+*DeveloperApi* | [**add_me_to_groups**](docs/DeveloperApi.md#add_me_to_groups) | **POST** /v3/users/me/groups | Add user to a list of groupS.
+*DeveloperApi* | [**add_my_api_key_to_groups**](docs/DeveloperApi.md#add_my_api_key_to_groups) | **POST** /v3/api-keys/me/groups | Add API key to a list of groups.
 *DeveloperApi* | [**create_api_key**](docs/DeveloperApi.md#create_api_key) | **POST** /v3/api-keys | Create a new API key.
 *DeveloperApi* | [**delete_api_key**](docs/DeveloperApi.md#delete_api_key) | **DELETE** /v3/api-keys/{apiKey} | Delete API key.
 *DeveloperApi* | [**delete_certificate**](docs/DeveloperApi.md#delete_certificate) | **DELETE** /v3/trusted-certificates/{cert-id} | Delete a trusted certificate by ID.
@@ -94,10 +141,14 @@ Class | Method | HTTP request | Description
 *DeveloperApi* | [**get_api_keys_of_group**](docs/DeveloperApi.md#get_api_keys_of_group) | **GET** /v3/policy-groups/{groupID}/api-keys | Get the API keys of a group.
 *DeveloperApi* | [**get_certificate**](docs/DeveloperApi.md#get_certificate) | **GET** /v3/trusted-certificates/{cert-id} | Get trusted certificate by ID.
 *DeveloperApi* | [**get_group_summary**](docs/DeveloperApi.md#get_group_summary) | **GET** /v3/policy-groups/{groupID} | Get group information.
+*DeveloperApi* | [**get_groups_of_my_api_key**](docs/DeveloperApi.md#get_groups_of_my_api_key) | **GET** /v3/api-keys/me/groups | Get groups of the API key.
 *DeveloperApi* | [**get_my_account_info**](docs/DeveloperApi.md#get_my_account_info) | **GET** /v3/accounts/me | Get account info.
 *DeveloperApi* | [**get_my_api_key**](docs/DeveloperApi.md#get_my_api_key) | **GET** /v3/api-keys/me | Get API key details.
+*DeveloperApi* | [**get_my_groups**](docs/DeveloperApi.md#get_my_groups) | **GET** /v3/users/me/groups | Get groups of the user.
 *DeveloperApi* | [**get_my_user**](docs/DeveloperApi.md#get_my_user) | **GET** /v3/users/me | Details of the current user.
 *DeveloperApi* | [**remove_api_keys_from_group**](docs/DeveloperApi.md#remove_api_keys_from_group) | **DELETE** /v3/policy-groups/{groupID}/api-keys | Remove API keys from a group.
+*DeveloperApi* | [**remove_me_from_groups**](docs/DeveloperApi.md#remove_me_from_groups) | **DELETE** /v3/users/me/groups | Remove user from a group.
+*DeveloperApi* | [**remove_my_api_key_from_groups**](docs/DeveloperApi.md#remove_my_api_key_from_groups) | **DELETE** /v3/api-keys/me/groups | Remove API key from groups.
 *DeveloperApi* | [**update_api_key**](docs/DeveloperApi.md#update_api_key) | **PUT** /v3/api-keys/{apiKey} | Update API key details.
 *DeveloperApi* | [**update_certificate**](docs/DeveloperApi.md#update_certificate) | **PUT** /v3/trusted-certificates/{cert-id} | Update trusted certificate.
 *DeveloperApi* | [**update_my_api_key**](docs/DeveloperApi.md#update_my_api_key) | **PUT** /v3/api-keys/me | Update API key details.
@@ -106,8 +157,14 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [AccountCreationReq](docs/AccountCreationReq.md)
+ - [AccountCreationResp](docs/AccountCreationResp.md)
  - [AccountInfo](docs/AccountInfo.md)
+ - [AccountInfoList](docs/AccountInfoList.md)
  - [AccountUpdateReq](docs/AccountUpdateReq.md)
+ - [AccountUpdateRootReq](docs/AccountUpdateRootReq.md)
+ - [ActiveSession](docs/ActiveSession.md)
+ - [AdminUserUpdateReq](docs/AdminUserUpdateReq.md)
  - [ApiKeyInfoReq](docs/ApiKeyInfoReq.md)
  - [ApiKeyInfoResp](docs/ApiKeyInfoResp.md)
  - [ApiKeyInfoRespList](docs/ApiKeyInfoRespList.md)
@@ -115,15 +172,19 @@ Class | Method | HTTP request | Description
  - [ErrorResponse](docs/ErrorResponse.md)
  - [FeaturePolicy](docs/FeaturePolicy.md)
  - [Field](docs/Field.md)
+ - [GroupCreationInfo](docs/GroupCreationInfo.md)
  - [GroupSummary](docs/GroupSummary.md)
  - [GroupSummaryList](docs/GroupSummaryList.md)
  - [LoginHistory](docs/LoginHistory.md)
  - [MyUserInfoResp](docs/MyUserInfoResp.md)
  - [PasswordPolicy](docs/PasswordPolicy.md)
  - [SubjectList](docs/SubjectList.md)
+ - [TrustedCertificateInternalResp](docs/TrustedCertificateInternalResp.md)
+ - [TrustedCertificateInternalRespList](docs/TrustedCertificateInternalRespList.md)
  - [TrustedCertificateReq](docs/TrustedCertificateReq.md)
  - [TrustedCertificateResp](docs/TrustedCertificateResp.md)
  - [TrustedCertificateRespList](docs/TrustedCertificateRespList.md)
+ - [TrustedCertificateRootReq](docs/TrustedCertificateRootReq.md)
  - [TrustedCertificateUpdateReq](docs/TrustedCertificateUpdateReq.md)
  - [UpdatedResponse](docs/UpdatedResponse.md)
  - [UserInfoReq](docs/UserInfoReq.md)

@@ -32,6 +32,7 @@ class TrustedCertificateUpdateReq(object):
     """
     swagger_types = {
         'status': 'str',
+        'enrollment_mode': 'bool',
         'certificate': 'str',
         'name': 'str',
         'service': 'str',
@@ -41,6 +42,7 @@ class TrustedCertificateUpdateReq(object):
 
     attribute_map = {
         'status': 'status',
+        'enrollment_mode': 'enrollment_mode',
         'certificate': 'certificate',
         'name': 'name',
         'service': 'service',
@@ -48,12 +50,13 @@ class TrustedCertificateUpdateReq(object):
         'description': 'description'
     }
 
-    def __init__(self, status=None, certificate=None, name=None, service=None, signature=None, description=None):
+    def __init__(self, status=None, enrollment_mode=None, certificate=None, name=None, service=None, signature=None, description=None):
         """
         TrustedCertificateUpdateReq - a model defined in Swagger
         """
 
         self._status = status
+        self._enrollment_mode = enrollment_mode
         self._certificate = certificate
         self._name = name
         self._service = service
@@ -89,6 +92,29 @@ class TrustedCertificateUpdateReq(object):
             )
 
         self._status = status
+
+    @property
+    def enrollment_mode(self):
+        """
+        Gets the enrollment_mode of this TrustedCertificateUpdateReq.
+        If true, signature parameter is not required. Default value is false.
+
+        :return: The enrollment_mode of this TrustedCertificateUpdateReq.
+        :rtype: bool
+        """
+        return self._enrollment_mode
+
+    @enrollment_mode.setter
+    def enrollment_mode(self, enrollment_mode):
+        """
+        Sets the enrollment_mode of this TrustedCertificateUpdateReq.
+        If true, signature parameter is not required. Default value is false.
+
+        :param enrollment_mode: The enrollment_mode of this TrustedCertificateUpdateReq.
+        :type: bool
+        """
+
+        self._enrollment_mode = enrollment_mode
 
     @property
     def certificate(self):
