@@ -53,7 +53,8 @@ Two third-party tools are used in this example:
     - Follow the ngrok instructions to configure a tunnel
 - Run the example in a terminal with the following command:
     - `hug -f examples/webhook_ngrok.py https://YOUR_NGROK_ID_GOES_HERE.ngrok.io`
-- [optional] Visit `https://YOUR_NGROK_ID_GOES_HERE.ngrok.io/404` - a 404 page will indicate your connection works
+- [optional] Visit `https://YOUR_NGROK_ID_GOES_HERE.ngrok.io/404`
+  (a 404 page will indicate that your connection works)
 - Visit `http://127.0.0.1:8000/start` in your browser to initiate the sequence
 - View the result of the application in the terminal
 
@@ -68,7 +69,10 @@ import threading
 import traceback
 
 api = ConnectAPI()
-ngrok_url = sys.argv[-1] if len(sys.argv) == 4 else os.environ.get('NGROK_URL') or 'https://YOUR_NGROK_ID_GOES_HERE.ngrok.io'
+ngrok_url = sys.argv[-1] if len(sys.argv) == 4 else (
+    os.environ.get('NGROK_URL') or
+    'https://YOUR_NGROK_ID_GOES_HERE.ngrok.io'
+)
 os.environ['NGROK_URL'] = ngrok_url
 resource_path = "/3/0/2"
 
