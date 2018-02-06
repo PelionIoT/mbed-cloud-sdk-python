@@ -34,7 +34,7 @@ from mbed_cloud._backends.device_directory.models import DeviceData
 from mbed_cloud._backends.device_directory.models import DeviceDataPostRequest
 from mbed_cloud._backends.device_directory.models import DeviceEventData
 from mbed_cloud._backends.device_directory.models import DeviceQuery
-from mbed_cloud._backends.device_directory.models import DeviceQueryPatchRequest
+from mbed_cloud._backends.device_directory.models import DeviceQueryPostPutRequest
 from mbed_cloud._backends.device_directory.rest import ApiException as DeviceDirectoryApiException
 
 LOG = logging.getLogger(__name__)
@@ -255,9 +255,9 @@ class DeviceDirectoryAPI(BaseAPI):
         ) if filter else None
 
         query_map = Query._create_request_map(kwargs)
-        body = DeviceQueryPatchRequest(name=name, query=filter_obj['filter'], **query_map)
+        body = DeviceQueryPostPutRequest(name=name, query=filter_obj['filter'], **query_map)
         api = self._get_api(device_directory.DefaultApi)
-        return Query(api.device_query_partial_update(query_id, body))
+        return Query(api.device_query_update(query_id, body))
 
     @catch_exceptions(DeviceDirectoryApiException)
     def delete_query(self, query_id):
