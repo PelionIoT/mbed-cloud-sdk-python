@@ -24,6 +24,7 @@ Method | HTTP request | Description
 [**update_campaign_metadata_retreive**](DefaultApi.md#update_campaign_metadata_retreive) | **GET** /v3/campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/ | 
 [**update_campaign_retrieve**](DefaultApi.md#update_campaign_retrieve) | **GET** /v3/campaigns/{campaign_id}/ | 
 [**update_campaign_stop**](DefaultApi.md#update_campaign_stop) | **POST** /v3/campaigns/{campaign_id}/stop | 
+[**update_campaign_stop_0**](DefaultApi.md#update_campaign_stop_0) | **POST** /v3/update-campaigns/{campaign_id}/stop | 
 [**update_campaign_update**](DefaultApi.md#update_campaign_update) | **PUT** /v3/campaigns/{campaign_id}/ | 
 [**v3_update_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get**](DefaultApi.md#v3_update_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get) | **GET** /v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/ | 
 [**v3_update_campaigns_campaign_id_campaign_device_metadata_get**](DefaultApi.md#v3_update_campaigns_campaign_id_campaign_device_metadata_get) | **GET** /v3/update-campaigns/{campaign_id}/campaign-device-metadata/ | 
@@ -1085,7 +1086,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_campaign_stop**
-> UpdateCampaign update_campaign_stop(campaign_id)
+> update_campaign_stop(campaign_id)
 
 
 
@@ -1110,8 +1111,7 @@ api_instance = update_service.DefaultApi(update_service.ApiClient(configuration)
 campaign_id = 'campaign_id_example' # str | The campaign ID
 
 try: 
-    api_response = api_instance.update_campaign_stop(campaign_id)
-    pprint(api_response)
+    api_instance.update_campaign_stop(campaign_id)
 except ApiException as e:
     print("Exception when calling DefaultApi->update_campaign_stop: %s\n" % e)
 ```
@@ -1124,7 +1124,59 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**UpdateCampaign**](UpdateCampaign.md)
+void (empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **update_campaign_stop_0**
+> update_campaign_stop_0(campaign_id)
+
+
+
+Stop a running update campaign.
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import update_service
+from update_service.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+configuration = update_service.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = update_service.DefaultApi(update_service.ApiClient(configuration))
+campaign_id = 'campaign_id_example' # str | The campaign ID
+
+try: 
+    api_instance.update_campaign_stop_0(campaign_id)
+except ApiException as e:
+    print("Exception when calling DefaultApi->update_campaign_stop_0: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **campaign_id** | **str**| The campaign ID | 
+
+### Return type
+
+void (empty response body)
 
 ### Authorization
 
