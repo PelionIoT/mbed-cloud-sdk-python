@@ -12,6 +12,7 @@ $ pip install mbed-cloud-sdk
 
 ### Changes
 
+- Added 'claimed_at' field to Devices
 - Added 'last_update_time' to Groups
 - Added 'device_mode' to Certificate
 - Renamed 'owner' -> 'owner_id' on ApiKey
