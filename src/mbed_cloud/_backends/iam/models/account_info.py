@@ -34,24 +34,19 @@ class AccountInfo(object):
         'end_market': 'str',
         'status': 'str',
         'password_policy': 'PasswordPolicy',
-        'sales_contact': 'str',
-        'updated_at': 'datetime',
         'postal_code': 'str',
-        'account_properties': 'dict(str, dict(str, str))',
-        'customer_number': 'str',
         'id': 'str',
         'aliases': 'list[str]',
         'address_line2': 'str',
         'city': 'str',
         'address_line1': 'str',
         'display_name': 'str',
-        'mfa_status': 'str',
         'parent_id': 'str',
         'state': 'str',
         'etag': 'str',
+        'is_provisioning_allowed': 'bool',
         'email': 'str',
         'phone_number': 'str',
-        'reference_note': 'str',
         'company': 'str',
         'object': 'str',
         'reason': 'str',
@@ -62,11 +57,8 @@ class AccountInfo(object):
         'country': 'str',
         'created_at': 'datetime',
         'idle_timeout': 'str',
-        'contract_number': 'str',
-        'expiration_warning_threshold': 'str',
         'contact': 'str',
         'policies': 'list[FeaturePolicy]',
-        'notification_emails': 'list[str]',
         'template_id': 'str'
     }
 
@@ -74,24 +66,19 @@ class AccountInfo(object):
         'end_market': 'end_market',
         'status': 'status',
         'password_policy': 'password_policy',
-        'sales_contact': 'sales_contact',
-        'updated_at': 'updated_at',
         'postal_code': 'postal_code',
-        'account_properties': 'account_properties',
-        'customer_number': 'customer_number',
         'id': 'id',
         'aliases': 'aliases',
         'address_line2': 'address_line2',
         'city': 'city',
         'address_line1': 'address_line1',
         'display_name': 'display_name',
-        'mfa_status': 'mfa_status',
         'parent_id': 'parent_id',
         'state': 'state',
         'etag': 'etag',
+        'is_provisioning_allowed': 'is_provisioning_allowed',
         'email': 'email',
         'phone_number': 'phone_number',
-        'reference_note': 'reference_note',
         'company': 'company',
         'object': 'object',
         'reason': 'reason',
@@ -102,15 +89,12 @@ class AccountInfo(object):
         'country': 'country',
         'created_at': 'created_at',
         'idle_timeout': 'idle_timeout',
-        'contract_number': 'contract_number',
-        'expiration_warning_threshold': 'expiration_warning_threshold',
         'contact': 'contact',
         'policies': 'policies',
-        'notification_emails': 'notification_emails',
         'template_id': 'template_id'
     }
 
-    def __init__(self, end_market=None, status=None, password_policy=None, sales_contact=None, updated_at=None, postal_code=None, account_properties=None, customer_number=None, id=None, aliases=None, address_line2=None, city=None, address_line1=None, display_name=None, mfa_status=None, parent_id=None, state=None, etag=None, email=None, phone_number=None, reference_note=None, company=None, object=None, reason=None, upgraded_at=None, tier=None, sub_accounts=None, limits=None, country=None, created_at=None, idle_timeout=None, contract_number=None, expiration_warning_threshold=None, contact=None, policies=None, notification_emails=None, template_id=None):
+    def __init__(self, end_market=None, status=None, password_policy=None, postal_code=None, id=None, aliases=None, address_line2=None, city=None, address_line1=None, display_name=None, parent_id=None, state=None, etag=None, is_provisioning_allowed=None, email=None, phone_number=None, company=None, object=None, reason=None, upgraded_at=None, tier=None, sub_accounts=None, limits=None, country=None, created_at=None, idle_timeout=None, contact=None, policies=None, template_id=None):
         """
         AccountInfo - a model defined in Swagger
         """
@@ -118,24 +102,19 @@ class AccountInfo(object):
         self._end_market = end_market
         self._status = status
         self._password_policy = password_policy
-        self._sales_contact = sales_contact
-        self._updated_at = updated_at
         self._postal_code = postal_code
-        self._account_properties = account_properties
-        self._customer_number = customer_number
         self._id = id
         self._aliases = aliases
         self._address_line2 = address_line2
         self._city = city
         self._address_line1 = address_line1
         self._display_name = display_name
-        self._mfa_status = mfa_status
         self._parent_id = parent_id
         self._state = state
         self._etag = etag
+        self._is_provisioning_allowed = is_provisioning_allowed
         self._email = email
         self._phone_number = phone_number
-        self._reference_note = reference_note
         self._company = company
         self._object = object
         self._reason = reason
@@ -146,11 +125,8 @@ class AccountInfo(object):
         self._country = country
         self._created_at = created_at
         self._idle_timeout = idle_timeout
-        self._contract_number = contract_number
-        self._expiration_warning_threshold = expiration_warning_threshold
         self._contact = contact
         self._policies = policies
-        self._notification_emails = notification_emails
         self._template_id = template_id
         self.discriminator = None
 
@@ -234,52 +210,6 @@ class AccountInfo(object):
         self._password_policy = password_policy
 
     @property
-    def sales_contact(self):
-        """
-        Gets the sales_contact of this AccountInfo.
-        Email address of the sales contact.
-
-        :return: The sales_contact of this AccountInfo.
-        :rtype: str
-        """
-        return self._sales_contact
-
-    @sales_contact.setter
-    def sales_contact(self, sales_contact):
-        """
-        Sets the sales_contact of this AccountInfo.
-        Email address of the sales contact.
-
-        :param sales_contact: The sales_contact of this AccountInfo.
-        :type: str
-        """
-
-        self._sales_contact = sales_contact
-
-    @property
-    def updated_at(self):
-        """
-        Gets the updated_at of this AccountInfo.
-        Last update UTC time RFC3339.
-
-        :return: The updated_at of this AccountInfo.
-        :rtype: datetime
-        """
-        return self._updated_at
-
-    @updated_at.setter
-    def updated_at(self, updated_at):
-        """
-        Sets the updated_at of this AccountInfo.
-        Last update UTC time RFC3339.
-
-        :param updated_at: The updated_at of this AccountInfo.
-        :type: datetime
-        """
-
-        self._updated_at = updated_at
-
-    @property
     def postal_code(self):
         """
         Gets the postal_code of this AccountInfo.
@@ -301,52 +231,6 @@ class AccountInfo(object):
         """
 
         self._postal_code = postal_code
-
-    @property
-    def account_properties(self):
-        """
-        Gets the account_properties of this AccountInfo.
-        Account specific custom properties.
-
-        :return: The account_properties of this AccountInfo.
-        :rtype: dict(str, dict(str, str))
-        """
-        return self._account_properties
-
-    @account_properties.setter
-    def account_properties(self, account_properties):
-        """
-        Sets the account_properties of this AccountInfo.
-        Account specific custom properties.
-
-        :param account_properties: The account_properties of this AccountInfo.
-        :type: dict(str, dict(str, str))
-        """
-
-        self._account_properties = account_properties
-
-    @property
-    def customer_number(self):
-        """
-        Gets the customer_number of this AccountInfo.
-        Customer number of the customer.
-
-        :return: The customer_number of this AccountInfo.
-        :rtype: str
-        """
-        return self._customer_number
-
-    @customer_number.setter
-    def customer_number(self, customer_number):
-        """
-        Sets the customer_number of this AccountInfo.
-        Customer number of the customer.
-
-        :param customer_number: The customer_number of this AccountInfo.
-        :type: str
-        """
-
-        self._customer_number = customer_number
 
     @property
     def id(self):
@@ -491,35 +375,6 @@ class AccountInfo(object):
         self._display_name = display_name
 
     @property
-    def mfa_status(self):
-        """
-        Gets the mfa_status of this AccountInfo.
-        The enforcement status of the multi-factor authentication, either 'enforced' or 'optional'.
-
-        :return: The mfa_status of this AccountInfo.
-        :rtype: str
-        """
-        return self._mfa_status
-
-    @mfa_status.setter
-    def mfa_status(self, mfa_status):
-        """
-        Sets the mfa_status of this AccountInfo.
-        The enforcement status of the multi-factor authentication, either 'enforced' or 'optional'.
-
-        :param mfa_status: The mfa_status of this AccountInfo.
-        :type: str
-        """
-        allowed_values = ["enabled", "enforced", "optional"]
-        if mfa_status not in allowed_values:
-            raise ValueError(
-                "Invalid value for `mfa_status` ({0}), must be one of {1}"
-                .format(mfa_status, allowed_values)
-            )
-
-        self._mfa_status = mfa_status
-
-    @property
     def parent_id(self):
         """
         Gets the parent_id of this AccountInfo.
@@ -591,6 +446,31 @@ class AccountInfo(object):
         self._etag = etag
 
     @property
+    def is_provisioning_allowed(self):
+        """
+        Gets the is_provisioning_allowed of this AccountInfo.
+        Flag (true/false) indicating whether Factory Tool is allowed to download or not.
+
+        :return: The is_provisioning_allowed of this AccountInfo.
+        :rtype: bool
+        """
+        return self._is_provisioning_allowed
+
+    @is_provisioning_allowed.setter
+    def is_provisioning_allowed(self, is_provisioning_allowed):
+        """
+        Sets the is_provisioning_allowed of this AccountInfo.
+        Flag (true/false) indicating whether Factory Tool is allowed to download or not.
+
+        :param is_provisioning_allowed: The is_provisioning_allowed of this AccountInfo.
+        :type: bool
+        """
+        if is_provisioning_allowed is None:
+            raise ValueError("Invalid value for `is_provisioning_allowed`, must not be `None`")
+
+        self._is_provisioning_allowed = is_provisioning_allowed
+
+    @property
     def email(self):
         """
         Gets the email of this AccountInfo.
@@ -637,29 +517,6 @@ class AccountInfo(object):
         self._phone_number = phone_number
 
     @property
-    def reference_note(self):
-        """
-        Gets the reference_note of this AccountInfo.
-        A reference note for updating the status of the account
-
-        :return: The reference_note of this AccountInfo.
-        :rtype: str
-        """
-        return self._reference_note
-
-    @reference_note.setter
-    def reference_note(self, reference_note):
-        """
-        Sets the reference_note of this AccountInfo.
-        A reference note for updating the status of the account
-
-        :param reference_note: The reference_note of this AccountInfo.
-        :type: str
-        """
-
-        self._reference_note = reference_note
-
-    @property
     def company(self):
         """
         Gets the company of this AccountInfo.
@@ -704,7 +561,7 @@ class AccountInfo(object):
         """
         if object is None:
             raise ValueError("Invalid value for `object`, must not be `None`")
-        allowed_values = ["user", "api-key", "group", "account", "account-template", "trusted-cert", "list", "error", "policy", "identity-provider"]
+        allowed_values = ["user", "api-key", "group", "account", "account-template", "trusted-cert", "list", "error"]
         if object not in allowed_values:
             raise ValueError(
                 "Invalid value for `object` ({0}), must be one of {1}"
@@ -900,52 +757,6 @@ class AccountInfo(object):
         self._idle_timeout = idle_timeout
 
     @property
-    def contract_number(self):
-        """
-        Gets the contract_number of this AccountInfo.
-        Contract number of the customer.
-
-        :return: The contract_number of this AccountInfo.
-        :rtype: str
-        """
-        return self._contract_number
-
-    @contract_number.setter
-    def contract_number(self, contract_number):
-        """
-        Sets the contract_number of this AccountInfo.
-        Contract number of the customer.
-
-        :param contract_number: The contract_number of this AccountInfo.
-        :type: str
-        """
-
-        self._contract_number = contract_number
-
-    @property
-    def expiration_warning_threshold(self):
-        """
-        Gets the expiration_warning_threshold of this AccountInfo.
-        Indicates how many days before the account expiration a notification email should be sent.
-
-        :return: The expiration_warning_threshold of this AccountInfo.
-        :rtype: str
-        """
-        return self._expiration_warning_threshold
-
-    @expiration_warning_threshold.setter
-    def expiration_warning_threshold(self, expiration_warning_threshold):
-        """
-        Sets the expiration_warning_threshold of this AccountInfo.
-        Indicates how many days before the account expiration a notification email should be sent.
-
-        :param expiration_warning_threshold: The expiration_warning_threshold of this AccountInfo.
-        :type: str
-        """
-
-        self._expiration_warning_threshold = expiration_warning_threshold
-
-    @property
     def contact(self):
         """
         Gets the contact of this AccountInfo.
@@ -990,29 +801,6 @@ class AccountInfo(object):
         """
 
         self._policies = policies
-
-    @property
-    def notification_emails(self):
-        """
-        Gets the notification_emails of this AccountInfo.
-        A list of notification email addresses.
-
-        :return: The notification_emails of this AccountInfo.
-        :rtype: list[str]
-        """
-        return self._notification_emails
-
-    @notification_emails.setter
-    def notification_emails(self, notification_emails):
-        """
-        Sets the notification_emails of this AccountInfo.
-        A list of notification email addresses.
-
-        :param notification_emails: The notification_emails of this AccountInfo.
-        :type: list[str]
-        """
-
-        self._notification_emails = notification_emails
 
     @property
     def template_id(self):

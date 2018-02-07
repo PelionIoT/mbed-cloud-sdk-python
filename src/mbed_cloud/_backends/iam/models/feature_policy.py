@@ -34,19 +34,17 @@ class FeaturePolicy(object):
         'action': 'str',
         'resource': 'str',
         'feature': 'str',
-        'allow': 'bool',
-        'inherited': 'bool'
+        'allow': 'bool'
     }
 
     attribute_map = {
         'action': 'action',
         'resource': 'resource',
         'feature': 'feature',
-        'allow': 'allow',
-        'inherited': 'inherited'
+        'allow': 'allow'
     }
 
-    def __init__(self, action=None, resource=None, feature=None, allow=None, inherited=None):
+    def __init__(self, action=None, resource=None, feature=None, allow=None):
         """
         FeaturePolicy - a model defined in Swagger
         """
@@ -55,7 +53,6 @@ class FeaturePolicy(object):
         self._resource = resource
         self._feature = feature
         self._allow = allow
-        self._inherited = inherited
         self.discriminator = None
 
     @property
@@ -149,29 +146,6 @@ class FeaturePolicy(object):
         """
 
         self._allow = allow
-
-    @property
-    def inherited(self):
-        """
-        Gets the inherited of this FeaturePolicy.
-        Flag indicating whether this feature is inherited or overwritten specifically.
-
-        :return: The inherited of this FeaturePolicy.
-        :rtype: bool
-        """
-        return self._inherited
-
-    @inherited.setter
-    def inherited(self, inherited):
-        """
-        Sets the inherited of this FeaturePolicy.
-        Flag indicating whether this feature is inherited or overwritten specifically.
-
-        :param inherited: The inherited of this FeaturePolicy.
-        :type: bool
-        """
-
-        self._inherited = inherited
 
     def to_dict(self):
         """

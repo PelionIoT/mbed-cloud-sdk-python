@@ -37,7 +37,6 @@ class ApiKeyInfoResp(object):
         'created_at': 'datetime',
         'object': 'str',
         'creation_time': 'int',
-        'updated_at': 'datetime',
         'etag': 'str',
         'key': 'str',
         'owner': 'str',
@@ -52,7 +51,6 @@ class ApiKeyInfoResp(object):
         'created_at': 'created_at',
         'object': 'object',
         'creation_time': 'creation_time',
-        'updated_at': 'updated_at',
         'etag': 'etag',
         'key': 'key',
         'owner': 'owner',
@@ -60,7 +58,7 @@ class ApiKeyInfoResp(object):
         'last_login_time': 'last_login_time'
     }
 
-    def __init__(self, groups=None, status=None, name=None, created_at=None, object=None, creation_time=None, updated_at=None, etag=None, key=None, owner=None, id=None, last_login_time=None):
+    def __init__(self, groups=None, status=None, name=None, created_at=None, object=None, creation_time=None, etag=None, key=None, owner=None, id=None, last_login_time=None):
         """
         ApiKeyInfoResp - a model defined in Swagger
         """
@@ -71,7 +69,6 @@ class ApiKeyInfoResp(object):
         self._created_at = created_at
         self._object = object
         self._creation_time = creation_time
-        self._updated_at = updated_at
         self._etag = etag
         self._key = key
         self._owner = owner
@@ -201,7 +198,7 @@ class ApiKeyInfoResp(object):
         """
         if object is None:
             raise ValueError("Invalid value for `object`, must not be `None`")
-        allowed_values = ["user", "api-key", "group", "account", "account-template", "trusted-cert", "list", "error", "policy", "identity-provider"]
+        allowed_values = ["user", "api-key", "group", "account", "account-template", "trusted-cert", "list", "error"]
         if object not in allowed_values:
             raise ValueError(
                 "Invalid value for `object` ({0}), must be one of {1}"
@@ -232,29 +229,6 @@ class ApiKeyInfoResp(object):
         """
 
         self._creation_time = creation_time
-
-    @property
-    def updated_at(self):
-        """
-        Gets the updated_at of this ApiKeyInfoResp.
-        Last update UTC time RFC3339.
-
-        :return: The updated_at of this ApiKeyInfoResp.
-        :rtype: datetime
-        """
-        return self._updated_at
-
-    @updated_at.setter
-    def updated_at(self, updated_at):
-        """
-        Sets the updated_at of this ApiKeyInfoResp.
-        Last update UTC time RFC3339.
-
-        :param updated_at: The updated_at of this ApiKeyInfoResp.
-        :type: datetime
-        """
-
-        self._updated_at = updated_at
 
     @property
     def etag(self):
@@ -310,7 +284,7 @@ class ApiKeyInfoResp(object):
     def owner(self):
         """
         Gets the owner of this ApiKeyInfoResp.
-        The owner of this API key, who is the creator by default.
+        The owner of this API key.
 
         :return: The owner of this ApiKeyInfoResp.
         :rtype: str
@@ -321,7 +295,7 @@ class ApiKeyInfoResp(object):
     def owner(self, owner):
         """
         Sets the owner of this ApiKeyInfoResp.
-        The owner of this API key, who is the creator by default.
+        The owner of this API key.
 
         :param owner: The owner of this ApiKeyInfoResp.
         :type: str

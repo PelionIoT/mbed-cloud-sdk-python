@@ -31,44 +31,70 @@ class GroupSummary(object):
                             and the value is json key in definition.
     """
     swagger_types = {
+        'last_update_time': 'int',
         'user_count': 'int',
-        'account_id': 'str',
+        'name': 'str',
         'created_at': 'datetime',
         'object': 'str',
-        'updated_at': 'datetime',
+        'creation_time': 'int',
         'etag': 'str',
         'apikey_count': 'int',
         'id': 'str',
-        'name': 'str'
+        'account_id': 'str'
     }
 
     attribute_map = {
+        'last_update_time': 'last_update_time',
         'user_count': 'user_count',
-        'account_id': 'account_id',
+        'name': 'name',
         'created_at': 'created_at',
         'object': 'object',
-        'updated_at': 'updated_at',
+        'creation_time': 'creation_time',
         'etag': 'etag',
         'apikey_count': 'apikey_count',
         'id': 'id',
-        'name': 'name'
+        'account_id': 'account_id'
     }
 
-    def __init__(self, user_count=None, account_id=None, created_at=None, object=None, updated_at=None, etag=None, apikey_count=None, id=None, name=None):
+    def __init__(self, last_update_time=None, user_count=None, name=None, created_at=None, object=None, creation_time=None, etag=None, apikey_count=None, id=None, account_id=None):
         """
         GroupSummary - a model defined in Swagger
         """
 
+        self._last_update_time = last_update_time
         self._user_count = user_count
-        self._account_id = account_id
+        self._name = name
         self._created_at = created_at
         self._object = object
-        self._updated_at = updated_at
+        self._creation_time = creation_time
         self._etag = etag
         self._apikey_count = apikey_count
         self._id = id
-        self._name = name
+        self._account_id = account_id
         self.discriminator = None
+
+    @property
+    def last_update_time(self):
+        """
+        Gets the last_update_time of this GroupSummary.
+        A timestamp of the latest group update, in milliseconds.
+
+        :return: The last_update_time of this GroupSummary.
+        :rtype: int
+        """
+        return self._last_update_time
+
+    @last_update_time.setter
+    def last_update_time(self, last_update_time):
+        """
+        Sets the last_update_time of this GroupSummary.
+        A timestamp of the latest group update, in milliseconds.
+
+        :param last_update_time: The last_update_time of this GroupSummary.
+        :type: int
+        """
+
+        self._last_update_time = last_update_time
 
     @property
     def user_count(self):
@@ -96,29 +122,29 @@ class GroupSummary(object):
         self._user_count = user_count
 
     @property
-    def account_id(self):
+    def name(self):
         """
-        Gets the account_id of this GroupSummary.
-        The UUID of the account this group belongs to.
+        Gets the name of this GroupSummary.
+        The name of the group.
 
-        :return: The account_id of this GroupSummary.
+        :return: The name of this GroupSummary.
         :rtype: str
         """
-        return self._account_id
+        return self._name
 
-    @account_id.setter
-    def account_id(self, account_id):
+    @name.setter
+    def name(self, name):
         """
-        Sets the account_id of this GroupSummary.
-        The UUID of the account this group belongs to.
+        Sets the name of this GroupSummary.
+        The name of the group.
 
-        :param account_id: The account_id of this GroupSummary.
+        :param name: The name of this GroupSummary.
         :type: str
         """
-        if account_id is None:
-            raise ValueError("Invalid value for `account_id`, must not be `None`")
+        if name is None:
+            raise ValueError("Invalid value for `name`, must not be `None`")
 
-        self._account_id = account_id
+        self._name = name
 
     @property
     def created_at(self):
@@ -165,7 +191,7 @@ class GroupSummary(object):
         """
         if object is None:
             raise ValueError("Invalid value for `object`, must not be `None`")
-        allowed_values = ["user", "api-key", "group", "account", "account-template", "trusted-cert", "list", "error", "policy", "identity-provider"]
+        allowed_values = ["user", "api-key", "group", "account", "account-template", "trusted-cert", "list", "error"]
         if object not in allowed_values:
             raise ValueError(
                 "Invalid value for `object` ({0}), must be one of {1}"
@@ -175,27 +201,27 @@ class GroupSummary(object):
         self._object = object
 
     @property
-    def updated_at(self):
+    def creation_time(self):
         """
-        Gets the updated_at of this GroupSummary.
-        Last update UTC time RFC3339.
+        Gets the creation_time of this GroupSummary.
+        A timestamp of the group creation in the storage, in milliseconds.
 
-        :return: The updated_at of this GroupSummary.
-        :rtype: datetime
+        :return: The creation_time of this GroupSummary.
+        :rtype: int
         """
-        return self._updated_at
+        return self._creation_time
 
-    @updated_at.setter
-    def updated_at(self, updated_at):
+    @creation_time.setter
+    def creation_time(self, creation_time):
         """
-        Sets the updated_at of this GroupSummary.
-        Last update UTC time RFC3339.
+        Sets the creation_time of this GroupSummary.
+        A timestamp of the group creation in the storage, in milliseconds.
 
-        :param updated_at: The updated_at of this GroupSummary.
-        :type: datetime
+        :param creation_time: The creation_time of this GroupSummary.
+        :type: int
         """
 
-        self._updated_at = updated_at
+        self._creation_time = creation_time
 
     @property
     def etag(self):
@@ -273,29 +299,29 @@ class GroupSummary(object):
         self._id = id
 
     @property
-    def name(self):
+    def account_id(self):
         """
-        Gets the name of this GroupSummary.
-        The name of the group.
+        Gets the account_id of this GroupSummary.
+        The UUID of the account this group belongs to.
 
-        :return: The name of this GroupSummary.
+        :return: The account_id of this GroupSummary.
         :rtype: str
         """
-        return self._name
+        return self._account_id
 
-    @name.setter
-    def name(self, name):
+    @account_id.setter
+    def account_id(self, account_id):
         """
-        Sets the name of this GroupSummary.
-        The name of the group.
+        Sets the account_id of this GroupSummary.
+        The UUID of the account this group belongs to.
 
-        :param name: The name of this GroupSummary.
+        :param account_id: The account_id of this GroupSummary.
         :type: str
         """
-        if name is None:
-            raise ValueError("Invalid value for `name`, must not be `None`")
+        if account_id is None:
+            raise ValueError("Invalid value for `account_id`, must not be `None`")
 
-        self._name = name
+        self._account_id = account_id
 
     def to_dict(self):
         """

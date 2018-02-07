@@ -31,368 +31,80 @@ class UserInfoResp(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'username': 'str',
-        'login_history': 'list[LoginHistory]',
-        'creation_time': 'int',
-        'updated_at': 'datetime',
-        'full_name': 'str',
-        'id': 'str',
-        'last_login_time': 'int',
-        'is_gtc_accepted': 'bool',
-        'etag': 'str',
-        'is_marketing_accepted': 'bool',
-        'phone_number': 'str',
-        'email': 'str',
         'status': 'str',
-        'account_id': 'str',
-        'object': 'str',
+        'username': 'str',
         'groups': 'list[str]',
-        'address': 'str',
-        'password': 'str',
+        'password_changed_time': 'int',
         'email_verified': 'bool',
         'created_at': 'datetime',
-        'user_properties': 'dict(str, dict(str, str))',
+        'object': 'str',
+        'is_gtc_accepted': 'bool',
+        'account_id': 'str',
+        'email': 'str',
+        'login_history': 'list[LoginHistory]',
         'is_totp_enabled': 'bool',
-        'password_changed_time': 'int'
+        'is_marketing_accepted': 'bool',
+        'etag': 'str',
+        'full_name': 'str',
+        'address': 'str',
+        'creation_time': 'int',
+        'password': 'str',
+        'phone_number': 'str',
+        'id': 'str',
+        'last_login_time': 'int'
     }
 
     attribute_map = {
-        'username': 'username',
-        'login_history': 'login_history',
-        'creation_time': 'creation_time',
-        'updated_at': 'updated_at',
-        'full_name': 'full_name',
-        'id': 'id',
-        'last_login_time': 'last_login_time',
-        'is_gtc_accepted': 'is_gtc_accepted',
-        'etag': 'etag',
-        'is_marketing_accepted': 'is_marketing_accepted',
-        'phone_number': 'phone_number',
-        'email': 'email',
         'status': 'status',
-        'account_id': 'account_id',
-        'object': 'object',
+        'username': 'username',
         'groups': 'groups',
-        'address': 'address',
-        'password': 'password',
+        'password_changed_time': 'password_changed_time',
         'email_verified': 'email_verified',
         'created_at': 'created_at',
-        'user_properties': 'user_properties',
+        'object': 'object',
+        'is_gtc_accepted': 'is_gtc_accepted',
+        'account_id': 'account_id',
+        'email': 'email',
+        'login_history': 'login_history',
         'is_totp_enabled': 'is_totp_enabled',
-        'password_changed_time': 'password_changed_time'
+        'is_marketing_accepted': 'is_marketing_accepted',
+        'etag': 'etag',
+        'full_name': 'full_name',
+        'address': 'address',
+        'creation_time': 'creation_time',
+        'password': 'password',
+        'phone_number': 'phone_number',
+        'id': 'id',
+        'last_login_time': 'last_login_time'
     }
 
-    def __init__(self, username=None, login_history=None, creation_time=None, updated_at=None, full_name=None, id=None, last_login_time=None, is_gtc_accepted=None, etag=None, is_marketing_accepted=None, phone_number=None, email=None, status=None, account_id=None, object=None, groups=None, address=None, password=None, email_verified=None, created_at=None, user_properties=None, is_totp_enabled=None, password_changed_time=None):
+    def __init__(self, status=None, username=None, groups=None, password_changed_time=None, email_verified=None, created_at=None, object=None, is_gtc_accepted=None, account_id=None, email=None, login_history=None, is_totp_enabled=None, is_marketing_accepted=None, etag=None, full_name=None, address=None, creation_time=None, password=None, phone_number=None, id=None, last_login_time=None):
         """
         UserInfoResp - a model defined in Swagger
         """
 
-        self._username = username
-        self._login_history = login_history
-        self._creation_time = creation_time
-        self._updated_at = updated_at
-        self._full_name = full_name
-        self._id = id
-        self._last_login_time = last_login_time
-        self._is_gtc_accepted = is_gtc_accepted
-        self._etag = etag
-        self._is_marketing_accepted = is_marketing_accepted
-        self._phone_number = phone_number
-        self._email = email
         self._status = status
-        self._account_id = account_id
-        self._object = object
+        self._username = username
         self._groups = groups
-        self._address = address
-        self._password = password
+        self._password_changed_time = password_changed_time
         self._email_verified = email_verified
         self._created_at = created_at
-        self._user_properties = user_properties
-        self._is_totp_enabled = is_totp_enabled
-        self._password_changed_time = password_changed_time
-        self.discriminator = None
-
-    @property
-    def username(self):
-        """
-        Gets the username of this UserInfoResp.
-        A username containing alphanumerical letters and -,._@+= characters.
-
-        :return: The username of this UserInfoResp.
-        :rtype: str
-        """
-        return self._username
-
-    @username.setter
-    def username(self, username):
-        """
-        Sets the username of this UserInfoResp.
-        A username containing alphanumerical letters and -,._@+= characters.
-
-        :param username: The username of this UserInfoResp.
-        :type: str
-        """
-
-        self._username = username
-
-    @property
-    def login_history(self):
-        """
-        Gets the login_history of this UserInfoResp.
-        Timestamps, succeedings, IP addresses and user agent information of the last five logins of the user, with timestamps in RFC3339 format.
-
-        :return: The login_history of this UserInfoResp.
-        :rtype: list[LoginHistory]
-        """
-        return self._login_history
-
-    @login_history.setter
-    def login_history(self, login_history):
-        """
-        Sets the login_history of this UserInfoResp.
-        Timestamps, succeedings, IP addresses and user agent information of the last five logins of the user, with timestamps in RFC3339 format.
-
-        :param login_history: The login_history of this UserInfoResp.
-        :type: list[LoginHistory]
-        """
-
-        self._login_history = login_history
-
-    @property
-    def creation_time(self):
-        """
-        Gets the creation_time of this UserInfoResp.
-        A timestamp of the user creation in the storage, in milliseconds.
-
-        :return: The creation_time of this UserInfoResp.
-        :rtype: int
-        """
-        return self._creation_time
-
-    @creation_time.setter
-    def creation_time(self, creation_time):
-        """
-        Sets the creation_time of this UserInfoResp.
-        A timestamp of the user creation in the storage, in milliseconds.
-
-        :param creation_time: The creation_time of this UserInfoResp.
-        :type: int
-        """
-
-        self._creation_time = creation_time
-
-    @property
-    def updated_at(self):
-        """
-        Gets the updated_at of this UserInfoResp.
-        Last update UTC time RFC3339.
-
-        :return: The updated_at of this UserInfoResp.
-        :rtype: datetime
-        """
-        return self._updated_at
-
-    @updated_at.setter
-    def updated_at(self, updated_at):
-        """
-        Sets the updated_at of this UserInfoResp.
-        Last update UTC time RFC3339.
-
-        :param updated_at: The updated_at of this UserInfoResp.
-        :type: datetime
-        """
-
-        self._updated_at = updated_at
-
-    @property
-    def full_name(self):
-        """
-        Gets the full_name of this UserInfoResp.
-        The full name of the user.
-
-        :return: The full_name of this UserInfoResp.
-        :rtype: str
-        """
-        return self._full_name
-
-    @full_name.setter
-    def full_name(self, full_name):
-        """
-        Sets the full_name of this UserInfoResp.
-        The full name of the user.
-
-        :param full_name: The full_name of this UserInfoResp.
-        :type: str
-        """
-
-        self._full_name = full_name
-
-    @property
-    def id(self):
-        """
-        Gets the id of this UserInfoResp.
-        The UUID of the user.
-
-        :return: The id of this UserInfoResp.
-        :rtype: str
-        """
-        return self._id
-
-    @id.setter
-    def id(self, id):
-        """
-        Sets the id of this UserInfoResp.
-        The UUID of the user.
-
-        :param id: The id of this UserInfoResp.
-        :type: str
-        """
-        if id is None:
-            raise ValueError("Invalid value for `id`, must not be `None`")
-
-        self._id = id
-
-    @property
-    def last_login_time(self):
-        """
-        Gets the last_login_time of this UserInfoResp.
-        A timestamp of the latest login of the user, in milliseconds.
-
-        :return: The last_login_time of this UserInfoResp.
-        :rtype: int
-        """
-        return self._last_login_time
-
-    @last_login_time.setter
-    def last_login_time(self, last_login_time):
-        """
-        Sets the last_login_time of this UserInfoResp.
-        A timestamp of the latest login of the user, in milliseconds.
-
-        :param last_login_time: The last_login_time of this UserInfoResp.
-        :type: int
-        """
-
-        self._last_login_time = last_login_time
-
-    @property
-    def is_gtc_accepted(self):
-        """
-        Gets the is_gtc_accepted of this UserInfoResp.
-        A flag indicating that the General Terms and Conditions has been accepted.
-
-        :return: The is_gtc_accepted of this UserInfoResp.
-        :rtype: bool
-        """
-        return self._is_gtc_accepted
-
-    @is_gtc_accepted.setter
-    def is_gtc_accepted(self, is_gtc_accepted):
-        """
-        Sets the is_gtc_accepted of this UserInfoResp.
-        A flag indicating that the General Terms and Conditions has been accepted.
-
-        :param is_gtc_accepted: The is_gtc_accepted of this UserInfoResp.
-        :type: bool
-        """
-
+        self._object = object
         self._is_gtc_accepted = is_gtc_accepted
-
-    @property
-    def etag(self):
-        """
-        Gets the etag of this UserInfoResp.
-        API resource entity version.
-
-        :return: The etag of this UserInfoResp.
-        :rtype: str
-        """
-        return self._etag
-
-    @etag.setter
-    def etag(self, etag):
-        """
-        Sets the etag of this UserInfoResp.
-        API resource entity version.
-
-        :param etag: The etag of this UserInfoResp.
-        :type: str
-        """
-        if etag is None:
-            raise ValueError("Invalid value for `etag`, must not be `None`")
-
-        self._etag = etag
-
-    @property
-    def is_marketing_accepted(self):
-        """
-        Gets the is_marketing_accepted of this UserInfoResp.
-        A flag indicating that receiving marketing information has been accepted.
-
-        :return: The is_marketing_accepted of this UserInfoResp.
-        :rtype: bool
-        """
-        return self._is_marketing_accepted
-
-    @is_marketing_accepted.setter
-    def is_marketing_accepted(self, is_marketing_accepted):
-        """
-        Sets the is_marketing_accepted of this UserInfoResp.
-        A flag indicating that receiving marketing information has been accepted.
-
-        :param is_marketing_accepted: The is_marketing_accepted of this UserInfoResp.
-        :type: bool
-        """
-
-        self._is_marketing_accepted = is_marketing_accepted
-
-    @property
-    def phone_number(self):
-        """
-        Gets the phone_number of this UserInfoResp.
-        Phone number.
-
-        :return: The phone_number of this UserInfoResp.
-        :rtype: str
-        """
-        return self._phone_number
-
-    @phone_number.setter
-    def phone_number(self, phone_number):
-        """
-        Sets the phone_number of this UserInfoResp.
-        Phone number.
-
-        :param phone_number: The phone_number of this UserInfoResp.
-        :type: str
-        """
-
-        self._phone_number = phone_number
-
-    @property
-    def email(self):
-        """
-        Gets the email of this UserInfoResp.
-        The email address.
-
-        :return: The email of this UserInfoResp.
-        :rtype: str
-        """
-        return self._email
-
-    @email.setter
-    def email(self, email):
-        """
-        Sets the email of this UserInfoResp.
-        The email address.
-
-        :param email: The email of this UserInfoResp.
-        :type: str
-        """
-        if email is None:
-            raise ValueError("Invalid value for `email`, must not be `None`")
-
+        self._account_id = account_id
         self._email = email
+        self._login_history = login_history
+        self._is_totp_enabled = is_totp_enabled
+        self._is_marketing_accepted = is_marketing_accepted
+        self._etag = etag
+        self._full_name = full_name
+        self._address = address
+        self._creation_time = creation_time
+        self._password = password
+        self._phone_number = phone_number
+        self._id = id
+        self._last_login_time = last_login_time
+        self.discriminator = None
 
     @property
     def status(self):
@@ -426,60 +138,27 @@ class UserInfoResp(object):
         self._status = status
 
     @property
-    def account_id(self):
+    def username(self):
         """
-        Gets the account_id of this UserInfoResp.
-        The UUID of the account.
+        Gets the username of this UserInfoResp.
+        A username containing alphanumerical letters and -,._@+= characters.
 
-        :return: The account_id of this UserInfoResp.
+        :return: The username of this UserInfoResp.
         :rtype: str
         """
-        return self._account_id
+        return self._username
 
-    @account_id.setter
-    def account_id(self, account_id):
+    @username.setter
+    def username(self, username):
         """
-        Sets the account_id of this UserInfoResp.
-        The UUID of the account.
+        Sets the username of this UserInfoResp.
+        A username containing alphanumerical letters and -,._@+= characters.
 
-        :param account_id: The account_id of this UserInfoResp.
+        :param username: The username of this UserInfoResp.
         :type: str
         """
-        if account_id is None:
-            raise ValueError("Invalid value for `account_id`, must not be `None`")
 
-        self._account_id = account_id
-
-    @property
-    def object(self):
-        """
-        Gets the object of this UserInfoResp.
-        Entity name: always 'user'
-
-        :return: The object of this UserInfoResp.
-        :rtype: str
-        """
-        return self._object
-
-    @object.setter
-    def object(self, object):
-        """
-        Sets the object of this UserInfoResp.
-        Entity name: always 'user'
-
-        :param object: The object of this UserInfoResp.
-        :type: str
-        """
-        if object is None:
-            raise ValueError("Invalid value for `object`, must not be `None`")
-        allowed_values = ["user", "api-key", "group", "account", "account-template", "trusted-cert", "list", "error", "policy", "identity-provider"]
-        if object not in allowed_values:
-            raise ValueError(
-                "Invalid value for `object` ({0}), must be one of {1}"
-                .format(object, allowed_values)
-            )
-
-        self._object = object
+        self._username = username
 
     @property
     def groups(self):
@@ -505,50 +184,27 @@ class UserInfoResp(object):
         self._groups = groups
 
     @property
-    def address(self):
+    def password_changed_time(self):
         """
-        Gets the address of this UserInfoResp.
-        Address.
+        Gets the password_changed_time of this UserInfoResp.
+        A timestamp of the latest change of the user password, in milliseconds.
 
-        :return: The address of this UserInfoResp.
-        :rtype: str
+        :return: The password_changed_time of this UserInfoResp.
+        :rtype: int
         """
-        return self._address
+        return self._password_changed_time
 
-    @address.setter
-    def address(self, address):
+    @password_changed_time.setter
+    def password_changed_time(self, password_changed_time):
         """
-        Sets the address of this UserInfoResp.
-        Address.
+        Sets the password_changed_time of this UserInfoResp.
+        A timestamp of the latest change of the user password, in milliseconds.
 
-        :param address: The address of this UserInfoResp.
-        :type: str
-        """
-
-        self._address = address
-
-    @property
-    def password(self):
-        """
-        Gets the password of this UserInfoResp.
-        The password when creating a new user. It will be generated when not present in the request.
-
-        :return: The password of this UserInfoResp.
-        :rtype: str
-        """
-        return self._password
-
-    @password.setter
-    def password(self, password):
-        """
-        Sets the password of this UserInfoResp.
-        The password when creating a new user. It will be generated when not present in the request.
-
-        :param password: The password of this UserInfoResp.
-        :type: str
+        :param password_changed_time: The password_changed_time of this UserInfoResp.
+        :type: int
         """
 
-        self._password = password
+        self._password_changed_time = password_changed_time
 
     @property
     def email_verified(self):
@@ -597,27 +253,131 @@ class UserInfoResp(object):
         self._created_at = created_at
 
     @property
-    def user_properties(self):
+    def object(self):
         """
-        Gets the user_properties of this UserInfoResp.
-        User's account specific custom properties.
+        Gets the object of this UserInfoResp.
+        Entity name: always 'user'
 
-        :return: The user_properties of this UserInfoResp.
-        :rtype: dict(str, dict(str, str))
+        :return: The object of this UserInfoResp.
+        :rtype: str
         """
-        return self._user_properties
+        return self._object
 
-    @user_properties.setter
-    def user_properties(self, user_properties):
+    @object.setter
+    def object(self, object):
         """
-        Sets the user_properties of this UserInfoResp.
-        User's account specific custom properties.
+        Sets the object of this UserInfoResp.
+        Entity name: always 'user'
 
-        :param user_properties: The user_properties of this UserInfoResp.
-        :type: dict(str, dict(str, str))
+        :param object: The object of this UserInfoResp.
+        :type: str
+        """
+        if object is None:
+            raise ValueError("Invalid value for `object`, must not be `None`")
+        allowed_values = ["user", "api-key", "group", "account", "account-template", "trusted-cert", "list", "error"]
+        if object not in allowed_values:
+            raise ValueError(
+                "Invalid value for `object` ({0}), must be one of {1}"
+                .format(object, allowed_values)
+            )
+
+        self._object = object
+
+    @property
+    def is_gtc_accepted(self):
+        """
+        Gets the is_gtc_accepted of this UserInfoResp.
+        A flag indicating that the General Terms and Conditions has been accepted.
+
+        :return: The is_gtc_accepted of this UserInfoResp.
+        :rtype: bool
+        """
+        return self._is_gtc_accepted
+
+    @is_gtc_accepted.setter
+    def is_gtc_accepted(self, is_gtc_accepted):
+        """
+        Sets the is_gtc_accepted of this UserInfoResp.
+        A flag indicating that the General Terms and Conditions has been accepted.
+
+        :param is_gtc_accepted: The is_gtc_accepted of this UserInfoResp.
+        :type: bool
         """
 
-        self._user_properties = user_properties
+        self._is_gtc_accepted = is_gtc_accepted
+
+    @property
+    def account_id(self):
+        """
+        Gets the account_id of this UserInfoResp.
+        The UUID of the account.
+
+        :return: The account_id of this UserInfoResp.
+        :rtype: str
+        """
+        return self._account_id
+
+    @account_id.setter
+    def account_id(self, account_id):
+        """
+        Sets the account_id of this UserInfoResp.
+        The UUID of the account.
+
+        :param account_id: The account_id of this UserInfoResp.
+        :type: str
+        """
+        if account_id is None:
+            raise ValueError("Invalid value for `account_id`, must not be `None`")
+
+        self._account_id = account_id
+
+    @property
+    def email(self):
+        """
+        Gets the email of this UserInfoResp.
+        The email address.
+
+        :return: The email of this UserInfoResp.
+        :rtype: str
+        """
+        return self._email
+
+    @email.setter
+    def email(self, email):
+        """
+        Sets the email of this UserInfoResp.
+        The email address.
+
+        :param email: The email of this UserInfoResp.
+        :type: str
+        """
+        if email is None:
+            raise ValueError("Invalid value for `email`, must not be `None`")
+
+        self._email = email
+
+    @property
+    def login_history(self):
+        """
+        Gets the login_history of this UserInfoResp.
+        Timestamps, succeedings, IP addresses and user agent information of the last five logins of the user, with timestamps in RFC3339 format.
+
+        :return: The login_history of this UserInfoResp.
+        :rtype: list[LoginHistory]
+        """
+        return self._login_history
+
+    @login_history.setter
+    def login_history(self, login_history):
+        """
+        Sets the login_history of this UserInfoResp.
+        Timestamps, succeedings, IP addresses and user agent information of the last five logins of the user, with timestamps in RFC3339 format.
+
+        :param login_history: The login_history of this UserInfoResp.
+        :type: list[LoginHistory]
+        """
+
+        self._login_history = login_history
 
     @property
     def is_totp_enabled(self):
@@ -643,27 +403,215 @@ class UserInfoResp(object):
         self._is_totp_enabled = is_totp_enabled
 
     @property
-    def password_changed_time(self):
+    def is_marketing_accepted(self):
         """
-        Gets the password_changed_time of this UserInfoResp.
-        A timestamp of the latest change of the user password, in milliseconds.
+        Gets the is_marketing_accepted of this UserInfoResp.
+        A flag indicating that receiving marketing information has been accepted.
 
-        :return: The password_changed_time of this UserInfoResp.
+        :return: The is_marketing_accepted of this UserInfoResp.
+        :rtype: bool
+        """
+        return self._is_marketing_accepted
+
+    @is_marketing_accepted.setter
+    def is_marketing_accepted(self, is_marketing_accepted):
+        """
+        Sets the is_marketing_accepted of this UserInfoResp.
+        A flag indicating that receiving marketing information has been accepted.
+
+        :param is_marketing_accepted: The is_marketing_accepted of this UserInfoResp.
+        :type: bool
+        """
+
+        self._is_marketing_accepted = is_marketing_accepted
+
+    @property
+    def etag(self):
+        """
+        Gets the etag of this UserInfoResp.
+        API resource entity version.
+
+        :return: The etag of this UserInfoResp.
+        :rtype: str
+        """
+        return self._etag
+
+    @etag.setter
+    def etag(self, etag):
+        """
+        Sets the etag of this UserInfoResp.
+        API resource entity version.
+
+        :param etag: The etag of this UserInfoResp.
+        :type: str
+        """
+        if etag is None:
+            raise ValueError("Invalid value for `etag`, must not be `None`")
+
+        self._etag = etag
+
+    @property
+    def full_name(self):
+        """
+        Gets the full_name of this UserInfoResp.
+        The full name of the user.
+
+        :return: The full_name of this UserInfoResp.
+        :rtype: str
+        """
+        return self._full_name
+
+    @full_name.setter
+    def full_name(self, full_name):
+        """
+        Sets the full_name of this UserInfoResp.
+        The full name of the user.
+
+        :param full_name: The full_name of this UserInfoResp.
+        :type: str
+        """
+
+        self._full_name = full_name
+
+    @property
+    def address(self):
+        """
+        Gets the address of this UserInfoResp.
+        Address.
+
+        :return: The address of this UserInfoResp.
+        :rtype: str
+        """
+        return self._address
+
+    @address.setter
+    def address(self, address):
+        """
+        Sets the address of this UserInfoResp.
+        Address.
+
+        :param address: The address of this UserInfoResp.
+        :type: str
+        """
+
+        self._address = address
+
+    @property
+    def creation_time(self):
+        """
+        Gets the creation_time of this UserInfoResp.
+        A timestamp of the user creation in the storage, in milliseconds.
+
+        :return: The creation_time of this UserInfoResp.
         :rtype: int
         """
-        return self._password_changed_time
+        return self._creation_time
 
-    @password_changed_time.setter
-    def password_changed_time(self, password_changed_time):
+    @creation_time.setter
+    def creation_time(self, creation_time):
         """
-        Sets the password_changed_time of this UserInfoResp.
-        A timestamp of the latest change of the user password, in milliseconds.
+        Sets the creation_time of this UserInfoResp.
+        A timestamp of the user creation in the storage, in milliseconds.
 
-        :param password_changed_time: The password_changed_time of this UserInfoResp.
+        :param creation_time: The creation_time of this UserInfoResp.
         :type: int
         """
 
-        self._password_changed_time = password_changed_time
+        self._creation_time = creation_time
+
+    @property
+    def password(self):
+        """
+        Gets the password of this UserInfoResp.
+        The password when creating a new user. It will be generated when not present in the request.
+
+        :return: The password of this UserInfoResp.
+        :rtype: str
+        """
+        return self._password
+
+    @password.setter
+    def password(self, password):
+        """
+        Sets the password of this UserInfoResp.
+        The password when creating a new user. It will be generated when not present in the request.
+
+        :param password: The password of this UserInfoResp.
+        :type: str
+        """
+
+        self._password = password
+
+    @property
+    def phone_number(self):
+        """
+        Gets the phone_number of this UserInfoResp.
+        Phone number.
+
+        :return: The phone_number of this UserInfoResp.
+        :rtype: str
+        """
+        return self._phone_number
+
+    @phone_number.setter
+    def phone_number(self, phone_number):
+        """
+        Sets the phone_number of this UserInfoResp.
+        Phone number.
+
+        :param phone_number: The phone_number of this UserInfoResp.
+        :type: str
+        """
+
+        self._phone_number = phone_number
+
+    @property
+    def id(self):
+        """
+        Gets the id of this UserInfoResp.
+        The UUID of the user.
+
+        :return: The id of this UserInfoResp.
+        :rtype: str
+        """
+        return self._id
+
+    @id.setter
+    def id(self, id):
+        """
+        Sets the id of this UserInfoResp.
+        The UUID of the user.
+
+        :param id: The id of this UserInfoResp.
+        :type: str
+        """
+        if id is None:
+            raise ValueError("Invalid value for `id`, must not be `None`")
+
+        self._id = id
+
+    @property
+    def last_login_time(self):
+        """
+        Gets the last_login_time of this UserInfoResp.
+        A timestamp of the latest login of the user, in milliseconds.
+
+        :return: The last_login_time of this UserInfoResp.
+        :rtype: int
+        """
+        return self._last_login_time
+
+    @last_login_time.setter
+    def last_login_time(self, last_login_time):
+        """
+        Sets the last_login_time of this UserInfoResp.
+        A timestamp of the latest login of the user, in milliseconds.
+
+        :param last_login_time: The last_login_time of this UserInfoResp.
+        :type: int
+        """
+
+        self._last_login_time = last_login_time
 
     def to_dict(self):
         """

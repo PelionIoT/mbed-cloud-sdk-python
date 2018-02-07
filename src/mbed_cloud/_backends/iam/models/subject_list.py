@@ -53,7 +53,7 @@ class SubjectList(object):
     def apikeys(self):
         """
         Gets the apikeys of this SubjectList.
-        An array of API key IDs.
+        An array of API keys.
 
         :return: The apikeys of this SubjectList.
         :rtype: list[str]
@@ -64,7 +64,7 @@ class SubjectList(object):
     def apikeys(self, apikeys):
         """
         Sets the apikeys of this SubjectList.
-        An array of API key IDs.
+        An array of API keys.
 
         :param apikeys: The apikeys of this SubjectList.
         :type: list[str]
@@ -76,7 +76,7 @@ class SubjectList(object):
     def users(self):
         """
         Gets the users of this SubjectList.
-        An array of user IDs.
+        An array of user names.
 
         :return: The users of this SubjectList.
         :rtype: list[str]
@@ -87,7 +87,7 @@ class SubjectList(object):
     def users(self, users):
         """
         Sets the users of this SubjectList.
-        An array of user IDs.
+        An array of user names.
 
         :param users: The users of this SubjectList.
         :type: list[str]

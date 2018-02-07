@@ -7,7 +7,6 @@ Name | Type | Description | Notes
 **resource** | **str** | Resource that is protected by this policy. | [optional] 
 **feature** | **str** | Feature name corresponding to this policy. | [optional] 
 **allow** | **bool** | True or false controlling whether an action is allowed or not. | [optional] 
-**inherited** | **bool** | Flag indicating whether this feature is inherited or overwritten specifically. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
