@@ -1,5 +1,33 @@
 # Changelog
 
+## 1.2.5
+
+### Deliverables
+
+The application is primarily hosted on pypi at https://pypi.org/project/mbed-cloud-sdk and can be installed using pip:
+
+```
+$ pip install mbed-cloud-sdk
+```
+
+### Changes
+
+- Added 'claimed_at' field to Devices
+- Added 'last_update_time' to Groups
+- Added 'device_mode' to Certificate
+- Renamed 'owner' -> 'owner_id' on ApiKey
+- Re-implemented PaginatedResponse to match the API spec
+  - Deprecation: No longer uses '.data' attribute
+  - Iterable but not indexable
+  - Ease-of-use functionality such as `.first()`
+- Improvements to BaseObject data handling
+- Various small improvements to correctness and consistency with other SDKs
+
+### Known Issues
+
+- No new issues
+
+
 ## 1.2.4
 
 ### Deliverables
