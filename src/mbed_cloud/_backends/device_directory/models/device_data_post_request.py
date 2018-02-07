@@ -139,7 +139,7 @@ class DeviceDataPostRequest(object):
     def bootstrapped_timestamp(self):
         """
         Gets the bootstrapped_timestamp of this DeviceDataPostRequest.
-        The timestamp of the device's most recent bootstrap process..
+        The timestamp of the device's most recent bootstrap process.
 
         :return: The bootstrapped_timestamp of this DeviceDataPostRequest.
         :rtype: datetime
@@ -150,7 +150,7 @@ class DeviceDataPostRequest(object):
     def bootstrapped_timestamp(self, bootstrapped_timestamp):
         """
         Sets the bootstrapped_timestamp of this DeviceDataPostRequest.
-        The timestamp of the device's most recent bootstrap process..
+        The timestamp of the device's most recent bootstrap process.
 
         :param bootstrapped_timestamp: The bootstrapped_timestamp of this DeviceDataPostRequest.
         :type: datetime

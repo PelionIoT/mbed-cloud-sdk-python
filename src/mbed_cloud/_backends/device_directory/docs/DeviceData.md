@@ -30,9 +30,10 @@ Name | Type | Description | Notes
 **mechanism_url** | **str** | The address of the connector to use. | [optional] 
 **name** | **str** | The name of the device. | [optional] 
 **device_key** | **str** | The fingerprint of the device certificate. | [optional] 
-**created_at** | **datetime** | The timestamp of when the device was created in the device directory. | [optional] 
+**enrolment_list_timestamp** | **datetime** | The claim date/time. | [optional] 
 **manifest** | **str** | DEPRECATED: The URL for the current device manifest. | [optional] 
 **custom_attributes** | **dict(str, str)** | Up to five custom key-value attributes. | [optional] 
+**created_at** | **datetime** | The timestamp of when the device was created in the device directory. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -58,9 +58,10 @@ class DeviceData(object):
         'mechanism_url': 'str',
         'name': 'str',
         'device_key': 'str',
-        'created_at': 'datetime',
+        'enrolment_list_timestamp': 'datetime',
         'manifest': 'str',
-        'custom_attributes': 'dict(str, str)'
+        'custom_attributes': 'dict(str, str)',
+        'created_at': 'datetime'
     }
 
     attribute_map = {
@@ -91,12 +92,13 @@ class DeviceData(object):
         'mechanism_url': 'mechanism_url',
         'name': 'name',
         'device_key': 'device_key',
-        'created_at': 'created_at',
+        'enrolment_list_timestamp': 'enrolment_list_timestamp',
         'manifest': 'manifest',
-        'custom_attributes': 'custom_attributes'
+        'custom_attributes': 'custom_attributes',
+        'created_at': 'created_at'
     }
 
-    def __init__(self, bootstrap_expiration_date=None, bootstrapped_timestamp=None, connector_expiration_date=None, updated_at=None, ca_id=None, device_class=None, id=None, account_id=None, endpoint_name=None, auto_update=None, host_gateway=None, device_execution_mode=None, mechanism=None, state=None, etag=None, serial_number=None, firmware_checksum=None, manifest_timestamp=None, vendor_id=None, description=None, deployed_state=None, object=None, endpoint_type=None, deployment=None, mechanism_url=None, name=None, device_key=None, created_at=None, manifest=None, custom_attributes=None):
+    def __init__(self, bootstrap_expiration_date=None, bootstrapped_timestamp=None, connector_expiration_date=None, updated_at=None, ca_id=None, device_class=None, id=None, account_id=None, endpoint_name=None, auto_update=None, host_gateway=None, device_execution_mode=None, mechanism=None, state=None, etag=None, serial_number=None, firmware_checksum=None, manifest_timestamp=None, vendor_id=None, description=None, deployed_state=None, object=None, endpoint_type=None, deployment=None, mechanism_url=None, name=None, device_key=None, enrolment_list_timestamp=None, manifest=None, custom_attributes=None, created_at=None):
         """
         DeviceData - a model defined in Swagger
         """
@@ -128,9 +130,10 @@ class DeviceData(object):
         self._mechanism_url = mechanism_url
         self._name = name
         self._device_key = device_key
-        self._created_at = created_at
+        self._enrolment_list_timestamp = enrolment_list_timestamp
         self._manifest = manifest
         self._custom_attributes = custom_attributes
+        self._created_at = created_at
         self.discriminator = None
 
     @property
@@ -785,27 +788,27 @@ class DeviceData(object):
         self._device_key = device_key
 
     @property
-    def created_at(self):
+    def enrolment_list_timestamp(self):
         """
-        Gets the created_at of this DeviceData.
-        The timestamp of when the device was created in the device directory.
+        Gets the enrolment_list_timestamp of this DeviceData.
+        The claim date/time.
 
-        :return: The created_at of this DeviceData.
+        :return: The enrolment_list_timestamp of this DeviceData.
         :rtype: datetime
         """
-        return self._created_at
+        return self._enrolment_list_timestamp
 
-    @created_at.setter
-    def created_at(self, created_at):
+    @enrolment_list_timestamp.setter
+    def enrolment_list_timestamp(self, enrolment_list_timestamp):
         """
-        Sets the created_at of this DeviceData.
-        The timestamp of when the device was created in the device directory.
+        Sets the enrolment_list_timestamp of this DeviceData.
+        The claim date/time.
 
-        :param created_at: The created_at of this DeviceData.
+        :param enrolment_list_timestamp: The enrolment_list_timestamp of this DeviceData.
         :type: datetime
         """
 
-        self._created_at = created_at
+        self._enrolment_list_timestamp = enrolment_list_timestamp
 
     @property
     def manifest(self):
@@ -852,6 +855,29 @@ class DeviceData(object):
         """
 
         self._custom_attributes = custom_attributes
+
+    @property
+    def created_at(self):
+        """
+        Gets the created_at of this DeviceData.
+        The timestamp of when the device was created in the device directory.
+
+        :return: The created_at of this DeviceData.
+        :rtype: datetime
+        """
+        return self._created_at
+
+    @created_at.setter
+    def created_at(self, created_at):
+        """
+        Sets the created_at of this DeviceData.
+        The timestamp of when the device was created in the device directory.
+
+        :param created_at: The created_at of this DeviceData.
+        :type: datetime
+        """
+
+        self._created_at = created_at
 
     def to_dict(self):
         """
