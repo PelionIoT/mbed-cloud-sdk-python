@@ -74,10 +74,13 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DefaultApi* | [**campaign_create**](docs/DefaultApi.md#campaign_create) | **POST** /v3/campaigns/ | 
-*DefaultApi* | [**campaign_destroy**](docs/DefaultApi.md#campaign_destroy) | **DELETE** /v3/update-campaigns/{campaign_id}/ | 
+*DefaultApi* | [**campaign_destroy**](docs/DefaultApi.md#campaign_destroy) | **DELETE** /v3/campaigns/{campaign_id}/ | 
 *DefaultApi* | [**campaign_list**](docs/DefaultApi.md#campaign_list) | **GET** /v3/campaigns/ | 
-*DefaultApi* | [**campaign_retrieve**](docs/DefaultApi.md#campaign_retrieve) | **GET** /v3/update-campaigns/{campaign_id}/ | 
-*DefaultApi* | [**campaign_update**](docs/DefaultApi.md#campaign_update) | **PUT** /v3/update-campaigns/{campaign_id}/ | 
+*DefaultApi* | [**campaign_metadata_list**](docs/DefaultApi.md#campaign_metadata_list) | **GET** /v3/campaigns/{campaign_id}/campaign-device-metadata/ | 
+*DefaultApi* | [**campaign_metadata_retreive**](docs/DefaultApi.md#campaign_metadata_retreive) | **GET** /v3/campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/ | 
+*DefaultApi* | [**campaign_retrieve**](docs/DefaultApi.md#campaign_retrieve) | **GET** /v3/campaigns/{campaign_id}/ | 
+*DefaultApi* | [**campaign_stop**](docs/DefaultApi.md#campaign_stop) | **POST** /v3/campaigns/{campaign_id}/stop | 
+*DefaultApi* | [**campaign_update**](docs/DefaultApi.md#campaign_update) | **PUT** /v3/campaigns/{campaign_id}/ | 
 *DefaultApi* | [**firmware_image_create**](docs/DefaultApi.md#firmware_image_create) | **POST** /v3/firmware-images/ | 
 *DefaultApi* | [**firmware_image_destroy**](docs/DefaultApi.md#firmware_image_destroy) | **DELETE** /v3/firmware-images/{image_id}/ | 
 *DefaultApi* | [**firmware_image_list**](docs/DefaultApi.md#firmware_image_list) | **GET** /v3/firmware-images/ | 
@@ -87,15 +90,13 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**firmware_manifest_list**](docs/DefaultApi.md#firmware_manifest_list) | **GET** /v3/firmware-manifests/ | 
 *DefaultApi* | [**firmware_manifest_retrieve**](docs/DefaultApi.md#firmware_manifest_retrieve) | **GET** /v3/firmware-manifests/{manifest_id}/ | 
 *DefaultApi* | [**update_campaign_create**](docs/DefaultApi.md#update_campaign_create) | **POST** /v3/update-campaigns/ | 
-*DefaultApi* | [**update_campaign_destroy**](docs/DefaultApi.md#update_campaign_destroy) | **DELETE** /v3/campaigns/{campaign_id}/ | 
+*DefaultApi* | [**update_campaign_destroy**](docs/DefaultApi.md#update_campaign_destroy) | **DELETE** /v3/update-campaigns/{campaign_id}/ | 
 *DefaultApi* | [**update_campaign_list**](docs/DefaultApi.md#update_campaign_list) | **GET** /v3/update-campaigns/ | 
-*DefaultApi* | [**update_campaign_metadata_list**](docs/DefaultApi.md#update_campaign_metadata_list) | **GET** /v3/campaigns/{campaign_id}/campaign-device-metadata/ | 
-*DefaultApi* | [**update_campaign_metadata_retreive**](docs/DefaultApi.md#update_campaign_metadata_retreive) | **GET** /v3/campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/ | 
-*DefaultApi* | [**update_campaign_retrieve**](docs/DefaultApi.md#update_campaign_retrieve) | **GET** /v3/campaigns/{campaign_id}/ | 
-*DefaultApi* | [**update_campaign_stop**](docs/DefaultApi.md#update_campaign_stop) | **POST** /v3/campaigns/{campaign_id}/stop | 
-*DefaultApi* | [**update_campaign_update**](docs/DefaultApi.md#update_campaign_update) | **PUT** /v3/campaigns/{campaign_id}/ | 
-*DefaultApi* | [**v3_update_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get**](docs/DefaultApi.md#v3_update_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get) | **GET** /v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/ | 
-*DefaultApi* | [**v3_update_campaigns_campaign_id_campaign_device_metadata_get**](docs/DefaultApi.md#v3_update_campaigns_campaign_id_campaign_device_metadata_get) | **GET** /v3/update-campaigns/{campaign_id}/campaign-device-metadata/ | 
+*DefaultApi* | [**update_campaign_metadata_list**](docs/DefaultApi.md#update_campaign_metadata_list) | **GET** /v3/update-campaigns/{campaign_id}/campaign-device-metadata/ | 
+*DefaultApi* | [**update_campaign_metadata_retrieve**](docs/DefaultApi.md#update_campaign_metadata_retrieve) | **GET** /v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/ | 
+*DefaultApi* | [**update_campaign_metadata_stop**](docs/DefaultApi.md#update_campaign_metadata_stop) | **POST** /v3/update-campaigns/{campaign_id}/stop | 
+*DefaultApi* | [**update_campaign_retrieve**](docs/DefaultApi.md#update_campaign_retrieve) | **GET** /v3/update-campaigns/{campaign_id}/ | 
+*DefaultApi* | [**update_campaign_update**](docs/DefaultApi.md#update_campaign_update) | **PUT** /v3/update-campaigns/{campaign_id}/ | 
 
 
 ## Documentation For Models
