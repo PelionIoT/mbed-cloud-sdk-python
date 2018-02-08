@@ -103,3 +103,5 @@ class Config(dict):
             if not isinstance(host, str):
                 host = host.encode('utf-8')
             self['host'] = host
+
+        self.setdefault('autostart_notification_thread', True)
