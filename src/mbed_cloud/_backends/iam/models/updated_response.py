@@ -90,7 +90,7 @@ class UpdatedResponse(object):
     def object(self):
         """
         Gets the object of this UpdatedResponse.
-        Entity name: 'user', 'apikey', 'group' or 'account'.
+        Entity name: 'user', 'apikey', 'group', 'policy' or 'account'.
 
         :return: The object of this UpdatedResponse.
         :rtype: str
@@ -101,14 +101,14 @@ class UpdatedResponse(object):
     def object(self, object):
         """
         Sets the object of this UpdatedResponse.
-        Entity name: 'user', 'apikey', 'group' or 'account'.
+        Entity name: 'user', 'apikey', 'group', 'policy' or 'account'.
 
         :param object: The object of this UpdatedResponse.
         :type: str
         """
         if object is None:
             raise ValueError("Invalid value for `object`, must not be `None`")
-        allowed_values = ["user", "api-key", "group", "account", "account-template", "trusted-cert", "list", "error"]
+        allowed_values = ["user", "api-key", "group", "account", "account-template", "trusted-cert", "list", "error", "policy", "identity-provider"]
         if object not in allowed_values:
             raise ValueError(
                 "Invalid value for `object` ({0}), must be one of {1}"

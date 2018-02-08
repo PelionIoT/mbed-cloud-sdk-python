@@ -4,6 +4,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **status** | **str** | Status of the certificate. | [optional] 
+**enrollment_mode** | **bool** | If true, signature parameter is not required. Default value is false. | [optional] 
 **certificate** | **str** | X509.v3 trusted certificate in PEM format. | [optional] 
 **name** | **str** | Certificate name, not longer than 100 characters. | [optional] 
 **service** | **str** | Service name where the certificate must be used. | [optional] 

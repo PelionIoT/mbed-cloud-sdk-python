@@ -32,6 +32,7 @@ class TrustedCertificateReq(object):
     """
     swagger_types = {
         'status': 'str',
+        'enrollment_mode': 'bool',
         'certificate': 'str',
         'name': 'str',
         'service': 'str',
@@ -41,6 +42,7 @@ class TrustedCertificateReq(object):
 
     attribute_map = {
         'status': 'status',
+        'enrollment_mode': 'enrollment_mode',
         'certificate': 'certificate',
         'name': 'name',
         'service': 'service',
@@ -48,12 +50,13 @@ class TrustedCertificateReq(object):
         'description': 'description'
     }
 
-    def __init__(self, status=None, certificate=None, name=None, service=None, signature=None, description=None):
+    def __init__(self, status=None, enrollment_mode=None, certificate=None, name=None, service=None, signature=None, description=None):
         """
         TrustedCertificateReq - a model defined in Swagger
         """
 
         self._status = status
+        self._enrollment_mode = enrollment_mode
         self._certificate = certificate
         self._name = name
         self._service = service
@@ -89,6 +92,29 @@ class TrustedCertificateReq(object):
             )
 
         self._status = status
+
+    @property
+    def enrollment_mode(self):
+        """
+        Gets the enrollment_mode of this TrustedCertificateReq.
+        If true, signature parameter is not required. Default value is false.
+
+        :return: The enrollment_mode of this TrustedCertificateReq.
+        :rtype: bool
+        """
+        return self._enrollment_mode
+
+    @enrollment_mode.setter
+    def enrollment_mode(self, enrollment_mode):
+        """
+        Sets the enrollment_mode of this TrustedCertificateReq.
+        If true, signature parameter is not required. Default value is false.
+
+        :param enrollment_mode: The enrollment_mode of this TrustedCertificateReq.
+        :type: bool
+        """
+
+        self._enrollment_mode = enrollment_mode
 
     @property
     def certificate(self):
@@ -175,7 +201,7 @@ class TrustedCertificateReq(object):
     def signature(self):
         """
         Gets the signature of this TrustedCertificateReq.
-        Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256.
+        Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256. Optional if enrollment_mode is 'true'.
 
         :return: The signature of this TrustedCertificateReq.
         :rtype: str
@@ -186,13 +212,11 @@ class TrustedCertificateReq(object):
     def signature(self, signature):
         """
         Sets the signature of this TrustedCertificateReq.
-        Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256.
+        Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256. Optional if enrollment_mode is 'true'.
 
         :param signature: The signature of this TrustedCertificateReq.
         :type: str
         """
-        if signature is None:
-            raise ValueError("Invalid value for `signature`, must not be `None`")
 
         self._signature = signature
 

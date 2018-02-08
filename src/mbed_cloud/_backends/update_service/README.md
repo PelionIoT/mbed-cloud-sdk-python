@@ -90,7 +90,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**firmware_manifest_list**](docs/DefaultApi.md#firmware_manifest_list) | **GET** /v3/firmware-manifests/ | 
 *DefaultApi* | [**firmware_manifest_retrieve**](docs/DefaultApi.md#firmware_manifest_retrieve) | **GET** /v3/firmware-manifests/{manifest_id}/ | 
 *DefaultApi* | [**update_campaign_create**](docs/DefaultApi.md#update_campaign_create) | **POST** /v3/update-campaigns/ | 
-*DefaultApi* | [**update_campaign_destroy**](docs/DefaultApi.md#update_campaign_destroy) | **DELETE** /v3/campaigns/{campaign_id}/ | 
+*DefaultApi* | [**update_campaign_destroy**](docs/DefaultApi.md#update_campaign_destroy) | **DELETE** /v3/update-campaigns/{campaign_id}/ | 
 *DefaultApi* | [**update_campaign_list**](docs/DefaultApi.md#update_campaign_list) | **GET** /v3/update-campaigns/ | 
 *DefaultApi* | [**update_campaign_metadata_list**](docs/DefaultApi.md#update_campaign_metadata_list) | **GET** /v3/update-campaigns/{campaign_id}/campaign-device-metadata/ | 
 *DefaultApi* | [**update_campaign_metadata_retrieve**](docs/DefaultApi.md#update_campaign_metadata_retrieve) | **GET** /v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/ | 
