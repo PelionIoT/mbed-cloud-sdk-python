@@ -36,10 +36,10 @@ class DeviceEventData(object):
         'description': 'str',
         'changes': 'object',
         'event_type_description': 'str',
-        'event_type': 'str',
+        'device': 'str',
         'data': 'object',
         'id': 'str',
-        'device_id': 'str'
+        'event_type': 'str'
     }
 
     attribute_map = {
@@ -48,13 +48,13 @@ class DeviceEventData(object):
         'description': 'description',
         'changes': 'changes',
         'event_type_description': 'event_type_description',
-        'event_type': 'event_type',
+        'device': 'device',
         'data': 'data',
         'id': 'id',
-        'device_id': 'device_id'
+        'event_type': 'event_type'
     }
 
-    def __init__(self, date_time=None, state_change=None, description=None, changes=None, event_type_description=None, event_type=None, data=None, id=None, device_id=None):
+    def __init__(self, date_time=None, state_change=None, description=None, changes=None, event_type_description=None, device=None, data=None, id=None, event_type=None):
         """
         DeviceEventData - a model defined in Swagger
         """
@@ -64,10 +64,10 @@ class DeviceEventData(object):
         self._description = description
         self._changes = changes
         self._event_type_description = event_type_description
-        self._event_type = event_type
+        self._device = device
         self._data = data
         self._id = id
-        self._device_id = device_id
+        self._event_type = event_type
         self.discriminator = None
 
     @property
@@ -178,27 +178,25 @@ class DeviceEventData(object):
         self._event_type_description = event_type_description
 
     @property
-    def event_type(self):
+    def device(self):
         """
-        Gets the event_type of this DeviceEventData.
+        Gets the device of this DeviceEventData.
 
-        :return: The event_type of this DeviceEventData.
+        :return: The device of this DeviceEventData.
         :rtype: str
         """
-        return self._event_type
+        return self._device
 
-    @event_type.setter
-    def event_type(self, event_type):
+    @device.setter
+    def device(self, device):
         """
-        Sets the event_type of this DeviceEventData.
+        Sets the device of this DeviceEventData.
 
-        :param event_type: The event_type of this DeviceEventData.
+        :param device: The device of this DeviceEventData.
         :type: str
         """
-        if event_type is not None and len(event_type) > 100:
-            raise ValueError("Invalid value for `event_type`, length must be less than or equal to `100`")
 
-        self._event_type = event_type
+        self._device = device
 
     @property
     def data(self):
@@ -245,25 +243,27 @@ class DeviceEventData(object):
         self._id = id
 
     @property
-    def device_id(self):
+    def event_type(self):
         """
-        Gets the device_id of this DeviceEventData.
+        Gets the event_type of this DeviceEventData.
 
-        :return: The device_id of this DeviceEventData.
+        :return: The event_type of this DeviceEventData.
         :rtype: str
         """
-        return self._device_id
+        return self._event_type
 
-    @device_id.setter
-    def device_id(self, device_id):
+    @event_type.setter
+    def event_type(self, event_type):
         """
-        Sets the device_id of this DeviceEventData.
+        Sets the event_type of this DeviceEventData.
 
-        :param device_id: The device_id of this DeviceEventData.
+        :param event_type: The event_type of this DeviceEventData.
         :type: str
         """
+        if event_type is not None and len(event_type) > 100:
+            raise ValueError("Invalid value for `event_type`, length must be less than or equal to `100`")
 
-        self._device_id = device_id
+        self._event_type = event_type
 
     def to_dict(self):
         """
