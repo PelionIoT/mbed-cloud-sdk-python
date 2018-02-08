@@ -1,4 +1,4 @@
-# UserUpdateReq
+# AdminUserUpdateReq
 
 ## Properties
 Name | Type | Description | Notes
@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **user_properties** | [**dict(str, dict(str, str))**](dict.md) | User&#39;s account specific custom properties. | [optional] 
 **is_gtc_accepted** | **bool** | A flag indicating that the General Terms and Conditions has been accepted. | [optional] 
 **is_totp_enabled** | **bool** | A flag indicating whether 2-factor authentication (TOTP) has to be enabled or disabled. | [optional] 
+**notification_properties** | **dict(str, str)** | Users notification properties for root admins. Currently supported; &#39;agreement_acceptance_notification&#39;, which controls whether notification should be sent upon accepting an agreement in an account. Possible values are: &#39;always_notify&#39;, &#39;only_first&#39; and &#39;not_interested&#39;. | [optional] 
 **status** | **str** | The status of the user. | [optional] 
 **full_name** | **str** | The full name of the user, not longer than 100 characters. | [optional] 
 **address** | **str** | Address, not longer than 100 characters. | [optional] 
