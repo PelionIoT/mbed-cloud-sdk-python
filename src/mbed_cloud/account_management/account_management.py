@@ -205,17 +205,17 @@ class AccountManagementAPI(BaseAPI):
         :param str email: The unique email of the user (Required)
         :param str full_name: The full name of the user
         :param list groups: List of group IDs (`str`) which this user belongs to
-        :param str password: The password string of the user.
+        :param str password: The password string of the user
         :param str phone_number: Phone number of the user
-        :param bool terms_accepted: Is 'General Terms & Conditions' accepted
-        :param bool marketing_accepted: Is receiving marketing information accepted?
+        :param bool terms_accepted: 'General Terms & Conditions' have been accepted
+        :param bool marketing_accepted: Marketing Information opt-in
         :returns: the new user object
         :rtype: User
         """
         api = self._get_api(iam.AccountAdminApi)
         kwargs.update({'username': username, 'email': email})
         user = User._create_request_map(kwargs)
-        body = iam.UserInfoReq(**user)
+        body = iam.UserUpdateReq(**user)
         return User(api.create_user(body))
 
     @catch_exceptions(ApiException)
@@ -579,7 +579,8 @@ class User(BaseObject):
             "password_changed_time": "password_changed_time",
             "last_login_time": "last_login_time",
             "two_factor_authentication": "is_totp_enabled",
-            "login_history": "login_history"
+            "login_history": "login_history",
+            "custom_properties": "user_properties",
         }
 
     @property
@@ -738,6 +739,15 @@ class User(BaseObject):
         :rtype: LoginHistory
         """
         return self._login_history
+
+    @property
+    def custom_properties(self):
+        """User properties
+
+        :returns: dictionary of properties
+        :rtype: dict(str, dict(str, str))
+        """
+        return self._custom_properties
 
 
 class Group(BaseObject):

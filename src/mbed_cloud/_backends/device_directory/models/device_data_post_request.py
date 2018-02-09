@@ -52,7 +52,6 @@ class DeviceDataPostRequest(object):
         'mechanism_url': 'str',
         'name': 'str',
         'device_key': 'str',
-        'enrolment_list_timestamp': 'datetime',
         'manifest': 'str',
         'ca_id': 'str'
     }
@@ -79,12 +78,11 @@ class DeviceDataPostRequest(object):
         'mechanism_url': 'mechanism_url',
         'name': 'name',
         'device_key': 'device_key',
-        'enrolment_list_timestamp': 'enrolment_list_timestamp',
         'manifest': 'manifest',
         'ca_id': 'ca_id'
     }
 
-    def __init__(self, bootstrap_expiration_date=None, bootstrapped_timestamp=None, connector_expiration_date=None, mechanism=None, device_class=None, endpoint_name=None, auto_update=None, host_gateway=None, device_execution_mode=None, custom_attributes=None, state=None, serial_number=None, firmware_checksum=None, object=None, description=None, vendor_id=None, endpoint_type=None, deployment=None, mechanism_url=None, name=None, device_key=None, enrolment_list_timestamp=None, manifest=None, ca_id=None):
+    def __init__(self, bootstrap_expiration_date=None, bootstrapped_timestamp=None, connector_expiration_date=None, mechanism=None, device_class=None, endpoint_name=None, auto_update=None, host_gateway=None, device_execution_mode=None, custom_attributes=None, state=None, serial_number=None, firmware_checksum=None, object=None, description=None, vendor_id=None, endpoint_type=None, deployment=None, mechanism_url=None, name=None, device_key=None, manifest=None, ca_id=None):
         """
         DeviceDataPostRequest - a model defined in Swagger
         """
@@ -110,7 +108,6 @@ class DeviceDataPostRequest(object):
         self._mechanism_url = mechanism_url
         self._name = name
         self._device_key = device_key
-        self._enrolment_list_timestamp = enrolment_list_timestamp
         self._manifest = manifest
         self._ca_id = ca_id
         self.discriminator = None
@@ -627,29 +624,6 @@ class DeviceDataPostRequest(object):
             raise ValueError("Invalid value for `device_key`, length must be less than or equal to `512`")
 
         self._device_key = device_key
-
-    @property
-    def enrolment_list_timestamp(self):
-        """
-        Gets the enrolment_list_timestamp of this DeviceDataPostRequest.
-        The claim date/time.
-
-        :return: The enrolment_list_timestamp of this DeviceDataPostRequest.
-        :rtype: datetime
-        """
-        return self._enrolment_list_timestamp
-
-    @enrolment_list_timestamp.setter
-    def enrolment_list_timestamp(self, enrolment_list_timestamp):
-        """
-        Sets the enrolment_list_timestamp of this DeviceDataPostRequest.
-        The claim date/time.
-
-        :param enrolment_list_timestamp: The enrolment_list_timestamp of this DeviceDataPostRequest.
-        :type: datetime
-        """
-
-        self._enrolment_list_timestamp = enrolment_list_timestamp
 
     @property
     def manifest(self):

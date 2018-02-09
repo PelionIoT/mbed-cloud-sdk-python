@@ -34,6 +34,7 @@ class UserUpdateReq(object):
         'phone_number': 'str',
         'username': 'str',
         'is_marketing_accepted': 'bool',
+        'user_properties': 'dict(str, dict(str, str))',
         'is_gtc_accepted': 'bool',
         'is_totp_enabled': 'bool',
         'status': 'str',
@@ -47,6 +48,7 @@ class UserUpdateReq(object):
         'phone_number': 'phone_number',
         'username': 'username',
         'is_marketing_accepted': 'is_marketing_accepted',
+        'user_properties': 'user_properties',
         'is_gtc_accepted': 'is_gtc_accepted',
         'is_totp_enabled': 'is_totp_enabled',
         'status': 'status',
@@ -56,7 +58,7 @@ class UserUpdateReq(object):
         'email': 'email'
     }
 
-    def __init__(self, phone_number=None, username=None, is_marketing_accepted=None, is_gtc_accepted=None, is_totp_enabled=None, status=None, full_name=None, address=None, password=None, email=None):
+    def __init__(self, phone_number=None, username=None, is_marketing_accepted=None, user_properties=None, is_gtc_accepted=None, is_totp_enabled=None, status=None, full_name=None, address=None, password=None, email=None):
         """
         UserUpdateReq - a model defined in Swagger
         """
@@ -64,6 +66,7 @@ class UserUpdateReq(object):
         self._phone_number = phone_number
         self._username = username
         self._is_marketing_accepted = is_marketing_accepted
+        self._user_properties = user_properties
         self._is_gtc_accepted = is_gtc_accepted
         self._is_totp_enabled = is_totp_enabled
         self._status = status
@@ -141,6 +144,29 @@ class UserUpdateReq(object):
         """
 
         self._is_marketing_accepted = is_marketing_accepted
+
+    @property
+    def user_properties(self):
+        """
+        Gets the user_properties of this UserUpdateReq.
+        User's account specific custom properties.
+
+        :return: The user_properties of this UserUpdateReq.
+        :rtype: dict(str, dict(str, str))
+        """
+        return self._user_properties
+
+    @user_properties.setter
+    def user_properties(self, user_properties):
+        """
+        Sets the user_properties of this UserUpdateReq.
+        User's account specific custom properties.
+
+        :param user_properties: The user_properties of this UserUpdateReq.
+        :type: dict(str, dict(str, str))
+        """
+
+        self._user_properties = user_properties
 
     @property
     def is_gtc_accepted(self):

@@ -35,7 +35,6 @@ class DeviceDataPutRequest(object):
         'endpoint_name': 'str',
         'auto_update': 'bool',
         'host_gateway': 'str',
-        'enrolment_list_timestamp': 'datetime',
         'object': 'str',
         'custom_attributes': 'dict(str, str)',
         'device_key': 'str',
@@ -49,7 +48,6 @@ class DeviceDataPutRequest(object):
         'endpoint_name': 'endpoint_name',
         'auto_update': 'auto_update',
         'host_gateway': 'host_gateway',
-        'enrolment_list_timestamp': 'enrolment_list_timestamp',
         'object': 'object',
         'custom_attributes': 'custom_attributes',
         'device_key': 'device_key',
@@ -58,7 +56,7 @@ class DeviceDataPutRequest(object):
         'name': 'name'
     }
 
-    def __init__(self, description=None, endpoint_name=None, auto_update=None, host_gateway=None, enrolment_list_timestamp=None, object=None, custom_attributes=None, device_key=None, endpoint_type=None, ca_id=None, name=None):
+    def __init__(self, description=None, endpoint_name=None, auto_update=None, host_gateway=None, object=None, custom_attributes=None, device_key=None, endpoint_type=None, ca_id=None, name=None):
         """
         DeviceDataPutRequest - a model defined in Swagger
         """
@@ -67,7 +65,6 @@ class DeviceDataPutRequest(object):
         self._endpoint_name = endpoint_name
         self._auto_update = auto_update
         self._host_gateway = host_gateway
-        self._enrolment_list_timestamp = enrolment_list_timestamp
         self._object = object
         self._custom_attributes = custom_attributes
         self._device_key = device_key
@@ -171,29 +168,6 @@ class DeviceDataPutRequest(object):
         """
 
         self._host_gateway = host_gateway
-
-    @property
-    def enrolment_list_timestamp(self):
-        """
-        Gets the enrolment_list_timestamp of this DeviceDataPutRequest.
-        The claim date/time.
-
-        :return: The enrolment_list_timestamp of this DeviceDataPutRequest.
-        :rtype: datetime
-        """
-        return self._enrolment_list_timestamp
-
-    @enrolment_list_timestamp.setter
-    def enrolment_list_timestamp(self, enrolment_list_timestamp):
-        """
-        Sets the enrolment_list_timestamp of this DeviceDataPutRequest.
-        The claim date/time.
-
-        :param enrolment_list_timestamp: The enrolment_list_timestamp of this DeviceDataPutRequest.
-        :type: datetime
-        """
-
-        self._enrolment_list_timestamp = enrolment_list_timestamp
 
     @property
     def object(self):

@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 **phone_number** | **str** | Phone number, not longer than 100 characters. | [optional] 
 **username** | **str** | A username containing alphanumerical letters and -,._@+&#x3D; characters. It must be at least 4 but not more than 30 character long. | [optional] 
 **is_marketing_accepted** | **bool** | A flag indicating that receiving marketing information has been accepted. | [optional] 
+**user_properties** | [**dict(str, dict(str, str))**](dict.md) | User&#39;s account specific custom properties. | [optional] 
 **is_gtc_accepted** | **bool** | A flag indicating that the General Terms and Conditions has been accepted. | [optional] 
 **is_totp_enabled** | **bool** | A flag indicating whether 2-factor authentication (TOTP) has to be enabled or disabled. | [optional] 
 **status** | **str** | The status of the user. | [optional] 

@@ -35,12 +35,16 @@ class AccountUpdateReq(object):
         'city': 'str',
         'address_line1': 'str',
         'display_name': 'str',
+        'mfa_status': 'str',
         'country': 'str',
         'company': 'str',
         'idle_timeout': 'str',
+        'notification_emails': 'list[str]',
         'state': 'str',
         'contact': 'str',
         'postal_code': 'str',
+        'account_properties': 'dict(str, dict(str, str))',
+        'expiration_warning_threshold': 'str',
         'password_policy': 'PasswordPolicy',
         'end_market': 'str',
         'phone_number': 'str',
@@ -53,12 +57,16 @@ class AccountUpdateReq(object):
         'city': 'city',
         'address_line1': 'address_line1',
         'display_name': 'display_name',
+        'mfa_status': 'mfa_status',
         'country': 'country',
         'company': 'company',
         'idle_timeout': 'idle_timeout',
+        'notification_emails': 'notification_emails',
         'state': 'state',
         'contact': 'contact',
         'postal_code': 'postal_code',
+        'account_properties': 'account_properties',
+        'expiration_warning_threshold': 'expiration_warning_threshold',
         'password_policy': 'password_policy',
         'end_market': 'end_market',
         'phone_number': 'phone_number',
@@ -66,7 +74,7 @@ class AccountUpdateReq(object):
         'aliases': 'aliases'
     }
 
-    def __init__(self, address_line2=None, city=None, address_line1=None, display_name=None, country=None, company=None, idle_timeout=None, state=None, contact=None, postal_code=None, password_policy=None, end_market=None, phone_number=None, email=None, aliases=None):
+    def __init__(self, address_line2=None, city=None, address_line1=None, display_name=None, mfa_status=None, country=None, company=None, idle_timeout=None, notification_emails=None, state=None, contact=None, postal_code=None, account_properties=None, expiration_warning_threshold=None, password_policy=None, end_market=None, phone_number=None, email=None, aliases=None):
         """
         AccountUpdateReq - a model defined in Swagger
         """
@@ -75,12 +83,16 @@ class AccountUpdateReq(object):
         self._city = city
         self._address_line1 = address_line1
         self._display_name = display_name
+        self._mfa_status = mfa_status
         self._country = country
         self._company = company
         self._idle_timeout = idle_timeout
+        self._notification_emails = notification_emails
         self._state = state
         self._contact = contact
         self._postal_code = postal_code
+        self._account_properties = account_properties
+        self._expiration_warning_threshold = expiration_warning_threshold
         self._password_policy = password_policy
         self._end_market = end_market
         self._phone_number = phone_number
@@ -181,6 +193,35 @@ class AccountUpdateReq(object):
         self._display_name = display_name
 
     @property
+    def mfa_status(self):
+        """
+        Gets the mfa_status of this AccountUpdateReq.
+        The enforcement status of setting up the multi-factor authentication. 'Enforced' means that setting up the MFA is required after login. 'Optional' means that the MFA is not required.
+
+        :return: The mfa_status of this AccountUpdateReq.
+        :rtype: str
+        """
+        return self._mfa_status
+
+    @mfa_status.setter
+    def mfa_status(self, mfa_status):
+        """
+        Sets the mfa_status of this AccountUpdateReq.
+        The enforcement status of setting up the multi-factor authentication. 'Enforced' means that setting up the MFA is required after login. 'Optional' means that the MFA is not required.
+
+        :param mfa_status: The mfa_status of this AccountUpdateReq.
+        :type: str
+        """
+        allowed_values = ["enforced", "optional"]
+        if mfa_status not in allowed_values:
+            raise ValueError(
+                "Invalid value for `mfa_status` ({0}), must be one of {1}"
+                .format(mfa_status, allowed_values)
+            )
+
+        self._mfa_status = mfa_status
+
+    @property
     def country(self):
         """
         Gets the country of this AccountUpdateReq.
@@ -250,6 +291,29 @@ class AccountUpdateReq(object):
         self._idle_timeout = idle_timeout
 
     @property
+    def notification_emails(self):
+        """
+        Gets the notification_emails of this AccountUpdateReq.
+        A list of notification email addresses.
+
+        :return: The notification_emails of this AccountUpdateReq.
+        :rtype: list[str]
+        """
+        return self._notification_emails
+
+    @notification_emails.setter
+    def notification_emails(self, notification_emails):
+        """
+        Sets the notification_emails of this AccountUpdateReq.
+        A list of notification email addresses.
+
+        :param notification_emails: The notification_emails of this AccountUpdateReq.
+        :type: list[str]
+        """
+
+        self._notification_emails = notification_emails
+
+    @property
     def state(self):
         """
         Gets the state of this AccountUpdateReq.
@@ -317,6 +381,52 @@ class AccountUpdateReq(object):
         """
 
         self._postal_code = postal_code
+
+    @property
+    def account_properties(self):
+        """
+        Gets the account_properties of this AccountUpdateReq.
+        Properties for this account.
+
+        :return: The account_properties of this AccountUpdateReq.
+        :rtype: dict(str, dict(str, str))
+        """
+        return self._account_properties
+
+    @account_properties.setter
+    def account_properties(self, account_properties):
+        """
+        Sets the account_properties of this AccountUpdateReq.
+        Properties for this account.
+
+        :param account_properties: The account_properties of this AccountUpdateReq.
+        :type: dict(str, dict(str, str))
+        """
+
+        self._account_properties = account_properties
+
+    @property
+    def expiration_warning_threshold(self):
+        """
+        Gets the expiration_warning_threshold of this AccountUpdateReq.
+        Indicates how many days before the account expiration a notification email should be sent.
+
+        :return: The expiration_warning_threshold of this AccountUpdateReq.
+        :rtype: str
+        """
+        return self._expiration_warning_threshold
+
+    @expiration_warning_threshold.setter
+    def expiration_warning_threshold(self, expiration_warning_threshold):
+        """
+        Sets the expiration_warning_threshold of this AccountUpdateReq.
+        Indicates how many days before the account expiration a notification email should be sent.
+
+        :param expiration_warning_threshold: The expiration_warning_threshold of this AccountUpdateReq.
+        :type: str
+        """
+
+        self._expiration_warning_threshold = expiration_warning_threshold
 
     @property
     def password_policy(self):

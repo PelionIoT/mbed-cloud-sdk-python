@@ -228,6 +228,7 @@ class Certificate(BaseObject):
             "account_id": "account_id",
             "certificate_data": "certificate",
             "created_at": "created_at",
+            "updated_at": "updated_at",
             "issuer": "issuer",
             "subject": "subject",
             "validity": "validity",
@@ -236,7 +237,9 @@ class Certificate(BaseObject):
             "server_certificate": "server_certificate",
             "header_file": "security_file_content",
             "developer_certificate": "developer_certificate",
-            "developer_private_key": "developer_private_key"
+            "developer_private_key": "developer_private_key",
+            "enrolment_mode": "enrollment_mode",
+            "signature": "signature",
         }
 
     @classmethod
@@ -255,6 +258,24 @@ class Certificate(BaseObject):
         :rtype: str
         """
         return self._status
+
+    @property
+    def signature(self):
+        """The signature of the certificate.
+
+        :return: The signature of this certificate.
+        :rtype: str
+        """
+        return self._signature
+
+    @property
+    def enrolment_mode(self):
+        """The enrolment_mode of the certificate.
+
+        :return: The enrolment_mode of this certificate.
+        :rtype: str
+        """
+        return self._enrolment_mode or False  # FIXME: is this the correct default?
 
     @property
     def description(self):
@@ -312,6 +333,14 @@ class Certificate(BaseObject):
         :rtype: datetime
         """
         return self._created_at
+
+    @property
+    def updated_at(self):
+        """Update UTC time RFC3339.
+
+        :rtype: datetime
+        """
+        return self._updated_at
 
     @property
     def subject(self):
