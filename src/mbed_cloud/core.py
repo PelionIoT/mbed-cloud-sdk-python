@@ -20,6 +20,7 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import datetime
+import functools
 
 from mbed_cloud.configuration import Config
 from mbed_cloud import filters
@@ -149,6 +150,15 @@ class BaseObject(object):
             attr = '_%s' % sdk_key
             if spec_key in updates and not hasattr(self, attr):
                 setattr(self, attr, updates[spec_key])
+
+    @staticmethod
+    def _pass_through(api_func):
+        """Simplifies properties that map directly to underlying API"""
+        def decorator(func):
+            def plain_getter(self):
+                return getattr(self, '_%s' % func.__name__)
+            return functools.wraps(api_func)(plain_getter)
+        return decorator
 
     @staticmethod
     def _get_attributes_map():

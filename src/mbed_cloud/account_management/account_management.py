@@ -28,6 +28,7 @@ from mbed_cloud.decorators import catch_exceptions
 # Import backend API
 from mbed_cloud._backends import iam
 from mbed_cloud._backends.iam.models import AccountUpdateReq
+from mbed_cloud._backends.iam.models import AccountInfo
 from mbed_cloud._backends.iam.rest import ApiException
 
 
@@ -348,8 +349,16 @@ class Account(BaseObject):
             "provisioning_allowed": "is_provisioning_allowed",
             "created_at": "created_at",
             "upgraded_at": "upgraded_at",
+            "updated_at": "updated_at",
             "reason": "reason",
-            "template_id": "template_id"
+            "template_id": "template_id",
+            "custom_properties": "account_properties",
+            "contract_number": "contract_number",
+            "customer_number": "customer_number",
+            "reference_note": "reference_note",
+            "notification_emails": "notification_emails",
+            "mfa_status": "mfa_status",
+            "expiration_warning": "expiration_warning_threshold",
         }
 
     @property
@@ -531,6 +540,46 @@ class Account(BaseObject):
         :rtype: str
         """
         return self._template_id
+
+    @property
+    @BaseObject._pass_through(AccountInfo.contract_number)
+    def contract_number(self):
+        pass
+
+    @property
+    @BaseObject._pass_through(AccountInfo.account_properties)
+    def custom_properties(self):
+        pass
+
+    @property
+    @BaseObject._pass_through(AccountInfo.customer_number)
+    def customer_number(self):
+        pass
+
+    @property
+    @BaseObject._pass_through(AccountInfo.reference_note)
+    def reference_note(self):
+        pass
+
+    @property
+    @BaseObject._pass_through(AccountInfo.notification_emails)
+    def notification_emails(self):
+        pass
+
+    @property
+    @BaseObject._pass_through(AccountInfo.mfa_status)
+    def mfa_status(self):
+        pass
+
+    @property
+    @BaseObject._pass_through(AccountInfo.expiration_warning_threshold)
+    def expiration_warning(self):
+        pass
+
+    @property
+    @BaseObject._pass_through(AccountInfo.updated_at)
+    def updated_at(self):
+        pass
 
 
 class User(BaseObject):
