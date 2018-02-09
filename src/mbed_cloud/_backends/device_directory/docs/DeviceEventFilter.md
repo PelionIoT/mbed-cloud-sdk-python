@@ -1,17 +1,14 @@
-# DeviceEventData
+# DeviceEventFilter
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**date_time** | **datetime** |  | 
+**date_time** | **datetime** |  | [optional] 
 **state_change** | **bool** |  | [optional] 
 **description** | **str** |  | [optional] 
-**changes** | **object** |  | [optional] 
-**event_type_description** | **str** |  | [optional] 
-**event_type** | **str** |  | [optional] 
-**data** | **object** |  | [optional] 
-**id** | **str** |  | 
 **device_id** | **str** |  | [optional] 
+**id** | **str** |  | [optional] 
+**event_type** | **str** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

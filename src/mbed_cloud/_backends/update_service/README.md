@@ -102,12 +102,16 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [CampaignDeviceMetadata](docs/CampaignDeviceMetadata.md)
+ - [CampaignDeviceMetadataFilter](docs/CampaignDeviceMetadataFilter.md)
  - [CampaignDeviceMetadataPage](docs/CampaignDeviceMetadataPage.md)
  - [FirmwareImage](docs/FirmwareImage.md)
+ - [FirmwareImageFilter](docs/FirmwareImageFilter.md)
  - [FirmwareImagePage](docs/FirmwareImagePage.md)
  - [FirmwareManifest](docs/FirmwareManifest.md)
+ - [FirmwareManifestFilter](docs/FirmwareManifestFilter.md)
  - [FirmwareManifestPage](docs/FirmwareManifestPage.md)
  - [UpdateCampaign](docs/UpdateCampaign.md)
+ - [UpdateCampaignFilter](docs/UpdateCampaignFilter.md)
  - [UpdateCampaignPage](docs/UpdateCampaignPage.md)
  - [UpdateCampaignPatchRequest](docs/UpdateCampaignPatchRequest.md)
  - [UpdateCampaignPostRequest](docs/UpdateCampaignPostRequest.md)
