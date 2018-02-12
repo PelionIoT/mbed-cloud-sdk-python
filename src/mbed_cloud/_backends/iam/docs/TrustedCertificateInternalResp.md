@@ -1,10 +1,11 @@
-# TrustedCertificateResp
+# TrustedCertificateInternalResp
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **service** | **str** | Service name where the certificate is to be used. | 
 **status** | **str** | Status of the certificate. | [optional] 
+**private_key** | **str** | Private key of the certificate in PEM or base64 encoded DER format. | 
 **name** | **str** | Certificate name. | 
 **certificate** | **str** | X509.v3 trusted certificate in PEM format. | 
 **enrollment_mode** | **bool** | If true, signature is not required. Default value false. | [optional] 

@@ -1,10 +1,10 @@
-# SubjectList
+# GroupCreationInfo
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**apikeys** | **list[str]** | An array of API key IDs. | [optional] 
-**users** | **list[str]** | An array of user IDs. | [optional] 
+**name** | **str** | The group name, not longer than 100 characters. | 
+**members** | [**SubjectList**](SubjectList.md) | The members of the group as arrays of user and API key UUIDs. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
