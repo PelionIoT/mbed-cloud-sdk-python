@@ -4,7 +4,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **code** | **int** | Response code. | [optional] 
-**fields** | [**list[ERRORUNKNOWN]**](.md) | Failed input fields during request object validation. | [optional] 
+**fields** | [**list[Field]**](Field.md) | Failed input fields during request object validation. | [optional] 
 **object** | **str** | Entity name, always &#39;error&#39;. | [optional] [default to 'error']
 **request_id** | **str** | Request ID (muuid). | [optional] 
 **message** | **str** | A human readable message with detailed info. | [optional] 

@@ -32,7 +32,7 @@ class ErrorResponse(object):
     """
     swagger_types = {
         'code': 'int',
-        'fields': 'list[ERRORUNKNOWN]',
+        'fields': 'list[Field]',
         'object': 'str',
         'request_id': 'str',
         'message': 'str',
@@ -97,7 +97,7 @@ class ErrorResponse(object):
         Failed input fields during request object validation.
 
         :return: The fields of this ErrorResponse.
-        :rtype: list[ERRORUNKNOWN]
+        :rtype: list[Field]
         """
         return self._fields
 
@@ -108,7 +108,7 @@ class ErrorResponse(object):
         Failed input fields during request object validation.
 
         :param fields: The fields of this ErrorResponse.
-        :type: list[ERRORUNKNOWN]
+        :type: list[Field]
         """
 
         self._fields = fields
