@@ -120,7 +120,7 @@ class TrustedCertificateReq(object):
     def certificate(self):
         """
         Gets the certificate of this TrustedCertificateReq.
-        X509.v3 trusted certificate in PEM format.
+        X509.v3 trusted certificate in PEM format. Chaining multiple certificates after one another is supported.
 
         :return: The certificate of this TrustedCertificateReq.
         :rtype: str
@@ -131,7 +131,7 @@ class TrustedCertificateReq(object):
     def certificate(self, certificate):
         """
         Sets the certificate of this TrustedCertificateReq.
-        X509.v3 trusted certificate in PEM format.
+        X509.v3 trusted certificate in PEM format. Chaining multiple certificates after one another is supported.
 
         :param certificate: The certificate of this TrustedCertificateReq.
         :type: str
