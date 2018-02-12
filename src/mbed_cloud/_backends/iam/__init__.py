@@ -32,6 +32,7 @@ from .models.field import Field
 from .models.group_creation_info import GroupCreationInfo
 from .models.group_summary import GroupSummary
 from .models.group_summary_list import GroupSummaryList
+from .models.group_update_info import GroupUpdateInfo
 from .models.login_history import LoginHistory
 from .models.my_user_info_resp import MyUserInfoResp
 from .models.password_policy import PasswordPolicy

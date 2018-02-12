@@ -510,7 +510,7 @@ class AccountInfo(object):
         :param mfa_status: The mfa_status of this AccountInfo.
         :type: str
         """
-        allowed_values = ["enabled", "enforced", "optional"]
+        allowed_values = ["enforced", "optional"]
         if mfa_status not in allowed_values:
             raise ValueError(
                 "Invalid value for `mfa_status` ({0}), must be one of {1}"

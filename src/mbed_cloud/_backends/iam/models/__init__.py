@@ -32,6 +32,7 @@ from .field import Field
 from .group_creation_info import GroupCreationInfo
 from .group_summary import GroupSummary
 from .group_summary_list import GroupSummaryList
+from .group_update_info import GroupUpdateInfo
 from .login_history import LoginHistory
 from .my_user_info_resp import MyUserInfoResp
 from .password_policy import PasswordPolicy
