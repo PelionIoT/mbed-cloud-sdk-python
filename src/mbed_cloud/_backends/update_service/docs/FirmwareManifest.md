@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **object** | **str** | The API resource entity | 
 **updated_at** | **datetime** | The time the object was updated | 
 **etag** | **datetime** | The entity instance signature | 
+**key_table** | **str** | The key table of re-shared keys for devices | [optional] 
 **device_class** | **str** | The class of the device | 
 **datafile_size** | **int** | Size of the datafile in bytes | [optional] 
 **id** | **str** | The firmware manifest ID | 

@@ -15,12 +15,16 @@ from __future__ import absolute_import
 
 # import models into sdk package
 from .models.campaign_device_metadata import CampaignDeviceMetadata
+from .models.campaign_device_metadata_filter import CampaignDeviceMetadataFilter
 from .models.campaign_device_metadata_page import CampaignDeviceMetadataPage
 from .models.firmware_image import FirmwareImage
+from .models.firmware_image_filter import FirmwareImageFilter
 from .models.firmware_image_page import FirmwareImagePage
 from .models.firmware_manifest import FirmwareManifest
+from .models.firmware_manifest_filter import FirmwareManifestFilter
 from .models.firmware_manifest_page import FirmwareManifestPage
 from .models.update_campaign import UpdateCampaign
+from .models.update_campaign_filter import UpdateCampaignFilter
 from .models.update_campaign_page import UpdateCampaignPage
 from .models.update_campaign_patch_request import UpdateCampaignPatchRequest
 from .models.update_campaign_post_request import UpdateCampaignPostRequest
