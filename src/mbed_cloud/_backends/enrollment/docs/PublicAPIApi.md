@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 
 # **v3_device_enrollments_get**
-> EnrollmentIdentities v3_device_enrollments_get(authorization, limit=limit, after=after, order=order)
+> EnrollmentIdentities v3_device_enrollments_get(limit=limit, after=after, order=order)
 
 Get enrollment list.
 
@@ -33,14 +33,13 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = enrollment.PublicAPIApi(enrollment.ApiClient(configuration))
-authorization = 'authorization_example' # str | Bearer {Access Token} 
 limit = 56 # int | Number of results to be returned. Between 2 and 1000, inclusive. (optional)
 after = 'after_example' # str | Entity ID to fetch after. (optional)
 order = 'ASC' # str | ASC or DESC (optional) (default to ASC)
 
 try: 
     # Get enrollment list.
-    api_response = api_instance.v3_device_enrollments_get(authorization, limit=limit, after=after, order=order)
+    api_response = api_instance.v3_device_enrollments_get(limit=limit, after=after, order=order)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling PublicAPIApi->v3_device_enrollments_get: %s\n" % e)
@@ -50,7 +49,6 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Bearer {Access Token}  | 
  **limit** | **int**| Number of results to be returned. Between 2 and 1000, inclusive. | [optional] 
  **after** | **str**| Entity ID to fetch after. | [optional] 
  **order** | **str**| ASC or DESC | [optional] [default to ASC]
@@ -71,7 +69,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v3_device_enrollments_post**
-> EnrollmentIdentity v3_device_enrollments_post(enrollment_identity, authorization)
+> EnrollmentIdentity v3_device_enrollments_post(enrollment_identity)
 
 Place an enrollment claim for one or several devices.
 
@@ -94,11 +92,10 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = enrollment.PublicAPIApi(enrollment.ApiClient(configuration))
 enrollment_identity = enrollment.EnrollmentId() # EnrollmentId | 
-authorization = 'authorization_example' # str | Bearer {Access Token}. 
 
 try: 
     # Place an enrollment claim for one or several devices.
-    api_response = api_instance.v3_device_enrollments_post(enrollment_identity, authorization)
+    api_response = api_instance.v3_device_enrollments_post(enrollment_identity)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling PublicAPIApi->v3_device_enrollments_post: %s\n" % e)
@@ -109,7 +106,6 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **enrollment_identity** | [**EnrollmentId**](EnrollmentId.md)|  | 
- **authorization** | **str**| Bearer {Access Token}.  | 
 
 ### Return type
 
@@ -127,7 +123,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v3_device_enrollmentsid_delete**
-> v3_device_enrollmentsid_delete(authorization)
+> v3_device_enrollmentsid_delete()
 
 Delete an enrollment by ID.
 
@@ -149,20 +145,16 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = enrollment.PublicAPIApi(enrollment.ApiClient(configuration))
-authorization = 'authorization_example' # str | Bearer {Access Token} 
 
 try: 
     # Delete an enrollment by ID.
-    api_instance.v3_device_enrollmentsid_delete(authorization)
+    api_instance.v3_device_enrollmentsid_delete()
 except ApiException as e:
     print("Exception when calling PublicAPIApi->v3_device_enrollmentsid_delete: %s\n" % e)
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Bearer {Access Token}  | 
+This endpoint does not need any parameter.
 
 ### Return type
 

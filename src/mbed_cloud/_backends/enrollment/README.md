@@ -57,14 +57,13 @@ enrollment.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # enrollment.configuration.api_key_prefix['Authorization'] = 'Bearer'
 # create an instance of the API class
 api_instance = enrollment.PublicAPIApi()
-authorization = 'authorization_example' # str | Bearer {Access Token} 
 limit = 56 # int | Number of results to be returned. Between 2 and 1000, inclusive. (optional)
 after = 'after_example' # str | Entity ID to fetch after. (optional)
 order = 'ASC' # str | ASC or DESC (optional) (default to ASC)
 
 try:
     # Get enrollment list.
-    api_response = api_instance.v3_device_enrollments_get(authorization, limit=limit, after=after, order=order)
+    api_response = api_instance.v3_device_enrollments_get(limit=limit, after=after, order=order)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling PublicAPIApi->v3_device_enrollments_get: %s\n" % e)
