@@ -37,7 +37,7 @@ class Test(BaseCase):
     def test_z_object_attr_maps(self):
         from mbed_cloud.core import BaseObject
         all_objs_classes = BaseObject.__subclasses__()
-        self.assertEqual(len(all_objs_classes), 15)
+        self.assertEqual(len(all_objs_classes), 16)
         fail = {}
         for obj in all_objs_classes:
             attr_map = obj._get_attributes_map()

@@ -38,6 +38,7 @@ MODULE_REMAP = dict(  # to avoid writing these as attributes in the SDK, we map 
     CertificatesAPI='certificates',
     ConnectAPI='connect',
     DeviceDirectoryAPI='device_directory',
+    EnrollmentAPI='enrollment',
     StubAPI='test_stub',
     UpdateAPI='update',
 )
