@@ -37,6 +37,8 @@ class AccountCreationReq(object):
         'display_name': 'str',
         'country': 'str',
         'company': 'str',
+        'customer_number': 'str',
+        'contract_number': 'str',
         'state': 'str',
         'contact': 'str',
         'postal_code': 'str',
@@ -57,6 +59,8 @@ class AccountCreationReq(object):
         'display_name': 'display_name',
         'country': 'country',
         'company': 'company',
+        'customer_number': 'customer_number',
+        'contract_number': 'contract_number',
         'state': 'state',
         'contact': 'contact',
         'postal_code': 'postal_code',
@@ -70,7 +74,7 @@ class AccountCreationReq(object):
         'aliases': 'aliases'
     }
 
-    def __init__(self, address_line2=None, city=None, address_line1=None, display_name=None, country=None, company=None, state=None, contact=None, postal_code=None, admin_password=None, admin_name=None, admin_full_name=None, end_market=None, admin_email=None, phone_number=None, email=None, aliases=None):
+    def __init__(self, address_line2=None, city=None, address_line1=None, display_name=None, country=None, company=None, customer_number=None, contract_number=None, state=None, contact=None, postal_code=None, admin_password=None, admin_name=None, admin_full_name=None, end_market=None, admin_email=None, phone_number=None, email=None, aliases=None):
         """
         AccountCreationReq - a model defined in Swagger
         """
@@ -81,6 +85,8 @@ class AccountCreationReq(object):
         self._display_name = display_name
         self._country = country
         self._company = company
+        self._customer_number = customer_number
+        self._contract_number = contract_number
         self._state = state
         self._contact = contact
         self._postal_code = postal_code
@@ -231,6 +237,52 @@ class AccountCreationReq(object):
         """
 
         self._company = company
+
+    @property
+    def customer_number(self):
+        """
+        Gets the customer_number of this AccountCreationReq.
+        Customer number of the customer.
+
+        :return: The customer_number of this AccountCreationReq.
+        :rtype: str
+        """
+        return self._customer_number
+
+    @customer_number.setter
+    def customer_number(self, customer_number):
+        """
+        Sets the customer_number of this AccountCreationReq.
+        Customer number of the customer.
+
+        :param customer_number: The customer_number of this AccountCreationReq.
+        :type: str
+        """
+
+        self._customer_number = customer_number
+
+    @property
+    def contract_number(self):
+        """
+        Gets the contract_number of this AccountCreationReq.
+        Contract number of the customer.
+
+        :return: The contract_number of this AccountCreationReq.
+        :rtype: str
+        """
+        return self._contract_number
+
+    @contract_number.setter
+    def contract_number(self, contract_number):
+        """
+        Sets the contract_number of this AccountCreationReq.
+        Contract number of the customer.
+
+        :param contract_number: The contract_number of this AccountCreationReq.
+        :type: str
+        """
+
+        self._contract_number = contract_number
 
     @property
     def state(self):
