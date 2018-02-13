@@ -409,7 +409,7 @@ class AccountUpdateReq(object):
     def expiration_warning_threshold(self):
         """
         Gets the expiration_warning_threshold of this AccountUpdateReq.
-        Indicates how many days before the account expiration a notification email should be sent.
+        Indicates how many days before account expiration a notification email should be sent. Valid values are: 1-180.
 
         :return: The expiration_warning_threshold of this AccountUpdateReq.
         :rtype: str
@@ -420,7 +420,7 @@ class AccountUpdateReq(object):
     def expiration_warning_threshold(self, expiration_warning_threshold):
         """
         Sets the expiration_warning_threshold of this AccountUpdateReq.
-        Indicates how many days before the account expiration a notification email should be sent.
+        Indicates how many days before account expiration a notification email should be sent. Valid values are: 1-180.
 
         :param expiration_warning_threshold: The expiration_warning_threshold of this AccountUpdateReq.
         :type: str

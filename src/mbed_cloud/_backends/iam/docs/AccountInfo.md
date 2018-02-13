@@ -35,7 +35,7 @@ Name | Type | Description | Notes
 **created_at** | **datetime** | Creation UTC time RFC3339. | [optional] 
 **idle_timeout** | **str** | The reference token expiration time in minutes for this account. | [optional] 
 **contract_number** | **str** | Contract number of the customer. | [optional] 
-**expiration_warning_threshold** | **str** | Indicates how many days before the account expiration a notification email should be sent. | [optional] 
+**expiration_warning_threshold** | **str** | Indicates how many days (1-180) before account expiration a notification email should be sent. | [optional] 
 **contact** | **str** | The name of the contact person for this account. | [optional] 
 **policies** | [**list[FeaturePolicy]**](FeaturePolicy.md) | List of policies if requested. | [optional] 
 **notification_emails** | **list[str]** | A list of notification email addresses. | [optional] 

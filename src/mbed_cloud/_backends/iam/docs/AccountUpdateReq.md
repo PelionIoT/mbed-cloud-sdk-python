@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **contact** | **str** | The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only. | [optional] 
 **postal_code** | **str** | The postal code part of the postal address, not longer than 100 characters. | [optional] 
 **account_properties** | [**dict(str, dict(str, str))**](dict.md) | Properties for this account. | [optional] 
-**expiration_warning_threshold** | **str** | Indicates how many days before the account expiration a notification email should be sent. | [optional] 
+**expiration_warning_threshold** | **str** | Indicates how many days before account expiration a notification email should be sent. Valid values are: 1-180. | [optional] 
 **password_policy** | [**PasswordPolicy**](PasswordPolicy.md) | Password policy for this account. | [optional] 
 **end_market** | **str** | The end market for this account, not longer than 100 characters. | [optional] 
 **phone_number** | **str** | The phone number of a representative of the company, not longer than 100 characters. | [optional] 

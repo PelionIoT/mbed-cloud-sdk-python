@@ -33,16 +33,18 @@ class ApiKeyUpdateReq(object):
     swagger_types = {
         'owner': 'str',
         'status': 'str',
-        'name': 'str'
+        'name': 'str',
+        'groups': 'list[str]'
     }
 
     attribute_map = {
         'owner': 'owner',
         'status': 'status',
-        'name': 'name'
+        'name': 'name',
+        'groups': 'groups'
     }
 
-    def __init__(self, owner=None, status=None, name=None):
+    def __init__(self, owner=None, status=None, name=None, groups=None):
         """
         ApiKeyUpdateReq - a model defined in Swagger
         """
@@ -50,6 +52,7 @@ class ApiKeyUpdateReq(object):
         self._owner = owner
         self._status = status
         self._name = name
+        self._groups = groups
         self.discriminator = None
 
     @property
@@ -128,6 +131,29 @@ class ApiKeyUpdateReq(object):
             raise ValueError("Invalid value for `name`, must not be `None`")
 
         self._name = name
+
+    @property
+    def groups(self):
+        """
+        Gets the groups of this ApiKeyUpdateReq.
+        A list of group IDs this API key belongs to.
+
+        :return: The groups of this ApiKeyUpdateReq.
+        :rtype: list[str]
+        """
+        return self._groups
+
+    @groups.setter
+    def groups(self, groups):
+        """
+        Sets the groups of this ApiKeyUpdateReq.
+        A list of group IDs this API key belongs to.
+
+        :param groups: The groups of this ApiKeyUpdateReq.
+        :type: list[str]
+        """
+
+        self._groups = groups
 
     def to_dict(self):
         """
