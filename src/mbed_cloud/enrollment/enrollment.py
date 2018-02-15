@@ -78,8 +78,8 @@ class EnrollmentClaim(BaseObject):
               "account_id": "account_id",
               "claimed_at": "claimed_at",
               "created_at": "created_at",
-              "enrolled_device_id": "enrolled_device_id",
-              "enrollment_identity": "enrollment_identity",
+              "device_id": "enrolled_device_id",
+              "claim_id": "enrollment_identity",
               "expires_at": "expires_at",
               "id": "id",
         }
@@ -101,12 +101,12 @@ class EnrollmentClaim(BaseObject):
 
     @property
     @BaseObject._pass_through(models.EnrollmentIdentity.enrolled_device_id)
-    def enrolled_device_id(self):
+    def device_id(self):
         pass
 
     @property
     @BaseObject._pass_through(models.EnrollmentIdentity.enrollment_identity)
-    def enrollment_identity(self):
+    def claim_id(self):
         pass
 
     @property
