@@ -201,7 +201,7 @@ class ApiKeyInfoResp(object):
         """
         if object is None:
             raise ValueError("Invalid value for `object`, must not be `None`")
-        allowed_values = ["user", "api-key", "group", "account", "account-template", "trusted-cert", "list", "error", "policy", "identity-provider"]
+        allowed_values = ["api-key"]
         if object not in allowed_values:
             raise ValueError(
                 "Invalid value for `object` ({0}), must be one of {1}"
