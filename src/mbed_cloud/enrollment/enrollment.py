@@ -45,14 +45,14 @@ class EnrollmentAPI(BaseAPI):
         """Add"""
         api = self._get_api(enrollment.PublicAPIApi)
         item = EnrollmentClaim._create_request_map(kwargs)
-        item = EnrollmentClaim(item)
+        item = models.EnrollmentIdentity(**item)
         return EnrollmentClaim(api.v3_device_enrollments_post(item))
 
     @catch_exceptions(EnrollmentAPIException)
-    def get_enrollment_claim(self, enrollment_identity, **kwargs):
+    def get_enrollment_claim(self, claim_id, **kwargs):
         """Get"""
         api = self._get_api(enrollment.PublicAPIApi)
-        return EnrollmentClaim(api.v3_device_enrollmentsid_get(enrollment_identity=enrollment_identity))
+        return EnrollmentClaim(api.v3_device_enrollments_id_get(id=claim_id))
 
     @catch_exceptions(EnrollmentAPIException)
     def list_enrollment_claims(self, **kwargs):
@@ -63,10 +63,10 @@ class EnrollmentAPI(BaseAPI):
         return PaginatedResponse(api.v3_device_enrollments_get, lwrap_type=EnrollmentClaim, **kwargs)
 
     @catch_exceptions(EnrollmentAPIException)
-    def delete_enrollment_claim(self, enrollment_identity, **kwargs):
+    def delete_enrollment_claim(self, claim_id, **kwargs):
         """Delete"""
         api = self._get_api(enrollment.PublicAPIApi)
-        return api.v3_device_enrollmentsid_delete(enrollment_identity=enrollment_identity)
+        return api.v3_device_enrollments_id_delete(id=claim_id)
 
 
 class EnrollmentClaim(BaseObject):
