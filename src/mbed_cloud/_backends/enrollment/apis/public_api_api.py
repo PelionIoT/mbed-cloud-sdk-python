@@ -48,6 +48,7 @@ class PublicAPIApi(object):
         :param int limit: Number of results to be returned. Between 2 and 1000, inclusive.
         :param str after: Entity ID to fetch after.
         :param str order: ASC or DESC
+        :param str include: Comma separate additional data to return. Currently supported: total_count
         :return: EnrollmentIdentities
                  If the method is called asynchronously,
                  returns the request thread.
@@ -72,12 +73,13 @@ class PublicAPIApi(object):
         :param int limit: Number of results to be returned. Between 2 and 1000, inclusive.
         :param str after: Entity ID to fetch after.
         :param str order: ASC or DESC
+        :param str include: Comma separate additional data to return. Currently supported: total_count
         :return: EnrollmentIdentities
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['limit', 'after', 'order']
+        all_params = ['limit', 'after', 'order', 'include']
         all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -109,6 +111,8 @@ class PublicAPIApi(object):
             query_params.append(('after', params['after']))
         if 'order' in params:
             query_params.append(('order', params['order']))
+        if 'include' in params:
+            query_params.append(('include', params['include']))
 
         header_params = {}
 
@@ -131,6 +135,194 @@ class PublicAPIApi(object):
                                         post_params=form_params,
                                         files=local_var_files,
                                         response_type='EnrollmentIdentities',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
+    def v3_device_enrollments_id_delete(self, id, **kwargs):
+        """
+        Delete an enrollment by ID.
+        To free a device from your account you can delete the enrollment claim. To bypass the device ownership, you need to delete the enrollment and do a factory reset for the device. For more information on the ownership trasfer, see [https://github.com/ARMmbed/mbed_Cloud_Docs/blob/restructure/Docs/provisioning/generic_instructions/device-ownership.md#transferring-ownership-using-first-to-claim](TODO put the right link).
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.v3_device_enrollments_id_delete(id, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str id: Enrollment identity internal id (required)
+        :return: None
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.v3_device_enrollments_id_delete_with_http_info(id, **kwargs)
+        else:
+            (data) = self.v3_device_enrollments_id_delete_with_http_info(id, **kwargs)
+            return data
+
+    def v3_device_enrollments_id_delete_with_http_info(self, id, **kwargs):
+        """
+        Delete an enrollment by ID.
+        To free a device from your account you can delete the enrollment claim. To bypass the device ownership, you need to delete the enrollment and do a factory reset for the device. For more information on the ownership trasfer, see [https://github.com/ARMmbed/mbed_Cloud_Docs/blob/restructure/Docs/provisioning/generic_instructions/device-ownership.md#transferring-ownership-using-first-to-claim](TODO put the right link).
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.v3_device_enrollments_id_delete_with_http_info(id, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str id: Enrollment identity internal id (required)
+        :return: None
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['id']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method v3_device_enrollments_id_delete" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `v3_device_enrollments_id_delete`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'id' in params:
+            path_params['id'] = params['id']
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/device-enrollments/{id}', 'DELETE',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type=None,
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
+    def v3_device_enrollments_id_get(self, id, **kwargs):
+        """
+        Get details of an enrollment by ID.
+        To check the enrollment info in detail, for example claming date and expiration date.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.v3_device_enrollments_id_get(id, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str id: Enrollment identity internal id (required)
+        :return: EnrollmentIdentity
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.v3_device_enrollments_id_get_with_http_info(id, **kwargs)
+        else:
+            (data) = self.v3_device_enrollments_id_get_with_http_info(id, **kwargs)
+            return data
+
+    def v3_device_enrollments_id_get_with_http_info(self, id, **kwargs):
+        """
+        Get details of an enrollment by ID.
+        To check the enrollment info in detail, for example claming date and expiration date.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.v3_device_enrollments_id_get_with_http_info(id, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str id: Enrollment identity internal id (required)
+        :return: EnrollmentIdentity
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['id']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method v3_device_enrollments_id_get" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `v3_device_enrollments_id_get`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'id' in params:
+            path_params['id'] = params['id']
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/device-enrollments/{id}', 'GET',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='EnrollmentIdentity',
                                         auth_settings=auth_settings,
                                         async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -222,178 +414,6 @@ class PublicAPIApi(object):
         auth_settings = ['Bearer']
 
         return self.api_client.call_api('/v3/device-enrollments', 'POST',
-                                        path_params,
-                                        query_params,
-                                        header_params,
-                                        body=body_params,
-                                        post_params=form_params,
-                                        files=local_var_files,
-                                        response_type='EnrollmentIdentity',
-                                        auth_settings=auth_settings,
-                                        async=params.get('async'),
-                                        _return_http_data_only=params.get('_return_http_data_only'),
-                                        _preload_content=params.get('_preload_content', True),
-                                        _request_timeout=params.get('_request_timeout'),
-                                        collection_formats=collection_formats)
-
-    def v3_device_enrollmentsid_delete(self, **kwargs):
-        """
-        Delete an enrollment by ID.
-        To free a device from your account you can delete the enrollment claim. To bypass the device ownership, you need to delete the enrollment and do a factory reset for the device. For more information on the ownership trasfer, see [https://github.com/ARMmbed/mbed_Cloud_Docs/blob/restructure/Docs/provisioning/generic_instructions/device-ownership.md#transferring-ownership-using-first-to-claim](TODO put the right link).
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.v3_device_enrollmentsid_delete(async=True)
-        >>> result = thread.get()
-
-        :param async bool
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
-            return self.v3_device_enrollmentsid_delete_with_http_info(**kwargs)
-        else:
-            (data) = self.v3_device_enrollmentsid_delete_with_http_info(**kwargs)
-            return data
-
-    def v3_device_enrollmentsid_delete_with_http_info(self, **kwargs):
-        """
-        Delete an enrollment by ID.
-        To free a device from your account you can delete the enrollment claim. To bypass the device ownership, you need to delete the enrollment and do a factory reset for the device. For more information on the ownership trasfer, see [https://github.com/ARMmbed/mbed_Cloud_Docs/blob/restructure/Docs/provisioning/generic_instructions/device-ownership.md#transferring-ownership-using-first-to-claim](TODO put the right link).
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.v3_device_enrollmentsid_delete_with_http_info(async=True)
-        >>> result = thread.get()
-
-        :param async bool
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = []
-        all_params.append('async')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method v3_device_enrollmentsid_delete" % key
-                )
-            params[key] = val
-        del params['kwargs']
-
-        collection_formats = {}
-
-        path_params = {}
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept(['application/json'])
-
-        # Authentication setting
-        auth_settings = ['Bearer']
-
-        return self.api_client.call_api('/v3/device-enrollments/:id', 'DELETE',
-                                        path_params,
-                                        query_params,
-                                        header_params,
-                                        body=body_params,
-                                        post_params=form_params,
-                                        files=local_var_files,
-                                        response_type=None,
-                                        auth_settings=auth_settings,
-                                        async=params.get('async'),
-                                        _return_http_data_only=params.get('_return_http_data_only'),
-                                        _preload_content=params.get('_preload_content', True),
-                                        _request_timeout=params.get('_request_timeout'),
-                                        collection_formats=collection_formats)
-
-    def v3_device_enrollmentsid_get(self, **kwargs):
-        """
-        Get details of an enrollment by ID.
-        To check the enrollment info in detail, for example claming date and expiration date.
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.v3_device_enrollmentsid_get(async=True)
-        >>> result = thread.get()
-
-        :param async bool
-        :return: EnrollmentIdentity
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
-            return self.v3_device_enrollmentsid_get_with_http_info(**kwargs)
-        else:
-            (data) = self.v3_device_enrollmentsid_get_with_http_info(**kwargs)
-            return data
-
-    def v3_device_enrollmentsid_get_with_http_info(self, **kwargs):
-        """
-        Get details of an enrollment by ID.
-        To check the enrollment info in detail, for example claming date and expiration date.
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.v3_device_enrollmentsid_get_with_http_info(async=True)
-        >>> result = thread.get()
-
-        :param async bool
-        :return: EnrollmentIdentity
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = []
-        all_params.append('async')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method v3_device_enrollmentsid_get" % key
-                )
-            params[key] = val
-        del params['kwargs']
-
-        collection_formats = {}
-
-        path_params = {}
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept(['application/json'])
-
-        # Authentication setting
-        auth_settings = ['Bearer']
-
-        return self.api_client.call_api('/v3/device-enrollments/:id', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
