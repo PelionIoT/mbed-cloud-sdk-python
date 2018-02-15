@@ -60,10 +60,11 @@ api_instance = enrollment.PublicAPIApi()
 limit = 56 # int | Number of results to be returned. Between 2 and 1000, inclusive. (optional)
 after = 'after_example' # str | Entity ID to fetch after. (optional)
 order = 'ASC' # str | ASC or DESC (optional) (default to ASC)
+include = 'include_example' # str | Comma separate additional data to return. Currently supported: total_count (optional)
 
 try:
     # Get enrollment list.
-    api_response = api_instance.v3_device_enrollments_get(limit=limit, after=after, order=order)
+    api_response = api_instance.v3_device_enrollments_get(limit=limit, after=after, order=order, include=include)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling PublicAPIApi->v3_device_enrollments_get: %s\n" % e)
@@ -72,14 +73,14 @@ except ApiException as e:
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://api.mbedcloud.com*
+All URIs are relative to *http://api.us-east-1.mbedcloud.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *PublicAPIApi* | [**v3_device_enrollments_get**](docs/PublicAPIApi.md#v3_device_enrollments_get) | **GET** /v3/device-enrollments | Get enrollment list.
+*PublicAPIApi* | [**v3_device_enrollments_id_delete**](docs/PublicAPIApi.md#v3_device_enrollments_id_delete) | **DELETE** /v3/device-enrollments/{id} | Delete an enrollment by ID.
+*PublicAPIApi* | [**v3_device_enrollments_id_get**](docs/PublicAPIApi.md#v3_device_enrollments_id_get) | **GET** /v3/device-enrollments/{id} | Get details of an enrollment by ID.
 *PublicAPIApi* | [**v3_device_enrollments_post**](docs/PublicAPIApi.md#v3_device_enrollments_post) | **POST** /v3/device-enrollments | Place an enrollment claim for one or several devices.
-*PublicAPIApi* | [**v3_device_enrollmentsid_delete**](docs/PublicAPIApi.md#v3_device_enrollmentsid_delete) | **DELETE** /v3/device-enrollments/:id | Delete an enrollment by ID.
-*PublicAPIApi* | [**v3_device_enrollmentsid_get**](docs/PublicAPIApi.md#v3_device_enrollmentsid_get) | **GET** /v3/device-enrollments/:id | Get details of an enrollment by ID.
 
 
 ## Documentation For Models

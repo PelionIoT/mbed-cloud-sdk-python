@@ -227,7 +227,7 @@ class EnrollmentIdentity(object):
     def enrolled_device_id(self):
         """
         Gets the enrolled_device_id of this EnrollmentIdentity.
-        Enrolled device internal ID (muuid)
+        Enrolled device internal ID
 
         :return: The enrolled_device_id of this EnrollmentIdentity.
         :rtype: str
@@ -238,7 +238,7 @@ class EnrollmentIdentity(object):
     def enrolled_device_id(self, enrolled_device_id):
         """
         Sets the enrolled_device_id of this EnrollmentIdentity.
-        Enrolled device internal ID (muuid)
+        Enrolled device internal ID
 
         :param enrolled_device_id: The enrolled_device_id of this EnrollmentIdentity.
         :type: str
@@ -277,7 +277,7 @@ class EnrollmentIdentity(object):
     def id(self):
         """
         Gets the id of this EnrollmentIdentity.
-        muuid
+        Enrollment identity internal id
 
         :return: The id of this EnrollmentIdentity.
         :rtype: str
@@ -288,7 +288,7 @@ class EnrollmentIdentity(object):
     def id(self, id):
         """
         Sets the id of this EnrollmentIdentity.
-        muuid
+        Enrollment identity internal id
 
         :param id: The id of this EnrollmentIdentity.
         :type: str
