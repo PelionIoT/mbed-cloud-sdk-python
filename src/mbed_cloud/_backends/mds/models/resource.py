@@ -59,7 +59,7 @@ class Resource(object):
     def rt(self):
         """
         Gets the rt of this Resource.
-        Application specific resource type that describes this resource. [It is created by the client side application](/docs/v1.2/collecting/resource-setup-in-mbed-cloud-client.html). Not meant to be a human-readable name for the resource. Multiple resource types may be included, they are separated by a space.
+        Resource type.
 
         :return: The rt of this Resource.
         :rtype: str
@@ -70,7 +70,7 @@ class Resource(object):
     def rt(self, rt):
         """
         Sets the rt of this Resource.
-        Application specific resource type that describes this resource. [It is created by the client side application](/docs/v1.2/collecting/resource-setup-in-mbed-cloud-client.html). Not meant to be a human-readable name for the resource. Multiple resource types may be included, they are separated by a space.
+        Resource type.
 
         :param rt: The rt of this Resource.
         :type: str

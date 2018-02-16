@@ -31,55 +31,32 @@ class ResourcesData(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'rt': 'str',
         'path': 'str',
+        'rf': 'str',
         'ct': 'str',
         'obs': 'bool',
         '_if': 'str'
     }
 
     attribute_map = {
-        'rt': 'rt',
         'path': 'path',
+        'rf': 'rf',
         'ct': 'ct',
         'obs': 'obs',
         '_if': 'if'
     }
 
-    def __init__(self, rt=None, path=None, ct=None, obs=None, _if=None):
+    def __init__(self, path=None, rf=None, ct=None, obs=None, _if=None):
         """
         ResourcesData - a model defined in Swagger
         """
 
-        self._rt = rt
         self._path = path
+        self._rf = rf
         self._ct = ct
         self._obs = obs
         self.__if = _if
         self.discriminator = None
-
-    @property
-    def rt(self):
-        """
-        Gets the rt of this ResourcesData.
-        Application specific resource type that describes this resource. [It is created by the client side application](/docs/v1.2/collecting/resource-setup-in-mbed-cloud-client.html). Not meant to be a human-readable name for the resource. Multiple resource types may be included, they are separated by a space.
-
-        :return: The rt of this ResourcesData.
-        :rtype: str
-        """
-        return self._rt
-
-    @rt.setter
-    def rt(self, rt):
-        """
-        Sets the rt of this ResourcesData.
-        Application specific resource type that describes this resource. [It is created by the client side application](/docs/v1.2/collecting/resource-setup-in-mbed-cloud-client.html). Not meant to be a human-readable name for the resource. Multiple resource types may be included, they are separated by a space.
-
-        :param rt: The rt of this ResourcesData.
-        :type: str
-        """
-
-        self._rt = rt
 
     @property
     def path(self):
@@ -103,6 +80,29 @@ class ResourcesData(object):
         """
 
         self._path = path
+
+    @property
+    def rf(self):
+        """
+        Gets the rf of this ResourcesData.
+        Resource type [created by the client side application](/docs/v1.2/collecting/resource-setup-in-mbed-cloud-client.html). For example \"speed_sensor\"
+
+        :return: The rf of this ResourcesData.
+        :rtype: str
+        """
+        return self._rf
+
+    @rf.setter
+    def rf(self, rf):
+        """
+        Sets the rf of this ResourcesData.
+        Resource type [created by the client side application](/docs/v1.2/collecting/resource-setup-in-mbed-cloud-client.html). For example \"speed_sensor\"
+
+        :param rf: The rf of this ResourcesData.
+        :type: str
+        """
+
+        self._rf = rf
 
     @property
     def ct(self):
@@ -154,7 +154,7 @@ class ResourcesData(object):
     def _if(self):
         """
         Gets the _if of this ResourcesData.
-        Interface description that defines a name or URI that indicates how to interact with the target resource. It describes a generic interface type, such as a \"sensor\".
+        Interface description.
 
         :return: The _if of this ResourcesData.
         :rtype: str
@@ -165,7 +165,7 @@ class ResourcesData(object):
     def _if(self, _if):
         """
         Sets the _if of this ResourcesData.
-        Interface description that defines a name or URI that indicates how to interact with the target resource. It describes a generic interface type, such as a \"sensor\".
+        Interface description.
 
         :param _if: The _if of this ResourcesData.
         :type: str
