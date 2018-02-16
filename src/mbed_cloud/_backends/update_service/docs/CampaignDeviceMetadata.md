@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **updated_at** | **datetime** | This time this record was modified in the database format: date-time | [optional] 
 **mechanism** | **str** | How the firmware is delivered (connector or direct) | [optional] 
 **name** | **str** | The record name | [optional] 
-**etag** | **datetime** | API resource entity version | [optional] 
+**etag** | **str** | API resource entity version | [optional] 
 **mechanism_url** | **str** | The Cloud Connect URL | [optional] 
 **deployment_state** | **str** | The state of the update campaign on the device | [optional] 
 **id** | **str** | The metadata record ID | [optional] 

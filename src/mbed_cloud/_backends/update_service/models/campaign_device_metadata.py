@@ -38,7 +38,7 @@ class CampaignDeviceMetadata(object):
         'updated_at': 'datetime',
         'mechanism': 'str',
         'name': 'str',
-        'etag': 'datetime',
+        'etag': 'str',
         'mechanism_url': 'str',
         'deployment_state': 'str',
         'id': 'str',
@@ -251,7 +251,7 @@ class CampaignDeviceMetadata(object):
         API resource entity version
 
         :return: The etag of this CampaignDeviceMetadata.
-        :rtype: datetime
+        :rtype: str
         """
         return self._etag
 
@@ -262,7 +262,7 @@ class CampaignDeviceMetadata(object):
         API resource entity version
 
         :param etag: The etag of this CampaignDeviceMetadata.
-        :type: datetime
+        :type: str
         """
 
         self._etag = etag
