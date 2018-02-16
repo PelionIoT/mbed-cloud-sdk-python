@@ -76,13 +76,15 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *EndpointsApi* | [**v2_endpoints_device_id_get**](docs/EndpointsApi.md#v2_endpoints_device_id_get) | **GET** /v2/endpoints/{device-id} | List the resources on an endpoint
 *EndpointsApi* | [**v2_endpoints_get**](docs/EndpointsApi.md#v2_endpoints_get) | **GET** /v2/endpoints | (DEPRECATED) List registered endpoints. The number of returned endpoints is currently limited to 200.
+*NotificationsApi* | [**v2_notification_callback_delete**](docs/NotificationsApi.md#v2_notification_callback_delete) | **DELETE** /v2/notification/callback | Delete callback URL
+*NotificationsApi* | [**v2_notification_callback_get**](docs/NotificationsApi.md#v2_notification_callback_get) | **GET** /v2/notification/callback | Check callback URL
 *NotificationsApi* | [**v2_notification_callback_put**](docs/NotificationsApi.md#v2_notification_callback_put) | **PUT** /v2/notification/callback | Register a callback URL
 *NotificationsApi* | [**v2_notification_pull_delete**](docs/NotificationsApi.md#v2_notification_pull_delete) | **DELETE** /v2/notification/pull | Delete notification Long Poll channel
 *NotificationsApi* | [**v2_notification_pull_get**](docs/NotificationsApi.md#v2_notification_pull_get) | **GET** /v2/notification/pull | Get notifications using Long Poll
 *ResourcesApi* | [**v2_endpoints_device_id_resource_path_delete**](docs/ResourcesApi.md#v2_endpoints_device_id_resource_path_delete) | **DELETE** /v2/endpoints/{device-id}/{resourcePath} | Delete a resource
 *ResourcesApi* | [**v2_endpoints_device_id_resource_path_get**](docs/ResourcesApi.md#v2_endpoints_device_id_resource_path_get) | **GET** /v2/endpoints/{device-id}/{resourcePath} | Read from a resource
-*ResourcesApi* | [**v2_endpoints_device_id_resource_path_post**](docs/ResourcesApi.md#v2_endpoints_device_id_resource_path_post) | **POST** /v2/endpoints/{device-id}/{resourcePath} | Execute a function on a resource
-*ResourcesApi* | [**v2_endpoints_device_id_resource_path_put**](docs/ResourcesApi.md#v2_endpoints_device_id_resource_path_put) | **PUT** /v2/endpoints/{device-id}/{resourcePath} | Write to a resource
+*ResourcesApi* | [**v2_endpoints_device_id_resource_path_post**](docs/ResourcesApi.md#v2_endpoints_device_id_resource_path_post) | **POST** /v2/endpoints/{device-id}/{resourcePath} | Execute a function on a Resource or create new Object instance
+*ResourcesApi* | [**v2_endpoints_device_id_resource_path_put**](docs/ResourcesApi.md#v2_endpoints_device_id_resource_path_put) | **PUT** /v2/endpoints/{device-id}/{resourcePath} | Write to a resource or use write-attributes for a resource
 *SubscriptionsApi* | [**v2_subscriptions_delete**](docs/SubscriptionsApi.md#v2_subscriptions_delete) | **DELETE** /v2/subscriptions | Remove all subscriptions
 *SubscriptionsApi* | [**v2_subscriptions_device_id_delete**](docs/SubscriptionsApi.md#v2_subscriptions_device_id_delete) | **DELETE** /v2/subscriptions/{device-id} | Delete subscriptions from an endpoint
 *SubscriptionsApi* | [**v2_subscriptions_device_id_get**](docs/SubscriptionsApi.md#v2_subscriptions_device_id_get) | **GET** /v2/subscriptions/{device-id} | Read endpoints subscriptions
@@ -91,8 +93,6 @@ Class | Method | HTTP request | Description
 *SubscriptionsApi* | [**v2_subscriptions_device_id_resource_path_put**](docs/SubscriptionsApi.md#v2_subscriptions_device_id_resource_path_put) | **PUT** /v2/subscriptions/{device-id}/{resourcePath} | Subscribe to a resource path
 *SubscriptionsApi* | [**v2_subscriptions_get**](docs/SubscriptionsApi.md#v2_subscriptions_get) | **GET** /v2/subscriptions | Get pre-subscriptions
 *SubscriptionsApi* | [**v2_subscriptions_put**](docs/SubscriptionsApi.md#v2_subscriptions_put) | **PUT** /v2/subscriptions | Set pre-subscriptions
-*DefaultApi* | [**v2_notification_callback_delete**](docs/DefaultApi.md#v2_notification_callback_delete) | **DELETE** /v2/notification/callback | Delete callback URL
-*DefaultApi* | [**v2_notification_callback_get**](docs/DefaultApi.md#v2_notification_callback_get) | **GET** /v2/notification/callback | Check callback URL
 
 
 ## Documentation For Models
