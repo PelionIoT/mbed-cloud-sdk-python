@@ -31,7 +31,6 @@ from .apis.endpoints_api import EndpointsApi
 from .apis.notifications_api import NotificationsApi
 from .apis.resources_api import ResourcesApi
 from .apis.subscriptions_api import SubscriptionsApi
-from .apis.default_api import DefaultApi
 
 # import ApiClient
 from .api_client import ApiClient
