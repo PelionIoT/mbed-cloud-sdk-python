@@ -66,9 +66,9 @@ class ConnectAPI(BaseAPI):
 
     api_structure = {
         mds: [
-            mds.DefaultApi,
             mds.EndpointsApi,
             mds.NotificationsApi,
+            mds.DeviceRequestsApi,
             mds.ResourcesApi,
             mds.SubscriptionsApi
         ],
@@ -279,15 +279,25 @@ class ConnectAPI(BaseAPI):
         :returns: Consumer object to control asynchronous request
         :rtype: AsyncConsumer
         """
-        # When path starts with / we remove the slash, as the API can't handle //.
-        if fix_path:
-            resource_path = resource_path.lstrip('/')
-
-        api = self._get_api(mds.ResourcesApi)
-        resp = api.v2_endpoints_device_id_resource_path_get(device_id, resource_path)
+        import uuid
+        async_id = str(uuid.uuid4())
+        # build body
+        params = dict(
+            method='GET',
+            uri=resource_path,
+        )
+        device_request = mds.DeviceRequest(**params)
+        print('we made a new asyncid!!! go us!', async_id)
+        print('device_request:', device_request)
+        api = self._get_api(mds.DeviceRequestsApi)
+        resp = api.v2_device_requests_device_idasync_idasync_id_post(
+            device_id,
+            async_id=async_id,
+            body=device_request,
+        )
 
         # The async consumer, which will read data from notifications thread
-        return AsyncConsumer(resp.async_response_id, self._db)
+        return AsyncConsumer(async_id, self._db)
 
     @catch_exceptions(mds.rest.ApiException)
     def set_resource_value(self, device_id, resource_path,
