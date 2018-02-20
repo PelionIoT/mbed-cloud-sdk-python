@@ -542,52 +542,92 @@ class Account(BaseObject):
         return self._template_id
 
     @property
-    @BaseObject._pass_through(AccountInfo.contract_number)
     def contract_number(self):
-        """Property"""
-        pass
+        """
+        Gets the contract_number of this AccountInfo.
+        Contract number of the customer.
+
+        :return: The contract_number of this AccountInfo.
+        :rtype: str
+        """
+        return self._contract_number
 
     @property
-    @BaseObject._pass_through(AccountInfo.account_properties)
     def custom_properties(self):
-        """Property"""
-        pass
+        """
+        Gets the custom_properties of this AccountInfo.
+        Account specific custom properties.
+
+        :return: The account_properties of this AccountInfo.
+        :rtype: dict(str, dict(str, str))
+        """
+        return self._custom_properties
 
     @property
-    @BaseObject._pass_through(AccountInfo.customer_number)
     def customer_number(self):
-        """Property"""
-        pass
+        """
+        Gets the customer_number of this AccountInfo.
+        Customer number of the customer.
+
+        :return: The customer_number of this AccountInfo.
+        :rtype: str
+        """
+        return self._customer_number
 
     @property
-    @BaseObject._pass_through(AccountInfo.reference_note)
     def reference_note(self):
-        """Property"""
-        pass
+        """
+        Gets the reference_note of this AccountInfo.
+        A reference note for updating the status of the account
+
+        :return: The reference_note of this AccountInfo.
+        :rtype: str
+        """
+        return self._reference_note
 
     @property
-    @BaseObject._pass_through(AccountInfo.notification_emails)
     def notification_emails(self):
-        """Property"""
-        pass
+        """
+        Gets the notification_emails of this AccountInfo.
+        A list of notification email addresses.
+
+        :return: The notification_emails of this AccountInfo.
+        :rtype: list[str]
+        """
+        return self._notification_emails
 
     @property
-    @BaseObject._pass_through(AccountInfo.mfa_status)
     def mfa_status(self):
-        """Property"""
-        pass
+        """
+        Gets the mfa_status of this AccountInfo.
+        The enforcement status of the multi-factor authentication, either 'enforced' or 'optional'.
+
+        :return: The mfa_status of this AccountInfo.
+        :rtype: str
+        """
+        return self._mfa_status
 
     @property
-    @BaseObject._pass_through(AccountInfo.expiration_warning_threshold)
     def expiration_warning(self):
-        """Property"""
-        pass
+        """
+        Gets the expiration_warning of this AccountInfo.
+        Indicates how many days (1-180) before account expiration a notification email should be sent.
+
+        :return: The expiration_warning_threshold of this AccountInfo.
+        :rtype: str
+        """
+        return self._expiration_warning
 
     @property
-    @BaseObject._pass_through(AccountInfo.updated_at)
     def updated_at(self):
-        """Property"""
-        pass
+        """
+        Gets the updated_at of this AccountInfo.
+        Last update UTC time RFC3339.
+
+        :return: The updated_at of this AccountInfo.
+        :rtype: datetime
+        """
+        return self._updated_at
 
 
 class User(BaseObject):
