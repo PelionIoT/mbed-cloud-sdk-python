@@ -19,7 +19,7 @@ aliases:
     BUILD_DIR: *build_dir
     PYTHONUNBUFFERED: true
     PIPENV_VENV_IN_PROJECT: true # instruct pipenv to build the venv in current working dir
-    TESTRUNNER_DOCKER_IMAGE: 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:one_dot_three_plus_plus
+    TESTRUNNER_DOCKER_IMAGE: 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
     TESTRUNNER_OUTPUT_DIR: rpc_results
 
   - &job_build_common

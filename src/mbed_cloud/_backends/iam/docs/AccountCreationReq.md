@@ -9,6 +9,8 @@ Name | Type | Description | Notes
 **display_name** | **str** | The display name for the account, not longer than 100 characters. | [optional] 
 **country** | **str** | The country part of the postal address, not longer than 100 characters. Required for commercial accounts only. | [optional] 
 **company** | **str** | The name of the company, not longer than 100 characters. Required for commercial accounts only. | [optional] 
+**customer_number** | **str** | Customer number of the customer. | [optional] 
+**contract_number** | **str** | Contract number of the customer. | [optional] 
 **state** | **str** | The state part of the postal address, not longer than 100 characters. | [optional] 
 **contact** | **str** | The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only. | [optional] 
 **postal_code** | **str** | The postal code part of the postal address, not longer than 100 characters. | [optional] 

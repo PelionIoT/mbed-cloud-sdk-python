@@ -33,6 +33,7 @@ class UserUpdateReq(object):
     swagger_types = {
         'phone_number': 'str',
         'username': 'str',
+        'groups': 'list[str]',
         'is_marketing_accepted': 'bool',
         'user_properties': 'dict(str, dict(str, str))',
         'is_gtc_accepted': 'bool',
@@ -47,6 +48,7 @@ class UserUpdateReq(object):
     attribute_map = {
         'phone_number': 'phone_number',
         'username': 'username',
+        'groups': 'groups',
         'is_marketing_accepted': 'is_marketing_accepted',
         'user_properties': 'user_properties',
         'is_gtc_accepted': 'is_gtc_accepted',
@@ -58,13 +60,14 @@ class UserUpdateReq(object):
         'email': 'email'
     }
 
-    def __init__(self, phone_number=None, username=None, is_marketing_accepted=None, user_properties=None, is_gtc_accepted=None, is_totp_enabled=None, status=None, full_name=None, address=None, password=None, email=None):
+    def __init__(self, phone_number=None, username=None, groups=None, is_marketing_accepted=None, user_properties=None, is_gtc_accepted=None, is_totp_enabled=None, status=None, full_name=None, address=None, password=None, email=None):
         """
         UserUpdateReq - a model defined in Swagger
         """
 
         self._phone_number = phone_number
         self._username = username
+        self._groups = groups
         self._is_marketing_accepted = is_marketing_accepted
         self._user_properties = user_properties
         self._is_gtc_accepted = is_gtc_accepted
@@ -121,6 +124,29 @@ class UserUpdateReq(object):
         """
 
         self._username = username
+
+    @property
+    def groups(self):
+        """
+        Gets the groups of this UserUpdateReq.
+        A list of group IDs this user belongs to.
+
+        :return: The groups of this UserUpdateReq.
+        :rtype: list[str]
+        """
+        return self._groups
+
+    @groups.setter
+    def groups(self, groups):
+        """
+        Sets the groups of this UserUpdateReq.
+        A list of group IDs this user belongs to.
+
+        :param groups: The groups of this UserUpdateReq.
+        :type: list[str]
+        """
+
+        self._groups = groups
 
     @property
     def is_marketing_accepted(self):

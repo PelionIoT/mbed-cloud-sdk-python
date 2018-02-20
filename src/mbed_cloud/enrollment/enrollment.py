@@ -35,7 +35,8 @@ LOG = logging.getLogger(__name__)
 
 
 class EnrollmentAPI(BaseAPI):
-    """API reference for the Enrollment API."""
+    """API reference for the Enrollment API.
+    """
 
     api_structure = {enrollment: [enrollment.PublicAPIApi]}
 
@@ -48,10 +49,10 @@ class EnrollmentAPI(BaseAPI):
         return EnrollmentClaim(api.v3_device_enrollments_post(item))
 
     @catch_exceptions(EnrollmentAPIException)
-    def get_enrollment_claim(self, id, **kwargs):
+    def get_enrollment_claim(self, claim_id, **kwargs):
         """Get"""
         api = self._get_api(enrollment.PublicAPIApi)
-        return EnrollmentClaim(api.v3_device_enrollments_id_get(id=id))
+        return EnrollmentClaim(api.v3_device_enrollments_id_get(id=claim_id))
 
     @catch_exceptions(EnrollmentAPIException)
     def list_enrollment_claims(self, **kwargs):
@@ -59,17 +60,13 @@ class EnrollmentAPI(BaseAPI):
         kwargs = self._verify_sort_options(kwargs)
         kwargs = self._verify_filters(kwargs, EnrollmentClaim)
         api = self._get_api(enrollment.PublicAPIApi)
-        return PaginatedResponse(
-            api.v3_device_enrollments_get,
-            lwrap_type=EnrollmentClaim,
-            **kwargs
-        )
+        return PaginatedResponse(api.v3_device_enrollments_get, lwrap_type=EnrollmentClaim, **kwargs)
 
     @catch_exceptions(EnrollmentAPIException)
-    def delete_enrollment_claim(self, id, **kwargs):
+    def delete_enrollment_claim(self, claim_id, **kwargs):
         """Delete"""
         api = self._get_api(enrollment.PublicAPIApi)
-        return api.v3_device_enrollments_id_delete(id=id)
+        return api.v3_device_enrollments_id_delete(id=claim_id)
 
 
 class EnrollmentClaim(BaseObject):
@@ -78,53 +75,46 @@ class EnrollmentClaim(BaseObject):
     @staticmethod
     def _get_attributes_map():
         return {
-            "account_id": "account_id",
-            "claimed_at": "claimed_at",
-            "created_at": "created_at",
-            "device_id": "enrolled_device_id",
-            "claim_id": "enrollment_identity",
-            "expires_at": "expires_at",
-            "id": "id",
+              "account_id": "account_id",
+              "claimed_at": "claimed_at",
+              "created_at": "created_at",
+              "device_id": "enrolled_device_id",
+              "claim_id": "enrollment_identity",
+              "expires_at": "expires_at",
+              "id": "id",
         }
 
     @property
     @BaseObject._pass_through(models.EnrollmentIdentity.account_id)
     def account_id(self):
-        """Property"""
         pass
 
     @property
     @BaseObject._pass_through(models.EnrollmentIdentity.claimed_at)
     def claimed_at(self):
-        """Property"""
         pass
 
     @property
     @BaseObject._pass_through(models.EnrollmentIdentity.created_at)
     def created_at(self):
-        """Property"""
         pass
 
     @property
     @BaseObject._pass_through(models.EnrollmentIdentity.enrolled_device_id)
     def device_id(self):
-        """Property"""
         pass
 
     @property
     @BaseObject._pass_through(models.EnrollmentIdentity.enrollment_identity)
     def claim_id(self):
-        """Property"""
         pass
 
     @property
     @BaseObject._pass_through(models.EnrollmentIdentity.expires_at)
     def expires_at(self):
-        """Property"""
         pass
 
     @property
     @BaseObject._pass_through(models.EnrollmentIdentity.id)
     def id(self):
-        """Property"""
         pass
