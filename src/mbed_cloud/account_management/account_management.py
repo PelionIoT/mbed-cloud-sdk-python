@@ -27,7 +27,6 @@ from mbed_cloud.decorators import catch_exceptions
 
 # Import backend API
 from mbed_cloud._backends import iam
-from mbed_cloud._backends.iam.models import AccountInfo
 from mbed_cloud._backends.iam.models import AccountUpdateReq
 from mbed_cloud._backends.iam.rest import ApiException
 
@@ -543,8 +542,8 @@ class Account(BaseObject):
 
     @property
     def contract_number(self):
-        """
-        Gets the contract_number of this AccountInfo.
+        """Gets the contract_number of this AccountInfo.
+
         Contract number of the customer.
 
         :return: The contract_number of this AccountInfo.
@@ -554,8 +553,8 @@ class Account(BaseObject):
 
     @property
     def custom_properties(self):
-        """
-        Gets the custom_properties of this AccountInfo.
+        """Gets the custom_properties of this AccountInfo.
+
         Account specific custom properties.
 
         :return: The account_properties of this AccountInfo.
@@ -565,8 +564,8 @@ class Account(BaseObject):
 
     @property
     def customer_number(self):
-        """
-        Gets the customer_number of this AccountInfo.
+        """Gets the customer_number of this AccountInfo.
+
         Customer number of the customer.
 
         :return: The customer_number of this AccountInfo.
@@ -576,8 +575,8 @@ class Account(BaseObject):
 
     @property
     def reference_note(self):
-        """
-        Gets the reference_note of this AccountInfo.
+        """Gets the reference_note of this AccountInfo.
+
         A reference note for updating the status of the account
 
         :return: The reference_note of this AccountInfo.
@@ -587,8 +586,8 @@ class Account(BaseObject):
 
     @property
     def notification_emails(self):
-        """
-        Gets the notification_emails of this AccountInfo.
+        """Gets the notification_emails of this AccountInfo.
+
         A list of notification email addresses.
 
         :return: The notification_emails of this AccountInfo.
@@ -598,8 +597,8 @@ class Account(BaseObject):
 
     @property
     def mfa_status(self):
-        """
-        Gets the mfa_status of this AccountInfo.
+        """Gets the mfa_status of this AccountInfo.
+
         The enforcement status of the multi-factor authentication, either 'enforced' or 'optional'.
 
         :return: The mfa_status of this AccountInfo.
@@ -609,9 +608,10 @@ class Account(BaseObject):
 
     @property
     def expiration_warning(self):
-        """
-        Gets the expiration_warning of this AccountInfo.
-        Indicates how many days (1-180) before account expiration a notification email should be sent.
+        """Gets the expiration_warning of this AccountInfo.
+
+        Indicates how many days (1-180) before account expiration
+        a notification email should be sent.
 
         :return: The expiration_warning_threshold of this AccountInfo.
         :rtype: str
@@ -620,8 +620,8 @@ class Account(BaseObject):
 
     @property
     def updated_at(self):
-        """
-        Gets the updated_at of this AccountInfo.
+        """Gets the updated_at of this AccountInfo.
+
         Last update UTC time RFC3339.
 
         :return: The updated_at of this AccountInfo.

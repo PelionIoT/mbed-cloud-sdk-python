@@ -35,8 +35,7 @@ LOG = logging.getLogger(__name__)
 
 
 class EnrollmentAPI(BaseAPI):
-    """API reference for the Enrollment API.
-    """
+    """API reference for the Enrollment API."""
 
     api_structure = {enrollment: [enrollment.PublicAPIApi]}
 
@@ -60,7 +59,11 @@ class EnrollmentAPI(BaseAPI):
         kwargs = self._verify_sort_options(kwargs)
         kwargs = self._verify_filters(kwargs, EnrollmentClaim)
         api = self._get_api(enrollment.PublicAPIApi)
-        return PaginatedResponse(api.v3_device_enrollments_get, lwrap_type=EnrollmentClaim, **kwargs)
+        return PaginatedResponse(
+            api.v3_device_enrollments_get,
+            lwrap_type=EnrollmentClaim,
+            **kwargs
+        )
 
     @catch_exceptions(EnrollmentAPIException)
     def delete_enrollment_claim(self, claim_id, **kwargs):
@@ -75,20 +78,18 @@ class EnrollmentClaim(BaseObject):
     @staticmethod
     def _get_attributes_map():
         return {
-              "account_id": "account_id",
-              "claimed_at": "claimed_at",
-              "created_at": "created_at",
-              "device_id": "enrolled_device_id",
-              "claim_id": "enrollment_identity",
-              "expires_at": "expires_at",
-              "id": "id",
+            "account_id": "account_id",
+            "claimed_at": "claimed_at",
+            "created_at": "created_at",
+            "device_id": "enrolled_device_id",
+            "claim_id": "enrollment_identity",
+            "expires_at": "expires_at",
+            "id": "id",
         }
 
     @property
     def account_id(self):
-        """
-        Gets the account_id of this EnrollmentIdentity.
-        muuid
+        """Gets the account_id of this EnrollmentIdentity.
 
         :return: The account_id of this EnrollmentIdentity.
         :rtype: str
@@ -97,8 +98,8 @@ class EnrollmentClaim(BaseObject):
 
     @property
     def claimed_at(self):
-        """
-        Gets the claimed_at of this EnrollmentIdentity.
+        """Gets the claimed_at of this EnrollmentIdentity.
+
         The time of claiming the device to be assigned to the account.
 
         :return: The claimed_at of this EnrollmentIdentity.
@@ -108,8 +109,8 @@ class EnrollmentClaim(BaseObject):
 
     @property
     def created_at(self):
-        """
-        Gets the created_at of this EnrollmentIdentity.
+        """Gets the created_at of this EnrollmentIdentity.
+
         The time of the enrollment identity creation.
 
         :return: The created_at of this EnrollmentIdentity.
@@ -119,8 +120,8 @@ class EnrollmentClaim(BaseObject):
 
     @property
     def device_id(self):
-        """
-        Gets the enrolled_device_id of this EnrollmentIdentity.
+        """Gets the enrolled_device_id of this EnrollmentIdentity.
+
         Enrolled device internal ID
 
         :return: The enrolled_device_id of this EnrollmentIdentity.
@@ -130,8 +131,8 @@ class EnrollmentClaim(BaseObject):
 
     @property
     def claim_id(self):
-        """
-        Gets the claim_id of this EnrollmentIdentity.
+        """Gets the claim_id of this EnrollmentIdentity.
+
         Enrollment identity.
 
         :return: The claim_id of this EnrollmentIdentity.
@@ -141,9 +142,10 @@ class EnrollmentClaim(BaseObject):
 
     @property
     def expires_at(self):
-        """
-        Gets the expires_at of this EnrollmentIdentity.
-        The enrollment claim expiration time. If the device does not connect to Mbed Cloud before the expiration, the claim is removed without a separate notice
+        """Gets the expires_at of this EnrollmentIdentity.
+
+        The enrollment claim expiration time. If the device does not connect to Mbed Cloud
+        before the expiration, the claim is removed without a separate notice
 
         :return: The expires_at of this EnrollmentIdentity.
         :rtype: datetime
@@ -152,8 +154,8 @@ class EnrollmentClaim(BaseObject):
 
     @property
     def id(self):
-        """
-        Gets the id of this EnrollmentIdentity.
+        """Gets the id of this EnrollmentIdentity.
+
         Enrollment identity internal id
 
         :return: The id of this EnrollmentIdentity.

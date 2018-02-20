@@ -20,7 +20,6 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import datetime
-import functools
 
 from mbed_cloud.configuration import Config
 from mbed_cloud import filters
