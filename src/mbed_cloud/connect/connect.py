@@ -21,6 +21,7 @@ from __future__ import unicode_literals
 import logging
 import re
 import threading
+import uuid
 
 from collections import defaultdict
 
@@ -226,6 +227,46 @@ class ConnectAPI(BaseAPI):
                 return r
         raise CloudApiException("Resource not found")
 
+    def _new_async_id(self):
+        """A source of new client-side async ids"""
+        return str(uuid.uuid4())
+
+    def _mds_rpc_post(self, device_id, **params):
+        """Helper for using RPC endpoint"""
+        self.ensure_notifications_thread()
+        api = self._get_api(mds.DeviceRequestsApi)
+        async_id = self._new_async_id()
+        device_request = mds.DeviceRequest(**params)
+        api.v2_device_requests_device_idasync_idasync_id_post(
+            device_id,
+            async_id=async_id,
+            body=device_request,
+        )
+        return AsyncConsumer(async_id, self._db)
+
+    @catch_exceptions(mds.rest.ApiException)
+    def get_resource_value_async(self, device_id, resource_path, fix_path=True):
+        """Get a resource value for a given device and resource path.
+
+        Will not block, but instead return an AsyncConsumer. Example usage:
+
+        .. code-block:: python
+
+            a = api.get_resource_value_async(device, path)
+            while not a.is_done:
+                time.sleep(0.1)
+            if a.error:
+                print("Error", a.error)
+            print("Current value", a.value)
+
+        :param str device_id: The name/id of the device (Required)
+        :param str resource_path: The resource path to get (Required)
+        :param bool fix_path: strip leading / of path if present
+        :returns: Consumer object to control asynchronous request
+        :rtype: AsyncConsumer
+        """
+        return self._mds_rpc_post(device=device_id, method='GET', uri=resource_path)
+
     @catch_exceptions(mds.rest.ApiException)
     def get_resource_value(self, device_id, resource_path, fix_path=True, timeout=None):
         """Get a resource value for a given device and resource path by blocking thread.
@@ -250,58 +291,10 @@ class ConnectAPI(BaseAPI):
         :returns: The resource value for the requested resource path
         :rtype: str
         """
-        # Ensure we're listening to notifications first
-        self.ensure_notifications_thread()
-
-        consumer = self.get_resource_value_async(device_id, resource_path, fix_path)
-
-        # We block the thread and get the value for the user.
-        return consumer.wait(timeout)
+        return self.get_resource_value_async(device_id, resource_path, fix_path).wait(timeout)
 
     @catch_exceptions(mds.rest.ApiException)
-    def get_resource_value_async(self, device_id, resource_path, fix_path=True):
-        """Get a resource value for a given device and resource path.
-
-        Will not block, but instead return an AsyncConsumer. Example usage:
-
-        .. code-block:: python
-
-            a = api.get_resource_value_async(device, path)
-            while not a.is_done:
-                time.sleep(0.1)
-            if a.error:
-                print("Error", a.error)
-            print("Current value", a.value)
-
-        :param str device_id: The name/id of the device (Required)
-        :param str resource_path: The resource path to get (Required)
-        :param bool fix_path: strip leading / of path if present
-        :returns: Consumer object to control asynchronous request
-        :rtype: AsyncConsumer
-        """
-        import uuid
-        async_id = str(uuid.uuid4())
-        # build body
-        params = dict(
-            method='GET',
-            uri=resource_path,
-        )
-        device_request = mds.DeviceRequest(**params)
-        print('we made a new asyncid!!! go us!', async_id)
-        print('device_request:', device_request)
-        api = self._get_api(mds.DeviceRequestsApi)
-        resp = api.v2_device_requests_device_idasync_idasync_id_post(
-            device_id,
-            async_id=async_id,
-            body=device_request,
-        )
-
-        # The async consumer, which will read data from notifications thread
-        return AsyncConsumer(async_id, self._db)
-
-    @catch_exceptions(mds.rest.ApiException)
-    def set_resource_value(self, device_id, resource_path,
-                           resource_value=None, fix_path=True):
+    def set_resource_value(self, device_id, resource_path, resource_value=None, fix_path=True):
         """Set resource value for given resource path, on device.
 
         Will block and wait for response to come through. Usage:
@@ -324,12 +317,7 @@ class ConnectAPI(BaseAPI):
         :returns: The value of the new resource
         :rtype: str
         """
-        # Ensure we're listening to notifications first
         self.ensure_notifications_thread()
-
-        # When path starts with / we remove the slash, as the API can't handle //.
-        if fix_path and resource_path.startswith("/"):
-            resource_path = resource_path[1:]
 
         api = self._get_api(mds.ResourcesApi)
 
@@ -347,7 +335,7 @@ class ConnectAPI(BaseAPI):
                                  resource_value=None, fix_path=True):
         """Set resource value for given resource path, on device.
 
-        Will not block. Returns immediatly. Usage:
+        Will not block. Returns immediately. Usage:
 
         .. code-block:: python
 
