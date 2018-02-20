@@ -260,7 +260,7 @@ class FirmwareManifest(object):
     def key_table(self):
         """
         Gets the key_table of this FirmwareManifest.
-        The key table of re-shared keys for devices
+        The key table of pre-shared keys for devices
 
         :return: The key_table of this FirmwareManifest.
         :rtype: str
@@ -271,7 +271,7 @@ class FirmwareManifest(object):
     def key_table(self, key_table):
         """
         Sets the key_table of this FirmwareManifest.
-        The key table of re-shared keys for devices
+        The key table of pre-shared keys for devices
 
         :param key_table: The key_table of this FirmwareManifest.
         :type: str

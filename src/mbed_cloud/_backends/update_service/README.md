@@ -57,13 +57,15 @@ update_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # update_service.configuration.api_key_prefix['Authorization'] = 'Bearer'
 # create an instance of the API class
 api_instance = update_service.DefaultApi()
-campaign = update_service.UpdateCampaignPostRequest() # UpdateCampaignPostRequest | Update campaign
+datafile = '/path/to/file.txt' # file | The firmware image file to upload
+name = 'name_example' # str | The name of the firmware image
+description = 'description_example' # str | The description of the firmware image (optional)
 
 try:
-    api_response = api_instance.campaign_create(campaign)
+    api_response = api_instance.firmware_image_create(datafile, name, description=description)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->campaign_create: %s\n" % e)
+    print("Exception when calling DefaultApi->firmware_image_create: %s\n" % e)
 
 ```
 
@@ -73,14 +75,6 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**campaign_create**](docs/DefaultApi.md#campaign_create) | **POST** /v3/campaigns/ | 
-*DefaultApi* | [**campaign_destroy**](docs/DefaultApi.md#campaign_destroy) | **DELETE** /v3/campaigns/{campaign_id}/ | 
-*DefaultApi* | [**campaign_list**](docs/DefaultApi.md#campaign_list) | **GET** /v3/campaigns/ | 
-*DefaultApi* | [**campaign_metadata_list**](docs/DefaultApi.md#campaign_metadata_list) | **GET** /v3/campaigns/{campaign_id}/campaign-device-metadata/ | 
-*DefaultApi* | [**campaign_metadata_retreive**](docs/DefaultApi.md#campaign_metadata_retreive) | **GET** /v3/campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/ | 
-*DefaultApi* | [**campaign_retrieve**](docs/DefaultApi.md#campaign_retrieve) | **GET** /v3/campaigns/{campaign_id}/ | 
-*DefaultApi* | [**campaign_stop**](docs/DefaultApi.md#campaign_stop) | **POST** /v3/campaigns/{campaign_id}/stop | 
-*DefaultApi* | [**campaign_update**](docs/DefaultApi.md#campaign_update) | **PUT** /v3/campaigns/{campaign_id}/ | 
 *DefaultApi* | [**firmware_image_create**](docs/DefaultApi.md#firmware_image_create) | **POST** /v3/firmware-images/ | 
 *DefaultApi* | [**firmware_image_destroy**](docs/DefaultApi.md#firmware_image_destroy) | **DELETE** /v3/firmware-images/{image_id}/ | 
 *DefaultApi* | [**firmware_image_list**](docs/DefaultApi.md#firmware_image_list) | **GET** /v3/firmware-images/ | 
@@ -102,16 +96,12 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [CampaignDeviceMetadata](docs/CampaignDeviceMetadata.md)
- - [CampaignDeviceMetadataFilter](docs/CampaignDeviceMetadataFilter.md)
  - [CampaignDeviceMetadataPage](docs/CampaignDeviceMetadataPage.md)
  - [FirmwareImage](docs/FirmwareImage.md)
- - [FirmwareImageFilter](docs/FirmwareImageFilter.md)
  - [FirmwareImagePage](docs/FirmwareImagePage.md)
  - [FirmwareManifest](docs/FirmwareManifest.md)
- - [FirmwareManifestFilter](docs/FirmwareManifestFilter.md)
  - [FirmwareManifestPage](docs/FirmwareManifestPage.md)
  - [UpdateCampaign](docs/UpdateCampaign.md)
- - [UpdateCampaignFilter](docs/UpdateCampaignFilter.md)
  - [UpdateCampaignPage](docs/UpdateCampaignPage.md)
  - [UpdateCampaignPatchRequest](docs/UpdateCampaignPatchRequest.md)
  - [UpdateCampaignPostRequest](docs/UpdateCampaignPostRequest.md)
