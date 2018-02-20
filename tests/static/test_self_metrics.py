@@ -37,7 +37,7 @@ class TestSelfMetrics(BaseCase):
             )
         except subprocess.CalledProcessError as e:
             try:
-                indented = re_render(e.output)
+                indented = re_render(e.output.decode('utf8'))
             except Exception as e:
-                print('Failed to parse flake8 output', e)
+                indented = '<Failed to parse flake8 output: %s>' % e
             raise Flake8Error('Saw flake8 failures running in %s:\n%s' % (self._project_root_dir, indented))
