@@ -152,15 +152,6 @@ class BaseObject(object):
                 setattr(self, attr, updates[spec_key])
 
     @staticmethod
-    def _pass_through(api_func):
-        """Simplifies properties that map directly to underlying API"""
-        def decorator(func):
-            def plain_getter(self):
-                return getattr(self, '_%s' % func.__name__)
-            return functools.wraps(api_func)(plain_getter)
-        return decorator
-
-    @staticmethod
     def _get_attributes_map():
         """Override in child class."""
         pass
