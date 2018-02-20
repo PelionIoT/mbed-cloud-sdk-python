@@ -265,7 +265,7 @@ class ConnectAPI(BaseAPI):
         :returns: Consumer object to control asynchronous request
         :rtype: AsyncConsumer
         """
-        return self._mds_rpc_post(device=device_id, method='GET', uri=resource_path)
+        return self._mds_rpc_post(device_id=device_id, method='GET', uri=resource_path)
 
     @catch_exceptions(mds.rest.ApiException)
     def get_resource_value(self, device_id, resource_path, fix_path=True, timeout=None):

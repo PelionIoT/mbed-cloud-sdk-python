@@ -367,8 +367,6 @@ class ApiClient(object):
         Makes the HTTP request using RESTClient.
         """
 
-        print('%s\n%s\n%s' % (20*'#', locals(), 20*'#'))
-
         if method == "GET":
             return self.rest_client.GET(url,
                                         query_params=query_params,
