@@ -85,36 +85,78 @@ class EnrollmentClaim(BaseObject):
         }
 
     @property
-    @BaseObject._pass_through(models.EnrollmentIdentity.account_id)
     def account_id(self):
-        pass
+        """
+        Gets the account_id of this EnrollmentIdentity.
+        muuid
+
+        :return: The account_id of this EnrollmentIdentity.
+        :rtype: str
+        """
+        return self._account_id
 
     @property
-    @BaseObject._pass_through(models.EnrollmentIdentity.claimed_at)
     def claimed_at(self):
-        pass
+        """
+        Gets the claimed_at of this EnrollmentIdentity.
+        The time of claiming the device to be assigned to the account.
+
+        :return: The claimed_at of this EnrollmentIdentity.
+        :rtype: datetime
+        """
+        return self._claimed_at
 
     @property
-    @BaseObject._pass_through(models.EnrollmentIdentity.created_at)
     def created_at(self):
-        pass
+        """
+        Gets the created_at of this EnrollmentIdentity.
+        The time of the enrollment identity creation.
+
+        :return: The created_at of this EnrollmentIdentity.
+        :rtype: datetime
+        """
+        return self._created_at
 
     @property
-    @BaseObject._pass_through(models.EnrollmentIdentity.enrolled_device_id)
     def device_id(self):
-        pass
+        """
+        Gets the enrolled_device_id of this EnrollmentIdentity.
+        Enrolled device internal ID
+
+        :return: The enrolled_device_id of this EnrollmentIdentity.
+        :rtype: str
+        """
+        return self._enrolled_device_id
 
     @property
-    @BaseObject._pass_through(models.EnrollmentIdentity.enrollment_identity)
     def claim_id(self):
-        pass
+        """
+        Gets the claim_id of this EnrollmentIdentity.
+        Enrollment identity.
+
+        :return: The claim_id of this EnrollmentIdentity.
+        :rtype: str
+        """
+        return self._enrollment_identity
 
     @property
-    @BaseObject._pass_through(models.EnrollmentIdentity.expires_at)
     def expires_at(self):
-        pass
+        """
+        Gets the expires_at of this EnrollmentIdentity.
+        The enrollment claim expiration time. If the device does not connect to Mbed Cloud before the expiration, the claim is removed without a separate notice
+
+        :return: The expires_at of this EnrollmentIdentity.
+        :rtype: datetime
+        """
+        return self._expires_at
 
     @property
-    @BaseObject._pass_through(models.EnrollmentIdentity.id)
     def id(self):
-        pass
+        """
+        Gets the id of this EnrollmentIdentity.
+        Enrollment identity internal id
+
+        :return: The id of this EnrollmentIdentity.
+        :rtype: str
+        """
+        return self._id
