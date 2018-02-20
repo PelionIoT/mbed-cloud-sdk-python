@@ -63,9 +63,9 @@ body = mds.DeviceRequest() # DeviceRequest | Device request to send.
 
 try:
     # Send an async request to device
-    api_instance.v2_device_requests_device_idasync_idasync_id_post(device_id, async_id, body)
+    api_instance.v2_device_requests_device_id_post(device_id, async_id, body)
 except ApiException as e:
-    print("Exception when calling DeviceRequestsApi->v2_device_requests_device_idasync_idasync_id_post: %s\n" % e)
+    print("Exception when calling DeviceRequestsApi->v2_device_requests_device_id_post: %s\n" % e)
 
 ```
 
@@ -75,7 +75,7 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DeviceRequestsApi* | [**v2_device_requests_device_idasync_idasync_id_post**](docs/DeviceRequestsApi.md#v2_device_requests_device_idasync_idasync_id_post) | **POST** /v2/device-requests/{deviceId}?async-id&#x3D;{asyncId} | Send an async request to device
+*DeviceRequestsApi* | [**v2_device_requests_device_id_post**](docs/DeviceRequestsApi.md#v2_device_requests_device_id_post) | **POST** /v2/device-requests/{deviceId} | Send an async request to device
 *EndpointsApi* | [**v2_endpoints_device_id_get**](docs/EndpointsApi.md#v2_endpoints_device_id_get) | **GET** /v2/endpoints/{device-id} | List the resources on an endpoint
 *EndpointsApi* | [**v2_endpoints_get**](docs/EndpointsApi.md#v2_endpoints_get) | **GET** /v2/endpoints | (DEPRECATED) List registered endpoints. The number of returned endpoints is currently limited to 200.
 *NotificationsApi* | [**v2_notification_callback_delete**](docs/NotificationsApi.md#v2_notification_callback_delete) | **DELETE** /v2/notification/callback | Delete callback URL
