@@ -647,7 +647,7 @@ class ConnectAPI(BaseAPI):
             # bodge to give attribute lookup
             data = payload
 
-        notification = self._get_api(mds.DefaultApi).api_client.deserialize(
+        notification = self._get_api(mds.NotificationsApi).api_client.deserialize(
             PayloadContainer, mds.NotificationMessage.__name__
         )
         handle_channel_message(
@@ -663,7 +663,7 @@ class ConnectAPI(BaseAPI):
 
         :return: The currently set webhook
         """
-        api = self._get_api(mds.DefaultApi)
+        api = self._get_api(mds.NotificationsApi)
         return Webhook(api.v2_notification_callback_get())
 
     @catch_exceptions(mds.rest.ApiException)
