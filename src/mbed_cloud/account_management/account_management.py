@@ -27,8 +27,8 @@ from mbed_cloud.decorators import catch_exceptions
 
 # Import backend API
 from mbed_cloud._backends import iam
-from mbed_cloud._backends.iam.models import AccountUpdateReq
 from mbed_cloud._backends.iam.models import AccountInfo
+from mbed_cloud._backends.iam.models import AccountUpdateReq
 from mbed_cloud._backends.iam.rest import ApiException
 
 
@@ -544,41 +544,49 @@ class Account(BaseObject):
     @property
     @BaseObject._pass_through(AccountInfo.contract_number)
     def contract_number(self):
+        """Property"""
         pass
 
     @property
     @BaseObject._pass_through(AccountInfo.account_properties)
     def custom_properties(self):
+        """Property"""
         pass
 
     @property
     @BaseObject._pass_through(AccountInfo.customer_number)
     def customer_number(self):
+        """Property"""
         pass
 
     @property
     @BaseObject._pass_through(AccountInfo.reference_note)
     def reference_note(self):
+        """Property"""
         pass
 
     @property
     @BaseObject._pass_through(AccountInfo.notification_emails)
     def notification_emails(self):
+        """Property"""
         pass
 
     @property
     @BaseObject._pass_through(AccountInfo.mfa_status)
     def mfa_status(self):
+        """Property"""
         pass
 
     @property
     @BaseObject._pass_through(AccountInfo.expiration_warning_threshold)
     def expiration_warning(self):
+        """Property"""
         pass
 
     @property
     @BaseObject._pass_through(AccountInfo.updated_at)
     def updated_at(self):
+        """Property"""
         pass
 
 
