@@ -34,23 +34,23 @@ class TrustedCertificateReq(object):
         'status': 'str',
         'enrollment_mode': 'bool',
         'certificate': 'str',
-        'name': 'str',
+        'description': 'str',
         'service': 'str',
         'signature': 'str',
-        'description': 'str'
+        'name': 'str'
     }
 
     attribute_map = {
         'status': 'status',
         'enrollment_mode': 'enrollment_mode',
         'certificate': 'certificate',
-        'name': 'name',
+        'description': 'description',
         'service': 'service',
         'signature': 'signature',
-        'description': 'description'
+        'name': 'name'
     }
 
-    def __init__(self, status=None, enrollment_mode=None, certificate=None, name=None, service=None, signature=None, description=None):
+    def __init__(self, status=None, enrollment_mode=None, certificate=None, description=None, service=None, signature=None, name=None):
         """
         TrustedCertificateReq - a model defined in Swagger
         """
@@ -58,10 +58,10 @@ class TrustedCertificateReq(object):
         self._status = status
         self._enrollment_mode = enrollment_mode
         self._certificate = certificate
-        self._name = name
+        self._description = description
         self._service = service
         self._signature = signature
-        self._description = description
+        self._name = name
         self.discriminator = None
 
     @property
@@ -142,29 +142,27 @@ class TrustedCertificateReq(object):
         self._certificate = certificate
 
     @property
-    def name(self):
+    def description(self):
         """
-        Gets the name of this TrustedCertificateReq.
-        Certificate name, not longer than 100 characters.
+        Gets the description of this TrustedCertificateReq.
+        Human readable description of this certificate, not longer than 500 characters.
 
-        :return: The name of this TrustedCertificateReq.
+        :return: The description of this TrustedCertificateReq.
         :rtype: str
         """
-        return self._name
+        return self._description
 
-    @name.setter
-    def name(self, name):
+    @description.setter
+    def description(self, description):
         """
-        Sets the name of this TrustedCertificateReq.
-        Certificate name, not longer than 100 characters.
+        Sets the description of this TrustedCertificateReq.
+        Human readable description of this certificate, not longer than 500 characters.
 
-        :param name: The name of this TrustedCertificateReq.
+        :param description: The description of this TrustedCertificateReq.
         :type: str
         """
-        if name is None:
-            raise ValueError("Invalid value for `name`, must not be `None`")
 
-        self._name = name
+        self._description = description
 
     @property
     def service(self):
@@ -221,27 +219,29 @@ class TrustedCertificateReq(object):
         self._signature = signature
 
     @property
-    def description(self):
+    def name(self):
         """
-        Gets the description of this TrustedCertificateReq.
-        Human readable description of this certificate, not longer than 500 characters.
+        Gets the name of this TrustedCertificateReq.
+        Certificate name, not longer than 100 characters.
 
-        :return: The description of this TrustedCertificateReq.
+        :return: The name of this TrustedCertificateReq.
         :rtype: str
         """
-        return self._description
+        return self._name
 
-    @description.setter
-    def description(self, description):
+    @name.setter
+    def name(self, name):
         """
-        Sets the description of this TrustedCertificateReq.
-        Human readable description of this certificate, not longer than 500 characters.
+        Sets the name of this TrustedCertificateReq.
+        Certificate name, not longer than 100 characters.
 
-        :param description: The description of this TrustedCertificateReq.
+        :param name: The name of this TrustedCertificateReq.
         :type: str
         """
+        if name is None:
+            raise ValueError("Invalid value for `name`, must not be `None`")
 
-        self._description = description
+        self._name = name
 
     def to_dict(self):
         """

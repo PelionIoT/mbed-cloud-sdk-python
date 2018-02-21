@@ -34,7 +34,6 @@ class AccountUpdateRootReq(object):
         'end_market': 'str',
         'password_policy': 'PasswordPolicy',
         'sales_contact': 'str',
-        'email': 'str',
         'postal_code': 'str',
         'account_properties': 'dict(str, dict(str, str))',
         'aliases': 'list[str]',
@@ -44,8 +43,9 @@ class AccountUpdateRootReq(object):
         'display_name': 'str',
         'mfa_status': 'str',
         'state': 'str',
-        'contract_number': 'str',
+        'email': 'str',
         'phone_number': 'str',
+        'contract_number': 'str',
         'company': 'str',
         'idle_timeout': 'str',
         'country': 'str',
@@ -59,7 +59,6 @@ class AccountUpdateRootReq(object):
         'end_market': 'end_market',
         'password_policy': 'password_policy',
         'sales_contact': 'sales_contact',
-        'email': 'email',
         'postal_code': 'postal_code',
         'account_properties': 'account_properties',
         'aliases': 'aliases',
@@ -69,8 +68,9 @@ class AccountUpdateRootReq(object):
         'display_name': 'display_name',
         'mfa_status': 'mfa_status',
         'state': 'state',
-        'contract_number': 'contract_number',
+        'email': 'email',
         'phone_number': 'phone_number',
+        'contract_number': 'contract_number',
         'company': 'company',
         'idle_timeout': 'idle_timeout',
         'country': 'country',
@@ -80,7 +80,7 @@ class AccountUpdateRootReq(object):
         'notification_emails': 'notification_emails'
     }
 
-    def __init__(self, end_market=None, password_policy=None, sales_contact=None, email=None, postal_code=None, account_properties=None, aliases=None, address_line2=None, city=None, address_line1=None, display_name=None, mfa_status=None, state=None, contract_number=None, phone_number=None, company=None, idle_timeout=None, country=None, customer_number=None, expiration_warning_threshold=None, contact=None, notification_emails=None):
+    def __init__(self, end_market=None, password_policy=None, sales_contact=None, postal_code=None, account_properties=None, aliases=None, address_line2=None, city=None, address_line1=None, display_name=None, mfa_status=None, state=None, email=None, phone_number=None, contract_number=None, company=None, idle_timeout=None, country=None, customer_number=None, expiration_warning_threshold=None, contact=None, notification_emails=None):
         """
         AccountUpdateRootReq - a model defined in Swagger
         """
@@ -88,7 +88,6 @@ class AccountUpdateRootReq(object):
         self._end_market = end_market
         self._password_policy = password_policy
         self._sales_contact = sales_contact
-        self._email = email
         self._postal_code = postal_code
         self._account_properties = account_properties
         self._aliases = aliases
@@ -98,8 +97,9 @@ class AccountUpdateRootReq(object):
         self._display_name = display_name
         self._mfa_status = mfa_status
         self._state = state
-        self._contract_number = contract_number
+        self._email = email
         self._phone_number = phone_number
+        self._contract_number = contract_number
         self._company = company
         self._idle_timeout = idle_timeout
         self._country = country
@@ -177,29 +177,6 @@ class AccountUpdateRootReq(object):
         """
 
         self._sales_contact = sales_contact
-
-    @property
-    def email(self):
-        """
-        Gets the email of this AccountUpdateRootReq.
-        The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
-
-        :return: The email of this AccountUpdateRootReq.
-        :rtype: str
-        """
-        return self._email
-
-    @email.setter
-    def email(self, email):
-        """
-        Sets the email of this AccountUpdateRootReq.
-        The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
-
-        :param email: The email of this AccountUpdateRootReq.
-        :type: str
-        """
-
-        self._email = email
 
     @property
     def postal_code(self):
@@ -415,27 +392,27 @@ class AccountUpdateRootReq(object):
         self._state = state
 
     @property
-    def contract_number(self):
+    def email(self):
         """
-        Gets the contract_number of this AccountUpdateRootReq.
-        Contract number of the customer.
+        Gets the email of this AccountUpdateRootReq.
+        The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
 
-        :return: The contract_number of this AccountUpdateRootReq.
+        :return: The email of this AccountUpdateRootReq.
         :rtype: str
         """
-        return self._contract_number
+        return self._email
 
-    @contract_number.setter
-    def contract_number(self, contract_number):
+    @email.setter
+    def email(self, email):
         """
-        Sets the contract_number of this AccountUpdateRootReq.
-        Contract number of the customer.
+        Sets the email of this AccountUpdateRootReq.
+        The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
 
-        :param contract_number: The contract_number of this AccountUpdateRootReq.
+        :param email: The email of this AccountUpdateRootReq.
         :type: str
         """
 
-        self._contract_number = contract_number
+        self._email = email
 
     @property
     def phone_number(self):
@@ -459,6 +436,29 @@ class AccountUpdateRootReq(object):
         """
 
         self._phone_number = phone_number
+
+    @property
+    def contract_number(self):
+        """
+        Gets the contract_number of this AccountUpdateRootReq.
+        Contract number of the customer.
+
+        :return: The contract_number of this AccountUpdateRootReq.
+        :rtype: str
+        """
+        return self._contract_number
+
+    @contract_number.setter
+    def contract_number(self, contract_number):
+        """
+        Sets the contract_number of this AccountUpdateRootReq.
+        Contract number of the customer.
+
+        :param contract_number: The contract_number of this AccountUpdateRootReq.
+        :type: str
+        """
+
+        self._contract_number = contract_number
 
     @property
     def company(self):

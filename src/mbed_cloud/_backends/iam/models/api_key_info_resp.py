@@ -31,13 +31,13 @@ class ApiKeyInfoResp(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'groups': 'list[str]',
         'status': 'str',
-        'name': 'str',
+        'groups': 'list[str]',
         'created_at': 'datetime',
         'object': 'str',
         'creation_time': 'int',
         'updated_at': 'datetime',
+        'name': 'str',
         'etag': 'str',
         'key': 'str',
         'owner': 'str',
@@ -46,13 +46,13 @@ class ApiKeyInfoResp(object):
     }
 
     attribute_map = {
-        'groups': 'groups',
         'status': 'status',
-        'name': 'name',
+        'groups': 'groups',
         'created_at': 'created_at',
         'object': 'object',
         'creation_time': 'creation_time',
         'updated_at': 'updated_at',
+        'name': 'name',
         'etag': 'etag',
         'key': 'key',
         'owner': 'owner',
@@ -60,47 +60,24 @@ class ApiKeyInfoResp(object):
         'last_login_time': 'last_login_time'
     }
 
-    def __init__(self, groups=None, status=None, name=None, created_at=None, object=None, creation_time=None, updated_at=None, etag=None, key=None, owner=None, id=None, last_login_time=None):
+    def __init__(self, status=None, groups=None, created_at=None, object=None, creation_time=None, updated_at=None, name=None, etag=None, key=None, owner=None, id=None, last_login_time=None):
         """
         ApiKeyInfoResp - a model defined in Swagger
         """
 
-        self._groups = groups
         self._status = status
-        self._name = name
+        self._groups = groups
         self._created_at = created_at
         self._object = object
         self._creation_time = creation_time
         self._updated_at = updated_at
+        self._name = name
         self._etag = etag
         self._key = key
         self._owner = owner
         self._id = id
         self._last_login_time = last_login_time
         self.discriminator = None
-
-    @property
-    def groups(self):
-        """
-        Gets the groups of this ApiKeyInfoResp.
-        A list of group IDs this API key belongs to.
-
-        :return: The groups of this ApiKeyInfoResp.
-        :rtype: list[str]
-        """
-        return self._groups
-
-    @groups.setter
-    def groups(self, groups):
-        """
-        Sets the groups of this ApiKeyInfoResp.
-        A list of group IDs this API key belongs to.
-
-        :param groups: The groups of this ApiKeyInfoResp.
-        :type: list[str]
-        """
-
-        self._groups = groups
 
     @property
     def status(self):
@@ -132,29 +109,27 @@ class ApiKeyInfoResp(object):
         self._status = status
 
     @property
-    def name(self):
+    def groups(self):
         """
-        Gets the name of this ApiKeyInfoResp.
-        The display name for the API key.
+        Gets the groups of this ApiKeyInfoResp.
+        A list of group IDs this API key belongs to.
 
-        :return: The name of this ApiKeyInfoResp.
-        :rtype: str
+        :return: The groups of this ApiKeyInfoResp.
+        :rtype: list[str]
         """
-        return self._name
+        return self._groups
 
-    @name.setter
-    def name(self, name):
+    @groups.setter
+    def groups(self, groups):
         """
-        Sets the name of this ApiKeyInfoResp.
-        The display name for the API key.
+        Sets the groups of this ApiKeyInfoResp.
+        A list of group IDs this API key belongs to.
 
-        :param name: The name of this ApiKeyInfoResp.
-        :type: str
+        :param groups: The groups of this ApiKeyInfoResp.
+        :type: list[str]
         """
-        if name is None:
-            raise ValueError("Invalid value for `name`, must not be `None`")
 
-        self._name = name
+        self._groups = groups
 
     @property
     def created_at(self):
@@ -255,6 +230,31 @@ class ApiKeyInfoResp(object):
         """
 
         self._updated_at = updated_at
+
+    @property
+    def name(self):
+        """
+        Gets the name of this ApiKeyInfoResp.
+        The display name for the API key.
+
+        :return: The name of this ApiKeyInfoResp.
+        :rtype: str
+        """
+        return self._name
+
+    @name.setter
+    def name(self, name):
+        """
+        Sets the name of this ApiKeyInfoResp.
+        The display name for the API key.
+
+        :param name: The name of this ApiKeyInfoResp.
+        :type: str
+        """
+        if name is None:
+            raise ValueError("Invalid value for `name`, must not be `None`")
+
+        self._name = name
 
     @property
     def etag(self):
