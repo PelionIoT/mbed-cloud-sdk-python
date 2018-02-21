@@ -18,6 +18,7 @@
 """Cross-version toolkit for concurrency concepts"""
 from builtins import object
 from multiprocessing.pool import ThreadPool
+import threading
 import functools
 import six
 if six.PY3:
@@ -36,24 +37,28 @@ class ConcurrentCall(object):
                                     or None: default ThreadPool
                                     or False: default EventLoop
         """
-        self.func = func
-        self.concurrency_provider = (
+        self._func = func
+        self._concurrency_provider = (
             concurrency_provider or
             asyncio.get_event_loop() if six.PY3 and concurrency_provider is False else ThreadPool(processes=1)
         )
-        self.is_asyncio_provider = six.PY3 and not isinstance(self.concurrency_provider, ThreadPool)
-        self.is_awaitable = self.is_asyncio_provider and (
-            isinstance(self.func, asyncio.Future) or
-            asyncio.iscoroutinefunction(self.func) or
-            asyncio.iscoroutine(self.func)
+        self._is_asyncio_provider = six.PY3 and not isinstance(self._concurrency_provider, ThreadPool)
+        self._is_awaitable = self._is_asyncio_provider and (
+                isinstance(self._func, asyncio.Future) or
+                asyncio.iscoroutinefunction(self._func) or
+                asyncio.iscoroutine(self._func)
         )
+        self._deferable = None
+        self._blocked = None
+
+        self._lock = threading.Lock()
 
     def defer(self, *args, **kwargs):
         """Initialise a deferred call to the function - returns an asynchronous object.
 
         The calling code will need to check for the result at a later time.
 
-        In Python 2 - an AsyncResult
+        In Python 2/3 - an AsyncResult
             (https://docs.python.org/2/library/multiprocessing.html#multiprocessing.pool.AsyncResult)
 
         In Python 3 - a Future
@@ -63,16 +68,26 @@ class ConcurrentCall(object):
         :param kwargs:
         :return:
         """
-        func_partial = functools.partial(self.func, *args, **kwargs)
-        return (
-            asyncio.ensure_future(func_partial(), loop=self.concurrency_provider)
-            if self.is_awaitable else (
-                self.concurrency_provider.run_in_executor(func=self.func, executor=None)
-                if self.is_asyncio_provider else (
-                    self.concurrency_provider.apply_async(self.func)
+        if self._blocked:
+            raise RuntimeError('Already activated this deferred call by blocking on it')
+        with self._lock:
+            if not self._deferable:
+                func_partial = functools.partial(self._func, *args, **kwargs)
+
+                # we are either:
+                # - pure asyncio
+                # - asyncio but with blocking function
+                # - not asyncio, use threadpool
+                self._deferable = (
+                    asyncio.ensure_future(func_partial(), loop=self._concurrency_provider)
+                    if self._is_awaitable else (
+                        self._concurrency_provider.run_in_executor(func=self._func, executor=None)
+                        if self._is_asyncio_provider else (
+                            self._concurrency_provider.apply_async(self._func)
+                        )
+                    )
                 )
-            )
-        )
+        return self._deferable
 
     def block(self, *args, **kwargs):
         """Call the wrapped function in a blocking fashion - returns the result of the function call
@@ -81,7 +96,13 @@ class ConcurrentCall(object):
         :param kwargs:
         :return: result of function call
         """
-        return (
-            self.concurrency_provider.run_until_complete(self.defer(*args, **kwargs))
-            if self.is_asyncio_provider else self.func(*args, **kwargs)
-        )
+        if self._deferable:
+            raise RuntimeError('Already activated this call by deferring it')
+        with self._lock:
+            if not hasattr(self, '_result'):
+                self._result = (
+                    self._concurrency_provider.run_until_complete(self.defer(*args, **kwargs))
+                    if self._is_asyncio_provider else self._func(*args, **kwargs)
+                )
+            self._blocked = True
+        return self._result

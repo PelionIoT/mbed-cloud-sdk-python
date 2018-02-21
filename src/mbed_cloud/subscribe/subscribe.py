@@ -1,5 +1,6 @@
 from six.moves import queue
 import warnings
+import functools
 from mbed_cloud.subscribe.util import ConcurrentCall
 """
 usages
@@ -28,22 +29,6 @@ while True:
 
 
 """
-
-
-class IterQueue(queue.Queue):
-    _sentinel = object()
-    def __iter__(self):
-        return iter(self.get, self.sentinel)
-
-    def __next__(self):
-        return self.get()
-
-    def next(self):
-        """Next item in sequence (Python 2 compatibility)"""
-        return self.__next__()
-
-    def close(self):
-        self.put(self._sentinel)
 
 
 class SubscriptionsManager(object):
@@ -122,12 +107,16 @@ class Observer(object):
 
     def __init__(self, signal_key=None, filters=None, queue_size=0, once=False, provider=None, timeout=None):
 
-        # a backing queue that will grow if the user does not consume
-        # inbound data
+        # a notification storage queue that will grow if the user does not consume
+        # inbound data, up to the queue size (after which, new data will be discarded)
         # this could be replaced with asyncio.Queue in py3
-        self._queue = IterQueue(maxsize=queue_size)
+        self._notifications = queue.Queue(maxsize=queue_size)
         self._once = once
+        self._once_done = False
         self._timeout = timeout
+
+        # a queue of internally waitable objects
+        self._waitables = queue.Queue()
 
         # provider is passed straight to the ConcurrentCall abstraction
         # if you are using asyncio you can pass your current event loop here and receive Futures
@@ -145,11 +134,11 @@ class Observer(object):
     @property
     def queue(self):
         """The raw iterable queue behind this observer"""
-        return self._queue
+        return self._notifications
 
     @property
     def latest_item(self):
-        """The most recent item read from the queue"""
+        """The most recent waitable item"""
         return self._latest_item
 
     def _start_subscription(self):
@@ -159,14 +148,28 @@ class Observer(object):
             self._subscription_started = True
         return self
 
-    def pull_from_queue(self, **kwargs):
-        return self._queue.next()
-
     def __iter__(self):
         return self
 
     def __next__(self):
-        self._latest_item = ConcurrentCall(func=, concurrency_provider=self._provider)
+        """Generates abstracted waitables
+
+        They will be fulfilled in the order they were created,
+        matching the order of new inbound notifications
+        """
+        waitable = queue.Queue(maxsize=1)
+        try:
+            data = self._notifications.get_nowait()
+        except queue.Empty:
+            pass
+            self._waitables.put(waitable)
+        else:
+            waitable.put_nowait(data)
+        getter = functools.partial(waitable.get, timeout=self._timeout)
+        self._latest_item = ConcurrentCall(
+            func=getter,
+            concurrency_provider=self._provider
+        )
         return self._latest_item
 
     def next(self):
@@ -178,15 +181,21 @@ class Observer(object):
 
     def notify(self, data):
         """Notify this observer that data has arrived"""
+        if self._once_done:
+            return self
+
         if self.filter_notification(data):
-            self._queue.put_nowait(data)
-            if self._once:
-                self._queue.close()
+            self._notifications.put_nowait(data)
+            try:
+                self._waitables.get_nowait().put_nowait(data)
+            except queue.Empty:
+                pass
 
             # callbacks are sent straight away
             # bombproofing should be handled by individual callbacks
             for callback in self._callbacks:
                 callback(data)
+        self._once_done = True
         return self
 
     def add_callback(self, fn):
