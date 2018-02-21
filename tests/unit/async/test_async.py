@@ -2,7 +2,7 @@ import six
 import unittest
 import uuid
 from multiprocessing import pool
-from mbed_cloud.async import util
+from mbed_cloud.subscribe import util
 
 from tests.common import BaseCase
 
@@ -43,7 +43,7 @@ class Test2(AsyncBase):
     @classmethod
     def setUpClass(cls):
         super(Test2, cls).setUpClass()
-        from tests.async.b_call import slow
+        from tests.unit.async.b_call import slow
         cls.thing = Thing(func=slow)
 
     def get_async_value(self, defer):
@@ -54,7 +54,7 @@ class Test2CustomLoop(Test2):
     @classmethod
     def setUpClass(cls):
         super(Test2CustomLoop, cls).setUpClass()
-        from tests.async.b_call import slow
+        from tests.unit.async.b_call import slow
         tp = pool.ThreadPool(processes=1)
         cls.thing = Thing(func=slow, concurrency_provider=tp)
 
@@ -67,7 +67,7 @@ class Test3(AsyncBase):
     def setUpClass(cls):
         super().setUpClass()
         import asyncio
-        from tests.async.a_call import slow
+        from tests.unit.async import slow
         cls.target = slow
         cls.loop = asyncio.get_event_loop()
         cls.thing = Thing(func=cls.target)
@@ -102,7 +102,7 @@ class Test3DoesThreadsToo(Test3):
     def setUpClass(cls):
         super().setUpClass()
         # if we wanted to, we could make our Thing use ThreadPools in python3.
-        from tests.async.b_call import slow
+        from tests.unit.async.b_call import slow
         cls.target = slow
         tp = pool.ThreadPool(processes=1)
         cls.thing = Thing(concurrency_provider=tp, func=cls.target)

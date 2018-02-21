@@ -18,6 +18,7 @@
 """Cross-version toolkit for concurrency concepts"""
 from builtins import object
 from multiprocessing.pool import ThreadPool
+import functools
 import six
 if six.PY3:
     import asyncio
@@ -32,13 +33,20 @@ class ConcurrentCall(object):
 
         :param func: blocking call, asyncio coroutine or future
         :param concurrency_provider: ThreadPool or asyncio BaseEventLoop
+                                    or None: default ThreadPool
+                                    or False: default EventLoop
         """
         self.func = func
         self.concurrency_provider = (
             concurrency_provider or
-            asyncio.get_event_loop() if six.PY3 else ThreadPool(processes=1)
+            asyncio.get_event_loop() if six.PY3 and concurrency_provider is False else ThreadPool(processes=1)
         )
-        self.is_asyncio = not isinstance(self.concurrency_provider, ThreadPool)
+        self.is_asyncio_provider = six.PY3 and not isinstance(self.concurrency_provider, ThreadPool)
+        self.is_awaitable = self.is_asyncio_provider and (
+            isinstance(self.func, asyncio.Future) or
+            asyncio.iscoroutinefunction(self.func) or
+            asyncio.iscoroutine(self.func)
+        )
 
     def defer(self, *args, **kwargs):
         """Initialise a deferred call to the function - returns an asynchronous object.
@@ -55,9 +63,15 @@ class ConcurrentCall(object):
         :param kwargs:
         :return:
         """
+        func_partial = functools.partial(self.func, *args, **kwargs)
         return (
-            asyncio.ensure_future(self.func(*args, **kwargs), loop=self.concurrency_provider)
-            if self.is_asyncio else self.concurrency_provider.apply_async(self.func, args, kwargs)
+            asyncio.ensure_future(func_partial(), loop=self.concurrency_provider)
+            if self.is_awaitable else (
+                self.concurrency_provider.run_in_executor(func=self.func, executor=None)
+                if self.is_asyncio_provider else (
+                    self.concurrency_provider.apply_async(self.func)
+                )
+            )
         )
 
     def block(self, *args, **kwargs):
@@ -69,5 +83,5 @@ class ConcurrentCall(object):
         """
         return (
             self.concurrency_provider.run_until_complete(self.defer(*args, **kwargs))
-            if self.is_asyncio else self.func(*args, **kwargs)
+            if self.is_asyncio_provider else self.func(*args, **kwargs)
         )
