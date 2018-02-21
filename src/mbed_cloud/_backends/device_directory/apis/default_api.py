@@ -37,7 +37,8 @@ class DefaultApi(object):
 
     def device_create(self, device, **kwargs):
         """
-        Create device.
+        Create a device
+        Create a new device.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.device_create(device, async=True)
@@ -58,7 +59,8 @@ class DefaultApi(object):
 
     def device_create_with_http_info(self, device, **kwargs):
         """
-        Create device.
+        Create a device
+        Create a new device.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.device_create_with_http_info(device, async=True)
@@ -129,6 +131,7 @@ class DefaultApi(object):
 
     def device_destroy(self, id, **kwargs):
         """
+        Delete a device.
         Delete device. Only available for devices with a developer certificate. Attempts to delete a device with a production certicate will return a 400 response.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -150,6 +153,7 @@ class DefaultApi(object):
 
     def device_destroy_with_http_info(self, id, **kwargs):
         """
+        Delete a device.
         Delete device. Only available for devices with a developer certificate. Attempts to delete a device with a production certicate will return a 400 response.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -222,6 +226,7 @@ class DefaultApi(object):
     def device_event_list(self, **kwargs):
         """
         List all device events.
+        List all device events for an account.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.device_event_list(async=True)
@@ -247,6 +252,7 @@ class DefaultApi(object):
     def device_event_list_with_http_info(self, **kwargs):
         """
         List all device events.
+        List all device events for an account.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.device_event_list_with_http_info(async=True)
@@ -326,7 +332,8 @@ class DefaultApi(object):
 
     def device_event_retrieve(self, device_event_id, **kwargs):
         """
-        Retrieve device event.
+        Retrieve a device event.
+        Retrieve a specific device event.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.device_event_retrieve(device_event_id, async=True)
@@ -347,7 +354,8 @@ class DefaultApi(object):
 
     def device_event_retrieve_with_http_info(self, device_event_id, **kwargs):
         """
-        Retrieve device event.
+        Retrieve a device event.
+        Retrieve a specific device event.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.device_event_retrieve_with_http_info(device_event_id, async=True)
@@ -419,6 +427,7 @@ class DefaultApi(object):
     def device_list(self, **kwargs):
         """
         List all devices.
+        List all devices.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.device_list(async=True)
@@ -443,6 +452,7 @@ class DefaultApi(object):
 
     def device_list_with_http_info(self, **kwargs):
         """
+        List all devices.
         List all devices.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -523,6 +533,7 @@ class DefaultApi(object):
 
     def device_log_list(self, **kwargs):
         """
+        DEPRECATED: List all device events.
         DEPRECATED: List all device events. Use `/v3/device-events/` instead.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -548,6 +559,7 @@ class DefaultApi(object):
 
     def device_log_list_with_http_info(self, **kwargs):
         """
+        DEPRECATED: List all device events.
         DEPRECATED: List all device events. Use `/v3/device-events/` instead.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -628,6 +640,7 @@ class DefaultApi(object):
 
     def device_log_retrieve(self, device_event_id, **kwargs):
         """
+        DEPRECATED: Retrieve a device event.
         Retrieve device event (deprecated, use /v3/device-events/{device_event_id}/ instead)
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -649,6 +662,7 @@ class DefaultApi(object):
 
     def device_log_retrieve_with_http_info(self, device_event_id, **kwargs):
         """
+        DEPRECATED: Retrieve a device event.
         Retrieve device event (deprecated, use /v3/device-events/{device_event_id}/ instead)
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -720,7 +734,8 @@ class DefaultApi(object):
 
     def device_query_create(self, device, **kwargs):
         """
-        Create device query.
+        Create a device query
+        Create a new device query.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.device_query_create(device, async=True)
@@ -741,7 +756,8 @@ class DefaultApi(object):
 
     def device_query_create_with_http_info(self, device, **kwargs):
         """
-        Create device query.
+        Create a device query
+        Create a new device query.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.device_query_create_with_http_info(device, async=True)
@@ -812,7 +828,8 @@ class DefaultApi(object):
 
     def device_query_destroy(self, query_id, **kwargs):
         """
-        Delete device query.
+        Delete a device query
+        Delete a device query.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.device_query_destroy(query_id, async=True)
@@ -833,7 +850,8 @@ class DefaultApi(object):
 
     def device_query_destroy_with_http_info(self, query_id, **kwargs):
         """
-        Delete device query.
+        Delete a device query
+        Delete a device query.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.device_query_destroy_with_http_info(query_id, async=True)
@@ -904,6 +922,7 @@ class DefaultApi(object):
 
     def device_query_list(self, **kwargs):
         """
+        List device queries.
         List all device queries. The result will be paged into pages of 100.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -929,6 +948,7 @@ class DefaultApi(object):
 
     def device_query_list_with_http_info(self, **kwargs):
         """
+        List device queries.
         List all device queries. The result will be paged into pages of 100.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -1009,7 +1029,8 @@ class DefaultApi(object):
 
     def device_query_retrieve(self, query_id, **kwargs):
         """
-        Retrieve device query.
+        Retrieve a device query.
+        Retrieve a specific device query.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.device_query_retrieve(query_id, async=True)
@@ -1030,7 +1051,8 @@ class DefaultApi(object):
 
     def device_query_retrieve_with_http_info(self, query_id, **kwargs):
         """
-        Retrieve device query.
+        Retrieve a device query.
+        Retrieve a specific device query.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.device_query_retrieve_with_http_info(query_id, async=True)
@@ -1101,7 +1123,8 @@ class DefaultApi(object):
 
     def device_query_update(self, query_id, body, **kwargs):
         """
-        Update device query.
+        Update a device query
+        Update a specifc device query.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.device_query_update(query_id, body, async=True)
@@ -1123,7 +1146,8 @@ class DefaultApi(object):
 
     def device_query_update_with_http_info(self, query_id, body, **kwargs):
         """
-        Update device query.
+        Update a device query
+        Update a specifc device query.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.device_query_update_with_http_info(query_id, body, async=True)
@@ -1200,7 +1224,8 @@ class DefaultApi(object):
 
     def device_retrieve(self, id, **kwargs):
         """
-        Retrieve device.
+        Get a devices
+        Retrieve information about a specific device.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.device_retrieve(id, async=True)
@@ -1221,7 +1246,8 @@ class DefaultApi(object):
 
     def device_retrieve_with_http_info(self, id, **kwargs):
         """
-        Retrieve device.
+        Get a devices
+        Retrieve information about a specific device.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.device_retrieve_with_http_info(id, async=True)
@@ -1292,7 +1318,8 @@ class DefaultApi(object):
 
     def device_update(self, id, device, **kwargs):
         """
-        Update device.
+        Update a device
+        Update a specific device.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.device_update(id, device, async=True)
@@ -1314,7 +1341,8 @@ class DefaultApi(object):
 
     def device_update_with_http_info(self, id, device, **kwargs):
         """
-        Update device.
+        Update a device
+        Update a specific device.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.device_update_with_http_info(id, device, async=True)

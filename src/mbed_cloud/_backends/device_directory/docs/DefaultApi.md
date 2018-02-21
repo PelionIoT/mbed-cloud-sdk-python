@@ -4,28 +4,28 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**device_create**](DefaultApi.md#device_create) | **POST** /v3/devices/ | 
-[**device_destroy**](DefaultApi.md#device_destroy) | **DELETE** /v3/devices/{id}/ | 
-[**device_event_list**](DefaultApi.md#device_event_list) | **GET** /v3/device-events/ | 
-[**device_event_retrieve**](DefaultApi.md#device_event_retrieve) | **GET** /v3/device-events/{device_event_id}/ | 
-[**device_list**](DefaultApi.md#device_list) | **GET** /v3/devices/ | 
-[**device_log_list**](DefaultApi.md#device_log_list) | **GET** /v3/devicelog/ | 
-[**device_log_retrieve**](DefaultApi.md#device_log_retrieve) | **GET** /v3/devicelog/{device_event_id}/ | 
-[**device_query_create**](DefaultApi.md#device_query_create) | **POST** /v3/device-queries/ | 
-[**device_query_destroy**](DefaultApi.md#device_query_destroy) | **DELETE** /v3/device-queries/{query_id}/ | 
-[**device_query_list**](DefaultApi.md#device_query_list) | **GET** /v3/device-queries/ | 
-[**device_query_retrieve**](DefaultApi.md#device_query_retrieve) | **GET** /v3/device-queries/{query_id}/ | 
-[**device_query_update**](DefaultApi.md#device_query_update) | **PUT** /v3/device-queries/{query_id}/ | 
-[**device_retrieve**](DefaultApi.md#device_retrieve) | **GET** /v3/devices/{id}/ | 
-[**device_update**](DefaultApi.md#device_update) | **PUT** /v3/devices/{id}/ | 
+[**device_create**](DefaultApi.md#device_create) | **POST** /v3/devices/ | Create a device
+[**device_destroy**](DefaultApi.md#device_destroy) | **DELETE** /v3/devices/{id}/ | Delete a device.
+[**device_event_list**](DefaultApi.md#device_event_list) | **GET** /v3/device-events/ | List all device events.
+[**device_event_retrieve**](DefaultApi.md#device_event_retrieve) | **GET** /v3/device-events/{device_event_id}/ | Retrieve a device event.
+[**device_list**](DefaultApi.md#device_list) | **GET** /v3/devices/ | List all devices.
+[**device_log_list**](DefaultApi.md#device_log_list) | **GET** /v3/devicelog/ | DEPRECATED: List all device events.
+[**device_log_retrieve**](DefaultApi.md#device_log_retrieve) | **GET** /v3/devicelog/{device_event_id}/ | DEPRECATED: Retrieve a device event.
+[**device_query_create**](DefaultApi.md#device_query_create) | **POST** /v3/device-queries/ | Create a device query
+[**device_query_destroy**](DefaultApi.md#device_query_destroy) | **DELETE** /v3/device-queries/{query_id}/ | Delete a device query
+[**device_query_list**](DefaultApi.md#device_query_list) | **GET** /v3/device-queries/ | List device queries.
+[**device_query_retrieve**](DefaultApi.md#device_query_retrieve) | **GET** /v3/device-queries/{query_id}/ | Retrieve a device query.
+[**device_query_update**](DefaultApi.md#device_query_update) | **PUT** /v3/device-queries/{query_id}/ | Update a device query
+[**device_retrieve**](DefaultApi.md#device_retrieve) | **GET** /v3/devices/{id}/ | Get a devices
+[**device_update**](DefaultApi.md#device_update) | **PUT** /v3/devices/{id}/ | Update a device
 
 
 # **device_create**
 > DeviceData device_create(device)
 
+Create a device
 
-
-Create device.
+Create a new device.
 
 ### Example 
 ```python
@@ -46,6 +46,7 @@ api_instance = device_directory.DefaultApi(device_directory.ApiClient(configurat
 device = device_directory.DeviceDataPostRequest() # DeviceDataPostRequest | 
 
 try: 
+    # Create a device
     api_response = api_instance.device_create(device)
     pprint(api_response)
 except ApiException as e:
@@ -76,7 +77,7 @@ Name | Type | Description  | Notes
 # **device_destroy**
 > device_destroy(id)
 
-
+Delete a device.
 
 Delete device. Only available for devices with a developer certificate. Attempts to delete a device with a production certicate will return a 400 response.
 
@@ -99,6 +100,7 @@ api_instance = device_directory.DefaultApi(device_directory.ApiClient(configurat
 id = 'id_example' # str | 
 
 try: 
+    # Delete a device.
     api_instance.device_destroy(id)
 except ApiException as e:
     print("Exception when calling DefaultApi->device_destroy: %s\n" % e)
@@ -128,9 +130,9 @@ void (empty response body)
 # **device_event_list**
 > DeviceEventPage device_event_list(limit=limit, order=order, after=after, filter=filter, include=include)
 
-
-
 List all device events.
+
+List all device events for an account.
 
 ### Example 
 ```python
@@ -155,6 +157,7 @@ filter = 'filter_example' # str | URL encoded query string parameter to filter r
 include = 'include_example' # str | Comma-separated list of data fields to return. Currently supported: `total_count` (optional)
 
 try: 
+    # List all device events.
     api_response = api_instance.device_event_list(limit=limit, order=order, after=after, filter=filter, include=include)
     pprint(api_response)
 except ApiException as e:
@@ -189,9 +192,9 @@ Name | Type | Description  | Notes
 # **device_event_retrieve**
 > DeviceEventData device_event_retrieve(device_event_id)
 
+Retrieve a device event.
 
-
-Retrieve device event.
+Retrieve a specific device event.
 
 ### Example 
 ```python
@@ -212,6 +215,7 @@ api_instance = device_directory.DefaultApi(device_directory.ApiClient(configurat
 device_event_id = 'device_event_id_example' # str | 
 
 try: 
+    # Retrieve a device event.
     api_response = api_instance.device_event_retrieve(device_event_id)
     pprint(api_response)
 except ApiException as e:
@@ -242,7 +246,7 @@ Name | Type | Description  | Notes
 # **device_list**
 > DevicePage device_list(limit=limit, order=order, after=after, filter=filter, include=include)
 
-
+List all devices.
 
 List all devices.
 
@@ -269,6 +273,7 @@ filter = 'filter_example' # str | URL encoded query string parameter to filter r
 include = 'include_example' # str | Comma-separated list of data fields to return. Currently supported: `total_count`. (optional)
 
 try: 
+    # List all devices.
     api_response = api_instance.device_list(limit=limit, order=order, after=after, filter=filter, include=include)
     pprint(api_response)
 except ApiException as e:
@@ -303,7 +308,7 @@ Name | Type | Description  | Notes
 # **device_log_list**
 > DeviceEventPage device_log_list(limit=limit, order=order, after=after, filter=filter, include=include)
 
-
+DEPRECATED: List all device events.
 
 DEPRECATED: List all device events. Use `/v3/device-events/` instead.
 
@@ -330,6 +335,7 @@ filter = 'filter_example' # str | URL encoded query string parameter to filter r
 include = 'include_example' # str | Comma-separated list of data fields to return. Currently supported: `total_count`. (optional)
 
 try: 
+    # DEPRECATED: List all device events.
     api_response = api_instance.device_log_list(limit=limit, order=order, after=after, filter=filter, include=include)
     pprint(api_response)
 except ApiException as e:
@@ -364,7 +370,7 @@ Name | Type | Description  | Notes
 # **device_log_retrieve**
 > DeviceEventData device_log_retrieve(device_event_id)
 
-
+DEPRECATED: Retrieve a device event.
 
 Retrieve device event (deprecated, use /v3/device-events/{device_event_id}/ instead)
 
@@ -387,6 +393,7 @@ api_instance = device_directory.DefaultApi(device_directory.ApiClient(configurat
 device_event_id = 'device_event_id_example' # str | 
 
 try: 
+    # DEPRECATED: Retrieve a device event.
     api_response = api_instance.device_log_retrieve(device_event_id)
     pprint(api_response)
 except ApiException as e:
@@ -417,9 +424,9 @@ Name | Type | Description  | Notes
 # **device_query_create**
 > DeviceQuery device_query_create(device)
 
+Create a device query
 
-
-Create device query.
+Create a new device query.
 
 ### Example 
 ```python
@@ -440,6 +447,7 @@ api_instance = device_directory.DefaultApi(device_directory.ApiClient(configurat
 device = device_directory.DeviceQueryPostPutRequest() # DeviceQueryPostPutRequest | 
 
 try: 
+    # Create a device query
     api_response = api_instance.device_query_create(device)
     pprint(api_response)
 except ApiException as e:
@@ -470,9 +478,9 @@ Name | Type | Description  | Notes
 # **device_query_destroy**
 > device_query_destroy(query_id)
 
+Delete a device query
 
-
-Delete device query.
+Delete a device query.
 
 ### Example 
 ```python
@@ -493,6 +501,7 @@ api_instance = device_directory.DefaultApi(device_directory.ApiClient(configurat
 query_id = 'query_id_example' # str | 
 
 try: 
+    # Delete a device query
     api_instance.device_query_destroy(query_id)
 except ApiException as e:
     print("Exception when calling DefaultApi->device_query_destroy: %s\n" % e)
@@ -522,7 +531,7 @@ void (empty response body)
 # **device_query_list**
 > DeviceQueryPage device_query_list(limit=limit, order=order, after=after, filter=filter, include=include)
 
-
+List device queries.
 
 List all device queries. The result will be paged into pages of 100.
 
@@ -549,6 +558,7 @@ filter = 'filter_example' # str | URL encoded query string parameter to filter r
 include = 'include_example' # str | Comma-separated list of data fields to return. Currently supported: `total_count`. (optional)
 
 try: 
+    # List device queries.
     api_response = api_instance.device_query_list(limit=limit, order=order, after=after, filter=filter, include=include)
     pprint(api_response)
 except ApiException as e:
@@ -583,9 +593,9 @@ Name | Type | Description  | Notes
 # **device_query_retrieve**
 > DeviceQuery device_query_retrieve(query_id)
 
+Retrieve a device query.
 
-
-Retrieve device query.
+Retrieve a specific device query.
 
 ### Example 
 ```python
@@ -606,6 +616,7 @@ api_instance = device_directory.DefaultApi(device_directory.ApiClient(configurat
 query_id = 'query_id_example' # str | 
 
 try: 
+    # Retrieve a device query.
     api_response = api_instance.device_query_retrieve(query_id)
     pprint(api_response)
 except ApiException as e:
@@ -636,9 +647,9 @@ Name | Type | Description  | Notes
 # **device_query_update**
 > DeviceQuery device_query_update(query_id, body)
 
+Update a device query
 
-
-Update device query.
+Update a specifc device query.
 
 ### Example 
 ```python
@@ -660,6 +671,7 @@ query_id = 'query_id_example' # str |
 body = device_directory.DeviceQueryPostPutRequest() # DeviceQueryPostPutRequest | Device query update object.
 
 try: 
+    # Update a device query
     api_response = api_instance.device_query_update(query_id, body)
     pprint(api_response)
 except ApiException as e:
@@ -691,9 +703,9 @@ Name | Type | Description  | Notes
 # **device_retrieve**
 > DeviceData device_retrieve(id)
 
+Get a devices
 
-
-Retrieve device.
+Retrieve information about a specific device.
 
 ### Example 
 ```python
@@ -714,6 +726,7 @@ api_instance = device_directory.DefaultApi(device_directory.ApiClient(configurat
 id = 'id_example' # str | 
 
 try: 
+    # Get a devices
     api_response = api_instance.device_retrieve(id)
     pprint(api_response)
 except ApiException as e:
@@ -744,9 +757,9 @@ Name | Type | Description  | Notes
 # **device_update**
 > DeviceData device_update(id, device)
 
+Update a device
 
-
-Update device.
+Update a specific device.
 
 ### Example 
 ```python
@@ -768,6 +781,7 @@ id = 'id_example' # str | The ID of the device.
 device = device_directory.DeviceDataPutRequest() # DeviceDataPutRequest | 
 
 try: 
+    # Update a device
     api_response = api_instance.device_update(id, device)
     pprint(api_response)
 except ApiException as e:
