@@ -4,7 +4,7 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**v2_subscriptions_delete**](SubscriptionsApi.md#v2_subscriptions_delete) | **DELETE** /v2/subscriptions | Remove all subscriptions
+[**v2_subscriptions_delete**](SubscriptionsApi.md#v2_subscriptions_delete) | **DELETE** /v2/subscriptions | Remove pre-subscriptions
 [**v2_subscriptions_device_id_delete**](SubscriptionsApi.md#v2_subscriptions_device_id_delete) | **DELETE** /v2/subscriptions/{device-id} | Delete subscriptions from an endpoint
 [**v2_subscriptions_device_id_get**](SubscriptionsApi.md#v2_subscriptions_device_id_get) | **GET** /v2/subscriptions/{device-id} | Read endpoints subscriptions
 [**v2_subscriptions_device_id_resource_path_delete**](SubscriptionsApi.md#v2_subscriptions_device_id_resource_path_delete) | **DELETE** /v2/subscriptions/{device-id}/{resourcePath} | Remove a subscription
@@ -17,9 +17,9 @@ Method | HTTP request | Description
 # **v2_subscriptions_delete**
 > v2_subscriptions_delete()
 
-Remove all subscriptions
+Remove pre-subscriptions
 
-Removes subscriptions from every endpoint and resource. Note that this does not remove pre-subscriptions.  **Example usage:**      curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/subscriptions -H 'authorization: Bearer {api-key}'      
+Removes pre-subscriptions.  **Example usage:**      curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/subscriptions -H 'authorization: Bearer {api-key}'      
 
 ### Example 
 ```python
@@ -39,7 +39,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 api_instance = mds.SubscriptionsApi(mds.ApiClient(configuration))
 
 try: 
-    # Remove all subscriptions
+    # Remove pre-subscriptions
     api_instance.v2_subscriptions_delete()
 except ApiException as e:
     print("Exception when calling SubscriptionsApi->v2_subscriptions_delete: %s\n" % e)
@@ -117,11 +117,11 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v2_subscriptions_device_id_get**
-> str v2_subscriptions_device_id_get(device_id)
+> SubscriptionsList v2_subscriptions_device_id_get(device_id)
 
 Read endpoints subscriptions
 
-Lists all subscribed resources from a single endpoint.  **Example usage:**      curl -X GET \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id} \\       -H 'authorization: Bearer {api-key}'        
+Lists all subscribed resources from a single endpoint.  **Example usage:**      curl -X GET \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id} \\       -H 'authorization: Bearer {api-key}' 
 
 ### Example 
 ```python
@@ -157,7 +157,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**str**
+[**SubscriptionsList**](SubscriptionsList.md)
 
 ### Authorization
 

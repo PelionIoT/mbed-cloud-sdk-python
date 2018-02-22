@@ -37,8 +37,8 @@ class ResourcesApi(object):
 
     def v2_endpoints_device_id_resource_path_delete(self, device_id, _resource_path, **kwargs):
         """
-        Delete a resource
-        A request to delete a resource must be handled by both Mbed Cloud Client and Mbed Cloud Connect. The resource is not deleted from Mbed Cloud Connect until the request is handled by Mbed Cloud Client.  All resource APIs are asynchronous. These APIs respond only if the device is turned on and connected to Mbed Cloud Connect and there is an active notification channel.  **Example usage:**      curl -X DELETE \\       https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id}/{resourcePath} \\       -H 'authorization: Bearer {api-key}' 
+        Delete a resource path
+        A request to delete a resource path must be handled by both Mbed Cloud Client and Mbed Cloud Connect.  All resource APIs are asynchronous. These APIs respond only if the device is turned on and connected to Mbed Cloud Connect and there is an active notification channel.  **Example usage:**      curl -X DELETE \\       https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id}/{resourcePath} \\       -H 'authorization: Bearer {api-key}' 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.v2_endpoints_device_id_resource_path_delete(device_id, _resource_path, async=True)
@@ -61,8 +61,8 @@ class ResourcesApi(object):
 
     def v2_endpoints_device_id_resource_path_delete_with_http_info(self, device_id, _resource_path, **kwargs):
         """
-        Delete a resource
-        A request to delete a resource must be handled by both Mbed Cloud Client and Mbed Cloud Connect. The resource is not deleted from Mbed Cloud Connect until the request is handled by Mbed Cloud Client.  All resource APIs are asynchronous. These APIs respond only if the device is turned on and connected to Mbed Cloud Connect and there is an active notification channel.  **Example usage:**      curl -X DELETE \\       https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id}/{resourcePath} \\       -H 'authorization: Bearer {api-key}' 
+        Delete a resource path
+        A request to delete a resource path must be handled by both Mbed Cloud Client and Mbed Cloud Connect.  All resource APIs are asynchronous. These APIs respond only if the device is turned on and connected to Mbed Cloud Connect and there is an active notification channel.  **Example usage:**      curl -X DELETE \\       https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id}/{resourcePath} \\       -H 'authorization: Bearer {api-key}' 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.v2_endpoints_device_id_resource_path_delete_with_http_info(device_id, _resource_path, async=True)

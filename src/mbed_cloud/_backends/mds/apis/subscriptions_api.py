@@ -37,8 +37,8 @@ class SubscriptionsApi(object):
 
     def v2_subscriptions_delete(self, **kwargs):
         """
-        Remove all subscriptions
-        Removes subscriptions from every endpoint and resource. Note that this does not remove pre-subscriptions.  **Example usage:**      curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/subscriptions -H 'authorization: Bearer {api-key}'      
+        Remove pre-subscriptions
+        Removes pre-subscriptions.  **Example usage:**      curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/subscriptions -H 'authorization: Bearer {api-key}'      
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.v2_subscriptions_delete(async=True)
@@ -58,8 +58,8 @@ class SubscriptionsApi(object):
 
     def v2_subscriptions_delete_with_http_info(self, **kwargs):
         """
-        Remove all subscriptions
-        Removes subscriptions from every endpoint and resource. Note that this does not remove pre-subscriptions.  **Example usage:**      curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/subscriptions -H 'authorization: Bearer {api-key}'      
+        Remove pre-subscriptions
+        Removes pre-subscriptions.  **Example usage:**      curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/subscriptions -H 'authorization: Bearer {api-key}'      
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.v2_subscriptions_delete_with_http_info(async=True)
@@ -210,7 +210,7 @@ class SubscriptionsApi(object):
     def v2_subscriptions_device_id_get(self, device_id, **kwargs):
         """
         Read endpoints subscriptions
-        Lists all subscribed resources from a single endpoint.  **Example usage:**      curl -X GET \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id} \\       -H 'authorization: Bearer {api-key}'        
+        Lists all subscribed resources from a single endpoint.  **Example usage:**      curl -X GET \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id} \\       -H 'authorization: Bearer {api-key}' 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.v2_subscriptions_device_id_get(device_id, async=True)
@@ -218,7 +218,7 @@ class SubscriptionsApi(object):
 
         :param async bool
         :param str device_id: A unique Mbed Cloud device ID for the endpoint. Note that ID must be an exact match. You cannot use wildcards here.  (required)
-        :return: str
+        :return: SubscriptionsList
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -232,7 +232,7 @@ class SubscriptionsApi(object):
     def v2_subscriptions_device_id_get_with_http_info(self, device_id, **kwargs):
         """
         Read endpoints subscriptions
-        Lists all subscribed resources from a single endpoint.  **Example usage:**      curl -X GET \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id} \\       -H 'authorization: Bearer {api-key}'        
+        Lists all subscribed resources from a single endpoint.  **Example usage:**      curl -X GET \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id} \\       -H 'authorization: Bearer {api-key}' 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.v2_subscriptions_device_id_get_with_http_info(device_id, async=True)
@@ -240,7 +240,7 @@ class SubscriptionsApi(object):
 
         :param async bool
         :param str device_id: A unique Mbed Cloud device ID for the endpoint. Note that ID must be an exact match. You cannot use wildcards here.  (required)
-        :return: str
+        :return: SubscriptionsList
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -293,7 +293,7 @@ class SubscriptionsApi(object):
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='str',
+                                        response_type='SubscriptionsList',
                                         auth_settings=auth_settings,
                                         async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
