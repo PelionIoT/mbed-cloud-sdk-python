@@ -1,22 +1,16 @@
-import logging
-import warnings
-import unittest
-import threading
-import uuid
-import time
-import random
-from mbed_cloud.subscribe import util
-from mbed_cloud.subscribe import subscribe
 import itertools
-from tests.common import BaseCase
+import logging
+import random
+import six
+import threading
+import time
 
-Thing = util.ConcurrentCall
+from mbed_cloud.subscribe import subscribe
+
+from tests.common import BaseCase
 
 
 class Test(BaseCase):
-    def setUp(self):
-        self.unique_string = str(uuid.uuid4())
-
     def test_subscribe_first(self):
         obs = subscribe.Observer()
         a = obs.next()
@@ -71,7 +65,7 @@ class Test(BaseCase):
         self.assertEqual(items, list(range(6)))
 
     def test_threaded_stream(self):
-        """Looping over the observer with iteration"""
+        """Behaviour in threaded environment"""
         obs = subscribe.Observer()
         n = 12
         start = threading.Event()
@@ -137,7 +131,16 @@ class Test(BaseCase):
         self.assertEqual(obs._callbacks, [])
 
     def test_overflow(self):
+        """Inbound queue overflows"""
         obs = subscribe.Observer(queue_size=1)
         obs.notify(1)
-        with self.assertLogs(level=logging.WARNING):
-            obs.notify(1)
+        if six.PY3:
+            with self.assertLogs(level=logging.WARNING):
+                obs.notify(1)
+        obs.notify(1)
+        self.assertTrue(obs.next().defer().get(0.05))
+
+        # The second waiter will never resolve because the queue was too short
+        waiter = obs.next().defer()
+        waiter.wait(0.05)
+        self.assertFalse(waiter.ready())
