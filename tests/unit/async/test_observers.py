@@ -74,7 +74,6 @@ class Test(BaseCase):
         def add_values():
             start.wait()
             for i in range(n):
-                print('put new item', i)
                 obs.notify(dict(a_key=i))
                 time.sleep(sleepy())
 
@@ -86,7 +85,6 @@ class Test(BaseCase):
             start.wait()
             # finite iteration of infinite generator
             for new_item in itertools.islice(obs, 0, n - 1):
-                print('got new item', new_item)
                 result.append(new_item.block().get('a_key'))
                 time.sleep(sleepy())
 

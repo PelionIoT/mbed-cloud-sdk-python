@@ -18,6 +18,7 @@
 """Cross-version toolkit for concurrency concepts"""
 from builtins import object
 from multiprocessing.pool import ThreadPool
+import logging
 import threading
 import functools
 import six
@@ -40,7 +41,7 @@ class ConcurrentCall(object):
         self._func = func
         self._concurrency_provider = (
             concurrency_provider or
-            asyncio.get_event_loop() if six.PY3 and concurrency_provider is False else ThreadPool(processes=1)
+            (asyncio.get_event_loop() if six.PY3 and concurrency_provider is False else ThreadPool(processes=1))
         )
         self._is_asyncio_provider = six.PY3 and not isinstance(self._concurrency_provider, ThreadPool)
         self._is_awaitable = self._is_asyncio_provider and (
@@ -51,7 +52,7 @@ class ConcurrentCall(object):
         self._deferable = None
         self._blocked = None
 
-        self._lock = threading.Lock()
+        self._lock = threading.RLock()
 
     def defer(self, *args, **kwargs):
         """Initialise a deferred call to the function - returns an asynchronous object.
@@ -68,6 +69,15 @@ class ConcurrentCall(object):
         :param kwargs:
         :return:
         """
+        logging.debug(
+            '%s on %s (awaitable %s async %s provider %s)',
+            'deferring',
+            self._func,
+            self._is_awaitable,
+            self._is_asyncio_provider,
+            self._concurrency_provider
+        )
+
         if self._blocked:
             raise RuntimeError('Already activated this deferred call by blocking on it')
         with self._lock:
@@ -79,29 +89,47 @@ class ConcurrentCall(object):
                 # - asyncio but with blocking function
                 # - not asyncio, use threadpool
                 self._deferable = (
+                    # pure asyncio
                     asyncio.ensure_future(func_partial(), loop=self._concurrency_provider)
                     if self._is_awaitable else (
-                        self._concurrency_provider.run_in_executor(func=self._func, executor=None)
+                        # asyncio blocked
+                        self._concurrency_provider.run_in_executor(
+                            func=func_partial,
+                            executor=None
+                        )
                         if self._is_asyncio_provider else (
-                            self._concurrency_provider.apply_async(self._func)
+                            # not asyncio
+                            self._concurrency_provider.apply_async(func_partial)
                         )
                     )
                 )
         return self._deferable
 
     def block(self, *args, **kwargs):
-        """Call the wrapped function in a blocking fashion - returns the result of the function call
+        """Call the wrapped function in a blocking fashion
+
+        Returns the result of the function call.
 
         :param args:
         :param kwargs:
         :return: result of function call
         """
+        logging.debug(
+            '%s on %s (awaitable %s async %s provider %s)',
+            'blocking',
+            self._func,
+            self._is_awaitable,
+            self._is_asyncio_provider,
+            self._concurrency_provider
+        )
+
         if self._deferable:
             raise RuntimeError('Already activated this call by deferring it')
         with self._lock:
             if not hasattr(self, '_result'):
+                defr = self.defer(*args, **kwargs)
                 self._result = (
-                    self._concurrency_provider.run_until_complete(self.defer(*args, **kwargs))
+                    self._concurrency_provider.run_until_complete(defr)
                     if self._is_asyncio_provider else self._func(*args, **kwargs)
                 )
             self._blocked = True
