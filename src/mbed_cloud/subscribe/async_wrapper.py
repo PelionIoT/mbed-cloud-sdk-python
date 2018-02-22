@@ -26,7 +26,7 @@ if six.PY3:
     import asyncio
 
 
-class ConcurrentCall(object):
+class AsyncWrapper(object):
     """Wraps a potentially asynchronous function to provide a consistent API
     """
 
