@@ -1,6 +1,7 @@
 from six.moves import queue
 import warnings
 import functools
+import logging
 from mbed_cloud.subscribe.util import ConcurrentCall
 """
 usages
@@ -131,45 +132,30 @@ class Observer(object):
         self._iter_count = 0
         self._subscription_started = None
 
-    @property
-    def queue(self):
-        """The raw iterable queue behind this observer"""
-        return self._notifications
-
-    @property
-    def latest_item(self):
-        """The most recent waitable item"""
-        return self._latest_item
-
-    def _start_subscription(self):
-        """Actually do a subscription, if there isn't one already"""
-        if not self._subscription_started:
-            # DO SOMETHING
-            self._subscription_started = True
-        return self
-
     def __iter__(self):
         return self
 
     def __next__(self):
-        """Generates abstracted waitables
+        """Generates abstracted waitables (a new subscriber)
 
         They will be fulfilled in the order they were created,
         matching the order of new inbound notifications
         """
         waitable = queue.Queue(maxsize=1)
-        try:
-            data = self._notifications.get_nowait()
-        except queue.Empty:
-            pass
-            self._waitables.put(waitable)
-        else:
-            waitable.put_nowait(data)
         getter = functools.partial(waitable.get, timeout=self._timeout)
         self._latest_item = ConcurrentCall(
             func=getter,
             concurrency_provider=self._provider
         )
+        try:
+            # get latest notification
+            data = self._notifications.get_nowait()
+        except queue.Empty:
+            # store the consumer
+            self._waitables.put(waitable)
+        else:
+            # if we have a notification, pass it to the consumer immediately
+            waitable.put_nowait(data)
         return self._latest_item
 
     def next(self):
@@ -181,26 +167,34 @@ class Observer(object):
 
     def notify(self, data):
         """Notify this observer that data has arrived"""
-        if self._once_done:
+        logging.debug('notify received: %s', data)
+        if self._once_done and self._once:
+            logging.debug('notify skipping due to `once`')
             return self
-
         if self.filter_notification(data):
-            self._notifications.put_nowait(data)
             try:
+                # notify next consumer immediately
                 self._waitables.get_nowait().put_nowait(data)
+                logging.debug('found a consumer, notifying')
             except queue.Empty:
-                pass
+                # store the notification
+                logging.debug('no consumers, queueing data')
+                try:
+                    self._notifications.put_nowait(data)
+                except queue.Full:
+                    logging.warn('notification queue full - discarding new data')
 
             # callbacks are sent straight away
             # bombproofing should be handled by individual callbacks
             for callback in self._callbacks:
+                logging.debug('callback: %s', callback)
                 callback(data)
-        self._once_done = True
+            self._once_done = True
         return self
 
     def add_callback(self, fn):
         """Register a callback, triggered when new data arrives"""
-        warnings.warn('Instead of callbacks, consider using Futures')
+        warnings.warn('Instead of callbacks, consider using Futures or AsyncResults')
         self._callbacks.append(fn)
         return self
 
