@@ -295,7 +295,7 @@ class ConnectAPI(BaseAPI):
         return self.get_resource_value_async(device_id, resource_path, fix_path).wait(timeout)
 
     @catch_exceptions(mds.rest.ApiException)
-    def set_resource_value(self, device_id, resource_path, resource_value=None, fix_path=True):
+    def set_resource_value(self, device_id, resource_path, resource_value, fix_path=True):
         """Set resource value for given resource path, on device.
 
         Will block and wait for response to come through. Usage:
@@ -310,8 +310,7 @@ class ConnectAPI(BaseAPI):
 
         :param str device_id: The name/id of the device (Required)
         :param str resource_path: The resource path to update (Required)
-        :param str resource_value: The new value to set for given path (if None
-            the resource function will be executed)
+        :param str resource_value: The new value to set for given path
         :param fix_path: if True then the leading /, if found, will be stripped before
             doing request to backend. This is a requirement for the API to work properly
         :raises: AsyncError
@@ -319,17 +318,9 @@ class ConnectAPI(BaseAPI):
         :rtype: str
         """
         self.ensure_notifications_thread()
-
-        api = self._get_api(mds.ResourcesApi)
-
-        if resource_value:
-            resp = api.v2_endpoints_device_id_resource_path_put(device_id,
-                                                                resource_path,
-                                                                resource_value)
-        else:
-            resp = api.v2_endpoints_device_id_resource_path_post(device_id, resource_path)
-        consumer = AsyncConsumer(resp.async_response_id, self._db)
-        return consumer.wait()
+        return self.set_resource_value_async(
+            device_id, resource_path, resource_value, fix_path
+        ).wait()
 
     @catch_exceptions(mds.rest.ApiException)
     def set_resource_value_async(self, device_id, resource_path,
@@ -349,8 +340,7 @@ class ConnectAPI(BaseAPI):
 
         :param str device_id: The name/id of the device (Required)
         :param str resource_path: The resource path to update (Required)
-        :param str resource_value: The new value to set for given path (if
-            None, the resource function will be executed)
+        :param str resource_value: The new value to set for given path
         :param fix_path: if True then the leading /, if found, will be stripped before
             doing request to backend. This is a requirement for the API to work properly
         :returns: An async consumer object holding reference to request
@@ -361,14 +351,9 @@ class ConnectAPI(BaseAPI):
             resource_path = resource_path[1:]
 
         api = self._get_api(mds.ResourcesApi)
-
-        if resource_value:
-            resp = api.v2_endpoints_device_id_resource_path_put(device_id,
-                                                                resource_path,
-                                                                resource_value)
-        else:
-            resp = api.v2_endpoints_device_id_resource_path_post(device_id, resource_path)
-
+        resp = api.v2_endpoints_device_id_resource_path_put(device_id,
+                                                            resource_path,
+                                                            resource_value)
         return AsyncConsumer(resp.async_response_id, self._db)
 
     @catch_exceptions(mds.rest.ApiException)
