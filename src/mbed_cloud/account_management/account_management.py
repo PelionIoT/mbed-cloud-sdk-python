@@ -356,7 +356,7 @@ class Account(BaseObject):
             "customer_number": "customer_number",
             "reference_note": "reference_note",
             "notification_emails": "notification_emails",
-            "mfa_status": "mfa_status",
+            "multifactor_authentication_status": "mfa_status",
             "expiry_warning": "expiration_warning_threshold",
         }
 
@@ -596,15 +596,15 @@ class Account(BaseObject):
         return self._notification_emails
 
     @property
-    def mfa_status(self):
-        """Gets the mfa_status of this AccountInfo.
+    def multifactor_authentication_status(self):
+        """Gets the multifactor_authentication_status of this AccountInfo.
 
         The enforcement status of the multi-factor authentication, either 'enforced' or 'optional'.
 
         :return: The mfa_status of this AccountInfo.
         :rtype: str
         """
-        return self._mfa_status
+        return self._multifactor_authentication_status
 
     @property
     def expiry_warning(self):
