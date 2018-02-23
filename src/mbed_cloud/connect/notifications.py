@@ -186,12 +186,14 @@ def handle_channel_message(db, queues, b64decode, notification_object):
         LOG.info('Registration: %s', registration)
 
     for registration in getattr(notification_object, 'de_registrations') or []:
+        # just a string
         LOG.info('De-registration: %s', registration)
 
     for registration in getattr(notification_object, 'reg_updates') or []:
         LOG.info('Re-registration: %s', registration)
 
     for registration in getattr(notification_object, 'registrations_expired') or []:
+        # just a string
         LOG.info('Registration Expired: %s', registration)
 
 

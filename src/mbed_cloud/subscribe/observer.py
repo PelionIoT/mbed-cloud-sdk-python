@@ -3,8 +3,11 @@ import logging
 import queue
 import warnings
 
-from mbed_cloud.subscribe.subscribe import SubscriptionsManager
-from mbed_cloud.subscribe.util import ConcurrentCall
+from mbed_cloud.subscribe.async_wrapper import AsyncWrapper
+
+
+class NoMoreNotifications(Exception):
+    pass
 
 
 class Observer(object):
@@ -17,8 +20,7 @@ class Observer(object):
 
     or blocking behaviour on these
     """
-    # module-level singleton, with that django-familiar feel
-    objects = SubscriptionsManager()
+    sentinel = NoMoreNotifications()
 
     def __init__(self, filters=None, queue_size=0, once=False, provider=None, timeout=None):
 
@@ -46,6 +48,12 @@ class Observer(object):
         self._latest_item = None
         self._iter_count = 0
         self._subscription_started = None
+        self._cancelled = False
+
+    @property
+    def queue(self):
+        """Direct access to the internal notification queue"""
+        return self._notifications
 
     def __iter__(self):
         return self
@@ -58,7 +66,7 @@ class Observer(object):
         """
         waitable = queue.Queue(maxsize=1)
         getter = functools.partial(waitable.get, timeout=self._timeout)
-        self._latest_item = ConcurrentCall(
+        self._latest_item = AsyncWrapper(
             func=getter,
             concurrency_provider=self._provider
         )
@@ -77,36 +85,45 @@ class Observer(object):
         """Next item in sequence (Python 2 compatibility)"""
         return self.__next__()
 
-    def filter_notification(self, data):
-        """Given some data, return True if this Observer should trigger"""
-        return True
-
     def notify(self, data):
         """Notify this observer that data has arrived"""
         logging.debug('notify received: %s', data)
+        if self._cancelled:
+            logging.debug('notify skipping due to `cancelled`')
+            return self
         if self._once_done and self._once:
             logging.debug('notify skipping due to `once`')
             return self
-        if self.filter_notification(data):
+        try:
+            # notify next consumer immediately
+            self._waitables.get_nowait().put_nowait(data)
+            logging.debug('found a consumer, notifying')
+        except queue.Empty:
+            # store the notification
+            logging.debug('no consumers, queueing data')
             try:
-                # notify next consumer immediately
-                self._waitables.get_nowait().put_nowait(data)
-                logging.debug('found a consumer, notifying')
-            except queue.Empty:
-                # store the notification
-                logging.debug('no consumers, queueing data')
-                try:
-                    self._notifications.put_nowait(data)
-                except queue.Full:
-                    logging.warn('notification queue full - discarding new data')
+                self._notifications.put_nowait(data)
+            except queue.Full:
+                logging.warning('notification queue full - discarding new data')
 
-            # callbacks are sent straight away
-            # bombproofing should be handled by individual callbacks
-            for callback in self._callbacks:
-                logging.debug('callback: %s', callback)
-                callback(data)
-            self._once_done = True
+        # callbacks are sent straight away
+        # bombproofing should be handled by individual callbacks
+        for callback in self._callbacks:
+            logging.debug('callback: %s', callback)
+            callback(data)
+        self._once_done = True
         return self
+
+    def cancel(self):
+        """Cancels all subscribers, where possible"""
+        logging.debug('cancelling %s', self)
+        self._cancelled = True
+        self.clear_callbacks()  # not strictly necessary, but may release references
+        while True:
+            try:
+                self._waitables.get_nowait().put_nowait(self.sentinel)
+            except queue.Empty:
+                break
 
     def add_callback(self, fn):
         """Register a callback, triggered when new data arrives"""

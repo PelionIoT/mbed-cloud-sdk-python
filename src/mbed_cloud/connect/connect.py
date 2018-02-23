@@ -443,6 +443,11 @@ class ConnectAPI(BaseAPI):
         return AsyncConsumer(resp.async_response_id, self._db)
 
     @catch_exceptions(mds.rest.ApiException)
+    def _add_subscription(self, device_id, resource_path):
+        api = self._get_api(mds.SubscriptionsApi)
+        return api.v2_subscriptions_device_id_resource_path_put(device_id, resource_path)
+
+    @catch_exceptions(mds.rest.ApiException)
     def add_resource_subscription(self, device_id, resource_path, fix_path=True, queue_size=5):
         """Subscribe to resource updates.
 
@@ -470,8 +475,7 @@ class ConnectAPI(BaseAPI):
         self._queues[device_id][resource_path] = q
 
         # Send subscription request
-        api = self._get_api(mds.SubscriptionsApi)
-        api.v2_subscriptions_device_id_resource_path_put(device_id, fixed_path)
+        self._add_subscription(device_id, fixed_path)
 
         # Return the Queue object to the user
         return q
@@ -595,6 +599,11 @@ class ConnectAPI(BaseAPI):
         return api.v2_subscriptions_device_id_delete(device_id)
 
     @catch_exceptions(mds.rest.ApiException)
+    def _delete_subscription(self, device_id, resource_path):
+        api = self._get_api(mds.SubscriptionsApi)
+        return api.v2_subscriptions_device_id_resource_path_delete(device_id, resource_path)
+
+    @catch_exceptions(mds.rest.ApiException)
     def delete_resource_subscription(self, device_id=None, resource_path=None, fix_path=True):
         """Unsubscribe from device and/or resource_path updates.
 
@@ -620,7 +629,6 @@ class ConnectAPI(BaseAPI):
                 resource_paths.extend(list(self._queues[e].keys()))
 
         # Delete the subscriptions
-        api = self._get_api(mds.SubscriptionsApi)
         for e in devices:
             for r in resource_paths:
                 # Fix the path, if required.
@@ -629,7 +637,7 @@ class ConnectAPI(BaseAPI):
                     fixed_path = r[1:]
 
                 # Make request to API, ignoring result
-                api.v2_subscriptions_device_id_resource_path_delete(device_id, fixed_path)
+                self._delete_subscription(device_id, fixed_path)
 
                 # Remove Queue from dictionary
                 del self._queues[e][r]

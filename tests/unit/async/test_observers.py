@@ -5,15 +5,14 @@ import six
 import threading
 import time
 
-import mbed_cloud.subscribe.observer
-from mbed_cloud.subscribe import subscribe
+from mbed_cloud.subscribe.observer import Observer
 
 from tests.common import BaseCase
 
 
 class Test(BaseCase):
     def test_subscribe_first(self):
-        obs = mbed_cloud.subscribe.observer.Observer()
+        obs = Observer()
         a = obs.next()
         b = obs.next()
         obs.notify('a')
@@ -24,7 +23,7 @@ class Test(BaseCase):
         self.assertEqual(b.block(), 'b')
 
     def test_notify_first(self):
-        obs = mbed_cloud.subscribe.observer.Observer()
+        obs = Observer()
         obs.notify('a')
         obs.notify('b')
         obs.notify('c')
@@ -35,7 +34,7 @@ class Test(BaseCase):
         self.assertEqual(b.block(), 'b')
 
     def test_interleaved(self):
-        obs = mbed_cloud.subscribe.observer.Observer()
+        obs = Observer()
         obs.notify('a')
         a = obs.next()
         b = obs.next()
@@ -54,7 +53,7 @@ class Test(BaseCase):
 
     def test_stream(self):
         """Looping over the observer with iteration"""
-        obs = mbed_cloud.subscribe.observer.Observer()
+        obs = Observer()
         n = 7
         # we stream some new values
         for i in range(n):
@@ -67,7 +66,7 @@ class Test(BaseCase):
 
     def test_threaded_stream(self):
         """Behaviour in threaded environment"""
-        obs = mbed_cloud.subscribe.observer.Observer()
+        obs = Observer()
         n = 12
         start = threading.Event()
         sleepy = lambda: random.randrange(1, 3) / 1000.0
@@ -109,7 +108,7 @@ class Test(BaseCase):
         def incr(n):
             x['a'] += n
 
-        obs = mbed_cloud.subscribe.observer.Observer()
+        obs = Observer()
         obs.add_callback(incr)
         obs.notify(3)
 
@@ -119,7 +118,7 @@ class Test(BaseCase):
         """Callbacks can be added and removed"""
         f = lambda: 5
         g = lambda: 6
-        obs = mbed_cloud.subscribe.observer.Observer()
+        obs = Observer()
         obs.add_callback(f)
         obs.add_callback(g)
 
@@ -131,7 +130,7 @@ class Test(BaseCase):
 
     def test_overflow(self):
         """Inbound queue overflows"""
-        obs = mbed_cloud.subscribe.observer.Observer(queue_size=1)
+        obs = Observer(queue_size=1)
         obs.notify(1)
         if six.PY3:
             with self.assertLogs(level=logging.WARNING):

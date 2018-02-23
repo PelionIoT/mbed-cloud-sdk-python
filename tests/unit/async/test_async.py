@@ -2,16 +2,14 @@ import six
 import unittest
 import uuid
 from multiprocessing import pool
-from mbed_cloud.subscribe import util
+from mbed_cloud.subscribe.async_wrapper import AsyncWrapper
 
 from tests.common import BaseCase
-
-Thing = util.ConcurrentCall
 
 
 class AsyncBase(BaseCase):
     abstract = True
-    thing = None
+    AsyncWrapper = None
     unique_string = None
     target = None
 
@@ -24,14 +22,14 @@ class AsyncBase(BaseCase):
         self.assertEqual(self.unique_string * 2, result)
 
     def get_async(self):
-        return self.thing.defer(self.unique_string, delay=self.test_delay)
+        return self.AsyncWrapper.defer(self.unique_string, delay=self.test_delay)
 
     def get_async_value(self, defer):
         """This is done differently in 2/3"""
         raise NotImplementedError()
 
     def test_sync(self):
-        self.check_result(self.thing.block(self.unique_string, delay=self.test_delay))
+        self.check_result(self.AsyncWrapper.block(self.unique_string, delay=self.test_delay))
 
     def test_async(self):
         defer = self.get_async()
@@ -44,7 +42,7 @@ class Test2(AsyncBase):
     def setUp(self):
         super(Test2, self).setUp()
         from tests.unit.async.b_call import slow
-        self.thing = Thing(func=slow)
+        self.AsyncWrapper = AsyncWrapper(func=slow)
 
     def get_async_value(self, defer):
         return defer.get()
@@ -55,7 +53,7 @@ class Test2CustomLoop(Test2):
         super(Test2CustomLoop, self).setUp()
         from tests.unit.async.b_call import slow
         tp = pool.ThreadPool(processes=1)
-        self.thing = Thing(concurrency_provider=tp, func=slow)
+        self.AsyncWrapper = AsyncWrapper(concurrency_provider=tp, func=slow)
 
 
 @unittest.skipIf(not six.PY3, 'Need Python 3 interpreter for this test')
@@ -68,7 +66,7 @@ class Test3(AsyncBase):
         from tests.unit.async.a_call import slow
         self.target = slow
         self.loop = asyncio.get_event_loop()
-        self.thing = Thing(concurrency_provider=self.loop, func=self.target)
+        self.AsyncWrapper = AsyncWrapper(concurrency_provider=self.loop, func=self.target)
 
     def get_async_value(self, defer):
         return self.loop.run_until_complete(defer)
@@ -82,7 +80,7 @@ class Test3Executor(Test3):
         from tests.unit.async.b_call import slow
         self.target = slow
         self.loop = asyncio.get_event_loop()
-        self.thing = Thing(concurrency_provider=self.loop, func=self.target)
+        self.AsyncWrapper = AsyncWrapper(concurrency_provider=self.loop, func=self.target)
 
 
 class Test3CustomLoop(Test3):
@@ -90,7 +88,7 @@ class Test3CustomLoop(Test3):
         super().setUp()
         import asyncio
         self.loop = asyncio.new_event_loop()
-        self.thing = Thing(concurrency_provider=self.loop, func=self.target)
+        self.AsyncWrapper = AsyncWrapper(concurrency_provider=self.loop, func=self.target)
 
 
 class Test3CustomWrongLoop(Test3CustomLoop):
@@ -98,7 +96,7 @@ class Test3CustomWrongLoop(Test3CustomLoop):
         super().setUp()
         import asyncio
         # silly us, we used a different loop compared to our testing code! this won't work.
-        self.thing = Thing(concurrency_provider=asyncio.new_event_loop(), func=self.target)
+        self.AsyncWrapper = AsyncWrapper(concurrency_provider=asyncio.new_event_loop(), func=self.target)
 
     def test_async(self):
         with self.assertRaises(ValueError):
@@ -108,11 +106,11 @@ class Test3CustomWrongLoop(Test3CustomLoop):
 class Test3DoesThreadsToo(Test3):
     def setUp(self):
         super().setUp()
-        # if we wanted to, we could make our Thing use ThreadPools in python3.
+        # if we wanted to, we could make our AsyncWrapper use ThreadPools in python3.
         from tests.unit.async.b_call import slow
         self.target = slow
         tp = pool.ThreadPool(processes=1)
-        self.thing = Thing(concurrency_provider=tp, func=self.target)
+        self.AsyncWrapper = AsyncWrapper(concurrency_provider=tp, func=self.target)
 
     def get_async_value(self, defer):
         return defer.get()
