@@ -35,13 +35,13 @@ class DeviceRequestsApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def v2_device_requests_device_idasync_idasync_id_post(self, device_id, async_id, body, **kwargs):
+    def v2_device_requests_device_id_post(self, device_id, async_id, body, **kwargs):
         """
         Send an async request to device
-        This API enables you to receive asyncronous responses with asyncId defined by you. Another major difference to the  existing [/v2/endpoints/{device-id}/{resourcePath}](/docs/v1.2/service-api-references/connect-api.html#v2EndpointsDeviceIdResourcePathGet)  API is that the data is always provided (also cached resource values) via the [event notification channel](/docs/v1.2/connecting/event-notification.html)  instead of the request response.  This can help you to streamline your application as you can use existing indentifiers as the asyncID. For example, you can use the  web application's session ID along the device ID combined with the resource path as asyncID. You do not need to have a separate  mapping from asyncID to your application data model. Also as the data is always provided via the event notification channel, you can  implement only one data handling logic for resource read.  The provided async-id is present in the [AsyncIDResponse](/docs/v1.2/service-api-references/connect-api.html#AsyncIDResponse).   ``` Example URI: POST /v2/device-requests/015f2fa34d310000000000010030036c?async-id=123e4567-e89b-12d3-a456-426655440000  Example payloads: { \"method\": \"GET\", \"uri\": \"/5/0/1\" } { \"method\": \"PUT\", \"uri\": \"/5/0/1%20?k1=v1&k2=v2%22\", \"accept\": \"text/plain\", \"content-type\": \"text/plain\", \"payload-b64\": \"dmFsdWUxCg==\" }  Example notification payload (AsyncIDResponse): { \"async-responses\": [ { \"id\": \"123e4567-e89b-12d3-a456-426655440000\", \"status\": 200, \"payload\": \"dmFsdWUxCg==\", \"ct\": \"text/plain\", \"max-age\": 600 } ] } ``` 
+        This API provides an interface to asynchronously call methods on a device.  The `async-id` is provided by the client, enabling the client to track the end-to-end flow with an identifier that is relevant to the end application. For example, a web application's session ID along with the device ID and the resource path could be used as the `async-id`. This also avoids any race conditions with [the notification channel](/docs/v1.2/connecting/event-notification.html). All responses are sent through the currently configured notification channel as [AsyncIDResponse](/docs/v1.2/service-api-references/connect-api.html#AsyncIDResponse).  For `GET` methods, values may be fetched from an internal cache, instead of contacting the device.  See also: [/v2/endpoints/{device-id}/{resourcePath}](/docs/v1.2/service-api-references/connect-api.html#v2EndpointsDeviceIdResourcePathGet)  ``` Example URI: POST /v2/device-requests/015f2fa34d310000000000010030036c?async-id=123e4567-e89b-12d3-a456-426655440000  Example payloads: { \"method\": \"GET\", \"uri\": \"/5/0/1\" } { \"method\": \"PUT\", \"uri\": \"/5/0/1%20?k1=v1&k2=v2%22\", \"accept\": \"text/plain\", \"content-type\": \"text/plain\", \"payload-b64\": \"dmFsdWUxCg==\" }  Immediate response: 202 Accepted  Example AsyncIDResponse, delivered via the notification channel: { \"async-responses\": [ { \"id\": \"123e4567-e89b-12d3-a456-426655440000\", \"status\": 200, \"payload\": \"dmFsdWUxCg==\", \"ct\": \"text/plain\", \"max-age\": 600 } ] } ``` 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
-        >>> thread = api.v2_device_requests_device_idasync_idasync_id_post(device_id, async_id, body, async=True)
+        >>> thread = api.v2_device_requests_device_id_post(device_id, async_id, body, async=True)
         >>> result = thread.get()
 
         :param async bool
@@ -54,18 +54,18 @@ class DeviceRequestsApi(object):
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async'):
-            return self.v2_device_requests_device_idasync_idasync_id_post_with_http_info(device_id, async_id, body, **kwargs)
+            return self.v2_device_requests_device_id_post_with_http_info(device_id, async_id, body, **kwargs)
         else:
-            (data) = self.v2_device_requests_device_idasync_idasync_id_post_with_http_info(device_id, async_id, body, **kwargs)
+            (data) = self.v2_device_requests_device_id_post_with_http_info(device_id, async_id, body, **kwargs)
             return data
 
-    def v2_device_requests_device_idasync_idasync_id_post_with_http_info(self, device_id, async_id, body, **kwargs):
+    def v2_device_requests_device_id_post_with_http_info(self, device_id, async_id, body, **kwargs):
         """
         Send an async request to device
-        This API enables you to receive asyncronous responses with asyncId defined by you. Another major difference to the  existing [/v2/endpoints/{device-id}/{resourcePath}](/docs/v1.2/service-api-references/connect-api.html#v2EndpointsDeviceIdResourcePathGet)  API is that the data is always provided (also cached resource values) via the [event notification channel](/docs/v1.2/connecting/event-notification.html)  instead of the request response.  This can help you to streamline your application as you can use existing indentifiers as the asyncID. For example, you can use the  web application's session ID along the device ID combined with the resource path as asyncID. You do not need to have a separate  mapping from asyncID to your application data model. Also as the data is always provided via the event notification channel, you can  implement only one data handling logic for resource read.  The provided async-id is present in the [AsyncIDResponse](/docs/v1.2/service-api-references/connect-api.html#AsyncIDResponse).   ``` Example URI: POST /v2/device-requests/015f2fa34d310000000000010030036c?async-id=123e4567-e89b-12d3-a456-426655440000  Example payloads: { \"method\": \"GET\", \"uri\": \"/5/0/1\" } { \"method\": \"PUT\", \"uri\": \"/5/0/1%20?k1=v1&k2=v2%22\", \"accept\": \"text/plain\", \"content-type\": \"text/plain\", \"payload-b64\": \"dmFsdWUxCg==\" }  Example notification payload (AsyncIDResponse): { \"async-responses\": [ { \"id\": \"123e4567-e89b-12d3-a456-426655440000\", \"status\": 200, \"payload\": \"dmFsdWUxCg==\", \"ct\": \"text/plain\", \"max-age\": 600 } ] } ``` 
+        This API provides an interface to asynchronously call methods on a device.  The `async-id` is provided by the client, enabling the client to track the end-to-end flow with an identifier that is relevant to the end application. For example, a web application's session ID along with the device ID and the resource path could be used as the `async-id`. This also avoids any race conditions with [the notification channel](/docs/v1.2/connecting/event-notification.html). All responses are sent through the currently configured notification channel as [AsyncIDResponse](/docs/v1.2/service-api-references/connect-api.html#AsyncIDResponse).  For `GET` methods, values may be fetched from an internal cache, instead of contacting the device.  See also: [/v2/endpoints/{device-id}/{resourcePath}](/docs/v1.2/service-api-references/connect-api.html#v2EndpointsDeviceIdResourcePathGet)  ``` Example URI: POST /v2/device-requests/015f2fa34d310000000000010030036c?async-id=123e4567-e89b-12d3-a456-426655440000  Example payloads: { \"method\": \"GET\", \"uri\": \"/5/0/1\" } { \"method\": \"PUT\", \"uri\": \"/5/0/1%20?k1=v1&k2=v2%22\", \"accept\": \"text/plain\", \"content-type\": \"text/plain\", \"payload-b64\": \"dmFsdWUxCg==\" }  Immediate response: 202 Accepted  Example AsyncIDResponse, delivered via the notification channel: { \"async-responses\": [ { \"id\": \"123e4567-e89b-12d3-a456-426655440000\", \"status\": 200, \"payload\": \"dmFsdWUxCg==\", \"ct\": \"text/plain\", \"max-age\": 600 } ] } ``` 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
-        >>> thread = api.v2_device_requests_device_idasync_idasync_id_post_with_http_info(device_id, async_id, body, async=True)
+        >>> thread = api.v2_device_requests_device_id_post_with_http_info(device_id, async_id, body, async=True)
         >>> result = thread.get()
 
         :param async bool
@@ -88,30 +88,32 @@ class DeviceRequestsApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method v2_device_requests_device_idasync_idasync_id_post" % key
+                    " to method v2_device_requests_device_id_post" % key
                 )
             params[key] = val
         del params['kwargs']
         # verify the required parameter 'device_id' is set
         if ('device_id' not in params) or (params['device_id'] is None):
-            raise ValueError("Missing the required parameter `device_id` when calling `v2_device_requests_device_idasync_idasync_id_post`")
+            raise ValueError("Missing the required parameter `device_id` when calling `v2_device_requests_device_id_post`")
         # verify the required parameter 'async_id' is set
         if ('async_id' not in params) or (params['async_id'] is None):
-            raise ValueError("Missing the required parameter `async_id` when calling `v2_device_requests_device_idasync_idasync_id_post`")
+            raise ValueError("Missing the required parameter `async_id` when calling `v2_device_requests_device_id_post`")
         # verify the required parameter 'body' is set
         if ('body' not in params) or (params['body'] is None):
-            raise ValueError("Missing the required parameter `body` when calling `v2_device_requests_device_idasync_idasync_id_post`")
+            raise ValueError("Missing the required parameter `body` when calling `v2_device_requests_device_id_post`")
 
+        if 'async_id' in params and not re.search('^[\\w\\-]{1,40}$', params['async_id']):
+            raise ValueError("Invalid value for parameter `async_id` when calling `v2_device_requests_device_id_post`, must conform to the pattern `/^[\\w\\-]{1,40}$/`")
 
         collection_formats = {}
 
         path_params = {}
         if 'device_id' in params:
-            path_params['deviceId'] = params['device_id']
-        if 'async_id' in params:
-            path_params['asyncId'] = params['async_id']
+            path_params['device-id'] = params['device_id']
 
         query_params = []
+        if 'async_id' in params:
+            query_params.append(('async-id', params['async_id']))
 
         header_params = {}
 
@@ -132,7 +134,7 @@ class DeviceRequestsApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api('/v2/device-requests/{deviceId}?async-id={asyncId}', 'POST',
+        return self.api_client.call_api('/v2/device-requests/{device-id}', 'POST',
                                         path_params,
                                         query_params,
                                         header_params,

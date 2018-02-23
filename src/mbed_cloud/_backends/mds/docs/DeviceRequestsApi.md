@@ -4,15 +4,15 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**v2_device_requests_device_idasync_idasync_id_post**](DeviceRequestsApi.md#v2_device_requests_device_idasync_idasync_id_post) | **POST** /v2/device-requests/{deviceId}?async-id&#x3D;{asyncId} | Send an async request to device
+[**v2_device_requests_device_id_post**](DeviceRequestsApi.md#v2_device_requests_device_id_post) | **POST** /v2/device-requests/{device-id} | Send an async request to device
 
 
-# **v2_device_requests_device_idasync_idasync_id_post**
-> v2_device_requests_device_idasync_idasync_id_post(device_id, async_id, body)
+# **v2_device_requests_device_id_post**
+> v2_device_requests_device_id_post(device_id, async_id, body)
 
 Send an async request to device
 
-This API enables you to receive asyncronous responses with asyncId defined by you. Another major difference to the  existing [/v2/endpoints/{device-id}/{resourcePath}](/docs/v1.2/service-api-references/connect-api.html#v2EndpointsDeviceIdResourcePathGet)  API is that the data is always provided (also cached resource values) via the [event notification channel](/docs/v1.2/connecting/event-notification.html)  instead of the request response.  This can help you to streamline your application as you can use existing indentifiers as the asyncID. For example, you can use the  web application's session ID along the device ID combined with the resource path as asyncID. You do not need to have a separate  mapping from asyncID to your application data model. Also as the data is always provided via the event notification channel, you can  implement only one data handling logic for resource read.  The provided async-id is present in the [AsyncIDResponse](/docs/v1.2/service-api-references/connect-api.html#AsyncIDResponse).   ``` Example URI: POST /v2/device-requests/015f2fa34d310000000000010030036c?async-id=123e4567-e89b-12d3-a456-426655440000  Example payloads: { \"method\": \"GET\", \"uri\": \"/5/0/1\" } { \"method\": \"PUT\", \"uri\": \"/5/0/1%20?k1=v1&k2=v2%22\", \"accept\": \"text/plain\", \"content-type\": \"text/plain\", \"payload-b64\": \"dmFsdWUxCg==\" }  Example notification payload (AsyncIDResponse): { \"async-responses\": [ { \"id\": \"123e4567-e89b-12d3-a456-426655440000\", \"status\": 200, \"payload\": \"dmFsdWUxCg==\", \"ct\": \"text/plain\", \"max-age\": 600 } ] } ``` 
+This API provides an interface to asynchronously call methods on a device.  The `async-id` is provided by the client, enabling the client to track the end-to-end flow with an identifier that is relevant to the end application. For example, a web application's session ID along with the device ID and the resource path could be used as the `async-id`. This also avoids any race conditions with [the notification channel](/docs/v1.2/connecting/event-notification.html). All responses are sent through the currently configured notification channel as [AsyncIDResponse](/docs/v1.2/service-api-references/connect-api.html#AsyncIDResponse).  For `GET` methods, values may be fetched from an internal cache, instead of contacting the device.  See also: [/v2/endpoints/{device-id}/{resourcePath}](/docs/v1.2/service-api-references/connect-api.html#v2EndpointsDeviceIdResourcePathGet)  ``` Example URI: POST /v2/device-requests/015f2fa34d310000000000010030036c?async-id=123e4567-e89b-12d3-a456-426655440000  Example payloads: { \"method\": \"GET\", \"uri\": \"/5/0/1\" } { \"method\": \"PUT\", \"uri\": \"/5/0/1%20?k1=v1&k2=v2%22\", \"accept\": \"text/plain\", \"content-type\": \"text/plain\", \"payload-b64\": \"dmFsdWUxCg==\" }  Immediate response: 202 Accepted  Example AsyncIDResponse, delivered via the notification channel: { \"async-responses\": [ { \"id\": \"123e4567-e89b-12d3-a456-426655440000\", \"status\": 200, \"payload\": \"dmFsdWUxCg==\", \"ct\": \"text/plain\", \"max-age\": 600 } ] } ``` 
 
 ### Example 
 ```python
@@ -36,9 +36,9 @@ body = mds.DeviceRequest() # DeviceRequest | Device request to send.
 
 try: 
     # Send an async request to device
-    api_instance.v2_device_requests_device_idasync_idasync_id_post(device_id, async_id, body)
+    api_instance.v2_device_requests_device_id_post(device_id, async_id, body)
 except ApiException as e:
-    print("Exception when calling DeviceRequestsApi->v2_device_requests_device_idasync_idasync_id_post: %s\n" % e)
+    print("Exception when calling DeviceRequestsApi->v2_device_requests_device_id_post: %s\n" % e)
 ```
 
 ### Parameters
