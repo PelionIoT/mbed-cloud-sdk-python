@@ -598,8 +598,7 @@ class Account(BaseObject):
 
     @property
     def sales_contact_email(self):
-        """
-        Gets the sales_contact_email of this AccountInfo.
+        """Gets the sales_contact_email of this AccountInfo.
 
         Email address of the sales contact.
 
