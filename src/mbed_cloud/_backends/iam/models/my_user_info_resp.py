@@ -31,7 +31,7 @@ class MyUserInfoResp(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'status': 'str',
+        'username': 'str',
         'active_sessions': 'list[ActiveSession]',
         'login_history': 'list[LoginHistory]',
         'creation_time': 'int',
@@ -42,8 +42,9 @@ class MyUserInfoResp(object):
         'is_gtc_accepted': 'bool',
         'etag': 'str',
         'is_marketing_accepted': 'bool',
-        'is_totp_enabled': 'bool',
         'phone_number': 'str',
+        'email': 'str',
+        'status': 'str',
         'account_id': 'str',
         'totp_scratch_codes': 'list[str]',
         'object': 'str',
@@ -53,13 +54,12 @@ class MyUserInfoResp(object):
         'email_verified': 'bool',
         'created_at': 'datetime',
         'user_properties': 'dict(str, dict(str, str))',
-        'email': 'str',
-        'username': 'str',
+        'is_totp_enabled': 'bool',
         'password_changed_time': 'int'
     }
 
     attribute_map = {
-        'status': 'status',
+        'username': 'username',
         'active_sessions': 'active_sessions',
         'login_history': 'login_history',
         'creation_time': 'creation_time',
@@ -70,8 +70,9 @@ class MyUserInfoResp(object):
         'is_gtc_accepted': 'is_gtc_accepted',
         'etag': 'etag',
         'is_marketing_accepted': 'is_marketing_accepted',
-        'is_totp_enabled': 'is_totp_enabled',
         'phone_number': 'phone_number',
+        'email': 'email',
+        'status': 'status',
         'account_id': 'account_id',
         'totp_scratch_codes': 'totp_scratch_codes',
         'object': 'object',
@@ -81,17 +82,16 @@ class MyUserInfoResp(object):
         'email_verified': 'email_verified',
         'created_at': 'created_at',
         'user_properties': 'user_properties',
-        'email': 'email',
-        'username': 'username',
+        'is_totp_enabled': 'is_totp_enabled',
         'password_changed_time': 'password_changed_time'
     }
 
-    def __init__(self, status=None, active_sessions=None, login_history=None, creation_time=None, updated_at=None, full_name=None, id=None, last_login_time=None, is_gtc_accepted=None, etag=None, is_marketing_accepted=None, is_totp_enabled=None, phone_number=None, account_id=None, totp_scratch_codes=None, object=None, groups=None, address=None, password=None, email_verified=None, created_at=None, user_properties=None, email=None, username=None, password_changed_time=None):
+    def __init__(self, username=None, active_sessions=None, login_history=None, creation_time=None, updated_at=None, full_name=None, id=None, last_login_time=None, is_gtc_accepted=None, etag=None, is_marketing_accepted=None, phone_number=None, email=None, status=None, account_id=None, totp_scratch_codes=None, object=None, groups=None, address=None, password=None, email_verified=None, created_at=None, user_properties=None, is_totp_enabled=None, password_changed_time=None):
         """
         MyUserInfoResp - a model defined in Swagger
         """
 
-        self._status = status
+        self._username = username
         self._active_sessions = active_sessions
         self._login_history = login_history
         self._creation_time = creation_time
@@ -102,8 +102,9 @@ class MyUserInfoResp(object):
         self._is_gtc_accepted = is_gtc_accepted
         self._etag = etag
         self._is_marketing_accepted = is_marketing_accepted
-        self._is_totp_enabled = is_totp_enabled
         self._phone_number = phone_number
+        self._email = email
+        self._status = status
         self._account_id = account_id
         self._totp_scratch_codes = totp_scratch_codes
         self._object = object
@@ -113,41 +114,32 @@ class MyUserInfoResp(object):
         self._email_verified = email_verified
         self._created_at = created_at
         self._user_properties = user_properties
-        self._email = email
-        self._username = username
+        self._is_totp_enabled = is_totp_enabled
         self._password_changed_time = password_changed_time
         self.discriminator = None
 
     @property
-    def status(self):
+    def username(self):
         """
-        Gets the status of this MyUserInfoResp.
-        The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.
+        Gets the username of this MyUserInfoResp.
+        A username containing alphanumerical letters and -,._@+= characters.
 
-        :return: The status of this MyUserInfoResp.
+        :return: The username of this MyUserInfoResp.
         :rtype: str
         """
-        return self._status
+        return self._username
 
-    @status.setter
-    def status(self, status):
+    @username.setter
+    def username(self, username):
         """
-        Sets the status of this MyUserInfoResp.
-        The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.
+        Sets the username of this MyUserInfoResp.
+        A username containing alphanumerical letters and -,._@+= characters.
 
-        :param status: The status of this MyUserInfoResp.
+        :param username: The username of this MyUserInfoResp.
         :type: str
         """
-        if status is None:
-            raise ValueError("Invalid value for `status`, must not be `None`")
-        allowed_values = ["ENROLLING", "INVITED", "ACTIVE", "RESET", "INACTIVE"]
-        if status not in allowed_values:
-            raise ValueError(
-                "Invalid value for `status` ({0}), must be one of {1}"
-                .format(status, allowed_values)
-            )
 
-        self._status = status
+        self._username = username
 
     @property
     def active_sessions(self):
@@ -384,29 +376,6 @@ class MyUserInfoResp(object):
         self._is_marketing_accepted = is_marketing_accepted
 
     @property
-    def is_totp_enabled(self):
-        """
-        Gets the is_totp_enabled of this MyUserInfoResp.
-        A flag indicating whether 2-factor authentication (TOTP) has been enabled.
-
-        :return: The is_totp_enabled of this MyUserInfoResp.
-        :rtype: bool
-        """
-        return self._is_totp_enabled
-
-    @is_totp_enabled.setter
-    def is_totp_enabled(self, is_totp_enabled):
-        """
-        Sets the is_totp_enabled of this MyUserInfoResp.
-        A flag indicating whether 2-factor authentication (TOTP) has been enabled.
-
-        :param is_totp_enabled: The is_totp_enabled of this MyUserInfoResp.
-        :type: bool
-        """
-
-        self._is_totp_enabled = is_totp_enabled
-
-    @property
     def phone_number(self):
         """
         Gets the phone_number of this MyUserInfoResp.
@@ -428,6 +397,62 @@ class MyUserInfoResp(object):
         """
 
         self._phone_number = phone_number
+
+    @property
+    def email(self):
+        """
+        Gets the email of this MyUserInfoResp.
+        The email address.
+
+        :return: The email of this MyUserInfoResp.
+        :rtype: str
+        """
+        return self._email
+
+    @email.setter
+    def email(self, email):
+        """
+        Sets the email of this MyUserInfoResp.
+        The email address.
+
+        :param email: The email of this MyUserInfoResp.
+        :type: str
+        """
+        if email is None:
+            raise ValueError("Invalid value for `email`, must not be `None`")
+
+        self._email = email
+
+    @property
+    def status(self):
+        """
+        Gets the status of this MyUserInfoResp.
+        The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.
+
+        :return: The status of this MyUserInfoResp.
+        :rtype: str
+        """
+        return self._status
+
+    @status.setter
+    def status(self, status):
+        """
+        Sets the status of this MyUserInfoResp.
+        The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.
+
+        :param status: The status of this MyUserInfoResp.
+        :type: str
+        """
+        if status is None:
+            raise ValueError("Invalid value for `status`, must not be `None`")
+        allowed_values = ["ENROLLING", "INVITED", "ACTIVE", "RESET", "INACTIVE"]
+        if status not in allowed_values:
+            raise ValueError(
+                "Invalid value for `status` ({0}), must be one of {1}"
+                .format(status, allowed_values)
+            )
+
+        self._status = status
 
     @property
     def account_id(self):
@@ -647,52 +672,27 @@ class MyUserInfoResp(object):
         self._user_properties = user_properties
 
     @property
-    def email(self):
+    def is_totp_enabled(self):
         """
-        Gets the email of this MyUserInfoResp.
-        The email address.
+        Gets the is_totp_enabled of this MyUserInfoResp.
+        A flag indicating whether 2-factor authentication (TOTP) has been enabled.
 
-        :return: The email of this MyUserInfoResp.
-        :rtype: str
+        :return: The is_totp_enabled of this MyUserInfoResp.
+        :rtype: bool
         """
-        return self._email
+        return self._is_totp_enabled
 
-    @email.setter
-    def email(self, email):
+    @is_totp_enabled.setter
+    def is_totp_enabled(self, is_totp_enabled):
         """
-        Sets the email of this MyUserInfoResp.
-        The email address.
+        Sets the is_totp_enabled of this MyUserInfoResp.
+        A flag indicating whether 2-factor authentication (TOTP) has been enabled.
 
-        :param email: The email of this MyUserInfoResp.
-        :type: str
-        """
-        if email is None:
-            raise ValueError("Invalid value for `email`, must not be `None`")
-
-        self._email = email
-
-    @property
-    def username(self):
-        """
-        Gets the username of this MyUserInfoResp.
-        A username containing alphanumerical letters and -,._@+= characters.
-
-        :return: The username of this MyUserInfoResp.
-        :rtype: str
-        """
-        return self._username
-
-    @username.setter
-    def username(self, username):
-        """
-        Sets the username of this MyUserInfoResp.
-        A username containing alphanumerical letters and -,._@+= characters.
-
-        :param username: The username of this MyUserInfoResp.
-        :type: str
+        :param is_totp_enabled: The is_totp_enabled of this MyUserInfoResp.
+        :type: bool
         """
 
-        self._username = username
+        self._is_totp_enabled = is_totp_enabled
 
     @property
     def password_changed_time(self):

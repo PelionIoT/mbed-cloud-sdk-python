@@ -38,17 +38,17 @@ class AccountCreationReq(object):
         'country': 'str',
         'company': 'str',
         'customer_number': 'str',
-        'contact': 'str',
-        'email': 'str',
+        'contract_number': 'str',
         'state': 'str',
-        'admin_name': 'str',
+        'contact': 'str',
         'postal_code': 'str',
         'admin_password': 'str',
+        'admin_name': 'str',
         'admin_full_name': 'str',
         'end_market': 'str',
         'admin_email': 'str',
         'phone_number': 'str',
-        'contract_number': 'str',
+        'email': 'str',
         'aliases': 'list[str]'
     }
 
@@ -60,21 +60,21 @@ class AccountCreationReq(object):
         'country': 'country',
         'company': 'company',
         'customer_number': 'customer_number',
-        'contact': 'contact',
-        'email': 'email',
+        'contract_number': 'contract_number',
         'state': 'state',
-        'admin_name': 'admin_name',
+        'contact': 'contact',
         'postal_code': 'postal_code',
         'admin_password': 'admin_password',
+        'admin_name': 'admin_name',
         'admin_full_name': 'admin_full_name',
         'end_market': 'end_market',
         'admin_email': 'admin_email',
         'phone_number': 'phone_number',
-        'contract_number': 'contract_number',
+        'email': 'email',
         'aliases': 'aliases'
     }
 
-    def __init__(self, address_line2=None, city=None, address_line1=None, display_name=None, country=None, company=None, customer_number=None, contact=None, email=None, state=None, admin_name=None, postal_code=None, admin_password=None, admin_full_name=None, end_market=None, admin_email=None, phone_number=None, contract_number=None, aliases=None):
+    def __init__(self, address_line2=None, city=None, address_line1=None, display_name=None, country=None, company=None, customer_number=None, contract_number=None, state=None, contact=None, postal_code=None, admin_password=None, admin_name=None, admin_full_name=None, end_market=None, admin_email=None, phone_number=None, email=None, aliases=None):
         """
         AccountCreationReq - a model defined in Swagger
         """
@@ -86,17 +86,17 @@ class AccountCreationReq(object):
         self._country = country
         self._company = company
         self._customer_number = customer_number
-        self._contact = contact
-        self._email = email
+        self._contract_number = contract_number
         self._state = state
-        self._admin_name = admin_name
+        self._contact = contact
         self._postal_code = postal_code
         self._admin_password = admin_password
+        self._admin_name = admin_name
         self._admin_full_name = admin_full_name
         self._end_market = end_market
         self._admin_email = admin_email
         self._phone_number = phone_number
-        self._contract_number = contract_number
+        self._email = email
         self._aliases = aliases
         self.discriminator = None
 
@@ -262,50 +262,27 @@ class AccountCreationReq(object):
         self._customer_number = customer_number
 
     @property
-    def contact(self):
+    def contract_number(self):
         """
-        Gets the contact of this AccountCreationReq.
-        The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.
+        Gets the contract_number of this AccountCreationReq.
+        Contract number of the customer.
 
-        :return: The contact of this AccountCreationReq.
+        :return: The contract_number of this AccountCreationReq.
         :rtype: str
         """
-        return self._contact
+        return self._contract_number
 
-    @contact.setter
-    def contact(self, contact):
+    @contract_number.setter
+    def contract_number(self, contract_number):
         """
-        Sets the contact of this AccountCreationReq.
-        The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.
+        Sets the contract_number of this AccountCreationReq.
+        Contract number of the customer.
 
-        :param contact: The contact of this AccountCreationReq.
+        :param contract_number: The contract_number of this AccountCreationReq.
         :type: str
         """
 
-        self._contact = contact
-
-    @property
-    def email(self):
-        """
-        Gets the email of this AccountCreationReq.
-        The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
-
-        :return: The email of this AccountCreationReq.
-        :rtype: str
-        """
-        return self._email
-
-    @email.setter
-    def email(self, email):
-        """
-        Sets the email of this AccountCreationReq.
-        The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
-
-        :param email: The email of this AccountCreationReq.
-        :type: str
-        """
-
-        self._email = email
+        self._contract_number = contract_number
 
     @property
     def state(self):
@@ -331,27 +308,27 @@ class AccountCreationReq(object):
         self._state = state
 
     @property
-    def admin_name(self):
+    def contact(self):
         """
-        Gets the admin_name of this AccountCreationReq.
-        The username of the admin user to be created, containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
+        Gets the contact of this AccountCreationReq.
+        The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.
 
-        :return: The admin_name of this AccountCreationReq.
+        :return: The contact of this AccountCreationReq.
         :rtype: str
         """
-        return self._admin_name
+        return self._contact
 
-    @admin_name.setter
-    def admin_name(self, admin_name):
+    @contact.setter
+    def contact(self, contact):
         """
-        Sets the admin_name of this AccountCreationReq.
-        The username of the admin user to be created, containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
+        Sets the contact of this AccountCreationReq.
+        The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.
 
-        :param admin_name: The admin_name of this AccountCreationReq.
+        :param contact: The contact of this AccountCreationReq.
         :type: str
         """
 
-        self._admin_name = admin_name
+        self._contact = contact
 
     @property
     def postal_code(self):
@@ -398,6 +375,29 @@ class AccountCreationReq(object):
         """
 
         self._admin_password = admin_password
+
+    @property
+    def admin_name(self):
+        """
+        Gets the admin_name of this AccountCreationReq.
+        The username of the admin user to be created, containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
+
+        :return: The admin_name of this AccountCreationReq.
+        :rtype: str
+        """
+        return self._admin_name
+
+    @admin_name.setter
+    def admin_name(self, admin_name):
+        """
+        Sets the admin_name of this AccountCreationReq.
+        The username of the admin user to be created, containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
+
+        :param admin_name: The admin_name of this AccountCreationReq.
+        :type: str
+        """
+
+        self._admin_name = admin_name
 
     @property
     def admin_full_name(self):
@@ -494,27 +494,27 @@ class AccountCreationReq(object):
         self._phone_number = phone_number
 
     @property
-    def contract_number(self):
+    def email(self):
         """
-        Gets the contract_number of this AccountCreationReq.
-        Contract number of the customer.
+        Gets the email of this AccountCreationReq.
+        The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
 
-        :return: The contract_number of this AccountCreationReq.
+        :return: The email of this AccountCreationReq.
         :rtype: str
         """
-        return self._contract_number
+        return self._email
 
-    @contract_number.setter
-    def contract_number(self, contract_number):
+    @email.setter
+    def email(self, email):
         """
-        Sets the contract_number of this AccountCreationReq.
-        Contract number of the customer.
+        Sets the email of this AccountCreationReq.
+        The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
 
-        :param contract_number: The contract_number of this AccountCreationReq.
+        :param email: The email of this AccountCreationReq.
         :type: str
         """
 
-        self._contract_number = contract_number
+        self._email = email
 
     @property
     def aliases(self):

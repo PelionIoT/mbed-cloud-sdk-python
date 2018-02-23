@@ -38,6 +38,7 @@ class AccountInfo(object):
         'updated_at': 'datetime',
         'postal_code': 'str',
         'account_properties': 'dict(str, dict(str, str))',
+        'customer_number': 'str',
         'id': 'str',
         'aliases': 'list[str]',
         'address_line2': 'str',
@@ -50,19 +51,18 @@ class AccountInfo(object):
         'etag': 'str',
         'email': 'str',
         'phone_number': 'str',
-        'contract_number': 'str',
         'reference_note': 'str',
         'company': 'str',
         'object': 'str',
-        'idle_timeout': 'str',
+        'reason': 'str',
         'upgraded_at': 'datetime',
         'tier': 'str',
         'sub_accounts': 'list[AccountInfo]',
         'limits': 'dict(str, str)',
         'country': 'str',
         'created_at': 'datetime',
-        'reason': 'str',
-        'customer_number': 'str',
+        'idle_timeout': 'str',
+        'contract_number': 'str',
         'expiration_warning_threshold': 'str',
         'contact': 'str',
         'policies': 'list[FeaturePolicy]',
@@ -78,6 +78,7 @@ class AccountInfo(object):
         'updated_at': 'updated_at',
         'postal_code': 'postal_code',
         'account_properties': 'account_properties',
+        'customer_number': 'customer_number',
         'id': 'id',
         'aliases': 'aliases',
         'address_line2': 'address_line2',
@@ -90,19 +91,18 @@ class AccountInfo(object):
         'etag': 'etag',
         'email': 'email',
         'phone_number': 'phone_number',
-        'contract_number': 'contract_number',
         'reference_note': 'reference_note',
         'company': 'company',
         'object': 'object',
-        'idle_timeout': 'idle_timeout',
+        'reason': 'reason',
         'upgraded_at': 'upgraded_at',
         'tier': 'tier',
         'sub_accounts': 'sub_accounts',
         'limits': 'limits',
         'country': 'country',
         'created_at': 'created_at',
-        'reason': 'reason',
-        'customer_number': 'customer_number',
+        'idle_timeout': 'idle_timeout',
+        'contract_number': 'contract_number',
         'expiration_warning_threshold': 'expiration_warning_threshold',
         'contact': 'contact',
         'policies': 'policies',
@@ -110,7 +110,7 @@ class AccountInfo(object):
         'template_id': 'template_id'
     }
 
-    def __init__(self, end_market=None, status=None, password_policy=None, sales_contact=None, updated_at=None, postal_code=None, account_properties=None, id=None, aliases=None, address_line2=None, city=None, address_line1=None, display_name=None, mfa_status=None, parent_id=None, state=None, etag=None, email=None, phone_number=None, contract_number=None, reference_note=None, company=None, object=None, idle_timeout=None, upgraded_at=None, tier=None, sub_accounts=None, limits=None, country=None, created_at=None, reason=None, customer_number=None, expiration_warning_threshold=None, contact=None, policies=None, notification_emails=None, template_id=None):
+    def __init__(self, end_market=None, status=None, password_policy=None, sales_contact=None, updated_at=None, postal_code=None, account_properties=None, customer_number=None, id=None, aliases=None, address_line2=None, city=None, address_line1=None, display_name=None, mfa_status=None, parent_id=None, state=None, etag=None, email=None, phone_number=None, reference_note=None, company=None, object=None, reason=None, upgraded_at=None, tier=None, sub_accounts=None, limits=None, country=None, created_at=None, idle_timeout=None, contract_number=None, expiration_warning_threshold=None, contact=None, policies=None, notification_emails=None, template_id=None):
         """
         AccountInfo - a model defined in Swagger
         """
@@ -122,6 +122,7 @@ class AccountInfo(object):
         self._updated_at = updated_at
         self._postal_code = postal_code
         self._account_properties = account_properties
+        self._customer_number = customer_number
         self._id = id
         self._aliases = aliases
         self._address_line2 = address_line2
@@ -134,19 +135,18 @@ class AccountInfo(object):
         self._etag = etag
         self._email = email
         self._phone_number = phone_number
-        self._contract_number = contract_number
         self._reference_note = reference_note
         self._company = company
         self._object = object
-        self._idle_timeout = idle_timeout
+        self._reason = reason
         self._upgraded_at = upgraded_at
         self._tier = tier
         self._sub_accounts = sub_accounts
         self._limits = limits
         self._country = country
         self._created_at = created_at
-        self._reason = reason
-        self._customer_number = customer_number
+        self._idle_timeout = idle_timeout
+        self._contract_number = contract_number
         self._expiration_warning_threshold = expiration_warning_threshold
         self._contact = contact
         self._policies = policies
@@ -324,6 +324,29 @@ class AccountInfo(object):
         """
 
         self._account_properties = account_properties
+
+    @property
+    def customer_number(self):
+        """
+        Gets the customer_number of this AccountInfo.
+        Customer number of the customer.
+
+        :return: The customer_number of this AccountInfo.
+        :rtype: str
+        """
+        return self._customer_number
+
+    @customer_number.setter
+    def customer_number(self, customer_number):
+        """
+        Sets the customer_number of this AccountInfo.
+        Customer number of the customer.
+
+        :param customer_number: The customer_number of this AccountInfo.
+        :type: str
+        """
+
+        self._customer_number = customer_number
 
     @property
     def id(self):
@@ -614,29 +637,6 @@ class AccountInfo(object):
         self._phone_number = phone_number
 
     @property
-    def contract_number(self):
-        """
-        Gets the contract_number of this AccountInfo.
-        Contract number of the customer.
-
-        :return: The contract_number of this AccountInfo.
-        :rtype: str
-        """
-        return self._contract_number
-
-    @contract_number.setter
-    def contract_number(self, contract_number):
-        """
-        Sets the contract_number of this AccountInfo.
-        Contract number of the customer.
-
-        :param contract_number: The contract_number of this AccountInfo.
-        :type: str
-        """
-
-        self._contract_number = contract_number
-
-    @property
     def reference_note(self):
         """
         Gets the reference_note of this AccountInfo.
@@ -714,27 +714,27 @@ class AccountInfo(object):
         self._object = object
 
     @property
-    def idle_timeout(self):
+    def reason(self):
         """
-        Gets the idle_timeout of this AccountInfo.
-        The reference token expiration time in minutes for this account.
+        Gets the reason of this AccountInfo.
+        A reason note for updating the status of the account
 
-        :return: The idle_timeout of this AccountInfo.
+        :return: The reason of this AccountInfo.
         :rtype: str
         """
-        return self._idle_timeout
+        return self._reason
 
-    @idle_timeout.setter
-    def idle_timeout(self, idle_timeout):
+    @reason.setter
+    def reason(self, reason):
         """
-        Sets the idle_timeout of this AccountInfo.
-        The reference token expiration time in minutes for this account.
+        Sets the reason of this AccountInfo.
+        A reason note for updating the status of the account
 
-        :param idle_timeout: The idle_timeout of this AccountInfo.
+        :param reason: The reason of this AccountInfo.
         :type: str
         """
 
-        self._idle_timeout = idle_timeout
+        self._reason = reason
 
     @property
     def upgraded_at(self):
@@ -877,50 +877,50 @@ class AccountInfo(object):
         self._created_at = created_at
 
     @property
-    def reason(self):
+    def idle_timeout(self):
         """
-        Gets the reason of this AccountInfo.
-        A reason note for updating the status of the account
+        Gets the idle_timeout of this AccountInfo.
+        The reference token expiration time in minutes for this account.
 
-        :return: The reason of this AccountInfo.
+        :return: The idle_timeout of this AccountInfo.
         :rtype: str
         """
-        return self._reason
+        return self._idle_timeout
 
-    @reason.setter
-    def reason(self, reason):
+    @idle_timeout.setter
+    def idle_timeout(self, idle_timeout):
         """
-        Sets the reason of this AccountInfo.
-        A reason note for updating the status of the account
+        Sets the idle_timeout of this AccountInfo.
+        The reference token expiration time in minutes for this account.
 
-        :param reason: The reason of this AccountInfo.
+        :param idle_timeout: The idle_timeout of this AccountInfo.
         :type: str
         """
 
-        self._reason = reason
+        self._idle_timeout = idle_timeout
 
     @property
-    def customer_number(self):
+    def contract_number(self):
         """
-        Gets the customer_number of this AccountInfo.
-        Customer number of the customer.
+        Gets the contract_number of this AccountInfo.
+        Contract number of the customer.
 
-        :return: The customer_number of this AccountInfo.
+        :return: The contract_number of this AccountInfo.
         :rtype: str
         """
-        return self._customer_number
+        return self._contract_number
 
-    @customer_number.setter
-    def customer_number(self, customer_number):
+    @contract_number.setter
+    def contract_number(self, contract_number):
         """
-        Sets the customer_number of this AccountInfo.
-        Customer number of the customer.
+        Sets the contract_number of this AccountInfo.
+        Contract number of the customer.
 
-        :param customer_number: The customer_number of this AccountInfo.
+        :param contract_number: The contract_number of this AccountInfo.
         :type: str
         """
 
-        self._customer_number = customer_number
+        self._contract_number = contract_number
 
     @property
     def expiration_warning_threshold(self):

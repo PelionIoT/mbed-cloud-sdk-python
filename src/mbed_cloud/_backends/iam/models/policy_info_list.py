@@ -31,69 +31,61 @@ class PolicyInfoList(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'object': 'str',
+        'after': 'str',
         'has_more': 'bool',
         'total_count': 'int',
-        'after': 'str',
+        'object': 'str',
         'limit': 'int',
         'data': 'list[PolicyInfo]',
         'order': 'str'
     }
 
     attribute_map = {
-        'object': 'object',
+        'after': 'after',
         'has_more': 'has_more',
         'total_count': 'total_count',
-        'after': 'after',
+        'object': 'object',
         'limit': 'limit',
         'data': 'data',
         'order': 'order'
     }
 
-    def __init__(self, object=None, has_more=None, total_count=None, after=None, limit=None, data=None, order=None):
+    def __init__(self, after=None, has_more=None, total_count=None, object=None, limit=None, data=None, order=None):
         """
         PolicyInfoList - a model defined in Swagger
         """
 
-        self._object = object
+        self._after = after
         self._has_more = has_more
         self._total_count = total_count
-        self._after = after
+        self._object = object
         self._limit = limit
         self._data = data
         self._order = order
         self.discriminator = None
 
     @property
-    def object(self):
+    def after(self):
         """
-        Gets the object of this PolicyInfoList.
-        Entity name: always 'list'
+        Gets the after of this PolicyInfoList.
+        The entity ID to fetch after the given one.
 
-        :return: The object of this PolicyInfoList.
+        :return: The after of this PolicyInfoList.
         :rtype: str
         """
-        return self._object
+        return self._after
 
-    @object.setter
-    def object(self, object):
+    @after.setter
+    def after(self, after):
         """
-        Sets the object of this PolicyInfoList.
-        Entity name: always 'list'
+        Sets the after of this PolicyInfoList.
+        The entity ID to fetch after the given one.
 
-        :param object: The object of this PolicyInfoList.
+        :param after: The after of this PolicyInfoList.
         :type: str
         """
-        if object is None:
-            raise ValueError("Invalid value for `object`, must not be `None`")
-        allowed_values = ["list"]
-        if object not in allowed_values:
-            raise ValueError(
-                "Invalid value for `object` ({0}), must be one of {1}"
-                .format(object, allowed_values)
-            )
 
-        self._object = object
+        self._after = after
 
     @property
     def has_more(self):
@@ -146,27 +138,35 @@ class PolicyInfoList(object):
         self._total_count = total_count
 
     @property
-    def after(self):
+    def object(self):
         """
-        Gets the after of this PolicyInfoList.
-        The entity ID to fetch after the given one.
+        Gets the object of this PolicyInfoList.
+        Entity name: always 'list'
 
-        :return: The after of this PolicyInfoList.
+        :return: The object of this PolicyInfoList.
         :rtype: str
         """
-        return self._after
+        return self._object
 
-    @after.setter
-    def after(self, after):
+    @object.setter
+    def object(self, object):
         """
-        Sets the after of this PolicyInfoList.
-        The entity ID to fetch after the given one.
+        Sets the object of this PolicyInfoList.
+        Entity name: always 'list'
 
-        :param after: The after of this PolicyInfoList.
+        :param object: The object of this PolicyInfoList.
         :type: str
         """
+        if object is None:
+            raise ValueError("Invalid value for `object`, must not be `None`")
+        allowed_values = ["list"]
+        if object not in allowed_values:
+            raise ValueError(
+                "Invalid value for `object` ({0}), must be one of {1}"
+                .format(object, allowed_values)
+            )
 
-        self._after = after
+        self._object = object
 
     @property
     def limit(self):

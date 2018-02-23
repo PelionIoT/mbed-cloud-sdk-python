@@ -32,15 +32,15 @@ class AdminUserUpdateReq(object):
     """
     swagger_types = {
         'phone_number': 'str',
-        'status': 'str',
+        'username': 'str',
+        'groups': 'list[str]',
         'is_marketing_accepted': 'bool',
         'user_properties': 'dict(str, dict(str, str))',
-        'username': 'str',
         'is_gtc_accepted': 'bool',
-        'full_name': 'str',
         'is_totp_enabled': 'bool',
         'notification_properties': 'dict(str, str)',
-        'groups': 'list[str]',
+        'status': 'str',
+        'full_name': 'str',
         'address': 'str',
         'password': 'str',
         'email': 'str'
@@ -48,35 +48,35 @@ class AdminUserUpdateReq(object):
 
     attribute_map = {
         'phone_number': 'phone_number',
-        'status': 'status',
+        'username': 'username',
+        'groups': 'groups',
         'is_marketing_accepted': 'is_marketing_accepted',
         'user_properties': 'user_properties',
-        'username': 'username',
         'is_gtc_accepted': 'is_gtc_accepted',
-        'full_name': 'full_name',
         'is_totp_enabled': 'is_totp_enabled',
         'notification_properties': 'notification_properties',
-        'groups': 'groups',
+        'status': 'status',
+        'full_name': 'full_name',
         'address': 'address',
         'password': 'password',
         'email': 'email'
     }
 
-    def __init__(self, phone_number=None, status=None, is_marketing_accepted=None, user_properties=None, username=None, is_gtc_accepted=None, full_name=None, is_totp_enabled=None, notification_properties=None, groups=None, address=None, password=None, email=None):
+    def __init__(self, phone_number=None, username=None, groups=None, is_marketing_accepted=None, user_properties=None, is_gtc_accepted=None, is_totp_enabled=None, notification_properties=None, status=None, full_name=None, address=None, password=None, email=None):
         """
         AdminUserUpdateReq - a model defined in Swagger
         """
 
         self._phone_number = phone_number
-        self._status = status
+        self._username = username
+        self._groups = groups
         self._is_marketing_accepted = is_marketing_accepted
         self._user_properties = user_properties
-        self._username = username
         self._is_gtc_accepted = is_gtc_accepted
-        self._full_name = full_name
         self._is_totp_enabled = is_totp_enabled
         self._notification_properties = notification_properties
-        self._groups = groups
+        self._status = status
+        self._full_name = full_name
         self._address = address
         self._password = password
         self._email = email
@@ -106,27 +106,50 @@ class AdminUserUpdateReq(object):
         self._phone_number = phone_number
 
     @property
-    def status(self):
+    def username(self):
         """
-        Gets the status of this AdminUserUpdateReq.
-        The status of the user.
+        Gets the username of this AdminUserUpdateReq.
+        A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
 
-        :return: The status of this AdminUserUpdateReq.
+        :return: The username of this AdminUserUpdateReq.
         :rtype: str
         """
-        return self._status
+        return self._username
 
-    @status.setter
-    def status(self, status):
+    @username.setter
+    def username(self, username):
         """
-        Sets the status of this AdminUserUpdateReq.
-        The status of the user.
+        Sets the username of this AdminUserUpdateReq.
+        A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
 
-        :param status: The status of this AdminUserUpdateReq.
+        :param username: The username of this AdminUserUpdateReq.
         :type: str
         """
 
-        self._status = status
+        self._username = username
+
+    @property
+    def groups(self):
+        """
+        Gets the groups of this AdminUserUpdateReq.
+        A list of group IDs this user belongs to.
+
+        :return: The groups of this AdminUserUpdateReq.
+        :rtype: list[str]
+        """
+        return self._groups
+
+    @groups.setter
+    def groups(self, groups):
+        """
+        Sets the groups of this AdminUserUpdateReq.
+        A list of group IDs this user belongs to.
+
+        :param groups: The groups of this AdminUserUpdateReq.
+        :type: list[str]
+        """
+
+        self._groups = groups
 
     @property
     def is_marketing_accepted(self):
@@ -175,29 +198,6 @@ class AdminUserUpdateReq(object):
         self._user_properties = user_properties
 
     @property
-    def username(self):
-        """
-        Gets the username of this AdminUserUpdateReq.
-        A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
-
-        :return: The username of this AdminUserUpdateReq.
-        :rtype: str
-        """
-        return self._username
-
-    @username.setter
-    def username(self, username):
-        """
-        Sets the username of this AdminUserUpdateReq.
-        A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
-
-        :param username: The username of this AdminUserUpdateReq.
-        :type: str
-        """
-
-        self._username = username
-
-    @property
     def is_gtc_accepted(self):
         """
         Gets the is_gtc_accepted of this AdminUserUpdateReq.
@@ -219,29 +219,6 @@ class AdminUserUpdateReq(object):
         """
 
         self._is_gtc_accepted = is_gtc_accepted
-
-    @property
-    def full_name(self):
-        """
-        Gets the full_name of this AdminUserUpdateReq.
-        The full name of the user, not longer than 100 characters.
-
-        :return: The full_name of this AdminUserUpdateReq.
-        :rtype: str
-        """
-        return self._full_name
-
-    @full_name.setter
-    def full_name(self, full_name):
-        """
-        Sets the full_name of this AdminUserUpdateReq.
-        The full name of the user, not longer than 100 characters.
-
-        :param full_name: The full_name of this AdminUserUpdateReq.
-        :type: str
-        """
-
-        self._full_name = full_name
 
     @property
     def is_totp_enabled(self):
@@ -290,27 +267,50 @@ class AdminUserUpdateReq(object):
         self._notification_properties = notification_properties
 
     @property
-    def groups(self):
+    def status(self):
         """
-        Gets the groups of this AdminUserUpdateReq.
-        A list of group IDs this user belongs to.
+        Gets the status of this AdminUserUpdateReq.
+        The status of the user.
 
-        :return: The groups of this AdminUserUpdateReq.
-        :rtype: list[str]
+        :return: The status of this AdminUserUpdateReq.
+        :rtype: str
         """
-        return self._groups
+        return self._status
 
-    @groups.setter
-    def groups(self, groups):
+    @status.setter
+    def status(self, status):
         """
-        Sets the groups of this AdminUserUpdateReq.
-        A list of group IDs this user belongs to.
+        Sets the status of this AdminUserUpdateReq.
+        The status of the user.
 
-        :param groups: The groups of this AdminUserUpdateReq.
-        :type: list[str]
+        :param status: The status of this AdminUserUpdateReq.
+        :type: str
         """
 
-        self._groups = groups
+        self._status = status
+
+    @property
+    def full_name(self):
+        """
+        Gets the full_name of this AdminUserUpdateReq.
+        The full name of the user, not longer than 100 characters.
+
+        :return: The full_name of this AdminUserUpdateReq.
+        :rtype: str
+        """
+        return self._full_name
+
+    @full_name.setter
+    def full_name(self, full_name):
+        """
+        Sets the full_name of this AdminUserUpdateReq.
+        The full name of the user, not longer than 100 characters.
+
+        :param full_name: The full_name of this AdminUserUpdateReq.
+        :type: str
+        """
+
+        self._full_name = full_name
 
     @property
     def address(self):

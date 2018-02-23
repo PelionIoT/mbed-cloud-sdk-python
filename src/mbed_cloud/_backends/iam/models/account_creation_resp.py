@@ -33,6 +33,7 @@ class AccountCreationResp(object):
     swagger_types = {
         'end_market': 'str',
         'admin_id': 'str',
+        'email': 'str',
         'admin_name': 'str',
         'postal_code': 'str',
         'id': 'str',
@@ -43,9 +44,8 @@ class AccountCreationResp(object):
         'display_name': 'str',
         'state': 'str',
         'admin_password': 'str',
-        'email': 'str',
-        'phone_number': 'str',
         'contract_number': 'str',
+        'phone_number': 'str',
         'company': 'str',
         'admin_key': 'str',
         'admin_full_name': 'str',
@@ -58,6 +58,7 @@ class AccountCreationResp(object):
     attribute_map = {
         'end_market': 'end_market',
         'admin_id': 'admin_id',
+        'email': 'email',
         'admin_name': 'admin_name',
         'postal_code': 'postal_code',
         'id': 'id',
@@ -68,9 +69,8 @@ class AccountCreationResp(object):
         'display_name': 'display_name',
         'state': 'state',
         'admin_password': 'admin_password',
-        'email': 'email',
-        'phone_number': 'phone_number',
         'contract_number': 'contract_number',
+        'phone_number': 'phone_number',
         'company': 'company',
         'admin_key': 'admin_key',
         'admin_full_name': 'admin_full_name',
@@ -80,13 +80,14 @@ class AccountCreationResp(object):
         'admin_email': 'admin_email'
     }
 
-    def __init__(self, end_market=None, admin_id=None, admin_name=None, postal_code=None, id=None, aliases=None, address_line2=None, city=None, address_line1=None, display_name=None, state=None, admin_password=None, email=None, phone_number=None, contract_number=None, company=None, admin_key=None, admin_full_name=None, country=None, customer_number=None, contact=None, admin_email=None):
+    def __init__(self, end_market=None, admin_id=None, email=None, admin_name=None, postal_code=None, id=None, aliases=None, address_line2=None, city=None, address_line1=None, display_name=None, state=None, admin_password=None, contract_number=None, phone_number=None, company=None, admin_key=None, admin_full_name=None, country=None, customer_number=None, contact=None, admin_email=None):
         """
         AccountCreationResp - a model defined in Swagger
         """
 
         self._end_market = end_market
         self._admin_id = admin_id
+        self._email = email
         self._admin_name = admin_name
         self._postal_code = postal_code
         self._id = id
@@ -97,9 +98,8 @@ class AccountCreationResp(object):
         self._display_name = display_name
         self._state = state
         self._admin_password = admin_password
-        self._email = email
-        self._phone_number = phone_number
         self._contract_number = contract_number
+        self._phone_number = phone_number
         self._company = company
         self._admin_key = admin_key
         self._admin_full_name = admin_full_name
@@ -158,6 +158,29 @@ class AccountCreationResp(object):
             raise ValueError("Invalid value for `admin_id`, must not be `None`")
 
         self._admin_id = admin_id
+
+    @property
+    def email(self):
+        """
+        Gets the email of this AccountCreationResp.
+        The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
+
+        :return: The email of this AccountCreationResp.
+        :rtype: str
+        """
+        return self._email
+
+    @email.setter
+    def email(self, email):
+        """
+        Sets the email of this AccountCreationResp.
+        The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
+
+        :param email: The email of this AccountCreationResp.
+        :type: str
+        """
+
+        self._email = email
 
     @property
     def admin_name(self):
@@ -392,27 +415,27 @@ class AccountCreationResp(object):
         self._admin_password = admin_password
 
     @property
-    def email(self):
+    def contract_number(self):
         """
-        Gets the email of this AccountCreationResp.
-        The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
+        Gets the contract_number of this AccountCreationResp.
+        Contract number of the customer.
 
-        :return: The email of this AccountCreationResp.
+        :return: The contract_number of this AccountCreationResp.
         :rtype: str
         """
-        return self._email
+        return self._contract_number
 
-    @email.setter
-    def email(self, email):
+    @contract_number.setter
+    def contract_number(self, contract_number):
         """
-        Sets the email of this AccountCreationResp.
-        The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
+        Sets the contract_number of this AccountCreationResp.
+        Contract number of the customer.
 
-        :param email: The email of this AccountCreationResp.
+        :param contract_number: The contract_number of this AccountCreationResp.
         :type: str
         """
 
-        self._email = email
+        self._contract_number = contract_number
 
     @property
     def phone_number(self):
@@ -436,29 +459,6 @@ class AccountCreationResp(object):
         """
 
         self._phone_number = phone_number
-
-    @property
-    def contract_number(self):
-        """
-        Gets the contract_number of this AccountCreationResp.
-        Contract number of the customer.
-
-        :return: The contract_number of this AccountCreationResp.
-        :rtype: str
-        """
-        return self._contract_number
-
-    @contract_number.setter
-    def contract_number(self, contract_number):
-        """
-        Sets the contract_number of this AccountCreationResp.
-        Contract number of the customer.
-
-        :param contract_number: The contract_number of this AccountCreationResp.
-        :type: str
-        """
-
-        self._contract_number = contract_number
 
     @property
     def company(self):

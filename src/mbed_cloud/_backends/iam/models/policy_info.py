@@ -32,83 +32,83 @@ class PolicyInfo(object):
     """
     swagger_types = {
         'valid_until': 'datetime',
-        'error_message': 'str',
+        'grant_expires_in': 'int',
         'updated_at': 'datetime',
         'actions': 'dict(str, bool)',
         'tag': 'str',
         'apikeys': 'list[str]',
         'id': 'str',
-        'account_id': 'str',
+        'users': 'list[str]',
         'valid_from': 'datetime',
-        'description': 'str',
         'etag': 'str',
+        'account_id': 'str',
         'conditions': 'list[str]',
         'resources': 'list[str]',
         'status': 'str',
-        'users': 'list[str]',
+        'description': 'str',
         'object': 'str',
         'groups': 'list[str]',
         'not_actions': 'list[str]',
         'not_resources': 'list[str]',
         'name': 'str',
         'created_at': 'datetime',
-        'grant_expires_in': 'int',
+        'error_message': 'str',
         'not_conditions': 'list[str]'
     }
 
     attribute_map = {
         'valid_until': 'valid_until',
-        'error_message': 'error_message',
+        'grant_expires_in': 'grant_expires_in',
         'updated_at': 'updated_at',
         'actions': 'actions',
         'tag': 'tag',
         'apikeys': 'apikeys',
         'id': 'id',
-        'account_id': 'account_id',
+        'users': 'users',
         'valid_from': 'valid_from',
-        'description': 'description',
         'etag': 'etag',
+        'account_id': 'account_id',
         'conditions': 'conditions',
         'resources': 'resources',
         'status': 'status',
-        'users': 'users',
+        'description': 'description',
         'object': 'object',
         'groups': 'groups',
         'not_actions': 'notActions',
         'not_resources': 'notResources',
         'name': 'name',
         'created_at': 'created_at',
-        'grant_expires_in': 'grant_expires_in',
+        'error_message': 'error_message',
         'not_conditions': 'notConditions'
     }
 
-    def __init__(self, valid_until=None, error_message=None, updated_at=None, actions=None, tag=None, apikeys=None, id=None, account_id=None, valid_from=None, description=None, etag=None, conditions=None, resources=None, status=None, users=None, object=None, groups=None, not_actions=None, not_resources=None, name=None, created_at=None, grant_expires_in=None, not_conditions=None):
+    def __init__(self, valid_until=None, grant_expires_in=None, updated_at=None, actions=None, tag=None, apikeys=None, id=None, users=None, valid_from=None, etag=None, account_id=None, conditions=None, resources=None, status=None, description=None, object=None, groups=None, not_actions=None, not_resources=None, name=None, created_at=None, error_message=None, not_conditions=None):
         """
         PolicyInfo - a model defined in Swagger
         """
 
         self._valid_until = valid_until
-        self._error_message = error_message
+        self._grant_expires_in = grant_expires_in
         self._updated_at = updated_at
         self._actions = actions
         self._tag = tag
         self._apikeys = apikeys
         self._id = id
-        self._account_id = account_id
+        self._users = users
         self._valid_from = valid_from
-        self._description = description
         self._etag = etag
+        self._account_id = account_id
         self._conditions = conditions
         self._resources = resources
         self._status = status
-        self._users = users
+        self._description = description
         self._object = object
         self._groups = groups
         self._not_actions = not_actions
         self._not_resources = not_resources
         self._name = name
         self._created_at = created_at
-        self._grant_expires_in = grant_expires_in
+        self._error_message = error_message
         self._not_conditions = not_conditions
         self.discriminator = None
 
@@ -136,27 +136,27 @@ class PolicyInfo(object):
         self._valid_until = valid_until
 
     @property
-    def error_message(self):
+    def grant_expires_in(self):
         """
-        Gets the error_message of this PolicyInfo.
-        Custom error message returned when this policy matches with not allowed result.
+        Gets the grant_expires_in of this PolicyInfo.
+        Specifies the value in seconds for how long an authorization result is valid.
 
-        :return: The error_message of this PolicyInfo.
-        :rtype: str
+        :return: The grant_expires_in of this PolicyInfo.
+        :rtype: int
         """
-        return self._error_message
+        return self._grant_expires_in
 
-    @error_message.setter
-    def error_message(self, error_message):
+    @grant_expires_in.setter
+    def grant_expires_in(self, grant_expires_in):
         """
-        Sets the error_message of this PolicyInfo.
-        Custom error message returned when this policy matches with not allowed result.
+        Sets the grant_expires_in of this PolicyInfo.
+        Specifies the value in seconds for how long an authorization result is valid.
 
-        :param error_message: The error_message of this PolicyInfo.
-        :type: str
+        :param grant_expires_in: The grant_expires_in of this PolicyInfo.
+        :type: int
         """
 
-        self._error_message = error_message
+        self._grant_expires_in = grant_expires_in
 
     @property
     def updated_at(self):
@@ -280,29 +280,27 @@ class PolicyInfo(object):
         self._id = id
 
     @property
-    def account_id(self):
+    def users(self):
         """
-        Gets the account_id of this PolicyInfo.
-        The UUID of the account.
+        Gets the users of this PolicyInfo.
+        List of user IDs this policy is attached to.
 
-        :return: The account_id of this PolicyInfo.
-        :rtype: str
+        :return: The users of this PolicyInfo.
+        :rtype: list[str]
         """
-        return self._account_id
+        return self._users
 
-    @account_id.setter
-    def account_id(self, account_id):
+    @users.setter
+    def users(self, users):
         """
-        Sets the account_id of this PolicyInfo.
-        The UUID of the account.
+        Sets the users of this PolicyInfo.
+        List of user IDs this policy is attached to.
 
-        :param account_id: The account_id of this PolicyInfo.
-        :type: str
+        :param users: The users of this PolicyInfo.
+        :type: list[str]
         """
-        if account_id is None:
-            raise ValueError("Invalid value for `account_id`, must not be `None`")
 
-        self._account_id = account_id
+        self._users = users
 
     @property
     def valid_from(self):
@@ -328,29 +326,6 @@ class PolicyInfo(object):
         self._valid_from = valid_from
 
     @property
-    def description(self):
-        """
-        Gets the description of this PolicyInfo.
-        The description of this policy.
-
-        :return: The description of this PolicyInfo.
-        :rtype: str
-        """
-        return self._description
-
-    @description.setter
-    def description(self, description):
-        """
-        Sets the description of this PolicyInfo.
-        The description of this policy.
-
-        :param description: The description of this PolicyInfo.
-        :type: str
-        """
-
-        self._description = description
-
-    @property
     def etag(self):
         """
         Gets the etag of this PolicyInfo.
@@ -374,6 +349,31 @@ class PolicyInfo(object):
             raise ValueError("Invalid value for `etag`, must not be `None`")
 
         self._etag = etag
+
+    @property
+    def account_id(self):
+        """
+        Gets the account_id of this PolicyInfo.
+        The UUID of the account.
+
+        :return: The account_id of this PolicyInfo.
+        :rtype: str
+        """
+        return self._account_id
+
+    @account_id.setter
+    def account_id(self, account_id):
+        """
+        Sets the account_id of this PolicyInfo.
+        The UUID of the account.
+
+        :param account_id: The account_id of this PolicyInfo.
+        :type: str
+        """
+        if account_id is None:
+            raise ValueError("Invalid value for `account_id`, must not be `None`")
+
+        self._account_id = account_id
 
     @property
     def conditions(self):
@@ -457,27 +457,27 @@ class PolicyInfo(object):
         self._status = status
 
     @property
-    def users(self):
+    def description(self):
         """
-        Gets the users of this PolicyInfo.
-        List of user IDs this policy is attached to.
+        Gets the description of this PolicyInfo.
+        The description of this policy.
 
-        :return: The users of this PolicyInfo.
-        :rtype: list[str]
+        :return: The description of this PolicyInfo.
+        :rtype: str
         """
-        return self._users
+        return self._description
 
-    @users.setter
-    def users(self, users):
+    @description.setter
+    def description(self, description):
         """
-        Sets the users of this PolicyInfo.
-        List of user IDs this policy is attached to.
+        Sets the description of this PolicyInfo.
+        The description of this policy.
 
-        :param users: The users of this PolicyInfo.
-        :type: list[str]
+        :param description: The description of this PolicyInfo.
+        :type: str
         """
 
-        self._users = users
+        self._description = description
 
     @property
     def object(self):
@@ -632,27 +632,27 @@ class PolicyInfo(object):
         self._created_at = created_at
 
     @property
-    def grant_expires_in(self):
+    def error_message(self):
         """
-        Gets the grant_expires_in of this PolicyInfo.
-        Specifies the value in seconds for how long an authorization result is valid.
+        Gets the error_message of this PolicyInfo.
+        Custom error message returned when this policy matches with not allowed result.
 
-        :return: The grant_expires_in of this PolicyInfo.
-        :rtype: int
+        :return: The error_message of this PolicyInfo.
+        :rtype: str
         """
-        return self._grant_expires_in
+        return self._error_message
 
-    @grant_expires_in.setter
-    def grant_expires_in(self, grant_expires_in):
+    @error_message.setter
+    def error_message(self, error_message):
         """
-        Sets the grant_expires_in of this PolicyInfo.
-        Specifies the value in seconds for how long an authorization result is valid.
+        Sets the error_message of this PolicyInfo.
+        Custom error message returned when this policy matches with not allowed result.
 
-        :param grant_expires_in: The grant_expires_in of this PolicyInfo.
-        :type: int
+        :param error_message: The error_message of this PolicyInfo.
+        :type: str
         """
 
-        self._grant_expires_in = grant_expires_in
+        self._error_message = error_message
 
     @property
     def not_conditions(self):

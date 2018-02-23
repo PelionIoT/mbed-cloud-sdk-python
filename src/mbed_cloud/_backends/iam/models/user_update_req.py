@@ -32,14 +32,14 @@ class UserUpdateReq(object):
     """
     swagger_types = {
         'phone_number': 'str',
-        'status': 'str',
+        'username': 'str',
+        'groups': 'list[str]',
         'is_marketing_accepted': 'bool',
         'user_properties': 'dict(str, dict(str, str))',
         'is_gtc_accepted': 'bool',
-        'full_name': 'str',
         'is_totp_enabled': 'bool',
-        'username': 'str',
-        'groups': 'list[str]',
+        'status': 'str',
+        'full_name': 'str',
         'address': 'str',
         'password': 'str',
         'email': 'str'
@@ -47,33 +47,33 @@ class UserUpdateReq(object):
 
     attribute_map = {
         'phone_number': 'phone_number',
-        'status': 'status',
+        'username': 'username',
+        'groups': 'groups',
         'is_marketing_accepted': 'is_marketing_accepted',
         'user_properties': 'user_properties',
         'is_gtc_accepted': 'is_gtc_accepted',
-        'full_name': 'full_name',
         'is_totp_enabled': 'is_totp_enabled',
-        'username': 'username',
-        'groups': 'groups',
+        'status': 'status',
+        'full_name': 'full_name',
         'address': 'address',
         'password': 'password',
         'email': 'email'
     }
 
-    def __init__(self, phone_number=None, status=None, is_marketing_accepted=None, user_properties=None, is_gtc_accepted=None, full_name=None, is_totp_enabled=None, username=None, groups=None, address=None, password=None, email=None):
+    def __init__(self, phone_number=None, username=None, groups=None, is_marketing_accepted=None, user_properties=None, is_gtc_accepted=None, is_totp_enabled=None, status=None, full_name=None, address=None, password=None, email=None):
         """
         UserUpdateReq - a model defined in Swagger
         """
 
         self._phone_number = phone_number
-        self._status = status
+        self._username = username
+        self._groups = groups
         self._is_marketing_accepted = is_marketing_accepted
         self._user_properties = user_properties
         self._is_gtc_accepted = is_gtc_accepted
-        self._full_name = full_name
         self._is_totp_enabled = is_totp_enabled
-        self._username = username
-        self._groups = groups
+        self._status = status
+        self._full_name = full_name
         self._address = address
         self._password = password
         self._email = email
@@ -103,27 +103,50 @@ class UserUpdateReq(object):
         self._phone_number = phone_number
 
     @property
-    def status(self):
+    def username(self):
         """
-        Gets the status of this UserUpdateReq.
-        The status of the user.
+        Gets the username of this UserUpdateReq.
+        A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
 
-        :return: The status of this UserUpdateReq.
+        :return: The username of this UserUpdateReq.
         :rtype: str
         """
-        return self._status
+        return self._username
 
-    @status.setter
-    def status(self, status):
+    @username.setter
+    def username(self, username):
         """
-        Sets the status of this UserUpdateReq.
-        The status of the user.
+        Sets the username of this UserUpdateReq.
+        A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
 
-        :param status: The status of this UserUpdateReq.
+        :param username: The username of this UserUpdateReq.
         :type: str
         """
 
-        self._status = status
+        self._username = username
+
+    @property
+    def groups(self):
+        """
+        Gets the groups of this UserUpdateReq.
+        A list of group IDs this user belongs to.
+
+        :return: The groups of this UserUpdateReq.
+        :rtype: list[str]
+        """
+        return self._groups
+
+    @groups.setter
+    def groups(self, groups):
+        """
+        Sets the groups of this UserUpdateReq.
+        A list of group IDs this user belongs to.
+
+        :param groups: The groups of this UserUpdateReq.
+        :type: list[str]
+        """
+
+        self._groups = groups
 
     @property
     def is_marketing_accepted(self):
@@ -195,29 +218,6 @@ class UserUpdateReq(object):
         self._is_gtc_accepted = is_gtc_accepted
 
     @property
-    def full_name(self):
-        """
-        Gets the full_name of this UserUpdateReq.
-        The full name of the user, not longer than 100 characters.
-
-        :return: The full_name of this UserUpdateReq.
-        :rtype: str
-        """
-        return self._full_name
-
-    @full_name.setter
-    def full_name(self, full_name):
-        """
-        Sets the full_name of this UserUpdateReq.
-        The full name of the user, not longer than 100 characters.
-
-        :param full_name: The full_name of this UserUpdateReq.
-        :type: str
-        """
-
-        self._full_name = full_name
-
-    @property
     def is_totp_enabled(self):
         """
         Gets the is_totp_enabled of this UserUpdateReq.
@@ -241,50 +241,50 @@ class UserUpdateReq(object):
         self._is_totp_enabled = is_totp_enabled
 
     @property
-    def username(self):
+    def status(self):
         """
-        Gets the username of this UserUpdateReq.
-        A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
+        Gets the status of this UserUpdateReq.
+        The status of the user.
 
-        :return: The username of this UserUpdateReq.
+        :return: The status of this UserUpdateReq.
         :rtype: str
         """
-        return self._username
+        return self._status
 
-    @username.setter
-    def username(self, username):
+    @status.setter
+    def status(self, status):
         """
-        Sets the username of this UserUpdateReq.
-        A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
+        Sets the status of this UserUpdateReq.
+        The status of the user.
 
-        :param username: The username of this UserUpdateReq.
+        :param status: The status of this UserUpdateReq.
         :type: str
         """
 
-        self._username = username
+        self._status = status
 
     @property
-    def groups(self):
+    def full_name(self):
         """
-        Gets the groups of this UserUpdateReq.
-        A list of group IDs this user belongs to.
+        Gets the full_name of this UserUpdateReq.
+        The full name of the user, not longer than 100 characters.
 
-        :return: The groups of this UserUpdateReq.
-        :rtype: list[str]
+        :return: The full_name of this UserUpdateReq.
+        :rtype: str
         """
-        return self._groups
+        return self._full_name
 
-    @groups.setter
-    def groups(self, groups):
+    @full_name.setter
+    def full_name(self, full_name):
         """
-        Sets the groups of this UserUpdateReq.
-        A list of group IDs this user belongs to.
+        Sets the full_name of this UserUpdateReq.
+        The full name of the user, not longer than 100 characters.
 
-        :param groups: The groups of this UserUpdateReq.
-        :type: list[str]
+        :param full_name: The full_name of this UserUpdateReq.
+        :type: str
         """
 
-        self._groups = groups
+        self._full_name = full_name
 
     @property
     def address(self):

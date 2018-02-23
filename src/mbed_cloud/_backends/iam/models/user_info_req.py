@@ -33,10 +33,11 @@ class UserInfoReq(object):
     swagger_types = {
         'phone_number': 'str',
         'username': 'str',
-        'is_marketing_accepted': 'bool',
+        'groups': 'list[str]',
+        'user_properties': 'dict(str, dict(str, str))',
         'is_gtc_accepted': 'bool',
         'full_name': 'str',
-        'groups': 'list[str]',
+        'is_marketing_accepted': 'bool',
         'address': 'str',
         'password': 'str',
         'email': 'str'
@@ -45,26 +46,28 @@ class UserInfoReq(object):
     attribute_map = {
         'phone_number': 'phone_number',
         'username': 'username',
-        'is_marketing_accepted': 'is_marketing_accepted',
+        'groups': 'groups',
+        'user_properties': 'user_properties',
         'is_gtc_accepted': 'is_gtc_accepted',
         'full_name': 'full_name',
-        'groups': 'groups',
+        'is_marketing_accepted': 'is_marketing_accepted',
         'address': 'address',
         'password': 'password',
         'email': 'email'
     }
 
-    def __init__(self, phone_number=None, username=None, is_marketing_accepted=None, is_gtc_accepted=None, full_name=None, groups=None, address=None, password=None, email=None):
+    def __init__(self, phone_number=None, username=None, groups=None, user_properties=None, is_gtc_accepted=None, full_name=None, is_marketing_accepted=None, address=None, password=None, email=None):
         """
         UserInfoReq - a model defined in Swagger
         """
 
         self._phone_number = phone_number
         self._username = username
-        self._is_marketing_accepted = is_marketing_accepted
+        self._groups = groups
+        self._user_properties = user_properties
         self._is_gtc_accepted = is_gtc_accepted
         self._full_name = full_name
-        self._groups = groups
+        self._is_marketing_accepted = is_marketing_accepted
         self._address = address
         self._password = password
         self._email = email
@@ -117,27 +120,50 @@ class UserInfoReq(object):
         self._username = username
 
     @property
-    def is_marketing_accepted(self):
+    def groups(self):
         """
-        Gets the is_marketing_accepted of this UserInfoReq.
-        A flag indicating that receiving marketing information has been accepted.
+        Gets the groups of this UserInfoReq.
+        A list of IDs of the groups this user belongs to.
 
-        :return: The is_marketing_accepted of this UserInfoReq.
-        :rtype: bool
+        :return: The groups of this UserInfoReq.
+        :rtype: list[str]
         """
-        return self._is_marketing_accepted
+        return self._groups
 
-    @is_marketing_accepted.setter
-    def is_marketing_accepted(self, is_marketing_accepted):
+    @groups.setter
+    def groups(self, groups):
         """
-        Sets the is_marketing_accepted of this UserInfoReq.
-        A flag indicating that receiving marketing information has been accepted.
+        Sets the groups of this UserInfoReq.
+        A list of IDs of the groups this user belongs to.
 
-        :param is_marketing_accepted: The is_marketing_accepted of this UserInfoReq.
-        :type: bool
+        :param groups: The groups of this UserInfoReq.
+        :type: list[str]
         """
 
-        self._is_marketing_accepted = is_marketing_accepted
+        self._groups = groups
+
+    @property
+    def user_properties(self):
+        """
+        Gets the user_properties of this UserInfoReq.
+        User's account specific custom properties.
+
+        :return: The user_properties of this UserInfoReq.
+        :rtype: dict(str, dict(str, str))
+        """
+        return self._user_properties
+
+    @user_properties.setter
+    def user_properties(self, user_properties):
+        """
+        Sets the user_properties of this UserInfoReq.
+        User's account specific custom properties.
+
+        :param user_properties: The user_properties of this UserInfoReq.
+        :type: dict(str, dict(str, str))
+        """
+
+        self._user_properties = user_properties
 
     @property
     def is_gtc_accepted(self):
@@ -186,27 +212,27 @@ class UserInfoReq(object):
         self._full_name = full_name
 
     @property
-    def groups(self):
+    def is_marketing_accepted(self):
         """
-        Gets the groups of this UserInfoReq.
-        A list of IDs of the groups this user belongs to.
+        Gets the is_marketing_accepted of this UserInfoReq.
+        A flag indicating that receiving marketing information has been accepted.
 
-        :return: The groups of this UserInfoReq.
-        :rtype: list[str]
+        :return: The is_marketing_accepted of this UserInfoReq.
+        :rtype: bool
         """
-        return self._groups
+        return self._is_marketing_accepted
 
-    @groups.setter
-    def groups(self, groups):
+    @is_marketing_accepted.setter
+    def is_marketing_accepted(self, is_marketing_accepted):
         """
-        Sets the groups of this UserInfoReq.
-        A list of IDs of the groups this user belongs to.
+        Sets the is_marketing_accepted of this UserInfoReq.
+        A flag indicating that receiving marketing information has been accepted.
 
-        :param groups: The groups of this UserInfoReq.
-        :type: list[str]
+        :param is_marketing_accepted: The is_marketing_accepted of this UserInfoReq.
+        :type: bool
         """
 
-        self._groups = groups
+        self._is_marketing_accepted = is_marketing_accepted
 
     @property
     def address(self):

@@ -36,16 +36,16 @@ class AccountUpdateReq(object):
         'address_line1': 'str',
         'display_name': 'str',
         'mfa_status': 'str',
-        'state': 'str',
         'country': 'str',
         'company': 'str',
         'idle_timeout': 'str',
-        'password_policy': 'PasswordPolicy',
-        'expiration_warning_threshold': 'str',
+        'notification_emails': 'list[str]',
+        'state': 'str',
         'contact': 'str',
         'postal_code': 'str',
         'account_properties': 'dict(str, dict(str, str))',
-        'notification_emails': 'list[str]',
+        'expiration_warning_threshold': 'str',
+        'password_policy': 'PasswordPolicy',
         'end_market': 'str',
         'phone_number': 'str',
         'email': 'str',
@@ -58,23 +58,23 @@ class AccountUpdateReq(object):
         'address_line1': 'address_line1',
         'display_name': 'display_name',
         'mfa_status': 'mfa_status',
-        'state': 'state',
         'country': 'country',
         'company': 'company',
         'idle_timeout': 'idle_timeout',
-        'password_policy': 'password_policy',
-        'expiration_warning_threshold': 'expiration_warning_threshold',
+        'notification_emails': 'notification_emails',
+        'state': 'state',
         'contact': 'contact',
         'postal_code': 'postal_code',
         'account_properties': 'account_properties',
-        'notification_emails': 'notification_emails',
+        'expiration_warning_threshold': 'expiration_warning_threshold',
+        'password_policy': 'password_policy',
         'end_market': 'end_market',
         'phone_number': 'phone_number',
         'email': 'email',
         'aliases': 'aliases'
     }
 
-    def __init__(self, address_line2=None, city=None, address_line1=None, display_name=None, mfa_status=None, state=None, country=None, company=None, idle_timeout=None, password_policy=None, expiration_warning_threshold=None, contact=None, postal_code=None, account_properties=None, notification_emails=None, end_market=None, phone_number=None, email=None, aliases=None):
+    def __init__(self, address_line2=None, city=None, address_line1=None, display_name=None, mfa_status=None, country=None, company=None, idle_timeout=None, notification_emails=None, state=None, contact=None, postal_code=None, account_properties=None, expiration_warning_threshold=None, password_policy=None, end_market=None, phone_number=None, email=None, aliases=None):
         """
         AccountUpdateReq - a model defined in Swagger
         """
@@ -84,16 +84,16 @@ class AccountUpdateReq(object):
         self._address_line1 = address_line1
         self._display_name = display_name
         self._mfa_status = mfa_status
-        self._state = state
         self._country = country
         self._company = company
         self._idle_timeout = idle_timeout
-        self._password_policy = password_policy
-        self._expiration_warning_threshold = expiration_warning_threshold
+        self._notification_emails = notification_emails
+        self._state = state
         self._contact = contact
         self._postal_code = postal_code
         self._account_properties = account_properties
-        self._notification_emails = notification_emails
+        self._expiration_warning_threshold = expiration_warning_threshold
+        self._password_policy = password_policy
         self._end_market = end_market
         self._phone_number = phone_number
         self._email = email
@@ -222,29 +222,6 @@ class AccountUpdateReq(object):
         self._mfa_status = mfa_status
 
     @property
-    def state(self):
-        """
-        Gets the state of this AccountUpdateReq.
-        The state part of the postal address, not longer than 100 characters.
-
-        :return: The state of this AccountUpdateReq.
-        :rtype: str
-        """
-        return self._state
-
-    @state.setter
-    def state(self, state):
-        """
-        Sets the state of this AccountUpdateReq.
-        The state part of the postal address, not longer than 100 characters.
-
-        :param state: The state of this AccountUpdateReq.
-        :type: str
-        """
-
-        self._state = state
-
-    @property
     def country(self):
         """
         Gets the country of this AccountUpdateReq.
@@ -314,50 +291,50 @@ class AccountUpdateReq(object):
         self._idle_timeout = idle_timeout
 
     @property
-    def password_policy(self):
+    def notification_emails(self):
         """
-        Gets the password_policy of this AccountUpdateReq.
-        Password policy for this account.
+        Gets the notification_emails of this AccountUpdateReq.
+        A list of notification email addresses.
 
-        :return: The password_policy of this AccountUpdateReq.
-        :rtype: PasswordPolicy
+        :return: The notification_emails of this AccountUpdateReq.
+        :rtype: list[str]
         """
-        return self._password_policy
+        return self._notification_emails
 
-    @password_policy.setter
-    def password_policy(self, password_policy):
+    @notification_emails.setter
+    def notification_emails(self, notification_emails):
         """
-        Sets the password_policy of this AccountUpdateReq.
-        Password policy for this account.
+        Sets the notification_emails of this AccountUpdateReq.
+        A list of notification email addresses.
 
-        :param password_policy: The password_policy of this AccountUpdateReq.
-        :type: PasswordPolicy
+        :param notification_emails: The notification_emails of this AccountUpdateReq.
+        :type: list[str]
         """
 
-        self._password_policy = password_policy
+        self._notification_emails = notification_emails
 
     @property
-    def expiration_warning_threshold(self):
+    def state(self):
         """
-        Gets the expiration_warning_threshold of this AccountUpdateReq.
-        Indicates how many days before account expiration a notification email should be sent. Valid values are: 1-180.
+        Gets the state of this AccountUpdateReq.
+        The state part of the postal address, not longer than 100 characters.
 
-        :return: The expiration_warning_threshold of this AccountUpdateReq.
+        :return: The state of this AccountUpdateReq.
         :rtype: str
         """
-        return self._expiration_warning_threshold
+        return self._state
 
-    @expiration_warning_threshold.setter
-    def expiration_warning_threshold(self, expiration_warning_threshold):
+    @state.setter
+    def state(self, state):
         """
-        Sets the expiration_warning_threshold of this AccountUpdateReq.
-        Indicates how many days before account expiration a notification email should be sent. Valid values are: 1-180.
+        Sets the state of this AccountUpdateReq.
+        The state part of the postal address, not longer than 100 characters.
 
-        :param expiration_warning_threshold: The expiration_warning_threshold of this AccountUpdateReq.
+        :param state: The state of this AccountUpdateReq.
         :type: str
         """
 
-        self._expiration_warning_threshold = expiration_warning_threshold
+        self._state = state
 
     @property
     def contact(self):
@@ -429,27 +406,50 @@ class AccountUpdateReq(object):
         self._account_properties = account_properties
 
     @property
-    def notification_emails(self):
+    def expiration_warning_threshold(self):
         """
-        Gets the notification_emails of this AccountUpdateReq.
-        A list of notification email addresses.
+        Gets the expiration_warning_threshold of this AccountUpdateReq.
+        Indicates how many days before account expiration a notification email should be sent. Valid values are: 1-180.
 
-        :return: The notification_emails of this AccountUpdateReq.
-        :rtype: list[str]
+        :return: The expiration_warning_threshold of this AccountUpdateReq.
+        :rtype: str
         """
-        return self._notification_emails
+        return self._expiration_warning_threshold
 
-    @notification_emails.setter
-    def notification_emails(self, notification_emails):
+    @expiration_warning_threshold.setter
+    def expiration_warning_threshold(self, expiration_warning_threshold):
         """
-        Sets the notification_emails of this AccountUpdateReq.
-        A list of notification email addresses.
+        Sets the expiration_warning_threshold of this AccountUpdateReq.
+        Indicates how many days before account expiration a notification email should be sent. Valid values are: 1-180.
 
-        :param notification_emails: The notification_emails of this AccountUpdateReq.
-        :type: list[str]
+        :param expiration_warning_threshold: The expiration_warning_threshold of this AccountUpdateReq.
+        :type: str
         """
 
-        self._notification_emails = notification_emails
+        self._expiration_warning_threshold = expiration_warning_threshold
+
+    @property
+    def password_policy(self):
+        """
+        Gets the password_policy of this AccountUpdateReq.
+        Password policy for this account.
+
+        :return: The password_policy of this AccountUpdateReq.
+        :rtype: PasswordPolicy
+        """
+        return self._password_policy
+
+    @password_policy.setter
+    def password_policy(self, password_policy):
+        """
+        Sets the password_policy of this AccountUpdateReq.
+        Password policy for this account.
+
+        :param password_policy: The password_policy of this AccountUpdateReq.
+        :type: PasswordPolicy
+        """
+
+        self._password_policy = password_policy
 
     @property
     def end_market(self):

@@ -32,67 +32,67 @@ class TrustedCertificateInternalResp(object):
     """
     swagger_types = {
         'service': 'str',
-        'enrollment_mode': 'bool',
+        'status': 'str',
         'private_key': 'str',
-        'account_id': 'str',
+        'name': 'str',
         'certificate': 'str',
-        'updated_at': 'datetime',
+        'enrollment_mode': 'bool',
+        'issuer': 'str',
+        'device_execution_mode': 'int',
         'created_at': 'datetime',
         'object': 'str',
-        'device_execution_mode': 'int',
-        'owner_id': 'str',
         'subject': 'str',
-        'name': 'str',
+        'updated_at': 'datetime',
+        'account_id': 'str',
         'etag': 'str',
-        'status': 'str',
         'validity': 'datetime',
-        'issuer': 'str',
+        'owner_id': 'str',
         'id': 'str',
         'description': 'str'
     }
 
     attribute_map = {
         'service': 'service',
-        'enrollment_mode': 'enrollment_mode',
+        'status': 'status',
         'private_key': 'private_key',
-        'account_id': 'account_id',
+        'name': 'name',
         'certificate': 'certificate',
-        'updated_at': 'updated_at',
+        'enrollment_mode': 'enrollment_mode',
+        'issuer': 'issuer',
+        'device_execution_mode': 'device_execution_mode',
         'created_at': 'created_at',
         'object': 'object',
-        'device_execution_mode': 'device_execution_mode',
-        'owner_id': 'owner_id',
         'subject': 'subject',
-        'name': 'name',
+        'updated_at': 'updated_at',
+        'account_id': 'account_id',
         'etag': 'etag',
-        'status': 'status',
         'validity': 'validity',
-        'issuer': 'issuer',
+        'owner_id': 'owner_id',
         'id': 'id',
         'description': 'description'
     }
 
-    def __init__(self, service=None, enrollment_mode=None, private_key=None, account_id=None, certificate=None, updated_at=None, created_at=None, object=None, device_execution_mode=None, owner_id=None, subject=None, name=None, etag=None, status=None, validity=None, issuer=None, id=None, description=None):
+    def __init__(self, service=None, status=None, private_key=None, name=None, certificate=None, enrollment_mode=None, issuer=None, device_execution_mode=None, created_at=None, object=None, subject=None, updated_at=None, account_id=None, etag=None, validity=None, owner_id=None, id=None, description=None):
         """
         TrustedCertificateInternalResp - a model defined in Swagger
         """
 
         self._service = service
-        self._enrollment_mode = enrollment_mode
+        self._status = status
         self._private_key = private_key
-        self._account_id = account_id
+        self._name = name
         self._certificate = certificate
-        self._updated_at = updated_at
+        self._enrollment_mode = enrollment_mode
+        self._issuer = issuer
+        self._device_execution_mode = device_execution_mode
         self._created_at = created_at
         self._object = object
-        self._device_execution_mode = device_execution_mode
-        self._owner_id = owner_id
         self._subject = subject
-        self._name = name
+        self._updated_at = updated_at
+        self._account_id = account_id
         self._etag = etag
-        self._status = status
         self._validity = validity
-        self._issuer = issuer
+        self._owner_id = owner_id
         self._id = id
         self._description = description
         self.discriminator = None
@@ -129,27 +129,33 @@ class TrustedCertificateInternalResp(object):
         self._service = service
 
     @property
-    def enrollment_mode(self):
+    def status(self):
         """
-        Gets the enrollment_mode of this TrustedCertificateInternalResp.
-        If true, signature is not required. Default value false.
+        Gets the status of this TrustedCertificateInternalResp.
+        Status of the certificate.
 
-        :return: The enrollment_mode of this TrustedCertificateInternalResp.
-        :rtype: bool
+        :return: The status of this TrustedCertificateInternalResp.
+        :rtype: str
         """
-        return self._enrollment_mode
+        return self._status
 
-    @enrollment_mode.setter
-    def enrollment_mode(self, enrollment_mode):
+    @status.setter
+    def status(self, status):
         """
-        Sets the enrollment_mode of this TrustedCertificateInternalResp.
-        If true, signature is not required. Default value false.
+        Sets the status of this TrustedCertificateInternalResp.
+        Status of the certificate.
 
-        :param enrollment_mode: The enrollment_mode of this TrustedCertificateInternalResp.
-        :type: bool
+        :param status: The status of this TrustedCertificateInternalResp.
+        :type: str
         """
+        allowed_values = ["ACTIVE", "INACTIVE"]
+        if status not in allowed_values:
+            raise ValueError(
+                "Invalid value for `status` ({0}), must be one of {1}"
+                .format(status, allowed_values)
+            )
 
-        self._enrollment_mode = enrollment_mode
+        self._status = status
 
     @property
     def private_key(self):
@@ -177,29 +183,29 @@ class TrustedCertificateInternalResp(object):
         self._private_key = private_key
 
     @property
-    def account_id(self):
+    def name(self):
         """
-        Gets the account_id of this TrustedCertificateInternalResp.
-        The UUID of the account.
+        Gets the name of this TrustedCertificateInternalResp.
+        Certificate name.
 
-        :return: The account_id of this TrustedCertificateInternalResp.
+        :return: The name of this TrustedCertificateInternalResp.
         :rtype: str
         """
-        return self._account_id
+        return self._name
 
-    @account_id.setter
-    def account_id(self, account_id):
+    @name.setter
+    def name(self, name):
         """
-        Sets the account_id of this TrustedCertificateInternalResp.
-        The UUID of the account.
+        Sets the name of this TrustedCertificateInternalResp.
+        Certificate name.
 
-        :param account_id: The account_id of this TrustedCertificateInternalResp.
+        :param name: The name of this TrustedCertificateInternalResp.
         :type: str
         """
-        if account_id is None:
-            raise ValueError("Invalid value for `account_id`, must not be `None`")
+        if name is None:
+            raise ValueError("Invalid value for `name`, must not be `None`")
 
-        self._account_id = account_id
+        self._name = name
 
     @property
     def certificate(self):
@@ -227,27 +233,75 @@ class TrustedCertificateInternalResp(object):
         self._certificate = certificate
 
     @property
-    def updated_at(self):
+    def enrollment_mode(self):
         """
-        Gets the updated_at of this TrustedCertificateInternalResp.
-        Last update UTC time RFC3339.
+        Gets the enrollment_mode of this TrustedCertificateInternalResp.
+        If true, signature is not required. Default value false.
 
-        :return: The updated_at of this TrustedCertificateInternalResp.
-        :rtype: datetime
+        :return: The enrollment_mode of this TrustedCertificateInternalResp.
+        :rtype: bool
         """
-        return self._updated_at
+        return self._enrollment_mode
 
-    @updated_at.setter
-    def updated_at(self, updated_at):
+    @enrollment_mode.setter
+    def enrollment_mode(self, enrollment_mode):
         """
-        Sets the updated_at of this TrustedCertificateInternalResp.
-        Last update UTC time RFC3339.
+        Sets the enrollment_mode of this TrustedCertificateInternalResp.
+        If true, signature is not required. Default value false.
 
-        :param updated_at: The updated_at of this TrustedCertificateInternalResp.
-        :type: datetime
+        :param enrollment_mode: The enrollment_mode of this TrustedCertificateInternalResp.
+        :type: bool
         """
 
-        self._updated_at = updated_at
+        self._enrollment_mode = enrollment_mode
+
+    @property
+    def issuer(self):
+        """
+        Gets the issuer of this TrustedCertificateInternalResp.
+        Issuer of the certificate.
+
+        :return: The issuer of this TrustedCertificateInternalResp.
+        :rtype: str
+        """
+        return self._issuer
+
+    @issuer.setter
+    def issuer(self, issuer):
+        """
+        Sets the issuer of this TrustedCertificateInternalResp.
+        Issuer of the certificate.
+
+        :param issuer: The issuer of this TrustedCertificateInternalResp.
+        :type: str
+        """
+        if issuer is None:
+            raise ValueError("Invalid value for `issuer`, must not be `None`")
+
+        self._issuer = issuer
+
+    @property
+    def device_execution_mode(self):
+        """
+        Gets the device_execution_mode of this TrustedCertificateInternalResp.
+        Device execution mode where 1 means a developer certificate.
+
+        :return: The device_execution_mode of this TrustedCertificateInternalResp.
+        :rtype: int
+        """
+        return self._device_execution_mode
+
+    @device_execution_mode.setter
+    def device_execution_mode(self, device_execution_mode):
+        """
+        Sets the device_execution_mode of this TrustedCertificateInternalResp.
+        Device execution mode where 1 means a developer certificate.
+
+        :param device_execution_mode: The device_execution_mode of this TrustedCertificateInternalResp.
+        :type: int
+        """
+
+        self._device_execution_mode = device_execution_mode
 
     @property
     def created_at(self):
@@ -304,52 +358,6 @@ class TrustedCertificateInternalResp(object):
         self._object = object
 
     @property
-    def device_execution_mode(self):
-        """
-        Gets the device_execution_mode of this TrustedCertificateInternalResp.
-        Device execution mode where 1 means a developer certificate.
-
-        :return: The device_execution_mode of this TrustedCertificateInternalResp.
-        :rtype: int
-        """
-        return self._device_execution_mode
-
-    @device_execution_mode.setter
-    def device_execution_mode(self, device_execution_mode):
-        """
-        Sets the device_execution_mode of this TrustedCertificateInternalResp.
-        Device execution mode where 1 means a developer certificate.
-
-        :param device_execution_mode: The device_execution_mode of this TrustedCertificateInternalResp.
-        :type: int
-        """
-
-        self._device_execution_mode = device_execution_mode
-
-    @property
-    def owner_id(self):
-        """
-        Gets the owner_id of this TrustedCertificateInternalResp.
-        The UUID of the owner.
-
-        :return: The owner_id of this TrustedCertificateInternalResp.
-        :rtype: str
-        """
-        return self._owner_id
-
-    @owner_id.setter
-    def owner_id(self, owner_id):
-        """
-        Sets the owner_id of this TrustedCertificateInternalResp.
-        The UUID of the owner.
-
-        :param owner_id: The owner_id of this TrustedCertificateInternalResp.
-        :type: str
-        """
-
-        self._owner_id = owner_id
-
-    @property
     def subject(self):
         """
         Gets the subject of this TrustedCertificateInternalResp.
@@ -375,29 +383,52 @@ class TrustedCertificateInternalResp(object):
         self._subject = subject
 
     @property
-    def name(self):
+    def updated_at(self):
         """
-        Gets the name of this TrustedCertificateInternalResp.
-        Certificate name.
+        Gets the updated_at of this TrustedCertificateInternalResp.
+        Last update UTC time RFC3339.
 
-        :return: The name of this TrustedCertificateInternalResp.
+        :return: The updated_at of this TrustedCertificateInternalResp.
+        :rtype: datetime
+        """
+        return self._updated_at
+
+    @updated_at.setter
+    def updated_at(self, updated_at):
+        """
+        Sets the updated_at of this TrustedCertificateInternalResp.
+        Last update UTC time RFC3339.
+
+        :param updated_at: The updated_at of this TrustedCertificateInternalResp.
+        :type: datetime
+        """
+
+        self._updated_at = updated_at
+
+    @property
+    def account_id(self):
+        """
+        Gets the account_id of this TrustedCertificateInternalResp.
+        The UUID of the account.
+
+        :return: The account_id of this TrustedCertificateInternalResp.
         :rtype: str
         """
-        return self._name
+        return self._account_id
 
-    @name.setter
-    def name(self, name):
+    @account_id.setter
+    def account_id(self, account_id):
         """
-        Sets the name of this TrustedCertificateInternalResp.
-        Certificate name.
+        Sets the account_id of this TrustedCertificateInternalResp.
+        The UUID of the account.
 
-        :param name: The name of this TrustedCertificateInternalResp.
+        :param account_id: The account_id of this TrustedCertificateInternalResp.
         :type: str
         """
-        if name is None:
-            raise ValueError("Invalid value for `name`, must not be `None`")
+        if account_id is None:
+            raise ValueError("Invalid value for `account_id`, must not be `None`")
 
-        self._name = name
+        self._account_id = account_id
 
     @property
     def etag(self):
@@ -425,35 +456,6 @@ class TrustedCertificateInternalResp(object):
         self._etag = etag
 
     @property
-    def status(self):
-        """
-        Gets the status of this TrustedCertificateInternalResp.
-        Status of the certificate.
-
-        :return: The status of this TrustedCertificateInternalResp.
-        :rtype: str
-        """
-        return self._status
-
-    @status.setter
-    def status(self, status):
-        """
-        Sets the status of this TrustedCertificateInternalResp.
-        Status of the certificate.
-
-        :param status: The status of this TrustedCertificateInternalResp.
-        :type: str
-        """
-        allowed_values = ["ACTIVE", "INACTIVE"]
-        if status not in allowed_values:
-            raise ValueError(
-                "Invalid value for `status` ({0}), must be one of {1}"
-                .format(status, allowed_values)
-            )
-
-        self._status = status
-
-    @property
     def validity(self):
         """
         Gets the validity of this TrustedCertificateInternalResp.
@@ -479,29 +481,27 @@ class TrustedCertificateInternalResp(object):
         self._validity = validity
 
     @property
-    def issuer(self):
+    def owner_id(self):
         """
-        Gets the issuer of this TrustedCertificateInternalResp.
-        Issuer of the certificate.
+        Gets the owner_id of this TrustedCertificateInternalResp.
+        The UUID of the owner.
 
-        :return: The issuer of this TrustedCertificateInternalResp.
+        :return: The owner_id of this TrustedCertificateInternalResp.
         :rtype: str
         """
-        return self._issuer
+        return self._owner_id
 
-    @issuer.setter
-    def issuer(self, issuer):
+    @owner_id.setter
+    def owner_id(self, owner_id):
         """
-        Sets the issuer of this TrustedCertificateInternalResp.
-        Issuer of the certificate.
+        Sets the owner_id of this TrustedCertificateInternalResp.
+        The UUID of the owner.
 
-        :param issuer: The issuer of this TrustedCertificateInternalResp.
+        :param owner_id: The owner_id of this TrustedCertificateInternalResp.
         :type: str
         """
-        if issuer is None:
-            raise ValueError("Invalid value for `issuer`, must not be `None`")
 
-        self._issuer = issuer
+        self._owner_id = owner_id
 
     @property
     def id(self):

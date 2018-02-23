@@ -34,23 +34,23 @@ class TrustedCertificateRootReq(object):
         'status': 'str',
         'enrollment_mode': 'bool',
         'certificate': 'str',
-        'description': 'str',
+        'name': 'str',
         'service': 'str',
         'signature': 'str',
-        'name': 'str'
+        'description': 'str'
     }
 
     attribute_map = {
         'status': 'status',
         'enrollment_mode': 'enrollment_mode',
         'certificate': 'certificate',
-        'description': 'description',
+        'name': 'name',
         'service': 'service',
         'signature': 'signature',
-        'name': 'name'
+        'description': 'description'
     }
 
-    def __init__(self, status=None, enrollment_mode=None, certificate=None, description=None, service=None, signature=None, name=None):
+    def __init__(self, status=None, enrollment_mode=None, certificate=None, name=None, service=None, signature=None, description=None):
         """
         TrustedCertificateRootReq - a model defined in Swagger
         """
@@ -58,10 +58,10 @@ class TrustedCertificateRootReq(object):
         self._status = status
         self._enrollment_mode = enrollment_mode
         self._certificate = certificate
-        self._description = description
+        self._name = name
         self._service = service
         self._signature = signature
-        self._name = name
+        self._description = description
         self.discriminator = None
 
     @property
@@ -142,27 +142,29 @@ class TrustedCertificateRootReq(object):
         self._certificate = certificate
 
     @property
-    def description(self):
+    def name(self):
         """
-        Gets the description of this TrustedCertificateRootReq.
-        Human readable description of this certificate, not longer than 500 characters.
+        Gets the name of this TrustedCertificateRootReq.
+        Certificate name, not longer than 100 characters.
 
-        :return: The description of this TrustedCertificateRootReq.
+        :return: The name of this TrustedCertificateRootReq.
         :rtype: str
         """
-        return self._description
+        return self._name
 
-    @description.setter
-    def description(self, description):
+    @name.setter
+    def name(self, name):
         """
-        Sets the description of this TrustedCertificateRootReq.
-        Human readable description of this certificate, not longer than 500 characters.
+        Sets the name of this TrustedCertificateRootReq.
+        Certificate name, not longer than 100 characters.
 
-        :param description: The description of this TrustedCertificateRootReq.
+        :param name: The name of this TrustedCertificateRootReq.
         :type: str
         """
+        if name is None:
+            raise ValueError("Invalid value for `name`, must not be `None`")
 
-        self._description = description
+        self._name = name
 
     @property
     def service(self):
@@ -219,29 +221,27 @@ class TrustedCertificateRootReq(object):
         self._signature = signature
 
     @property
-    def name(self):
+    def description(self):
         """
-        Gets the name of this TrustedCertificateRootReq.
-        Certificate name, not longer than 100 characters.
+        Gets the description of this TrustedCertificateRootReq.
+        Human readable description of this certificate, not longer than 500 characters.
 
-        :return: The name of this TrustedCertificateRootReq.
+        :return: The description of this TrustedCertificateRootReq.
         :rtype: str
         """
-        return self._name
+        return self._description
 
-    @name.setter
-    def name(self, name):
+    @description.setter
+    def description(self, description):
         """
-        Sets the name of this TrustedCertificateRootReq.
-        Certificate name, not longer than 100 characters.
+        Sets the description of this TrustedCertificateRootReq.
+        Human readable description of this certificate, not longer than 500 characters.
 
-        :param name: The name of this TrustedCertificateRootReq.
+        :param description: The description of this TrustedCertificateRootReq.
         :type: str
         """
-        if name is None:
-            raise ValueError("Invalid value for `name`, must not be `None`")
 
-        self._name = name
+        self._description = description
 
     def to_dict(self):
         """

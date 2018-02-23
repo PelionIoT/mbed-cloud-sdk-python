@@ -32,66 +32,66 @@ class PolicyCreationReq(object):
     """
     swagger_types = {
         'status': 'str',
-        'valid_from': 'datetime',
-        'error_message': 'str',
-        'description': 'str',
         'valid_until': 'datetime',
         'grant_expires_in': 'int',
+        'name': 'str',
+        'error_message': 'str',
         'not_resources': 'list[str]',
         'actions': 'dict(str, bool)',
         'not_conditions': 'list[str]',
-        'tag': 'str',
+        'valid_from': 'datetime',
         'users': 'list[str]',
         'groups': 'list[str]',
+        'tag': 'str',
         'not_actions': 'list[str]',
         'apikeys': 'list[str]',
         'conditions': 'list[str]',
         'resources': 'list[str]',
-        'name': 'str'
+        'description': 'str'
     }
 
     attribute_map = {
         'status': 'status',
-        'valid_from': 'valid_from',
-        'error_message': 'error_message',
-        'description': 'description',
         'valid_until': 'valid_until',
         'grant_expires_in': 'grant_expires_in',
+        'name': 'name',
+        'error_message': 'error_message',
         'not_resources': 'not_resources',
         'actions': 'actions',
         'not_conditions': 'not_conditions',
-        'tag': 'tag',
+        'valid_from': 'valid_from',
         'users': 'users',
         'groups': 'groups',
+        'tag': 'tag',
         'not_actions': 'notActions',
         'apikeys': 'apikeys',
         'conditions': 'conditions',
         'resources': 'resources',
-        'name': 'name'
+        'description': 'description'
     }
 
-    def __init__(self, status=None, valid_from=None, error_message=None, description=None, valid_until=None, grant_expires_in=None, not_resources=None, actions=None, not_conditions=None, tag=None, users=None, groups=None, not_actions=None, apikeys=None, conditions=None, resources=None, name=None):
+    def __init__(self, status=None, valid_until=None, grant_expires_in=None, name=None, error_message=None, not_resources=None, actions=None, not_conditions=None, valid_from=None, users=None, groups=None, tag=None, not_actions=None, apikeys=None, conditions=None, resources=None, description=None):
         """
         PolicyCreationReq - a model defined in Swagger
         """
 
         self._status = status
-        self._valid_from = valid_from
-        self._error_message = error_message
-        self._description = description
         self._valid_until = valid_until
         self._grant_expires_in = grant_expires_in
+        self._name = name
+        self._error_message = error_message
         self._not_resources = not_resources
         self._actions = actions
         self._not_conditions = not_conditions
-        self._tag = tag
+        self._valid_from = valid_from
         self._users = users
         self._groups = groups
+        self._tag = tag
         self._not_actions = not_actions
         self._apikeys = apikeys
         self._conditions = conditions
         self._resources = resources
-        self._name = name
+        self._description = description
         self.discriminator = None
 
     @property
@@ -122,75 +122,6 @@ class PolicyCreationReq(object):
             )
 
         self._status = status
-
-    @property
-    def valid_from(self):
-        """
-        Gets the valid_from of this PolicyCreationReq.
-        Specifies the date and time when the policy will become valid in UTC time RFC3339. E.g. '2018-02-05T09:43:44Z'
-
-        :return: The valid_from of this PolicyCreationReq.
-        :rtype: datetime
-        """
-        return self._valid_from
-
-    @valid_from.setter
-    def valid_from(self, valid_from):
-        """
-        Sets the valid_from of this PolicyCreationReq.
-        Specifies the date and time when the policy will become valid in UTC time RFC3339. E.g. '2018-02-05T09:43:44Z'
-
-        :param valid_from: The valid_from of this PolicyCreationReq.
-        :type: datetime
-        """
-
-        self._valid_from = valid_from
-
-    @property
-    def error_message(self):
-        """
-        Gets the error_message of this PolicyCreationReq.
-        Custom error message returned when this policy matches with not allowed result.
-
-        :return: The error_message of this PolicyCreationReq.
-        :rtype: str
-        """
-        return self._error_message
-
-    @error_message.setter
-    def error_message(self, error_message):
-        """
-        Sets the error_message of this PolicyCreationReq.
-        Custom error message returned when this policy matches with not allowed result.
-
-        :param error_message: The error_message of this PolicyCreationReq.
-        :type: str
-        """
-
-        self._error_message = error_message
-
-    @property
-    def description(self):
-        """
-        Gets the description of this PolicyCreationReq.
-        The description of this policy, not longer than 500 character.
-
-        :return: The description of this PolicyCreationReq.
-        :rtype: str
-        """
-        return self._description
-
-    @description.setter
-    def description(self, description):
-        """
-        Sets the description of this PolicyCreationReq.
-        The description of this policy, not longer than 500 character.
-
-        :param description: The description of this PolicyCreationReq.
-        :type: str
-        """
-
-        self._description = description
 
     @property
     def valid_until(self):
@@ -237,6 +168,54 @@ class PolicyCreationReq(object):
         """
 
         self._grant_expires_in = grant_expires_in
+
+    @property
+    def name(self):
+        """
+        Gets the name of this PolicyCreationReq.
+        The name of this policy, must be unique and not longer than 100 character.
+
+        :return: The name of this PolicyCreationReq.
+        :rtype: str
+        """
+        return self._name
+
+    @name.setter
+    def name(self, name):
+        """
+        Sets the name of this PolicyCreationReq.
+        The name of this policy, must be unique and not longer than 100 character.
+
+        :param name: The name of this PolicyCreationReq.
+        :type: str
+        """
+        if name is None:
+            raise ValueError("Invalid value for `name`, must not be `None`")
+
+        self._name = name
+
+    @property
+    def error_message(self):
+        """
+        Gets the error_message of this PolicyCreationReq.
+        Custom error message returned when this policy matches with not allowed result.
+
+        :return: The error_message of this PolicyCreationReq.
+        :rtype: str
+        """
+        return self._error_message
+
+    @error_message.setter
+    def error_message(self, error_message):
+        """
+        Sets the error_message of this PolicyCreationReq.
+        Custom error message returned when this policy matches with not allowed result.
+
+        :param error_message: The error_message of this PolicyCreationReq.
+        :type: str
+        """
+
+        self._error_message = error_message
 
     @property
     def not_resources(self):
@@ -308,27 +287,27 @@ class PolicyCreationReq(object):
         self._not_conditions = not_conditions
 
     @property
-    def tag(self):
+    def valid_from(self):
         """
-        Gets the tag of this PolicyCreationReq.
-        Policy tag that can be used for various purposes to be able to distinguish between policies. Not longer than 100 characters.
+        Gets the valid_from of this PolicyCreationReq.
+        Specifies the date and time when the policy will become valid in UTC time RFC3339. E.g. '2018-02-05T09:43:44Z'
 
-        :return: The tag of this PolicyCreationReq.
-        :rtype: str
+        :return: The valid_from of this PolicyCreationReq.
+        :rtype: datetime
         """
-        return self._tag
+        return self._valid_from
 
-    @tag.setter
-    def tag(self, tag):
+    @valid_from.setter
+    def valid_from(self, valid_from):
         """
-        Sets the tag of this PolicyCreationReq.
-        Policy tag that can be used for various purposes to be able to distinguish between policies. Not longer than 100 characters.
+        Sets the valid_from of this PolicyCreationReq.
+        Specifies the date and time when the policy will become valid in UTC time RFC3339. E.g. '2018-02-05T09:43:44Z'
 
-        :param tag: The tag of this PolicyCreationReq.
-        :type: str
+        :param valid_from: The valid_from of this PolicyCreationReq.
+        :type: datetime
         """
 
-        self._tag = tag
+        self._valid_from = valid_from
 
     @property
     def users(self):
@@ -375,6 +354,29 @@ class PolicyCreationReq(object):
         """
 
         self._groups = groups
+
+    @property
+    def tag(self):
+        """
+        Gets the tag of this PolicyCreationReq.
+        Policy tag that can be used for various purposes to be able to distinguish between policies. Not longer than 100 characters.
+
+        :return: The tag of this PolicyCreationReq.
+        :rtype: str
+        """
+        return self._tag
+
+    @tag.setter
+    def tag(self, tag):
+        """
+        Sets the tag of this PolicyCreationReq.
+        Policy tag that can be used for various purposes to be able to distinguish between policies. Not longer than 100 characters.
+
+        :param tag: The tag of this PolicyCreationReq.
+        :type: str
+        """
+
+        self._tag = tag
 
     @property
     def not_actions(self):
@@ -469,29 +471,27 @@ class PolicyCreationReq(object):
         self._resources = resources
 
     @property
-    def name(self):
+    def description(self):
         """
-        Gets the name of this PolicyCreationReq.
-        The name of this policy, must be unique and not longer than 100 character.
+        Gets the description of this PolicyCreationReq.
+        The description of this policy, not longer than 500 character.
 
-        :return: The name of this PolicyCreationReq.
+        :return: The description of this PolicyCreationReq.
         :rtype: str
         """
-        return self._name
+        return self._description
 
-    @name.setter
-    def name(self, name):
+    @description.setter
+    def description(self, description):
         """
-        Sets the name of this PolicyCreationReq.
-        The name of this policy, must be unique and not longer than 100 character.
+        Sets the description of this PolicyCreationReq.
+        The description of this policy, not longer than 500 character.
 
-        :param name: The name of this PolicyCreationReq.
+        :param description: The description of this PolicyCreationReq.
         :type: str
         """
-        if name is None:
-            raise ValueError("Invalid value for `name`, must not be `None`")
 
-        self._name = name
+        self._description = description
 
     def to_dict(self):
         """
