@@ -48,10 +48,10 @@ class EnrollmentAPI(BaseAPI):
         return EnrollmentClaim(api.v3_device_enrollments_post(item))
 
     @catch_exceptions(EnrollmentAPIException)
-    def get_enrollment_claim(self, claim_id, **kwargs):
+    def get_enrollment_claim(self, id, **kwargs):
         """Get"""
         api = self._get_api(enrollment.PublicAPIApi)
-        return EnrollmentClaim(api.v3_device_enrollments_id_get(id=claim_id))
+        return EnrollmentClaim(api.v3_device_enrollments_id_get(id=id))
 
     @catch_exceptions(EnrollmentAPIException)
     def list_enrollment_claims(self, **kwargs):
@@ -66,10 +66,10 @@ class EnrollmentAPI(BaseAPI):
         )
 
     @catch_exceptions(EnrollmentAPIException)
-    def delete_enrollment_claim(self, claim_id, **kwargs):
+    def delete_enrollment_claim(self, id, **kwargs):
         """Delete"""
         api = self._get_api(enrollment.PublicAPIApi)
-        return api.v3_device_enrollments_id_delete(id=claim_id)
+        return api.v3_device_enrollments_id_delete(id=id)
 
 
 class EnrollmentClaim(BaseObject):
