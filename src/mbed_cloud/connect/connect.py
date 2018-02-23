@@ -22,6 +22,7 @@ import logging
 import re
 import threading
 import uuid
+import warnings
 
 from collections import defaultdict
 
@@ -556,10 +557,19 @@ class ConnectAPI(BaseAPI):
     def delete_subscriptions(self):
         """Remove all subscriptions.
 
+        Warning: This could be slow for large numbers of connected devices.
+        If possible, explicitly delete subscriptions known to have been created.
+
         :returns: None
         """
-        api = self._get_api(mds.SubscriptionsApi)
-        return api.v2_subscriptions_delete()
+        warnings.warn('This could be slow for large numbers of connected devices.'
+                      'If possible, explicitly delete subscriptions known to have been created.')
+        for device in self.list_connected_devices():
+            try:
+                self.delete_device_subscriptions(device_id=device.id)
+            except CloudApiException as e:
+                logging.warning('failed to remove subscription for %s: %s', device.id, e)
+                continue
 
     @catch_exceptions(mds.rest.ApiException)
     def list_presubscriptions(self, **kwargs):
