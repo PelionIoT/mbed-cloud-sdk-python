@@ -352,6 +352,7 @@ class Account(BaseObject):
             "reason": "reason",
             "template_id": "template_id",
             "custom_properties": "account_properties",
+            "sales_contact_email": "sales_contact",
             "contract_number": "contract_number",
             "customer_number": "customer_number",
             "reference_note": "reference_note",
@@ -594,6 +595,18 @@ class Account(BaseObject):
         :rtype: list[str]
         """
         return self._notification_emails
+
+    @property
+    def sales_contact_email(self):
+        """
+        Gets the sales_contact_email of this AccountInfo.
+
+        Email address of the sales contact.
+
+        :return: The sales_contact_email of this AccountInfo.
+        :rtype: str
+        """
+        return self._sales_contact_email
 
     @property
     def multifactor_authentication_status(self):
