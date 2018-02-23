@@ -127,7 +127,7 @@ class EnrollmentClaim(BaseObject):
         :return: The enrolled_device_id of this EnrollmentIdentity.
         :rtype: str
         """
-        return self._enrolled_device_id
+        return self._device_id
 
     @property
     def claim_id(self):
@@ -138,7 +138,7 @@ class EnrollmentClaim(BaseObject):
         :return: The claim_id of this EnrollmentIdentity.
         :rtype: str
         """
-        return self._enrollment_identity
+        return self._claim_id
 
     @property
     def expires_at(self):
