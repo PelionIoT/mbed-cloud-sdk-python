@@ -557,9 +557,12 @@ class ConnectAPI(BaseAPI):
     def delete_subscriptions(self):
         """Remove all subscriptions.
 
+        Warning: This could be slow for large numbers of connected devices.
+        If possible, explicitly delete subscriptions known to have been created.
+
         :returns: None
         """
-        warnings.warn('This method is inefficient.'
+        warnings.warn('This could be slow for large numbers of connected devices.'
                       'If possible, explicitly delete subscriptions known to have been created.')
         for device in self.list_connected_devices():
             try:
