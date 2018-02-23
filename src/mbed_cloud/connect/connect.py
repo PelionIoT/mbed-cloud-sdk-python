@@ -238,7 +238,7 @@ class ConnectAPI(BaseAPI):
         api = self._get_api(mds.DeviceRequestsApi)
         async_id = self._new_async_id()
         device_request = mds.DeviceRequest(**params)
-        api.v2_device_requests_device_idasync_idasync_id_post(
+        api.v2_device_requests_device_id_post(
             device_id,
             async_id=async_id,
             body=device_request,
