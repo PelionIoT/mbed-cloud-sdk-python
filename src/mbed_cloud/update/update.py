@@ -151,8 +151,8 @@ class UpdateAPI(BaseAPI):
                 dict(filter=campaign_object["device_filter"]),
                 Device._get_attributes_map()
             )['filter']
-        return Campaign(api.update_campaign_partial_update(campaign_id=campaign_id,
-                                                           campaign=campaign_object))
+        return Campaign(api.update_campaign_update(campaign_id=campaign_id,
+                                                   campaign=campaign_object))
 
     @catch_exceptions(UpdateServiceApiException)
     def delete_campaign(self, campaign_id):
