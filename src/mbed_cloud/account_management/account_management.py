@@ -357,7 +357,7 @@ class Account(BaseObject):
             "reference_note": "reference_note",
             "notification_emails": "notification_emails",
             "mfa_status": "mfa_status",
-            "expiration_warning": "expiration_warning_threshold",
+            "expiry_warning": "expiration_warning_threshold",
         }
 
     @property
@@ -607,8 +607,8 @@ class Account(BaseObject):
         return self._mfa_status
 
     @property
-    def expiration_warning(self):
-        """Gets the expiration_warning of this AccountInfo.
+    def expiry_warning(self):
+        """Gets the expiry_warning of this AccountInfo.
 
         Indicates how many days (1-180) before account expiration
         a notification email should be sent.
@@ -616,7 +616,7 @@ class Account(BaseObject):
         :return: The expiration_warning_threshold of this AccountInfo.
         :rtype: str
         """
-        return self._expiration_warning
+        return self._expiry_warning
 
     @property
     def updated_at(self):
