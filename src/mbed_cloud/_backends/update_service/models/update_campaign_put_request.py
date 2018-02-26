@@ -188,7 +188,7 @@ class UpdateCampaignPutRequest(object):
         """
         if state is None:
             raise ValueError("Invalid value for `state`, must not be `None`")
-        allowed_values = ["draft", "scheduled", "allocatingquota", "allocatedquota", "insufficientquota", "checkingmanifest", "checkedmanifest", "devicefetch", "devicecopy", "devicecheck", "publishing", "deploying", "deployed", "manifestremoved", "expired", "stopping", "autostopped", "userstopped", "conflict"]
+        allowed_values = ["draft", "scheduled", "allocatingquota", "allocatedquota", "quotaallocationfailed", "checkingmanifest", "checkedmanifest", "devicefetch", "devicecopy", "devicecheck", "publishing", "deploying", "deployed", "manifestremoved", "expired", "stopping", "autostopped", "userstopped", "conflict"]
         if state not in allowed_values:
             raise ValueError(
                 "Invalid value for `state` ({0}), must be one of {1}"
