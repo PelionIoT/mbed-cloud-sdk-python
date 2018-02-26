@@ -26,7 +26,28 @@ while True:
 
 """
 import threading
+import itertools
 from mbed_cloud.subscribe.observer import Observer
+
+
+def dict_to_frozen(d):
+    """Expands a dictionary into a keyable frozen set
+
+    :param d: dictionary (of strings or lists)
+    :returns: cartesian product of list parts
+    """
+    to_product = []
+    static = []
+    for key, values in sorted(d.items()):
+        if isinstance(values, (list, tuple, set)):
+            to_product.append(tuple((key, v) for v in values))
+        else:
+            static.append((key, values))
+    new_keys = (
+        ((*static, *items) for items in itertools.product(*to_product))
+        if to_product else [static]
+    )
+    return [frozenset(sorted(new_key)) for new_key in new_keys]
 
 
 class RoutingBase(object):
@@ -54,6 +75,7 @@ class RoutingBase(object):
                 raise ValueError('route(s) already exist: %s' % (overlap,))
 
             [self._routes.setdefault(r, item) for r in routes]
+        return item
 
     def remove_routes(self, routes):
         with self._lock:
@@ -63,8 +85,6 @@ class RoutingBase(object):
         return list(set(self._routes.values()))
 
 
-
-
 class ChannelSubscription(object):
     """Represents a subscription to a channel
 
@@ -72,163 +92,44 @@ class ChannelSubscription(object):
     """
     _api = None
     _observer = None
+    _manager = None
     _routes = None
+    _optional_filters = None
 
-    def _get_routing_keys(self, **filter_keys):
-        # TODO: expand lists
-        return frozenset(sorted(list(filter_keys.items())))
+    def get_routing_keys(self):
+        return self._route_keys
+
+    def get_extra_keys(self):
+        return self._optional_filters
 
     @property
     def observer(self):
         return self._observer
 
-    def filter_notification(self):
-        pass
+    def filter_notification(self, data):
+        # a further level of filtering for this channel
+        for k, v in (self._optional_filters or {}).items():
+            print('optional filter', k, v, data.get(k))
+            if data.get(k) not in v:
+                print('optional filter rejecting', k, v, data.get(k))
+                return False
+        return True
 
     def notify(self, data):
         if self.filter_notification(data):
             self.observer.notify(data)
 
-    def start(self, subs_controller, connect_api_instance, observer_params=None):
-        self._subs_controller = subs_controller
+    def start(self, manager, connect_api_instance, observer):
+        self._manager = manager
         self._api = connect_api_instance
-        observer_params = observer_params or {}
-        self._observer = Observer(**observer_params)
+        self._observer = observer
 
     def ensure_started(self):
         pass
 
     def ensure_stopped(self):
         self.observer.cancel()
-
-
-class ResourceValueCurrent(ChannelSubscription):
-    def __init__(self, device_id, resource_path, **extra_filters):
-        self.get_or_create_observer(
-            self.CHANNELS.async_responses,
-            device_id=device_id,
-            resource_path=resource_path,
-            **extra_filters
-        )
-
-    def ensure_started(self):
-        """Start the channel (Idempotent)"""
-        super(ResourceValueCurrent, self).ensure_started()
-        self.connect_api_instance._add_subscription(
-            device_id,
-            resource
-        )
-
-    def ensure_stopped(self):
-        """Stop the channel (Idempotent)"""
-        self.connect_api_instance._delete_subscription(
-            device_id,
-            resource
-        )
-        super(ResourceValueCurrent, self).ensure_stopped()
-
-
-class ResourceValueChanges(ChannelSubscription):
-    def __init__(self, device_id, resource_path, **extra_filters):
-        self.get_or_create_observer(
-            self.CHANNELS.notifications,
-            device_id=device_id,
-            resource_path=resource_path,
-            **extra_filters
-        )
-
-    def ensure_started(self):
-        """Start the channel (Idempotent)"""
-        super(ResourceValueChanges, self).ensure_started()
-        self.connect_api_instance._add_subscription(
-            device_id,
-            resource
-        )
-
-    def ensure_stopped(self):
-        """Stop the channel (Idempotent)"""
-        self.connect_api_instance._delete_subscription(
-            device_id,
-            resource
-        )
-        super(ResourceValueChanges, self).ensure_stopped()
-
-
-class DeviceStateChanges(ChannelSubscription):
-    def __init__(self, device_id=None, **extra_filters):
-        filters = {}
-        if device_id:
-            filters['device_id'] = device_id
-        self.get_or_create_observer(
-            self.CHANNELS.async_responses,
-            **filters,
-            **extra_filters
-        )
-
-    def ensure_started(self):
-        """Start the channel (Idempotent)"""
-        super(DeviceStateChanges, self).ensure_started()
-        self.connect_api_instance._add_subscription(
-            device_id,
-            resource
-        )
-
-    def ensure_stopped(self):
-        """Stop the channel (Idempotent)"""
-        self.connect_api_instance._delete_subscription(
-            device_id,
-            resource
-        )
-        super(DeviceStateChanges, self).ensure_stopped()
-
-
-class SubscriptionsManager(SubscriptionsManagerBase):
-
-
-    class SIGNALS:
-        DEVICE_STATE_CHANGES = 'DEVICE_STATE_CHANGES'
-        RESOURCE_VALUE_CURRENT = 'RESOURCE_VALUE_CURRENT'
-        RESOURCE_VALUE_CHANGES = 'RESOURCE_VALUE_CHANGES'
-
-    class CHANNELS:
-        notifications = 'notifications'
-        async_responses = 'async_responses'
-        registrations = 'registrations'
-        de_registrations = 'de_registrations'
-        reg_updates = 'reg_updates'
-        registrations_expired = 'registrations_expired'
-
-    channel_configs = {
-        SIGNALS.DEVICE_STATE_CHANGES: dict(channels=[''], remote_filters=[]),
-        SIGNALS.RESOURCE_VALUE_CURRENT: dict(channels=[''], remote_filters=['device_id', 'resource_path']),
-        SIGNALS.RESOURCE_VALUE_CHANGES: dict(channels=['notifications'], remote_filters=['device_id', 'resource_path']),
-    }
-
-    def device_state_changes(self, device_id=None, **extra_filters):
-        filters = {}
-        if device_id:
-            filters['device_id'] = device_id
-        self.get_or_create_observer(
-            self.CHANNELS.async_responses,
-            **filters,
-            **extra_filters
-        )
-
-    def resource_value_current(self, device_id, resource_path, **extra_filters):
-        self.get_or_create_observer(
-            self.CHANNELS.async_responses,
-            device_id=device_id,
-            resource_path=resource_path,
-            **extra_filters
-        )
-
-    def resource_value_changes(self, device_id, resource_path, **extra_filters):
-        self.get_or_create_observer(
-            self.CHANNELS.notifications,
-            device_id=device_id,
-            resource_path=resource_path,
-            **extra_filters
-        )
+        self._manager.remove_routes(self.get_routing_keys())
 
 
 class SubscriptionsManager(RoutingBase):
@@ -247,27 +148,34 @@ class SubscriptionsManager(RoutingBase):
     and observers that expose awaitables/futures/callbacks to the
     end application
     """
+    def __init__(self, connect_api):
+        super(SubscriptionsManager, self).__init__()
+        self.watch_keys = set()
+        self.connect_api = connect_api
 
-    def __init__(self):
-        super(SubscriptionsManagerBase, self).__init__()
-        self._routes.update(dict(
-            notifications='notifications',
-            async_responses='async_responses',
-            registrations='registrations',
-            de_registrations='de_registrations',
-            reg_updates='reg_updates',
-            registrations_expired='registrations_expired',
-        ))
-
-    def routing_key(self, **filter_keys):
-        return frozenset(sorted(list(filter_keys.items())))
+    def subscribe(self, subscription_channel, **observer_params):
+        observer = Observer(**observer_params)
+        subscription_channel.start(self, self.connect_api, observer)
+        keys = subscription_channel.get_routing_keys()
+        [self.watch_keys.add(k_v[0]) for key in keys for k_v in key]
+        print('now watching', self.watch_keys)
+        return self.get_or_create_routes(keys, subscription_channel).observer
 
     def notify(self, data):
         for channel_name, items in data.items():
             for item in items:
+                # inject the channel name to the data, for a flat structure
+                data = dict(item)
+                data.update(dict(channel=channel_name))
 
-    def unsubscribe_all(self):
-        # DO BULK UNSUBSCRIBE ON SERVER?
-        for observer in self._observers:
-            observer.cancel()
-        pass
+                # pluck keys we care about
+                route_keys = {key_name: data[key_name] for key_name in self.watch_keys if key_name in data}
+                for route in dict_to_frozen(route_keys):
+                    subscriber = self.get_route_item(route)
+                    if subscriber is not None:
+                        subscriber.notify(data)
+
+    # def unsubscribe_all(self):
+    #     # DO BULK UNSUBSCRIBE ON SERVER?
+    #     for route, sub_channel in self._routes.items():
+    #         sub_channel.cancel()
