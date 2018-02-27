@@ -24,6 +24,17 @@ class Test(BaseCase):
         self.assertIsNot(future_a, future_b)
         self.assertIsNot(future_b, future_c)
 
+        # an irrelevant channel
+        subs.notify({
+            channels._API_CHANNELS.async_responses: [
+                dict(a=1, b=2, device_id='A')
+            ]
+        })
+        result = future_a.wait(timeout=0.01)
+        self.assertFalse(future_a.ready())
+        self.assertFalse(future_b.ready())
+        self.assertFalse(future_c.ready())
+
         subs.notify({
             channels._API_CHANNELS.reg_updates: [
                 dict(a=1, b=2, device_id='A')
@@ -36,4 +47,20 @@ class Test(BaseCase):
 
         self.assertTrue(future_c.ready())
         result = future_c.get()
-        self.assertEqual(result, dict(a=1, b=2))
+        self.assertDictContainsSubset(dict(a=1, b=2), result)
+
+    def test_subscribe_conflict(self):
+        subs = SubscriptionsManager(None)
+        observer_a = subs.subscribe(channels.ResourceValueCurrent(device_id='A', resource_path=5))
+        observer_b = subs.subscribe(channels.ResourceValueCurrent(device_id='B', resource_path=5))
+        observer_c = subs.subscribe(channels.ResourceValueCurrent(device_id='A', resource_path=2))
+
+        subs.notify({
+            channels._API_CHANNELS.async_responses: [
+                dict(a=1, b=2, device_id='A', resource_path=2)
+            ]
+        })
+
+        result = observer_c.next().defer().get(timeout=2)
+        self.assertDictContainsSubset(dict(a=1, b=2), result)
+        self.assertDictContainsSubset(dict(a=1, b=2), result)

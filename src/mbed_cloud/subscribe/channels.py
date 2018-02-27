@@ -1,5 +1,5 @@
 from mbed_cloud.subscribe.subscribe import ChannelSubscription as _ChannelSubscription
-from mbed_cloud.subscribe.subscribe import dict_to_frozen as _dict_to_frozen
+from mbed_cloud.subscribe.subscribe import expand_dict_as_keys as _expand_dict_as_keys
 
 
 class _API_CHANNELS:
@@ -14,9 +14,14 @@ class _API_CHANNELS:
 
 class ResourceValueCurrent(_ChannelSubscription):
     def __init__(self, device_id, resource_path, **extra_filters):
-        self._route_keys = _dict_to_frozen(dict(
+        self._route_keys = _expand_dict_as_keys(dict(
+            device_id=device_id,
+            resource_path=resource_path,
             channel=_API_CHANNELS.async_responses,
         ))
+        self._optional_filters = {}
+        self._optional_filters.update(extra_filters)
+        self._optional_filter_keys = _expand_dict_as_keys(self._optional_filters)
 
     def ensure_started(self):
         """Start the channel (Idempotent)"""
@@ -37,9 +42,14 @@ class ResourceValueCurrent(_ChannelSubscription):
 
 class ResourceValueChanges(_ChannelSubscription):
     def __init__(self, device_id, resource_path, **extra_filters):
-        self._route_keys = _dict_to_frozen(dict(
+        self._route_keys = _expand_dict_as_keys(dict(
+            device_id=device_id,
+            resource_path=resource_path,
             channel=_API_CHANNELS.notifications,
         ))
+        self._optional_filters = {}
+        self._optional_filters.update(extra_filters)
+        self._optional_filter_keys = _expand_dict_as_keys(self._optional_filters)
 
     def ensure_started(self):
         """Start the channel (Idempotent)"""
@@ -60,7 +70,7 @@ class ResourceValueChanges(_ChannelSubscription):
 
 class DeviceStateChanges(_ChannelSubscription):
     def __init__(self, device_id=None, **extra_filters):
-        self._route_keys = _dict_to_frozen(dict(
+        self._route_keys = _expand_dict_as_keys(dict(
             channel=[
                 _API_CHANNELS.de_registrations,
                 _API_CHANNELS.reg_updates,
@@ -71,6 +81,8 @@ class DeviceStateChanges(_ChannelSubscription):
         self._optional_filters = {}
         if device_id is not None:
             self._optional_filters['device_id'] = device_id
+        self._optional_filters.update(extra_filters)
+        self._optional_filter_keys = _expand_dict_as_keys(self._optional_filters)
 
     def ensure_started(self):
         """Start the channel (Idempotent)"""
