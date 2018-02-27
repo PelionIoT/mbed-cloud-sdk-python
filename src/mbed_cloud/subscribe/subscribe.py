@@ -1,6 +1,20 @@
-"""
-usages
-
+# --------------------------------------------------------------------------
+# Mbed Cloud Python SDK
+# (C) COPYRIGHT 2017 Arm Limited
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# --------------------------------------------------------------------------
+"""Subscriptions HLA (wip)
 
 mbed_cloud
 connectAPI.subscribe.device_state_changes(device_id=a).add_callback(blah).wait()
@@ -25,9 +39,9 @@ while True:
 
 
 """
-import threading
 import itertools
 import logging
+import threading
 
 
 def expand_dict_as_keys(d):
@@ -51,6 +65,8 @@ def expand_dict_as_keys(d):
 
 
 class RoutingConflict(KeyError):
+    """Routing Conflict"""
+
     pass
 
 
@@ -60,12 +76,15 @@ class RoutingBase(object):
     Level one - matches permanent keys
     Level two - optional keys
     """
+
     def __init__(self):
+        """Routes"""
         self._routes = {}
         self._lock = threading.Lock()
         self._any_key = '_any_'
 
     def get_route_item(self, route):
+        """Get item attached to this route"""
         return self._routes.get(route)
 
     def get_or_create_routes(self, item, routes, sub_routes=None):
@@ -97,6 +116,7 @@ class RoutingBase(object):
                     )
                 )
 
+            # so assuming there were no conflicts, loop a second time to do the insertions
             for route in routes:
                 nested = self._routes.setdefault(route, {})
                 for sub_route in sub_routes:
@@ -104,10 +124,12 @@ class RoutingBase(object):
         return item
 
     def remove_routes(self, routes):
+        """Removes matching routes"""
         with self._lock:
             [self._routes.pop(r) for r in routes]
 
     def list_all(self):
+        """All routes"""
         return list(set(
             sub_route for route in self._routes.values() for sub_route in route.values()
         ))
@@ -129,19 +151,23 @@ class SubscriptionsManager(RoutingBase):
     and observers that expose awaitables/futures/callbacks to the
     end application
     """
+
     def __init__(self, connect_api):
+        """Subscriptions Manager"""
         super(SubscriptionsManager, self).__init__()
         self.watch_keys = set()
         self.connect_api = connect_api
 
     @property
     def channels(self):
-        # TODO: useability review. Other patterns/best practises
+        """Shorthand for available channel classes"""
+        # TODO(useability review. Other patterns/best practises)
         # should the channels be instantiated directly on the Manager already?
         from mbed_cloud.subscribe import channels
         return channels
 
     def get_channel(self, subscription_channel, **observer_params):
+        """Get or start the requested channel"""
         keys = subscription_channel.get_routing_keys()
         extras = subscription_channel.get_extra_keys()
         [self.watch_keys.add(k_v[0]) for key in keys for k_v in key]
@@ -150,19 +176,26 @@ class SubscriptionsManager(RoutingBase):
         return channel
 
     def subscribe(self, subscription_channel, **observer_params):
+        """Shorthand to initialise a channel and return and Observer"""
         return self.get_channel(subscription_channel, **observer_params).ensure_started().observer
     __call__ = subscribe
 
     def notify(self, data):
+        """Notify subscribers that data was received"""
         try:
             for channel_name, items in data.items():
-                for item in items:
+                for item in items or []:
                     # inject the channel name to the data, for a flat structure
                     data = dict(item)
                     data.update(dict(channel=channel_name))
 
                     # pluck keys we care about
-                    route_keys = expand_dict_as_keys({key_name: data[key_name] for key_name in self.watch_keys if key_name in data})
+                    route_keys = expand_dict_as_keys(
+                        {
+                            key_name: data[key_name]
+                            for key_name in self.watch_keys if key_name in data
+                        }
+                    )
                     for route in route_keys:
                         subscribers = self.get_route_item(route)
                         if subscribers:

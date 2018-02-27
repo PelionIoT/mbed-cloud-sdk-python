@@ -14,24 +14,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # --------------------------------------------------------------------------
-
 """Cross-version toolkit for concurrency concepts"""
 from builtins import object
 from multiprocessing.pool import ThreadPool
-import logging
-import threading
+
 import functools
+import logging
 import six
+import threading
+
 if six.PY3:
     import asyncio
 
 
 class AsyncWrapper(object):
-    """Wraps a potentially asynchronous function to provide a consistent API
-    """
+    """Wraps a potentially asynchronous function to provide a consistent API"""
 
     def __init__(self, func=None, concurrency_provider=None):
-        """Creates a wrapper for a potentially asynchronous function
+        """Creates a wrapper for a potentially asynchronous function.
 
         :param func: blocking call, asyncio coroutine or future
         :param concurrency_provider: ThreadPool or asyncio BaseEventLoop
@@ -41,13 +41,21 @@ class AsyncWrapper(object):
         self._func = func
         self._concurrency_provider = (
             concurrency_provider or
-            (asyncio.get_event_loop() if six.PY3 and concurrency_provider is False else ThreadPool(processes=1))
+            (
+                asyncio.get_event_loop() if six.PY3 and concurrency_provider is False
+                else ThreadPool(processes=1)
+            )
         )
-        self._is_asyncio_provider = six.PY3 and not isinstance(self._concurrency_provider, ThreadPool)
-        self._is_awaitable = self._is_asyncio_provider and (
+        self._is_asyncio_provider = (
+            six.PY3 and not isinstance(self._concurrency_provider, ThreadPool)
+        )
+        self._is_awaitable = (
+            self._is_asyncio_provider and
+            (
                 isinstance(self._func, asyncio.Future) or
                 asyncio.iscoroutinefunction(self._func) or
                 asyncio.iscoroutine(self._func)
+            )
         )
         self._deferable = None
         self._blocked = None

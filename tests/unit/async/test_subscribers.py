@@ -4,6 +4,7 @@ from mbed_cloud.subscribe import channels
 from tests.common import BaseCase
 
 import mock
+import os
 import unittest
 
 
@@ -65,7 +66,7 @@ class Test(BaseCase):
         self.assertDictContainsSubset(dict(a=1, b=2), result)
         self.assertDictContainsSubset(dict(a=1, b=2), result)
 
-    # @unittest.skip('Not a unit test')
+    @unittest.skipIf(os.environ.get('CI'), 'Not strictly a unittest')
     def test_live(self):
         from mbed_cloud.connect import ConnectAPI
         api = ConnectAPI()
@@ -73,5 +74,15 @@ class Test(BaseCase):
         r = api.subscribe(api.subscribe.channels.ResourceValueCurrent(
             device_id=d.id,
             resource_path='/3/0/18',
-        )).next().block()
+        )).next().block(timeout=1)
+        self.assertTrue(r)
+
+    @unittest.skipIf(os.environ.get('CI'), 'Not strictly a unittest')
+    def test_a_live2(self):
+        from mbed_cloud.connect import ConnectAPI
+        api = ConnectAPI()
+        d = api.list_connected_devices().first()
+        print('using device', d.id)
+        r = api.subscribe(api.subscribe.channels.DeviceStateChanges(device_id=d.id)).next().block(timeout=1)
+        print(r)
         self.assertTrue(r)

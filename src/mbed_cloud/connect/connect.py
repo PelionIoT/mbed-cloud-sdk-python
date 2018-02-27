@@ -49,9 +49,8 @@ from mbed_cloud.device_directory import Device
 from mbed_cloud.exceptions import CloudApiException
 from mbed_cloud.exceptions import CloudUnhandledError
 from mbed_cloud.exceptions import CloudValueError
-from mbed_cloud.utils import force_utc
 from mbed_cloud.subscribe import SubscriptionsManager
-from mbed_cloud.subscribe import channels
+from mbed_cloud.utils import force_utc
 
 from six.moves import queue
 

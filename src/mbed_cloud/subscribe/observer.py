@@ -1,3 +1,20 @@
+# --------------------------------------------------------------------------
+# Mbed Cloud Python SDK
+# (C) COPYRIGHT 2017 Arm Limited
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# --------------------------------------------------------------------------
+"""Observer"""
 import functools
 import logging
 import queue
@@ -7,6 +24,8 @@ from mbed_cloud.subscribe.async_wrapper import AsyncWrapper
 
 
 class NoMoreNotifications(Exception):
+    """Raised as a sentinel when a stream is terminated"""
+
     pass
 
 
@@ -20,10 +39,18 @@ class Observer(object):
 
     or blocking behaviour on these
     """
+
     sentinel = NoMoreNotifications()
 
     def __init__(self, filters=None, queue_size=0, once=False, provider=None, timeout=None):
+        """Observer
 
+        :param filters: Additional key-value pairs to whitelist inbound notifications
+        :param queue_size: sets internal notification queue max length
+        :param once: only retrieve one item
+        :param provider:
+        :param timeout:
+        """
         # a notification storage queue that will grow if the user does not consume
         # inbound data, up to the queue size (after which, new data will be discarded)
         # this could be replaced with asyncio.Queue in py3
@@ -56,6 +83,7 @@ class Observer(object):
         return self._notifications
 
     def __iter__(self):
+        """Iterator"""
         return self
 
     def __next__(self):
