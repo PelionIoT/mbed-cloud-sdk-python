@@ -44,7 +44,7 @@ def expand_dict_as_keys(d):
         else:
             static.append((key, values))
     new_keys = (
-        ((*static, *items) for items in itertools.product(*to_product))
+        (tuple(static + list(items)) for items in itertools.product(*to_product))
         if to_product else [static]
     )
     return [tuple(sorted(new_key)) for new_key in new_keys]
