@@ -2,14 +2,14 @@ from mbed_cloud.subscribe import SubscriptionsManager
 from mbed_cloud.subscribe import channels
 
 from tests.common import BaseCase
-import logging
 
-logging.basicConfig(level=logging.DEBUG)
+import mock
+import unittest
 
 
 class Test(BaseCase):
     def test_subscribe(self):
-        subs = SubscriptionsManager(None)
+        subs = SubscriptionsManager(mock.MagicMock())
         observer_a = subs.subscribe(channels.DeviceStateChanges(device_id='A'))
         observer_b = subs.subscribe(channels.DeviceStateChanges(device_id='B'))
         observer_c = subs.subscribe(channels.DeviceStateChanges())
@@ -50,7 +50,7 @@ class Test(BaseCase):
         self.assertDictContainsSubset(dict(a=1, b=2), result)
 
     def test_subscribe_conflict(self):
-        subs = SubscriptionsManager(None)
+        subs = SubscriptionsManager(mock.MagicMock())
         observer_a = subs.subscribe(channels.ResourceValueCurrent(device_id='A', resource_path=5))
         observer_b = subs.subscribe(channels.ResourceValueCurrent(device_id='B', resource_path=5))
         observer_c = subs.subscribe(channels.ResourceValueCurrent(device_id='A', resource_path=2))
@@ -64,3 +64,14 @@ class Test(BaseCase):
         result = observer_c.next().defer().get(timeout=2)
         self.assertDictContainsSubset(dict(a=1, b=2), result)
         self.assertDictContainsSubset(dict(a=1, b=2), result)
+
+    # @unittest.skip('Not a unit test')
+    def test_live(self):
+        from mbed_cloud.connect import ConnectAPI
+        api = ConnectAPI()
+        d = api.list_connected_devices().first()
+        r = api.subscribe(api.subscribe.channels.ResourceValueCurrent(
+            device_id=d.id,
+            resource_path='/3/0/18',
+        )).next().block()
+        self.assertTrue(r)

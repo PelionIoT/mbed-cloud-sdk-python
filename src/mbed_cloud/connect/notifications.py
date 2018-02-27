@@ -200,13 +200,14 @@ def handle_channel_message(db, queues, b64decode, notification_object):
 class NotificationsThread(threading.Thread):
     """A thread object"""
 
-    def __init__(self, db, queues, b64decode=True, notifications_api=None):
+    def __init__(self, db, queues, b64decode=True, notifications_api=None, subscription_manager=None):
         """Stoppable thread"""
         super(NotificationsThread, self).__init__()
 
         self.db = db
         self.queues = queues
         self.notifications_api = notifications_api
+        self.subscription_manager = subscription_manager
 
         self._b64decode = b64decode
         self._stopped = False
@@ -216,12 +217,15 @@ class NotificationsThread(threading.Thread):
     def run(self):
         """Thread main loop"""
         while not self._stopped:
+            data = self.notifications_api.v2_notification_pull_get()
             handle_channel_message(
                 db=self.db,
                 queues=self.queues,
                 b64decode=self._b64decode,
-                notification_object=self.notifications_api.v2_notification_pull_get()
+                notification_object=data
             )
+            if self.subscription_manager:
+                self.subscription_manager.notify(data)
 
     def stop(self):
         """Request thread stop"""

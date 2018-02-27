@@ -50,6 +50,8 @@ from mbed_cloud.exceptions import CloudApiException
 from mbed_cloud.exceptions import CloudUnhandledError
 from mbed_cloud.exceptions import CloudValueError
 from mbed_cloud.utils import force_utc
+from mbed_cloud.subscribe import SubscriptionsManager
+from mbed_cloud.subscribe import channels
 
 from six.moves import queue
 
@@ -87,6 +89,7 @@ class ConnectAPI(BaseAPI):
         self.b64decode = True
         self._notifications_thread = None
         self._notifications_lock = threading.RLock()
+        self.subscribe = SubscriptionsManager(self)
 
     @property
     def has_active_notification_thread(self):
@@ -125,7 +128,8 @@ class ConnectAPI(BaseAPI):
                 self._db,
                 self._queues,
                 b64decode=self.b64decode,
-                notifications_api=api
+                notifications_api=api,
+                subscription_manager=self.subscribe,
             )
             self._notifications_thread.daemon = True
             self._notifications_thread.start()
@@ -231,7 +235,7 @@ class ConnectAPI(BaseAPI):
         """A source of new client-side async ids"""
         return str(uuid.uuid4())
 
-    def _mds_rpc_post(self, device_id, **params):
+    def _mds_rpc_post(self, device_id, _wrap_with_consumer=True, **params):
         """Helper for using RPC endpoint"""
         self.ensure_notifications_thread()
         api = self._get_api(mds.DeviceRequestsApi)
@@ -242,7 +246,7 @@ class ConnectAPI(BaseAPI):
             async_id=async_id,
             body=device_request,
         )
-        return AsyncConsumer(async_id, self._db)
+        return AsyncConsumer(async_id, self._db) if _wrap_with_consumer else async_id
 
     @catch_exceptions(mds.rest.ApiException)
     def get_resource_value_async(self, device_id, resource_path, fix_path=True):

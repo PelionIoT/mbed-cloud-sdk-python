@@ -25,10 +25,9 @@ while True:
 
 
 """
-import logging
 import threading
 import itertools
-from mbed_cloud.subscribe.observer import Observer
+import logging
 
 
 def expand_dict_as_keys(d):
@@ -114,55 +113,6 @@ class RoutingBase(object):
         ))
 
 
-class ChannelSubscription(object):
-    """Represents a subscription to a channel
-
-    (In mbed terms, this may be a Presubscription or a Subscription)
-    """
-    _api = None
-    _observer = None
-    _manager = None
-    _routes = None
-    _optional_filters = None
-    _optional_filter_keys = None
-    _route_keys = None
-
-    def get_routing_keys(self):
-        return self._route_keys
-
-    def get_extra_keys(self):
-        return self._optional_filter_keys
-
-    @property
-    def observer(self):
-        return self._observer
-
-    def filter_notification(self, data):
-        # a further level of filtering for this channel
-        for k, v in (self._optional_filters or {}).items():
-            logging.debug('optional filter %s: %s (%s)', k, v, data.get(k))
-            if data.get(k) not in v:
-                logging.debug('optional filter rejecting %s: %s (%s)', k, v, data.get(k))
-                return False
-        return True
-
-    def notify(self, data):
-        if self.filter_notification(data):
-            self.observer.notify(data)
-
-    def start(self, manager, connect_api_instance, observer):
-        self._manager = manager
-        self._api = connect_api_instance
-        self._observer = observer
-
-    def ensure_started(self):
-        pass
-
-    def ensure_stopped(self):
-        self.observer.cancel()
-        self._manager.remove_routes(self.get_routing_keys())
-
-
 class SubscriptionsManager(RoutingBase):
     """Tracks pub/sub state
 
@@ -184,28 +134,42 @@ class SubscriptionsManager(RoutingBase):
         self.watch_keys = set()
         self.connect_api = connect_api
 
-    def subscribe(self, subscription_channel, **observer_params):
-        observer = Observer(**observer_params)
-        subscription_channel.start(self, self.connect_api, observer)
+    @property
+    def channels(self):
+        # TODO: useability review. Other patterns/best practises
+        # should the channels be instantiated directly on the Manager already?
+        from mbed_cloud.subscribe import channels
+        return channels
+
+    def get_channel(self, subscription_channel, **observer_params):
         keys = subscription_channel.get_routing_keys()
         extras = subscription_channel.get_extra_keys()
         [self.watch_keys.add(k_v[0]) for key in keys for k_v in key]
-        return self.get_or_create_routes(subscription_channel, keys, extras).observer
+        channel = self.get_or_create_routes(subscription_channel, keys, extras)
+        channel.configure(self, self.connect_api, observer_params)
+        return channel
+
+    def subscribe(self, subscription_channel, **observer_params):
+        return self.get_channel(subscription_channel, **observer_params).ensure_started().observer
+    __call__ = subscribe
 
     def notify(self, data):
-        for channel_name, items in data.items():
-            for item in items:
-                # inject the channel name to the data, for a flat structure
-                data = dict(item)
-                data.update(dict(channel=channel_name))
+        try:
+            for channel_name, items in data.items():
+                for item in items:
+                    # inject the channel name to the data, for a flat structure
+                    data = dict(item)
+                    data.update(dict(channel=channel_name))
 
-                # pluck keys we care about
-                route_keys = expand_dict_as_keys({key_name: data[key_name] for key_name in self.watch_keys if key_name in data})
-                for route in route_keys:
-                    subscribers = self.get_route_item(route)
-                    if subscribers:
-                        for subscriber in subscribers.values():
-                            subscriber.notify(data)
+                    # pluck keys we care about
+                    route_keys = expand_dict_as_keys({key_name: data[key_name] for key_name in self.watch_keys if key_name in data})
+                    for route in route_keys:
+                        subscribers = self.get_route_item(route)
+                        if subscribers:
+                            for subscriber in subscribers.values():
+                                subscriber.notify(data)
+        except Exception:  # noqa
+            logging.exception('Subscription notification failed')
 
     # def unsubscribe_all(self):
     #     # DO BULK UNSUBSCRIBE ON SERVER?
