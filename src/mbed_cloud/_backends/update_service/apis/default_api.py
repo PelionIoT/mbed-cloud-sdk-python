@@ -37,6 +37,7 @@ class DefaultApi(object):
 
     def firmware_image_create(self, datafile, name, **kwargs):
         """
+        Create an image
         Create firmware image.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -60,6 +61,7 @@ class DefaultApi(object):
 
     def firmware_image_create_with_http_info(self, datafile, name, **kwargs):
         """
+        Create an image
         Create firmware image.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -146,6 +148,7 @@ class DefaultApi(object):
 
     def firmware_image_destroy(self, image_id, **kwargs):
         """
+        Delete an image
         Delete firmware image.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -167,6 +170,7 @@ class DefaultApi(object):
 
     def firmware_image_destroy_with_http_info(self, image_id, **kwargs):
         """
+        Delete an image
         Delete firmware image.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -238,6 +242,7 @@ class DefaultApi(object):
 
     def firmware_image_list(self, **kwargs):
         """
+        List all images
         List all firmware images.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -263,6 +268,7 @@ class DefaultApi(object):
 
     def firmware_image_list_with_http_info(self, **kwargs):
         """
+        List all images
         List all firmware images.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -343,6 +349,7 @@ class DefaultApi(object):
 
     def firmware_image_retrieve(self, image_id, **kwargs):
         """
+        Get an image
         Retrieve firmware image.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -364,6 +371,7 @@ class DefaultApi(object):
 
     def firmware_image_retrieve_with_http_info(self, image_id, **kwargs):
         """
+        Get an image
         Retrieve firmware image.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -435,6 +443,7 @@ class DefaultApi(object):
 
     def firmware_manifest_create(self, datafile, name, **kwargs):
         """
+        Create a manifest
         Create firmware manifest.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -459,6 +468,7 @@ class DefaultApi(object):
 
     def firmware_manifest_create_with_http_info(self, datafile, name, **kwargs):
         """
+        Create a manifest
         Create firmware manifest.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -548,6 +558,7 @@ class DefaultApi(object):
 
     def firmware_manifest_destroy(self, manifest_id, **kwargs):
         """
+        Delete a manifest
         Delete firmware manifest.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -569,6 +580,7 @@ class DefaultApi(object):
 
     def firmware_manifest_destroy_with_http_info(self, manifest_id, **kwargs):
         """
+        Delete a manifest
         Delete firmware manifest.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -640,6 +652,7 @@ class DefaultApi(object):
 
     def firmware_manifest_list(self, **kwargs):
         """
+        List manifests
         List firmware manifests.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -665,6 +678,7 @@ class DefaultApi(object):
 
     def firmware_manifest_list_with_http_info(self, **kwargs):
         """
+        List manifests
         List firmware manifests.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -745,6 +759,7 @@ class DefaultApi(object):
 
     def firmware_manifest_retrieve(self, manifest_id, **kwargs):
         """
+        Get a manifest
         Retrieve firmware manifest.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -766,6 +781,7 @@ class DefaultApi(object):
 
     def firmware_manifest_retrieve_with_http_info(self, manifest_id, **kwargs):
         """
+        Get a manifest
         Retrieve firmware manifest.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -837,6 +853,7 @@ class DefaultApi(object):
 
     def update_campaign_create(self, campaign, **kwargs):
         """
+        Create a campaign
         Create an update campaign.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -858,6 +875,7 @@ class DefaultApi(object):
 
     def update_campaign_create_with_http_info(self, campaign, **kwargs):
         """
+        Create a campaign
         Create an update campaign.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -929,6 +947,7 @@ class DefaultApi(object):
 
     def update_campaign_destroy(self, campaign_id, **kwargs):
         """
+        Delete a campaign
         Delete an update campaign.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -950,6 +969,7 @@ class DefaultApi(object):
 
     def update_campaign_destroy_with_http_info(self, campaign_id, **kwargs):
         """
+        Delete a campaign
         Delete an update campaign.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -1021,7 +1041,8 @@ class DefaultApi(object):
 
     def update_campaign_list(self, **kwargs):
         """
-        Get update campaigns for devices specified by a filter. Can also use the `/campaigns/` alias.
+        List all campaigns
+        Get update campaigns for devices specified by a filter.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.update_campaign_list(async=True)
@@ -1046,7 +1067,8 @@ class DefaultApi(object):
 
     def update_campaign_list_with_http_info(self, **kwargs):
         """
-        Get update campaigns for devices specified by a filter. Can also use the `/campaigns/` alias.
+        List all campaigns
+        Get update campaigns for devices specified by a filter.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.update_campaign_list_with_http_info(async=True)
@@ -1126,6 +1148,7 @@ class DefaultApi(object):
 
     def update_campaign_metadata_list(self, campaign_id, **kwargs):
         """
+        List all campaign device metadata
         Get campaign device metadata.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -1151,6 +1174,7 @@ class DefaultApi(object):
 
     def update_campaign_metadata_list_with_http_info(self, campaign_id, **kwargs):
         """
+        List all campaign device metadata
         Get campaign device metadata.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -1234,6 +1258,7 @@ class DefaultApi(object):
 
     def update_campaign_metadata_retrieve(self, campaign_id, campaign_device_metadata_id, **kwargs):
         """
+        Get a campaign device metadata
         Get update campaign metadata.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -1256,6 +1281,7 @@ class DefaultApi(object):
 
     def update_campaign_metadata_retrieve_with_http_info(self, campaign_id, campaign_device_metadata_id, **kwargs):
         """
+        Get a campaign device metadata
         Get update campaign metadata.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -1333,6 +1359,7 @@ class DefaultApi(object):
 
     def update_campaign_metadata_stop(self, campaign_id, **kwargs):
         """
+        Stop a running campaign
         Stop a running update campaign.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -1354,6 +1381,7 @@ class DefaultApi(object):
 
     def update_campaign_metadata_stop_with_http_info(self, campaign_id, **kwargs):
         """
+        Stop a running campaign
         Stop a running update campaign.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -1425,6 +1453,7 @@ class DefaultApi(object):
 
     def update_campaign_retrieve(self, campaign_id, **kwargs):
         """
+        Get a campaign.
         Get an update campaign.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -1446,6 +1475,7 @@ class DefaultApi(object):
 
     def update_campaign_retrieve_with_http_info(self, campaign_id, **kwargs):
         """
+        Get a campaign.
         Get an update campaign.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -1517,6 +1547,7 @@ class DefaultApi(object):
 
     def update_campaign_update(self, campaign_id, campaign, **kwargs):
         """
+        Modify a campaign
         Modify an update campaign.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -1539,6 +1570,7 @@ class DefaultApi(object):
 
     def update_campaign_update_with_http_info(self, campaign_id, campaign, **kwargs):
         """
+        Modify a campaign
         Modify an update campaign.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True

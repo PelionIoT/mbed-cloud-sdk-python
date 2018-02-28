@@ -4,28 +4,28 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**firmware_image_create**](DefaultApi.md#firmware_image_create) | **POST** /v3/firmware-images/ | 
-[**firmware_image_destroy**](DefaultApi.md#firmware_image_destroy) | **DELETE** /v3/firmware-images/{image_id}/ | 
-[**firmware_image_list**](DefaultApi.md#firmware_image_list) | **GET** /v3/firmware-images/ | 
-[**firmware_image_retrieve**](DefaultApi.md#firmware_image_retrieve) | **GET** /v3/firmware-images/{image_id}/ | 
-[**firmware_manifest_create**](DefaultApi.md#firmware_manifest_create) | **POST** /v3/firmware-manifests/ | 
-[**firmware_manifest_destroy**](DefaultApi.md#firmware_manifest_destroy) | **DELETE** /v3/firmware-manifests/{manifest_id}/ | 
-[**firmware_manifest_list**](DefaultApi.md#firmware_manifest_list) | **GET** /v3/firmware-manifests/ | 
-[**firmware_manifest_retrieve**](DefaultApi.md#firmware_manifest_retrieve) | **GET** /v3/firmware-manifests/{manifest_id}/ | 
-[**update_campaign_create**](DefaultApi.md#update_campaign_create) | **POST** /v3/update-campaigns/ | 
-[**update_campaign_destroy**](DefaultApi.md#update_campaign_destroy) | **DELETE** /v3/update-campaigns/{campaign_id}/ | 
-[**update_campaign_list**](DefaultApi.md#update_campaign_list) | **GET** /v3/update-campaigns/ | 
-[**update_campaign_metadata_list**](DefaultApi.md#update_campaign_metadata_list) | **GET** /v3/update-campaigns/{campaign_id}/campaign-device-metadata/ | 
-[**update_campaign_metadata_retrieve**](DefaultApi.md#update_campaign_metadata_retrieve) | **GET** /v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/ | 
-[**update_campaign_metadata_stop**](DefaultApi.md#update_campaign_metadata_stop) | **POST** /v3/update-campaigns/{campaign_id}/stop | 
-[**update_campaign_retrieve**](DefaultApi.md#update_campaign_retrieve) | **GET** /v3/update-campaigns/{campaign_id}/ | 
-[**update_campaign_update**](DefaultApi.md#update_campaign_update) | **PUT** /v3/update-campaigns/{campaign_id}/ | 
+[**firmware_image_create**](DefaultApi.md#firmware_image_create) | **POST** /v3/firmware-images/ | Create an image
+[**firmware_image_destroy**](DefaultApi.md#firmware_image_destroy) | **DELETE** /v3/firmware-images/{image_id}/ | Delete an image
+[**firmware_image_list**](DefaultApi.md#firmware_image_list) | **GET** /v3/firmware-images/ | List all images
+[**firmware_image_retrieve**](DefaultApi.md#firmware_image_retrieve) | **GET** /v3/firmware-images/{image_id}/ | Get an image
+[**firmware_manifest_create**](DefaultApi.md#firmware_manifest_create) | **POST** /v3/firmware-manifests/ | Create a manifest
+[**firmware_manifest_destroy**](DefaultApi.md#firmware_manifest_destroy) | **DELETE** /v3/firmware-manifests/{manifest_id}/ | Delete a manifest
+[**firmware_manifest_list**](DefaultApi.md#firmware_manifest_list) | **GET** /v3/firmware-manifests/ | List manifests
+[**firmware_manifest_retrieve**](DefaultApi.md#firmware_manifest_retrieve) | **GET** /v3/firmware-manifests/{manifest_id}/ | Get a manifest
+[**update_campaign_create**](DefaultApi.md#update_campaign_create) | **POST** /v3/update-campaigns/ | Create a campaign
+[**update_campaign_destroy**](DefaultApi.md#update_campaign_destroy) | **DELETE** /v3/update-campaigns/{campaign_id}/ | Delete a campaign
+[**update_campaign_list**](DefaultApi.md#update_campaign_list) | **GET** /v3/update-campaigns/ | List all campaigns
+[**update_campaign_metadata_list**](DefaultApi.md#update_campaign_metadata_list) | **GET** /v3/update-campaigns/{campaign_id}/campaign-device-metadata/ | List all campaign device metadata
+[**update_campaign_metadata_retrieve**](DefaultApi.md#update_campaign_metadata_retrieve) | **GET** /v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/ | Get a campaign device metadata
+[**update_campaign_metadata_stop**](DefaultApi.md#update_campaign_metadata_stop) | **POST** /v3/update-campaigns/{campaign_id}/stop | Stop a running campaign
+[**update_campaign_retrieve**](DefaultApi.md#update_campaign_retrieve) | **GET** /v3/update-campaigns/{campaign_id}/ | Get a campaign.
+[**update_campaign_update**](DefaultApi.md#update_campaign_update) | **PUT** /v3/update-campaigns/{campaign_id}/ | Modify a campaign
 
 
 # **firmware_image_create**
 > FirmwareImage firmware_image_create(datafile, name, description=description)
 
-
+Create an image
 
 Create firmware image.
 
@@ -50,6 +50,7 @@ name = 'name_example' # str | The name of the firmware image
 description = 'description_example' # str | The description of the firmware image (optional)
 
 try: 
+    # Create an image
     api_response = api_instance.firmware_image_create(datafile, name, description=description)
     pprint(api_response)
 except ApiException as e:
@@ -82,7 +83,7 @@ Name | Type | Description  | Notes
 # **firmware_image_destroy**
 > firmware_image_destroy(image_id)
 
-
+Delete an image
 
 Delete firmware image.
 
@@ -105,6 +106,7 @@ api_instance = update_service.DefaultApi(update_service.ApiClient(configuration)
 image_id = 'image_id_example' # str | The firmware image ID
 
 try: 
+    # Delete an image
     api_instance.firmware_image_destroy(image_id)
 except ApiException as e:
     print("Exception when calling DefaultApi->firmware_image_destroy: %s\n" % e)
@@ -134,7 +136,7 @@ void (empty response body)
 # **firmware_image_list**
 > FirmwareImagePage firmware_image_list(limit=limit, order=order, after=after, filter=filter, include=include)
 
-
+List all images
 
 List all firmware images.
 
@@ -161,6 +163,7 @@ filter = 'filter_example' # str | URL-encoded query string parameter to filter r
 include = 'include_example' # str | Comma-separated list of data fields to return. Currently supported: total_count (optional)
 
 try: 
+    # List all images
     api_response = api_instance.firmware_image_list(limit=limit, order=order, after=after, filter=filter, include=include)
     pprint(api_response)
 except ApiException as e:
@@ -195,7 +198,7 @@ Name | Type | Description  | Notes
 # **firmware_image_retrieve**
 > FirmwareImage firmware_image_retrieve(image_id)
 
-
+Get an image
 
 Retrieve firmware image.
 
@@ -218,6 +221,7 @@ api_instance = update_service.DefaultApi(update_service.ApiClient(configuration)
 image_id = 'image_id_example' # str | The firmware image ID
 
 try: 
+    # Get an image
     api_response = api_instance.firmware_image_retrieve(image_id)
     pprint(api_response)
 except ApiException as e:
@@ -248,7 +252,7 @@ Name | Type | Description  | Notes
 # **firmware_manifest_create**
 > FirmwareManifest firmware_manifest_create(datafile, name, description=description, key_table=key_table)
 
-
+Create a manifest
 
 Create firmware manifest.
 
@@ -274,6 +278,7 @@ description = 'description_example' # str | The description of the firmware mani
 key_table = '/path/to/file.txt' # file | The key table of pre-shared keys for devices (optional)
 
 try: 
+    # Create a manifest
     api_response = api_instance.firmware_manifest_create(datafile, name, description=description, key_table=key_table)
     pprint(api_response)
 except ApiException as e:
@@ -307,7 +312,7 @@ Name | Type | Description  | Notes
 # **firmware_manifest_destroy**
 > firmware_manifest_destroy(manifest_id)
 
-
+Delete a manifest
 
 Delete firmware manifest.
 
@@ -330,6 +335,7 @@ api_instance = update_service.DefaultApi(update_service.ApiClient(configuration)
 manifest_id = 'manifest_id_example' # str | The firmware manifest ID
 
 try: 
+    # Delete a manifest
     api_instance.firmware_manifest_destroy(manifest_id)
 except ApiException as e:
     print("Exception when calling DefaultApi->firmware_manifest_destroy: %s\n" % e)
@@ -359,7 +365,7 @@ void (empty response body)
 # **firmware_manifest_list**
 > FirmwareManifestPage firmware_manifest_list(limit=limit, order=order, after=after, filter=filter, include=include)
 
-
+List manifests
 
 List firmware manifests.
 
@@ -386,6 +392,7 @@ filter = 'filter_example' # str | URL-encoded query string parameter to filter r
 include = 'include_example' # str | Comma-separated list of data fields to return. Currently supported: total_count (optional)
 
 try: 
+    # List manifests
     api_response = api_instance.firmware_manifest_list(limit=limit, order=order, after=after, filter=filter, include=include)
     pprint(api_response)
 except ApiException as e:
@@ -420,7 +427,7 @@ Name | Type | Description  | Notes
 # **firmware_manifest_retrieve**
 > FirmwareManifest firmware_manifest_retrieve(manifest_id)
 
-
+Get a manifest
 
 Retrieve firmware manifest.
 
@@ -443,6 +450,7 @@ api_instance = update_service.DefaultApi(update_service.ApiClient(configuration)
 manifest_id = 'manifest_id_example' # str | The firmware manifest ID
 
 try: 
+    # Get a manifest
     api_response = api_instance.firmware_manifest_retrieve(manifest_id)
     pprint(api_response)
 except ApiException as e:
@@ -473,7 +481,7 @@ Name | Type | Description  | Notes
 # **update_campaign_create**
 > UpdateCampaign update_campaign_create(campaign)
 
-
+Create a campaign
 
 Create an update campaign.
 
@@ -496,6 +504,7 @@ api_instance = update_service.DefaultApi(update_service.ApiClient(configuration)
 campaign = update_service.UpdateCampaignPostRequest() # UpdateCampaignPostRequest | Update campaign
 
 try: 
+    # Create a campaign
     api_response = api_instance.update_campaign_create(campaign)
     pprint(api_response)
 except ApiException as e:
@@ -526,7 +535,7 @@ Name | Type | Description  | Notes
 # **update_campaign_destroy**
 > update_campaign_destroy(campaign_id)
 
-
+Delete a campaign
 
 Delete an update campaign.
 
@@ -549,6 +558,7 @@ api_instance = update_service.DefaultApi(update_service.ApiClient(configuration)
 campaign_id = 'campaign_id_example' # str | The ID of the update campaign
 
 try: 
+    # Delete a campaign
     api_instance.update_campaign_destroy(campaign_id)
 except ApiException as e:
     print("Exception when calling DefaultApi->update_campaign_destroy: %s\n" % e)
@@ -578,9 +588,9 @@ void (empty response body)
 # **update_campaign_list**
 > UpdateCampaignPage update_campaign_list(limit=limit, order=order, after=after, filter=filter, include=include)
 
+List all campaigns
 
-
-Get update campaigns for devices specified by a filter. Can also use the `/campaigns/` alias.
+Get update campaigns for devices specified by a filter.
 
 ### Example 
 ```python
@@ -605,6 +615,7 @@ filter = 'filter_example' # str | URL-encoded query string parameter to filter r
 include = 'include_example' # str | Comma-separated list of data fields to return. Currently supported: total_count (optional)
 
 try: 
+    # List all campaigns
     api_response = api_instance.update_campaign_list(limit=limit, order=order, after=after, filter=filter, include=include)
     pprint(api_response)
 except ApiException as e:
@@ -639,7 +650,7 @@ Name | Type | Description  | Notes
 # **update_campaign_metadata_list**
 > CampaignDeviceMetadataPage update_campaign_metadata_list(campaign_id, limit=limit, order=order, after=after, include=include)
 
-
+List all campaign device metadata
 
 Get campaign device metadata.
 
@@ -666,6 +677,7 @@ after = 'after_example' # str | The ID of the the item after which to retrieve t
 include = 'include_example' # str | Comma-separated list of data fields to return. Currently supported: total_count (optional)
 
 try: 
+    # List all campaign device metadata
     api_response = api_instance.update_campaign_metadata_list(campaign_id, limit=limit, order=order, after=after, include=include)
     pprint(api_response)
 except ApiException as e:
@@ -700,7 +712,7 @@ Name | Type | Description  | Notes
 # **update_campaign_metadata_retrieve**
 > CampaignDeviceMetadata update_campaign_metadata_retrieve(campaign_id, campaign_device_metadata_id)
 
-
+Get a campaign device metadata
 
 Get update campaign metadata.
 
@@ -724,6 +736,7 @@ campaign_id = 'campaign_id_example' # str | The update campaign ID
 campaign_device_metadata_id = 'campaign_device_metadata_id_example' # str | The campaign device metadata ID
 
 try: 
+    # Get a campaign device metadata
     api_response = api_instance.update_campaign_metadata_retrieve(campaign_id, campaign_device_metadata_id)
     pprint(api_response)
 except ApiException as e:
@@ -755,7 +768,7 @@ Name | Type | Description  | Notes
 # **update_campaign_metadata_stop**
 > update_campaign_metadata_stop(campaign_id)
 
-
+Stop a running campaign
 
 Stop a running update campaign.
 
@@ -778,6 +791,7 @@ api_instance = update_service.DefaultApi(update_service.ApiClient(configuration)
 campaign_id = 'campaign_id_example' # str | The campaign ID
 
 try: 
+    # Stop a running campaign
     api_instance.update_campaign_metadata_stop(campaign_id)
 except ApiException as e:
     print("Exception when calling DefaultApi->update_campaign_metadata_stop: %s\n" % e)
@@ -807,7 +821,7 @@ void (empty response body)
 # **update_campaign_retrieve**
 > UpdateCampaign update_campaign_retrieve(campaign_id)
 
-
+Get a campaign.
 
 Get an update campaign.
 
@@ -830,6 +844,7 @@ api_instance = update_service.DefaultApi(update_service.ApiClient(configuration)
 campaign_id = 'campaign_id_example' # str | The campaign ID
 
 try: 
+    # Get a campaign.
     api_response = api_instance.update_campaign_retrieve(campaign_id)
     pprint(api_response)
 except ApiException as e:
@@ -860,7 +875,7 @@ Name | Type | Description  | Notes
 # **update_campaign_update**
 > UpdateCampaign update_campaign_update(campaign_id, campaign)
 
-
+Modify a campaign
 
 Modify an update campaign.
 
@@ -884,6 +899,7 @@ campaign_id = 'campaign_id_example' # str |
 campaign = update_service.UpdateCampaignPutRequest() # UpdateCampaignPutRequest | Update campaign
 
 try: 
+    # Modify a campaign
     api_response = api_instance.update_campaign_update(campaign_id, campaign)
     pprint(api_response)
 except ApiException as e:
