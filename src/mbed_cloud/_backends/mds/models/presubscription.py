@@ -33,7 +33,7 @@ class Presubscription(object):
     swagger_types = {
         'endpoint_name': 'str',
         'endpoint_type': 'str',
-        '_resource_path': 'list[ResourcePath]'
+        '_resource_path': 'list[str]'
     }
 
     attribute_map = {
@@ -102,7 +102,7 @@ class Presubscription(object):
         Gets the _resource_path of this Presubscription.
 
         :return: The _resource_path of this Presubscription.
-        :rtype: list[ResourcePath]
+        :rtype: list[str]
         """
         return self.__resource_path
 
@@ -112,7 +112,7 @@ class Presubscription(object):
         Sets the _resource_path of this Presubscription.
 
         :param _resource_path: The _resource_path of this Presubscription.
-        :type: list[ResourcePath]
+        :type: list[str]
         """
 
         self.__resource_path = _resource_path
