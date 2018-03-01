@@ -117,7 +117,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v2_subscriptions_device_id_get**
-> SubscriptionsList v2_subscriptions_device_id_get(device_id)
+> str v2_subscriptions_device_id_get(device_id)
 
 Read endpoints subscriptions
 
@@ -157,7 +157,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SubscriptionsList**](SubscriptionsList.md)
+**str**
 
 ### Authorization
 
