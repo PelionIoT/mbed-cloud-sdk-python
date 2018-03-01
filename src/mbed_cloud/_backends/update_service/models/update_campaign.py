@@ -41,7 +41,6 @@ class UpdateCampaign(object):
         'etag': 'str',
         'finished': 'datetime',
         'root_manifest_url': 'str',
-        'phase': 'str',
         'started_at': 'datetime',
         'id': 'str',
         'device_filter': 'str',
@@ -59,14 +58,13 @@ class UpdateCampaign(object):
         'etag': 'etag',
         'finished': 'finished',
         'root_manifest_url': 'root_manifest_url',
-        'phase': 'phase',
         'started_at': 'started_at',
         'id': 'id',
         'device_filter': 'device_filter',
         'name': 'name'
     }
 
-    def __init__(self, description=None, root_manifest_id=None, created_at=None, object=None, when=None, updated_at=None, state=None, etag=None, finished=None, root_manifest_url=None, phase=None, started_at=None, id=None, device_filter=None, name=None):
+    def __init__(self, description=None, root_manifest_id=None, created_at=None, object=None, when=None, updated_at=None, state=None, etag=None, finished=None, root_manifest_url=None, started_at=None, id=None, device_filter=None, name=None):
         """
         UpdateCampaign - a model defined in Swagger
         """
@@ -81,7 +79,6 @@ class UpdateCampaign(object):
         self._etag = etag
         self._finished = finished
         self._root_manifest_url = root_manifest_url
-        self._phase = phase
         self._started_at = started_at
         self._id = id
         self._device_filter = device_filter
@@ -321,35 +318,6 @@ class UpdateCampaign(object):
         """
 
         self._root_manifest_url = root_manifest_url
-
-    @property
-    def phase(self):
-        """
-        Gets the phase of this UpdateCampaign.
-        The phase of the campaign
-
-        :return: The phase of this UpdateCampaign.
-        :rtype: str
-        """
-        return self._phase
-
-    @phase.setter
-    def phase(self, phase):
-        """
-        Sets the phase of this UpdateCampaign.
-        The phase of the campaign
-
-        :param phase: The phase of this UpdateCampaign.
-        :type: str
-        """
-        allowed_values = ["draft", "setup", "awaiting_approval", "timed", "starting", "active", "stopping", "stopped", "archived"]
-        if phase not in allowed_values:
-            raise ValueError(
-                "Invalid value for `phase` ({0}), must be one of {1}"
-                .format(phase, allowed_values)
-            )
-
-        self._phase = phase
 
     @property
     def started_at(self):
