@@ -1,4 +1,4 @@
-# DeviceFilter
+# DeviceEqNeqFilter
 
 ## Properties
 Name | Type | Description | Notes

@@ -63,9 +63,9 @@ body = mds.DeviceRequest() # DeviceRequest | Device request to send.
 
 try:
     # Send an async request to device
-    api_instance.v2_device_requests_device_idasync_idasync_id_post(device_id, async_id, body)
+    api_instance.v2_device_requests_device_id_post(device_id, async_id, body)
 except ApiException as e:
-    print("Exception when calling DeviceRequestsApi->v2_device_requests_device_idasync_idasync_id_post: %s\n" % e)
+    print("Exception when calling DeviceRequestsApi->v2_device_requests_device_id_post: %s\n" % e)
 
 ```
 
@@ -75,7 +75,7 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DeviceRequestsApi* | [**v2_device_requests_device_idasync_idasync_id_post**](docs/DeviceRequestsApi.md#v2_device_requests_device_idasync_idasync_id_post) | **POST** /v2/device-requests/{deviceId}?async-id&#x3D;{asyncId} | Send an async request to device
+*DeviceRequestsApi* | [**v2_device_requests_device_id_post**](docs/DeviceRequestsApi.md#v2_device_requests_device_id_post) | **POST** /v2/device-requests/{device-id} | Send an async request to device
 *EndpointsApi* | [**v2_endpoints_device_id_get**](docs/EndpointsApi.md#v2_endpoints_device_id_get) | **GET** /v2/endpoints/{device-id} | List the resources on an endpoint
 *EndpointsApi* | [**v2_endpoints_get**](docs/EndpointsApi.md#v2_endpoints_get) | **GET** /v2/endpoints | (DEPRECATED) List registered endpoints. The number of returned endpoints is currently limited to 200.
 *NotificationsApi* | [**v2_notification_callback_delete**](docs/NotificationsApi.md#v2_notification_callback_delete) | **DELETE** /v2/notification/callback | Delete callback URL
@@ -83,11 +83,11 @@ Class | Method | HTTP request | Description
 *NotificationsApi* | [**v2_notification_callback_put**](docs/NotificationsApi.md#v2_notification_callback_put) | **PUT** /v2/notification/callback | Register a callback URL
 *NotificationsApi* | [**v2_notification_pull_delete**](docs/NotificationsApi.md#v2_notification_pull_delete) | **DELETE** /v2/notification/pull | Delete notification Long Poll channel
 *NotificationsApi* | [**v2_notification_pull_get**](docs/NotificationsApi.md#v2_notification_pull_get) | **GET** /v2/notification/pull | Get notifications using Long Poll
-*ResourcesApi* | [**v2_endpoints_device_id_resource_path_delete**](docs/ResourcesApi.md#v2_endpoints_device_id_resource_path_delete) | **DELETE** /v2/endpoints/{device-id}/{resourcePath} | Delete a resource
+*ResourcesApi* | [**v2_endpoints_device_id_resource_path_delete**](docs/ResourcesApi.md#v2_endpoints_device_id_resource_path_delete) | **DELETE** /v2/endpoints/{device-id}/{resourcePath} | Delete a resource path
 *ResourcesApi* | [**v2_endpoints_device_id_resource_path_get**](docs/ResourcesApi.md#v2_endpoints_device_id_resource_path_get) | **GET** /v2/endpoints/{device-id}/{resourcePath} | Read from a resource
 *ResourcesApi* | [**v2_endpoints_device_id_resource_path_post**](docs/ResourcesApi.md#v2_endpoints_device_id_resource_path_post) | **POST** /v2/endpoints/{device-id}/{resourcePath} | Execute a function on a Resource or create new Object instance
 *ResourcesApi* | [**v2_endpoints_device_id_resource_path_put**](docs/ResourcesApi.md#v2_endpoints_device_id_resource_path_put) | **PUT** /v2/endpoints/{device-id}/{resourcePath} | Write to a resource or use write-attributes for a resource
-*SubscriptionsApi* | [**v2_subscriptions_delete**](docs/SubscriptionsApi.md#v2_subscriptions_delete) | **DELETE** /v2/subscriptions | Remove all subscriptions
+*SubscriptionsApi* | [**v2_subscriptions_delete**](docs/SubscriptionsApi.md#v2_subscriptions_delete) | **DELETE** /v2/subscriptions | Remove pre-subscriptions
 *SubscriptionsApi* | [**v2_subscriptions_device_id_delete**](docs/SubscriptionsApi.md#v2_subscriptions_device_id_delete) | **DELETE** /v2/subscriptions/{device-id} | Delete subscriptions from an endpoint
 *SubscriptionsApi* | [**v2_subscriptions_device_id_get**](docs/SubscriptionsApi.md#v2_subscriptions_device_id_get) | **GET** /v2/subscriptions/{device-id} | Read endpoints subscriptions
 *SubscriptionsApi* | [**v2_subscriptions_device_id_resource_path_delete**](docs/SubscriptionsApi.md#v2_subscriptions_device_id_resource_path_delete) | **DELETE** /v2/subscriptions/{device-id}/{resourcePath} | Remove a subscription
@@ -109,7 +109,9 @@ Class | Method | HTTP request | Description
  - [Presubscription](docs/Presubscription.md)
  - [PresubscriptionArray](docs/PresubscriptionArray.md)
  - [Resource](docs/Resource.md)
+ - [ResourcePath](docs/ResourcePath.md)
  - [ResourcesData](docs/ResourcesData.md)
+ - [SubscriptionsList](docs/SubscriptionsList.md)
  - [Webhook](docs/Webhook.md)
 
 
