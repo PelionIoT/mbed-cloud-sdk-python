@@ -135,6 +135,8 @@ jobs:
       - restore_cache:
           keys: [*branch_cache_key]
       - run: sudo pip install pipenv
+      - run: pipenv uninstall --all
+      - run: pipenv install -e . --skip-lock
       - run: pipenv run python scripts/tpip.py python_tpip.csv
       - store_artifacts:
           path: python_tpip.csv
