@@ -290,7 +290,7 @@ workflows:
             - test_production_3
           filters:
             branches:
-              only: production
+              only: master
       - deploy_beta:
           requires:
             - release_beta
