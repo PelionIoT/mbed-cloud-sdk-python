@@ -56,7 +56,7 @@ class Presubscription(object):
     def endpoint_name(self):
         """
         Gets the endpoint_name of this Presubscription.
-        The Device ID
+        The device ID.
 
         :return: The endpoint_name of this Presubscription.
         :rtype: str
@@ -67,7 +67,7 @@ class Presubscription(object):
     def endpoint_name(self, endpoint_name):
         """
         Sets the endpoint_name of this Presubscription.
-        The Device ID
+        The device ID.
 
         :param endpoint_name: The endpoint_name of this Presubscription.
         :type: str

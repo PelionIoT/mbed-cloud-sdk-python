@@ -4,7 +4,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **code** | **int** | Response code. | 
-**object** | **str** | Entity name: &#39;user&#39;, &#39;apikey&#39;, &#39;group&#39; or &#39;account&#39;. | 
+**object** | **str** | Entity name: &#39;user&#39;, &#39;apikey&#39;, &#39;group&#39;, &#39;policy&#39; or &#39;account&#39;. | 
 **request_id** | **str** | Request ID. | 
 **message** | **str** | A human readable message with detailed info. | 
 **type** | **str** | Response type: success. | 

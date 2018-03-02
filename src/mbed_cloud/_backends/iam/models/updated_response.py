@@ -90,7 +90,7 @@ class UpdatedResponse(object):
     def object(self):
         """
         Gets the object of this UpdatedResponse.
-        Entity name: 'user', 'apikey', 'group' or 'account'.
+        Entity name: 'user', 'apikey', 'group', 'policy' or 'account'.
 
         :return: The object of this UpdatedResponse.
         :rtype: str
@@ -101,14 +101,14 @@ class UpdatedResponse(object):
     def object(self, object):
         """
         Sets the object of this UpdatedResponse.
-        Entity name: 'user', 'apikey', 'group' or 'account'.
+        Entity name: 'user', 'apikey', 'group', 'policy' or 'account'.
 
         :param object: The object of this UpdatedResponse.
         :type: str
         """
         if object is None:
             raise ValueError("Invalid value for `object`, must not be `None`")
-        allowed_values = ["user", "api-key", "group", "account", "account-template", "trusted-cert", "list", "error"]
+        allowed_values = ["user", "api-key", "group", "account", "account-template", "trusted-cert", "list", "error", "policy", "identity-provider", "user-session"]
         if object not in allowed_values:
             raise ValueError(
                 "Invalid value for `object` ({0}), must be one of {1}"
@@ -189,7 +189,7 @@ class UpdatedResponse(object):
         """
         if type is None:
             raise ValueError("Invalid value for `type`, must not be `None`")
-        allowed_values = ["success", "created", "accepted", "permanently_deleted", "validation_error", "invalid_token", "invalid_apikey", "reauth_required", "access_denied", "account_limit_exceeded", "not_found", "method_not_supported", "not_acceptable", "duplicate", "precondition_failed", "unsupported_media_type", "rate_limit_exceeded", "internal_server_error", "system_unavailable"]
+        allowed_values = ["success"]
         if type not in allowed_values:
             raise ValueError(
                 "Invalid value for `type` ({0}), must be one of {1}"
