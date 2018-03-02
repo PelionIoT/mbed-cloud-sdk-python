@@ -145,7 +145,6 @@ Class | Method | HTTP request | Description
 *AggregatorAccountAdminApi* | [**validate_account_user_email**](docs/AggregatorAccountAdminApi.md#validate_account_user_email) | **POST** /v3/accounts/{accountID}/users/{user-id}/validate-email | Validate the user email.
 *DeveloperApi* | [**add_me_to_groups**](docs/DeveloperApi.md#add_me_to_groups) | **POST** /v3/users/me/groups | Add user to a list of groupS.
 *DeveloperApi* | [**add_my_api_key_to_groups**](docs/DeveloperApi.md#add_my_api_key_to_groups) | **POST** /v3/api-keys/me/groups | Add API key to a list of groups.
-*DeveloperApi* | [**change_my_session**](docs/DeveloperApi.md#change_my_session) | **POST** /v3/users/me/accounts | Change login session to another account.
 *DeveloperApi* | [**create_api_key**](docs/DeveloperApi.md#create_api_key) | **POST** /v3/api-keys | Create a new API key.
 *DeveloperApi* | [**delete_api_key**](docs/DeveloperApi.md#delete_api_key) | **DELETE** /v3/api-keys/{apiKey} | Delete API key.
 *DeveloperApi* | [**delete_certificate**](docs/DeveloperApi.md#delete_certificate) | **DELETE** /v3/trusted-certificates/{cert-id} | Delete a trusted certificate by ID.
@@ -187,8 +186,6 @@ Class | Method | HTTP request | Description
  - [ApiKeyInfoResp](docs/ApiKeyInfoResp.md)
  - [ApiKeyInfoRespList](docs/ApiKeyInfoRespList.md)
  - [ApiKeyUpdateReq](docs/ApiKeyUpdateReq.md)
- - [ChangeLoginSessionReq](docs/ChangeLoginSessionReq.md)
- - [ChangeLoginSessionResp](docs/ChangeLoginSessionResp.md)
  - [ErrorResponse](docs/ErrorResponse.md)
  - [FeaturePolicy](docs/FeaturePolicy.md)
  - [Field](docs/Field.md)

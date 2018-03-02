@@ -6,7 +6,6 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**add_me_to_groups**](DeveloperApi.md#add_me_to_groups) | **POST** /v3/users/me/groups | Add user to a list of groupS.
 [**add_my_api_key_to_groups**](DeveloperApi.md#add_my_api_key_to_groups) | **POST** /v3/api-keys/me/groups | Add API key to a list of groups.
-[**change_my_session**](DeveloperApi.md#change_my_session) | **POST** /v3/users/me/accounts | Change login session to another account.
 [**create_api_key**](DeveloperApi.md#create_api_key) | **POST** /v3/api-keys | Create a new API key.
 [**delete_api_key**](DeveloperApi.md#delete_api_key) | **DELETE** /v3/api-keys/{apiKey} | Delete API key.
 [**delete_certificate**](DeveloperApi.md#delete_certificate) | **DELETE** /v3/trusted-certificates/{cert-id} | Delete a trusted certificate by ID.
@@ -136,60 +135,6 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **change_my_session**
-> ChangeLoginSessionResp change_my_session(body)
-
-Change login session to another account.
-
-An endpoint for changing the current user login session to another account.
-
-### Example 
-```python
-from __future__ import print_function
-import time
-import iam
-from iam.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: Bearer
-configuration = iam.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = iam.DeveloperApi(iam.ApiClient(configuration))
-body = iam.ChangeLoginSessionReq() # ChangeLoginSessionReq | ID of the account where the current user login session is changed to.
-
-try: 
-    # Change login session to another account.
-    api_response = api_instance.change_my_session(body)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling DeveloperApi->change_my_session: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **body** | [**ChangeLoginSessionReq**](ChangeLoginSessionReq.md)| ID of the account where the current user login session is changed to. | 
-
-### Return type
-
-[**ChangeLoginSessionResp**](ChangeLoginSessionResp.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
