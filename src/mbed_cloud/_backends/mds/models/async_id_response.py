@@ -65,7 +65,7 @@ class AsyncIDResponse(object):
     def status(self):
         """
         Gets the status of this AsyncIDResponse.
-        Asynchronous response status code for a device operation related to a proxy request or manual subscription.
+        The asynchronous response status code for a device operation related to a proxy request or manual subscription.
 
         :return: The status of this AsyncIDResponse.
         :rtype: int
@@ -76,7 +76,7 @@ class AsyncIDResponse(object):
     def status(self, status):
         """
         Sets the status of this AsyncIDResponse.
-        Asynchronous response status code for a device operation related to a proxy request or manual subscription.
+        The asynchronous response status code for a device operation related to a proxy request or manual subscription.
 
         :param status: The status of this AsyncIDResponse.
         :type: int
@@ -111,7 +111,7 @@ class AsyncIDResponse(object):
     def max_age(self):
         """
         Gets the max_age of this AsyncIDResponse.
-        Determines how long this value will be valid in cache, in seconds. 0 means that value is not stored in cache.
+        Determines how long this value stays valid in the cache, in seconds. 0 means that the value is not stored in the cache.
 
         :return: The max_age of this AsyncIDResponse.
         :rtype: str
@@ -122,7 +122,7 @@ class AsyncIDResponse(object):
     def max_age(self, max_age):
         """
         Sets the max_age of this AsyncIDResponse.
-        Determines how long this value will be valid in cache, in seconds. 0 means that value is not stored in cache.
+        Determines how long this value stays valid in the cache, in seconds. 0 means that the value is not stored in the cache.
 
         :param max_age: The max_age of this AsyncIDResponse.
         :type: str
@@ -134,7 +134,7 @@ class AsyncIDResponse(object):
     def error(self):
         """
         Gets the error of this AsyncIDResponse.
-        Optional error message, describing the error.
+        An optional error message describing the error.
 
         :return: The error of this AsyncIDResponse.
         :rtype: str
@@ -145,7 +145,7 @@ class AsyncIDResponse(object):
     def error(self, error):
         """
         Sets the error of this AsyncIDResponse.
-        Optional error message, describing the error.
+        An optional error message describing the error.
 
         :param error: The error of this AsyncIDResponse.
         :type: str
@@ -157,7 +157,7 @@ class AsyncIDResponse(object):
     def id(self):
         """
         Gets the id of this AsyncIDResponse.
-        Asynchronous response unique ID.
+        The unique ID of the asynchronous response.
 
         :return: The id of this AsyncIDResponse.
         :rtype: str
@@ -168,7 +168,7 @@ class AsyncIDResponse(object):
     def id(self, id):
         """
         Sets the id of this AsyncIDResponse.
-        Asynchronous response unique ID.
+        The unique ID of the asynchronous response.
 
         :param id: The id of this AsyncIDResponse.
         :type: str
@@ -180,7 +180,7 @@ class AsyncIDResponse(object):
     def ct(self):
         """
         Gets the ct of this AsyncIDResponse.
-        Content type
+        The content type.
 
         :return: The ct of this AsyncIDResponse.
         :rtype: str
@@ -191,7 +191,7 @@ class AsyncIDResponse(object):
     def ct(self, ct):
         """
         Sets the ct of this AsyncIDResponse.
-        Content type
+        The content type.
 
         :param ct: The ct of this AsyncIDResponse.
         :type: str

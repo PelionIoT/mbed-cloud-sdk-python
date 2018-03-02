@@ -78,7 +78,7 @@ class Webhook(object):
     def headers(self):
         """
         Gets the headers of this Webhook.
-        Headers (key/value) that are sent with the notification. Optional.
+        The headers (key/value) sent with the notification. Optional.
 
         :return: The headers of this Webhook.
         :rtype: dict(str, str)
@@ -89,7 +89,7 @@ class Webhook(object):
     def headers(self, headers):
         """
         Sets the headers of this Webhook.
-        Headers (key/value) that are sent with the notification. Optional.
+        The headers (key/value) sent with the notification. Optional.
 
         :param headers: The headers of this Webhook.
         :type: dict(str, str)

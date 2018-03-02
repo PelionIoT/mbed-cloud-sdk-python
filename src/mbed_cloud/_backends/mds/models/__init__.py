@@ -16,6 +16,7 @@ from __future__ import absolute_import
 # import models into model package
 from .async_id import AsyncID
 from .async_id_response import AsyncIDResponse
+from .device_request import DeviceRequest
 from .endpoint import Endpoint
 from .endpoint_data import EndpointData
 from .notification_data import NotificationData
@@ -23,5 +24,7 @@ from .notification_message import NotificationMessage
 from .presubscription import Presubscription
 from .presubscription_array import PresubscriptionArray
 from .resource import Resource
+from .resource_path import ResourcePath
 from .resources_data import ResourcesData
+from .subscriptions_list import SubscriptionsList
 from .webhook import Webhook

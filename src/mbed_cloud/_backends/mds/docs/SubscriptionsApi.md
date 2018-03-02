@@ -4,7 +4,7 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**v2_subscriptions_delete**](SubscriptionsApi.md#v2_subscriptions_delete) | **DELETE** /v2/subscriptions | Remove all subscriptions
+[**v2_subscriptions_delete**](SubscriptionsApi.md#v2_subscriptions_delete) | **DELETE** /v2/subscriptions | Remove pre-subscriptions
 [**v2_subscriptions_device_id_delete**](SubscriptionsApi.md#v2_subscriptions_device_id_delete) | **DELETE** /v2/subscriptions/{device-id} | Delete subscriptions from an endpoint
 [**v2_subscriptions_device_id_get**](SubscriptionsApi.md#v2_subscriptions_device_id_get) | **GET** /v2/subscriptions/{device-id} | Read endpoints subscriptions
 [**v2_subscriptions_device_id_resource_path_delete**](SubscriptionsApi.md#v2_subscriptions_device_id_resource_path_delete) | **DELETE** /v2/subscriptions/{device-id}/{resourcePath} | Remove a subscription
@@ -17,9 +17,9 @@ Method | HTTP request | Description
 # **v2_subscriptions_delete**
 > v2_subscriptions_delete()
 
-Remove all subscriptions
+Remove pre-subscriptions
 
-Removes subscriptions from every endpoint and resource. Note that this does not remove pre-subscriptions.  **Example usage:**      curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/subscriptions -H 'authorization: Bearer {api-key}'      
+Removes pre-subscriptions.  **Example usage:**      curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/subscriptions -H 'authorization: Bearer {api-key}'      
 
 ### Example 
 ```python
@@ -39,7 +39,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 api_instance = mds.SubscriptionsApi(mds.ApiClient(configuration))
 
 try: 
-    # Remove all subscriptions
+    # Remove pre-subscriptions
     api_instance.v2_subscriptions_delete()
 except ApiException as e:
     print("Exception when calling SubscriptionsApi->v2_subscriptions_delete: %s\n" % e)
@@ -121,7 +121,7 @@ void (empty response body)
 
 Read endpoints subscriptions
 
-Lists all subscribed resources from a single endpoint.  **Example usage:**      curl -X GET \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id} \\       -H 'authorization: Bearer {api-key}'        
+Lists all subscribed resources from a single endpoint.  **Example usage:**      curl -X GET \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id} \\       -H 'authorization: Bearer {api-key}' 
 
 ### Example 
 ```python
@@ -283,7 +283,7 @@ void (empty response body)
 
 Subscribe to a resource path
 
-The Mbed Cloud Connect eventing model consists of observable resources.  This means that endpoints can deliver updated resource content, periodically or with a more sophisticated  solution-dependent logic. The OMA LwM2M resource model including objects, object instances,  resources and resource instances is also supported.  Applications can subscribe to objects, object instances or individual resources to make the device  to provide value change notifications to Mbed Cloud Connect service. An application needs to call a `/notification/callback` method to get Mbed Cloud Connect to push notifications of the resource changes.  The manual subscriptions are removed during a full device registration and applications need to  re-subscribe at that point. To avoid this, you can use `/subscriptions` to set a pre-subscription.  **Example usage:**      curl -X PUT \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id}/{resourcePath} \\       -H 'authorization: Bearer {api-key}' 
+The Mbed Cloud Connect eventing model consists of observable resources.  This means that endpoints can deliver updated resource content, periodically or with a more sophisticated  solution-dependent logic. The OMA LwM2M resource model including objects, object instances,  resources and resource instances is also supported.  Applications can subscribe to objects, object instances or individual resources to make the device  to provide value change notifications to Mbed Cloud Connect service. An application needs to call a `/notification/callback` method to get Mbed Cloud Connect to push notifications of the resource changes.  **Notification rules**  A web application can place dynamic observation rules for individual Object Instances and Resources to define when the device sends observations. More information in [Notification rules](https://cloud.mbed.com/docs/v1.2/collecting/subscribing-to-resource-changes-from-a-web-application.html#notification-rules).  All manual subscriptions are removed during a full device registration and applications need to  re-subscribe at that point. To avoid this, you can use `/subscriptions` to set a pre-subscription.  **Example usage:**      curl -X PUT \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id}/{resourcePath} \\       -H 'authorization: Bearer {api-key}' 
 
 ### Example 
 ```python
@@ -388,7 +388,7 @@ This endpoint does not need any parameter.
 
 Set pre-subscriptions
 
-Pre-subscription is a set of rules and patterns put by the application. When an endpoint registers  and its ID, type and registered resources match the pre-subscription data, Mbed Cloud Connect sends  subscription requests to the device automatically. The pattern may include the endpoint ID  (optionally having an `*` character at the end), endpoint type, a list of resources or expressions with an `*` character at the end. Subscriptions based on pre-subscriptions are done when device registers or does register update. To remove the pre-subscription data, put an empty array as a rule.  **Limits**:  - The maximum length of the endpoint name and endpoint type is 64 characters. - The maximum length of the resource path is 128 characters. - You can listen to 256 separate resource paths. - The maximum number of pre-subscription entries is 1024.          **Example request:**  ``` curl -X PUT \\   https://api.us-east-1.mbedcloud.com/v2/subscriptions \\   -H 'authorization: Bearer {api-key}' \\   -H 'content-type: application/json' \\   -d '[          {            \"endpoint-name\": \"node-001\",            \"resource-path\": [\"/dev\"]          },          {            \"endpoint-type\": \"Light\",            \"resource-path\": [\"/sen/*\"]          },          {            \"endpoint-name\": \"node*\"          },          {            \"endpoint-type\": \"Sensor\"          },          {            \"resource-path\": [\"/dev/temp\",\"/dev/hum\"]          }       ]' ``` 
+Pre-subscription is a set of rules and patterns put by the application. When an endpoint registers  and its ID, type and registered resources match the pre-subscription data, Mbed Cloud Connect sends  subscription requests to the device automatically. The pattern may include the endpoint ID  (optionally having an `*` character at the end), endpoint type, a list of resources or expressions with an `*` character at the end. Subscriptions based on pre-subscriptions are done when device registers or does register update. To remove the pre-subscription data, put an empty array as a rule.  **Notification rules**  A web application can place dynamic observation rules for individual Object Instances and Resources to define when the device sends observations. More information in [Notification rules](https://cloud.mbed.com/docs/v1.2/collecting/subscribing-to-resource-changes-from-a-web-application.html#notification-rules).  **Limits**:  - The maximum length of the endpoint name and endpoint type is 64 characters. - The maximum length of the resource path is 128 characters. - You can listen to 256 separate resource paths. - The maximum number of pre-subscription entries is 1024.          **Example request:**  ``` curl -X PUT \\   https://api.us-east-1.mbedcloud.com/v2/subscriptions \\   -H 'authorization: Bearer {api-key}' \\   -H 'content-type: application/json' \\   -d '[          {            \"endpoint-name\": \"node-001\",            \"resource-path\": [\"/dev\"]          },          {            \"endpoint-type\": \"Light\",            \"resource-path\": [\"/sen/*\"]          },          {            \"endpoint-name\": \"node*\"          },          {            \"endpoint-type\": \"Sensor\"          },          {            \"resource-path\": [\"/dev/temp\",\"/dev/hum\"]          }       ]' ```  - Subscribe to `/dev` resource of endpoint named `node-001`. - Subscribe to `Light` type of endpoints and their resources prefixed with `/sen/`. - Subscribe to all observable resources of endpoint names prefixed with `node`. - Subscribe to all observable resources of `Sensor` type endpoints. - Subscribe to `/dev/temp` and `/dev/hum` resources of all endpoints.  **Note**: For efficiency reasons, you should use resource path patterns in the pre-subscription data. This prevents the notification flow from unwanted resources. 
 
 ### Example 
 ```python

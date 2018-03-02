@@ -38,6 +38,7 @@ class FirmwareManifest(object):
         'object': 'str',
         'updated_at': 'datetime',
         'etag': 'datetime',
+        'key_table': 'str',
         'device_class': 'str',
         'datafile_size': 'int',
         'id': 'str',
@@ -52,13 +53,14 @@ class FirmwareManifest(object):
         'object': 'object',
         'updated_at': 'updated_at',
         'etag': 'etag',
+        'key_table': 'key_table',
         'device_class': 'device_class',
         'datafile_size': 'datafile_size',
         'id': 'id',
         'name': 'name'
     }
 
-    def __init__(self, datafile=None, description=None, timestamp=None, created_at=None, object=None, updated_at=None, etag=None, device_class=None, datafile_size=None, id=None, name=None):
+    def __init__(self, datafile=None, description=None, timestamp=None, created_at=None, object=None, updated_at=None, etag=None, key_table=None, device_class=None, datafile_size=None, id=None, name=None):
         """
         FirmwareManifest - a model defined in Swagger
         """
@@ -70,6 +72,7 @@ class FirmwareManifest(object):
         self._object = object
         self._updated_at = updated_at
         self._etag = etag
+        self._key_table = key_table
         self._device_class = device_class
         self._datafile_size = datafile_size
         self._id = id
@@ -252,6 +255,29 @@ class FirmwareManifest(object):
             raise ValueError("Invalid value for `etag`, must not be `None`")
 
         self._etag = etag
+
+    @property
+    def key_table(self):
+        """
+        Gets the key_table of this FirmwareManifest.
+        The key table of pre-shared keys for devices
+
+        :return: The key_table of this FirmwareManifest.
+        :rtype: str
+        """
+        return self._key_table
+
+    @key_table.setter
+    def key_table(self, key_table):
+        """
+        Sets the key_table of this FirmwareManifest.
+        The key table of pre-shared keys for devices
+
+        :param key_table: The key_table of this FirmwareManifest.
+        :type: str
+        """
+
+        self._key_table = key_table
 
     @property
     def device_class(self):
