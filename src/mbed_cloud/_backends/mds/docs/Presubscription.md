@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**endpoint_name** | **str** | The Device ID | [optional] 
+**endpoint_name** | **str** | The device ID. | [optional] 
 **endpoint_type** | **str** |  | [optional] 
 **_resource_path** | **list[str]** |  | [optional] 
 

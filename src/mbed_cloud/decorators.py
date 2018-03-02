@@ -33,6 +33,9 @@ def catch_exceptions(*exceptions):
                 return fn(*args, **kwargs)
             except exceptions:
                 t, value, traceback = sys.exc_info()
+                # If any resource does not exist, return None instead of raising
+                if str(value.status) == '404':
+                    return None
                 e = CloudApiException(str(value), value.reason, value.status)
                 raise_(CloudApiException, e, traceback)
         return wrapped_f
