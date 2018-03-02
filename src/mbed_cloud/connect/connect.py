@@ -295,7 +295,8 @@ class ConnectAPI(BaseAPI):
         return self.get_resource_value_async(device_id, resource_path, fix_path).wait(timeout)
 
     @catch_exceptions(mds.rest.ApiException)
-    def set_resource_value(self, device_id, resource_path, resource_value, fix_path=True):
+    def set_resource_value(self, device_id, resource_path, resource_value,
+                           fix_path=True, timeout=None):
         """Set resource value for given resource path, on device.
 
         Will block and wait for response to come through. Usage:
@@ -320,7 +321,7 @@ class ConnectAPI(BaseAPI):
         self.ensure_notifications_thread()
         return self.set_resource_value_async(
             device_id, resource_path, resource_value, fix_path
-        ).wait()
+        ).wait(timeout)
 
     @catch_exceptions(mds.rest.ApiException)
     def set_resource_value_async(self, device_id, resource_path,
@@ -357,7 +358,7 @@ class ConnectAPI(BaseAPI):
         return AsyncConsumer(resp.async_response_id, self._db)
 
     @catch_exceptions(mds.rest.ApiException)
-    def execute_resource(self, device_id, resource_path, fix_path=True, **kwargs):
+    def execute_resource(self, device_id, resource_path, fix_path=True, timeout=None, **kwargs):
         """Execute a function on a resource.
 
         Will block and wait for response to come through. Usage:
@@ -391,7 +392,7 @@ class ConnectAPI(BaseAPI):
                                                              resource_path,
                                                              **kwargs)
         consumer = AsyncConsumer(resp.async_response_id, self._db)
-        return consumer.wait()
+        return consumer.wait(timeout)
 
     @catch_exceptions(mds.rest.ApiException)
     def execute_resource_async(self, device_id, resource_path, fix_path=True, **kwargs):
