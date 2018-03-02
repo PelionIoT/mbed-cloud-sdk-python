@@ -3180,8 +3180,8 @@ class AggregatorAccountAdminApi(object):
         :param int device_execution_mode__neq: Filter for not developer certificates
         :param str owner__eq: Owner name filter
         :param bool enrollment_mode__eq: Enrollment mode filter
-        :param str issuer__like: Filter for issuer
-        :param str subject__like: Filter for subject
+        :param str issuer__like: Filter for issuer. Finds all matches where the filter value is a case insensitive substring of the result. Example: issuer__like=cn=iss matches CN=issuer.
+        :param str subject__like: Filter for subject. Finds all matches where the filter value is a case insensitive substring of the result. Example: subject__like=cn=su matches CN=subject.
         :return: TrustedCertificateInternalRespList
                  If the method is called asynchronously,
                  returns the request thread.
@@ -3215,8 +3215,8 @@ class AggregatorAccountAdminApi(object):
         :param int device_execution_mode__neq: Filter for not developer certificates
         :param str owner__eq: Owner name filter
         :param bool enrollment_mode__eq: Enrollment mode filter
-        :param str issuer__like: Filter for issuer
-        :param str subject__like: Filter for subject
+        :param str issuer__like: Filter for issuer. Finds all matches where the filter value is a case insensitive substring of the result. Example: issuer__like=cn=iss matches CN=issuer.
+        :param str subject__like: Filter for subject. Finds all matches where the filter value is a case insensitive substring of the result. Example: subject__like=cn=su matches CN=subject.
         :return: TrustedCertificateInternalRespList
                  If the method is called asynchronously,
                  returns the request thread.
@@ -3684,7 +3684,7 @@ class AggregatorAccountAdminApi(object):
         :param str tier__eq: An optional filter for tier level, must be 0, 1, 2, 98, 99 or omitted.
         :param str parent__eq: An optional filter for parent account ID.
         :param str end_market__eq: An optional filter for account end market.
-        :param str country__like: An optional filter for account country.
+        :param str country__like: An optional filter for account country. Finds all matches where the filter value is a case insensitive substring of the result. Example: country__like=LAND matches Ireland.
         :param int limit: The number of results to return (2-1000), default is 1000.
         :param str after: The entity ID to fetch after the given one.
         :param str order: The order of the records based on creation time, ASC or DESC. Default value is ASC
@@ -3716,7 +3716,7 @@ class AggregatorAccountAdminApi(object):
         :param str tier__eq: An optional filter for tier level, must be 0, 1, 2, 98, 99 or omitted.
         :param str parent__eq: An optional filter for parent account ID.
         :param str end_market__eq: An optional filter for account end market.
-        :param str country__like: An optional filter for account country.
+        :param str country__like: An optional filter for account country. Finds all matches where the filter value is a case insensitive substring of the result. Example: country__like=LAND matches Ireland.
         :param int limit: The number of results to return (2-1000), default is 1000.
         :param str after: The entity ID to fetch after the given one.
         :param str order: The order of the records based on creation time, ASC or DESC. Default value is ASC

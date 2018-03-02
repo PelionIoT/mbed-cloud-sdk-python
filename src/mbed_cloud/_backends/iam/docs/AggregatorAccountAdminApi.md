@@ -1769,8 +1769,8 @@ device_execution_mode__eq = 56 # int | Filter for developer certificates (option
 device_execution_mode__neq = 56 # int | Filter for not developer certificates (optional)
 owner__eq = 'owner__eq_example' # str | Owner name filter (optional)
 enrollment_mode__eq = true # bool | Enrollment mode filter (optional)
-issuer__like = 'issuer__like_example' # str | Filter for issuer (optional)
-subject__like = 'subject__like_example' # str | Filter for subject (optional)
+issuer__like = 'issuer__like_example' # str | Filter for issuer. Finds all matches where the filter value is a case insensitive substring of the result. Example: issuer__like=cn=iss matches CN=issuer. (optional)
+subject__like = 'subject__like_example' # str | Filter for subject. Finds all matches where the filter value is a case insensitive substring of the result. Example: subject__like=cn=su matches CN=subject. (optional)
 
 try: 
     # Get all trusted certificates.
@@ -1796,8 +1796,8 @@ Name | Type | Description  | Notes
  **device_execution_mode__neq** | **int**| Filter for not developer certificates | [optional] 
  **owner__eq** | **str**| Owner name filter | [optional] 
  **enrollment_mode__eq** | **bool**| Enrollment mode filter | [optional] 
- **issuer__like** | **str**| Filter for issuer | [optional] 
- **subject__like** | **str**| Filter for subject | [optional] 
+ **issuer__like** | **str**| Filter for issuer. Finds all matches where the filter value is a case insensitive substring of the result. Example: issuer__like&#x3D;cn&#x3D;iss matches CN&#x3D;issuer. | [optional] 
+ **subject__like** | **str**| Filter for subject. Finds all matches where the filter value is a case insensitive substring of the result. Example: subject__like&#x3D;cn&#x3D;su matches CN&#x3D;subject. | [optional] 
 
 ### Return type
 
@@ -2045,7 +2045,7 @@ status__eq = 'status__eq_example' # str | An optional filter for account status,
 tier__eq = 'tier__eq_example' # str | An optional filter for tier level, must be 0, 1, 2, 98, 99 or omitted. (optional)
 parent__eq = 'parent__eq_example' # str | An optional filter for parent account ID. (optional)
 end_market__eq = 'end_market__eq_example' # str | An optional filter for account end market. (optional)
-country__like = 'country__like_example' # str | An optional filter for account country. (optional)
+country__like = 'country__like_example' # str | An optional filter for account country. Finds all matches where the filter value is a case insensitive substring of the result. Example: country__like=LAND matches Ireland. (optional)
 limit = 1000 # int | The number of results to return (2-1000), default is 1000. (optional) (default to 1000)
 after = 'after_example' # str | The entity ID to fetch after the given one. (optional)
 order = 'ASC' # str | The order of the records based on creation time, ASC or DESC. Default value is ASC (optional) (default to ASC)
@@ -2069,7 +2069,7 @@ Name | Type | Description  | Notes
  **tier__eq** | **str**| An optional filter for tier level, must be 0, 1, 2, 98, 99 or omitted. | [optional] 
  **parent__eq** | **str**| An optional filter for parent account ID. | [optional] 
  **end_market__eq** | **str**| An optional filter for account end market. | [optional] 
- **country__like** | **str**| An optional filter for account country. | [optional] 
+ **country__like** | **str**| An optional filter for account country. Finds all matches where the filter value is a case insensitive substring of the result. Example: country__like&#x3D;LAND matches Ireland. | [optional] 
  **limit** | **int**| The number of results to return (2-1000), default is 1000. | [optional] [default to 1000]
  **after** | **str**| The entity ID to fetch after the given one. | [optional] 
  **order** | **str**| The order of the records based on creation time, ASC or DESC. Default value is ASC | [optional] [default to ASC]

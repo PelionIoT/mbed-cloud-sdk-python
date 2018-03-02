@@ -145,6 +145,7 @@ Class | Method | HTTP request | Description
 *AggregatorAccountAdminApi* | [**validate_account_user_email**](docs/AggregatorAccountAdminApi.md#validate_account_user_email) | **POST** /v3/accounts/{accountID}/users/{user-id}/validate-email | Validate the user email.
 *DeveloperApi* | [**add_me_to_groups**](docs/DeveloperApi.md#add_me_to_groups) | **POST** /v3/users/me/groups | Add user to a list of groupS.
 *DeveloperApi* | [**add_my_api_key_to_groups**](docs/DeveloperApi.md#add_my_api_key_to_groups) | **POST** /v3/api-keys/me/groups | Add API key to a list of groups.
+*DeveloperApi* | [**change_my_session**](docs/DeveloperApi.md#change_my_session) | **POST** /v3/users/me/accounts | Change login session to another account.
 *DeveloperApi* | [**create_api_key**](docs/DeveloperApi.md#create_api_key) | **POST** /v3/api-keys | Create a new API key.
 *DeveloperApi* | [**delete_api_key**](docs/DeveloperApi.md#delete_api_key) | **DELETE** /v3/api-keys/{apiKey} | Delete API key.
 *DeveloperApi* | [**delete_certificate**](docs/DeveloperApi.md#delete_certificate) | **DELETE** /v3/trusted-certificates/{cert-id} | Delete a trusted certificate by ID.
@@ -157,6 +158,7 @@ Class | Method | HTTP request | Description
 *DeveloperApi* | [**get_group_summary**](docs/DeveloperApi.md#get_group_summary) | **GET** /v3/policy-groups/{groupID} | Get group information.
 *DeveloperApi* | [**get_groups_of_my_api_key**](docs/DeveloperApi.md#get_groups_of_my_api_key) | **GET** /v3/api-keys/me/groups | Get groups of the API key.
 *DeveloperApi* | [**get_my_account_info**](docs/DeveloperApi.md#get_my_account_info) | **GET** /v3/accounts/me | Get account info.
+*DeveloperApi* | [**get_my_accounts**](docs/DeveloperApi.md#get_my_accounts) | **GET** /v3/users/me/accounts | Get accounts of the user.
 *DeveloperApi* | [**get_my_api_key**](docs/DeveloperApi.md#get_my_api_key) | **GET** /v3/api-keys/me | Get API key details.
 *DeveloperApi* | [**get_my_groups**](docs/DeveloperApi.md#get_my_groups) | **GET** /v3/users/me/groups | Get groups of the user.
 *DeveloperApi* | [**get_my_user**](docs/DeveloperApi.md#get_my_user) | **GET** /v3/users/me | Details of the current user.
@@ -175,6 +177,8 @@ Class | Method | HTTP request | Description
  - [AccountCreationResp](docs/AccountCreationResp.md)
  - [AccountInfo](docs/AccountInfo.md)
  - [AccountInfoList](docs/AccountInfoList.md)
+ - [AccountResponse](docs/AccountResponse.md)
+ - [AccountResponseList](docs/AccountResponseList.md)
  - [AccountUpdateReq](docs/AccountUpdateReq.md)
  - [AccountUpdateRootReq](docs/AccountUpdateRootReq.md)
  - [ActiveSession](docs/ActiveSession.md)
@@ -183,6 +187,8 @@ Class | Method | HTTP request | Description
  - [ApiKeyInfoResp](docs/ApiKeyInfoResp.md)
  - [ApiKeyInfoRespList](docs/ApiKeyInfoRespList.md)
  - [ApiKeyUpdateReq](docs/ApiKeyUpdateReq.md)
+ - [ChangeLoginSessionReq](docs/ChangeLoginSessionReq.md)
+ - [ChangeLoginSessionResp](docs/ChangeLoginSessionResp.md)
  - [ErrorResponse](docs/ErrorResponse.md)
  - [FeaturePolicy](docs/FeaturePolicy.md)
  - [Field](docs/Field.md)

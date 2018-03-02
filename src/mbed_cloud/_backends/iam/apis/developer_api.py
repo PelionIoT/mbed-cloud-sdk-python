@@ -231,6 +231,100 @@ class DeveloperApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
+    def change_my_session(self, body, **kwargs):
+        """
+        Change login session to another account.
+        An endpoint for changing the current user login session to another account.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.change_my_session(body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param ChangeLoginSessionReq body: ID of the account where the current user login session is changed to. (required)
+        :return: ChangeLoginSessionResp
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.change_my_session_with_http_info(body, **kwargs)
+        else:
+            (data) = self.change_my_session_with_http_info(body, **kwargs)
+            return data
+
+    def change_my_session_with_http_info(self, body, **kwargs):
+        """
+        Change login session to another account.
+        An endpoint for changing the current user login session to another account.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.change_my_session_with_http_info(body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param ChangeLoginSessionReq body: ID of the account where the current user login session is changed to. (required)
+        :return: ChangeLoginSessionResp
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['body']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method change_my_session" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'body' is set
+        if ('body' not in params) or (params['body'] is None):
+            raise ValueError("Missing the required parameter `body` when calling `change_my_session`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'body' in params:
+            body_params = params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/users/me/accounts', 'POST',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='ChangeLoginSessionResp',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
     def create_api_key(self, body, **kwargs):
         """
         Create a new API key.
@@ -649,8 +743,8 @@ class DeveloperApi(object):
         :param int device_execution_mode__neq: Device execution mode not equals filter
         :param str owner__eq: Owner name filter
         :param bool enrollment_mode__eq: Enrollment mode filter
-        :param str issuer__like: Issuer filter
-        :param str subject__like: Subject filter
+        :param str issuer__like: Issuer filter. Finds all matches where the filter value is a case insensitive substring of the result. Example: issuer__like=cn=iss matches CN=issuer.
+        :param str subject__like: Subject filter. Finds all matches where the filter value is a case insensitive substring of the result. Example: subject__like=cn=su matches CN=subject.
         :return: TrustedCertificateRespList
                  If the method is called asynchronously,
                  returns the request thread.
@@ -683,8 +777,8 @@ class DeveloperApi(object):
         :param int device_execution_mode__neq: Device execution mode not equals filter
         :param str owner__eq: Owner name filter
         :param bool enrollment_mode__eq: Enrollment mode filter
-        :param str issuer__like: Issuer filter
-        :param str subject__like: Subject filter
+        :param str issuer__like: Issuer filter. Finds all matches where the filter value is a case insensitive substring of the result. Example: issuer__like=cn=iss matches CN=issuer.
+        :param str subject__like: Subject filter. Finds all matches where the filter value is a case insensitive substring of the result. Example: subject__like=cn=su matches CN=subject.
         :return: TrustedCertificateRespList
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1457,6 +1551,92 @@ class DeveloperApi(object):
                                         post_params=form_params,
                                         files=local_var_files,
                                         response_type='AccountInfo',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
+    def get_my_accounts(self, **kwargs):
+        """
+        Get accounts of the user.
+        An endpoint for retrieving the accounts of the logged in user.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.get_my_accounts(async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :return: AccountResponseList
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.get_my_accounts_with_http_info(**kwargs)
+        else:
+            (data) = self.get_my_accounts_with_http_info(**kwargs)
+            return data
+
+    def get_my_accounts_with_http_info(self, **kwargs):
+        """
+        Get accounts of the user.
+        An endpoint for retrieving the accounts of the logged in user.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.get_my_accounts_with_http_info(async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :return: AccountResponseList
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = []
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_my_accounts" % key
+                )
+            params[key] = val
+        del params['kwargs']
+
+        collection_formats = {}
+
+        path_params = {}
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/users/me/accounts', 'GET',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='AccountResponseList',
                                         auth_settings=auth_settings,
                                         async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
