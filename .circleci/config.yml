@@ -36,6 +36,7 @@ aliases:
         key: *branch_cache_key
         paths:
           - ~/.cache/pip
+          - ~/.ssh/known_hosts
     - persist_to_workspace:
         root: .
         paths:
