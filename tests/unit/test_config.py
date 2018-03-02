@@ -39,7 +39,6 @@ class TestConfigObj(BaseCase):
         with self.assertRaises(urllib3.exceptions.MaxRetryError):
             api.list_connected_devices().next()
 
-
     def test_config_singleton(self):
         # check two different api configs don't clobber each other
         a = ConnectAPI(dict(api_key='apple'))

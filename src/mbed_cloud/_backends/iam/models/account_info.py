@@ -510,7 +510,7 @@ class AccountInfo(object):
         :param mfa_status: The mfa_status of this AccountInfo.
         :type: str
         """
-        allowed_values = ["enabled", "enforced", "optional"]
+        allowed_values = ["enforced", "optional"]
         if mfa_status not in allowed_values:
             raise ValueError(
                 "Invalid value for `mfa_status` ({0}), must be one of {1}"
@@ -704,7 +704,7 @@ class AccountInfo(object):
         """
         if object is None:
             raise ValueError("Invalid value for `object`, must not be `None`")
-        allowed_values = ["user", "api-key", "group", "account", "account-template", "trusted-cert", "list", "error", "policy", "identity-provider"]
+        allowed_values = ["account"]
         if object not in allowed_values:
             raise ValueError(
                 "Invalid value for `object` ({0}), must be one of {1}"
@@ -926,7 +926,7 @@ class AccountInfo(object):
     def expiration_warning_threshold(self):
         """
         Gets the expiration_warning_threshold of this AccountInfo.
-        Indicates how many days before the account expiration a notification email should be sent.
+        Indicates how many days (1-180) before account expiration a notification email should be sent.
 
         :return: The expiration_warning_threshold of this AccountInfo.
         :rtype: str
@@ -937,7 +937,7 @@ class AccountInfo(object):
     def expiration_warning_threshold(self, expiration_warning_threshold):
         """
         Sets the expiration_warning_threshold of this AccountInfo.
-        Indicates how many days before the account expiration a notification email should be sent.
+        Indicates how many days (1-180) before account expiration a notification email should be sent.
 
         :param expiration_warning_threshold: The expiration_warning_threshold of this AccountInfo.
         :type: str

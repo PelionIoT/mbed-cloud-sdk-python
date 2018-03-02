@@ -35,6 +35,118 @@ class AggregatorAccountAdminApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
+    def add_account_api_key_to_groups(self, account_id, api_key, body, **kwargs):
+        """
+        Add API key to a list of groups.
+        An endpoint for adding API key to groups.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.add_account_api_key_to_groups(account_id, api_key, body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param str api_key: The ID of the API key to be added to the group. (required)
+        :param list[str] body: A list of IDs of the groups to be updated. (required)
+        :return: UpdatedResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.add_account_api_key_to_groups_with_http_info(account_id, api_key, body, **kwargs)
+        else:
+            (data) = self.add_account_api_key_to_groups_with_http_info(account_id, api_key, body, **kwargs)
+            return data
+
+    def add_account_api_key_to_groups_with_http_info(self, account_id, api_key, body, **kwargs):
+        """
+        Add API key to a list of groups.
+        An endpoint for adding API key to groups.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.add_account_api_key_to_groups_with_http_info(account_id, api_key, body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param str api_key: The ID of the API key to be added to the group. (required)
+        :param list[str] body: A list of IDs of the groups to be updated. (required)
+        :return: UpdatedResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['account_id', 'api_key', 'body']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method add_account_api_key_to_groups" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'account_id' is set
+        if ('account_id' not in params) or (params['account_id'] is None):
+            raise ValueError("Missing the required parameter `account_id` when calling `add_account_api_key_to_groups`")
+        # verify the required parameter 'api_key' is set
+        if ('api_key' not in params) or (params['api_key'] is None):
+            raise ValueError("Missing the required parameter `api_key` when calling `add_account_api_key_to_groups`")
+        # verify the required parameter 'body' is set
+        if ('body' not in params) or (params['body'] is None):
+            raise ValueError("Missing the required parameter `body` when calling `add_account_api_key_to_groups`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'account_id' in params:
+            path_params['accountID'] = params['account_id']
+        if 'api_key' in params:
+            path_params['apiKey'] = params['api_key']
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'body' in params:
+            body_params = params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/accounts/{accountID}/api-keys/{apiKey}/groups', 'POST',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='UpdatedResponse',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
     def add_account_certificate(self, account_id, body, **kwargs):
         """
         Upload new trusted certificate.
@@ -364,6 +476,342 @@ class AggregatorAccountAdminApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
+    def attach_account_policy_to_apikeys(self, account_id, policy_id, body, **kwargs):
+        """
+        Attach a policy to API keys.
+        An endpoint for attaching policy to API keys.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.attach_account_policy_to_apikeys(account_id, policy_id, body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param str policy_id: The ID of the policy to be attached to API keys. (required)
+        :param list[str] body: List of API key IDs. (required)
+        :return: UpdatedResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.attach_account_policy_to_apikeys_with_http_info(account_id, policy_id, body, **kwargs)
+        else:
+            (data) = self.attach_account_policy_to_apikeys_with_http_info(account_id, policy_id, body, **kwargs)
+            return data
+
+    def attach_account_policy_to_apikeys_with_http_info(self, account_id, policy_id, body, **kwargs):
+        """
+        Attach a policy to API keys.
+        An endpoint for attaching policy to API keys.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.attach_account_policy_to_apikeys_with_http_info(account_id, policy_id, body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param str policy_id: The ID of the policy to be attached to API keys. (required)
+        :param list[str] body: List of API key IDs. (required)
+        :return: UpdatedResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['account_id', 'policy_id', 'body']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method attach_account_policy_to_apikeys" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'account_id' is set
+        if ('account_id' not in params) or (params['account_id'] is None):
+            raise ValueError("Missing the required parameter `account_id` when calling `attach_account_policy_to_apikeys`")
+        # verify the required parameter 'policy_id' is set
+        if ('policy_id' not in params) or (params['policy_id'] is None):
+            raise ValueError("Missing the required parameter `policy_id` when calling `attach_account_policy_to_apikeys`")
+        # verify the required parameter 'body' is set
+        if ('body' not in params) or (params['body'] is None):
+            raise ValueError("Missing the required parameter `body` when calling `attach_account_policy_to_apikeys`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'account_id' in params:
+            path_params['accountID'] = params['account_id']
+        if 'policy_id' in params:
+            path_params['policy-id'] = params['policy_id']
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'body' in params:
+            body_params = params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/accounts/{accountID}/policies/{policy-id}/api-keys', 'POST',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='UpdatedResponse',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
+    def attach_account_policy_to_group(self, account_id, policy_id, body, **kwargs):
+        """
+        Attach a policy to groups.
+        An endpoint for attaching policy to groups.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.attach_account_policy_to_group(account_id, policy_id, body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param str policy_id: The ID of the policy to be attached to groups. (required)
+        :param list[str] body: List of groups IDs. (required)
+        :return: UpdatedResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.attach_account_policy_to_group_with_http_info(account_id, policy_id, body, **kwargs)
+        else:
+            (data) = self.attach_account_policy_to_group_with_http_info(account_id, policy_id, body, **kwargs)
+            return data
+
+    def attach_account_policy_to_group_with_http_info(self, account_id, policy_id, body, **kwargs):
+        """
+        Attach a policy to groups.
+        An endpoint for attaching policy to groups.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.attach_account_policy_to_group_with_http_info(account_id, policy_id, body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param str policy_id: The ID of the policy to be attached to groups. (required)
+        :param list[str] body: List of groups IDs. (required)
+        :return: UpdatedResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['account_id', 'policy_id', 'body']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method attach_account_policy_to_group" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'account_id' is set
+        if ('account_id' not in params) or (params['account_id'] is None):
+            raise ValueError("Missing the required parameter `account_id` when calling `attach_account_policy_to_group`")
+        # verify the required parameter 'policy_id' is set
+        if ('policy_id' not in params) or (params['policy_id'] is None):
+            raise ValueError("Missing the required parameter `policy_id` when calling `attach_account_policy_to_group`")
+        # verify the required parameter 'body' is set
+        if ('body' not in params) or (params['body'] is None):
+            raise ValueError("Missing the required parameter `body` when calling `attach_account_policy_to_group`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'account_id' in params:
+            path_params['accountID'] = params['account_id']
+        if 'policy_id' in params:
+            path_params['policy-id'] = params['policy_id']
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'body' in params:
+            body_params = params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/accounts/{accountID}/policies/{policy-id}/groups', 'POST',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='UpdatedResponse',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
+    def attach_account_policy_to_users(self, account_id, policy_id, body, **kwargs):
+        """
+        Attach a policy to users.
+        An endpoint for attaching policy to users.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.attach_account_policy_to_users(account_id, policy_id, body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param str policy_id: The ID of the policy to be attached to users. (required)
+        :param list[str] body: List of user IDs. (required)
+        :return: UpdatedResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.attach_account_policy_to_users_with_http_info(account_id, policy_id, body, **kwargs)
+        else:
+            (data) = self.attach_account_policy_to_users_with_http_info(account_id, policy_id, body, **kwargs)
+            return data
+
+    def attach_account_policy_to_users_with_http_info(self, account_id, policy_id, body, **kwargs):
+        """
+        Attach a policy to users.
+        An endpoint for attaching policy to users.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.attach_account_policy_to_users_with_http_info(account_id, policy_id, body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param str policy_id: The ID of the policy to be attached to users. (required)
+        :param list[str] body: List of user IDs. (required)
+        :return: UpdatedResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['account_id', 'policy_id', 'body']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method attach_account_policy_to_users" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'account_id' is set
+        if ('account_id' not in params) or (params['account_id'] is None):
+            raise ValueError("Missing the required parameter `account_id` when calling `attach_account_policy_to_users`")
+        # verify the required parameter 'policy_id' is set
+        if ('policy_id' not in params) or (params['policy_id'] is None):
+            raise ValueError("Missing the required parameter `policy_id` when calling `attach_account_policy_to_users`")
+        # verify the required parameter 'body' is set
+        if ('body' not in params) or (params['body'] is None):
+            raise ValueError("Missing the required parameter `body` when calling `attach_account_policy_to_users`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'account_id' in params:
+            path_params['accountID'] = params['account_id']
+        if 'policy_id' in params:
+            path_params['policy-id'] = params['policy_id']
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'body' in params:
+            body_params = params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/accounts/{accountID}/policies/{policy-id}/users', 'POST',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='UpdatedResponse',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
     def check_account_api_key(self, account_id, api_key, **kwargs):
         """
         Check the API key.
@@ -665,6 +1113,111 @@ class AggregatorAccountAdminApi(object):
                                         post_params=form_params,
                                         files=local_var_files,
                                         response_type='ApiKeyInfoResp',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
+    def create_account_policy(self, account_id, body, **kwargs):
+        """
+        Create a policy.
+        An endpoint for creating a new policy.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.create_account_policy(account_id, body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param PolicyCreationReq body: The details of the policy to be created. (required)
+        :return: PolicyInfo
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.create_account_policy_with_http_info(account_id, body, **kwargs)
+        else:
+            (data) = self.create_account_policy_with_http_info(account_id, body, **kwargs)
+            return data
+
+    def create_account_policy_with_http_info(self, account_id, body, **kwargs):
+        """
+        Create a policy.
+        An endpoint for creating a new policy.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.create_account_policy_with_http_info(account_id, body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param PolicyCreationReq body: The details of the policy to be created. (required)
+        :return: PolicyInfo
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['account_id', 'body']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method create_account_policy" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'account_id' is set
+        if ('account_id' not in params) or (params['account_id'] is None):
+            raise ValueError("Missing the required parameter `account_id` when calling `create_account_policy`")
+        # verify the required parameter 'body' is set
+        if ('body' not in params) or (params['body'] is None):
+            raise ValueError("Missing the required parameter `body` when calling `create_account_policy`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'account_id' in params:
+            path_params['accountID'] = params['account_id']
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'body' in params:
+            body_params = params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/accounts/{accountID}/policies', 'POST',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='PolicyInfo',
                                         auth_settings=auth_settings,
                                         async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -983,6 +1536,107 @@ class AggregatorAccountAdminApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
+    def delete_account_policy(self, account_id, policy_id, **kwargs):
+        """
+        Delete policy.
+        An endpoint for deleting a policy.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.delete_account_policy(account_id, policy_id, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param str policy_id: The ID of the policy to be deleted. (required)
+        :return: None
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.delete_account_policy_with_http_info(account_id, policy_id, **kwargs)
+        else:
+            (data) = self.delete_account_policy_with_http_info(account_id, policy_id, **kwargs)
+            return data
+
+    def delete_account_policy_with_http_info(self, account_id, policy_id, **kwargs):
+        """
+        Delete policy.
+        An endpoint for deleting a policy.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.delete_account_policy_with_http_info(account_id, policy_id, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param str policy_id: The ID of the policy to be deleted. (required)
+        :return: None
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['account_id', 'policy_id']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method delete_account_policy" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'account_id' is set
+        if ('account_id' not in params) or (params['account_id'] is None):
+            raise ValueError("Missing the required parameter `account_id` when calling `delete_account_policy`")
+        # verify the required parameter 'policy_id' is set
+        if ('policy_id' not in params) or (params['policy_id'] is None):
+            raise ValueError("Missing the required parameter `policy_id` when calling `delete_account_policy`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'account_id' in params:
+            path_params['accountID'] = params['account_id']
+        if 'policy_id' in params:
+            path_params['policy-id'] = params['policy_id']
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/accounts/{accountID}/policies/{policy-id}', 'DELETE',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type=None,
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
     def delete_account_user(self, account_id, user_id, **kwargs):
         """
         Delete a user.
@@ -1077,6 +1731,342 @@ class AggregatorAccountAdminApi(object):
                                         post_params=form_params,
                                         files=local_var_files,
                                         response_type=None,
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
+    def detach_account_policy_from_apikeys(self, account_id, policy_id, body, **kwargs):
+        """
+        Detach a policy from API keys.
+        An endpoint for detaching policy from API keys.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.detach_account_policy_from_apikeys(account_id, policy_id, body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param str policy_id: The ID of the policy to be detached from API keys. (required)
+        :param list[str] body: List of API key IDs. (required)
+        :return: UpdatedResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.detach_account_policy_from_apikeys_with_http_info(account_id, policy_id, body, **kwargs)
+        else:
+            (data) = self.detach_account_policy_from_apikeys_with_http_info(account_id, policy_id, body, **kwargs)
+            return data
+
+    def detach_account_policy_from_apikeys_with_http_info(self, account_id, policy_id, body, **kwargs):
+        """
+        Detach a policy from API keys.
+        An endpoint for detaching policy from API keys.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.detach_account_policy_from_apikeys_with_http_info(account_id, policy_id, body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param str policy_id: The ID of the policy to be detached from API keys. (required)
+        :param list[str] body: List of API key IDs. (required)
+        :return: UpdatedResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['account_id', 'policy_id', 'body']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method detach_account_policy_from_apikeys" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'account_id' is set
+        if ('account_id' not in params) or (params['account_id'] is None):
+            raise ValueError("Missing the required parameter `account_id` when calling `detach_account_policy_from_apikeys`")
+        # verify the required parameter 'policy_id' is set
+        if ('policy_id' not in params) or (params['policy_id'] is None):
+            raise ValueError("Missing the required parameter `policy_id` when calling `detach_account_policy_from_apikeys`")
+        # verify the required parameter 'body' is set
+        if ('body' not in params) or (params['body'] is None):
+            raise ValueError("Missing the required parameter `body` when calling `detach_account_policy_from_apikeys`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'account_id' in params:
+            path_params['accountID'] = params['account_id']
+        if 'policy_id' in params:
+            path_params['policy-id'] = params['policy_id']
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'body' in params:
+            body_params = params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/accounts/{accountID}/policies/{policy-id}/api-keys', 'DELETE',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='UpdatedResponse',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
+    def detach_account_policy_from_users(self, account_id, policy_id, body, **kwargs):
+        """
+        Detach a policy from users.
+        An endpoint for detaching policy from users.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.detach_account_policy_from_users(account_id, policy_id, body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param str policy_id: The ID of the policy to be detached from users. (required)
+        :param list[str] body: List of user IDs. (required)
+        :return: UpdatedResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.detach_account_policy_from_users_with_http_info(account_id, policy_id, body, **kwargs)
+        else:
+            (data) = self.detach_account_policy_from_users_with_http_info(account_id, policy_id, body, **kwargs)
+            return data
+
+    def detach_account_policy_from_users_with_http_info(self, account_id, policy_id, body, **kwargs):
+        """
+        Detach a policy from users.
+        An endpoint for detaching policy from users.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.detach_account_policy_from_users_with_http_info(account_id, policy_id, body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param str policy_id: The ID of the policy to be detached from users. (required)
+        :param list[str] body: List of user IDs. (required)
+        :return: UpdatedResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['account_id', 'policy_id', 'body']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method detach_account_policy_from_users" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'account_id' is set
+        if ('account_id' not in params) or (params['account_id'] is None):
+            raise ValueError("Missing the required parameter `account_id` when calling `detach_account_policy_from_users`")
+        # verify the required parameter 'policy_id' is set
+        if ('policy_id' not in params) or (params['policy_id'] is None):
+            raise ValueError("Missing the required parameter `policy_id` when calling `detach_account_policy_from_users`")
+        # verify the required parameter 'body' is set
+        if ('body' not in params) or (params['body'] is None):
+            raise ValueError("Missing the required parameter `body` when calling `detach_account_policy_from_users`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'account_id' in params:
+            path_params['accountID'] = params['account_id']
+        if 'policy_id' in params:
+            path_params['policy-id'] = params['policy_id']
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'body' in params:
+            body_params = params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/accounts/{accountID}/policies/{policy-id}/users', 'DELETE',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='UpdatedResponse',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
+    def detach_account_policy_to_group(self, account_id, policy_id, body, **kwargs):
+        """
+        Detach a policy to groups.
+        An endpoint for detaching policy to groups.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.detach_account_policy_to_group(account_id, policy_id, body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param str policy_id: The ID of the policy to be detached from groups. (required)
+        :param list[str] body: List of groups IDs. (required)
+        :return: UpdatedResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.detach_account_policy_to_group_with_http_info(account_id, policy_id, body, **kwargs)
+        else:
+            (data) = self.detach_account_policy_to_group_with_http_info(account_id, policy_id, body, **kwargs)
+            return data
+
+    def detach_account_policy_to_group_with_http_info(self, account_id, policy_id, body, **kwargs):
+        """
+        Detach a policy to groups.
+        An endpoint for detaching policy to groups.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.detach_account_policy_to_group_with_http_info(account_id, policy_id, body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param str policy_id: The ID of the policy to be detached from groups. (required)
+        :param list[str] body: List of groups IDs. (required)
+        :return: UpdatedResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['account_id', 'policy_id', 'body']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method detach_account_policy_to_group" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'account_id' is set
+        if ('account_id' not in params) or (params['account_id'] is None):
+            raise ValueError("Missing the required parameter `account_id` when calling `detach_account_policy_to_group`")
+        # verify the required parameter 'policy_id' is set
+        if ('policy_id' not in params) or (params['policy_id'] is None):
+            raise ValueError("Missing the required parameter `policy_id` when calling `detach_account_policy_to_group`")
+        # verify the required parameter 'body' is set
+        if ('body' not in params) or (params['body'] is None):
+            raise ValueError("Missing the required parameter `body` when calling `detach_account_policy_to_group`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'account_id' in params:
+            path_params['accountID'] = params['account_id']
+        if 'policy_id' in params:
+            path_params['policy-id'] = params['policy_id']
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'body' in params:
+            body_params = params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/accounts/{accountID}/policies/{policy-id}/groups', 'DELETE',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='UpdatedResponse',
                                         auth_settings=auth_settings,
                                         async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -1482,6 +2472,458 @@ class AggregatorAccountAdminApi(object):
                                         post_params=form_params,
                                         files=local_var_files,
                                         response_type='AccountInfo',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
+    def get_account_policy(self, account_id, policy_id, **kwargs):
+        """
+        Get policy by ID.
+        An endpoint for retrieving a policy by ID.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.get_account_policy(account_id, policy_id, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param str policy_id: The ID the policy to be retrieved. (required)
+        :return: PolicyInfo
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.get_account_policy_with_http_info(account_id, policy_id, **kwargs)
+        else:
+            (data) = self.get_account_policy_with_http_info(account_id, policy_id, **kwargs)
+            return data
+
+    def get_account_policy_with_http_info(self, account_id, policy_id, **kwargs):
+        """
+        Get policy by ID.
+        An endpoint for retrieving a policy by ID.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.get_account_policy_with_http_info(account_id, policy_id, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param str policy_id: The ID the policy to be retrieved. (required)
+        :return: PolicyInfo
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['account_id', 'policy_id']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_account_policy" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'account_id' is set
+        if ('account_id' not in params) or (params['account_id'] is None):
+            raise ValueError("Missing the required parameter `account_id` when calling `get_account_policy`")
+        # verify the required parameter 'policy_id' is set
+        if ('policy_id' not in params) or (params['policy_id'] is None):
+            raise ValueError("Missing the required parameter `policy_id` when calling `get_account_policy`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'account_id' in params:
+            path_params['accountID'] = params['account_id']
+        if 'policy_id' in params:
+            path_params['policy-id'] = params['policy_id']
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/accounts/{accountID}/policies/{policy-id}', 'GET',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='PolicyInfo',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
+    def get_account_policy_apikeys(self, account_id, policy_id, **kwargs):
+        """
+        Fetch details of policy's API keys.
+        An endpoint for fetching detailed information about API keys this policy is attached to.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.get_account_policy_apikeys(account_id, policy_id, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param str policy_id: The ID the policy whose API keys to be retrieved. (required)
+        :param int limit: The number of results to return (2-1000), default is 50.
+        :param str after: The entity ID to fetch after the given one.
+        :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
+        :param str include: Comma separated additional data to return. Currently supported: total_count
+        :return: ApiKeyInfoRespList
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.get_account_policy_apikeys_with_http_info(account_id, policy_id, **kwargs)
+        else:
+            (data) = self.get_account_policy_apikeys_with_http_info(account_id, policy_id, **kwargs)
+            return data
+
+    def get_account_policy_apikeys_with_http_info(self, account_id, policy_id, **kwargs):
+        """
+        Fetch details of policy's API keys.
+        An endpoint for fetching detailed information about API keys this policy is attached to.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.get_account_policy_apikeys_with_http_info(account_id, policy_id, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param str policy_id: The ID the policy whose API keys to be retrieved. (required)
+        :param int limit: The number of results to return (2-1000), default is 50.
+        :param str after: The entity ID to fetch after the given one.
+        :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
+        :param str include: Comma separated additional data to return. Currently supported: total_count
+        :return: ApiKeyInfoRespList
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['account_id', 'policy_id', 'limit', 'after', 'order', 'include']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_account_policy_apikeys" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'account_id' is set
+        if ('account_id' not in params) or (params['account_id'] is None):
+            raise ValueError("Missing the required parameter `account_id` when calling `get_account_policy_apikeys`")
+        # verify the required parameter 'policy_id' is set
+        if ('policy_id' not in params) or (params['policy_id'] is None):
+            raise ValueError("Missing the required parameter `policy_id` when calling `get_account_policy_apikeys`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'account_id' in params:
+            path_params['accountID'] = params['account_id']
+        if 'policy_id' in params:
+            path_params['policy-id'] = params['policy_id']
+
+        query_params = []
+        if 'limit' in params:
+            query_params.append(('limit', params['limit']))
+        if 'after' in params:
+            query_params.append(('after', params['after']))
+        if 'order' in params:
+            query_params.append(('order', params['order']))
+        if 'include' in params:
+            query_params.append(('include', params['include']))
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/accounts/{accountID}/policies/{policy-id}/api-keys', 'GET',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='ApiKeyInfoRespList',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
+    def get_account_policy_groups(self, account_id, policy_id, **kwargs):
+        """
+        Fetch details of policy's groups.
+        An endpoint for fetching detailed information about groups this policy is attached to.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.get_account_policy_groups(account_id, policy_id, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param str policy_id: The ID the policy whose API keys to be retrieved. (required)
+        :param int limit: The number of results to return (2-1000), default is 50.
+        :param str after: The entity ID to fetch after the given one.
+        :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
+        :param str include: Comma separated additional data to return. Currently supported: total_count
+        :return: GroupSummaryList
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.get_account_policy_groups_with_http_info(account_id, policy_id, **kwargs)
+        else:
+            (data) = self.get_account_policy_groups_with_http_info(account_id, policy_id, **kwargs)
+            return data
+
+    def get_account_policy_groups_with_http_info(self, account_id, policy_id, **kwargs):
+        """
+        Fetch details of policy's groups.
+        An endpoint for fetching detailed information about groups this policy is attached to.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.get_account_policy_groups_with_http_info(account_id, policy_id, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param str policy_id: The ID the policy whose API keys to be retrieved. (required)
+        :param int limit: The number of results to return (2-1000), default is 50.
+        :param str after: The entity ID to fetch after the given one.
+        :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
+        :param str include: Comma separated additional data to return. Currently supported: total_count
+        :return: GroupSummaryList
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['account_id', 'policy_id', 'limit', 'after', 'order', 'include']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_account_policy_groups" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'account_id' is set
+        if ('account_id' not in params) or (params['account_id'] is None):
+            raise ValueError("Missing the required parameter `account_id` when calling `get_account_policy_groups`")
+        # verify the required parameter 'policy_id' is set
+        if ('policy_id' not in params) or (params['policy_id'] is None):
+            raise ValueError("Missing the required parameter `policy_id` when calling `get_account_policy_groups`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'account_id' in params:
+            path_params['accountID'] = params['account_id']
+        if 'policy_id' in params:
+            path_params['policy-id'] = params['policy_id']
+
+        query_params = []
+        if 'limit' in params:
+            query_params.append(('limit', params['limit']))
+        if 'after' in params:
+            query_params.append(('after', params['after']))
+        if 'order' in params:
+            query_params.append(('order', params['order']))
+        if 'include' in params:
+            query_params.append(('include', params['include']))
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/accounts/{accountID}/policies/{policy-id}/groups', 'GET',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='GroupSummaryList',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
+    def get_account_policy_users(self, account_id, policy_id, **kwargs):
+        """
+        Fetch details of policy's users.
+        An endpoint for fetching detailed information about users this policy is attached to.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.get_account_policy_users(account_id, policy_id, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param str policy_id: The ID the policy whose users to be retrieved. (required)
+        :param int limit: The number of results to return (2-1000), default is 50.
+        :param str after: The entity ID to fetch after the given one.
+        :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
+        :param str include: Comma separated additional data to return. Currently supported: total_count
+        :return: UserInfoRespList
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.get_account_policy_users_with_http_info(account_id, policy_id, **kwargs)
+        else:
+            (data) = self.get_account_policy_users_with_http_info(account_id, policy_id, **kwargs)
+            return data
+
+    def get_account_policy_users_with_http_info(self, account_id, policy_id, **kwargs):
+        """
+        Fetch details of policy's users.
+        An endpoint for fetching detailed information about users this policy is attached to.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.get_account_policy_users_with_http_info(account_id, policy_id, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param str policy_id: The ID the policy whose users to be retrieved. (required)
+        :param int limit: The number of results to return (2-1000), default is 50.
+        :param str after: The entity ID to fetch after the given one.
+        :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
+        :param str include: Comma separated additional data to return. Currently supported: total_count
+        :return: UserInfoRespList
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['account_id', 'policy_id', 'limit', 'after', 'order', 'include']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_account_policy_users" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'account_id' is set
+        if ('account_id' not in params) or (params['account_id'] is None):
+            raise ValueError("Missing the required parameter `account_id` when calling `get_account_policy_users`")
+        # verify the required parameter 'policy_id' is set
+        if ('policy_id' not in params) or (params['policy_id'] is None):
+            raise ValueError("Missing the required parameter `policy_id` when calling `get_account_policy_users`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'account_id' in params:
+            path_params['accountID'] = params['account_id']
+        if 'policy_id' in params:
+            path_params['policy-id'] = params['policy_id']
+
+        query_params = []
+        if 'limit' in params:
+            query_params.append(('limit', params['limit']))
+        if 'after' in params:
+            query_params.append(('after', params['after']))
+        if 'order' in params:
+            query_params.append(('order', params['order']))
+        if 'include' in params:
+            query_params.append(('include', params['include']))
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/accounts/{accountID}/policies/{policy-id}/users', 'GET',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='UserInfoRespList',
                                         auth_settings=auth_settings,
                                         async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -1976,6 +3418,140 @@ class AggregatorAccountAdminApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
+    def get_all_account_policies(self, account_id, **kwargs):
+        """
+        Get all policies.
+        An endpoint for retrieving all policies in the account.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.get_all_account_policies(account_id, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param int limit: The number of results to return (2-1000), default is 50.
+        :param str after: The entity ID to fetch after the given one.
+        :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
+        :param str name__eq: Filter result by policy name.
+        :param str status__eq: Filter for status, ACTIVE or INACTIVE.
+        :param str tag__eq: Filter results for tag.
+        :param str user_id__eq: Retrieve policies attached to a certain user ID.
+        :param str apikey_id__eq: Retrieve policies attached to a certain API key ID.
+        :param str group_id__eq: Retrieve policies attached to a certain group ID.
+        :param str unbounded: Retrieve policies not attached to any subject in the account.
+        :return: PolicyInfoList
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.get_all_account_policies_with_http_info(account_id, **kwargs)
+        else:
+            (data) = self.get_all_account_policies_with_http_info(account_id, **kwargs)
+            return data
+
+    def get_all_account_policies_with_http_info(self, account_id, **kwargs):
+        """
+        Get all policies.
+        An endpoint for retrieving all policies in the account.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.get_all_account_policies_with_http_info(account_id, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param int limit: The number of results to return (2-1000), default is 50.
+        :param str after: The entity ID to fetch after the given one.
+        :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
+        :param str name__eq: Filter result by policy name.
+        :param str status__eq: Filter for status, ACTIVE or INACTIVE.
+        :param str tag__eq: Filter results for tag.
+        :param str user_id__eq: Retrieve policies attached to a certain user ID.
+        :param str apikey_id__eq: Retrieve policies attached to a certain API key ID.
+        :param str group_id__eq: Retrieve policies attached to a certain group ID.
+        :param str unbounded: Retrieve policies not attached to any subject in the account.
+        :return: PolicyInfoList
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['account_id', 'limit', 'after', 'order', 'name__eq', 'status__eq', 'tag__eq', 'user_id__eq', 'apikey_id__eq', 'group_id__eq', 'unbounded']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_all_account_policies" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'account_id' is set
+        if ('account_id' not in params) or (params['account_id'] is None):
+            raise ValueError("Missing the required parameter `account_id` when calling `get_all_account_policies`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'account_id' in params:
+            path_params['accountID'] = params['account_id']
+
+        query_params = []
+        if 'limit' in params:
+            query_params.append(('limit', params['limit']))
+        if 'after' in params:
+            query_params.append(('after', params['after']))
+        if 'order' in params:
+            query_params.append(('order', params['order']))
+        if 'name__eq' in params:
+            query_params.append(('name__eq', params['name__eq']))
+        if 'status__eq' in params:
+            query_params.append(('status__eq', params['status__eq']))
+        if 'tag__eq' in params:
+            query_params.append(('tag__eq', params['tag__eq']))
+        if 'user_id__eq' in params:
+            query_params.append(('user_id__eq', params['user_id__eq']))
+        if 'apikey_id__eq' in params:
+            query_params.append(('apikey_id__eq', params['apikey_id__eq']))
+        if 'group_id__eq' in params:
+            query_params.append(('group_id__eq', params['group_id__eq']))
+        if 'unbounded' in params:
+            query_params.append(('unbounded', params['unbounded']))
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/accounts/{accountID}/policies', 'GET',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='PolicyInfoList',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
     def get_all_account_users(self, account_id, **kwargs):
         """
         Get all user details.
@@ -2342,6 +3918,123 @@ class AggregatorAccountAdminApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
+    def get_groups_of_account_apikey(self, account_id, api_key, **kwargs):
+        """
+        Get groups of the API key.
+        An endpoint for retrieving groups of the API key.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.get_groups_of_account_apikey(account_id, api_key, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param str api_key: The ID of the API key whose details are retrieved. (required)
+        :param int limit: The number of results to return (2-1000), default is 50.
+        :param str after: The entity ID to fetch after the given one.
+        :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
+        :param str include: Comma separated additional data to return. Currently supported: total_count
+        :return: GroupSummaryList
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.get_groups_of_account_apikey_with_http_info(account_id, api_key, **kwargs)
+        else:
+            (data) = self.get_groups_of_account_apikey_with_http_info(account_id, api_key, **kwargs)
+            return data
+
+    def get_groups_of_account_apikey_with_http_info(self, account_id, api_key, **kwargs):
+        """
+        Get groups of the API key.
+        An endpoint for retrieving groups of the API key.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.get_groups_of_account_apikey_with_http_info(account_id, api_key, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param str api_key: The ID of the API key whose details are retrieved. (required)
+        :param int limit: The number of results to return (2-1000), default is 50.
+        :param str after: The entity ID to fetch after the given one.
+        :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
+        :param str include: Comma separated additional data to return. Currently supported: total_count
+        :return: GroupSummaryList
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['account_id', 'api_key', 'limit', 'after', 'order', 'include']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_groups_of_account_apikey" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'account_id' is set
+        if ('account_id' not in params) or (params['account_id'] is None):
+            raise ValueError("Missing the required parameter `account_id` when calling `get_groups_of_account_apikey`")
+        # verify the required parameter 'api_key' is set
+        if ('api_key' not in params) or (params['api_key'] is None):
+            raise ValueError("Missing the required parameter `api_key` when calling `get_groups_of_account_apikey`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'account_id' in params:
+            path_params['accountID'] = params['account_id']
+        if 'api_key' in params:
+            path_params['apiKey'] = params['api_key']
+
+        query_params = []
+        if 'limit' in params:
+            query_params.append(('limit', params['limit']))
+        if 'after' in params:
+            query_params.append(('after', params['after']))
+        if 'order' in params:
+            query_params.append(('order', params['order']))
+        if 'include' in params:
+            query_params.append(('include', params['include']))
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/accounts/{accountID}/api-keys/{apiKey}/groups', 'GET',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='GroupSummaryList',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
     def get_groups_of_account_user(self, account_id, user_id, **kwargs):
         """
         Get groups of the user.
@@ -2569,6 +4262,118 @@ class AggregatorAccountAdminApi(object):
                                         post_params=form_params,
                                         files=local_var_files,
                                         response_type='UserInfoRespList',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
+    def remove_account_api_key_from_groups(self, account_id, api_key, body, **kwargs):
+        """
+        Remove API key from groups.
+        An endpoint for removing API key from groups.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.remove_account_api_key_from_groups(account_id, api_key, body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param str api_key: The ID of the API key to be removed from the group. (required)
+        :param list[str] body: A list of IDs of the groups to be updated. (required)
+        :return: UpdatedResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.remove_account_api_key_from_groups_with_http_info(account_id, api_key, body, **kwargs)
+        else:
+            (data) = self.remove_account_api_key_from_groups_with_http_info(account_id, api_key, body, **kwargs)
+            return data
+
+    def remove_account_api_key_from_groups_with_http_info(self, account_id, api_key, body, **kwargs):
+        """
+        Remove API key from groups.
+        An endpoint for removing API key from groups.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.remove_account_api_key_from_groups_with_http_info(account_id, api_key, body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param str api_key: The ID of the API key to be removed from the group. (required)
+        :param list[str] body: A list of IDs of the groups to be updated. (required)
+        :return: UpdatedResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['account_id', 'api_key', 'body']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method remove_account_api_key_from_groups" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'account_id' is set
+        if ('account_id' not in params) or (params['account_id'] is None):
+            raise ValueError("Missing the required parameter `account_id` when calling `remove_account_api_key_from_groups`")
+        # verify the required parameter 'api_key' is set
+        if ('api_key' not in params) or (params['api_key'] is None):
+            raise ValueError("Missing the required parameter `api_key` when calling `remove_account_api_key_from_groups`")
+        # verify the required parameter 'body' is set
+        if ('body' not in params) or (params['body'] is None):
+            raise ValueError("Missing the required parameter `body` when calling `remove_account_api_key_from_groups`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'account_id' in params:
+            path_params['accountID'] = params['account_id']
+        if 'api_key' in params:
+            path_params['apiKey'] = params['api_key']
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'body' in params:
+            body_params = params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/accounts/{accountID}/api-keys/{apiKey}/groups', 'DELETE',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='UpdatedResponse',
                                         auth_settings=auth_settings,
                                         async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -3325,6 +5130,118 @@ class AggregatorAccountAdminApi(object):
                                         post_params=form_params,
                                         files=local_var_files,
                                         response_type='TrustedCertificateInternalResp',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
+    def update_account_policy(self, account_id, policy_id, body, **kwargs):
+        """
+        Update a policy.
+        An endpoint for updating a policy.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.update_account_policy(account_id, policy_id, body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param str policy_id: The ID the policy to be retrieved. (required)
+        :param PolicyUpdateReq body: The details of the policy to be updated. (required)
+        :return: PolicyInfo
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.update_account_policy_with_http_info(account_id, policy_id, body, **kwargs)
+        else:
+            (data) = self.update_account_policy_with_http_info(account_id, policy_id, body, **kwargs)
+            return data
+
+    def update_account_policy_with_http_info(self, account_id, policy_id, body, **kwargs):
+        """
+        Update a policy.
+        An endpoint for updating a policy.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.update_account_policy_with_http_info(account_id, policy_id, body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param str policy_id: The ID the policy to be retrieved. (required)
+        :param PolicyUpdateReq body: The details of the policy to be updated. (required)
+        :return: PolicyInfo
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['account_id', 'policy_id', 'body']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method update_account_policy" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'account_id' is set
+        if ('account_id' not in params) or (params['account_id'] is None):
+            raise ValueError("Missing the required parameter `account_id` when calling `update_account_policy`")
+        # verify the required parameter 'policy_id' is set
+        if ('policy_id' not in params) or (params['policy_id'] is None):
+            raise ValueError("Missing the required parameter `policy_id` when calling `update_account_policy`")
+        # verify the required parameter 'body' is set
+        if ('body' not in params) or (params['body'] is None):
+            raise ValueError("Missing the required parameter `body` when calling `update_account_policy`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'account_id' in params:
+            path_params['accountID'] = params['account_id']
+        if 'policy_id' in params:
+            path_params['policy-id'] = params['policy_id']
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'body' in params:
+            body_params = params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/accounts/{accountID}/policies/{policy-id}', 'PUT',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='PolicyInfo',
                                         auth_settings=auth_settings,
                                         async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),

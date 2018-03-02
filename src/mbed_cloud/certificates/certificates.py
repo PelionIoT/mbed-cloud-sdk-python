@@ -238,7 +238,7 @@ class Certificate(BaseObject):
             "header_file": "security_file_content",
             "developer_certificate": "developer_certificate",
             "developer_private_key": "developer_private_key",
-            "enrolment_mode": "enrollment_mode",
+            "enrollment_mode": "enrollment_mode",
             "signature": "signature",
         }
 
@@ -269,13 +269,13 @@ class Certificate(BaseObject):
         return self._signature
 
     @property
-    def enrolment_mode(self):
-        """The enrolment_mode of the certificate.
+    def enrollment_mode(self):
+        """The enrollment_mode of the certificate.
 
-        :return: The enrolment_mode of this certificate.
+        :return: The enrollment_mode of this certificate.
         :rtype: str
         """
-        return self._enrolment_mode or False  # FIXME: is this the correct default?
+        return self._enrollment_mode or False  # FIXME: is this the correct default?
 
     @property
     def description(self):

@@ -4,7 +4,6 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**add_account_api_key_to_groups**](AccountAdminApi.md#add_account_api_key_to_groups) | **POST** /v3/accounts/{accountID}/api-keys/{apiKey}/groups | Add API key to a list of groups.
 [**add_api_key_to_groups**](AccountAdminApi.md#add_api_key_to_groups) | **POST** /v3/api-keys/{apiKey}/groups | Add API key to a list of groups.
 [**add_certificate**](AccountAdminApi.md#add_certificate) | **POST** /v3/trusted-certificates | Upload a new trusted certificate.
 [**add_subjects_to_group**](AccountAdminApi.md#add_subjects_to_group) | **POST** /v3/policy-groups/{groupID} | Add members to a group.
@@ -14,76 +13,17 @@ Method | HTTP request | Description
 [**delete_group**](AccountAdminApi.md#delete_group) | **DELETE** /v3/policy-groups/{groupID} | Delete a group.
 [**delete_user**](AccountAdminApi.md#delete_user) | **DELETE** /v3/users/{user-id} | Delete a user.
 [**get_all_users**](AccountAdminApi.md#get_all_users) | **GET** /v3/users | Get the details of all users.
-[**get_groups_of_account_apikey**](AccountAdminApi.md#get_groups_of_account_apikey) | **GET** /v3/accounts/{accountID}/api-keys/{apiKey}/groups | Get groups of the API key.
 [**get_groups_of_apikey**](AccountAdminApi.md#get_groups_of_apikey) | **GET** /v3/api-keys/{apiKey}/groups | Get groups of the API key.
 [**get_groups_of_user**](AccountAdminApi.md#get_groups_of_user) | **GET** /v3/users/{user-id}/groups | Get groups of the user.
 [**get_user**](AccountAdminApi.md#get_user) | **GET** /v3/users/{user-id} | Details of a user.
 [**get_users_of_group**](AccountAdminApi.md#get_users_of_group) | **GET** /v3/policy-groups/{groupID}/users | Get users of a group.
-[**remove_account_api_key_from_groups**](AccountAdminApi.md#remove_account_api_key_from_groups) | **DELETE** /v3/accounts/{accountID}/api-keys/{apiKey}/groups | Remove API key from groups.
 [**remove_api_key_from_groups**](AccountAdminApi.md#remove_api_key_from_groups) | **DELETE** /v3/api-keys/{apiKey}/groups | Remove API key from groups.
 [**remove_user_from_groups**](AccountAdminApi.md#remove_user_from_groups) | **DELETE** /v3/users/{user-id}/groups | Remove user from groups.
 [**remove_users_from_group**](AccountAdminApi.md#remove_users_from_group) | **DELETE** /v3/policy-groups/{groupID}/users | Remove users from a group.
+[**update_group_name**](AccountAdminApi.md#update_group_name) | **PUT** /v3/policy-groups/{groupID} | Update the group name.
 [**update_my_account**](AccountAdminApi.md#update_my_account) | **PUT** /v3/accounts/me | Updates attributes of the account.
 [**update_user**](AccountAdminApi.md#update_user) | **PUT** /v3/users/{user-id} | Update user details.
 
-
-# **add_account_api_key_to_groups**
-> UpdatedResponse add_account_api_key_to_groups(account_id, api_key, body)
-
-Add API key to a list of groups.
-
-An endpoint for adding API key to groups.
-
-### Example 
-```python
-from __future__ import print_function
-import time
-import iam
-from iam.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: Bearer
-configuration = iam.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = iam.AccountAdminApi(iam.ApiClient(configuration))
-account_id = 'account_id_example' # str | Account ID.
-api_key = 'api_key_example' # str | The ID of the API key to be added to the group.
-body = [iam.list[str]()] # list[str] | A list of IDs of the groups to be updated.
-
-try: 
-    # Add API key to a list of groups.
-    api_response = api_instance.add_account_api_key_to_groups(account_id, api_key, body)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling AccountAdminApi->add_account_api_key_to_groups: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **account_id** | **str**| Account ID. | 
- **api_key** | **str**| The ID of the API key to be added to the group. | 
- **body** | **list[str]**| A list of IDs of the groups to be updated. | 
-
-### Return type
-
-[**UpdatedResponse**](UpdatedResponse.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **add_api_key_to_groups**
 > UpdatedResponse add_api_key_to_groups(api_key, body)
@@ -587,70 +527,6 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get_groups_of_account_apikey**
-> GroupSummaryList get_groups_of_account_apikey(account_id, api_key, limit=limit, after=after, order=order, include=include)
-
-Get groups of the API key.
-
-An endpoint for retrieving groups of the API key.
-
-### Example 
-```python
-from __future__ import print_function
-import time
-import iam
-from iam.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: Bearer
-configuration = iam.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = iam.AccountAdminApi(iam.ApiClient(configuration))
-account_id = 'account_id_example' # str | Account ID.
-api_key = 'api_key_example' # str | The ID of the API key whose details are retrieved.
-limit = 50 # int | The number of results to return (2-1000), default is 50. (optional) (default to 50)
-after = 'after_example' # str | The entity ID to fetch after the given one. (optional)
-order = 'ASC' # str | The order of the records based on creation time, ASC or DESC; by default ASC (optional) (default to ASC)
-include = 'include_example' # str | Comma separated additional data to return. Currently supported: total_count (optional)
-
-try: 
-    # Get groups of the API key.
-    api_response = api_instance.get_groups_of_account_apikey(account_id, api_key, limit=limit, after=after, order=order, include=include)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling AccountAdminApi->get_groups_of_account_apikey: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **account_id** | **str**| Account ID. | 
- **api_key** | **str**| The ID of the API key whose details are retrieved. | 
- **limit** | **int**| The number of results to return (2-1000), default is 50. | [optional] [default to 50]
- **after** | **str**| The entity ID to fetch after the given one. | [optional] 
- **order** | **str**| The order of the records based on creation time, ASC or DESC; by default ASC | [optional] [default to ASC]
- **include** | **str**| Comma separated additional data to return. Currently supported: total_count | [optional] 
-
-### Return type
-
-[**GroupSummaryList**](GroupSummaryList.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 # **get_groups_of_apikey**
 > GroupSummaryList get_groups_of_apikey(api_key, limit=limit, after=after, order=order, include=include)
 
@@ -893,64 +769,6 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **remove_account_api_key_from_groups**
-> UpdatedResponse remove_account_api_key_from_groups(account_id, api_key, body)
-
-Remove API key from groups.
-
-An endpoint for removing API key from groups.
-
-### Example 
-```python
-from __future__ import print_function
-import time
-import iam
-from iam.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: Bearer
-configuration = iam.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = iam.AccountAdminApi(iam.ApiClient(configuration))
-account_id = 'account_id_example' # str | Account ID.
-api_key = 'api_key_example' # str | The ID of the API key to be removed from the group.
-body = [iam.list[str]()] # list[str] | A list of IDs of the groups to be updated.
-
-try: 
-    # Remove API key from groups.
-    api_response = api_instance.remove_account_api_key_from_groups(account_id, api_key, body)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling AccountAdminApi->remove_account_api_key_from_groups: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **account_id** | **str**| Account ID. | 
- **api_key** | **str**| The ID of the API key to be removed from the group. | 
- **body** | **list[str]**| A list of IDs of the groups to be updated. | 
-
-### Return type
-
-[**UpdatedResponse**](UpdatedResponse.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 # **remove_api_key_from_groups**
 > UpdatedResponse remove_api_key_from_groups(api_key, body)
 
@@ -1103,6 +921,62 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **group_id** | **str**| The ID of the group whose users are removed. | 
  **body** | [**SubjectList**](SubjectList.md)| A list of users to be removed from the group. | 
+
+### Return type
+
+[**UpdatedResponse**](UpdatedResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **update_group_name**
+> UpdatedResponse update_group_name(group_id, body)
+
+Update the group name.
+
+An endpoint for updating a group name.
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import iam
+from iam.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+configuration = iam.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = iam.AccountAdminApi(iam.ApiClient(configuration))
+group_id = 'group_id_example' # str | The ID of the group to be updated.
+body = iam.GroupUpdateInfo() # GroupUpdateInfo | Details of the group to be created.
+
+try: 
+    # Update the group name.
+    api_response = api_instance.update_group_name(group_id, body)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AccountAdminApi->update_group_name: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **group_id** | **str**| The ID of the group to be updated. | 
+ **body** | [**GroupUpdateInfo**](GroupUpdateInfo.md)| Details of the group to be created. | 
 
 ### Return type
 
