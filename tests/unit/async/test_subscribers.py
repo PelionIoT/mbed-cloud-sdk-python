@@ -5,6 +5,7 @@ from tests.common import BaseCase
 
 import mock
 import os
+import time
 import unittest
 
 
@@ -54,11 +55,12 @@ class Test(BaseCase):
         subs = SubscriptionsManager(mock.MagicMock())
         observer_a = subs.subscribe(channels.ResourceValueCurrent(device_id='A', resource_path=5))
         observer_b = subs.subscribe(channels.ResourceValueCurrent(device_id='B', resource_path=5))
-        observer_c = subs.subscribe(channels.ResourceValueCurrent(device_id='A', resource_path=2))
+        channel_c = channels.ResourceValueCurrent(device_id='A', resource_path=2)
+        observer_c = subs.subscribe(channel_c)
 
         subs.notify({
             channels._API_CHANNELS.async_responses: [
-                dict(a=1, b=2, device_id='A', resource_path=2)
+                dict(a=1, b=2, device_id='A', resource_path=2, id=channel_c.async_id)
             ]
         })
 
@@ -73,16 +75,24 @@ class Test(BaseCase):
         d = api.list_connected_devices().first()
         r = api.subscribe(api.subscribe.channels.ResourceValueCurrent(
             device_id=d.id,
-            resource_path='/3/0/18',
-        )).next().block(timeout=1)
+            resource_path='/3/0/0',
+        )).next().block(timeout=2)
         self.assertTrue(r)
+        # check that the routing table is cleaned up
+        for i in range(10):
+            time.sleep(0.01)
+            if not api.subscribe.list_all():
+                break
+        else:
+            self.fail('Routing table not empty')
 
     @unittest.skipIf(os.environ.get('CI'), 'Not strictly a unittest')
+    @unittest.skip('pass')
     def test_a_live2(self):
         from mbed_cloud.connect import ConnectAPI
         api = ConnectAPI()
         d = api.list_connected_devices().first()
         print('using device', d.id)
-        r = api.subscribe(api.subscribe.channels.DeviceStateChanges(device_id=d.id)).next().block(timeout=1)
+        r = api.subscribe(api.subscribe.channels.DeviceStateChanges(device_id=d.id)).next().block(timeout=2)
         print(r)
         self.assertTrue(r)

@@ -21,7 +21,6 @@ from __future__ import unicode_literals
 import logging
 import re
 import threading
-import uuid
 
 from collections import defaultdict
 
@@ -50,7 +49,7 @@ from mbed_cloud.exceptions import CloudApiException
 from mbed_cloud.exceptions import CloudUnhandledError
 from mbed_cloud.exceptions import CloudValueError
 from mbed_cloud.subscribe import SubscriptionsManager
-from mbed_cloud.utils import force_utc
+from mbed_cloud import utils
 
 from six.moves import queue
 
@@ -230,15 +229,11 @@ class ConnectAPI(BaseAPI):
                 return r
         raise CloudApiException("Resource not found")
 
-    def _new_async_id(self):
-        """A source of new client-side async ids"""
-        return str(uuid.uuid4())
-
-    def _mds_rpc_post(self, device_id, _wrap_with_consumer=True, **params):
+    def _mds_rpc_post(self, device_id, _wrap_with_consumer=True, async_id=None, **params):
         """Helper for using RPC endpoint"""
         self.ensure_notifications_thread()
         api = self._get_api(mds.DeviceRequestsApi)
-        async_id = self._new_async_id()
+        async_id = async_id or utils.new_async_id()
         device_request = mds.DeviceRequest(**params)
         api.v2_device_requests_device_idasync_idasync_id_post(
             device_id,
@@ -769,7 +764,7 @@ class ConnectAPI(BaseAPI):
             raise CloudValueError("interval is incorrect. Sample values: 2h, 3w, 4d.")
         # convert start into UTC RFC3339 format
         if start:
-            kwargs['start'] = force_utc(start, 'start')
+            kwargs['start'] = utils.force_utc(start, 'start')
         # convert end into UTC RFC3339 format
         if end:
-            kwargs['end'] = force_utc(end, 'end')
+            kwargs['end'] = utils.force_utc(end, 'end')

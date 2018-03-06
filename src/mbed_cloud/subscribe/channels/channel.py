@@ -45,6 +45,7 @@ class ChannelSubscription(object):
     _optional_filter_keys = None
     _route_keys = None
     _active = False
+    _filter_func = None
 
     def get_routing_keys(self):
         """Primary, mandatory routing keys (list of hashables)"""
@@ -75,7 +76,7 @@ class ChannelSubscription(object):
             if data.get(k) not in v:
                 logging.debug('optional filter rejecting %s: %s (%s)', k, v, data.get(k))
                 return False
-        return True
+        return self._filter_func(data) if self._filter_func else True
 
     def notify(self, data):
         """Notify this channel of inbound data"""

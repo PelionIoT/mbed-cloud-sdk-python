@@ -19,6 +19,9 @@ from mbed_cloud.subscribe.channels.channel import _API_CHANNELS
 from mbed_cloud.subscribe.channels.channel import ChannelSubscription
 from mbed_cloud.subscribe.subscribe import expand_dict_as_keys
 
+from mbed_cloud import utils
+import logging
+
 
 class ResourceValueCurrent(ChannelSubscription):
     """Triggers on response to a request for a current resource value"""
@@ -28,9 +31,12 @@ class ResourceValueCurrent(ChannelSubscription):
         self.device_id = device_id
         self.resource_path = resource_path
 
+        # each request is unique
+        self.async_id = utils.new_async_id()
+        logging.debug('new async id: %s', self.async_id)
+
         self._route_keys = expand_dict_as_keys(dict(
-            device_id=device_id,
-            resource_path=resource_path,
+            id=self.async_id,
             channel=_API_CHANNELS.async_responses,
         ))
         self._optional_filters = {}
@@ -47,4 +53,11 @@ class ResourceValueCurrent(ChannelSubscription):
             device_id=self.device_id,
             method='GET',
             uri=self.resource_path,
+            async_id=self.async_id,
+            _wrap_with_consumer=False,
         )
+
+    def notify(self, data):
+        super(ResourceValueCurrent, self).notify(data)
+        # after one response, close the channel
+        self.ensure_stopped()
