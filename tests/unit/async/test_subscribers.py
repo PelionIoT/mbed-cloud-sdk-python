@@ -42,6 +42,7 @@ class Test(BaseCase):
                 dict(a=1, b=2, device_id='A')
             ]
         })
+
         result = future_a.get(timeout=2)
         self.assertDictContainsSubset(dict(a=1, b=2), result)
 
@@ -69,7 +70,8 @@ class Test(BaseCase):
         self.assertDictContainsSubset(dict(a=1, b=2), result)
 
     @unittest.skipIf(os.environ.get('CI'), 'Not strictly a unittest')
-    def test_live(self):
+    def test_live_A(self):
+        # integration - ResourceValueCurrent cleans up
         from mbed_cloud.connect import ConnectAPI
         api = ConnectAPI()
         d = api.list_connected_devices().first()
@@ -78,6 +80,10 @@ class Test(BaseCase):
             resource_path='/3/0/0',
         )).next().block(timeout=2)
         self.assertTrue(r)
+
+        # wait for notifications to be stopped
+        api.stop_notifications()
+
         # check that the routing table is cleaned up
         for i in range(10):
             time.sleep(0.01)
@@ -87,12 +93,19 @@ class Test(BaseCase):
             self.fail('Routing table not empty')
 
     @unittest.skipIf(os.environ.get('CI'), 'Not strictly a unittest')
-    @unittest.skip('pass')
-    def test_a_live2(self):
+    def test_live_B(self):
+        # integration - DeviceStateChanges local filter
         from mbed_cloud.connect import ConnectAPI
         api = ConnectAPI()
         d = api.list_connected_devices().first()
-        print('using device', d.id)
-        r = api.subscribe(api.subscribe.channels.DeviceStateChanges(device_id=d.id)).next().block(timeout=2)
-        print(r)
+        observer = api.subscribe(api.subscribe.channels.DeviceStateChanges(device_id=d.id))
+        # cheat, waiting takes too long
+        api.subscribe.notify({
+            channels._API_CHANNELS.reg_updates: [
+                dict(a=1, b=2, device_id=d.id),
+                dict(a=1, b=2, device_id='A'),
+                dict(a=1, b=2, device_id='B'),
+            ]
+        })
+        r = observer.next().block(timeout=2)
         self.assertTrue(r)

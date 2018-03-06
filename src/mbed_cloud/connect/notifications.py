@@ -211,23 +211,29 @@ class NotificationsThread(threading.Thread):
         self.subscription_manager = subscription_manager
 
         self._b64decode = b64decode
-        self._stopped = False
+
+        self._stopping = False
+        self._stopped = threading.Event()
 
     @catch_exceptions(mds.rest.ApiException)
     @functools.wraps(threading.Thread.run)
     def run(self):
         """Thread main loop"""
-        while not self._stopped:
-            data = self.notifications_api.v2_notification_pull_get()
-            handle_channel_message(
-                db=self.db,
-                queues=self.queues,
-                b64decode=self._b64decode,
-                notification_object=data
-            )
-            if self.subscription_manager:
-                self.subscription_manager.notify(data.to_dict())
+        try:
+            while not self._stopping:
+                data = self.notifications_api.v2_notification_pull_get()
+                handle_channel_message(
+                    db=self.db,
+                    queues=self.queues,
+                    b64decode=self._b64decode,
+                    notification_object=data
+                )
+                if self.subscription_manager:
+                    self.subscription_manager.notify(data.to_dict())
+        finally:
+            self._stopped.set()
 
     def stop(self):
         """Request thread stop"""
-        self._stopped = True
+        self._stopping = True
+        return self._stopped

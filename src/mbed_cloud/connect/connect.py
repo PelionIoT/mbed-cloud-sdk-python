@@ -119,9 +119,9 @@ class ConnectAPI(BaseAPI):
         :returns: void
         """
         with self._notifications_lock:
-            api = self._get_api(mds.NotificationsApi)
             if self.has_active_notification_thread:
                 return
+            api = self._get_api(mds.NotificationsApi)
             self._notifications_thread = NotificationsThread(
                 self._db,
                 self._queues,
@@ -135,13 +135,14 @@ class ConnectAPI(BaseAPI):
     def stop_notifications(self):
         """Stop the notifications thread.
 
-        :returns: void
+        :returns:
         """
         with self._notifications_lock:
             if not self.has_active_notification_thread:
                 return
-            self._notifications_thread.stop()
+            thread = self._notifications_thread
             self._notifications_thread = None
+            return thread.stop().wait()
 
     @catch_exceptions(device_directory.rest.ApiException)
     def list_connected_devices(self, **kwargs):
