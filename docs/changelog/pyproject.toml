@@ -2,5 +2,10 @@
 package = 'mbed_cloud'
 package_dir = 'src'
 filename = '../../NEWS.rst'
-directory = 'docs/changelog/changes'
-template = 'docs/changelog/template.rst'
+directory = '../news'
+template = 'template.rst'
+# this is the correct way to use comments in RST (blank block init: `..`)
+start_string = """..
+  begin_release_notes
+"""
+

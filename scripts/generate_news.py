@@ -32,7 +32,7 @@ from distutils.version import LooseVersion
 def main():
     """Writes out newsfile if significant version bump"""
     PROJECT_ROOT = os.path.dirname(os.path.dirname(__file__))
-    metafile = os.path.join(PROJECT_ROOT, 'docs', 'changelog', 'changes', 'last_built.meta')
+    metafile = os.path.join(PROJECT_ROOT, 'docs', 'news', 'last_built.meta')
     last_known = '0'
     if os.path.isfile(metafile):
         with open(metafile) as fh:
