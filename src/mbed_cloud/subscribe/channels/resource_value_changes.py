@@ -25,6 +25,7 @@ class ResourceValueChanges(ChannelSubscription):
 
     def __init__(self, device_id, resource_path, **extra_filters):
         """Channel"""
+        raise NotImplementedError('coming soon™')
         self.device_id = device_id
         self.resource_path = resource_path
 
