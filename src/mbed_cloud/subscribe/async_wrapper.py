@@ -67,10 +67,10 @@ class AsyncWrapper(object):
 
         The calling code will need to check for the result at a later time.
 
-        In Python 2/3 - an AsyncResult
+        In Python 2/3 using ThreadPools - an AsyncResult
             (https://docs.python.org/2/library/multiprocessing.html#multiprocessing.pool.AsyncResult)
 
-        In Python 3 - a Future
+        In Python 3 using Asyncio - a Future
             (https://docs.python.org/3/library/asyncio-task.html#future)
 
         :param args:

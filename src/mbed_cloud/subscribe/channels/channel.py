@@ -38,6 +38,7 @@ class ChannelSubscription(object):
 
     _api = None  # type: mbed_cloud.connect.ConnectAPI
     _observer = None
+    _observer_class = Observer
     _observer_params = None
     _manager = None
     _routes = None
@@ -110,7 +111,7 @@ class ChannelSubscription(object):
         """Idempotent channel start"""
         if self.active:
             return self
-        self._observer = Observer(**self._observer_params)
+        self._observer = self._observer_class(**self._observer_params)
         self.start()
         self._active = True
         return self

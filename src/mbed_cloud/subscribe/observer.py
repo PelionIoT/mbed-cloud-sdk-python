@@ -67,6 +67,7 @@ class Observer(object):
         # if you are using asyncio you can pass your current event loop here and receive Futures
         # (although underneath this will still use an executor, until such time
         # as the library fully supports Py3 asyncio)
+        self._async_wrapper_class = AsyncWrapper
         self._provider = provider
 
         # callbacks, if you want those instead
@@ -94,7 +95,7 @@ class Observer(object):
         """
         waitable = queue.Queue(maxsize=1)
         getter = functools.partial(waitable.get, timeout=self._timeout)
-        self._latest_item = AsyncWrapper(
+        self._latest_item = self._async_wrapper_class(
             func=getter,
             concurrency_provider=self._provider
         )
