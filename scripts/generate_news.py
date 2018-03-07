@@ -52,8 +52,9 @@ def main():
     print('%s -- %s :: current vs previous changelog build' % (current, last_known))
     if should_towncrier:
         print('%s >> %s :: running changelog build' % (current, last_known))
-        subprocess.call(
-            ['towncrier', '--yes', '--dir', os.path.join(PROJECT_ROOT, 'docs', 'changelog')]
+        subprocess.check_call(
+            ['towncrier', '--yes'],
+            cwd=os.path.join(PROJECT_ROOT, 'docs', 'changelog')
         )
         with open(metafile, 'w') as fh:
             fh.write(current)
