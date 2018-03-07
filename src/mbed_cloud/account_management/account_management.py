@@ -205,17 +205,17 @@ class AccountManagementAPI(BaseAPI):
         :param str email: The unique email of the user (Required)
         :param str full_name: The full name of the user
         :param list groups: List of group IDs (`str`) which this user belongs to
-        :param str password: The password string of the user.
+        :param str password: The password string of the user
         :param str phone_number: Phone number of the user
-        :param bool terms_accepted: Is 'General Terms & Conditions' accepted
-        :param bool marketing_accepted: Is receiving marketing information accepted?
+        :param bool terms_accepted: 'General Terms & Conditions' have been accepted
+        :param bool marketing_accepted: Marketing Information opt-in
         :returns: the new user object
         :rtype: User
         """
         api = self._get_api(iam.AccountAdminApi)
         kwargs.update({'username': username, 'email': email})
         user = User._create_request_map(kwargs)
-        body = iam.UserInfoReq(**user)
+        body = iam.UserUpdateReq(**user)
         return User(api.create_user(body))
 
     @catch_exceptions(ApiException)
@@ -348,8 +348,17 @@ class Account(BaseObject):
             "provisioning_allowed": "is_provisioning_allowed",
             "created_at": "created_at",
             "upgraded_at": "upgraded_at",
+            "updated_at": "updated_at",
             "reason": "reason",
-            "template_id": "template_id"
+            "template_id": "template_id",
+            "custom_properties": "account_properties",
+            "sales_contact_email": "sales_contact",
+            "contract_number": "contract_number",
+            "customer_number": "customer_number",
+            "reference_note": "reference_note",
+            "notification_emails": "notification_emails",
+            "multifactor_authentication_status": "mfa_status",
+            "expiry_warning": "expiration_warning_threshold",
         }
 
     @property
@@ -532,6 +541,106 @@ class Account(BaseObject):
         """
         return self._template_id
 
+    @property
+    def contract_number(self):
+        """Gets the contract_number of this AccountInfo.
+
+        Contract number of the customer.
+
+        :return: The contract_number of this AccountInfo.
+        :rtype: str
+        """
+        return self._contract_number
+
+    @property
+    def custom_properties(self):
+        """Gets the custom_properties of this AccountInfo.
+
+        Account specific custom properties.
+
+        :return: The account_properties of this AccountInfo.
+        :rtype: dict(str, dict(str, str))
+        """
+        return self._custom_properties
+
+    @property
+    def customer_number(self):
+        """Gets the customer_number of this AccountInfo.
+
+        Customer number of the customer.
+
+        :return: The customer_number of this AccountInfo.
+        :rtype: str
+        """
+        return self._customer_number
+
+    @property
+    def reference_note(self):
+        """Gets the reference_note of this AccountInfo.
+
+        A reference note for updating the status of the account
+
+        :return: The reference_note of this AccountInfo.
+        :rtype: str
+        """
+        return self._reference_note
+
+    @property
+    def notification_emails(self):
+        """Gets the notification_emails of this AccountInfo.
+
+        A list of notification email addresses.
+
+        :return: The notification_emails of this AccountInfo.
+        :rtype: list[str]
+        """
+        return self._notification_emails
+
+    @property
+    def sales_contact_email(self):
+        """Gets the sales_contact_email of this AccountInfo.
+
+        Email address of the sales contact.
+
+        :return: The sales_contact_email of this AccountInfo.
+        :rtype: str
+        """
+        return self._sales_contact_email
+
+    @property
+    def multifactor_authentication_status(self):
+        """Gets the multifactor_authentication_status of this AccountInfo.
+
+        The enforcement status of the multi-factor authentication, either 'enforced' or 'optional'.
+
+        :return: The mfa_status of this AccountInfo.
+        :rtype: str
+        """
+        return self._multifactor_authentication_status
+
+    @property
+    def expiry_warning(self):
+        """Gets the expiry_warning of this AccountInfo.
+
+        Indicates how many days (1-180) before account expiration
+        a notification email should be sent.
+
+        :return: The expiration_warning_threshold of this AccountInfo.
+        :rtype: str
+        """
+        return self._expiry_warning
+
+    @property
+    def updated_at(self):
+        """Gets the updated_at of this AccountInfo.
+
+        Last update UTC time RFC3339.
+
+        :return: The updated_at of this AccountInfo.
+        :rtype: datetime
+        """
+        return self._updated_at
+
 
 class User(BaseObject):
     """Describes user object.
@@ -579,7 +688,8 @@ class User(BaseObject):
             "password_changed_time": "password_changed_time",
             "last_login_time": "last_login_time",
             "two_factor_authentication": "is_totp_enabled",
-            "login_history": "login_history"
+            "login_history": "login_history",
+            "custom_properties": "user_properties",
         }
 
     @property
@@ -738,6 +848,15 @@ class User(BaseObject):
         :rtype: LoginHistory
         """
         return self._login_history
+
+    @property
+    def custom_properties(self):
+        """User properties
+
+        :returns: dictionary of properties
+        :rtype: dict(str, dict(str, str))
+        """
+        return self._custom_properties
 
 
 class Group(BaseObject):

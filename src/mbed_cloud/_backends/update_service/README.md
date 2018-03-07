@@ -57,13 +57,16 @@ update_service.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # update_service.configuration.api_key_prefix['Authorization'] = 'Bearer'
 # create an instance of the API class
 api_instance = update_service.DefaultApi()
-campaign = update_service.UpdateCampaignPostRequest() # UpdateCampaignPostRequest | Update campaign
+datafile = '/path/to/file.txt' # file | The firmware image file to upload
+name = 'name_example' # str | The name of the firmware image
+description = 'description_example' # str | The description of the firmware image (optional)
 
 try:
-    api_response = api_instance.campaign_create(campaign)
+    # Create an image
+    api_response = api_instance.firmware_image_create(datafile, name, description=description)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->campaign_create: %s\n" % e)
+    print("Exception when calling DefaultApi->firmware_image_create: %s\n" % e)
 
 ```
 
@@ -73,29 +76,22 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**campaign_create**](docs/DefaultApi.md#campaign_create) | **POST** /v3/campaigns/ | 
-*DefaultApi* | [**campaign_destroy**](docs/DefaultApi.md#campaign_destroy) | **DELETE** /v3/update-campaigns/{campaign_id}/ | 
-*DefaultApi* | [**campaign_list**](docs/DefaultApi.md#campaign_list) | **GET** /v3/campaigns/ | 
-*DefaultApi* | [**campaign_retrieve**](docs/DefaultApi.md#campaign_retrieve) | **GET** /v3/update-campaigns/{campaign_id}/ | 
-*DefaultApi* | [**campaign_update**](docs/DefaultApi.md#campaign_update) | **PUT** /v3/update-campaigns/{campaign_id}/ | 
-*DefaultApi* | [**firmware_image_create**](docs/DefaultApi.md#firmware_image_create) | **POST** /v3/firmware-images/ | 
-*DefaultApi* | [**firmware_image_destroy**](docs/DefaultApi.md#firmware_image_destroy) | **DELETE** /v3/firmware-images/{image_id}/ | 
-*DefaultApi* | [**firmware_image_list**](docs/DefaultApi.md#firmware_image_list) | **GET** /v3/firmware-images/ | 
-*DefaultApi* | [**firmware_image_retrieve**](docs/DefaultApi.md#firmware_image_retrieve) | **GET** /v3/firmware-images/{image_id}/ | 
-*DefaultApi* | [**firmware_manifest_create**](docs/DefaultApi.md#firmware_manifest_create) | **POST** /v3/firmware-manifests/ | 
-*DefaultApi* | [**firmware_manifest_destroy**](docs/DefaultApi.md#firmware_manifest_destroy) | **DELETE** /v3/firmware-manifests/{manifest_id}/ | 
-*DefaultApi* | [**firmware_manifest_list**](docs/DefaultApi.md#firmware_manifest_list) | **GET** /v3/firmware-manifests/ | 
-*DefaultApi* | [**firmware_manifest_retrieve**](docs/DefaultApi.md#firmware_manifest_retrieve) | **GET** /v3/firmware-manifests/{manifest_id}/ | 
-*DefaultApi* | [**update_campaign_create**](docs/DefaultApi.md#update_campaign_create) | **POST** /v3/update-campaigns/ | 
-*DefaultApi* | [**update_campaign_destroy**](docs/DefaultApi.md#update_campaign_destroy) | **DELETE** /v3/campaigns/{campaign_id}/ | 
-*DefaultApi* | [**update_campaign_list**](docs/DefaultApi.md#update_campaign_list) | **GET** /v3/update-campaigns/ | 
-*DefaultApi* | [**update_campaign_metadata_list**](docs/DefaultApi.md#update_campaign_metadata_list) | **GET** /v3/campaigns/{campaign_id}/campaign-device-metadata/ | 
-*DefaultApi* | [**update_campaign_metadata_retreive**](docs/DefaultApi.md#update_campaign_metadata_retreive) | **GET** /v3/campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/ | 
-*DefaultApi* | [**update_campaign_retrieve**](docs/DefaultApi.md#update_campaign_retrieve) | **GET** /v3/campaigns/{campaign_id}/ | 
-*DefaultApi* | [**update_campaign_stop**](docs/DefaultApi.md#update_campaign_stop) | **POST** /v3/update-campaigns/{campaign_id}/stop | 
-*DefaultApi* | [**update_campaign_update**](docs/DefaultApi.md#update_campaign_update) | **PUT** /v3/campaigns/{campaign_id}/ | 
-*DefaultApi* | [**v3_update_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get**](docs/DefaultApi.md#v3_update_campaigns_campaign_id_campaign_device_metadata_campaign_device_metadata_id_get) | **GET** /v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/ | 
-*DefaultApi* | [**v3_update_campaigns_campaign_id_campaign_device_metadata_get**](docs/DefaultApi.md#v3_update_campaigns_campaign_id_campaign_device_metadata_get) | **GET** /v3/update-campaigns/{campaign_id}/campaign-device-metadata/ | 
+*DefaultApi* | [**firmware_image_create**](docs/DefaultApi.md#firmware_image_create) | **POST** /v3/firmware-images/ | Create an image
+*DefaultApi* | [**firmware_image_destroy**](docs/DefaultApi.md#firmware_image_destroy) | **DELETE** /v3/firmware-images/{image_id}/ | Delete an image
+*DefaultApi* | [**firmware_image_list**](docs/DefaultApi.md#firmware_image_list) | **GET** /v3/firmware-images/ | List all images
+*DefaultApi* | [**firmware_image_retrieve**](docs/DefaultApi.md#firmware_image_retrieve) | **GET** /v3/firmware-images/{image_id}/ | Get an image
+*DefaultApi* | [**firmware_manifest_create**](docs/DefaultApi.md#firmware_manifest_create) | **POST** /v3/firmware-manifests/ | Create a manifest
+*DefaultApi* | [**firmware_manifest_destroy**](docs/DefaultApi.md#firmware_manifest_destroy) | **DELETE** /v3/firmware-manifests/{manifest_id}/ | Delete a manifest
+*DefaultApi* | [**firmware_manifest_list**](docs/DefaultApi.md#firmware_manifest_list) | **GET** /v3/firmware-manifests/ | List manifests
+*DefaultApi* | [**firmware_manifest_retrieve**](docs/DefaultApi.md#firmware_manifest_retrieve) | **GET** /v3/firmware-manifests/{manifest_id}/ | Get a manifest
+*DefaultApi* | [**update_campaign_create**](docs/DefaultApi.md#update_campaign_create) | **POST** /v3/update-campaigns/ | Create a campaign
+*DefaultApi* | [**update_campaign_destroy**](docs/DefaultApi.md#update_campaign_destroy) | **DELETE** /v3/update-campaigns/{campaign_id}/ | Delete a campaign
+*DefaultApi* | [**update_campaign_list**](docs/DefaultApi.md#update_campaign_list) | **GET** /v3/update-campaigns/ | List all campaigns
+*DefaultApi* | [**update_campaign_metadata_list**](docs/DefaultApi.md#update_campaign_metadata_list) | **GET** /v3/update-campaigns/{campaign_id}/campaign-device-metadata/ | List all campaign device metadata
+*DefaultApi* | [**update_campaign_metadata_retrieve**](docs/DefaultApi.md#update_campaign_metadata_retrieve) | **GET** /v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/ | Get a campaign device metadata
+*DefaultApi* | [**update_campaign_metadata_stop**](docs/DefaultApi.md#update_campaign_metadata_stop) | **POST** /v3/update-campaigns/{campaign_id}/stop | Stop a running campaign
+*DefaultApi* | [**update_campaign_retrieve**](docs/DefaultApi.md#update_campaign_retrieve) | **GET** /v3/update-campaigns/{campaign_id}/ | Get a campaign.
+*DefaultApi* | [**update_campaign_update**](docs/DefaultApi.md#update_campaign_update) | **PUT** /v3/update-campaigns/{campaign_id}/ | Modify a campaign
 
 
 ## Documentation For Models
@@ -103,10 +99,19 @@ Class | Method | HTTP request | Description
  - [CampaignDeviceMetadata](docs/CampaignDeviceMetadata.md)
  - [CampaignDeviceMetadataPage](docs/CampaignDeviceMetadataPage.md)
  - [FirmwareImage](docs/FirmwareImage.md)
+ - [FirmwareImageEqNeqFilter](docs/FirmwareImageEqNeqFilter.md)
+ - [FirmwareImageGteLteFilter](docs/FirmwareImageGteLteFilter.md)
+ - [FirmwareImageInNinFilter](docs/FirmwareImageInNinFilter.md)
  - [FirmwareImagePage](docs/FirmwareImagePage.md)
  - [FirmwareManifest](docs/FirmwareManifest.md)
+ - [FirmwareManifestEqNeqFilter](docs/FirmwareManifestEqNeqFilter.md)
+ - [FirmwareManifestGteLteFilter](docs/FirmwareManifestGteLteFilter.md)
+ - [FirmwareManifestInNinFilter](docs/FirmwareManifestInNinFilter.md)
  - [FirmwareManifestPage](docs/FirmwareManifestPage.md)
  - [UpdateCampaign](docs/UpdateCampaign.md)
+ - [UpdateCampaignEqNeqFilter](docs/UpdateCampaignEqNeqFilter.md)
+ - [UpdateCampaignGteLteFilter](docs/UpdateCampaignGteLteFilter.md)
+ - [UpdateCampaignInNinFilter](docs/UpdateCampaignInNinFilter.md)
  - [UpdateCampaignPage](docs/UpdateCampaignPage.md)
  - [UpdateCampaignPatchRequest](docs/UpdateCampaignPatchRequest.md)
  - [UpdateCampaignPostRequest](docs/UpdateCampaignPostRequest.md)

@@ -366,6 +366,7 @@ class ApiClient(object):
         """
         Makes the HTTP request using RESTClient.
         """
+
         if method == "GET":
             return self.rest_client.GET(url,
                                         query_params=query_params,
@@ -456,13 +457,6 @@ class ApiClient(object):
 
     ########### Change
 
-    def get_file_data_tuple(self, key, f):
-        filename = os.path.basename(f.name)
-        filedata = f.read()
-        mimetype = mimetypes.\
-            guess_type(filename)[0] or 'application/octet-stream'
-        return tuple([key, tuple([filename, filedata, mimetype])])
-
     def prepare_post_parameters(self, post_params=None, files=None):
         """
         Builds form parameters.
@@ -471,22 +465,20 @@ class ApiClient(object):
         :param files: File parameters.
         :return: Form parameters with files.
         """
-        params = []
-
-        if post_params:
-            params = post_params
-
-        if files:
-            for k, v in iteritems(files):
-                if not v:
-                    continue
-                files = v if type(v) is list else [v]
-                for n in files:
-                    if isinstance(n, file):
-                        params.append(self.get_file_data_tuple(k, n))
-                    else:
-                        with open(n, 'rb') as f:
-                            params.append(self.get_file_data_tuple(k, f))
+        params = post_params or []
+        for key, values in (files or {}).items():
+            for maybe_file_or_path in values if isinstance(values, list) else [values]:
+                try:
+                    # use the parameter as if it was an open file object
+                    data = maybe_file_or_path.read()
+                    maybe_file_or_path = maybe_file_or_path.name
+                except AttributeError:
+                    # then it is presumably a file path
+                    with open(maybe_file_or_path, 'rb') as fh:
+                        data = fh.read()
+                basepath = os.path.basename(maybe_file_or_path)
+                mimetype = mimetypes.guess_type(basepath)[0] or 'application/octet-stream'
+                params.append((key, (basepath, data, mimetype)))
         return params
 
     ########### End Change

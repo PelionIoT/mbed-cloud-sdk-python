@@ -32,8 +32,10 @@ class UserUpdateResp(object):
     """
     swagger_types = {
         'username': 'str',
+        'active_sessions': 'list[ActiveSession]',
         'login_history': 'list[LoginHistory]',
         'creation_time': 'int',
+        'updated_at': 'datetime',
         'full_name': 'str',
         'id': 'str',
         'last_login_time': 'int',
@@ -52,14 +54,17 @@ class UserUpdateResp(object):
         'password': 'str',
         'email_verified': 'bool',
         'created_at': 'datetime',
+        'user_properties': 'dict(str, dict(str, str))',
         'is_totp_enabled': 'bool',
         'password_changed_time': 'int'
     }
 
     attribute_map = {
         'username': 'username',
+        'active_sessions': 'active_sessions',
         'login_history': 'login_history',
         'creation_time': 'creation_time',
+        'updated_at': 'updated_at',
         'full_name': 'full_name',
         'id': 'id',
         'last_login_time': 'last_login_time',
@@ -78,18 +83,21 @@ class UserUpdateResp(object):
         'password': 'password',
         'email_verified': 'email_verified',
         'created_at': 'created_at',
+        'user_properties': 'user_properties',
         'is_totp_enabled': 'is_totp_enabled',
         'password_changed_time': 'password_changed_time'
     }
 
-    def __init__(self, username=None, login_history=None, creation_time=None, full_name=None, id=None, last_login_time=None, is_gtc_accepted=None, etag=None, is_marketing_accepted=None, phone_number=None, email=None, status=None, account_id=None, totp_scratch_codes=None, object=None, groups=None, address=None, totp_secret=None, password=None, email_verified=None, created_at=None, is_totp_enabled=None, password_changed_time=None):
+    def __init__(self, username=None, active_sessions=None, login_history=None, creation_time=None, updated_at=None, full_name=None, id=None, last_login_time=None, is_gtc_accepted=None, etag=None, is_marketing_accepted=None, phone_number=None, email=None, status=None, account_id=None, totp_scratch_codes=None, object=None, groups=None, address=None, totp_secret=None, password=None, email_verified=None, created_at=None, user_properties=None, is_totp_enabled=None, password_changed_time=None):
         """
         UserUpdateResp - a model defined in Swagger
         """
 
         self._username = username
+        self._active_sessions = active_sessions
         self._login_history = login_history
         self._creation_time = creation_time
+        self._updated_at = updated_at
         self._full_name = full_name
         self._id = id
         self._last_login_time = last_login_time
@@ -108,6 +116,7 @@ class UserUpdateResp(object):
         self._password = password
         self._email_verified = email_verified
         self._created_at = created_at
+        self._user_properties = user_properties
         self._is_totp_enabled = is_totp_enabled
         self._password_changed_time = password_changed_time
         self.discriminator = None
@@ -134,6 +143,29 @@ class UserUpdateResp(object):
         """
 
         self._username = username
+
+    @property
+    def active_sessions(self):
+        """
+        Gets the active_sessions of this UserUpdateResp.
+        List of active user sessions.
+
+        :return: The active_sessions of this UserUpdateResp.
+        :rtype: list[ActiveSession]
+        """
+        return self._active_sessions
+
+    @active_sessions.setter
+    def active_sessions(self, active_sessions):
+        """
+        Sets the active_sessions of this UserUpdateResp.
+        List of active user sessions.
+
+        :param active_sessions: The active_sessions of this UserUpdateResp.
+        :type: list[ActiveSession]
+        """
+
+        self._active_sessions = active_sessions
 
     @property
     def login_history(self):
@@ -180,6 +212,29 @@ class UserUpdateResp(object):
         """
 
         self._creation_time = creation_time
+
+    @property
+    def updated_at(self):
+        """
+        Gets the updated_at of this UserUpdateResp.
+        Last update UTC time RFC3339.
+
+        :return: The updated_at of this UserUpdateResp.
+        :rtype: datetime
+        """
+        return self._updated_at
+
+    @updated_at.setter
+    def updated_at(self, updated_at):
+        """
+        Sets the updated_at of this UserUpdateResp.
+        Last update UTC time RFC3339.
+
+        :param updated_at: The updated_at of this UserUpdateResp.
+        :type: datetime
+        """
+
+        self._updated_at = updated_at
 
     @property
     def full_name(self):
@@ -472,7 +527,7 @@ class UserUpdateResp(object):
         """
         if object is None:
             raise ValueError("Invalid value for `object`, must not be `None`")
-        allowed_values = ["user", "api-key", "group", "account", "account-template", "trusted-cert", "list", "error"]
+        allowed_values = ["user"]
         if object not in allowed_values:
             raise ValueError(
                 "Invalid value for `object` ({0}), must be one of {1}"
@@ -618,6 +673,29 @@ class UserUpdateResp(object):
         """
 
         self._created_at = created_at
+
+    @property
+    def user_properties(self):
+        """
+        Gets the user_properties of this UserUpdateResp.
+        User's account specific custom properties.
+
+        :return: The user_properties of this UserUpdateResp.
+        :rtype: dict(str, dict(str, str))
+        """
+        return self._user_properties
+
+    @user_properties.setter
+    def user_properties(self, user_properties):
+        """
+        Sets the user_properties of this UserUpdateResp.
+        User's account specific custom properties.
+
+        :param user_properties: The user_properties of this UserUpdateResp.
+        :type: dict(str, dict(str, str))
+        """
+
+        self._user_properties = user_properties
 
     @property
     def is_totp_enabled(self):
