@@ -18,7 +18,7 @@ changes.
 - Make your change and write unit tests, please do match the existing coding
   style.
 - Write a [good commit message](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html).
-- Write a news fragment for any non-trivial changes as a new file in `docs/changelog/changes`
+- Write a news fragment for any non-trivial changes as a new file in `docs/news`
   e.g. `123.feature`. (see [towncrier](https://github.com/hawkowl/towncrier#news-fragments) for more fragment types).
 - Push to your fork.
 - Submit a pull request.
