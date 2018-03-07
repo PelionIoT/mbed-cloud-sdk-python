@@ -24,6 +24,7 @@ Enrollment:
 - Account Admin can view the status of claimed devices.
 
 `mbed_cloud.EnrollmentAPI().add_enrollment_claim(enrollment_identity=YOUR_CLAIM_TOKEN)`
+- Use correct API for updating campaign objects
 
 
 ## 1.2.5
