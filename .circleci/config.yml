@@ -8,7 +8,7 @@
 version: 2
 iteration: 7
 aliases:
-  - &branch_cache_key 'v3-{{ checksum "Pipfile.lock" }}'
+  - &branch_cache_key 'v5-{{ checksum "Pipfile.lock" }}'
   - &build_dir build
   - &build_dir_glob build/*
   - &venv_dir build/.venv
@@ -36,6 +36,7 @@ aliases:
         key: *branch_cache_key
         paths:
           - ~/.cache/pip
+          - ~/.ssh/known_hosts
     - persist_to_workspace:
         root: .
         paths:
@@ -295,7 +296,7 @@ workflows:
             - test_production_3
           filters:
             branches:
-              only: production
+              only: master
       - deploy_beta:
           requires:
             - release_beta
