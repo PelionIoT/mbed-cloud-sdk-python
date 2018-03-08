@@ -12,3 +12,4 @@ a list of versions that have been released on PyPI.
 
 ..
     begin_release_notes
+
