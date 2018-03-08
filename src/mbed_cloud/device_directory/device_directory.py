@@ -22,7 +22,7 @@ import logging
 # Import common functions and exceptions from frontend API
 from mbed_cloud.core import BaseAPI
 from mbed_cloud.core import BaseObject
-from mbed_cloud.core import PaginatedResponse
+from mbed_cloud.pagination import PaginatedResponse
 
 from mbed_cloud import filters
 
@@ -34,7 +34,7 @@ from mbed_cloud._backends.device_directory.models import DeviceData
 from mbed_cloud._backends.device_directory.models import DeviceDataPostRequest
 from mbed_cloud._backends.device_directory.models import DeviceEventData
 from mbed_cloud._backends.device_directory.models import DeviceQuery
-from mbed_cloud._backends.device_directory.models import DeviceQueryPatchRequest
+from mbed_cloud._backends.device_directory.models import DeviceQueryPostPutRequest
 from mbed_cloud._backends.device_directory.rest import ApiException as DeviceDirectoryApiException
 
 LOG = logging.getLogger(__name__)
@@ -255,9 +255,9 @@ class DeviceDirectoryAPI(BaseAPI):
         ) if filter else None
 
         query_map = Query._create_request_map(kwargs)
-        body = DeviceQueryPatchRequest(name=name, query=filter_obj['filter'], **query_map)
+        body = DeviceQueryPostPutRequest(name=name, query=filter_obj['filter'], **query_map)
         api = self._get_api(device_directory.DefaultApi)
-        return Query(api.device_query_partial_update(query_id, body))
+        return Query(api.device_query_update(query_id, body))
 
     @catch_exceptions(DeviceDirectoryApiException)
     def delete_query(self, query_id):
@@ -343,7 +343,8 @@ class Device(BaseObject):
             "connector_certificate_expiration": "connector_expiration_date",
             "device_execution_mode": "device_execution_mode",
             "firmware_checksum": "firmware_checksum",
-            "manifest_timestamp": "manifest_timestamp"
+            "manifest_timestamp": "manifest_timestamp",
+            "claimed_at": "enrolment_list_timestamp",
         }
 
     @property
@@ -571,6 +572,14 @@ class Device(BaseObject):
         :rtype: datetime
         """
         return self._manifest_timestamp
+
+    @property
+    def claimed_at(self):
+        """When the device was first claimed/enrolled.
+
+        :rtype: datetime
+        """
+        return self._claimed_at
 
 
 class Query(BaseObject):

@@ -35,7 +35,7 @@ API_MAJOR = '1'
 API_MINOR = '2'
 API_VERSION = '.'.join((API_MAJOR, API_MINOR))
 
-SDK_MAJOR = '4'
+SDK_MAJOR = '6'
 SDK_MINOR = ''
 LOCAL = None
 BETA = False

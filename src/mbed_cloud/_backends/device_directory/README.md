@@ -60,6 +60,7 @@ api_instance = device_directory.DefaultApi()
 device = device_directory.DeviceDataPostRequest() # DeviceDataPostRequest | 
 
 try:
+    # Create a device
     api_response = api_instance.device_create(device)
     pprint(api_response)
 except ApiException as e:
@@ -73,22 +74,20 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**device_create**](docs/DefaultApi.md#device_create) | **POST** /v3/devices/ | 
-*DefaultApi* | [**device_destroy**](docs/DefaultApi.md#device_destroy) | **DELETE** /v3/devices/{id}/ | 
-*DefaultApi* | [**device_event_list**](docs/DefaultApi.md#device_event_list) | **GET** /v3/device-events/ | 
-*DefaultApi* | [**device_event_retrieve**](docs/DefaultApi.md#device_event_retrieve) | **GET** /v3/device-events/{device_event_id}/ | 
-*DefaultApi* | [**device_list**](docs/DefaultApi.md#device_list) | **GET** /v3/devices/ | 
-*DefaultApi* | [**device_log_list**](docs/DefaultApi.md#device_log_list) | **GET** /v3/devicelog/ | 
-*DefaultApi* | [**device_log_retrieve**](docs/DefaultApi.md#device_log_retrieve) | **GET** /v3/devicelog/{device_event_id}/ | 
-*DefaultApi* | [**device_partial_update**](docs/DefaultApi.md#device_partial_update) | **PATCH** /v3/devices/{id}/ | 
-*DefaultApi* | [**device_query_create**](docs/DefaultApi.md#device_query_create) | **POST** /v3/device-queries/ | 
-*DefaultApi* | [**device_query_destroy**](docs/DefaultApi.md#device_query_destroy) | **DELETE** /v3/device-queries/{query_id}/ | 
-*DefaultApi* | [**device_query_list**](docs/DefaultApi.md#device_query_list) | **GET** /v3/device-queries/ | 
-*DefaultApi* | [**device_query_partial_update**](docs/DefaultApi.md#device_query_partial_update) | **PATCH** /v3/device-queries/{query_id}/ | 
-*DefaultApi* | [**device_query_retrieve**](docs/DefaultApi.md#device_query_retrieve) | **GET** /v3/device-queries/{query_id}/ | 
-*DefaultApi* | [**device_query_update**](docs/DefaultApi.md#device_query_update) | **PUT** /v3/device-queries/{query_id}/ | 
-*DefaultApi* | [**device_retrieve**](docs/DefaultApi.md#device_retrieve) | **GET** /v3/devices/{id}/ | 
-*DefaultApi* | [**device_update**](docs/DefaultApi.md#device_update) | **PUT** /v3/devices/{id}/ | 
+*DefaultApi* | [**device_create**](docs/DefaultApi.md#device_create) | **POST** /v3/devices/ | Create a device
+*DefaultApi* | [**device_destroy**](docs/DefaultApi.md#device_destroy) | **DELETE** /v3/devices/{id}/ | Delete a device.
+*DefaultApi* | [**device_event_list**](docs/DefaultApi.md#device_event_list) | **GET** /v3/device-events/ | List all device events.
+*DefaultApi* | [**device_event_retrieve**](docs/DefaultApi.md#device_event_retrieve) | **GET** /v3/device-events/{device_event_id}/ | Retrieve a device event.
+*DefaultApi* | [**device_list**](docs/DefaultApi.md#device_list) | **GET** /v3/devices/ | List all devices.
+*DefaultApi* | [**device_log_list**](docs/DefaultApi.md#device_log_list) | **GET** /v3/devicelog/ | DEPRECATED: List all device events.
+*DefaultApi* | [**device_log_retrieve**](docs/DefaultApi.md#device_log_retrieve) | **GET** /v3/devicelog/{device_event_id}/ | DEPRECATED: Retrieve a device event.
+*DefaultApi* | [**device_query_create**](docs/DefaultApi.md#device_query_create) | **POST** /v3/device-queries/ | Create a device query
+*DefaultApi* | [**device_query_destroy**](docs/DefaultApi.md#device_query_destroy) | **DELETE** /v3/device-queries/{query_id}/ | Delete a device query
+*DefaultApi* | [**device_query_list**](docs/DefaultApi.md#device_query_list) | **GET** /v3/device-queries/ | List device queries.
+*DefaultApi* | [**device_query_retrieve**](docs/DefaultApi.md#device_query_retrieve) | **GET** /v3/device-queries/{query_id}/ | Retrieve a device query.
+*DefaultApi* | [**device_query_update**](docs/DefaultApi.md#device_query_update) | **PUT** /v3/device-queries/{query_id}/ | Update a device query
+*DefaultApi* | [**device_retrieve**](docs/DefaultApi.md#device_retrieve) | **GET** /v3/devices/{id}/ | Get a devices
+*DefaultApi* | [**device_update**](docs/DefaultApi.md#device_update) | **PUT** /v3/devices/{id}/ | Update a device
 
 
 ## Documentation For Models
@@ -97,10 +96,19 @@ Class | Method | HTTP request | Description
  - [DeviceDataPatchRequest](docs/DeviceDataPatchRequest.md)
  - [DeviceDataPostRequest](docs/DeviceDataPostRequest.md)
  - [DeviceDataPutRequest](docs/DeviceDataPutRequest.md)
+ - [DeviceEqNeqFilter](docs/DeviceEqNeqFilter.md)
  - [DeviceEventData](docs/DeviceEventData.md)
+ - [DeviceEventEqNeqFilter](docs/DeviceEventEqNeqFilter.md)
+ - [DeviceEventGteLteFilter](docs/DeviceEventGteLteFilter.md)
+ - [DeviceEventInNinFilter](docs/DeviceEventInNinFilter.md)
  - [DeviceEventPage](docs/DeviceEventPage.md)
+ - [DeviceGteLteFilter](docs/DeviceGteLteFilter.md)
+ - [DeviceInNinFilter](docs/DeviceInNinFilter.md)
  - [DevicePage](docs/DevicePage.md)
  - [DeviceQuery](docs/DeviceQuery.md)
+ - [DeviceQueryEqNeqFilter](docs/DeviceQueryEqNeqFilter.md)
+ - [DeviceQueryGteLteFilter](docs/DeviceQueryGteLteFilter.md)
+ - [DeviceQueryInNinFilter](docs/DeviceQueryInNinFilter.md)
  - [DeviceQueryPage](docs/DeviceQueryPage.md)
  - [DeviceQueryPatchRequest](docs/DeviceQueryPatchRequest.md)
  - [DeviceQueryPostPutRequest](docs/DeviceQueryPostPutRequest.md)

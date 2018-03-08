@@ -18,10 +18,11 @@
 from __future__ import absolute_import
 from __future__ import unicode_literals
 
-import datetime
 import logging
 import re
 import threading
+import uuid
+import warnings
 
 from collections import defaultdict
 
@@ -40,7 +41,7 @@ from mbed_cloud.connect.resource import Resource
 from mbed_cloud.connect.webhooks import Webhook
 
 from mbed_cloud.core import BaseAPI
-from mbed_cloud.core import PaginatedResponse
+from mbed_cloud.pagination import PaginatedResponse
 
 from mbed_cloud.decorators import catch_exceptions
 
@@ -49,6 +50,7 @@ from mbed_cloud.device_directory import Device
 from mbed_cloud.exceptions import CloudApiException
 from mbed_cloud.exceptions import CloudUnhandledError
 from mbed_cloud.exceptions import CloudValueError
+from mbed_cloud.utils import force_utc
 
 from six.moves import queue
 
@@ -66,9 +68,9 @@ class ConnectAPI(BaseAPI):
 
     api_structure = {
         mds: [
-            mds.DefaultApi,
             mds.EndpointsApi,
             mds.NotificationsApi,
+            mds.DeviceRequestsApi,
             mds.ResourcesApi,
             mds.SubscriptionsApi
         ],
@@ -84,8 +86,22 @@ class ConnectAPI(BaseAPI):
         self._queues = defaultdict(dict)
 
         self.b64decode = True
-        self._notifications_are_active = False
         self._notifications_thread = None
+        self._notifications_lock = threading.RLock()
+
+    @property
+    def has_active_notification_thread(self):
+        """Has active notification thread"""
+        with self._notifications_lock:
+            return bool(self._notifications_thread)
+
+    def ensure_notifications_thread(self):
+        """Ensure notification thread is running"""
+        if not self.has_active_notification_thread:
+            if self.config.get('autostart_notification_thread'):
+                self.start_notifications()
+            else:
+                raise CloudUnhandledError("notifications thread required for this API call")
 
     def start_notifications(self):
         """Start the notifications thread.
@@ -102,29 +118,29 @@ class ConnectAPI(BaseAPI):
 
         :returns: void
         """
-        api = self._get_api(mds.NotificationsApi)
-        if self._notifications_are_active:
-            return
-        self._notifications_thread = NotificationsThread(
-            self._db,
-            self._queues,
-            b64decode=self.b64decode,
-            notifications_api=api
-        )
-        self._notifications_thread.daemon = True
-        self._notifications_thread.start()
-        self._notifications_are_active = True
+        with self._notifications_lock:
+            api = self._get_api(mds.NotificationsApi)
+            if self.has_active_notification_thread:
+                return
+            self._notifications_thread = NotificationsThread(
+                self._db,
+                self._queues,
+                b64decode=self.b64decode,
+                notifications_api=api
+            )
+            self._notifications_thread.daemon = True
+            self._notifications_thread.start()
 
     def stop_notifications(self):
         """Stop the notifications thread.
 
         :returns: void
         """
-        if not self._notifications_are_active:
-            return
-        self._notifications_thread.stop()
-        self._notifications_thread = None
-        self._notifications_are_active = False
+        with self._notifications_lock:
+            if not self.has_active_notification_thread:
+                return
+            self._notifications_thread.stop()
+            self._notifications_thread = None
 
     @catch_exceptions(device_directory.rest.ApiException)
     def list_connected_devices(self, **kwargs):
@@ -170,9 +186,9 @@ class ConnectAPI(BaseAPI):
         :returns: a list of connected :py:class:`Device` objects.
         :rtype: PaginatedResponse
         """
-        filters = kwargs.get("filters", {})
-        filters.update({'state': {'$eq': 'registered'}})
-        kwargs.update({'filters': filters})
+        # TODO(pick one of these)
+        filter_or_filters = 'filter' if 'filter' in kwargs else 'filters'
+        kwargs.setdefault(filter_or_filters, {}).setdefault('state', {'$eq': 'registered'})
         kwargs = self._verify_sort_options(kwargs)
         kwargs = self._verify_filters(kwargs, Device, True)
         api = self._get_api(device_directory.DefaultApi)
@@ -212,6 +228,46 @@ class ConnectAPI(BaseAPI):
                 return r
         raise CloudApiException("Resource not found")
 
+    def _new_async_id(self):
+        """A source of new client-side async ids"""
+        return str(uuid.uuid4())
+
+    def _mds_rpc_post(self, device_id, **params):
+        """Helper for using RPC endpoint"""
+        self.ensure_notifications_thread()
+        api = self._get_api(mds.DeviceRequestsApi)
+        async_id = self._new_async_id()
+        device_request = mds.DeviceRequest(**params)
+        api.v2_device_requests_device_id_post(
+            device_id,
+            async_id=async_id,
+            body=device_request,
+        )
+        return AsyncConsumer(async_id, self._db)
+
+    @catch_exceptions(mds.rest.ApiException)
+    def get_resource_value_async(self, device_id, resource_path, fix_path=True):
+        """Get a resource value for a given device and resource path.
+
+        Will not block, but instead return an AsyncConsumer. Example usage:
+
+        .. code-block:: python
+
+            a = api.get_resource_value_async(device, path)
+            while not a.is_done:
+                time.sleep(0.1)
+            if a.error:
+                print("Error", a.error)
+            print("Current value", a.value)
+
+        :param str device_id: The name/id of the device (Required)
+        :param str resource_path: The resource path to get (Required)
+        :param bool fix_path: strip leading / of path if present
+        :returns: Consumer object to control asynchronous request
+        :rtype: AsyncConsumer
+        """
+        return self._mds_rpc_post(device_id=device_id, method='GET', uri=resource_path)
+
     @catch_exceptions(mds.rest.ApiException)
     def get_resource_value(self, device_id, resource_path, fix_path=True, timeout=None):
         """Get a resource value for a given device and resource path by blocking thread.
@@ -236,50 +292,11 @@ class ConnectAPI(BaseAPI):
         :returns: The resource value for the requested resource path
         :rtype: str
         """
-        # Ensure we're listening to notifications first
-        if not self._notifications_are_active:
-            raise CloudUnhandledError(
-                "start_notifications needs to be called before getting resource value.")
-
-        consumer = self.get_resource_value_async(device_id, resource_path, fix_path)
-
-        # We block the thread and get the value for the user.
-        return consumer.wait(timeout)
+        return self.get_resource_value_async(device_id, resource_path, fix_path).wait(timeout)
 
     @catch_exceptions(mds.rest.ApiException)
-    def get_resource_value_async(self, device_id, resource_path, fix_path=True):
-        """Get a resource value for a given device and resource path.
-
-        Will not block, but instead return an AsyncConsumer. Example usage:
-
-        .. code-block:: python
-
-            a = api.get_resource_value_async(device, path)
-            while not a.is_done:
-                time.sleep(0.1)
-            if a.error:
-                print("Error", a.error)
-            print("Current value", a.value)
-
-        :param str device_id: The name/id of the device (Required)
-        :param str resource_path: The resource path to get (Required)
-        :param bool fix_path: strip leading / of path if present
-        :returns: Consumer object to control asynchronous request
-        :rtype: AsyncConsumer
-        """
-        # When path starts with / we remove the slash, as the API can't handle //.
-        if fix_path:
-            resource_path = resource_path.lstrip('/')
-
-        api = self._get_api(mds.ResourcesApi)
-        resp = api.v2_endpoints_device_id_resource_path_get(device_id, resource_path)
-
-        # The async consumer, which will read data from notifications thread
-        return AsyncConsumer(resp.async_response_id, self._db)
-
-    @catch_exceptions(mds.rest.ApiException)
-    def set_resource_value(self, device_id, resource_path,
-                           resource_value=None, fix_path=True):
+    def set_resource_value(self, device_id, resource_path, resource_value,
+                           fix_path=True, timeout=None):
         """Set resource value for given resource path, on device.
 
         Will block and wait for response to come through. Usage:
@@ -294,40 +311,24 @@ class ConnectAPI(BaseAPI):
 
         :param str device_id: The name/id of the device (Required)
         :param str resource_path: The resource path to update (Required)
-        :param str resource_value: The new value to set for given path (if None
-            the resource function will be executed)
+        :param str resource_value: The new value to set for given path
         :param fix_path: if True then the leading /, if found, will be stripped before
             doing request to backend. This is a requirement for the API to work properly
         :raises: AsyncError
         :returns: The value of the new resource
         :rtype: str
         """
-        # Ensure we're listening to notifications first
-        if not self._notifications_are_active:
-            raise CloudUnhandledError(
-                "start_notifications needs to be called before setting resource value.")
-
-        # When path starts with / we remove the slash, as the API can't handle //.
-        if fix_path and resource_path.startswith("/"):
-            resource_path = resource_path[1:]
-
-        api = self._get_api(mds.ResourcesApi)
-
-        if resource_value:
-            resp = api.v2_endpoints_device_id_resource_path_put(device_id,
-                                                                resource_path,
-                                                                resource_value)
-        else:
-            resp = api.v2_endpoints_device_id_resource_path_post(device_id, resource_path)
-        consumer = AsyncConsumer(resp.async_response_id, self._db)
-        return consumer.wait()
+        self.ensure_notifications_thread()
+        return self.set_resource_value_async(
+            device_id, resource_path, resource_value, fix_path
+        ).wait(timeout)
 
     @catch_exceptions(mds.rest.ApiException)
     def set_resource_value_async(self, device_id, resource_path,
                                  resource_value=None, fix_path=True):
         """Set resource value for given resource path, on device.
 
-        Will not block. Returns immediatly. Usage:
+        Will not block. Returns immediately. Usage:
 
         .. code-block:: python
 
@@ -340,8 +341,7 @@ class ConnectAPI(BaseAPI):
 
         :param str device_id: The name/id of the device (Required)
         :param str resource_path: The resource path to update (Required)
-        :param str resource_value: The new value to set for given path (if
-            None, the resource function will be executed)
+        :param str resource_value: The new value to set for given path
         :param fix_path: if True then the leading /, if found, will be stripped before
             doing request to backend. This is a requirement for the API to work properly
         :returns: An async consumer object holding reference to request
@@ -352,18 +352,13 @@ class ConnectAPI(BaseAPI):
             resource_path = resource_path[1:]
 
         api = self._get_api(mds.ResourcesApi)
-
-        if resource_value:
-            resp = api.v2_endpoints_device_id_resource_path_put(device_id,
-                                                                resource_path,
-                                                                resource_value)
-        else:
-            resp = api.v2_endpoints_device_id_resource_path_post(device_id, resource_path)
-
+        resp = api.v2_endpoints_device_id_resource_path_put(device_id,
+                                                            resource_path,
+                                                            resource_value)
         return AsyncConsumer(resp.async_response_id, self._db)
 
     @catch_exceptions(mds.rest.ApiException)
-    def execute_resource(self, device_id, resource_path, fix_path=True, **kwargs):
+    def execute_resource(self, device_id, resource_path, fix_path=True, timeout=None, **kwargs):
         """Execute a function on a resource.
 
         Will block and wait for response to come through. Usage:
@@ -386,9 +381,7 @@ class ConnectAPI(BaseAPI):
         :rtype: str
         """
         # Ensure we're listening to notifications first
-        if not self._notifications_are_active:
-            raise CloudUnhandledError(
-                "start_notifications needs to be called before setting resource value.")
+        self.ensure_notifications_thread()
 
         # When path starts with / we remove the slash, as the API can't handle //.
         if fix_path and resource_path.startswith("/"):
@@ -399,7 +392,7 @@ class ConnectAPI(BaseAPI):
                                                              resource_path,
                                                              **kwargs)
         consumer = AsyncConsumer(resp.async_response_id, self._db)
-        return consumer.wait()
+        return consumer.wait(timeout)
 
     @catch_exceptions(mds.rest.ApiException)
     def execute_resource_async(self, device_id, resource_path, fix_path=True, **kwargs):
@@ -509,7 +502,13 @@ class ConnectAPI(BaseAPI):
             fixed_path = resource_path[1:]
 
         api = self._get_api(mds.SubscriptionsApi)
-        return api.v2_subscriptions_device_id_resource_path_get(device_id, fixed_path)
+        try:
+            api.v2_subscriptions_device_id_resource_path_get(device_id, fixed_path)
+        except Exception as e:
+            if e.status == 404:
+                return False
+            raise
+        return True
 
     @catch_exceptions(mds.rest.ApiException)
     def update_presubscriptions(self, presubscriptions):
@@ -544,10 +543,19 @@ class ConnectAPI(BaseAPI):
     def delete_subscriptions(self):
         """Remove all subscriptions.
 
+        Warning: This could be slow for large numbers of connected devices.
+        If possible, explicitly delete subscriptions known to have been created.
+
         :returns: None
         """
-        api = self._get_api(mds.SubscriptionsApi)
-        return api.v2_subscriptions_delete()
+        warnings.warn('This could be slow for large numbers of connected devices.'
+                      'If possible, explicitly delete subscriptions known to have been created.')
+        for device in self.list_connected_devices():
+            try:
+                self.delete_device_subscriptions(device_id=device.id)
+            except CloudApiException as e:
+                logging.warning('failed to remove subscription for %s: %s', device.id, e)
+                continue
 
     @catch_exceptions(mds.rest.ApiException)
     def list_presubscriptions(self, **kwargs):
@@ -635,7 +643,7 @@ class ConnectAPI(BaseAPI):
             # bodge to give attribute lookup
             data = payload
 
-        notification = self._get_api(mds.DefaultApi).api_client.deserialize(
+        notification = self._get_api(mds.NotificationsApi).api_client.deserialize(
             PayloadContainer, mds.NotificationMessage.__name__
         )
         handle_channel_message(
@@ -651,7 +659,7 @@ class ConnectAPI(BaseAPI):
 
         :return: The currently set webhook
         """
-        api = self._get_api(mds.DefaultApi)
+        api = self._get_api(mds.NotificationsApi)
         return Webhook(api.v2_notification_callback_get())
 
     @catch_exceptions(mds.rest.ApiException)
@@ -718,22 +726,16 @@ class ConnectAPI(BaseAPI):
         :rtype: PaginatedResponse
         """
         self._verify_arguments(interval, kwargs)
+        include = Metric._map_includes(include)
+        kwargs.update(dict(include=include, interval=interval))
         kwargs = self._verify_filters(kwargs, Metric)
         api = self._get_api(statistics.StatisticsApi)
-        include = Metric._map_includes(include)
-        kwargs.update({"include": include})
-        kwargs.update({"interval": interval})
         return PaginatedResponse(api.v3_metrics_get, lwrap_type=Metric, **kwargs)
 
     def _subscription_handler(self, queue, device_id, path, callback_fn):
         while True:
             value = queue.get()
             callback_fn(device_id, path, value)
-
-    def _convert_to_UTC_RFC3339(self, time, name):
-        if not isinstance(time, datetime.datetime):
-            raise CloudValueError("%s should be of type datetime" % (name))
-        return time.isoformat() + "Z"
 
     def _verify_arguments(self, interval, kwargs):
         start = kwargs.get("start", None)
@@ -752,7 +754,7 @@ class ConnectAPI(BaseAPI):
             raise CloudValueError("interval is incorrect. Sample values: 2h, 3w, 4d.")
         # convert start into UTC RFC3339 format
         if start:
-            kwargs['start'] = self._convert_to_UTC_RFC3339(start, 'start')
+            kwargs['start'] = force_utc(start, 'start')
         # convert end into UTC RFC3339 format
         if end:
-            kwargs['end'] = self._convert_to_UTC_RFC3339(end, 'end')
+            kwargs['end'] = force_utc(end, 'end')

@@ -22,7 +22,8 @@ import logging
 # Import common functions and exceptions from frontend API
 from mbed_cloud.core import BaseAPI
 from mbed_cloud.core import BaseObject
-from mbed_cloud.core import PaginatedResponse
+from mbed_cloud.pagination import PaginatedResponse
+from mbed_cloud.utils import force_utc
 
 from mbed_cloud.decorators import catch_exceptions
 
@@ -101,7 +102,7 @@ class UpdateAPI(BaseAPI):
         :param str device_filter: The device filter to use (Required)
         :param str manifest_id: ID of the manifest with description of the update
         :param str description: Description of the campaign
-        :param date when: The timestamp at which update campaign is scheduled to start
+        :param date scheduled_at: The timestamp at which update campaign is scheduled to start
         :param str state: The state of the campaign. Values:
             "draft", "scheduled", "devicefetch", "devicecopy", "publishing",
             "deploying", "deployed", "manifestremoved", "expired"
@@ -113,6 +114,9 @@ class UpdateAPI(BaseAPI):
             Device._get_attributes_map()
         )
         campaign = Campaign._create_request_map(kwargs)
+        if 'when' in campaign:
+            # FIXME: randomly validating an input here is a sure route to nasty surprises elsewhere
+            campaign['when'] = force_utc(campaign['when'])
         body = UpdateCampaignPostRequest(
             name=name,
             device_filter=device_filter['filter'],
@@ -132,7 +136,7 @@ class UpdateAPI(BaseAPI):
         return self.update_campaign(campaign_object)
 
     @catch_exceptions(UpdateServiceApiException)
-    def update_campaign(self, campaign_object):
+    def update_campaign(self, campaign_object=None, campaign_id=None, **kwargs):
         """Update an update campaign.
 
         :param :class:`Campaign` campaign_object: Campaign object to update (Required)
@@ -140,15 +144,21 @@ class UpdateAPI(BaseAPI):
         :rtype: Campaign
         """
         api = self._get_api(update_service.DefaultApi)
-        campaign_id = campaign_object.id
-        campaign_object = campaign_object._create_patch_request()
+        if campaign_object:
+            campaign_id = campaign_object.id
+            campaign_object = campaign_object._create_patch_request()
+        else:
+            campaign_object = Campaign._create_request_map(kwargs)
         if 'device_filter' in campaign_object:
             campaign_object["device_filter"] = filters.legacy_filter_formatter(
                 dict(filter=campaign_object["device_filter"]),
                 Device._get_attributes_map()
             )['filter']
-        return Campaign(api.update_campaign_partial_update(campaign_id=campaign_id,
-                                                           campaign=campaign_object))
+        if 'when' in campaign_object:
+            # FIXME: randomly validating an input here is a sure route to nasty surprises elsewhere
+            campaign_object['when'] = force_utc(campaign_object['when'])
+        return Campaign(api.update_campaign_update(campaign_id=campaign_id,
+                                                   campaign=campaign_object))
 
     @catch_exceptions(UpdateServiceApiException)
     def delete_campaign(self, campaign_id):
@@ -176,7 +186,7 @@ class UpdateAPI(BaseAPI):
         kwargs = self._verify_filters(kwargs, CampaignDeviceState, True)
         kwargs["campaign_id"] = campaign_id
         api = self._get_api(update_service.DefaultApi)
-        return PaginatedResponse(api.v3_update_campaigns_campaign_id_campaign_device_metadata_get,
+        return PaginatedResponse(api.update_campaign_metadata_list,
                                  lwrap_type=CampaignDeviceState, **kwargs)
 
     @catch_exceptions(UpdateServiceApiException)
@@ -380,7 +390,6 @@ class FirmwareManifest(BaseObject):
             "url": "datafile",
             "description": "description",
             "device_class": "device_class",
-            "datafile_checksum": "datafile_checksum",
             "datafile_size": "datafile_size",
             "id": "id",
             "name": "name",
@@ -420,14 +429,6 @@ class FirmwareManifest(BaseObject):
         :rtype: str
         """
         return self._device_class
-
-    @property
-    def datafile_checksum(self):
-        """The checksum generated for the datafile (readonly).
-
-        :rtype: str
-        """
-        return self._datafile_checksum
 
     @property
     def datafile_size(self):
@@ -493,6 +494,7 @@ class Campaign(BaseObject):
             "manifest_url": "root_manifest_url",
             "name": "name",
             "started_at": "started_at",
+            "updated_at": "updated_at",
             "state": "state",
             "scheduled_at": "when"
         }
@@ -541,6 +543,14 @@ class Campaign(BaseObject):
         :rtype: datetime
         """
         return self._created_at
+
+    @property
+    def updated_at(self):
+        """The time the object was last updated (readonly).
+
+        :rtype: datetime
+        """
+        return self._updated_at
 
     @property
     def description(self):

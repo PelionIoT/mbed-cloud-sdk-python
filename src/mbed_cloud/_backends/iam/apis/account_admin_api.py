@@ -35,6 +35,111 @@ class AccountAdminApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
+    def add_api_key_to_groups(self, api_key, body, **kwargs):
+        """
+        Add API key to a list of groups.
+        An endpoint for adding API key to groups.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.add_api_key_to_groups(api_key, body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str api_key: The ID of the API key to be added to the group. (required)
+        :param list[str] body: A list of IDs of the groups to be updated. (required)
+        :return: UpdatedResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.add_api_key_to_groups_with_http_info(api_key, body, **kwargs)
+        else:
+            (data) = self.add_api_key_to_groups_with_http_info(api_key, body, **kwargs)
+            return data
+
+    def add_api_key_to_groups_with_http_info(self, api_key, body, **kwargs):
+        """
+        Add API key to a list of groups.
+        An endpoint for adding API key to groups.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.add_api_key_to_groups_with_http_info(api_key, body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str api_key: The ID of the API key to be added to the group. (required)
+        :param list[str] body: A list of IDs of the groups to be updated. (required)
+        :return: UpdatedResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['api_key', 'body']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method add_api_key_to_groups" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'api_key' is set
+        if ('api_key' not in params) or (params['api_key'] is None):
+            raise ValueError("Missing the required parameter `api_key` when calling `add_api_key_to_groups`")
+        # verify the required parameter 'body' is set
+        if ('body' not in params) or (params['body'] is None):
+            raise ValueError("Missing the required parameter `body` when calling `add_api_key_to_groups`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'api_key' in params:
+            path_params['apiKey'] = params['api_key']
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'body' in params:
+            body_params = params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/api-keys/{apiKey}/groups', 'POST',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='UpdatedResponse',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
     def add_certificate(self, body, **kwargs):
         """
         Upload a new trusted certificate.
@@ -238,6 +343,209 @@ class AccountAdminApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
+    def add_user_to_groups(self, user_id, body, **kwargs):
+        """
+        Add user to a list of groups.
+        An endpoint for adding user to groups.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.add_user_to_groups(user_id, body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str user_id: The ID of the user to be added to the group. (required)
+        :param list[str] body: A list of IDs of the groups to be updated. (required)
+        :return: UpdatedResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.add_user_to_groups_with_http_info(user_id, body, **kwargs)
+        else:
+            (data) = self.add_user_to_groups_with_http_info(user_id, body, **kwargs)
+            return data
+
+    def add_user_to_groups_with_http_info(self, user_id, body, **kwargs):
+        """
+        Add user to a list of groups.
+        An endpoint for adding user to groups.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.add_user_to_groups_with_http_info(user_id, body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str user_id: The ID of the user to be added to the group. (required)
+        :param list[str] body: A list of IDs of the groups to be updated. (required)
+        :return: UpdatedResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['user_id', 'body']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method add_user_to_groups" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'user_id' is set
+        if ('user_id' not in params) or (params['user_id'] is None):
+            raise ValueError("Missing the required parameter `user_id` when calling `add_user_to_groups`")
+        # verify the required parameter 'body' is set
+        if ('body' not in params) or (params['body'] is None):
+            raise ValueError("Missing the required parameter `body` when calling `add_user_to_groups`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'user_id' in params:
+            path_params['user-id'] = params['user_id']
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'body' in params:
+            body_params = params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/users/{user-id}/groups', 'POST',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='UpdatedResponse',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
+    def create_group(self, body, **kwargs):
+        """
+        Create a new group.
+        An endpoint for creating a new group.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.create_group(body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param GroupCreationInfo body: Details of the group to be created. (required)
+        :return: GroupSummary
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.create_group_with_http_info(body, **kwargs)
+        else:
+            (data) = self.create_group_with_http_info(body, **kwargs)
+            return data
+
+    def create_group_with_http_info(self, body, **kwargs):
+        """
+        Create a new group.
+        An endpoint for creating a new group.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.create_group_with_http_info(body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param GroupCreationInfo body: Details of the group to be created. (required)
+        :return: GroupSummary
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['body']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method create_group" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'body' is set
+        if ('body' not in params) or (params['body'] is None):
+            raise ValueError("Missing the required parameter `body` when calling `create_group`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'body' in params:
+            body_params = params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/policy-groups', 'POST',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='GroupSummary',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
     def create_user(self, body, **kwargs):
         """
         Create a new user.
@@ -333,6 +641,100 @@ class AccountAdminApi(object):
                                         post_params=form_params,
                                         files=local_var_files,
                                         response_type='UserInfoResp',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
+    def delete_group(self, group_id, **kwargs):
+        """
+        Delete a group.
+        An endpoint for deleting a group.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.delete_group(group_id, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str group_id: The ID of the group to be deleted. (required)
+        :return: None
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.delete_group_with_http_info(group_id, **kwargs)
+        else:
+            (data) = self.delete_group_with_http_info(group_id, **kwargs)
+            return data
+
+    def delete_group_with_http_info(self, group_id, **kwargs):
+        """
+        Delete a group.
+        An endpoint for deleting a group.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.delete_group_with_http_info(group_id, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str group_id: The ID of the group to be deleted. (required)
+        :return: None
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['group_id']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method delete_group" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'group_id' is set
+        if ('group_id' not in params) or (params['group_id'] is None):
+            raise ValueError("Missing the required parameter `group_id` when calling `delete_group`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'group_id' in params:
+            path_params['groupID'] = params['group_id']
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/policy-groups/{groupID}', 'DELETE',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type=None,
                                         auth_settings=auth_settings,
                                         async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -448,6 +850,7 @@ class AccountAdminApi(object):
         :param str after: The entity ID to fetch after the given one.
         :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
         :param str include: Comma separated additional data to return. Currently supported: total_count
+        :param str email__eq: Filter for email address
         :param str status__eq: Filter for status, for example active or reset
         :return: UserInfoRespList
                  If the method is called asynchronously,
@@ -474,13 +877,14 @@ class AccountAdminApi(object):
         :param str after: The entity ID to fetch after the given one.
         :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
         :param str include: Comma separated additional data to return. Currently supported: total_count
+        :param str email__eq: Filter for email address
         :param str status__eq: Filter for status, for example active or reset
         :return: UserInfoRespList
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['limit', 'after', 'order', 'include', 'status__eq']
+        all_params = ['limit', 'after', 'order', 'include', 'email__eq', 'status__eq']
         all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -510,6 +914,8 @@ class AccountAdminApi(object):
             query_params.append(('order', params['order']))
         if 'include' in params:
             query_params.append(('include', params['include']))
+        if 'email__eq' in params:
+            query_params.append(('email__eq', params['email__eq']))
         if 'status__eq' in params:
             query_params.append(('status__eq', params['status__eq']))
 
@@ -541,6 +947,226 @@ class AccountAdminApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
+    def get_groups_of_apikey(self, api_key, **kwargs):
+        """
+        Get groups of the API key.
+        An endpoint for retrieving groups of the API key.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.get_groups_of_apikey(api_key, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str api_key: The ID of the API key whose details are retrieved. (required)
+        :param int limit: The number of results to return (2-1000), default is 50.
+        :param str after: The entity ID to fetch after the given one.
+        :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
+        :param str include: Comma separated additional data to return. Currently supported: total_count
+        :return: GroupSummaryList
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.get_groups_of_apikey_with_http_info(api_key, **kwargs)
+        else:
+            (data) = self.get_groups_of_apikey_with_http_info(api_key, **kwargs)
+            return data
+
+    def get_groups_of_apikey_with_http_info(self, api_key, **kwargs):
+        """
+        Get groups of the API key.
+        An endpoint for retrieving groups of the API key.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.get_groups_of_apikey_with_http_info(api_key, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str api_key: The ID of the API key whose details are retrieved. (required)
+        :param int limit: The number of results to return (2-1000), default is 50.
+        :param str after: The entity ID to fetch after the given one.
+        :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
+        :param str include: Comma separated additional data to return. Currently supported: total_count
+        :return: GroupSummaryList
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['api_key', 'limit', 'after', 'order', 'include']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_groups_of_apikey" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'api_key' is set
+        if ('api_key' not in params) or (params['api_key'] is None):
+            raise ValueError("Missing the required parameter `api_key` when calling `get_groups_of_apikey`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'api_key' in params:
+            path_params['apiKey'] = params['api_key']
+
+        query_params = []
+        if 'limit' in params:
+            query_params.append(('limit', params['limit']))
+        if 'after' in params:
+            query_params.append(('after', params['after']))
+        if 'order' in params:
+            query_params.append(('order', params['order']))
+        if 'include' in params:
+            query_params.append(('include', params['include']))
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/api-keys/{apiKey}/groups', 'GET',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='GroupSummaryList',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
+    def get_groups_of_user(self, user_id, **kwargs):
+        """
+        Get groups of the user.
+        An endpoint for retrieving groups of the user.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.get_groups_of_user(user_id, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str user_id: The ID of the user whose details are retrieved. (required)
+        :param int limit: The number of results to return (2-1000), default is 50.
+        :param str after: The entity ID to fetch after the given one.
+        :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
+        :param str include: Comma separated additional data to return. Currently supported: total_count
+        :return: GroupSummaryList
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.get_groups_of_user_with_http_info(user_id, **kwargs)
+        else:
+            (data) = self.get_groups_of_user_with_http_info(user_id, **kwargs)
+            return data
+
+    def get_groups_of_user_with_http_info(self, user_id, **kwargs):
+        """
+        Get groups of the user.
+        An endpoint for retrieving groups of the user.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.get_groups_of_user_with_http_info(user_id, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str user_id: The ID of the user whose details are retrieved. (required)
+        :param int limit: The number of results to return (2-1000), default is 50.
+        :param str after: The entity ID to fetch after the given one.
+        :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
+        :param str include: Comma separated additional data to return. Currently supported: total_count
+        :return: GroupSummaryList
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['user_id', 'limit', 'after', 'order', 'include']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_groups_of_user" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'user_id' is set
+        if ('user_id' not in params) or (params['user_id'] is None):
+            raise ValueError("Missing the required parameter `user_id` when calling `get_groups_of_user`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'user_id' in params:
+            path_params['user-id'] = params['user_id']
+
+        query_params = []
+        if 'limit' in params:
+            query_params.append(('limit', params['limit']))
+        if 'after' in params:
+            query_params.append(('after', params['after']))
+        if 'order' in params:
+            query_params.append(('order', params['order']))
+        if 'include' in params:
+            query_params.append(('include', params['include']))
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/users/{user-id}/groups', 'GET',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='GroupSummaryList',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
     def get_user(self, user_id, **kwargs):
         """
         Details of a user.
@@ -551,7 +1177,8 @@ class AccountAdminApi(object):
         >>> result = thread.get()
 
         :param async bool
-        :param str user_id: The ID or name of the user whose details are retrieved. (required)
+        :param str user_id: The ID of the user whose details are retrieved. (required)
+        :param str properties: Request to return account specific user property values according to the given property name.
         :return: UserInfoResp
                  If the method is called asynchronously,
                  returns the request thread.
@@ -573,13 +1200,14 @@ class AccountAdminApi(object):
         >>> result = thread.get()
 
         :param async bool
-        :param str user_id: The ID or name of the user whose details are retrieved. (required)
+        :param str user_id: The ID of the user whose details are retrieved. (required)
+        :param str properties: Request to return account specific user property values according to the given property name.
         :return: UserInfoResp
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['user_id']
+        all_params = ['user_id', 'properties']
         all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -606,6 +1234,8 @@ class AccountAdminApi(object):
             path_params['user-id'] = params['user_id']
 
         query_params = []
+        if 'properties' in params:
+            query_params.append(('properties', params['properties']))
 
         header_params = {}
 
@@ -745,6 +1375,216 @@ class AccountAdminApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
+    def remove_api_key_from_groups(self, api_key, body, **kwargs):
+        """
+        Remove API key from groups.
+        An endpoint for removing API key from groups.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.remove_api_key_from_groups(api_key, body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str api_key: The ID of the API key to be removed from the group. (required)
+        :param list[str] body: A list of IDs of the groups to be updated. (required)
+        :return: UpdatedResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.remove_api_key_from_groups_with_http_info(api_key, body, **kwargs)
+        else:
+            (data) = self.remove_api_key_from_groups_with_http_info(api_key, body, **kwargs)
+            return data
+
+    def remove_api_key_from_groups_with_http_info(self, api_key, body, **kwargs):
+        """
+        Remove API key from groups.
+        An endpoint for removing API key from groups.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.remove_api_key_from_groups_with_http_info(api_key, body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str api_key: The ID of the API key to be removed from the group. (required)
+        :param list[str] body: A list of IDs of the groups to be updated. (required)
+        :return: UpdatedResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['api_key', 'body']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method remove_api_key_from_groups" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'api_key' is set
+        if ('api_key' not in params) or (params['api_key'] is None):
+            raise ValueError("Missing the required parameter `api_key` when calling `remove_api_key_from_groups`")
+        # verify the required parameter 'body' is set
+        if ('body' not in params) or (params['body'] is None):
+            raise ValueError("Missing the required parameter `body` when calling `remove_api_key_from_groups`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'api_key' in params:
+            path_params['apiKey'] = params['api_key']
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'body' in params:
+            body_params = params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/api-keys/{apiKey}/groups', 'DELETE',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='UpdatedResponse',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
+    def remove_user_from_groups(self, user_id, body, **kwargs):
+        """
+        Remove user from groups.
+        An endpoint for removing user from groups.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.remove_user_from_groups(user_id, body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str user_id: The ID of the user to be removed from the group. (required)
+        :param list[str] body: A list of IDs of the groups to be updated. (required)
+        :return: UpdatedResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.remove_user_from_groups_with_http_info(user_id, body, **kwargs)
+        else:
+            (data) = self.remove_user_from_groups_with_http_info(user_id, body, **kwargs)
+            return data
+
+    def remove_user_from_groups_with_http_info(self, user_id, body, **kwargs):
+        """
+        Remove user from groups.
+        An endpoint for removing user from groups.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.remove_user_from_groups_with_http_info(user_id, body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str user_id: The ID of the user to be removed from the group. (required)
+        :param list[str] body: A list of IDs of the groups to be updated. (required)
+        :return: UpdatedResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['user_id', 'body']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method remove_user_from_groups" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'user_id' is set
+        if ('user_id' not in params) or (params['user_id'] is None):
+            raise ValueError("Missing the required parameter `user_id` when calling `remove_user_from_groups`")
+        # verify the required parameter 'body' is set
+        if ('body' not in params) or (params['body'] is None):
+            raise ValueError("Missing the required parameter `body` when calling `remove_user_from_groups`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'user_id' in params:
+            path_params['user-id'] = params['user_id']
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'body' in params:
+            body_params = params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/users/{user-id}/groups', 'DELETE',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='UpdatedResponse',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
     def remove_users_from_group(self, group_id, body, **kwargs):
         """
         Remove users from a group.
@@ -836,6 +1676,111 @@ class AccountAdminApi(object):
         auth_settings = ['Bearer']
 
         return self.api_client.call_api('/v3/policy-groups/{groupID}/users', 'DELETE',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='UpdatedResponse',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
+    def update_group_name(self, group_id, body, **kwargs):
+        """
+        Update the group name.
+        An endpoint for updating a group name.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.update_group_name(group_id, body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str group_id: The ID of the group to be updated. (required)
+        :param GroupUpdateInfo body: Details of the group to be created. (required)
+        :return: UpdatedResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.update_group_name_with_http_info(group_id, body, **kwargs)
+        else:
+            (data) = self.update_group_name_with_http_info(group_id, body, **kwargs)
+            return data
+
+    def update_group_name_with_http_info(self, group_id, body, **kwargs):
+        """
+        Update the group name.
+        An endpoint for updating a group name.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.update_group_name_with_http_info(group_id, body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str group_id: The ID of the group to be updated. (required)
+        :param GroupUpdateInfo body: Details of the group to be created. (required)
+        :return: UpdatedResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['group_id', 'body']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method update_group_name" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'group_id' is set
+        if ('group_id' not in params) or (params['group_id'] is None):
+            raise ValueError("Missing the required parameter `group_id` when calling `update_group_name`")
+        # verify the required parameter 'body' is set
+        if ('body' not in params) or (params['body'] is None):
+            raise ValueError("Missing the required parameter `body` when calling `update_group_name`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'group_id' in params:
+            path_params['groupID'] = params['group_id']
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'body' in params:
+            body_params = params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/policy-groups/{groupID}', 'PUT',
                                         path_params,
                                         query_params,
                                         header_params,

@@ -454,6 +454,8 @@ class ApiClient(object):
                 new_params.append((k, v))
         return new_params
 
+    ########### Change
+
     def prepare_post_parameters(self, post_params=None, files=None):
         """
         Builds form parameters.
@@ -462,25 +464,23 @@ class ApiClient(object):
         :param files: File parameters.
         :return: Form parameters with files.
         """
-        params = []
-
-        if post_params:
-            params = post_params
-
-        if files:
-            for k, v in iteritems(files):
-                if not v:
-                    continue
-                file_names = v if type(v) is list else [v]
-                for n in file_names:
-                    with open(n, 'rb') as f:
-                        filename = os.path.basename(f.name)
-                        filedata = f.read()
-                        mimetype = mimetypes.\
-                            guess_type(filename)[0] or 'application/octet-stream'
-                        params.append(tuple([k, tuple([filename, filedata, mimetype])]))
-
+        params = post_params or []
+        for key, values in (files or {}).items():
+            for maybe_file_or_path in values if isinstance(values, list) else [values]:
+                try:
+                    # use the parameter as if it was an open file object
+                    data = maybe_file_or_path.read()
+                    maybe_file_or_path = maybe_file_or_path.name
+                except AttributeError:
+                    # then it is presumably a file path
+                    with open(maybe_file_or_path, 'rb') as fh:
+                        data = fh.read()
+                basepath = os.path.basename(maybe_file_or_path)
+                mimetype = mimetypes.guess_type(basepath)[0] or 'application/octet-stream'
+                params.append((key, (basepath, data, mimetype)))
         return params
+
+    ########### End Change
 
     def select_header_accept(self, accepts):
         """

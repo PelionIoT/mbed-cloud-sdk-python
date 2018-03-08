@@ -34,6 +34,7 @@ class UserInfoReq(object):
         'phone_number': 'str',
         'username': 'str',
         'groups': 'list[str]',
+        'user_properties': 'dict(str, dict(str, str))',
         'is_gtc_accepted': 'bool',
         'full_name': 'str',
         'is_marketing_accepted': 'bool',
@@ -46,6 +47,7 @@ class UserInfoReq(object):
         'phone_number': 'phone_number',
         'username': 'username',
         'groups': 'groups',
+        'user_properties': 'user_properties',
         'is_gtc_accepted': 'is_gtc_accepted',
         'full_name': 'full_name',
         'is_marketing_accepted': 'is_marketing_accepted',
@@ -54,7 +56,7 @@ class UserInfoReq(object):
         'email': 'email'
     }
 
-    def __init__(self, phone_number=None, username=None, groups=None, is_gtc_accepted=None, full_name=None, is_marketing_accepted=None, address=None, password=None, email=None):
+    def __init__(self, phone_number=None, username=None, groups=None, user_properties=None, is_gtc_accepted=None, full_name=None, is_marketing_accepted=None, address=None, password=None, email=None):
         """
         UserInfoReq - a model defined in Swagger
         """
@@ -62,6 +64,7 @@ class UserInfoReq(object):
         self._phone_number = phone_number
         self._username = username
         self._groups = groups
+        self._user_properties = user_properties
         self._is_gtc_accepted = is_gtc_accepted
         self._full_name = full_name
         self._is_marketing_accepted = is_marketing_accepted
@@ -138,6 +141,29 @@ class UserInfoReq(object):
         """
 
         self._groups = groups
+
+    @property
+    def user_properties(self):
+        """
+        Gets the user_properties of this UserInfoReq.
+        User's account specific custom properties.
+
+        :return: The user_properties of this UserInfoReq.
+        :rtype: dict(str, dict(str, str))
+        """
+        return self._user_properties
+
+    @user_properties.setter
+    def user_properties(self, user_properties):
+        """
+        Sets the user_properties of this UserInfoReq.
+        User's account specific custom properties.
+
+        :param user_properties: The user_properties of this UserInfoReq.
+        :type: dict(str, dict(str, str))
+        """
+
+        self._user_properties = user_properties
 
     @property
     def is_gtc_accepted(self):
