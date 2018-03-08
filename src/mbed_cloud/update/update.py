@@ -186,7 +186,7 @@ class UpdateAPI(BaseAPI):
         kwargs = self._verify_filters(kwargs, CampaignDeviceState, True)
         kwargs["campaign_id"] = campaign_id
         api = self._get_api(update_service.DefaultApi)
-        return PaginatedResponse(api.v3_update_campaigns_campaign_id_campaign_device_metadata_get,
+        return PaginatedResponse(api.update_campaign_metadata_list,
                                  lwrap_type=CampaignDeviceState, **kwargs)
 
     @catch_exceptions(UpdateServiceApiException)
