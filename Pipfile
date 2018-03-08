@@ -20,3 +20,5 @@ flake8-docstrings = "*"
 pycodestyle = "*"
 sphinx = "*"
 hacking = "*"
+# ci notifications
+slackclient = "*"
