@@ -29,6 +29,7 @@ aliases:
         keys: [*branch_cache_key]
     - run: sudo pip install pipenv
     - run: pipenv run python scripts/dvcs_version.py
+    - run: pipenv run python scripts/generate_news.py
     - run: pipenv install --dev --${PYVER}
     - run: pipenv install '-e .' --skip-lock
     - run: pipenv run python -c "import mbed_cloud; print(mbed_cloud.__version__)"
@@ -54,6 +55,7 @@ aliases:
       # and use of docker for the testing is fraught with peril
       # worst case ... we're not testing in the same environment we're releasing from >_>
       - run: pipenv run python scripts/dvcs_version.py
+      - run: pipenv run python scripts/generate_news.py
       - run: pipenv install --dev --${PYVER}
       - run: pipenv install '-e .' --skip-lock
       - run: pipenv run python -c "import mbed_cloud; print(mbed_cloud.__version__)"
@@ -94,7 +96,8 @@ aliases:
                   pipenv run python setup.py bdist_wheel
                   echo 'registering and deploying package to "${TWINE_REPOSITORY_URL}" (or default)'
                   ls dist
-                  pipenv run twine upload dist/*
+# FIXME: just for demonstration purposes - remove when towncrier branch is demonstrated
+#                  pipenv run twine upload dist/*
 
 jobs:
   build_2:
