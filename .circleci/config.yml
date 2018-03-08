@@ -111,7 +111,7 @@ aliases:
           command: |
                   echo 'registering and deploying package to "${TWINE_REPOSITORY_URL}" (or default)'
                   ls dist
-                  pipenv run python scripts/generate_news.py
+                  pipenv run python scripts/notify.py
 # FIXME: just for demonstration purposes - remove when towncrier branch is demonstrated
 #                  pipenv run twine upload dist/*
 
