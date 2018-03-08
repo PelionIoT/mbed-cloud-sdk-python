@@ -29,10 +29,10 @@ aliases:
         keys: [*branch_cache_key]
     - run: sudo pip install pipenv
     - run: pipenv run python scripts/dvcs_version.py
-    - run: pipenv run python scripts/generate_news.py
     - run: pipenv install --dev --${PYVER}
     - run: pipenv install '-e .' --skip-lock
     - run: pipenv run python -c "import mbed_cloud; print(mbed_cloud.__version__)"
+    - run: pipenv run python scripts/generate_news.py
     - save_cache:
         key: *branch_cache_key
         paths:
@@ -56,10 +56,10 @@ aliases:
       # and use of docker for the testing is fraught with peril
       # worst case ... we're not testing in the same environment we're releasing from >_>
       - run: pipenv run python scripts/dvcs_version.py
-      - run: pipenv run python scripts/generate_news.py
       - run: pipenv install --dev --${PYVER}
       - run: pipenv install '-e .' --skip-lock
       - run: pipenv run python -c "import mbed_cloud; print(mbed_cloud.__version__)"
+      - run: pipenv run python scripts/generate_news.py
       - run: |
               if [[ ${CLOUD_VERSION} == production ]]; then
                 export MBED_CLOUD_API_HOST=${MBED_CLOUD_API_HOST_PROD};
