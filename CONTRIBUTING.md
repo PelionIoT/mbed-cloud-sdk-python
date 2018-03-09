@@ -42,7 +42,7 @@ Emoji | GitHub Markdown | Topic(s)
 🚀 | `:rocket:` | Performance
 💰 | `:moneybag:` | Technical debt
 📖 | `:book:` | Documentation
-🔃 | `:arrows_clockwise:` | Synchronising (nomally between branches)
+🔃 | `:arrows_clockwise:` | Synchronising (normally between branches)
 ⭕️ | `:o:` | CircleCI / Build system
 
 Additional emojis which are more likely to be used in commits than in a merge:
