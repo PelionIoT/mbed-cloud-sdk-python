@@ -34,14 +34,15 @@ An emoji will be used to highlight what has occurred in the change:
 
 Emoji | GitHub Markdown | Topic(s)
 ------|-----------------|---------
-🔧 | `:wrench:` | Bug / Defect fixes
+🏁 | `:checkered_flag:` | New release
 🎁 | `:gift:` | Features / New good stuff
+🔧 | `:wrench:` | Bug / Defect fixes
+❌ | `:x:` | Removing features / Deprecation
 🔒 | `:lock:` | Security
 🚀 | `:rocket:` | Performance
 💰 | `:moneybag:` | Technical debt
-🏁 | `:checkered_flag:` | New release
-❌ | `:x:` | Removing features / Deprecation
 📖 | `:book:` | Documentation
+🔃 | `:arrows_clockwise:` | Synchronising (nomally between branches)
 ⭕️ | `:o:` | CircleCI / Build system
 
 Additional emojis which are more likely to be used in commits than in a merge:
