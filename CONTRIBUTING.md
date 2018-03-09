@@ -25,6 +25,37 @@ changes.
 We will review your proposal, give you feedback and merge your changes if we
 feel your contribution is generally useful and meets our quality criteria.
 
+## Merging the Pull Request
+
+When merging the pull request we will give it a title which provides context to changes:
+* `:<emoji>: <Issue-Number> <Change Summary> (#<Pull Request Number>)`
+
+An emoji will be used to highlight what has occurred in the change:
+
+Emoji | GitHub Markdown | Topic(s)
+------|-----------------|---------
+🔧 | `:wrench:` | Bug / Defect fixes
+🎁 | `:gift:` | Features / New good stuff
+🔒 | `:lock:` | Security
+🚀 | `:rocket:` | Performance
+💰 | `:moneybag:` | Technical debt
+🏁 | `:checkered_flag:` | New release
+❌ | `:x:` | Removing features / Deprecation
+📖 | `:book:` | Documentation
+⭕️ | `:o:` | CircleCI / Build system
+
+Additional emojis which are more likely to be used in commits than in a merge:
+
+Emoji | GitHub Markdown | Topic(s)
+------|-----------------|---------
+🌈 | `:rainbow:` | Linting and appearance fixes
+📰 | `:newspaper:` | Newsfile (news snippet)
+🚧 | `:construction:` | Work In Progress (WIP)
+⬆️ | `:arrow_up:` |️ Upgrade dependency
+⬇️ | `:arrow_down:` | Downgrade dependency
+
+## One Last Thing...
+
 For us to accept your code contributions, we will need you to agree to our [Mbed
 Contributor Agreement](http://developer.mbed.org/contributor_agreement/) to give
 us the necessary rights to use and distribute your contributions.
