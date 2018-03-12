@@ -27,7 +27,7 @@ aliases:
     - checkout
     - restore_cache:
         keys: [*branch_cache_key]
-    - run: sudo python -m pip install -U pip
+    - run: sudo python -m pip install -U setuptools pip
     - run: sudo pip install pipenv
     - run: pipenv run python scripts/dvcs_version.py
     - run: pipenv install --dev --${PYVER}
@@ -48,7 +48,7 @@ aliases:
       - checkout
       - restore_cache:
           keys: [*branch_cache_key]
-      - run: sudo python -m pip install -U pip
+      - run: sudo python -m pip install -U setuptools pip
       - run: sudo pip install pipenv awscli
       # FIXME:
       # unfortunately we must do the 'build' again here
@@ -137,7 +137,7 @@ jobs:
           <<: *workspace
       - restore_cache:
           keys: [*branch_cache_key]
-      - run: sudo python -m pip install -U pip
+      - run: sudo python -m pip install -U setuptools pip
       - run: sudo pip install pipenv
       - run: pipenv uninstall --all
       - run: pipenv install -e . --skip-lock
@@ -155,7 +155,7 @@ jobs:
           <<: *workspace
       - restore_cache:
           keys: [*branch_cache_key]
-      - run: sudo python -m pip install -U pip
+      - run: sudo python -m pip install -U setuptools pip
       - run: sudo apt-get update
       - run: sudo apt-get install pandoc
       - run: sudo pip install pipenv
