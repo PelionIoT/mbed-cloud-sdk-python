@@ -8,7 +8,7 @@
 version: 2
 iteration: 7
 aliases:
-  - &branch_cache_key 'v5-{{ checksum "Pipfile.lock" }}'
+  - &branch_cache_key 'v5-{{ checksum "Pipfile.lock" }}-{{ .Environment.PYVER }}'
   - &build_dir build
   - &build_dir_glob build/*
   - &venv_dir build/.venv
