@@ -3,9 +3,10 @@
 #
 # this document makes use of yaml aliases and merging to attempt to keep it DRY - http://www.yaml.org/refcard.html
 #
-# the build matrix is the product of [Py2, Py3] * [Production, Staging, etc...]
+# the build matrix is the combinatoric result of [Py2, Py3] * [Production, Staging, etc...]
 
 version: 2
+iteration: 7
 aliases:
   - &branch_cache_key 'v5-{{ checksum "Pipfile.lock" }}'
   - &build_dir build
