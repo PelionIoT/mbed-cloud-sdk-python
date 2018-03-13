@@ -29,8 +29,8 @@ aliases:
         keys: [*branch_cache_key]
     - run: sudo python -m pip install -U setuptools pip
     - run: sudo pip install pipenv
-    - run: pipenv run python scripts/dvcs_version.py
     - run: pipenv install --dev --${PYVER}
+    - run: pipenv run python scripts/dvcs_version.py
     - run: pipenv install '-e .' --skip-lock
     - run: pipenv run python -c "import mbed_cloud; print(mbed_cloud.__version__)"
     - save_cache:
@@ -56,8 +56,8 @@ aliases:
       # (e.g. python3.5 instead of 3.6.1)
       # and use of docker for the testing is fraught with peril
       # worst case ... we're not testing in the same environment we're releasing from >_>
-      - run: pipenv run python scripts/dvcs_version.py
       - run: pipenv install --dev --${PYVER}
+      - run: pipenv run python scripts/dvcs_version.py
       - run: pipenv install '-e .' --skip-lock
       - run: pipenv run python -c "import mbed_cloud; print(mbed_cloud.__version__)"
       - run: |
