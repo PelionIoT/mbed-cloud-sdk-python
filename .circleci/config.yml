@@ -253,26 +253,26 @@ workflows:
   version: 2
   python_sdk_workflow:
     jobs:
-      - build_2
+#      - build_2
       - build_3
-      - test_integration_2:
-          requires:
-            - build_2
-            - test_integration_3
+#      - test_integration_2:
+#          requires:
+#            - build_2
+#            - test_integration_3
       - test_integration_3:
           requires:
             - build_3
-      - test_production_2:
-          requires:
-            - build_2
-            - test_production_3
+#      - test_production_2:
+#          requires:
+#            - build_2
+#            - test_production_3
       - test_production_3:
           requires:
             - build_3
-      - test_os2_2:
-          requires:
-            - build_2
-            - test_os2_3
+#      - test_os2_2:
+#          requires:
+#            - build_2
+#            - test_os2_3
       - test_os2_3:
           requires:
             - build_3
