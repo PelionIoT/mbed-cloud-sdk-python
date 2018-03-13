@@ -48,8 +48,9 @@ aliases:
       - checkout
       - restore_cache:
           keys: [*branch_cache_key]
-      - run: sudo python3 -m pip install -U setuptools pip
-      - run: sudo python3 -m pip install pipenv awscli
+      # CAUTION: no 'sudo' commands here, as 'circleci' user shouldn't need privilege to install
+      - run: python -m pip install -U setuptools pip
+      - run: python -m pip install pipenv awscli
       # FIXME:
       # unfortunately we must do the 'build' again here
       # as the machine executor isn't the same environment as docker
