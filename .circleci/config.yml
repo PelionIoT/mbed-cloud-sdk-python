@@ -159,7 +159,7 @@ jobs:
       - run: sudo apt-get update
       - run: sudo apt-get install pandoc
       - run: sudo pip install pipenv
-      - run: pipenv install readme_renderer
+      - run: pipenv install readme_renderer --skip-lock
       - run:
           name: Build documentation
           command: pipenv run sphinx-build -a -b html -c docs/ docs/ built_docs
