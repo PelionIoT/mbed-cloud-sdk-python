@@ -57,10 +57,10 @@ aliases:
       # (e.g. python3.5 instead of 3.6.1)
       # and use of docker for the testing is fraught with peril
       # worst case ... we're not testing in the same environment we're releasing from >_>
-      - run: pipenv install --dev --${PYVER}
-      - run: pipenv run python scripts/dvcs_version.py
-      - run: pipenv install '-e .' --skip-lock
-      - run: pipenv run python -c "import mbed_cloud; print(mbed_cloud.__version__)"
+      - run: python -m pipenv install --dev --${PYVER}
+      - run: python -m pipenv run python scripts/dvcs_version.py
+      - run: python -m pipenv install '-e .' --skip-lock
+      - run: python -m pipenv run python -c "import mbed_cloud; print(mbed_cloud.__version__)"
       - run: |
               if [[ ${CLOUD_VERSION} == production ]]; then
                 export MBED_CLOUD_API_HOST=${MBED_CLOUD_API_HOST_PROD};
@@ -79,14 +79,14 @@ aliases:
               mkdir -p results
       - run:
           name: run all tests
-          command: pipenv run pytest --tb=short --cov=mbed_cloud --cov-config=.coveragerc --cov-report=html --cov-report=xml --junitxml=results/unittests.xml --self-contained-html --html=results/unittests.html
+          command: python -m pipenv run pytest --tb=short --cov=mbed_cloud --cov-config=.coveragerc --cov-report=html --cov-report=xml --junitxml=results/unittests.xml --self-contained-html --html=results/unittests.html
           no_output_timeout: 15m
-      - run: pipenv run python scripts/ci_summary.py --noblock
+      - run: python -m pipenv run python scripts/ci_summary.py --noblock
       - store_artifacts:
           path: results
       - store_artifacts:
           path: rpc_results
-      - run: pipenv run codecov --file=results/coverage.xml -e PYVER,CLOUD_VERSION
+      - run: python -m pipenv run codecov --file=results/coverage.xml -e PYVER,CLOUD_VERSION
 
   - &job_deploy_common
     steps:
