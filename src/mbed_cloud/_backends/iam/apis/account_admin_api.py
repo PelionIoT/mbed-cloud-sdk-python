@@ -38,7 +38,7 @@ class AccountAdminApi(object):
     def add_api_key_to_groups(self, api_key, body, **kwargs):
         """
         Add API key to a list of groups.
-        An endpoint for adding API key to groups.
+        An endpoint for adding API key to groups.   **Example usage:** `curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id}/groups -d '[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.add_api_key_to_groups(api_key, body, async=True)
@@ -61,7 +61,7 @@ class AccountAdminApi(object):
     def add_api_key_to_groups_with_http_info(self, api_key, body, **kwargs):
         """
         Add API key to a list of groups.
-        An endpoint for adding API key to groups.
+        An endpoint for adding API key to groups.   **Example usage:** `curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id}/groups -d '[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.add_api_key_to_groups_with_http_info(api_key, body, async=True)
@@ -143,7 +143,7 @@ class AccountAdminApi(object):
     def add_certificate(self, body, **kwargs):
         """
         Upload a new trusted certificate.
-        An endpoint for uploading new trusted certificates.
+        An endpoint for uploading new trusted certificates.   **Example usage:** `curl -X POST https://api.us-east-1.mbedcloud.com/v3/trusted-certificates -d {\"name\": \"myCert1\", \"description\": \"very important cert\", \"certificate\": \"certificate_data\", \"service\": \"lwm2m\"} -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.add_certificate(body, async=True)
@@ -165,7 +165,7 @@ class AccountAdminApi(object):
     def add_certificate_with_http_info(self, body, **kwargs):
         """
         Upload a new trusted certificate.
-        An endpoint for uploading new trusted certificates.
+        An endpoint for uploading new trusted certificates.   **Example usage:** `curl -X POST https://api.us-east-1.mbedcloud.com/v3/trusted-certificates -d {\"name\": \"myCert1\", \"description\": \"very important cert\", \"certificate\": \"certificate_data\", \"service\": \"lwm2m\"} -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.add_certificate_with_http_info(body, async=True)
@@ -241,7 +241,7 @@ class AccountAdminApi(object):
     def add_subjects_to_group(self, group_id, body, **kwargs):
         """
         Add members to a group.
-        An endpoint for adding users and API keys to groups.
+        An endpoint for adding users and API keys to a group.   **Example usage:** `curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id} -d '{\"users\": [0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]\"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.add_subjects_to_group(group_id, body, async=True)
@@ -264,7 +264,7 @@ class AccountAdminApi(object):
     def add_subjects_to_group_with_http_info(self, group_id, body, **kwargs):
         """
         Add members to a group.
-        An endpoint for adding users and API keys to groups.
+        An endpoint for adding users and API keys to a group.   **Example usage:** `curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id} -d '{\"users\": [0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]\"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.add_subjects_to_group_with_http_info(group_id, body, async=True)
@@ -346,7 +346,7 @@ class AccountAdminApi(object):
     def add_user_to_groups(self, user_id, body, **kwargs):
         """
         Add user to a list of groups.
-        An endpoint for adding user to groups.
+        An endpoint for adding user to groups.   **Example usage:** `curl -X POST https://api.us-east-1.mbedcloud.com/v3/users/{user-id}/groups -d '[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.add_user_to_groups(user_id, body, async=True)
@@ -369,7 +369,7 @@ class AccountAdminApi(object):
     def add_user_to_groups_with_http_info(self, user_id, body, **kwargs):
         """
         Add user to a list of groups.
-        An endpoint for adding user to groups.
+        An endpoint for adding user to groups.   **Example usage:** `curl -X POST https://api.us-east-1.mbedcloud.com/v3/users/{user-id}/groups -d '[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.add_user_to_groups_with_http_info(user_id, body, async=True)
@@ -451,7 +451,7 @@ class AccountAdminApi(object):
     def create_group(self, body, **kwargs):
         """
         Create a new group.
-        An endpoint for creating a new group.
+        An endpoint for creating a new group.   **Example usage:** `curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups -d '{\"name\": \"MyGroup1\"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.create_group(body, async=True)
@@ -473,7 +473,7 @@ class AccountAdminApi(object):
     def create_group_with_http_info(self, body, **kwargs):
         """
         Create a new group.
-        An endpoint for creating a new group.
+        An endpoint for creating a new group.   **Example usage:** `curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups -d '{\"name\": \"MyGroup1\"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.create_group_with_http_info(body, async=True)
@@ -549,7 +549,7 @@ class AccountAdminApi(object):
     def create_user(self, body, **kwargs):
         """
         Create a new user.
-        An endpoint for creating or inviting a new user to the account. In case of invitation email address is used only, other attributes are set in the 2nd step.
+        An endpoint for creating or inviting a new user to the account. In case of invitation email address is used only, other attributes are set in the 2nd step.   **Example usage:** `curl -X POST https://api.us-east-1.mbedcloud.com/v3/users?action=invite -d {\"email\": \"myemail@company.com\"} -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.create_user(body, async=True)
@@ -572,7 +572,7 @@ class AccountAdminApi(object):
     def create_user_with_http_info(self, body, **kwargs):
         """
         Create a new user.
-        An endpoint for creating or inviting a new user to the account. In case of invitation email address is used only, other attributes are set in the 2nd step.
+        An endpoint for creating or inviting a new user to the account. In case of invitation email address is used only, other attributes are set in the 2nd step.   **Example usage:** `curl -X POST https://api.us-east-1.mbedcloud.com/v3/users?action=invite -d {\"email\": \"myemail@company.com\"} -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.create_user_with_http_info(body, async=True)
@@ -651,7 +651,7 @@ class AccountAdminApi(object):
     def delete_group(self, group_id, **kwargs):
         """
         Delete a group.
-        An endpoint for deleting a group.
+        An endpoint for deleting a group.   **Example usage:** `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id} -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.delete_group(group_id, async=True)
@@ -673,7 +673,7 @@ class AccountAdminApi(object):
     def delete_group_with_http_info(self, group_id, **kwargs):
         """
         Delete a group.
-        An endpoint for deleting a group.
+        An endpoint for deleting a group.   **Example usage:** `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id} -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.delete_group_with_http_info(group_id, async=True)
@@ -745,7 +745,7 @@ class AccountAdminApi(object):
     def delete_user(self, user_id, **kwargs):
         """
         Delete a user.
-        An endpoint for deleting a user.
+        An endpoint for deleting a user.   **Example usage:** `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/users/{user-id} -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.delete_user(user_id, async=True)
@@ -767,7 +767,7 @@ class AccountAdminApi(object):
     def delete_user_with_http_info(self, user_id, **kwargs):
         """
         Delete a user.
-        An endpoint for deleting a user.
+        An endpoint for deleting a user.   **Example usage:** `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/users/{user-id} -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.delete_user_with_http_info(user_id, async=True)
@@ -839,7 +839,7 @@ class AccountAdminApi(object):
     def get_all_users(self, **kwargs):
         """
         Get the details of all users.
-        An endpoint for retrieving the details of all users.
+        An endpoint for retrieving the details of all users.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/users -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.get_all_users(async=True)
@@ -866,7 +866,7 @@ class AccountAdminApi(object):
     def get_all_users_with_http_info(self, **kwargs):
         """
         Get the details of all users.
-        An endpoint for retrieving the details of all users.
+        An endpoint for retrieving the details of all users.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/users -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.get_all_users_with_http_info(async=True)
@@ -950,7 +950,7 @@ class AccountAdminApi(object):
     def get_groups_of_apikey(self, api_key, **kwargs):
         """
         Get groups of the API key.
-        An endpoint for retrieving groups of the API key.
+        An endpoint for retrieving groups of the API key.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id}/groups -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.get_groups_of_apikey(api_key, async=True)
@@ -976,7 +976,7 @@ class AccountAdminApi(object):
     def get_groups_of_apikey_with_http_info(self, api_key, **kwargs):
         """
         Get groups of the API key.
-        An endpoint for retrieving groups of the API key.
+        An endpoint for retrieving groups of the API key.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id}/groups -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.get_groups_of_apikey_with_http_info(api_key, async=True)
@@ -1060,7 +1060,7 @@ class AccountAdminApi(object):
     def get_groups_of_user(self, user_id, **kwargs):
         """
         Get groups of the user.
-        An endpoint for retrieving groups of the user.
+        An endpoint for retrieving groups of the user.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/users/{user-id}/groups -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.get_groups_of_user(user_id, async=True)
@@ -1086,7 +1086,7 @@ class AccountAdminApi(object):
     def get_groups_of_user_with_http_info(self, user_id, **kwargs):
         """
         Get groups of the user.
-        An endpoint for retrieving groups of the user.
+        An endpoint for retrieving groups of the user.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/users/{user-id}/groups -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.get_groups_of_user_with_http_info(user_id, async=True)
@@ -1170,7 +1170,7 @@ class AccountAdminApi(object):
     def get_user(self, user_id, **kwargs):
         """
         Details of a user.
-        An endpoint for retrieving the details of a user.
+        An endpoint for retrieving the details of a user.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/users/{user-id} -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.get_user(user_id, async=True)
@@ -1193,7 +1193,7 @@ class AccountAdminApi(object):
     def get_user_with_http_info(self, user_id, **kwargs):
         """
         Details of a user.
-        An endpoint for retrieving the details of a user.
+        An endpoint for retrieving the details of a user.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/users/{user-id} -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.get_user_with_http_info(user_id, async=True)
@@ -1268,7 +1268,7 @@ class AccountAdminApi(object):
     def get_users_of_group(self, group_id, **kwargs):
         """
         Get users of a group.
-        An endpoint for listing the users of a group with details.
+        An endpoint for listing the users of a group with details.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id}/users -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.get_users_of_group(group_id, async=True)
@@ -1294,7 +1294,7 @@ class AccountAdminApi(object):
     def get_users_of_group_with_http_info(self, group_id, **kwargs):
         """
         Get users of a group.
-        An endpoint for listing the users of a group with details.
+        An endpoint for listing the users of a group with details.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id}/users -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.get_users_of_group_with_http_info(group_id, async=True)
@@ -1378,7 +1378,7 @@ class AccountAdminApi(object):
     def remove_api_key_from_groups(self, api_key, body, **kwargs):
         """
         Remove API key from groups.
-        An endpoint for removing API key from groups.
+        An endpoint for removing API key from groups.   **Example usage:** `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id}/groups -d '[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.remove_api_key_from_groups(api_key, body, async=True)
@@ -1401,7 +1401,7 @@ class AccountAdminApi(object):
     def remove_api_key_from_groups_with_http_info(self, api_key, body, **kwargs):
         """
         Remove API key from groups.
-        An endpoint for removing API key from groups.
+        An endpoint for removing API key from groups.   **Example usage:** `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id}/groups -d '[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.remove_api_key_from_groups_with_http_info(api_key, body, async=True)
@@ -1483,7 +1483,7 @@ class AccountAdminApi(object):
     def remove_user_from_groups(self, user_id, body, **kwargs):
         """
         Remove user from groups.
-        An endpoint for removing user from groups.
+        An endpoint for removing user from groups.   **Example usage:** `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/users/{user-id}/groups -d '[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.remove_user_from_groups(user_id, body, async=True)
@@ -1506,7 +1506,7 @@ class AccountAdminApi(object):
     def remove_user_from_groups_with_http_info(self, user_id, body, **kwargs):
         """
         Remove user from groups.
-        An endpoint for removing user from groups.
+        An endpoint for removing user from groups.   **Example usage:** `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/users/{user-id}/groups -d '[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.remove_user_from_groups_with_http_info(user_id, body, async=True)
@@ -1588,7 +1588,7 @@ class AccountAdminApi(object):
     def remove_users_from_group(self, group_id, body, **kwargs):
         """
         Remove users from a group.
-        An endpoint for removing users from groups.
+        An endpoint for removing users from groups.   **Example usage:** `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id}/users -d '[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.remove_users_from_group(group_id, body, async=True)
@@ -1611,7 +1611,7 @@ class AccountAdminApi(object):
     def remove_users_from_group_with_http_info(self, group_id, body, **kwargs):
         """
         Remove users from a group.
-        An endpoint for removing users from groups.
+        An endpoint for removing users from groups.   **Example usage:** `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id}/users -d '[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.remove_users_from_group_with_http_info(group_id, body, async=True)
@@ -1693,7 +1693,7 @@ class AccountAdminApi(object):
     def update_group_name(self, group_id, body, **kwargs):
         """
         Update the group name.
-        An endpoint for updating a group name.
+        An endpoint for updating a group name.   **Example usage:** `curl -X PUT https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id} -d '{\"name\": \"TestGroup2\"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.update_group_name(group_id, body, async=True)
@@ -1716,7 +1716,7 @@ class AccountAdminApi(object):
     def update_group_name_with_http_info(self, group_id, body, **kwargs):
         """
         Update the group name.
-        An endpoint for updating a group name.
+        An endpoint for updating a group name.   **Example usage:** `curl -X PUT https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id} -d '{\"name\": \"TestGroup2\"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.update_group_name_with_http_info(group_id, body, async=True)
@@ -1896,7 +1896,7 @@ class AccountAdminApi(object):
     def update_user(self, user_id, body, **kwargs):
         """
         Update user details.
-        An endpoint for updating user details.
+        An endpoint for updating user details.   **Example usage:** `curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/{user-id} -d '{\"username\": \"myusername\"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.update_user(user_id, body, async=True)
@@ -1919,7 +1919,7 @@ class AccountAdminApi(object):
     def update_user_with_http_info(self, user_id, body, **kwargs):
         """
         Update user details.
-        An endpoint for updating user details.
+        An endpoint for updating user details.   **Example usage:** `curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/{user-id} -d '{\"username\": \"myusername\"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.update_user_with_http_info(user_id, body, async=True)

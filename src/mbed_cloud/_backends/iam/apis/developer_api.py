@@ -136,7 +136,7 @@ class DeveloperApi(object):
     def add_my_api_key_to_groups(self, body, **kwargs):
         """
         Add API key to a list of groups.
-        An endpoint for adding API key to groups.
+        An endpoint for adding API key to groups.   **Example usage:** `curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys/me/groups -d '[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.add_my_api_key_to_groups(body, async=True)
@@ -158,7 +158,7 @@ class DeveloperApi(object):
     def add_my_api_key_to_groups_with_http_info(self, body, **kwargs):
         """
         Add API key to a list of groups.
-        An endpoint for adding API key to groups.
+        An endpoint for adding API key to groups.   **Example usage:** `curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys/me/groups -d '[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.add_my_api_key_to_groups_with_http_info(body, async=True)
@@ -426,7 +426,7 @@ class DeveloperApi(object):
     def delete_certificate(self, cert_id, **kwargs):
         """
         Delete a trusted certificate by ID.
-        An endpoint for deleting a trusted certificate.
+        An endpoint for deleting a trusted certificate.   **Example usage:** `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.delete_certificate(cert_id, async=True)
@@ -448,7 +448,7 @@ class DeveloperApi(object):
     def delete_certificate_with_http_info(self, cert_id, **kwargs):
         """
         Delete a trusted certificate by ID.
-        An endpoint for deleting a trusted certificate.
+        An endpoint for deleting a trusted certificate.   **Example usage:** `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.delete_certificate_with_http_info(cert_id, async=True)
@@ -631,7 +631,7 @@ class DeveloperApi(object):
     def get_all_certificates(self, **kwargs):
         """
         Get all trusted certificates.
-        An endpoint for retrieving trusted certificates in an array.
+        An endpoint for retrieving trusted certificates in an array.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.get_all_certificates(async=True)
@@ -665,7 +665,7 @@ class DeveloperApi(object):
     def get_all_certificates_with_http_info(self, **kwargs):
         """
         Get all trusted certificates.
-        An endpoint for retrieving trusted certificates in an array.
+        An endpoint for retrieving trusted certificates in an array.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.get_all_certificates_with_http_info(async=True)
@@ -770,7 +770,7 @@ class DeveloperApi(object):
     def get_all_groups(self, **kwargs):
         """
         Get all group information.
-        An endpoint for retrieving all group information.
+        An endpoint for retrieving all group information.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/policy-groups -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.get_all_groups(async=True)
@@ -796,7 +796,7 @@ class DeveloperApi(object):
     def get_all_groups_with_http_info(self, **kwargs):
         """
         Get all group information.
-        An endpoint for retrieving all group information.
+        An endpoint for retrieving all group information.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/policy-groups -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.get_all_groups_with_http_info(async=True)
@@ -877,7 +877,7 @@ class DeveloperApi(object):
     def get_api_key(self, api_key, **kwargs):
         """
         Get API key details.
-        An endpoint for retrieving API key details.
+        An endpoint for retrieving API key details.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id} -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.get_api_key(api_key, async=True)
@@ -899,7 +899,7 @@ class DeveloperApi(object):
     def get_api_key_with_http_info(self, api_key, **kwargs):
         """
         Get API key details.
-        An endpoint for retrieving API key details.
+        An endpoint for retrieving API key details.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id} -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.get_api_key_with_http_info(api_key, async=True)
@@ -971,7 +971,7 @@ class DeveloperApi(object):
     def get_api_keys_of_group(self, group_id, **kwargs):
         """
         Get the API keys of a group.
-        An endpoint for listing the API keys of the group with details.
+        An endpoint for listing the API keys of the group with details.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id}/api-keys -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.get_api_keys_of_group(group_id, async=True)
@@ -997,7 +997,7 @@ class DeveloperApi(object):
     def get_api_keys_of_group_with_http_info(self, group_id, **kwargs):
         """
         Get the API keys of a group.
-        An endpoint for listing the API keys of the group with details.
+        An endpoint for listing the API keys of the group with details.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id}/api-keys -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.get_api_keys_of_group_with_http_info(group_id, async=True)
@@ -1175,7 +1175,7 @@ class DeveloperApi(object):
     def get_group_summary(self, group_id, **kwargs):
         """
         Get group information.
-        An endpoint for getting general information about the group.
+        An endpoint for getting general information about the group.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id} -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.get_group_summary(group_id, async=True)
@@ -1197,7 +1197,7 @@ class DeveloperApi(object):
     def get_group_summary_with_http_info(self, group_id, **kwargs):
         """
         Get group information.
-        An endpoint for getting general information about the group.
+        An endpoint for getting general information about the group.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id} -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.get_group_summary_with_http_info(group_id, async=True)
@@ -1269,7 +1269,7 @@ class DeveloperApi(object):
     def get_groups_of_my_api_key(self, **kwargs):
         """
         Get groups of the API key.
-        An endpoint for retrieving groups of the API key.
+        An endpoint for retrieving groups of the API key.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/api-keys/me/groups -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.get_groups_of_my_api_key(async=True)
@@ -1294,7 +1294,7 @@ class DeveloperApi(object):
     def get_groups_of_my_api_key_with_http_info(self, **kwargs):
         """
         Get groups of the API key.
-        An endpoint for retrieving groups of the API key.
+        An endpoint for retrieving groups of the API key.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/api-keys/me/groups -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.get_groups_of_my_api_key_with_http_info(async=True)
@@ -1841,7 +1841,7 @@ class DeveloperApi(object):
     def remove_api_keys_from_group(self, group_id, body, **kwargs):
         """
         Remove API keys from a group.
-        An endpoint for removing API keys from groups.
+        An endpoint for removing API keys from groups.   **Example usage:** `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id}/api-keys -d '[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.remove_api_keys_from_group(group_id, body, async=True)
@@ -1864,7 +1864,7 @@ class DeveloperApi(object):
     def remove_api_keys_from_group_with_http_info(self, group_id, body, **kwargs):
         """
         Remove API keys from a group.
-        An endpoint for removing API keys from groups.
+        An endpoint for removing API keys from groups.   **Example usage:** `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id}/api-keys -d '[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.remove_api_keys_from_group_with_http_info(group_id, body, async=True)
@@ -2044,7 +2044,7 @@ class DeveloperApi(object):
     def remove_my_api_key_from_groups(self, body, **kwargs):
         """
         Remove API key from groups.
-        An endpoint for removing API key from groups.
+        An endpoint for removing API key from groups.   **Example usage:** `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/api-keys/me/groups -d '[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.remove_my_api_key_from_groups(body, async=True)
@@ -2066,7 +2066,7 @@ class DeveloperApi(object):
     def remove_my_api_key_from_groups_with_http_info(self, body, **kwargs):
         """
         Remove API key from groups.
-        An endpoint for removing API key from groups.
+        An endpoint for removing API key from groups.   **Example usage:** `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/api-keys/me/groups -d '[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.remove_my_api_key_from_groups_with_http_info(body, async=True)
@@ -2142,7 +2142,7 @@ class DeveloperApi(object):
     def update_api_key(self, api_key, body, **kwargs):
         """
         Update API key details.
-        An endpoint for updating API key details.
+        An endpoint for updating API key details.   **Example usage:** `curl -X PUT https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id} -d '{\"name\": \"TestApiKey25\"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.update_api_key(api_key, body, async=True)
@@ -2165,7 +2165,7 @@ class DeveloperApi(object):
     def update_api_key_with_http_info(self, api_key, body, **kwargs):
         """
         Update API key details.
-        An endpoint for updating API key details.
+        An endpoint for updating API key details.   **Example usage:** `curl -X PUT https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id} -d '{\"name\": \"TestApiKey25\"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.update_api_key_with_http_info(api_key, body, async=True)
