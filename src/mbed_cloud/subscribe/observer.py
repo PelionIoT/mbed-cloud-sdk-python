@@ -30,7 +30,7 @@ class NoMoreNotifications(Exception):
 
 
 class Observer(object):
-    """Basically an async stream
+    """An async stream generator (Future1, Future2, ... ∞)
 
     This system should abstract async concepts to the end application
     so that native async logic can be used if available -
