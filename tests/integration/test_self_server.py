@@ -1,9 +1,9 @@
-import subprocess
 import os
 import requests
 import time
 import unittest
 from tests.common import BaseCase
+from tests.integration.test_with_rpc import new_server_process
 
 server_addr = 'http://127.0.0.1:5000'
 
@@ -15,10 +15,7 @@ class Test(BaseCase):
 
     @classmethod
     def setUpClass(cls):
-        server_path = os.path.join('tests', 'server.py')
-        cls.server = subprocess.Popen(
-            ['python', server_path], cwd=cls._project_root_dir, stderr=subprocess.STDOUT
-        )
+        cls.server = new_server_process(coverage=False)
 
     @property
     def idee(self):

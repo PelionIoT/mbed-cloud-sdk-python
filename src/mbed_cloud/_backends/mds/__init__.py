@@ -24,7 +24,9 @@ from .models.notification_message import NotificationMessage
 from .models.presubscription import Presubscription
 from .models.presubscription_array import PresubscriptionArray
 from .models.resource import Resource
+from .models.resource_path import ResourcePath
 from .models.resources_data import ResourcesData
+from .models.subscriptions_list import SubscriptionsList
 from .models.webhook import Webhook
 
 # import apis into sdk package

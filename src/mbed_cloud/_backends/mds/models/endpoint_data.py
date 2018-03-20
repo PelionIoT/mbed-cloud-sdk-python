@@ -108,7 +108,7 @@ class EndpointData(object):
     def original_ep(self):
         """
         Gets the original_ep of this EndpointData.
-        In case of a self-provided endpoint name that is used to initiate the device registration, Mbed Cloud provides a new device ID to be used from that point on. The new Mbed-Cloud-provided device ID is forwarded as the 'ep' property and the original self-provided one as the optional 'original-ep' property in a registration notification. The name and ID can then be mapped accordingly. Mbed Cloud saves the original endpoint name in the Device Directory for future device registrations so that you don't need to do the mapping again.  
+        In case of a self-provided endpoint name that is used to initiate the device registration, Mbed Cloud provides a new device ID to be used from that point on. The new Mbed-Cloud-provided Device ID is forwarded as the 'ep' property and the original self-provided one as the optional 'original-ep' property in a registration notification. The name and ID can then be mapped accordingly. Mbed Cloud saves the original endpoint name in the Device Directory for future device registrations so that you don't need to do the mapping again. 
 
         :return: The original_ep of this EndpointData.
         :rtype: str
@@ -119,7 +119,7 @@ class EndpointData(object):
     def original_ep(self, original_ep):
         """
         Sets the original_ep of this EndpointData.
-        In case of a self-provided endpoint name that is used to initiate the device registration, Mbed Cloud provides a new device ID to be used from that point on. The new Mbed-Cloud-provided device ID is forwarded as the 'ep' property and the original self-provided one as the optional 'original-ep' property in a registration notification. The name and ID can then be mapped accordingly. Mbed Cloud saves the original endpoint name in the Device Directory for future device registrations so that you don't need to do the mapping again.  
+        In case of a self-provided endpoint name that is used to initiate the device registration, Mbed Cloud provides a new device ID to be used from that point on. The new Mbed-Cloud-provided Device ID is forwarded as the 'ep' property and the original self-provided one as the optional 'original-ep' property in a registration notification. The name and ID can then be mapped accordingly. Mbed Cloud saves the original endpoint name in the Device Directory for future device registrations so that you don't need to do the mapping again. 
 
         :param original_ep: The original_ep of this EndpointData.
         :type: str

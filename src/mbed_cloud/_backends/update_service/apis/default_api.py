@@ -37,6 +37,7 @@ class DefaultApi(object):
 
     def firmware_image_create(self, datafile, name, **kwargs):
         """
+        Create an image
         Create firmware image.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -60,6 +61,7 @@ class DefaultApi(object):
 
     def firmware_image_create_with_http_info(self, datafile, name, **kwargs):
         """
+        Create an image
         Create firmware image.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -146,6 +148,7 @@ class DefaultApi(object):
 
     def firmware_image_destroy(self, image_id, **kwargs):
         """
+        Delete an image
         Delete firmware image.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -167,6 +170,7 @@ class DefaultApi(object):
 
     def firmware_image_destroy_with_http_info(self, image_id, **kwargs):
         """
+        Delete an image
         Delete firmware image.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -238,6 +242,7 @@ class DefaultApi(object):
 
     def firmware_image_list(self, **kwargs):
         """
+        List all images
         List all firmware images.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -248,7 +253,7 @@ class DefaultApi(object):
         :param int limit: How many firmware images to retrieve
         :param str order: ASC or DESC
         :param str after: The ID of the the item after which to retrieve the next page
-        :param str filter: URL-encoded query string parameter to filter returned data  `?filter={URL-encoded query string}`  The query string is made up of key-value pairs separated by ampersands. For example, this query: `key1=value1&key2=value2&key3=value3`  would be URL-encoded as: `?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3`   **Filtering by properties** `name=myimage`  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  `{field name}[|__lte|__gte]={UTC RFC3339 date-time}`  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  `created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering on multiple fields**  `name=myimage&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `name__in=fw-image1,fw-image2`
+        :param str filter: URL-encoded query string parameter to filter returned data  `?filter={URL-encoded query string}`  ###### Filterable fields:  The below table lists all the fields that can be filtered on with certain filters:  |       Field       | = / __eq / __neq | __in /  __nin | __lte / __gte | |:-----------------:|:----------------:|:-------------:|:-------------:| |     created_at    |         ✓        |       ✓       |       ✓       | |      datafile     |         ✓        |       ✓       |               | | datafile_checksum |         ✓        |       ✓       |               | |   datafile_size   |         ✓        |       ✓       |               | |    description    |         ✓        |       ✓       |               | |        etag       |         ✓        |       ✓       |       ✓       | |         id        |         ✓        |       ✓       |               | |        name       |         ✓        |       ✓       |               | |     timestamp     |         ✓        |       ✓       |       ✓       | |     updated_at    |         ✓        |       ✓       |       ✓       |  The query string is made up of key-value pairs separated by ampersands. For example, this query: `key1=value1&key2=value2&key3=value3`  would be URL-encoded as: `?filter=key1__eq%3Dvalue1%26key2__eq%3Dvalue2%26key3__eq%3Dvalue3`   **Filtering by properties** `name__eq=myimage`  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality by appending `__eq` to the field name * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  `{field name}[|__eq|__lte|__gte]={UTC RFC3339 date-time}`  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  `created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering on multiple fields**  `name__eq=myimage&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `name__in=fw-image1,fw-image2`
         :param str include: Comma-separated list of data fields to return. Currently supported: total_count
         :return: FirmwareImagePage
                  If the method is called asynchronously,
@@ -263,6 +268,7 @@ class DefaultApi(object):
 
     def firmware_image_list_with_http_info(self, **kwargs):
         """
+        List all images
         List all firmware images.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -273,7 +279,7 @@ class DefaultApi(object):
         :param int limit: How many firmware images to retrieve
         :param str order: ASC or DESC
         :param str after: The ID of the the item after which to retrieve the next page
-        :param str filter: URL-encoded query string parameter to filter returned data  `?filter={URL-encoded query string}`  The query string is made up of key-value pairs separated by ampersands. For example, this query: `key1=value1&key2=value2&key3=value3`  would be URL-encoded as: `?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3`   **Filtering by properties** `name=myimage`  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  `{field name}[|__lte|__gte]={UTC RFC3339 date-time}`  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  `created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering on multiple fields**  `name=myimage&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `name__in=fw-image1,fw-image2`
+        :param str filter: URL-encoded query string parameter to filter returned data  `?filter={URL-encoded query string}`  ###### Filterable fields:  The below table lists all the fields that can be filtered on with certain filters:  |       Field       | = / __eq / __neq | __in /  __nin | __lte / __gte | |:-----------------:|:----------------:|:-------------:|:-------------:| |     created_at    |         ✓        |       ✓       |       ✓       | |      datafile     |         ✓        |       ✓       |               | | datafile_checksum |         ✓        |       ✓       |               | |   datafile_size   |         ✓        |       ✓       |               | |    description    |         ✓        |       ✓       |               | |        etag       |         ✓        |       ✓       |       ✓       | |         id        |         ✓        |       ✓       |               | |        name       |         ✓        |       ✓       |               | |     timestamp     |         ✓        |       ✓       |       ✓       | |     updated_at    |         ✓        |       ✓       |       ✓       |  The query string is made up of key-value pairs separated by ampersands. For example, this query: `key1=value1&key2=value2&key3=value3`  would be URL-encoded as: `?filter=key1__eq%3Dvalue1%26key2__eq%3Dvalue2%26key3__eq%3Dvalue3`   **Filtering by properties** `name__eq=myimage`  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality by appending `__eq` to the field name * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  `{field name}[|__eq|__lte|__gte]={UTC RFC3339 date-time}`  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  `created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering on multiple fields**  `name__eq=myimage&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `name__in=fw-image1,fw-image2`
         :param str include: Comma-separated list of data fields to return. Currently supported: total_count
         :return: FirmwareImagePage
                  If the method is called asynchronously,
@@ -343,6 +349,7 @@ class DefaultApi(object):
 
     def firmware_image_retrieve(self, image_id, **kwargs):
         """
+        Get an image
         Retrieve firmware image.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -364,6 +371,7 @@ class DefaultApi(object):
 
     def firmware_image_retrieve_with_http_info(self, image_id, **kwargs):
         """
+        Get an image
         Retrieve firmware image.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -435,6 +443,7 @@ class DefaultApi(object):
 
     def firmware_manifest_create(self, datafile, name, **kwargs):
         """
+        Create a manifest
         Create firmware manifest.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -459,6 +468,7 @@ class DefaultApi(object):
 
     def firmware_manifest_create_with_http_info(self, datafile, name, **kwargs):
         """
+        Create a manifest
         Create firmware manifest.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -548,6 +558,7 @@ class DefaultApi(object):
 
     def firmware_manifest_destroy(self, manifest_id, **kwargs):
         """
+        Delete a manifest
         Delete firmware manifest.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -569,6 +580,7 @@ class DefaultApi(object):
 
     def firmware_manifest_destroy_with_http_info(self, manifest_id, **kwargs):
         """
+        Delete a manifest
         Delete firmware manifest.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -640,6 +652,7 @@ class DefaultApi(object):
 
     def firmware_manifest_list(self, **kwargs):
         """
+        List manifests
         List firmware manifests.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -650,7 +663,7 @@ class DefaultApi(object):
         :param int limit: How many firmware manifests to retrieve
         :param str order: ASC or DESC
         :param str after: The ID of the the item after which to retrieve the next page.
-        :param str filter: URL-encoded query string parameter to filter returned data  `?filter={URL-encoded query string}`  The query string is made up of key-value pairs separated by ampersands. For example, this query: `key1=value1&key2=value2&key3=value3`  would be URL-encoded as: `?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3`   **Filtering by properties** `name=mymanifest`  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  `{field name}[|__lte|__gte]={UTC RFC3339 date-time}`  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  `created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering on multiple fields**  `name=mymanifest&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `name__in=fw-manifest1,fw-manifest2`
+        :param str filter: URL-encoded query string parameter to filter returned data  `?filter={URL-encoded query string}`  ###### Filterable fields:  The below table lists all the fields that can be filtered on with certain filters:  |     Field     | = / __eq / __neq | __in /  __nin | __lte / __gte | |:-------------:|:----------------:|:-------------:|:-------------:| |   created_at  |         ✓        |       ✓       |       ✓       | |    datafile   |         ✓        |       ✓       |               | | datafile_size |         ✓        |       ✓       |               | |  description  |         ✓        |       ✓       |               | |  device_class |         ✓        |       ✓       |               | |      etag     |         ✓        |       ✓       |       ✓       | |       id      |         ✓        |       ✓       |               | |      name     |         ✓        |       ✓       |               | |   timestamp   |         ✓        |       ✓       |       ✓       | |   updated_at  |         ✓        |       ✓       |       ✓       |  The query string is made up of key-value pairs separated by ampersands. For example, this query: `key1__eq=value1&key2__eq=value2&key3__eq=value3`  would be URL-encoded as: `?filter=key1__eq%3Dvalue1%26key2__eq%3Dvalue2%26key3__eq%3Dvalue3`   **Filtering by properties** `name__eq=mymanifest`  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality by appending `__eq` to the field name * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  `{field name}[|__eq|__lte|__gte]={UTC RFC3339 date-time}`  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  `created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering on multiple fields**  `name__eq=mymanifest&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `name__in=fw-manifest1,fw-manifest2`
         :param str include: Comma-separated list of data fields to return. Currently supported: total_count
         :return: FirmwareManifestPage
                  If the method is called asynchronously,
@@ -665,6 +678,7 @@ class DefaultApi(object):
 
     def firmware_manifest_list_with_http_info(self, **kwargs):
         """
+        List manifests
         List firmware manifests.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -675,7 +689,7 @@ class DefaultApi(object):
         :param int limit: How many firmware manifests to retrieve
         :param str order: ASC or DESC
         :param str after: The ID of the the item after which to retrieve the next page.
-        :param str filter: URL-encoded query string parameter to filter returned data  `?filter={URL-encoded query string}`  The query string is made up of key-value pairs separated by ampersands. For example, this query: `key1=value1&key2=value2&key3=value3`  would be URL-encoded as: `?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3`   **Filtering by properties** `name=mymanifest`  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  `{field name}[|__lte|__gte]={UTC RFC3339 date-time}`  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  `created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering on multiple fields**  `name=mymanifest&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `name__in=fw-manifest1,fw-manifest2`
+        :param str filter: URL-encoded query string parameter to filter returned data  `?filter={URL-encoded query string}`  ###### Filterable fields:  The below table lists all the fields that can be filtered on with certain filters:  |     Field     | = / __eq / __neq | __in /  __nin | __lte / __gte | |:-------------:|:----------------:|:-------------:|:-------------:| |   created_at  |         ✓        |       ✓       |       ✓       | |    datafile   |         ✓        |       ✓       |               | | datafile_size |         ✓        |       ✓       |               | |  description  |         ✓        |       ✓       |               | |  device_class |         ✓        |       ✓       |               | |      etag     |         ✓        |       ✓       |       ✓       | |       id      |         ✓        |       ✓       |               | |      name     |         ✓        |       ✓       |               | |   timestamp   |         ✓        |       ✓       |       ✓       | |   updated_at  |         ✓        |       ✓       |       ✓       |  The query string is made up of key-value pairs separated by ampersands. For example, this query: `key1__eq=value1&key2__eq=value2&key3__eq=value3`  would be URL-encoded as: `?filter=key1__eq%3Dvalue1%26key2__eq%3Dvalue2%26key3__eq%3Dvalue3`   **Filtering by properties** `name__eq=mymanifest`  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality by appending `__eq` to the field name * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  `{field name}[|__eq|__lte|__gte]={UTC RFC3339 date-time}`  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  `created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering on multiple fields**  `name__eq=mymanifest&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `name__in=fw-manifest1,fw-manifest2`
         :param str include: Comma-separated list of data fields to return. Currently supported: total_count
         :return: FirmwareManifestPage
                  If the method is called asynchronously,
@@ -745,6 +759,7 @@ class DefaultApi(object):
 
     def firmware_manifest_retrieve(self, manifest_id, **kwargs):
         """
+        Get a manifest
         Retrieve firmware manifest.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -766,6 +781,7 @@ class DefaultApi(object):
 
     def firmware_manifest_retrieve_with_http_info(self, manifest_id, **kwargs):
         """
+        Get a manifest
         Retrieve firmware manifest.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -837,6 +853,7 @@ class DefaultApi(object):
 
     def update_campaign_create(self, campaign, **kwargs):
         """
+        Create a campaign
         Create an update campaign.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -858,6 +875,7 @@ class DefaultApi(object):
 
     def update_campaign_create_with_http_info(self, campaign, **kwargs):
         """
+        Create a campaign
         Create an update campaign.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -929,6 +947,7 @@ class DefaultApi(object):
 
     def update_campaign_destroy(self, campaign_id, **kwargs):
         """
+        Delete a campaign
         Delete an update campaign.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -950,6 +969,7 @@ class DefaultApi(object):
 
     def update_campaign_destroy_with_http_info(self, campaign_id, **kwargs):
         """
+        Delete a campaign
         Delete an update campaign.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -1021,7 +1041,8 @@ class DefaultApi(object):
 
     def update_campaign_list(self, **kwargs):
         """
-        Get update campaigns for devices specified by a filter. Can also use the `/campaigns/` alias.
+        List all campaigns
+        Get update campaigns for devices specified by a filter.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.update_campaign_list(async=True)
@@ -1031,7 +1052,7 @@ class DefaultApi(object):
         :param int limit: How many update campaigns to retrieve
         :param str order: The order of the records. Acceptable values: ASC, DESC. Default: ASC
         :param str after: The ID of the the item after which to retrieve the next page
-        :param str filter: URL-encoded query string parameter to filter returned data  `?filter={URL-encoded query string}`  The query string is made up of key-value pairs separated by ampersands. For example, this query: `key1=value1&key2=value2&key3=value3`  would be URL-encoded as: `?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3`   **Filtering by campaign properties** `state=[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired]`  `root_manifest_id=43217771234242e594ddb433816c498a`  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  `{field name}[|__lte|__gte]={UTC RFC3339 date-time}`  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  `created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering on multiple fields**  `state=deployed&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `name__in=fw-image1,fw-image2`
+        :param str filter: URL-encoded query string parameter to filter returned data  `?filter={URL-encoded query string}`   ###### Filterable fields:    The below table lists all the fields that can be filtered on with certain filters:    |       Field      | = / __eq / __neq | __in /  __nin | __lte / __gte |   |:----------------:|:----------------:|:-------------:|:-------------:|   |    created_at    |         ✓        |       ✓       |       ✓       |   |    description   |         ✓        |       ✓       |               |   |   device_filter  |         ✓        |       ✓       |               |   |       etag       |         ✓        |       ✓       |       ✓       |   |     finished     |         ✓        |       ✓       |       ✓       |   |        id        |         ✓        |       ✓       |               |   |       name       |         ✓        |       ✓       |               |   | root_manifest_id |         ✓        |       ✓       |               |   |    started_at    |         ✓        |       ✓       |       ✓       |   |       state      |         ✓        |       ✓       |               |   |    updated_at    |         ✓        |       ✓       |       ✓       |   |       when       |         ✓        |       ✓       |       ✓       |  The query string is made up of key-value pairs separated by ampersands. For example, this query: `key1__eq=value1&key2__eq=value2&key3__eq=value3`  would be URL-encoded as: `?filter=key1__eq%3Dvalue1%26key2__eq%3Dvalue2%26key3__eq%3Dvalue3`   **Filtering by campaign properties** `state__eq=[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired]`  `root_manifest_id__eq=43217771234242e594ddb433816c498a`  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality by appending `__eq` to the field name * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  `{field name}[|__eq|__lte|__gte]={UTC RFC3339 date-time}`  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  `created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering on multiple fields**  `state__eq=deployed&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `name__in=fw-image1,fw-image2`
         :param str include: Comma-separated list of data fields to return. Currently supported: total_count
         :return: UpdateCampaignPage
                  If the method is called asynchronously,
@@ -1046,7 +1067,8 @@ class DefaultApi(object):
 
     def update_campaign_list_with_http_info(self, **kwargs):
         """
-        Get update campaigns for devices specified by a filter. Can also use the `/campaigns/` alias.
+        List all campaigns
+        Get update campaigns for devices specified by a filter.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.update_campaign_list_with_http_info(async=True)
@@ -1056,7 +1078,7 @@ class DefaultApi(object):
         :param int limit: How many update campaigns to retrieve
         :param str order: The order of the records. Acceptable values: ASC, DESC. Default: ASC
         :param str after: The ID of the the item after which to retrieve the next page
-        :param str filter: URL-encoded query string parameter to filter returned data  `?filter={URL-encoded query string}`  The query string is made up of key-value pairs separated by ampersands. For example, this query: `key1=value1&key2=value2&key3=value3`  would be URL-encoded as: `?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3`   **Filtering by campaign properties** `state=[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired]`  `root_manifest_id=43217771234242e594ddb433816c498a`  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  `{field name}[|__lte|__gte]={UTC RFC3339 date-time}`  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  `created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering on multiple fields**  `state=deployed&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `name__in=fw-image1,fw-image2`
+        :param str filter: URL-encoded query string parameter to filter returned data  `?filter={URL-encoded query string}`   ###### Filterable fields:    The below table lists all the fields that can be filtered on with certain filters:    |       Field      | = / __eq / __neq | __in /  __nin | __lte / __gte |   |:----------------:|:----------------:|:-------------:|:-------------:|   |    created_at    |         ✓        |       ✓       |       ✓       |   |    description   |         ✓        |       ✓       |               |   |   device_filter  |         ✓        |       ✓       |               |   |       etag       |         ✓        |       ✓       |       ✓       |   |     finished     |         ✓        |       ✓       |       ✓       |   |        id        |         ✓        |       ✓       |               |   |       name       |         ✓        |       ✓       |               |   | root_manifest_id |         ✓        |       ✓       |               |   |    started_at    |         ✓        |       ✓       |       ✓       |   |       state      |         ✓        |       ✓       |               |   |    updated_at    |         ✓        |       ✓       |       ✓       |   |       when       |         ✓        |       ✓       |       ✓       |  The query string is made up of key-value pairs separated by ampersands. For example, this query: `key1__eq=value1&key2__eq=value2&key3__eq=value3`  would be URL-encoded as: `?filter=key1__eq%3Dvalue1%26key2__eq%3Dvalue2%26key3__eq%3Dvalue3`   **Filtering by campaign properties** `state__eq=[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired]`  `root_manifest_id__eq=43217771234242e594ddb433816c498a`  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality by appending `__eq` to the field name * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  `{field name}[|__eq|__lte|__gte]={UTC RFC3339 date-time}`  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  `created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering on multiple fields**  `state__eq=deployed&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `name__in=fw-image1,fw-image2`
         :param str include: Comma-separated list of data fields to return. Currently supported: total_count
         :return: UpdateCampaignPage
                  If the method is called asynchronously,
@@ -1126,6 +1148,7 @@ class DefaultApi(object):
 
     def update_campaign_metadata_list(self, campaign_id, **kwargs):
         """
+        List all campaign device metadata
         Get campaign device metadata.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -1151,6 +1174,7 @@ class DefaultApi(object):
 
     def update_campaign_metadata_list_with_http_info(self, campaign_id, **kwargs):
         """
+        List all campaign device metadata
         Get campaign device metadata.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -1234,6 +1258,7 @@ class DefaultApi(object):
 
     def update_campaign_metadata_retrieve(self, campaign_id, campaign_device_metadata_id, **kwargs):
         """
+        Get a campaign device metadata
         Get update campaign metadata.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -1256,6 +1281,7 @@ class DefaultApi(object):
 
     def update_campaign_metadata_retrieve_with_http_info(self, campaign_id, campaign_device_metadata_id, **kwargs):
         """
+        Get a campaign device metadata
         Get update campaign metadata.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -1333,6 +1359,7 @@ class DefaultApi(object):
 
     def update_campaign_metadata_stop(self, campaign_id, **kwargs):
         """
+        Stop a running campaign
         Stop a running update campaign.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -1354,6 +1381,7 @@ class DefaultApi(object):
 
     def update_campaign_metadata_stop_with_http_info(self, campaign_id, **kwargs):
         """
+        Stop a running campaign
         Stop a running update campaign.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -1425,6 +1453,7 @@ class DefaultApi(object):
 
     def update_campaign_retrieve(self, campaign_id, **kwargs):
         """
+        Get a campaign.
         Get an update campaign.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -1446,6 +1475,7 @@ class DefaultApi(object):
 
     def update_campaign_retrieve_with_http_info(self, campaign_id, **kwargs):
         """
+        Get a campaign.
         Get an update campaign.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -1517,6 +1547,7 @@ class DefaultApi(object):
 
     def update_campaign_update(self, campaign_id, campaign, **kwargs):
         """
+        Modify a campaign
         Modify an update campaign.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -1539,6 +1570,7 @@ class DefaultApi(object):
 
     def update_campaign_update_with_http_info(self, campaign_id, campaign, **kwargs):
         """
+        Modify a campaign
         Modify an update campaign.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True

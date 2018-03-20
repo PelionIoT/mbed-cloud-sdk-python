@@ -30,7 +30,7 @@ def serialise(obj):
 
 def deserialise(obj):
     """Converts objects from custom json-rpc to Python"""
-    if isinstance(obj, str) and len(obj) < 40:
+    if isinstance(obj, str) and 12 < len(obj) < 40:
         try:
             # some tests try tricking us with timezones - but we assume naive datetime objects in utc
             # 1970-01-21T21:14:37+12:45 -> 1970-01-21 08:29:37 (1970-01-21T08:29:37)

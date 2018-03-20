@@ -31,32 +31,91 @@ class ActiveSession(object):
                             and the value is json key in definition.
     """
     swagger_types = {
+        'account_id': 'str',
+        'object': 'str',
         'user_agent': 'str',
         'ip_address': 'str',
-        'account_id': 'str',
         'reference_token': 'str',
         'login_time': 'datetime'
     }
 
     attribute_map = {
+        'account_id': 'account_id',
+        'object': 'object',
         'user_agent': 'user_agent',
         'ip_address': 'ip_address',
-        'account_id': 'account_id',
         'reference_token': 'reference_token',
         'login_time': 'login_time'
     }
 
-    def __init__(self, user_agent=None, ip_address=None, account_id=None, reference_token=None, login_time=None):
+    def __init__(self, account_id=None, object=None, user_agent=None, ip_address=None, reference_token=None, login_time=None):
         """
         ActiveSession - a model defined in Swagger
         """
 
+        self._account_id = account_id
+        self._object = object
         self._user_agent = user_agent
         self._ip_address = ip_address
-        self._account_id = account_id
         self._reference_token = reference_token
         self._login_time = login_time
         self.discriminator = None
+
+    @property
+    def account_id(self):
+        """
+        Gets the account_id of this ActiveSession.
+        The UUID of the account.
+
+        :return: The account_id of this ActiveSession.
+        :rtype: str
+        """
+        return self._account_id
+
+    @account_id.setter
+    def account_id(self, account_id):
+        """
+        Sets the account_id of this ActiveSession.
+        The UUID of the account.
+
+        :param account_id: The account_id of this ActiveSession.
+        :type: str
+        """
+        if account_id is None:
+            raise ValueError("Invalid value for `account_id`, must not be `None`")
+
+        self._account_id = account_id
+
+    @property
+    def object(self):
+        """
+        Gets the object of this ActiveSession.
+        Entity name: always 'user-session'
+
+        :return: The object of this ActiveSession.
+        :rtype: str
+        """
+        return self._object
+
+    @object.setter
+    def object(self, object):
+        """
+        Sets the object of this ActiveSession.
+        Entity name: always 'user-session'
+
+        :param object: The object of this ActiveSession.
+        :type: str
+        """
+        if object is None:
+            raise ValueError("Invalid value for `object`, must not be `None`")
+        allowed_values = ["user-session"]
+        if object not in allowed_values:
+            raise ValueError(
+                "Invalid value for `object` ({0}), must be one of {1}"
+                .format(object, allowed_values)
+            )
+
+        self._object = object
 
     @property
     def user_agent(self):
@@ -107,31 +166,6 @@ class ActiveSession(object):
             raise ValueError("Invalid value for `ip_address`, must not be `None`")
 
         self._ip_address = ip_address
-
-    @property
-    def account_id(self):
-        """
-        Gets the account_id of this ActiveSession.
-        The UUID of the account.
-
-        :return: The account_id of this ActiveSession.
-        :rtype: str
-        """
-        return self._account_id
-
-    @account_id.setter
-    def account_id(self, account_id):
-        """
-        Sets the account_id of this ActiveSession.
-        The UUID of the account.
-
-        :param account_id: The account_id of this ActiveSession.
-        :type: str
-        """
-        if account_id is None:
-            raise ValueError("Invalid value for `account_id`, must not be `None`")
-
-        self._account_id = account_id
 
     @property
     def reference_token(self):

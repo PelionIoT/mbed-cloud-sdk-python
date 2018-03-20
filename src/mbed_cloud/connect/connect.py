@@ -21,6 +21,7 @@ from __future__ import unicode_literals
 import logging
 import re
 import threading
+import warnings
 
 from collections import defaultdict
 
@@ -236,7 +237,7 @@ class ConnectAPI(BaseAPI):
         api = self._get_api(mds.DeviceRequestsApi)
         async_id = async_id or utils.new_async_id()
         device_request = mds.DeviceRequest(**params)
-        api.v2_device_requests_device_idasync_idasync_id_post(
+        api.v2_device_requests_device_id_post(
             device_id,
             async_id=async_id,
             body=device_request,
@@ -293,7 +294,8 @@ class ConnectAPI(BaseAPI):
         return self.get_resource_value_async(device_id, resource_path, fix_path).wait(timeout)
 
     @catch_exceptions(mds.rest.ApiException)
-    def set_resource_value(self, device_id, resource_path, resource_value=None, fix_path=True):
+    def set_resource_value(self, device_id, resource_path, resource_value,
+                           fix_path=True, timeout=None):
         """Set resource value for given resource path, on device.
 
         Will block and wait for response to come through. Usage:
@@ -308,8 +310,7 @@ class ConnectAPI(BaseAPI):
 
         :param str device_id: The name/id of the device (Required)
         :param str resource_path: The resource path to update (Required)
-        :param str resource_value: The new value to set for given path (if None
-            the resource function will be executed)
+        :param str resource_value: The new value to set for given path
         :param fix_path: if True then the leading /, if found, will be stripped before
             doing request to backend. This is a requirement for the API to work properly
         :raises: AsyncError
@@ -317,17 +318,9 @@ class ConnectAPI(BaseAPI):
         :rtype: str
         """
         self.ensure_notifications_thread()
-
-        api = self._get_api(mds.ResourcesApi)
-
-        if resource_value:
-            resp = api.v2_endpoints_device_id_resource_path_put(device_id,
-                                                                resource_path,
-                                                                resource_value)
-        else:
-            resp = api.v2_endpoints_device_id_resource_path_post(device_id, resource_path)
-        consumer = AsyncConsumer(resp.async_response_id, self._db)
-        return consumer.wait()
+        return self.set_resource_value_async(
+            device_id, resource_path, resource_value, fix_path
+        ).wait(timeout)
 
     @catch_exceptions(mds.rest.ApiException)
     def set_resource_value_async(self, device_id, resource_path,
@@ -347,8 +340,7 @@ class ConnectAPI(BaseAPI):
 
         :param str device_id: The name/id of the device (Required)
         :param str resource_path: The resource path to update (Required)
-        :param str resource_value: The new value to set for given path (if
-            None, the resource function will be executed)
+        :param str resource_value: The new value to set for given path
         :param fix_path: if True then the leading /, if found, will be stripped before
             doing request to backend. This is a requirement for the API to work properly
         :returns: An async consumer object holding reference to request
@@ -359,18 +351,13 @@ class ConnectAPI(BaseAPI):
             resource_path = resource_path[1:]
 
         api = self._get_api(mds.ResourcesApi)
-
-        if resource_value:
-            resp = api.v2_endpoints_device_id_resource_path_put(device_id,
-                                                                resource_path,
-                                                                resource_value)
-        else:
-            resp = api.v2_endpoints_device_id_resource_path_post(device_id, resource_path)
-
+        resp = api.v2_endpoints_device_id_resource_path_put(device_id,
+                                                            resource_path,
+                                                            resource_value)
         return AsyncConsumer(resp.async_response_id, self._db)
 
     @catch_exceptions(mds.rest.ApiException)
-    def execute_resource(self, device_id, resource_path, fix_path=True, **kwargs):
+    def execute_resource(self, device_id, resource_path, fix_path=True, timeout=None, **kwargs):
         """Execute a function on a resource.
 
         Will block and wait for response to come through. Usage:
@@ -404,7 +391,7 @@ class ConnectAPI(BaseAPI):
                                                              resource_path,
                                                              **kwargs)
         consumer = AsyncConsumer(resp.async_response_id, self._db)
-        return consumer.wait()
+        return consumer.wait(timeout)
 
     @catch_exceptions(mds.rest.ApiException)
     def execute_resource_async(self, device_id, resource_path, fix_path=True, **kwargs):
@@ -559,10 +546,19 @@ class ConnectAPI(BaseAPI):
     def delete_subscriptions(self):
         """Remove all subscriptions.
 
+        Warning: This could be slow for large numbers of connected devices.
+        If possible, explicitly delete subscriptions known to have been created.
+
         :returns: None
         """
-        api = self._get_api(mds.SubscriptionsApi)
-        return api.v2_subscriptions_delete()
+        warnings.warn('This could be slow for large numbers of connected devices.'
+                      'If possible, explicitly delete subscriptions known to have been created.')
+        for device in self.list_connected_devices():
+            try:
+                self.delete_device_subscriptions(device_id=device.id)
+            except CloudApiException as e:
+                logging.warning('failed to remove subscription for %s: %s', device.id, e)
+                continue
 
     @catch_exceptions(mds.rest.ApiException)
     def list_presubscriptions(self, **kwargs):

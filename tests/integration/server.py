@@ -26,7 +26,7 @@ import flask
 from flask import request
 from flask import jsonify
 
-from tests.integration.module_runner import run_module
+from module_runner import run_module
 
 from mbed_cloud.core import BaseAPI
 from mbed_cloud import __version__

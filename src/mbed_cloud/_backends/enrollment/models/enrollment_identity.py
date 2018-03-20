@@ -268,8 +268,8 @@ class EnrollmentIdentity(object):
         """
         if etag is None:
             raise ValueError("Invalid value for `etag`, must not be `None`")
-        if etag is not None and not re.search('[A-Za-z0-9]{256}', etag):
-            raise ValueError("Invalid value for `etag`, must be a follow pattern or equal to `/[A-Za-z0-9]{256}/`")
+        if etag is not None and not re.search('[A-Za-z0-9]{1,256}', etag):
+            raise ValueError("Invalid value for `etag`, must be a follow pattern or equal to `/[A-Za-z0-9]{1,256}/`")
 
         self._etag = etag
 

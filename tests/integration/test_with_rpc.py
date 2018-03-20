@@ -119,6 +119,33 @@ def find_test_server_host(image, potentials):
     return potential
 
 
+def new_server_process(coverage=True):
+    exe = sys.executable
+    target = os.path.join(os.path.dirname(__file__), 'server.py')
+    cmd = [exe, '-u']
+    if coverage:
+        cmd.extend(['-m', 'coverage', 'run'])
+    cmd.append(target)
+    process = subprocess.Popen(args=cmd, universal_newlines=True)
+    try:
+        # ping the server to make sure it's up
+        test_server_local_address = 'http://127.0.0.1:5000'
+        url = '%s/ping' % test_server_local_address
+        s = requests.Session()
+        s.mount(url, adapter=HTTPAdapter(max_retries=Retry(total=20, connect=5, read=15, backoff_factor=0.5)))
+        response = s.get(url, timeout=(15, 15))
+        response.raise_for_status()
+    except Exception as e:
+        print('could not reach test server locally: %s\n%s' % (cmd, e))
+        print('server status', process.poll(), process.pid)
+        print(timeout_check_output(args=shlex.split('ps -aux')))
+        print(timeout_check_output(args=shlex.split('netstat -aon')))
+        raise
+    else:
+        print('SDK test server is running locally on %s' % (test_server_local_address,))
+    return process
+
+
 @unittest.skipIf(not have_docker_image(docker_image), 'missing docker image %s' % docker_image)
 class TestWithRPC(BaseCase):
 
@@ -136,27 +163,7 @@ class TestWithRPC(BaseCase):
             raise
 
     def setUp(self):
-        exe = sys.executable
-        target = os.path.join(os.path.dirname(__file__), 'server.py')
-        cmd = [exe, '-u', '-m', 'coverage', 'run', target]
-        self.process = subprocess.Popen(args=cmd, universal_newlines=True)
-        time.sleep(0.5)
-        try:
-            # ping the server to make sure it's up
-            test_server_local_address = 'http://127.0.0.1:5000'
-            url = '%s/ping' % test_server_local_address
-            s = requests.Session()
-            s.mount(url, adapter=HTTPAdapter(max_retries=Retry(total=20, connect=5, read=15, backoff_factor=0.4)))
-            response = s.get(url, timeout=(15, 15))
-            response.raise_for_status()
-        except Exception as e:
-            print('could not reach test server locally: %s\n%s' % (cmd, e))
-            print('server status', self.process.poll(), self.process.pid)
-            print(timeout_check_output(args=shlex.split('ps -aux')))
-            print(timeout_check_output(args=shlex.split('netstat -aon')))
-            raise
-        else:
-            print('SDK test server is running locally on %s' % (test_server_local_address,))
+        self.process = new_server_process()
         self.host = find_test_server_host(docker_image, find_host_address_potentials(docker_image))
         config = Config()
         print("RPC test ready:\n\tserver: %s\n\tcloud host: %r\n\tapi key: '***%s'\n\timage: %s" % (

@@ -8,7 +8,7 @@
 version: 2
 iteration: 7
 aliases:
-  - &branch_cache_key 'v3-{{ checksum "Pipfile.lock" }}'
+  - &branch_cache_key 'v7-{{ checksum "Pipfile.lock" }}'
   - &build_dir build
   - &build_dir_glob build/*
   - &venv_dir build/.venv
@@ -27,15 +27,17 @@ aliases:
     - checkout
     - restore_cache:
         keys: [*branch_cache_key]
+    - run: sudo python -m pip install -U setuptools pip
     - run: sudo pip install pipenv
-    - run: pipenv run python scripts/dvcs_version.py
     - run: pipenv install --dev --${PYVER}
+    - run: pipenv run python scripts/dvcs_version.py
     - run: pipenv install '-e .' --skip-lock
     - run: pipenv run python -c "import mbed_cloud; print(mbed_cloud.__version__)"
     - save_cache:
         key: *branch_cache_key
         paths:
           - ~/.cache/pip
+          - ~/.ssh/known_hosts
     - persist_to_workspace:
         root: .
         paths:
@@ -46,17 +48,19 @@ aliases:
       - checkout
       - restore_cache:
           keys: [*branch_cache_key]
-      - run: sudo pip install pipenv awscli
+      # CAUTION: no 'sudo' commands here, as 'circleci' user shouldn't need privilege to install
+      - run: python -m pip install -U setuptools pip
+      - run: python -m pip install pipenv awscli
       # FIXME:
       # unfortunately we must do the 'build' again here
       # as the machine executor isn't the same environment as docker
       # (e.g. python3.5 instead of 3.6.1)
       # and use of docker for the testing is fraught with peril
       # worst case ... we're not testing in the same environment we're releasing from >_>
-      - run: pipenv run python scripts/dvcs_version.py
-      - run: pipenv install --dev --${PYVER}
-      - run: pipenv install '-e .' --skip-lock
-      - run: pipenv run python -c "import mbed_cloud; print(mbed_cloud.__version__)"
+      - run: python -m pipenv install --dev --${PYVER}
+      - run: python -m pipenv run python scripts/dvcs_version.py
+      - run: python -m pipenv install '-e .' --skip-lock
+      - run: python -m pipenv run python -c "import mbed_cloud; print(mbed_cloud.__version__)"
       - run: |
               if [[ ${CLOUD_VERSION} == production ]]; then
                 export MBED_CLOUD_API_HOST=${MBED_CLOUD_API_HOST_PROD};
@@ -75,14 +79,14 @@ aliases:
               mkdir -p results
       - run:
           name: run all tests
-          command: pipenv run pytest --tb=short --cov=mbed_cloud --cov-config=.coveragerc --cov-report=html --cov-report=xml --junitxml=results/unittests.xml --self-contained-html --html=results/unittests.html
+          command: python -m pipenv run pytest --tb=short --cov=mbed_cloud --cov-config=.coveragerc --cov-report=html --cov-report=xml --junitxml=results/unittests.xml --self-contained-html --html=results/unittests.html
           no_output_timeout: 15m
-      - run: pipenv run python scripts/ci_summary.py --noblock
+      - run: python -m pipenv run python scripts/ci_summary.py --noblock
       - store_artifacts:
           path: results
       - store_artifacts:
           path: rpc_results
-      - run: pipenv run codecov --file=results/coverage.xml -e PYVER,CLOUD_VERSION
+      - run: python -m pipenv run codecov --file=results/coverage.xml -e PYVER,CLOUD_VERSION
 
   - &job_deploy_common
     steps:
@@ -96,10 +100,13 @@ aliases:
           name: Build the wheel
           command: pipenv run python setup.py bdist_wheel
       - run:
-          name: Upload build to PyPI
+          name: Tag the release
           command: |
-                  pipenv install twine
-                  pipenv run python setup.py bdist_wheel
+                  (pipenv run python setup.py --version) | xargs git tag
+                  git push --tags
+      - run:
+          name: Upload the build to PyPI
+          command: |
                   echo 'registering and deploying package to "${TWINE_REPOSITORY_URL}" (or default)'
                   ls dist
                   pipenv run twine upload dist/*
@@ -131,7 +138,10 @@ jobs:
           <<: *workspace
       - restore_cache:
           keys: [*branch_cache_key]
+      - run: sudo python -m pip install -U setuptools pip
       - run: sudo pip install pipenv
+      - run: pipenv uninstall --all
+      - run: pipenv install -e . --skip-lock
       - run: pipenv run python scripts/tpip.py python_tpip.csv
       - store_artifacts:
           path: python_tpip.csv
@@ -146,10 +156,11 @@ jobs:
           <<: *workspace
       - restore_cache:
           keys: [*branch_cache_key]
+      - run: sudo python -m pip install -U setuptools pip
       - run: sudo apt-get update
       - run: sudo apt-get install pandoc
       - run: sudo pip install pipenv
-      - run: pipenv install readme_renderer
+      - run: pipenv install readme_renderer --skip-lock
       - run:
           name: Build documentation
           command: pipenv run sphinx-build -a -b html -c docs/ docs/ built_docs
@@ -182,7 +193,8 @@ jobs:
       <<: *environ
       CLOUD_VERSION: integration
       PYVER: two
-    machine: true
+    machine:
+      image: circleci/classic:201710-02
 
   test_integration_3:
     <<: *job_test_common
@@ -190,7 +202,8 @@ jobs:
       <<: *environ
       CLOUD_VERSION: integration
       PYVER: three
-    machine: true
+    machine:
+      image: circleci/classic:201710-02
 
   test_production_2:
     <<: *job_test_common
@@ -198,7 +211,8 @@ jobs:
       <<: *environ
       CLOUD_VERSION: production
       PYVER: two
-    machine: true
+    machine:
+      image: circleci/classic:201710-02
 
   test_production_3:
     <<: *job_test_common
@@ -206,7 +220,8 @@ jobs:
       <<: *environ
       CLOUD_VERSION: production
       PYVER: three
-    machine: true
+    machine:
+      image: circleci/classic:201710-02
 
   test_os2_2:
     <<: *job_test_common
@@ -214,7 +229,8 @@ jobs:
       <<: *environ
       CLOUD_VERSION: os2
       PYVER: two
-    machine: true
+    machine:
+      image: circleci/classic:201710-02
 
   test_os2_3:
     <<: *job_test_common
@@ -222,7 +238,8 @@ jobs:
       <<: *environ
       CLOUD_VERSION: os2
       PYVER: three
-    machine: true
+    machine:
+      image: circleci/classic:201710-02
 
   deploy_beta:
     <<: *job_deploy_common
@@ -290,7 +307,7 @@ workflows:
             - test_production_3
           filters:
             branches:
-              only: production
+              only: master
       - deploy_beta:
           requires:
             - release_beta

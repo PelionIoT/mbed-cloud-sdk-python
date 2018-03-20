@@ -352,12 +352,13 @@ class Account(BaseObject):
             "reason": "reason",
             "template_id": "template_id",
             "custom_properties": "account_properties",
+            "sales_contact_email": "sales_contact",
             "contract_number": "contract_number",
             "customer_number": "customer_number",
             "reference_note": "reference_note",
             "notification_emails": "notification_emails",
-            "mfa_status": "mfa_status",
-            "expiration_warning": "expiration_warning_threshold",
+            "multifactor_authentication_status": "mfa_status",
+            "expiry_warning": "expiration_warning_threshold",
         }
 
     @property
@@ -596,19 +597,30 @@ class Account(BaseObject):
         return self._notification_emails
 
     @property
-    def mfa_status(self):
-        """Gets the mfa_status of this AccountInfo.
+    def sales_contact_email(self):
+        """Gets the sales_contact_email of this AccountInfo.
+
+        Email address of the sales contact.
+
+        :return: The sales_contact_email of this AccountInfo.
+        :rtype: str
+        """
+        return self._sales_contact_email
+
+    @property
+    def multifactor_authentication_status(self):
+        """Gets the multifactor_authentication_status of this AccountInfo.
 
         The enforcement status of the multi-factor authentication, either 'enforced' or 'optional'.
 
         :return: The mfa_status of this AccountInfo.
         :rtype: str
         """
-        return self._mfa_status
+        return self._multifactor_authentication_status
 
     @property
-    def expiration_warning(self):
-        """Gets the expiration_warning of this AccountInfo.
+    def expiry_warning(self):
+        """Gets the expiry_warning of this AccountInfo.
 
         Indicates how many days (1-180) before account expiration
         a notification email should be sent.
@@ -616,7 +628,7 @@ class Account(BaseObject):
         :return: The expiration_warning_threshold of this AccountInfo.
         :rtype: str
         """
-        return self._expiration_warning
+        return self._expiry_warning
 
     @property
     def updated_at(self):

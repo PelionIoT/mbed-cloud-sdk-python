@@ -1,5 +1,32 @@
 # Changelog
 
+## 1.2.6
+
+### Deliverables
+
+The application is primarily hosted on pypi at https://pypi.org/project/mbed-cloud-sdk and can be installed using pip:
+
+```
+$ pip install mbed-cloud-sdk
+```
+
+### Changes
+
+ConnectAPI:
+- Use a different api backend for consistency when retrieving resource values.
+- `set_resource_value`/`set_resource_value_async` no longer execute a resource (use `execute_resource` instead).
+- Add a timeout parameter to set_resource_value
+- Add a timeout parameter to execute_resource_value
+- SDKs now iterate subscriptions in order to delete them.
+
+Enrollment:
+- Account Admin can upload a list of Device IDs to claim.
+- Account Admin can view the status of claimed devices.
+
+`mbed_cloud.EnrollmentAPI().add_enrollment_claim(enrollment_identity=YOUR_CLAIM_TOKEN)`
+- Use correct API for updating campaign objects
+
+
 ## 1.2.5
 
 ### Deliverables
