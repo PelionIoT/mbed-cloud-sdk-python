@@ -202,8 +202,16 @@ class SubscriptionsManager(RoutingBase):
                         sub_channels = self.get_route_item(route) or {}
                         logging.debug('subscribed channels: %s', sub_channels)
                         if not sub_channels:
-                            logging.debug('no subscribers.\nkey %s\nroutes: %s', route, self._routes)
-                            logging.debug('plucked params: %s\nwatched: %s', plucked, self.watch_keys)
+                            logging.debug(
+                                'no subscribers.\nkey %s\nroutes: %s',
+                                route,
+                                self._routes
+                            )
+                            logging.debug(
+                                'plucked params: %s\nwatched: %s',
+                                plucked,
+                                self.watch_keys
+                            )
                         for sub_channel in sub_channels.values():
                             logging.debug('dispatch: %s', item)
                             sub_channel.notify(item)
@@ -211,6 +219,6 @@ class SubscriptionsManager(RoutingBase):
             logging.exception('Subscription notification failed')
 
     # def unsubscribe_all(self):
-    #     # DO BULK UNSUBSCRIBE ON SERVER?
+    #     # TODO(do bulk unsubscribe on server?)
     #     for route, sub_channel in self._routes.items():
     #         sub_channel.cancel()

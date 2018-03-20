@@ -1,4 +1,5 @@
 import subprocess
+import sys
 
 from tests.common import BaseCase
 
@@ -31,7 +32,7 @@ class TestSelfMetrics(BaseCase):
     def test_self_metrics(self):
         try:
             subprocess.check_output(
-                ['flake8', '.'],
+                [sys.executable, '-m', 'flake8', '.'],
                 cwd=self._project_root_dir,
                 stderr=subprocess.PIPE
             )

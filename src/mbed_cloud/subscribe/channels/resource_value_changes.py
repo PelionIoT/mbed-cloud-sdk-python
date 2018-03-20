@@ -1,3 +1,5 @@
+# coding=utf8
+
 # --------------------------------------------------------------------------
 # Mbed Cloud Python SDK
 # (C) COPYRIGHT 2017 Arm Limited

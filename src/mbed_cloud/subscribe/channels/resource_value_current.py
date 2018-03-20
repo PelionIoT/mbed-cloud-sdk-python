@@ -15,12 +15,13 @@
 # limitations under the License.
 # --------------------------------------------------------------------------
 """Channel"""
+import logging
+
 from mbed_cloud.subscribe.channels.channel import _API_CHANNELS
 from mbed_cloud.subscribe.channels.channel import ChannelSubscription
 from mbed_cloud.subscribe.subscribe import expand_dict_as_keys
 
 from mbed_cloud import utils
-import logging
 
 
 class ResourceValueCurrent(ChannelSubscription):
@@ -58,6 +59,7 @@ class ResourceValueCurrent(ChannelSubscription):
         )
 
     def notify(self, data):
+        """Notify this channel of inbound data"""
         super(ResourceValueCurrent, self).notify(data)
         # after one response, close the channel
         self.ensure_stopped()

@@ -69,7 +69,7 @@ class Test(BaseCase):
         self.assertDictContainsSubset(dict(a=1, b=2), result)
         self.assertDictContainsSubset(dict(a=1, b=2), result)
 
-    @unittest.skipIf(os.environ.get('CI'), 'Not strictly a unittest')
+    @unittest.skipIf(os.environ.get('CI'), 'Do not run in CI')
     def test_live_A(self):
         # integration - ResourceValueCurrent cleans up
         from mbed_cloud.connect import ConnectAPI
@@ -92,7 +92,7 @@ class Test(BaseCase):
         else:
             self.fail('Routing table not empty')
 
-    @unittest.skipIf(os.environ.get('CI'), 'Not strictly a unittest')
+    @unittest.skipIf(os.environ.get('CI'), 'Do not run in CI')
     def test_live_B(self):
         # integration - DeviceStateChanges local filter
         from mbed_cloud.connect import ConnectAPI
