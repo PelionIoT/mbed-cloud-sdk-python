@@ -38,11 +38,11 @@ Currently we support:
 
 The subscription system in the Python SDK has the following layers:
 
-- A Subscription Manager, which may have several registered:
-- Channels, which request and filter notifications from a server, and provides an:
-- Observer, an iterable of future results, each of which is an:
-- Async Wrapper, a placeholder for an event that is yet to occur, and can be used to obtain:
-- A Python 2/3 AsyncResult_ object, or a Python 3 asyncio Future_ , or to block until the event occurs.
+| A **Subscription Manager**, which may have several registered:
+| **Channels**, which request and filter notifications from the cloud, and provides an:
+| **Observer**, an iterable of future results, each of which is an:
+| **Async Wrapper**, a placeholder for an event that is yet to occur, and can be used to obtain:
+| A Python 2/3 AsyncResult_ object, or a Python 3 asyncio Future_ , or to block until the result can be returned.
 
 .. _AsyncResult: https://docs.python.org/3/library/multiprocessing.html#multiprocessing.pool.AsyncResult
 .. _Future: https://docs.python.org/3/library/asyncio-task.html#future
