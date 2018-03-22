@@ -62,7 +62,7 @@ aliases:
       - run: python -m pipenv run python scripts/dvcs_version.py
       - run: python -m pipenv install '-e .' --skip-lock
       - run: python -m pipenv run python -c "import mbed_cloud; print(mbed_cloud.__version__)"
-      - run: pipenv run python scripts/generate_news.py
+      - run: python -m pipenv run python scripts/generate_news.py
       - run: |
               if [[ ${CLOUD_VERSION} == production ]]; then
                 export MBED_CLOUD_API_HOST=${MBED_CLOUD_API_HOST_PROD};
