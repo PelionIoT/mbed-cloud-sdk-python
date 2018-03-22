@@ -1,9 +1,10 @@
 [tool.towncrier]
+directory = '../news'
+filename = '../../NEWS.rst'
 package = 'mbed_cloud'
 package_dir = 'src'
-filename = '../../NEWS.rst'
-directory = '../news'
 template = 'template.rst'
+title_format = '{version} ({project_date})'
 # this is the correct way to use comments in RST (blank block init: `..`)
 start_string = """
 ..
