@@ -189,15 +189,11 @@ class TestWithRPC(BaseCase):
             'docker run --rm --net=host --name=testrunner_container'
             ' -e "TEST_SERVER_URL=http://{host}:5000"'  # where our SDK server is located
             ' -e "TEST_FIXTURES_DIR={fixtures}"'        # host-relative path to fixtures mountpoint
-            ' -e "LOCK_REDIS_HOST={redis_host}"'        # host for resource locker
-            ' -e "LOCK_REDIS_TOKEN={redis_token}"'      # token for resource locker
             ' -v {fixtures}:/runner/test_fixtures'      # configure the fixtures mountpoint
             ' -v {results}:/runner/results'             # configure the results mountpoint
             ' {image}'.format(
                 image=docker_image,
                 host=self.host,
-                redis_host=os.environ['LOCK_REDIS_HOST'],
-                redis_token=os.environ['LOCK_REDIS_TOKEN'],
                 fixtures=fixtures_path,
                 results=results_dir,
             )
