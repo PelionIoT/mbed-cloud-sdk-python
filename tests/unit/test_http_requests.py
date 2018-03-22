@@ -30,7 +30,6 @@ class TestUserAgent(BaseCase):
         # by the call to 'request' which are accessed by the calling code.
         self.mocked_pool_manager.side_effect = RequestCallException()
 
-
     def check_user_agent(self, list_method):
         """Issue a GET request and check contents of User-Agent HTTP header.
         :param PaginatedResponse list_method: An API list method
