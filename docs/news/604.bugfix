@@ -1,3 +1,2 @@
-ConnectAPI:
-- Use a different api backend for consistency when retrieving resource values.
-- `set_resource_value`/`set_resource_value_async` no longer execute a resource (use `execute_resource` instead).
+ConnectAPI: Use a different api backend for consistency when retrieving resource values.
+`set_resource_value`/`set_resource_value_async` no longer execute a resource (use `execute_resource` instead).
