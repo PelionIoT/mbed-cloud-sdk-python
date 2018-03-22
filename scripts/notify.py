@@ -1,6 +1,13 @@
+"""Sends release notifications to interested parties
+
+Currently this is an arm-internal slack channel.
+"""
+
 import os
 
 from slackclient import SlackClient
+
+import mbed_cloud
 
 
 def run():
@@ -12,12 +19,11 @@ def run():
         print('no slack token')
         return
 
-    from mbed_cloud import __version__
     channel_id = '#mbed-cloud-sdk'
     payload = (
-        ':gem: New version of :snake: Python SDK released: *{v}* '
+        ':checkered_flag: New version of :snake: Python SDK released: *{v}* '
         '(<https://pypi.org/project/mbed-cloud-sdk/{v}/|PyPI>)'
-    ).format(v=__version__)
+    ).format(v=mbed_cloud.__version__)
 
     print('notifying slack channel %s with payload:\n%s' % (channel_id, payload))
 

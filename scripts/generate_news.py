@@ -21,7 +21,6 @@ b) prepares for usage in CI environment to stop from generating
    entries for every minor patch version
 
 However, when deploying to production, we always want a changelog
-
 """
 import os
 import subprocess
@@ -43,7 +42,7 @@ def main():
 
     # how significant a change in version scheme should trigger a new changelog entry
     # (api major, api minor, sdk major, sdk minor, sdk patch)
-    sigfigs = 3
+    sigfigs = 4
     current_version = LooseVersion(current).version
     last_known_version = LooseVersion(last_known).version
 
