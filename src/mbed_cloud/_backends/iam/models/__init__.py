@@ -38,10 +38,6 @@ from .group_update_info import GroupUpdateInfo
 from .login_history import LoginHistory
 from .my_user_info_resp import MyUserInfoResp
 from .password_policy import PasswordPolicy
-from .policy_creation_req import PolicyCreationReq
-from .policy_info import PolicyInfo
-from .policy_info_list import PolicyInfoList
-from .policy_update_req import PolicyUpdateReq
 from .subject_list import SubjectList
 from .trusted_certificate_internal_resp import TrustedCertificateInternalResp
 from .trusted_certificate_internal_resp_list import TrustedCertificateInternalRespList

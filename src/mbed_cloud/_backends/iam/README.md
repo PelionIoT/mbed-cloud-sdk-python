@@ -98,34 +98,21 @@ Class | Method | HTTP request | Description
 *AggregatorAccountAdminApi* | [**add_account_certificate**](docs/AggregatorAccountAdminApi.md#add_account_certificate) | **POST** /v3/accounts/{accountID}/trusted-certificates | Upload new trusted certificate.
 *AggregatorAccountAdminApi* | [**add_account_user_to_groups**](docs/AggregatorAccountAdminApi.md#add_account_user_to_groups) | **POST** /v3/accounts/{accountID}/users/{user-id}/groups | Add user to a list of groups.
 *AggregatorAccountAdminApi* | [**add_subjects_to_account_group**](docs/AggregatorAccountAdminApi.md#add_subjects_to_account_group) | **POST** /v3/accounts/{accountID}/policy-groups/{groupID} | Add members to a group.
-*AggregatorAccountAdminApi* | [**attach_account_policy_to_apikeys**](docs/AggregatorAccountAdminApi.md#attach_account_policy_to_apikeys) | **POST** /v3/accounts/{accountID}/policies/{policy-id}/api-keys | Attach a policy to API keys.
-*AggregatorAccountAdminApi* | [**attach_account_policy_to_group**](docs/AggregatorAccountAdminApi.md#attach_account_policy_to_group) | **POST** /v3/accounts/{accountID}/policies/{policy-id}/groups | Attach a policy to groups.
-*AggregatorAccountAdminApi* | [**attach_account_policy_to_users**](docs/AggregatorAccountAdminApi.md#attach_account_policy_to_users) | **POST** /v3/accounts/{accountID}/policies/{policy-id}/users | Attach a policy to users.
 *AggregatorAccountAdminApi* | [**check_account_api_key**](docs/AggregatorAccountAdminApi.md#check_account_api_key) | **POST** /v3/accounts/{accountID}/api-keys/{apiKey} | Check the API key.
 *AggregatorAccountAdminApi* | [**create_account**](docs/AggregatorAccountAdminApi.md#create_account) | **POST** /v3/accounts | Create a new account.
 *AggregatorAccountAdminApi* | [**create_account_api_key**](docs/AggregatorAccountAdminApi.md#create_account_api_key) | **POST** /v3/accounts/{accountID}/api-keys | Create a new API key.
-*AggregatorAccountAdminApi* | [**create_account_policy**](docs/AggregatorAccountAdminApi.md#create_account_policy) | **POST** /v3/accounts/{accountID}/policies | Create a policy.
 *AggregatorAccountAdminApi* | [**create_account_user**](docs/AggregatorAccountAdminApi.md#create_account_user) | **POST** /v3/accounts/{accountID}/users | Create a new user.
 *AggregatorAccountAdminApi* | [**delete_account_api_key**](docs/AggregatorAccountAdminApi.md#delete_account_api_key) | **DELETE** /v3/accounts/{accountID}/api-keys/{apiKey} | Delete the API key.
 *AggregatorAccountAdminApi* | [**delete_account_certificate**](docs/AggregatorAccountAdminApi.md#delete_account_certificate) | **DELETE** /v3/accounts/{accountID}/trusted-certificates/{cert-id} | Delete trusted certificate by ID.
-*AggregatorAccountAdminApi* | [**delete_account_policy**](docs/AggregatorAccountAdminApi.md#delete_account_policy) | **DELETE** /v3/accounts/{accountID}/policies/{policy-id} | Delete policy.
 *AggregatorAccountAdminApi* | [**delete_account_user**](docs/AggregatorAccountAdminApi.md#delete_account_user) | **DELETE** /v3/accounts/{accountID}/users/{user-id} | Delete a user.
-*AggregatorAccountAdminApi* | [**detach_account_policy_from_apikeys**](docs/AggregatorAccountAdminApi.md#detach_account_policy_from_apikeys) | **DELETE** /v3/accounts/{accountID}/policies/{policy-id}/api-keys | Detach a policy from API keys.
-*AggregatorAccountAdminApi* | [**detach_account_policy_from_users**](docs/AggregatorAccountAdminApi.md#detach_account_policy_from_users) | **DELETE** /v3/accounts/{accountID}/policies/{policy-id}/users | Detach a policy from users.
-*AggregatorAccountAdminApi* | [**detach_account_policy_to_group**](docs/AggregatorAccountAdminApi.md#detach_account_policy_to_group) | **DELETE** /v3/accounts/{accountID}/policies/{policy-id}/groups | Detach a policy to groups.
 *AggregatorAccountAdminApi* | [**get_account_api_key**](docs/AggregatorAccountAdminApi.md#get_account_api_key) | **GET** /v3/accounts/{accountID}/api-keys/{apiKey} | Get API key details.
 *AggregatorAccountAdminApi* | [**get_account_certificate**](docs/AggregatorAccountAdminApi.md#get_account_certificate) | **GET** /v3/accounts/{accountID}/trusted-certificates/{cert-id} | Get trusted certificate by ID.
 *AggregatorAccountAdminApi* | [**get_account_group_summary**](docs/AggregatorAccountAdminApi.md#get_account_group_summary) | **GET** /v3/accounts/{accountID}/policy-groups/{groupID} | Get group information.
 *AggregatorAccountAdminApi* | [**get_account_info**](docs/AggregatorAccountAdminApi.md#get_account_info) | **GET** /v3/accounts/{accountID} | Get account info.
-*AggregatorAccountAdminApi* | [**get_account_policy**](docs/AggregatorAccountAdminApi.md#get_account_policy) | **GET** /v3/accounts/{accountID}/policies/{policy-id} | Get policy by ID.
-*AggregatorAccountAdminApi* | [**get_account_policy_apikeys**](docs/AggregatorAccountAdminApi.md#get_account_policy_apikeys) | **GET** /v3/accounts/{accountID}/policies/{policy-id}/api-keys | Fetch details of policy&#39;s API keys.
-*AggregatorAccountAdminApi* | [**get_account_policy_groups**](docs/AggregatorAccountAdminApi.md#get_account_policy_groups) | **GET** /v3/accounts/{accountID}/policies/{policy-id}/groups | Fetch details of policy&#39;s groups.
-*AggregatorAccountAdminApi* | [**get_account_policy_users**](docs/AggregatorAccountAdminApi.md#get_account_policy_users) | **GET** /v3/accounts/{accountID}/policies/{policy-id}/users | Fetch details of policy&#39;s users.
 *AggregatorAccountAdminApi* | [**get_account_user**](docs/AggregatorAccountAdminApi.md#get_account_user) | **GET** /v3/accounts/{accountID}/users/{user-id} | Details of the user.
 *AggregatorAccountAdminApi* | [**get_all_account_api_keys**](docs/AggregatorAccountAdminApi.md#get_all_account_api_keys) | **GET** /v3/accounts/{accountID}/api-keys | Get all API keys.
 *AggregatorAccountAdminApi* | [**get_all_account_certificates**](docs/AggregatorAccountAdminApi.md#get_all_account_certificates) | **GET** /v3/accounts/{accountID}/trusted-certificates | Get all trusted certificates.
 *AggregatorAccountAdminApi* | [**get_all_account_groups**](docs/AggregatorAccountAdminApi.md#get_all_account_groups) | **GET** /v3/accounts/{accountID}/policy-groups | Get all group information.
-*AggregatorAccountAdminApi* | [**get_all_account_policies**](docs/AggregatorAccountAdminApi.md#get_all_account_policies) | **GET** /v3/accounts/{accountID}/policies | Get all policies.
 *AggregatorAccountAdminApi* | [**get_all_account_users**](docs/AggregatorAccountAdminApi.md#get_all_account_users) | **GET** /v3/accounts/{accountID}/users | Get all user details.
 *AggregatorAccountAdminApi* | [**get_all_accounts**](docs/AggregatorAccountAdminApi.md#get_all_accounts) | **GET** /v3/accounts | Get all accounts.
 *AggregatorAccountAdminApi* | [**get_api_keys_of_account_group**](docs/AggregatorAccountAdminApi.md#get_api_keys_of_account_group) | **GET** /v3/accounts/{accountID}/policy-groups/{groupID}/api-keys | Get API keys of a group.
@@ -140,7 +127,6 @@ Class | Method | HTTP request | Description
 *AggregatorAccountAdminApi* | [**update_account**](docs/AggregatorAccountAdminApi.md#update_account) | **PUT** /v3/accounts/{accountID} | Update attributes of an existing account.
 *AggregatorAccountAdminApi* | [**update_account_api_key**](docs/AggregatorAccountAdminApi.md#update_account_api_key) | **PUT** /v3/accounts/{accountID}/api-keys/{apiKey} | Update API key details.
 *AggregatorAccountAdminApi* | [**update_account_certificate**](docs/AggregatorAccountAdminApi.md#update_account_certificate) | **PUT** /v3/accounts/{accountID}/trusted-certificates/{cert-id} | Update trusted certificate.
-*AggregatorAccountAdminApi* | [**update_account_policy**](docs/AggregatorAccountAdminApi.md#update_account_policy) | **PUT** /v3/accounts/{accountID}/policies/{policy-id} | Update a policy.
 *AggregatorAccountAdminApi* | [**update_account_user**](docs/AggregatorAccountAdminApi.md#update_account_user) | **PUT** /v3/accounts/{accountID}/users/{user-id} | Update user details.
 *AggregatorAccountAdminApi* | [**validate_account_user_email**](docs/AggregatorAccountAdminApi.md#validate_account_user_email) | **POST** /v3/accounts/{accountID}/users/{user-id}/validate-email | Validate the user email.
 *DeveloperApi* | [**add_me_to_groups**](docs/DeveloperApi.md#add_me_to_groups) | **POST** /v3/users/me/groups | Add user to a list of groupS.
@@ -196,10 +182,6 @@ Class | Method | HTTP request | Description
  - [LoginHistory](docs/LoginHistory.md)
  - [MyUserInfoResp](docs/MyUserInfoResp.md)
  - [PasswordPolicy](docs/PasswordPolicy.md)
- - [PolicyCreationReq](docs/PolicyCreationReq.md)
- - [PolicyInfo](docs/PolicyInfo.md)
- - [PolicyInfoList](docs/PolicyInfoList.md)
- - [PolicyUpdateReq](docs/PolicyUpdateReq.md)
  - [SubjectList](docs/SubjectList.md)
  - [TrustedCertificateInternalResp](docs/TrustedCertificateInternalResp.md)
  - [TrustedCertificateInternalRespList](docs/TrustedCertificateInternalRespList.md)
