@@ -2,6 +2,8 @@ from tests.common import BaseCase
 from mbed_cloud.device_directory import DeviceDirectoryAPI
 from mbed_cloud.core import ApiMetadata
 
+import mock
+
 
 class TestFilters(BaseCase):
     """Check filters"""
@@ -9,7 +11,11 @@ class TestFilters(BaseCase):
     @classmethod
     def setUpClass(cls):
         cls.api = DeviceDirectoryAPI()
-        cls.devices = cls.api.list_devices(filter=dict(state='registered')).next()
+        with mock.patch('urllib3.PoolManager.request') as mocked:
+            mocked.return_value = mock.MagicMock()
+            mocked.return_value.status = 200
+            mocked.return_value.data = '{"data":[{"a":1}]}'.encode()
+            cls.devices = cls.api.list_devices(filter=dict(state='registered')).next()
 
     def test_meta(self):
         # exercise all the getters for metadata objects
@@ -21,14 +27,11 @@ class TestFilters(BaseCase):
             'date',
             'headers',
             'request_id',
-            'object',
-            'etag',
             'error_message',
         )
         parts = {prop: getattr(meta, prop, None) for prop in props}
         self.assertEqual(parts['method'], 'GET')
-        self.assertEqual(parts['object'], 'list')
-        self.assertIn('Strict-Transport', repr(meta))
+        self.assertIn('200', repr(meta))
         as_dict = meta.to_dict()
         for prop in props:
             self.assertIn(prop, as_dict)
