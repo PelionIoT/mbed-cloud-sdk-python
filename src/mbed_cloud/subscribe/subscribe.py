@@ -14,30 +14,35 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # --------------------------------------------------------------------------
-"""Subscriptions HLA (wip)
+"""Subscriptions
 
-mbed_cloud
-connectAPI.subscribe.device_state_changes(device_id=a).add_callback(blah).wait()
+This higher-level-abstraction aims to get the user code quickly from
+defining a subscription, to acting on the data received
 
-while true:
-    connectAPI.subscribe.device_state_changes(device_id=a, state=deregistered).wait()
+# callbacks
+def callback(x):
+    print(x)
 
-<python3>
-for my_future in connectAPI.subscribe.device_state_changes(device_id=None):
+connect_api.subscribe(device_state_changes(device_id=a)).add_callback(blah)
+
+# blocking calls with filters
+channel = connect_api.subscribe(device_state_changes(device_id=, state='deregistered'))
+for result in channel:
+    print(result.block())
+
+# deferred in python3
+for my_future in connect_api.subscribe(device_state_changes(device_id=None)):
     await my_future
 
-<python2>
-for my_tpe in connectAPI.subscribe.device_state_changes(device_id=None):
-    my_tpe.get()
+# deferred in python2
+for my_async_result in connect_api.subscribe(device_state_changes(device_id=None)):
+    print(my_async_result.get())
 
-
-if you want to put stuff in a queue:
+# independently using a separate queue
 q = Queue.Queue()
-connectAPI.subscribe.device_state_changes(device_id=None).add_callback(q.put)
+connect_api.subscribe(device_state_changes(device_id=None)).add_callback(q.put)
 while True:
-    q.get()
-
-
+    print(q.get())
 """
 import itertools
 import logging
@@ -174,11 +179,14 @@ class SubscriptionsManager(RoutingBase):
         extras = subscription_channel.get_extra_keys()
         [self.watch_keys.add(k_v[0]) for key in keys for k_v in key]
         channel = self.get_or_create_routes(subscription_channel, keys, extras)
-        channel.configure(self, self.connect_api, observer_params)
+        channel._configure(self, self.connect_api, observer_params)
         return channel
 
     def subscribe(self, subscription_channel, **observer_params):
-        """Shorthand to initialise a channel and return and Observer"""
+        """Subscribe to a channel
+
+        This adds a channel to the router, configures it, starts it, and returns its observer
+        """
         return self.get_channel(subscription_channel, **observer_params).ensure_started().observer
     __call__ = subscribe
 
@@ -218,7 +226,8 @@ class SubscriptionsManager(RoutingBase):
         except Exception:  # noqa
             logging.exception('Subscription notification failed')
 
-    # def unsubscribe_all(self):
-    #     # TODO(do bulk unsubscribe on server?)
-    #     for route, sub_channel in self._routes.items():
-    #         sub_channel.cancel()
+    def unsubscribe_all(self):
+        """Unsubscribes all channels"""
+        for channel in self.list_all():
+            channel.ensure_stopped()
+        self.connect_api.stop_notifications()

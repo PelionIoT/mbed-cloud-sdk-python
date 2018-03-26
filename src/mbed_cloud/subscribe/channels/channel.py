@@ -33,7 +33,11 @@ class _API_CHANNELS(object):
 class ChannelSubscription(object):
     """Represents a subscription to a channel
 
-    (In mbed terms, this may be a Presubscription or a Subscription)
+    In pub/sub terms, this is one channel of notifications.
+
+    In mbed terms, this may be a Presubscription or a Subscription.
+    There could be multiple references to a single mbed channel (e.g. `notifications`),
+    with multiple receiving channels applying different filters, on the server or client-side.
     """
 
     _api = None  # type: mbed_cloud.connect.ConnectAPI
@@ -58,16 +62,21 @@ class ChannelSubscription(object):
 
     @property
     def active(self):
-        """Subscription currently active"""
+        """Channel currently active"""
         return self._active
 
     @property
     def observer(self):
-        """The Observer instance for this channel"""
+        """The Observer instance for this channel
+
+        Each channel has one observer, which is notified whenever new
+        data is received by the channel. Observers can then notify
+        multiple listeners/futures in downstream code.
+        """
         return self._observer
 
     def filter_notification(self, data):
-        """A further level of filtering for this channel
+        """Filtering for this channel, based on key-value matching
 
         Subclasses can further extend or override this to provide
         custom behaviours e.g. filtering on timestamp ranges or other conditions
@@ -100,8 +109,12 @@ class ChannelSubscription(object):
         """Base method for stopping the channel"""
         pass
 
-    def configure(self, manager, connect_api_instance, observer_params):
-        """Configure behind-the-scenes settings for the channel"""
+    def _configure(self, manager, connect_api_instance, observer_params):
+        """Configure behind-the-scenes settings for the channel
+
+        These are required in addition to the parameters provided
+        on instantiation
+        """
         self._manager = manager
         self._api = connect_api_instance
         self._observer_params = self._observer_params or {}

@@ -20,7 +20,6 @@
 import functools
 import logging
 import queue
-import warnings
 
 from mbed_cloud.subscribe.async_wrapper import AsyncWrapper
 
@@ -46,6 +45,9 @@ class Observer(object):
 
     def __init__(self, filters=None, queue_size=0, once=False, provider=None, timeout=None):
         """Observer
+
+        An iterable that manufactures results or promises for a stream of data
+        Observer[1..n] gives promises for data stream [1..n] and fulfills them in that order
 
         :param filters: Additional key-value pairs to whitelist inbound notifications
         :param queue_size: sets internal notification queue max length
@@ -146,7 +148,10 @@ class Observer(object):
         return self
 
     def cancel(self):
-        """Cancels all subscribers, where possible"""
+        """Cancels the observer
+
+        No more notifications will be passed on
+        """
         logging.debug('cancelling %s', self)
         self._cancelled = True
         self.clear_callbacks()  # not strictly necessary, but may release references
@@ -157,8 +162,11 @@ class Observer(object):
                 break
 
     def add_callback(self, fn):
-        """Register a callback, triggered when new data arrives"""
-        warnings.warn('Instead of callbacks, consider using Futures or AsyncResults')
+        """Register a callback, triggered when new data arrives
+
+        As an alternative to callbacks, consider use of
+        Futures or AsyncResults e.g. from `.next().defer()`
+        """
         self._callbacks.append(fn)
         return self
 

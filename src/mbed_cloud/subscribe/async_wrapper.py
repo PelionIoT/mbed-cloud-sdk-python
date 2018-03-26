@@ -63,9 +63,9 @@ class AsyncWrapper(object):
         self._lock = threading.RLock()
 
     def defer(self, *args, **kwargs):
-        """Initialise a deferred call to the function - returns an asynchronous object.
+        """Call the function and immediately return an asynchronous object.
 
-        The calling code will need to check for the result at a later time.
+        The calling code will need to check for the result at a later time using:
 
         In Python 2/3 using ThreadPools - an AsyncResult
             (https://docs.python.org/2/library/multiprocessing.html#multiprocessing.pool.AsyncResult)
@@ -114,7 +114,7 @@ class AsyncWrapper(object):
         return self._deferable
 
     def block(self, *args, **kwargs):
-        """Call the wrapped function in a blocking fashion
+        """Call the wrapped function, and wait for the result in a blocking fashion
 
         Returns the result of the function call.
 
