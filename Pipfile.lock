@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "92d9186e5e66de8f6d2b9370b79ff6eff99a48004fbb2ba1527026b990f567a0"
+            "sha256": "16db3e6f61e7e98d6cafd28a21069bec462534e755093cd02b2c76755a3bcf4d"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
@@ -239,6 +239,13 @@
             ],
             "version": "==1.0.0"
         },
+        "incremental": {
+            "hashes": [
+                "sha256:717e12246dddf231a349175f48d74d93e2897244939173b01974ab6661406b9f",
+                "sha256:7b751696aaf36eebfab537e458929e194460051ccad279c72b755a167eebd4b3"
+            ],
+            "version": "==17.5.0"
+        },
         "itsdangerous": {
             "hashes": [
                 "sha256:cbb3fcf8d3e33df861709ecaf89d9e6629cff0a217bc2848f1b41cd30d360519"
@@ -402,6 +409,12 @@
             ],
             "version": "==1.11.0"
         },
+        "slackclient": {
+            "hashes": [
+                "sha256:557dbf7715fc8db0937813367ec3cc72cd14caf70bbdf12ff394ff3ae3ce8317"
+            ],
+            "version": "==1.2.0"
+        },
         "snowballstemmer": {
             "hashes": [
                 "sha256:9f3bcd3c401c3e862ec0ebe6d2c069ebc012ce142cce209c098ccb5b09136e89",
@@ -423,6 +436,19 @@
             ],
             "version": "==1.0.1"
         },
+        "toml": {
+            "hashes": [
+                "sha256:8e86bd6ce8cc11b9620cb637466453d94f5d57ad86f17e98a98d1f73e3baab2d"
+            ],
+            "version": "==0.9.4"
+        },
+        "towncrier": {
+            "hashes": [
+                "sha256:bf5752f4c0d61da1f9d8deef0b14f324f04d88053ef35e406b704b2ee0948ebf",
+                "sha256:8c0e5949851a9771a50d637b708322d73a4d4090fa354e5cb24a4f7464e81d47"
+            ],
+            "version": "==17.8.0"
+        },
         "typing": {
             "hashes": [
                 "sha256:b2c689d54e1144bbcfd191b0832980a21c2dbcf7b5ff7a66248a60c90e951eb8",
@@ -438,6 +464,13 @@
                 "sha256:cc44da8e1145637334317feebd728bd869a35285b93cbb4cca2577da7e62db4f"
             ],
             "version": "==1.22"
+        },
+        "websocket-client": {
+            "hashes": [
+                "sha256:188b68b14fdb2d8eb1a111f21b9ffd2dbf1dbc4e4c1d28cf2c37cdbf1dd1cae6",
+                "sha256:a453dc4dfa6e0db3d8fd7738a308a88effe6240c59f3226eb93e8f020c216149"
+            ],
+            "version": "==0.47.0"
         },
         "werkzeug": {
             "hashes": [
