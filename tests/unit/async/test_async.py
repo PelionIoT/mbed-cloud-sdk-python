@@ -41,7 +41,7 @@ class AsyncBase(BaseCase):
 class Test2(AsyncBase):
     def setUp(self):
         super(Test2, self).setUp()
-        from tests.unit.async.b_call import slow
+        from tests.unit.async.blocking_call import slow
         self.AsyncWrapper = AsyncWrapper(func=slow)
 
     def get_async_value(self, defer):
@@ -51,7 +51,7 @@ class Test2(AsyncBase):
 class Test2CustomLoop(Test2):
     def setUp(self):
         super(Test2CustomLoop, self).setUp()
-        from tests.unit.async.b_call import slow
+        from tests.unit.async.blocking_call import slow
         tp = pool.ThreadPool(processes=1)
         self.AsyncWrapper = AsyncWrapper(concurrency_provider=tp, func=slow)
 
@@ -63,7 +63,7 @@ class Test3(AsyncBase):
     def setUp(self):
         super().setUp()
         import asyncio
-        from tests.unit.async.a_call import slow
+        from tests.unit.async.awaitable_call import slow
         self.target = slow
         self.loop = asyncio.get_event_loop()
         self.AsyncWrapper = AsyncWrapper(concurrency_provider=self.loop, func=self.target)
@@ -72,12 +72,12 @@ class Test3(AsyncBase):
         return self.loop.run_until_complete(defer)
 
 
-class Test3Executor(Test3):
+class Test3BlockingAwait(Test3):
     # use a Python3 event loop, but a blocking function underneath
     def setUp(self):
         super().setUp()
         import asyncio
-        from tests.unit.async.b_call import slow
+        from tests.unit.async.blocking_call import slow
         self.target = slow
         self.loop = asyncio.get_event_loop()
         self.AsyncWrapper = AsyncWrapper(concurrency_provider=self.loop, func=self.target)
@@ -107,7 +107,7 @@ class Test3DoesThreadsToo(Test3):
     def setUp(self):
         super().setUp()
         # if we wanted to, we could make our AsyncWrapper use ThreadPools in python3.
-        from tests.unit.async.b_call import slow
+        from tests.unit.async.blocking_call import slow
         self.target = slow
         tp = pool.ThreadPool(processes=1)
         self.AsyncWrapper = AsyncWrapper(concurrency_provider=tp, func=self.target)

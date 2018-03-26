@@ -48,7 +48,9 @@ class Test(BaseCase):
 
         self.assertFalse(future_b.ready())
 
-        self.assertTrue(future_c.ready())
+        # possible race condition, so an unreliable check.
+        # just because one observer (`a`) is ready, does not mean another (`c`) is.
+        # self.assertTrue(future_c.ready())
         result = future_c.get()
         self.assertDictContainsSubset(dict(a=1, b=2), result)
 
