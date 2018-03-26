@@ -1,4 +1,5 @@
 import six
+import sys
 import unittest
 import uuid
 from multiprocessing import pool
@@ -83,6 +84,7 @@ class Test3BlockingAwait(Test3):
         self.AsyncWrapper = AsyncWrapper(concurrency_provider=self.loop, func=self.target)
 
 
+@unittest.skipIf(sys.version_info[:2] <= (3, 5), 'Only works on 3.6+ due to get_event_loop')
 class Test3CustomLoop(Test3):
     def setUp(self):
         super().setUp()
