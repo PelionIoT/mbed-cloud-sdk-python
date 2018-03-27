@@ -529,6 +529,8 @@ class Device(BaseObject):
     def certificate_fingerprint(self):
         """Fingerprint of the device certificate.
 
+        This is not part of the certificate but rather the SH-256 hash of the certificate.
+
         :rtype: str
         """
         return self._certificate_fingerprint
@@ -536,6 +538,8 @@ class Device(BaseObject):
     @property
     def certificate_issuer_id(self):
         """ID of the issuer of the certificate.
+
+        This is the value of the CN field (in the Subject) of the Issuer of the certificate.
 
         :rtype: str
         """
