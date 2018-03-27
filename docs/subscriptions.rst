@@ -58,6 +58,21 @@ The subscription system in the Python SDK has the following layers:
 .. _AsyncResult: https://docs.python.org/3/library/multiprocessing.html#multiprocessing.pool.AsyncResult
 .. _Future: https://docs.python.org/3/library/asyncio-task.html#future
 
+Some example code:
+.. code-block:: python
+  # blocking calls with filters
+  channel = connect_api.subscribe(device_state_changes(device_id=, state='deregistered'))
+  for result in channel:
+      print(result.block())
+
+  # deferred in python3
+  for my_future in connect_api.subscribe(device_state_changes(device_id=None)):
+      await my_future
+
+  # deferred in python2
+  for my_async_result in connect_api.subscribe(device_state_changes(device_id=None)):
+      print(my_async_result.get())
+
 Reference
 ---------
 
