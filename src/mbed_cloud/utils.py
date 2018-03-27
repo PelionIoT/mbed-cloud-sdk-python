@@ -16,6 +16,7 @@
 # --------------------------------------------------------------------------
 """Some shared utilities"""
 import datetime
+import uuid
 
 from mbed_cloud.exceptions import CloudValueError
 
@@ -25,3 +26,8 @@ def force_utc(time, name='field'):
     if not isinstance(time, datetime.datetime):
         raise CloudValueError("%s should be of type datetime" % (name,))
     return time.isoformat() + "Z"
+
+
+def new_async_id():
+    """A source of new client-side async ids"""
+    return str(uuid.uuid4())

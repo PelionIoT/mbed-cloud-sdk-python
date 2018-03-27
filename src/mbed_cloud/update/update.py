@@ -102,7 +102,7 @@ class UpdateAPI(BaseAPI):
         :param str device_filter: The device filter to use (Required)
         :param str manifest_id: ID of the manifest with description of the update
         :param str description: Description of the campaign
-        :param date scheduled_at: The timestamp at which update campaign is scheduled to start
+        :param int scheduled_at: The timestamp at which update campaign is scheduled to start
         :param str state: The state of the campaign. Values:
             "draft", "scheduled", "devicefetch", "devicecopy", "publishing",
             "deploying", "deployed", "manifestremoved", "expired"

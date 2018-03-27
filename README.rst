@@ -110,6 +110,7 @@ Versioning
 ----------
 
 The current version scheme used by the SDK reflects the version of the API it abstracts, and otherwise follows PEP440:
+
 :code:`<API major>.<API minor>.<SDK major>.<SDK minor>.<SDK patch>`
 
 Troubleshooting

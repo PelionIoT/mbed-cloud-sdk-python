@@ -182,45 +182,44 @@ def handle_channel_message(db, queues, b64decode, notification_object):
             status_code=response.status
         )})
 
-    for registration in getattr(notification_object, 'registrations') or []:
-        LOG.info('Registration: %s', registration)
-
-    for registration in getattr(notification_object, 'de_registrations') or []:
-        LOG.info('De-registration: %s', registration)
-
-    for registration in getattr(notification_object, 'reg_updates') or []:
-        LOG.info('Re-registration: %s', registration)
-
-    for registration in getattr(notification_object, 'registrations_expired') or []:
-        LOG.info('Registration Expired: %s', registration)
-
 
 class NotificationsThread(threading.Thread):
     """A thread object"""
 
-    def __init__(self, db, queues, b64decode=True, notifications_api=None):
+    def __init__(self, db, queues, b64decode=True, notifications_api=None,
+                 subscription_manager=None):
         """Stoppable thread"""
         super(NotificationsThread, self).__init__()
 
         self.db = db
         self.queues = queues
         self.notifications_api = notifications_api
+        self.subscription_manager = subscription_manager
 
         self._b64decode = b64decode
-        self._stopped = False
+
+        self._stopping = False
+        self._stopped = threading.Event()
 
     @catch_exceptions(mds.rest.ApiException)
     @functools.wraps(threading.Thread.run)
     def run(self):
         """Thread main loop"""
-        while not self._stopped:
-            handle_channel_message(
-                db=self.db,
-                queues=self.queues,
-                b64decode=self._b64decode,
-                notification_object=self.notifications_api.v2_notification_pull_get()
-            )
+        try:
+            while not self._stopping:
+                data = self.notifications_api.v2_notification_pull_get()
+                handle_channel_message(
+                    db=self.db,
+                    queues=self.queues,
+                    b64decode=self._b64decode,
+                    notification_object=data
+                )
+                if self.subscription_manager:
+                    self.subscription_manager.notify(data.to_dict())
+        finally:
+            self._stopped.set()
 
     def stop(self):
         """Request thread stop"""
-        self._stopped = True
+        self._stopping = True
+        return self._stopped
