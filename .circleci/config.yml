@@ -98,7 +98,7 @@ aliases:
           keys: [*branch_cache_key]
       - run: sudo python -m pip install -U setuptools pip
       - run: sudo pip install pipenv
-      - run: pipenv install twine
+      - run: pipenv install twine --skip-lock
       - run:
           name: Build the wheel
           command: pipenv run python setup.py bdist_wheel
