@@ -143,7 +143,10 @@ class ConnectAPI(BaseAPI):
                 return
             thread = self._notifications_thread
             self._notifications_thread = None
-            return thread.stop().wait()
+            stopping = thread.stop()
+            api = self._get_api(mds.NotificationsApi)
+            api.v2_notification_pull_delete()
+            return stopping.wait()
 
     @catch_exceptions(device_directory.rest.ApiException)
     def list_connected_devices(self, **kwargs):
