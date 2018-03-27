@@ -13,6 +13,16 @@ a list of versions that have been released on PyPI.
 ..
     begin_release_notes
 
+1.2.7.968 (2018-03-27)
+======================
+
+Features
+--------
+
+- Add subscriptions High Level Abstraction. Provides access to device
+  registration status notifications. Sends request to terminate long poll on
+  'stop_notifications'. (#722)
+
 
 1.2.6.852 (2018-03-08)
 ======================
