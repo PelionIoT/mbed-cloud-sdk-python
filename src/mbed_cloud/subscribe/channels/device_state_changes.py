@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # --------------------------------------------------------------------------
-"""Channel"""
+"""A Channels API module"""
 from __future__ import absolute_import
 
 from mbed_cloud.subscribe.channels.channel import _API_CHANNELS

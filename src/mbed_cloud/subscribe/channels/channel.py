@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # --------------------------------------------------------------------------
-"""Channel"""
+"""A Channels API module"""
 import logging
 from mbed_cloud.subscribe.observer import Observer
 
