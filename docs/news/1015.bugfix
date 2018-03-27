@@ -1,3 +1,1 @@
-ConnectAPI:
-- Add a timeout parameter to set_resource_value
-- Add a timeout parameter to execute_resource_value
+ConnectAPI: Add a timeout parameter to `set_resource_value` and `execute_resource_value`

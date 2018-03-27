@@ -33,6 +33,7 @@ aliases:
     - run: pipenv run python scripts/dvcs_version.py
     - run: pipenv install '-e .' --skip-lock
     - run: pipenv run python -c "import mbed_cloud; print(mbed_cloud.__version__)"
+    - run: pipenv run python scripts/generate_news.py
     - save_cache:
         key: *branch_cache_key
         paths:
@@ -61,6 +62,7 @@ aliases:
       - run: python -m pipenv run python scripts/dvcs_version.py
       - run: python -m pipenv install '-e .' --skip-lock
       - run: python -m pipenv run python -c "import mbed_cloud; print(mbed_cloud.__version__)"
+      - run: python -m pipenv run python scripts/generate_news.py
       - run: |
               if [[ ${CLOUD_VERSION} == production ]]; then
                 export MBED_CLOUD_API_HOST=${MBED_CLOUD_API_HOST_PROD};
@@ -105,12 +107,16 @@ aliases:
           command: |
                   (pipenv run python setup.py --version) | xargs git tag
                   git push --tags
+                  git add NEWS.rst docs/news/*
+                  git commit -m ":newspaper: Hear yea, hear yea. News O'Clock. [skip ci]"
+                  git push
       - run:
           name: Upload the build to PyPI
           command: |
                   echo 'registering and deploying package to "${TWINE_REPOSITORY_URL}" (or default)'
                   ls dist
                   pipenv run twine upload dist/*
+                  pipenv run python scripts/notify.py
 
 jobs:
   build_2:
