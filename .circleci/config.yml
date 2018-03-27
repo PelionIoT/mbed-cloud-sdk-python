@@ -273,6 +273,9 @@ workflows:
           requires:
             - build_2
             - test_integration_3
+          filters:
+            branches:
+              ignore: master
       - test_integration_3:
           requires:
             - build_3
