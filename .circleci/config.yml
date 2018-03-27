@@ -276,6 +276,9 @@ workflows:
       - test_integration_3:
           requires:
             - build_3
+          filters:
+            branches:
+              ignore: master
       - test_production_2:
           requires:
             - build_2
