@@ -1,5 +1,3 @@
-# coding=utf8
-
 # --------------------------------------------------------------------------
 # Mbed Cloud Python SDK
 # (C) COPYRIGHT 2017 Arm Limited
@@ -31,7 +29,7 @@ class NoMoreNotifications(Exception):
 
 
 class Observer(object):
-    """An async stream generator (Future1, Future2, ... ∞)
+    """An async stream generator (Future1, Future2, ... FutureN)
 
     This system should abstract async concepts to the end application
     so that native async logic can be used if available -
