@@ -21,7 +21,6 @@ from __future__ import unicode_literals
 import logging
 import re
 import threading
-import uuid
 import warnings
 
 from collections import defaultdict
@@ -50,7 +49,8 @@ from mbed_cloud.device_directory import Device
 from mbed_cloud.exceptions import CloudApiException
 from mbed_cloud.exceptions import CloudUnhandledError
 from mbed_cloud.exceptions import CloudValueError
-from mbed_cloud.utils import force_utc
+from mbed_cloud.subscribe import SubscriptionsManager
+from mbed_cloud import utils
 
 from six.moves import queue
 
@@ -88,6 +88,7 @@ class ConnectAPI(BaseAPI):
         self.b64decode = True
         self._notifications_thread = None
         self._notifications_lock = threading.RLock()
+        self.subscribe = SubscriptionsManager(self)
 
     @property
     def has_active_notification_thread(self):
@@ -119,14 +120,15 @@ class ConnectAPI(BaseAPI):
         :returns: void
         """
         with self._notifications_lock:
-            api = self._get_api(mds.NotificationsApi)
             if self.has_active_notification_thread:
                 return
+            api = self._get_api(mds.NotificationsApi)
             self._notifications_thread = NotificationsThread(
                 self._db,
                 self._queues,
                 b64decode=self.b64decode,
-                notifications_api=api
+                notifications_api=api,
+                subscription_manager=self.subscribe,
             )
             self._notifications_thread.daemon = True
             self._notifications_thread.start()
@@ -134,13 +136,17 @@ class ConnectAPI(BaseAPI):
     def stop_notifications(self):
         """Stop the notifications thread.
 
-        :returns: void
+        :returns:
         """
         with self._notifications_lock:
             if not self.has_active_notification_thread:
                 return
-            self._notifications_thread.stop()
+            thread = self._notifications_thread
             self._notifications_thread = None
+            stopping = thread.stop()
+            api = self._get_api(mds.NotificationsApi)
+            api.v2_notification_pull_delete()
+            return stopping.wait()
 
     @catch_exceptions(device_directory.rest.ApiException)
     def list_connected_devices(self, **kwargs):
@@ -228,22 +234,18 @@ class ConnectAPI(BaseAPI):
                 return r
         raise CloudApiException("Resource not found")
 
-    def _new_async_id(self):
-        """A source of new client-side async ids"""
-        return str(uuid.uuid4())
-
-    def _mds_rpc_post(self, device_id, **params):
+    def _mds_rpc_post(self, device_id, _wrap_with_consumer=True, async_id=None, **params):
         """Helper for using RPC endpoint"""
         self.ensure_notifications_thread()
         api = self._get_api(mds.DeviceRequestsApi)
-        async_id = self._new_async_id()
+        async_id = async_id or utils.new_async_id()
         device_request = mds.DeviceRequest(**params)
         api.v2_device_requests_device_id_post(
             device_id,
             async_id=async_id,
             body=device_request,
         )
-        return AsyncConsumer(async_id, self._db)
+        return AsyncConsumer(async_id, self._db) if _wrap_with_consumer else async_id
 
     @catch_exceptions(mds.rest.ApiException)
     def get_resource_value_async(self, device_id, resource_path, fix_path=True):
@@ -430,6 +432,11 @@ class ConnectAPI(BaseAPI):
         return AsyncConsumer(resp.async_response_id, self._db)
 
     @catch_exceptions(mds.rest.ApiException)
+    def _add_subscription(self, device_id, resource_path):
+        api = self._get_api(mds.SubscriptionsApi)
+        return api.v2_subscriptions_device_id_resource_path_put(device_id, resource_path)
+
+    @catch_exceptions(mds.rest.ApiException)
     def add_resource_subscription(self, device_id, resource_path, fix_path=True, queue_size=5):
         """Subscribe to resource updates.
 
@@ -457,8 +464,7 @@ class ConnectAPI(BaseAPI):
         self._queues[device_id][resource_path] = q
 
         # Send subscription request
-        api = self._get_api(mds.SubscriptionsApi)
-        api.v2_subscriptions_device_id_resource_path_put(device_id, fixed_path)
+        self._add_subscription(device_id, fixed_path)
 
         # Return the Queue object to the user
         return q
@@ -591,6 +597,11 @@ class ConnectAPI(BaseAPI):
         return api.v2_subscriptions_device_id_delete(device_id)
 
     @catch_exceptions(mds.rest.ApiException)
+    def _delete_subscription(self, device_id, resource_path):
+        api = self._get_api(mds.SubscriptionsApi)
+        return api.v2_subscriptions_device_id_resource_path_delete(device_id, resource_path)
+
+    @catch_exceptions(mds.rest.ApiException)
     def delete_resource_subscription(self, device_id=None, resource_path=None, fix_path=True):
         """Unsubscribe from device and/or resource_path updates.
 
@@ -616,7 +627,6 @@ class ConnectAPI(BaseAPI):
                 resource_paths.extend(list(self._queues[e].keys()))
 
         # Delete the subscriptions
-        api = self._get_api(mds.SubscriptionsApi)
         for e in devices:
             for r in resource_paths:
                 # Fix the path, if required.
@@ -625,7 +635,7 @@ class ConnectAPI(BaseAPI):
                     fixed_path = r[1:]
 
                 # Make request to API, ignoring result
-                api.v2_subscriptions_device_id_resource_path_delete(device_id, fixed_path)
+                self._delete_subscription(device_id, fixed_path)
 
                 # Remove Queue from dictionary
                 del self._queues[e][r]
@@ -754,7 +764,7 @@ class ConnectAPI(BaseAPI):
             raise CloudValueError("interval is incorrect. Sample values: 2h, 3w, 4d.")
         # convert start into UTC RFC3339 format
         if start:
-            kwargs['start'] = force_utc(start, 'start')
+            kwargs['start'] = utils.force_utc(start, 'start')
         # convert end into UTC RFC3339 format
         if end:
-            kwargs['end'] = force_utc(end, 'end')
+            kwargs['end'] = utils.force_utc(end, 'end')

@@ -24,6 +24,7 @@ Concepts
   configuration
   exceptions
   pagination
+  subscriptions
   metadata
 
 
