@@ -25,3 +25,7 @@ from mbed_cloud.connect import ConnectAPI
 from mbed_cloud.device_directory import DeviceDirectoryAPI
 from mbed_cloud.enrollment import EnrollmentAPI
 from mbed_cloud.update import UpdateAPI
+
+# some namespacing for HLAs
+from mbed_cloud.subscribe import channels
+from mbed_cloud.icing.api import Client as MbedCloud
