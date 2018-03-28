@@ -105,11 +105,12 @@ aliases:
       - run:
           name: Tag the release
           command: |
-                  (pipenv run python setup.py --version) | xargs git tag
-                  git push --tags
                   git add NEWS.rst docs/news/*
                   git commit -m ":newspaper: Hear yea, hear yea. News O'Clock. [skip ci]"
                   git push
+                  (pipenv run python setup.py --version) | xargs git tag
+                  git tag -f latest
+                  git push --tags
       - run:
           name: Upload the build to PyPI
           command: |
