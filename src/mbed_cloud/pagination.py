@@ -26,11 +26,13 @@ class PaginatedResponse(object):
     a lazily-evaluated generator which can be used to step through
     the full result set, fetching new pages of results as needed.
 
-    response = PaginatedResponse(api_function)
-    response.first()              {} first item
-    response.all()                [{}, ...] all items
-    list(response)                [{}, ...] all items from generator
-    [item for item in response]   [{}, ...] iteration over generator
+    Usage:
+
+    - response = PaginatedResponse(api_function)
+    - response.first()              {} first item
+    - response.all()                [{}, ...] all items
+    - list(response)                [{}, ...] all items from generator
+    - [item for item in response]   [{}, ...] iteration over generator
     """
 
     def __init__(self, func, lwrap_type=None, _results_cache=True, **kwargs):

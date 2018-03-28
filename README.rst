@@ -19,7 +19,7 @@ The ``mbed-cloud-sdk`` gives developers access to the full `Mbed Cloud suite <ht
     :target: https://circleci.com/gh/ARMmbed/mbed-cloud-sdk-python/tree/master
 
 .. image:: https://codecov.io/gh/ARMmbed/mbed-cloud-sdk-python/branch/master/graph/badge.svg
-  :target: https://codecov.io/gh/ARMmbed/mbed-cloud-sdk-python
+    :target: https://codecov.io/gh/ARMmbed/mbed-cloud-sdk-python
 
 .. common_content_anchor
 
@@ -90,9 +90,7 @@ The full documentation and API reference is hosted here: https://cloud.mbed.com/
 
 See the `examples directory`_ for a collection of use-cases of this API, e.g.:
 
-    .. code:: python
-
-        python examples/connect/list-connected-devices.py
+:code:`python examples/connect/list-connected-devices.py`
 
 Contributing
 ------------
@@ -110,6 +108,7 @@ Versioning
 ----------
 
 The current version scheme used by the SDK reflects the version of the API it abstracts, and otherwise follows PEP440:
+
 :code:`<API major>.<API minor>.<SDK major>.<SDK minor>.<SDK patch>`
 
 Troubleshooting

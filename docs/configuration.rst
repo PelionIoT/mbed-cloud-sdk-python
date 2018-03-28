@@ -1,23 +1,21 @@
 Configuration
 -------------
 Configuration parameters can be set in the following ways:
-- In json file(s)
+
+- In JSON file(s)
 - Directly when instantiating a new API object
 
 Configuration parameters
 ========================
 
-Set the following configuration parameters:
+You can configure the SDK with the following parameters:
+
 - `api_key`: The API key created in https://portal.us-east-1.mbedcloud.com/ (Required)
+- `host`: The fully qualified hostname (schema, host, port) of the api server (Optional)
 
 Configuration files
 ==========================
-The file should be named `.mbed_cloud_config.json` and placed in any of the following directories, with
-more specific directories taking precedence for conflicting parameters. In order of specificity:
-- on unix: `/etc/`
-- current user home
-- current working directory
-- the path specified by the environment variable: `MBED_CLOUD_SDK_CONFIG`
+The file should be named `.mbed_cloud_config.json` and contain JSON describing configuration options
 
 .. code-block:: text
 
@@ -25,6 +23,15 @@ more specific directories taking precedence for conflicting parameters. In order
   {
     "api_key": "ak_*********"
   }
+
+In case of multiple configs, precedence for conflicting parameters is given to the more specific config.
+In order of increasing specificity, config file(s) should be placed in one of the following directories:
+
+- `/etc/`
+- current user home
+- current working directory
+- the path specified by the environment variable: `MBED_CLOUD_SDK_CONFIG`
+
 
 Configuration on instantiation
 ==============================
