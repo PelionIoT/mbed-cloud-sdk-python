@@ -18,7 +18,7 @@ Method | HTTP request | Description
 [**get_group_summary**](DeveloperApi.md#get_group_summary) | **GET** /v3/policy-groups/{groupID} | Get group information.
 [**get_groups_of_my_api_key**](DeveloperApi.md#get_groups_of_my_api_key) | **GET** /v3/api-keys/me/groups | Get groups of the API key.
 [**get_my_account_info**](DeveloperApi.md#get_my_account_info) | **GET** /v3/accounts/me | Get account info.
-[**get_my_accounts**](DeveloperApi.md#get_my_accounts) | **GET** /v3/users/me/accounts | Get accounts of the user.
+[**get_my_accounts**](DeveloperApi.md#get_my_accounts) | **GET** /v3/users/me/team-accounts | Get accounts of the user.
 [**get_my_api_key**](DeveloperApi.md#get_my_api_key) | **GET** /v3/api-keys/me | Get API key details.
 [**get_my_groups**](DeveloperApi.md#get_my_groups) | **GET** /v3/users/me/groups | Get groups of the user.
 [**get_my_user**](DeveloperApi.md#get_my_user) | **GET** /v3/users/me | Details of the current user.

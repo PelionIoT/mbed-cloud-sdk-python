@@ -1535,7 +1535,7 @@ class DeveloperApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api('/v3/users/me/accounts', 'GET',
+        return self.api_client.call_api('/v3/users/me/team-accounts', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,

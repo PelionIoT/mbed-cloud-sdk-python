@@ -143,7 +143,7 @@ Class | Method | HTTP request | Description
 *DeveloperApi* | [**get_group_summary**](docs/DeveloperApi.md#get_group_summary) | **GET** /v3/policy-groups/{groupID} | Get group information.
 *DeveloperApi* | [**get_groups_of_my_api_key**](docs/DeveloperApi.md#get_groups_of_my_api_key) | **GET** /v3/api-keys/me/groups | Get groups of the API key.
 *DeveloperApi* | [**get_my_account_info**](docs/DeveloperApi.md#get_my_account_info) | **GET** /v3/accounts/me | Get account info.
-*DeveloperApi* | [**get_my_accounts**](docs/DeveloperApi.md#get_my_accounts) | **GET** /v3/users/me/accounts | Get accounts of the user.
+*DeveloperApi* | [**get_my_accounts**](docs/DeveloperApi.md#get_my_accounts) | **GET** /v3/users/me/team-accounts | Get accounts of the user.
 *DeveloperApi* | [**get_my_api_key**](docs/DeveloperApi.md#get_my_api_key) | **GET** /v3/api-keys/me | Get API key details.
 *DeveloperApi* | [**get_my_groups**](docs/DeveloperApi.md#get_my_groups) | **GET** /v3/users/me/groups | Get groups of the user.
 *DeveloperApi* | [**get_my_user**](docs/DeveloperApi.md#get_my_user) | **GET** /v3/users/me | Details of the current user.
