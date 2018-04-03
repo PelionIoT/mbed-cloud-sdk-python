@@ -18,6 +18,7 @@ Method | HTTP request | Description
 [**get_group_summary**](DeveloperApi.md#get_group_summary) | **GET** /v3/policy-groups/{groupID} | Get group information.
 [**get_groups_of_my_api_key**](DeveloperApi.md#get_groups_of_my_api_key) | **GET** /v3/api-keys/me/groups | Get groups of the API key.
 [**get_my_account_info**](DeveloperApi.md#get_my_account_info) | **GET** /v3/accounts/me | Get account info.
+[**get_my_accounts**](DeveloperApi.md#get_my_accounts) | **GET** /v3/users/me/team-accounts | Get accounts of the user.
 [**get_my_api_key**](DeveloperApi.md#get_my_api_key) | **GET** /v3/api-keys/me | Get API key details.
 [**get_my_groups**](DeveloperApi.md#get_my_groups) | **GET** /v3/users/me/groups | Get groups of the user.
 [**get_my_user**](DeveloperApi.md#get_my_user) | **GET** /v3/users/me | Details of the current user.
@@ -89,7 +90,7 @@ Name | Type | Description  | Notes
 
 Add API key to a list of groups.
 
-An endpoint for adding API key to groups.
+An endpoint for adding API key to groups.   **Example usage:** `curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys/me/groups -d '[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
 
 ### Example 
 ```python
@@ -250,7 +251,7 @@ void (empty response body)
 
 Delete a trusted certificate by ID.
 
-An endpoint for deleting a trusted certificate.
+An endpoint for deleting a trusted certificate.   **Example usage:** `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -H 'Authorization: Bearer API_KEY'`
 
 ### Example 
 ```python
@@ -367,7 +368,7 @@ Name | Type | Description  | Notes
 
 Get all trusted certificates.
 
-An endpoint for retrieving trusted certificates in an array.
+An endpoint for retrieving trusted certificates in an array.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates -H 'Authorization: Bearer API_KEY'`
 
 ### Example 
 ```python
@@ -396,8 +397,8 @@ device_execution_mode__eq = 56 # int | Device execution mode, as 1 for developer
 device_execution_mode__neq = 56 # int | Device execution mode not equals filter (optional)
 owner__eq = 'owner__eq_example' # str | Owner name filter (optional)
 enrollment_mode__eq = true # bool | Enrollment mode filter (optional)
-issuer__like = 'issuer__like_example' # str | Issuer filter (optional)
-subject__like = 'subject__like_example' # str | Subject filter (optional)
+issuer__like = 'issuer__like_example' # str | Issuer filter. Finds all matches where the filter value is a case insensitive substring of the result. Example: issuer__like=cn=iss matches CN=issuer. (optional)
+subject__like = 'subject__like_example' # str | Subject filter. Finds all matches where the filter value is a case insensitive substring of the result. Example: subject__like=cn=su matches CN=subject. (optional)
 
 try: 
     # Get all trusted certificates.
@@ -422,8 +423,8 @@ Name | Type | Description  | Notes
  **device_execution_mode__neq** | **int**| Device execution mode not equals filter | [optional] 
  **owner__eq** | **str**| Owner name filter | [optional] 
  **enrollment_mode__eq** | **bool**| Enrollment mode filter | [optional] 
- **issuer__like** | **str**| Issuer filter | [optional] 
- **subject__like** | **str**| Subject filter | [optional] 
+ **issuer__like** | **str**| Issuer filter. Finds all matches where the filter value is a case insensitive substring of the result. Example: issuer__like&#x3D;cn&#x3D;iss matches CN&#x3D;issuer. | [optional] 
+ **subject__like** | **str**| Subject filter. Finds all matches where the filter value is a case insensitive substring of the result. Example: subject__like&#x3D;cn&#x3D;su matches CN&#x3D;subject. | [optional] 
 
 ### Return type
 
@@ -445,7 +446,7 @@ Name | Type | Description  | Notes
 
 Get all group information.
 
-An endpoint for retrieving all group information.
+An endpoint for retrieving all group information.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/policy-groups -H 'Authorization: Bearer API_KEY'`
 
 ### Example 
 ```python
@@ -507,7 +508,7 @@ Name | Type | Description  | Notes
 
 Get API key details.
 
-An endpoint for retrieving API key details.
+An endpoint for retrieving API key details.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id} -H 'Authorization: Bearer API_KEY'`
 
 ### Example 
 ```python
@@ -561,7 +562,7 @@ Name | Type | Description  | Notes
 
 Get the API keys of a group.
 
-An endpoint for listing the API keys of the group with details.
+An endpoint for listing the API keys of the group with details.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id}/api-keys -H 'Authorization: Bearer API_KEY'`
 
 ### Example 
 ```python
@@ -677,7 +678,7 @@ Name | Type | Description  | Notes
 
 Get group information.
 
-An endpoint for getting general information about the group.
+An endpoint for getting general information about the group.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id} -H 'Authorization: Bearer API_KEY'`
 
 ### Example 
 ```python
@@ -731,7 +732,7 @@ Name | Type | Description  | Notes
 
 Get groups of the API key.
 
-An endpoint for retrieving groups of the API key.
+An endpoint for retrieving groups of the API key.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/api-keys/me/groups -H 'Authorization: Bearer API_KEY'`
 
 ### Example 
 ```python
@@ -830,6 +831,56 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**AccountInfo**](AccountInfo.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_my_accounts**
+> AccountResponseList get_my_accounts()
+
+Get accounts of the user.
+
+An endpoint for retrieving the accounts of the logged in user.
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import iam
+from iam.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+configuration = iam.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = iam.DeveloperApi(iam.ApiClient(configuration))
+
+try: 
+    # Get accounts of the user.
+    api_response = api_instance.get_my_accounts()
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DeveloperApi->get_my_accounts: %s\n" % e)
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**AccountResponseList**](AccountResponseList.md)
 
 ### Authorization
 
@@ -1015,7 +1066,7 @@ Name | Type | Description  | Notes
 
 Remove API keys from a group.
 
-An endpoint for removing API keys from groups.
+An endpoint for removing API keys from groups.   **Example usage:** `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id}/api-keys -d '[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
 
 ### Example 
 ```python
@@ -1125,7 +1176,7 @@ Name | Type | Description  | Notes
 
 Remove API key from groups.
 
-An endpoint for removing API key from groups.
+An endpoint for removing API key from groups.   **Example usage:** `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/api-keys/me/groups -d '[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
 
 ### Example 
 ```python
@@ -1179,7 +1230,7 @@ Name | Type | Description  | Notes
 
 Update API key details.
 
-An endpoint for updating API key details.
+An endpoint for updating API key details.   **Example usage:** `curl -X PUT https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id} -d '{\"name\": \"TestApiKey25\"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
 
 ### Example 
 ```python

@@ -30,7 +30,7 @@ Method | HTTP request | Description
 
 Add API key to a list of groups.
 
-An endpoint for adding API key to groups.
+An endpoint for adding API key to groups.   **Example usage:** `curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id}/groups -d '[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
 
 ### Example 
 ```python
@@ -86,7 +86,7 @@ Name | Type | Description  | Notes
 
 Upload a new trusted certificate.
 
-An endpoint for uploading new trusted certificates.
+An endpoint for uploading new trusted certificates.   **Example usage:** `curl -X POST https://api.us-east-1.mbedcloud.com/v3/trusted-certificates -d {\"name\": \"myCert1\", \"description\": \"very important cert\", \"certificate\": \"certificate_data\", \"service\": \"lwm2m\"} -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
 
 ### Example 
 ```python
@@ -140,7 +140,7 @@ Name | Type | Description  | Notes
 
 Add members to a group.
 
-An endpoint for adding users and API keys to groups.
+An endpoint for adding users and API keys to a group.   **Example usage:** `curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id} -d '{\"users\": [0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]\"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
 
 ### Example 
 ```python
@@ -196,7 +196,7 @@ Name | Type | Description  | Notes
 
 Add user to a list of groups.
 
-An endpoint for adding user to groups.
+An endpoint for adding user to groups.   **Example usage:** `curl -X POST https://api.us-east-1.mbedcloud.com/v3/users/{user-id}/groups -d '[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
 
 ### Example 
 ```python
@@ -252,7 +252,7 @@ Name | Type | Description  | Notes
 
 Create a new group.
 
-An endpoint for creating a new group.
+An endpoint for creating a new group.   **Example usage:** `curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups -d '{\"name\": \"MyGroup1\"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
 
 ### Example 
 ```python
@@ -306,7 +306,7 @@ Name | Type | Description  | Notes
 
 Create a new user.
 
-An endpoint for creating or inviting a new user to the account. In case of invitation email address is used only, other attributes are set in the 2nd step.
+An endpoint for creating or inviting a new user to the account. In case of invitation email address is used only, other attributes are set in the 2nd step.   **Example usage:** `curl -X POST https://api.us-east-1.mbedcloud.com/v3/users?action=invite -d {\"email\": \"myemail@company.com\"} -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
 
 ### Example 
 ```python
@@ -362,7 +362,7 @@ Name | Type | Description  | Notes
 
 Delete a group.
 
-An endpoint for deleting a group.
+An endpoint for deleting a group.   **Example usage:** `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id} -H 'Authorization: Bearer API_KEY'`
 
 ### Example 
 ```python
@@ -415,7 +415,7 @@ void (empty response body)
 
 Delete a user.
 
-An endpoint for deleting a user.
+An endpoint for deleting a user.   **Example usage:** `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/users/{user-id} -H 'Authorization: Bearer API_KEY'`
 
 ### Example 
 ```python
@@ -468,7 +468,7 @@ void (empty response body)
 
 Get the details of all users.
 
-An endpoint for retrieving the details of all users.
+An endpoint for retrieving the details of all users.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/users -H 'Authorization: Bearer API_KEY'`
 
 ### Example 
 ```python
@@ -532,7 +532,7 @@ Name | Type | Description  | Notes
 
 Get groups of the API key.
 
-An endpoint for retrieving groups of the API key.
+An endpoint for retrieving groups of the API key.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id}/groups -H 'Authorization: Bearer API_KEY'`
 
 ### Example 
 ```python
@@ -594,7 +594,7 @@ Name | Type | Description  | Notes
 
 Get groups of the user.
 
-An endpoint for retrieving groups of the user.
+An endpoint for retrieving groups of the user.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/users/{user-id}/groups -H 'Authorization: Bearer API_KEY'`
 
 ### Example 
 ```python
@@ -656,7 +656,7 @@ Name | Type | Description  | Notes
 
 Details of a user.
 
-An endpoint for retrieving the details of a user.
+An endpoint for retrieving the details of a user.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/users/{user-id} -H 'Authorization: Bearer API_KEY'`
 
 ### Example 
 ```python
@@ -712,7 +712,7 @@ Name | Type | Description  | Notes
 
 Get users of a group.
 
-An endpoint for listing the users of a group with details.
+An endpoint for listing the users of a group with details.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id}/users -H 'Authorization: Bearer API_KEY'`
 
 ### Example 
 ```python
@@ -774,7 +774,7 @@ Name | Type | Description  | Notes
 
 Remove API key from groups.
 
-An endpoint for removing API key from groups.
+An endpoint for removing API key from groups.   **Example usage:** `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id}/groups -d '[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
 
 ### Example 
 ```python
@@ -830,7 +830,7 @@ Name | Type | Description  | Notes
 
 Remove user from groups.
 
-An endpoint for removing user from groups.
+An endpoint for removing user from groups.   **Example usage:** `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/users/{user-id}/groups -d '[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
 
 ### Example 
 ```python
@@ -886,7 +886,7 @@ Name | Type | Description  | Notes
 
 Remove users from a group.
 
-An endpoint for removing users from groups.
+An endpoint for removing users from groups.   **Example usage:** `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id}/users -d '[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
 
 ### Example 
 ```python
@@ -942,7 +942,7 @@ Name | Type | Description  | Notes
 
 Update the group name.
 
-An endpoint for updating a group name.
+An endpoint for updating a group name.   **Example usage:** `curl -X PUT https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id} -d '{\"name\": \"TestGroup2\"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
 
 ### Example 
 ```python
@@ -1052,7 +1052,7 @@ Name | Type | Description  | Notes
 
 Update user details.
 
-An endpoint for updating user details.
+An endpoint for updating user details.   **Example usage:** `curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/{user-id} -d '{\"username\": \"myusername\"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
 
 ### Example 
 ```python
