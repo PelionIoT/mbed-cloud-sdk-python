@@ -32,33 +32,33 @@ class DeviceEventInNinFilter(object):
     """
     swagger_types = {
         'date_time': 'datetime',
-        'state_change': 'bool',
         'description': 'str',
         'device_id': 'str',
+        'event_type': 'str',
         'id': 'str',
-        'event_type': 'str'
+        'state_change': 'bool'
     }
 
     attribute_map = {
         'date_time': 'date_time',
-        'state_change': 'state_change',
         'description': 'description',
         'device_id': 'device_id',
+        'event_type': 'event_type',
         'id': 'id',
-        'event_type': 'event_type'
+        'state_change': 'state_change'
     }
 
-    def __init__(self, date_time=None, state_change=None, description=None, device_id=None, id=None, event_type=None):
+    def __init__(self, date_time=None, description=None, device_id=None, event_type=None, id=None, state_change=None):
         """
         DeviceEventInNinFilter - a model defined in Swagger
         """
 
         self._date_time = date_time
-        self._state_change = state_change
         self._description = description
         self._device_id = device_id
-        self._id = id
         self._event_type = event_type
+        self._id = id
+        self._state_change = state_change
         self.discriminator = None
 
     @property
@@ -81,27 +81,6 @@ class DeviceEventInNinFilter(object):
         """
 
         self._date_time = date_time
-
-    @property
-    def state_change(self):
-        """
-        Gets the state_change of this DeviceEventInNinFilter.
-
-        :return: The state_change of this DeviceEventInNinFilter.
-        :rtype: bool
-        """
-        return self._state_change
-
-    @state_change.setter
-    def state_change(self, state_change):
-        """
-        Sets the state_change of this DeviceEventInNinFilter.
-
-        :param state_change: The state_change of this DeviceEventInNinFilter.
-        :type: bool
-        """
-
-        self._state_change = state_change
 
     @property
     def description(self):
@@ -146,6 +125,27 @@ class DeviceEventInNinFilter(object):
         self._device_id = device_id
 
     @property
+    def event_type(self):
+        """
+        Gets the event_type of this DeviceEventInNinFilter.
+
+        :return: The event_type of this DeviceEventInNinFilter.
+        :rtype: str
+        """
+        return self._event_type
+
+    @event_type.setter
+    def event_type(self, event_type):
+        """
+        Sets the event_type of this DeviceEventInNinFilter.
+
+        :param event_type: The event_type of this DeviceEventInNinFilter.
+        :type: str
+        """
+
+        self._event_type = event_type
+
+    @property
     def id(self):
         """
         Gets the id of this DeviceEventInNinFilter.
@@ -167,25 +167,25 @@ class DeviceEventInNinFilter(object):
         self._id = id
 
     @property
-    def event_type(self):
+    def state_change(self):
         """
-        Gets the event_type of this DeviceEventInNinFilter.
+        Gets the state_change of this DeviceEventInNinFilter.
 
-        :return: The event_type of this DeviceEventInNinFilter.
-        :rtype: str
+        :return: The state_change of this DeviceEventInNinFilter.
+        :rtype: bool
         """
-        return self._event_type
+        return self._state_change
 
-    @event_type.setter
-    def event_type(self, event_type):
+    @state_change.setter
+    def state_change(self, state_change):
         """
-        Sets the event_type of this DeviceEventInNinFilter.
+        Sets the state_change of this DeviceEventInNinFilter.
 
-        :param event_type: The event_type of this DeviceEventInNinFilter.
-        :type: str
+        :param state_change: The state_change of this DeviceEventInNinFilter.
+        :type: bool
         """
 
-        self._event_type = event_type
+        self._state_change = state_change
 
     def to_dict(self):
         """

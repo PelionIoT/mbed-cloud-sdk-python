@@ -31,107 +31,149 @@ class DeviceEqNeqFilter(object):
                             and the value is json key in definition.
     """
     swagger_types = {
+        'account_id': 'str',
+        'auto_update': 'bool',
         'bootstrap_expiration_date': 'datetime',
         'bootstrapped_timestamp': 'datetime',
-        'connector_expiration_date': 'datetime',
-        'updated_at': 'datetime',
         'ca_id': 'str',
-        'device_class': 'str',
-        'id': 'str',
-        'account_id': 'str',
-        'endpoint_name': 'str',
-        'auto_update': 'bool',
-        'host_gateway': 'str',
-        'device_execution_mode': 'int',
-        'mechanism': 'str',
-        'state': 'str',
-        'etag': 'datetime',
-        'serial_number': 'str',
-        'firmware_checksum': 'str',
-        'manifest_timestamp': 'datetime',
-        'description': 'str',
+        'connector_expiration_date': 'datetime',
+        'created_at': 'datetime',
+        'custom_attributes': 'dict(str, str)',
         'deployed_state': 'str',
-        'vendor_id': 'str',
-        'endpoint_type': 'str',
         'deployment': 'str',
+        'description': 'str',
+        'device_class': 'str',
+        'device_execution_mode': 'int',
+        'device_key': 'str',
+        'endpoint_name': 'str',
+        'endpoint_type': 'str',
+        'enrolment_list_timestamp': 'datetime',
+        'etag': 'datetime',
+        'firmware_checksum': 'str',
+        'host_gateway': 'str',
+        'id': 'str',
+        'manifest': 'str',
+        'manifest_timestamp': 'datetime',
+        'mechanism': 'str',
         'mechanism_url': 'str',
         'name': 'str',
-        'device_key': 'str',
-        'enrolment_list_timestamp': 'datetime',
-        'manifest': 'str',
-        'custom_attributes': 'dict(str, str)',
-        'created_at': 'datetime'
+        'serial_number': 'str',
+        'state': 'str',
+        'updated_at': 'datetime',
+        'vendor_id': 'str'
     }
 
     attribute_map = {
+        'account_id': 'account_id',
+        'auto_update': 'auto_update',
         'bootstrap_expiration_date': 'bootstrap_expiration_date',
         'bootstrapped_timestamp': 'bootstrapped_timestamp',
-        'connector_expiration_date': 'connector_expiration_date',
-        'updated_at': 'updated_at',
         'ca_id': 'ca_id',
-        'device_class': 'device_class',
-        'id': 'id',
-        'account_id': 'account_id',
-        'endpoint_name': 'endpoint_name',
-        'auto_update': 'auto_update',
-        'host_gateway': 'host_gateway',
-        'device_execution_mode': 'device_execution_mode',
-        'mechanism': 'mechanism',
-        'state': 'state',
-        'etag': 'etag',
-        'serial_number': 'serial_number',
-        'firmware_checksum': 'firmware_checksum',
-        'manifest_timestamp': 'manifest_timestamp',
-        'description': 'description',
+        'connector_expiration_date': 'connector_expiration_date',
+        'created_at': 'created_at',
+        'custom_attributes': 'custom_attributes',
         'deployed_state': 'deployed_state',
-        'vendor_id': 'vendor_id',
-        'endpoint_type': 'endpoint_type',
         'deployment': 'deployment',
+        'description': 'description',
+        'device_class': 'device_class',
+        'device_execution_mode': 'device_execution_mode',
+        'device_key': 'device_key',
+        'endpoint_name': 'endpoint_name',
+        'endpoint_type': 'endpoint_type',
+        'enrolment_list_timestamp': 'enrolment_list_timestamp',
+        'etag': 'etag',
+        'firmware_checksum': 'firmware_checksum',
+        'host_gateway': 'host_gateway',
+        'id': 'id',
+        'manifest': 'manifest',
+        'manifest_timestamp': 'manifest_timestamp',
+        'mechanism': 'mechanism',
         'mechanism_url': 'mechanism_url',
         'name': 'name',
-        'device_key': 'device_key',
-        'enrolment_list_timestamp': 'enrolment_list_timestamp',
-        'manifest': 'manifest',
-        'custom_attributes': 'custom_attributes',
-        'created_at': 'created_at'
+        'serial_number': 'serial_number',
+        'state': 'state',
+        'updated_at': 'updated_at',
+        'vendor_id': 'vendor_id'
     }
 
-    def __init__(self, bootstrap_expiration_date=None, bootstrapped_timestamp=None, connector_expiration_date=None, updated_at=None, ca_id=None, device_class=None, id=None, account_id=None, endpoint_name=None, auto_update=None, host_gateway=None, device_execution_mode=None, mechanism=None, state=None, etag=None, serial_number=None, firmware_checksum=None, manifest_timestamp=None, description=None, deployed_state=None, vendor_id=None, endpoint_type=None, deployment=None, mechanism_url=None, name=None, device_key=None, enrolment_list_timestamp=None, manifest=None, custom_attributes=None, created_at=None):
+    def __init__(self, account_id=None, auto_update=None, bootstrap_expiration_date=None, bootstrapped_timestamp=None, ca_id=None, connector_expiration_date=None, created_at=None, custom_attributes=None, deployed_state=None, deployment=None, description=None, device_class=None, device_execution_mode=None, device_key=None, endpoint_name=None, endpoint_type=None, enrolment_list_timestamp=None, etag=None, firmware_checksum=None, host_gateway=None, id=None, manifest=None, manifest_timestamp=None, mechanism=None, mechanism_url=None, name=None, serial_number=None, state=None, updated_at=None, vendor_id=None):
         """
         DeviceEqNeqFilter - a model defined in Swagger
         """
 
+        self._account_id = account_id
+        self._auto_update = auto_update
         self._bootstrap_expiration_date = bootstrap_expiration_date
         self._bootstrapped_timestamp = bootstrapped_timestamp
-        self._connector_expiration_date = connector_expiration_date
-        self._updated_at = updated_at
         self._ca_id = ca_id
-        self._device_class = device_class
-        self._id = id
-        self._account_id = account_id
-        self._endpoint_name = endpoint_name
-        self._auto_update = auto_update
-        self._host_gateway = host_gateway
-        self._device_execution_mode = device_execution_mode
-        self._mechanism = mechanism
-        self._state = state
-        self._etag = etag
-        self._serial_number = serial_number
-        self._firmware_checksum = firmware_checksum
-        self._manifest_timestamp = manifest_timestamp
-        self._description = description
+        self._connector_expiration_date = connector_expiration_date
+        self._created_at = created_at
+        self._custom_attributes = custom_attributes
         self._deployed_state = deployed_state
-        self._vendor_id = vendor_id
-        self._endpoint_type = endpoint_type
         self._deployment = deployment
+        self._description = description
+        self._device_class = device_class
+        self._device_execution_mode = device_execution_mode
+        self._device_key = device_key
+        self._endpoint_name = endpoint_name
+        self._endpoint_type = endpoint_type
+        self._enrolment_list_timestamp = enrolment_list_timestamp
+        self._etag = etag
+        self._firmware_checksum = firmware_checksum
+        self._host_gateway = host_gateway
+        self._id = id
+        self._manifest = manifest
+        self._manifest_timestamp = manifest_timestamp
+        self._mechanism = mechanism
         self._mechanism_url = mechanism_url
         self._name = name
-        self._device_key = device_key
-        self._enrolment_list_timestamp = enrolment_list_timestamp
-        self._manifest = manifest
-        self._custom_attributes = custom_attributes
-        self._created_at = created_at
+        self._serial_number = serial_number
+        self._state = state
+        self._updated_at = updated_at
+        self._vendor_id = vendor_id
         self.discriminator = None
+
+    @property
+    def account_id(self):
+        """
+        Gets the account_id of this DeviceEqNeqFilter.
+
+        :return: The account_id of this DeviceEqNeqFilter.
+        :rtype: str
+        """
+        return self._account_id
+
+    @account_id.setter
+    def account_id(self, account_id):
+        """
+        Sets the account_id of this DeviceEqNeqFilter.
+
+        :param account_id: The account_id of this DeviceEqNeqFilter.
+        :type: str
+        """
+
+        self._account_id = account_id
+
+    @property
+    def auto_update(self):
+        """
+        Gets the auto_update of this DeviceEqNeqFilter.
+
+        :return: The auto_update of this DeviceEqNeqFilter.
+        :rtype: bool
+        """
+        return self._auto_update
+
+    @auto_update.setter
+    def auto_update(self, auto_update):
+        """
+        Sets the auto_update of this DeviceEqNeqFilter.
+
+        :param auto_update: The auto_update of this DeviceEqNeqFilter.
+        :type: bool
+        """
+
+        self._auto_update = auto_update
 
     @property
     def bootstrap_expiration_date(self):
@@ -176,48 +218,6 @@ class DeviceEqNeqFilter(object):
         self._bootstrapped_timestamp = bootstrapped_timestamp
 
     @property
-    def connector_expiration_date(self):
-        """
-        Gets the connector_expiration_date of this DeviceEqNeqFilter.
-
-        :return: The connector_expiration_date of this DeviceEqNeqFilter.
-        :rtype: datetime
-        """
-        return self._connector_expiration_date
-
-    @connector_expiration_date.setter
-    def connector_expiration_date(self, connector_expiration_date):
-        """
-        Sets the connector_expiration_date of this DeviceEqNeqFilter.
-
-        :param connector_expiration_date: The connector_expiration_date of this DeviceEqNeqFilter.
-        :type: datetime
-        """
-
-        self._connector_expiration_date = connector_expiration_date
-
-    @property
-    def updated_at(self):
-        """
-        Gets the updated_at of this DeviceEqNeqFilter.
-
-        :return: The updated_at of this DeviceEqNeqFilter.
-        :rtype: datetime
-        """
-        return self._updated_at
-
-    @updated_at.setter
-    def updated_at(self, updated_at):
-        """
-        Sets the updated_at of this DeviceEqNeqFilter.
-
-        :param updated_at: The updated_at of this DeviceEqNeqFilter.
-        :type: datetime
-        """
-
-        self._updated_at = updated_at
-
-    @property
     def ca_id(self):
         """
         Gets the ca_id of this DeviceEqNeqFilter.
@@ -239,298 +239,67 @@ class DeviceEqNeqFilter(object):
         self._ca_id = ca_id
 
     @property
-    def device_class(self):
+    def connector_expiration_date(self):
         """
-        Gets the device_class of this DeviceEqNeqFilter.
+        Gets the connector_expiration_date of this DeviceEqNeqFilter.
 
-        :return: The device_class of this DeviceEqNeqFilter.
-        :rtype: str
-        """
-        return self._device_class
-
-    @device_class.setter
-    def device_class(self, device_class):
-        """
-        Sets the device_class of this DeviceEqNeqFilter.
-
-        :param device_class: The device_class of this DeviceEqNeqFilter.
-        :type: str
-        """
-
-        self._device_class = device_class
-
-    @property
-    def id(self):
-        """
-        Gets the id of this DeviceEqNeqFilter.
-
-        :return: The id of this DeviceEqNeqFilter.
-        :rtype: str
-        """
-        return self._id
-
-    @id.setter
-    def id(self, id):
-        """
-        Sets the id of this DeviceEqNeqFilter.
-
-        :param id: The id of this DeviceEqNeqFilter.
-        :type: str
-        """
-
-        self._id = id
-
-    @property
-    def account_id(self):
-        """
-        Gets the account_id of this DeviceEqNeqFilter.
-
-        :return: The account_id of this DeviceEqNeqFilter.
-        :rtype: str
-        """
-        return self._account_id
-
-    @account_id.setter
-    def account_id(self, account_id):
-        """
-        Sets the account_id of this DeviceEqNeqFilter.
-
-        :param account_id: The account_id of this DeviceEqNeqFilter.
-        :type: str
-        """
-
-        self._account_id = account_id
-
-    @property
-    def endpoint_name(self):
-        """
-        Gets the endpoint_name of this DeviceEqNeqFilter.
-
-        :return: The endpoint_name of this DeviceEqNeqFilter.
-        :rtype: str
-        """
-        return self._endpoint_name
-
-    @endpoint_name.setter
-    def endpoint_name(self, endpoint_name):
-        """
-        Sets the endpoint_name of this DeviceEqNeqFilter.
-
-        :param endpoint_name: The endpoint_name of this DeviceEqNeqFilter.
-        :type: str
-        """
-
-        self._endpoint_name = endpoint_name
-
-    @property
-    def auto_update(self):
-        """
-        Gets the auto_update of this DeviceEqNeqFilter.
-
-        :return: The auto_update of this DeviceEqNeqFilter.
-        :rtype: bool
-        """
-        return self._auto_update
-
-    @auto_update.setter
-    def auto_update(self, auto_update):
-        """
-        Sets the auto_update of this DeviceEqNeqFilter.
-
-        :param auto_update: The auto_update of this DeviceEqNeqFilter.
-        :type: bool
-        """
-
-        self._auto_update = auto_update
-
-    @property
-    def host_gateway(self):
-        """
-        Gets the host_gateway of this DeviceEqNeqFilter.
-
-        :return: The host_gateway of this DeviceEqNeqFilter.
-        :rtype: str
-        """
-        return self._host_gateway
-
-    @host_gateway.setter
-    def host_gateway(self, host_gateway):
-        """
-        Sets the host_gateway of this DeviceEqNeqFilter.
-
-        :param host_gateway: The host_gateway of this DeviceEqNeqFilter.
-        :type: str
-        """
-
-        self._host_gateway = host_gateway
-
-    @property
-    def device_execution_mode(self):
-        """
-        Gets the device_execution_mode of this DeviceEqNeqFilter.
-
-        :return: The device_execution_mode of this DeviceEqNeqFilter.
-        :rtype: int
-        """
-        return self._device_execution_mode
-
-    @device_execution_mode.setter
-    def device_execution_mode(self, device_execution_mode):
-        """
-        Sets the device_execution_mode of this DeviceEqNeqFilter.
-
-        :param device_execution_mode: The device_execution_mode of this DeviceEqNeqFilter.
-        :type: int
-        """
-
-        self._device_execution_mode = device_execution_mode
-
-    @property
-    def mechanism(self):
-        """
-        Gets the mechanism of this DeviceEqNeqFilter.
-
-        :return: The mechanism of this DeviceEqNeqFilter.
-        :rtype: str
-        """
-        return self._mechanism
-
-    @mechanism.setter
-    def mechanism(self, mechanism):
-        """
-        Sets the mechanism of this DeviceEqNeqFilter.
-
-        :param mechanism: The mechanism of this DeviceEqNeqFilter.
-        :type: str
-        """
-
-        self._mechanism = mechanism
-
-    @property
-    def state(self):
-        """
-        Gets the state of this DeviceEqNeqFilter.
-
-        :return: The state of this DeviceEqNeqFilter.
-        :rtype: str
-        """
-        return self._state
-
-    @state.setter
-    def state(self, state):
-        """
-        Sets the state of this DeviceEqNeqFilter.
-
-        :param state: The state of this DeviceEqNeqFilter.
-        :type: str
-        """
-
-        self._state = state
-
-    @property
-    def etag(self):
-        """
-        Gets the etag of this DeviceEqNeqFilter.
-
-        :return: The etag of this DeviceEqNeqFilter.
+        :return: The connector_expiration_date of this DeviceEqNeqFilter.
         :rtype: datetime
         """
-        return self._etag
+        return self._connector_expiration_date
 
-    @etag.setter
-    def etag(self, etag):
+    @connector_expiration_date.setter
+    def connector_expiration_date(self, connector_expiration_date):
         """
-        Sets the etag of this DeviceEqNeqFilter.
+        Sets the connector_expiration_date of this DeviceEqNeqFilter.
 
-        :param etag: The etag of this DeviceEqNeqFilter.
+        :param connector_expiration_date: The connector_expiration_date of this DeviceEqNeqFilter.
         :type: datetime
         """
 
-        self._etag = etag
+        self._connector_expiration_date = connector_expiration_date
 
     @property
-    def serial_number(self):
+    def created_at(self):
         """
-        Gets the serial_number of this DeviceEqNeqFilter.
+        Gets the created_at of this DeviceEqNeqFilter.
 
-        :return: The serial_number of this DeviceEqNeqFilter.
-        :rtype: str
-        """
-        return self._serial_number
-
-    @serial_number.setter
-    def serial_number(self, serial_number):
-        """
-        Sets the serial_number of this DeviceEqNeqFilter.
-
-        :param serial_number: The serial_number of this DeviceEqNeqFilter.
-        :type: str
-        """
-
-        self._serial_number = serial_number
-
-    @property
-    def firmware_checksum(self):
-        """
-        Gets the firmware_checksum of this DeviceEqNeqFilter.
-
-        :return: The firmware_checksum of this DeviceEqNeqFilter.
-        :rtype: str
-        """
-        return self._firmware_checksum
-
-    @firmware_checksum.setter
-    def firmware_checksum(self, firmware_checksum):
-        """
-        Sets the firmware_checksum of this DeviceEqNeqFilter.
-
-        :param firmware_checksum: The firmware_checksum of this DeviceEqNeqFilter.
-        :type: str
-        """
-
-        self._firmware_checksum = firmware_checksum
-
-    @property
-    def manifest_timestamp(self):
-        """
-        Gets the manifest_timestamp of this DeviceEqNeqFilter.
-
-        :return: The manifest_timestamp of this DeviceEqNeqFilter.
+        :return: The created_at of this DeviceEqNeqFilter.
         :rtype: datetime
         """
-        return self._manifest_timestamp
+        return self._created_at
 
-    @manifest_timestamp.setter
-    def manifest_timestamp(self, manifest_timestamp):
+    @created_at.setter
+    def created_at(self, created_at):
         """
-        Sets the manifest_timestamp of this DeviceEqNeqFilter.
+        Sets the created_at of this DeviceEqNeqFilter.
 
-        :param manifest_timestamp: The manifest_timestamp of this DeviceEqNeqFilter.
+        :param created_at: The created_at of this DeviceEqNeqFilter.
         :type: datetime
         """
 
-        self._manifest_timestamp = manifest_timestamp
+        self._created_at = created_at
 
     @property
-    def description(self):
+    def custom_attributes(self):
         """
-        Gets the description of this DeviceEqNeqFilter.
+        Gets the custom_attributes of this DeviceEqNeqFilter.
 
-        :return: The description of this DeviceEqNeqFilter.
-        :rtype: str
+        :return: The custom_attributes of this DeviceEqNeqFilter.
+        :rtype: dict(str, str)
         """
-        return self._description
+        return self._custom_attributes
 
-    @description.setter
-    def description(self, description):
+    @custom_attributes.setter
+    def custom_attributes(self, custom_attributes):
         """
-        Sets the description of this DeviceEqNeqFilter.
+        Sets the custom_attributes of this DeviceEqNeqFilter.
 
-        :param description: The description of this DeviceEqNeqFilter.
-        :type: str
+        :param custom_attributes: The custom_attributes of this DeviceEqNeqFilter.
+        :type: dict(str, str)
         """
 
-        self._description = description
+        self._custom_attributes = custom_attributes
 
     @property
     def deployed_state(self):
@@ -554,25 +323,130 @@ class DeviceEqNeqFilter(object):
         self._deployed_state = deployed_state
 
     @property
-    def vendor_id(self):
+    def deployment(self):
         """
-        Gets the vendor_id of this DeviceEqNeqFilter.
+        Gets the deployment of this DeviceEqNeqFilter.
 
-        :return: The vendor_id of this DeviceEqNeqFilter.
+        :return: The deployment of this DeviceEqNeqFilter.
         :rtype: str
         """
-        return self._vendor_id
+        return self._deployment
 
-    @vendor_id.setter
-    def vendor_id(self, vendor_id):
+    @deployment.setter
+    def deployment(self, deployment):
         """
-        Sets the vendor_id of this DeviceEqNeqFilter.
+        Sets the deployment of this DeviceEqNeqFilter.
 
-        :param vendor_id: The vendor_id of this DeviceEqNeqFilter.
+        :param deployment: The deployment of this DeviceEqNeqFilter.
         :type: str
         """
 
-        self._vendor_id = vendor_id
+        self._deployment = deployment
+
+    @property
+    def description(self):
+        """
+        Gets the description of this DeviceEqNeqFilter.
+
+        :return: The description of this DeviceEqNeqFilter.
+        :rtype: str
+        """
+        return self._description
+
+    @description.setter
+    def description(self, description):
+        """
+        Sets the description of this DeviceEqNeqFilter.
+
+        :param description: The description of this DeviceEqNeqFilter.
+        :type: str
+        """
+
+        self._description = description
+
+    @property
+    def device_class(self):
+        """
+        Gets the device_class of this DeviceEqNeqFilter.
+
+        :return: The device_class of this DeviceEqNeqFilter.
+        :rtype: str
+        """
+        return self._device_class
+
+    @device_class.setter
+    def device_class(self, device_class):
+        """
+        Sets the device_class of this DeviceEqNeqFilter.
+
+        :param device_class: The device_class of this DeviceEqNeqFilter.
+        :type: str
+        """
+
+        self._device_class = device_class
+
+    @property
+    def device_execution_mode(self):
+        """
+        Gets the device_execution_mode of this DeviceEqNeqFilter.
+
+        :return: The device_execution_mode of this DeviceEqNeqFilter.
+        :rtype: int
+        """
+        return self._device_execution_mode
+
+    @device_execution_mode.setter
+    def device_execution_mode(self, device_execution_mode):
+        """
+        Sets the device_execution_mode of this DeviceEqNeqFilter.
+
+        :param device_execution_mode: The device_execution_mode of this DeviceEqNeqFilter.
+        :type: int
+        """
+
+        self._device_execution_mode = device_execution_mode
+
+    @property
+    def device_key(self):
+        """
+        Gets the device_key of this DeviceEqNeqFilter.
+
+        :return: The device_key of this DeviceEqNeqFilter.
+        :rtype: str
+        """
+        return self._device_key
+
+    @device_key.setter
+    def device_key(self, device_key):
+        """
+        Sets the device_key of this DeviceEqNeqFilter.
+
+        :param device_key: The device_key of this DeviceEqNeqFilter.
+        :type: str
+        """
+
+        self._device_key = device_key
+
+    @property
+    def endpoint_name(self):
+        """
+        Gets the endpoint_name of this DeviceEqNeqFilter.
+
+        :return: The endpoint_name of this DeviceEqNeqFilter.
+        :rtype: str
+        """
+        return self._endpoint_name
+
+    @endpoint_name.setter
+    def endpoint_name(self, endpoint_name):
+        """
+        Sets the endpoint_name of this DeviceEqNeqFilter.
+
+        :param endpoint_name: The endpoint_name of this DeviceEqNeqFilter.
+        :type: str
+        """
+
+        self._endpoint_name = endpoint_name
 
     @property
     def endpoint_type(self):
@@ -596,25 +470,172 @@ class DeviceEqNeqFilter(object):
         self._endpoint_type = endpoint_type
 
     @property
-    def deployment(self):
+    def enrolment_list_timestamp(self):
         """
-        Gets the deployment of this DeviceEqNeqFilter.
+        Gets the enrolment_list_timestamp of this DeviceEqNeqFilter.
 
-        :return: The deployment of this DeviceEqNeqFilter.
+        :return: The enrolment_list_timestamp of this DeviceEqNeqFilter.
+        :rtype: datetime
+        """
+        return self._enrolment_list_timestamp
+
+    @enrolment_list_timestamp.setter
+    def enrolment_list_timestamp(self, enrolment_list_timestamp):
+        """
+        Sets the enrolment_list_timestamp of this DeviceEqNeqFilter.
+
+        :param enrolment_list_timestamp: The enrolment_list_timestamp of this DeviceEqNeqFilter.
+        :type: datetime
+        """
+
+        self._enrolment_list_timestamp = enrolment_list_timestamp
+
+    @property
+    def etag(self):
+        """
+        Gets the etag of this DeviceEqNeqFilter.
+
+        :return: The etag of this DeviceEqNeqFilter.
+        :rtype: datetime
+        """
+        return self._etag
+
+    @etag.setter
+    def etag(self, etag):
+        """
+        Sets the etag of this DeviceEqNeqFilter.
+
+        :param etag: The etag of this DeviceEqNeqFilter.
+        :type: datetime
+        """
+
+        self._etag = etag
+
+    @property
+    def firmware_checksum(self):
+        """
+        Gets the firmware_checksum of this DeviceEqNeqFilter.
+
+        :return: The firmware_checksum of this DeviceEqNeqFilter.
         :rtype: str
         """
-        return self._deployment
+        return self._firmware_checksum
 
-    @deployment.setter
-    def deployment(self, deployment):
+    @firmware_checksum.setter
+    def firmware_checksum(self, firmware_checksum):
         """
-        Sets the deployment of this DeviceEqNeqFilter.
+        Sets the firmware_checksum of this DeviceEqNeqFilter.
 
-        :param deployment: The deployment of this DeviceEqNeqFilter.
+        :param firmware_checksum: The firmware_checksum of this DeviceEqNeqFilter.
         :type: str
         """
 
-        self._deployment = deployment
+        self._firmware_checksum = firmware_checksum
+
+    @property
+    def host_gateway(self):
+        """
+        Gets the host_gateway of this DeviceEqNeqFilter.
+
+        :return: The host_gateway of this DeviceEqNeqFilter.
+        :rtype: str
+        """
+        return self._host_gateway
+
+    @host_gateway.setter
+    def host_gateway(self, host_gateway):
+        """
+        Sets the host_gateway of this DeviceEqNeqFilter.
+
+        :param host_gateway: The host_gateway of this DeviceEqNeqFilter.
+        :type: str
+        """
+
+        self._host_gateway = host_gateway
+
+    @property
+    def id(self):
+        """
+        Gets the id of this DeviceEqNeqFilter.
+
+        :return: The id of this DeviceEqNeqFilter.
+        :rtype: str
+        """
+        return self._id
+
+    @id.setter
+    def id(self, id):
+        """
+        Sets the id of this DeviceEqNeqFilter.
+
+        :param id: The id of this DeviceEqNeqFilter.
+        :type: str
+        """
+
+        self._id = id
+
+    @property
+    def manifest(self):
+        """
+        Gets the manifest of this DeviceEqNeqFilter.
+
+        :return: The manifest of this DeviceEqNeqFilter.
+        :rtype: str
+        """
+        return self._manifest
+
+    @manifest.setter
+    def manifest(self, manifest):
+        """
+        Sets the manifest of this DeviceEqNeqFilter.
+
+        :param manifest: The manifest of this DeviceEqNeqFilter.
+        :type: str
+        """
+
+        self._manifest = manifest
+
+    @property
+    def manifest_timestamp(self):
+        """
+        Gets the manifest_timestamp of this DeviceEqNeqFilter.
+
+        :return: The manifest_timestamp of this DeviceEqNeqFilter.
+        :rtype: datetime
+        """
+        return self._manifest_timestamp
+
+    @manifest_timestamp.setter
+    def manifest_timestamp(self, manifest_timestamp):
+        """
+        Sets the manifest_timestamp of this DeviceEqNeqFilter.
+
+        :param manifest_timestamp: The manifest_timestamp of this DeviceEqNeqFilter.
+        :type: datetime
+        """
+
+        self._manifest_timestamp = manifest_timestamp
+
+    @property
+    def mechanism(self):
+        """
+        Gets the mechanism of this DeviceEqNeqFilter.
+
+        :return: The mechanism of this DeviceEqNeqFilter.
+        :rtype: str
+        """
+        return self._mechanism
+
+    @mechanism.setter
+    def mechanism(self, mechanism):
+        """
+        Sets the mechanism of this DeviceEqNeqFilter.
+
+        :param mechanism: The mechanism of this DeviceEqNeqFilter.
+        :type: str
+        """
+
+        self._mechanism = mechanism
 
     @property
     def mechanism_url(self):
@@ -659,109 +680,88 @@ class DeviceEqNeqFilter(object):
         self._name = name
 
     @property
-    def device_key(self):
+    def serial_number(self):
         """
-        Gets the device_key of this DeviceEqNeqFilter.
+        Gets the serial_number of this DeviceEqNeqFilter.
 
-        :return: The device_key of this DeviceEqNeqFilter.
+        :return: The serial_number of this DeviceEqNeqFilter.
         :rtype: str
         """
-        return self._device_key
+        return self._serial_number
 
-    @device_key.setter
-    def device_key(self, device_key):
+    @serial_number.setter
+    def serial_number(self, serial_number):
         """
-        Sets the device_key of this DeviceEqNeqFilter.
+        Sets the serial_number of this DeviceEqNeqFilter.
 
-        :param device_key: The device_key of this DeviceEqNeqFilter.
+        :param serial_number: The serial_number of this DeviceEqNeqFilter.
         :type: str
         """
 
-        self._device_key = device_key
+        self._serial_number = serial_number
 
     @property
-    def enrolment_list_timestamp(self):
+    def state(self):
         """
-        Gets the enrolment_list_timestamp of this DeviceEqNeqFilter.
+        Gets the state of this DeviceEqNeqFilter.
 
-        :return: The enrolment_list_timestamp of this DeviceEqNeqFilter.
-        :rtype: datetime
-        """
-        return self._enrolment_list_timestamp
-
-    @enrolment_list_timestamp.setter
-    def enrolment_list_timestamp(self, enrolment_list_timestamp):
-        """
-        Sets the enrolment_list_timestamp of this DeviceEqNeqFilter.
-
-        :param enrolment_list_timestamp: The enrolment_list_timestamp of this DeviceEqNeqFilter.
-        :type: datetime
-        """
-
-        self._enrolment_list_timestamp = enrolment_list_timestamp
-
-    @property
-    def manifest(self):
-        """
-        Gets the manifest of this DeviceEqNeqFilter.
-
-        :return: The manifest of this DeviceEqNeqFilter.
+        :return: The state of this DeviceEqNeqFilter.
         :rtype: str
         """
-        return self._manifest
+        return self._state
 
-    @manifest.setter
-    def manifest(self, manifest):
+    @state.setter
+    def state(self, state):
         """
-        Sets the manifest of this DeviceEqNeqFilter.
+        Sets the state of this DeviceEqNeqFilter.
 
-        :param manifest: The manifest of this DeviceEqNeqFilter.
+        :param state: The state of this DeviceEqNeqFilter.
         :type: str
         """
 
-        self._manifest = manifest
+        self._state = state
 
     @property
-    def custom_attributes(self):
+    def updated_at(self):
         """
-        Gets the custom_attributes of this DeviceEqNeqFilter.
+        Gets the updated_at of this DeviceEqNeqFilter.
 
-        :return: The custom_attributes of this DeviceEqNeqFilter.
-        :rtype: dict(str, str)
-        """
-        return self._custom_attributes
-
-    @custom_attributes.setter
-    def custom_attributes(self, custom_attributes):
-        """
-        Sets the custom_attributes of this DeviceEqNeqFilter.
-
-        :param custom_attributes: The custom_attributes of this DeviceEqNeqFilter.
-        :type: dict(str, str)
-        """
-
-        self._custom_attributes = custom_attributes
-
-    @property
-    def created_at(self):
-        """
-        Gets the created_at of this DeviceEqNeqFilter.
-
-        :return: The created_at of this DeviceEqNeqFilter.
+        :return: The updated_at of this DeviceEqNeqFilter.
         :rtype: datetime
         """
-        return self._created_at
+        return self._updated_at
 
-    @created_at.setter
-    def created_at(self, created_at):
+    @updated_at.setter
+    def updated_at(self, updated_at):
         """
-        Sets the created_at of this DeviceEqNeqFilter.
+        Sets the updated_at of this DeviceEqNeqFilter.
 
-        :param created_at: The created_at of this DeviceEqNeqFilter.
+        :param updated_at: The updated_at of this DeviceEqNeqFilter.
         :type: datetime
         """
 
-        self._created_at = created_at
+        self._updated_at = updated_at
+
+    @property
+    def vendor_id(self):
+        """
+        Gets the vendor_id of this DeviceEqNeqFilter.
+
+        :return: The vendor_id of this DeviceEqNeqFilter.
+        :rtype: str
+        """
+        return self._vendor_id
+
+    @vendor_id.setter
+    def vendor_id(self, vendor_id):
+        """
+        Sets the vendor_id of this DeviceEqNeqFilter.
+
+        :param vendor_id: The vendor_id of this DeviceEqNeqFilter.
+        :type: str
+        """
+
+        self._vendor_id = vendor_id
 
     def to_dict(self):
         """
