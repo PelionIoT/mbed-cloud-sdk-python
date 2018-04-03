@@ -33,31 +33,31 @@ class NotificationMessage(object):
     swagger_types = {
         'async_responses': 'list[AsyncIDResponse]',
         'de_registrations': 'list[str]',
+        'notifications': 'list[NotificationData]',
         'reg_updates': 'list[EndpointData]',
         'registrations': 'list[EndpointData]',
-        'notifications': 'list[NotificationData]',
         'registrations_expired': 'list[str]'
     }
 
     attribute_map = {
         'async_responses': 'async-responses',
         'de_registrations': 'de-registrations',
+        'notifications': 'notifications',
         'reg_updates': 'reg-updates',
         'registrations': 'registrations',
-        'notifications': 'notifications',
         'registrations_expired': 'registrations-expired'
     }
 
-    def __init__(self, async_responses=None, de_registrations=None, reg_updates=None, registrations=None, notifications=None, registrations_expired=None):
+    def __init__(self, async_responses=None, de_registrations=None, notifications=None, reg_updates=None, registrations=None, registrations_expired=None):
         """
         NotificationMessage - a model defined in Swagger
         """
 
         self._async_responses = async_responses
         self._de_registrations = de_registrations
+        self._notifications = notifications
         self._reg_updates = reg_updates
         self._registrations = registrations
-        self._notifications = notifications
         self._registrations_expired = registrations_expired
         self.discriminator = None
 
@@ -104,6 +104,27 @@ class NotificationMessage(object):
         self._de_registrations = de_registrations
 
     @property
+    def notifications(self):
+        """
+        Gets the notifications of this NotificationMessage.
+
+        :return: The notifications of this NotificationMessage.
+        :rtype: list[NotificationData]
+        """
+        return self._notifications
+
+    @notifications.setter
+    def notifications(self, notifications):
+        """
+        Sets the notifications of this NotificationMessage.
+
+        :param notifications: The notifications of this NotificationMessage.
+        :type: list[NotificationData]
+        """
+
+        self._notifications = notifications
+
+    @property
     def reg_updates(self):
         """
         Gets the reg_updates of this NotificationMessage.
@@ -144,27 +165,6 @@ class NotificationMessage(object):
         """
 
         self._registrations = registrations
-
-    @property
-    def notifications(self):
-        """
-        Gets the notifications of this NotificationMessage.
-
-        :return: The notifications of this NotificationMessage.
-        :rtype: list[NotificationData]
-        """
-        return self._notifications
-
-    @notifications.setter
-    def notifications(self, notifications):
-        """
-        Sets the notifications of this NotificationMessage.
-
-        :param notifications: The notifications of this NotificationMessage.
-        :type: list[NotificationData]
-        """
-
-        self._notifications = notifications
 
     @property
     def registrations_expired(self):

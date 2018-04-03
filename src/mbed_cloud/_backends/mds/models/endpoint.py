@@ -31,52 +31,52 @@ class Endpoint(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'status': 'str',
+        'name': 'str',
         'q': 'bool',
-        'type': 'str',
-        'name': 'str'
+        'status': 'str',
+        'type': 'str'
     }
 
     attribute_map = {
-        'status': 'status',
+        'name': 'name',
         'q': 'q',
-        'type': 'type',
-        'name': 'name'
+        'status': 'status',
+        'type': 'type'
     }
 
-    def __init__(self, status=None, q=None, type=None, name=None):
+    def __init__(self, name=None, q=None, status=None, type=None):
         """
         Endpoint - a model defined in Swagger
         """
 
-        self._status = status
-        self._q = q
-        self._type = type
         self._name = name
+        self._q = q
+        self._status = status
+        self._type = type
         self.discriminator = None
 
     @property
-    def status(self):
+    def name(self):
         """
-        Gets the status of this Endpoint.
-        Deprecated and the value is always ACTIVE. Only used for API backwards compatibility reasons.
+        Gets the name of this Endpoint.
+        Unique Mbed Cloud Device ID representing the endpoint.
 
-        :return: The status of this Endpoint.
+        :return: The name of this Endpoint.
         :rtype: str
         """
-        return self._status
+        return self._name
 
-    @status.setter
-    def status(self, status):
+    @name.setter
+    def name(self, name):
         """
-        Sets the status of this Endpoint.
-        Deprecated and the value is always ACTIVE. Only used for API backwards compatibility reasons.
+        Sets the name of this Endpoint.
+        Unique Mbed Cloud Device ID representing the endpoint.
 
-        :param status: The status of this Endpoint.
+        :param name: The name of this Endpoint.
         :type: str
         """
 
-        self._status = status
+        self._name = name
 
     @property
     def q(self):
@@ -102,6 +102,29 @@ class Endpoint(object):
         self._q = q
 
     @property
+    def status(self):
+        """
+        Gets the status of this Endpoint.
+        Deprecated and the value is always ACTIVE. Only used for API backwards compatibility reasons.
+
+        :return: The status of this Endpoint.
+        :rtype: str
+        """
+        return self._status
+
+    @status.setter
+    def status(self, status):
+        """
+        Sets the status of this Endpoint.
+        Deprecated and the value is always ACTIVE. Only used for API backwards compatibility reasons.
+
+        :param status: The status of this Endpoint.
+        :type: str
+        """
+
+        self._status = status
+
+    @property
     def type(self):
         """
         Gets the type of this Endpoint.
@@ -123,29 +146,6 @@ class Endpoint(object):
         """
 
         self._type = type
-
-    @property
-    def name(self):
-        """
-        Gets the name of this Endpoint.
-        Unique Mbed Cloud Device ID representing the endpoint.
-
-        :return: The name of this Endpoint.
-        :rtype: str
-        """
-        return self._name
-
-    @name.setter
-    def name(self, name):
-        """
-        Sets the name of this Endpoint.
-        Unique Mbed Cloud Device ID representing the endpoint.
-
-        :param name: The name of this Endpoint.
-        :type: str
-        """
-
-        self._name = name
 
     def to_dict(self):
         """

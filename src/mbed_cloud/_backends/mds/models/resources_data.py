@@ -31,78 +31,32 @@ class ResourcesData(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'rt': 'str',
-        'path': 'str',
         'ct': 'str',
+        '_if': 'str',
         'obs': 'bool',
-        '_if': 'str'
+        'path': 'str',
+        'rt': 'str'
     }
 
     attribute_map = {
-        'rt': 'rt',
-        'path': 'path',
         'ct': 'ct',
+        '_if': 'if',
         'obs': 'obs',
-        '_if': 'if'
+        'path': 'path',
+        'rt': 'rt'
     }
 
-    def __init__(self, rt=None, path=None, ct=None, obs=None, _if=None):
+    def __init__(self, ct=None, _if=None, obs=None, path=None, rt=None):
         """
         ResourcesData - a model defined in Swagger
         """
 
-        self._rt = rt
-        self._path = path
         self._ct = ct
-        self._obs = obs
         self.__if = _if
-        self.discriminator = None
-
-    @property
-    def rt(self):
-        """
-        Gets the rt of this ResourcesData.
-        Application-specific resource type that describes this resource. [It is created by the client side application](/docs/current/connecting/resource-setup-in-mbed-cloud-client.html). Not meant to be a human-readable name for the resource. Multiple resource types may be included, they are separated by a space.
-
-        :return: The rt of this ResourcesData.
-        :rtype: str
-        """
-        return self._rt
-
-    @rt.setter
-    def rt(self, rt):
-        """
-        Sets the rt of this ResourcesData.
-        Application-specific resource type that describes this resource. [It is created by the client side application](/docs/current/connecting/resource-setup-in-mbed-cloud-client.html). Not meant to be a human-readable name for the resource. Multiple resource types may be included, they are separated by a space.
-
-        :param rt: The rt of this ResourcesData.
-        :type: str
-        """
-
-        self._rt = rt
-
-    @property
-    def path(self):
-        """
-        Gets the path of this ResourcesData.
-        Resource's URI path.
-
-        :return: The path of this ResourcesData.
-        :rtype: str
-        """
-        return self._path
-
-    @path.setter
-    def path(self, path):
-        """
-        Sets the path of this ResourcesData.
-        Resource's URI path.
-
-        :param path: The path of this ResourcesData.
-        :type: str
-        """
-
+        self._obs = obs
         self._path = path
+        self._rt = rt
+        self.discriminator = None
 
     @property
     def ct(self):
@@ -128,6 +82,29 @@ class ResourcesData(object):
         self._ct = ct
 
     @property
+    def _if(self):
+        """
+        Gets the _if of this ResourcesData.
+        Interface description that defines a name or URI that indicates how to interact with the target resource. It describes a generic interface type, such as a \"sensor\".
+
+        :return: The _if of this ResourcesData.
+        :rtype: str
+        """
+        return self.__if
+
+    @_if.setter
+    def _if(self, _if):
+        """
+        Sets the _if of this ResourcesData.
+        Interface description that defines a name or URI that indicates how to interact with the target resource. It describes a generic interface type, such as a \"sensor\".
+
+        :param _if: The _if of this ResourcesData.
+        :type: str
+        """
+
+        self.__if = _if
+
+    @property
     def obs(self):
         """
         Gets the obs of this ResourcesData.
@@ -151,27 +128,50 @@ class ResourcesData(object):
         self._obs = obs
 
     @property
-    def _if(self):
+    def path(self):
         """
-        Gets the _if of this ResourcesData.
-        Interface description that defines a name or URI that indicates how to interact with the target resource. It describes a generic interface type, such as a \"sensor\".
+        Gets the path of this ResourcesData.
+        Resource's URI path.
 
-        :return: The _if of this ResourcesData.
+        :return: The path of this ResourcesData.
         :rtype: str
         """
-        return self.__if
+        return self._path
 
-    @_if.setter
-    def _if(self, _if):
+    @path.setter
+    def path(self, path):
         """
-        Sets the _if of this ResourcesData.
-        Interface description that defines a name or URI that indicates how to interact with the target resource. It describes a generic interface type, such as a \"sensor\".
+        Sets the path of this ResourcesData.
+        Resource's URI path.
 
-        :param _if: The _if of this ResourcesData.
+        :param path: The path of this ResourcesData.
         :type: str
         """
 
-        self.__if = _if
+        self._path = path
+
+    @property
+    def rt(self):
+        """
+        Gets the rt of this ResourcesData.
+        Application-specific resource type that describes this resource. [It is created by the client side application](/docs/current/connecting/resource-setup-in-mbed-cloud-client.html). Not meant to be a human-readable name for the resource. Multiple resource types may be included, they are separated by a space.
+
+        :return: The rt of this ResourcesData.
+        :rtype: str
+        """
+        return self._rt
+
+    @rt.setter
+    def rt(self, rt):
+        """
+        Sets the rt of this ResourcesData.
+        Application-specific resource type that describes this resource. [It is created by the client side application](/docs/current/connecting/resource-setup-in-mbed-cloud-client.html). Not meant to be a human-readable name for the resource. Multiple resource types may be included, they are separated by a space.
+
+        :param rt: The rt of this ResourcesData.
+        :type: str
+        """
+
+        self._rt = rt
 
     def to_dict(self):
         """
