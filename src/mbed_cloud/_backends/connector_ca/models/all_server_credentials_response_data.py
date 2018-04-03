@@ -31,44 +31,23 @@ class AllServerCredentialsResponseData(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'lwm2m': 'CredentialsResponseData',
-        'bootstrap': 'CredentialsResponseData'
+        'bootstrap': 'CredentialsResponseData',
+        'lwm2m': 'CredentialsResponseData'
     }
 
     attribute_map = {
-        'lwm2m': 'lwm2m',
-        'bootstrap': 'bootstrap'
+        'bootstrap': 'bootstrap',
+        'lwm2m': 'lwm2m'
     }
 
-    def __init__(self, lwm2m=None, bootstrap=None):
+    def __init__(self, bootstrap=None, lwm2m=None):
         """
         AllServerCredentialsResponseData - a model defined in Swagger
         """
 
-        self._lwm2m = lwm2m
         self._bootstrap = bootstrap
-        self.discriminator = None
-
-    @property
-    def lwm2m(self):
-        """
-        Gets the lwm2m of this AllServerCredentialsResponseData.
-
-        :return: The lwm2m of this AllServerCredentialsResponseData.
-        :rtype: CredentialsResponseData
-        """
-        return self._lwm2m
-
-    @lwm2m.setter
-    def lwm2m(self, lwm2m):
-        """
-        Sets the lwm2m of this AllServerCredentialsResponseData.
-
-        :param lwm2m: The lwm2m of this AllServerCredentialsResponseData.
-        :type: CredentialsResponseData
-        """
-
         self._lwm2m = lwm2m
+        self.discriminator = None
 
     @property
     def bootstrap(self):
@@ -90,6 +69,27 @@ class AllServerCredentialsResponseData(object):
         """
 
         self._bootstrap = bootstrap
+
+    @property
+    def lwm2m(self):
+        """
+        Gets the lwm2m of this AllServerCredentialsResponseData.
+
+        :return: The lwm2m of this AllServerCredentialsResponseData.
+        :rtype: CredentialsResponseData
+        """
+        return self._lwm2m
+
+    @lwm2m.setter
+    def lwm2m(self, lwm2m):
+        """
+        Sets the lwm2m of this AllServerCredentialsResponseData.
+
+        :param lwm2m: The lwm2m of this AllServerCredentialsResponseData.
+        :type: CredentialsResponseData
+        """
+
+        self._lwm2m = lwm2m
 
     def to_dict(self):
         """
