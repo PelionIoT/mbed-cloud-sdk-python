@@ -32,33 +32,33 @@ class UpdateCampaignGteLteFilter(object):
     """
     swagger_types = {
         'created_at': 'datetime',
-        'when': 'datetime',
-        'updated_at': 'datetime',
-        'finished': 'datetime',
         'etag': 'datetime',
-        'started_at': 'datetime'
+        'finished': 'datetime',
+        'started_at': 'datetime',
+        'updated_at': 'datetime',
+        'when': 'datetime'
     }
 
     attribute_map = {
         'created_at': 'created_at',
-        'when': 'when',
-        'updated_at': 'updated_at',
-        'finished': 'finished',
         'etag': 'etag',
-        'started_at': 'started_at'
+        'finished': 'finished',
+        'started_at': 'started_at',
+        'updated_at': 'updated_at',
+        'when': 'when'
     }
 
-    def __init__(self, created_at=None, when=None, updated_at=None, finished=None, etag=None, started_at=None):
+    def __init__(self, created_at=None, etag=None, finished=None, started_at=None, updated_at=None, when=None):
         """
         UpdateCampaignGteLteFilter - a model defined in Swagger
         """
 
         self._created_at = created_at
-        self._when = when
-        self._updated_at = updated_at
-        self._finished = finished
         self._etag = etag
+        self._finished = finished
         self._started_at = started_at
+        self._updated_at = updated_at
+        self._when = when
         self.discriminator = None
 
     @property
@@ -83,46 +83,25 @@ class UpdateCampaignGteLteFilter(object):
         self._created_at = created_at
 
     @property
-    def when(self):
+    def etag(self):
         """
-        Gets the when of this UpdateCampaignGteLteFilter.
+        Gets the etag of this UpdateCampaignGteLteFilter.
 
-        :return: The when of this UpdateCampaignGteLteFilter.
+        :return: The etag of this UpdateCampaignGteLteFilter.
         :rtype: datetime
         """
-        return self._when
+        return self._etag
 
-    @when.setter
-    def when(self, when):
+    @etag.setter
+    def etag(self, etag):
         """
-        Sets the when of this UpdateCampaignGteLteFilter.
+        Sets the etag of this UpdateCampaignGteLteFilter.
 
-        :param when: The when of this UpdateCampaignGteLteFilter.
+        :param etag: The etag of this UpdateCampaignGteLteFilter.
         :type: datetime
         """
 
-        self._when = when
-
-    @property
-    def updated_at(self):
-        """
-        Gets the updated_at of this UpdateCampaignGteLteFilter.
-
-        :return: The updated_at of this UpdateCampaignGteLteFilter.
-        :rtype: datetime
-        """
-        return self._updated_at
-
-    @updated_at.setter
-    def updated_at(self, updated_at):
-        """
-        Sets the updated_at of this UpdateCampaignGteLteFilter.
-
-        :param updated_at: The updated_at of this UpdateCampaignGteLteFilter.
-        :type: datetime
-        """
-
-        self._updated_at = updated_at
+        self._etag = etag
 
     @property
     def finished(self):
@@ -146,27 +125,6 @@ class UpdateCampaignGteLteFilter(object):
         self._finished = finished
 
     @property
-    def etag(self):
-        """
-        Gets the etag of this UpdateCampaignGteLteFilter.
-
-        :return: The etag of this UpdateCampaignGteLteFilter.
-        :rtype: datetime
-        """
-        return self._etag
-
-    @etag.setter
-    def etag(self, etag):
-        """
-        Sets the etag of this UpdateCampaignGteLteFilter.
-
-        :param etag: The etag of this UpdateCampaignGteLteFilter.
-        :type: datetime
-        """
-
-        self._etag = etag
-
-    @property
     def started_at(self):
         """
         Gets the started_at of this UpdateCampaignGteLteFilter.
@@ -186,6 +144,48 @@ class UpdateCampaignGteLteFilter(object):
         """
 
         self._started_at = started_at
+
+    @property
+    def updated_at(self):
+        """
+        Gets the updated_at of this UpdateCampaignGteLteFilter.
+
+        :return: The updated_at of this UpdateCampaignGteLteFilter.
+        :rtype: datetime
+        """
+        return self._updated_at
+
+    @updated_at.setter
+    def updated_at(self, updated_at):
+        """
+        Sets the updated_at of this UpdateCampaignGteLteFilter.
+
+        :param updated_at: The updated_at of this UpdateCampaignGteLteFilter.
+        :type: datetime
+        """
+
+        self._updated_at = updated_at
+
+    @property
+    def when(self):
+        """
+        Gets the when of this UpdateCampaignGteLteFilter.
+
+        :return: The when of this UpdateCampaignGteLteFilter.
+        :rtype: datetime
+        """
+        return self._when
+
+    @when.setter
+    def when(self, when):
+        """
+        Sets the when of this UpdateCampaignGteLteFilter.
+
+        :param when: The when of this UpdateCampaignGteLteFilter.
+        :type: datetime
+        """
+
+        self._when = when
 
     def to_dict(self):
         """

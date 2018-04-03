@@ -31,99 +31,47 @@ class FirmwareImage(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'datafile': 'str',
-        'description': 'str',
         'created_at': 'datetime',
-        'object': 'str',
-        'updated_at': 'datetime',
-        'etag': 'datetime',
+        'datafile': 'str',
         'datafile_checksum': 'str',
         'datafile_size': 'int',
+        'description': 'str',
+        'etag': 'datetime',
         'id': 'str',
-        'name': 'str'
+        'name': 'str',
+        'object': 'str',
+        'updated_at': 'datetime'
     }
 
     attribute_map = {
-        'datafile': 'datafile',
-        'description': 'description',
         'created_at': 'created_at',
-        'object': 'object',
-        'updated_at': 'updated_at',
-        'etag': 'etag',
+        'datafile': 'datafile',
         'datafile_checksum': 'datafile_checksum',
         'datafile_size': 'datafile_size',
+        'description': 'description',
+        'etag': 'etag',
         'id': 'id',
-        'name': 'name'
+        'name': 'name',
+        'object': 'object',
+        'updated_at': 'updated_at'
     }
 
-    def __init__(self, datafile=None, description=None, created_at=None, object=None, updated_at=None, etag=None, datafile_checksum=None, datafile_size=None, id=None, name=None):
+    def __init__(self, created_at=None, datafile=None, datafile_checksum=None, datafile_size=None, description=None, etag=None, id=None, name=None, object=None, updated_at=None):
         """
         FirmwareImage - a model defined in Swagger
         """
 
-        self._datafile = datafile
-        self._description = description
         self._created_at = created_at
-        self._object = object
-        self._updated_at = updated_at
-        self._etag = etag
+        self._datafile = datafile
         self._datafile_checksum = datafile_checksum
         self._datafile_size = datafile_size
+        self._description = description
+        self._etag = etag
         self._id = id
         self._name = name
+        self._object = object
+        self._updated_at = updated_at
         self.discriminator = None
-
-    @property
-    def datafile(self):
-        """
-        Gets the datafile of this FirmwareImage.
-        The firmware image file URL
-
-        :return: The datafile of this FirmwareImage.
-        :rtype: str
-        """
-        return self._datafile
-
-    @datafile.setter
-    def datafile(self, datafile):
-        """
-        Sets the datafile of this FirmwareImage.
-        The firmware image file URL
-
-        :param datafile: The datafile of this FirmwareImage.
-        :type: str
-        """
-        if datafile is None:
-            raise ValueError("Invalid value for `datafile`, must not be `None`")
-
-        self._datafile = datafile
-
-    @property
-    def description(self):
-        """
-        Gets the description of this FirmwareImage.
-        The description of the object
-
-        :return: The description of this FirmwareImage.
-        :rtype: str
-        """
-        return self._description
-
-    @description.setter
-    def description(self, description):
-        """
-        Sets the description of this FirmwareImage.
-        The description of the object
-
-        :param description: The description of this FirmwareImage.
-        :type: str
-        """
-        if description is None:
-            raise ValueError("Invalid value for `description`, must not be `None`")
-        if description is not None and len(description) > 2000:
-            raise ValueError("Invalid value for `description`, length must be less than or equal to `2000`")
-
-        self._description = description
 
     @property
     def created_at(self):
@@ -151,79 +99,29 @@ class FirmwareImage(object):
         self._created_at = created_at
 
     @property
-    def object(self):
+    def datafile(self):
         """
-        Gets the object of this FirmwareImage.
-        The API resource entity
+        Gets the datafile of this FirmwareImage.
+        The firmware image file URL
 
-        :return: The object of this FirmwareImage.
+        :return: The datafile of this FirmwareImage.
         :rtype: str
         """
-        return self._object
+        return self._datafile
 
-    @object.setter
-    def object(self, object):
+    @datafile.setter
+    def datafile(self, datafile):
         """
-        Sets the object of this FirmwareImage.
-        The API resource entity
+        Sets the datafile of this FirmwareImage.
+        The firmware image file URL
 
-        :param object: The object of this FirmwareImage.
+        :param datafile: The datafile of this FirmwareImage.
         :type: str
         """
-        if object is None:
-            raise ValueError("Invalid value for `object`, must not be `None`")
+        if datafile is None:
+            raise ValueError("Invalid value for `datafile`, must not be `None`")
 
-        self._object = object
-
-    @property
-    def updated_at(self):
-        """
-        Gets the updated_at of this FirmwareImage.
-        The time the object was updated
-
-        :return: The updated_at of this FirmwareImage.
-        :rtype: datetime
-        """
-        return self._updated_at
-
-    @updated_at.setter
-    def updated_at(self, updated_at):
-        """
-        Sets the updated_at of this FirmwareImage.
-        The time the object was updated
-
-        :param updated_at: The updated_at of this FirmwareImage.
-        :type: datetime
-        """
-        if updated_at is None:
-            raise ValueError("Invalid value for `updated_at`, must not be `None`")
-
-        self._updated_at = updated_at
-
-    @property
-    def etag(self):
-        """
-        Gets the etag of this FirmwareImage.
-        The entity instance signature
-
-        :return: The etag of this FirmwareImage.
-        :rtype: datetime
-        """
-        return self._etag
-
-    @etag.setter
-    def etag(self, etag):
-        """
-        Sets the etag of this FirmwareImage.
-        The entity instance signature
-
-        :param etag: The etag of this FirmwareImage.
-        :type: datetime
-        """
-        if etag is None:
-            raise ValueError("Invalid value for `etag`, must not be `None`")
-
-        self._etag = etag
+        self._datafile = datafile
 
     @property
     def datafile_checksum(self):
@@ -272,6 +170,58 @@ class FirmwareImage(object):
         """
 
         self._datafile_size = datafile_size
+
+    @property
+    def description(self):
+        """
+        Gets the description of this FirmwareImage.
+        The description of the object
+
+        :return: The description of this FirmwareImage.
+        :rtype: str
+        """
+        return self._description
+
+    @description.setter
+    def description(self, description):
+        """
+        Sets the description of this FirmwareImage.
+        The description of the object
+
+        :param description: The description of this FirmwareImage.
+        :type: str
+        """
+        if description is None:
+            raise ValueError("Invalid value for `description`, must not be `None`")
+        if description is not None and len(description) > 2000:
+            raise ValueError("Invalid value for `description`, length must be less than or equal to `2000`")
+
+        self._description = description
+
+    @property
+    def etag(self):
+        """
+        Gets the etag of this FirmwareImage.
+        The entity instance signature
+
+        :return: The etag of this FirmwareImage.
+        :rtype: datetime
+        """
+        return self._etag
+
+    @etag.setter
+    def etag(self, etag):
+        """
+        Sets the etag of this FirmwareImage.
+        The entity instance signature
+
+        :param etag: The etag of this FirmwareImage.
+        :type: datetime
+        """
+        if etag is None:
+            raise ValueError("Invalid value for `etag`, must not be `None`")
+
+        self._etag = etag
 
     @property
     def id(self):
@@ -324,6 +274,56 @@ class FirmwareImage(object):
             raise ValueError("Invalid value for `name`, length must be less than or equal to `128`")
 
         self._name = name
+
+    @property
+    def object(self):
+        """
+        Gets the object of this FirmwareImage.
+        The API resource entity
+
+        :return: The object of this FirmwareImage.
+        :rtype: str
+        """
+        return self._object
+
+    @object.setter
+    def object(self, object):
+        """
+        Sets the object of this FirmwareImage.
+        The API resource entity
+
+        :param object: The object of this FirmwareImage.
+        :type: str
+        """
+        if object is None:
+            raise ValueError("Invalid value for `object`, must not be `None`")
+
+        self._object = object
+
+    @property
+    def updated_at(self):
+        """
+        Gets the updated_at of this FirmwareImage.
+        The time the object was updated
+
+        :return: The updated_at of this FirmwareImage.
+        :rtype: datetime
+        """
+        return self._updated_at
+
+    @updated_at.setter
+    def updated_at(self, updated_at):
+        """
+        Sets the updated_at of this FirmwareImage.
+        The time the object was updated
+
+        :param updated_at: The updated_at of this FirmwareImage.
+        :type: datetime
+        """
+        if updated_at is None:
+            raise ValueError("Invalid value for `updated_at`, must not be `None`")
+
+        self._updated_at = updated_at
 
     def to_dict(self):
         """
