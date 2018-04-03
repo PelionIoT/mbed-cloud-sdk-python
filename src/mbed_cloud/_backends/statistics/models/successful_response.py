@@ -32,33 +32,33 @@ class SuccessfulResponse(object):
     """
     swagger_types = {
         'after': 'str',
+        'data': 'list[Metric]',
         'has_more': 'bool',
-        'total_count': 'int',
-        'object': 'str',
         'limit': 'int',
-        'data': 'list[Metric]'
+        'object': 'str',
+        'total_count': 'int'
     }
 
     attribute_map = {
         'after': 'after',
+        'data': 'data',
         'has_more': 'has_more',
-        'total_count': 'total_count',
-        'object': 'object',
         'limit': 'limit',
-        'data': 'data'
+        'object': 'object',
+        'total_count': 'total_count'
     }
 
-    def __init__(self, after=None, has_more=None, total_count=None, object=None, limit=None, data=None):
+    def __init__(self, after=None, data=None, has_more=None, limit=None, object=None, total_count=None):
         """
         SuccessfulResponse - a model defined in Swagger
         """
 
         self._after = after
-        self._has_more = has_more
-        self._total_count = total_count
-        self._object = object
-        self._limit = limit
         self._data = data
+        self._has_more = has_more
+        self._limit = limit
+        self._object = object
+        self._total_count = total_count
         self.discriminator = None
 
     @property
@@ -85,6 +85,27 @@ class SuccessfulResponse(object):
         self._after = after
 
     @property
+    def data(self):
+        """
+        Gets the data of this SuccessfulResponse.
+
+        :return: The data of this SuccessfulResponse.
+        :rtype: list[Metric]
+        """
+        return self._data
+
+    @data.setter
+    def data(self, data):
+        """
+        Sets the data of this SuccessfulResponse.
+
+        :param data: The data of this SuccessfulResponse.
+        :type: list[Metric]
+        """
+
+        self._data = data
+
+    @property
     def has_more(self):
         """
         Gets the has_more of this SuccessfulResponse.
@@ -106,52 +127,6 @@ class SuccessfulResponse(object):
         """
 
         self._has_more = has_more
-
-    @property
-    def total_count(self):
-        """
-        Gets the total_count of this SuccessfulResponse.
-        The total number of records available.
-
-        :return: The total_count of this SuccessfulResponse.
-        :rtype: int
-        """
-        return self._total_count
-
-    @total_count.setter
-    def total_count(self, total_count):
-        """
-        Sets the total_count of this SuccessfulResponse.
-        The total number of records available.
-
-        :param total_count: The total_count of this SuccessfulResponse.
-        :type: int
-        """
-
-        self._total_count = total_count
-
-    @property
-    def object(self):
-        """
-        Gets the object of this SuccessfulResponse.
-        API resource name.
-
-        :return: The object of this SuccessfulResponse.
-        :rtype: str
-        """
-        return self._object
-
-    @object.setter
-    def object(self, object):
-        """
-        Sets the object of this SuccessfulResponse.
-        API resource name.
-
-        :param object: The object of this SuccessfulResponse.
-        :type: str
-        """
-
-        self._object = object
 
     @property
     def limit(self):
@@ -177,25 +152,50 @@ class SuccessfulResponse(object):
         self._limit = limit
 
     @property
-    def data(self):
+    def object(self):
         """
-        Gets the data of this SuccessfulResponse.
+        Gets the object of this SuccessfulResponse.
+        API resource name.
 
-        :return: The data of this SuccessfulResponse.
-        :rtype: list[Metric]
+        :return: The object of this SuccessfulResponse.
+        :rtype: str
         """
-        return self._data
+        return self._object
 
-    @data.setter
-    def data(self, data):
+    @object.setter
+    def object(self, object):
         """
-        Sets the data of this SuccessfulResponse.
+        Sets the object of this SuccessfulResponse.
+        API resource name.
 
-        :param data: The data of this SuccessfulResponse.
-        :type: list[Metric]
+        :param object: The object of this SuccessfulResponse.
+        :type: str
         """
 
-        self._data = data
+        self._object = object
+
+    @property
+    def total_count(self):
+        """
+        Gets the total_count of this SuccessfulResponse.
+        The total number of records available.
+
+        :return: The total_count of this SuccessfulResponse.
+        :rtype: int
+        """
+        return self._total_count
+
+    @total_count.setter
+    def total_count(self, total_count):
+        """
+        Sets the total_count of this SuccessfulResponse.
+        The total number of records available.
+
+        :param total_count: The total_count of this SuccessfulResponse.
+        :type: int
+        """
+
+        self._total_count = total_count
 
     def to_dict(self):
         """
