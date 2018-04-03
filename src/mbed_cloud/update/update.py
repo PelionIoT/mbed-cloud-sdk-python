@@ -271,18 +271,23 @@ class UpdateAPI(BaseAPI):
         return PaginatedResponse(api.firmware_manifest_list, lwrap_type=FirmwareManifest, **kwargs)
 
     @catch_exceptions(UpdateServiceApiException)
-    def add_firmware_manifest(self, name, datafile, **kwargs):
+    def add_firmware_manifest(self, name, datafile, keytable_file=None, **kwargs):
         """Add a new manifest reference.
 
         :param str name: Manifest file short name (Required)
-        :param str datafile: The file object or *path* to the manifest file (Required)
+        :param str datafile: The file object or path to the manifest file (Required)
+        :param str keytable_file: The file object or path to the keytable file (Optional)
         :param str description: Manifest file description
         :return: the newly created manifest file object
         :rtype: FirmwareManifest
         """
-        kwargs.update({'name': name})
+        kwargs.update({
+            'name': name,
+            'url': datafile,  # really it's the datafile
+        })
+        if keytable_file is not None:
+            kwargs.update({'keytable_url': keytable_file})  # really it's the keytable
         firmware_manifest = FirmwareManifest._create_request_map(kwargs)
-        firmware_manifest.update({'datafile': datafile})
         api = self._get_api(update_service.DefaultApi)
         return FirmwareManifest(
             api.firmware_manifest_create(**firmware_manifest)
@@ -306,13 +311,14 @@ class FirmwareImage(BaseObject):
     def _get_attributes_map():
         return {
             "created_at": "created_at",
-            "url": "datafile",
             "datafile_checksum": "datafile_checksum",
             "datafile_size": "datafile_size",
             "description": "description",
             "id": "id",
+            "keytable_url": "keytable",
             "name": "name",
-            "updated_at": "updated_at"
+            "updated_at": "updated_at",
+            "url": "datafile",
         }
 
     @property
