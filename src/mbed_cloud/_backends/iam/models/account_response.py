@@ -31,57 +31,32 @@ class AccountResponse(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'status': 'str',
         'alias': 'str',
         'display_name': 'str',
         'id': 'str',
-        'parent_id': 'str'
+        'parent_id': 'str',
+        'status': 'str'
     }
 
     attribute_map = {
-        'status': 'status',
         'alias': 'alias',
         'display_name': 'display_name',
         'id': 'id',
-        'parent_id': 'parentId'
+        'parent_id': 'parentId',
+        'status': 'status'
     }
 
-    def __init__(self, status=None, alias=None, display_name=None, id=None, parent_id=None):
+    def __init__(self, alias=None, display_name=None, id=None, parent_id=None, status=None):
         """
         AccountResponse - a model defined in Swagger
         """
 
-        self._status = status
         self._alias = alias
         self._display_name = display_name
         self._id = id
         self._parent_id = parent_id
-        self.discriminator = None
-
-    @property
-    def status(self):
-        """
-        Gets the status of this AccountResponse.
-        The status of the account.
-
-        :return: The status of this AccountResponse.
-        :rtype: str
-        """
-        return self._status
-
-    @status.setter
-    def status(self, status):
-        """
-        Sets the status of this AccountResponse.
-        The status of the account.
-
-        :param status: The status of this AccountResponse.
-        :type: str
-        """
-        if status is None:
-            raise ValueError("Invalid value for `status`, must not be `None`")
-
         self._status = status
+        self.discriminator = None
 
     @property
     def alias(self):
@@ -176,6 +151,31 @@ class AccountResponse(object):
             raise ValueError("Invalid value for `parent_id`, must not be `None`")
 
         self._parent_id = parent_id
+
+    @property
+    def status(self):
+        """
+        Gets the status of this AccountResponse.
+        The status of the account.
+
+        :return: The status of this AccountResponse.
+        :rtype: str
+        """
+        return self._status
+
+    @status.setter
+    def status(self, status):
+        """
+        Sets the status of this AccountResponse.
+        The status of the account.
+
+        :param status: The status of this AccountResponse.
+        :type: str
+        """
+        if status is None:
+            raise ValueError("Invalid value for `status`, must not be `None`")
+
+        self._status = status
 
     def to_dict(self):
         """

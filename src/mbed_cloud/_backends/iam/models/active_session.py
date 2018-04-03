@@ -32,33 +32,33 @@ class ActiveSession(object):
     """
     swagger_types = {
         'account_id': 'str',
-        'object': 'str',
-        'user_agent': 'str',
         'ip_address': 'str',
+        'login_time': 'datetime',
+        'object': 'str',
         'reference_token': 'str',
-        'login_time': 'datetime'
+        'user_agent': 'str'
     }
 
     attribute_map = {
         'account_id': 'account_id',
-        'object': 'object',
-        'user_agent': 'user_agent',
         'ip_address': 'ip_address',
+        'login_time': 'login_time',
+        'object': 'object',
         'reference_token': 'reference_token',
-        'login_time': 'login_time'
+        'user_agent': 'user_agent'
     }
 
-    def __init__(self, account_id=None, object=None, user_agent=None, ip_address=None, reference_token=None, login_time=None):
+    def __init__(self, account_id=None, ip_address=None, login_time=None, object=None, reference_token=None, user_agent=None):
         """
         ActiveSession - a model defined in Swagger
         """
 
         self._account_id = account_id
-        self._object = object
-        self._user_agent = user_agent
         self._ip_address = ip_address
-        self._reference_token = reference_token
         self._login_time = login_time
+        self._object = object
+        self._reference_token = reference_token
+        self._user_agent = user_agent
         self.discriminator = None
 
     @property
@@ -85,6 +85,56 @@ class ActiveSession(object):
             raise ValueError("Invalid value for `account_id`, must not be `None`")
 
         self._account_id = account_id
+
+    @property
+    def ip_address(self):
+        """
+        Gets the ip_address of this ActiveSession.
+        IP address of the client.
+
+        :return: The ip_address of this ActiveSession.
+        :rtype: str
+        """
+        return self._ip_address
+
+    @ip_address.setter
+    def ip_address(self, ip_address):
+        """
+        Sets the ip_address of this ActiveSession.
+        IP address of the client.
+
+        :param ip_address: The ip_address of this ActiveSession.
+        :type: str
+        """
+        if ip_address is None:
+            raise ValueError("Invalid value for `ip_address`, must not be `None`")
+
+        self._ip_address = ip_address
+
+    @property
+    def login_time(self):
+        """
+        Gets the login_time of this ActiveSession.
+        The login time of the user.
+
+        :return: The login_time of this ActiveSession.
+        :rtype: datetime
+        """
+        return self._login_time
+
+    @login_time.setter
+    def login_time(self, login_time):
+        """
+        Sets the login_time of this ActiveSession.
+        The login time of the user.
+
+        :param login_time: The login_time of this ActiveSession.
+        :type: datetime
+        """
+        if login_time is None:
+            raise ValueError("Invalid value for `login_time`, must not be `None`")
+
+        self._login_time = login_time
 
     @property
     def object(self):
@@ -118,56 +168,6 @@ class ActiveSession(object):
         self._object = object
 
     @property
-    def user_agent(self):
-        """
-        Gets the user_agent of this ActiveSession.
-        User Agent header from the login request.
-
-        :return: The user_agent of this ActiveSession.
-        :rtype: str
-        """
-        return self._user_agent
-
-    @user_agent.setter
-    def user_agent(self, user_agent):
-        """
-        Sets the user_agent of this ActiveSession.
-        User Agent header from the login request.
-
-        :param user_agent: The user_agent of this ActiveSession.
-        :type: str
-        """
-        if user_agent is None:
-            raise ValueError("Invalid value for `user_agent`, must not be `None`")
-
-        self._user_agent = user_agent
-
-    @property
-    def ip_address(self):
-        """
-        Gets the ip_address of this ActiveSession.
-        IP address of the client.
-
-        :return: The ip_address of this ActiveSession.
-        :rtype: str
-        """
-        return self._ip_address
-
-    @ip_address.setter
-    def ip_address(self, ip_address):
-        """
-        Sets the ip_address of this ActiveSession.
-        IP address of the client.
-
-        :param ip_address: The ip_address of this ActiveSession.
-        :type: str
-        """
-        if ip_address is None:
-            raise ValueError("Invalid value for `ip_address`, must not be `None`")
-
-        self._ip_address = ip_address
-
-    @property
     def reference_token(self):
         """
         Gets the reference_token of this ActiveSession.
@@ -193,29 +193,29 @@ class ActiveSession(object):
         self._reference_token = reference_token
 
     @property
-    def login_time(self):
+    def user_agent(self):
         """
-        Gets the login_time of this ActiveSession.
-        The login time of the user.
+        Gets the user_agent of this ActiveSession.
+        User Agent header from the login request.
 
-        :return: The login_time of this ActiveSession.
-        :rtype: datetime
+        :return: The user_agent of this ActiveSession.
+        :rtype: str
         """
-        return self._login_time
+        return self._user_agent
 
-    @login_time.setter
-    def login_time(self, login_time):
+    @user_agent.setter
+    def user_agent(self, user_agent):
         """
-        Sets the login_time of this ActiveSession.
-        The login time of the user.
+        Sets the user_agent of this ActiveSession.
+        User Agent header from the login request.
 
-        :param login_time: The login_time of this ActiveSession.
-        :type: datetime
+        :param user_agent: The user_agent of this ActiveSession.
+        :type: str
         """
-        if login_time is None:
-            raise ValueError("Invalid value for `login_time`, must not be `None`")
+        if user_agent is None:
+            raise ValueError("Invalid value for `user_agent`, must not be `None`")
 
-        self._login_time = login_time
+        self._user_agent = user_agent
 
     def to_dict(self):
         """

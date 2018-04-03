@@ -33,26 +33,26 @@ class LoginHistory(object):
     swagger_types = {
         'date': 'datetime',
         'ip_address': 'str',
-        'user_agent': 'str',
-        'success': 'bool'
+        'success': 'bool',
+        'user_agent': 'str'
     }
 
     attribute_map = {
         'date': 'date',
         'ip_address': 'ip_address',
-        'user_agent': 'user_agent',
-        'success': 'success'
+        'success': 'success',
+        'user_agent': 'user_agent'
     }
 
-    def __init__(self, date=None, ip_address=None, user_agent=None, success=None):
+    def __init__(self, date=None, ip_address=None, success=None, user_agent=None):
         """
         LoginHistory - a model defined in Swagger
         """
 
         self._date = date
         self._ip_address = ip_address
-        self._user_agent = user_agent
         self._success = success
+        self._user_agent = user_agent
         self.discriminator = None
 
     @property
@@ -106,31 +106,6 @@ class LoginHistory(object):
         self._ip_address = ip_address
 
     @property
-    def user_agent(self):
-        """
-        Gets the user_agent of this LoginHistory.
-        User Agent header from the login request.
-
-        :return: The user_agent of this LoginHistory.
-        :rtype: str
-        """
-        return self._user_agent
-
-    @user_agent.setter
-    def user_agent(self, user_agent):
-        """
-        Sets the user_agent of this LoginHistory.
-        User Agent header from the login request.
-
-        :param user_agent: The user_agent of this LoginHistory.
-        :type: str
-        """
-        if user_agent is None:
-            raise ValueError("Invalid value for `user_agent`, must not be `None`")
-
-        self._user_agent = user_agent
-
-    @property
     def success(self):
         """
         Gets the success of this LoginHistory.
@@ -154,6 +129,31 @@ class LoginHistory(object):
             raise ValueError("Invalid value for `success`, must not be `None`")
 
         self._success = success
+
+    @property
+    def user_agent(self):
+        """
+        Gets the user_agent of this LoginHistory.
+        User Agent header from the login request.
+
+        :return: The user_agent of this LoginHistory.
+        :rtype: str
+        """
+        return self._user_agent
+
+    @user_agent.setter
+    def user_agent(self, user_agent):
+        """
+        Sets the user_agent of this LoginHistory.
+        User Agent header from the login request.
+
+        :param user_agent: The user_agent of this LoginHistory.
+        :type: str
+        """
+        if user_agent is None:
+            raise ValueError("Invalid value for `user_agent`, must not be `None`")
+
+        self._user_agent = user_agent
 
     def to_dict(self):
         """
