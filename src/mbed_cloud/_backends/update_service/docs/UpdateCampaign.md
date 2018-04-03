@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **etag** | **str** | The entity instance signature | [optional] 
 **finished** | **datetime** | The campaign finish timestamp | [optional] 
 **root_manifest_url** | **str** |  | [optional] 
-**phase** | **str** | The phase of the campaign | [optional] 
+**phase** | **str** | The current phase of the campaign. | [optional] 
 **started_at** | **datetime** |  | [optional] 
 **id** | **str** | The campaign ID | [optional] 
 **device_filter** | **str** | The filter for the devices the campaign will target | [optional] 

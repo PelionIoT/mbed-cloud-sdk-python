@@ -326,7 +326,7 @@ class UpdateCampaign(object):
     def phase(self):
         """
         Gets the phase of this UpdateCampaign.
-        The phase of the campaign
+        The current phase of the campaign.
 
         :return: The phase of this UpdateCampaign.
         :rtype: str
@@ -337,17 +337,11 @@ class UpdateCampaign(object):
     def phase(self, phase):
         """
         Sets the phase of this UpdateCampaign.
-        The phase of the campaign
+        The current phase of the campaign.
 
         :param phase: The phase of this UpdateCampaign.
         :type: str
         """
-        allowed_values = ["draft", "setup", "awaiting_approval", "timed", "starting", "active", "stopping", "stopped", "archived"]
-        if phase not in allowed_values:
-            raise ValueError(
-                "Invalid value for `phase` ({0}), must be one of {1}"
-                .format(phase, allowed_values)
-            )
 
         self._phase = phase
 
