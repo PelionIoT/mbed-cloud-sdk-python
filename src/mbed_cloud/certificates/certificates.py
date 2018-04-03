@@ -101,11 +101,11 @@ class CertificatesAPI(BaseAPI):
             certificate.update_attributes(dev_cert)
         elif certificate.type == CertificateType.bootstrap:
             server_api = self._get_api(cert.ServerCredentialsApi)
-            credentials = server_api.v3_server_credentials_bootstrap_get(self.auth)
+            credentials = server_api.get_bootstrap_server_credentials(self.auth)
             certificate.update_attributes(credentials)
         elif certificate.type == CertificateType.lwm2m:
             server_api = self._get_api(cert.ServerCredentialsApi)
-            credentials = server_api.v3_server_credentials_lwm2m_get(self.auth)
+            credentials = server_api.get_l2_m2_m_server_credentials(self.auth)
             certificate.update_attributes(credentials)
 
     @catch_exceptions(IamApiException)
