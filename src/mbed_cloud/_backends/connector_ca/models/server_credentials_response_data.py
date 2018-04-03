@@ -3,7 +3,7 @@
 """
     Connect CA API
 
-    Connect CA API provides methods to create and get Developer certificate. Also Connect CA provides server-credentials for Bootstarp and LWM2M Server.
+    mbed Cloud Connect CA API allows services to get device credentials.
 
     OpenAPI spec version: 3
     
@@ -32,7 +32,7 @@ class ServerCredentialsResponseData(object):
     """
     swagger_types = {
         'server_uri': 'str',
-        'created_at': 'str',
+        'created_at': 'datetime',
         'object': 'str',
         'server_certificate': 'str',
         'etag': 'str',
@@ -65,7 +65,7 @@ class ServerCredentialsResponseData(object):
     def server_uri(self):
         """
         Gets the server_uri of this ServerCredentialsResponseData.
-        The server URI to which the client needs to connect to.
+        Server URI to which the client needs to connect to.
 
         :return: The server_uri of this ServerCredentialsResponseData.
         :rtype: str
@@ -76,7 +76,7 @@ class ServerCredentialsResponseData(object):
     def server_uri(self, server_uri):
         """
         Sets the server_uri of this ServerCredentialsResponseData.
-        The server URI to which the client needs to connect to.
+        Server URI to which the client needs to connect to.
 
         :param server_uri: The server_uri of this ServerCredentialsResponseData.
         :type: str
@@ -91,7 +91,7 @@ class ServerCredentialsResponseData(object):
         Creation UTC time RFC3339.
 
         :return: The created_at of this ServerCredentialsResponseData.
-        :rtype: str
+        :rtype: datetime
         """
         return self._created_at
 
@@ -102,7 +102,7 @@ class ServerCredentialsResponseData(object):
         Creation UTC time RFC3339.
 
         :param created_at: The created_at of this ServerCredentialsResponseData.
-        :type: str
+        :type: datetime
         """
 
         self._created_at = created_at
@@ -111,7 +111,7 @@ class ServerCredentialsResponseData(object):
     def object(self):
         """
         Gets the object of this ServerCredentialsResponseData.
-        The entity name, always `server-credentials`.
+        Entity name, always 'server-credentials'
 
         :return: The object of this ServerCredentialsResponseData.
         :rtype: str
@@ -122,7 +122,7 @@ class ServerCredentialsResponseData(object):
     def object(self, object):
         """
         Sets the object of this ServerCredentialsResponseData.
-        The entity name, always `server-credentials`.
+        Entity name, always 'server-credentials'
 
         :param object: The object of this ServerCredentialsResponseData.
         :type: str
@@ -134,7 +134,7 @@ class ServerCredentialsResponseData(object):
     def server_certificate(self):
         """
         Gets the server_certificate of this ServerCredentialsResponseData.
-        The PEM format X.509 server certificate that is used to validate the server certificate that is received during the TLS/DTLS handshake.
+        PEM format X.509 server certificate that will be used to validate the server certificate that will be received during the TLS/DTLS handshake.
 
         :return: The server_certificate of this ServerCredentialsResponseData.
         :rtype: str
@@ -145,7 +145,7 @@ class ServerCredentialsResponseData(object):
     def server_certificate(self, server_certificate):
         """
         Sets the server_certificate of this ServerCredentialsResponseData.
-        The PEM format X.509 server certificate that is used to validate the server certificate that is received during the TLS/DTLS handshake.
+        PEM format X.509 server certificate that will be used to validate the server certificate that will be received during the TLS/DTLS handshake.
 
         :param server_certificate: The server_certificate of this ServerCredentialsResponseData.
         :type: str
@@ -180,7 +180,7 @@ class ServerCredentialsResponseData(object):
     def id(self):
         """
         Gets the id of this ServerCredentialsResponseData.
-        The mUUID that uniquely identifies the entity.
+        mUUID that uniquely identifies the entity.
 
         :return: The id of this ServerCredentialsResponseData.
         :rtype: str
@@ -191,7 +191,7 @@ class ServerCredentialsResponseData(object):
     def id(self, id):
         """
         Sets the id of this ServerCredentialsResponseData.
-        The mUUID that uniquely identifies the entity.
+        mUUID that uniquely identifies the entity.
 
         :param id: The id of this ServerCredentialsResponseData.
         :type: str

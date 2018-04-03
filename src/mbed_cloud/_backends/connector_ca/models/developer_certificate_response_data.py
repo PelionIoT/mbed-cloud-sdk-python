@@ -3,7 +3,7 @@
 """
     Connect CA API
 
-    Connect CA API provides methods to create and get Developer certificate. Also Connect CA provides server-credentials for Bootstarp and LWM2M Server.
+    mbed Cloud Connect CA API allows services to get device credentials.
 
     OpenAPI spec version: 3
     
@@ -35,11 +35,9 @@ class DeveloperCertificateResponseData(object):
         'description': 'str',
         'name': 'str',
         'developer_certificate': 'str',
-        'server_uri': 'str',
-        'created_at': 'str',
+        'created_at': 'datetime',
         'object': 'str',
         'developer_private_key': 'str',
-        'server_certificate': 'str',
         'etag': 'str',
         'id': 'str',
         'account_id': 'str'
@@ -50,17 +48,15 @@ class DeveloperCertificateResponseData(object):
         'description': 'description',
         'name': 'name',
         'developer_certificate': 'developer_certificate',
-        'server_uri': 'server_uri',
         'created_at': 'created_at',
         'object': 'object',
         'developer_private_key': 'developer_private_key',
-        'server_certificate': 'server_certificate',
         'etag': 'etag',
         'id': 'id',
         'account_id': 'account_id'
     }
 
-    def __init__(self, security_file_content=None, description=None, name=None, developer_certificate=None, server_uri=None, created_at=None, object=None, developer_private_key=None, server_certificate=None, etag=None, id=None, account_id=None):
+    def __init__(self, security_file_content=None, description=None, name=None, developer_certificate=None, created_at=None, object=None, developer_private_key=None, etag=None, id=None, account_id=None):
         """
         DeveloperCertificateResponseData - a model defined in Swagger
         """
@@ -69,11 +65,9 @@ class DeveloperCertificateResponseData(object):
         self._description = description
         self._name = name
         self._developer_certificate = developer_certificate
-        self._server_uri = server_uri
         self._created_at = created_at
         self._object = object
         self._developer_private_key = developer_private_key
-        self._server_certificate = server_certificate
         self._etag = etag
         self._id = id
         self._account_id = account_id
@@ -83,7 +77,7 @@ class DeveloperCertificateResponseData(object):
     def security_file_content(self):
         """
         Gets the security_file_content of this DeveloperCertificateResponseData.
-        The content of the `security.c` file that is flashed into the device to provide the security credentials
+        Content of the security.c file that will be flashed into the device to provide the security credentials
 
         :return: The security_file_content of this DeveloperCertificateResponseData.
         :rtype: str
@@ -94,7 +88,7 @@ class DeveloperCertificateResponseData(object):
     def security_file_content(self, security_file_content):
         """
         Sets the security_file_content of this DeveloperCertificateResponseData.
-        The content of the `security.c` file that is flashed into the device to provide the security credentials
+        Content of the security.c file that will be flashed into the device to provide the security credentials
 
         :param security_file_content: The security_file_content of this DeveloperCertificateResponseData.
         :type: str
@@ -129,7 +123,7 @@ class DeveloperCertificateResponseData(object):
     def name(self):
         """
         Gets the name of this DeveloperCertificateResponseData.
-        The name of the developer certificate.
+        Name of the developer certificate.
 
         :return: The name of this DeveloperCertificateResponseData.
         :rtype: str
@@ -140,7 +134,7 @@ class DeveloperCertificateResponseData(object):
     def name(self, name):
         """
         Sets the name of this DeveloperCertificateResponseData.
-        The name of the developer certificate.
+        Name of the developer certificate.
 
         :param name: The name of this DeveloperCertificateResponseData.
         :type: str
@@ -152,7 +146,7 @@ class DeveloperCertificateResponseData(object):
     def developer_certificate(self):
         """
         Gets the developer_certificate of this DeveloperCertificateResponseData.
-        The PEM format X.509 developer certificate.
+        PEM format X.509 developer certificate.
 
         :return: The developer_certificate of this DeveloperCertificateResponseData.
         :rtype: str
@@ -163,7 +157,7 @@ class DeveloperCertificateResponseData(object):
     def developer_certificate(self, developer_certificate):
         """
         Sets the developer_certificate of this DeveloperCertificateResponseData.
-        The PEM format X.509 developer certificate.
+        PEM format X.509 developer certificate.
 
         :param developer_certificate: The developer_certificate of this DeveloperCertificateResponseData.
         :type: str
@@ -172,36 +166,13 @@ class DeveloperCertificateResponseData(object):
         self._developer_certificate = developer_certificate
 
     @property
-    def server_uri(self):
-        """
-        Gets the server_uri of this DeveloperCertificateResponseData.
-        The URI to which the client needs to connect to.
-
-        :return: The server_uri of this DeveloperCertificateResponseData.
-        :rtype: str
-        """
-        return self._server_uri
-
-    @server_uri.setter
-    def server_uri(self, server_uri):
-        """
-        Sets the server_uri of this DeveloperCertificateResponseData.
-        The URI to which the client needs to connect to.
-
-        :param server_uri: The server_uri of this DeveloperCertificateResponseData.
-        :type: str
-        """
-
-        self._server_uri = server_uri
-
-    @property
     def created_at(self):
         """
         Gets the created_at of this DeveloperCertificateResponseData.
         Creation UTC time RFC3339.
 
         :return: The created_at of this DeveloperCertificateResponseData.
-        :rtype: str
+        :rtype: datetime
         """
         return self._created_at
 
@@ -212,7 +183,7 @@ class DeveloperCertificateResponseData(object):
         Creation UTC time RFC3339.
 
         :param created_at: The created_at of this DeveloperCertificateResponseData.
-        :type: str
+        :type: datetime
         """
 
         self._created_at = created_at
@@ -221,7 +192,7 @@ class DeveloperCertificateResponseData(object):
     def object(self):
         """
         Gets the object of this DeveloperCertificateResponseData.
-        Entity name, always `trusted-cert`.
+        Entity name, always 'trusted-cert'
 
         :return: The object of this DeveloperCertificateResponseData.
         :rtype: str
@@ -232,7 +203,7 @@ class DeveloperCertificateResponseData(object):
     def object(self, object):
         """
         Sets the object of this DeveloperCertificateResponseData.
-        Entity name, always `trusted-cert`.
+        Entity name, always 'trusted-cert'
 
         :param object: The object of this DeveloperCertificateResponseData.
         :type: str
@@ -244,7 +215,7 @@ class DeveloperCertificateResponseData(object):
     def developer_private_key(self):
         """
         Gets the developer_private_key of this DeveloperCertificateResponseData.
-        The PEM format developer private key associated to the certificate.
+        PEM format developer private key associated to the certificate.
 
         :return: The developer_private_key of this DeveloperCertificateResponseData.
         :rtype: str
@@ -255,36 +226,13 @@ class DeveloperCertificateResponseData(object):
     def developer_private_key(self, developer_private_key):
         """
         Sets the developer_private_key of this DeveloperCertificateResponseData.
-        The PEM format developer private key associated to the certificate.
+        PEM format developer private key associated to the certificate.
 
         :param developer_private_key: The developer_private_key of this DeveloperCertificateResponseData.
         :type: str
         """
 
         self._developer_private_key = developer_private_key
-
-    @property
-    def server_certificate(self):
-        """
-        Gets the server_certificate of this DeveloperCertificateResponseData.
-        The PEM format X.509 server certificate that is used to validate the server certificate that is received during the TLS/DTLS handshake.
-
-        :return: The server_certificate of this DeveloperCertificateResponseData.
-        :rtype: str
-        """
-        return self._server_certificate
-
-    @server_certificate.setter
-    def server_certificate(self, server_certificate):
-        """
-        Sets the server_certificate of this DeveloperCertificateResponseData.
-        The PEM format X.509 server certificate that is used to validate the server certificate that is received during the TLS/DTLS handshake.
-
-        :param server_certificate: The server_certificate of this DeveloperCertificateResponseData.
-        :type: str
-        """
-
-        self._server_certificate = server_certificate
 
     @property
     def etag(self):
@@ -313,7 +261,7 @@ class DeveloperCertificateResponseData(object):
     def id(self):
         """
         Gets the id of this DeveloperCertificateResponseData.
-        The mUUID that uniquely identifies the developer certificate.
+        mUUID that uniquely identifies the developer certificate.
 
         :return: The id of this DeveloperCertificateResponseData.
         :rtype: str
@@ -324,7 +272,7 @@ class DeveloperCertificateResponseData(object):
     def id(self, id):
         """
         Sets the id of this DeveloperCertificateResponseData.
-        The mUUID that uniquely identifies the developer certificate.
+        mUUID that uniquely identifies the developer certificate.
 
         :param id: The id of this DeveloperCertificateResponseData.
         :type: str
@@ -336,7 +284,7 @@ class DeveloperCertificateResponseData(object):
     def account_id(self):
         """
         Gets the account_id of this DeveloperCertificateResponseData.
-        The account to which the developer certificate belongs.
+        account to which the developer certificate belongs
 
         :return: The account_id of this DeveloperCertificateResponseData.
         :rtype: str
@@ -347,7 +295,7 @@ class DeveloperCertificateResponseData(object):
     def account_id(self, account_id):
         """
         Sets the account_id of this DeveloperCertificateResponseData.
-        The account to which the developer certificate belongs.
+        account to which the developer certificate belongs
 
         :param account_id: The account_id of this DeveloperCertificateResponseData.
         :type: str

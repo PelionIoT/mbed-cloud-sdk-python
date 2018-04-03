@@ -3,7 +3,7 @@
 """
     Connect CA API
 
-    Connect CA API provides methods to create and get Developer certificate. Also Connect CA provides server-credentials for Bootstarp and LWM2M Server.
+    mbed Cloud Connect CA API allows services to get device credentials.
 
     OpenAPI spec version: 3
     
@@ -35,114 +35,13 @@ class DeveloperCertificateApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def v3_developer_certificates_muuid_get(self, muuid, authorization, **kwargs):
-        """
-        Fetch an existing developer certificate to connect to the bootstrap server.
-        This REST API is intended to be used by customers to fetch an existing developer certificate (a certificate that can be flashed into multiple devices to connect to bootstrap server). 
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.v3_developer_certificates_muuid_get(muuid, authorization, async=True)
-        >>> result = thread.get()
-
-        :param async bool
-        :param str muuid: A unique identifier for the developer certificate.  (required)
-        :param str authorization: Bearer {Access Token}.  (required)
-        :return: DeveloperCertificateResponseData
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
-            return self.v3_developer_certificates_muuid_get_with_http_info(muuid, authorization, **kwargs)
-        else:
-            (data) = self.v3_developer_certificates_muuid_get_with_http_info(muuid, authorization, **kwargs)
-            return data
-
-    def v3_developer_certificates_muuid_get_with_http_info(self, muuid, authorization, **kwargs):
-        """
-        Fetch an existing developer certificate to connect to the bootstrap server.
-        This REST API is intended to be used by customers to fetch an existing developer certificate (a certificate that can be flashed into multiple devices to connect to bootstrap server). 
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.v3_developer_certificates_muuid_get_with_http_info(muuid, authorization, async=True)
-        >>> result = thread.get()
-
-        :param async bool
-        :param str muuid: A unique identifier for the developer certificate.  (required)
-        :param str authorization: Bearer {Access Token}.  (required)
-        :return: DeveloperCertificateResponseData
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['muuid', 'authorization']
-        all_params.append('async')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method v3_developer_certificates_muuid_get" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'muuid' is set
-        if ('muuid' not in params) or (params['muuid'] is None):
-            raise ValueError("Missing the required parameter `muuid` when calling `v3_developer_certificates_muuid_get`")
-        # verify the required parameter 'authorization' is set
-        if ('authorization' not in params) or (params['authorization'] is None):
-            raise ValueError("Missing the required parameter `authorization` when calling `v3_developer_certificates_muuid_get`")
-
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'muuid' in params:
-            path_params['muuid'] = params['muuid']
-
-        query_params = []
-
-        header_params = {}
-        if 'authorization' in params:
-            header_params['Authorization'] = params['authorization']
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept(['application/json'])
-
-        # Authentication setting
-        auth_settings = ['Bearer']
-
-        return self.api_client.call_api('/v3/developer-certificates/{muuid}', 'GET',
-                                        path_params,
-                                        query_params,
-                                        header_params,
-                                        body=body_params,
-                                        post_params=form_params,
-                                        files=local_var_files,
-                                        response_type='DeveloperCertificateResponseData',
-                                        auth_settings=auth_settings,
-                                        async=params.get('async'),
-                                        _return_http_data_only=params.get('_return_http_data_only'),
-                                        _preload_content=params.get('_preload_content', True),
-                                        _request_timeout=params.get('_request_timeout'),
-                                        collection_formats=collection_formats)
-
-    def v3_developer_certificates_post(self, authorization, body, **kwargs):
+    def create_developer_certificate(self, authorization, body, **kwargs):
         """
         Create a new developer certificate to connect to the bootstrap server.
-        This REST API is intended to be used by customers to get a developer certificate (a certificate that can be flashed into multiple devices to connect to bootstrap server).  Limitations:    - One developer certificate allows up to 100 devices to connect to bootstrap server.   - Only 10 developer certificates are allowed per account. 
+        This REST API is intended to be used by customers to get a developer certificate (a certificate that can be flashed into multiple devices to connect to bootstrap server).  **Note:** The number of developer certificates allowed per account is limited. Please see [Using your own certificate authority](/docs/v1.2/mbed-cloud-deploy/instructions-for-factory-setup-and-device-provision.html#using-your-own-certificate-authority-with-mbed-cloud).  **Example usage:** curl -X POST \"http://api.us-east-1.mbedcloud.com/v3/developer-certificates\" -H \"accept: application/json\" -H \"Authorization: Bearer THE_ACCESS_TOKEN\" -H \"content-type: application/json\" -d \"{ \\\"name\\\": \\\"THE_CERTIFICATE_NAME\\\", \\\"description\\\": \\\"THE_CERTIFICATE_DESCRIPTION\\\"}\"         
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
-        >>> thread = api.v3_developer_certificates_post(authorization, body, async=True)
+        >>> thread = api.create_developer_certificate(authorization, body, async=True)
         >>> result = thread.get()
 
         :param async bool
@@ -154,18 +53,18 @@ class DeveloperCertificateApi(object):
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async'):
-            return self.v3_developer_certificates_post_with_http_info(authorization, body, **kwargs)
+            return self.create_developer_certificate_with_http_info(authorization, body, **kwargs)
         else:
-            (data) = self.v3_developer_certificates_post_with_http_info(authorization, body, **kwargs)
+            (data) = self.create_developer_certificate_with_http_info(authorization, body, **kwargs)
             return data
 
-    def v3_developer_certificates_post_with_http_info(self, authorization, body, **kwargs):
+    def create_developer_certificate_with_http_info(self, authorization, body, **kwargs):
         """
         Create a new developer certificate to connect to the bootstrap server.
-        This REST API is intended to be used by customers to get a developer certificate (a certificate that can be flashed into multiple devices to connect to bootstrap server).  Limitations:    - One developer certificate allows up to 100 devices to connect to bootstrap server.   - Only 10 developer certificates are allowed per account. 
+        This REST API is intended to be used by customers to get a developer certificate (a certificate that can be flashed into multiple devices to connect to bootstrap server).  **Note:** The number of developer certificates allowed per account is limited. Please see [Using your own certificate authority](/docs/v1.2/mbed-cloud-deploy/instructions-for-factory-setup-and-device-provision.html#using-your-own-certificate-authority-with-mbed-cloud).  **Example usage:** curl -X POST \"http://api.us-east-1.mbedcloud.com/v3/developer-certificates\" -H \"accept: application/json\" -H \"Authorization: Bearer THE_ACCESS_TOKEN\" -H \"content-type: application/json\" -d \"{ \\\"name\\\": \\\"THE_CERTIFICATE_NAME\\\", \\\"description\\\": \\\"THE_CERTIFICATE_DESCRIPTION\\\"}\"         
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
-        >>> thread = api.v3_developer_certificates_post_with_http_info(authorization, body, async=True)
+        >>> thread = api.create_developer_certificate_with_http_info(authorization, body, async=True)
         >>> result = thread.get()
 
         :param async bool
@@ -187,16 +86,16 @@ class DeveloperCertificateApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method v3_developer_certificates_post" % key
+                    " to method create_developer_certificate" % key
                 )
             params[key] = val
         del params['kwargs']
         # verify the required parameter 'authorization' is set
         if ('authorization' not in params) or (params['authorization'] is None):
-            raise ValueError("Missing the required parameter `authorization` when calling `v3_developer_certificates_post`")
+            raise ValueError("Missing the required parameter `authorization` when calling `create_developer_certificate`")
         # verify the required parameter 'body' is set
         if ('body' not in params) or (params['body'] is None):
-            raise ValueError("Missing the required parameter `body` when calling `v3_developer_certificates_post`")
+            raise ValueError("Missing the required parameter `body` when calling `create_developer_certificate`")
 
 
         collection_formats = {}
@@ -223,6 +122,107 @@ class DeveloperCertificateApi(object):
         auth_settings = ['Bearer']
 
         return self.api_client.call_api('/v3/developer-certificates', 'POST',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='DeveloperCertificateResponseData',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
+    def get_developer_certificate(self, muuid, authorization, **kwargs):
+        """
+        Fetch an existing developer certificate to connect to the bootstrap server.
+        This REST API is intended to be used by customers to fetch an existing developer certificate (a certificate that can be flashed into multiple devices to connect to bootstrap server).  **Example usage:** curl -X GET \"http://api.us-east-1.mbedcloud.com/v3/developer-certificates/THE_CERTIFICATE_ID\" -H \"accept: application/json\" -H \"Authorization: Bearer THE_ACCESS_TOKEN\" 
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.get_developer_certificate(muuid, authorization, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str muuid: A unique identifier for the developer certificate.  (required)
+        :param str authorization: Bearer {Access Token}.  (required)
+        :return: DeveloperCertificateResponseData
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.get_developer_certificate_with_http_info(muuid, authorization, **kwargs)
+        else:
+            (data) = self.get_developer_certificate_with_http_info(muuid, authorization, **kwargs)
+            return data
+
+    def get_developer_certificate_with_http_info(self, muuid, authorization, **kwargs):
+        """
+        Fetch an existing developer certificate to connect to the bootstrap server.
+        This REST API is intended to be used by customers to fetch an existing developer certificate (a certificate that can be flashed into multiple devices to connect to bootstrap server).  **Example usage:** curl -X GET \"http://api.us-east-1.mbedcloud.com/v3/developer-certificates/THE_CERTIFICATE_ID\" -H \"accept: application/json\" -H \"Authorization: Bearer THE_ACCESS_TOKEN\" 
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.get_developer_certificate_with_http_info(muuid, authorization, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str muuid: A unique identifier for the developer certificate.  (required)
+        :param str authorization: Bearer {Access Token}.  (required)
+        :return: DeveloperCertificateResponseData
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['muuid', 'authorization']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_developer_certificate" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'muuid' is set
+        if ('muuid' not in params) or (params['muuid'] is None):
+            raise ValueError("Missing the required parameter `muuid` when calling `get_developer_certificate`")
+        # verify the required parameter 'authorization' is set
+        if ('authorization' not in params) or (params['authorization'] is None):
+            raise ValueError("Missing the required parameter `authorization` when calling `get_developer_certificate`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'muuid' in params:
+            path_params['muuid'] = params['muuid']
+
+        query_params = []
+
+        header_params = {}
+        if 'authorization' in params:
+            header_params['Authorization'] = params['authorization']
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/developer-certificates/{developer-certificate-id}', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
