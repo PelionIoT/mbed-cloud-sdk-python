@@ -76,7 +76,7 @@ All URIs are relative to *http://api.us-east-1.mbedcloud.com*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DeveloperCertificateApi* | [**create_developer_certificate**](docs/DeveloperCertificateApi.md#create_developer_certificate) | **POST** /v3/developer-certificates | Create a new developer certificate to connect to the bootstrap server.
-*DeveloperCertificateApi* | [**get_developer_certificate**](docs/DeveloperCertificateApi.md#get_developer_certificate) | **GET** /v3/developer-certificates/{developer-certificate-id} | Fetch an existing developer certificate to connect to the bootstrap server.
+*DeveloperCertificateApi* | [**get_developer_certificate**](docs/DeveloperCertificateApi.md#get_developer_certificate) | **GET** /v3/developer-certificates/{developerCertificateId} | Fetch an existing developer certificate to connect to the bootstrap server.
 *ServerCredentialsApi* | [**get_all_server_credentials**](docs/ServerCredentialsApi.md#get_all_server_credentials) | **GET** /v3/server-credentials | Fetch all (Bootstrap and LWM2M) server credentials.
 *ServerCredentialsApi* | [**get_bootstrap_server_credentials**](docs/ServerCredentialsApi.md#get_bootstrap_server_credentials) | **GET** /v3/server-credentials/bootstrap | Fetch bootstrap server credentials.
 *ServerCredentialsApi* | [**get_l2_m2_m_server_credentials**](docs/ServerCredentialsApi.md#get_l2_m2_m_server_credentials) | **GET** /v3/server-credentials/lwm2m | Fetch LWM2M server credentials.
