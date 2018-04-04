@@ -464,7 +464,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_all_users**
-> UserInfoRespList get_all_users(limit=limit, after=after, order=order, include=include, email__eq=email__eq, status__eq=status__eq)
+> UserInfoRespList get_all_users(limit=limit, after=after, order=order, include=include, email__eq=email__eq, status__eq=status__eq, status__in=status__in, status__nin=status__nin)
 
 Get the details of all users.
 
@@ -492,10 +492,12 @@ order = 'ASC' # str | The order of the records based on creation time, ASC or DE
 include = 'include_example' # str | Comma separated additional data to return. Currently supported: total_count (optional)
 email__eq = 'email__eq_example' # str | Filter for email address (optional)
 status__eq = 'status__eq_example' # str | Filter for status, for example active or reset (optional)
+status__in = 'status__in_example' # str | An optional filter for getting users with a specified set of statuses. (optional)
+status__nin = 'status__nin_example' # str | An optional filter for excluding users with a specified set of statuses. (optional)
 
 try: 
     # Get the details of all users.
-    api_response = api_instance.get_all_users(limit=limit, after=after, order=order, include=include, email__eq=email__eq, status__eq=status__eq)
+    api_response = api_instance.get_all_users(limit=limit, after=after, order=order, include=include, email__eq=email__eq, status__eq=status__eq, status__in=status__in, status__nin=status__nin)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling AccountAdminApi->get_all_users: %s\n" % e)
@@ -511,6 +513,8 @@ Name | Type | Description  | Notes
  **include** | **str**| Comma separated additional data to return. Currently supported: total_count | [optional] 
  **email__eq** | **str**| Filter for email address | [optional] 
  **status__eq** | **str**| Filter for status, for example active or reset | [optional] 
+ **status__in** | **str**| An optional filter for getting users with a specified set of statuses. | [optional] 
+ **status__nin** | **str**| An optional filter for excluding users with a specified set of statuses. | [optional] 
 
 ### Return type
 

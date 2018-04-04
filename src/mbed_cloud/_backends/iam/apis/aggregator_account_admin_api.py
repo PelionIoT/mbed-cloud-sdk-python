@@ -1613,9 +1613,8 @@ class AggregatorAccountAdminApi(object):
         :param async bool
         :param str account_id: Account ID. (required)
         :param str user_id: The ID of the user to be retrieved. (required)
-        :param str scratch_codes: Request to regenerate new emergency scratch codes.
         :param str properties: Request to return account specific user property values according to the given property name.
-        :return: MyUserInfoResp
+        :return: UserInfoResp
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -1638,14 +1637,13 @@ class AggregatorAccountAdminApi(object):
         :param async bool
         :param str account_id: Account ID. (required)
         :param str user_id: The ID of the user to be retrieved. (required)
-        :param str scratch_codes: Request to regenerate new emergency scratch codes.
         :param str properties: Request to return account specific user property values according to the given property name.
-        :return: MyUserInfoResp
+        :return: UserInfoResp
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['account_id', 'user_id', 'scratch_codes', 'properties']
+        all_params = ['account_id', 'user_id', 'properties']
         all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -1677,8 +1675,6 @@ class AggregatorAccountAdminApi(object):
             path_params['user-id'] = params['user_id']
 
         query_params = []
-        if 'scratch_codes' in params:
-            query_params.append(('scratch_codes', params['scratch_codes']))
         if 'properties' in params:
             query_params.append(('properties', params['properties']))
 
@@ -1702,7 +1698,7 @@ class AggregatorAccountAdminApi(object):
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='MyUserInfoResp',
+                                        response_type='UserInfoResp',
                                         auth_settings=auth_settings,
                                         async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -2105,6 +2101,8 @@ class AggregatorAccountAdminApi(object):
         :param str include: Comma separated additional data to return. Currently supported: total_count
         :param str email__eq: Filter for email address
         :param str status__eq: Filter for status
+        :param str status__in: An optional filter for getting users with a specified set of statuses.
+        :param str status__nin: An optional filter for excluding users with a specified set of statuses.
         :return: UserInfoRespList
                  If the method is called asynchronously,
                  returns the request thread.
@@ -2133,12 +2131,14 @@ class AggregatorAccountAdminApi(object):
         :param str include: Comma separated additional data to return. Currently supported: total_count
         :param str email__eq: Filter for email address
         :param str status__eq: Filter for status
+        :param str status__in: An optional filter for getting users with a specified set of statuses.
+        :param str status__nin: An optional filter for excluding users with a specified set of statuses.
         :return: UserInfoRespList
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['account_id', 'limit', 'after', 'order', 'include', 'email__eq', 'status__eq']
+        all_params = ['account_id', 'limit', 'after', 'order', 'include', 'email__eq', 'status__eq', 'status__in', 'status__nin']
         all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -2177,6 +2177,10 @@ class AggregatorAccountAdminApi(object):
             query_params.append(('email__eq', params['email__eq']))
         if 'status__eq' in params:
             query_params.append(('status__eq', params['status__eq']))
+        if 'status__in' in params:
+            query_params.append(('status__in', params['status__in']))
+        if 'status__nin' in params:
+            query_params.append(('status__nin', params['status__nin']))
 
         header_params = {}
 
@@ -2217,6 +2221,8 @@ class AggregatorAccountAdminApi(object):
 
         :param async bool
         :param str status__eq: An optional filter for account status, ENROLLING, ACTIVE, RESTRICTED or SUSPENDED.
+        :param str status__in: An optional filter for getting accounts with a specified set of statuses.
+        :param str status__nin: An optional filter for excluding accounts with a specified set of statuses.
         :param str tier__eq: An optional filter for tier level, must be 0, 1, 2, 98, 99 or omitted.
         :param str parent__eq: An optional filter for parent account ID.
         :param str end_market__eq: An optional filter for account end market.
@@ -2249,6 +2255,8 @@ class AggregatorAccountAdminApi(object):
 
         :param async bool
         :param str status__eq: An optional filter for account status, ENROLLING, ACTIVE, RESTRICTED or SUSPENDED.
+        :param str status__in: An optional filter for getting accounts with a specified set of statuses.
+        :param str status__nin: An optional filter for excluding accounts with a specified set of statuses.
         :param str tier__eq: An optional filter for tier level, must be 0, 1, 2, 98, 99 or omitted.
         :param str parent__eq: An optional filter for parent account ID.
         :param str end_market__eq: An optional filter for account end market.
@@ -2264,7 +2272,7 @@ class AggregatorAccountAdminApi(object):
                  returns the request thread.
         """
 
-        all_params = ['status__eq', 'tier__eq', 'parent__eq', 'end_market__eq', 'country__like', 'limit', 'after', 'order', 'include', 'format', 'properties']
+        all_params = ['status__eq', 'status__in', 'status__nin', 'tier__eq', 'parent__eq', 'end_market__eq', 'country__like', 'limit', 'after', 'order', 'include', 'format', 'properties']
         all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -2288,6 +2296,10 @@ class AggregatorAccountAdminApi(object):
         query_params = []
         if 'status__eq' in params:
             query_params.append(('status__eq', params['status__eq']))
+        if 'status__in' in params:
+            query_params.append(('status__in', params['status__in']))
+        if 'status__nin' in params:
+            query_params.append(('status__nin', params['status__nin']))
         if 'tier__eq' in params:
             query_params.append(('tier__eq', params['tier__eq']))
         if 'parent__eq' in params:

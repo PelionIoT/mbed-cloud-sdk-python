@@ -852,6 +852,8 @@ class AccountAdminApi(object):
         :param str include: Comma separated additional data to return. Currently supported: total_count
         :param str email__eq: Filter for email address
         :param str status__eq: Filter for status, for example active or reset
+        :param str status__in: An optional filter for getting users with a specified set of statuses.
+        :param str status__nin: An optional filter for excluding users with a specified set of statuses.
         :return: UserInfoRespList
                  If the method is called asynchronously,
                  returns the request thread.
@@ -879,12 +881,14 @@ class AccountAdminApi(object):
         :param str include: Comma separated additional data to return. Currently supported: total_count
         :param str email__eq: Filter for email address
         :param str status__eq: Filter for status, for example active or reset
+        :param str status__in: An optional filter for getting users with a specified set of statuses.
+        :param str status__nin: An optional filter for excluding users with a specified set of statuses.
         :return: UserInfoRespList
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['limit', 'after', 'order', 'include', 'email__eq', 'status__eq']
+        all_params = ['limit', 'after', 'order', 'include', 'email__eq', 'status__eq', 'status__in', 'status__nin']
         all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -918,6 +922,10 @@ class AccountAdminApi(object):
             query_params.append(('email__eq', params['email__eq']))
         if 'status__eq' in params:
             query_params.append(('status__eq', params['status__eq']))
+        if 'status__in' in params:
+            query_params.append(('status__in', params['status__in']))
+        if 'status__nin' in params:
+            query_params.append(('status__nin', params['status__nin']))
 
         header_params = {}
 
