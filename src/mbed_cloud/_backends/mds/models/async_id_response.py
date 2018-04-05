@@ -3,7 +3,7 @@
 """
     Connect API
 
-    Mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
+    Mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. Mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
 
     OpenAPI spec version: 2
     
@@ -31,104 +31,58 @@ class AsyncIDResponse(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'status': 'int',
-        'payload': 'str',
-        'max_age': 'str',
+        'ct': 'str',
         'error': 'str',
         'id': 'str',
-        'ct': 'str'
+        'max_age': 'str',
+        'payload': 'str',
+        'status': 'int'
     }
 
     attribute_map = {
-        'status': 'status',
-        'payload': 'payload',
-        'max_age': 'max-age',
+        'ct': 'ct',
         'error': 'error',
         'id': 'id',
-        'ct': 'ct'
+        'max_age': 'max-age',
+        'payload': 'payload',
+        'status': 'status'
     }
 
-    def __init__(self, status=None, payload=None, max_age=None, error=None, id=None, ct=None):
+    def __init__(self, ct=None, error=None, id=None, max_age=None, payload=None, status=None):
         """
         AsyncIDResponse - a model defined in Swagger
         """
 
-        self._status = status
-        self._payload = payload
-        self._max_age = max_age
+        self._ct = ct
         self._error = error
         self._id = id
-        self._ct = ct
+        self._max_age = max_age
+        self._payload = payload
+        self._status = status
         self.discriminator = None
 
     @property
-    def status(self):
+    def ct(self):
         """
-        Gets the status of this AsyncIDResponse.
-        The asynchronous response status code for a device operation related to a proxy request or manual subscription.
+        Gets the ct of this AsyncIDResponse.
+        The content type.
 
-        :return: The status of this AsyncIDResponse.
-        :rtype: int
-        """
-        return self._status
-
-    @status.setter
-    def status(self, status):
-        """
-        Sets the status of this AsyncIDResponse.
-        The asynchronous response status code for a device operation related to a proxy request or manual subscription.
-
-        :param status: The status of this AsyncIDResponse.
-        :type: int
-        """
-
-        self._status = status
-
-    @property
-    def payload(self):
-        """
-        Gets the payload of this AsyncIDResponse.
-        Requested data, base64 encoded.
-
-        :return: The payload of this AsyncIDResponse.
+        :return: The ct of this AsyncIDResponse.
         :rtype: str
         """
-        return self._payload
+        return self._ct
 
-    @payload.setter
-    def payload(self, payload):
+    @ct.setter
+    def ct(self, ct):
         """
-        Sets the payload of this AsyncIDResponse.
-        Requested data, base64 encoded.
+        Sets the ct of this AsyncIDResponse.
+        The content type.
 
-        :param payload: The payload of this AsyncIDResponse.
+        :param ct: The ct of this AsyncIDResponse.
         :type: str
         """
 
-        self._payload = payload
-
-    @property
-    def max_age(self):
-        """
-        Gets the max_age of this AsyncIDResponse.
-        Determines how long this value stays valid in the cache, in seconds. 0 means that the value is not stored in the cache.
-
-        :return: The max_age of this AsyncIDResponse.
-        :rtype: str
-        """
-        return self._max_age
-
-    @max_age.setter
-    def max_age(self, max_age):
-        """
-        Sets the max_age of this AsyncIDResponse.
-        Determines how long this value stays valid in the cache, in seconds. 0 means that the value is not stored in the cache.
-
-        :param max_age: The max_age of this AsyncIDResponse.
-        :type: str
-        """
-
-        self._max_age = max_age
+        self._ct = ct
 
     @property
     def error(self):
@@ -177,27 +131,73 @@ class AsyncIDResponse(object):
         self._id = id
 
     @property
-    def ct(self):
+    def max_age(self):
         """
-        Gets the ct of this AsyncIDResponse.
-        The content type.
+        Gets the max_age of this AsyncIDResponse.
+        Determines how long this value stays valid in the cache, in seconds. 0 means that the value is not stored in the cache.
 
-        :return: The ct of this AsyncIDResponse.
+        :return: The max_age of this AsyncIDResponse.
         :rtype: str
         """
-        return self._ct
+        return self._max_age
 
-    @ct.setter
-    def ct(self, ct):
+    @max_age.setter
+    def max_age(self, max_age):
         """
-        Sets the ct of this AsyncIDResponse.
-        The content type.
+        Sets the max_age of this AsyncIDResponse.
+        Determines how long this value stays valid in the cache, in seconds. 0 means that the value is not stored in the cache.
 
-        :param ct: The ct of this AsyncIDResponse.
+        :param max_age: The max_age of this AsyncIDResponse.
         :type: str
         """
 
-        self._ct = ct
+        self._max_age = max_age
+
+    @property
+    def payload(self):
+        """
+        Gets the payload of this AsyncIDResponse.
+        Requested data, base64 encoded.
+
+        :return: The payload of this AsyncIDResponse.
+        :rtype: str
+        """
+        return self._payload
+
+    @payload.setter
+    def payload(self, payload):
+        """
+        Sets the payload of this AsyncIDResponse.
+        Requested data, base64 encoded.
+
+        :param payload: The payload of this AsyncIDResponse.
+        :type: str
+        """
+
+        self._payload = payload
+
+    @property
+    def status(self):
+        """
+        Gets the status of this AsyncIDResponse.
+        The asynchronous response status code for a device operation related to a proxy request or manual subscription.
+
+        :return: The status of this AsyncIDResponse.
+        :rtype: int
+        """
+        return self._status
+
+    @status.setter
+    def status(self, status):
+        """
+        Sets the status of this AsyncIDResponse.
+        The asynchronous response status code for a device operation related to a proxy request or manual subscription.
+
+        :param status: The status of this AsyncIDResponse.
+        :type: int
+        """
+
+        self._status = status
 
     def to_dict(self):
         """

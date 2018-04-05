@@ -97,15 +97,15 @@ class CertificatesAPI(BaseAPI):
         # extend certificate with developer_certificate properties
         if certificate.type == CertificateType.developer:
             dev_api = self._get_api(cert.DeveloperCertificateApi)
-            dev_cert = dev_api.v3_developer_certificates_muuid_get(certificate.id, self.auth)
+            dev_cert = dev_api.get_developer_certificate(certificate.id, self.auth)
             certificate.update_attributes(dev_cert)
         elif certificate.type == CertificateType.bootstrap:
             server_api = self._get_api(cert.ServerCredentialsApi)
-            credentials = server_api.v3_server_credentials_bootstrap_get(self.auth)
+            credentials = server_api.get_bootstrap_server_credentials(self.auth)
             certificate.update_attributes(credentials)
         elif certificate.type == CertificateType.lwm2m:
             server_api = self._get_api(cert.ServerCredentialsApi)
-            credentials = server_api.v3_server_credentials_lwm2m_get(self.auth)
+            credentials = server_api.get_l2_m2_m_server_credentials(self.auth)
             certificate.update_attributes(credentials)
 
     @catch_exceptions(IamApiException)
@@ -166,7 +166,7 @@ class CertificatesAPI(BaseAPI):
         certificate = {k: v for k, v in certificate.items() if k in subset}
 
         body = cert.DeveloperCertificateRequestData(**certificate)
-        dev_cert = api.v3_developer_certificates_post(self.auth, body)
+        dev_cert = api.create_developer_certificate(self.auth, body)
         return self.get_certificate(dev_cert.id)
 
     @catch_exceptions(IamApiException)

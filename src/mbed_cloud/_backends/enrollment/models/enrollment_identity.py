@@ -31,99 +31,47 @@ class EnrollmentIdentity(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'enrollment_identity': 'str',
-        'object': 'str',
         'account_id': 'str',
-        'created_at': 'datetime',
         'claimed_at': 'datetime',
-        'expires_at': 'datetime',
+        'created_at': 'datetime',
+        'device_id': 'str',
         'enrolled_device_id': 'str',
+        'enrollment_identity': 'str',
         'etag': 'str',
+        'expires_at': 'datetime',
         'id': 'str',
-        'device_id': 'str'
+        'object': 'str'
     }
 
     attribute_map = {
-        'enrollment_identity': 'enrollment_identity',
-        'object': 'object',
         'account_id': 'account_id',
-        'created_at': 'created_at',
         'claimed_at': 'claimed_at',
-        'expires_at': 'expires_at',
+        'created_at': 'created_at',
+        'device_id': 'device_id',
         'enrolled_device_id': 'enrolled_device_id',
+        'enrollment_identity': 'enrollment_identity',
         'etag': 'etag',
+        'expires_at': 'expires_at',
         'id': 'id',
-        'device_id': 'device_id'
+        'object': 'object'
     }
 
-    def __init__(self, enrollment_identity=None, object=None, account_id=None, created_at=None, claimed_at=None, expires_at=None, enrolled_device_id=None, etag=None, id=None, device_id=None):
+    def __init__(self, account_id=None, claimed_at=None, created_at=None, device_id=None, enrolled_device_id=None, enrollment_identity=None, etag=None, expires_at=None, id=None, object=None):
         """
         EnrollmentIdentity - a model defined in Swagger
         """
 
-        self._enrollment_identity = enrollment_identity
-        self._object = object
         self._account_id = account_id
-        self._created_at = created_at
         self._claimed_at = claimed_at
-        self._expires_at = expires_at
-        self._enrolled_device_id = enrolled_device_id
-        self._etag = etag
-        self._id = id
+        self._created_at = created_at
         self._device_id = device_id
-        self.discriminator = None
-
-    @property
-    def enrollment_identity(self):
-        """
-        Gets the enrollment_identity of this EnrollmentIdentity.
-        Enrollment identity.
-
-        :return: The enrollment_identity of this EnrollmentIdentity.
-        :rtype: str
-        """
-        return self._enrollment_identity
-
-    @enrollment_identity.setter
-    def enrollment_identity(self, enrollment_identity):
-        """
-        Sets the enrollment_identity of this EnrollmentIdentity.
-        Enrollment identity.
-
-        :param enrollment_identity: The enrollment_identity of this EnrollmentIdentity.
-        :type: str
-        """
-        if enrollment_identity is not None and not re.search('^A-[A-Za-z0-9:]{95}$', enrollment_identity):
-            raise ValueError("Invalid value for `enrollment_identity`, must be a follow pattern or equal to `/^A-[A-Za-z0-9:]{95}$/`")
-
+        self._enrolled_device_id = enrolled_device_id
         self._enrollment_identity = enrollment_identity
-
-    @property
-    def object(self):
-        """
-        Gets the object of this EnrollmentIdentity.
-
-        :return: The object of this EnrollmentIdentity.
-        :rtype: str
-        """
-        return self._object
-
-    @object.setter
-    def object(self, object):
-        """
-        Sets the object of this EnrollmentIdentity.
-
-        :param object: The object of this EnrollmentIdentity.
-        :type: str
-        """
-        allowed_values = ["enrollment"]
-        if object not in allowed_values:
-            raise ValueError(
-                "Invalid value for `object` ({0}), must be one of {1}"
-                .format(object, allowed_values)
-            )
-
+        self._etag = etag
+        self._expires_at = expires_at
+        self._id = id
         self._object = object
+        self.discriminator = None
 
     @property
     def account_id(self):
@@ -151,6 +99,29 @@ class EnrollmentIdentity(object):
         self._account_id = account_id
 
     @property
+    def claimed_at(self):
+        """
+        Gets the claimed_at of this EnrollmentIdentity.
+        The time of claiming the device to be assigned to the account.
+
+        :return: The claimed_at of this EnrollmentIdentity.
+        :rtype: datetime
+        """
+        return self._claimed_at
+
+    @claimed_at.setter
+    def claimed_at(self, claimed_at):
+        """
+        Sets the claimed_at of this EnrollmentIdentity.
+        The time of claiming the device to be assigned to the account.
+
+        :param claimed_at: The claimed_at of this EnrollmentIdentity.
+        :type: datetime
+        """
+
+        self._claimed_at = claimed_at
+
+    @property
     def created_at(self):
         """
         Gets the created_at of this EnrollmentIdentity.
@@ -176,52 +147,27 @@ class EnrollmentIdentity(object):
         self._created_at = created_at
 
     @property
-    def claimed_at(self):
+    def device_id(self):
         """
-        Gets the claimed_at of this EnrollmentIdentity.
-        The time of claiming the device to be assigned to the account.
+        Gets the device_id of this EnrollmentIdentity.
+        The ID of the device in the Device Directory once it has been registered.
 
-        :return: The claimed_at of this EnrollmentIdentity.
-        :rtype: datetime
+        :return: The device_id of this EnrollmentIdentity.
+        :rtype: str
         """
-        return self._claimed_at
+        return self._device_id
 
-    @claimed_at.setter
-    def claimed_at(self, claimed_at):
+    @device_id.setter
+    def device_id(self, device_id):
         """
-        Sets the claimed_at of this EnrollmentIdentity.
-        The time of claiming the device to be assigned to the account.
+        Sets the device_id of this EnrollmentIdentity.
+        The ID of the device in the Device Directory once it has been registered.
 
-        :param claimed_at: The claimed_at of this EnrollmentIdentity.
-        :type: datetime
+        :param device_id: The device_id of this EnrollmentIdentity.
+        :type: str
         """
 
-        self._claimed_at = claimed_at
-
-    @property
-    def expires_at(self):
-        """
-        Gets the expires_at of this EnrollmentIdentity.
-        The enrollment claim expiration time. If the device does not connect to Mbed Cloud before the expiration, the claim is removed without a separate notice
-
-        :return: The expires_at of this EnrollmentIdentity.
-        :rtype: datetime
-        """
-        return self._expires_at
-
-    @expires_at.setter
-    def expires_at(self, expires_at):
-        """
-        Sets the expires_at of this EnrollmentIdentity.
-        The enrollment claim expiration time. If the device does not connect to Mbed Cloud before the expiration, the claim is removed without a separate notice
-
-        :param expires_at: The expires_at of this EnrollmentIdentity.
-        :type: datetime
-        """
-        if expires_at is None:
-            raise ValueError("Invalid value for `expires_at`, must not be `None`")
-
-        self._expires_at = expires_at
+        self._device_id = device_id
 
     @property
     def enrolled_device_id(self):
@@ -249,6 +195,31 @@ class EnrollmentIdentity(object):
         self._enrolled_device_id = enrolled_device_id
 
     @property
+    def enrollment_identity(self):
+        """
+        Gets the enrollment_identity of this EnrollmentIdentity.
+        Enrollment identity.
+
+        :return: The enrollment_identity of this EnrollmentIdentity.
+        :rtype: str
+        """
+        return self._enrollment_identity
+
+    @enrollment_identity.setter
+    def enrollment_identity(self, enrollment_identity):
+        """
+        Sets the enrollment_identity of this EnrollmentIdentity.
+        Enrollment identity.
+
+        :param enrollment_identity: The enrollment_identity of this EnrollmentIdentity.
+        :type: str
+        """
+        if enrollment_identity is not None and not re.search('^A-[A-Za-z0-9:]{95}$', enrollment_identity):
+            raise ValueError("Invalid value for `enrollment_identity`, must be a follow pattern or equal to `/^A-[A-Za-z0-9:]{95}$/`")
+
+        self._enrollment_identity = enrollment_identity
+
+    @property
     def etag(self):
         """
         Gets the etag of this EnrollmentIdentity.
@@ -272,6 +243,31 @@ class EnrollmentIdentity(object):
             raise ValueError("Invalid value for `etag`, must be a follow pattern or equal to `/[A-Za-z0-9]{1,256}/`")
 
         self._etag = etag
+
+    @property
+    def expires_at(self):
+        """
+        Gets the expires_at of this EnrollmentIdentity.
+        The enrollment claim expiration time. If the device does not connect to Mbed Cloud before the expiration, the claim is removed without a separate notice
+
+        :return: The expires_at of this EnrollmentIdentity.
+        :rtype: datetime
+        """
+        return self._expires_at
+
+    @expires_at.setter
+    def expires_at(self, expires_at):
+        """
+        Sets the expires_at of this EnrollmentIdentity.
+        The enrollment claim expiration time. If the device does not connect to Mbed Cloud before the expiration, the claim is removed without a separate notice
+
+        :param expires_at: The expires_at of this EnrollmentIdentity.
+        :type: datetime
+        """
+        if expires_at is None:
+            raise ValueError("Invalid value for `expires_at`, must not be `None`")
+
+        self._expires_at = expires_at
 
     @property
     def id(self):
@@ -301,27 +297,31 @@ class EnrollmentIdentity(object):
         self._id = id
 
     @property
-    def device_id(self):
+    def object(self):
         """
-        Gets the device_id of this EnrollmentIdentity.
-        The ID of the device in the Device Directory once it has been registered.
+        Gets the object of this EnrollmentIdentity.
 
-        :return: The device_id of this EnrollmentIdentity.
+        :return: The object of this EnrollmentIdentity.
         :rtype: str
         """
-        return self._device_id
+        return self._object
 
-    @device_id.setter
-    def device_id(self, device_id):
+    @object.setter
+    def object(self, object):
         """
-        Sets the device_id of this EnrollmentIdentity.
-        The ID of the device in the Device Directory once it has been registered.
+        Sets the object of this EnrollmentIdentity.
 
-        :param device_id: The device_id of this EnrollmentIdentity.
+        :param object: The object of this EnrollmentIdentity.
         :type: str
         """
+        allowed_values = ["enrollment"]
+        if object not in allowed_values:
+            raise ValueError(
+                "Invalid value for `object` ({0}), must be one of {1}"
+                .format(object, allowed_values)
+            )
 
-        self._device_id = device_id
+        self._object = object
 
     def to_dict(self):
         """

@@ -31,56 +31,35 @@ class DeviceQueryInNinFilter(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'name': 'str',
         'created_at': 'datetime',
-        'updated_at': 'datetime',
         'etag': 'datetime',
+        'id': 'str',
+        'name': 'str',
         'query': 'str',
-        'id': 'str'
+        'updated_at': 'datetime'
     }
 
     attribute_map = {
-        'name': 'name',
         'created_at': 'created_at',
-        'updated_at': 'updated_at',
         'etag': 'etag',
+        'id': 'id',
+        'name': 'name',
         'query': 'query',
-        'id': 'id'
+        'updated_at': 'updated_at'
     }
 
-    def __init__(self, name=None, created_at=None, updated_at=None, etag=None, query=None, id=None):
+    def __init__(self, created_at=None, etag=None, id=None, name=None, query=None, updated_at=None):
         """
         DeviceQueryInNinFilter - a model defined in Swagger
         """
 
-        self._name = name
         self._created_at = created_at
-        self._updated_at = updated_at
         self._etag = etag
-        self._query = query
         self._id = id
-        self.discriminator = None
-
-    @property
-    def name(self):
-        """
-        Gets the name of this DeviceQueryInNinFilter.
-
-        :return: The name of this DeviceQueryInNinFilter.
-        :rtype: str
-        """
-        return self._name
-
-    @name.setter
-    def name(self, name):
-        """
-        Sets the name of this DeviceQueryInNinFilter.
-
-        :param name: The name of this DeviceQueryInNinFilter.
-        :type: str
-        """
-
         self._name = name
+        self._query = query
+        self._updated_at = updated_at
+        self.discriminator = None
 
     @property
     def created_at(self):
@@ -104,27 +83,6 @@ class DeviceQueryInNinFilter(object):
         self._created_at = created_at
 
     @property
-    def updated_at(self):
-        """
-        Gets the updated_at of this DeviceQueryInNinFilter.
-
-        :return: The updated_at of this DeviceQueryInNinFilter.
-        :rtype: datetime
-        """
-        return self._updated_at
-
-    @updated_at.setter
-    def updated_at(self, updated_at):
-        """
-        Sets the updated_at of this DeviceQueryInNinFilter.
-
-        :param updated_at: The updated_at of this DeviceQueryInNinFilter.
-        :type: datetime
-        """
-
-        self._updated_at = updated_at
-
-    @property
     def etag(self):
         """
         Gets the etag of this DeviceQueryInNinFilter.
@@ -144,6 +102,48 @@ class DeviceQueryInNinFilter(object):
         """
 
         self._etag = etag
+
+    @property
+    def id(self):
+        """
+        Gets the id of this DeviceQueryInNinFilter.
+
+        :return: The id of this DeviceQueryInNinFilter.
+        :rtype: str
+        """
+        return self._id
+
+    @id.setter
+    def id(self, id):
+        """
+        Sets the id of this DeviceQueryInNinFilter.
+
+        :param id: The id of this DeviceQueryInNinFilter.
+        :type: str
+        """
+
+        self._id = id
+
+    @property
+    def name(self):
+        """
+        Gets the name of this DeviceQueryInNinFilter.
+
+        :return: The name of this DeviceQueryInNinFilter.
+        :rtype: str
+        """
+        return self._name
+
+    @name.setter
+    def name(self, name):
+        """
+        Sets the name of this DeviceQueryInNinFilter.
+
+        :param name: The name of this DeviceQueryInNinFilter.
+        :type: str
+        """
+
+        self._name = name
 
     @property
     def query(self):
@@ -167,25 +167,25 @@ class DeviceQueryInNinFilter(object):
         self._query = query
 
     @property
-    def id(self):
+    def updated_at(self):
         """
-        Gets the id of this DeviceQueryInNinFilter.
+        Gets the updated_at of this DeviceQueryInNinFilter.
 
-        :return: The id of this DeviceQueryInNinFilter.
-        :rtype: str
+        :return: The updated_at of this DeviceQueryInNinFilter.
+        :rtype: datetime
         """
-        return self._id
+        return self._updated_at
 
-    @id.setter
-    def id(self, id):
+    @updated_at.setter
+    def updated_at(self, updated_at):
         """
-        Sets the id of this DeviceQueryInNinFilter.
+        Sets the updated_at of this DeviceQueryInNinFilter.
 
-        :param id: The id of this DeviceQueryInNinFilter.
-        :type: str
+        :param updated_at: The updated_at of this DeviceQueryInNinFilter.
+        :type: datetime
         """
 
-        self._id = id
+        self._updated_at = updated_at
 
     def to_dict(self):
         """

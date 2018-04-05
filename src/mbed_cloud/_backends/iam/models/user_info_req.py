@@ -31,208 +31,47 @@ class UserInfoReq(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'phone_number': 'str',
-        'username': 'str',
-        'groups': 'list[str]',
-        'user_properties': 'dict(str, dict(str, str))',
-        'is_gtc_accepted': 'bool',
-        'full_name': 'str',
-        'is_marketing_accepted': 'bool',
         'address': 'str',
+        'email': 'str',
+        'full_name': 'str',
+        'groups': 'list[str]',
+        'is_gtc_accepted': 'bool',
+        'is_marketing_accepted': 'bool',
         'password': 'str',
-        'email': 'str'
+        'phone_number': 'str',
+        'user_properties': 'dict(str, dict(str, str))',
+        'username': 'str'
     }
 
     attribute_map = {
-        'phone_number': 'phone_number',
-        'username': 'username',
-        'groups': 'groups',
-        'user_properties': 'user_properties',
-        'is_gtc_accepted': 'is_gtc_accepted',
-        'full_name': 'full_name',
-        'is_marketing_accepted': 'is_marketing_accepted',
         'address': 'address',
+        'email': 'email',
+        'full_name': 'full_name',
+        'groups': 'groups',
+        'is_gtc_accepted': 'is_gtc_accepted',
+        'is_marketing_accepted': 'is_marketing_accepted',
         'password': 'password',
-        'email': 'email'
+        'phone_number': 'phone_number',
+        'user_properties': 'user_properties',
+        'username': 'username'
     }
 
-    def __init__(self, phone_number=None, username=None, groups=None, user_properties=None, is_gtc_accepted=None, full_name=None, is_marketing_accepted=None, address=None, password=None, email=None):
+    def __init__(self, address=None, email=None, full_name=None, groups=None, is_gtc_accepted=None, is_marketing_accepted=None, password=None, phone_number=None, user_properties=None, username=None):
         """
         UserInfoReq - a model defined in Swagger
         """
 
-        self._phone_number = phone_number
-        self._username = username
-        self._groups = groups
-        self._user_properties = user_properties
-        self._is_gtc_accepted = is_gtc_accepted
-        self._full_name = full_name
-        self._is_marketing_accepted = is_marketing_accepted
         self._address = address
-        self._password = password
         self._email = email
-        self.discriminator = None
-
-    @property
-    def phone_number(self):
-        """
-        Gets the phone_number of this UserInfoReq.
-        Phone number, not longer than 100 characters.
-
-        :return: The phone_number of this UserInfoReq.
-        :rtype: str
-        """
-        return self._phone_number
-
-    @phone_number.setter
-    def phone_number(self, phone_number):
-        """
-        Sets the phone_number of this UserInfoReq.
-        Phone number, not longer than 100 characters.
-
-        :param phone_number: The phone_number of this UserInfoReq.
-        :type: str
-        """
-
-        self._phone_number = phone_number
-
-    @property
-    def username(self):
-        """
-        Gets the username of this UserInfoReq.
-        A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
-
-        :return: The username of this UserInfoReq.
-        :rtype: str
-        """
-        return self._username
-
-    @username.setter
-    def username(self, username):
-        """
-        Sets the username of this UserInfoReq.
-        A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
-
-        :param username: The username of this UserInfoReq.
-        :type: str
-        """
-
-        self._username = username
-
-    @property
-    def groups(self):
-        """
-        Gets the groups of this UserInfoReq.
-        A list of IDs of the groups this user belongs to.
-
-        :return: The groups of this UserInfoReq.
-        :rtype: list[str]
-        """
-        return self._groups
-
-    @groups.setter
-    def groups(self, groups):
-        """
-        Sets the groups of this UserInfoReq.
-        A list of IDs of the groups this user belongs to.
-
-        :param groups: The groups of this UserInfoReq.
-        :type: list[str]
-        """
-
-        self._groups = groups
-
-    @property
-    def user_properties(self):
-        """
-        Gets the user_properties of this UserInfoReq.
-        User's account specific custom properties.
-
-        :return: The user_properties of this UserInfoReq.
-        :rtype: dict(str, dict(str, str))
-        """
-        return self._user_properties
-
-    @user_properties.setter
-    def user_properties(self, user_properties):
-        """
-        Sets the user_properties of this UserInfoReq.
-        User's account specific custom properties.
-
-        :param user_properties: The user_properties of this UserInfoReq.
-        :type: dict(str, dict(str, str))
-        """
-
-        self._user_properties = user_properties
-
-    @property
-    def is_gtc_accepted(self):
-        """
-        Gets the is_gtc_accepted of this UserInfoReq.
-        A flag indicating that the General Terms and Conditions has been accepted.
-
-        :return: The is_gtc_accepted of this UserInfoReq.
-        :rtype: bool
-        """
-        return self._is_gtc_accepted
-
-    @is_gtc_accepted.setter
-    def is_gtc_accepted(self, is_gtc_accepted):
-        """
-        Sets the is_gtc_accepted of this UserInfoReq.
-        A flag indicating that the General Terms and Conditions has been accepted.
-
-        :param is_gtc_accepted: The is_gtc_accepted of this UserInfoReq.
-        :type: bool
-        """
-
-        self._is_gtc_accepted = is_gtc_accepted
-
-    @property
-    def full_name(self):
-        """
-        Gets the full_name of this UserInfoReq.
-        The full name of the user, not longer than 100 characters.
-
-        :return: The full_name of this UserInfoReq.
-        :rtype: str
-        """
-        return self._full_name
-
-    @full_name.setter
-    def full_name(self, full_name):
-        """
-        Sets the full_name of this UserInfoReq.
-        The full name of the user, not longer than 100 characters.
-
-        :param full_name: The full_name of this UserInfoReq.
-        :type: str
-        """
-
         self._full_name = full_name
-
-    @property
-    def is_marketing_accepted(self):
-        """
-        Gets the is_marketing_accepted of this UserInfoReq.
-        A flag indicating that receiving marketing information has been accepted.
-
-        :return: The is_marketing_accepted of this UserInfoReq.
-        :rtype: bool
-        """
-        return self._is_marketing_accepted
-
-    @is_marketing_accepted.setter
-    def is_marketing_accepted(self, is_marketing_accepted):
-        """
-        Sets the is_marketing_accepted of this UserInfoReq.
-        A flag indicating that receiving marketing information has been accepted.
-
-        :param is_marketing_accepted: The is_marketing_accepted of this UserInfoReq.
-        :type: bool
-        """
-
+        self._groups = groups
+        self._is_gtc_accepted = is_gtc_accepted
         self._is_marketing_accepted = is_marketing_accepted
+        self._password = password
+        self._phone_number = phone_number
+        self._user_properties = user_properties
+        self._username = username
+        self.discriminator = None
 
     @property
     def address(self):
@@ -258,29 +97,6 @@ class UserInfoReq(object):
         self._address = address
 
     @property
-    def password(self):
-        """
-        Gets the password of this UserInfoReq.
-        The password when creating a new user. It will be generated when not present in the request.
-
-        :return: The password of this UserInfoReq.
-        :rtype: str
-        """
-        return self._password
-
-    @password.setter
-    def password(self, password):
-        """
-        Sets the password of this UserInfoReq.
-        The password when creating a new user. It will be generated when not present in the request.
-
-        :param password: The password of this UserInfoReq.
-        :type: str
-        """
-
-        self._password = password
-
-    @property
     def email(self):
         """
         Gets the email of this UserInfoReq.
@@ -304,6 +120,190 @@ class UserInfoReq(object):
             raise ValueError("Invalid value for `email`, must not be `None`")
 
         self._email = email
+
+    @property
+    def full_name(self):
+        """
+        Gets the full_name of this UserInfoReq.
+        The full name of the user, not longer than 100 characters.
+
+        :return: The full_name of this UserInfoReq.
+        :rtype: str
+        """
+        return self._full_name
+
+    @full_name.setter
+    def full_name(self, full_name):
+        """
+        Sets the full_name of this UserInfoReq.
+        The full name of the user, not longer than 100 characters.
+
+        :param full_name: The full_name of this UserInfoReq.
+        :type: str
+        """
+
+        self._full_name = full_name
+
+    @property
+    def groups(self):
+        """
+        Gets the groups of this UserInfoReq.
+        A list of IDs of the groups this user belongs to.
+
+        :return: The groups of this UserInfoReq.
+        :rtype: list[str]
+        """
+        return self._groups
+
+    @groups.setter
+    def groups(self, groups):
+        """
+        Sets the groups of this UserInfoReq.
+        A list of IDs of the groups this user belongs to.
+
+        :param groups: The groups of this UserInfoReq.
+        :type: list[str]
+        """
+
+        self._groups = groups
+
+    @property
+    def is_gtc_accepted(self):
+        """
+        Gets the is_gtc_accepted of this UserInfoReq.
+        A flag indicating that the General Terms and Conditions has been accepted.
+
+        :return: The is_gtc_accepted of this UserInfoReq.
+        :rtype: bool
+        """
+        return self._is_gtc_accepted
+
+    @is_gtc_accepted.setter
+    def is_gtc_accepted(self, is_gtc_accepted):
+        """
+        Sets the is_gtc_accepted of this UserInfoReq.
+        A flag indicating that the General Terms and Conditions has been accepted.
+
+        :param is_gtc_accepted: The is_gtc_accepted of this UserInfoReq.
+        :type: bool
+        """
+
+        self._is_gtc_accepted = is_gtc_accepted
+
+    @property
+    def is_marketing_accepted(self):
+        """
+        Gets the is_marketing_accepted of this UserInfoReq.
+        A flag indicating that receiving marketing information has been accepted.
+
+        :return: The is_marketing_accepted of this UserInfoReq.
+        :rtype: bool
+        """
+        return self._is_marketing_accepted
+
+    @is_marketing_accepted.setter
+    def is_marketing_accepted(self, is_marketing_accepted):
+        """
+        Sets the is_marketing_accepted of this UserInfoReq.
+        A flag indicating that receiving marketing information has been accepted.
+
+        :param is_marketing_accepted: The is_marketing_accepted of this UserInfoReq.
+        :type: bool
+        """
+
+        self._is_marketing_accepted = is_marketing_accepted
+
+    @property
+    def password(self):
+        """
+        Gets the password of this UserInfoReq.
+        The password when creating a new user. It will be generated when not present in the request.
+
+        :return: The password of this UserInfoReq.
+        :rtype: str
+        """
+        return self._password
+
+    @password.setter
+    def password(self, password):
+        """
+        Sets the password of this UserInfoReq.
+        The password when creating a new user. It will be generated when not present in the request.
+
+        :param password: The password of this UserInfoReq.
+        :type: str
+        """
+
+        self._password = password
+
+    @property
+    def phone_number(self):
+        """
+        Gets the phone_number of this UserInfoReq.
+        Phone number, not longer than 100 characters.
+
+        :return: The phone_number of this UserInfoReq.
+        :rtype: str
+        """
+        return self._phone_number
+
+    @phone_number.setter
+    def phone_number(self, phone_number):
+        """
+        Sets the phone_number of this UserInfoReq.
+        Phone number, not longer than 100 characters.
+
+        :param phone_number: The phone_number of this UserInfoReq.
+        :type: str
+        """
+
+        self._phone_number = phone_number
+
+    @property
+    def user_properties(self):
+        """
+        Gets the user_properties of this UserInfoReq.
+        User's account specific custom properties.
+
+        :return: The user_properties of this UserInfoReq.
+        :rtype: dict(str, dict(str, str))
+        """
+        return self._user_properties
+
+    @user_properties.setter
+    def user_properties(self, user_properties):
+        """
+        Sets the user_properties of this UserInfoReq.
+        User's account specific custom properties.
+
+        :param user_properties: The user_properties of this UserInfoReq.
+        :type: dict(str, dict(str, str))
+        """
+
+        self._user_properties = user_properties
+
+    @property
+    def username(self):
+        """
+        Gets the username of this UserInfoReq.
+        A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
+
+        :return: The username of this UserInfoReq.
+        :rtype: str
+        """
+        return self._username
+
+    @username.setter
+    def username(self, username):
+        """
+        Sets the username of this UserInfoReq.
+        A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
+
+        :param username: The username of this UserInfoReq.
+        :type: str
+        """
+
+        self._username = username
 
     def to_dict(self):
         """

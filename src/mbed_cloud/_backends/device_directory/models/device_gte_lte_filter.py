@@ -31,62 +31,41 @@ class DeviceGteLteFilter(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'manifest_timestamp': 'datetime',
         'bootstrap_expiration_date': 'datetime',
-        'created_at': 'datetime',
+        'bootstrapped_timestamp': 'datetime',
         'connector_expiration_date': 'datetime',
-        'updated_at': 'datetime',
-        'etag': 'datetime',
+        'created_at': 'datetime',
         'enrolment_list_timestamp': 'datetime',
-        'bootstrapped_timestamp': 'datetime'
+        'etag': 'datetime',
+        'manifest_timestamp': 'datetime',
+        'updated_at': 'datetime'
     }
 
     attribute_map = {
-        'manifest_timestamp': 'manifest_timestamp',
         'bootstrap_expiration_date': 'bootstrap_expiration_date',
-        'created_at': 'created_at',
+        'bootstrapped_timestamp': 'bootstrapped_timestamp',
         'connector_expiration_date': 'connector_expiration_date',
-        'updated_at': 'updated_at',
-        'etag': 'etag',
+        'created_at': 'created_at',
         'enrolment_list_timestamp': 'enrolment_list_timestamp',
-        'bootstrapped_timestamp': 'bootstrapped_timestamp'
+        'etag': 'etag',
+        'manifest_timestamp': 'manifest_timestamp',
+        'updated_at': 'updated_at'
     }
 
-    def __init__(self, manifest_timestamp=None, bootstrap_expiration_date=None, created_at=None, connector_expiration_date=None, updated_at=None, etag=None, enrolment_list_timestamp=None, bootstrapped_timestamp=None):
+    def __init__(self, bootstrap_expiration_date=None, bootstrapped_timestamp=None, connector_expiration_date=None, created_at=None, enrolment_list_timestamp=None, etag=None, manifest_timestamp=None, updated_at=None):
         """
         DeviceGteLteFilter - a model defined in Swagger
         """
 
-        self._manifest_timestamp = manifest_timestamp
         self._bootstrap_expiration_date = bootstrap_expiration_date
-        self._created_at = created_at
-        self._connector_expiration_date = connector_expiration_date
-        self._updated_at = updated_at
-        self._etag = etag
-        self._enrolment_list_timestamp = enrolment_list_timestamp
         self._bootstrapped_timestamp = bootstrapped_timestamp
-        self.discriminator = None
-
-    @property
-    def manifest_timestamp(self):
-        """
-        Gets the manifest_timestamp of this DeviceGteLteFilter.
-
-        :return: The manifest_timestamp of this DeviceGteLteFilter.
-        :rtype: datetime
-        """
-        return self._manifest_timestamp
-
-    @manifest_timestamp.setter
-    def manifest_timestamp(self, manifest_timestamp):
-        """
-        Sets the manifest_timestamp of this DeviceGteLteFilter.
-
-        :param manifest_timestamp: The manifest_timestamp of this DeviceGteLteFilter.
-        :type: datetime
-        """
-
+        self._connector_expiration_date = connector_expiration_date
+        self._created_at = created_at
+        self._enrolment_list_timestamp = enrolment_list_timestamp
+        self._etag = etag
         self._manifest_timestamp = manifest_timestamp
+        self._updated_at = updated_at
+        self.discriminator = None
 
     @property
     def bootstrap_expiration_date(self):
@@ -110,25 +89,25 @@ class DeviceGteLteFilter(object):
         self._bootstrap_expiration_date = bootstrap_expiration_date
 
     @property
-    def created_at(self):
+    def bootstrapped_timestamp(self):
         """
-        Gets the created_at of this DeviceGteLteFilter.
+        Gets the bootstrapped_timestamp of this DeviceGteLteFilter.
 
-        :return: The created_at of this DeviceGteLteFilter.
+        :return: The bootstrapped_timestamp of this DeviceGteLteFilter.
         :rtype: datetime
         """
-        return self._created_at
+        return self._bootstrapped_timestamp
 
-    @created_at.setter
-    def created_at(self, created_at):
+    @bootstrapped_timestamp.setter
+    def bootstrapped_timestamp(self, bootstrapped_timestamp):
         """
-        Sets the created_at of this DeviceGteLteFilter.
+        Sets the bootstrapped_timestamp of this DeviceGteLteFilter.
 
-        :param created_at: The created_at of this DeviceGteLteFilter.
+        :param bootstrapped_timestamp: The bootstrapped_timestamp of this DeviceGteLteFilter.
         :type: datetime
         """
 
-        self._created_at = created_at
+        self._bootstrapped_timestamp = bootstrapped_timestamp
 
     @property
     def connector_expiration_date(self):
@@ -152,46 +131,25 @@ class DeviceGteLteFilter(object):
         self._connector_expiration_date = connector_expiration_date
 
     @property
-    def updated_at(self):
+    def created_at(self):
         """
-        Gets the updated_at of this DeviceGteLteFilter.
+        Gets the created_at of this DeviceGteLteFilter.
 
-        :return: The updated_at of this DeviceGteLteFilter.
+        :return: The created_at of this DeviceGteLteFilter.
         :rtype: datetime
         """
-        return self._updated_at
+        return self._created_at
 
-    @updated_at.setter
-    def updated_at(self, updated_at):
+    @created_at.setter
+    def created_at(self, created_at):
         """
-        Sets the updated_at of this DeviceGteLteFilter.
+        Sets the created_at of this DeviceGteLteFilter.
 
-        :param updated_at: The updated_at of this DeviceGteLteFilter.
+        :param created_at: The created_at of this DeviceGteLteFilter.
         :type: datetime
         """
 
-        self._updated_at = updated_at
-
-    @property
-    def etag(self):
-        """
-        Gets the etag of this DeviceGteLteFilter.
-
-        :return: The etag of this DeviceGteLteFilter.
-        :rtype: datetime
-        """
-        return self._etag
-
-    @etag.setter
-    def etag(self, etag):
-        """
-        Sets the etag of this DeviceGteLteFilter.
-
-        :param etag: The etag of this DeviceGteLteFilter.
-        :type: datetime
-        """
-
-        self._etag = etag
+        self._created_at = created_at
 
     @property
     def enrolment_list_timestamp(self):
@@ -215,25 +173,67 @@ class DeviceGteLteFilter(object):
         self._enrolment_list_timestamp = enrolment_list_timestamp
 
     @property
-    def bootstrapped_timestamp(self):
+    def etag(self):
         """
-        Gets the bootstrapped_timestamp of this DeviceGteLteFilter.
+        Gets the etag of this DeviceGteLteFilter.
 
-        :return: The bootstrapped_timestamp of this DeviceGteLteFilter.
+        :return: The etag of this DeviceGteLteFilter.
         :rtype: datetime
         """
-        return self._bootstrapped_timestamp
+        return self._etag
 
-    @bootstrapped_timestamp.setter
-    def bootstrapped_timestamp(self, bootstrapped_timestamp):
+    @etag.setter
+    def etag(self, etag):
         """
-        Sets the bootstrapped_timestamp of this DeviceGteLteFilter.
+        Sets the etag of this DeviceGteLteFilter.
 
-        :param bootstrapped_timestamp: The bootstrapped_timestamp of this DeviceGteLteFilter.
+        :param etag: The etag of this DeviceGteLteFilter.
         :type: datetime
         """
 
-        self._bootstrapped_timestamp = bootstrapped_timestamp
+        self._etag = etag
+
+    @property
+    def manifest_timestamp(self):
+        """
+        Gets the manifest_timestamp of this DeviceGteLteFilter.
+
+        :return: The manifest_timestamp of this DeviceGteLteFilter.
+        :rtype: datetime
+        """
+        return self._manifest_timestamp
+
+    @manifest_timestamp.setter
+    def manifest_timestamp(self, manifest_timestamp):
+        """
+        Sets the manifest_timestamp of this DeviceGteLteFilter.
+
+        :param manifest_timestamp: The manifest_timestamp of this DeviceGteLteFilter.
+        :type: datetime
+        """
+
+        self._manifest_timestamp = manifest_timestamp
+
+    @property
+    def updated_at(self):
+        """
+        Gets the updated_at of this DeviceGteLteFilter.
+
+        :return: The updated_at of this DeviceGteLteFilter.
+        :rtype: datetime
+        """
+        return self._updated_at
+
+    @updated_at.setter
+    def updated_at(self, updated_at):
+        """
+        Sets the updated_at of this DeviceGteLteFilter.
+
+        :param updated_at: The updated_at of this DeviceGteLteFilter.
+        :type: datetime
+        """
+
+        self._updated_at = updated_at
 
     def to_dict(self):
         """
