@@ -888,7 +888,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_account_user**
-> MyUserInfoResp get_account_user(account_id, user_id, scratch_codes=scratch_codes, properties=properties)
+> UserInfoResp get_account_user(account_id, user_id, properties=properties)
 
 Details of the user.
 
@@ -912,12 +912,11 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 api_instance = iam.AggregatorAccountAdminApi(iam.ApiClient(configuration))
 account_id = 'account_id_example' # str | Account ID.
 user_id = 'user_id_example' # str | The ID of the user to be retrieved.
-scratch_codes = 'scratch_codes_example' # str | Request to regenerate new emergency scratch codes. (optional)
 properties = 'properties_example' # str | Request to return account specific user property values according to the given property name. (optional)
 
 try: 
     # Details of the user.
-    api_response = api_instance.get_account_user(account_id, user_id, scratch_codes=scratch_codes, properties=properties)
+    api_response = api_instance.get_account_user(account_id, user_id, properties=properties)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling AggregatorAccountAdminApi->get_account_user: %s\n" % e)
@@ -929,12 +928,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **account_id** | **str**| Account ID. | 
  **user_id** | **str**| The ID of the user to be retrieved. | 
- **scratch_codes** | **str**| Request to regenerate new emergency scratch codes. | [optional] 
  **properties** | **str**| Request to return account specific user property values according to the given property name. | [optional] 
 
 ### Return type
 
-[**MyUserInfoResp**](MyUserInfoResp.md)
+[**UserInfoResp**](UserInfoResp.md)
 
 ### Authorization
 
@@ -1158,7 +1156,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_all_account_users**
-> UserInfoRespList get_all_account_users(account_id, limit=limit, after=after, order=order, include=include, email__eq=email__eq, status__eq=status__eq)
+> UserInfoRespList get_all_account_users(account_id, limit=limit, after=after, order=order, include=include, email__eq=email__eq, status__eq=status__eq, status__in=status__in, status__nin=status__nin)
 
 Get all user details.
 
@@ -1187,10 +1185,12 @@ order = 'ASC' # str | The order of the records based on creation time, ASC or DE
 include = 'include_example' # str | Comma separated additional data to return. Currently supported: total_count (optional)
 email__eq = 'email__eq_example' # str | Filter for email address (optional)
 status__eq = 'status__eq_example' # str | Filter for status (optional)
+status__in = 'status__in_example' # str | An optional filter for getting users with a specified set of statuses. (optional)
+status__nin = 'status__nin_example' # str | An optional filter for excluding users with a specified set of statuses. (optional)
 
 try: 
     # Get all user details.
-    api_response = api_instance.get_all_account_users(account_id, limit=limit, after=after, order=order, include=include, email__eq=email__eq, status__eq=status__eq)
+    api_response = api_instance.get_all_account_users(account_id, limit=limit, after=after, order=order, include=include, email__eq=email__eq, status__eq=status__eq, status__in=status__in, status__nin=status__nin)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling AggregatorAccountAdminApi->get_all_account_users: %s\n" % e)
@@ -1207,6 +1207,8 @@ Name | Type | Description  | Notes
  **include** | **str**| Comma separated additional data to return. Currently supported: total_count | [optional] 
  **email__eq** | **str**| Filter for email address | [optional] 
  **status__eq** | **str**| Filter for status | [optional] 
+ **status__in** | **str**| An optional filter for getting users with a specified set of statuses. | [optional] 
+ **status__nin** | **str**| An optional filter for excluding users with a specified set of statuses. | [optional] 
 
 ### Return type
 
@@ -1224,7 +1226,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_all_accounts**
-> AccountInfoList get_all_accounts(status__eq=status__eq, tier__eq=tier__eq, parent__eq=parent__eq, end_market__eq=end_market__eq, country__like=country__like, limit=limit, after=after, order=order, include=include, format=format, properties=properties)
+> AccountInfoList get_all_accounts(status__eq=status__eq, status__in=status__in, status__nin=status__nin, tier__eq=tier__eq, parent__eq=parent__eq, end_market__eq=end_market__eq, country__like=country__like, limit=limit, after=after, order=order, include=include, format=format, properties=properties)
 
 Get all accounts.
 
@@ -1247,6 +1249,8 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = iam.AggregatorAccountAdminApi(iam.ApiClient(configuration))
 status__eq = 'status__eq_example' # str | An optional filter for account status, ENROLLING, ACTIVE, RESTRICTED or SUSPENDED. (optional)
+status__in = 'status__in_example' # str | An optional filter for getting accounts with a specified set of statuses. (optional)
+status__nin = 'status__nin_example' # str | An optional filter for excluding accounts with a specified set of statuses. (optional)
 tier__eq = 'tier__eq_example' # str | An optional filter for tier level, must be 0, 1, 2, 98, 99 or omitted. (optional)
 parent__eq = 'parent__eq_example' # str | An optional filter for parent account ID. (optional)
 end_market__eq = 'end_market__eq_example' # str | An optional filter for account end market. (optional)
@@ -1260,7 +1264,7 @@ properties = 'properties_example' # str | Property name to be returned from acco
 
 try: 
     # Get all accounts.
-    api_response = api_instance.get_all_accounts(status__eq=status__eq, tier__eq=tier__eq, parent__eq=parent__eq, end_market__eq=end_market__eq, country__like=country__like, limit=limit, after=after, order=order, include=include, format=format, properties=properties)
+    api_response = api_instance.get_all_accounts(status__eq=status__eq, status__in=status__in, status__nin=status__nin, tier__eq=tier__eq, parent__eq=parent__eq, end_market__eq=end_market__eq, country__like=country__like, limit=limit, after=after, order=order, include=include, format=format, properties=properties)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling AggregatorAccountAdminApi->get_all_accounts: %s\n" % e)
@@ -1271,6 +1275,8 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **status__eq** | **str**| An optional filter for account status, ENROLLING, ACTIVE, RESTRICTED or SUSPENDED. | [optional] 
+ **status__in** | **str**| An optional filter for getting accounts with a specified set of statuses. | [optional] 
+ **status__nin** | **str**| An optional filter for excluding accounts with a specified set of statuses. | [optional] 
  **tier__eq** | **str**| An optional filter for tier level, must be 0, 1, 2, 98, 99 or omitted. | [optional] 
  **parent__eq** | **str**| An optional filter for parent account ID. | [optional] 
  **end_market__eq** | **str**| An optional filter for account end market. | [optional] 

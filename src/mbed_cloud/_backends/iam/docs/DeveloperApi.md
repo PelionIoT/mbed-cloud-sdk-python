@@ -4,7 +4,6 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**add_me_to_groups**](DeveloperApi.md#add_me_to_groups) | **POST** /v3/users/me/groups | Add user to a list of groupS.
 [**add_my_api_key_to_groups**](DeveloperApi.md#add_my_api_key_to_groups) | **POST** /v3/api-keys/me/groups | Add API key to a list of groups.
 [**create_api_key**](DeveloperApi.md#create_api_key) | **POST** /v3/api-keys | Create a new API key.
 [**delete_api_key**](DeveloperApi.md#delete_api_key) | **DELETE** /v3/api-keys/{apiKey} | Delete API key.
@@ -18,72 +17,13 @@ Method | HTTP request | Description
 [**get_group_summary**](DeveloperApi.md#get_group_summary) | **GET** /v3/policy-groups/{groupID} | Get group information.
 [**get_groups_of_my_api_key**](DeveloperApi.md#get_groups_of_my_api_key) | **GET** /v3/api-keys/me/groups | Get groups of the API key.
 [**get_my_account_info**](DeveloperApi.md#get_my_account_info) | **GET** /v3/accounts/me | Get account info.
-[**get_my_accounts**](DeveloperApi.md#get_my_accounts) | **GET** /v3/users/me/team-accounts | Get accounts of the user.
 [**get_my_api_key**](DeveloperApi.md#get_my_api_key) | **GET** /v3/api-keys/me | Get API key details.
-[**get_my_groups**](DeveloperApi.md#get_my_groups) | **GET** /v3/users/me/groups | Get groups of the user.
-[**get_my_user**](DeveloperApi.md#get_my_user) | **GET** /v3/users/me | Details of the current user.
 [**remove_api_keys_from_group**](DeveloperApi.md#remove_api_keys_from_group) | **DELETE** /v3/policy-groups/{groupID}/api-keys | Remove API keys from a group.
-[**remove_me_from_groups**](DeveloperApi.md#remove_me_from_groups) | **DELETE** /v3/users/me/groups | Remove user from a group.
 [**remove_my_api_key_from_groups**](DeveloperApi.md#remove_my_api_key_from_groups) | **DELETE** /v3/api-keys/me/groups | Remove API key from groups.
 [**update_api_key**](DeveloperApi.md#update_api_key) | **PUT** /v3/api-keys/{apiKey} | Update API key details.
 [**update_certificate**](DeveloperApi.md#update_certificate) | **PUT** /v3/trusted-certificates/{cert-id} | Update trusted certificate.
 [**update_my_api_key**](DeveloperApi.md#update_my_api_key) | **PUT** /v3/api-keys/me | Update API key details.
-[**update_my_user**](DeveloperApi.md#update_my_user) | **PUT** /v3/users/me | Update user details.
 
-
-# **add_me_to_groups**
-> UpdatedResponse add_me_to_groups(body)
-
-Add user to a list of groupS.
-
-An endpoint for adding user to groups.
-
-### Example 
-```python
-from __future__ import print_function
-import time
-import iam
-from iam.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: Bearer
-configuration = iam.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = iam.DeveloperApi(iam.ApiClient(configuration))
-body = [iam.list[str]()] # list[str] | A list of IDs of the groups to be updated.
-
-try: 
-    # Add user to a list of groupS.
-    api_response = api_instance.add_me_to_groups(body)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling DeveloperApi->add_me_to_groups: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **body** | **list[str]**| A list of IDs of the groups to be updated. | 
-
-### Return type
-
-[**UpdatedResponse**](UpdatedResponse.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **add_my_api_key_to_groups**
 > UpdatedResponse add_my_api_key_to_groups(body)
@@ -843,56 +783,6 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get_my_accounts**
-> AccountResponseList get_my_accounts()
-
-Get accounts of the user.
-
-An endpoint for retrieving the accounts of the logged in user.
-
-### Example 
-```python
-from __future__ import print_function
-import time
-import iam
-from iam.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: Bearer
-configuration = iam.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = iam.DeveloperApi(iam.ApiClient(configuration))
-
-try: 
-    # Get accounts of the user.
-    api_response = api_instance.get_my_accounts()
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling DeveloperApi->get_my_accounts: %s\n" % e)
-```
-
-### Parameters
-This endpoint does not need any parameter.
-
-### Return type
-
-[**AccountResponseList**](AccountResponseList.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 # **get_my_api_key**
 > ApiKeyInfoResp get_my_api_key()
 
@@ -931,124 +821,6 @@ This endpoint does not need any parameter.
 ### Return type
 
 [**ApiKeyInfoResp**](ApiKeyInfoResp.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **get_my_groups**
-> GroupSummaryList get_my_groups(limit=limit, after=after, order=order, include=include)
-
-Get groups of the user.
-
-An endpoint for retrieving groups of the user.
-
-### Example 
-```python
-from __future__ import print_function
-import time
-import iam
-from iam.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: Bearer
-configuration = iam.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = iam.DeveloperApi(iam.ApiClient(configuration))
-limit = 50 # int | The number of results to return (2-1000), default is 50. (optional) (default to 50)
-after = 'after_example' # str | The entity ID to fetch after the given one. (optional)
-order = 'ASC' # str | The order of the records based on creation time, ASC or DESC; by default ASC (optional) (default to ASC)
-include = 'include_example' # str | Comma separated additional data to return. Currently supported: total_count (optional)
-
-try: 
-    # Get groups of the user.
-    api_response = api_instance.get_my_groups(limit=limit, after=after, order=order, include=include)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling DeveloperApi->get_my_groups: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **limit** | **int**| The number of results to return (2-1000), default is 50. | [optional] [default to 50]
- **after** | **str**| The entity ID to fetch after the given one. | [optional] 
- **order** | **str**| The order of the records based on creation time, ASC or DESC; by default ASC | [optional] [default to ASC]
- **include** | **str**| Comma separated additional data to return. Currently supported: total_count | [optional] 
-
-### Return type
-
-[**GroupSummaryList**](GroupSummaryList.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **get_my_user**
-> MyUserInfoResp get_my_user(scratch_codes=scratch_codes, properties=properties, include=include)
-
-Details of the current user.
-
-An endpoint for retrieving the details of the logged in user.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/users/me -H 'Authorization: Bearer API_KEY'`
-
-### Example 
-```python
-from __future__ import print_function
-import time
-import iam
-from iam.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: Bearer
-configuration = iam.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = iam.DeveloperApi(iam.ApiClient(configuration))
-scratch_codes = 'scratch_codes_example' # str | Request to regenerate new emergency scratch codes. (optional)
-properties = 'properties_example' # str | Request to return account specific user property values according to the given property name. (optional)
-include = 'include_example' # str | Comma separated additional data to return. Currently supported: active_sessions (optional)
-
-try: 
-    # Details of the current user.
-    api_response = api_instance.get_my_user(scratch_codes=scratch_codes, properties=properties, include=include)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling DeveloperApi->get_my_user: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **scratch_codes** | **str**| Request to regenerate new emergency scratch codes. | [optional] 
- **properties** | **str**| Request to return account specific user property values according to the given property name. | [optional] 
- **include** | **str**| Comma separated additional data to return. Currently supported: active_sessions | [optional] 
-
-### Return type
-
-[**MyUserInfoResp**](MyUserInfoResp.md)
 
 ### Authorization
 
@@ -1101,60 +873,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **group_id** | **str**| The ID of the group whose API keys are removed. | 
  **body** | [**SubjectList**](SubjectList.md)| A list of API keys to be removed from the group. | 
-
-### Return type
-
-[**UpdatedResponse**](UpdatedResponse.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **remove_me_from_groups**
-> UpdatedResponse remove_me_from_groups(body)
-
-Remove user from a group.
-
-An endpoint for removing user from groups.
-
-### Example 
-```python
-from __future__ import print_function
-import time
-import iam
-from iam.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: Bearer
-configuration = iam.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = iam.DeveloperApi(iam.ApiClient(configuration))
-body = [iam.list[str]()] # list[str] | A list of IDs of the groups to be updated.
-
-try: 
-    # Remove user from a group.
-    api_response = api_instance.remove_me_from_groups(body)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling DeveloperApi->remove_me_from_groups: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **body** | **list[str]**| A list of IDs of the groups to be updated. | 
 
 ### Return type
 
@@ -1387,60 +1105,6 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **update_my_user**
-> UserUpdateResp update_my_user(body)
-
-Update user details.
-
-An endpoint for updating the details of the logged in user.   **Example usage:** `curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/me -d '{\"address\": \"1007 Mountain Drive\"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
-
-### Example 
-```python
-from __future__ import print_function
-import time
-import iam
-from iam.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: Bearer
-configuration = iam.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = iam.DeveloperApi(iam.ApiClient(configuration))
-body = iam.UserUpdateReq() # UserUpdateReq | New attributes for the logged in user.
-
-try: 
-    # Update user details.
-    api_response = api_instance.update_my_user(body)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling DeveloperApi->update_my_user: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **body** | [**UserUpdateReq**](UserUpdateReq.md)| New attributes for the logged in user. | 
-
-### Return type
-
-[**UserUpdateResp**](UserUpdateResp.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
