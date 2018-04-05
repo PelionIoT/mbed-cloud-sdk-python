@@ -31,58 +31,35 @@ class ServerCredentialsResponseData(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'server_uri': 'str',
         'created_at': 'datetime',
+        'etag': 'str',
+        'id': 'str',
         'object': 'str',
         'server_certificate': 'str',
-        'etag': 'str',
-        'id': 'str'
+        'server_uri': 'str'
     }
 
     attribute_map = {
-        'server_uri': 'server_uri',
         'created_at': 'created_at',
+        'etag': 'etag',
+        'id': 'id',
         'object': 'object',
         'server_certificate': 'server_certificate',
-        'etag': 'etag',
-        'id': 'id'
+        'server_uri': 'server_uri'
     }
 
-    def __init__(self, server_uri=None, created_at=None, object=None, server_certificate=None, etag=None, id=None):
+    def __init__(self, created_at=None, etag=None, id=None, object=None, server_certificate=None, server_uri=None):
         """
         ServerCredentialsResponseData - a model defined in Swagger
         """
 
-        self._server_uri = server_uri
         self._created_at = created_at
-        self._object = object
-        self._server_certificate = server_certificate
         self._etag = etag
         self._id = id
-        self.discriminator = None
-
-    @property
-    def server_uri(self):
-        """
-        Gets the server_uri of this ServerCredentialsResponseData.
-        Server URI to which the client needs to connect to.
-
-        :return: The server_uri of this ServerCredentialsResponseData.
-        :rtype: str
-        """
-        return self._server_uri
-
-    @server_uri.setter
-    def server_uri(self, server_uri):
-        """
-        Sets the server_uri of this ServerCredentialsResponseData.
-        Server URI to which the client needs to connect to.
-
-        :param server_uri: The server_uri of this ServerCredentialsResponseData.
-        :type: str
-        """
-
+        self._object = object
+        self._server_certificate = server_certificate
         self._server_uri = server_uri
+        self.discriminator = None
 
     @property
     def created_at(self):
@@ -106,6 +83,52 @@ class ServerCredentialsResponseData(object):
         """
 
         self._created_at = created_at
+
+    @property
+    def etag(self):
+        """
+        Gets the etag of this ServerCredentialsResponseData.
+        API resource entity version.
+
+        :return: The etag of this ServerCredentialsResponseData.
+        :rtype: str
+        """
+        return self._etag
+
+    @etag.setter
+    def etag(self, etag):
+        """
+        Sets the etag of this ServerCredentialsResponseData.
+        API resource entity version.
+
+        :param etag: The etag of this ServerCredentialsResponseData.
+        :type: str
+        """
+
+        self._etag = etag
+
+    @property
+    def id(self):
+        """
+        Gets the id of this ServerCredentialsResponseData.
+        mUUID that uniquely identifies the entity.
+
+        :return: The id of this ServerCredentialsResponseData.
+        :rtype: str
+        """
+        return self._id
+
+    @id.setter
+    def id(self, id):
+        """
+        Sets the id of this ServerCredentialsResponseData.
+        mUUID that uniquely identifies the entity.
+
+        :param id: The id of this ServerCredentialsResponseData.
+        :type: str
+        """
+
+        self._id = id
 
     @property
     def object(self):
@@ -154,50 +177,27 @@ class ServerCredentialsResponseData(object):
         self._server_certificate = server_certificate
 
     @property
-    def etag(self):
+    def server_uri(self):
         """
-        Gets the etag of this ServerCredentialsResponseData.
-        API resource entity version.
+        Gets the server_uri of this ServerCredentialsResponseData.
+        Server URI to which the client needs to connect to.
 
-        :return: The etag of this ServerCredentialsResponseData.
+        :return: The server_uri of this ServerCredentialsResponseData.
         :rtype: str
         """
-        return self._etag
+        return self._server_uri
 
-    @etag.setter
-    def etag(self, etag):
+    @server_uri.setter
+    def server_uri(self, server_uri):
         """
-        Sets the etag of this ServerCredentialsResponseData.
-        API resource entity version.
+        Sets the server_uri of this ServerCredentialsResponseData.
+        Server URI to which the client needs to connect to.
 
-        :param etag: The etag of this ServerCredentialsResponseData.
+        :param server_uri: The server_uri of this ServerCredentialsResponseData.
         :type: str
         """
 
-        self._etag = etag
-
-    @property
-    def id(self):
-        """
-        Gets the id of this ServerCredentialsResponseData.
-        mUUID that uniquely identifies the entity.
-
-        :return: The id of this ServerCredentialsResponseData.
-        :rtype: str
-        """
-        return self._id
-
-    @id.setter
-    def id(self, id):
-        """
-        Sets the id of this ServerCredentialsResponseData.
-        mUUID that uniquely identifies the entity.
-
-        :param id: The id of this ServerCredentialsResponseData.
-        :type: str
-        """
-
-        self._id = id
+        self._server_uri = server_uri
 
     def to_dict(self):
         """

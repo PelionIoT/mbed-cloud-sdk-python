@@ -31,23 +31,46 @@ class DeveloperCertificateRequestData(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'name': 'str',
-        'description': 'str'
+        'description': 'str',
+        'name': 'str'
     }
 
     attribute_map = {
-        'name': 'name',
-        'description': 'description'
+        'description': 'description',
+        'name': 'name'
     }
 
-    def __init__(self, name=None, description=None):
+    def __init__(self, description=None, name=None):
         """
         DeveloperCertificateRequestData - a model defined in Swagger
         """
 
-        self._name = name
         self._description = description
+        self._name = name
         self.discriminator = None
+
+    @property
+    def description(self):
+        """
+        Gets the description of this DeveloperCertificateRequestData.
+        Description for the developer certificate. There is a limit on the length of the description. Please see [TrustedCertificateReq](/docs/v1.2/api-references/account-management-api.html#trustedcertificatereq)
+
+        :return: The description of this DeveloperCertificateRequestData.
+        :rtype: str
+        """
+        return self._description
+
+    @description.setter
+    def description(self, description):
+        """
+        Sets the description of this DeveloperCertificateRequestData.
+        Description for the developer certificate. There is a limit on the length of the description. Please see [TrustedCertificateReq](/docs/v1.2/api-references/account-management-api.html#trustedcertificatereq)
+
+        :param description: The description of this DeveloperCertificateRequestData.
+        :type: str
+        """
+
+        self._description = description
 
     @property
     def name(self):
@@ -73,29 +96,6 @@ class DeveloperCertificateRequestData(object):
             raise ValueError("Invalid value for `name`, must not be `None`")
 
         self._name = name
-
-    @property
-    def description(self):
-        """
-        Gets the description of this DeveloperCertificateRequestData.
-        Description for the developer certificate. There is a limit on the length of the description. Please see [TrustedCertificateReq](/docs/v1.2/api-references/account-management-api.html#trustedcertificatereq)
-
-        :return: The description of this DeveloperCertificateRequestData.
-        :rtype: str
-        """
-        return self._description
-
-    @description.setter
-    def description(self, description):
-        """
-        Sets the description of this DeveloperCertificateRequestData.
-        Description for the developer certificate. There is a limit on the length of the description. Please see [TrustedCertificateReq](/docs/v1.2/api-references/account-management-api.html#trustedcertificatereq)
-
-        :param description: The description of this DeveloperCertificateRequestData.
-        :type: str
-        """
-
-        self._description = description
 
     def to_dict(self):
         """

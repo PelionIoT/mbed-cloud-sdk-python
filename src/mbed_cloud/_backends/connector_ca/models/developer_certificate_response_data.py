@@ -31,139 +31,70 @@ class DeveloperCertificateResponseData(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'security_file_content': 'str',
-        'description': 'str',
-        'name': 'str',
-        'developer_certificate': 'str',
+        'account_id': 'str',
         'created_at': 'datetime',
-        'object': 'str',
+        'description': 'str',
+        'developer_certificate': 'str',
         'developer_private_key': 'str',
         'etag': 'str',
         'id': 'str',
-        'account_id': 'str'
+        'name': 'str',
+        'object': 'str',
+        'security_file_content': 'str'
     }
 
     attribute_map = {
-        'security_file_content': 'security_file_content',
-        'description': 'description',
-        'name': 'name',
-        'developer_certificate': 'developer_certificate',
+        'account_id': 'account_id',
         'created_at': 'created_at',
-        'object': 'object',
+        'description': 'description',
+        'developer_certificate': 'developer_certificate',
         'developer_private_key': 'developer_private_key',
         'etag': 'etag',
         'id': 'id',
-        'account_id': 'account_id'
+        'name': 'name',
+        'object': 'object',
+        'security_file_content': 'security_file_content'
     }
 
-    def __init__(self, security_file_content=None, description=None, name=None, developer_certificate=None, created_at=None, object=None, developer_private_key=None, etag=None, id=None, account_id=None):
+    def __init__(self, account_id=None, created_at=None, description=None, developer_certificate=None, developer_private_key=None, etag=None, id=None, name=None, object=None, security_file_content=None):
         """
         DeveloperCertificateResponseData - a model defined in Swagger
         """
 
-        self._security_file_content = security_file_content
-        self._description = description
-        self._name = name
-        self._developer_certificate = developer_certificate
+        self._account_id = account_id
         self._created_at = created_at
-        self._object = object
+        self._description = description
+        self._developer_certificate = developer_certificate
         self._developer_private_key = developer_private_key
         self._etag = etag
         self._id = id
-        self._account_id = account_id
+        self._name = name
+        self._object = object
+        self._security_file_content = security_file_content
         self.discriminator = None
 
     @property
-    def security_file_content(self):
+    def account_id(self):
         """
-        Gets the security_file_content of this DeveloperCertificateResponseData.
-        Content of the security.c file that will be flashed into the device to provide the security credentials
+        Gets the account_id of this DeveloperCertificateResponseData.
+        account to which the developer certificate belongs
 
-        :return: The security_file_content of this DeveloperCertificateResponseData.
+        :return: The account_id of this DeveloperCertificateResponseData.
         :rtype: str
         """
-        return self._security_file_content
+        return self._account_id
 
-    @security_file_content.setter
-    def security_file_content(self, security_file_content):
+    @account_id.setter
+    def account_id(self, account_id):
         """
-        Sets the security_file_content of this DeveloperCertificateResponseData.
-        Content of the security.c file that will be flashed into the device to provide the security credentials
+        Sets the account_id of this DeveloperCertificateResponseData.
+        account to which the developer certificate belongs
 
-        :param security_file_content: The security_file_content of this DeveloperCertificateResponseData.
+        :param account_id: The account_id of this DeveloperCertificateResponseData.
         :type: str
         """
 
-        self._security_file_content = security_file_content
-
-    @property
-    def description(self):
-        """
-        Gets the description of this DeveloperCertificateResponseData.
-        Description for the developer certificate.
-
-        :return: The description of this DeveloperCertificateResponseData.
-        :rtype: str
-        """
-        return self._description
-
-    @description.setter
-    def description(self, description):
-        """
-        Sets the description of this DeveloperCertificateResponseData.
-        Description for the developer certificate.
-
-        :param description: The description of this DeveloperCertificateResponseData.
-        :type: str
-        """
-
-        self._description = description
-
-    @property
-    def name(self):
-        """
-        Gets the name of this DeveloperCertificateResponseData.
-        Name of the developer certificate.
-
-        :return: The name of this DeveloperCertificateResponseData.
-        :rtype: str
-        """
-        return self._name
-
-    @name.setter
-    def name(self, name):
-        """
-        Sets the name of this DeveloperCertificateResponseData.
-        Name of the developer certificate.
-
-        :param name: The name of this DeveloperCertificateResponseData.
-        :type: str
-        """
-
-        self._name = name
-
-    @property
-    def developer_certificate(self):
-        """
-        Gets the developer_certificate of this DeveloperCertificateResponseData.
-        PEM format X.509 developer certificate.
-
-        :return: The developer_certificate of this DeveloperCertificateResponseData.
-        :rtype: str
-        """
-        return self._developer_certificate
-
-    @developer_certificate.setter
-    def developer_certificate(self, developer_certificate):
-        """
-        Sets the developer_certificate of this DeveloperCertificateResponseData.
-        PEM format X.509 developer certificate.
-
-        :param developer_certificate: The developer_certificate of this DeveloperCertificateResponseData.
-        :type: str
-        """
-
-        self._developer_certificate = developer_certificate
+        self._account_id = account_id
 
     @property
     def created_at(self):
@@ -189,27 +120,50 @@ class DeveloperCertificateResponseData(object):
         self._created_at = created_at
 
     @property
-    def object(self):
+    def description(self):
         """
-        Gets the object of this DeveloperCertificateResponseData.
-        Entity name, always 'trusted-cert'
+        Gets the description of this DeveloperCertificateResponseData.
+        Description for the developer certificate.
 
-        :return: The object of this DeveloperCertificateResponseData.
+        :return: The description of this DeveloperCertificateResponseData.
         :rtype: str
         """
-        return self._object
+        return self._description
 
-    @object.setter
-    def object(self, object):
+    @description.setter
+    def description(self, description):
         """
-        Sets the object of this DeveloperCertificateResponseData.
-        Entity name, always 'trusted-cert'
+        Sets the description of this DeveloperCertificateResponseData.
+        Description for the developer certificate.
 
-        :param object: The object of this DeveloperCertificateResponseData.
+        :param description: The description of this DeveloperCertificateResponseData.
         :type: str
         """
 
-        self._object = object
+        self._description = description
+
+    @property
+    def developer_certificate(self):
+        """
+        Gets the developer_certificate of this DeveloperCertificateResponseData.
+        PEM format X.509 developer certificate.
+
+        :return: The developer_certificate of this DeveloperCertificateResponseData.
+        :rtype: str
+        """
+        return self._developer_certificate
+
+    @developer_certificate.setter
+    def developer_certificate(self, developer_certificate):
+        """
+        Sets the developer_certificate of this DeveloperCertificateResponseData.
+        PEM format X.509 developer certificate.
+
+        :param developer_certificate: The developer_certificate of this DeveloperCertificateResponseData.
+        :type: str
+        """
+
+        self._developer_certificate = developer_certificate
 
     @property
     def developer_private_key(self):
@@ -281,27 +235,73 @@ class DeveloperCertificateResponseData(object):
         self._id = id
 
     @property
-    def account_id(self):
+    def name(self):
         """
-        Gets the account_id of this DeveloperCertificateResponseData.
-        account to which the developer certificate belongs
+        Gets the name of this DeveloperCertificateResponseData.
+        Name of the developer certificate.
 
-        :return: The account_id of this DeveloperCertificateResponseData.
+        :return: The name of this DeveloperCertificateResponseData.
         :rtype: str
         """
-        return self._account_id
+        return self._name
 
-    @account_id.setter
-    def account_id(self, account_id):
+    @name.setter
+    def name(self, name):
         """
-        Sets the account_id of this DeveloperCertificateResponseData.
-        account to which the developer certificate belongs
+        Sets the name of this DeveloperCertificateResponseData.
+        Name of the developer certificate.
 
-        :param account_id: The account_id of this DeveloperCertificateResponseData.
+        :param name: The name of this DeveloperCertificateResponseData.
         :type: str
         """
 
-        self._account_id = account_id
+        self._name = name
+
+    @property
+    def object(self):
+        """
+        Gets the object of this DeveloperCertificateResponseData.
+        Entity name, always 'trusted-cert'
+
+        :return: The object of this DeveloperCertificateResponseData.
+        :rtype: str
+        """
+        return self._object
+
+    @object.setter
+    def object(self, object):
+        """
+        Sets the object of this DeveloperCertificateResponseData.
+        Entity name, always 'trusted-cert'
+
+        :param object: The object of this DeveloperCertificateResponseData.
+        :type: str
+        """
+
+        self._object = object
+
+    @property
+    def security_file_content(self):
+        """
+        Gets the security_file_content of this DeveloperCertificateResponseData.
+        Content of the security.c file that will be flashed into the device to provide the security credentials
+
+        :return: The security_file_content of this DeveloperCertificateResponseData.
+        :rtype: str
+        """
+        return self._security_file_content
+
+    @security_file_content.setter
+    def security_file_content(self, security_file_content):
+        """
+        Sets the security_file_content of this DeveloperCertificateResponseData.
+        Content of the security.c file that will be flashed into the device to provide the security credentials
+
+        :param security_file_content: The security_file_content of this DeveloperCertificateResponseData.
+        :type: str
+        """
+
+        self._security_file_content = security_file_content
 
     def to_dict(self):
         """

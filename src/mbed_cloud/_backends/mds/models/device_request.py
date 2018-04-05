@@ -3,7 +3,7 @@
 """
     Connect API
 
-    Mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
+    Mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. Mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
 
     OpenAPI spec version: 2
     
@@ -31,55 +31,55 @@ class DeviceRequest(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'payload_b64': 'str',
+        'accept': 'str',
         'content_type': 'str',
         'method': 'str',
-        'accept': 'str',
+        'payload_b64': 'str',
         'uri': 'str'
     }
 
     attribute_map = {
-        'payload_b64': 'payload-b64',
+        'accept': 'accept',
         'content_type': 'content-type',
         'method': 'method',
-        'accept': 'accept',
+        'payload_b64': 'payload-b64',
         'uri': 'uri'
     }
 
-    def __init__(self, payload_b64=None, content_type=None, method=None, accept=None, uri=None):
+    def __init__(self, accept=None, content_type=None, method=None, payload_b64=None, uri=None):
         """
         DeviceRequest - a model defined in Swagger
         """
 
-        self._payload_b64 = payload_b64
+        self._accept = accept
         self._content_type = content_type
         self._method = method
-        self._accept = accept
+        self._payload_b64 = payload_b64
         self._uri = uri
         self.discriminator = None
 
     @property
-    def payload_b64(self):
+    def accept(self):
         """
-        Gets the payload_b64 of this DeviceRequest.
-        The base64 encoded payload to be sent to the device.
+        Gets the accept of this DeviceRequest.
+        The content type of an accepted response.
 
-        :return: The payload_b64 of this DeviceRequest.
+        :return: The accept of this DeviceRequest.
         :rtype: str
         """
-        return self._payload_b64
+        return self._accept
 
-    @payload_b64.setter
-    def payload_b64(self, payload_b64):
+    @accept.setter
+    def accept(self, accept):
         """
-        Sets the payload_b64 of this DeviceRequest.
-        The base64 encoded payload to be sent to the device.
+        Sets the accept of this DeviceRequest.
+        The content type of an accepted response.
 
-        :param payload_b64: The payload_b64 of this DeviceRequest.
+        :param accept: The accept of this DeviceRequest.
         :type: str
         """
 
-        self._payload_b64 = payload_b64
+        self._accept = accept
 
     @property
     def content_type(self):
@@ -130,27 +130,27 @@ class DeviceRequest(object):
         self._method = method
 
     @property
-    def accept(self):
+    def payload_b64(self):
         """
-        Gets the accept of this DeviceRequest.
-        The content type of an accepted response.
+        Gets the payload_b64 of this DeviceRequest.
+        The base64 encoded payload to be sent to the device.
 
-        :return: The accept of this DeviceRequest.
+        :return: The payload_b64 of this DeviceRequest.
         :rtype: str
         """
-        return self._accept
+        return self._payload_b64
 
-    @accept.setter
-    def accept(self, accept):
+    @payload_b64.setter
+    def payload_b64(self, payload_b64):
         """
-        Sets the accept of this DeviceRequest.
-        The content type of an accepted response.
+        Sets the payload_b64 of this DeviceRequest.
+        The base64 encoded payload to be sent to the device.
 
-        :param accept: The accept of this DeviceRequest.
+        :param payload_b64: The payload_b64 of this DeviceRequest.
         :type: str
         """
 
-        self._accept = accept
+        self._payload_b64 = payload_b64
 
     @property
     def uri(self):

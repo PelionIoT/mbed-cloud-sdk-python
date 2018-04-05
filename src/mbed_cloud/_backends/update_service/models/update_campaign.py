@@ -31,62 +31,85 @@ class UpdateCampaign(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'description': 'str',
-        'root_manifest_id': 'str',
         'created_at': 'datetime',
-        'object': 'str',
-        'when': 'datetime',
-        'updated_at': 'datetime',
-        'state': 'str',
+        'description': 'str',
+        'device_filter': 'str',
         'etag': 'str',
         'finished': 'datetime',
-        'root_manifest_url': 'str',
-        'phase': 'str',
-        'started_at': 'datetime',
         'id': 'str',
-        'device_filter': 'str',
-        'name': 'str'
+        'name': 'str',
+        'object': 'str',
+        'phase': 'str',
+        'root_manifest_id': 'str',
+        'root_manifest_url': 'str',
+        'started_at': 'datetime',
+        'state': 'str',
+        'updated_at': 'datetime',
+        'when': 'datetime'
     }
 
     attribute_map = {
-        'description': 'description',
-        'root_manifest_id': 'root_manifest_id',
         'created_at': 'created_at',
-        'object': 'object',
-        'when': 'when',
-        'updated_at': 'updated_at',
-        'state': 'state',
+        'description': 'description',
+        'device_filter': 'device_filter',
         'etag': 'etag',
         'finished': 'finished',
-        'root_manifest_url': 'root_manifest_url',
-        'phase': 'phase',
-        'started_at': 'started_at',
         'id': 'id',
-        'device_filter': 'device_filter',
-        'name': 'name'
+        'name': 'name',
+        'object': 'object',
+        'phase': 'phase',
+        'root_manifest_id': 'root_manifest_id',
+        'root_manifest_url': 'root_manifest_url',
+        'started_at': 'started_at',
+        'state': 'state',
+        'updated_at': 'updated_at',
+        'when': 'when'
     }
 
-    def __init__(self, description=None, root_manifest_id=None, created_at=None, object=None, when=None, updated_at=None, state=None, etag=None, finished=None, root_manifest_url=None, phase=None, started_at=None, id=None, device_filter=None, name=None):
+    def __init__(self, created_at=None, description=None, device_filter=None, etag=None, finished=None, id=None, name=None, object=None, phase=None, root_manifest_id=None, root_manifest_url=None, started_at=None, state=None, updated_at=None, when=None):
         """
         UpdateCampaign - a model defined in Swagger
         """
 
-        self._description = description
-        self._root_manifest_id = root_manifest_id
         self._created_at = created_at
-        self._object = object
-        self._when = when
-        self._updated_at = updated_at
-        self._state = state
+        self._description = description
+        self._device_filter = device_filter
         self._etag = etag
         self._finished = finished
-        self._root_manifest_url = root_manifest_url
-        self._phase = phase
-        self._started_at = started_at
         self._id = id
-        self._device_filter = device_filter
         self._name = name
+        self._object = object
+        self._phase = phase
+        self._root_manifest_id = root_manifest_id
+        self._root_manifest_url = root_manifest_url
+        self._started_at = started_at
+        self._state = state
+        self._updated_at = updated_at
+        self._when = when
         self.discriminator = None
+
+    @property
+    def created_at(self):
+        """
+        Gets the created_at of this UpdateCampaign.
+        The time the update campaign was created
+
+        :return: The created_at of this UpdateCampaign.
+        :rtype: datetime
+        """
+        return self._created_at
+
+    @created_at.setter
+    def created_at(self, created_at):
+        """
+        Sets the created_at of this UpdateCampaign.
+        The time the update campaign was created
+
+        :param created_at: The created_at of this UpdateCampaign.
+        :type: datetime
+        """
+
+        self._created_at = created_at
 
     @property
     def description(self):
@@ -114,146 +137,27 @@ class UpdateCampaign(object):
         self._description = description
 
     @property
-    def root_manifest_id(self):
+    def device_filter(self):
         """
-        Gets the root_manifest_id of this UpdateCampaign.
+        Gets the device_filter of this UpdateCampaign.
+        The filter for the devices the campaign will target
 
-        :return: The root_manifest_id of this UpdateCampaign.
+        :return: The device_filter of this UpdateCampaign.
         :rtype: str
         """
-        return self._root_manifest_id
+        return self._device_filter
 
-    @root_manifest_id.setter
-    def root_manifest_id(self, root_manifest_id):
+    @device_filter.setter
+    def device_filter(self, device_filter):
         """
-        Sets the root_manifest_id of this UpdateCampaign.
+        Sets the device_filter of this UpdateCampaign.
+        The filter for the devices the campaign will target
 
-        :param root_manifest_id: The root_manifest_id of this UpdateCampaign.
+        :param device_filter: The device_filter of this UpdateCampaign.
         :type: str
         """
 
-        self._root_manifest_id = root_manifest_id
-
-    @property
-    def created_at(self):
-        """
-        Gets the created_at of this UpdateCampaign.
-        The time the update campaign was created
-
-        :return: The created_at of this UpdateCampaign.
-        :rtype: datetime
-        """
-        return self._created_at
-
-    @created_at.setter
-    def created_at(self, created_at):
-        """
-        Sets the created_at of this UpdateCampaign.
-        The time the update campaign was created
-
-        :param created_at: The created_at of this UpdateCampaign.
-        :type: datetime
-        """
-
-        self._created_at = created_at
-
-    @property
-    def object(self):
-        """
-        Gets the object of this UpdateCampaign.
-        The API resource entity
-
-        :return: The object of this UpdateCampaign.
-        :rtype: str
-        """
-        return self._object
-
-    @object.setter
-    def object(self, object):
-        """
-        Sets the object of this UpdateCampaign.
-        The API resource entity
-
-        :param object: The object of this UpdateCampaign.
-        :type: str
-        """
-
-        self._object = object
-
-    @property
-    def when(self):
-        """
-        Gets the when of this UpdateCampaign.
-        The scheduled start time for the update campaign
-
-        :return: The when of this UpdateCampaign.
-        :rtype: datetime
-        """
-        return self._when
-
-    @when.setter
-    def when(self, when):
-        """
-        Sets the when of this UpdateCampaign.
-        The scheduled start time for the update campaign
-
-        :param when: The when of this UpdateCampaign.
-        :type: datetime
-        """
-
-        self._when = when
-
-    @property
-    def updated_at(self):
-        """
-        Gets the updated_at of this UpdateCampaign.
-        The time the object was updated
-
-        :return: The updated_at of this UpdateCampaign.
-        :rtype: datetime
-        """
-        return self._updated_at
-
-    @updated_at.setter
-    def updated_at(self, updated_at):
-        """
-        Sets the updated_at of this UpdateCampaign.
-        The time the object was updated
-
-        :param updated_at: The updated_at of this UpdateCampaign.
-        :type: datetime
-        """
-
-        self._updated_at = updated_at
-
-    @property
-    def state(self):
-        """
-        Gets the state of this UpdateCampaign.
-        The state of the campaign
-
-        :return: The state of this UpdateCampaign.
-        :rtype: str
-        """
-        return self._state
-
-    @state.setter
-    def state(self, state):
-        """
-        Sets the state of this UpdateCampaign.
-        The state of the campaign
-
-        :param state: The state of this UpdateCampaign.
-        :type: str
-        """
-        allowed_values = ["draft", "scheduled", "allocatingquota", "allocatedquota", "quotaallocationfailed", "checkingmanifest", "checkedmanifest", "devicefetch", "devicecopy", "devicecheck", "publishing", "deploying", "deployed", "manifestremoved", "expired", "stopping", "autostopped", "userstopped", "conflict"]
-        if state not in allowed_values:
-            raise ValueError(
-                "Invalid value for `state` ({0}), must be one of {1}"
-                .format(state, allowed_values)
-            )
-
-        self._state = state
+        self._device_filter = device_filter
 
     @property
     def etag(self):
@@ -302,71 +206,6 @@ class UpdateCampaign(object):
         self._finished = finished
 
     @property
-    def root_manifest_url(self):
-        """
-        Gets the root_manifest_url of this UpdateCampaign.
-
-        :return: The root_manifest_url of this UpdateCampaign.
-        :rtype: str
-        """
-        return self._root_manifest_url
-
-    @root_manifest_url.setter
-    def root_manifest_url(self, root_manifest_url):
-        """
-        Sets the root_manifest_url of this UpdateCampaign.
-
-        :param root_manifest_url: The root_manifest_url of this UpdateCampaign.
-        :type: str
-        """
-
-        self._root_manifest_url = root_manifest_url
-
-    @property
-    def phase(self):
-        """
-        Gets the phase of this UpdateCampaign.
-        The current phase of the campaign.
-
-        :return: The phase of this UpdateCampaign.
-        :rtype: str
-        """
-        return self._phase
-
-    @phase.setter
-    def phase(self, phase):
-        """
-        Sets the phase of this UpdateCampaign.
-        The current phase of the campaign.
-
-        :param phase: The phase of this UpdateCampaign.
-        :type: str
-        """
-
-        self._phase = phase
-
-    @property
-    def started_at(self):
-        """
-        Gets the started_at of this UpdateCampaign.
-
-        :return: The started_at of this UpdateCampaign.
-        :rtype: datetime
-        """
-        return self._started_at
-
-    @started_at.setter
-    def started_at(self, started_at):
-        """
-        Sets the started_at of this UpdateCampaign.
-
-        :param started_at: The started_at of this UpdateCampaign.
-        :type: datetime
-        """
-
-        self._started_at = started_at
-
-    @property
     def id(self):
         """
         Gets the id of this UpdateCampaign.
@@ -388,29 +227,6 @@ class UpdateCampaign(object):
         """
 
         self._id = id
-
-    @property
-    def device_filter(self):
-        """
-        Gets the device_filter of this UpdateCampaign.
-        The filter for the devices the campaign will target
-
-        :return: The device_filter of this UpdateCampaign.
-        :rtype: str
-        """
-        return self._device_filter
-
-    @device_filter.setter
-    def device_filter(self, device_filter):
-        """
-        Sets the device_filter of this UpdateCampaign.
-        The filter for the devices the campaign will target
-
-        :param device_filter: The device_filter of this UpdateCampaign.
-        :type: str
-        """
-
-        self._device_filter = device_filter
 
     @property
     def name(self):
@@ -436,6 +252,190 @@ class UpdateCampaign(object):
             raise ValueError("Invalid value for `name`, length must be less than or equal to `128`")
 
         self._name = name
+
+    @property
+    def object(self):
+        """
+        Gets the object of this UpdateCampaign.
+        The API resource entity
+
+        :return: The object of this UpdateCampaign.
+        :rtype: str
+        """
+        return self._object
+
+    @object.setter
+    def object(self, object):
+        """
+        Sets the object of this UpdateCampaign.
+        The API resource entity
+
+        :param object: The object of this UpdateCampaign.
+        :type: str
+        """
+
+        self._object = object
+
+    @property
+    def phase(self):
+        """
+        Gets the phase of this UpdateCampaign.
+        The current phase of the campaign.
+
+        :return: The phase of this UpdateCampaign.
+        :rtype: str
+        """
+        return self._phase
+
+    @phase.setter
+    def phase(self, phase):
+        """
+        Sets the phase of this UpdateCampaign.
+        The current phase of the campaign.
+
+        :param phase: The phase of this UpdateCampaign.
+        :type: str
+        """
+
+        self._phase = phase
+
+    @property
+    def root_manifest_id(self):
+        """
+        Gets the root_manifest_id of this UpdateCampaign.
+
+        :return: The root_manifest_id of this UpdateCampaign.
+        :rtype: str
+        """
+        return self._root_manifest_id
+
+    @root_manifest_id.setter
+    def root_manifest_id(self, root_manifest_id):
+        """
+        Sets the root_manifest_id of this UpdateCampaign.
+
+        :param root_manifest_id: The root_manifest_id of this UpdateCampaign.
+        :type: str
+        """
+
+        self._root_manifest_id = root_manifest_id
+
+    @property
+    def root_manifest_url(self):
+        """
+        Gets the root_manifest_url of this UpdateCampaign.
+
+        :return: The root_manifest_url of this UpdateCampaign.
+        :rtype: str
+        """
+        return self._root_manifest_url
+
+    @root_manifest_url.setter
+    def root_manifest_url(self, root_manifest_url):
+        """
+        Sets the root_manifest_url of this UpdateCampaign.
+
+        :param root_manifest_url: The root_manifest_url of this UpdateCampaign.
+        :type: str
+        """
+
+        self._root_manifest_url = root_manifest_url
+
+    @property
+    def started_at(self):
+        """
+        Gets the started_at of this UpdateCampaign.
+
+        :return: The started_at of this UpdateCampaign.
+        :rtype: datetime
+        """
+        return self._started_at
+
+    @started_at.setter
+    def started_at(self, started_at):
+        """
+        Sets the started_at of this UpdateCampaign.
+
+        :param started_at: The started_at of this UpdateCampaign.
+        :type: datetime
+        """
+
+        self._started_at = started_at
+
+    @property
+    def state(self):
+        """
+        Gets the state of this UpdateCampaign.
+        The state of the campaign
+
+        :return: The state of this UpdateCampaign.
+        :rtype: str
+        """
+        return self._state
+
+    @state.setter
+    def state(self, state):
+        """
+        Sets the state of this UpdateCampaign.
+        The state of the campaign
+
+        :param state: The state of this UpdateCampaign.
+        :type: str
+        """
+        allowed_values = ["draft", "scheduled", "allocatingquota", "allocatedquota", "quotaallocationfailed", "checkingmanifest", "checkedmanifest", "devicefetch", "devicecopy", "devicecheck", "publishing", "deploying", "deployed", "manifestremoved", "expired", "stopping", "autostopped", "userstopped", "conflict"]
+        if state not in allowed_values:
+            raise ValueError(
+                "Invalid value for `state` ({0}), must be one of {1}"
+                .format(state, allowed_values)
+            )
+
+        self._state = state
+
+    @property
+    def updated_at(self):
+        """
+        Gets the updated_at of this UpdateCampaign.
+        The time the object was updated
+
+        :return: The updated_at of this UpdateCampaign.
+        :rtype: datetime
+        """
+        return self._updated_at
+
+    @updated_at.setter
+    def updated_at(self, updated_at):
+        """
+        Sets the updated_at of this UpdateCampaign.
+        The time the object was updated
+
+        :param updated_at: The updated_at of this UpdateCampaign.
+        :type: datetime
+        """
+
+        self._updated_at = updated_at
+
+    @property
+    def when(self):
+        """
+        Gets the when of this UpdateCampaign.
+        The scheduled start time for the update campaign
+
+        :return: The when of this UpdateCampaign.
+        :rtype: datetime
+        """
+        return self._when
+
+    @when.setter
+    def when(self, when):
+        """
+        Sets the when of this UpdateCampaign.
+        The scheduled start time for the update campaign
+
+        :param when: The when of this UpdateCampaign.
+        :type: datetime
+        """
+
+        self._when = when
 
     def to_dict(self):
         """

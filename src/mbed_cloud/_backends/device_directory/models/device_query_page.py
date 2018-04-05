@@ -31,107 +31,38 @@ class DeviceQueryPage(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'object': 'str',
-        'has_more': 'bool',
-        'total_count': 'int',
         'after': 'str',
-        'limit': 'int',
         'data': 'list[DeviceQuery]',
-        'order': 'str'
+        'has_more': 'bool',
+        'limit': 'int',
+        'object': 'str',
+        'order': 'str',
+        'total_count': 'int'
     }
 
     attribute_map = {
-        'object': 'object',
-        'has_more': 'has_more',
-        'total_count': 'total_count',
         'after': 'after',
-        'limit': 'limit',
         'data': 'data',
-        'order': 'order'
+        'has_more': 'has_more',
+        'limit': 'limit',
+        'object': 'object',
+        'order': 'order',
+        'total_count': 'total_count'
     }
 
-    def __init__(self, object=None, has_more=None, total_count=None, after=None, limit=None, data=None, order=None):
+    def __init__(self, after=None, data=None, has_more=None, limit=None, object=None, order=None, total_count=None):
         """
         DeviceQueryPage - a model defined in Swagger
         """
 
-        self._object = object
-        self._has_more = has_more
-        self._total_count = total_count
         self._after = after
-        self._limit = limit
         self._data = data
-        self._order = order
-        self.discriminator = None
-
-    @property
-    def object(self):
-        """
-        Gets the object of this DeviceQueryPage.
-
-        :return: The object of this DeviceQueryPage.
-        :rtype: str
-        """
-        return self._object
-
-    @object.setter
-    def object(self, object):
-        """
-        Sets the object of this DeviceQueryPage.
-
-        :param object: The object of this DeviceQueryPage.
-        :type: str
-        """
-        if object is None:
-            raise ValueError("Invalid value for `object`, must not be `None`")
-
-        self._object = object
-
-    @property
-    def has_more(self):
-        """
-        Gets the has_more of this DeviceQueryPage.
-
-        :return: The has_more of this DeviceQueryPage.
-        :rtype: bool
-        """
-        return self._has_more
-
-    @has_more.setter
-    def has_more(self, has_more):
-        """
-        Sets the has_more of this DeviceQueryPage.
-
-        :param has_more: The has_more of this DeviceQueryPage.
-        :type: bool
-        """
-        if has_more is None:
-            raise ValueError("Invalid value for `has_more`, must not be `None`")
-
         self._has_more = has_more
-
-    @property
-    def total_count(self):
-        """
-        Gets the total_count of this DeviceQueryPage.
-
-        :return: The total_count of this DeviceQueryPage.
-        :rtype: int
-        """
-        return self._total_count
-
-    @total_count.setter
-    def total_count(self, total_count):
-        """
-        Sets the total_count of this DeviceQueryPage.
-
-        :param total_count: The total_count of this DeviceQueryPage.
-        :type: int
-        """
-        if total_count is None:
-            raise ValueError("Invalid value for `total_count`, must not be `None`")
-
+        self._limit = limit
+        self._object = object
+        self._order = order
         self._total_count = total_count
+        self.discriminator = None
 
     @property
     def after(self):
@@ -153,29 +84,6 @@ class DeviceQueryPage(object):
         """
 
         self._after = after
-
-    @property
-    def limit(self):
-        """
-        Gets the limit of this DeviceQueryPage.
-
-        :return: The limit of this DeviceQueryPage.
-        :rtype: int
-        """
-        return self._limit
-
-    @limit.setter
-    def limit(self, limit):
-        """
-        Sets the limit of this DeviceQueryPage.
-
-        :param limit: The limit of this DeviceQueryPage.
-        :type: int
-        """
-        if limit is None:
-            raise ValueError("Invalid value for `limit`, must not be `None`")
-
-        self._limit = limit
 
     @property
     def data(self):
@@ -201,6 +109,75 @@ class DeviceQueryPage(object):
         self._data = data
 
     @property
+    def has_more(self):
+        """
+        Gets the has_more of this DeviceQueryPage.
+
+        :return: The has_more of this DeviceQueryPage.
+        :rtype: bool
+        """
+        return self._has_more
+
+    @has_more.setter
+    def has_more(self, has_more):
+        """
+        Sets the has_more of this DeviceQueryPage.
+
+        :param has_more: The has_more of this DeviceQueryPage.
+        :type: bool
+        """
+        if has_more is None:
+            raise ValueError("Invalid value for `has_more`, must not be `None`")
+
+        self._has_more = has_more
+
+    @property
+    def limit(self):
+        """
+        Gets the limit of this DeviceQueryPage.
+
+        :return: The limit of this DeviceQueryPage.
+        :rtype: int
+        """
+        return self._limit
+
+    @limit.setter
+    def limit(self, limit):
+        """
+        Sets the limit of this DeviceQueryPage.
+
+        :param limit: The limit of this DeviceQueryPage.
+        :type: int
+        """
+        if limit is None:
+            raise ValueError("Invalid value for `limit`, must not be `None`")
+
+        self._limit = limit
+
+    @property
+    def object(self):
+        """
+        Gets the object of this DeviceQueryPage.
+
+        :return: The object of this DeviceQueryPage.
+        :rtype: str
+        """
+        return self._object
+
+    @object.setter
+    def object(self, object):
+        """
+        Sets the object of this DeviceQueryPage.
+
+        :param object: The object of this DeviceQueryPage.
+        :type: str
+        """
+        if object is None:
+            raise ValueError("Invalid value for `object`, must not be `None`")
+
+        self._object = object
+
+    @property
     def order(self):
         """
         Gets the order of this DeviceQueryPage.
@@ -222,6 +199,29 @@ class DeviceQueryPage(object):
             raise ValueError("Invalid value for `order`, must not be `None`")
 
         self._order = order
+
+    @property
+    def total_count(self):
+        """
+        Gets the total_count of this DeviceQueryPage.
+
+        :return: The total_count of this DeviceQueryPage.
+        :rtype: int
+        """
+        return self._total_count
+
+    @total_count.setter
+    def total_count(self, total_count):
+        """
+        Sets the total_count of this DeviceQueryPage.
+
+        :param total_count: The total_count of this DeviceQueryPage.
+        :type: int
+        """
+        if total_count is None:
+            raise ValueError("Invalid value for `total_count`, must not be `None`")
+
+        self._total_count = total_count
 
     def to_dict(self):
         """

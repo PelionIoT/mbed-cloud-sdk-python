@@ -31,46 +31,23 @@ class CredentialsResponseData(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'url': 'str',
-        'certificate': 'str'
+        'certificate': 'str',
+        'url': 'str'
     }
 
     attribute_map = {
-        'url': 'url',
-        'certificate': 'certificate'
+        'certificate': 'certificate',
+        'url': 'url'
     }
 
-    def __init__(self, url=None, certificate=None):
+    def __init__(self, certificate=None, url=None):
         """
         CredentialsResponseData - a model defined in Swagger
         """
 
-        self._url = url
         self._certificate = certificate
-        self.discriminator = None
-
-    @property
-    def url(self):
-        """
-        Gets the url of this CredentialsResponseData.
-        Server URI to which the client needs to connect to.
-
-        :return: The url of this CredentialsResponseData.
-        :rtype: str
-        """
-        return self._url
-
-    @url.setter
-    def url(self, url):
-        """
-        Sets the url of this CredentialsResponseData.
-        Server URI to which the client needs to connect to.
-
-        :param url: The url of this CredentialsResponseData.
-        :type: str
-        """
-
         self._url = url
+        self.discriminator = None
 
     @property
     def certificate(self):
@@ -94,6 +71,29 @@ class CredentialsResponseData(object):
         """
 
         self._certificate = certificate
+
+    @property
+    def url(self):
+        """
+        Gets the url of this CredentialsResponseData.
+        Server URI to which the client needs to connect to.
+
+        :return: The url of this CredentialsResponseData.
+        :rtype: str
+        """
+        return self._url
+
+    @url.setter
+    def url(self, url):
+        """
+        Sets the url of this CredentialsResponseData.
+        Server URI to which the client needs to connect to.
+
+        :param url: The url of this CredentialsResponseData.
+        :type: str
+        """
+
+        self._url = url
 
     def to_dict(self):
         """

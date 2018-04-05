@@ -3,7 +3,7 @@
 """
     Connect API
 
-    Mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
+    Mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. Mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
 
     OpenAPI spec version: 2
     
@@ -31,101 +31,55 @@ class NotificationData(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'path': 'str',
-        'max_age': 'str',
-        'payload': 'str',
+        'ct': 'str',
         'ep': 'str',
-        'ct': 'str'
+        'max_age': 'str',
+        'path': 'str',
+        'payload': 'str'
     }
 
     attribute_map = {
-        'path': 'path',
-        'max_age': 'max-age',
-        'payload': 'payload',
+        'ct': 'ct',
         'ep': 'ep',
-        'ct': 'ct'
+        'max_age': 'max-age',
+        'path': 'path',
+        'payload': 'payload'
     }
 
-    def __init__(self, path=None, max_age=None, payload=None, ep=None, ct=None):
+    def __init__(self, ct=None, ep=None, max_age=None, path=None, payload=None):
         """
         NotificationData - a model defined in Swagger
         """
 
-        self._path = path
-        self._max_age = max_age
-        self._payload = payload
-        self._ep = ep
         self._ct = ct
+        self._ep = ep
+        self._max_age = max_age
+        self._path = path
+        self._payload = payload
         self.discriminator = None
 
     @property
-    def path(self):
+    def ct(self):
         """
-        Gets the path of this NotificationData.
-        URI path.
+        Gets the ct of this NotificationData.
+        Content type.
 
-        :return: The path of this NotificationData.
+        :return: The ct of this NotificationData.
         :rtype: str
         """
-        return self._path
+        return self._ct
 
-    @path.setter
-    def path(self, path):
+    @ct.setter
+    def ct(self, ct):
         """
-        Sets the path of this NotificationData.
-        URI path.
+        Sets the ct of this NotificationData.
+        Content type.
 
-        :param path: The path of this NotificationData.
+        :param ct: The ct of this NotificationData.
         :type: str
         """
 
-        self._path = path
-
-    @property
-    def max_age(self):
-        """
-        Gets the max_age of this NotificationData.
-        Max age value is an integer number of seconds between 0 and 2^32-1 but the actual maximum cache time is limited to 3 days. A default value of 60 seconds is assumed in the absence of the option. 
-
-        :return: The max_age of this NotificationData.
-        :rtype: str
-        """
-        return self._max_age
-
-    @max_age.setter
-    def max_age(self, max_age):
-        """
-        Sets the max_age of this NotificationData.
-        Max age value is an integer number of seconds between 0 and 2^32-1 but the actual maximum cache time is limited to 3 days. A default value of 60 seconds is assumed in the absence of the option. 
-
-        :param max_age: The max_age of this NotificationData.
-        :type: str
-        """
-
-        self._max_age = max_age
-
-    @property
-    def payload(self):
-        """
-        Gets the payload of this NotificationData.
-        Base64 encoded payload.
-
-        :return: The payload of this NotificationData.
-        :rtype: str
-        """
-        return self._payload
-
-    @payload.setter
-    def payload(self, payload):
-        """
-        Sets the payload of this NotificationData.
-        Base64 encoded payload.
-
-        :param payload: The payload of this NotificationData.
-        :type: str
-        """
-
-        self._payload = payload
+        self._ct = ct
 
     @property
     def ep(self):
@@ -151,27 +105,73 @@ class NotificationData(object):
         self._ep = ep
 
     @property
-    def ct(self):
+    def max_age(self):
         """
-        Gets the ct of this NotificationData.
-        Content type.
+        Gets the max_age of this NotificationData.
+        Max age value is an integer number of seconds between 0 and 2^32-1 but the actual maximum cache time is limited to 3 days. A default value of 60 seconds is assumed in the absence of the option. 
 
-        :return: The ct of this NotificationData.
+        :return: The max_age of this NotificationData.
         :rtype: str
         """
-        return self._ct
+        return self._max_age
 
-    @ct.setter
-    def ct(self, ct):
+    @max_age.setter
+    def max_age(self, max_age):
         """
-        Sets the ct of this NotificationData.
-        Content type.
+        Sets the max_age of this NotificationData.
+        Max age value is an integer number of seconds between 0 and 2^32-1 but the actual maximum cache time is limited to 3 days. A default value of 60 seconds is assumed in the absence of the option. 
 
-        :param ct: The ct of this NotificationData.
+        :param max_age: The max_age of this NotificationData.
         :type: str
         """
 
-        self._ct = ct
+        self._max_age = max_age
+
+    @property
+    def path(self):
+        """
+        Gets the path of this NotificationData.
+        URI path.
+
+        :return: The path of this NotificationData.
+        :rtype: str
+        """
+        return self._path
+
+    @path.setter
+    def path(self, path):
+        """
+        Sets the path of this NotificationData.
+        URI path.
+
+        :param path: The path of this NotificationData.
+        :type: str
+        """
+
+        self._path = path
+
+    @property
+    def payload(self):
+        """
+        Gets the payload of this NotificationData.
+        Base64 encoded payload.
+
+        :return: The payload of this NotificationData.
+        :rtype: str
+        """
+        return self._payload
+
+    @payload.setter
+    def payload(self, payload):
+        """
+        Sets the payload of this NotificationData.
+        Base64 encoded payload.
+
+        :param payload: The payload of this NotificationData.
+        :type: str
+        """
+
+        self._payload = payload
 
     def to_dict(self):
         """

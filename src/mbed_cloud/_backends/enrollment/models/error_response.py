@@ -33,31 +33,31 @@ class ErrorResponse(object):
     swagger_types = {
         'code': 'int',
         'fields': 'list[Field]',
+        'message': 'str',
         'object': 'str',
         'request_id': 'str',
-        'message': 'str',
         'type': 'str'
     }
 
     attribute_map = {
         'code': 'code',
         'fields': 'fields',
+        'message': 'message',
         'object': 'object',
         'request_id': 'request_id',
-        'message': 'message',
         'type': 'type'
     }
 
-    def __init__(self, code=None, fields=None, object='error', request_id=None, message=None, type=None):
+    def __init__(self, code=None, fields=None, message=None, object='error', request_id=None, type=None):
         """
         ErrorResponse - a model defined in Swagger
         """
 
         self._code = code
         self._fields = fields
+        self._message = message
         self._object = object
         self._request_id = request_id
-        self._message = message
         self._type = type
         self.discriminator = None
 
@@ -114,6 +114,29 @@ class ErrorResponse(object):
         self._fields = fields
 
     @property
+    def message(self):
+        """
+        Gets the message of this ErrorResponse.
+        A human readable message with detailed info.
+
+        :return: The message of this ErrorResponse.
+        :rtype: str
+        """
+        return self._message
+
+    @message.setter
+    def message(self, message):
+        """
+        Sets the message of this ErrorResponse.
+        A human readable message with detailed info.
+
+        :param message: The message of this ErrorResponse.
+        :type: str
+        """
+
+        self._message = message
+
+    @property
     def object(self):
         """
         Gets the object of this ErrorResponse.
@@ -166,29 +189,6 @@ class ErrorResponse(object):
             raise ValueError("Invalid value for `request_id`, must be a follow pattern or equal to `/^[A-Za-z0-9]{32}/`")
 
         self._request_id = request_id
-
-    @property
-    def message(self):
-        """
-        Gets the message of this ErrorResponse.
-        A human readable message with detailed info.
-
-        :return: The message of this ErrorResponse.
-        :rtype: str
-        """
-        return self._message
-
-    @message.setter
-    def message(self, message):
-        """
-        Sets the message of this ErrorResponse.
-        A human readable message with detailed info.
-
-        :param message: The message of this ErrorResponse.
-        :type: str
-        """
-
-        self._message = message
 
     @property
     def type(self):

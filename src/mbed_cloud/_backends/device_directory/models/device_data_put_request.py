@@ -31,97 +31,47 @@ class DeviceDataPutRequest(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'description': 'str',
-        'endpoint_name': 'str',
         'auto_update': 'bool',
-        'host_gateway': 'str',
-        'object': 'str',
-        'custom_attributes': 'dict(str, str)',
-        'device_key': 'str',
-        'endpoint_type': 'str',
         'ca_id': 'str',
-        'name': 'str'
+        'custom_attributes': 'dict(str, str)',
+        'description': 'str',
+        'device_key': 'str',
+        'endpoint_name': 'str',
+        'endpoint_type': 'str',
+        'host_gateway': 'str',
+        'name': 'str',
+        'object': 'str'
     }
 
     attribute_map = {
-        'description': 'description',
-        'endpoint_name': 'endpoint_name',
         'auto_update': 'auto_update',
-        'host_gateway': 'host_gateway',
-        'object': 'object',
-        'custom_attributes': 'custom_attributes',
-        'device_key': 'device_key',
-        'endpoint_type': 'endpoint_type',
         'ca_id': 'ca_id',
-        'name': 'name'
+        'custom_attributes': 'custom_attributes',
+        'description': 'description',
+        'device_key': 'device_key',
+        'endpoint_name': 'endpoint_name',
+        'endpoint_type': 'endpoint_type',
+        'host_gateway': 'host_gateway',
+        'name': 'name',
+        'object': 'object'
     }
 
-    def __init__(self, description=None, endpoint_name=None, auto_update=None, host_gateway=None, object=None, custom_attributes=None, device_key=None, endpoint_type=None, ca_id=None, name=None):
+    def __init__(self, auto_update=None, ca_id=None, custom_attributes=None, description=None, device_key=None, endpoint_name=None, endpoint_type=None, host_gateway=None, name=None, object=None):
         """
         DeviceDataPutRequest - a model defined in Swagger
         """
 
-        self._description = description
-        self._endpoint_name = endpoint_name
         self._auto_update = auto_update
-        self._host_gateway = host_gateway
-        self._object = object
-        self._custom_attributes = custom_attributes
-        self._device_key = device_key
-        self._endpoint_type = endpoint_type
         self._ca_id = ca_id
-        self._name = name
-        self.discriminator = None
-
-    @property
-    def description(self):
-        """
-        Gets the description of this DeviceDataPutRequest.
-        The description of the device.
-
-        :return: The description of this DeviceDataPutRequest.
-        :rtype: str
-        """
-        return self._description
-
-    @description.setter
-    def description(self, description):
-        """
-        Sets the description of this DeviceDataPutRequest.
-        The description of the device.
-
-        :param description: The description of this DeviceDataPutRequest.
-        :type: str
-        """
-        if description is not None and len(description) > 2000:
-            raise ValueError("Invalid value for `description`, length must be less than or equal to `2000`")
-
+        self._custom_attributes = custom_attributes
         self._description = description
-
-    @property
-    def endpoint_name(self):
-        """
-        Gets the endpoint_name of this DeviceDataPutRequest.
-        The endpoint name given to the device.
-
-        :return: The endpoint_name of this DeviceDataPutRequest.
-        :rtype: str
-        """
-        return self._endpoint_name
-
-    @endpoint_name.setter
-    def endpoint_name(self, endpoint_name):
-        """
-        Sets the endpoint_name of this DeviceDataPutRequest.
-        The endpoint name given to the device.
-
-        :param endpoint_name: The endpoint_name of this DeviceDataPutRequest.
-        :type: str
-        """
-        if endpoint_name is not None and len(endpoint_name) > 64:
-            raise ValueError("Invalid value for `endpoint_name`, length must be less than or equal to `64`")
-
+        self._device_key = device_key
         self._endpoint_name = endpoint_name
+        self._endpoint_type = endpoint_type
+        self._host_gateway = host_gateway
+        self._name = name
+        self._object = object
+        self.discriminator = None
 
     @property
     def auto_update(self):
@@ -145,125 +95,6 @@ class DeviceDataPutRequest(object):
         """
 
         self._auto_update = auto_update
-
-    @property
-    def host_gateway(self):
-        """
-        Gets the host_gateway of this DeviceDataPutRequest.
-        The `endpoint_name` of the host gateway, if appropriate.
-
-        :return: The host_gateway of this DeviceDataPutRequest.
-        :rtype: str
-        """
-        return self._host_gateway
-
-    @host_gateway.setter
-    def host_gateway(self, host_gateway):
-        """
-        Sets the host_gateway of this DeviceDataPutRequest.
-        The `endpoint_name` of the host gateway, if appropriate.
-
-        :param host_gateway: The host_gateway of this DeviceDataPutRequest.
-        :type: str
-        """
-
-        self._host_gateway = host_gateway
-
-    @property
-    def object(self):
-        """
-        Gets the object of this DeviceDataPutRequest.
-        The API resource entity.
-
-        :return: The object of this DeviceDataPutRequest.
-        :rtype: str
-        """
-        return self._object
-
-    @object.setter
-    def object(self, object):
-        """
-        Sets the object of this DeviceDataPutRequest.
-        The API resource entity.
-
-        :param object: The object of this DeviceDataPutRequest.
-        :type: str
-        """
-
-        self._object = object
-
-    @property
-    def custom_attributes(self):
-        """
-        Gets the custom_attributes of this DeviceDataPutRequest.
-        Up to five custom key-value attributes. Note that keys cannot start with a number.
-
-        :return: The custom_attributes of this DeviceDataPutRequest.
-        :rtype: dict(str, str)
-        """
-        return self._custom_attributes
-
-    @custom_attributes.setter
-    def custom_attributes(self, custom_attributes):
-        """
-        Sets the custom_attributes of this DeviceDataPutRequest.
-        Up to five custom key-value attributes. Note that keys cannot start with a number.
-
-        :param custom_attributes: The custom_attributes of this DeviceDataPutRequest.
-        :type: dict(str, str)
-        """
-
-        self._custom_attributes = custom_attributes
-
-    @property
-    def device_key(self):
-        """
-        Gets the device_key of this DeviceDataPutRequest.
-        The fingerprint of the device certificate.
-
-        :return: The device_key of this DeviceDataPutRequest.
-        :rtype: str
-        """
-        return self._device_key
-
-    @device_key.setter
-    def device_key(self, device_key):
-        """
-        Sets the device_key of this DeviceDataPutRequest.
-        The fingerprint of the device certificate.
-
-        :param device_key: The device_key of this DeviceDataPutRequest.
-        :type: str
-        """
-        if device_key is not None and len(device_key) > 512:
-            raise ValueError("Invalid value for `device_key`, length must be less than or equal to `512`")
-
-        self._device_key = device_key
-
-    @property
-    def endpoint_type(self):
-        """
-        Gets the endpoint_type of this DeviceDataPutRequest.
-        The endpoint type of the device. For example, the device is a gateway.
-
-        :return: The endpoint_type of this DeviceDataPutRequest.
-        :rtype: str
-        """
-        return self._endpoint_type
-
-    @endpoint_type.setter
-    def endpoint_type(self, endpoint_type):
-        """
-        Sets the endpoint_type of this DeviceDataPutRequest.
-        The endpoint type of the device. For example, the device is a gateway.
-
-        :param endpoint_type: The endpoint_type of this DeviceDataPutRequest.
-        :type: str
-        """
-        if endpoint_type is not None and len(endpoint_type) > 64:
-            raise ValueError("Invalid value for `endpoint_type`, length must be less than or equal to `64`")
-
-        self._endpoint_type = endpoint_type
 
     @property
     def ca_id(self):
@@ -291,6 +122,152 @@ class DeviceDataPutRequest(object):
         self._ca_id = ca_id
 
     @property
+    def custom_attributes(self):
+        """
+        Gets the custom_attributes of this DeviceDataPutRequest.
+        Up to five custom key-value attributes. Note that keys cannot start with a number.
+
+        :return: The custom_attributes of this DeviceDataPutRequest.
+        :rtype: dict(str, str)
+        """
+        return self._custom_attributes
+
+    @custom_attributes.setter
+    def custom_attributes(self, custom_attributes):
+        """
+        Sets the custom_attributes of this DeviceDataPutRequest.
+        Up to five custom key-value attributes. Note that keys cannot start with a number.
+
+        :param custom_attributes: The custom_attributes of this DeviceDataPutRequest.
+        :type: dict(str, str)
+        """
+
+        self._custom_attributes = custom_attributes
+
+    @property
+    def description(self):
+        """
+        Gets the description of this DeviceDataPutRequest.
+        The description of the device.
+
+        :return: The description of this DeviceDataPutRequest.
+        :rtype: str
+        """
+        return self._description
+
+    @description.setter
+    def description(self, description):
+        """
+        Sets the description of this DeviceDataPutRequest.
+        The description of the device.
+
+        :param description: The description of this DeviceDataPutRequest.
+        :type: str
+        """
+        if description is not None and len(description) > 2000:
+            raise ValueError("Invalid value for `description`, length must be less than or equal to `2000`")
+
+        self._description = description
+
+    @property
+    def device_key(self):
+        """
+        Gets the device_key of this DeviceDataPutRequest.
+        The fingerprint of the device certificate.
+
+        :return: The device_key of this DeviceDataPutRequest.
+        :rtype: str
+        """
+        return self._device_key
+
+    @device_key.setter
+    def device_key(self, device_key):
+        """
+        Sets the device_key of this DeviceDataPutRequest.
+        The fingerprint of the device certificate.
+
+        :param device_key: The device_key of this DeviceDataPutRequest.
+        :type: str
+        """
+        if device_key is not None and len(device_key) > 512:
+            raise ValueError("Invalid value for `device_key`, length must be less than or equal to `512`")
+
+        self._device_key = device_key
+
+    @property
+    def endpoint_name(self):
+        """
+        Gets the endpoint_name of this DeviceDataPutRequest.
+        The endpoint name given to the device.
+
+        :return: The endpoint_name of this DeviceDataPutRequest.
+        :rtype: str
+        """
+        return self._endpoint_name
+
+    @endpoint_name.setter
+    def endpoint_name(self, endpoint_name):
+        """
+        Sets the endpoint_name of this DeviceDataPutRequest.
+        The endpoint name given to the device.
+
+        :param endpoint_name: The endpoint_name of this DeviceDataPutRequest.
+        :type: str
+        """
+        if endpoint_name is not None and len(endpoint_name) > 64:
+            raise ValueError("Invalid value for `endpoint_name`, length must be less than or equal to `64`")
+
+        self._endpoint_name = endpoint_name
+
+    @property
+    def endpoint_type(self):
+        """
+        Gets the endpoint_type of this DeviceDataPutRequest.
+        The endpoint type of the device. For example, the device is a gateway.
+
+        :return: The endpoint_type of this DeviceDataPutRequest.
+        :rtype: str
+        """
+        return self._endpoint_type
+
+    @endpoint_type.setter
+    def endpoint_type(self, endpoint_type):
+        """
+        Sets the endpoint_type of this DeviceDataPutRequest.
+        The endpoint type of the device. For example, the device is a gateway.
+
+        :param endpoint_type: The endpoint_type of this DeviceDataPutRequest.
+        :type: str
+        """
+        if endpoint_type is not None and len(endpoint_type) > 64:
+            raise ValueError("Invalid value for `endpoint_type`, length must be less than or equal to `64`")
+
+        self._endpoint_type = endpoint_type
+
+    @property
+    def host_gateway(self):
+        """
+        Gets the host_gateway of this DeviceDataPutRequest.
+        The `endpoint_name` of the host gateway, if appropriate.
+
+        :return: The host_gateway of this DeviceDataPutRequest.
+        :rtype: str
+        """
+        return self._host_gateway
+
+    @host_gateway.setter
+    def host_gateway(self, host_gateway):
+        """
+        Sets the host_gateway of this DeviceDataPutRequest.
+        The `endpoint_name` of the host gateway, if appropriate.
+
+        :param host_gateway: The host_gateway of this DeviceDataPutRequest.
+        :type: str
+        """
+
+        self._host_gateway = host_gateway
+
+    @property
     def name(self):
         """
         Gets the name of this DeviceDataPutRequest.
@@ -314,6 +291,29 @@ class DeviceDataPutRequest(object):
             raise ValueError("Invalid value for `name`, length must be less than or equal to `128`")
 
         self._name = name
+
+    @property
+    def object(self):
+        """
+        Gets the object of this DeviceDataPutRequest.
+        The API resource entity.
+
+        :return: The object of this DeviceDataPutRequest.
+        :rtype: str
+        """
+        return self._object
+
+    @object.setter
+    def object(self, object):
+        """
+        Sets the object of this DeviceDataPutRequest.
+        The API resource entity.
+
+        :param object: The object of this DeviceDataPutRequest.
+        :type: str
+        """
+
+        self._object = object
 
     def to_dict(self):
         """
