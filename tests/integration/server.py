@@ -35,6 +35,7 @@ app = flask.Flask(__name__)
 STORE = {}
 MODULE_REMAP = dict(  # to avoid writing these as attributes in the SDK, we map them here
     AccountManagementAPI='account_management',
+    BootstrapAPI='bootstrap',
     CertificatesAPI='certificates',
     ConnectAPI='connect',
     DeviceDirectoryAPI='device_directory',
