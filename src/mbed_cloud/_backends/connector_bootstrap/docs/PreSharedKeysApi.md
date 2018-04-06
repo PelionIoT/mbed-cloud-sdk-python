@@ -4,13 +4,13 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**delete_a_pre_shared_key**](PreSharedKeysApi.md#delete_a_pre_shared_key) | **DELETE** /v2/device-shared-keys/{endpoint_name} | Remove a pre-shared key.
-[**get_a_pre_shared_key**](PreSharedKeysApi.md#get_a_pre_shared_key) | **GET** /v2/device-shared-keys/{endpoint_name} | Get a pre-shared key.
-[**upload_a_pre_shared_key**](PreSharedKeysApi.md#upload_a_pre_shared_key) | **POST** /v2/device-shared-keys | Upload a pre-shared key to Mbed Cloud.
+[**delete_pre_shared_key**](PreSharedKeysApi.md#delete_pre_shared_key) | **DELETE** /v2/device-shared-keys/{endpoint_name} | Remove a pre-shared key.
+[**get_pre_shared_key**](PreSharedKeysApi.md#get_pre_shared_key) | **GET** /v2/device-shared-keys/{endpoint_name} | Get a pre-shared key.
+[**upload_pre_shared_key**](PreSharedKeysApi.md#upload_pre_shared_key) | **POST** /v2/device-shared-keys | Upload a pre-shared key to Mbed Cloud.
 
 
-# **delete_a_pre_shared_key**
-> delete_a_pre_shared_key(endpoint_name)
+# **delete_pre_shared_key**
+> delete_pre_shared_key(endpoint_name)
 
 Remove a pre-shared key.
 
@@ -32,20 +32,20 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = connector_bootstrap.PreSharedKeysApi(connector_bootstrap.ApiClient(configuration))
-endpoint_name = 'endpoint_name_example' # str | The endpoint name. A unique identifier of the pre-shared key. [Reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters) must be percent-encoded.
+endpoint_name = 'endpoint_name_example' # str | The unique endpoint identifier that this pre-shared key applies to. [Reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters) must be percent-encoded.
 
 try: 
     # Remove a pre-shared key.
-    api_instance.delete_a_pre_shared_key(endpoint_name)
+    api_instance.delete_pre_shared_key(endpoint_name)
 except ApiException as e:
-    print("Exception when calling PreSharedKeysApi->delete_a_pre_shared_key: %s\n" % e)
+    print("Exception when calling PreSharedKeysApi->delete_pre_shared_key: %s\n" % e)
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **endpoint_name** | **str**| The endpoint name. A unique identifier of the pre-shared key. [Reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters) must be percent-encoded. | 
+ **endpoint_name** | **str**| The unique endpoint identifier that this pre-shared key applies to. [Reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters) must be percent-encoded. | 
 
 ### Return type
 
@@ -62,8 +62,8 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get_a_pre_shared_key**
-> PreSharedKeyWithoutSecret get_a_pre_shared_key(endpoint_name)
+# **get_pre_shared_key**
+> PreSharedKeyWithoutSecret get_pre_shared_key(endpoint_name)
 
 Get a pre-shared key.
 
@@ -85,21 +85,21 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = connector_bootstrap.PreSharedKeysApi(connector_bootstrap.ApiClient(configuration))
-endpoint_name = 'endpoint_name_example' # str | The endpoint name. A unique identifier of the pre-shared key. [Reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters) must be percent-encoded.
+endpoint_name = 'endpoint_name_example' # str | The unique endpoint identifier that this pre-shared key applies to. [Reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters) must be percent-encoded.
 
 try: 
     # Get a pre-shared key.
-    api_response = api_instance.get_a_pre_shared_key(endpoint_name)
+    api_response = api_instance.get_pre_shared_key(endpoint_name)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling PreSharedKeysApi->get_a_pre_shared_key: %s\n" % e)
+    print("Exception when calling PreSharedKeysApi->get_pre_shared_key: %s\n" % e)
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **endpoint_name** | **str**| The endpoint name. A unique identifier of the pre-shared key. [Reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters) must be percent-encoded. | 
+ **endpoint_name** | **str**| The unique endpoint identifier that this pre-shared key applies to. [Reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters) must be percent-encoded. | 
 
 ### Return type
 
@@ -116,8 +116,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **upload_a_pre_shared_key**
-> upload_a_pre_shared_key(body)
+# **upload_pre_shared_key**
+> upload_pre_shared_key(body)
 
 Upload a pre-shared key to Mbed Cloud.
 
@@ -143,9 +143,9 @@ body = connector_bootstrap.PreSharedKey() # PreSharedKey | Pre-shared key to be 
 
 try: 
     # Upload a pre-shared key to Mbed Cloud.
-    api_instance.upload_a_pre_shared_key(body)
+    api_instance.upload_pre_shared_key(body)
 except ApiException as e:
-    print("Exception when calling PreSharedKeysApi->upload_a_pre_shared_key: %s\n" % e)
+    print("Exception when calling PreSharedKeysApi->upload_pre_shared_key: %s\n" % e)
 ```
 
 ### Parameters

@@ -35,39 +35,39 @@ class PreSharedKeysApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def delete_a_pre_shared_key(self, endpoint_name, **kwargs):
+    def delete_pre_shared_key(self, endpoint_name, **kwargs):
         """
         Remove a pre-shared key.
         Remove a pre-shared key.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
-        >>> thread = api.delete_a_pre_shared_key(endpoint_name, async=True)
+        >>> thread = api.delete_pre_shared_key(endpoint_name, async=True)
         >>> result = thread.get()
 
         :param async bool
-        :param str endpoint_name: The endpoint name. A unique identifier of the pre-shared key. [Reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters) must be percent-encoded. (required)
+        :param str endpoint_name: The unique endpoint identifier that this pre-shared key applies to. [Reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters) must be percent-encoded. (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async'):
-            return self.delete_a_pre_shared_key_with_http_info(endpoint_name, **kwargs)
+            return self.delete_pre_shared_key_with_http_info(endpoint_name, **kwargs)
         else:
-            (data) = self.delete_a_pre_shared_key_with_http_info(endpoint_name, **kwargs)
+            (data) = self.delete_pre_shared_key_with_http_info(endpoint_name, **kwargs)
             return data
 
-    def delete_a_pre_shared_key_with_http_info(self, endpoint_name, **kwargs):
+    def delete_pre_shared_key_with_http_info(self, endpoint_name, **kwargs):
         """
         Remove a pre-shared key.
         Remove a pre-shared key.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
-        >>> thread = api.delete_a_pre_shared_key_with_http_info(endpoint_name, async=True)
+        >>> thread = api.delete_pre_shared_key_with_http_info(endpoint_name, async=True)
         >>> result = thread.get()
 
         :param async bool
-        :param str endpoint_name: The endpoint name. A unique identifier of the pre-shared key. [Reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters) must be percent-encoded. (required)
+        :param str endpoint_name: The unique endpoint identifier that this pre-shared key applies to. [Reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters) must be percent-encoded. (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -84,13 +84,13 @@ class PreSharedKeysApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method delete_a_pre_shared_key" % key
+                    " to method delete_pre_shared_key" % key
                 )
             params[key] = val
         del params['kwargs']
         # verify the required parameter 'endpoint_name' is set
         if ('endpoint_name' not in params) or (params['endpoint_name'] is None):
-            raise ValueError("Missing the required parameter `endpoint_name` when calling `delete_a_pre_shared_key`")
+            raise ValueError("Missing the required parameter `endpoint_name` when calling `delete_pre_shared_key`")
 
 
         collection_formats = {}
@@ -125,39 +125,39 @@ class PreSharedKeysApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
-    def get_a_pre_shared_key(self, endpoint_name, **kwargs):
+    def get_pre_shared_key(self, endpoint_name, **kwargs):
         """
         Get a pre-shared key.
         Check if a pre-shared key for an endpoint exists or not. The response does not contain the secret itself. 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_a_pre_shared_key(endpoint_name, async=True)
+        >>> thread = api.get_pre_shared_key(endpoint_name, async=True)
         >>> result = thread.get()
 
         :param async bool
-        :param str endpoint_name: The endpoint name. A unique identifier of the pre-shared key. [Reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters) must be percent-encoded. (required)
+        :param str endpoint_name: The unique endpoint identifier that this pre-shared key applies to. [Reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters) must be percent-encoded. (required)
         :return: PreSharedKeyWithoutSecret
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async'):
-            return self.get_a_pre_shared_key_with_http_info(endpoint_name, **kwargs)
+            return self.get_pre_shared_key_with_http_info(endpoint_name, **kwargs)
         else:
-            (data) = self.get_a_pre_shared_key_with_http_info(endpoint_name, **kwargs)
+            (data) = self.get_pre_shared_key_with_http_info(endpoint_name, **kwargs)
             return data
 
-    def get_a_pre_shared_key_with_http_info(self, endpoint_name, **kwargs):
+    def get_pre_shared_key_with_http_info(self, endpoint_name, **kwargs):
         """
         Get a pre-shared key.
         Check if a pre-shared key for an endpoint exists or not. The response does not contain the secret itself. 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_a_pre_shared_key_with_http_info(endpoint_name, async=True)
+        >>> thread = api.get_pre_shared_key_with_http_info(endpoint_name, async=True)
         >>> result = thread.get()
 
         :param async bool
-        :param str endpoint_name: The endpoint name. A unique identifier of the pre-shared key. [Reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters) must be percent-encoded. (required)
+        :param str endpoint_name: The unique endpoint identifier that this pre-shared key applies to. [Reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters) must be percent-encoded. (required)
         :return: PreSharedKeyWithoutSecret
                  If the method is called asynchronously,
                  returns the request thread.
@@ -174,13 +174,13 @@ class PreSharedKeysApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method get_a_pre_shared_key" % key
+                    " to method get_pre_shared_key" % key
                 )
             params[key] = val
         del params['kwargs']
         # verify the required parameter 'endpoint_name' is set
         if ('endpoint_name' not in params) or (params['endpoint_name'] is None):
-            raise ValueError("Missing the required parameter `endpoint_name` when calling `get_a_pre_shared_key`")
+            raise ValueError("Missing the required parameter `endpoint_name` when calling `get_pre_shared_key`")
 
 
         collection_formats = {}
@@ -215,13 +215,13 @@ class PreSharedKeysApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
-    def upload_a_pre_shared_key(self, body, **kwargs):
+    def upload_pre_shared_key(self, body, **kwargs):
         """
         Upload a pre-shared key to Mbed Cloud.
         Upload a pre-shared key (PSK) for an endpoint to allow it to bootstrap. The existing key will not be overwritten but needs to be deleted first in case of re-setting PSK for an endpoint.  **Note**: The PSK APIs are available only to accounts that have this feature enabled.  ``` Example payloads: {\"endpoint_name\": \"myEndpoint\", \"secret_hex\": \"4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a\" } {\"endpoint_name\": \"myEndpoint\", \"secret_hex\": \"0x4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a\" } ``` 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
-        >>> thread = api.upload_a_pre_shared_key(body, async=True)
+        >>> thread = api.upload_pre_shared_key(body, async=True)
         >>> result = thread.get()
 
         :param async bool
@@ -232,18 +232,18 @@ class PreSharedKeysApi(object):
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async'):
-            return self.upload_a_pre_shared_key_with_http_info(body, **kwargs)
+            return self.upload_pre_shared_key_with_http_info(body, **kwargs)
         else:
-            (data) = self.upload_a_pre_shared_key_with_http_info(body, **kwargs)
+            (data) = self.upload_pre_shared_key_with_http_info(body, **kwargs)
             return data
 
-    def upload_a_pre_shared_key_with_http_info(self, body, **kwargs):
+    def upload_pre_shared_key_with_http_info(self, body, **kwargs):
         """
         Upload a pre-shared key to Mbed Cloud.
         Upload a pre-shared key (PSK) for an endpoint to allow it to bootstrap. The existing key will not be overwritten but needs to be deleted first in case of re-setting PSK for an endpoint.  **Note**: The PSK APIs are available only to accounts that have this feature enabled.  ``` Example payloads: {\"endpoint_name\": \"myEndpoint\", \"secret_hex\": \"4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a\" } {\"endpoint_name\": \"myEndpoint\", \"secret_hex\": \"0x4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a\" } ``` 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
-        >>> thread = api.upload_a_pre_shared_key_with_http_info(body, async=True)
+        >>> thread = api.upload_pre_shared_key_with_http_info(body, async=True)
         >>> result = thread.get()
 
         :param async bool
@@ -264,13 +264,13 @@ class PreSharedKeysApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method upload_a_pre_shared_key" % key
+                    " to method upload_pre_shared_key" % key
                 )
             params[key] = val
         del params['kwargs']
         # verify the required parameter 'body' is set
         if ('body' not in params) or (params['body'] is None):
-            raise ValueError("Missing the required parameter `body` when calling `upload_a_pre_shared_key`")
+            raise ValueError("Missing the required parameter `body` when calling `upload_pre_shared_key`")
 
 
         collection_formats = {}

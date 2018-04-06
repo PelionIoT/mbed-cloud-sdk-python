@@ -50,7 +50,7 @@ class PreSharedKeyWithoutSecret(object):
     def endpoint_name(self):
         """
         Gets the endpoint_name of this PreSharedKeyWithoutSecret.
-        Endpoint name is the unique ID of the pre-shared key. 16-64 printable (non-control) ASCII characters.
+        The unique endpoint identifier that this pre-shared key applies to. 16-64 [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters) (non-control) ASCII characters.
 
         :return: The endpoint_name of this PreSharedKeyWithoutSecret.
         :rtype: str
@@ -61,13 +61,15 @@ class PreSharedKeyWithoutSecret(object):
     def endpoint_name(self, endpoint_name):
         """
         Sets the endpoint_name of this PreSharedKeyWithoutSecret.
-        Endpoint name is the unique ID of the pre-shared key. 16-64 printable (non-control) ASCII characters.
+        The unique endpoint identifier that this pre-shared key applies to. 16-64 [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters) (non-control) ASCII characters.
 
         :param endpoint_name: The endpoint_name of this PreSharedKeyWithoutSecret.
         :type: str
         """
         if endpoint_name is None:
             raise ValueError("Invalid value for `endpoint_name`, must not be `None`")
+        if endpoint_name is not None and not re.search('^[ -~]{16,64}$', endpoint_name):
+            raise ValueError("Invalid value for `endpoint_name`, must be a follow pattern or equal to `/^[ -~]{16,64}$/`")
 
         self._endpoint_name = endpoint_name
 

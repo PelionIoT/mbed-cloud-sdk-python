@@ -53,7 +53,7 @@ class PreSharedKey(object):
     def endpoint_name(self):
         """
         Gets the endpoint_name of this PreSharedKey.
-        Endpoint name is the unique ID of the pre-shared key. 16-64 printable (non-control) ASCII characters.
+        The unique endpoint identifier that this pre-shared key applies to. 16-64 [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters) (non-control) ASCII characters.
 
         :return: The endpoint_name of this PreSharedKey.
         :rtype: str
@@ -64,13 +64,15 @@ class PreSharedKey(object):
     def endpoint_name(self, endpoint_name):
         """
         Sets the endpoint_name of this PreSharedKey.
-        Endpoint name is the unique ID of the pre-shared key. 16-64 printable (non-control) ASCII characters.
+        The unique endpoint identifier that this pre-shared key applies to. 16-64 [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters) (non-control) ASCII characters.
 
         :param endpoint_name: The endpoint_name of this PreSharedKey.
         :type: str
         """
         if endpoint_name is None:
             raise ValueError("Invalid value for `endpoint_name`, must not be `None`")
+        if endpoint_name is not None and not re.search('^[ -~]{16,64}$', endpoint_name):
+            raise ValueError("Invalid value for `endpoint_name`, must be a follow pattern or equal to `/^[ -~]{16,64}$/`")
 
         self._endpoint_name = endpoint_name
 
@@ -78,7 +80,7 @@ class PreSharedKey(object):
     def secret_hex(self):
         """
         Gets the secret_hex of this PreSharedKey.
-        The secret of the pre-shared key in HEX format. It is not case sensitive; 4a is same as 4A, and it is allowed with or without 0x in the beginning. The minimum length of the secret is 128 bits and max 512 bits.
+        The secret of the pre-shared key in hexadecimal. It is not case sensitive; 4a is same as 4A, and it is allowed with or without 0x in the beginning. The minimum length of the secret is 128 bits and maximum 256 bits.
 
         :return: The secret_hex of this PreSharedKey.
         :rtype: str
@@ -89,13 +91,15 @@ class PreSharedKey(object):
     def secret_hex(self, secret_hex):
         """
         Sets the secret_hex of this PreSharedKey.
-        The secret of the pre-shared key in HEX format. It is not case sensitive; 4a is same as 4A, and it is allowed with or without 0x in the beginning. The minimum length of the secret is 128 bits and max 512 bits.
+        The secret of the pre-shared key in hexadecimal. It is not case sensitive; 4a is same as 4A, and it is allowed with or without 0x in the beginning. The minimum length of the secret is 128 bits and maximum 256 bits.
 
         :param secret_hex: The secret_hex of this PreSharedKey.
         :type: str
         """
         if secret_hex is None:
             raise ValueError("Invalid value for `secret_hex`, must not be `None`")
+        if secret_hex is not None and not re.search('^(0[xX])?[0-9a-fA-F]{16,64}$', secret_hex):
+            raise ValueError("Invalid value for `secret_hex`, must be a follow pattern or equal to `/^(0[xX])?[0-9a-fA-F]{16,64}$/`")
 
         self._secret_hex = secret_hex
 

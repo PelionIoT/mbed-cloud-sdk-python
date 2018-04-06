@@ -57,13 +57,13 @@ connector_bootstrap.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # connector_bootstrap.configuration.api_key_prefix['Authorization'] = 'Bearer'
 # create an instance of the API class
 api_instance = connector_bootstrap.PreSharedKeysApi()
-endpoint_name = 'endpoint_name_example' # str | The endpoint name. A unique identifier of the pre-shared key. [Reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters) must be percent-encoded.
+endpoint_name = 'endpoint_name_example' # str | The unique endpoint identifier that this pre-shared key applies to. [Reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters) must be percent-encoded.
 
 try:
     # Remove a pre-shared key.
-    api_instance.delete_a_pre_shared_key(endpoint_name)
+    api_instance.delete_pre_shared_key(endpoint_name)
 except ApiException as e:
-    print("Exception when calling PreSharedKeysApi->delete_a_pre_shared_key: %s\n" % e)
+    print("Exception when calling PreSharedKeysApi->delete_pre_shared_key: %s\n" % e)
 
 ```
 
@@ -73,9 +73,9 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*PreSharedKeysApi* | [**delete_a_pre_shared_key**](docs/PreSharedKeysApi.md#delete_a_pre_shared_key) | **DELETE** /v2/device-shared-keys/{endpoint_name} | Remove a pre-shared key.
-*PreSharedKeysApi* | [**get_a_pre_shared_key**](docs/PreSharedKeysApi.md#get_a_pre_shared_key) | **GET** /v2/device-shared-keys/{endpoint_name} | Get a pre-shared key.
-*PreSharedKeysApi* | [**upload_a_pre_shared_key**](docs/PreSharedKeysApi.md#upload_a_pre_shared_key) | **POST** /v2/device-shared-keys | Upload a pre-shared key to Mbed Cloud.
+*PreSharedKeysApi* | [**delete_pre_shared_key**](docs/PreSharedKeysApi.md#delete_pre_shared_key) | **DELETE** /v2/device-shared-keys/{endpoint_name} | Remove a pre-shared key.
+*PreSharedKeysApi* | [**get_pre_shared_key**](docs/PreSharedKeysApi.md#get_pre_shared_key) | **GET** /v2/device-shared-keys/{endpoint_name} | Get a pre-shared key.
+*PreSharedKeysApi* | [**upload_pre_shared_key**](docs/PreSharedKeysApi.md#upload_pre_shared_key) | **POST** /v2/device-shared-keys | Upload a pre-shared key to Mbed Cloud.
 
 
 ## Documentation For Models
