@@ -26,9 +26,9 @@ from mbed_cloud.core import BaseObject
 from mbed_cloud.decorators import catch_exceptions
 
 # Import backend API
-import mbed_cloud._backends.bootstrap as bootstrap
-from mbed_cloud._backends.bootstrap import models
-from mbed_cloud._backends.bootstrap.rest import ApiException as BootstrapAPIException
+import mbed_cloud._backends.connector_bootstrap as bootstrap
+from mbed_cloud._backends.connector_bootstrap import models
+from mbed_cloud._backends.connector_bootstrap.rest import ApiException as BootstrapAPIException
 
 LOG = logging.getLogger(__name__)
 
