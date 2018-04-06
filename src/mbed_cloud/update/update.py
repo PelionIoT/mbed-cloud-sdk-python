@@ -315,7 +315,6 @@ class FirmwareImage(BaseObject):
             "datafile_size": "datafile_size",
             "description": "description",
             "id": "id",
-            "keytable_url": "keytable",
             "name": "name",
             "updated_at": "updated_at",
             "url": "datafile",
@@ -394,6 +393,7 @@ class FirmwareManifest(BaseObject):
         return {
             "created_at": "created_at",
             "url": "datafile",
+            "keytable_url": "keytable",
             "description": "description",
             "device_class": "device_class",
             "datafile_size": "datafile_size",
@@ -419,6 +419,14 @@ class FirmwareManifest(BaseObject):
         :rtype: str
         """
         return self._url
+
+    @property
+    def keytable_url(self):
+        """The URL of the keytable (readonly).
+
+        :rtype: str
+        """
+        return self._keytable_url
 
     @property
     def description(self):
