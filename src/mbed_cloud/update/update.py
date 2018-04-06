@@ -485,28 +485,29 @@ class Campaign(BaseObject):
     @staticmethod
     def _get_attributes_map():
         return {
-            "device_filter": "device_filter",
             "created_at": "created_at",
             "description": "description",
+            "device_filter": "device_filter",
             "finished_at": "finished",
             "id": "id",
             "manifest_id": "root_manifest_id",
             "manifest_url": "root_manifest_url",
             "name": "name",
+            "phase": "phase",
+            "scheduled_at": "when",
             "started_at": "started_at",
-            "updated_at": "updated_at",
             "state": "state",
-            "scheduled_at": "when"
+            "updated_at": "updated_at",
         }
 
     def _create_patch_request(self):
         patch_map = {
-            "device_filter": "device_filter",
             "description": "description",
+            "device_filter": "device_filter",
             "manifest_id": "root_manifest_id",
             "name": "name",
+            "scheduled_at": "when",
             "state": "state",
-            "scheduled_at": "when"
         }
         map_patch = {}
         for key, value in iteritems(patch_map):
@@ -514,6 +515,15 @@ class Campaign(BaseObject):
             if val is not None:
                 map_patch[value] = val
         return map_patch
+
+    @property
+    def phase(self):
+        """The phase of this Campaign.
+
+        :return: The phase of this Campaign.
+        :rtype: str
+        """
+        return self._phase
 
     @property
     def device_filter(self):
