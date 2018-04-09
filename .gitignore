@@ -14,3 +14,4 @@ docs/build/
 results/
 venv/
 _dvcs.py
+built_docs/
