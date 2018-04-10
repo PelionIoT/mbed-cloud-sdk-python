@@ -1,0 +1,38 @@
+# this file will run a testrunner against the specified image
+# run it with:
+# docker-compose up --exit-code-from sdk_test_server
+
+version: '3'
+services:
+  sdk_test_server:
+      build:
+        context: .
+        dockerfile: Dockerfile
+      image: sdk:py3
+      environment:
+        - 'MBED_CLOUD_SDK_API_KEY=ak_1MDE2MTQxMzRjNjJmMGE1ODBhMDExMmQwMDAwMDAwMDA01614b6804580a580a010c92000000002J0GzlzZ7JNKqrEWmfuL4nAdX0rYgV8i'
+        - 'MBED_CLOUD_SDK_HOST=https://api-os2.mbedcloudstaging.net'
+      volumes:
+        - ./results:/results
+        - ./test_fixtures:/test_fixtures
+      command: [sh, -c, 'source .venv/bin/activate && pytest --ignore=tests/static']
+#      command: [sh, -c, 'source .venv/bin/activate && python tests/integration/server.py']
+#      command: [sh, -c, 'source .venv/bin/activate && python -c "from mbed_cloud.configuration import Config; print(Config())"']
+  testrunner:
+      build: '../mbed-cloud-sdk-testrunner'
+      image: '104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master'
+      environment:
+        - 'TEST_SERVER_URL=http://sdk_test_server:5000'
+        - 'TEST_FIXTURES_DIR=/test_fixtures'
+      depends_on:
+        - sdk_test_server
+      volumes:
+        - ./results:/runner/results
+        - ./test_fixtures:/runner/test_fixtures
+      command: [pytest, -k, server]
+
+# NEXT STEPS
+# verify server is being sent shutdown command as it seems to hang
+# testrunner should send an indication of test outcome - otherwise how does test_with_rpc know whether to fail the build
+# we need to run integration test and unittests at the same time to collect coverage
+# static analysis tests seem to fail in dockerland - how to fix? when to run these?

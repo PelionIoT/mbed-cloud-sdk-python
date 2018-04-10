@@ -82,6 +82,10 @@ class Config(dict):
             self._using_paths.append(' exists: %s' % abs_path)
             with open(abs_path) as fh:
                 self.update(json.load(fh))
+        for env_var, key in dict(MBED_CLOUD_SDK_HOST='host', MBED_CLOUD_SDK_API_KEY='api_key').items():
+            env_value = os.getenv(env_var)
+            if env_value is not None:
+                self[key] = env_value
         if updates:
             self.update(updates)
         self.validate()
