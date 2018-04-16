@@ -3,10 +3,15 @@
 #
 
 FROM python:3.6.3-alpine3.6 as PY_SDK_BUILDER
+
 # don't cache any pip downloads
 ENV PIP_NO_CACHE_DIR=false
 # pipenv puts new virtual env in current working directory
 ENV PIPENV_VENV_IN_PROJECT=true
+# fake api key for testing
+ENV MBED_CLOUD_SDK_API_KEY=abc123
+# set 'CI' to replicate CI server environments
+ENV CI=yes
 
 # set the working directory (explicit mkdir needed for docker <= 1.9.1 i.e. circleci)
 RUN mkdir -p /build
@@ -15,7 +20,7 @@ WORKDIR /build
 # install system-level dependencies
 RUN apk update
 RUN apk --no-cache add git
-RUN python -m pip install --no-cache-dir -U setuptools pip==9.0.3 pipenv==11.9.0
+RUN python -m pip install --no-cache-dir -U setuptools pip==10.0.0 pipenv==11.10.0
 
 # add bare minimum files to survive a pip install
 ADD scripts/dvcs_version.py scripts/dvcs_version.py

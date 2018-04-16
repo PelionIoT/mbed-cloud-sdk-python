@@ -10,29 +10,27 @@ services:
         dockerfile: Dockerfile
       image: sdk:py3
       environment:
-        - 'MBED_CLOUD_SDK_API_KEY=ak_1MDE2MTQxMzRjNjJmMGE1ODBhMDExMmQwMDAwMDAwMDA01614b6804580a580a010c92000000002J0GzlzZ7JNKqrEWmfuL4nAdX0rYgV8i'
-        - 'MBED_CLOUD_SDK_HOST=https://api-os2.mbedcloudstaging.net'
+        - MBED_CLOUD_SDK_API_KEY=abc123
+        - CI=yes
       volumes:
-        - ./results:/results
+        - ./results:/build/results
         - ./test_fixtures:/test_fixtures
-      command: [sh, -c, 'source .venv/bin/activate && pytest --ignore=tests/static']
-#      command: [sh, -c, 'source .venv/bin/activate && python tests/integration/server.py']
-#      command: [sh, -c, 'source .venv/bin/activate && python -c "from mbed_cloud.configuration import Config; print(Config())"']
+      command: [sh, -c, 'source .venv/bin/activate && pytest -x tests/integration']
   testrunner:
-      build: '../mbed-cloud-sdk-testrunner'
+      build:
+        # this assumes you have a checkout of the testrunner alongside the sdk
+        context: '../mbed-cloud-sdk-testrunner'
+        args:
+          - GIT_ACCESS_TOKEN
       image: '104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master'
       environment:
         - 'TEST_SERVER_URL=http://sdk_test_server:5000'
-        - 'TEST_FIXTURES_DIR=/test_fixtures'
+        - TEST_FIXTURES_DIR=/test_fixtures
+        - TEST_RUNNER_SHUTDOWN_SERVER=yes
+        - TEST_RUNNER_DEFAULT_API_KEY
+        - TEST_RUNNER_DEFAULT_API_HOST
       depends_on:
         - sdk_test_server
       volumes:
         - ./results:/runner/results
         - ./test_fixtures:/runner/test_fixtures
-      command: [pytest, -k, server]
-
-# NEXT STEPS
-# verify server is being sent shutdown command as it seems to hang
-# testrunner should send an indication of test outcome - otherwise how does test_with_rpc know whether to fail the build
-# we need to run integration test and unittests at the same time to collect coverage
-# static analysis tests seem to fail in dockerland - how to fix? when to run these?

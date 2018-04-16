@@ -3,7 +3,6 @@ import sys
 import shlex
 import subprocess
 import time
-import unittest
 
 from threading import Timer
 
@@ -13,6 +12,7 @@ from requests.packages.urllib3.util.retry import Retry
 
 from tests.common import BaseCase
 
+from xml.etree import ElementTree
 
 docker_image = os.environ.get(
     'TESTRUNNER_DOCKER_IMAGE',
@@ -95,5 +95,21 @@ class TestWithRPC(BaseCase):
     def test_run(self):
         self.process.wait()
 
+        # now go to the rpc test result directory and load outcome
+        for i in range(10):
+            if os.path.exists('results/results.xml'):
+                break
+            time.sleep(0.2)
+        else:
+            raise IOError('could not find integration results')
+
+        self.outcome = ElementTree.parse('results/results.xml').getroot().attrib
+        remote_failures = int(self.outcome.get('failures', 0))
+        if remote_failures:
+            self.fail('Remote test had %s failures' % (remote_failures,))
+
     def tearDown(self):
         timeout_check_output(process=self.process)
+        remote_errors = int(self.outcome.get('errors', 0))
+        if remote_errors:
+            self.fail('Remote test had %s errors' % (remote_errors,))
