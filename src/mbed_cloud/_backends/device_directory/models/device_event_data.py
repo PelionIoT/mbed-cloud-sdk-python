@@ -31,44 +31,86 @@ class DeviceEventData(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'date_time': 'datetime',
-        'state_change': 'bool',
-        'description': 'str',
         'changes': 'object',
-        'event_type_description': 'str',
-        'event_type': 'str',
         'data': 'object',
+        'date_time': 'datetime',
+        'description': 'str',
+        'device_id': 'str',
+        'event_type': 'str',
+        'event_type_description': 'str',
         'id': 'str',
-        'device_id': 'str'
+        'state_change': 'bool'
     }
 
     attribute_map = {
-        'date_time': 'date_time',
-        'state_change': 'state_change',
-        'description': 'description',
         'changes': 'changes',
-        'event_type_description': 'event_type_description',
-        'event_type': 'event_type',
         'data': 'data',
+        'date_time': 'date_time',
+        'description': 'description',
+        'device_id': 'device_id',
+        'event_type': 'event_type',
+        'event_type_description': 'event_type_description',
         'id': 'id',
-        'device_id': 'device_id'
+        'state_change': 'state_change'
     }
 
-    def __init__(self, date_time=None, state_change=None, description=None, changes=None, event_type_description=None, event_type=None, data=None, id=None, device_id=None):
+    def __init__(self, changes=None, data=None, date_time=None, description=None, device_id=None, event_type=None, event_type_description=None, id=None, state_change=None):
         """
         DeviceEventData - a model defined in Swagger
         """
 
-        self._date_time = date_time
-        self._state_change = state_change
-        self._description = description
         self._changes = changes
-        self._event_type_description = event_type_description
-        self._event_type = event_type
         self._data = data
-        self._id = id
+        self._date_time = date_time
+        self._description = description
         self._device_id = device_id
+        self._event_type = event_type
+        self._event_type_description = event_type_description
+        self._id = id
+        self._state_change = state_change
         self.discriminator = None
+
+    @property
+    def changes(self):
+        """
+        Gets the changes of this DeviceEventData.
+
+        :return: The changes of this DeviceEventData.
+        :rtype: object
+        """
+        return self._changes
+
+    @changes.setter
+    def changes(self, changes):
+        """
+        Sets the changes of this DeviceEventData.
+
+        :param changes: The changes of this DeviceEventData.
+        :type: object
+        """
+
+        self._changes = changes
+
+    @property
+    def data(self):
+        """
+        Gets the data of this DeviceEventData.
+
+        :return: The data of this DeviceEventData.
+        :rtype: object
+        """
+        return self._data
+
+    @data.setter
+    def data(self, data):
+        """
+        Sets the data of this DeviceEventData.
+
+        :param data: The data of this DeviceEventData.
+        :type: object
+        """
+
+        self._data = data
 
     @property
     def date_time(self):
@@ -94,27 +136,6 @@ class DeviceEventData(object):
         self._date_time = date_time
 
     @property
-    def state_change(self):
-        """
-        Gets the state_change of this DeviceEventData.
-
-        :return: The state_change of this DeviceEventData.
-        :rtype: bool
-        """
-        return self._state_change
-
-    @state_change.setter
-    def state_change(self, state_change):
-        """
-        Sets the state_change of this DeviceEventData.
-
-        :param state_change: The state_change of this DeviceEventData.
-        :type: bool
-        """
-
-        self._state_change = state_change
-
-    @property
     def description(self):
         """
         Gets the description of this DeviceEventData.
@@ -136,46 +157,25 @@ class DeviceEventData(object):
         self._description = description
 
     @property
-    def changes(self):
+    def device_id(self):
         """
-        Gets the changes of this DeviceEventData.
+        Gets the device_id of this DeviceEventData.
 
-        :return: The changes of this DeviceEventData.
-        :rtype: object
-        """
-        return self._changes
-
-    @changes.setter
-    def changes(self, changes):
-        """
-        Sets the changes of this DeviceEventData.
-
-        :param changes: The changes of this DeviceEventData.
-        :type: object
-        """
-
-        self._changes = changes
-
-    @property
-    def event_type_description(self):
-        """
-        Gets the event_type_description of this DeviceEventData.
-
-        :return: The event_type_description of this DeviceEventData.
+        :return: The device_id of this DeviceEventData.
         :rtype: str
         """
-        return self._event_type_description
+        return self._device_id
 
-    @event_type_description.setter
-    def event_type_description(self, event_type_description):
+    @device_id.setter
+    def device_id(self, device_id):
         """
-        Sets the event_type_description of this DeviceEventData.
+        Sets the device_id of this DeviceEventData.
 
-        :param event_type_description: The event_type_description of this DeviceEventData.
+        :param device_id: The device_id of this DeviceEventData.
         :type: str
         """
 
-        self._event_type_description = event_type_description
+        self._device_id = device_id
 
     @property
     def event_type(self):
@@ -201,25 +201,25 @@ class DeviceEventData(object):
         self._event_type = event_type
 
     @property
-    def data(self):
+    def event_type_description(self):
         """
-        Gets the data of this DeviceEventData.
+        Gets the event_type_description of this DeviceEventData.
 
-        :return: The data of this DeviceEventData.
-        :rtype: object
+        :return: The event_type_description of this DeviceEventData.
+        :rtype: str
         """
-        return self._data
+        return self._event_type_description
 
-    @data.setter
-    def data(self, data):
+    @event_type_description.setter
+    def event_type_description(self, event_type_description):
         """
-        Sets the data of this DeviceEventData.
+        Sets the event_type_description of this DeviceEventData.
 
-        :param data: The data of this DeviceEventData.
-        :type: object
+        :param event_type_description: The event_type_description of this DeviceEventData.
+        :type: str
         """
 
-        self._data = data
+        self._event_type_description = event_type_description
 
     @property
     def id(self):
@@ -245,25 +245,25 @@ class DeviceEventData(object):
         self._id = id
 
     @property
-    def device_id(self):
+    def state_change(self):
         """
-        Gets the device_id of this DeviceEventData.
+        Gets the state_change of this DeviceEventData.
 
-        :return: The device_id of this DeviceEventData.
-        :rtype: str
+        :return: The state_change of this DeviceEventData.
+        :rtype: bool
         """
-        return self._device_id
+        return self._state_change
 
-    @device_id.setter
-    def device_id(self, device_id):
+    @state_change.setter
+    def state_change(self, state_change):
         """
-        Sets the device_id of this DeviceEventData.
+        Sets the state_change of this DeviceEventData.
 
-        :param device_id: The device_id of this DeviceEventData.
-        :type: str
+        :param state_change: The state_change of this DeviceEventData.
+        :type: bool
         """
 
-        self._device_id = device_id
+        self._state_change = state_change
 
     def to_dict(self):
         """

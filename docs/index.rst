@@ -13,6 +13,7 @@ Components
   certificates
   connect
   device_directory
+  enrollment
   update
 
 Concepts
@@ -24,6 +25,7 @@ Concepts
   configuration
   exceptions
   pagination
+  subscriptions
   metadata
 
 

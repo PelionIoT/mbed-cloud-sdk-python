@@ -31,50 +31,29 @@ class FirmwareManifestGteLteFilter(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'timestamp': 'datetime',
         'created_at': 'datetime',
         'etag': 'datetime',
+        'timestamp': 'datetime',
         'updated_at': 'datetime'
     }
 
     attribute_map = {
-        'timestamp': 'timestamp',
         'created_at': 'created_at',
         'etag': 'etag',
+        'timestamp': 'timestamp',
         'updated_at': 'updated_at'
     }
 
-    def __init__(self, timestamp=None, created_at=None, etag=None, updated_at=None):
+    def __init__(self, created_at=None, etag=None, timestamp=None, updated_at=None):
         """
         FirmwareManifestGteLteFilter - a model defined in Swagger
         """
 
-        self._timestamp = timestamp
         self._created_at = created_at
         self._etag = etag
+        self._timestamp = timestamp
         self._updated_at = updated_at
         self.discriminator = None
-
-    @property
-    def timestamp(self):
-        """
-        Gets the timestamp of this FirmwareManifestGteLteFilter.
-
-        :return: The timestamp of this FirmwareManifestGteLteFilter.
-        :rtype: datetime
-        """
-        return self._timestamp
-
-    @timestamp.setter
-    def timestamp(self, timestamp):
-        """
-        Sets the timestamp of this FirmwareManifestGteLteFilter.
-
-        :param timestamp: The timestamp of this FirmwareManifestGteLteFilter.
-        :type: datetime
-        """
-
-        self._timestamp = timestamp
 
     @property
     def created_at(self):
@@ -117,6 +96,27 @@ class FirmwareManifestGteLteFilter(object):
         """
 
         self._etag = etag
+
+    @property
+    def timestamp(self):
+        """
+        Gets the timestamp of this FirmwareManifestGteLteFilter.
+
+        :return: The timestamp of this FirmwareManifestGteLteFilter.
+        :rtype: datetime
+        """
+        return self._timestamp
+
+    @timestamp.setter
+    def timestamp(self, timestamp):
+        """
+        Sets the timestamp of this FirmwareManifestGteLteFilter.
+
+        :param timestamp: The timestamp of this FirmwareManifestGteLteFilter.
+        :type: datetime
+        """
+
+        self._timestamp = timestamp
 
     @property
     def updated_at(self):

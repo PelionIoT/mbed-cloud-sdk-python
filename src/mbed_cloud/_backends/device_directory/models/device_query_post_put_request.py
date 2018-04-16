@@ -31,50 +31,23 @@ class DeviceQueryPostPutRequest(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'query': 'str',
-        'name': 'str'
+        'name': 'str',
+        'query': 'str'
     }
 
     attribute_map = {
-        'query': 'query',
-        'name': 'name'
+        'name': 'name',
+        'query': 'query'
     }
 
-    def __init__(self, query=None, name=None):
+    def __init__(self, name=None, query=None):
         """
         DeviceQueryPostPutRequest - a model defined in Swagger
         """
 
-        self._query = query
         self._name = name
-        self.discriminator = None
-
-    @property
-    def query(self):
-        """
-        Gets the query of this DeviceQueryPostPutRequest.
-        The device query.
-
-        :return: The query of this DeviceQueryPostPutRequest.
-        :rtype: str
-        """
-        return self._query
-
-    @query.setter
-    def query(self, query):
-        """
-        Sets the query of this DeviceQueryPostPutRequest.
-        The device query.
-
-        :param query: The query of this DeviceQueryPostPutRequest.
-        :type: str
-        """
-        if query is None:
-            raise ValueError("Invalid value for `query`, must not be `None`")
-        if query is not None and len(query) > 1000:
-            raise ValueError("Invalid value for `query`, length must be less than or equal to `1000`")
-
         self._query = query
+        self.discriminator = None
 
     @property
     def name(self):
@@ -102,6 +75,33 @@ class DeviceQueryPostPutRequest(object):
             raise ValueError("Invalid value for `name`, length must be less than or equal to `200`")
 
         self._name = name
+
+    @property
+    def query(self):
+        """
+        Gets the query of this DeviceQueryPostPutRequest.
+        The device query.
+
+        :return: The query of this DeviceQueryPostPutRequest.
+        :rtype: str
+        """
+        return self._query
+
+    @query.setter
+    def query(self, query):
+        """
+        Sets the query of this DeviceQueryPostPutRequest.
+        The device query.
+
+        :param query: The query of this DeviceQueryPostPutRequest.
+        :type: str
+        """
+        if query is None:
+            raise ValueError("Invalid value for `query`, must not be `None`")
+        if query is not None and len(query) > 1000:
+            raise ValueError("Invalid value for `query`, length must be less than or equal to `1000`")
+
+        self._query = query
 
     def to_dict(self):
         """

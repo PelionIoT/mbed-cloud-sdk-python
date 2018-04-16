@@ -2,7 +2,7 @@
 """
     Connect CA API
 
-    Connect CA API provides methods to create and get Developer certificate. Also Connect CA provides server-credentials for Bootstarp and LWM2M Server.
+    mbed Cloud Connect CA API allows services to get device credentials.
 
     OpenAPI spec version: 3
     

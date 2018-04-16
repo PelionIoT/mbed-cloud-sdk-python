@@ -102,7 +102,7 @@ class UpdateAPI(BaseAPI):
         :param str device_filter: The device filter to use (Required)
         :param str manifest_id: ID of the manifest with description of the update
         :param str description: Description of the campaign
-        :param date scheduled_at: The timestamp at which update campaign is scheduled to start
+        :param int scheduled_at: The timestamp at which update campaign is scheduled to start
         :param str state: The state of the campaign. Values:
             "draft", "scheduled", "devicefetch", "devicecopy", "publishing",
             "deploying", "deployed", "manifestremoved", "expired"
@@ -271,18 +271,23 @@ class UpdateAPI(BaseAPI):
         return PaginatedResponse(api.firmware_manifest_list, lwrap_type=FirmwareManifest, **kwargs)
 
     @catch_exceptions(UpdateServiceApiException)
-    def add_firmware_manifest(self, name, datafile, **kwargs):
+    def add_firmware_manifest(self, name, datafile, keytable_file=None, **kwargs):
         """Add a new manifest reference.
 
         :param str name: Manifest file short name (Required)
-        :param str datafile: The file object or *path* to the manifest file (Required)
+        :param str datafile: The file object or path to the manifest file (Required)
+        :param str keytable_file: The file object or path to the keytable file (Optional)
         :param str description: Manifest file description
         :return: the newly created manifest file object
         :rtype: FirmwareManifest
         """
-        kwargs.update({'name': name})
+        kwargs.update({
+            'name': name,
+            'url': datafile,  # really it's the datafile
+        })
+        if keytable_file is not None:
+            kwargs.update({'keytable_url': keytable_file})  # really it's the keytable
         firmware_manifest = FirmwareManifest._create_request_map(kwargs)
-        firmware_manifest.update({'datafile': datafile})
         api = self._get_api(update_service.DefaultApi)
         return FirmwareManifest(
             api.firmware_manifest_create(**firmware_manifest)
@@ -306,13 +311,13 @@ class FirmwareImage(BaseObject):
     def _get_attributes_map():
         return {
             "created_at": "created_at",
-            "url": "datafile",
             "datafile_checksum": "datafile_checksum",
             "datafile_size": "datafile_size",
             "description": "description",
             "id": "id",
             "name": "name",
-            "updated_at": "updated_at"
+            "updated_at": "updated_at",
+            "url": "datafile",
         }
 
     @property
@@ -388,6 +393,7 @@ class FirmwareManifest(BaseObject):
         return {
             "created_at": "created_at",
             "url": "datafile",
+            "keytable_url": "keytable",
             "description": "description",
             "device_class": "device_class",
             "datafile_size": "datafile_size",
@@ -413,6 +419,14 @@ class FirmwareManifest(BaseObject):
         :rtype: str
         """
         return self._url
+
+    @property
+    def keytable_url(self):
+        """The URL of the keytable (readonly).
+
+        :rtype: str
+        """
+        return self._keytable_url
 
     @property
     def description(self):
@@ -485,28 +499,29 @@ class Campaign(BaseObject):
     @staticmethod
     def _get_attributes_map():
         return {
-            "device_filter": "device_filter",
             "created_at": "created_at",
             "description": "description",
+            "device_filter": "device_filter",
             "finished_at": "finished",
             "id": "id",
             "manifest_id": "root_manifest_id",
             "manifest_url": "root_manifest_url",
             "name": "name",
+            "phase": "phase",
+            "scheduled_at": "when",
             "started_at": "started_at",
-            "updated_at": "updated_at",
             "state": "state",
-            "scheduled_at": "when"
+            "updated_at": "updated_at",
         }
 
     def _create_patch_request(self):
         patch_map = {
-            "device_filter": "device_filter",
             "description": "description",
+            "device_filter": "device_filter",
             "manifest_id": "root_manifest_id",
             "name": "name",
+            "scheduled_at": "when",
             "state": "state",
-            "scheduled_at": "when"
         }
         map_patch = {}
         for key, value in iteritems(patch_map):
@@ -514,6 +529,15 @@ class Campaign(BaseObject):
             if val is not None:
                 map_patch[value] = val
         return map_patch
+
+    @property
+    def phase(self):
+        """The phase of this Campaign.
+
+        :return: The phase of this Campaign.
+        :rtype: str
+        """
+        return self._phase
 
     @property
     def device_filter(self):
