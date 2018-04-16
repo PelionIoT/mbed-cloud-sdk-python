@@ -13,6 +13,7 @@ Components
   certificates
   connect
   device_directory
+  enrollment
   update
 
 Concepts
