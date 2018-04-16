@@ -122,9 +122,11 @@ class BaseAPI(object):
 class StubAPI(BaseAPI):
     """Used in test framework"""
 
-    def __init__(self, **kwargs):
+    def __init__(self, params):
         """For use in test verification"""
-        self.kwargs = kwargs
+        # because we take a positional dictionary rather than **kwargs
+        # we have to be careful to replicate this for the testrunner
+        self.kwargs = params
 
     def exception(self):
         """Raises an exception"""
