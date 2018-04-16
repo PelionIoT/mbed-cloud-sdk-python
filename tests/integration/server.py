@@ -116,7 +116,7 @@ def modules_all_instances(module):
 def modules_new_instance(module):
     instance = LockedInstance(
         lock=threading.Lock(),
-        instance=MODULES.get(module)(**request.get_json()),
+        instance=MODULES.get(module)(params=request.get_json()),
         module=module,
         uuid=str(uuid.uuid4().hex),
         created_at=datetime.datetime.utcnow(),
