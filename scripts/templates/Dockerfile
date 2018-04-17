@@ -25,25 +25,32 @@ RUN apk --no-cache add git
 RUN python -m pip install --no-cache-dir -U setuptools pip==10.0.0 pipenv==11.10.0
 
 # add bare minimum files to survive a pip install
-ADD scripts/dvcs_version.py scripts/dvcs_version.py
-ADD src/mbed_cloud/_version.py src/mbed_cloud/_version.py
-ADD setup* ./
-ADD README.rst ./
-ADD requirements.txt ./
-ADD Pip* ./
+COPY scripts/dvcs_version.py scripts/dvcs_version.py
+COPY src/mbed_cloud/_version.py src/mbed_cloud/_version.py
+COPY setup* ./
+COPY README.rst ./
+COPY requirements.txt ./
+COPY Pip* ./
 
 # install the project (with dev dependencies)
 RUN pipenv install --dev
 
 # load the entire project from local checkout as build context
-ADD . .
+COPY . .
 
 # version the codebase
 RUN pipenv run python scripts/dvcs_version.py
 RUN pipenv run python -c "import mbed_cloud; print(mbed_cloud.__version__)"
+RUN pipenv run python scripts/generate_news.py
 
 # run smoke tests
 RUN pipenv run pytest --durations=3 tests/unit
+
+# build the documentation
+RUN pipenv run sphinx-build -a -b html -c docs/ docs/ built_docs
+
+# check the package file is good
+RUN pipenv run python setup.py check -r -s
 
 # generate a package
 RUN pipenv run python setup.py clean --all bdist_wheel
@@ -58,7 +65,8 @@ FROM {py_ver.docker_base} as PY_SDK_LITE
 # working dir
 WORKDIR /build
 
-COPY --from=PY_SDK_BUILDER build/ ./
+COPY --from=PY_SDK_BUILDER build/ .
+
 # previously, next line also had --no-deps, but we can sanity-check that the venv has everything we need:
 RUN source .venv/bin/activate && pip install --no-cache-dir --no-index --find-links dist mbed_cloud_sdk
 

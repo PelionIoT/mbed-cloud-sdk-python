@@ -161,11 +161,11 @@ def new_test(py_ver: PyVer, cloud_host: CloudHost):
     return test_name(py_ver, cloud_host), template
 
 
-def deploy_name(py_ver: PyVer, cloud_host: CloudHost):
-    return f'test_{py_ver.name}_{cloud_host.name}'
+def deploy_name(py_ver: PyVer, twine_target: TwineTarget):
+    return f'deploy_{py_ver.name}_{twine_target.name}'
 
 
-def new_deploy(py_ver: PyVer, cloud_host: CloudHost):
+def new_deploy(py_ver: PyVer, twine_target: TwineTarget):
     cache_dir = f'/caches'
     cache_file = f'app_{py_ver.name}.tar'
     cache_path = f'{cache_dir}/{cache_file}'
@@ -176,19 +176,26 @@ def new_deploy(py_ver: PyVer, cloud_host: CloudHost):
         steps:
           - attach_workspace:
               at: {cache_dir}
-          - restore_cache:
-              keys: [*branch_cache_key]
           - run:
               name: Load docker image layer cache
               command: docker load -i {cache_path}
+          - run:
+              name: Start a named container
+              command: docker run --name=SDK {py_ver.tag} 'source .venv/bin/activate && python scripts/notify.py'
+          - run:
+              name: Extract the documentation
+              command: 'docker cp SDK:/build/built_docs /built_docs'
+          - run:
+              name: Upload the documentation
+              command: 'sudo pip install awscli && aws s3 sync --delete --cache-control max-age=3600 built_docs s3://mbed-cloud-sdk-python'
           - run: 
               name: Tag and release
-              command: docker run {py_ver.tag} 'source .venv/bin/activate && python scripts/tag_and_release.py'
+              command: docker run {py_ver.tag} 'source .venv/bin/activate && python scripts/tag_and_release.py {twine_target.url}'
           - run:
               name: Start the release party!
               command: docker run {py_ver.tag} 'source .venv/bin/activate && python scripts/notify.py'
     """)
-    return deploy_name(py_ver, cloud_host), template
+    return deploy_name(py_ver, twine_target), template
 
 
 def generate_circle_output():
@@ -206,19 +213,34 @@ def generate_circle_output():
     base['jobs'].update({tpip_job: tpip_content})
     workflow.add_node(tpip_job)
 
-    for py_ver in python_versions:
+    for py_ver in python_versions.values():
         build_job, build_content = new_build(py_ver=py_ver)
         base['jobs'].update({build_job: build_content})
 
-        for cloud_host in mbed_cloud_hosts:
+        for cloud_host in mbed_cloud_hosts.values():
             test_job, test_content = new_test(py_ver=py_ver, cloud_host=cloud_host)
             base['jobs'].update({test_job: test_content})
             workflow.add_edge(build_job, test_job)
-            
-    deploy_job, deploy_content = new_deploy()
-    base['jobs'].update({deploy_job: deploy_content})
+
+    for twine_target in twine_targets.values():
+        deploy_job, deploy_content = new_deploy(py_ver=python_versions['three'], twine_target=twine_target)
+        base['jobs'].update({deploy_job: deploy_content})
+
     # we only want to deploy in certain conditions
-    workflow.add_edge(deploy_job)
+    workflow.add_edge(
+        test_name(python_versions['three'], mbed_cloud_hosts['osii']),
+        deploy_name(python_versions['three'], twine_targets['test'])
+    )
+
+    workflow.add_edge(
+        test_name(python_versions['three'], mbed_cloud_hosts['osii']),
+        deploy_name(python_versions['three'], twine_targets['live'])
+    )
+
+    workflow.add_edge(
+        test_name(python_versions['three'], mbed_cloud_hosts['production']),
+        deploy_name(python_versions['three'], twine_targets['live'])
+    )
 
     logging.info('%s circle jobs', len(base['jobs']))
     return dict(base)
@@ -249,6 +271,8 @@ def main(output_path=None):
     This is needed because CircleCI does not support build matrices
     nor parameterisation of cache paths or other aspects of their
     config
+
+    There's also the added bonus of validating the yaml as we go.
     """
     config_output = output_path or os.path.join(PROJECT_ROOT, '.circleci', 'config_gen.yml')
 
