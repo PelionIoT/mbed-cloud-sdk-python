@@ -23,7 +23,7 @@ from slackclient import SlackClient
 import mbed_cloud
 
 
-def run():
+def main():
     """Sends release notifications to interested parties
 
     Currently this is an arm-internal slack channel.
@@ -54,4 +54,4 @@ def run():
 
 
 if __name__ == '__main__':
-    run()
+    main()

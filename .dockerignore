@@ -7,8 +7,8 @@
 **/.coverage*
 **/.dockerignore
 **/__pycache__/
-**/docker-compose.yml
-**/Dockerfile
+scripts/templates/
+container/
 .circleci
 .env
 .mbed_cloud_config.json
