@@ -23,71 +23,66 @@ aliases:
 
   - &job_build_common
     steps:
-    - checkout
-    - restore_cache:
-        keys: [*branch_cache_key]
-    - run: sudo python -m pip install -U setuptools pip
-    - run: sudo pip install pipenv
-    - run: pipenv install --dev --${PYVER}
-    - run: pipenv run python scripts/dvcs_version.py
-    - run: pipenv install '-e .' --skip-lock
-    - run: pipenv run python -c "import mbed_cloud; print(mbed_cloud.__version__)"
-    - run: pipenv run python scripts/generate_news.py
-    - save_cache:
-        key: *branch_cache_key
-        paths:
-          - ~/.cache/pip
-          - ~/.ssh/known_hosts
-    - persist_to_workspace:
-        root: .
-        paths:
-          - ./*
+      - checkout
+      - setup_remote_docker:
+          version: 17.11.0-ce
+      - restore_cache:
+          keys: ['v1-{{ .Branch }}-{{ .Environment.PYVER }}']
+          paths: ['/caches/app.tar']
+      - run:
+          name: Load docker image layer cache
+          command: docker load -i /caches/app.tar || true  # silent failure if missing cache
+      - run:
+          name: Template the Dockerfile ('${PYVER}' using ${DOCKER_BASE})
+          command: sed -i 's/python:3.6.3-alpine3.6/${DOCKER_BASE}/g' Dockerfile
+      - run:
+          name: Build application docker image
+          command: docker build --cache-from=${IMAGE_TAG} -t ${IMAGE_TAG} .
+      - run:
+          name: Save docker image layer cache
+          command: |
+            mkdir -p /caches
+            docker save -o /caches/app.tar ${IMAGE_TAG}
+      - save_cache:
+          key: 'v1-{{ .Branch }}-{{ .Environment.PYVER }}'
+          paths: ['/caches/app.tar']
+      - persist_to_workspace:
+          root: /caches/
+          paths: app.tar
 
   - &job_test_common
     steps:
-      - checkout
-      - restore_cache:
-          keys: [*branch_cache_key]
-      # CAUTION: no 'sudo' commands here, as 'circleci' user shouldn't need privilege to install
-      - run: python -m pip install -U setuptools pip
-      - run: python -m pip install pipenv awscli
-      # FIXME:
-      # unfortunately we must do the 'build' again here
-      # as the machine executor isn't the same environment as docker
-      # (e.g. python3.5 instead of 3.6.1)
-      # and use of docker for the testing is fraught with peril
-      # worst case ... we're not testing in the same environment we're releasing from >_>
-      - run: python -m pipenv install --dev --${PYVER}
-      - run: python -m pipenv run python scripts/dvcs_version.py
-      - run: python -m pipenv install '-e .' --skip-lock
-      - run: python -m pipenv run python -c "import mbed_cloud; print(mbed_cloud.__version__)"
-      - run: python -m pipenv run python scripts/generate_news.py
+      - setup_remote_docker:
+          version: 17.11.0-ce
+      - attach_workspace:
+          at: /caches/
+      - run:
+          name: Load docker image layer cache
+          command: docker load -i /caches/app.tar
       - run: |
               if [[ ${CLOUD_VERSION} == production ]]; then
-                export MBED_CLOUD_API_HOST=${MBED_CLOUD_API_HOST_PROD};
-                export MBED_CLOUD_API_KEY=${MBED_CLOUD_API_KEY_PROD};
+                export TEST_RUNNER_DEFAULT_API_HOST=${MBED_CLOUD_API_HOST_PROD};
+                export TEST_RUNNER_DEFAULT_API_KEY=${MBED_CLOUD_API_KEY_PROD};
                 echo "environment variables swapped: ${CLOUD_VERSION}";
               fi
               if [[ ${CLOUD_VERSION} == os2 ]]; then
-                export MBED_CLOUD_API_HOST=${MBED_CLOUD_API_HOST_OS2};
-                export MBED_CLOUD_API_KEY=${MBED_CLOUD_API_KEY_OS2};
+                export TEST_RUNNER_DEFAULT_API_HOST=${MBED_CLOUD_API_HOST_OS2};
+                export TEST_RUNNER_DEFAULT_API_KEY=${MBED_CLOUD_API_KEY_OS2};
                 echo "environment variables swapped: ${CLOUD_VERSION}";
               fi
-              echo "{\"api_key\":\"$MBED_CLOUD_API_KEY\", \"host\":\"$MBED_CLOUD_API_HOST\"}" > .mbed_cloud_config.json
               login="$(aws ecr get-login --no-include-email)"
               ${login}
               docker pull ${TESTRUNNER_DOCKER_IMAGE}
-              mkdir -p results
+      - run: pip install docker-compose==1.21.0
       - run:
-          name: run all tests
-          command: python -m pipenv run pytest --tb=short --cov=mbed_cloud --cov-config=.coveragerc --cov-report=html --cov-report=xml --junitxml=results/unittests.xml --self-contained-html --html=results/unittests.html
+          name: Run all tests
+          command: docker-compose up
           no_output_timeout: 15m
-      - run: python -m pipenv run python scripts/ci_summary.py --noblock
+      - run:
+          name: Generate summary
+          command: python scripts/ci_summary.py --noblock
       - store_artifacts:
           path: results
-      - store_artifacts:
-          path: rpc_results
-      - run: python -m pipenv run codecov --file=results/coverage.xml -e PYVER,CLOUD_VERSION
 
   - &job_deploy_common
     steps:
@@ -123,49 +118,40 @@ jobs:
     environment:
       <<: *environ
       PYVER: two
-    docker:
-      - image: circleci/python:2.7.13
+      DOCKER_BASE: 'python:2.7.14-alpine3.6'
+    machine:
+      image: 'circleci/classic:201710-02'
 
   build_3:
     <<: *job_build_common
     environment:
       <<: *environ
       PYVER: three
-    docker:
-      - image: circleci/python:3.6.1
+      DOCKER_BASE: 'python:3.6.3-alpine3.6'
+    machine:
+      image: 'circleci/classic:201710-02'
 
   tpip_report:
     environment:
       <<: *environ
-    docker:
-      - image: circleci/python:3.6.1
     steps:
-      - attach_workspace:
-          <<: *workspace
-      - restore_cache:
-          keys: [*branch_cache_key]
-      - run: sudo python -m pip install -U setuptools pip
-      - run: sudo pip install pipenv
-      - run: pipenv uninstall --all
-      - run: pipenv install -e . --skip-lock
-      - run: pipenv run python scripts/tpip.py python_tpip.csv
+      - checkout
+      - run: pip install -e .
+      - run: python scripts/tpip.py python_tpip.csv
       - store_artifacts:
           path: python_tpip.csv
+    docker:
+      image: circleci/python:3.6.1
 
   docs_build:
     environment:
       <<: *environ
-    docker:
-      - image: circleci/python:3.6.1
     steps:
-      - attach_workspace:
-          <<: *workspace
-      - restore_cache:
-          keys: [*branch_cache_key]
-      - run: sudo python -m pip install -U setuptools pip
+      - checkout
       - run: sudo apt-get update
       - run: sudo apt-get install pandoc
       - run: sudo pip install pipenv
+      - run: pipenv install . --dev
       - run: pipenv install readme_renderer --skip-lock
       - run:
           name: Build documentation
@@ -173,12 +159,14 @@ jobs:
       - run:
           name: Validate README.rst
           command: pipenv run python setup.py check -r -s
+      - store_artifacts:
+          path: built_docs
       - persist_to_workspace:
           root: .
           paths:
             - built_docs
-      - store_artifacts:
-          path: built_docs
+    docker:
+      image: circleci/python:3.6.1
 
   docs_upload:
     environment:

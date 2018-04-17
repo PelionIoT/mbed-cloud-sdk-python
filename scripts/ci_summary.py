@@ -25,7 +25,7 @@ from xml.etree import ElementTree
 def main():
     """Collects results from CI run"""
     source_files = (
-        ('integration', r'rpc_results/results.xml'),
+        ('integration', r'results/integration.xml'),
         ('unittests', r'results/unittests.xml'),
         ('coverage', r'results/coverage.xml')
     )
