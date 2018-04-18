@@ -16,18 +16,20 @@
 # --------------------------------------------------------------------------
 """Generates circleci config
 """
-import yaml
-import logging
-import copy
-import os
-import subprocess
-import networkx
 from collections import namedtuple
 from collections import OrderedDict
+import copy
+import logging
+import os
+import unittest
 
+# twine: python's package upload tool
 from twine.utils import TEST_REPOSITORY, DEFAULT_REPOSITORY
 
-import unittest
+# networkx: graph library for generating workflow
+import networkx
+
+import yaml
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(__file__))
 
@@ -54,11 +56,11 @@ python_versions = dict(
     three=PyVer('python_three', 'python:3.6.3-alpine3.6', 'mbed_sdk_py3:latest', 'py3.Dockerfile', 'py3-compose.yml'),
 )
 
-# twine: python's package upload tool
-TwineTarget = namedtuple('TwineTarget', ['name', 'url'])
-twine_targets = dict(
-    test=TwineTarget('test', TEST_REPOSITORY),
-    live=TwineTarget('live', DEFAULT_REPOSITORY),
+# we have multiple release targets
+ReleaseTarget = namedtuple('ReleaseTarget', ['name', 'twine_url'])
+release_targets = dict(
+    test=ReleaseTarget('test', TEST_REPOSITORY),
+    live=ReleaseTarget('live', DEFAULT_REPOSITORY),
 )
 
 
@@ -71,12 +73,12 @@ def new_tpip():
     template = yaml.safe_load("""
         steps:
           - checkout
-          - run: pip install -e .
+          - run: sudo pip install -e .
           - run: python scripts/tpip.py python_tpip.csv
           - store_artifacts:
               path: python_tpip.csv
         docker:
-          image: circleci/python:3.6.1
+          - image: circleci/python:3.6.1
     """)
     return 'tpip_report', template
 
@@ -95,8 +97,6 @@ def new_build(py_ver: PyVer):
           image: 'circleci/classic:201710-02'
         steps:
           - checkout
-          - setup_remote_docker:
-              version: 17.11.0-ce
           - restore_cache:
               keys: ['{cache_key}']
               paths: ['{cache_path}']
@@ -135,16 +135,14 @@ def new_test(py_ver: PyVer, cloud_host: CloudHost):
         machine:
           image: circleci/classic:201710-02
         steps:
-          - setup_remote_docker:
-              version: 17.11.0-ce
           - attach_workspace:
               at: {cache_dir}
           - run:
               name: Load docker image layer cache
               command: docker load -i {cache_path}
           - run: |
-                  export TEST_RUNNER_DEFAULT_API_HOST=${{{cloud_host.envvar_host}}};
-                  export TEST_RUNNER_DEFAULT_API_KEY=${{{cloud_host.envvar_key}}};
+                  export TEST_RUNNER_DEFAULT_API_HOST=${{{cloud_host.envvar_host}}}
+                  export TEST_RUNNER_DEFAULT_API_KEY=${{{cloud_host.envvar_key}}}
                   login="$(aws ecr get-login --no-include-email)"
                   ${{login}}
           - run: pip install docker-compose==1.21.0
@@ -161,11 +159,11 @@ def new_test(py_ver: PyVer, cloud_host: CloudHost):
     return test_name(py_ver, cloud_host), template
 
 
-def deploy_name(py_ver: PyVer, twine_target: TwineTarget):
-    return f'deploy_{py_ver.name}_{twine_target.name}'
+def deploy_name(py_ver: PyVer, release_target: ReleaseTarget):
+    return f'deploy_{py_ver.name}_{release_target.name}'
 
 
-def new_deploy(py_ver: PyVer, twine_target: TwineTarget):
+def new_deploy(py_ver: PyVer, release_target: ReleaseTarget):
     cache_dir = f'/caches'
     cache_file = f'app_{py_ver.name}.tar'
     cache_path = f'{cache_dir}/{cache_file}'
@@ -190,12 +188,16 @@ def new_deploy(py_ver: PyVer, twine_target: TwineTarget):
               command: 'sudo pip install awscli && aws s3 sync --delete --cache-control max-age=3600 built_docs s3://mbed-cloud-sdk-python'
           - run: 
               name: Tag and release
-              command: docker run {py_ver.tag} 'source .venv/bin/activate && python scripts/tag_and_release.py {twine_target.url}'
+              command: docker run {py_ver.tag} 'source .venv/bin/activate && python scripts/tag_and_release.py {release_target.twine_url}'
           - run:
               name: Start the release party!
               command: docker run {py_ver.tag} 'source .venv/bin/activate && python scripts/notify.py'
     """)
-    return deploy_name(py_ver, twine_target), template
+    return deploy_name(py_ver, release_target), template
+
+
+def release_name(release_target: ReleaseTarget):
+    return f'release_{release_target.name}'
 
 
 def generate_circle_output():
@@ -222,36 +224,58 @@ def generate_circle_output():
             base['jobs'].update({test_job: test_content})
             workflow.add_edge(build_job, test_job)
 
-    for twine_target in twine_targets.values():
-        deploy_job, deploy_content = new_deploy(py_ver=python_versions['three'], twine_target=twine_target)
+    for twine_target in release_targets.values():
+        deploy_job, deploy_content = new_deploy(py_ver=python_versions['three'], release_target=twine_target)
         base['jobs'].update({deploy_job: deploy_content})
+
+    # wire up the release gates (clicky buttons)
+    workflow.add_edge(
+        test_name(python_versions['three'], mbed_cloud_hosts['osii']),
+        release_name(release_targets['test']),
+        type='approval',
+    )
+    workflow.add_edge(
+        test_name(python_versions['three'], mbed_cloud_hosts['production']),
+        release_name(release_targets['live']),
+        type='approval',
+        filters=dict(branches=dict(only='master')),
+    )
+    workflow.add_edge(
+        test_name(python_versions['two'], mbed_cloud_hosts['production']),
+        release_name(release_targets['live']),
+    )
 
     # we only want to deploy in certain conditions
     workflow.add_edge(
-        test_name(python_versions['three'], mbed_cloud_hosts['osii']),
-        deploy_name(python_versions['three'], twine_targets['test'])
+        release_name(release_targets['test']),
+        deploy_name(python_versions['three'], release_targets['test'])
     )
 
     workflow.add_edge(
-        test_name(python_versions['three'], mbed_cloud_hosts['osii']),
-        deploy_name(python_versions['three'], twine_targets['live'])
+        release_name(release_targets['live']),
+        deploy_name(python_versions['three'], release_targets['live'])
     )
 
-    workflow.add_edge(
-        test_name(python_versions['three'], mbed_cloud_hosts['production']),
-        deploy_name(python_versions['three'], twine_targets['live'])
-    )
+    workflow_jobs = base['workflows']['python_sdk_workflow']['jobs']
+
+    # build the workflow graph
+    for job_name in networkx.topological_sort(workflow):
+        job_config = {}
+        workflow_jobs.append({job_name: job_config})
+        for edge in workflow.in_edges(job_name):
+            job_config.update(workflow.get_edge_data(*edge))
+            job_config.setdefault('requires', []).append(edge[0])
 
     logging.info('%s circle jobs', len(base['jobs']))
     return dict(base)
 
 
-def generate_docker_file(py_ver):
+def generate_docker_file(py_ver: PyVer):
     with open(os.path.join('templates', 'Dockerfile')) as fh:
         return fh.read().format(py_ver=py_ver, author=os.path.relpath(__file__, PROJECT_ROOT))
 
 
-def generate_compose_file(py_ver):
+def generate_compose_file(py_ver: PyVer):
     with open(os.path.join('templates', 'docker-compose.yml')) as fh:
         return fh.read().format(py_ver=py_ver, author=os.path.relpath(__file__, PROJECT_ROOT))
 
@@ -259,7 +283,7 @@ def generate_compose_file(py_ver):
 def generate_docker_targets():
     output = {}
     container_config_root = os.path.join(PROJECT_ROOT, 'container')
-    for py_ver in python_versions:
+    for py_ver in python_versions.values():
         output[os.path.join(container_config_root, py_ver.docker_file)] = generate_docker_file(py_ver)
         output[os.path.join(container_config_root, py_ver.compose_file)] = generate_compose_file(py_ver)
     return output
@@ -274,7 +298,7 @@ def main(output_path=None):
 
     There's also the added bonus of validating the yaml as we go.
     """
-    config_output = output_path or os.path.join(PROJECT_ROOT, '.circleci', 'config_gen.yml')
+    config_output = output_path or os.path.join(PROJECT_ROOT, '.circleci', 'config.yml')
 
     OUT = generate_circle_output()
 
@@ -292,7 +316,7 @@ class Test(unittest.TestCase):
         logging.basicConfig(level=logging.INFO)
 
     def test(self):
-        main(r'C:\coding\junk\circle_config.yml')
+        main()
 
 
 if __name__ == '__main__':

@@ -1,316 +1,276 @@
-# validate this file using:
-#   python -c "import sys, yaml, json; json.dump(yaml.load(sys.stdin), sys.stdout, indent=4)" < .circleci/config.yml > out.json
-#
-# this document makes use of yaml aliases and merging to attempt to keep it DRY - http://www.yaml.org/refcard.html
-#
-# the build matrix is the product of [Py2, Py3] * [Production, Staging, etc...]
-
-version: 2
-aliases:
-  - &branch_cache_key 'v7-{{ checksum "Pipfile.lock" }}'
-  - &build_dir build
-  - &build_dir_glob build/*
-  - &venv_dir build/.venv
-  - &workspace
-    at: ~/project
-
-  - &environ
-    BUILD_DIR: *build_dir
-    PYTHONUNBUFFERED: true
-    PIPENV_VENV_IN_PROJECT: true # instruct pipenv to build the venv in current working dir
-    TESTRUNNER_DOCKER_IMAGE: 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
-    TESTRUNNER_OUTPUT_DIR: rpc_results
-
-  - &job_build_common
-    steps:
-      - checkout
-      - setup_remote_docker:
-          version: 17.11.0-ce
-      - restore_cache:
-          keys: ['v1-{{ .Branch }}-{{ .Environment.PYVER }}']
-          paths: ['/caches/app.tar']
-      - run:
-          name: Load docker image layer cache
-          command: docker load -i /caches/app.tar || true  # silent failure if missing cache
-      - run:
-          name: Template the Dockerfile ('${PYVER}' using ${DOCKER_BASE})
-          command: sed -i 's/python:3.6.3-alpine3.6/${DOCKER_BASE}/g' Dockerfile
-      - run:
-          name: Build application docker image
-          command: docker build --cache-from=${IMAGE_TAG} -t ${IMAGE_TAG} .
-      - run:
-          name: Save docker image layer cache
-          command: |
-            mkdir -p /caches
-            docker save -o /caches/app.tar ${IMAGE_TAG}
-      - save_cache:
-          key: 'v1-{{ .Branch }}-{{ .Environment.PYVER }}'
-          paths: ['/caches/app.tar']
-      - persist_to_workspace:
-          root: /caches/
-          paths: app.tar
-
-  - &job_test_common
-    steps:
-      - setup_remote_docker:
-          version: 17.11.0-ce
-      - attach_workspace:
-          at: /caches/
-      - run:
-          name: Load docker image layer cache
-          command: docker load -i /caches/app.tar
-      - run: |
-              if [[ ${CLOUD_VERSION} == production ]]; then
-                export TEST_RUNNER_DEFAULT_API_HOST=${MBED_CLOUD_API_HOST_PROD};
-                export TEST_RUNNER_DEFAULT_API_KEY=${MBED_CLOUD_API_KEY_PROD};
-                echo "environment variables swapped: ${CLOUD_VERSION}";
-              fi
-              if [[ ${CLOUD_VERSION} == os2 ]]; then
-                export TEST_RUNNER_DEFAULT_API_HOST=${MBED_CLOUD_API_HOST_OS2};
-                export TEST_RUNNER_DEFAULT_API_KEY=${MBED_CLOUD_API_KEY_OS2};
-                echo "environment variables swapped: ${CLOUD_VERSION}";
-              fi
-              login="$(aws ecr get-login --no-include-email)"
-              ${login}
-              docker pull ${TESTRUNNER_DOCKER_IMAGE}
-      - run: pip install docker-compose==1.21.0
-      - run:
-          name: Run all tests
-          command: docker-compose up
-          no_output_timeout: 15m
-      - run:
-          name: Generate summary
-          command: python scripts/ci_summary.py --noblock
-      - store_artifacts:
-          path: results
-
-  - &job_deploy_common
-    steps:
-      - attach_workspace:
-          <<: *workspace
-      - restore_cache:
-          keys: [*branch_cache_key]
-      - run: sudo python -m pip install -U setuptools pip
-      - run: sudo pip install pipenv
-      - run: pipenv install twine --skip-lock
-      - run:
-          name: Build the wheel
-          command: pipenv run python setup.py bdist_wheel
-      - run:
-          name: Tag the release
-          command: |
-                  (pipenv run python setup.py --version) | xargs git tag
-                  git push --tags
-                  git add NEWS.rst docs/news/*
-                  git commit -m ":newspaper: Hear yea, hear yea. News O'Clock. [skip ci]"
-                  git push
-      - run:
-          name: Upload the build to PyPI
-          command: |
-                  echo 'registering and deploying package to "${TWINE_REPOSITORY_URL}" (or default)'
-                  ls dist
-                  pipenv run twine upload dist/*
-                  pipenv run python scripts/notify.py
-
 jobs:
-  build_2:
-    <<: *job_build_common
-    environment:
-      <<: *environ
-      PYVER: two
-      DOCKER_BASE: 'python:2.7.14-alpine3.6'
+  build_python_three:
     machine:
-      image: 'circleci/classic:201710-02'
-
-  build_3:
-    <<: *job_build_common
-    environment:
-      <<: *environ
-      PYVER: three
-      DOCKER_BASE: 'python:3.6.3-alpine3.6'
+      image: circleci/classic:201710-02
+    steps:
+    - checkout
+    - restore_cache:
+        keys:
+        - v1-python_three-{ .Branch }
+        paths:
+        - /caches/app_python_three.tar
+    - run:
+        command: docker load -i /caches/app_python_three.tar || true
+        name: Load docker image layer cache
+    - run:
+        command: docker build --cache-from=mbed_sdk_py3:latest -t mbed_sdk_py3:latest
+          -f container/py3.Dockerfile .
+        name: Build application docker image
+    - run:
+        command: mkdir -p /caches
+        name: Make cache directory
+    - run:
+        command: docker save -o /caches/app_python_three.tar mbed_sdk_py3:latest
+        name: Export docker image layer cache
+    - save_cache:
+        key: v1-python_three-{ .Branch }
+        paths:
+        - /caches/app_python_three.tar
+    - persist_to_workspace:
+        paths: app_python_three.tar
+        root: /caches
+  build_python_two:
     machine:
-      image: 'circleci/classic:201710-02'
+      image: circleci/classic:201710-02
+    steps:
+    - checkout
+    - restore_cache:
+        keys:
+        - v1-python_two-{ .Branch }
+        paths:
+        - /caches/app_python_two.tar
+    - run:
+        command: docker load -i /caches/app_python_two.tar || true
+        name: Load docker image layer cache
+    - run:
+        command: docker build --cache-from=mbed_sdk_py2:latest -t mbed_sdk_py2:latest
+          -f container/py2.Dockerfile .
+        name: Build application docker image
+    - run:
+        command: mkdir -p /caches
+        name: Make cache directory
+    - run:
+        command: docker save -o /caches/app_python_two.tar mbed_sdk_py2:latest
+        name: Export docker image layer cache
+    - save_cache:
+        key: v1-python_two-{ .Branch }
+        paths:
+        - /caches/app_python_two.tar
+    - persist_to_workspace:
+        paths: app_python_two.tar
+        root: /caches
+  deploy_python_three_live:
+    machine:
+      image: circleci/classic:201710-02
+    steps:
+    - attach_workspace:
+        at: /caches
+    - run:
+        command: docker load -i /caches/app_python_three.tar
+        name: Load docker image layer cache
+    - run:
+        command: docker run --name=SDK mbed_sdk_py3:latest 'source .venv/bin/activate
+          && python scripts/notify.py'
+        name: Start a named container
+    - run:
+        command: docker cp SDK:/build/built_docs /built_docs
+        name: Extract the documentation
+    - run:
+        command: sudo pip install awscli && aws s3 sync --delete --cache-control max-age=3600
+          built_docs s3://mbed-cloud-sdk-python
+        name: Upload the documentation
+    - run:
+        command: docker run mbed_sdk_py3:latest 'source .venv/bin/activate && python
+          scripts/tag_and_release.py https://upload.pypi.org/legacy/'
+        name: Tag and release
+    - run:
+        command: docker run mbed_sdk_py3:latest 'source .venv/bin/activate && python
+          scripts/notify.py'
+        name: Start the release party!
+  deploy_python_three_test:
+    machine:
+      image: circleci/classic:201710-02
+    steps:
+    - attach_workspace:
+        at: /caches
+    - run:
+        command: docker load -i /caches/app_python_three.tar
+        name: Load docker image layer cache
+    - run:
+        command: docker run --name=SDK mbed_sdk_py3:latest 'source .venv/bin/activate
+          && python scripts/notify.py'
+        name: Start a named container
+    - run:
+        command: docker cp SDK:/build/built_docs /built_docs
+        name: Extract the documentation
+    - run:
+        command: sudo pip install awscli && aws s3 sync --delete --cache-control max-age=3600
+          built_docs s3://mbed-cloud-sdk-python
+        name: Upload the documentation
+    - run:
+        command: docker run mbed_sdk_py3:latest 'source .venv/bin/activate && python
+          scripts/tag_and_release.py https://test.pypi.org/legacy/'
+        name: Tag and release
+    - run:
+        command: docker run mbed_sdk_py3:latest 'source .venv/bin/activate && python
+          scripts/notify.py'
+        name: Start the release party!
+  test_python_three_osii:
+    machine:
+      image: circleci/classic:201710-02
+    steps:
+    - attach_workspace:
+        at: /caches
+    - run:
+        command: docker load -i /caches/app_python_three.tar
+        name: Load docker image layer cache
+    - run: 'export TEST_RUNNER_DEFAULT_API_HOST=${MBED_CLOUD_API_HOST_OS2}
 
+        export TEST_RUNNER_DEFAULT_API_KEY=${MBED_CLOUD_API_KEY_OS2}
+
+        login="$(aws ecr get-login --no-include-email)"
+
+        ${login}
+
+        '
+    - run: pip install docker-compose==1.21.0
+    - run:
+        command: docker-compose up
+        name: Run all tests
+        no_output_timeout: 15m
+    - run:
+        command: python scripts/ci_summary.py --noblock
+        name: Generate summary
+    - store_artifacts:
+        path: results
+  test_python_three_production:
+    machine:
+      image: circleci/classic:201710-02
+    steps:
+    - attach_workspace:
+        at: /caches
+    - run:
+        command: docker load -i /caches/app_python_three.tar
+        name: Load docker image layer cache
+    - run: 'export TEST_RUNNER_DEFAULT_API_HOST=${MBED_CLOUD_API_HOST_PROD}
+
+        export TEST_RUNNER_DEFAULT_API_KEY=${MBED_CLOUD_API_KEY_PROD}
+
+        login="$(aws ecr get-login --no-include-email)"
+
+        ${login}
+
+        '
+    - run: pip install docker-compose==1.21.0
+    - run:
+        command: docker-compose up
+        name: Run all tests
+        no_output_timeout: 15m
+    - run:
+        command: python scripts/ci_summary.py --noblock
+        name: Generate summary
+    - store_artifacts:
+        path: results
+  test_python_two_osii:
+    machine:
+      image: circleci/classic:201710-02
+    steps:
+    - attach_workspace:
+        at: /caches
+    - run:
+        command: docker load -i /caches/app_python_two.tar
+        name: Load docker image layer cache
+    - run: 'export TEST_RUNNER_DEFAULT_API_HOST=${MBED_CLOUD_API_HOST_OS2}
+
+        export TEST_RUNNER_DEFAULT_API_KEY=${MBED_CLOUD_API_KEY_OS2}
+
+        login="$(aws ecr get-login --no-include-email)"
+
+        ${login}
+
+        '
+    - run: pip install docker-compose==1.21.0
+    - run:
+        command: docker-compose up
+        name: Run all tests
+        no_output_timeout: 15m
+    - run:
+        command: python scripts/ci_summary.py --noblock
+        name: Generate summary
+    - store_artifacts:
+        path: results
+  test_python_two_production:
+    machine:
+      image: circleci/classic:201710-02
+    steps:
+    - attach_workspace:
+        at: /caches
+    - run:
+        command: docker load -i /caches/app_python_two.tar
+        name: Load docker image layer cache
+    - run: 'export TEST_RUNNER_DEFAULT_API_HOST=${MBED_CLOUD_API_HOST_PROD}
+
+        export TEST_RUNNER_DEFAULT_API_KEY=${MBED_CLOUD_API_KEY_PROD}
+
+        login="$(aws ecr get-login --no-include-email)"
+
+        ${login}
+
+        '
+    - run: pip install docker-compose==1.21.0
+    - run:
+        command: docker-compose up
+        name: Run all tests
+        no_output_timeout: 15m
+    - run:
+        command: python scripts/ci_summary.py --noblock
+        name: Generate summary
+    - store_artifacts:
+        path: results
   tpip_report:
-    environment:
-      <<: *environ
+    docker:
+    - image: circleci/python:3.6.1
     steps:
-      - checkout
-      - run: pip install -e .
-      - run: python scripts/tpip.py python_tpip.csv
-      - store_artifacts:
-          path: python_tpip.csv
-    docker:
-      image: circleci/python:3.6.1
-
-  docs_build:
-    environment:
-      <<: *environ
-    steps:
-      - checkout
-      - run: sudo apt-get update
-      - run: sudo apt-get install pandoc
-      - run: sudo pip install pipenv
-      - run: pipenv install . --dev
-      - run: pipenv install readme_renderer --skip-lock
-      - run:
-          name: Build documentation
-          command: pipenv run sphinx-build -a -b html -c docs/ docs/ built_docs
-      - run:
-          name: Validate README.rst
-          command: pipenv run python setup.py check -r -s
-      - store_artifacts:
-          path: built_docs
-      - persist_to_workspace:
-          root: .
-          paths:
-            - built_docs
-    docker:
-      image: circleci/python:3.6.1
-
-  docs_upload:
-    environment:
-      <<: *environ
-    docker:
-      - image: circleci/python:3.6.1
-    steps:
-      - attach_workspace:
-          <<: *workspace
-      - run: sudo pip install awscli
-      - run:
-          name: Upload docs to Amazon S3
-          command: aws s3 sync --delete --cache-control max-age=3600 built_docs s3://mbed-cloud-sdk-python
-
-  test_integration_2:
-    <<: *job_test_common
-    environment:
-      <<: *environ
-      CLOUD_VERSION: integration
-      PYVER: two
-    machine:
-      image: circleci/classic:201710-02
-
-  test_integration_3:
-    <<: *job_test_common
-    environment:
-      <<: *environ
-      CLOUD_VERSION: integration
-      PYVER: three
-    machine:
-      image: circleci/classic:201710-02
-
-  test_production_2:
-    <<: *job_test_common
-    environment:
-      <<: *environ
-      CLOUD_VERSION: production
-      PYVER: two
-    machine:
-      image: circleci/classic:201710-02
-
-  test_production_3:
-    <<: *job_test_common
-    environment:
-      <<: *environ
-      CLOUD_VERSION: production
-      PYVER: three
-    machine:
-      image: circleci/classic:201710-02
-
-  test_os2_2:
-    <<: *job_test_common
-    environment:
-      <<: *environ
-      CLOUD_VERSION: os2
-      PYVER: two
-    machine:
-      image: circleci/classic:201710-02
-
-  test_os2_3:
-    <<: *job_test_common
-    environment:
-      <<: *environ
-      CLOUD_VERSION: os2
-      PYVER: three
-    machine:
-      image: circleci/classic:201710-02
-
-  deploy_beta:
-    <<: *job_deploy_common
-    environment:
-      <<: *environ
-      TWINE_REPOSITORY_URL: https://test.pypi.org/legacy/
-    docker:
-      - image: circleci/python:3.6.1
-
-  deploy_production:
-    <<: *job_deploy_common
-    environment:
-      <<: *environ
-    docker:
-      - image: circleci/python:3.6.1
-
+    - checkout
+    - run: sudo pip install -e .
+    - run: python scripts/tpip.py python_tpip.csv
+    - store_artifacts:
+        path: python_tpip.csv
+version: 2
 workflows:
-  version: 2
   python_sdk_workflow:
     jobs:
-      - build_2
-      - build_3
-      - test_integration_2:
-          requires:
-            - build_2
-            - test_integration_3
-          filters:
-            branches:
-              ignore: master
-      - test_integration_3:
-          requires:
-            - build_3
-          filters:
-            branches:
-              ignore: master
-      - test_production_2:
-          requires:
-            - build_2
-            - test_production_3
-      - test_production_3:
-          requires:
-            - build_3
-      - test_os2_2:
-          requires:
-            - build_2
-            - test_os2_3
-      - test_os2_3:
-          requires:
-            - build_3
-      - docs_build:
-          requires:
-            - build_3
-      - docs_upload:
-          requires:
-            - docs_build
-          filters:
-            branches:
-              only: master
-      - tpip_report:
-          requires:
-            - build_3
-      - release_beta:
-          type: approval
-          requires:
-            - test_os2_3
-      - release_production:
-          type: approval
-          requires:
-            # Ideally this 'release hold' would also include test_production_2
-            #  but because CCI2 mixes up workflow with caching, this breaks
-            - test_production_3
-          filters:
-            branches:
-              only: master
-      - deploy_beta:
-          requires:
-            - release_beta
-      - deploy_production:
-          requires:
-            - release_production
+    - build_python_three: {}
+    - test_python_three_production:
+        requires:
+        - build_python_three
+    - test_python_three_osii:
+        requires:
+        - build_python_three
+    - release_test:
+        requires:
+        - test_python_three_osii
+        type: approval
+    - deploy_python_three_test:
+        requires:
+        - release_test
+    - build_python_two: {}
+    - test_python_two_production:
+        requires:
+        - build_python_two
+    - release_live:
+        filters:
+          branches:
+            only: master
+        requires:
+        - test_python_three_production
+        - test_python_two_production
+        type: approval
+    - deploy_python_three_live:
+        requires:
+        - release_live
+    - test_python_two_osii:
+        requires:
+        - build_python_two
+    - tpip_report: {}
+  version: 2
