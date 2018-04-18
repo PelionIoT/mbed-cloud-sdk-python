@@ -178,7 +178,7 @@ def new_test(py_ver: PyVer, cloud_host: CloudHost):
           - run: pip install docker-compose==1.21.0
           - run:
               name: Run all tests
-              command: docker-compose -f {os.path.relpath(container_config_root, PROJECT_ROOT)}/{py_ver.compose_file} up
+              command: docker-compose -f {os.path.relpath(container_config_root, PROJECT_ROOT)}/{py_ver.compose_file} up --exit-code-from=sdk_test_server
               no_output_timeout: 15m
           - run:
               name: Generate summary
@@ -207,7 +207,7 @@ def new_deploy(py_ver: PyVer, release_target: ReleaseTarget):
               command: docker load -i {cache_path}
           - run:
               name: Start a named container
-              command: docker run --name=SDK {py_ver.tag} 'source .venv/bin/activate && python scripts/notify.py'
+              command: docker run --name=SDK {py_ver.tag}
           - run:
               name: Extract the documentation
               command: 'docker cp SDK:/build/built_docs /built_docs'
@@ -216,10 +216,10 @@ def new_deploy(py_ver: PyVer, release_target: ReleaseTarget):
               command: 'sudo pip install awscli && aws s3 sync --delete --cache-control max-age=3600 built_docs s3://mbed-cloud-sdk-python'
           - run: 
               name: Tag and release
-              command: docker run {py_ver.tag} 'source .venv/bin/activate && python scripts/tag_and_release.py {release_target.twine_url}'
+              command: docker run {py_ver.tag} sh -c "source .venv/bin/activate && python scripts/tag_and_release.py {release_target.twine_url}"
           - run:
               name: Start the release party!
-              command: docker run {py_ver.tag} 'source .venv/bin/activate && python scripts/notify.py'
+              command: docker run --env SLACK_API_TOKEN=${{SLACK_API_TOKEN}} {py_ver.tag} sh -c "source .venv/bin/activate && python scripts/notify.py"
     """)
     return deploy_name(py_ver, release_target), template
 

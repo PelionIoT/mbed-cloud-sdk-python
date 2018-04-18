@@ -69,8 +69,7 @@ jobs:
         command: docker load -i ~/caches/app_python_three.tar
         name: Load docker image layer cache
     - run:
-        command: docker run --name=SDK mbed_sdk_py3:latest 'source .venv/bin/activate
-          && python scripts/notify.py'
+        command: docker run --name=SDK mbed_sdk_py3:latest
         name: Start a named container
     - run:
         command: docker cp SDK:/build/built_docs /built_docs
@@ -80,12 +79,12 @@ jobs:
           built_docs s3://mbed-cloud-sdk-python
         name: Upload the documentation
     - run:
-        command: docker run mbed_sdk_py3:latest 'source .venv/bin/activate && python
-          scripts/tag_and_release.py https://upload.pypi.org/legacy/'
+        command: docker run mbed_sdk_py3:latest sh -c "source .venv/bin/activate &&
+          python scripts/tag_and_release.py https://upload.pypi.org/legacy/"
         name: Tag and release
     - run:
-        command: docker run mbed_sdk_py3:latest 'source .venv/bin/activate && python
-          scripts/notify.py'
+        command: docker run --env SLACK_API_TOKEN=${SLACK_API_TOKEN} mbed_sdk_py3:latest
+          sh -c "source .venv/bin/activate && python scripts/notify.py"
         name: Start the release party!
   deploy_python_three_test:
     machine:
@@ -97,8 +96,7 @@ jobs:
         command: docker load -i ~/caches/app_python_three.tar
         name: Load docker image layer cache
     - run:
-        command: docker run --name=SDK mbed_sdk_py3:latest 'source .venv/bin/activate
-          && python scripts/notify.py'
+        command: docker run --name=SDK mbed_sdk_py3:latest
         name: Start a named container
     - run:
         command: docker cp SDK:/build/built_docs /built_docs
@@ -108,12 +106,12 @@ jobs:
           built_docs s3://mbed-cloud-sdk-python
         name: Upload the documentation
     - run:
-        command: docker run mbed_sdk_py3:latest 'source .venv/bin/activate && python
-          scripts/tag_and_release.py https://test.pypi.org/legacy/'
+        command: docker run mbed_sdk_py3:latest sh -c "source .venv/bin/activate &&
+          python scripts/tag_and_release.py https://test.pypi.org/legacy/"
         name: Tag and release
     - run:
-        command: docker run mbed_sdk_py3:latest 'source .venv/bin/activate && python
-          scripts/notify.py'
+        command: docker run --env SLACK_API_TOKEN=${SLACK_API_TOKEN} mbed_sdk_py3:latest
+          sh -c "source .venv/bin/activate && python scripts/notify.py"
         name: Start the release party!
   test_python_three_osii:
     machine:
@@ -136,7 +134,7 @@ jobs:
         '
     - run: pip install docker-compose==1.21.0
     - run:
-        command: docker-compose -f container/py3-compose.yml up
+        command: docker-compose -f container/py3-compose.yml up --exit-code-from=sdk_test_server
         name: Run all tests
         no_output_timeout: 15m
     - run:
@@ -165,7 +163,7 @@ jobs:
         '
     - run: pip install docker-compose==1.21.0
     - run:
-        command: docker-compose -f container/py3-compose.yml up
+        command: docker-compose -f container/py3-compose.yml up --exit-code-from=sdk_test_server
         name: Run all tests
         no_output_timeout: 15m
     - run:
@@ -194,7 +192,7 @@ jobs:
         '
     - run: pip install docker-compose==1.21.0
     - run:
-        command: docker-compose -f container/py2-compose.yml up
+        command: docker-compose -f container/py2-compose.yml up --exit-code-from=sdk_test_server
         name: Run all tests
         no_output_timeout: 15m
     - run:
@@ -223,7 +221,7 @@ jobs:
         '
     - run: pip install docker-compose==1.21.0
     - run:
-        command: docker-compose -f container/py2-compose.yml up
+        command: docker-compose -f container/py2-compose.yml up --exit-code-from=sdk_test_server
         name: Run all tests
         no_output_timeout: 15m
     - run:
