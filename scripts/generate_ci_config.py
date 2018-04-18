@@ -122,7 +122,7 @@ def build_name(py_ver: PyVer):
 def new_build(py_ver: PyVer):
     cache_file = f'app_{py_ver.name}.tar'
     cache_path = f'{cache_dir}/{cache_file}'
-    cache_key = f'v1-{py_ver.name}-{{{{ .Branch }}}}'
+    cache_key = f'v2-{py_ver.name}-{{{{ .Branch }}}}'
     template = yaml.safe_load(f"""
         machine:
           image: 'circleci/classic:201710-02'
@@ -160,7 +160,6 @@ def test_name(py_ver: PyVer, cloud_host: CloudHost):
 def new_test(py_ver: PyVer, cloud_host: CloudHost):
     cache_file = f'app_{py_ver.name}.tar'
     cache_path = f'{cache_dir}/{cache_file}'
-    cache_key = f'v1-{py_ver.name}-{{{{ .Branch }}}}'
     template = yaml.safe_load(f"""
         machine:
           image: circleci/classic:201710-02
@@ -197,7 +196,6 @@ def deploy_name(py_ver: PyVer, release_target: ReleaseTarget):
 def new_deploy(py_ver: PyVer, release_target: ReleaseTarget):
     cache_file = f'app_{py_ver.name}.tar'
     cache_path = f'{cache_dir}/{cache_file}'
-    cache_key = f'v1-{py_ver.name}-{{{{ .Branch }}}}'
     template = yaml.safe_load(f"""
         machine:
           image: circleci/classic:201710-02
