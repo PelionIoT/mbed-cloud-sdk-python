@@ -21,12 +21,9 @@ WORKDIR /build
 
 # install system-level dependencies
 RUN apk update
-RUN apk --no-cache add git
-RUN apk --no-cache add g++
-RUN apk --no-cache add libffi-dev
-RUN apk --no-cache add openssl-dev
-RUN apk --no-cache add openssl
-RUN python -m pip install --no-cache-dir -U setuptools pip==10.0.0 pipenv==11.10.0
+RUN apk add git
+{py_ver.py2_pre}
+RUN python -m pip install -U setuptools pip==10.0.0 pipenv==11.10.0
 
 # add bare minimum files to survive a pip install
 COPY scripts/dvcs_version.py scripts/dvcs_version.py
@@ -70,6 +67,7 @@ FROM {py_ver.docker_base} as PY_SDK_LITE
 WORKDIR /build
 
 COPY --from=PY_SDK_BUILDER build/ ./
+{py_ver.py2_post}
 
 # previously, next line also had --no-deps, but we can sanity-check that the venv has everything we need:
 RUN source .venv/bin/activate && pip install --no-cache-dir --no-index --find-links dist mbed_cloud_sdk

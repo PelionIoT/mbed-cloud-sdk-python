@@ -21,12 +21,15 @@ WORKDIR /build
 
 # install system-level dependencies
 RUN apk update
-RUN apk --no-cache add git
-RUN apk --no-cache add g++
-RUN apk --no-cache add libffi-dev
-RUN apk --no-cache add openssl-dev
-RUN apk --no-cache add openssl
-RUN python -m pip install --no-cache-dir -U setuptools pip==10.0.0 pipenv==11.10.0
+RUN apk add git
+
+# openssl install
+RUN apk add g++
+RUN apk add libffi-dev
+RUN apk add openssl-dev
+RUN apk add openssl
+
+RUN python -m pip install -U setuptools pip==10.0.0 pipenv==11.10.0
 
 # add bare minimum files to survive a pip install
 COPY scripts/dvcs_version.py scripts/dvcs_version.py
@@ -70,6 +73,12 @@ FROM python:2.7.14-alpine3.6 as PY_SDK_LITE
 WORKDIR /build
 
 COPY --from=PY_SDK_BUILDER build/ ./
+
+# openssl install
+COPY --from=PY_SDK_BUILDER /usr/bin/openssl /usr/bin/openssl
+COPY --from=PY_SDK_BUILDER /etc/ssl/ /etc/ssl/
+COPY --from=PY_SDK_BUILDER /lib/ /lib/
+
 
 # previously, next line also had --no-deps, but we can sanity-check that the venv has everything we need:
 RUN source .venv/bin/activate && pip install --no-cache-dir --no-index --find-links dist mbed_cloud_sdk

@@ -32,6 +32,8 @@ import networkx
 import yaml
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(__file__))
+container_config_root = os.path.join(PROJECT_ROOT, 'container')
+cache_dir = f'~/caches'
 
 base_structure = OrderedDict(
     version=2,
@@ -50,10 +52,40 @@ mbed_cloud_hosts = dict(
     production=CloudHost('production', 'MBED_CLOUD_API_HOST_PROD', 'MBED_CLOUD_API_KEY_PROD'),
 )
 
-PyVer = namedtuple('PyVer', ['name', 'docker_base', 'tag', 'docker_file', 'compose_file'])
+py2_openssl_install = """
+# openssl install
+RUN apk add g++
+RUN apk add libffi-dev
+RUN apk add openssl-dev
+RUN apk add openssl
+"""
+py2_openssl_cp = """
+# openssl install
+COPY --from=PY_SDK_BUILDER /usr/bin/openssl /usr/bin/openssl
+COPY --from=PY_SDK_BUILDER /etc/ssl/ /etc/ssl/
+COPY --from=PY_SDK_BUILDER /lib/ /lib/
+"""
+
+PyVer = namedtuple('PyVer', ['name', 'docker_base', 'tag', 'docker_file', 'compose_file', 'py2_pre', 'py2_post'])
 python_versions = dict(
-    two=PyVer('python_two', 'python:2.7.14-alpine3.6', 'mbed_sdk_py2:latest', 'py2.Dockerfile', 'py2-compose.yml'),
-    three=PyVer('python_three', 'python:3.6.3-alpine3.6', 'mbed_sdk_py3:latest', 'py3.Dockerfile', 'py3-compose.yml'),
+    two=PyVer(
+        'python_two',
+        'python:2.7.14-alpine3.6',
+        'mbed_sdk_py2:latest',
+        'py2.Dockerfile',
+        'py2-compose.yml',
+        py2_openssl_install,
+        py2_openssl_cp,
+    ),
+    three=PyVer(
+        'python_three',
+        'python:3.6.3-alpine3.6',
+        'mbed_sdk_py3:latest',
+        'py3.Dockerfile',
+        'py3-compose.yml',
+        '',
+        '',
+    ),
 )
 
 # we have multiple release targets
@@ -88,10 +120,9 @@ def build_name(py_ver: PyVer):
 
 
 def new_build(py_ver: PyVer):
-    cache_dir = f'/caches'
     cache_file = f'app_{py_ver.name}.tar'
     cache_path = f'{cache_dir}/{cache_file}'
-    cache_key = f'v1-{py_ver.name}-{{ .Branch }}'
+    cache_key = f'v1-{py_ver.name}-{{{{ .Branch }}}}'
     template = yaml.safe_load(f"""
         machine:
           image: 'circleci/classic:201710-02'
@@ -127,14 +158,14 @@ def test_name(py_ver: PyVer, cloud_host: CloudHost):
 
 
 def new_test(py_ver: PyVer, cloud_host: CloudHost):
-    cache_dir = f'/caches'
     cache_file = f'app_{py_ver.name}.tar'
     cache_path = f'{cache_dir}/{cache_file}'
-    cache_key = f'v1-{py_ver.name}-{{ .Branch }}'
+    cache_key = f'v1-{py_ver.name}-{{{{ .Branch }}}}'
     template = yaml.safe_load(f"""
         machine:
           image: circleci/classic:201710-02
         steps:
+          - checkout
           - attach_workspace:
               at: {cache_dir}
           - run:
@@ -148,7 +179,7 @@ def new_test(py_ver: PyVer, cloud_host: CloudHost):
           - run: pip install docker-compose==1.21.0
           - run:
               name: Run all tests
-              command: docker-compose up
+              command: docker-compose -f {os.path.relpath(container_config_root, PROJECT_ROOT)}/{py_ver.compose_file} up
               no_output_timeout: 15m
           - run:
               name: Generate summary
@@ -164,10 +195,9 @@ def deploy_name(py_ver: PyVer, release_target: ReleaseTarget):
 
 
 def new_deploy(py_ver: PyVer, release_target: ReleaseTarget):
-    cache_dir = f'/caches'
     cache_file = f'app_{py_ver.name}.tar'
     cache_path = f'{cache_dir}/{cache_file}'
-    cache_key = f'v1-{py_ver.name}-{{ .Branch }}'
+    cache_key = f'v1-{py_ver.name}-{{{{ .Branch }}}}'
     template = yaml.safe_load(f"""
         machine:
           image: circleci/classic:201710-02
@@ -282,7 +312,6 @@ def generate_compose_file(py_ver: PyVer):
 
 def generate_docker_targets():
     output = {}
-    container_config_root = os.path.join(PROJECT_ROOT, 'container')
     for py_ver in python_versions.values():
         output[os.path.join(container_config_root, py_ver.docker_file)] = generate_docker_file(py_ver)
         output[os.path.join(container_config_root, py_ver.compose_file)] = generate_compose_file(py_ver)

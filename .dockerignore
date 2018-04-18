@@ -10,9 +10,10 @@
 .env
 .mbed_cloud_config.json
 .pytest_cache
+build
 built_docs
-container/
+container
 results
 rpc_results
-scripts/templates/
+scripts/templates
 test_fixtures
