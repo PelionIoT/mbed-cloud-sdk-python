@@ -83,8 +83,8 @@ jobs:
           python scripts/tag_and_release.py https://upload.pypi.org/legacy/"
         name: Tag and release
     - run:
-        command: docker run --env SLACK_API_TOKEN=${SLACK_API_TOKEN} mbed_sdk_py3:latest
-          sh -c "source .venv/bin/activate && python scripts/notify.py"
+        command: docker run --env SLACK_API_TOKEN mbed_sdk_py3:latest sh -c "source
+          .venv/bin/activate && python scripts/notify.py"
         name: Start the release party!
   deploy_python_three_test:
     machine:
@@ -110,8 +110,8 @@ jobs:
           python scripts/tag_and_release.py https://test.pypi.org/legacy/"
         name: Tag and release
     - run:
-        command: docker run --env SLACK_API_TOKEN=${SLACK_API_TOKEN} mbed_sdk_py3:latest
-          sh -c "source .venv/bin/activate && python scripts/notify.py"
+        command: docker run --env SLACK_API_TOKEN mbed_sdk_py3:latest sh -c "source
+          .venv/bin/activate && python scripts/notify.py"
         name: Start the release party!
   test_python_three_osii:
     machine:
@@ -123,18 +123,25 @@ jobs:
     - run:
         command: docker load -i ~/caches/app_python_three.tar
         name: Load docker image layer cache
-    - run: 'export TEST_RUNNER_DEFAULT_API_HOST=${MBED_CLOUD_API_HOST_OS2}
-
-        export TEST_RUNNER_DEFAULT_API_KEY=${MBED_CLOUD_API_KEY_OS2}
+    - run: 'pip install docker-compose==1.21.0
 
         login="$(aws ecr get-login --no-include-email)"
 
         ${login}
 
         '
-    - run: pip install docker-compose==1.21.0
     - run:
-        command: docker-compose -f container/py3-compose.yml up --exit-code-from=sdk_test_server
+        command: 'export TEST_RUNNER_DEFAULT_API_HOST=${MBED_CLOUD_API_HOST_OS2}
+
+          export TEST_RUNNER_DEFAULT_API_KEY=${MBED_CLOUD_API_KEY_OS2}
+
+          login="$(aws ecr get-login --no-include-email)"
+
+          ${login}
+
+          docker-compose -f container/py3-compose.yml up --exit-code-from=sdk_test_server
+
+          '
         name: Run all tests
         no_output_timeout: 15m
     - run:
@@ -152,18 +159,25 @@ jobs:
     - run:
         command: docker load -i ~/caches/app_python_three.tar
         name: Load docker image layer cache
-    - run: 'export TEST_RUNNER_DEFAULT_API_HOST=${MBED_CLOUD_API_HOST_PROD}
-
-        export TEST_RUNNER_DEFAULT_API_KEY=${MBED_CLOUD_API_KEY_PROD}
+    - run: 'pip install docker-compose==1.21.0
 
         login="$(aws ecr get-login --no-include-email)"
 
         ${login}
 
         '
-    - run: pip install docker-compose==1.21.0
     - run:
-        command: docker-compose -f container/py3-compose.yml up --exit-code-from=sdk_test_server
+        command: 'export TEST_RUNNER_DEFAULT_API_HOST=${MBED_CLOUD_API_HOST_PROD}
+
+          export TEST_RUNNER_DEFAULT_API_KEY=${MBED_CLOUD_API_KEY_PROD}
+
+          login="$(aws ecr get-login --no-include-email)"
+
+          ${login}
+
+          docker-compose -f container/py3-compose.yml up --exit-code-from=sdk_test_server
+
+          '
         name: Run all tests
         no_output_timeout: 15m
     - run:
@@ -181,18 +195,25 @@ jobs:
     - run:
         command: docker load -i ~/caches/app_python_two.tar
         name: Load docker image layer cache
-    - run: 'export TEST_RUNNER_DEFAULT_API_HOST=${MBED_CLOUD_API_HOST_OS2}
-
-        export TEST_RUNNER_DEFAULT_API_KEY=${MBED_CLOUD_API_KEY_OS2}
+    - run: 'pip install docker-compose==1.21.0
 
         login="$(aws ecr get-login --no-include-email)"
 
         ${login}
 
         '
-    - run: pip install docker-compose==1.21.0
     - run:
-        command: docker-compose -f container/py2-compose.yml up --exit-code-from=sdk_test_server
+        command: 'export TEST_RUNNER_DEFAULT_API_HOST=${MBED_CLOUD_API_HOST_OS2}
+
+          export TEST_RUNNER_DEFAULT_API_KEY=${MBED_CLOUD_API_KEY_OS2}
+
+          login="$(aws ecr get-login --no-include-email)"
+
+          ${login}
+
+          docker-compose -f container/py2-compose.yml up --exit-code-from=sdk_test_server
+
+          '
         name: Run all tests
         no_output_timeout: 15m
     - run:
@@ -210,18 +231,25 @@ jobs:
     - run:
         command: docker load -i ~/caches/app_python_two.tar
         name: Load docker image layer cache
-    - run: 'export TEST_RUNNER_DEFAULT_API_HOST=${MBED_CLOUD_API_HOST_PROD}
-
-        export TEST_RUNNER_DEFAULT_API_KEY=${MBED_CLOUD_API_KEY_PROD}
+    - run: 'pip install docker-compose==1.21.0
 
         login="$(aws ecr get-login --no-include-email)"
 
         ${login}
 
         '
-    - run: pip install docker-compose==1.21.0
     - run:
-        command: docker-compose -f container/py2-compose.yml up --exit-code-from=sdk_test_server
+        command: 'export TEST_RUNNER_DEFAULT_API_HOST=${MBED_CLOUD_API_HOST_PROD}
+
+          export TEST_RUNNER_DEFAULT_API_KEY=${MBED_CLOUD_API_KEY_PROD}
+
+          login="$(aws ecr get-login --no-include-email)"
+
+          ${login}
+
+          docker-compose -f container/py2-compose.yml up --exit-code-from=sdk_test_server
+
+          '
         name: Run all tests
         no_output_timeout: 15m
     - run:

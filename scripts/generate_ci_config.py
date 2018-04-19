@@ -171,15 +171,18 @@ def new_test(py_ver: PyVer, cloud_host: CloudHost):
               name: Load docker image layer cache
               command: docker load -i {cache_path}
           - run: |
+                pip install docker-compose==1.21.0
+                login="$(aws ecr get-login --no-include-email)"
+                ${{login}}
+          - run:
+              name: Run all tests
+              no_output_timeout: 15m
+              command: |
                   export TEST_RUNNER_DEFAULT_API_HOST=${{{cloud_host.envvar_host}}}
                   export TEST_RUNNER_DEFAULT_API_KEY=${{{cloud_host.envvar_key}}}
                   login="$(aws ecr get-login --no-include-email)"
                   ${{login}}
-          - run: pip install docker-compose==1.21.0
-          - run:
-              name: Run all tests
-              command: docker-compose -f {os.path.relpath(container_config_root, PROJECT_ROOT)}/{py_ver.compose_file} up --exit-code-from=sdk_test_server
-              no_output_timeout: 15m
+                  docker-compose -f {os.path.relpath(container_config_root, PROJECT_ROOT)}/{py_ver.compose_file} up --exit-code-from=sdk_test_server
           - run:
               name: Generate summary
               command: python scripts/ci_summary.py --noblock
@@ -219,7 +222,7 @@ def new_deploy(py_ver: PyVer, release_target: ReleaseTarget):
               command: docker run {py_ver.tag} sh -c "source .venv/bin/activate && python scripts/tag_and_release.py {release_target.twine_url}"
           - run:
               name: Start the release party!
-              command: docker run --env SLACK_API_TOKEN=${{SLACK_API_TOKEN}} {py_ver.tag} sh -c "source .venv/bin/activate && python scripts/notify.py"
+              command: docker run --env SLACK_API_TOKEN {py_ver.tag} sh -c "source .venv/bin/activate && python scripts/notify.py"
     """)
     return deploy_name(py_ver, release_target), template
 
