@@ -41,7 +41,7 @@ class UserUpdateReq(object):
         'password': 'str',
         'phone_number': 'str',
         'status': 'str',
-        'user_properties': 'dict(str, dict(str, str))',
+        'user_properties': 'dict(str, str)',
         'username': 'str'
     }
 
@@ -313,10 +313,10 @@ class UserUpdateReq(object):
     def user_properties(self):
         """
         Gets the user_properties of this UserUpdateReq.
-        User's account specific custom properties.
+        User's account specific custom properties. The value must be a valid Json.
 
         :return: The user_properties of this UserUpdateReq.
-        :rtype: dict(str, dict(str, str))
+        :rtype: dict(str, str)
         """
         return self._user_properties
 
@@ -324,10 +324,10 @@ class UserUpdateReq(object):
     def user_properties(self, user_properties):
         """
         Sets the user_properties of this UserUpdateReq.
-        User's account specific custom properties.
+        User's account specific custom properties. The value must be a valid Json.
 
         :param user_properties: The user_properties of this UserUpdateReq.
-        :type: dict(str, dict(str, str))
+        :type: dict(str, str)
         """
 
         self._user_properties = user_properties

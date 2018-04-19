@@ -24,7 +24,7 @@ Name | Type | Description | Notes
 **phone_number** | **str** | Phone number. | [optional] 
 **status** | **str** | The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system. | 
 **updated_at** | **datetime** | Last update UTC time RFC3339. | [optional] 
-**user_properties** | [**dict(str, dict(str, str))**](dict.md) | User&#39;s account specific custom properties. | [optional] 
+**user_properties** | **dict(str, str)** | User&#39;s account specific custom properties. The value is a valid Json. | [optional] 
 **username** | **str** | A username containing alphanumerical letters and -,._@+&#x3D; characters. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

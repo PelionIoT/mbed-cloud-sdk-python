@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **password** | **str** | The password when creating a new user. It will be generated when not present in the request. | [optional] 
 **phone_number** | **str** | Phone number, not longer than 100 characters. | [optional] 
 **status** | **str** | The status of the user. | [optional] 
-**user_properties** | [**dict(str, dict(str, str))**](dict.md) | User&#39;s account specific custom properties. | [optional] 
+**user_properties** | **dict(str, str)** | User&#39;s account specific custom properties. The value must be a valid Json. | [optional] 
 **username** | **str** | A username containing alphanumerical letters and -,._@+&#x3D; characters. It must be at least 4 but not more than 30 character long. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
