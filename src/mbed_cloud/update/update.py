@@ -271,12 +271,12 @@ class UpdateAPI(BaseAPI):
         return PaginatedResponse(api.firmware_manifest_list, lwrap_type=FirmwareManifest, **kwargs)
 
     @catch_exceptions(UpdateServiceApiException)
-    def add_firmware_manifest(self, name, datafile, keytable_file=None, **kwargs):
+    def add_firmware_manifest(self, name, datafile, key_table_file=None, **kwargs):
         """Add a new manifest reference.
 
         :param str name: Manifest file short name (Required)
         :param str datafile: The file object or path to the manifest file (Required)
-        :param str keytable_file: The file object or path to the keytable file (Optional)
+        :param str key_table_file: The file object or path to the key_table file (Optional)
         :param str description: Manifest file description
         :return: the newly created manifest file object
         :rtype: FirmwareManifest
@@ -285,8 +285,8 @@ class UpdateAPI(BaseAPI):
             'name': name,
             'url': datafile,  # really it's the datafile
         })
-        if keytable_file is not None:
-            kwargs.update({'keytable_url': keytable_file})  # really it's the keytable
+        if key_table_file is not None:
+            kwargs.update({'key_table_url': key_table_file})  # really it's the key_table
         firmware_manifest = FirmwareManifest._create_request_map(kwargs)
         api = self._get_api(update_service.DefaultApi)
         return FirmwareManifest(
@@ -393,7 +393,7 @@ class FirmwareManifest(BaseObject):
         return {
             "created_at": "created_at",
             "url": "datafile",
-            "keytable_url": "keytable",
+            "key_table_url": "key_table",
             "description": "description",
             "device_class": "device_class",
             "datafile_size": "datafile_size",
@@ -421,12 +421,12 @@ class FirmwareManifest(BaseObject):
         return self._url
 
     @property
-    def keytable_url(self):
-        """The URL of the keytable (readonly).
+    def key_table_url(self):
+        """The URL of the key_table (readonly).
 
         :rtype: str
         """
-        return self._keytable_url
+        return self._key_table_url
 
     @property
     def description(self):
