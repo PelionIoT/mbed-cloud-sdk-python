@@ -14,8 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # --------------------------------------------------------------------------
-"""Generates circleci config
-"""
+"""Part of the CI process"""
+
 from collections import namedtuple
 from collections import OrderedDict
 import copy

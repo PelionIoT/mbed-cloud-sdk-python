@@ -1,13 +1,33 @@
+# --------------------------------------------------------------------------
+# Mbed Cloud Python SDK
+# (C) COPYRIGHT 2017 Arm Limited
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# --------------------------------------------------------------------------
+"""Part of the CI process"""
+
 import subprocess
 import sys
 
 
 def main():
-    # tags the current repository
-    # commits changes to news files
-    # this is expected to be run from within an Alpine Linux docker container
+    """Tags the current repository
 
-    # see https://packaging.python.org/tutorials/distributing-packages/#uploading-your-project-to-pypi
+    and commits changes to news files
+    this is expected to be run from within an Alpine Linux docker container
+    """
+    # see:
+    # https://packaging.python.org/tutorials/distributing-packages/#uploading-your-project-to-pypi
     twine_repo = sys.argv[1]
     print('tagging and releasing to %s' % twine_repo)
     version = subprocess.check_output(['python', 'setup.py', '--version']).decode().strip()
