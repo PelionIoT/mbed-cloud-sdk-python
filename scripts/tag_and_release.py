@@ -27,8 +27,10 @@ def main():
     """
     # see:
     # https://packaging.python.org/tutorials/distributing-packages/#uploading-your-project-to-pypi
+    # nb. to test locally, switch back to an HTTPS url:
+    # git remote set-url origin https://${GITHUB_TOKEN}@github.com/ARMmbed/mbed-cloud-sdk-python-private.git
     print('tagging and releasing to %s as %s' % (
-        os.getenv('TWINE_REPOSITORY_URL'),
+        os.getenv('TWINE_REPOSITORY_URL', os.getenv('TWINE_REPOSITORY')),
         os.getenv('TWINE_USERNAME')
     ))
 
@@ -38,6 +40,7 @@ def main():
 
     subprocess.check_call(['apk', 'update'])
     subprocess.check_call(['apk', 'add', 'git'])
+    subprocess.check_call(['apk', 'add', 'openssh'])
     subprocess.check_call(['git', 'tag', version])
     subprocess.check_call(['git', 'push', '--tags'])
     subprocess.check_call(['git', 'add', 'NEWS.rst' 'docs/news/*'])
