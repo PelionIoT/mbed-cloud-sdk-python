@@ -89,8 +89,8 @@ python_versions = dict(
 # we have multiple release targets
 ReleaseTarget = namedtuple('ReleaseTarget', ['name', 'twine_repo'])
 release_targets = dict(
-    test=ReleaseTarget('test', 'pypi'),
-    live=ReleaseTarget('live', 'pypitest'),
+    test=ReleaseTarget('test', 'pypitest'),
+    live=ReleaseTarget('live', 'pypi'),
 )
 
 
@@ -329,6 +329,11 @@ def main(output_path=None):
     config
 
     There's also the added bonus of validating the yaml as we go.
+
+    Additonally, we template and write Docker and docker-compose files
+    for multiple python versions
+
+
     """
     config_output = output_path or os.path.join(PROJECT_ROOT, '.circleci', 'config.yml')
 
