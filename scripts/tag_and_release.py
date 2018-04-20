@@ -62,6 +62,7 @@ def main():
     url = subprocess.check_output(['git', 'remote', 'get-url', 'origin'])
     new_url = git_url_ssh_to_https(url.decode())
     subprocess.check_call(['git', 'remote', 'set-url', 'origin', new_url])
+    subprocess.check_call(['git', 'branch', '--set-upstream-to', 'origin/%s' % os.getenv('CIRCLE_BRANCH')])
     print('pushing tags')
     subprocess.check_call(['git', 'tag', version])
     subprocess.check_call(['git', 'push', 'origin', '--tags'])
