@@ -17,19 +17,21 @@
 """Part of the CI process"""
 
 import subprocess
-import sys
+import os
 
 
 def main():
     """Tags the current repository
 
     and commits changes to news files
-    this is expected to be run from within an Alpine Linux docker container
     """
     # see:
     # https://packaging.python.org/tutorials/distributing-packages/#uploading-your-project-to-pypi
-    twine_repo = sys.argv[1]
-    print('tagging and releasing to %s' % twine_repo)
+    print('tagging and releasing to %s as %s' % (
+        os.getenv('TWINE_REPOSITORY_URL'),
+        os.getenv('TWINE_USERNAME')
+    ))
+
     version = subprocess.check_output(['python', 'setup.py', '--version']).decode().strip()
     if 'dev' in version:
         raise Exception('cannot release unversioned project: %s' % version)
@@ -41,7 +43,7 @@ def main():
     subprocess.check_call(['git', 'add', 'NEWS.rst' 'docs/news/*'])
     subprocess.check_call(['git', 'commit', '-m', ':newspaper: Update changelog [skip ci]'])
     subprocess.check_call(['git', 'push'])
-    subprocess.check_call(['twine', 'upload', '--repository-url', twine_repo, 'dist/*'])
+    subprocess.check_call(['twine', 'upload', 'dist/*'])
 
 
 if __name__ == '__main__':
