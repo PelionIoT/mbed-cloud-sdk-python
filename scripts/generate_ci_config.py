@@ -220,7 +220,7 @@ def new_deploy(py_ver: PyVer, release_target: ReleaseTarget):
               command: 'aws s3 sync --delete --cache-control max-age=3600 built_docs s3://mbed-cloud-sdk-python'    
           - run: 
               name: Tag and release
-              command: docker run --env-file=scripts/templates/envvars.env -e TWINE_REPO={release_target.twine_repo} -v ~/.ssh/known_hosts:/home/.ssh/known_hosts {py_ver.tag} sh -c "source .venv/bin/activate && python scripts/tag_and_release.py"
+              command: docker run --env-file=scripts/templates/envvars.env -e TWINE_REPOSITORY={release_target.twine_repo} {py_ver.tag} sh -c "source .venv/bin/activate && python scripts/tag_and_release.py"
           - run:
               name: Start the release party!
               command: docker run --env-file=scripts/templates/envvars.env {py_ver.tag} sh -c "source .venv/bin/activate && python scripts/notify.py"

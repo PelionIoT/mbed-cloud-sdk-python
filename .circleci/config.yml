@@ -82,9 +82,8 @@ jobs:
         command: aws s3 sync --delete --cache-control max-age=3600 built_docs s3://mbed-cloud-sdk-python
         name: Upload the documentation
     - run:
-        command: docker run --env-file=scripts/templates/envvars.env -e TWINE_REPO=pypitest
-          -v ~/.ssh/known_hosts:/home/.ssh/known_hosts mbed_sdk_py3:latest sh -c "source
-          .venv/bin/activate && python scripts/tag_and_release.py"
+        command: docker run --env-file=scripts/templates/envvars.env -e TWINE_REPOSITORY=pypitest
+          mbed_sdk_py3:latest sh -c "source .venv/bin/activate && python scripts/tag_and_release.py"
         name: Tag and release
     - run:
         command: docker run --env-file=scripts/templates/envvars.env mbed_sdk_py3:latest
@@ -113,9 +112,8 @@ jobs:
         command: aws s3 sync --delete --cache-control max-age=3600 built_docs s3://mbed-cloud-sdk-python
         name: Upload the documentation
     - run:
-        command: docker run --env-file=scripts/templates/envvars.env -e TWINE_REPO=pypi
-          -v ~/.ssh/known_hosts:/home/.ssh/known_hosts mbed_sdk_py3:latest sh -c "source
-          .venv/bin/activate && python scripts/tag_and_release.py"
+        command: docker run --env-file=scripts/templates/envvars.env -e TWINE_REPOSITORY=pypi
+          mbed_sdk_py3:latest sh -c "source .venv/bin/activate && python scripts/tag_and_release.py"
         name: Tag and release
     - run:
         command: docker run --env-file=scripts/templates/envvars.env mbed_sdk_py3:latest

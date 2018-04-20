@@ -20,6 +20,22 @@ import subprocess
 import os
 
 
+def git_url_ssh_to_https(url):
+    """Convert a git url
+
+    url will look like
+    https://github.com/ARMmbed/mbed-cloud-sdk-python.git
+    or
+    git@github.com:ARMmbed/mbed-cloud-sdk-python.git
+    we want:
+    git remote set-url origin https://${GITHUB_TOKEN}@github.com/ARMmbed/mbed-cloud-sdk-python-private.git
+    """
+    path = url.split('github.com', 1)[1][1:].strip()
+    new = 'https://{GITHUB_TOKEN}@github.com/%s' % path
+    print('rewriting git url to: %s' % new)
+    return new.format(GITHUB_TOKEN=os.getenv('GITHUB_TOKEN'))
+
+
 def main():
     """Tags the current repository
 
@@ -27,12 +43,14 @@ def main():
     """
     # see:
     # https://packaging.python.org/tutorials/distributing-packages/#uploading-your-project-to-pypi
-    # nb. to test locally, switch back to an HTTPS url:
-    # git remote set-url origin https://${GITHUB_TOKEN}@github.com/ARMmbed/mbed-cloud-sdk-python-private.git
+    twine_repo = os.getenv('TWINE_REPOSITORY_URL') or os.getenv('TWINE_REPOSITORY')
     print('tagging and releasing to %s as %s' % (
-        os.getenv('TWINE_REPOSITORY_URL', os.getenv('TWINE_REPOSITORY')),
+        twine_repo,
         os.getenv('TWINE_USERNAME')
     ))
+
+    if not twine_repo:
+        raise Exception('cannot release to implicit pypi repository. explicitly set the repo/url.')
 
     version = subprocess.check_output(['python', 'setup.py', '--version']).decode().strip()
     if 'dev' in version:
@@ -40,13 +58,20 @@ def main():
 
     subprocess.check_call(['apk', 'update'])
     subprocess.check_call(['apk', 'add', 'git'])
-    subprocess.check_call(['apk', 'add', 'openssh'])
+    subprocess.check_call(['pip', 'install', 'twine'])
+    url = subprocess.check_output(['git', 'remote', 'get-url', 'origin'])
+    new_url = git_url_ssh_to_https(url.decode())
+    subprocess.check_call(['git', 'remote', 'set-url', 'origin', new_url])
+    print('pushing tags')
     subprocess.check_call(['git', 'tag', version])
-    subprocess.check_call(['git', 'push', '--tags'])
-    subprocess.check_call(['git', 'add', 'NEWS.rst' 'docs/news/*'])
+    subprocess.check_call(['git', 'push', 'origin', '--tags'])
+    print('pushing news')
+    subprocess.check_call(['git', 'add', 'NEWS.rst'])
+    subprocess.check_call(['git', 'add', 'docs/news/*'])
     subprocess.check_call(['git', 'commit', '-m', ':newspaper: Update changelog [skip ci]'])
-    subprocess.check_call(['git', 'push'])
-    subprocess.check_call(['twine', 'upload', 'dist/*'])
+    subprocess.check_call(['git', 'push', 'origin'])
+    print('uploading to pypi')
+    subprocess.check_call(['python', '-m', 'twine', 'upload', 'dist/*'])
 
 
 if __name__ == '__main__':
