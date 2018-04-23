@@ -156,6 +156,7 @@ jobs:
     - run:
         command: python scripts/ci_summary.py --noblock
         name: Generate summary
+        when: always
     - store_artifacts:
         path: results
   test_python_three_production:
@@ -192,6 +193,7 @@ jobs:
     - run:
         command: python scripts/ci_summary.py --noblock
         name: Generate summary
+        when: always
     - store_artifacts:
         path: results
   test_python_two_osii:
@@ -228,6 +230,7 @@ jobs:
     - run:
         command: python scripts/ci_summary.py --noblock
         name: Generate summary
+        when: always
     - store_artifacts:
         path: results
   test_python_two_production:
@@ -264,6 +267,7 @@ jobs:
     - run:
         command: python scripts/ci_summary.py --noblock
         name: Generate summary
+        when: always
     - store_artifacts:
         path: results
   tpip_report:

@@ -184,6 +184,7 @@ def new_test(py_ver: PyVer, cloud_host: CloudHost):
           - run:
               name: Generate summary
               command: python scripts/ci_summary.py --noblock
+              when: always
           - store_artifacts:
               path: results
     """)
