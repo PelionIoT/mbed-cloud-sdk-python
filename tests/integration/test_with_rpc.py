@@ -14,11 +14,6 @@ from tests.common import BaseCase
 
 from xml.etree import ElementTree
 
-docker_image = os.environ.get(
-    'TESTRUNNER_DOCKER_IMAGE',
-    '104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master'
-)
-
 
 def timeout_check_output(timeout=5, process=None, _or_fail=True, *args, **kwargs):
     """This is a Py2/3 replacement for timeout

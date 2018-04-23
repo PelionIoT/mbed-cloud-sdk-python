@@ -2,21 +2,21 @@
 # This docker composition will run a testrunner against python_three
 
 # Usage:
-# docker-compose -f container/py3-compose.yml up
+# docker-compose -f container/py3-compose.yml up --exit-code-from=sdk_test_server
 
 version: '3'
 services:
   sdk_test_server:
       build:
-        context: .
+        context: ../
         dockerfile: py3.Dockerfile
       image: mbed_sdk_py3:latest
       environment:
         - MBED_CLOUD_SDK_API_KEY=abc123
         - CI=yes
       volumes:
-        - ./results:/build/results
-        - ./test_fixtures:/test_fixtures
+        - ../results:/build/results
+        - ../test_fixtures:/test_fixtures
       command: [sh, -c, 'source .venv/bin/activate && pytest']
   testrunner:
 #      build:
@@ -36,4 +36,5 @@ services:
       volumes:
         - ./results:/runner/results
         - ./test_fixtures:/runner/test_fixtures
+      # sleep ensures the testrunner stays up whilst test server completes coverage shutdown
       command: [sh, -c, '(python -m trunner || true) && sleep 10000']
