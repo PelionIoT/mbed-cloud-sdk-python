@@ -44,19 +44,20 @@ class BootstrapAPI(BaseAPI):
         api = self._get_api(bootstrap.PreSharedKeysApi)
         item = PreSharedKey._create_request_map(kwargs)
         item = models.PreSharedKey(**item)
-        return PreSharedKey(api.upload_a_pre_shared_key(item))
+        api.upload_pre_shared_key(item)
+        return PreSharedKey(item)
 
     @catch_exceptions(BootstrapAPIException)
-    def get_psk(self, id, **kwargs):
+    def get_psk(self, endpoint_name, **kwargs):
         """Get"""
         api = self._get_api(bootstrap.PreSharedKeysApi)
-        return PreSharedKey(api.get_a_pre_shared_key(id=id))
+        return PreSharedKey(api.get_pre_shared_key(endpoint_name=endpoint_name))
 
     @catch_exceptions(BootstrapAPIException)
-    def delete_psk(self, id, **kwargs):
+    def delete_psk(self, endpoint_name, **kwargs):
         """Delete"""
         api = self._get_api(bootstrap.PreSharedKeysApi)
-        return api.delete_a_pre_shared_key(id=id)
+        return api.delete_pre_shared_key(endpoint_name=endpoint_name)
 
 
 class PreSharedKey(BaseObject):
