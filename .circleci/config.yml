@@ -132,29 +132,27 @@ jobs:
     - run:
         command: docker load -i ~/caches/app_python_three.tar
         name: Load docker image layer cache
-    - run: 'pip install docker-compose==1.21.0
-
-        login="$(aws ecr get-login --no-include-email)"
-
-        ${login}
-
-        '
     - run:
-        command: 'export TEST_RUNNER_DEFAULT_API_HOST=${MBED_CLOUD_API_HOST_OS2}
+        command: pip install docker-compose==1.21.0
+        name: Get docker-compose
+    - run:
+        command: 'login="$(aws ecr get-login --no-include-email)"
 
-          export TEST_RUNNER_DEFAULT_API_KEY=${MBED_CLOUD_API_KEY_OS2}
+          ${login}'
+        name: AWS login
+    - run:
+        command: 'echo ''export TEST_RUNNER_DEFAULT_API_HOST=${MBED_CLOUD_API_HOST_OS2}''
+          >> $BASH_ENV
 
-          login="$(aws ecr get-login --no-include-email)"
-
-          ${login}
-
-          docker-compose -f container/py3-compose.yml up --exit-code-from=sdk_test_server
-
-          '
+          echo ''export TEST_RUNNER_DEFAULT_API_KEY=${MBED_CLOUD_API_KEY_OS2}'' >>
+          $BASH_ENV'
+        name: Set testrunner parameters
+    - run:
+        command: docker-compose -f container/py3-compose.yml up --exit-code-from=sdk_test_server
         name: Run all tests
         no_output_timeout: 15m
     - run:
-        command: python scripts/ci_summary.py --noblock
+        command: sudo python scripts/ci_summary.py --noblock
         name: Generate summary
         when: always
     - store_artifacts:
@@ -169,29 +167,27 @@ jobs:
     - run:
         command: docker load -i ~/caches/app_python_three.tar
         name: Load docker image layer cache
-    - run: 'pip install docker-compose==1.21.0
-
-        login="$(aws ecr get-login --no-include-email)"
-
-        ${login}
-
-        '
     - run:
-        command: 'export TEST_RUNNER_DEFAULT_API_HOST=${MBED_CLOUD_API_HOST_PROD}
+        command: pip install docker-compose==1.21.0
+        name: Get docker-compose
+    - run:
+        command: 'login="$(aws ecr get-login --no-include-email)"
 
-          export TEST_RUNNER_DEFAULT_API_KEY=${MBED_CLOUD_API_KEY_PROD}
+          ${login}'
+        name: AWS login
+    - run:
+        command: 'echo ''export TEST_RUNNER_DEFAULT_API_HOST=${MBED_CLOUD_API_HOST_PROD}''
+          >> $BASH_ENV
 
-          login="$(aws ecr get-login --no-include-email)"
-
-          ${login}
-
-          docker-compose -f container/py3-compose.yml up --exit-code-from=sdk_test_server
-
-          '
+          echo ''export TEST_RUNNER_DEFAULT_API_KEY=${MBED_CLOUD_API_KEY_PROD}'' >>
+          $BASH_ENV'
+        name: Set testrunner parameters
+    - run:
+        command: docker-compose -f container/py3-compose.yml up --exit-code-from=sdk_test_server
         name: Run all tests
         no_output_timeout: 15m
     - run:
-        command: python scripts/ci_summary.py --noblock
+        command: sudo python scripts/ci_summary.py --noblock
         name: Generate summary
         when: always
     - store_artifacts:
@@ -206,29 +202,27 @@ jobs:
     - run:
         command: docker load -i ~/caches/app_python_two.tar
         name: Load docker image layer cache
-    - run: 'pip install docker-compose==1.21.0
-
-        login="$(aws ecr get-login --no-include-email)"
-
-        ${login}
-
-        '
     - run:
-        command: 'export TEST_RUNNER_DEFAULT_API_HOST=${MBED_CLOUD_API_HOST_OS2}
+        command: pip install docker-compose==1.21.0
+        name: Get docker-compose
+    - run:
+        command: 'login="$(aws ecr get-login --no-include-email)"
 
-          export TEST_RUNNER_DEFAULT_API_KEY=${MBED_CLOUD_API_KEY_OS2}
+          ${login}'
+        name: AWS login
+    - run:
+        command: 'echo ''export TEST_RUNNER_DEFAULT_API_HOST=${MBED_CLOUD_API_HOST_OS2}''
+          >> $BASH_ENV
 
-          login="$(aws ecr get-login --no-include-email)"
-
-          ${login}
-
-          docker-compose -f container/py2-compose.yml up --exit-code-from=sdk_test_server
-
-          '
+          echo ''export TEST_RUNNER_DEFAULT_API_KEY=${MBED_CLOUD_API_KEY_OS2}'' >>
+          $BASH_ENV'
+        name: Set testrunner parameters
+    - run:
+        command: docker-compose -f container/py2-compose.yml up --exit-code-from=sdk_test_server
         name: Run all tests
         no_output_timeout: 15m
     - run:
-        command: python scripts/ci_summary.py --noblock
+        command: sudo python scripts/ci_summary.py --noblock
         name: Generate summary
         when: always
     - store_artifacts:
@@ -243,29 +237,27 @@ jobs:
     - run:
         command: docker load -i ~/caches/app_python_two.tar
         name: Load docker image layer cache
-    - run: 'pip install docker-compose==1.21.0
-
-        login="$(aws ecr get-login --no-include-email)"
-
-        ${login}
-
-        '
     - run:
-        command: 'export TEST_RUNNER_DEFAULT_API_HOST=${MBED_CLOUD_API_HOST_PROD}
+        command: pip install docker-compose==1.21.0
+        name: Get docker-compose
+    - run:
+        command: 'login="$(aws ecr get-login --no-include-email)"
 
-          export TEST_RUNNER_DEFAULT_API_KEY=${MBED_CLOUD_API_KEY_PROD}
+          ${login}'
+        name: AWS login
+    - run:
+        command: 'echo ''export TEST_RUNNER_DEFAULT_API_HOST=${MBED_CLOUD_API_HOST_PROD}''
+          >> $BASH_ENV
 
-          login="$(aws ecr get-login --no-include-email)"
-
-          ${login}
-
-          docker-compose -f container/py2-compose.yml up --exit-code-from=sdk_test_server
-
-          '
+          echo ''export TEST_RUNNER_DEFAULT_API_KEY=${MBED_CLOUD_API_KEY_PROD}'' >>
+          $BASH_ENV'
+        name: Set testrunner parameters
+    - run:
+        command: docker-compose -f container/py2-compose.yml up --exit-code-from=sdk_test_server
         name: Run all tests
         no_output_timeout: 15m
     - run:
-        command: python scripts/ci_summary.py --noblock
+        command: sudo python scripts/ci_summary.py --noblock
         name: Generate summary
         when: always
     - store_artifacts:

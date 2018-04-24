@@ -17,7 +17,6 @@
 """Collects results from CI run"""
 import argparse
 import json
-import os
 import traceback
 from xml.etree import ElementTree
 
@@ -32,7 +31,7 @@ def main():
 
     parsed = {k: ElementTree.parse(v).getroot().attrib for k, v in source_files}
 
-    with open(os.path.expanduser('results/summary.json'), 'w') as fh:
+    with open(r'results/summary.json', 'w') as fh:
         json.dump(parsed, fh)
 
 

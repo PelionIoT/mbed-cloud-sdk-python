@@ -145,11 +145,10 @@ def new_build(py_ver: PyVer):
           command: docker load -i {cache_path} || true  # silent failure if missing cache
       - run:
           name: Build application docker image
-          command: >
+          command: >-
             docker build --cache-from={py_ver.tag}
             -t {py_ver.tag}
-            -f container/{py_ver.docker_file}
-            .
+            -f container/{py_ver.docker_file} .
       - run:
           name: Make cache directory
           command: mkdir -p {cache_dir}
@@ -190,25 +189,25 @@ def new_test(py_ver: PyVer, cloud_host: CloudHost):
           command: pip install docker-compose==1.21.0
       - run:
           name: AWS login
-          command: |
+          command: |-
             login="$(aws ecr get-login --no-include-email)"
             ${{login}}
       - run:
           name: Set testrunner parameters
-          command: |
+          command: |-
             echo 'export TEST_RUNNER_DEFAULT_API_HOST=${{{cloud_host.envvar_host}}}' >> $BASH_ENV
             echo 'export TEST_RUNNER_DEFAULT_API_KEY=${{{cloud_host.envvar_key}}}' >> $BASH_ENV
       - run:
           name: Run all tests
           no_output_timeout: 15m
-          command: >
+          command: >-
             docker-compose
             -f {os.path.relpath(container_config_root, PROJECT_ROOT)}/{py_ver.compose_file}
             up
             --exit-code-from=sdk_test_server
       - run:
           name: Generate summary
-          command: python scripts/ci_summary.py --noblock
+          command: sudo python scripts/ci_summary.py --noblock
           when: always
       - store_artifacts:
           path: results
@@ -246,19 +245,19 @@ def new_deploy(py_ver: PyVer, release_target: ReleaseTarget):
           command: 'docker cp SDK:/build/built_docs ./built_docs'
       - run:
           name: Upload the documentation
-          command:>
+          command: >-
             aws s3 sync --delete --cache-control
             max-age=3600 built_docs s3://mbed-cloud-sdk-python
       - run:
           name: Tag and release
-          command:>
+          command: >-
             docker run --env-file=scripts/templates/envvars.env
             -e TWINE_REPOSITORY={release_target.twine_repo}
             {py_ver.tag}
             sh -c "source .venv/bin/activate && python scripts/tag_and_release.py"
       - run:
           name: Start the release party!
-          command:>
+          command: >-
             docker run --env-file=scripts/templates/envvars.env
             {py_ver.tag}
             sh -c "source .venv/bin/activate && python scripts/notify.py"
