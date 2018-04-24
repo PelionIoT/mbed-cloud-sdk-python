@@ -16,8 +16,8 @@
 # --------------------------------------------------------------------------
 """Part of the CI process"""
 
-import subprocess
 import os
+import subprocess
 
 
 def git_url_ssh_to_https(url):
@@ -28,7 +28,7 @@ def git_url_ssh_to_https(url):
     or
     git@github.com:ARMmbed/mbed-cloud-sdk-python.git
     we want:
-    git remote set-url origin https://${GITHUB_TOKEN}@github.com/ARMmbed/mbed-cloud-sdk-python-private.git
+    https://${GITHUB_TOKEN}@github.com/ARMmbed/mbed-cloud-sdk-python-private.git
     """
     path = url.split('github.com', 1)[1][1:].strip()
     new = 'https://{GITHUB_TOKEN}@github.com/%s' % path
@@ -62,7 +62,8 @@ def main():
     url = subprocess.check_output(['git', 'remote', 'get-url', 'origin'])
     new_url = git_url_ssh_to_https(url.decode())
     subprocess.check_call(['git', 'remote', 'set-url', 'origin', new_url])
-    subprocess.check_call(['git', 'branch', '--set-upstream-to', 'origin/%s' % os.getenv('CIRCLE_BRANCH')])
+    branch_spec = 'origin/%s' % os.getenv('CIRCLE_BRANCH')
+    subprocess.check_call(['git', 'branch', '--set-upstream-to', branch_spec])
     print('pushing tags')
     subprocess.check_call(['git', 'tag', version])
     subprocess.check_call(['git', 'push', 'origin', '--tags'])
