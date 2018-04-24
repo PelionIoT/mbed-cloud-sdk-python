@@ -34,7 +34,7 @@ services:
       depends_on:
         - sdk_test_server
       volumes:
-        - ./results:/runner/results
-        - ./test_fixtures:/runner/test_fixtures
+        - ../results:/runner/results
+        - ../test_fixtures:/runner/test_fixtures
       # sleep ensures the testrunner stays up whilst test server completes coverage shutdown
       command: [sh, -c, '(python -m trunner || true) && sleep 10000']
