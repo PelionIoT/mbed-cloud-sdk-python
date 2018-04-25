@@ -1,5 +1,6 @@
 from mbed_cloud.core import BaseAPI
 from mbed_cloud.configuration import Config
+from mbed_cloud import configuration
 from mbed_cloud import ConnectAPI
 from mbed_cloud._backends.mds.apis.endpoints_api import EndpointsApi
 from tests.common import BaseCase
@@ -36,7 +37,7 @@ class TestConfigObj(BaseCase):
 
     def test_config_invalid_host(self):
         # regression check - give a sane error for invalid hosts
-        api = ConnectAPI(dict(host='invalid'))
+        api = ConnectAPI(dict(api_key='fake_key', host='invalid'))
         with mock.patch('urllib3.PoolManager.request') as mocked:
             mocked.side_effect = RuntimeError
             with self.assertRaises(RuntimeError):
@@ -69,8 +70,17 @@ class TempConf(object):
 
 class TestConfigSources(BaseCase):
     dummy_key = 'ak_1234567'
+    dummy_host = 'https://dummy_host_url'
 
-    def test_no_config_default(self):
+    def setUp(self):
+        self.host = os.environ.pop(configuration.ENVVAR_API_HOST, '')
+        self.key = os.environ.pop(configuration.ENVVAR_API_KEY, '')
+
+    def tearDown(self):
+        os.environ.setdefault(configuration.ENVVAR_API_HOST, self.host)
+        os.environ.setdefault(configuration.ENVVAR_API_KEY, self.key)
+
+    def test_no_config_file_default(self):
         with TempConf(dict(api_key=self.dummy_key)):
             # when we get a config object, force it not to look at existing paths (to see what it defaults to)
             with mock.patch.object(Config, attribute='paths') as mocked:
@@ -78,9 +88,23 @@ class TestConfigSources(BaseCase):
                 a = ConnectAPI(dict(api_key=self.dummy_key))
             self.assertIn('api.us-east-1', a.apis[EndpointsApi].api_client.configuration.host)
 
-    def test_config_env(self):
+    def test_config_file_from_env(self):
         # fully define a config at a custom location, and verify it is loaded
-        with TempConf(dict(api_key=self.dummy_key, host='https://dummy_host_url')):
+        with TempConf(dict(api_key=self.dummy_key, host=self.dummy_host)):
+            c = Config()
+            self.assertEqual(self.dummy_key, c.get('api_key'))
+            self.assertIn('dummy_host_url', c['host'])
+
+            # verify custom config reaches the internal api
+            a = ConnectAPI()
+            self.assertIn(self.dummy_key, str(a.apis[EndpointsApi].api_client.configuration.api_key))
+
+    def test_config_from_envvar(self):
+        # fully define a config at a custom location
+        # as well as setting config through environment
+        with TempConf(dict(api_key='not this one', host=self.dummy_host)):
+            os.environ.setdefault(configuration.ENVVAR_API_KEY, self.dummy_key)
+
             c = Config()
             self.assertEqual(self.dummy_key, c.get('api_key'))
             self.assertIn('dummy_host_url', c['host'])

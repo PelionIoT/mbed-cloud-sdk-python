@@ -5,7 +5,7 @@ name = "pypi"
 
 [packages]
 # defer to setup.py
-"-e ." = "*"
+mbed_cloud_sdk = {path = ".", editable = true}
 
 [dev-packages]
 codecov = "*"
