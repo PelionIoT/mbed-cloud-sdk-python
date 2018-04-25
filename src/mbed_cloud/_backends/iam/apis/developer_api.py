@@ -35,10 +35,108 @@ class DeveloperApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
+    def add_me_to_groups(self, body, **kwargs):
+        """
+        Add user to a list of groupS.
+        An endpoint for adding user to groups.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.add_me_to_groups(body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param list[str] body: A list of IDs of the groups to be updated. (required)
+        :return: UpdatedResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.add_me_to_groups_with_http_info(body, **kwargs)
+        else:
+            (data) = self.add_me_to_groups_with_http_info(body, **kwargs)
+            return data
+
+    def add_me_to_groups_with_http_info(self, body, **kwargs):
+        """
+        Add user to a list of groupS.
+        An endpoint for adding user to groups.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.add_me_to_groups_with_http_info(body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param list[str] body: A list of IDs of the groups to be updated. (required)
+        :return: UpdatedResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['body']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method add_me_to_groups" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'body' is set
+        if ('body' not in params) or (params['body'] is None):
+            raise ValueError("Missing the required parameter `body` when calling `add_me_to_groups`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'body' in params:
+            body_params = params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/users/me/groups', 'POST',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='UpdatedResponse',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
     def add_my_api_key_to_groups(self, body, **kwargs):
         """
         Add API key to a list of groups.
-        An endpoint for adding API key to groups.   **Example usage:** `curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys/me/groups -d '[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
+        An endpoint for adding API key to groups.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.add_my_api_key_to_groups(body, async=True)
@@ -60,7 +158,7 @@ class DeveloperApi(object):
     def add_my_api_key_to_groups_with_http_info(self, body, **kwargs):
         """
         Add API key to a list of groups.
-        An endpoint for adding API key to groups.   **Example usage:** `curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys/me/groups -d '[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
+        An endpoint for adding API key to groups.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.add_my_api_key_to_groups_with_http_info(body, async=True)
@@ -328,7 +426,7 @@ class DeveloperApi(object):
     def delete_certificate(self, cert_id, **kwargs):
         """
         Delete a trusted certificate by ID.
-        An endpoint for deleting a trusted certificate.   **Example usage:** `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -H 'Authorization: Bearer API_KEY'`
+        An endpoint for deleting a trusted certificate.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.delete_certificate(cert_id, async=True)
@@ -350,7 +448,7 @@ class DeveloperApi(object):
     def delete_certificate_with_http_info(self, cert_id, **kwargs):
         """
         Delete a trusted certificate by ID.
-        An endpoint for deleting a trusted certificate.   **Example usage:** `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -H 'Authorization: Bearer API_KEY'`
+        An endpoint for deleting a trusted certificate.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.delete_certificate_with_http_info(cert_id, async=True)
@@ -533,7 +631,7 @@ class DeveloperApi(object):
     def get_all_certificates(self, **kwargs):
         """
         Get all trusted certificates.
-        An endpoint for retrieving trusted certificates in an array.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates -H 'Authorization: Bearer API_KEY'`
+        An endpoint for retrieving trusted certificates in an array.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.get_all_certificates(async=True)
@@ -567,7 +665,7 @@ class DeveloperApi(object):
     def get_all_certificates_with_http_info(self, **kwargs):
         """
         Get all trusted certificates.
-        An endpoint for retrieving trusted certificates in an array.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates -H 'Authorization: Bearer API_KEY'`
+        An endpoint for retrieving trusted certificates in an array.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.get_all_certificates_with_http_info(async=True)
@@ -672,7 +770,7 @@ class DeveloperApi(object):
     def get_all_groups(self, **kwargs):
         """
         Get all group information.
-        An endpoint for retrieving all group information.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/policy-groups -H 'Authorization: Bearer API_KEY'`
+        An endpoint for retrieving all group information.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.get_all_groups(async=True)
@@ -698,7 +796,7 @@ class DeveloperApi(object):
     def get_all_groups_with_http_info(self, **kwargs):
         """
         Get all group information.
-        An endpoint for retrieving all group information.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/policy-groups -H 'Authorization: Bearer API_KEY'`
+        An endpoint for retrieving all group information.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.get_all_groups_with_http_info(async=True)
@@ -779,7 +877,7 @@ class DeveloperApi(object):
     def get_api_key(self, api_key, **kwargs):
         """
         Get API key details.
-        An endpoint for retrieving API key details.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id} -H 'Authorization: Bearer API_KEY'`
+        An endpoint for retrieving API key details.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.get_api_key(api_key, async=True)
@@ -801,7 +899,7 @@ class DeveloperApi(object):
     def get_api_key_with_http_info(self, api_key, **kwargs):
         """
         Get API key details.
-        An endpoint for retrieving API key details.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id} -H 'Authorization: Bearer API_KEY'`
+        An endpoint for retrieving API key details.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.get_api_key_with_http_info(api_key, async=True)
@@ -873,7 +971,7 @@ class DeveloperApi(object):
     def get_api_keys_of_group(self, group_id, **kwargs):
         """
         Get the API keys of a group.
-        An endpoint for listing the API keys of the group with details.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id}/api-keys -H 'Authorization: Bearer API_KEY'`
+        An endpoint for listing the API keys of the group with details.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.get_api_keys_of_group(group_id, async=True)
@@ -899,7 +997,7 @@ class DeveloperApi(object):
     def get_api_keys_of_group_with_http_info(self, group_id, **kwargs):
         """
         Get the API keys of a group.
-        An endpoint for listing the API keys of the group with details.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id}/api-keys -H 'Authorization: Bearer API_KEY'`
+        An endpoint for listing the API keys of the group with details.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.get_api_keys_of_group_with_http_info(group_id, async=True)
@@ -1077,7 +1175,7 @@ class DeveloperApi(object):
     def get_group_summary(self, group_id, **kwargs):
         """
         Get group information.
-        An endpoint for getting general information about the group.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id} -H 'Authorization: Bearer API_KEY'`
+        An endpoint for getting general information about the group.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.get_group_summary(group_id, async=True)
@@ -1099,7 +1197,7 @@ class DeveloperApi(object):
     def get_group_summary_with_http_info(self, group_id, **kwargs):
         """
         Get group information.
-        An endpoint for getting general information about the group.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id} -H 'Authorization: Bearer API_KEY'`
+        An endpoint for getting general information about the group.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.get_group_summary_with_http_info(group_id, async=True)
@@ -1171,7 +1269,7 @@ class DeveloperApi(object):
     def get_groups_of_my_api_key(self, **kwargs):
         """
         Get groups of the API key.
-        An endpoint for retrieving groups of the API key.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/api-keys/me/groups -H 'Authorization: Bearer API_KEY'`
+        An endpoint for retrieving groups of the API key.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.get_groups_of_my_api_key(async=True)
@@ -1196,7 +1294,7 @@ class DeveloperApi(object):
     def get_groups_of_my_api_key_with_http_info(self, **kwargs):
         """
         Get groups of the API key.
-        An endpoint for retrieving groups of the API key.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/api-keys/me/groups -H 'Authorization: Bearer API_KEY'`
+        An endpoint for retrieving groups of the API key.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.get_groups_of_my_api_key_with_http_info(async=True)
@@ -1366,6 +1464,92 @@ class DeveloperApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
+    def get_my_accounts(self, **kwargs):
+        """
+        Get accounts of the user.
+        An endpoint for retrieving the accounts of the logged in user.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.get_my_accounts(async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :return: AccountResponseList
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.get_my_accounts_with_http_info(**kwargs)
+        else:
+            (data) = self.get_my_accounts_with_http_info(**kwargs)
+            return data
+
+    def get_my_accounts_with_http_info(self, **kwargs):
+        """
+        Get accounts of the user.
+        An endpoint for retrieving the accounts of the logged in user.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.get_my_accounts_with_http_info(async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :return: AccountResponseList
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = []
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_my_accounts" % key
+                )
+            params[key] = val
+        del params['kwargs']
+
+        collection_formats = {}
+
+        path_params = {}
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/users/me/team-accounts', 'GET',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='AccountResponseList',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
     def get_my_api_key(self, **kwargs):
         """
         Get API key details.
@@ -1452,10 +1636,212 @@ class DeveloperApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
+    def get_my_groups(self, **kwargs):
+        """
+        Get groups of the user.
+        An endpoint for retrieving groups of the user.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.get_my_groups(async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param int limit: The number of results to return (2-1000), default is 50.
+        :param str after: The entity ID to fetch after the given one.
+        :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
+        :param str include: Comma separated additional data to return. Currently supported: total_count
+        :return: GroupSummaryList
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.get_my_groups_with_http_info(**kwargs)
+        else:
+            (data) = self.get_my_groups_with_http_info(**kwargs)
+            return data
+
+    def get_my_groups_with_http_info(self, **kwargs):
+        """
+        Get groups of the user.
+        An endpoint for retrieving groups of the user.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.get_my_groups_with_http_info(async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param int limit: The number of results to return (2-1000), default is 50.
+        :param str after: The entity ID to fetch after the given one.
+        :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
+        :param str include: Comma separated additional data to return. Currently supported: total_count
+        :return: GroupSummaryList
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['limit', 'after', 'order', 'include']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_my_groups" % key
+                )
+            params[key] = val
+        del params['kwargs']
+
+
+        collection_formats = {}
+
+        path_params = {}
+
+        query_params = []
+        if 'limit' in params:
+            query_params.append(('limit', params['limit']))
+        if 'after' in params:
+            query_params.append(('after', params['after']))
+        if 'order' in params:
+            query_params.append(('order', params['order']))
+        if 'include' in params:
+            query_params.append(('include', params['include']))
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/users/me/groups', 'GET',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='GroupSummaryList',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
+    def get_my_user(self, **kwargs):
+        """
+        Details of the current user.
+        An endpoint for retrieving the details of the logged in user.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/users/me -H 'Authorization: Bearer API_KEY'`
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.get_my_user(async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str scratch_codes: Request to regenerate new emergency scratch codes.
+        :param str properties: Request to return account specific user property values according to the given property name.
+        :param str include: Comma separated additional data to return. Currently supported: active_sessions
+        :return: MyUserInfoResp
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.get_my_user_with_http_info(**kwargs)
+        else:
+            (data) = self.get_my_user_with_http_info(**kwargs)
+            return data
+
+    def get_my_user_with_http_info(self, **kwargs):
+        """
+        Details of the current user.
+        An endpoint for retrieving the details of the logged in user.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/users/me -H 'Authorization: Bearer API_KEY'`
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.get_my_user_with_http_info(async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str scratch_codes: Request to regenerate new emergency scratch codes.
+        :param str properties: Request to return account specific user property values according to the given property name.
+        :param str include: Comma separated additional data to return. Currently supported: active_sessions
+        :return: MyUserInfoResp
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['scratch_codes', 'properties', 'include']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_my_user" % key
+                )
+            params[key] = val
+        del params['kwargs']
+
+
+        collection_formats = {}
+
+        path_params = {}
+
+        query_params = []
+        if 'scratch_codes' in params:
+            query_params.append(('scratch_codes', params['scratch_codes']))
+        if 'properties' in params:
+            query_params.append(('properties', params['properties']))
+        if 'include' in params:
+            query_params.append(('include', params['include']))
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/users/me', 'GET',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='MyUserInfoResp',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
     def remove_api_keys_from_group(self, group_id, body, **kwargs):
         """
         Remove API keys from a group.
-        An endpoint for removing API keys from groups.   **Example usage:** `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id}/api-keys -d '[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
+        An endpoint for removing API keys from groups.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.remove_api_keys_from_group(group_id, body, async=True)
@@ -1478,7 +1864,7 @@ class DeveloperApi(object):
     def remove_api_keys_from_group_with_http_info(self, group_id, body, **kwargs):
         """
         Remove API keys from a group.
-        An endpoint for removing API keys from groups.   **Example usage:** `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id}/api-keys -d '[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
+        An endpoint for removing API keys from groups.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.remove_api_keys_from_group_with_http_info(group_id, body, async=True)
@@ -1557,10 +1943,108 @@ class DeveloperApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
+    def remove_me_from_groups(self, body, **kwargs):
+        """
+        Remove user from a group.
+        An endpoint for removing user from groups.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.remove_me_from_groups(body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param list[str] body: A list of IDs of the groups to be updated. (required)
+        :return: UpdatedResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.remove_me_from_groups_with_http_info(body, **kwargs)
+        else:
+            (data) = self.remove_me_from_groups_with_http_info(body, **kwargs)
+            return data
+
+    def remove_me_from_groups_with_http_info(self, body, **kwargs):
+        """
+        Remove user from a group.
+        An endpoint for removing user from groups.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.remove_me_from_groups_with_http_info(body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param list[str] body: A list of IDs of the groups to be updated. (required)
+        :return: UpdatedResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['body']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method remove_me_from_groups" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'body' is set
+        if ('body' not in params) or (params['body'] is None):
+            raise ValueError("Missing the required parameter `body` when calling `remove_me_from_groups`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'body' in params:
+            body_params = params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/users/me/groups', 'DELETE',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='UpdatedResponse',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
     def remove_my_api_key_from_groups(self, body, **kwargs):
         """
         Remove API key from groups.
-        An endpoint for removing API key from groups.   **Example usage:** `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/api-keys/me/groups -d '[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
+        An endpoint for removing API key from groups.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.remove_my_api_key_from_groups(body, async=True)
@@ -1582,7 +2066,7 @@ class DeveloperApi(object):
     def remove_my_api_key_from_groups_with_http_info(self, body, **kwargs):
         """
         Remove API key from groups.
-        An endpoint for removing API key from groups.   **Example usage:** `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/api-keys/me/groups -d '[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
+        An endpoint for removing API key from groups.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.remove_my_api_key_from_groups_with_http_info(body, async=True)
@@ -1658,7 +2142,7 @@ class DeveloperApi(object):
     def update_api_key(self, api_key, body, **kwargs):
         """
         Update API key details.
-        An endpoint for updating API key details.   **Example usage:** `curl -X PUT https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id} -d '{\"name\": \"TestApiKey25\"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
+        An endpoint for updating API key details.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.update_api_key(api_key, body, async=True)
@@ -1681,7 +2165,7 @@ class DeveloperApi(object):
     def update_api_key_with_http_info(self, api_key, body, **kwargs):
         """
         Update API key details.
-        An endpoint for updating API key details.   **Example usage:** `curl -X PUT https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id} -d '{\"name\": \"TestApiKey25\"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
+        An endpoint for updating API key details.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.update_api_key_with_http_info(api_key, body, async=True)
@@ -1948,6 +2432,104 @@ class DeveloperApi(object):
                                         post_params=form_params,
                                         files=local_var_files,
                                         response_type='ApiKeyInfoResp',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
+    def update_my_user(self, body, **kwargs):
+        """
+        Update user details.
+        An endpoint for updating the details of the logged in user.   **Example usage:** `curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/me -d '{\"address\": \"1007 Mountain Drive\"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.update_my_user(body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param UserUpdateReq body: New attributes for the logged in user. (required)
+        :return: UserUpdateResp
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.update_my_user_with_http_info(body, **kwargs)
+        else:
+            (data) = self.update_my_user_with_http_info(body, **kwargs)
+            return data
+
+    def update_my_user_with_http_info(self, body, **kwargs):
+        """
+        Update user details.
+        An endpoint for updating the details of the logged in user.   **Example usage:** `curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/me -d '{\"address\": \"1007 Mountain Drive\"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.update_my_user_with_http_info(body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param UserUpdateReq body: New attributes for the logged in user. (required)
+        :return: UserUpdateResp
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['body']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method update_my_user" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'body' is set
+        if ('body' not in params) or (params['body'] is None):
+            raise ValueError("Missing the required parameter `body` when calling `update_my_user`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'body' in params:
+            body_params = params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/users/me', 'PUT',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='UserUpdateResp',
                                         auth_settings=auth_settings,
                                         async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),

@@ -42,7 +42,7 @@ class AdminUserUpdateReq(object):
         'password': 'str',
         'phone_number': 'str',
         'status': 'str',
-        'user_properties': 'dict(str, str)',
+        'user_properties': 'dict(str, dict(str, str))',
         'username': 'str'
     }
 
@@ -339,10 +339,10 @@ class AdminUserUpdateReq(object):
     def user_properties(self):
         """
         Gets the user_properties of this AdminUserUpdateReq.
-        User's account specific custom properties. The value must be a valid Json.
+        User's account specific custom properties.
 
         :return: The user_properties of this AdminUserUpdateReq.
-        :rtype: dict(str, str)
+        :rtype: dict(str, dict(str, str))
         """
         return self._user_properties
 
@@ -350,10 +350,10 @@ class AdminUserUpdateReq(object):
     def user_properties(self, user_properties):
         """
         Sets the user_properties of this AdminUserUpdateReq.
-        User's account specific custom properties. The value must be a valid Json.
+        User's account specific custom properties.
 
         :param user_properties: The user_properties of this AdminUserUpdateReq.
-        :type: dict(str, str)
+        :type: dict(str, dict(str, str))
         """
 
         self._user_properties = user_properties

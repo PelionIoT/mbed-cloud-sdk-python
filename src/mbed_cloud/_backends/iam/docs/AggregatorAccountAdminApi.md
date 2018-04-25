@@ -8,21 +8,34 @@ Method | HTTP request | Description
 [**add_account_certificate**](AggregatorAccountAdminApi.md#add_account_certificate) | **POST** /v3/accounts/{accountID}/trusted-certificates | Upload new trusted certificate.
 [**add_account_user_to_groups**](AggregatorAccountAdminApi.md#add_account_user_to_groups) | **POST** /v3/accounts/{accountID}/users/{user-id}/groups | Add user to a list of groups.
 [**add_subjects_to_account_group**](AggregatorAccountAdminApi.md#add_subjects_to_account_group) | **POST** /v3/accounts/{accountID}/policy-groups/{groupID} | Add members to a group.
+[**attach_account_policy_to_apikeys**](AggregatorAccountAdminApi.md#attach_account_policy_to_apikeys) | **POST** /v3/accounts/{accountID}/policies/{policy-id}/api-keys | Attach a policy to API keys.
+[**attach_account_policy_to_group**](AggregatorAccountAdminApi.md#attach_account_policy_to_group) | **POST** /v3/accounts/{accountID}/policies/{policy-id}/groups | Attach a policy to groups.
+[**attach_account_policy_to_users**](AggregatorAccountAdminApi.md#attach_account_policy_to_users) | **POST** /v3/accounts/{accountID}/policies/{policy-id}/users | Attach a policy to users.
 [**check_account_api_key**](AggregatorAccountAdminApi.md#check_account_api_key) | **POST** /v3/accounts/{accountID}/api-keys/{apiKey} | Check the API key.
 [**create_account**](AggregatorAccountAdminApi.md#create_account) | **POST** /v3/accounts | Create a new account.
 [**create_account_api_key**](AggregatorAccountAdminApi.md#create_account_api_key) | **POST** /v3/accounts/{accountID}/api-keys | Create a new API key.
+[**create_account_policy**](AggregatorAccountAdminApi.md#create_account_policy) | **POST** /v3/accounts/{accountID}/policies | Create a policy.
 [**create_account_user**](AggregatorAccountAdminApi.md#create_account_user) | **POST** /v3/accounts/{accountID}/users | Create a new user.
 [**delete_account_api_key**](AggregatorAccountAdminApi.md#delete_account_api_key) | **DELETE** /v3/accounts/{accountID}/api-keys/{apiKey} | Delete the API key.
 [**delete_account_certificate**](AggregatorAccountAdminApi.md#delete_account_certificate) | **DELETE** /v3/accounts/{accountID}/trusted-certificates/{cert-id} | Delete trusted certificate by ID.
+[**delete_account_policy**](AggregatorAccountAdminApi.md#delete_account_policy) | **DELETE** /v3/accounts/{accountID}/policies/{policy-id} | Delete policy.
 [**delete_account_user**](AggregatorAccountAdminApi.md#delete_account_user) | **DELETE** /v3/accounts/{accountID}/users/{user-id} | Delete a user.
+[**detach_account_policy_from_apikeys**](AggregatorAccountAdminApi.md#detach_account_policy_from_apikeys) | **DELETE** /v3/accounts/{accountID}/policies/{policy-id}/api-keys | Detach a policy from API keys.
+[**detach_account_policy_from_users**](AggregatorAccountAdminApi.md#detach_account_policy_from_users) | **DELETE** /v3/accounts/{accountID}/policies/{policy-id}/users | Detach a policy from users.
+[**detach_account_policy_to_group**](AggregatorAccountAdminApi.md#detach_account_policy_to_group) | **DELETE** /v3/accounts/{accountID}/policies/{policy-id}/groups | Detach a policy to groups.
 [**get_account_api_key**](AggregatorAccountAdminApi.md#get_account_api_key) | **GET** /v3/accounts/{accountID}/api-keys/{apiKey} | Get API key details.
 [**get_account_certificate**](AggregatorAccountAdminApi.md#get_account_certificate) | **GET** /v3/accounts/{accountID}/trusted-certificates/{cert-id} | Get trusted certificate by ID.
 [**get_account_group_summary**](AggregatorAccountAdminApi.md#get_account_group_summary) | **GET** /v3/accounts/{accountID}/policy-groups/{groupID} | Get group information.
 [**get_account_info**](AggregatorAccountAdminApi.md#get_account_info) | **GET** /v3/accounts/{accountID} | Get account info.
+[**get_account_policy**](AggregatorAccountAdminApi.md#get_account_policy) | **GET** /v3/accounts/{accountID}/policies/{policy-id} | Get policy by ID.
+[**get_account_policy_apikeys**](AggregatorAccountAdminApi.md#get_account_policy_apikeys) | **GET** /v3/accounts/{accountID}/policies/{policy-id}/api-keys | Fetch details of policy&#39;s API keys.
+[**get_account_policy_groups**](AggregatorAccountAdminApi.md#get_account_policy_groups) | **GET** /v3/accounts/{accountID}/policies/{policy-id}/groups | Fetch details of policy&#39;s groups.
+[**get_account_policy_users**](AggregatorAccountAdminApi.md#get_account_policy_users) | **GET** /v3/accounts/{accountID}/policies/{policy-id}/users | Fetch details of policy&#39;s users.
 [**get_account_user**](AggregatorAccountAdminApi.md#get_account_user) | **GET** /v3/accounts/{accountID}/users/{user-id} | Details of the user.
 [**get_all_account_api_keys**](AggregatorAccountAdminApi.md#get_all_account_api_keys) | **GET** /v3/accounts/{accountID}/api-keys | Get all API keys.
 [**get_all_account_certificates**](AggregatorAccountAdminApi.md#get_all_account_certificates) | **GET** /v3/accounts/{accountID}/trusted-certificates | Get all trusted certificates.
 [**get_all_account_groups**](AggregatorAccountAdminApi.md#get_all_account_groups) | **GET** /v3/accounts/{accountID}/policy-groups | Get all group information.
+[**get_all_account_policies**](AggregatorAccountAdminApi.md#get_all_account_policies) | **GET** /v3/accounts/{accountID}/policies | Get all policies.
 [**get_all_account_users**](AggregatorAccountAdminApi.md#get_all_account_users) | **GET** /v3/accounts/{accountID}/users | Get all user details.
 [**get_all_accounts**](AggregatorAccountAdminApi.md#get_all_accounts) | **GET** /v3/accounts | Get all accounts.
 [**get_api_keys_of_account_group**](AggregatorAccountAdminApi.md#get_api_keys_of_account_group) | **GET** /v3/accounts/{accountID}/policy-groups/{groupID}/api-keys | Get API keys of a group.
@@ -37,6 +50,7 @@ Method | HTTP request | Description
 [**update_account**](AggregatorAccountAdminApi.md#update_account) | **PUT** /v3/accounts/{accountID} | Update attributes of an existing account.
 [**update_account_api_key**](AggregatorAccountAdminApi.md#update_account_api_key) | **PUT** /v3/accounts/{accountID}/api-keys/{apiKey} | Update API key details.
 [**update_account_certificate**](AggregatorAccountAdminApi.md#update_account_certificate) | **PUT** /v3/accounts/{accountID}/trusted-certificates/{cert-id} | Update trusted certificate.
+[**update_account_policy**](AggregatorAccountAdminApi.md#update_account_policy) | **PUT** /v3/accounts/{accountID}/policies/{policy-id} | Update a policy.
 [**update_account_user**](AggregatorAccountAdminApi.md#update_account_user) | **PUT** /v3/accounts/{accountID}/users/{user-id} | Update user details.
 [**validate_account_user_email**](AggregatorAccountAdminApi.md#validate_account_user_email) | **POST** /v3/accounts/{accountID}/users/{user-id}/validate-email | Validate the user email.
 
@@ -271,6 +285,180 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **attach_account_policy_to_apikeys**
+> UpdatedResponse attach_account_policy_to_apikeys(account_id, policy_id, body)
+
+Attach a policy to API keys.
+
+An endpoint for attaching policy to API keys.
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import iam
+from iam.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+configuration = iam.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = iam.AggregatorAccountAdminApi(iam.ApiClient(configuration))
+account_id = 'account_id_example' # str | Account ID.
+policy_id = 'policy_id_example' # str | The ID of the policy to be attached to API keys.
+body = [iam.list[str]()] # list[str] | List of API key IDs.
+
+try: 
+    # Attach a policy to API keys.
+    api_response = api_instance.attach_account_policy_to_apikeys(account_id, policy_id, body)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AggregatorAccountAdminApi->attach_account_policy_to_apikeys: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **account_id** | **str**| Account ID. | 
+ **policy_id** | **str**| The ID of the policy to be attached to API keys. | 
+ **body** | **list[str]**| List of API key IDs. | 
+
+### Return type
+
+[**UpdatedResponse**](UpdatedResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **attach_account_policy_to_group**
+> UpdatedResponse attach_account_policy_to_group(account_id, policy_id, body)
+
+Attach a policy to groups.
+
+An endpoint for attaching policy to groups.
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import iam
+from iam.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+configuration = iam.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = iam.AggregatorAccountAdminApi(iam.ApiClient(configuration))
+account_id = 'account_id_example' # str | Account ID.
+policy_id = 'policy_id_example' # str | The ID of the policy to be attached to groups.
+body = [iam.list[str]()] # list[str] | List of groups IDs.
+
+try: 
+    # Attach a policy to groups.
+    api_response = api_instance.attach_account_policy_to_group(account_id, policy_id, body)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AggregatorAccountAdminApi->attach_account_policy_to_group: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **account_id** | **str**| Account ID. | 
+ **policy_id** | **str**| The ID of the policy to be attached to groups. | 
+ **body** | **list[str]**| List of groups IDs. | 
+
+### Return type
+
+[**UpdatedResponse**](UpdatedResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **attach_account_policy_to_users**
+> UpdatedResponse attach_account_policy_to_users(account_id, policy_id, body)
+
+Attach a policy to users.
+
+An endpoint for attaching policy to users.
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import iam
+from iam.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+configuration = iam.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = iam.AggregatorAccountAdminApi(iam.ApiClient(configuration))
+account_id = 'account_id_example' # str | Account ID.
+policy_id = 'policy_id_example' # str | The ID of the policy to be attached to users.
+body = [iam.list[str]()] # list[str] | List of user IDs.
+
+try: 
+    # Attach a policy to users.
+    api_response = api_instance.attach_account_policy_to_users(account_id, policy_id, body)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AggregatorAccountAdminApi->attach_account_policy_to_users: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **account_id** | **str**| Account ID. | 
+ **policy_id** | **str**| The ID of the policy to be attached to users. | 
+ **body** | **list[str]**| List of user IDs. | 
+
+### Return type
+
+[**UpdatedResponse**](UpdatedResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **check_account_api_key**
 > check_account_api_key(account_id, api_key)
 
@@ -426,6 +614,62 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ApiKeyInfoResp**](ApiKeyInfoResp.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **create_account_policy**
+> PolicyInfo create_account_policy(account_id, body)
+
+Create a policy.
+
+An endpoint for creating a new policy.
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import iam
+from iam.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+configuration = iam.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = iam.AggregatorAccountAdminApi(iam.ApiClient(configuration))
+account_id = 'account_id_example' # str | Account ID.
+body = iam.PolicyCreationReq() # PolicyCreationReq | The details of the policy to be created.
+
+try: 
+    # Create a policy.
+    api_response = api_instance.create_account_policy(account_id, body)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AggregatorAccountAdminApi->create_account_policy: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **account_id** | **str**| Account ID. | 
+ **body** | [**PolicyCreationReq**](PolicyCreationReq.md)| The details of the policy to be created. | 
+
+### Return type
+
+[**PolicyInfo**](PolicyInfo.md)
 
 ### Authorization
 
@@ -606,6 +850,61 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **delete_account_policy**
+> delete_account_policy(account_id, policy_id)
+
+Delete policy.
+
+An endpoint for deleting a policy.
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import iam
+from iam.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+configuration = iam.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = iam.AggregatorAccountAdminApi(iam.ApiClient(configuration))
+account_id = 'account_id_example' # str | Account ID.
+policy_id = 'policy_id_example' # str | The ID of the policy to be deleted.
+
+try: 
+    # Delete policy.
+    api_instance.delete_account_policy(account_id, policy_id)
+except ApiException as e:
+    print("Exception when calling AggregatorAccountAdminApi->delete_account_policy: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **account_id** | **str**| Account ID. | 
+ **policy_id** | **str**| The ID of the policy to be deleted. | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **delete_account_user**
 > delete_account_user(account_id, user_id)
 
@@ -657,6 +956,180 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **detach_account_policy_from_apikeys**
+> UpdatedResponse detach_account_policy_from_apikeys(account_id, policy_id, body)
+
+Detach a policy from API keys.
+
+An endpoint for detaching policy from API keys.
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import iam
+from iam.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+configuration = iam.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = iam.AggregatorAccountAdminApi(iam.ApiClient(configuration))
+account_id = 'account_id_example' # str | Account ID.
+policy_id = 'policy_id_example' # str | The ID of the policy to be detached from API keys.
+body = [iam.list[str]()] # list[str] | List of API key IDs.
+
+try: 
+    # Detach a policy from API keys.
+    api_response = api_instance.detach_account_policy_from_apikeys(account_id, policy_id, body)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AggregatorAccountAdminApi->detach_account_policy_from_apikeys: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **account_id** | **str**| Account ID. | 
+ **policy_id** | **str**| The ID of the policy to be detached from API keys. | 
+ **body** | **list[str]**| List of API key IDs. | 
+
+### Return type
+
+[**UpdatedResponse**](UpdatedResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **detach_account_policy_from_users**
+> UpdatedResponse detach_account_policy_from_users(account_id, policy_id, body)
+
+Detach a policy from users.
+
+An endpoint for detaching policy from users.
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import iam
+from iam.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+configuration = iam.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = iam.AggregatorAccountAdminApi(iam.ApiClient(configuration))
+account_id = 'account_id_example' # str | Account ID.
+policy_id = 'policy_id_example' # str | The ID of the policy to be detached from users.
+body = [iam.list[str]()] # list[str] | List of user IDs.
+
+try: 
+    # Detach a policy from users.
+    api_response = api_instance.detach_account_policy_from_users(account_id, policy_id, body)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AggregatorAccountAdminApi->detach_account_policy_from_users: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **account_id** | **str**| Account ID. | 
+ **policy_id** | **str**| The ID of the policy to be detached from users. | 
+ **body** | **list[str]**| List of user IDs. | 
+
+### Return type
+
+[**UpdatedResponse**](UpdatedResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **detach_account_policy_to_group**
+> UpdatedResponse detach_account_policy_to_group(account_id, policy_id, body)
+
+Detach a policy to groups.
+
+An endpoint for detaching policy to groups.
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import iam
+from iam.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+configuration = iam.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = iam.AggregatorAccountAdminApi(iam.ApiClient(configuration))
+account_id = 'account_id_example' # str | Account ID.
+policy_id = 'policy_id_example' # str | The ID of the policy to be detached from groups.
+body = [iam.list[str]()] # list[str] | List of groups IDs.
+
+try: 
+    # Detach a policy to groups.
+    api_response = api_instance.detach_account_policy_to_group(account_id, policy_id, body)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AggregatorAccountAdminApi->detach_account_policy_to_group: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **account_id** | **str**| Account ID. | 
+ **policy_id** | **str**| The ID of the policy to be detached from groups. | 
+ **body** | **list[str]**| List of groups IDs. | 
+
+### Return type
+
+[**UpdatedResponse**](UpdatedResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -887,8 +1360,256 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **get_account_policy**
+> PolicyInfo get_account_policy(account_id, policy_id)
+
+Get policy by ID.
+
+An endpoint for retrieving a policy by ID.
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import iam
+from iam.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+configuration = iam.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = iam.AggregatorAccountAdminApi(iam.ApiClient(configuration))
+account_id = 'account_id_example' # str | Account ID.
+policy_id = 'policy_id_example' # str | The ID the policy to be retrieved.
+
+try: 
+    # Get policy by ID.
+    api_response = api_instance.get_account_policy(account_id, policy_id)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AggregatorAccountAdminApi->get_account_policy: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **account_id** | **str**| Account ID. | 
+ **policy_id** | **str**| The ID the policy to be retrieved. | 
+
+### Return type
+
+[**PolicyInfo**](PolicyInfo.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_account_policy_apikeys**
+> ApiKeyInfoRespList get_account_policy_apikeys(account_id, policy_id, limit=limit, after=after, order=order, include=include)
+
+Fetch details of policy's API keys.
+
+An endpoint for fetching detailed information about API keys this policy is attached to.
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import iam
+from iam.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+configuration = iam.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = iam.AggregatorAccountAdminApi(iam.ApiClient(configuration))
+account_id = 'account_id_example' # str | Account ID.
+policy_id = 'policy_id_example' # str | The ID the policy whose API keys to be retrieved.
+limit = 50 # int | The number of results to return (2-1000), default is 50. (optional) (default to 50)
+after = 'after_example' # str | The entity ID to fetch after the given one. (optional)
+order = 'ASC' # str | The order of the records based on creation time, ASC or DESC; by default ASC (optional) (default to ASC)
+include = 'include_example' # str | Comma separated additional data to return. Currently supported: total_count (optional)
+
+try: 
+    # Fetch details of policy's API keys.
+    api_response = api_instance.get_account_policy_apikeys(account_id, policy_id, limit=limit, after=after, order=order, include=include)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AggregatorAccountAdminApi->get_account_policy_apikeys: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **account_id** | **str**| Account ID. | 
+ **policy_id** | **str**| The ID the policy whose API keys to be retrieved. | 
+ **limit** | **int**| The number of results to return (2-1000), default is 50. | [optional] [default to 50]
+ **after** | **str**| The entity ID to fetch after the given one. | [optional] 
+ **order** | **str**| The order of the records based on creation time, ASC or DESC; by default ASC | [optional] [default to ASC]
+ **include** | **str**| Comma separated additional data to return. Currently supported: total_count | [optional] 
+
+### Return type
+
+[**ApiKeyInfoRespList**](ApiKeyInfoRespList.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_account_policy_groups**
+> GroupSummaryList get_account_policy_groups(account_id, policy_id, limit=limit, after=after, order=order, include=include)
+
+Fetch details of policy's groups.
+
+An endpoint for fetching detailed information about groups this policy is attached to.
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import iam
+from iam.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+configuration = iam.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = iam.AggregatorAccountAdminApi(iam.ApiClient(configuration))
+account_id = 'account_id_example' # str | Account ID.
+policy_id = 'policy_id_example' # str | The ID the policy whose API keys to be retrieved.
+limit = 50 # int | The number of results to return (2-1000), default is 50. (optional) (default to 50)
+after = 'after_example' # str | The entity ID to fetch after the given one. (optional)
+order = 'ASC' # str | The order of the records based on creation time, ASC or DESC; by default ASC (optional) (default to ASC)
+include = 'include_example' # str | Comma separated additional data to return. Currently supported: total_count (optional)
+
+try: 
+    # Fetch details of policy's groups.
+    api_response = api_instance.get_account_policy_groups(account_id, policy_id, limit=limit, after=after, order=order, include=include)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AggregatorAccountAdminApi->get_account_policy_groups: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **account_id** | **str**| Account ID. | 
+ **policy_id** | **str**| The ID the policy whose API keys to be retrieved. | 
+ **limit** | **int**| The number of results to return (2-1000), default is 50. | [optional] [default to 50]
+ **after** | **str**| The entity ID to fetch after the given one. | [optional] 
+ **order** | **str**| The order of the records based on creation time, ASC or DESC; by default ASC | [optional] [default to ASC]
+ **include** | **str**| Comma separated additional data to return. Currently supported: total_count | [optional] 
+
+### Return type
+
+[**GroupSummaryList**](GroupSummaryList.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_account_policy_users**
+> UserInfoRespList get_account_policy_users(account_id, policy_id, limit=limit, after=after, order=order, include=include)
+
+Fetch details of policy's users.
+
+An endpoint for fetching detailed information about users this policy is attached to.
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import iam
+from iam.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+configuration = iam.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = iam.AggregatorAccountAdminApi(iam.ApiClient(configuration))
+account_id = 'account_id_example' # str | Account ID.
+policy_id = 'policy_id_example' # str | The ID the policy whose users to be retrieved.
+limit = 50 # int | The number of results to return (2-1000), default is 50. (optional) (default to 50)
+after = 'after_example' # str | The entity ID to fetch after the given one. (optional)
+order = 'ASC' # str | The order of the records based on creation time, ASC or DESC; by default ASC (optional) (default to ASC)
+include = 'include_example' # str | Comma separated additional data to return. Currently supported: total_count (optional)
+
+try: 
+    # Fetch details of policy's users.
+    api_response = api_instance.get_account_policy_users(account_id, policy_id, limit=limit, after=after, order=order, include=include)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AggregatorAccountAdminApi->get_account_policy_users: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **account_id** | **str**| Account ID. | 
+ **policy_id** | **str**| The ID the policy whose users to be retrieved. | 
+ **limit** | **int**| The number of results to return (2-1000), default is 50. | [optional] [default to 50]
+ **after** | **str**| The entity ID to fetch after the given one. | [optional] 
+ **order** | **str**| The order of the records based on creation time, ASC or DESC; by default ASC | [optional] [default to ASC]
+ **include** | **str**| Comma separated additional data to return. Currently supported: total_count | [optional] 
+
+### Return type
+
+[**UserInfoRespList**](UserInfoRespList.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **get_account_user**
-> UserInfoResp get_account_user(account_id, user_id, properties=properties)
+> MyUserInfoResp get_account_user(account_id, user_id, scratch_codes=scratch_codes, properties=properties)
 
 Details of the user.
 
@@ -912,11 +1633,12 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 api_instance = iam.AggregatorAccountAdminApi(iam.ApiClient(configuration))
 account_id = 'account_id_example' # str | Account ID.
 user_id = 'user_id_example' # str | The ID of the user to be retrieved.
+scratch_codes = 'scratch_codes_example' # str | Request to regenerate new emergency scratch codes. (optional)
 properties = 'properties_example' # str | Request to return account specific user property values according to the given property name. (optional)
 
 try: 
     # Details of the user.
-    api_response = api_instance.get_account_user(account_id, user_id, properties=properties)
+    api_response = api_instance.get_account_user(account_id, user_id, scratch_codes=scratch_codes, properties=properties)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling AggregatorAccountAdminApi->get_account_user: %s\n" % e)
@@ -928,11 +1650,12 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **account_id** | **str**| Account ID. | 
  **user_id** | **str**| The ID of the user to be retrieved. | 
+ **scratch_codes** | **str**| Request to regenerate new emergency scratch codes. | [optional] 
  **properties** | **str**| Request to return account specific user property values according to the given property name. | [optional] 
 
 ### Return type
 
-[**UserInfoResp**](UserInfoResp.md)
+[**MyUserInfoResp**](MyUserInfoResp.md)
 
 ### Authorization
 
@@ -1155,8 +1878,82 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **get_all_account_policies**
+> PolicyInfoList get_all_account_policies(account_id, limit=limit, after=after, order=order, name__eq=name__eq, status__eq=status__eq, tag__eq=tag__eq, user_id__eq=user_id__eq, apikey_id__eq=apikey_id__eq, group_id__eq=group_id__eq, unbounded=unbounded)
+
+Get all policies.
+
+An endpoint for retrieving all policies in the account.
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import iam
+from iam.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+configuration = iam.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = iam.AggregatorAccountAdminApi(iam.ApiClient(configuration))
+account_id = 'account_id_example' # str | Account ID.
+limit = 50 # int | The number of results to return (2-1000), default is 50. (optional) (default to 50)
+after = 'after_example' # str | The entity ID to fetch after the given one. (optional)
+order = 'ASC' # str | The order of the records based on creation time, ASC or DESC; by default ASC (optional) (default to ASC)
+name__eq = 'name__eq_example' # str | Filter result by policy name. (optional)
+status__eq = 'status__eq_example' # str | Filter for status, ACTIVE or INACTIVE. (optional)
+tag__eq = 'tag__eq_example' # str | Filter results for tag. (optional)
+user_id__eq = 'user_id__eq_example' # str | Retrieve policies attached to a certain user ID. (optional)
+apikey_id__eq = 'apikey_id__eq_example' # str | Retrieve policies attached to a certain API key ID. (optional)
+group_id__eq = 'group_id__eq_example' # str | Retrieve policies attached to a certain group ID. (optional)
+unbounded = 'unbounded_example' # str | Retrieve policies not attached to any subject in the account. (optional)
+
+try: 
+    # Get all policies.
+    api_response = api_instance.get_all_account_policies(account_id, limit=limit, after=after, order=order, name__eq=name__eq, status__eq=status__eq, tag__eq=tag__eq, user_id__eq=user_id__eq, apikey_id__eq=apikey_id__eq, group_id__eq=group_id__eq, unbounded=unbounded)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AggregatorAccountAdminApi->get_all_account_policies: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **account_id** | **str**| Account ID. | 
+ **limit** | **int**| The number of results to return (2-1000), default is 50. | [optional] [default to 50]
+ **after** | **str**| The entity ID to fetch after the given one. | [optional] 
+ **order** | **str**| The order of the records based on creation time, ASC or DESC; by default ASC | [optional] [default to ASC]
+ **name__eq** | **str**| Filter result by policy name. | [optional] 
+ **status__eq** | **str**| Filter for status, ACTIVE or INACTIVE. | [optional] 
+ **tag__eq** | **str**| Filter results for tag. | [optional] 
+ **user_id__eq** | **str**| Retrieve policies attached to a certain user ID. | [optional] 
+ **apikey_id__eq** | **str**| Retrieve policies attached to a certain API key ID. | [optional] 
+ **group_id__eq** | **str**| Retrieve policies attached to a certain group ID. | [optional] 
+ **unbounded** | **str**| Retrieve policies not attached to any subject in the account. | [optional] 
+
+### Return type
+
+[**PolicyInfoList**](PolicyInfoList.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **get_all_account_users**
-> UserInfoRespList get_all_account_users(account_id, limit=limit, after=after, order=order, include=include, email__eq=email__eq, status__eq=status__eq, status__in=status__in, status__nin=status__nin)
+> UserInfoRespList get_all_account_users(account_id, limit=limit, after=after, order=order, include=include, email__eq=email__eq, status__eq=status__eq)
 
 Get all user details.
 
@@ -1185,12 +1982,10 @@ order = 'ASC' # str | The order of the records based on creation time, ASC or DE
 include = 'include_example' # str | Comma separated additional data to return. Currently supported: total_count (optional)
 email__eq = 'email__eq_example' # str | Filter for email address (optional)
 status__eq = 'status__eq_example' # str | Filter for status (optional)
-status__in = 'status__in_example' # str | An optional filter for getting users with a specified set of statuses. (optional)
-status__nin = 'status__nin_example' # str | An optional filter for excluding users with a specified set of statuses. (optional)
 
 try: 
     # Get all user details.
-    api_response = api_instance.get_all_account_users(account_id, limit=limit, after=after, order=order, include=include, email__eq=email__eq, status__eq=status__eq, status__in=status__in, status__nin=status__nin)
+    api_response = api_instance.get_all_account_users(account_id, limit=limit, after=after, order=order, include=include, email__eq=email__eq, status__eq=status__eq)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling AggregatorAccountAdminApi->get_all_account_users: %s\n" % e)
@@ -1207,8 +2002,6 @@ Name | Type | Description  | Notes
  **include** | **str**| Comma separated additional data to return. Currently supported: total_count | [optional] 
  **email__eq** | **str**| Filter for email address | [optional] 
  **status__eq** | **str**| Filter for status | [optional] 
- **status__in** | **str**| An optional filter for getting users with a specified set of statuses. | [optional] 
- **status__nin** | **str**| An optional filter for excluding users with a specified set of statuses. | [optional] 
 
 ### Return type
 
@@ -1226,7 +2019,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_all_accounts**
-> AccountInfoList get_all_accounts(status__eq=status__eq, status__in=status__in, status__nin=status__nin, tier__eq=tier__eq, parent__eq=parent__eq, end_market__eq=end_market__eq, country__like=country__like, limit=limit, after=after, order=order, include=include, format=format, properties=properties)
+> AccountInfoList get_all_accounts(status__eq=status__eq, tier__eq=tier__eq, parent__eq=parent__eq, end_market__eq=end_market__eq, country__like=country__like, limit=limit, after=after, order=order, include=include, format=format, properties=properties)
 
 Get all accounts.
 
@@ -1249,8 +2042,6 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = iam.AggregatorAccountAdminApi(iam.ApiClient(configuration))
 status__eq = 'status__eq_example' # str | An optional filter for account status, ENROLLING, ACTIVE, RESTRICTED or SUSPENDED. (optional)
-status__in = 'status__in_example' # str | An optional filter for getting accounts with a specified set of statuses. (optional)
-status__nin = 'status__nin_example' # str | An optional filter for excluding accounts with a specified set of statuses. (optional)
 tier__eq = 'tier__eq_example' # str | An optional filter for tier level, must be 0, 1, 2, 98, 99 or omitted. (optional)
 parent__eq = 'parent__eq_example' # str | An optional filter for parent account ID. (optional)
 end_market__eq = 'end_market__eq_example' # str | An optional filter for account end market. (optional)
@@ -1264,7 +2055,7 @@ properties = 'properties_example' # str | Property name to be returned from acco
 
 try: 
     # Get all accounts.
-    api_response = api_instance.get_all_accounts(status__eq=status__eq, status__in=status__in, status__nin=status__nin, tier__eq=tier__eq, parent__eq=parent__eq, end_market__eq=end_market__eq, country__like=country__like, limit=limit, after=after, order=order, include=include, format=format, properties=properties)
+    api_response = api_instance.get_all_accounts(status__eq=status__eq, tier__eq=tier__eq, parent__eq=parent__eq, end_market__eq=end_market__eq, country__like=country__like, limit=limit, after=after, order=order, include=include, format=format, properties=properties)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling AggregatorAccountAdminApi->get_all_accounts: %s\n" % e)
@@ -1275,8 +2066,6 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **status__eq** | **str**| An optional filter for account status, ENROLLING, ACTIVE, RESTRICTED or SUSPENDED. | [optional] 
- **status__in** | **str**| An optional filter for getting accounts with a specified set of statuses. | [optional] 
- **status__nin** | **str**| An optional filter for excluding accounts with a specified set of statuses. | [optional] 
  **tier__eq** | **str**| An optional filter for tier level, must be 0, 1, 2, 98, 99 or omitted. | [optional] 
  **parent__eq** | **str**| An optional filter for parent account ID. | [optional] 
  **end_market__eq** | **str**| An optional filter for account end market. | [optional] 
@@ -2007,6 +2796,64 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**TrustedCertificateInternalResp**](TrustedCertificateInternalResp.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **update_account_policy**
+> PolicyInfo update_account_policy(account_id, policy_id, body)
+
+Update a policy.
+
+An endpoint for updating a policy.
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import iam
+from iam.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+configuration = iam.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = iam.AggregatorAccountAdminApi(iam.ApiClient(configuration))
+account_id = 'account_id_example' # str | Account ID.
+policy_id = 'policy_id_example' # str | The ID the policy to be retrieved.
+body = iam.PolicyUpdateReq() # PolicyUpdateReq | The details of the policy to be updated.
+
+try: 
+    # Update a policy.
+    api_response = api_instance.update_account_policy(account_id, policy_id, body)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AggregatorAccountAdminApi->update_account_policy: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **account_id** | **str**| Account ID. | 
+ **policy_id** | **str**| The ID the policy to be retrieved. | 
+ **body** | [**PolicyUpdateReq**](PolicyUpdateReq.md)| The details of the policy to be updated. | 
+
+### Return type
+
+[**PolicyInfo**](PolicyInfo.md)
 
 ### Authorization
 

@@ -1,4 +1,4 @@
-# UserUpdateResp
+# MyUserInfoResp
 
 ## Properties
 Name | Type | Description | Notes
@@ -25,7 +25,6 @@ Name | Type | Description | Notes
 **phone_number** | **str** | Phone number. | [optional] 
 **status** | **str** | The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system. | 
 **totp_scratch_codes** | **list[str]** | A list of scratch codes for the 2-factor authentication. Visible only when 2FA is requested to be enabled or the codes regenerated. | [optional] 
-**totp_secret** | **str** | Secret for the 2-factor authenticator app. Visible only when 2FA is requested to be enabled. | [optional] 
 **updated_at** | **datetime** | Last update UTC time RFC3339. | [optional] 
 **user_properties** | [**dict(str, dict(str, str))**](dict.md) | User&#39;s account specific custom properties. | [optional] 
 **username** | **str** | A username containing alphanumerical letters and -,._@+&#x3D; characters. | [optional] 

@@ -39,7 +39,7 @@ class UserInfoReq(object):
         'is_marketing_accepted': 'bool',
         'password': 'str',
         'phone_number': 'str',
-        'user_properties': 'dict(str, str)',
+        'user_properties': 'dict(str, dict(str, str))',
         'username': 'str'
     }
 
@@ -263,10 +263,10 @@ class UserInfoReq(object):
     def user_properties(self):
         """
         Gets the user_properties of this UserInfoReq.
-        User's account specific custom properties. The value must be a valid Json.
+        User's account specific custom properties.
 
         :return: The user_properties of this UserInfoReq.
-        :rtype: dict(str, str)
+        :rtype: dict(str, dict(str, str))
         """
         return self._user_properties
 
@@ -274,10 +274,10 @@ class UserInfoReq(object):
     def user_properties(self, user_properties):
         """
         Sets the user_properties of this UserInfoReq.
-        User's account specific custom properties. The value must be a valid Json.
+        User's account specific custom properties.
 
         :param user_properties: The user_properties of this UserInfoReq.
-        :type: dict(str, str)
+        :type: dict(str, dict(str, str))
         """
 
         self._user_properties = user_properties

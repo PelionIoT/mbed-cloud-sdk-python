@@ -55,7 +55,7 @@ class UserUpdateResp(object):
         'totp_scratch_codes': 'list[str]',
         'totp_secret': 'str',
         'updated_at': 'datetime',
-        'user_properties': 'dict(str, str)',
+        'user_properties': 'dict(str, dict(str, str))',
         'username': 'str'
     }
 
@@ -701,10 +701,10 @@ class UserUpdateResp(object):
     def user_properties(self):
         """
         Gets the user_properties of this UserUpdateResp.
-        User's account specific custom properties. The value is a valid Json.
+        User's account specific custom properties.
 
         :return: The user_properties of this UserUpdateResp.
-        :rtype: dict(str, str)
+        :rtype: dict(str, dict(str, str))
         """
         return self._user_properties
 
@@ -712,10 +712,10 @@ class UserUpdateResp(object):
     def user_properties(self, user_properties):
         """
         Sets the user_properties of this UserUpdateResp.
-        User's account specific custom properties. The value is a valid Json.
+        User's account specific custom properties.
 
         :param user_properties: The user_properties of this UserUpdateResp.
-        :type: dict(str, str)
+        :type: dict(str, dict(str, str))
         """
 
         self._user_properties = user_properties
