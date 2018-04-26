@@ -3,7 +3,7 @@
 """
     Connect API
 
-    Mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
+    Mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. Mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
 
     OpenAPI spec version: 2
     
@@ -31,55 +31,55 @@ class EndpointData(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'q': 'bool',
+        'ep': 'str',
         'ept': 'str',
         'original_ep': 'str',
-        'resources': 'list[ResourcesData]',
-        'ep': 'str'
+        'q': 'bool',
+        'resources': 'list[ResourcesData]'
     }
 
     attribute_map = {
-        'q': 'q',
+        'ep': 'ep',
         'ept': 'ept',
         'original_ep': 'original-ep',
-        'resources': 'resources',
-        'ep': 'ep'
+        'q': 'q',
+        'resources': 'resources'
     }
 
-    def __init__(self, q=None, ept=None, original_ep=None, resources=None, ep=None):
+    def __init__(self, ep=None, ept=None, original_ep=None, q=None, resources=None):
         """
         EndpointData - a model defined in Swagger
         """
 
-        self._q = q
+        self._ep = ep
         self._ept = ept
         self._original_ep = original_ep
+        self._q = q
         self._resources = resources
-        self._ep = ep
         self.discriminator = None
 
     @property
-    def q(self):
+    def ep(self):
         """
-        Gets the q of this EndpointData.
-        Queue mode (default value is false).
+        Gets the ep of this EndpointData.
+        Unique Mbed Cloud device ID.
 
-        :return: The q of this EndpointData.
-        :rtype: bool
+        :return: The ep of this EndpointData.
+        :rtype: str
         """
-        return self._q
+        return self._ep
 
-    @q.setter
-    def q(self, q):
+    @ep.setter
+    def ep(self, ep):
         """
-        Sets the q of this EndpointData.
-        Queue mode (default value is false).
+        Sets the ep of this EndpointData.
+        Unique Mbed Cloud device ID.
 
-        :param q: The q of this EndpointData.
-        :type: bool
+        :param ep: The ep of this EndpointData.
+        :type: str
         """
 
-        self._q = q
+        self._ep = ep
 
     @property
     def ept(self):
@@ -128,6 +128,29 @@ class EndpointData(object):
         self._original_ep = original_ep
 
     @property
+    def q(self):
+        """
+        Gets the q of this EndpointData.
+        Queue mode (default value is false).
+
+        :return: The q of this EndpointData.
+        :rtype: bool
+        """
+        return self._q
+
+    @q.setter
+    def q(self, q):
+        """
+        Sets the q of this EndpointData.
+        Queue mode (default value is false).
+
+        :param q: The q of this EndpointData.
+        :type: bool
+        """
+
+        self._q = q
+
+    @property
     def resources(self):
         """
         Gets the resources of this EndpointData.
@@ -147,29 +170,6 @@ class EndpointData(object):
         """
 
         self._resources = resources
-
-    @property
-    def ep(self):
-        """
-        Gets the ep of this EndpointData.
-        Unique Mbed Cloud device ID.
-
-        :return: The ep of this EndpointData.
-        :rtype: str
-        """
-        return self._ep
-
-    @ep.setter
-    def ep(self, ep):
-        """
-        Sets the ep of this EndpointData.
-        Unique Mbed Cloud device ID.
-
-        :param ep: The ep of this EndpointData.
-        :type: str
-        """
-
-        self._ep = ep
 
     def to_dict(self):
         """

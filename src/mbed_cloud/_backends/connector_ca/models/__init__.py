@@ -3,7 +3,7 @@
 """
     Connect CA API
 
-    Connect CA API provides methods to create and get Developer certificate. Also Connect CA provides server-credentials for Bootstarp and LWM2M Server.
+    mbed Cloud Connect CA API allows services to get device credentials.
 
     OpenAPI spec version: 3
     
@@ -14,6 +14,10 @@
 from __future__ import absolute_import
 
 # import models into model package
+from .all_server_credentials_response_data import AllServerCredentialsResponseData
+from .credentials_response_data import CredentialsResponseData
 from .developer_certificate_request_data import DeveloperCertificateRequestData
 from .developer_certificate_response_data import DeveloperCertificateResponseData
+from .error_response import ErrorResponse
+from .field import Field
 from .server_credentials_response_data import ServerCredentialsResponseData

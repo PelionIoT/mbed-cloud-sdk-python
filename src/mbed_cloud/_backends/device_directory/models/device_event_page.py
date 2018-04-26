@@ -31,101 +31,38 @@ class DeviceEventPage(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'object': 'str',
-        'has_more': 'bool',
-        'total_count': 'int',
         'after': 'str',
-        'limit': 'int',
         'data': 'list[DeviceEventData]',
-        'order': 'str'
+        'has_more': 'bool',
+        'limit': 'int',
+        'object': 'str',
+        'order': 'str',
+        'total_count': 'int'
     }
 
     attribute_map = {
-        'object': 'object',
-        'has_more': 'has_more',
-        'total_count': 'total_count',
         'after': 'after',
-        'limit': 'limit',
         'data': 'data',
-        'order': 'order'
+        'has_more': 'has_more',
+        'limit': 'limit',
+        'object': 'object',
+        'order': 'order',
+        'total_count': 'total_count'
     }
 
-    def __init__(self, object=None, has_more=None, total_count=None, after=None, limit=None, data=None, order=None):
+    def __init__(self, after=None, data=None, has_more=None, limit=None, object=None, order=None, total_count=None):
         """
         DeviceEventPage - a model defined in Swagger
         """
 
-        self._object = object
-        self._has_more = has_more
-        self._total_count = total_count
         self._after = after
-        self._limit = limit
         self._data = data
-        self._order = order
-        self.discriminator = None
-
-    @property
-    def object(self):
-        """
-        Gets the object of this DeviceEventPage.
-
-        :return: The object of this DeviceEventPage.
-        :rtype: str
-        """
-        return self._object
-
-    @object.setter
-    def object(self, object):
-        """
-        Sets the object of this DeviceEventPage.
-
-        :param object: The object of this DeviceEventPage.
-        :type: str
-        """
-
-        self._object = object
-
-    @property
-    def has_more(self):
-        """
-        Gets the has_more of this DeviceEventPage.
-
-        :return: The has_more of this DeviceEventPage.
-        :rtype: bool
-        """
-        return self._has_more
-
-    @has_more.setter
-    def has_more(self, has_more):
-        """
-        Sets the has_more of this DeviceEventPage.
-
-        :param has_more: The has_more of this DeviceEventPage.
-        :type: bool
-        """
-
         self._has_more = has_more
-
-    @property
-    def total_count(self):
-        """
-        Gets the total_count of this DeviceEventPage.
-
-        :return: The total_count of this DeviceEventPage.
-        :rtype: int
-        """
-        return self._total_count
-
-    @total_count.setter
-    def total_count(self, total_count):
-        """
-        Sets the total_count of this DeviceEventPage.
-
-        :param total_count: The total_count of this DeviceEventPage.
-        :type: int
-        """
-
+        self._limit = limit
+        self._object = object
+        self._order = order
         self._total_count = total_count
+        self.discriminator = None
 
     @property
     def after(self):
@@ -149,27 +86,6 @@ class DeviceEventPage(object):
         self._after = after
 
     @property
-    def limit(self):
-        """
-        Gets the limit of this DeviceEventPage.
-
-        :return: The limit of this DeviceEventPage.
-        :rtype: int
-        """
-        return self._limit
-
-    @limit.setter
-    def limit(self, limit):
-        """
-        Sets the limit of this DeviceEventPage.
-
-        :param limit: The limit of this DeviceEventPage.
-        :type: int
-        """
-
-        self._limit = limit
-
-    @property
     def data(self):
         """
         Gets the data of this DeviceEventPage.
@@ -191,6 +107,69 @@ class DeviceEventPage(object):
         self._data = data
 
     @property
+    def has_more(self):
+        """
+        Gets the has_more of this DeviceEventPage.
+
+        :return: The has_more of this DeviceEventPage.
+        :rtype: bool
+        """
+        return self._has_more
+
+    @has_more.setter
+    def has_more(self, has_more):
+        """
+        Sets the has_more of this DeviceEventPage.
+
+        :param has_more: The has_more of this DeviceEventPage.
+        :type: bool
+        """
+
+        self._has_more = has_more
+
+    @property
+    def limit(self):
+        """
+        Gets the limit of this DeviceEventPage.
+
+        :return: The limit of this DeviceEventPage.
+        :rtype: int
+        """
+        return self._limit
+
+    @limit.setter
+    def limit(self, limit):
+        """
+        Sets the limit of this DeviceEventPage.
+
+        :param limit: The limit of this DeviceEventPage.
+        :type: int
+        """
+
+        self._limit = limit
+
+    @property
+    def object(self):
+        """
+        Gets the object of this DeviceEventPage.
+
+        :return: The object of this DeviceEventPage.
+        :rtype: str
+        """
+        return self._object
+
+    @object.setter
+    def object(self, object):
+        """
+        Sets the object of this DeviceEventPage.
+
+        :param object: The object of this DeviceEventPage.
+        :type: str
+        """
+
+        self._object = object
+
+    @property
     def order(self):
         """
         Gets the order of this DeviceEventPage.
@@ -210,6 +189,27 @@ class DeviceEventPage(object):
         """
 
         self._order = order
+
+    @property
+    def total_count(self):
+        """
+        Gets the total_count of this DeviceEventPage.
+
+        :return: The total_count of this DeviceEventPage.
+        :rtype: int
+        """
+        return self._total_count
+
+    @total_count.setter
+    def total_count(self, total_count):
+        """
+        Sets the total_count of this DeviceEventPage.
+
+        :param total_count: The total_count of this DeviceEventPage.
+        :type: int
+        """
+
+        self._total_count = total_count
 
     def to_dict(self):
         """

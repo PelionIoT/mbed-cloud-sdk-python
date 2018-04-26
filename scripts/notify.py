@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # --------------------------------------------------------------------------
-"""This test server is executed by CI test runs with a common"""
+"""Part of the CI process"""
 
 import os
 
@@ -23,7 +23,7 @@ from slackclient import SlackClient
 import mbed_cloud
 
 
-def run():
+def main():
     """Sends release notifications to interested parties
 
     Currently this is an arm-internal slack channel.
@@ -54,4 +54,4 @@ def run():
 
 
 if __name__ == '__main__':
-    run()
+    main()

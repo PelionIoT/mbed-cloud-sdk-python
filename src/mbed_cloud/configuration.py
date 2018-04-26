@@ -21,6 +21,9 @@ import logging
 import os
 import traceback
 
+ENVVAR_API_HOST = 'MBED_CLOUD_SDK_HOST'
+ENVVAR_API_KEY = 'MBED_CLOUD_SDK_API_KEY'
+
 
 class Config(dict):
     """Create configuration dict, reading config file(s) on initialisation."""
@@ -84,6 +87,10 @@ class Config(dict):
             self._using_paths.append(' exists: %s' % abs_path)
             with open(abs_path) as fh:
                 self.update(json.load(fh))
+        for env_var, key in {ENVVAR_API_HOST: 'host', ENVVAR_API_KEY: 'api_key'}.items():
+            env_value = os.getenv(env_var)
+            if env_value is not None:
+                self[key] = env_value
         if updates:
             self.update(updates)
         self.validate()
