@@ -129,6 +129,7 @@ class CertificatesAPI(BaseAPI):
         :param str signature: Base64 encoded signature of the account ID
             signed by the certificate to be uploaded.
             Signature must be hashed with SHA256. (Required)
+            If using enrollment_mode, this can be set to None
         :param str status: Status of the certificate.
             Allowed values: "ACTIVE" | "INACTIVE".
         :param str description: Human readable description of this certificate,
@@ -142,7 +143,8 @@ class CertificatesAPI(BaseAPI):
 
         kwargs.update({'certificate_data': certificate_data})
         certificate = Certificate._create_request_map(kwargs)
-        certificate.update({'signature': signature})
+        if not certificate.get('enrollment_mode'):
+            certificate.update({'signature': signature})
         body = iam.TrustedCertificateReq(**certificate)
         prod_cert = api.add_certificate(body)
         return self.get_certificate(prod_cert.id)
@@ -275,7 +277,7 @@ class Certificate(BaseObject):
         :return: The enrollment_mode of this certificate.
         :rtype: str
         """
-        return self._enrollment_mode or False  # FIXME: is this the correct default?
+        return self._enrollment_mode
 
     @property
     def description(self):
