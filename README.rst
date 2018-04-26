@@ -43,7 +43,7 @@ Usage
 -----
 
 These instructions can also be found in the `official
-documentation <https://cloud.mbed.com/docs/v1.2/mbed-cloud-sdk-python/>`__:
+documentation <https://cloud.mbed.com/docs/latest/mbed-cloud-sdk-python/>`__:
 
 1. Create an API key in the `Mbed Cloud
    Portal <https://portal.us-east-1.mbedcloud.com/>`__.
@@ -84,7 +84,7 @@ documentation <https://cloud.mbed.com/docs/v1.2/mbed-cloud-sdk-python/>`__:
 Documentation and examples
 --------------------------
 
-The full documentation and API reference is hosted here: https://cloud.mbed.com/docs/v1.2/mbed-cloud-sdk-python/.
+The full documentation and API reference is hosted here: https://cloud.mbed.com/docs/latest/mbed-cloud-sdk-python/.
 
 .. _examples directory: https://github.com/ARMmbed/mbed-cloud-sdk-python/tree/master/examples
 
