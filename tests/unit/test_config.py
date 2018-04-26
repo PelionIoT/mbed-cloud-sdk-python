@@ -1,16 +1,22 @@
+import mbed_cloud
 from mbed_cloud.core import BaseAPI
+from mbed_cloud import utils
 from mbed_cloud.configuration import Config
 from mbed_cloud import configuration
 from mbed_cloud import ConnectAPI
 from mbed_cloud._backends.mds.apis.endpoints_api import EndpointsApi
 from tests.common import BaseCase
 
+
 import json
+import logging
 import mock
-import tempfile
 import os
+import queue
 import shutil
-import urllib3
+import tempfile
+
+from logging.handlers import QueueHandler
 
 
 class TestConfigObj(BaseCase):
@@ -50,6 +56,16 @@ class TestConfigObj(BaseCase):
         api_key = EndpointsApi
         self.assertEqual(a.apis[api_key].api_client.configuration.api_key, {'Authorization': 'apple'})
         self.assertEqual(b.apis[api_key].api_client.configuration.api_key, {'Authorization': 'banana'})
+
+    def test_logging(self):
+        q = queue.Queue()
+        logging.basicConfig()  # enables >'WARNING', (or >'INFO' if our config gets there first)
+        top_logger = logging.getLogger(mbed_cloud.__name__)
+        top_logger.setLevel(logging.DEBUG)  # explicitly enable >'DEBUG' at top level
+        logging.getLogger('mbed_cloud.utils').addHandler(QueueHandler(q))
+        utils.logging_check()  # this iterates all log levels, and should now include 'DEBUG'
+        levels_seen = {log.levelname for log in list(q.queue)}
+        self.assertIn('DEBUG', levels_seen)  # check that module-level log config has cascaded
 
 
 class TempConf(object):

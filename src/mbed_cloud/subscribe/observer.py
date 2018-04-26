@@ -21,6 +21,8 @@ import queue
 
 from mbed_cloud.subscribe.async_wrapper import AsyncWrapper
 
+LOG = logging.getLogger(__name__)
+
 
 class NoMoreNotifications(Exception):
     """Raised as a sentinel when a stream is terminated"""
@@ -118,29 +120,29 @@ class Observer(object):
 
     def notify(self, data):
         """Notify this observer that data has arrived"""
-        logging.debug('notify received: %s', data)
+        LOG.debug('notify received: %s', data)
         if self._cancelled:
-            logging.debug('notify skipping due to `cancelled`')
+            LOG.debug('notify skipping due to `cancelled`')
             return self
         if self._once_done and self._once:
-            logging.debug('notify skipping due to `once`')
+            LOG.debug('notify skipping due to `once`')
             return self
         try:
             # notify next consumer immediately
             self._waitables.get_nowait().put_nowait(data)
-            logging.debug('found a consumer, notifying')
+            LOG.debug('found a consumer, notifying')
         except queue.Empty:
             # store the notification
-            logging.debug('no consumers, queueing data')
+            LOG.debug('no consumers, queueing data')
             try:
                 self._notifications.put_nowait(data)
             except queue.Full:
-                logging.warning('notification queue full - discarding new data')
+                LOG.warning('notification queue full - discarding new data')
 
         # callbacks are sent straight away
         # bombproofing should be handled by individual callbacks
         for callback in self._callbacks:
-            logging.debug('callback: %s', callback)
+            LOG.debug('callback: %s', callback)
             callback(data)
         self._once_done = True
         return self
@@ -150,7 +152,7 @@ class Observer(object):
 
         No more notifications will be passed on
         """
-        logging.debug('cancelling %s', self)
+        LOG.debug('cancelling %s', self)
         self._cancelled = True
         self.clear_callbacks()  # not strictly necessary, but may release references
         while True:

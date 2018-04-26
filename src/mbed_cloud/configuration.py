@@ -24,11 +24,12 @@ import traceback
 ENVVAR_API_HOST = 'MBED_CLOUD_SDK_HOST'
 ENVVAR_API_KEY = 'MBED_CLOUD_SDK_API_KEY'
 
+LOG = logging.getLogger(__name__)
+
 
 class Config(dict):
     """Create configuration dict, reading config file(s) on initialisation."""
 
-    logger = logging.getLogger(__name__)
     path_from_env_key = 'MBED_CLOUD_SDK_CONFIG'
 
     def __init__(self, updates=None):
@@ -40,7 +41,9 @@ class Config(dict):
         Of highest priority is using the `MBED_CLOUD_SDK_CONFIG` environment
         variable, to specify a config JSON file.
         """
+        # if no root logger is defined yet, configure a default stream handler
         logging.basicConfig(level=logging.INFO)
+
         self._using_paths = []
 
         try:

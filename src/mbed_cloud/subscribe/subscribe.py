@@ -48,6 +48,8 @@ import itertools
 import logging
 import threading
 
+LOG = logging.getLogger(__name__)
+
 
 def expand_dict_as_keys(d):
     """Expands a dictionary into a keyable frozen set
@@ -133,7 +135,7 @@ class RoutingBase(object):
         with self._lock:
             for r in routes:
                 self._routes.pop(r)
-                logging.debug('removed route %s', r)
+                LOG.debug('removed route %s', r)
 
     def list_all(self):
         """All routes"""
@@ -192,7 +194,7 @@ class SubscriptionsManager(RoutingBase):
 
     def notify(self, data):
         """Notify subscribers that data was received"""
-        logging.debug('notified: %s', data)
+        LOG.debug('notified: %s', data)
         try:
             for channel_name, items in data.items():
                 for item in items or []:
@@ -208,23 +210,23 @@ class SubscriptionsManager(RoutingBase):
                     route_keys = expand_dict_as_keys(plucked)
                     for route in route_keys:
                         sub_channels = self.get_route_item(route) or {}
-                        logging.debug('subscribed channels: %s', sub_channels)
+                        LOG.debug('subscribed channels: %s', sub_channels)
                         if not sub_channels:
-                            logging.debug(
+                            LOG.debug(
                                 'no subscribers.\nkey %s\nroutes: %s',
                                 route,
                                 self._routes
                             )
-                            logging.debug(
+                            LOG.debug(
                                 'plucked params: %s\nwatched: %s',
                                 plucked,
                                 self.watch_keys
                             )
                         for sub_channel in sub_channels.values():
-                            logging.debug('dispatch: %s', item)
+                            LOG.debug('dispatch: %s', item)
                             sub_channel.notify(item)
         except Exception:  # noqa
-            logging.exception('Subscription notification failed')
+            LOG.exception('Subscription notification failed')
 
     def unsubscribe_all(self):
         """Unsubscribes all channels"""
