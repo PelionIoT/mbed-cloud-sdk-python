@@ -29,4 +29,4 @@ from mbed_cloud.update import UpdateAPI
 
 # some namespacing for HLAs
 from mbed_cloud.subscribe import channels
-from mbed_cloud.icing.api import Client as MbedCloud
+from mbed_cloud.icing.api import Client as MbedCloudClient
