@@ -15,13 +15,15 @@
 # limitations under the License.
 # --------------------------------------------------------------------------
 """A Channels API module"""
-import logging
-
 from mbed_cloud.subscribe.channels.channel import _API_CHANNELS
 from mbed_cloud.subscribe.channels.channel import ChannelSubscription
 from mbed_cloud.subscribe.subscribe import expand_dict_as_keys
 
 from mbed_cloud import utils
+
+import logging
+
+LOG = logging.getLogger(__name__)
 
 
 class ResourceValueCurrent(ChannelSubscription):
@@ -34,7 +36,7 @@ class ResourceValueCurrent(ChannelSubscription):
 
         # each request is unique
         self.async_id = utils.new_async_id()
-        logging.debug('new async id: %s', self.async_id)
+        LOG.debug('new async id: %s', self.async_id)
 
         self._route_keys = expand_dict_as_keys(dict(
             id=self.async_id,

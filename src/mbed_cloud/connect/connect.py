@@ -560,7 +560,7 @@ class ConnectAPI(BaseAPI):
             try:
                 self.delete_device_subscriptions(device_id=device.id)
             except CloudApiException as e:
-                logging.warning('failed to remove subscription for %s: %s', device.id, e)
+                LOG.warning('failed to remove subscription for %s: %s', device.id, e)
                 continue
 
     @catch_exceptions(mds.rest.ApiException)

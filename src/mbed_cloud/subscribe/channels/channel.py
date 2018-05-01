@@ -16,7 +16,10 @@
 # --------------------------------------------------------------------------
 """A Channels API module"""
 import logging
+
 from mbed_cloud.subscribe.observer import Observer
+
+LOG = logging.getLogger(__name__)
 
 
 class _API_CHANNELS(object):
@@ -82,9 +85,9 @@ class ChannelSubscription(object):
         custom behaviours e.g. filtering on timestamp ranges or other conditions
         """
         for k, v in (self._optional_filters or {}).items():
-            logging.debug('optional filter %s: %s (%s)', k, v, data.get(k))
+            LOG.debug('optional filter %s: %s (%s)', k, v, data.get(k))
             if data.get(k) not in v:
-                logging.debug('optional filter rejecting %s: %s (%s)', k, v, data.get(k))
+                LOG.debug('optional filter rejecting %s: %s (%s)', k, v, data.get(k))
                 return False
         return self._filter_func(data) if self._filter_func else True
 
