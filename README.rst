@@ -96,13 +96,13 @@ Contributing
 ------------
 
 Mbed Cloud SDK for Python is open source and we would like your help; there
-is a brief guide on how to get started in `CONTRIBUTING.md <CONTRIBUTING.md>`__.
+is a brief guide on how to get started in `CONTRIBUTING.md <https://github.com/ARMmbed/mbed-cloud-sdk-python/tree/master/CONTRIBUTING.md>`__.
 
 Licence
 -------
 
 Mbed Cloud SDK for Python is free to use and licensed under the Apache
-License 2.0. See `LICENCE <LICENCE>`__ for more information.
+License 2.0. See `LICENCE <https://github.com/ARMmbed/mbed-cloud-sdk-python/tree/master/LICENCE>`__ for more information.
 
 Versioning
 ----------
