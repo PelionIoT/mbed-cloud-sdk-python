@@ -11,9 +11,12 @@ def main(news_dir=None):
         from generate_news import news_dir
     news_dir = os.path.abspath(news_dir)
 
+    # assume the name of the remote alias is just 'origin'
+    remote_alias = 'origin'
+
     # figure out what the 'default branch' for the origin is
     origin_stats = subprocess.check_output(
-        ['git', 'remote', 'show', 'origin'],
+        ['git', 'remote', 'show', remote_alias],
         cwd=news_dir
     ).decode()
 
@@ -25,14 +28,16 @@ def main(news_dir=None):
             origin_branch = line.split(':', 1)[-1].strip()
             break
 
+    origin = '%s/%s' % (remote_alias, origin_branch)
+
     # figure out the current branch
     current_branch = subprocess.check_output(
         ['git', 'rev-parse', '--abbrev-ref', 'HEAD'],
         cwd=news_dir
     ).decode().strip()
 
-    print('🔎 Finding news in `%s` to add to remote `%s`' % (current_branch, origin_branch))
-    diff_command = ['git', 'diff', '%s...%s' % (origin_branch, current_branch), '--name-status', news_dir]
+    print('🔎 Finding news in `%s` to add to remote `%s`' % (current_branch, origin))
+    diff_command = ['git', 'diff', '%s...%s' % (origin, current_branch), '--name-status', news_dir]
     file_diff = subprocess.check_output(
         diff_command,
         cwd=news_dir
