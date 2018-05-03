@@ -15,7 +15,7 @@ def main(news_dir=None):
         cwd=news_dir
     ).decode()
     if not added_news:
-        print('🚫️ Error: No new file changes found!\nPlease add a news file to `%s`' % (news_dir,))
+        print('🚫️ Error: Did not find any news files!\nPlease add a news file to `%s`' % (news_dir,))
         exit(1)  # exit with an error status, no need for a traceback
     print('✔️ %s new files in `%s`' % (len(added_news.splitlines()), news_dir))
 
