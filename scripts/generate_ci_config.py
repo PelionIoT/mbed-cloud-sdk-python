@@ -122,6 +122,18 @@ def new_tpip():
     return 'tpip_report', template
 
 
+def new_newscheck():
+    """Job for checking newsfile existence"""
+    template = yaml.safe_load("""
+    steps:
+      - checkout
+      - run: python scripts/assert_news.py
+    docker:
+      - image: circleci/python:3.6.1
+    """)
+    return 'news_check', template
+
+
 def build_name(py_ver: PyVer):
     """Name"""
     return f'build_{py_ver.name}'
@@ -276,14 +288,28 @@ def generate_circle_output():
     builds the circleci structure
     also links individual jobs into a workflow graph
     """
+    workflow_config_key = 'workflow_config'
     base = new_base()
     workflow = networkx.DiGraph()
     logging.info('%s python versions', len(python_versions))
     logging.info('%s mbed cloud hosts', len(mbed_cloud_hosts))
 
-    tpip_job, tpip_content = new_tpip()
-    base['jobs'].update({tpip_job: tpip_content})
-    workflow.add_node(tpip_job)
+    job, content = new_tpip()
+    base['jobs'].update({job: content})
+    workflow.add_node(job)
+
+    job, content = new_newscheck()
+    base['jobs'].update({job: content})
+    workflow.add_node(
+        job,
+        workflow=dict(
+            filters=dict(
+                branches=dict(
+                    ignore='master'
+                )
+            )
+        )
+    )
 
     for py_ver in python_versions.values():
         build_job, build_content = new_build(py_ver=py_ver)
@@ -334,6 +360,9 @@ def generate_circle_output():
     # build the workflow graph
     for job_name in networkx.topological_sort(workflow):
         job_config = {}
+        per_node_config = workflow.nodes[job_name].get('workflow')
+        if per_node_config:
+            job_config.update(per_node_config)
         workflow_jobs.append({job_name: job_config})
         for edge in workflow.in_edges(job_name):
             job_config.update(workflow.get_edge_data(*edge))
