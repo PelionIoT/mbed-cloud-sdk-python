@@ -31,9 +31,10 @@ def main(news_dir=None):
         cwd=news_dir
     ).decode().strip()
 
-    print('🔎Finding news in `%s` to add to remote `%s`' % (current_branch, origin_branch))
+    print('🔎 Finding news in `%s` to add to remote `%s`' % (current_branch, origin_branch))
+    diff_command = ['git', 'diff', '%s...%s' % (origin_branch, current_branch), '--name-status', news_dir]
     file_diff = subprocess.check_output(
-        ['git', 'diff', '%s...%s' % (origin_branch, current_branch), '--name-status', news_dir],
+        diff_command,
         cwd=news_dir
     ).decode()
 
@@ -48,7 +49,8 @@ def main(news_dir=None):
         print(
             '🚫️ Error: Uh-oh, did not find any news files!\n'
             '❗ Please add a news file to `%s`\n'
-            '± File diff:\n%s' % (news_dir, file_diff)
+            '± File diff:\n%s\n'
+            '{} Git diff command:\n`%s`\n' % (news_dir, file_diff.strip(), subprocess.list2cmdline(diff_command))
         )
         exit(1)  # exit with an error status, no need for a traceback
     print('✔️ %s new files in `%s`' % (len(added_news), news_dir))
