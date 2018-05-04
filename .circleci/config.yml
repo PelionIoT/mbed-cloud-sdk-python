@@ -122,6 +122,12 @@ jobs:
         command: docker run --env-file=scripts/templates/envvars.env mbed_sdk_py3:latest
           sh -c "source .venv/bin/activate && python scripts/notify.py"
         name: Start the release party!
+  news_check:
+    docker:
+    - image: circleci/python:3.6.1
+    steps:
+    - checkout
+    - run: python scripts/assert_news.py
   test_python_three_osii:
     machine:
       image: circleci/classic:201710-02
@@ -307,5 +313,9 @@ workflows:
     - test_python_two_osii:
         requires:
         - build_python_two
+    - news_check:
+        filters:
+          branches:
+            ignore: master
     - tpip_report: {}
   version: 2
