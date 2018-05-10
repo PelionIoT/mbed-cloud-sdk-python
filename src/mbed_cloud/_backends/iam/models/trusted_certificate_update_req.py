@@ -114,7 +114,7 @@ class TrustedCertificateUpdateReq(object):
     def enrollment_mode(self):
         """
         Gets the enrollment_mode of this TrustedCertificateUpdateReq.
-        If true, signature parameter is not required. Default value is false.
+        Certificate is used in enrollment mode. Default value is false.
 
         :return: The enrollment_mode of this TrustedCertificateUpdateReq.
         :rtype: bool
@@ -125,7 +125,7 @@ class TrustedCertificateUpdateReq(object):
     def enrollment_mode(self, enrollment_mode):
         """
         Sets the enrollment_mode of this TrustedCertificateUpdateReq.
-        If true, signature parameter is not required. Default value is false.
+        Certificate is used in enrollment mode. Default value is false.
 
         :param enrollment_mode: The enrollment_mode of this TrustedCertificateUpdateReq.
         :type: bool
@@ -189,7 +189,7 @@ class TrustedCertificateUpdateReq(object):
     def signature(self):
         """
         Gets the signature of this TrustedCertificateUpdateReq.
-        Base64 encoded signature of the account ID signed by the certificate whose data to be updated. Signature must be hashed with SHA256.
+        DEPRECATED: Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256. Optional if enrollment_mode is 'true'.
 
         :return: The signature of this TrustedCertificateUpdateReq.
         :rtype: str
@@ -200,7 +200,7 @@ class TrustedCertificateUpdateReq(object):
     def signature(self, signature):
         """
         Sets the signature of this TrustedCertificateUpdateReq.
-        Base64 encoded signature of the account ID signed by the certificate whose data to be updated. Signature must be hashed with SHA256.
+        DEPRECATED: Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256. Optional if enrollment_mode is 'true'.
 
         :param signature: The signature of this TrustedCertificateUpdateReq.
         :type: str
