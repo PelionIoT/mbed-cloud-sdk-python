@@ -4,66 +4,12 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**v2_endpoints_device_id_get**](EndpointsApi.md#v2_endpoints_device_id_get) | **GET** /v2/endpoints/{device-id} | List the resources on an endpoint
-[**v2_endpoints_get**](EndpointsApi.md#v2_endpoints_get) | **GET** /v2/endpoints | (DEPRECATED) List registered endpoints. The number of returned endpoints is currently limited to 200.
+[**get_connected_endpoints**](EndpointsApi.md#get_connected_endpoints) | **GET** /v2/endpoints | (DEPRECATED) List registered endpoints. The number of returned endpoints is currently limited to 200.
+[**get_endpoint_resources**](EndpointsApi.md#get_endpoint_resources) | **GET** /v2/endpoints/{device-id} | List the resources on an endpoint
 
 
-# **v2_endpoints_device_id_get**
-> list[Resource] v2_endpoints_device_id_get(device_id)
-
-List the resources on an endpoint
-
-The list of resources is cached by Mbed Cloud Connect, so this call does not create a message to the device.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id} -H 'authorization: Bearer {api-key}' 
-
-### Example 
-```python
-from __future__ import print_function
-import time
-import mds
-from mds.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: Bearer
-configuration = mds.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = mds.EndpointsApi(mds.ApiClient(configuration))
-device_id = 'device_id_example' # str | A unique Mbed Cloud device ID for an endpoint. Note that the ID needs to be an exact match. You cannot use wildcards here. 
-
-try: 
-    # List the resources on an endpoint
-    api_response = api_instance.v2_endpoints_device_id_get(device_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling EndpointsApi->v2_endpoints_device_id_get: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **device_id** | **str**| A unique Mbed Cloud device ID for an endpoint. Note that the ID needs to be an exact match. You cannot use wildcards here.  | 
-
-### Return type
-
-[**list[Resource]**](Resource.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **v2_endpoints_get**
-> list[Endpoint] v2_endpoints_get(type=type)
+# **get_connected_endpoints**
+> list[Endpoint] get_connected_endpoints(type=type)
 
 (DEPRECATED) List registered endpoints. The number of returned endpoints is currently limited to 200.
 
@@ -89,10 +35,10 @@ type = 'type_example' # str | Filter endpoints by endpoint-type. (optional)
 
 try: 
     # (DEPRECATED) List registered endpoints. The number of returned endpoints is currently limited to 200.
-    api_response = api_instance.v2_endpoints_get(type=type)
+    api_response = api_instance.get_connected_endpoints(type=type)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling EndpointsApi->v2_endpoints_get: %s\n" % e)
+    print("Exception when calling EndpointsApi->get_connected_endpoints: %s\n" % e)
 ```
 
 ### Parameters
@@ -104,6 +50,60 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**list[Endpoint]**](Endpoint.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_endpoint_resources**
+> list[Resource] get_endpoint_resources(device_id)
+
+List the resources on an endpoint
+
+The list of resources is cached by Mbed Cloud Connect, so this call does not create a message to the device.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id} -H 'authorization: Bearer {api-key}' 
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import mds
+from mds.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+configuration = mds.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = mds.EndpointsApi(mds.ApiClient(configuration))
+device_id = 'device_id_example' # str | A unique Mbed Cloud device ID for an endpoint. Note that the ID needs to be an exact match. You cannot use wildcards here. 
+
+try: 
+    # List the resources on an endpoint
+    api_response = api_instance.get_endpoint_resources(device_id)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling EndpointsApi->get_endpoint_resources: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **device_id** | **str**| A unique Mbed Cloud device ID for an endpoint. Note that the ID needs to be an exact match. You cannot use wildcards here.  | 
+
+### Return type
+
+[**list[Resource]**](Resource.md)
 
 ### Authorization
 

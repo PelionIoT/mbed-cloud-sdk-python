@@ -35,107 +35,13 @@ class EndpointsApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def v2_endpoints_device_id_get(self, device_id, **kwargs):
-        """
-        List the resources on an endpoint
-        The list of resources is cached by Mbed Cloud Connect, so this call does not create a message to the device.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id} -H 'authorization: Bearer {api-key}' 
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.v2_endpoints_device_id_get(device_id, async=True)
-        >>> result = thread.get()
-
-        :param async bool
-        :param str device_id: A unique Mbed Cloud device ID for an endpoint. Note that the ID needs to be an exact match. You cannot use wildcards here.  (required)
-        :return: list[Resource]
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
-            return self.v2_endpoints_device_id_get_with_http_info(device_id, **kwargs)
-        else:
-            (data) = self.v2_endpoints_device_id_get_with_http_info(device_id, **kwargs)
-            return data
-
-    def v2_endpoints_device_id_get_with_http_info(self, device_id, **kwargs):
-        """
-        List the resources on an endpoint
-        The list of resources is cached by Mbed Cloud Connect, so this call does not create a message to the device.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id} -H 'authorization: Bearer {api-key}' 
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.v2_endpoints_device_id_get_with_http_info(device_id, async=True)
-        >>> result = thread.get()
-
-        :param async bool
-        :param str device_id: A unique Mbed Cloud device ID for an endpoint. Note that the ID needs to be an exact match. You cannot use wildcards here.  (required)
-        :return: list[Resource]
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['device_id']
-        all_params.append('async')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method v2_endpoints_device_id_get" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'device_id' is set
-        if ('device_id' not in params) or (params['device_id'] is None):
-            raise ValueError("Missing the required parameter `device_id` when calling `v2_endpoints_device_id_get`")
-
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'device_id' in params:
-            path_params['device-id'] = params['device_id']
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept(['application/json'])
-
-        # Authentication setting
-        auth_settings = ['Bearer']
-
-        return self.api_client.call_api('/v2/endpoints/{device-id}', 'GET',
-                                        path_params,
-                                        query_params,
-                                        header_params,
-                                        body=body_params,
-                                        post_params=form_params,
-                                        files=local_var_files,
-                                        response_type='list[Resource]',
-                                        auth_settings=auth_settings,
-                                        async=params.get('async'),
-                                        _return_http_data_only=params.get('_return_http_data_only'),
-                                        _preload_content=params.get('_preload_content', True),
-                                        _request_timeout=params.get('_request_timeout'),
-                                        collection_formats=collection_formats)
-
-    def v2_endpoints_get(self, **kwargs):
+    def get_connected_endpoints(self, **kwargs):
         """
         (DEPRECATED) List registered endpoints. The number of returned endpoints is currently limited to 200.
         Endpoints are physical devices having valid registration to Mbed Cloud Connect. All devices regardless of registration status can be requested from Device Directory API ['/v3/devices/`](/docs/current/service-api-references/device-directory.html).  **Note:** This endpoint is deprecated and will be removed 1Q/18. You should use the Device Directory API [`/v3/devices/`](/docs/current/service-api-references/device-directory.html). To list only the registered devices, use filter `/v3/devices/?filter=state%3Dregistered`.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/endpoints -H 'authorization: Bearer {api-key}' 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
-        >>> thread = api.v2_endpoints_get(async=True)
+        >>> thread = api.get_connected_endpoints(async=True)
         >>> result = thread.get()
 
         :param async bool
@@ -146,18 +52,18 @@ class EndpointsApi(object):
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async'):
-            return self.v2_endpoints_get_with_http_info(**kwargs)
+            return self.get_connected_endpoints_with_http_info(**kwargs)
         else:
-            (data) = self.v2_endpoints_get_with_http_info(**kwargs)
+            (data) = self.get_connected_endpoints_with_http_info(**kwargs)
             return data
 
-    def v2_endpoints_get_with_http_info(self, **kwargs):
+    def get_connected_endpoints_with_http_info(self, **kwargs):
         """
         (DEPRECATED) List registered endpoints. The number of returned endpoints is currently limited to 200.
         Endpoints are physical devices having valid registration to Mbed Cloud Connect. All devices regardless of registration status can be requested from Device Directory API ['/v3/devices/`](/docs/current/service-api-references/device-directory.html).  **Note:** This endpoint is deprecated and will be removed 1Q/18. You should use the Device Directory API [`/v3/devices/`](/docs/current/service-api-references/device-directory.html). To list only the registered devices, use filter `/v3/devices/?filter=state%3Dregistered`.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/endpoints -H 'authorization: Bearer {api-key}' 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
-        >>> thread = api.v2_endpoints_get_with_http_info(async=True)
+        >>> thread = api.get_connected_endpoints_with_http_info(async=True)
         >>> result = thread.get()
 
         :param async bool
@@ -178,7 +84,7 @@ class EndpointsApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method v2_endpoints_get" % key
+                    " to method get_connected_endpoints" % key
                 )
             params[key] = val
         del params['kwargs']
@@ -213,6 +119,100 @@ class EndpointsApi(object):
                                         post_params=form_params,
                                         files=local_var_files,
                                         response_type='list[Endpoint]',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
+    def get_endpoint_resources(self, device_id, **kwargs):
+        """
+        List the resources on an endpoint
+        The list of resources is cached by Mbed Cloud Connect, so this call does not create a message to the device.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id} -H 'authorization: Bearer {api-key}' 
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.get_endpoint_resources(device_id, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str device_id: A unique Mbed Cloud device ID for an endpoint. Note that the ID needs to be an exact match. You cannot use wildcards here.  (required)
+        :return: list[Resource]
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.get_endpoint_resources_with_http_info(device_id, **kwargs)
+        else:
+            (data) = self.get_endpoint_resources_with_http_info(device_id, **kwargs)
+            return data
+
+    def get_endpoint_resources_with_http_info(self, device_id, **kwargs):
+        """
+        List the resources on an endpoint
+        The list of resources is cached by Mbed Cloud Connect, so this call does not create a message to the device.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id} -H 'authorization: Bearer {api-key}' 
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.get_endpoint_resources_with_http_info(device_id, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str device_id: A unique Mbed Cloud device ID for an endpoint. Note that the ID needs to be an exact match. You cannot use wildcards here.  (required)
+        :return: list[Resource]
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['device_id']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_endpoint_resources" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'device_id' is set
+        if ('device_id' not in params) or (params['device_id'] is None):
+            raise ValueError("Missing the required parameter `device_id` when calling `get_endpoint_resources`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'device_id' in params:
+            path_params['device-id'] = params['device_id']
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v2/endpoints/{device-id}', 'GET',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='list[Resource]',
                                         auth_settings=auth_settings,
                                         async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),

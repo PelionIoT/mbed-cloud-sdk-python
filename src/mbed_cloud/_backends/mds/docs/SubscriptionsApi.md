@@ -4,282 +4,18 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**v2_subscriptions_delete**](SubscriptionsApi.md#v2_subscriptions_delete) | **DELETE** /v2/subscriptions | Remove pre-subscriptions
-[**v2_subscriptions_device_id_delete**](SubscriptionsApi.md#v2_subscriptions_device_id_delete) | **DELETE** /v2/subscriptions/{device-id} | Delete subscriptions from an endpoint
-[**v2_subscriptions_device_id_get**](SubscriptionsApi.md#v2_subscriptions_device_id_get) | **GET** /v2/subscriptions/{device-id} | Read endpoints subscriptions
-[**v2_subscriptions_device_id_resource_path_delete**](SubscriptionsApi.md#v2_subscriptions_device_id_resource_path_delete) | **DELETE** /v2/subscriptions/{device-id}/{resourcePath} | Remove a subscription
-[**v2_subscriptions_device_id_resource_path_get**](SubscriptionsApi.md#v2_subscriptions_device_id_resource_path_get) | **GET** /v2/subscriptions/{device-id}/{resourcePath} | Read subscription status
-[**v2_subscriptions_device_id_resource_path_put**](SubscriptionsApi.md#v2_subscriptions_device_id_resource_path_put) | **PUT** /v2/subscriptions/{device-id}/{resourcePath} | Subscribe to a resource path
-[**v2_subscriptions_get**](SubscriptionsApi.md#v2_subscriptions_get) | **GET** /v2/subscriptions | Get pre-subscriptions
-[**v2_subscriptions_put**](SubscriptionsApi.md#v2_subscriptions_put) | **PUT** /v2/subscriptions | Set pre-subscriptions
-
-
-# **v2_subscriptions_delete**
-> v2_subscriptions_delete()
-
-Remove pre-subscriptions
-
-Removes pre-subscriptions.  **Example usage:**      curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/subscriptions -H 'authorization: Bearer {api-key}' 
-
-### Example 
-```python
-from __future__ import print_function
-import time
-import mds
-from mds.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: Bearer
-configuration = mds.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = mds.SubscriptionsApi(mds.ApiClient(configuration))
-
-try: 
-    # Remove pre-subscriptions
-    api_instance.v2_subscriptions_delete()
-except ApiException as e:
-    print("Exception when calling SubscriptionsApi->v2_subscriptions_delete: %s\n" % e)
-```
-
-### Parameters
-This endpoint does not need any parameter.
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **v2_subscriptions_device_id_delete**
-> v2_subscriptions_device_id_delete(device_id)
-
-Delete subscriptions from an endpoint
-
-Deletes all resource subscriptions in a single endpoint.  **Example usage:**      curl -X DELETE \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id} \\       -H 'authorization: Bearer {api-key}' 
-
-### Example 
-```python
-from __future__ import print_function
-import time
-import mds
-from mds.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: Bearer
-configuration = mds.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = mds.SubscriptionsApi(mds.ApiClient(configuration))
-device_id = 'device_id_example' # str | A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
-
-try: 
-    # Delete subscriptions from an endpoint
-    api_instance.v2_subscriptions_device_id_delete(device_id)
-except ApiException as e:
-    print("Exception when calling SubscriptionsApi->v2_subscriptions_device_id_delete: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **device_id** | **str**| A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  | 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **v2_subscriptions_device_id_get**
-> str v2_subscriptions_device_id_get(device_id)
-
-Read endpoints subscriptions
-
-Lists all subscribed resources from a single endpoint.  **Example usage:**      curl -X GET \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id} \\       -H 'authorization: Bearer {api-key}' 
-
-### Example 
-```python
-from __future__ import print_function
-import time
-import mds
-from mds.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: Bearer
-configuration = mds.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = mds.SubscriptionsApi(mds.ApiClient(configuration))
-device_id = 'device_id_example' # str | A unique Mbed Cloud device ID for the endpoint. Note that ID must be an exact match. You cannot use wildcards here. 
-
-try: 
-    # Read endpoints subscriptions
-    api_response = api_instance.v2_subscriptions_device_id_get(device_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling SubscriptionsApi->v2_subscriptions_device_id_get: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **device_id** | **str**| A unique Mbed Cloud device ID for the endpoint. Note that ID must be an exact match. You cannot use wildcards here.  | 
-
-### Return type
-
-**str**
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: text/uri-list
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **v2_subscriptions_device_id_resource_path_delete**
-> v2_subscriptions_device_id_resource_path_delete(device_id, _resource_path)
-
-Remove a subscription
-
-To remove an existing subscription from a resource path.  **Example usage:**      curl -X DELETE \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id}/{resourcePath} \\       -H 'authorization: Bearer {api-key}' 
-
-### Example 
-```python
-from __future__ import print_function
-import time
-import mds
-from mds.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: Bearer
-configuration = mds.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = mds.SubscriptionsApi(mds.ApiClient(configuration))
-device_id = 'device_id_example' # str | A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
-_resource_path = '_resource_path_example' # str | The URL of the resource. 
-
-try: 
-    # Remove a subscription
-    api_instance.v2_subscriptions_device_id_resource_path_delete(device_id, _resource_path)
-except ApiException as e:
-    print("Exception when calling SubscriptionsApi->v2_subscriptions_device_id_resource_path_delete: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **device_id** | **str**| A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  | 
- **_resource_path** | **str**| The URL of the resource.  | 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **v2_subscriptions_device_id_resource_path_get**
-> v2_subscriptions_device_id_resource_path_get(device_id, _resource_path)
-
-Read subscription status
-
-### Example 
-```python
-from __future__ import print_function
-import time
-import mds
-from mds.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: Bearer
-configuration = mds.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = mds.SubscriptionsApi(mds.ApiClient(configuration))
-device_id = 'device_id_example' # str | A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
-_resource_path = '_resource_path_example' # str | The URL of the resource. 
-
-try: 
-    # Read subscription status
-    api_instance.v2_subscriptions_device_id_resource_path_get(device_id, _resource_path)
-except ApiException as e:
-    print("Exception when calling SubscriptionsApi->v2_subscriptions_device_id_resource_path_get: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **device_id** | **str**| A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  | 
- **_resource_path** | **str**| The URL of the resource.  | 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **v2_subscriptions_device_id_resource_path_put**
-> v2_subscriptions_device_id_resource_path_put(device_id, _resource_path)
+[**add_resource_subscription**](SubscriptionsApi.md#add_resource_subscription) | **PUT** /v2/subscriptions/{device-id}/{resourcePath} | Subscribe to a resource path
+[**check_resource_subscription**](SubscriptionsApi.md#check_resource_subscription) | **GET** /v2/subscriptions/{device-id}/{resourcePath} | Read subscription status
+[**delete_endpoint_subscriptions**](SubscriptionsApi.md#delete_endpoint_subscriptions) | **DELETE** /v2/subscriptions/{device-id} | Delete subscriptions from an endpoint
+[**delete_pre_subscriptions**](SubscriptionsApi.md#delete_pre_subscriptions) | **DELETE** /v2/subscriptions | Remove pre-subscriptions
+[**delete_resource_subscription**](SubscriptionsApi.md#delete_resource_subscription) | **DELETE** /v2/subscriptions/{device-id}/{resourcePath} | Remove a subscription
+[**get_endpoint_subscriptions**](SubscriptionsApi.md#get_endpoint_subscriptions) | **GET** /v2/subscriptions/{device-id} | Read endpoints subscriptions
+[**get_pre_subscriptions**](SubscriptionsApi.md#get_pre_subscriptions) | **GET** /v2/subscriptions | Get pre-subscriptions
+[**update_pre_subscriptions**](SubscriptionsApi.md#update_pre_subscriptions) | **PUT** /v2/subscriptions | Set pre-subscriptions
+
+
+# **add_resource_subscription**
+> add_resource_subscription(device_id, _resource_path)
 
 Subscribe to a resource path
 
@@ -306,9 +42,9 @@ _resource_path = '_resource_path_example' # str | The URL of the resource.
 
 try: 
     # Subscribe to a resource path
-    api_instance.v2_subscriptions_device_id_resource_path_put(device_id, _resource_path)
+    api_instance.add_resource_subscription(device_id, _resource_path)
 except ApiException as e:
-    print("Exception when calling SubscriptionsApi->v2_subscriptions_device_id_resource_path_put: %s\n" % e)
+    print("Exception when calling SubscriptionsApi->add_resource_subscription: %s\n" % e)
 ```
 
 ### Parameters
@@ -333,8 +69,272 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **v2_subscriptions_get**
-> PresubscriptionArray v2_subscriptions_get()
+# **check_resource_subscription**
+> check_resource_subscription(device_id, _resource_path)
+
+Read subscription status
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import mds
+from mds.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+configuration = mds.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = mds.SubscriptionsApi(mds.ApiClient(configuration))
+device_id = 'device_id_example' # str | A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
+_resource_path = '_resource_path_example' # str | The URL of the resource. 
+
+try: 
+    # Read subscription status
+    api_instance.check_resource_subscription(device_id, _resource_path)
+except ApiException as e:
+    print("Exception when calling SubscriptionsApi->check_resource_subscription: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **device_id** | **str**| A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  | 
+ **_resource_path** | **str**| The URL of the resource.  | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **delete_endpoint_subscriptions**
+> delete_endpoint_subscriptions(device_id)
+
+Delete subscriptions from an endpoint
+
+Deletes all resource subscriptions in a single endpoint.  **Example usage:**      curl -X DELETE \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id} \\       -H 'authorization: Bearer {api-key}' 
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import mds
+from mds.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+configuration = mds.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = mds.SubscriptionsApi(mds.ApiClient(configuration))
+device_id = 'device_id_example' # str | A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
+
+try: 
+    # Delete subscriptions from an endpoint
+    api_instance.delete_endpoint_subscriptions(device_id)
+except ApiException as e:
+    print("Exception when calling SubscriptionsApi->delete_endpoint_subscriptions: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **device_id** | **str**| A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **delete_pre_subscriptions**
+> delete_pre_subscriptions()
+
+Remove pre-subscriptions
+
+Removes pre-subscriptions.  **Example usage:**      curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/subscriptions -H 'authorization: Bearer {api-key}' 
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import mds
+from mds.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+configuration = mds.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = mds.SubscriptionsApi(mds.ApiClient(configuration))
+
+try: 
+    # Remove pre-subscriptions
+    api_instance.delete_pre_subscriptions()
+except ApiException as e:
+    print("Exception when calling SubscriptionsApi->delete_pre_subscriptions: %s\n" % e)
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **delete_resource_subscription**
+> delete_resource_subscription(device_id, _resource_path)
+
+Remove a subscription
+
+To remove an existing subscription from a resource path.  **Example usage:**      curl -X DELETE \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id}/{resourcePath} \\       -H 'authorization: Bearer {api-key}' 
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import mds
+from mds.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+configuration = mds.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = mds.SubscriptionsApi(mds.ApiClient(configuration))
+device_id = 'device_id_example' # str | A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
+_resource_path = '_resource_path_example' # str | The URL of the resource. 
+
+try: 
+    # Remove a subscription
+    api_instance.delete_resource_subscription(device_id, _resource_path)
+except ApiException as e:
+    print("Exception when calling SubscriptionsApi->delete_resource_subscription: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **device_id** | **str**| A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  | 
+ **_resource_path** | **str**| The URL of the resource.  | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_endpoint_subscriptions**
+> str get_endpoint_subscriptions(device_id)
+
+Read endpoints subscriptions
+
+Lists all subscribed resources from a single endpoint.  **Example usage:**      curl -X GET \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id} \\       -H 'authorization: Bearer {api-key}' 
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import mds
+from mds.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+configuration = mds.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = mds.SubscriptionsApi(mds.ApiClient(configuration))
+device_id = 'device_id_example' # str | A unique Mbed Cloud device ID for the endpoint. Note that ID must be an exact match. You cannot use wildcards here. 
+
+try: 
+    # Read endpoints subscriptions
+    api_response = api_instance.get_endpoint_subscriptions(device_id)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling SubscriptionsApi->get_endpoint_subscriptions: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **device_id** | **str**| A unique Mbed Cloud device ID for the endpoint. Note that ID must be an exact match. You cannot use wildcards here.  | 
+
+### Return type
+
+**str**
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/uri-list
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_pre_subscriptions**
+> PresubscriptionArray get_pre_subscriptions()
 
 Get pre-subscriptions
 
@@ -359,10 +359,10 @@ api_instance = mds.SubscriptionsApi(mds.ApiClient(configuration))
 
 try: 
     # Get pre-subscriptions
-    api_response = api_instance.v2_subscriptions_get()
+    api_response = api_instance.get_pre_subscriptions()
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling SubscriptionsApi->v2_subscriptions_get: %s\n" % e)
+    print("Exception when calling SubscriptionsApi->get_pre_subscriptions: %s\n" % e)
 ```
 
 ### Parameters
@@ -383,8 +383,8 @@ This endpoint does not need any parameter.
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **v2_subscriptions_put**
-> v2_subscriptions_put(presubsription)
+# **update_pre_subscriptions**
+> update_pre_subscriptions(presubsription)
 
 Set pre-subscriptions
 
@@ -410,9 +410,9 @@ presubsription = mds.PresubscriptionArray() # PresubscriptionArray | Array of pr
 
 try: 
     # Set pre-subscriptions
-    api_instance.v2_subscriptions_put(presubsription)
+    api_instance.update_pre_subscriptions(presubsription)
 except ApiException as e:
-    print("Exception when calling SubscriptionsApi->v2_subscriptions_put: %s\n" % e)
+    print("Exception when calling SubscriptionsApi->update_pre_subscriptions: %s\n" % e)
 ```
 
 ### Parameters
