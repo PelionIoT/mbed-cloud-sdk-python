@@ -136,13 +136,13 @@ class ResourcesApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
-    def execute_resource_function_or_create_resource_path(self, device_id, _resource_path, **kwargs):
+    def execute_or_create_resource(self, device_id, _resource_path, **kwargs):
         """
         Execute a function on a Resource or create new Object instance
         With this API, you can [execute a function](/docs/current/connecting/handle-resource-webapp.html#the-execute-operation) on an existing resource and create new Object instance to the device. The resource-path does not have to exist - it can be created by the call. The maximum length of resource-path is 255 characters.  All resource APIs are asynchronous. These APIs respond only if the device is turned on and connected to Mbed Cloud Connect and there is an active notification channel.  Supported content types depend on the device and its resource. Mbed Cloud translates HTTP to equivalent CoAP content type.  **Example usage:**  This example resets the min and max values of the [temperature sensor](http://www.openmobilealliance.org/tech/profiles/lwm2m/3303.xml) instance 0 by executing the Resource 5605 'Reset Min and Max Measured Values'.      curl -X POST \\       https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id}/3303/0/5605 \\       -H 'authorization: Bearer {api-key}' 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
-        >>> thread = api.execute_resource_function_or_create_resource_path(device_id, _resource_path, async=True)
+        >>> thread = api.execute_or_create_resource(device_id, _resource_path, async=True)
         >>> result = thread.get()
 
         :param async bool
@@ -156,18 +156,18 @@ class ResourcesApi(object):
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async'):
-            return self.execute_resource_function_or_create_resource_path_with_http_info(device_id, _resource_path, **kwargs)
+            return self.execute_or_create_resource_with_http_info(device_id, _resource_path, **kwargs)
         else:
-            (data) = self.execute_resource_function_or_create_resource_path_with_http_info(device_id, _resource_path, **kwargs)
+            (data) = self.execute_or_create_resource_with_http_info(device_id, _resource_path, **kwargs)
             return data
 
-    def execute_resource_function_or_create_resource_path_with_http_info(self, device_id, _resource_path, **kwargs):
+    def execute_or_create_resource_with_http_info(self, device_id, _resource_path, **kwargs):
         """
         Execute a function on a Resource or create new Object instance
         With this API, you can [execute a function](/docs/current/connecting/handle-resource-webapp.html#the-execute-operation) on an existing resource and create new Object instance to the device. The resource-path does not have to exist - it can be created by the call. The maximum length of resource-path is 255 characters.  All resource APIs are asynchronous. These APIs respond only if the device is turned on and connected to Mbed Cloud Connect and there is an active notification channel.  Supported content types depend on the device and its resource. Mbed Cloud translates HTTP to equivalent CoAP content type.  **Example usage:**  This example resets the min and max values of the [temperature sensor](http://www.openmobilealliance.org/tech/profiles/lwm2m/3303.xml) instance 0 by executing the Resource 5605 'Reset Min and Max Measured Values'.      curl -X POST \\       https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id}/3303/0/5605 \\       -H 'authorization: Bearer {api-key}' 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
-        >>> thread = api.execute_resource_function_or_create_resource_path_with_http_info(device_id, _resource_path, async=True)
+        >>> thread = api.execute_or_create_resource_with_http_info(device_id, _resource_path, async=True)
         >>> result = thread.get()
 
         :param async bool
@@ -191,16 +191,16 @@ class ResourcesApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method execute_resource_function_or_create_resource_path" % key
+                    " to method execute_or_create_resource" % key
                 )
             params[key] = val
         del params['kwargs']
         # verify the required parameter 'device_id' is set
         if ('device_id' not in params) or (params['device_id'] is None):
-            raise ValueError("Missing the required parameter `device_id` when calling `execute_resource_function_or_create_resource_path`")
+            raise ValueError("Missing the required parameter `device_id` when calling `execute_or_create_resource`")
         # verify the required parameter '_resource_path' is set
         if ('_resource_path' not in params) or (params['_resource_path'] is None):
-            raise ValueError("Missing the required parameter `_resource_path` when calling `execute_resource_function_or_create_resource_path`")
+            raise ValueError("Missing the required parameter `_resource_path` when calling `execute_or_create_resource`")
 
 
         collection_formats = {}

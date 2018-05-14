@@ -84,7 +84,7 @@ Class | Method | HTTP request | Description
 *NotificationsApi* | [**long_poll_notifications**](docs/NotificationsApi.md#long_poll_notifications) | **GET** /v2/notification/pull | Get notifications using Long Poll
 *NotificationsApi* | [**register_webhook**](docs/NotificationsApi.md#register_webhook) | **PUT** /v2/notification/callback | Register a callback URL
 *ResourcesApi* | [**delete_resource_path**](docs/ResourcesApi.md#delete_resource_path) | **DELETE** /v2/endpoints/{device-id}/{resourcePath} | Delete a resource path
-*ResourcesApi* | [**execute_resource_function_or_create_resource_path**](docs/ResourcesApi.md#execute_resource_function_or_create_resource_path) | **POST** /v2/endpoints/{device-id}/{resourcePath} | Execute a function on a Resource or create new Object instance
+*ResourcesApi* | [**execute_or_create_resource**](docs/ResourcesApi.md#execute_or_create_resource) | **POST** /v2/endpoints/{device-id}/{resourcePath} | Execute a function on a Resource or create new Object instance
 *ResourcesApi* | [**get_resource_value**](docs/ResourcesApi.md#get_resource_value) | **GET** /v2/endpoints/{device-id}/{resourcePath} | Read from a resource
 *ResourcesApi* | [**update_resource_value**](docs/ResourcesApi.md#update_resource_value) | **PUT** /v2/endpoints/{device-id}/{resourcePath} | Write to a resource or use write-attributes for a resource
 *SubscriptionsApi* | [**add_resource_subscription**](docs/SubscriptionsApi.md#add_resource_subscription) | **PUT** /v2/subscriptions/{device-id}/{resourcePath} | Subscribe to a resource path

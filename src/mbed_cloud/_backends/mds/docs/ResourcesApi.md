@@ -5,7 +5,7 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**delete_resource_path**](ResourcesApi.md#delete_resource_path) | **DELETE** /v2/endpoints/{device-id}/{resourcePath} | Delete a resource path
-[**execute_resource_function_or_create_resource_path**](ResourcesApi.md#execute_resource_function_or_create_resource_path) | **POST** /v2/endpoints/{device-id}/{resourcePath} | Execute a function on a Resource or create new Object instance
+[**execute_or_create_resource**](ResourcesApi.md#execute_or_create_resource) | **POST** /v2/endpoints/{device-id}/{resourcePath} | Execute a function on a Resource or create new Object instance
 [**get_resource_value**](ResourcesApi.md#get_resource_value) | **GET** /v2/endpoints/{device-id}/{resourcePath} | Read from a resource
 [**update_resource_value**](ResourcesApi.md#update_resource_value) | **PUT** /v2/endpoints/{device-id}/{resourcePath} | Write to a resource or use write-attributes for a resource
 
@@ -68,8 +68,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **execute_resource_function_or_create_resource_path**
-> AsyncID execute_resource_function_or_create_resource_path(device_id, _resource_path, resource_function=resource_function, no_resp=no_resp)
+# **execute_or_create_resource**
+> AsyncID execute_or_create_resource(device_id, _resource_path, resource_function=resource_function, no_resp=no_resp)
 
 Execute a function on a Resource or create new Object instance
 
@@ -98,10 +98,10 @@ no_resp = true # bool | <br/><br/><b>Non-confirmable requests</b><br/>  All reso
 
 try: 
     # Execute a function on a Resource or create new Object instance
-    api_response = api_instance.execute_resource_function_or_create_resource_path(device_id, _resource_path, resource_function=resource_function, no_resp=no_resp)
+    api_response = api_instance.execute_or_create_resource(device_id, _resource_path, resource_function=resource_function, no_resp=no_resp)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling ResourcesApi->execute_resource_function_or_create_resource_path: %s\n" % e)
+    print("Exception when calling ResourcesApi->execute_or_create_resource: %s\n" % e)
 ```
 
 ### Parameters
