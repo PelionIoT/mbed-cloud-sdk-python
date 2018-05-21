@@ -21,7 +21,6 @@ from .account_info_list import AccountInfoList
 from .account_update_req import AccountUpdateReq
 from .account_update_root_req import AccountUpdateRootReq
 from .active_session import ActiveSession
-from .admin_user_update_req import AdminUserUpdateReq
 from .api_key_info_req import ApiKeyInfoReq
 from .api_key_info_resp import ApiKeyInfoResp
 from .api_key_info_resp_list import ApiKeyInfoRespList

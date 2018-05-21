@@ -159,7 +159,6 @@ Class | Method | HTTP request | Description
  - [AccountUpdateReq](docs/AccountUpdateReq.md)
  - [AccountUpdateRootReq](docs/AccountUpdateRootReq.md)
  - [ActiveSession](docs/ActiveSession.md)
- - [AdminUserUpdateReq](docs/AdminUserUpdateReq.md)
  - [ApiKeyInfoReq](docs/ApiKeyInfoReq.md)
  - [ApiKeyInfoResp](docs/ApiKeyInfoResp.md)
  - [ApiKeyInfoRespList](docs/ApiKeyInfoRespList.md)
