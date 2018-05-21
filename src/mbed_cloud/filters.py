@@ -30,6 +30,8 @@ class OP:  # noqa
     EQ = 'eq'
     GTE = 'gte'
     LTE = 'lte'
+    NIN = 'nin'
+    IN = 'in'
 
 
 FILTER_OPERATOR_ALIASES = {
@@ -37,7 +39,9 @@ FILTER_OPERATOR_ALIASES = {
     OP.NE: 'neq',
     OP.EQ: 'eq',
     OP.GTE: 'gte',
-    OP.LTE: 'lte'
+    OP.LTE: 'lte',
+    OP.NIN: 'nin',
+    OP.IN: 'in',
 }
 
 

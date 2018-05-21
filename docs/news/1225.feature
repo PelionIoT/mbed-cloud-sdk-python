@@ -1,0 +1,1 @@
+Add new 'in' and 'not in (nin)' filter operators.
