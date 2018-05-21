@@ -68,10 +68,10 @@ def main(news_dir=None):
     # pass or fail
     if not added_news:
         print(
-            u'! Error: Uh-oh, did not find any news files!\n'
-            u'! Please add a news file to `%s`\n'
-            u'+ File diff:\n%s\n'
-            u'{} Git diff command:\n`%s`\n' % (
+            '! Error: Uh-oh, did not find any news files!\n'
+            '! Please add a news file to `%s`\n'
+            '+ File diff:\n%s\n'
+            '{} Git diff command:\n`%s`\n' % (
                 news_dir,
                 file_diff.strip(),
                 subprocess.list2cmdline(diff_command)
