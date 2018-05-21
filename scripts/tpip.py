@@ -28,7 +28,9 @@ import pkg_resources
 EXCLUDED_PACKAGES = ('python', 'wheel', 'setuptools', 'pip')
 
 # Report field names in CSV
-FIELDNAMES = ('name', 'version', 'repository', 'licence', 'classifier')
+FIELDNAMES = ('PkgName', 'PkgType', 'PkgOriginator', 'PkgVersion',
+              'PkgSummary', 'PkgHomePageURL', 'PkgLicense', 'PkgLicenseURL', 'PkgMgrURL')
+# FIELDNAMES = ('name', 'version', 'repository', 'licence', 'classifier')
 
 # Licence strings to exclude from the report as they don't add value
 EXCLUDED_LICENSE_STRINGS = ('unknown', 'license', 'licence', 'licensing', 'licencing')
@@ -74,33 +76,65 @@ def process_metadata(pkg_name, metadata_lines):
     :returns: Dictionary of each of the fields
     :rtype: Dict[str, str]
     """
+
     # Initialise a dictionary with all the fields to report on.
-    tpip_pkg = dict(zip(FIELDNAMES, [[pkg_name], [], [], [], []]))
+    tpip_pkg = {fname: None for fname in FIELDNAMES}
+
+    tpip_pkg['PkgName'] = pkg_name
+    tpip_pkg['PkgType'] = 'python package'
+    tpip_pkg['PkgMgrURL'] = 'https://pypi.org/project/%s/' % pkg_name
 
     # Extract the metadata into a list for each field as there may be multiple
     # entries for each one.
     for line in metadata_lines:
+        lower_line = line.lower()
+
         try:
-            metadata_key, metadata_value = line.rsplit(':', 1)
+            metadata_key, metadata_value = lower_line.split(':', 1)
         except ValueError:
             continue
 
-        metadata_key = metadata_key.strip().lower()
+        metadata_key = metadata_key.strip()
         metadata_value = metadata_value.strip()
 
-        if metadata_key.startswith('version'):
-            tpip_pkg['version'].append(metadata_value)
-        elif metadata_key.startswith('home-page'):
-            tpip_pkg['repository'].append(metadata_value.strip(' /'))
-        # Handle british and american spelling of licence/license
-        elif metadata_key.startswith('licen'):
-            if metadata_value.lower() not in EXCLUDED_LICENSE_STRINGS:
-                tpip_pkg['licence'].append(metadata_value)
-        elif metadata_key.startswith('classifier') and 'licen' in metadata_key:
-            tpip_pkg['classifier'].append(metadata_value)
+        if metadata_value == 'unknown':
+            continue
 
-    # Convert to a flat structure to be written out in the CSV
-    return dict((key, '; '.join(value)) for (key, value) in tpip_pkg.items())
+        if metadata_key == 'version':
+            # the key should be 'version' exactly ...
+            tpip_pkg['PkgVersion'] = metadata_value
+        if metadata_key.startswith('version') and not tpip_pkg['PkgVersion']:
+            # ... but if not, we'll use whatever we find
+            tpip_pkg['PkgVersion'] = metadata_value
+        elif metadata_key == 'home-page':
+            tpip_pkg['PkgHomePageURL'] = metadata_value
+        elif metadata_key == 'author':
+            tpip_pkg['PkgOriginator'] = metadata_value
+        elif metadata_key == 'author-email':
+            tpip_pkg['PkgAuthorEmail'] = metadata_value
+        elif metadata_key == 'summary':
+            tpip_pkg['PkgSummary'] = metadata_value
+        # Handle british and american spelling of licence/license
+        elif 'licen' in lower_line:
+            if metadata_key.startswith('licen'):
+                if metadata_value.lower() not in EXCLUDED_LICENSE_STRINGS:
+                    tpip_pkg['PkgLicense'] = metadata_value
+            elif metadata_key.startswith('classifier') or '::' in metadata_value:
+                metadata_value_from_end = lower_line.rsplit(':')[-1].strip()
+                tpip_pkg['PkgLicense'] = metadata_value_from_end
+
+            # additionally, try extracting the URL
+            if '/LICEN' in line:
+                # assume that '/LICEN' is part of a url with a license file
+                tpip_pkg['PkgLicenseURL'] = 'http' + line.split('http')[-1].strip()
+
+    if 'PkgAuthorEmail' in tpip_pkg:
+        tpip_pkg['PkgOriginator'] = '%s <%s>' % (
+            tpip_pkg['PkgOriginator'],
+            tpip_pkg.pop('PkgAuthorEmail')
+        )
+
+    return {k: v.encode('utf8').decode('ascii', 'backslashreplace') for k, v in tpip_pkg.items() if v not in {'unknown', None}}
 
 
 def write_csv_file(output_filename, tpip_pkgs):
@@ -117,8 +151,7 @@ def write_csv_file(output_filename, tpip_pkgs):
     with open(output_filename, 'w', newline='') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=FIELDNAMES)
         writer.writeheader()
-        for pkg_dict in tpip_pkgs:
-            writer.writerow(pkg_dict)
+        writer.writerows(tpip_pkgs)
 
 
 def main():
