@@ -32,6 +32,7 @@ class AdminUserUpdateReq(object):
     """
     swagger_types = {
         'address': 'str',
+        'custom_fields': 'dict(str, str)',
         'email': 'str',
         'full_name': 'str',
         'groups': 'list[str]',
@@ -42,12 +43,12 @@ class AdminUserUpdateReq(object):
         'password': 'str',
         'phone_number': 'str',
         'status': 'str',
-        'user_properties': 'dict(str, dict(str, str))',
         'username': 'str'
     }
 
     attribute_map = {
         'address': 'address',
+        'custom_fields': 'custom_fields',
         'email': 'email',
         'full_name': 'full_name',
         'groups': 'groups',
@@ -58,16 +59,16 @@ class AdminUserUpdateReq(object):
         'password': 'password',
         'phone_number': 'phone_number',
         'status': 'status',
-        'user_properties': 'user_properties',
         'username': 'username'
     }
 
-    def __init__(self, address=None, email=None, full_name=None, groups=None, is_gtc_accepted=None, is_marketing_accepted=None, is_totp_enabled=None, notification_properties=None, password=None, phone_number=None, status=None, user_properties=None, username=None):
+    def __init__(self, address=None, custom_fields=None, email=None, full_name=None, groups=None, is_gtc_accepted=None, is_marketing_accepted=None, is_totp_enabled=None, notification_properties=None, password=None, phone_number=None, status=None, username=None):
         """
         AdminUserUpdateReq - a model defined in Swagger
         """
 
         self._address = address
+        self._custom_fields = custom_fields
         self._email = email
         self._full_name = full_name
         self._groups = groups
@@ -78,7 +79,6 @@ class AdminUserUpdateReq(object):
         self._password = password
         self._phone_number = phone_number
         self._status = status
-        self._user_properties = user_properties
         self._username = username
         self.discriminator = None
 
@@ -104,6 +104,29 @@ class AdminUserUpdateReq(object):
         """
 
         self._address = address
+
+    @property
+    def custom_fields(self):
+        """
+        Gets the custom_fields of this AdminUserUpdateReq.
+        User's account specific custom properties. The value is handled as a string.
+
+        :return: The custom_fields of this AdminUserUpdateReq.
+        :rtype: dict(str, str)
+        """
+        return self._custom_fields
+
+    @custom_fields.setter
+    def custom_fields(self, custom_fields):
+        """
+        Sets the custom_fields of this AdminUserUpdateReq.
+        User's account specific custom properties. The value is handled as a string.
+
+        :param custom_fields: The custom_fields of this AdminUserUpdateReq.
+        :type: dict(str, str)
+        """
+
+        self._custom_fields = custom_fields
 
     @property
     def email(self):
@@ -334,29 +357,6 @@ class AdminUserUpdateReq(object):
         """
 
         self._status = status
-
-    @property
-    def user_properties(self):
-        """
-        Gets the user_properties of this AdminUserUpdateReq.
-        User's account specific custom properties.
-
-        :return: The user_properties of this AdminUserUpdateReq.
-        :rtype: dict(str, dict(str, str))
-        """
-        return self._user_properties
-
-    @user_properties.setter
-    def user_properties(self, user_properties):
-        """
-        Sets the user_properties of this AdminUserUpdateReq.
-        User's account specific custom properties.
-
-        :param user_properties: The user_properties of this AdminUserUpdateReq.
-        :type: dict(str, dict(str, str))
-        """
-
-        self._user_properties = user_properties
 
     @property
     def username(self):

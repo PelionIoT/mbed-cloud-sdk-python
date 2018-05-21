@@ -1496,7 +1496,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_users_of_account_group**
-> UserInfoRespList get_users_of_account_group(account_id, group_id, limit=limit, after=after, order=order, include=include)
+> UserInfoRespList get_users_of_account_group(account_id, group_id, limit=limit, after=after, order=order, include=include, status__eq=status__eq, status__in=status__in, status__nin=status__nin)
 
 Get users of a group.
 
@@ -1524,10 +1524,13 @@ limit = 50 # int | The number of results to return (2-1000), default is 50. (opt
 after = 'after_example' # str | The entity ID to fetch after the given one. (optional)
 order = 'ASC' # str | The order of the records based on creation time, ASC or DESC; by default ASC (optional) (default to ASC)
 include = 'include_example' # str | Comma separated additional data to return. Currently supported: total_count (optional)
+status__eq = 'status__eq_example' # str | An optional filter for getting users by status. (optional)
+status__in = 'status__in_example' # str | An optional filter for getting users with a specified set of statuses. (optional)
+status__nin = 'status__nin_example' # str | An optional filter for excluding users with a specified set of statuses. (optional)
 
 try: 
     # Get users of a group.
-    api_response = api_instance.get_users_of_account_group(account_id, group_id, limit=limit, after=after, order=order, include=include)
+    api_response = api_instance.get_users_of_account_group(account_id, group_id, limit=limit, after=after, order=order, include=include, status__eq=status__eq, status__in=status__in, status__nin=status__nin)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling AggregatorAccountAdminApi->get_users_of_account_group: %s\n" % e)
@@ -1543,6 +1546,9 @@ Name | Type | Description  | Notes
  **after** | **str**| The entity ID to fetch after the given one. | [optional] 
  **order** | **str**| The order of the records based on creation time, ASC or DESC; by default ASC | [optional] [default to ASC]
  **include** | **str**| Comma separated additional data to return. Currently supported: total_count | [optional] 
+ **status__eq** | **str**| An optional filter for getting users by status. | [optional] 
+ **status__in** | **str**| An optional filter for getting users with a specified set of statuses. | [optional] 
+ **status__nin** | **str**| An optional filter for excluding users with a specified set of statuses. | [optional] 
 
 ### Return type
 

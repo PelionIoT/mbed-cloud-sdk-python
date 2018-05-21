@@ -35,7 +35,7 @@ Name | Type | Description | Notes
 **sales_contact** | **str** | Email address of the sales contact. | [optional] 
 **state** | **str** | The state part of the postal address. | [optional] 
 **status** | **str** | The status of the account. | 
-**sub_accounts** | [**list[AccountInfo]**](AccountInfo.md) | List of sub accounts. | [optional] 
+**sub_accounts** | [**list[AccountInfo]**](AccountInfo.md) | List of sub accounts. Not available for developer users. | [optional] 
 **template_id** | **str** | Account template ID. | [optional] 
 **tier** | **str** | The tier level of the account; &#39;0&#39;: free tier, &#39;1&#39;: commercial account, &#39;2&#39;: partner tier. Other values are reserved for the future. | 
 **updated_at** | **datetime** | Last update UTC time RFC3339. | [optional] 

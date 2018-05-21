@@ -36,6 +36,7 @@ class UserUpdateResp(object):
         'address': 'str',
         'created_at': 'datetime',
         'creation_time': 'int',
+        'custom_fields': 'dict(str, str)',
         'email': 'str',
         'email_verified': 'bool',
         'etag': 'str',
@@ -55,7 +56,6 @@ class UserUpdateResp(object):
         'totp_scratch_codes': 'list[str]',
         'totp_secret': 'str',
         'updated_at': 'datetime',
-        'user_properties': 'dict(str, dict(str, str))',
         'username': 'str'
     }
 
@@ -65,6 +65,7 @@ class UserUpdateResp(object):
         'address': 'address',
         'created_at': 'created_at',
         'creation_time': 'creation_time',
+        'custom_fields': 'custom_fields',
         'email': 'email',
         'email_verified': 'email_verified',
         'etag': 'etag',
@@ -84,11 +85,10 @@ class UserUpdateResp(object):
         'totp_scratch_codes': 'totp_scratch_codes',
         'totp_secret': 'totp_secret',
         'updated_at': 'updated_at',
-        'user_properties': 'user_properties',
         'username': 'username'
     }
 
-    def __init__(self, account_id=None, active_sessions=None, address=None, created_at=None, creation_time=None, email=None, email_verified=None, etag=None, full_name=None, groups=None, id=None, is_gtc_accepted=None, is_marketing_accepted=None, is_totp_enabled=None, last_login_time=None, login_history=None, object=None, password=None, password_changed_time=None, phone_number=None, status=None, totp_scratch_codes=None, totp_secret=None, updated_at=None, user_properties=None, username=None):
+    def __init__(self, account_id=None, active_sessions=None, address=None, created_at=None, creation_time=None, custom_fields=None, email=None, email_verified=None, etag=None, full_name=None, groups=None, id=None, is_gtc_accepted=None, is_marketing_accepted=None, is_totp_enabled=None, last_login_time=None, login_history=None, object=None, password=None, password_changed_time=None, phone_number=None, status=None, totp_scratch_codes=None, totp_secret=None, updated_at=None, username=None):
         """
         UserUpdateResp - a model defined in Swagger
         """
@@ -98,6 +98,7 @@ class UserUpdateResp(object):
         self._address = address
         self._created_at = created_at
         self._creation_time = creation_time
+        self._custom_fields = custom_fields
         self._email = email
         self._email_verified = email_verified
         self._etag = etag
@@ -117,7 +118,6 @@ class UserUpdateResp(object):
         self._totp_scratch_codes = totp_scratch_codes
         self._totp_secret = totp_secret
         self._updated_at = updated_at
-        self._user_properties = user_properties
         self._username = username
         self.discriminator = None
 
@@ -237,6 +237,29 @@ class UserUpdateResp(object):
         """
 
         self._creation_time = creation_time
+
+    @property
+    def custom_fields(self):
+        """
+        Gets the custom_fields of this UserUpdateResp.
+        User's account specific custom properties. The value is a string.
+
+        :return: The custom_fields of this UserUpdateResp.
+        :rtype: dict(str, str)
+        """
+        return self._custom_fields
+
+    @custom_fields.setter
+    def custom_fields(self, custom_fields):
+        """
+        Sets the custom_fields of this UserUpdateResp.
+        User's account specific custom properties. The value is a string.
+
+        :param custom_fields: The custom_fields of this UserUpdateResp.
+        :type: dict(str, str)
+        """
+
+        self._custom_fields = custom_fields
 
     @property
     def email(self):
@@ -696,29 +719,6 @@ class UserUpdateResp(object):
         """
 
         self._updated_at = updated_at
-
-    @property
-    def user_properties(self):
-        """
-        Gets the user_properties of this UserUpdateResp.
-        User's account specific custom properties.
-
-        :return: The user_properties of this UserUpdateResp.
-        :rtype: dict(str, dict(str, str))
-        """
-        return self._user_properties
-
-    @user_properties.setter
-    def user_properties(self, user_properties):
-        """
-        Sets the user_properties of this UserUpdateResp.
-        User's account specific custom properties.
-
-        :param user_properties: The user_properties of this UserUpdateResp.
-        :type: dict(str, dict(str, str))
-        """
-
-        self._user_properties = user_properties
 
     @property
     def username(self):

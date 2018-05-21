@@ -924,7 +924,7 @@ class AccountInfo(object):
     def sub_accounts(self):
         """
         Gets the sub_accounts of this AccountInfo.
-        List of sub accounts.
+        List of sub accounts. Not available for developer users.
 
         :return: The sub_accounts of this AccountInfo.
         :rtype: list[AccountInfo]
@@ -935,7 +935,7 @@ class AccountInfo(object):
     def sub_accounts(self, sub_accounts):
         """
         Sets the sub_accounts of this AccountInfo.
-        List of sub accounts.
+        List of sub accounts. Not available for developer users.
 
         :param sub_accounts: The sub_accounts of this AccountInfo.
         :type: list[AccountInfo]

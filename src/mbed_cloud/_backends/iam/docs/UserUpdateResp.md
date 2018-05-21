@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **address** | **str** | Address. | [optional] 
 **created_at** | **datetime** | Creation UTC time RFC3339. | [optional] 
 **creation_time** | **int** | A timestamp of the user creation in the storage, in milliseconds. | [optional] 
+**custom_fields** | **dict(str, str)** | User&#39;s account specific custom properties. The value is a string. | [optional] 
 **email** | **str** | The email address. | 
 **email_verified** | **bool** | A flag indicating whether the user&#39;s email address has been verified or not. | [optional] 
 **etag** | **str** | API resource entity version. | 
@@ -27,7 +28,6 @@ Name | Type | Description | Notes
 **totp_scratch_codes** | **list[str]** | A list of scratch codes for the 2-factor authentication. Visible only when 2FA is requested to be enabled or the codes regenerated. | [optional] 
 **totp_secret** | **str** | Secret for the 2-factor authenticator app. Visible only when 2FA is requested to be enabled. | [optional] 
 **updated_at** | **datetime** | Last update UTC time RFC3339. | [optional] 
-**user_properties** | [**dict(str, dict(str, str))**](dict.md) | User&#39;s account specific custom properties. | [optional] 
 **username** | **str** | A username containing alphanumerical letters and -,._@+&#x3D; characters. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
