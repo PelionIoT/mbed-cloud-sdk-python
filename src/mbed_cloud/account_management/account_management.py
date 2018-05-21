@@ -689,7 +689,7 @@ class User(BaseObject):
             "last_login_time": "last_login_time",
             "two_factor_authentication": "is_totp_enabled",
             "login_history": "login_history",
-            "custom_properties": "user_properties",
+            "custom_properties": "custom_fields",
         }
 
     @property
@@ -854,7 +854,7 @@ class User(BaseObject):
         """User properties
 
         :returns: dictionary of properties
-        :rtype: dict(str, dict(str, str))
+        :rtype: dict(str, str)
         """
         return self._custom_properties
 

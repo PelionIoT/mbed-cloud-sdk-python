@@ -2716,6 +2716,9 @@ class AggregatorAccountAdminApi(object):
         :param str after: The entity ID to fetch after the given one.
         :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
         :param str include: Comma separated additional data to return. Currently supported: total_count
+        :param str status__eq: An optional filter for getting users by status.
+        :param str status__in: An optional filter for getting users with a specified set of statuses.
+        :param str status__nin: An optional filter for excluding users with a specified set of statuses.
         :return: UserInfoRespList
                  If the method is called asynchronously,
                  returns the request thread.
@@ -2743,12 +2746,15 @@ class AggregatorAccountAdminApi(object):
         :param str after: The entity ID to fetch after the given one.
         :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
         :param str include: Comma separated additional data to return. Currently supported: total_count
+        :param str status__eq: An optional filter for getting users by status.
+        :param str status__in: An optional filter for getting users with a specified set of statuses.
+        :param str status__nin: An optional filter for excluding users with a specified set of statuses.
         :return: UserInfoRespList
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['account_id', 'group_id', 'limit', 'after', 'order', 'include']
+        all_params = ['account_id', 'group_id', 'limit', 'after', 'order', 'include', 'status__eq', 'status__in', 'status__nin']
         all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -2788,6 +2794,12 @@ class AggregatorAccountAdminApi(object):
             query_params.append(('order', params['order']))
         if 'include' in params:
             query_params.append(('include', params['include']))
+        if 'status__eq' in params:
+            query_params.append(('status__eq', params['status__eq']))
+        if 'status__in' in params:
+            query_params.append(('status__in', params['status__in']))
+        if 'status__nin' in params:
+            query_params.append(('status__nin', params['status__nin']))
 
         header_params = {}
 
@@ -3697,7 +3709,7 @@ class AggregatorAccountAdminApi(object):
         :param async bool
         :param str account_id: Account ID. (required)
         :param str user_id: The ID of the user to be updated. (required)
-        :param AdminUserUpdateReq body: A user object with attributes. (required)
+        :param UserUpdateReq body: A user object with attributes. (required)
         :return: UserUpdateResp
                  If the method is called asynchronously,
                  returns the request thread.
@@ -3721,7 +3733,7 @@ class AggregatorAccountAdminApi(object):
         :param async bool
         :param str account_id: Account ID. (required)
         :param str user_id: The ID of the user to be updated. (required)
-        :param AdminUserUpdateReq body: A user object with attributes. (required)
+        :param UserUpdateReq body: A user object with attributes. (required)
         :return: UserUpdateResp
                  If the method is called asynchronously,
                  returns the request thread.

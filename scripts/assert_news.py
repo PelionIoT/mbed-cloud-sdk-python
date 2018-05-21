@@ -1,8 +1,24 @@
-# -*- coding: utf8 -*-
+# --------------------------------------------------------------------------
+# Mbed Cloud Python SDK
+# (C) COPYRIGHT 2017 Arm Limited
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# --------------------------------------------------------------------------
+"""Part of the CI process"""
 
+import os
 import subprocess
 import sys
-import os
 
 
 def main(news_dir=None):
@@ -36,7 +52,7 @@ def main(news_dir=None):
         cwd=news_dir
     ).decode().strip()
 
-    print('🔎 Finding news in `%s` to add to remote `%s`' % (current_branch, origin))
+    print(':: Finding news in `%s` to add to remote `%s`' % (current_branch, origin))
     diff_command = ['git', 'diff', '%s...%s' % (origin, current_branch), '--name-status', news_dir]
     file_diff = subprocess.check_output(
         diff_command,
@@ -52,13 +68,17 @@ def main(news_dir=None):
     # pass or fail
     if not added_news:
         print(
-            '🚫️ Error: Uh-oh, did not find any news files!\n'
-            '❗ Please add a news file to `%s`\n'
-            '± File diff:\n%s\n'
-            '{} Git diff command:\n`%s`\n' % (news_dir, file_diff.strip(), subprocess.list2cmdline(diff_command))
+            '! Error: Uh-oh, did not find any news files!\n'
+            '! Please add a news file to `%s`\n'
+            '+ File diff:\n%s\n'
+            '{} Git diff command:\n`%s`\n' % (
+                news_dir,
+                file_diff.strip(),
+                subprocess.list2cmdline(diff_command)
+            )
         )
         exit(1)  # exit with an error status, no need for a traceback
-    print('✔️ %s new files in `%s`' % (len(added_news), news_dir))
+    print(':: %s new files in `%s`' % (len(added_news), news_dir))
 
 
 if __name__ == '__main__':
