@@ -75,9 +75,18 @@ def process_metadata(pkg_name, metadata_lines):
     :returns: Dictionary of each of the fields
     :rtype: Dict[str, str]
     """
-
     # Initialise a dictionary with all the fields to report on.
-    tpip_pkg = {fname: None for fname in FIELDNAMES}
+    tpip_pkg = {}
+
+    tpip_mappings = {
+        'version': 'PkgVersion',
+        'home-page': 'PkgHomePageURL',
+        'author': 'PkgOriginator',
+        'author-email': 'PkgAuthorEmail',
+        'summary': 'PkgSummary',
+        'license': 'PkgLicense',
+        'licence': 'PkgLicense',
+    }
 
     tpip_pkg['PkgName'] = pkg_name
     tpip_pkg['PkgType'] = 'python package'
@@ -99,33 +108,21 @@ def process_metadata(pkg_name, metadata_lines):
         if metadata_value == 'unknown':
             continue
 
-        if metadata_key == 'version':
-            # the key should be 'version' exactly ...
-            tpip_pkg['PkgVersion'] = metadata_value
-        if metadata_key.startswith('version') and not tpip_pkg['PkgVersion']:
+        # extract exact matches
+        if metadata_key in tpip_mappings:
+            tpip_pkg[tpip_mappings[metadata_key]] = metadata_value
+            continue
+
+        if metadata_key.startswith('version') and not tpip_pkg.get('PkgVersion'):
             # ... but if not, we'll use whatever we find
             tpip_pkg['PkgVersion'] = metadata_value
-        elif metadata_key == 'home-page':
-            tpip_pkg['PkgHomePageURL'] = metadata_value
-        elif metadata_key == 'author':
-            tpip_pkg['PkgOriginator'] = metadata_value
-        elif metadata_key == 'author-email':
-            tpip_pkg['PkgAuthorEmail'] = metadata_value
-        elif metadata_key == 'summary':
-            tpip_pkg['PkgSummary'] = metadata_value
+            continue
+
         # Handle british and american spelling of licence/license
-        elif 'licen' in lower_line:
-            if metadata_key.startswith('licen'):
-                if metadata_value.lower() not in EXCLUDED_LICENSE_STRINGS:
-                    tpip_pkg['PkgLicense'] = metadata_value
-            elif metadata_key.startswith('classifier') or '::' in metadata_value:
+        if not tpip_pkg.get('PkgLicense') and 'licen' in lower_line:
+            if metadata_key.startswith('classifier') or '::' in metadata_value:
                 metadata_value_from_end = lower_line.rsplit(':')[-1].strip()
                 tpip_pkg['PkgLicense'] = metadata_value_from_end
-
-            # additionally, try extracting the URL
-            if '/LICEN' in line:
-                # assume that '/LICEN' is part of a url with a license file
-                tpip_pkg['PkgLicenseURL'] = 'http' + line.split('http')[-1].strip()
 
     if 'PkgAuthorEmail' in tpip_pkg:
         tpip_pkg['PkgOriginator'] = '%s <%s>' % (
@@ -133,7 +130,7 @@ def process_metadata(pkg_name, metadata_lines):
             tpip_pkg.pop('PkgAuthorEmail')
         )
 
-    return {k: v.encode('utf8').decode('ascii', 'backslashreplace') for k, v in tpip_pkg.items() if v not in {'unknown', None}}
+    return tpip_pkg
 
 
 def write_csv_file(output_filename, tpip_pkgs):
@@ -153,6 +150,14 @@ def write_csv_file(output_filename, tpip_pkgs):
         writer.writerows(tpip_pkgs)
 
 
+def force_ascii_values(data):
+    """Ensures each value is ascii-only"""
+    return {
+        k: v.encode('utf8').decode('ascii', 'backslashreplace')
+        for k, v in data.items()
+    }
+
+
 def main():
     """Generate a TPIP report."""
     parser = argparse.ArgumentParser(description='Generate a TPIP report as a CSV file.')
@@ -165,7 +170,7 @@ def main():
         if pkg_name not in EXCLUDED_PACKAGES:
             metadata_lines = get_metadata(pkg_item)
             tpip_pkg = process_metadata(pkg_name, metadata_lines)
-            tpip_pkgs.append(tpip_pkg)
+            tpip_pkgs.append(force_ascii_values(tpip_pkg))
 
     write_csv_file(args.output_filename, tpip_pkgs)
 
