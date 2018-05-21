@@ -316,6 +316,8 @@ workflows:
     - news_check:
         filters:
           branches:
-            ignore: master
+            ignore:
+            - master
+            - integration
     - tpip_report: {}
   version: 2

@@ -30,6 +30,7 @@ import yaml
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(__file__))
 container_config_root = os.path.join(PROJECT_ROOT, 'container')
+script_templates_root = os.path.join(PROJECT_ROOT, 'scripts', 'templates')
 author_file = os.path.relpath(__file__, PROJECT_ROOT)
 cache_dir = f'~/caches'
 
@@ -305,7 +306,8 @@ def generate_circle_output():
         workflow=dict(
             filters=dict(
                 branches=dict(
-                    ignore='master'
+                    # we ignore this check for builds directly on the base branches
+                    ignore=['master', 'integration']
                 )
             )
         )
@@ -374,13 +376,13 @@ def generate_circle_output():
 
 def generate_docker_file(py_ver: PyVer):
     """Templated docker files"""
-    with open(os.path.join('templates', 'Dockerfile')) as fh:
+    with open(os.path.join(script_templates_root, 'Dockerfile')) as fh:
         return fh.read().format(py_ver=py_ver, author=author_file)
 
 
 def generate_compose_file(py_ver: PyVer):
     """Templated docker-compose files"""
-    with open(os.path.join('templates', 'docker-compose.yml')) as fh:
+    with open(os.path.join(script_templates_root, 'docker-compose.yml')) as fh:
         return fh.read().format(py_ver=py_ver, author=author_file)
 
 
