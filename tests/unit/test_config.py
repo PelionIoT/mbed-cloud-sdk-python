@@ -16,7 +16,7 @@ import queue
 import shutil
 import tempfile
 
-from logging.handlers import QueueHandler
+from logging import Handler
 
 
 class TestConfigObj(BaseCase):
@@ -59,12 +59,25 @@ class TestConfigObj(BaseCase):
 
     def test_logging(self):
         q = queue.Queue()
-        logging.basicConfig()  # enables >'WARNING', (or >'INFO' if our config gets there first)
+
+        class FakeLogHandler(Handler):
+            def emit(self, record):
+                q.put(record)
+
         top_logger = logging.getLogger(mbed_cloud.__name__)
-        top_logger.setLevel(logging.DEBUG)  # explicitly enable >'DEBUG' at top level
-        logging.getLogger('mbed_cloud.utils').addHandler(QueueHandler(q))
-        utils.logging_check()  # this iterates all log levels, and should now include 'DEBUG'
+        logging.getLogger('mbed_cloud.utils').addHandler(FakeLogHandler(level=logging.DEBUG))
+
+        top_logger.setLevel(level=logging.INFO)  # enables >'INFO' (but our config should have got there first anyway)
+        utils.logging_check()  # this iterates all log levels, and should include up to 'INFO'
         levels_seen = {log.levelname for log in list(q.queue)}
+        self.assertIn('INFO', levels_seen)
+        self.assertNotIn('DEBUG', levels_seen)
+
+        q.queue.clear()
+        top_logger.setLevel(level=logging.DEBUG)  # explicitly enable >'DEBUG' at top level
+        utils.logging_check()  # this iterates all log levels, and should now include up to 'DEBUG'
+        levels_seen = {log.levelname for log in list(q.queue)}
+        self.assertIn('INFO', levels_seen)  # check that module-level log config has cascaded
         self.assertIn('DEBUG', levels_seen)  # check that module-level log config has cascaded
 
 
