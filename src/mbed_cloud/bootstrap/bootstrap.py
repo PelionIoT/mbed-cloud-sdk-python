@@ -61,7 +61,10 @@ class BootstrapAPI(BaseAPI):
 
 
 class PreSharedKey(BaseObject):
-    """Describes device object from the catalog."""
+    """Describes device object from the catalog.
+    For more information about such keys, 
+    have a look at https://cloud.mbed.com/docs/latest/connecting/mbed-client-lite-security-considerations.html"
+    """
 
     @staticmethod
     def _get_attributes_map():
@@ -76,6 +79,9 @@ class PreSharedKey(BaseObject):
 
         Endpoint name is the unique ID of the pre-shared key.
         16-64 printable (non-control) ASCII characters.
+        It also must be globally unique. 
+        Consider using vendor-MAC-ID-device-model.
+        For example "myEndpoint.host.com"
 
         :param endpoint_name: The endpoint_name of this PreSharedKey.
         :type: str
@@ -90,6 +96,8 @@ class PreSharedKey(BaseObject):
         - It is not case sensitive; 4a is same as 4A
         - It is allowed with or without 0x in the beginning.
         - The minimum length of the secret is 128 bits and max 512 bits.
+        
+        For example "4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a"
 
         :return: The secret_hex of this PreSharedKey.
         :rtype: str
