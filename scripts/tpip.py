@@ -30,7 +30,6 @@ EXCLUDED_PACKAGES = ('python', 'wheel', 'setuptools', 'pip')
 # Report field names in CSV
 FIELDNAMES = ('PkgName', 'PkgType', 'PkgOriginator', 'PkgVersion',
               'PkgSummary', 'PkgHomePageURL', 'PkgLicense', 'PkgLicenseURL', 'PkgMgrURL')
-# FIELDNAMES = ('name', 'version', 'repository', 'licence', 'classifier')
 
 # Licence strings to exclude from the report as they don't add value
 EXCLUDED_LICENSE_STRINGS = ('unknown', 'license', 'licence', 'licensing', 'licencing')
