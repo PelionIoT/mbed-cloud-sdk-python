@@ -2050,7 +2050,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 api_instance = iam.AggregatorAccountAdminApi(iam.ApiClient(configuration))
 account_id = 'account_id_example' # str | Account ID.
 user_id = 'user_id_example' # str | The ID of the user to be updated.
-body = iam.AdminUserUpdateReq() # AdminUserUpdateReq | A user object with attributes.
+body = iam.UserUpdateReq() # UserUpdateReq | A user object with attributes.
 
 try: 
     # Update user details.
@@ -2066,7 +2066,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **account_id** | **str**| Account ID. | 
  **user_id** | **str**| The ID of the user to be updated. | 
- **body** | [**AdminUserUpdateReq**](AdminUserUpdateReq.md)| A user object with attributes. | 
+ **body** | [**UserUpdateReq**](UserUpdateReq.md)| A user object with attributes. | 
 
 ### Return type
 

@@ -3709,7 +3709,7 @@ class AggregatorAccountAdminApi(object):
         :param async bool
         :param str account_id: Account ID. (required)
         :param str user_id: The ID of the user to be updated. (required)
-        :param AdminUserUpdateReq body: A user object with attributes. (required)
+        :param UserUpdateReq body: A user object with attributes. (required)
         :return: UserUpdateResp
                  If the method is called asynchronously,
                  returns the request thread.
@@ -3733,7 +3733,7 @@ class AggregatorAccountAdminApi(object):
         :param async bool
         :param str account_id: Account ID. (required)
         :param str user_id: The ID of the user to be updated. (required)
-        :param AdminUserUpdateReq body: A user object with attributes. (required)
+        :param UserUpdateReq body: A user object with attributes. (required)
         :return: UserUpdateResp
                  If the method is called asynchronously,
                  returns the request thread.
