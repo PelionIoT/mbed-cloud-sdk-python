@@ -166,7 +166,7 @@ def main():
     args = parser.parse_args()
 
     tpip_pkgs = []
-    for pkg_name, pkg_item in pkg_resources.working_set.by_key.items():
+    for pkg_name, pkg_item in sorted(pkg_resources.working_set.by_key.items()):
         if pkg_name not in EXCLUDED_PACKAGES:
             metadata_lines = get_metadata(pkg_item)
             tpip_pkg = process_metadata(pkg_name, metadata_lines)
