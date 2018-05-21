@@ -98,8 +98,8 @@ class PreSharedKey(object):
         """
         if secret_hex is None:
             raise ValueError("Invalid value for `secret_hex`, must not be `None`")
-        if secret_hex is not None and not re.search('^(0[xX])?[0-9a-fA-F]{16,64}$', secret_hex):
-            raise ValueError("Invalid value for `secret_hex`, must be a follow pattern or equal to `/^(0[xX])?[0-9a-fA-F]{16,64}$/`")
+        if secret_hex is not None and not re.search('^(0[xX])?[0-9a-fA-F]{32,64}$', secret_hex):
+            raise ValueError("Invalid value for `secret_hex`, must be a follow pattern or equal to `/^(0[xX])?[0-9a-fA-F]{32,64}$/`")
 
         self._secret_hex = secret_hex
 

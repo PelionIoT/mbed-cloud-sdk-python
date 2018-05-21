@@ -218,7 +218,7 @@ class PreSharedKeysApi(object):
     def upload_pre_shared_key(self, body, **kwargs):
         """
         Upload a pre-shared key to Mbed Cloud.
-        Upload a pre-shared key (PSK) for an endpoint to allow it to bootstrap. The existing key will not be overwritten but needs to be deleted first in case of re-setting PSK for an endpoint.  **Note**: The PSK APIs are available only to accounts that have this feature enabled.  ``` Example payloads: {\"endpoint_name\": \"myEndpoint\", \"secret_hex\": \"4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a\" } {\"endpoint_name\": \"myEndpoint\", \"secret_hex\": \"0x4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a\" } ``` 
+        Upload a pre-shared key (PSK) for an endpoint to allow it to bootstrap. The existing key will not be overwritten but needs to be deleted first in case of re-setting PSK for an endpoint.  **Note**: The PSK APIs are available only to accounts that have this feature enabled.  ``` Example payloads: {\"endpoint_name\": \"myEndpoint.host.com\", \"secret_hex\": \"4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a\" } {\"endpoint_name\": \"myEndpoint.host.com\", \"secret_hex\": \"0x4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a\" } ``` 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.upload_pre_shared_key(body, async=True)
@@ -240,7 +240,7 @@ class PreSharedKeysApi(object):
     def upload_pre_shared_key_with_http_info(self, body, **kwargs):
         """
         Upload a pre-shared key to Mbed Cloud.
-        Upload a pre-shared key (PSK) for an endpoint to allow it to bootstrap. The existing key will not be overwritten but needs to be deleted first in case of re-setting PSK for an endpoint.  **Note**: The PSK APIs are available only to accounts that have this feature enabled.  ``` Example payloads: {\"endpoint_name\": \"myEndpoint\", \"secret_hex\": \"4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a\" } {\"endpoint_name\": \"myEndpoint\", \"secret_hex\": \"0x4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a\" } ``` 
+        Upload a pre-shared key (PSK) for an endpoint to allow it to bootstrap. The existing key will not be overwritten but needs to be deleted first in case of re-setting PSK for an endpoint.  **Note**: The PSK APIs are available only to accounts that have this feature enabled.  ``` Example payloads: {\"endpoint_name\": \"myEndpoint.host.com\", \"secret_hex\": \"4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a\" } {\"endpoint_name\": \"myEndpoint.host.com\", \"secret_hex\": \"0x4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a\" } ``` 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.upload_pre_shared_key_with_http_info(body, async=True)
