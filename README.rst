@@ -30,7 +30,7 @@ Python 2.7.10+ / Python 3.4.3+, built with SSL support.
 
 Use of `virtual
 environments <http://docs.python-guide.org/en/latest/dev/virtualenvs/>`__
-or *pipenv* is recommended to manage python versions and dependencies.
+or `pipenv <https://docs.pipenv.org/>`__ is recommended to manage python versions and dependencies.
 
 Installation
 ------------
@@ -63,7 +63,7 @@ documentation <https://cloud.mbed.com/docs/latest/mbed-cloud-sdk-python/>`__:
 
        from mbed_cloud import ConnectAPI
        connect_api = ConnectAPI()
-       connect_api.list_connected_devices().data[0]
+       connect_api.list_connected_devices().first()
        {
          "id": "Device #1",
          "state": "unenrolled",
@@ -74,7 +74,8 @@ documentation <https://cloud.mbed.com/docs/latest/mbed-cloud-sdk-python/>`__:
 
        from mbed_cloud import AccountManagementAPI
        api = AccountManagementAPI()
-       list(api.list_users())[0]
+       for user in api.list_users():
+          print(user)
        {
          "email": "username@example.org",
          "full_name": "A.N. Individual",

@@ -31,6 +31,11 @@ def logging_check():
         getattr(LOG, level)(text, level)
 
 
+def ensure_listable(obj):
+    """Ensures obj is a list-like container type"""
+    return obj if isinstance(obj, (list, tuple, set)) else [obj]
+
+
 def force_utc(time, name='field'):
     """Appending 'Z' to isoformatted time - explicit timezone is required for most APIs"""
     if not isinstance(time, datetime.datetime):

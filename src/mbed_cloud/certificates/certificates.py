@@ -41,7 +41,10 @@ class CertificatesAPI(BaseAPI):
     }
 
     def __init__(self, params=None):
-        """Initialise the certificates API, optionally passing in overriding config."""
+        """A module to access this section of the Mbed Cloud API.
+
+        :param params: Dictionary to override configuration values
+        """
         super(CertificatesAPI, self).__init__(params)
         self.auth = self.api_clients[cert].configuration.api_key['Authorization']
 

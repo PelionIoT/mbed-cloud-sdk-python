@@ -79,7 +79,10 @@ class ConnectAPI(BaseAPI):
     }
 
     def __init__(self, params=None):
-        """Setup the backend APIs with provided config."""
+        """A module to access this section of the Mbed Cloud API.
+
+        :param params: Dictionary to override configuration values
+        """
         super(ConnectAPI, self).__init__(params)
 
         self._db = {}
@@ -226,6 +229,7 @@ class ConnectAPI(BaseAPI):
         :param str device_id: ID of the device (Required)
         :param str path: Path of the resource to get (Required)
         :returns: Device resource
+
         :rtype Resource
         """
         resources = self.list_resources(device_id)

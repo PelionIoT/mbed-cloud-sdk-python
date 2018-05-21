@@ -46,101 +46,63 @@ while True:
 """
 import itertools
 import logging
-import threading
+from mbed_cloud import utils
 
 LOG = logging.getLogger(__name__)
 
 
 def expand_dict_as_keys(d):
-    """Expands a dictionary into a keyable frozen set
+    """Expands a dictionary into a list of immutables with cartesian product
 
     :param d: dictionary (of strings or lists)
     :returns: cartesian product of list parts
     """
     to_product = []
-    static = []
     for key, values in sorted(d.items()):
-        if isinstance(values, (list, tuple, set)):
-            to_product.append(tuple((key, v) for v in values))
-        else:
-            static.append((key, values))
-    new_keys = (
-        (tuple(static + list(items)) for items in itertools.product(*to_product))
-        if to_product else [static]
-    )
-    return [tuple(sorted(new_key)) for new_key in new_keys]
-
-
-class RoutingConflict(KeyError):
-    """Routing Conflict"""
-
-    pass
+        # if we sort the inputs here, itertools.product will keep a stable sort order for us later
+        key_values = sorted([(key, v) for v in utils.ensure_listable(values) if v is not None])
+        if key_values:
+            to_product.append(key_values)
+    return list(itertools.product(*to_product))
 
 
 class RoutingBase(object):
-    """Two-level routing
+    """Routes unique inbound keys
 
-    Level one - matches permanent keys
-    Level two - optional keys
+    to matching lists of items
     """
 
     def __init__(self):
         """Routes"""
         self._routes = {}
-        self._lock = threading.Lock()
-        self._any_key = '_any_'
 
-    def get_route_item(self, route):
-        """Get item attached to this route"""
-        return self._routes.get(route)
+    def get_route_items(self, route):
+        """Get items attached to this route"""
+        return list(self._routes.get(route, []))
 
-    def get_or_create_routes(self, item, routes, sub_routes=None):
-        """Stores a new item in routing map
-
-        Unless that exact route already exists - then returns existing item
-        or partial route exists - then error
-        """
-        sub_routes = sub_routes or [self._any_key]
-        with self._lock:
-            # check for existing exact matches
-            # FIXME: use a top-level memoisation for performance (but invalidation is tricky)
-            # or take a copy and only modify it if no conflicts (also yuk?)
-            unique_conflicts = set()
-            for route in routes:
-                nested = self._routes.get(route, {})
-                for sub_route in sub_routes:
-                    existing = nested.get(sub_route)
-                    unique_conflicts.add(existing)
-
-            if len(unique_conflicts) == 1:
-                if unique_conflicts != {None}:
-                    return unique_conflicts.pop()
-            else:
-                raise RoutingConflict(
-                    '%s/%s matched multiple different existing entries' % (
-                        routes,
-                        sub_routes
-                    )
-                )
-
-            # so assuming there were no conflicts, loop a second time to do the insertions
-            for route in routes:
-                nested = self._routes.setdefault(route, {})
-                for sub_route in sub_routes:
-                    nested.setdefault(sub_route, item)
+    def create_route(self, item, routes):
+        """Stores a new item in routing map"""
+        for route in routes:
+            self._routes.setdefault(route, set()).add(item)
         return item
 
-    def remove_routes(self, routes):
-        """Removes matching routes"""
-        with self._lock:
-            for r in routes:
-                self._routes.pop(r)
-                LOG.debug('removed route %s', r)
+    def remove_routes(self, item, routes):
+        """Removes item from matching routes"""
+        for route in routes:
+            items = self._routes.get(route)
+            try:
+                items.remove(item)
+                LOG.debug('removed item from route %s', route)
+            except ValueError:
+                pass
+            if not items:
+                self._routes.pop(route)
+                LOG.debug('removed route %s', route)
 
     def list_all(self):
-        """All routes"""
+        """All items"""
         return list(set(
-            sub_route for route in self._routes.values() for sub_route in route.values()
+            item for items in self._routes.values() for item in items
         ))
 
 
@@ -178,11 +140,11 @@ class SubscriptionsManager(RoutingBase):
     def get_channel(self, subscription_channel, **observer_params):
         """Get or start the requested channel"""
         keys = subscription_channel.get_routing_keys()
-        extras = subscription_channel.get_extra_keys()
-        [self.watch_keys.add(k_v[0]) for key in keys for k_v in key]
-        channel = self.get_or_create_routes(subscription_channel, keys, extras)
-        channel._configure(self, self.connect_api, observer_params)
-        return channel
+        # watch keys are unique sets of keys that we will attempt to extract from inbound items
+        self.watch_keys.add(frozenset({k_v[0] for key in keys for k_v in key}))
+        self.create_route(subscription_channel, keys)
+        subscription_channel._configure(self, self.connect_api, observer_params)
+        return subscription_channel
 
     def subscribe(self, subscription_channel, **observer_params):
         """Subscribe to a channel
@@ -192,41 +154,40 @@ class SubscriptionsManager(RoutingBase):
         return self.get_channel(subscription_channel, **observer_params).ensure_started().observer
     __call__ = subscribe
 
+    def _notify(self, item):
+        """Route inbound items to individual channels"""
+        for key_set in self.watch_keys:
+            # only pluck keys if they exist
+            plucked = {
+                key_name: item[key_name]
+                for key_name in key_set if key_name in item
+            }
+            route_keys = expand_dict_as_keys(plucked)
+            for route in route_keys:
+                channels = self.get_route_items(route) or {}
+                logging.debug('subscribed channels: %s', channels)
+                if not channels:
+                    logging.debug(
+                        'no subscribers for message.\nkey %s\nroutes: %s',
+                        route,
+                        self._routes
+                    )
+                for channel in channels:
+                    logging.debug('routing dispatch: %s', item)
+                    channel.notify(item)
+
     def notify(self, data):
         """Notify subscribers that data was received"""
-        LOG.debug('notified: %s', data)
-        try:
-            for channel_name, items in data.items():
-                for item in items or []:
-                    # inject the channel name to the data, for a flat structure
+        for channel_name, items in data.items():
+            for item in items or []:
+                LOG.debug('notified: %s', item)
+                try:
+                    # inject the channel name to the data (so channels can filter on it)
                     item = dict(item)
-                    item.update(dict(channel=channel_name))
-
-                    # pluck keys we care about
-                    plucked = {
-                        key_name: item[key_name]
-                        for key_name in self.watch_keys if key_name in item
-                    }
-                    route_keys = expand_dict_as_keys(plucked)
-                    for route in route_keys:
-                        sub_channels = self.get_route_item(route) or {}
-                        LOG.debug('subscribed channels: %s', sub_channels)
-                        if not sub_channels:
-                            LOG.debug(
-                                'no subscribers.\nkey %s\nroutes: %s',
-                                route,
-                                self._routes
-                            )
-                            LOG.debug(
-                                'plucked params: %s\nwatched: %s',
-                                plucked,
-                                self.watch_keys
-                            )
-                        for sub_channel in sub_channels.values():
-                            LOG.debug('dispatch: %s', item)
-                            sub_channel.notify(item)
-        except Exception:  # noqa
-            LOG.exception('Subscription notification failed')
+                    item['channel'] = channel_name
+                    self._notify(item)
+                except Exception:  # noqa
+                    LOG.exception('Subscription notification failed')
 
     def unsubscribe_all(self):
         """Unsubscribes all channels"""

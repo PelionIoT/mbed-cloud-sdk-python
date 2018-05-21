@@ -79,6 +79,7 @@ class Observer(object):
 
         self._latest_item = None
         self._iter_count = 0
+        self._notify_count = 0
         self._subscription_started = None
         self._cancelled = False
 
@@ -121,6 +122,7 @@ class Observer(object):
     def notify(self, data):
         """Notify this observer that data has arrived"""
         LOG.debug('notify received: %s', data)
+        self._notify_count += 1
         if self._cancelled:
             LOG.debug('notify skipping due to `cancelled`')
             return self
@@ -146,6 +148,11 @@ class Observer(object):
             callback(data)
         self._once_done = True
         return self
+
+    @property
+    def notify_count(self):
+        """Number of notifications received"""
+        return self._notify_count
 
     def cancel(self):
         """Cancels the observer

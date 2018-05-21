@@ -53,6 +53,9 @@ RUN pipenv run python scripts/generate_news.py
 # run smoke tests
 RUN pipenv run pytest --durations=3 tests/unit
 
+# run static analysis
+RUN pipenv run pytest --durations=3 tests/static
+
 # build the documentation
 RUN pipenv run sphinx-build -a -b html -c docs/ docs/ built_docs
 

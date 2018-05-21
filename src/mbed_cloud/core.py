@@ -38,7 +38,10 @@ class BaseAPI(object):
     api_structure = {}
 
     def __init__(self, params=None):
-        """Ensure the config is valid and has all required fields."""
+        """A module to access this section of the Mbed Cloud API.
+
+        :param params: Dictionary to override configuration values
+        """
         self.config = Config(params)
         self.apis = {}
         self.api_clients = {}

@@ -17,7 +17,7 @@ services:
       volumes:
         - ../results:/build/results
         - ../test_fixtures:/test_fixtures
-      command: [sh, -c, 'source .venv/bin/activate && pytest']
+      command: [sh, -c, 'source .venv/bin/activate && pytest tests/integration tests/unit']
   testrunner:
 #      build:
 #        # this assumes you have a checkout of the testrunner alongside the sdk
