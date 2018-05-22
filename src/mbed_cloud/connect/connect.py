@@ -438,7 +438,7 @@ class ConnectAPI(BaseAPI):
     @catch_exceptions(mds.rest.ApiException)
     def _add_subscription(self, device_id, resource_path):
         api = self._get_api(mds.SubscriptionsApi)
-        return api.v2_subscriptions_device_id_resource_path_put(device_id, resource_path)
+        return api.add_resource_subscription(device_id, resource_path)
 
     @catch_exceptions(mds.rest.ApiException)
     def add_resource_subscription(self, device_id, resource_path, fix_path=True, queue_size=5):
@@ -513,7 +513,7 @@ class ConnectAPI(BaseAPI):
 
         api = self._get_api(mds.SubscriptionsApi)
         try:
-            api.v2_subscriptions_device_id_resource_path_get(device_id, fixed_path)
+            api.check_resource_subscription(device_id, fixed_path)
         except Exception as e:
             if e.status == 404:
                 return False
@@ -547,7 +547,7 @@ class ConnectAPI(BaseAPI):
         :returns: None
         """
         api = self._get_api(mds.SubscriptionsApi)
-        return api.v2_subscriptions_put([])
+        return api.update_pre_subscriptions([])
 
     @catch_exceptions(mds.rest.ApiException)
     def delete_subscriptions(self):
@@ -587,7 +587,7 @@ class ConnectAPI(BaseAPI):
         :rtype: list of str
         """
         api = self._get_api(mds.SubscriptionsApi)
-        resp = api.v2_subscriptions_device_id_get(device_id, **kwargs)
+        resp = api.get_endpoint_subscriptions(device_id, **kwargs)
         return resp.split("\n")
 
     @catch_exceptions(mds.rest.ApiException)
@@ -598,12 +598,12 @@ class ConnectAPI(BaseAPI):
         :returns: None
         """
         api = self._get_api(mds.SubscriptionsApi)
-        return api.v2_subscriptions_device_id_delete(device_id)
+        return api.delete_endpoint_subscriptions(device_id)
 
     @catch_exceptions(mds.rest.ApiException)
     def _delete_subscription(self, device_id, resource_path):
         api = self._get_api(mds.SubscriptionsApi)
-        return api.v2_subscriptions_device_id_resource_path_delete(device_id, resource_path)
+        return api.delete_resource_subscription(device_id, resource_path)
 
     @catch_exceptions(mds.rest.ApiException)
     def delete_resource_subscription(self, device_id=None, resource_path=None, fix_path=True):
