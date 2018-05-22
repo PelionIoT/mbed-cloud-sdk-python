@@ -4,11 +4,11 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**v2_device_requests_device_id_post**](DeviceRequestsApi.md#v2_device_requests_device_id_post) | **POST** /v2/device-requests/{device-id} | Send an async request to device
+[**create_async_request**](DeviceRequestsApi.md#create_async_request) | **POST** /v2/device-requests/{device-id} | Send an async request to device
 
 
-# **v2_device_requests_device_id_post**
-> v2_device_requests_device_id_post(device_id, async_id, body)
+# **create_async_request**
+> create_async_request(device_id, async_id, body)
 
 Send an async request to device
 
@@ -36,9 +36,9 @@ body = mds.DeviceRequest() # DeviceRequest | Device request to send.
 
 try: 
     # Send an async request to device
-    api_instance.v2_device_requests_device_id_post(device_id, async_id, body)
+    api_instance.create_async_request(device_id, async_id, body)
 except ApiException as e:
-    print("Exception when calling DeviceRequestsApi->v2_device_requests_device_id_post: %s\n" % e)
+    print("Exception when calling DeviceRequestsApi->create_async_request: %s\n" % e)
 ```
 
 ### Parameters
