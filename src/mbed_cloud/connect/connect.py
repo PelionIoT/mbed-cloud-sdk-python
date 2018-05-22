@@ -79,7 +79,10 @@ class ConnectAPI(BaseAPI):
     }
 
     def __init__(self, params=None):
-        """Setup the backend APIs with provided config."""
+        """A module to access this section of the Mbed Cloud API.
+
+        :param params: Dictionary to override configuration values
+        """
         super(ConnectAPI, self).__init__(params)
 
         self._db = {}
@@ -145,7 +148,7 @@ class ConnectAPI(BaseAPI):
             self._notifications_thread = None
             stopping = thread.stop()
             api = self._get_api(mds.NotificationsApi)
-            api.v2_notification_pull_delete()
+            api.delete_long_poll_channel()
             return stopping.wait()
 
     @catch_exceptions(device_directory.rest.ApiException)
@@ -217,7 +220,7 @@ class ConnectAPI(BaseAPI):
         :rtype: list
         """
         api = self._get_api(mds.EndpointsApi)
-        return [Resource(r) for r in api.v2_endpoints_device_id_get(device_id)]
+        return [Resource(r) for r in api.get_endpoint_resources(device_id)]
 
     @catch_exceptions(mds.rest.ApiException)
     def get_resource(self, device_id, resource_path):
@@ -226,6 +229,7 @@ class ConnectAPI(BaseAPI):
         :param str device_id: ID of the device (Required)
         :param str path: Path of the resource to get (Required)
         :returns: Device resource
+
         :rtype Resource
         """
         resources = self.list_resources(device_id)
@@ -240,7 +244,7 @@ class ConnectAPI(BaseAPI):
         api = self._get_api(mds.DeviceRequestsApi)
         async_id = async_id or utils.new_async_id()
         device_request = mds.DeviceRequest(**params)
-        api.v2_device_requests_device_id_post(
+        api.create_async_request(
             device_id,
             async_id=async_id,
             body=device_request,
@@ -354,9 +358,9 @@ class ConnectAPI(BaseAPI):
             resource_path = resource_path[1:]
 
         api = self._get_api(mds.ResourcesApi)
-        resp = api.v2_endpoints_device_id_resource_path_put(device_id,
-                                                            resource_path,
-                                                            resource_value)
+        resp = api.update_resource_value(device_id,
+                                         resource_path,
+                                         resource_value)
         return AsyncConsumer(resp.async_response_id, self._db)
 
     @catch_exceptions(mds.rest.ApiException)
@@ -390,9 +394,9 @@ class ConnectAPI(BaseAPI):
             resource_path = resource_path[1:]
 
         api = self._get_api(mds.ResourcesApi)
-        resp = api.v2_endpoints_device_id_resource_path_post(device_id,
-                                                             resource_path,
-                                                             **kwargs)
+        resp = api.execute_or_create_resource(device_id,
+                                              resource_path,
+                                              **kwargs)
         consumer = AsyncConsumer(resp.async_response_id, self._db)
         return consumer.wait(timeout)
 
@@ -425,16 +429,16 @@ class ConnectAPI(BaseAPI):
 
         api = self._get_api(mds.ResourcesApi)
 
-        resp = api.v2_endpoints_device_id_resource_path_post(device_id,
-                                                             resource_path,
-                                                             **kwargs)
+        resp = api.execute_or_create_resource(device_id,
+                                              resource_path,
+                                              **kwargs)
 
         return AsyncConsumer(resp.async_response_id, self._db)
 
     @catch_exceptions(mds.rest.ApiException)
     def _add_subscription(self, device_id, resource_path):
         api = self._get_api(mds.SubscriptionsApi)
-        return api.v2_subscriptions_device_id_resource_path_put(device_id, resource_path)
+        return api.add_resource_subscription(device_id, resource_path)
 
     @catch_exceptions(mds.rest.ApiException)
     def add_resource_subscription(self, device_id, resource_path, fix_path=True, queue_size=5):
@@ -509,7 +513,7 @@ class ConnectAPI(BaseAPI):
 
         api = self._get_api(mds.SubscriptionsApi)
         try:
-            api.v2_subscriptions_device_id_resource_path_get(device_id, fixed_path)
+            api.check_resource_subscription(device_id, fixed_path)
         except Exception as e:
             if e.status == 404:
                 return False
@@ -534,7 +538,7 @@ class ConnectAPI(BaseAPI):
                 "_resource_path": presubscription.get("resource_paths", None)
             }
             presubscriptions_list.append(PresubscriptionData(**presubscription))
-        return api.v2_subscriptions_put(presubscriptions_list)
+        return api.update_pre_subscriptions(presubscriptions_list)
 
     @catch_exceptions(mds.rest.ApiException)
     def delete_presubscriptions(self):
@@ -543,7 +547,7 @@ class ConnectAPI(BaseAPI):
         :returns: None
         """
         api = self._get_api(mds.SubscriptionsApi)
-        return api.v2_subscriptions_put([])
+        return api.update_pre_subscriptions([])
 
     @catch_exceptions(mds.rest.ApiException)
     def delete_subscriptions(self):
@@ -560,7 +564,7 @@ class ConnectAPI(BaseAPI):
             try:
                 self.delete_device_subscriptions(device_id=device.id)
             except CloudApiException as e:
-                logging.warning('failed to remove subscription for %s: %s', device.id, e)
+                LOG.warning('failed to remove subscription for %s: %s', device.id, e)
                 continue
 
     @catch_exceptions(mds.rest.ApiException)
@@ -571,7 +575,7 @@ class ConnectAPI(BaseAPI):
         :rtype: list of mbed_cloud.presubscription.Presubscription
         """
         api = self._get_api(mds.SubscriptionsApi)
-        resp = api.v2_subscriptions_get(**kwargs)
+        resp = api.get_pre_subscriptions(**kwargs)
         return [Presubscription(p) for p in resp]
 
     @catch_exceptions(mds.rest.ApiException)
@@ -583,7 +587,7 @@ class ConnectAPI(BaseAPI):
         :rtype: list of str
         """
         api = self._get_api(mds.SubscriptionsApi)
-        resp = api.v2_subscriptions_device_id_get(device_id, **kwargs)
+        resp = api.get_endpoint_subscriptions(device_id, **kwargs)
         return resp.split("\n")
 
     @catch_exceptions(mds.rest.ApiException)
@@ -594,12 +598,12 @@ class ConnectAPI(BaseAPI):
         :returns: None
         """
         api = self._get_api(mds.SubscriptionsApi)
-        return api.v2_subscriptions_device_id_delete(device_id)
+        return api.delete_endpoint_subscriptions(device_id)
 
     @catch_exceptions(mds.rest.ApiException)
     def _delete_subscription(self, device_id, resource_path):
         api = self._get_api(mds.SubscriptionsApi)
-        return api.v2_subscriptions_device_id_resource_path_delete(device_id, resource_path)
+        return api.delete_resource_subscription(device_id, resource_path)
 
     @catch_exceptions(mds.rest.ApiException)
     def delete_resource_subscription(self, device_id=None, resource_path=None, fix_path=True):
@@ -670,7 +674,7 @@ class ConnectAPI(BaseAPI):
         :return: The currently set webhook
         """
         api = self._get_api(mds.NotificationsApi)
-        return Webhook(api.v2_notification_callback_get())
+        return Webhook(api.get_webhook())
 
     @catch_exceptions(mds.rest.ApiException)
     def update_webhook(self, url, headers=None):
@@ -686,11 +690,11 @@ class ConnectAPI(BaseAPI):
         api = self._get_api(mds.NotificationsApi)
 
         # Delete notifications channel
-        api.v2_notification_pull_delete()
+        api.delete_long_poll_channel()
 
         # Send the request to register the webhook
         webhook_obj = WebhookData(url=url, headers=headers)
-        api.v2_notification_callback_put(webhook_obj)
+        api.register_webhook(webhook_obj)
         return
 
     @catch_exceptions(mds.rest.ApiException)
@@ -705,7 +709,7 @@ class ConnectAPI(BaseAPI):
         :return: void
         """
         api = self._get_api(mds.DefaultApi)
-        api.v2_notification_callback_delete()
+        api.deregister_webhook()
 
         # Every subscription will be deleted, so we can clear the queues too.
         self._queues.clear()

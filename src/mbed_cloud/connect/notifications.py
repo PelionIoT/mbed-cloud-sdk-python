@@ -207,7 +207,7 @@ class NotificationsThread(threading.Thread):
         """Thread main loop"""
         try:
             while not self._stopping:
-                data = self.notifications_api.v2_notification_pull_get()
+                data = self.notifications_api.long_poll_notifications()
                 handle_channel_message(
                     db=self.db,
                     queues=self.queues,

@@ -30,7 +30,7 @@ Python 2.7.10+ / Python 3.4.3+, built with SSL support.
 
 Use of `virtual
 environments <http://docs.python-guide.org/en/latest/dev/virtualenvs/>`__
-or *pipenv* is recommended to manage python versions and dependencies.
+or `pipenv <https://docs.pipenv.org/>`__ is recommended to manage python versions and dependencies.
 
 Installation
 ------------
@@ -43,7 +43,7 @@ Usage
 -----
 
 These instructions can also be found in the `official
-documentation <https://cloud.mbed.com/docs/v1.2/mbed-cloud-sdk-python/>`__:
+documentation <https://cloud.mbed.com/docs/latest/mbed-cloud-sdk-python/>`__:
 
 1. Create an API key in the `Mbed Cloud
    Portal <https://portal.us-east-1.mbedcloud.com/>`__.
@@ -63,7 +63,7 @@ documentation <https://cloud.mbed.com/docs/v1.2/mbed-cloud-sdk-python/>`__:
 
        from mbed_cloud import ConnectAPI
        connect_api = ConnectAPI()
-       connect_api.list_connected_devices().data[0]
+       connect_api.list_connected_devices().first()
        {
          "id": "Device #1",
          "state": "unenrolled",
@@ -74,7 +74,8 @@ documentation <https://cloud.mbed.com/docs/v1.2/mbed-cloud-sdk-python/>`__:
 
        from mbed_cloud import AccountManagementAPI
        api = AccountManagementAPI()
-       list(api.list_users())[0]
+       for user in api.list_users():
+          print(user)
        {
          "email": "username@example.org",
          "full_name": "A.N. Individual",
@@ -84,7 +85,7 @@ documentation <https://cloud.mbed.com/docs/v1.2/mbed-cloud-sdk-python/>`__:
 Documentation and examples
 --------------------------
 
-The full documentation and API reference is hosted here: https://cloud.mbed.com/docs/v1.2/mbed-cloud-sdk-python/.
+The full documentation and API reference is hosted here: https://cloud.mbed.com/docs/latest/mbed-cloud-sdk-python/.
 
 .. _examples directory: https://github.com/ARMmbed/mbed-cloud-sdk-python/tree/master/examples
 
@@ -96,13 +97,13 @@ Contributing
 ------------
 
 Mbed Cloud SDK for Python is open source and we would like your help; there
-is a brief guide on how to get started in `CONTRIBUTING.md <CONTRIBUTING.md>`__.
+is a brief guide on how to get started in `CONTRIBUTING.md <https://github.com/ARMmbed/mbed-cloud-sdk-python/tree/master/CONTRIBUTING.md>`__.
 
 Licence
 -------
 
 Mbed Cloud SDK for Python is free to use and licensed under the Apache
-License 2.0. See `LICENCE <LICENCE>`__ for more information.
+License 2.0. See `LICENCE <https://github.com/ARMmbed/mbed-cloud-sdk-python/tree/master/LICENCE>`__ for more information.
 
 Versioning
 ----------

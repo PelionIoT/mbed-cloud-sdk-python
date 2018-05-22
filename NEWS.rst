@@ -13,6 +13,48 @@ a list of versions that have been released on PyPI.
 ..
     begin_release_notes
 
+1.2.7.968 (2018-03-27)
+======================
+
+Features
+--------
+
+- Add subscriptions High Level Abstraction. Provides access to device
+  registration status notifications. Sends request to terminate long poll on
+  'stop_notifications'. (#722)
+
+
+1.2.6.852 (2018-03-08)
+======================
+
+Features
+--------
+
+- Support Connector Enrollment Service API in SDK. Capabilities include:
+  Account Admin can upload a list of Device IDs to claim, and can view the
+  status of claimed devices. Make a new device claim using:
+  `mbed_cloud.EnrollmentAPI().add_enrollment_claim(enrollment_identity=YOUR_CLAIM_TOKEN)`.
+  (#627)
+
+- The HTTP header User-Agent is now configured by the SDK and contains version
+  and basic platform information, which is passed to the Mbed Cloud. (#634)
+
+Bugfixes
+--------
+
+- ConnectAPI: Add a timeout parameter to `set_resource_value` and
+  `execute_resource_value` (#1015)
+
+- Fix for list_campaign_device_states using outdated api (#1022)
+
+- ConnectAPI: Use a different api backend for consistency when retrieving
+  resource values. `set_resource_value`/`set_resource_value_async` no longer
+  execute a resource (use `execute_resource` instead). (#604)
+
+- SDKs now iterate subscriptions in order to delete them. (#733)
+
+- Use correct API for updating campaign objects (#953)
+
 
 Older releases
 ==============

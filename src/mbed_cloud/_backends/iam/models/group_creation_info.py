@@ -31,23 +31,46 @@ class GroupCreationInfo(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'name': 'str',
-        'members': 'SubjectList'
+        'members': 'SubjectList',
+        'name': 'str'
     }
 
     attribute_map = {
-        'name': 'name',
-        'members': 'members'
+        'members': 'members',
+        'name': 'name'
     }
 
-    def __init__(self, name=None, members=None):
+    def __init__(self, members=None, name=None):
         """
         GroupCreationInfo - a model defined in Swagger
         """
 
-        self._name = name
         self._members = members
+        self._name = name
         self.discriminator = None
+
+    @property
+    def members(self):
+        """
+        Gets the members of this GroupCreationInfo.
+        The members of the group as arrays of user and API key UUIDs.
+
+        :return: The members of this GroupCreationInfo.
+        :rtype: SubjectList
+        """
+        return self._members
+
+    @members.setter
+    def members(self, members):
+        """
+        Sets the members of this GroupCreationInfo.
+        The members of the group as arrays of user and API key UUIDs.
+
+        :param members: The members of this GroupCreationInfo.
+        :type: SubjectList
+        """
+
+        self._members = members
 
     @property
     def name(self):
@@ -73,29 +96,6 @@ class GroupCreationInfo(object):
             raise ValueError("Invalid value for `name`, must not be `None`")
 
         self._name = name
-
-    @property
-    def members(self):
-        """
-        Gets the members of this GroupCreationInfo.
-        The members of the group as arrays of user and API key UUIDs.
-
-        :return: The members of this GroupCreationInfo.
-        :rtype: SubjectList
-        """
-        return self._members
-
-    @members.setter
-    def members(self, members):
-        """
-        Sets the members of this GroupCreationInfo.
-        The members of the group as arrays of user and API key UUIDs.
-
-        :param members: The members of this GroupCreationInfo.
-        :type: SubjectList
-        """
-
-        self._members = members
 
     def to_dict(self):
         """

@@ -41,7 +41,10 @@ class CertificatesAPI(BaseAPI):
     }
 
     def __init__(self, params=None):
-        """Initialise the certificates API, optionally passing in overriding config."""
+        """A module to access this section of the Mbed Cloud API.
+
+        :param params: Dictionary to override configuration values
+        """
         super(CertificatesAPI, self).__init__(params)
         self.auth = self.api_clients[cert].configuration.api_key['Authorization']
 
@@ -97,15 +100,15 @@ class CertificatesAPI(BaseAPI):
         # extend certificate with developer_certificate properties
         if certificate.type == CertificateType.developer:
             dev_api = self._get_api(cert.DeveloperCertificateApi)
-            dev_cert = dev_api.v3_developer_certificates_muuid_get(certificate.id, self.auth)
+            dev_cert = dev_api.get_developer_certificate(certificate.id, self.auth)
             certificate.update_attributes(dev_cert)
         elif certificate.type == CertificateType.bootstrap:
             server_api = self._get_api(cert.ServerCredentialsApi)
-            credentials = server_api.v3_server_credentials_bootstrap_get(self.auth)
+            credentials = server_api.get_bootstrap_server_credentials(self.auth)
             certificate.update_attributes(credentials)
         elif certificate.type == CertificateType.lwm2m:
             server_api = self._get_api(cert.ServerCredentialsApi)
-            credentials = server_api.v3_server_credentials_lwm2m_get(self.auth)
+            credentials = server_api.get_l2_m2_m_server_credentials(self.auth)
             certificate.update_attributes(credentials)
 
     @catch_exceptions(IamApiException)
@@ -129,6 +132,7 @@ class CertificatesAPI(BaseAPI):
         :param str signature: Base64 encoded signature of the account ID
             signed by the certificate to be uploaded.
             Signature must be hashed with SHA256. (Required)
+            If using enrollment_mode, this can be set to None
         :param str status: Status of the certificate.
             Allowed values: "ACTIVE" | "INACTIVE".
         :param str description: Human readable description of this certificate,
@@ -142,7 +146,8 @@ class CertificatesAPI(BaseAPI):
 
         kwargs.update({'certificate_data': certificate_data})
         certificate = Certificate._create_request_map(kwargs)
-        certificate.update({'signature': signature})
+        if not certificate.get('enrollment_mode'):
+            certificate.update({'signature': signature})
         body = iam.TrustedCertificateReq(**certificate)
         prod_cert = api.add_certificate(body)
         return self.get_certificate(prod_cert.id)
@@ -166,7 +171,7 @@ class CertificatesAPI(BaseAPI):
         certificate = {k: v for k, v in certificate.items() if k in subset}
 
         body = cert.DeveloperCertificateRequestData(**certificate)
-        dev_cert = api.v3_developer_certificates_post(self.auth, body)
+        dev_cert = api.create_developer_certificate(self.auth, body)
         return self.get_certificate(dev_cert.id)
 
     @catch_exceptions(IamApiException)
@@ -275,7 +280,7 @@ class Certificate(BaseObject):
         :return: The enrollment_mode of this certificate.
         :rtype: str
         """
-        return self._enrollment_mode or False  # FIXME: is this the correct default?
+        return self._enrollment_mode
 
     @property
     def description(self):

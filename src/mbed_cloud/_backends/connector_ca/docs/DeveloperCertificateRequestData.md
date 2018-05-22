@@ -3,8 +3,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **str** | The name of the developer certificate, must be unique. | 
-**description** | **str** | A description for the developer certificate. | [optional] 
+**description** | **str** | Description for the developer certificate. There is a limit on the length of the description. Please see [TrustedCertificateReq](/docs/v1.2/api-references/account-management-api.html#trustedcertificatereq) | [optional] 
+**name** | **str** | Name of the developer certificate, must be unique. There is a limit on the length of the name. Please see [TrustedCertificateReq](/docs/v1.2/api-references/account-management-api.html#trustedcertificatereq) | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

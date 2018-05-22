@@ -31,53 +31,78 @@ class FirmwareManifest(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'datafile': 'str',
-        'description': 'str',
-        'timestamp': 'datetime',
         'created_at': 'datetime',
-        'object': 'str',
-        'updated_at': 'datetime',
-        'etag': 'datetime',
-        'key_table': 'str',
-        'device_class': 'str',
+        'datafile': 'str',
         'datafile_size': 'int',
+        'description': 'str',
+        'device_class': 'str',
+        'etag': 'datetime',
         'id': 'str',
-        'name': 'str'
+        'key_table': 'str',
+        'name': 'str',
+        'object': 'str',
+        'timestamp': 'datetime',
+        'updated_at': 'datetime'
     }
 
     attribute_map = {
-        'datafile': 'datafile',
-        'description': 'description',
-        'timestamp': 'timestamp',
         'created_at': 'created_at',
-        'object': 'object',
-        'updated_at': 'updated_at',
-        'etag': 'etag',
-        'key_table': 'key_table',
-        'device_class': 'device_class',
+        'datafile': 'datafile',
         'datafile_size': 'datafile_size',
+        'description': 'description',
+        'device_class': 'device_class',
+        'etag': 'etag',
         'id': 'id',
-        'name': 'name'
+        'key_table': 'key_table',
+        'name': 'name',
+        'object': 'object',
+        'timestamp': 'timestamp',
+        'updated_at': 'updated_at'
     }
 
-    def __init__(self, datafile=None, description=None, timestamp=None, created_at=None, object=None, updated_at=None, etag=None, key_table=None, device_class=None, datafile_size=None, id=None, name=None):
+    def __init__(self, created_at=None, datafile=None, datafile_size=None, description=None, device_class=None, etag=None, id=None, key_table=None, name=None, object=None, timestamp=None, updated_at=None):
         """
         FirmwareManifest - a model defined in Swagger
         """
 
-        self._datafile = datafile
-        self._description = description
-        self._timestamp = timestamp
         self._created_at = created_at
-        self._object = object
-        self._updated_at = updated_at
-        self._etag = etag
-        self._key_table = key_table
-        self._device_class = device_class
+        self._datafile = datafile
         self._datafile_size = datafile_size
+        self._description = description
+        self._device_class = device_class
+        self._etag = etag
         self._id = id
+        self._key_table = key_table
         self._name = name
+        self._object = object
+        self._timestamp = timestamp
+        self._updated_at = updated_at
         self.discriminator = None
+
+    @property
+    def created_at(self):
+        """
+        Gets the created_at of this FirmwareManifest.
+        The time the object was created
+
+        :return: The created_at of this FirmwareManifest.
+        :rtype: datetime
+        """
+        return self._created_at
+
+    @created_at.setter
+    def created_at(self, created_at):
+        """
+        Sets the created_at of this FirmwareManifest.
+        The time the object was created
+
+        :param created_at: The created_at of this FirmwareManifest.
+        :type: datetime
+        """
+        if created_at is None:
+            raise ValueError("Invalid value for `created_at`, must not be `None`")
+
+        self._created_at = created_at
 
     @property
     def datafile(self):
@@ -103,6 +128,29 @@ class FirmwareManifest(object):
             raise ValueError("Invalid value for `datafile`, must not be `None`")
 
         self._datafile = datafile
+
+    @property
+    def datafile_size(self):
+        """
+        Gets the datafile_size of this FirmwareManifest.
+        Size of the datafile in bytes
+
+        :return: The datafile_size of this FirmwareManifest.
+        :rtype: int
+        """
+        return self._datafile_size
+
+    @datafile_size.setter
+    def datafile_size(self, datafile_size):
+        """
+        Sets the datafile_size of this FirmwareManifest.
+        Size of the datafile in bytes
+
+        :param datafile_size: The datafile_size of this FirmwareManifest.
+        :type: int
+        """
+
+        self._datafile_size = datafile_size
 
     @property
     def description(self):
@@ -132,104 +180,29 @@ class FirmwareManifest(object):
         self._description = description
 
     @property
-    def timestamp(self):
+    def device_class(self):
         """
-        Gets the timestamp of this FirmwareManifest.
-        The firmware manifest version as a timestamp
+        Gets the device_class of this FirmwareManifest.
+        The class of the device
 
-        :return: The timestamp of this FirmwareManifest.
-        :rtype: datetime
-        """
-        return self._timestamp
-
-    @timestamp.setter
-    def timestamp(self, timestamp):
-        """
-        Sets the timestamp of this FirmwareManifest.
-        The firmware manifest version as a timestamp
-
-        :param timestamp: The timestamp of this FirmwareManifest.
-        :type: datetime
-        """
-        if timestamp is None:
-            raise ValueError("Invalid value for `timestamp`, must not be `None`")
-
-        self._timestamp = timestamp
-
-    @property
-    def created_at(self):
-        """
-        Gets the created_at of this FirmwareManifest.
-        The time the object was created
-
-        :return: The created_at of this FirmwareManifest.
-        :rtype: datetime
-        """
-        return self._created_at
-
-    @created_at.setter
-    def created_at(self, created_at):
-        """
-        Sets the created_at of this FirmwareManifest.
-        The time the object was created
-
-        :param created_at: The created_at of this FirmwareManifest.
-        :type: datetime
-        """
-        if created_at is None:
-            raise ValueError("Invalid value for `created_at`, must not be `None`")
-
-        self._created_at = created_at
-
-    @property
-    def object(self):
-        """
-        Gets the object of this FirmwareManifest.
-        The API resource entity
-
-        :return: The object of this FirmwareManifest.
+        :return: The device_class of this FirmwareManifest.
         :rtype: str
         """
-        return self._object
+        return self._device_class
 
-    @object.setter
-    def object(self, object):
+    @device_class.setter
+    def device_class(self, device_class):
         """
-        Sets the object of this FirmwareManifest.
-        The API resource entity
+        Sets the device_class of this FirmwareManifest.
+        The class of the device
 
-        :param object: The object of this FirmwareManifest.
+        :param device_class: The device_class of this FirmwareManifest.
         :type: str
         """
-        if object is None:
-            raise ValueError("Invalid value for `object`, must not be `None`")
+        if device_class is None:
+            raise ValueError("Invalid value for `device_class`, must not be `None`")
 
-        self._object = object
-
-    @property
-    def updated_at(self):
-        """
-        Gets the updated_at of this FirmwareManifest.
-        The time the object was updated
-
-        :return: The updated_at of this FirmwareManifest.
-        :rtype: datetime
-        """
-        return self._updated_at
-
-    @updated_at.setter
-    def updated_at(self, updated_at):
-        """
-        Sets the updated_at of this FirmwareManifest.
-        The time the object was updated
-
-        :param updated_at: The updated_at of this FirmwareManifest.
-        :type: datetime
-        """
-        if updated_at is None:
-            raise ValueError("Invalid value for `updated_at`, must not be `None`")
-
-        self._updated_at = updated_at
+        self._device_class = device_class
 
     @property
     def etag(self):
@@ -257,77 +230,6 @@ class FirmwareManifest(object):
         self._etag = etag
 
     @property
-    def key_table(self):
-        """
-        Gets the key_table of this FirmwareManifest.
-        The key table of pre-shared keys for devices
-
-        :return: The key_table of this FirmwareManifest.
-        :rtype: str
-        """
-        return self._key_table
-
-    @key_table.setter
-    def key_table(self, key_table):
-        """
-        Sets the key_table of this FirmwareManifest.
-        The key table of pre-shared keys for devices
-
-        :param key_table: The key_table of this FirmwareManifest.
-        :type: str
-        """
-
-        self._key_table = key_table
-
-    @property
-    def device_class(self):
-        """
-        Gets the device_class of this FirmwareManifest.
-        The class of the device
-
-        :return: The device_class of this FirmwareManifest.
-        :rtype: str
-        """
-        return self._device_class
-
-    @device_class.setter
-    def device_class(self, device_class):
-        """
-        Sets the device_class of this FirmwareManifest.
-        The class of the device
-
-        :param device_class: The device_class of this FirmwareManifest.
-        :type: str
-        """
-        if device_class is None:
-            raise ValueError("Invalid value for `device_class`, must not be `None`")
-
-        self._device_class = device_class
-
-    @property
-    def datafile_size(self):
-        """
-        Gets the datafile_size of this FirmwareManifest.
-        Size of the datafile in bytes
-
-        :return: The datafile_size of this FirmwareManifest.
-        :rtype: int
-        """
-        return self._datafile_size
-
-    @datafile_size.setter
-    def datafile_size(self, datafile_size):
-        """
-        Sets the datafile_size of this FirmwareManifest.
-        Size of the datafile in bytes
-
-        :param datafile_size: The datafile_size of this FirmwareManifest.
-        :type: int
-        """
-
-        self._datafile_size = datafile_size
-
-    @property
     def id(self):
         """
         Gets the id of this FirmwareManifest.
@@ -351,6 +253,29 @@ class FirmwareManifest(object):
             raise ValueError("Invalid value for `id`, must not be `None`")
 
         self._id = id
+
+    @property
+    def key_table(self):
+        """
+        Gets the key_table of this FirmwareManifest.
+        The key table of pre-shared keys for devices
+
+        :return: The key_table of this FirmwareManifest.
+        :rtype: str
+        """
+        return self._key_table
+
+    @key_table.setter
+    def key_table(self, key_table):
+        """
+        Sets the key_table of this FirmwareManifest.
+        The key table of pre-shared keys for devices
+
+        :param key_table: The key_table of this FirmwareManifest.
+        :type: str
+        """
+
+        self._key_table = key_table
 
     @property
     def name(self):
@@ -378,6 +303,81 @@ class FirmwareManifest(object):
             raise ValueError("Invalid value for `name`, length must be less than or equal to `128`")
 
         self._name = name
+
+    @property
+    def object(self):
+        """
+        Gets the object of this FirmwareManifest.
+        The API resource entity
+
+        :return: The object of this FirmwareManifest.
+        :rtype: str
+        """
+        return self._object
+
+    @object.setter
+    def object(self, object):
+        """
+        Sets the object of this FirmwareManifest.
+        The API resource entity
+
+        :param object: The object of this FirmwareManifest.
+        :type: str
+        """
+        if object is None:
+            raise ValueError("Invalid value for `object`, must not be `None`")
+
+        self._object = object
+
+    @property
+    def timestamp(self):
+        """
+        Gets the timestamp of this FirmwareManifest.
+        The firmware manifest version as a timestamp
+
+        :return: The timestamp of this FirmwareManifest.
+        :rtype: datetime
+        """
+        return self._timestamp
+
+    @timestamp.setter
+    def timestamp(self, timestamp):
+        """
+        Sets the timestamp of this FirmwareManifest.
+        The firmware manifest version as a timestamp
+
+        :param timestamp: The timestamp of this FirmwareManifest.
+        :type: datetime
+        """
+        if timestamp is None:
+            raise ValueError("Invalid value for `timestamp`, must not be `None`")
+
+        self._timestamp = timestamp
+
+    @property
+    def updated_at(self):
+        """
+        Gets the updated_at of this FirmwareManifest.
+        The time the object was updated
+
+        :return: The updated_at of this FirmwareManifest.
+        :rtype: datetime
+        """
+        return self._updated_at
+
+    @updated_at.setter
+    def updated_at(self, updated_at):
+        """
+        Sets the updated_at of this FirmwareManifest.
+        The time the object was updated
+
+        :param updated_at: The updated_at of this FirmwareManifest.
+        :type: datetime
+        """
+        if updated_at is None:
+            raise ValueError("Invalid value for `updated_at`, must not be `None`")
+
+        self._updated_at = updated_at
 
     def to_dict(self):
         """

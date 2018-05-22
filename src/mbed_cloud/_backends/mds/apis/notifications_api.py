@@ -3,7 +3,7 @@
 """
     Connect API
 
-    Mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
+    Mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. Mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
 
     OpenAPI spec version: 2
     
@@ -35,13 +35,13 @@ class NotificationsApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def v2_notification_callback_delete(self, **kwargs):
+    def delete_long_poll_channel(self, **kwargs):
         """
-        Delete callback URL
-        Deletes the callback URL.  **Example usage:**      curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/notification/callback -H 'authorization: Bearer {api-key}' 
+        Delete notification Long Poll channel
+        To delete a notification Long Poll channel. This is required to change the channel from Long Poll to a callback. You should not make a GET `/v2/notification/pull` call for 2 minutes after channel was deleted, because it can implicitly recreate the pull channel. You can also have some random responses with payload or 410 GONE with \"CHANNEL_DELETED\" as a payload or 200/204 until the old channel is purged.  **Example usage:**     curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/notification/pull -H 'authorization: Bearer {api-key}' 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
-        >>> thread = api.v2_notification_callback_delete(async=True)
+        >>> thread = api.delete_long_poll_channel(async=True)
         >>> result = thread.get()
 
         :param async bool
@@ -51,18 +51,18 @@ class NotificationsApi(object):
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async'):
-            return self.v2_notification_callback_delete_with_http_info(**kwargs)
+            return self.delete_long_poll_channel_with_http_info(**kwargs)
         else:
-            (data) = self.v2_notification_callback_delete_with_http_info(**kwargs)
+            (data) = self.delete_long_poll_channel_with_http_info(**kwargs)
             return data
 
-    def v2_notification_callback_delete_with_http_info(self, **kwargs):
+    def delete_long_poll_channel_with_http_info(self, **kwargs):
         """
-        Delete callback URL
-        Deletes the callback URL.  **Example usage:**      curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/notification/callback -H 'authorization: Bearer {api-key}' 
+        Delete notification Long Poll channel
+        To delete a notification Long Poll channel. This is required to change the channel from Long Poll to a callback. You should not make a GET `/v2/notification/pull` call for 2 minutes after channel was deleted, because it can implicitly recreate the pull channel. You can also have some random responses with payload or 410 GONE with \"CHANNEL_DELETED\" as a payload or 200/204 until the old channel is purged.  **Example usage:**     curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/notification/pull -H 'authorization: Bearer {api-key}' 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
-        >>> thread = api.v2_notification_callback_delete_with_http_info(async=True)
+        >>> thread = api.delete_long_poll_channel_with_http_info(async=True)
         >>> result = thread.get()
 
         :param async bool
@@ -82,7 +82,89 @@ class NotificationsApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method v2_notification_callback_delete" % key
+                    " to method delete_long_poll_channel" % key
+                )
+            params[key] = val
+        del params['kwargs']
+
+        collection_formats = {}
+
+        path_params = {}
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v2/notification/pull', 'DELETE',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type=None,
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
+    def deregister_webhook(self, **kwargs):
+        """
+        Delete callback URL
+        Deletes the callback URL.  **Example usage:**      curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/notification/callback -H 'authorization: Bearer {api-key}' 
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.deregister_webhook(async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :return: None
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.deregister_webhook_with_http_info(**kwargs)
+        else:
+            (data) = self.deregister_webhook_with_http_info(**kwargs)
+            return data
+
+    def deregister_webhook_with_http_info(self, **kwargs):
+        """
+        Delete callback URL
+        Deletes the callback URL.  **Example usage:**      curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/notification/callback -H 'authorization: Bearer {api-key}' 
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.deregister_webhook_with_http_info(async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :return: None
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = []
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method deregister_webhook" % key
                 )
             params[key] = val
         del params['kwargs']
@@ -117,13 +199,13 @@ class NotificationsApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
-    def v2_notification_callback_get(self, **kwargs):
+    def get_webhook(self, **kwargs):
         """
         Check callback URL
         Shows the current callback URL if it exists.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/notification/callback -H 'authorization: Bearer {api-key}' 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
-        >>> thread = api.v2_notification_callback_get(async=True)
+        >>> thread = api.get_webhook(async=True)
         >>> result = thread.get()
 
         :param async bool
@@ -133,18 +215,18 @@ class NotificationsApi(object):
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async'):
-            return self.v2_notification_callback_get_with_http_info(**kwargs)
+            return self.get_webhook_with_http_info(**kwargs)
         else:
-            (data) = self.v2_notification_callback_get_with_http_info(**kwargs)
+            (data) = self.get_webhook_with_http_info(**kwargs)
             return data
 
-    def v2_notification_callback_get_with_http_info(self, **kwargs):
+    def get_webhook_with_http_info(self, **kwargs):
         """
         Check callback URL
         Shows the current callback URL if it exists.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/notification/callback -H 'authorization: Bearer {api-key}' 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
-        >>> thread = api.v2_notification_callback_get_with_http_info(async=True)
+        >>> thread = api.get_webhook_with_http_info(async=True)
         >>> result = thread.get()
 
         :param async bool
@@ -164,7 +246,7 @@ class NotificationsApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method v2_notification_callback_get" % key
+                    " to method get_webhook" % key
                 )
             params[key] = val
         del params['kwargs']
@@ -203,189 +285,13 @@ class NotificationsApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
-    def v2_notification_callback_put(self, webhook, **kwargs):
-        """
-        Register a callback URL
-        Register a URL to which the server should deliver notifications of the subscribed resource changes. To get notifications pushed, you also need to place the subscriptions. The maximum length of the URL, header keys and values, all combined, is 400 characters. Notifications are delivered as PUT messages to the HTTP server defined by the client with a subscription server message. The given URL should be accessible and respond to the PUT request with response code of 200 or 204. Mbed Cloud Connect tests the callback URL with an empty payload when the URL is registered. For more information on callback notification, see [NotificationMessage](/docs/v1.2/service-api-references/connect-api.html#notificationmessage).  **Optional headers in a callback message:**  You can set optional headers to a callback in a [Webhook](/docs/v1.2/service-api-references/connect-api.html#v2-notification-callback) object. Mbed Cloud Connect will include the header and key pairs to the notification messages send them to callback URL. As the callback URL's are API key specific also the headers are.  One possible use for the additional headers is to check the origin of a PUT request and also distinguish the application (API key) to which the notification belongs to.  **Note**: Only one callback URL per an API key can be active. If you register a new URL while another one is already active, it replaces the active one. There can be only one notification channel at a time. If the Long Poll notification is already present, you need to delete it before setting the callback URL.  **Expiration of a callback URL:**  A callback can expire when Mbed Cloud cannot deliver a notification due to a connection timeout or an error response (4xx or 5xx). After each delivery failure, Mbed Cloud sets an exponential back off time and makes a retry attempt after that. The first retry delay is 1 second, then 2s, 4s, 8s, ..., 2min, 2min. The maximum retry delay is 2 minutes. The callback URL will be removed if all retries fail withing 24 hours. More about [notification sending logic](/docs/v1.2/connecting/event-notification.html#notification-sending-logic).  **Supported callback URL protocols:**  Currently, only HTTP and HTTPS protocols are supported.  **HTTPS callback URLs:**  When delivering a notification to an HTTPS based callback URL, Mbed Cloud Connect will present a valid client certificate to identify itself. The certificate is signed by a trusted certificate authorithy (GlobalSign) with a Common Name (CN) set to notifications.mbedcloud.com.  **Example usage:**  This example command shows how to set your callback URL and API key. It also sets an optional header authorization. When Mbed Cloud Connect calls your callback URL, the call contains the authorization header with the defined value.      curl -X PUT \\       https://api.us-east-1.mbedcloud.com/v2/notification/callback \\       -H 'authorization: Bearer {api-key}' \\       -H 'content-type: application/json' \\       -d '{       \"url\": \"{callback-url}\",       \"headers\": {\"authorization\" : \"f4b93d6e-4652-4874-82e4-41a3ced0cd56\"}       }' 
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.v2_notification_callback_put(webhook, async=True)
-        >>> result = thread.get()
-
-        :param async bool
-        :param Webhook webhook: A json object that contains the optional headers and the URL to which the notifications need to be sent.  (required)
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
-            return self.v2_notification_callback_put_with_http_info(webhook, **kwargs)
-        else:
-            (data) = self.v2_notification_callback_put_with_http_info(webhook, **kwargs)
-            return data
-
-    def v2_notification_callback_put_with_http_info(self, webhook, **kwargs):
-        """
-        Register a callback URL
-        Register a URL to which the server should deliver notifications of the subscribed resource changes. To get notifications pushed, you also need to place the subscriptions. The maximum length of the URL, header keys and values, all combined, is 400 characters. Notifications are delivered as PUT messages to the HTTP server defined by the client with a subscription server message. The given URL should be accessible and respond to the PUT request with response code of 200 or 204. Mbed Cloud Connect tests the callback URL with an empty payload when the URL is registered. For more information on callback notification, see [NotificationMessage](/docs/v1.2/service-api-references/connect-api.html#notificationmessage).  **Optional headers in a callback message:**  You can set optional headers to a callback in a [Webhook](/docs/v1.2/service-api-references/connect-api.html#v2-notification-callback) object. Mbed Cloud Connect will include the header and key pairs to the notification messages send them to callback URL. As the callback URL's are API key specific also the headers are.  One possible use for the additional headers is to check the origin of a PUT request and also distinguish the application (API key) to which the notification belongs to.  **Note**: Only one callback URL per an API key can be active. If you register a new URL while another one is already active, it replaces the active one. There can be only one notification channel at a time. If the Long Poll notification is already present, you need to delete it before setting the callback URL.  **Expiration of a callback URL:**  A callback can expire when Mbed Cloud cannot deliver a notification due to a connection timeout or an error response (4xx or 5xx). After each delivery failure, Mbed Cloud sets an exponential back off time and makes a retry attempt after that. The first retry delay is 1 second, then 2s, 4s, 8s, ..., 2min, 2min. The maximum retry delay is 2 minutes. The callback URL will be removed if all retries fail withing 24 hours. More about [notification sending logic](/docs/v1.2/connecting/event-notification.html#notification-sending-logic).  **Supported callback URL protocols:**  Currently, only HTTP and HTTPS protocols are supported.  **HTTPS callback URLs:**  When delivering a notification to an HTTPS based callback URL, Mbed Cloud Connect will present a valid client certificate to identify itself. The certificate is signed by a trusted certificate authorithy (GlobalSign) with a Common Name (CN) set to notifications.mbedcloud.com.  **Example usage:**  This example command shows how to set your callback URL and API key. It also sets an optional header authorization. When Mbed Cloud Connect calls your callback URL, the call contains the authorization header with the defined value.      curl -X PUT \\       https://api.us-east-1.mbedcloud.com/v2/notification/callback \\       -H 'authorization: Bearer {api-key}' \\       -H 'content-type: application/json' \\       -d '{       \"url\": \"{callback-url}\",       \"headers\": {\"authorization\" : \"f4b93d6e-4652-4874-82e4-41a3ced0cd56\"}       }' 
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.v2_notification_callback_put_with_http_info(webhook, async=True)
-        >>> result = thread.get()
-
-        :param async bool
-        :param Webhook webhook: A json object that contains the optional headers and the URL to which the notifications need to be sent.  (required)
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['webhook']
-        all_params.append('async')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method v2_notification_callback_put" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'webhook' is set
-        if ('webhook' not in params) or (params['webhook'] is None):
-            raise ValueError("Missing the required parameter `webhook` when calling `v2_notification_callback_put`")
-
-
-        collection_formats = {}
-
-        path_params = {}
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'webhook' in params:
-            body_params = params['webhook']
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.\
-            select_header_content_type(['application/json'])
-
-        # Authentication setting
-        auth_settings = ['Bearer']
-
-        return self.api_client.call_api('/v2/notification/callback', 'PUT',
-                                        path_params,
-                                        query_params,
-                                        header_params,
-                                        body=body_params,
-                                        post_params=form_params,
-                                        files=local_var_files,
-                                        response_type=None,
-                                        auth_settings=auth_settings,
-                                        async=params.get('async'),
-                                        _return_http_data_only=params.get('_return_http_data_only'),
-                                        _preload_content=params.get('_preload_content', True),
-                                        _request_timeout=params.get('_request_timeout'),
-                                        collection_formats=collection_formats)
-
-    def v2_notification_pull_delete(self, **kwargs):
-        """
-        Delete notification Long Poll channel
-        To delete a notification Long Poll channel. This is required to change the channel from Long Poll to a callback. You should not make a GET `/v2/notification/pull` call for 2 minutes after channel was deleted, because it can implicitly recreate the pull channel. You can also have some random responses with payload or 410 GONE with \"CHANNEL_DELETED\" as a payload or 200/204 until the old channel is purged.  **Example usage:**     curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/notification/pull -H 'authorization: Bearer {api-key}' 
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.v2_notification_pull_delete(async=True)
-        >>> result = thread.get()
-
-        :param async bool
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
-            return self.v2_notification_pull_delete_with_http_info(**kwargs)
-        else:
-            (data) = self.v2_notification_pull_delete_with_http_info(**kwargs)
-            return data
-
-    def v2_notification_pull_delete_with_http_info(self, **kwargs):
-        """
-        Delete notification Long Poll channel
-        To delete a notification Long Poll channel. This is required to change the channel from Long Poll to a callback. You should not make a GET `/v2/notification/pull` call for 2 minutes after channel was deleted, because it can implicitly recreate the pull channel. You can also have some random responses with payload or 410 GONE with \"CHANNEL_DELETED\" as a payload or 200/204 until the old channel is purged.  **Example usage:**     curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/notification/pull -H 'authorization: Bearer {api-key}' 
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.v2_notification_pull_delete_with_http_info(async=True)
-        >>> result = thread.get()
-
-        :param async bool
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = []
-        all_params.append('async')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method v2_notification_pull_delete" % key
-                )
-            params[key] = val
-        del params['kwargs']
-
-        collection_formats = {}
-
-        path_params = {}
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # Authentication setting
-        auth_settings = ['Bearer']
-
-        return self.api_client.call_api('/v2/notification/pull', 'DELETE',
-                                        path_params,
-                                        query_params,
-                                        header_params,
-                                        body=body_params,
-                                        post_params=form_params,
-                                        files=local_var_files,
-                                        response_type=None,
-                                        auth_settings=auth_settings,
-                                        async=params.get('async'),
-                                        _return_http_data_only=params.get('_return_http_data_only'),
-                                        _preload_content=params.get('_preload_content', True),
-                                        _request_timeout=params.get('_request_timeout'),
-                                        collection_formats=collection_formats)
-
-    def v2_notification_pull_get(self, **kwargs):
+    def long_poll_notifications(self, **kwargs):
         """
         Get notifications using Long Poll
-        In this case, notifications are delivered through HTTP long poll requests. The HTTP request is kept open until an event notification or a batch of event notifications are delivered to the client or the request times out (response code 204). In both cases, the client should open a new polling connection after the previous one closes. Only a single long polling connection per API key can be ongoing at any given time. You must have a persistent connection (Connection keep-alive header in the request) to avoid excess TLS handshakes.  The pull channel is implicitly created by the first GET call to `/v2/notification/pull`. It is refreshed on each GET call. If the channel is not polled for a long time (10 minutes) - it expires and will be deleted. This means that no notifications will stay in the queue between polls. A channel can be also deleted explicitly by a DELETE call.  **Note:** If you cannot have a public facing callback URL, for example when developing on your local machine, you can use long polling to check for new messages. However, **long polling is deprecated** and will likely be replaced in future. It is meant only for experimentation and not for commercial usage. The proper method to receive notifications is [Notification callback](/docs/v1.2/service-api-references/connect-api.html#v2-notification-callback). There can only be one notification channel per API key at a time in Mbed Cloud Connect. If a callback notification channel already exists, you need to delete it before creating a long poll notification channel, and vice-versa.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/notification/pull -H 'authorization: Bearer {api-key}' 
+        In this case, notifications are delivered through HTTP long poll requests. The HTTP request is kept open until an event notification or a batch of event notifications are delivered to the client or the request times out (response code 204). In both cases, the client should open a new polling connection after the previous one closes. Only a single long polling connection per API key can be ongoing at any given time. You must have a persistent connection (Connection keep-alive header in the request) to avoid excess TLS handshakes.  The pull channel is implicitly created by the first GET call to `/v2/notification/pull`. It is refreshed on each GET call. If the channel is not polled for a long time (10 minutes) - it expires and will be deleted. This means that no notifications will stay in the queue between polls. A channel can be also deleted explicitly by a DELETE call.  **Note:** If you cannot have a public facing callback URL, for example when developing on your local machine, you can use long polling to check for new messages. However, **long polling is deprecated** and will likely be replaced in future. It is meant only for experimentation and not for commercial usage. The proper method to receive notifications is a **notification callback**. There can only be one notification channel per API key at a time in Mbed Cloud Connect. If a callback notification channel already exists, you need to delete it before creating a long poll notification channel, and vice-versa.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/notification/pull -H 'authorization: Bearer {api-key}' 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
-        >>> thread = api.v2_notification_pull_get(async=True)
+        >>> thread = api.long_poll_notifications(async=True)
         >>> result = thread.get()
 
         :param async bool
@@ -395,18 +301,18 @@ class NotificationsApi(object):
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async'):
-            return self.v2_notification_pull_get_with_http_info(**kwargs)
+            return self.long_poll_notifications_with_http_info(**kwargs)
         else:
-            (data) = self.v2_notification_pull_get_with_http_info(**kwargs)
+            (data) = self.long_poll_notifications_with_http_info(**kwargs)
             return data
 
-    def v2_notification_pull_get_with_http_info(self, **kwargs):
+    def long_poll_notifications_with_http_info(self, **kwargs):
         """
         Get notifications using Long Poll
-        In this case, notifications are delivered through HTTP long poll requests. The HTTP request is kept open until an event notification or a batch of event notifications are delivered to the client or the request times out (response code 204). In both cases, the client should open a new polling connection after the previous one closes. Only a single long polling connection per API key can be ongoing at any given time. You must have a persistent connection (Connection keep-alive header in the request) to avoid excess TLS handshakes.  The pull channel is implicitly created by the first GET call to `/v2/notification/pull`. It is refreshed on each GET call. If the channel is not polled for a long time (10 minutes) - it expires and will be deleted. This means that no notifications will stay in the queue between polls. A channel can be also deleted explicitly by a DELETE call.  **Note:** If you cannot have a public facing callback URL, for example when developing on your local machine, you can use long polling to check for new messages. However, **long polling is deprecated** and will likely be replaced in future. It is meant only for experimentation and not for commercial usage. The proper method to receive notifications is [Notification callback](/docs/v1.2/service-api-references/connect-api.html#v2-notification-callback). There can only be one notification channel per API key at a time in Mbed Cloud Connect. If a callback notification channel already exists, you need to delete it before creating a long poll notification channel, and vice-versa.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/notification/pull -H 'authorization: Bearer {api-key}' 
+        In this case, notifications are delivered through HTTP long poll requests. The HTTP request is kept open until an event notification or a batch of event notifications are delivered to the client or the request times out (response code 204). In both cases, the client should open a new polling connection after the previous one closes. Only a single long polling connection per API key can be ongoing at any given time. You must have a persistent connection (Connection keep-alive header in the request) to avoid excess TLS handshakes.  The pull channel is implicitly created by the first GET call to `/v2/notification/pull`. It is refreshed on each GET call. If the channel is not polled for a long time (10 minutes) - it expires and will be deleted. This means that no notifications will stay in the queue between polls. A channel can be also deleted explicitly by a DELETE call.  **Note:** If you cannot have a public facing callback URL, for example when developing on your local machine, you can use long polling to check for new messages. However, **long polling is deprecated** and will likely be replaced in future. It is meant only for experimentation and not for commercial usage. The proper method to receive notifications is a **notification callback**. There can only be one notification channel per API key at a time in Mbed Cloud Connect. If a callback notification channel already exists, you need to delete it before creating a long poll notification channel, and vice-versa.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/notification/pull -H 'authorization: Bearer {api-key}' 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
-        >>> thread = api.v2_notification_pull_get_with_http_info(async=True)
+        >>> thread = api.long_poll_notifications_with_http_info(async=True)
         >>> result = thread.get()
 
         :param async bool
@@ -426,7 +332,7 @@ class NotificationsApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method v2_notification_pull_get" % key
+                    " to method long_poll_notifications" % key
                 )
             params[key] = val
         del params['kwargs']
@@ -458,6 +364,100 @@ class NotificationsApi(object):
                                         post_params=form_params,
                                         files=local_var_files,
                                         response_type='NotificationMessage',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
+    def register_webhook(self, webhook, **kwargs):
+        """
+        Register a callback URL
+        Register a URL to which the server should deliver notifications of the subscribed resource changes. To get notifications pushed, you also need to place the subscriptions. The maximum length of the URL, header keys and values, all combined, is 400 characters. Notifications are delivered as PUT messages to the HTTP server defined by the client with a subscription server message. The given URL should be accessible and respond to the PUT request with response code of 200 or 204. Mbed Cloud Connect tests the callback URL with an empty payload when the URL is registered. For more information on callback notification, see [NotificationMessage](/docs/current/service-api-references/mbed-cloud-connect.html#models).  **Optional headers in a callback message:**  You can set optional headers to a callback in a **Webhook** object. Mbed Cloud Connect will include the header and key pairs to the notification messages send them to callback URL. As the callback URL's are API key specific also the headers are.  One possible use for the additional headers is to check the origin of a PUT request and also distinguish the application (API key) to which the notification belongs to.  **Note**: Only one callback URL per an API key can be active. If you register a new URL while another one is already active, it replaces the active one. There can be only one notification channel at a time. If the Long Poll notification is already present, you need to delete it before setting the callback URL.  **Expiration of a callback URL:**  A callback can expire when Mbed Cloud cannot deliver a notification due to a connection timeout or an error response (4xx or 5xx). After each delivery failure, Mbed Cloud sets an exponential back off time and makes a retry attempt after that. The first retry delay is 1 second, then 2s, 4s, 8s, ..., 2min, 2min. The maximum retry delay is 2 minutes. The callback URL will be removed if all retries fail withing 24 hours. More about [notification sending logic](/docs/current/integrate-web-app/event-notification.html#notification-sending-logic).  **Supported callback URL protocols:**  Currently, only HTTP and HTTPS protocols are supported.  **HTTPS callback URLs:**  When delivering a notification to an HTTPS based callback URL, Mbed Cloud Connect will present a valid client certificate to identify itself. The certificate is signed by a trusted certificate authorithy (GlobalSign) with a Common Name (CN) set to notifications.mbedcloud.com.  **Example usage:**  This example command shows how to set your callback URL and API key. It also sets an optional header authorization. When Mbed Cloud Connect calls your callback URL, the call contains the authorization header with the defined value.      curl -X PUT \\       https://api.us-east-1.mbedcloud.com/v2/notification/callback \\       -H 'authorization: Bearer {api-key}' \\       -H 'content-type: application/json' \\       -d '{       \"url\": \"{callback-url}\",       \"headers\": {\"authorization\" : \"f4b93d6e-4652-4874-82e4-41a3ced0cd56\"}       }' 
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.register_webhook(webhook, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param Webhook webhook: A json object that contains the optional headers and the URL to which the notifications need to be sent.  (required)
+        :return: None
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.register_webhook_with_http_info(webhook, **kwargs)
+        else:
+            (data) = self.register_webhook_with_http_info(webhook, **kwargs)
+            return data
+
+    def register_webhook_with_http_info(self, webhook, **kwargs):
+        """
+        Register a callback URL
+        Register a URL to which the server should deliver notifications of the subscribed resource changes. To get notifications pushed, you also need to place the subscriptions. The maximum length of the URL, header keys and values, all combined, is 400 characters. Notifications are delivered as PUT messages to the HTTP server defined by the client with a subscription server message. The given URL should be accessible and respond to the PUT request with response code of 200 or 204. Mbed Cloud Connect tests the callback URL with an empty payload when the URL is registered. For more information on callback notification, see [NotificationMessage](/docs/current/service-api-references/mbed-cloud-connect.html#models).  **Optional headers in a callback message:**  You can set optional headers to a callback in a **Webhook** object. Mbed Cloud Connect will include the header and key pairs to the notification messages send them to callback URL. As the callback URL's are API key specific also the headers are.  One possible use for the additional headers is to check the origin of a PUT request and also distinguish the application (API key) to which the notification belongs to.  **Note**: Only one callback URL per an API key can be active. If you register a new URL while another one is already active, it replaces the active one. There can be only one notification channel at a time. If the Long Poll notification is already present, you need to delete it before setting the callback URL.  **Expiration of a callback URL:**  A callback can expire when Mbed Cloud cannot deliver a notification due to a connection timeout or an error response (4xx or 5xx). After each delivery failure, Mbed Cloud sets an exponential back off time and makes a retry attempt after that. The first retry delay is 1 second, then 2s, 4s, 8s, ..., 2min, 2min. The maximum retry delay is 2 minutes. The callback URL will be removed if all retries fail withing 24 hours. More about [notification sending logic](/docs/current/integrate-web-app/event-notification.html#notification-sending-logic).  **Supported callback URL protocols:**  Currently, only HTTP and HTTPS protocols are supported.  **HTTPS callback URLs:**  When delivering a notification to an HTTPS based callback URL, Mbed Cloud Connect will present a valid client certificate to identify itself. The certificate is signed by a trusted certificate authorithy (GlobalSign) with a Common Name (CN) set to notifications.mbedcloud.com.  **Example usage:**  This example command shows how to set your callback URL and API key. It also sets an optional header authorization. When Mbed Cloud Connect calls your callback URL, the call contains the authorization header with the defined value.      curl -X PUT \\       https://api.us-east-1.mbedcloud.com/v2/notification/callback \\       -H 'authorization: Bearer {api-key}' \\       -H 'content-type: application/json' \\       -d '{       \"url\": \"{callback-url}\",       \"headers\": {\"authorization\" : \"f4b93d6e-4652-4874-82e4-41a3ced0cd56\"}       }' 
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.register_webhook_with_http_info(webhook, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param Webhook webhook: A json object that contains the optional headers and the URL to which the notifications need to be sent.  (required)
+        :return: None
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['webhook']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method register_webhook" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'webhook' is set
+        if ('webhook' not in params) or (params['webhook'] is None):
+            raise ValueError("Missing the required parameter `webhook` when calling `register_webhook`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'webhook' in params:
+            body_params = params['webhook']
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v2/notification/callback', 'PUT',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type=None,
                                         auth_settings=auth_settings,
                                         async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),

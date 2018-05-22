@@ -32,36 +32,36 @@ class CampaignDeviceMetadataPage(object):
     """
     swagger_types = {
         'after': 'str',
-        'has_more': 'bool',
-        'total_count': 'int',
-        'object': 'str',
-        'limit': 'int',
         'data': 'list[CampaignDeviceMetadata]',
-        'order': 'str'
+        'has_more': 'bool',
+        'limit': 'int',
+        'object': 'str',
+        'order': 'str',
+        'total_count': 'int'
     }
 
     attribute_map = {
         'after': 'after',
-        'has_more': 'has_more',
-        'total_count': 'total_count',
-        'object': 'object',
-        'limit': 'limit',
         'data': 'data',
-        'order': 'order'
+        'has_more': 'has_more',
+        'limit': 'limit',
+        'object': 'object',
+        'order': 'order',
+        'total_count': 'total_count'
     }
 
-    def __init__(self, after=None, has_more=None, total_count=None, object=None, limit=None, data=None, order=None):
+    def __init__(self, after=None, data=None, has_more=None, limit=None, object=None, order=None, total_count=None):
         """
         CampaignDeviceMetadataPage - a model defined in Swagger
         """
 
         self._after = after
-        self._has_more = has_more
-        self._total_count = total_count
-        self._object = object
-        self._limit = limit
         self._data = data
+        self._has_more = has_more
+        self._limit = limit
+        self._object = object
         self._order = order
+        self._total_count = total_count
         self.discriminator = None
 
     @property
@@ -88,6 +88,29 @@ class CampaignDeviceMetadataPage(object):
         self._after = after
 
     @property
+    def data(self):
+        """
+        Gets the data of this CampaignDeviceMetadataPage.
+        A list of entities
+
+        :return: The data of this CampaignDeviceMetadataPage.
+        :rtype: list[CampaignDeviceMetadata]
+        """
+        return self._data
+
+    @data.setter
+    def data(self, data):
+        """
+        Sets the data of this CampaignDeviceMetadataPage.
+        A list of entities
+
+        :param data: The data of this CampaignDeviceMetadataPage.
+        :type: list[CampaignDeviceMetadata]
+        """
+
+        self._data = data
+
+    @property
     def has_more(self):
         """
         Gets the has_more of this CampaignDeviceMetadataPage.
@@ -109,52 +132,6 @@ class CampaignDeviceMetadataPage(object):
         """
 
         self._has_more = has_more
-
-    @property
-    def total_count(self):
-        """
-        Gets the total_count of this CampaignDeviceMetadataPage.
-        The total number or records, if requested. It might be returned also for small lists.
-
-        :return: The total_count of this CampaignDeviceMetadataPage.
-        :rtype: int
-        """
-        return self._total_count
-
-    @total_count.setter
-    def total_count(self, total_count):
-        """
-        Sets the total_count of this CampaignDeviceMetadataPage.
-        The total number or records, if requested. It might be returned also for small lists.
-
-        :param total_count: The total_count of this CampaignDeviceMetadataPage.
-        :type: int
-        """
-
-        self._total_count = total_count
-
-    @property
-    def object(self):
-        """
-        Gets the object of this CampaignDeviceMetadataPage.
-        Entity name: always 'list'
-
-        :return: The object of this CampaignDeviceMetadataPage.
-        :rtype: str
-        """
-        return self._object
-
-    @object.setter
-    def object(self, object):
-        """
-        Sets the object of this CampaignDeviceMetadataPage.
-        Entity name: always 'list'
-
-        :param object: The object of this CampaignDeviceMetadataPage.
-        :type: str
-        """
-
-        self._object = object
 
     @property
     def limit(self):
@@ -180,27 +157,27 @@ class CampaignDeviceMetadataPage(object):
         self._limit = limit
 
     @property
-    def data(self):
+    def object(self):
         """
-        Gets the data of this CampaignDeviceMetadataPage.
-        A list of entities
+        Gets the object of this CampaignDeviceMetadataPage.
+        Entity name: always 'list'
 
-        :return: The data of this CampaignDeviceMetadataPage.
-        :rtype: list[CampaignDeviceMetadata]
+        :return: The object of this CampaignDeviceMetadataPage.
+        :rtype: str
         """
-        return self._data
+        return self._object
 
-    @data.setter
-    def data(self, data):
+    @object.setter
+    def object(self, object):
         """
-        Sets the data of this CampaignDeviceMetadataPage.
-        A list of entities
+        Sets the object of this CampaignDeviceMetadataPage.
+        Entity name: always 'list'
 
-        :param data: The data of this CampaignDeviceMetadataPage.
-        :type: list[CampaignDeviceMetadata]
+        :param object: The object of this CampaignDeviceMetadataPage.
+        :type: str
         """
 
-        self._data = data
+        self._object = object
 
     @property
     def order(self):
@@ -230,6 +207,29 @@ class CampaignDeviceMetadataPage(object):
             )
 
         self._order = order
+
+    @property
+    def total_count(self):
+        """
+        Gets the total_count of this CampaignDeviceMetadataPage.
+        The total number or records, if requested. It might be returned also for small lists.
+
+        :return: The total_count of this CampaignDeviceMetadataPage.
+        :rtype: int
+        """
+        return self._total_count
+
+    @total_count.setter
+    def total_count(self, total_count):
+        """
+        Sets the total_count of this CampaignDeviceMetadataPage.
+        The total number or records, if requested. It might be returned also for small lists.
+
+        :param total_count: The total_count of this CampaignDeviceMetadataPage.
+        :type: int
+        """
+
+        self._total_count = total_count
 
     def to_dict(self):
         """

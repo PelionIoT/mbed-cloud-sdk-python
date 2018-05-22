@@ -21,17 +21,43 @@ The report is output as a CSV file to the local directory.
 
 import argparse
 import csv
+import json
 import os
 import pkg_resources
 
 # Python packages to exclude form the TPIP report
-EXCLUDED_PACKAGES = ('python', 'wheel', 'setuptools', 'pip')
+EXCLUDED_PACKAGES = {
+    'mbed-cloud-sdk',
+    'packaging',
+    'pip',
+    'python',
+    'setuptools',
+    'wheel',
+}
 
 # Report field names in CSV
-FIELDNAMES = ('name', 'version', 'repository', 'licence', 'classifier')
+FIELDNAMES = {
+    'PkgName',
+    'PkgType',
+    'PkgOriginator',
+    'PkgVersion',
+    'PkgSummary',
+    'PkgHomePageURL',
+    'PkgLicense',
+    'PkgLicenseURL',
+    'PkgMgrURL',
+}
 
-# Licence strings to exclude from the report as they don't add value
-EXCLUDED_LICENSE_STRINGS = ('unknown', 'license', 'licence', 'licensing', 'licencing')
+# map from metadata keys to Mbed-standardised TPIP report fields
+TPIP_FIELD_MAPPINGS = {
+    'version': 'PkgVersion',
+    'home-page': 'PkgHomePageURL',
+    'author': 'PkgOriginator',
+    'author-email': 'PkgAuthorEmail',
+    'summary': 'PkgSummary',
+    'license': 'PkgLicense',
+    'licence': 'PkgLicense',
+}
 
 
 def get_metadata(item):
@@ -52,6 +78,38 @@ def get_metadata(item):
             metadata_lines = []
 
     return metadata_lines
+
+
+def get_package_info_from_line(tpip_pkg, line):
+    """Given a line of text from metadata, extract semantic info"""
+    lower_line = line.lower()
+
+    try:
+        metadata_key, metadata_value = lower_line.split(':', 1)
+    except ValueError:
+        return
+
+    metadata_key = metadata_key.strip()
+    metadata_value = metadata_value.strip()
+
+    if metadata_value == 'unknown':
+        return
+
+    # extract exact matches
+    if metadata_key in TPIP_FIELD_MAPPINGS:
+        tpip_pkg[TPIP_FIELD_MAPPINGS[metadata_key]] = metadata_value
+        return
+
+    if metadata_key.startswith('version') and not tpip_pkg.get('PkgVersion'):
+        # ... but if not, we'll use whatever we find
+        tpip_pkg['PkgVersion'] = metadata_value
+        return
+
+    # Handle british and american spelling of licence/license
+    if not tpip_pkg.get('PkgLicense') and 'licen' in lower_line:
+        if metadata_key.startswith('classifier') or '::' in metadata_value:
+            metadata_value_from_end = lower_line.rsplit(':')[-1].strip()
+            tpip_pkg['PkgLicense'] = metadata_value_from_end
 
 
 def process_metadata(pkg_name, metadata_lines):
@@ -75,32 +133,25 @@ def process_metadata(pkg_name, metadata_lines):
     :rtype: Dict[str, str]
     """
     # Initialise a dictionary with all the fields to report on.
-    tpip_pkg = dict(zip(FIELDNAMES, [[pkg_name], [], [], [], []]))
+    tpip_pkg = dict(
+        PkgName=pkg_name,
+        PkgType='python package',
+        PkgMgrURL='https://pypi.org/project/%s/' % pkg_name,
+    )
 
     # Extract the metadata into a list for each field as there may be multiple
     # entries for each one.
     for line in metadata_lines:
-        try:
-            metadata_key, metadata_value = line.rsplit(':', 1)
-        except ValueError:
-            continue
+        get_package_info_from_line(tpip_pkg, line)
 
-        metadata_key = metadata_key.strip().lower()
-        metadata_value = metadata_value.strip()
+    # condense PkgAuthorEmail into the Originator field
+    if 'PkgAuthorEmail' in tpip_pkg:
+        tpip_pkg['PkgOriginator'] = '%s <%s>' % (
+            tpip_pkg['PkgOriginator'],
+            tpip_pkg.pop('PkgAuthorEmail')
+        )
 
-        if metadata_key.startswith('version'):
-            tpip_pkg['version'].append(metadata_value)
-        elif metadata_key.startswith('home-page'):
-            tpip_pkg['repository'].append(metadata_value.strip(' /'))
-        # Handle british and american spelling of licence/license
-        elif metadata_key.startswith('licen'):
-            if metadata_value.lower() not in EXCLUDED_LICENSE_STRINGS:
-                tpip_pkg['licence'].append(metadata_value)
-        elif metadata_key.startswith('classifier') and 'licen' in metadata_key:
-            tpip_pkg['classifier'].append(metadata_value)
-
-    # Convert to a flat structure to be written out in the CSV
-    return dict((key, '; '.join(value)) for (key, value) in tpip_pkg.items())
+    return tpip_pkg
 
 
 def write_csv_file(output_filename, tpip_pkgs):
@@ -117,8 +168,15 @@ def write_csv_file(output_filename, tpip_pkgs):
     with open(output_filename, 'w', newline='') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=FIELDNAMES)
         writer.writeheader()
-        for pkg_dict in tpip_pkgs:
-            writer.writerow(pkg_dict)
+        writer.writerows(tpip_pkgs)
+
+
+def force_ascii_values(data):
+    """Ensures each value is ascii-only"""
+    return {
+        k: v.encode('utf8').decode('ascii', 'backslashreplace')
+        for k, v in data.items()
+    }
 
 
 def main():
@@ -128,13 +186,22 @@ def main():
                         help='the output path and filename')
     args = parser.parse_args()
 
+    skips = []
     tpip_pkgs = []
-    for pkg_name, pkg_item in pkg_resources.working_set.by_key.items():
-        if pkg_name not in EXCLUDED_PACKAGES:
-            metadata_lines = get_metadata(pkg_item)
-            tpip_pkg = process_metadata(pkg_name, metadata_lines)
-            tpip_pkgs.append(tpip_pkg)
+    for pkg_name, pkg_item in sorted(pkg_resources.working_set.by_key.items()):
+        if pkg_name in EXCLUDED_PACKAGES:
+            skips.append(pkg_name)
+            continue
+        metadata_lines = get_metadata(pkg_item)
+        tpip_pkg = process_metadata(pkg_name, metadata_lines)
+        tpip_pkgs.append(force_ascii_values(tpip_pkg))
 
+    print(json.dumps(tpip_pkgs, indent=2, sort_keys=True))
+    print('Parsed %s packages\nOutput to CSV: `%s`\nIgnored packages: %s' % (
+        len(tpip_pkgs),
+        os.path.abspath(args.output_filename),
+        ', '.join(skips),
+    ))
     write_csv_file(args.output_filename, tpip_pkgs)
 
 

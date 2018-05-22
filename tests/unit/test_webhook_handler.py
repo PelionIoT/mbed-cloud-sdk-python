@@ -51,7 +51,7 @@ class Test(BaseCase):
         def some_callback(device_id, path, value, status=mutable):
             mutable.extend((device_id, path, value))
 
-        with mock.patch('mbed_cloud._backends.mds.SubscriptionsApi.v2_subscriptions_device_id_resource_path_put'):
+        with mock.patch('mbed_cloud._backends.mds.SubscriptionsApi.add_resource_subscription'):
             self.api.add_resource_subscription_async(
                 device_id=device_id,
                 resource_path=path,

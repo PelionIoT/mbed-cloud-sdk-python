@@ -16,9 +16,24 @@
 # --------------------------------------------------------------------------
 """Some shared utilities"""
 import datetime
+import logging
 import uuid
 
 from mbed_cloud.exceptions import CloudValueError
+
+LOG = logging.getLogger(__name__)
+
+
+def logging_check():
+    """As an mbed cloud sub-module, iterate and log at each verbosity level"""
+    text = 'logging check "%s"'
+    for level in ['debug', 'info', 'warning', 'critical']:
+        getattr(LOG, level)(text, level)
+
+
+def ensure_listable(obj):
+    """Ensures obj is a list-like container type"""
+    return obj if isinstance(obj, (list, tuple, set)) else [obj]
 
 
 def force_utc(time, name='field'):

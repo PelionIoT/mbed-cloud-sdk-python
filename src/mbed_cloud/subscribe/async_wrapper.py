@@ -26,6 +26,8 @@ import threading
 if six.PY3:
     import asyncio
 
+LOG = logging.getLogger(__name__)
+
 
 class AsyncWrapper(object):
     """Wraps a potentially asynchronous function to provide a consistent API"""
@@ -77,7 +79,7 @@ class AsyncWrapper(object):
         :param kwargs:
         :return:
         """
-        logging.debug(
+        LOG.debug(
             '%s on %s (awaitable %s async %s provider %s)',
             'deferring',
             self._func,
@@ -122,7 +124,7 @@ class AsyncWrapper(object):
         :param kwargs:
         :return: result of function call
         """
-        logging.debug(
+        LOG.debug(
             '%s on %s (awaitable %s async %s provider %s)',
             'blocking',
             self._func,

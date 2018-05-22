@@ -31,53 +31,124 @@ class ApiKeyInfoResp(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'groups': 'list[str]',
-        'status': 'str',
-        'name': 'str',
         'created_at': 'datetime',
-        'object': 'str',
         'creation_time': 'int',
-        'updated_at': 'datetime',
         'etag': 'str',
-        'key': 'str',
-        'owner': 'str',
+        'groups': 'list[str]',
         'id': 'str',
-        'last_login_time': 'int'
+        'key': 'str',
+        'last_login_time': 'int',
+        'name': 'str',
+        'object': 'str',
+        'owner': 'str',
+        'status': 'str',
+        'updated_at': 'datetime'
     }
 
     attribute_map = {
-        'groups': 'groups',
-        'status': 'status',
-        'name': 'name',
         'created_at': 'created_at',
-        'object': 'object',
         'creation_time': 'creation_time',
-        'updated_at': 'updated_at',
         'etag': 'etag',
-        'key': 'key',
-        'owner': 'owner',
+        'groups': 'groups',
         'id': 'id',
-        'last_login_time': 'last_login_time'
+        'key': 'key',
+        'last_login_time': 'last_login_time',
+        'name': 'name',
+        'object': 'object',
+        'owner': 'owner',
+        'status': 'status',
+        'updated_at': 'updated_at'
     }
 
-    def __init__(self, groups=None, status=None, name=None, created_at=None, object=None, creation_time=None, updated_at=None, etag=None, key=None, owner=None, id=None, last_login_time=None):
+    def __init__(self, created_at=None, creation_time=None, etag=None, groups=None, id=None, key=None, last_login_time=None, name=None, object=None, owner=None, status=None, updated_at=None):
         """
         ApiKeyInfoResp - a model defined in Swagger
         """
 
-        self._groups = groups
-        self._status = status
-        self._name = name
         self._created_at = created_at
-        self._object = object
         self._creation_time = creation_time
-        self._updated_at = updated_at
         self._etag = etag
-        self._key = key
-        self._owner = owner
+        self._groups = groups
         self._id = id
+        self._key = key
         self._last_login_time = last_login_time
+        self._name = name
+        self._object = object
+        self._owner = owner
+        self._status = status
+        self._updated_at = updated_at
         self.discriminator = None
+
+    @property
+    def created_at(self):
+        """
+        Gets the created_at of this ApiKeyInfoResp.
+        Creation UTC time RFC3339.
+
+        :return: The created_at of this ApiKeyInfoResp.
+        :rtype: datetime
+        """
+        return self._created_at
+
+    @created_at.setter
+    def created_at(self, created_at):
+        """
+        Sets the created_at of this ApiKeyInfoResp.
+        Creation UTC time RFC3339.
+
+        :param created_at: The created_at of this ApiKeyInfoResp.
+        :type: datetime
+        """
+
+        self._created_at = created_at
+
+    @property
+    def creation_time(self):
+        """
+        Gets the creation_time of this ApiKeyInfoResp.
+        The timestamp of the API key creation in the storage, in milliseconds.
+
+        :return: The creation_time of this ApiKeyInfoResp.
+        :rtype: int
+        """
+        return self._creation_time
+
+    @creation_time.setter
+    def creation_time(self, creation_time):
+        """
+        Sets the creation_time of this ApiKeyInfoResp.
+        The timestamp of the API key creation in the storage, in milliseconds.
+
+        :param creation_time: The creation_time of this ApiKeyInfoResp.
+        :type: int
+        """
+
+        self._creation_time = creation_time
+
+    @property
+    def etag(self):
+        """
+        Gets the etag of this ApiKeyInfoResp.
+        API resource entity version.
+
+        :return: The etag of this ApiKeyInfoResp.
+        :rtype: str
+        """
+        return self._etag
+
+    @etag.setter
+    def etag(self, etag):
+        """
+        Sets the etag of this ApiKeyInfoResp.
+        API resource entity version.
+
+        :param etag: The etag of this ApiKeyInfoResp.
+        :type: str
+        """
+        if etag is None:
+            raise ValueError("Invalid value for `etag`, must not be `None`")
+
+        self._etag = etag
 
     @property
     def groups(self):
@@ -103,33 +174,77 @@ class ApiKeyInfoResp(object):
         self._groups = groups
 
     @property
-    def status(self):
+    def id(self):
         """
-        Gets the status of this ApiKeyInfoResp.
-        The status of the API key.
+        Gets the id of this ApiKeyInfoResp.
+        The UUID of the API key.
 
-        :return: The status of this ApiKeyInfoResp.
+        :return: The id of this ApiKeyInfoResp.
         :rtype: str
         """
-        return self._status
+        return self._id
 
-    @status.setter
-    def status(self, status):
+    @id.setter
+    def id(self, id):
         """
-        Sets the status of this ApiKeyInfoResp.
-        The status of the API key.
+        Sets the id of this ApiKeyInfoResp.
+        The UUID of the API key.
 
-        :param status: The status of this ApiKeyInfoResp.
+        :param id: The id of this ApiKeyInfoResp.
         :type: str
         """
-        allowed_values = ["ACTIVE", "INACTIVE"]
-        if status not in allowed_values:
-            raise ValueError(
-                "Invalid value for `status` ({0}), must be one of {1}"
-                .format(status, allowed_values)
-            )
+        if id is None:
+            raise ValueError("Invalid value for `id`, must not be `None`")
 
-        self._status = status
+        self._id = id
+
+    @property
+    def key(self):
+        """
+        Gets the key of this ApiKeyInfoResp.
+        The API key.
+
+        :return: The key of this ApiKeyInfoResp.
+        :rtype: str
+        """
+        return self._key
+
+    @key.setter
+    def key(self, key):
+        """
+        Sets the key of this ApiKeyInfoResp.
+        The API key.
+
+        :param key: The key of this ApiKeyInfoResp.
+        :type: str
+        """
+        if key is None:
+            raise ValueError("Invalid value for `key`, must not be `None`")
+
+        self._key = key
+
+    @property
+    def last_login_time(self):
+        """
+        Gets the last_login_time of this ApiKeyInfoResp.
+        The timestamp of the latest API key usage, in milliseconds.
+
+        :return: The last_login_time of this ApiKeyInfoResp.
+        :rtype: int
+        """
+        return self._last_login_time
+
+    @last_login_time.setter
+    def last_login_time(self, last_login_time):
+        """
+        Sets the last_login_time of this ApiKeyInfoResp.
+        The timestamp of the latest API key usage, in milliseconds.
+
+        :param last_login_time: The last_login_time of this ApiKeyInfoResp.
+        :type: int
+        """
+
+        self._last_login_time = last_login_time
 
     @property
     def name(self):
@@ -155,29 +270,6 @@ class ApiKeyInfoResp(object):
             raise ValueError("Invalid value for `name`, must not be `None`")
 
         self._name = name
-
-    @property
-    def created_at(self):
-        """
-        Gets the created_at of this ApiKeyInfoResp.
-        Creation UTC time RFC3339.
-
-        :return: The created_at of this ApiKeyInfoResp.
-        :rtype: datetime
-        """
-        return self._created_at
-
-    @created_at.setter
-    def created_at(self, created_at):
-        """
-        Sets the created_at of this ApiKeyInfoResp.
-        Creation UTC time RFC3339.
-
-        :param created_at: The created_at of this ApiKeyInfoResp.
-        :type: datetime
-        """
-
-        self._created_at = created_at
 
     @property
     def object(self):
@@ -211,102 +303,6 @@ class ApiKeyInfoResp(object):
         self._object = object
 
     @property
-    def creation_time(self):
-        """
-        Gets the creation_time of this ApiKeyInfoResp.
-        The timestamp of the API key creation in the storage, in milliseconds.
-
-        :return: The creation_time of this ApiKeyInfoResp.
-        :rtype: int
-        """
-        return self._creation_time
-
-    @creation_time.setter
-    def creation_time(self, creation_time):
-        """
-        Sets the creation_time of this ApiKeyInfoResp.
-        The timestamp of the API key creation in the storage, in milliseconds.
-
-        :param creation_time: The creation_time of this ApiKeyInfoResp.
-        :type: int
-        """
-
-        self._creation_time = creation_time
-
-    @property
-    def updated_at(self):
-        """
-        Gets the updated_at of this ApiKeyInfoResp.
-        Last update UTC time RFC3339.
-
-        :return: The updated_at of this ApiKeyInfoResp.
-        :rtype: datetime
-        """
-        return self._updated_at
-
-    @updated_at.setter
-    def updated_at(self, updated_at):
-        """
-        Sets the updated_at of this ApiKeyInfoResp.
-        Last update UTC time RFC3339.
-
-        :param updated_at: The updated_at of this ApiKeyInfoResp.
-        :type: datetime
-        """
-
-        self._updated_at = updated_at
-
-    @property
-    def etag(self):
-        """
-        Gets the etag of this ApiKeyInfoResp.
-        API resource entity version.
-
-        :return: The etag of this ApiKeyInfoResp.
-        :rtype: str
-        """
-        return self._etag
-
-    @etag.setter
-    def etag(self, etag):
-        """
-        Sets the etag of this ApiKeyInfoResp.
-        API resource entity version.
-
-        :param etag: The etag of this ApiKeyInfoResp.
-        :type: str
-        """
-        if etag is None:
-            raise ValueError("Invalid value for `etag`, must not be `None`")
-
-        self._etag = etag
-
-    @property
-    def key(self):
-        """
-        Gets the key of this ApiKeyInfoResp.
-        The API key.
-
-        :return: The key of this ApiKeyInfoResp.
-        :rtype: str
-        """
-        return self._key
-
-    @key.setter
-    def key(self, key):
-        """
-        Sets the key of this ApiKeyInfoResp.
-        The API key.
-
-        :param key: The key of this ApiKeyInfoResp.
-        :type: str
-        """
-        if key is None:
-            raise ValueError("Invalid value for `key`, must not be `None`")
-
-        self._key = key
-
-    @property
     def owner(self):
         """
         Gets the owner of this ApiKeyInfoResp.
@@ -330,52 +326,56 @@ class ApiKeyInfoResp(object):
         self._owner = owner
 
     @property
-    def id(self):
+    def status(self):
         """
-        Gets the id of this ApiKeyInfoResp.
-        The UUID of the API key.
+        Gets the status of this ApiKeyInfoResp.
+        The status of the API key.
 
-        :return: The id of this ApiKeyInfoResp.
+        :return: The status of this ApiKeyInfoResp.
         :rtype: str
         """
-        return self._id
+        return self._status
 
-    @id.setter
-    def id(self, id):
+    @status.setter
+    def status(self, status):
         """
-        Sets the id of this ApiKeyInfoResp.
-        The UUID of the API key.
+        Sets the status of this ApiKeyInfoResp.
+        The status of the API key.
 
-        :param id: The id of this ApiKeyInfoResp.
+        :param status: The status of this ApiKeyInfoResp.
         :type: str
         """
-        if id is None:
-            raise ValueError("Invalid value for `id`, must not be `None`")
+        allowed_values = ["ACTIVE", "INACTIVE"]
+        if status not in allowed_values:
+            raise ValueError(
+                "Invalid value for `status` ({0}), must be one of {1}"
+                .format(status, allowed_values)
+            )
 
-        self._id = id
+        self._status = status
 
     @property
-    def last_login_time(self):
+    def updated_at(self):
         """
-        Gets the last_login_time of this ApiKeyInfoResp.
-        The timestamp of the latest API key usage, in milliseconds.
+        Gets the updated_at of this ApiKeyInfoResp.
+        Last update UTC time RFC3339.
 
-        :return: The last_login_time of this ApiKeyInfoResp.
-        :rtype: int
+        :return: The updated_at of this ApiKeyInfoResp.
+        :rtype: datetime
         """
-        return self._last_login_time
+        return self._updated_at
 
-    @last_login_time.setter
-    def last_login_time(self, last_login_time):
+    @updated_at.setter
+    def updated_at(self, updated_at):
         """
-        Sets the last_login_time of this ApiKeyInfoResp.
-        The timestamp of the latest API key usage, in milliseconds.
+        Sets the updated_at of this ApiKeyInfoResp.
+        Last update UTC time RFC3339.
 
-        :param last_login_time: The last_login_time of this ApiKeyInfoResp.
-        :type: int
+        :param updated_at: The updated_at of this ApiKeyInfoResp.
+        :type: datetime
         """
 
-        self._last_login_time = last_login_time
+        self._updated_at = updated_at
 
     def to_dict(self):
         """

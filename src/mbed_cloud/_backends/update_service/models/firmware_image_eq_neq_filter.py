@@ -31,86 +31,44 @@ class FirmwareImageEqNeqFilter(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'datafile': 'str',
-        'description': 'str',
         'created_at': 'datetime',
-        'updated_at': 'datetime',
-        'etag': 'datetime',
+        'datafile': 'str',
         'datafile_checksum': 'str',
         'datafile_size': 'int',
+        'description': 'str',
+        'etag': 'datetime',
         'id': 'str',
-        'name': 'str'
+        'name': 'str',
+        'updated_at': 'datetime'
     }
 
     attribute_map = {
-        'datafile': 'datafile',
-        'description': 'description',
         'created_at': 'created_at',
-        'updated_at': 'updated_at',
-        'etag': 'etag',
+        'datafile': 'datafile',
         'datafile_checksum': 'datafile_checksum',
         'datafile_size': 'datafile_size',
+        'description': 'description',
+        'etag': 'etag',
         'id': 'id',
-        'name': 'name'
+        'name': 'name',
+        'updated_at': 'updated_at'
     }
 
-    def __init__(self, datafile=None, description=None, created_at=None, updated_at=None, etag=None, datafile_checksum=None, datafile_size=None, id=None, name=None):
+    def __init__(self, created_at=None, datafile=None, datafile_checksum=None, datafile_size=None, description=None, etag=None, id=None, name=None, updated_at=None):
         """
         FirmwareImageEqNeqFilter - a model defined in Swagger
         """
 
-        self._datafile = datafile
-        self._description = description
         self._created_at = created_at
-        self._updated_at = updated_at
-        self._etag = etag
+        self._datafile = datafile
         self._datafile_checksum = datafile_checksum
         self._datafile_size = datafile_size
+        self._description = description
+        self._etag = etag
         self._id = id
         self._name = name
+        self._updated_at = updated_at
         self.discriminator = None
-
-    @property
-    def datafile(self):
-        """
-        Gets the datafile of this FirmwareImageEqNeqFilter.
-
-        :return: The datafile of this FirmwareImageEqNeqFilter.
-        :rtype: str
-        """
-        return self._datafile
-
-    @datafile.setter
-    def datafile(self, datafile):
-        """
-        Sets the datafile of this FirmwareImageEqNeqFilter.
-
-        :param datafile: The datafile of this FirmwareImageEqNeqFilter.
-        :type: str
-        """
-
-        self._datafile = datafile
-
-    @property
-    def description(self):
-        """
-        Gets the description of this FirmwareImageEqNeqFilter.
-
-        :return: The description of this FirmwareImageEqNeqFilter.
-        :rtype: str
-        """
-        return self._description
-
-    @description.setter
-    def description(self, description):
-        """
-        Sets the description of this FirmwareImageEqNeqFilter.
-
-        :param description: The description of this FirmwareImageEqNeqFilter.
-        :type: str
-        """
-
-        self._description = description
 
     @property
     def created_at(self):
@@ -134,46 +92,25 @@ class FirmwareImageEqNeqFilter(object):
         self._created_at = created_at
 
     @property
-    def updated_at(self):
+    def datafile(self):
         """
-        Gets the updated_at of this FirmwareImageEqNeqFilter.
+        Gets the datafile of this FirmwareImageEqNeqFilter.
 
-        :return: The updated_at of this FirmwareImageEqNeqFilter.
-        :rtype: datetime
+        :return: The datafile of this FirmwareImageEqNeqFilter.
+        :rtype: str
         """
-        return self._updated_at
+        return self._datafile
 
-    @updated_at.setter
-    def updated_at(self, updated_at):
+    @datafile.setter
+    def datafile(self, datafile):
         """
-        Sets the updated_at of this FirmwareImageEqNeqFilter.
+        Sets the datafile of this FirmwareImageEqNeqFilter.
 
-        :param updated_at: The updated_at of this FirmwareImageEqNeqFilter.
-        :type: datetime
-        """
-
-        self._updated_at = updated_at
-
-    @property
-    def etag(self):
-        """
-        Gets the etag of this FirmwareImageEqNeqFilter.
-
-        :return: The etag of this FirmwareImageEqNeqFilter.
-        :rtype: datetime
-        """
-        return self._etag
-
-    @etag.setter
-    def etag(self, etag):
-        """
-        Sets the etag of this FirmwareImageEqNeqFilter.
-
-        :param etag: The etag of this FirmwareImageEqNeqFilter.
-        :type: datetime
+        :param datafile: The datafile of this FirmwareImageEqNeqFilter.
+        :type: str
         """
 
-        self._etag = etag
+        self._datafile = datafile
 
     @property
     def datafile_checksum(self):
@@ -218,6 +155,48 @@ class FirmwareImageEqNeqFilter(object):
         self._datafile_size = datafile_size
 
     @property
+    def description(self):
+        """
+        Gets the description of this FirmwareImageEqNeqFilter.
+
+        :return: The description of this FirmwareImageEqNeqFilter.
+        :rtype: str
+        """
+        return self._description
+
+    @description.setter
+    def description(self, description):
+        """
+        Sets the description of this FirmwareImageEqNeqFilter.
+
+        :param description: The description of this FirmwareImageEqNeqFilter.
+        :type: str
+        """
+
+        self._description = description
+
+    @property
+    def etag(self):
+        """
+        Gets the etag of this FirmwareImageEqNeqFilter.
+
+        :return: The etag of this FirmwareImageEqNeqFilter.
+        :rtype: datetime
+        """
+        return self._etag
+
+    @etag.setter
+    def etag(self, etag):
+        """
+        Sets the etag of this FirmwareImageEqNeqFilter.
+
+        :param etag: The etag of this FirmwareImageEqNeqFilter.
+        :type: datetime
+        """
+
+        self._etag = etag
+
+    @property
     def id(self):
         """
         Gets the id of this FirmwareImageEqNeqFilter.
@@ -258,6 +237,27 @@ class FirmwareImageEqNeqFilter(object):
         """
 
         self._name = name
+
+    @property
+    def updated_at(self):
+        """
+        Gets the updated_at of this FirmwareImageEqNeqFilter.
+
+        :return: The updated_at of this FirmwareImageEqNeqFilter.
+        :rtype: datetime
+        """
+        return self._updated_at
+
+    @updated_at.setter
+    def updated_at(self, updated_at):
+        """
+        Sets the updated_at of this FirmwareImageEqNeqFilter.
+
+        :param updated_at: The updated_at of this FirmwareImageEqNeqFilter.
+        :type: datetime
+        """
+
+        self._updated_at = updated_at
 
     def to_dict(self):
         """

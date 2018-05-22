@@ -38,7 +38,10 @@ class BaseAPI(object):
     api_structure = {}
 
     def __init__(self, params=None):
-        """Ensure the config is valid and has all required fields."""
+        """A module to access this section of the Mbed Cloud API.
+
+        :param params: Dictionary to override configuration values
+        """
         self.config = Config(params)
         self.apis = {}
         self.api_clients = {}
@@ -122,9 +125,11 @@ class BaseAPI(object):
 class StubAPI(BaseAPI):
     """Used in test framework"""
 
-    def __init__(self, **kwargs):
+    def __init__(self, params):
         """For use in test verification"""
-        self.kwargs = kwargs
+        # because we take a positional dictionary rather than **kwargs
+        # we have to be careful to replicate this for the testrunner
+        self.kwargs = params
 
     def exception(self):
         """Raises an exception"""
