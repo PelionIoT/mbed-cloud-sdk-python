@@ -35,6 +35,118 @@ class AggregatorAccountAdminApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
+    def add_account_api_key_to_groups(self, account_id, api_key, body, **kwargs):
+        """
+        Add API key to a list of groups.
+        An endpoint for adding API key to groups.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.add_account_api_key_to_groups(account_id, api_key, body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param str api_key: The ID of the API key to be added to the group. (required)
+        :param list[str] body: A list of IDs of the groups to be updated. (required)
+        :return: UpdatedResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.add_account_api_key_to_groups_with_http_info(account_id, api_key, body, **kwargs)
+        else:
+            (data) = self.add_account_api_key_to_groups_with_http_info(account_id, api_key, body, **kwargs)
+            return data
+
+    def add_account_api_key_to_groups_with_http_info(self, account_id, api_key, body, **kwargs):
+        """
+        Add API key to a list of groups.
+        An endpoint for adding API key to groups.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.add_account_api_key_to_groups_with_http_info(account_id, api_key, body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param str api_key: The ID of the API key to be added to the group. (required)
+        :param list[str] body: A list of IDs of the groups to be updated. (required)
+        :return: UpdatedResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['account_id', 'api_key', 'body']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method add_account_api_key_to_groups" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'account_id' is set
+        if ('account_id' not in params) or (params['account_id'] is None):
+            raise ValueError("Missing the required parameter `account_id` when calling `add_account_api_key_to_groups`")
+        # verify the required parameter 'api_key' is set
+        if ('api_key' not in params) or (params['api_key'] is None):
+            raise ValueError("Missing the required parameter `api_key` when calling `add_account_api_key_to_groups`")
+        # verify the required parameter 'body' is set
+        if ('body' not in params) or (params['body'] is None):
+            raise ValueError("Missing the required parameter `body` when calling `add_account_api_key_to_groups`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'account_id' in params:
+            path_params['accountID'] = params['account_id']
+        if 'api_key' in params:
+            path_params['apiKey'] = params['api_key']
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'body' in params:
+            body_params = params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/accounts/{accountID}/api-keys/{apiKey}/groups', 'POST',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='UpdatedResponse',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
     def add_account_certificate(self, account_id, body, **kwargs):
         """
         Upload new trusted certificate.
@@ -1501,9 +1613,8 @@ class AggregatorAccountAdminApi(object):
         :param async bool
         :param str account_id: Account ID. (required)
         :param str user_id: The ID of the user to be retrieved. (required)
-        :param str scratch_codes: Request to regenerate new emergency scratch codes.
         :param str properties: Request to return account specific user property values according to the given property name.
-        :return: MyUserInfoResp
+        :return: UserInfoResp
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -1526,14 +1637,13 @@ class AggregatorAccountAdminApi(object):
         :param async bool
         :param str account_id: Account ID. (required)
         :param str user_id: The ID of the user to be retrieved. (required)
-        :param str scratch_codes: Request to regenerate new emergency scratch codes.
         :param str properties: Request to return account specific user property values according to the given property name.
-        :return: MyUserInfoResp
+        :return: UserInfoResp
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['account_id', 'user_id', 'scratch_codes', 'properties']
+        all_params = ['account_id', 'user_id', 'properties']
         all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -1565,8 +1675,6 @@ class AggregatorAccountAdminApi(object):
             path_params['user-id'] = params['user_id']
 
         query_params = []
-        if 'scratch_codes' in params:
-            query_params.append(('scratch_codes', params['scratch_codes']))
         if 'properties' in params:
             query_params.append(('properties', params['properties']))
 
@@ -1590,7 +1698,7 @@ class AggregatorAccountAdminApi(object):
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='MyUserInfoResp',
+                                        response_type='UserInfoResp',
                                         auth_settings=auth_settings,
                                         async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -1738,8 +1846,8 @@ class AggregatorAccountAdminApi(object):
         :param int device_execution_mode__neq: Filter for not developer certificates
         :param str owner__eq: Owner name filter
         :param bool enrollment_mode__eq: Enrollment mode filter
-        :param str issuer__like: Filter for issuer
-        :param str subject__like: Filter for subject
+        :param str issuer__like: Filter for issuer. Finds all matches where the filter value is a case insensitive substring of the result. Example: issuer__like=cn=iss matches CN=issuer.
+        :param str subject__like: Filter for subject. Finds all matches where the filter value is a case insensitive substring of the result. Example: subject__like=cn=su matches CN=subject.
         :return: TrustedCertificateInternalRespList
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1773,8 +1881,8 @@ class AggregatorAccountAdminApi(object):
         :param int device_execution_mode__neq: Filter for not developer certificates
         :param str owner__eq: Owner name filter
         :param bool enrollment_mode__eq: Enrollment mode filter
-        :param str issuer__like: Filter for issuer
-        :param str subject__like: Filter for subject
+        :param str issuer__like: Filter for issuer. Finds all matches where the filter value is a case insensitive substring of the result. Example: issuer__like=cn=iss matches CN=issuer.
+        :param str subject__like: Filter for subject. Finds all matches where the filter value is a case insensitive substring of the result. Example: subject__like=cn=su matches CN=subject.
         :return: TrustedCertificateInternalRespList
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1993,6 +2101,8 @@ class AggregatorAccountAdminApi(object):
         :param str include: Comma separated additional data to return. Currently supported: total_count
         :param str email__eq: Filter for email address
         :param str status__eq: Filter for status
+        :param str status__in: An optional filter for getting users with a specified set of statuses.
+        :param str status__nin: An optional filter for excluding users with a specified set of statuses.
         :return: UserInfoRespList
                  If the method is called asynchronously,
                  returns the request thread.
@@ -2021,12 +2131,14 @@ class AggregatorAccountAdminApi(object):
         :param str include: Comma separated additional data to return. Currently supported: total_count
         :param str email__eq: Filter for email address
         :param str status__eq: Filter for status
+        :param str status__in: An optional filter for getting users with a specified set of statuses.
+        :param str status__nin: An optional filter for excluding users with a specified set of statuses.
         :return: UserInfoRespList
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['account_id', 'limit', 'after', 'order', 'include', 'email__eq', 'status__eq']
+        all_params = ['account_id', 'limit', 'after', 'order', 'include', 'email__eq', 'status__eq', 'status__in', 'status__nin']
         all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -2065,6 +2177,10 @@ class AggregatorAccountAdminApi(object):
             query_params.append(('email__eq', params['email__eq']))
         if 'status__eq' in params:
             query_params.append(('status__eq', params['status__eq']))
+        if 'status__in' in params:
+            query_params.append(('status__in', params['status__in']))
+        if 'status__nin' in params:
+            query_params.append(('status__nin', params['status__nin']))
 
         header_params = {}
 
@@ -2105,10 +2221,12 @@ class AggregatorAccountAdminApi(object):
 
         :param async bool
         :param str status__eq: An optional filter for account status, ENROLLING, ACTIVE, RESTRICTED or SUSPENDED.
+        :param str status__in: An optional filter for getting accounts with a specified set of statuses.
+        :param str status__nin: An optional filter for excluding accounts with a specified set of statuses.
         :param str tier__eq: An optional filter for tier level, must be 0, 1, 2, 98, 99 or omitted.
         :param str parent__eq: An optional filter for parent account ID.
         :param str end_market__eq: An optional filter for account end market.
-        :param str country__like: An optional filter for account country.
+        :param str country__like: An optional filter for account country. Finds all matches where the filter value is a case insensitive substring of the result. Example: country__like=LAND matches Ireland.
         :param int limit: The number of results to return (2-1000), default is 1000.
         :param str after: The entity ID to fetch after the given one.
         :param str order: The order of the records based on creation time, ASC or DESC. Default value is ASC
@@ -2137,10 +2255,12 @@ class AggregatorAccountAdminApi(object):
 
         :param async bool
         :param str status__eq: An optional filter for account status, ENROLLING, ACTIVE, RESTRICTED or SUSPENDED.
+        :param str status__in: An optional filter for getting accounts with a specified set of statuses.
+        :param str status__nin: An optional filter for excluding accounts with a specified set of statuses.
         :param str tier__eq: An optional filter for tier level, must be 0, 1, 2, 98, 99 or omitted.
         :param str parent__eq: An optional filter for parent account ID.
         :param str end_market__eq: An optional filter for account end market.
-        :param str country__like: An optional filter for account country.
+        :param str country__like: An optional filter for account country. Finds all matches where the filter value is a case insensitive substring of the result. Example: country__like=LAND matches Ireland.
         :param int limit: The number of results to return (2-1000), default is 1000.
         :param str after: The entity ID to fetch after the given one.
         :param str order: The order of the records based on creation time, ASC or DESC. Default value is ASC
@@ -2152,7 +2272,7 @@ class AggregatorAccountAdminApi(object):
                  returns the request thread.
         """
 
-        all_params = ['status__eq', 'tier__eq', 'parent__eq', 'end_market__eq', 'country__like', 'limit', 'after', 'order', 'include', 'format', 'properties']
+        all_params = ['status__eq', 'status__in', 'status__nin', 'tier__eq', 'parent__eq', 'end_market__eq', 'country__like', 'limit', 'after', 'order', 'include', 'format', 'properties']
         all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -2176,6 +2296,10 @@ class AggregatorAccountAdminApi(object):
         query_params = []
         if 'status__eq' in params:
             query_params.append(('status__eq', params['status__eq']))
+        if 'status__in' in params:
+            query_params.append(('status__in', params['status__in']))
+        if 'status__nin' in params:
+            query_params.append(('status__nin', params['status__nin']))
         if 'tier__eq' in params:
             query_params.append(('tier__eq', params['tier__eq']))
         if 'parent__eq' in params:
@@ -2342,6 +2466,123 @@ class AggregatorAccountAdminApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
+    def get_groups_of_account_apikey(self, account_id, api_key, **kwargs):
+        """
+        Get groups of the API key.
+        An endpoint for retrieving groups of the API key.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.get_groups_of_account_apikey(account_id, api_key, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param str api_key: The ID of the API key whose details are retrieved. (required)
+        :param int limit: The number of results to return (2-1000), default is 50.
+        :param str after: The entity ID to fetch after the given one.
+        :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
+        :param str include: Comma separated additional data to return. Currently supported: total_count
+        :return: GroupSummaryList
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.get_groups_of_account_apikey_with_http_info(account_id, api_key, **kwargs)
+        else:
+            (data) = self.get_groups_of_account_apikey_with_http_info(account_id, api_key, **kwargs)
+            return data
+
+    def get_groups_of_account_apikey_with_http_info(self, account_id, api_key, **kwargs):
+        """
+        Get groups of the API key.
+        An endpoint for retrieving groups of the API key.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.get_groups_of_account_apikey_with_http_info(account_id, api_key, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param str api_key: The ID of the API key whose details are retrieved. (required)
+        :param int limit: The number of results to return (2-1000), default is 50.
+        :param str after: The entity ID to fetch after the given one.
+        :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
+        :param str include: Comma separated additional data to return. Currently supported: total_count
+        :return: GroupSummaryList
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['account_id', 'api_key', 'limit', 'after', 'order', 'include']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_groups_of_account_apikey" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'account_id' is set
+        if ('account_id' not in params) or (params['account_id'] is None):
+            raise ValueError("Missing the required parameter `account_id` when calling `get_groups_of_account_apikey`")
+        # verify the required parameter 'api_key' is set
+        if ('api_key' not in params) or (params['api_key'] is None):
+            raise ValueError("Missing the required parameter `api_key` when calling `get_groups_of_account_apikey`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'account_id' in params:
+            path_params['accountID'] = params['account_id']
+        if 'api_key' in params:
+            path_params['apiKey'] = params['api_key']
+
+        query_params = []
+        if 'limit' in params:
+            query_params.append(('limit', params['limit']))
+        if 'after' in params:
+            query_params.append(('after', params['after']))
+        if 'order' in params:
+            query_params.append(('order', params['order']))
+        if 'include' in params:
+            query_params.append(('include', params['include']))
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/accounts/{accountID}/api-keys/{apiKey}/groups', 'GET',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='GroupSummaryList',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
     def get_groups_of_account_user(self, account_id, user_id, **kwargs):
         """
         Get groups of the user.
@@ -2475,6 +2716,9 @@ class AggregatorAccountAdminApi(object):
         :param str after: The entity ID to fetch after the given one.
         :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
         :param str include: Comma separated additional data to return. Currently supported: total_count
+        :param str status__eq: An optional filter for getting users by status.
+        :param str status__in: An optional filter for getting users with a specified set of statuses.
+        :param str status__nin: An optional filter for excluding users with a specified set of statuses.
         :return: UserInfoRespList
                  If the method is called asynchronously,
                  returns the request thread.
@@ -2502,12 +2746,15 @@ class AggregatorAccountAdminApi(object):
         :param str after: The entity ID to fetch after the given one.
         :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
         :param str include: Comma separated additional data to return. Currently supported: total_count
+        :param str status__eq: An optional filter for getting users by status.
+        :param str status__in: An optional filter for getting users with a specified set of statuses.
+        :param str status__nin: An optional filter for excluding users with a specified set of statuses.
         :return: UserInfoRespList
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['account_id', 'group_id', 'limit', 'after', 'order', 'include']
+        all_params = ['account_id', 'group_id', 'limit', 'after', 'order', 'include', 'status__eq', 'status__in', 'status__nin']
         all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -2547,6 +2794,12 @@ class AggregatorAccountAdminApi(object):
             query_params.append(('order', params['order']))
         if 'include' in params:
             query_params.append(('include', params['include']))
+        if 'status__eq' in params:
+            query_params.append(('status__eq', params['status__eq']))
+        if 'status__in' in params:
+            query_params.append(('status__in', params['status__in']))
+        if 'status__nin' in params:
+            query_params.append(('status__nin', params['status__nin']))
 
         header_params = {}
 
@@ -2569,6 +2822,118 @@ class AggregatorAccountAdminApi(object):
                                         post_params=form_params,
                                         files=local_var_files,
                                         response_type='UserInfoRespList',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
+    def remove_account_api_key_from_groups(self, account_id, api_key, body, **kwargs):
+        """
+        Remove API key from groups.
+        An endpoint for removing API key from groups.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.remove_account_api_key_from_groups(account_id, api_key, body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param str api_key: The ID of the API key to be removed from the group. (required)
+        :param list[str] body: A list of IDs of the groups to be updated. (required)
+        :return: UpdatedResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.remove_account_api_key_from_groups_with_http_info(account_id, api_key, body, **kwargs)
+        else:
+            (data) = self.remove_account_api_key_from_groups_with_http_info(account_id, api_key, body, **kwargs)
+            return data
+
+    def remove_account_api_key_from_groups_with_http_info(self, account_id, api_key, body, **kwargs):
+        """
+        Remove API key from groups.
+        An endpoint for removing API key from groups.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.remove_account_api_key_from_groups_with_http_info(account_id, api_key, body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param str api_key: The ID of the API key to be removed from the group. (required)
+        :param list[str] body: A list of IDs of the groups to be updated. (required)
+        :return: UpdatedResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['account_id', 'api_key', 'body']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method remove_account_api_key_from_groups" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'account_id' is set
+        if ('account_id' not in params) or (params['account_id'] is None):
+            raise ValueError("Missing the required parameter `account_id` when calling `remove_account_api_key_from_groups`")
+        # verify the required parameter 'api_key' is set
+        if ('api_key' not in params) or (params['api_key'] is None):
+            raise ValueError("Missing the required parameter `api_key` when calling `remove_account_api_key_from_groups`")
+        # verify the required parameter 'body' is set
+        if ('body' not in params) or (params['body'] is None):
+            raise ValueError("Missing the required parameter `body` when calling `remove_account_api_key_from_groups`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'account_id' in params:
+            path_params['accountID'] = params['account_id']
+        if 'api_key' in params:
+            path_params['apiKey'] = params['api_key']
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'body' in params:
+            body_params = params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/accounts/{accountID}/api-keys/{apiKey}/groups', 'DELETE',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='UpdatedResponse',
                                         auth_settings=auth_settings,
                                         async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -3344,7 +3709,7 @@ class AggregatorAccountAdminApi(object):
         :param async bool
         :param str account_id: Account ID. (required)
         :param str user_id: The ID of the user to be updated. (required)
-        :param AdminUserUpdateReq body: A user object with attributes. (required)
+        :param UserUpdateReq body: A user object with attributes. (required)
         :return: UserUpdateResp
                  If the method is called asynchronously,
                  returns the request thread.
@@ -3368,7 +3733,7 @@ class AggregatorAccountAdminApi(object):
         :param async bool
         :param str account_id: Account ID. (required)
         :param str user_id: The ID of the user to be updated. (required)
-        :param AdminUserUpdateReq body: A user object with attributes. (required)
+        :param UserUpdateReq body: A user object with attributes. (required)
         :return: UserUpdateResp
                  If the method is called asynchronously,
                  returns the request thread.

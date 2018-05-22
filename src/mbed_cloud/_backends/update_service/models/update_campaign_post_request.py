@@ -32,36 +32,36 @@ class UpdateCampaignPostRequest(object):
     """
     swagger_types = {
         'description': 'str',
-        'root_manifest_id': 'str',
-        'object': 'str',
-        'when': 'datetime',
-        'state': 'str',
         'device_filter': 'str',
-        'name': 'str'
+        'name': 'str',
+        'object': 'str',
+        'root_manifest_id': 'str',
+        'state': 'str',
+        'when': 'datetime'
     }
 
     attribute_map = {
         'description': 'description',
-        'root_manifest_id': 'root_manifest_id',
-        'object': 'object',
-        'when': 'when',
-        'state': 'state',
         'device_filter': 'device_filter',
-        'name': 'name'
+        'name': 'name',
+        'object': 'object',
+        'root_manifest_id': 'root_manifest_id',
+        'state': 'state',
+        'when': 'when'
     }
 
-    def __init__(self, description=None, root_manifest_id=None, object=None, when=None, state=None, device_filter=None, name=None):
+    def __init__(self, description=None, device_filter=None, name=None, object=None, root_manifest_id=None, state=None, when=None):
         """
         UpdateCampaignPostRequest - a model defined in Swagger
         """
 
         self._description = description
-        self._root_manifest_id = root_manifest_id
-        self._object = object
-        self._when = when
-        self._state = state
         self._device_filter = device_filter
         self._name = name
+        self._object = object
+        self._root_manifest_id = root_manifest_id
+        self._state = state
+        self._when = when
         self.discriminator = None
 
     @property
@@ -88,104 +88,6 @@ class UpdateCampaignPostRequest(object):
             raise ValueError("Invalid value for `description`, length must be less than or equal to `2000`")
 
         self._description = description
-
-    @property
-    def root_manifest_id(self):
-        """
-        Gets the root_manifest_id of this UpdateCampaignPostRequest.
-
-        :return: The root_manifest_id of this UpdateCampaignPostRequest.
-        :rtype: str
-        """
-        return self._root_manifest_id
-
-    @root_manifest_id.setter
-    def root_manifest_id(self, root_manifest_id):
-        """
-        Sets the root_manifest_id of this UpdateCampaignPostRequest.
-
-        :param root_manifest_id: The root_manifest_id of this UpdateCampaignPostRequest.
-        :type: str
-        """
-        if root_manifest_id is not None and len(root_manifest_id) > 32:
-            raise ValueError("Invalid value for `root_manifest_id`, length must be less than or equal to `32`")
-
-        self._root_manifest_id = root_manifest_id
-
-    @property
-    def object(self):
-        """
-        Gets the object of this UpdateCampaignPostRequest.
-        The API resource entity
-
-        :return: The object of this UpdateCampaignPostRequest.
-        :rtype: str
-        """
-        return self._object
-
-    @object.setter
-    def object(self, object):
-        """
-        Sets the object of this UpdateCampaignPostRequest.
-        The API resource entity
-
-        :param object: The object of this UpdateCampaignPostRequest.
-        :type: str
-        """
-
-        self._object = object
-
-    @property
-    def when(self):
-        """
-        Gets the when of this UpdateCampaignPostRequest.
-        The scheduled start time for the update campaign
-
-        :return: The when of this UpdateCampaignPostRequest.
-        :rtype: datetime
-        """
-        return self._when
-
-    @when.setter
-    def when(self, when):
-        """
-        Sets the when of this UpdateCampaignPostRequest.
-        The scheduled start time for the update campaign
-
-        :param when: The when of this UpdateCampaignPostRequest.
-        :type: datetime
-        """
-
-        self._when = when
-
-    @property
-    def state(self):
-        """
-        Gets the state of this UpdateCampaignPostRequest.
-        The state of the campaign
-
-        :return: The state of this UpdateCampaignPostRequest.
-        :rtype: str
-        """
-        return self._state
-
-    @state.setter
-    def state(self, state):
-        """
-        Sets the state of this UpdateCampaignPostRequest.
-        The state of the campaign
-
-        :param state: The state of this UpdateCampaignPostRequest.
-        :type: str
-        """
-        allowed_values = ["draft", "scheduled", "allocatingquota", "allocatedquota", "insufficientquota", "checkingmanifest", "checkedmanifest", "devicefetch", "devicecopy", "devicecheck", "publishing", "deploying", "deployed", "manifestremoved", "expired", "stopping", "autostopped", "userstopped", "conflict"]
-        if state not in allowed_values:
-            raise ValueError(
-                "Invalid value for `state` ({0}), must be one of {1}"
-                .format(state, allowed_values)
-            )
-
-        self._state = state
 
     @property
     def device_filter(self):
@@ -238,6 +140,104 @@ class UpdateCampaignPostRequest(object):
             raise ValueError("Invalid value for `name`, length must be less than or equal to `128`")
 
         self._name = name
+
+    @property
+    def object(self):
+        """
+        Gets the object of this UpdateCampaignPostRequest.
+        The API resource entity
+
+        :return: The object of this UpdateCampaignPostRequest.
+        :rtype: str
+        """
+        return self._object
+
+    @object.setter
+    def object(self, object):
+        """
+        Sets the object of this UpdateCampaignPostRequest.
+        The API resource entity
+
+        :param object: The object of this UpdateCampaignPostRequest.
+        :type: str
+        """
+
+        self._object = object
+
+    @property
+    def root_manifest_id(self):
+        """
+        Gets the root_manifest_id of this UpdateCampaignPostRequest.
+
+        :return: The root_manifest_id of this UpdateCampaignPostRequest.
+        :rtype: str
+        """
+        return self._root_manifest_id
+
+    @root_manifest_id.setter
+    def root_manifest_id(self, root_manifest_id):
+        """
+        Sets the root_manifest_id of this UpdateCampaignPostRequest.
+
+        :param root_manifest_id: The root_manifest_id of this UpdateCampaignPostRequest.
+        :type: str
+        """
+        if root_manifest_id is not None and len(root_manifest_id) > 32:
+            raise ValueError("Invalid value for `root_manifest_id`, length must be less than or equal to `32`")
+
+        self._root_manifest_id = root_manifest_id
+
+    @property
+    def state(self):
+        """
+        Gets the state of this UpdateCampaignPostRequest.
+        The state of the campaign
+
+        :return: The state of this UpdateCampaignPostRequest.
+        :rtype: str
+        """
+        return self._state
+
+    @state.setter
+    def state(self, state):
+        """
+        Sets the state of this UpdateCampaignPostRequest.
+        The state of the campaign
+
+        :param state: The state of this UpdateCampaignPostRequest.
+        :type: str
+        """
+        allowed_values = ["draft", "scheduled", "allocatingquota", "allocatedquota", "quotaallocationfailed", "checkingmanifest", "checkedmanifest", "devicefetch", "devicecopy", "devicecheck", "publishing", "deploying", "deployed", "manifestremoved", "expired", "stopping", "autostopped", "userstopped", "conflict"]
+        if state not in allowed_values:
+            raise ValueError(
+                "Invalid value for `state` ({0}), must be one of {1}"
+                .format(state, allowed_values)
+            )
+
+        self._state = state
+
+    @property
+    def when(self):
+        """
+        Gets the when of this UpdateCampaignPostRequest.
+        The scheduled start time for the update campaign
+
+        :return: The when of this UpdateCampaignPostRequest.
+        :rtype: datetime
+        """
+        return self._when
+
+    @when.setter
+    def when(self, when):
+        """
+        Sets the when of this UpdateCampaignPostRequest.
+        The scheduled start time for the update campaign
+
+        :param when: The when of this UpdateCampaignPostRequest.
+        :type: datetime
+        """
+
+        self._when = when
 
     def to_dict(self):
         """

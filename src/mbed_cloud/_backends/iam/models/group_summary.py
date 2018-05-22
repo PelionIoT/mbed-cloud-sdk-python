@@ -31,69 +31,44 @@ class GroupSummary(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'user_count': 'int',
         'account_id': 'str',
+        'apikey_count': 'int',
         'created_at': 'datetime',
+        'etag': 'str',
+        'id': 'str',
+        'name': 'str',
         'object': 'str',
         'updated_at': 'datetime',
-        'etag': 'str',
-        'apikey_count': 'int',
-        'id': 'str',
-        'name': 'str'
+        'user_count': 'int'
     }
 
     attribute_map = {
-        'user_count': 'user_count',
         'account_id': 'account_id',
+        'apikey_count': 'apikey_count',
         'created_at': 'created_at',
+        'etag': 'etag',
+        'id': 'id',
+        'name': 'name',
         'object': 'object',
         'updated_at': 'updated_at',
-        'etag': 'etag',
-        'apikey_count': 'apikey_count',
-        'id': 'id',
-        'name': 'name'
+        'user_count': 'user_count'
     }
 
-    def __init__(self, user_count=None, account_id=None, created_at=None, object=None, updated_at=None, etag=None, apikey_count=None, id=None, name=None):
+    def __init__(self, account_id=None, apikey_count=None, created_at=None, etag=None, id=None, name=None, object=None, updated_at=None, user_count=None):
         """
         GroupSummary - a model defined in Swagger
         """
 
-        self._user_count = user_count
         self._account_id = account_id
-        self._created_at = created_at
-        self._object = object
-        self._updated_at = updated_at
-        self._etag = etag
         self._apikey_count = apikey_count
+        self._created_at = created_at
+        self._etag = etag
         self._id = id
         self._name = name
-        self.discriminator = None
-
-    @property
-    def user_count(self):
-        """
-        Gets the user_count of this GroupSummary.
-        The number of users in this group.
-
-        :return: The user_count of this GroupSummary.
-        :rtype: int
-        """
-        return self._user_count
-
-    @user_count.setter
-    def user_count(self, user_count):
-        """
-        Sets the user_count of this GroupSummary.
-        The number of users in this group.
-
-        :param user_count: The user_count of this GroupSummary.
-        :type: int
-        """
-        if user_count is None:
-            raise ValueError("Invalid value for `user_count`, must not be `None`")
-
+        self._object = object
+        self._updated_at = updated_at
         self._user_count = user_count
+        self.discriminator = None
 
     @property
     def account_id(self):
@@ -121,6 +96,31 @@ class GroupSummary(object):
         self._account_id = account_id
 
     @property
+    def apikey_count(self):
+        """
+        Gets the apikey_count of this GroupSummary.
+        The number of API keys in this group.
+
+        :return: The apikey_count of this GroupSummary.
+        :rtype: int
+        """
+        return self._apikey_count
+
+    @apikey_count.setter
+    def apikey_count(self, apikey_count):
+        """
+        Sets the apikey_count of this GroupSummary.
+        The number of API keys in this group.
+
+        :param apikey_count: The apikey_count of this GroupSummary.
+        :type: int
+        """
+        if apikey_count is None:
+            raise ValueError("Invalid value for `apikey_count`, must not be `None`")
+
+        self._apikey_count = apikey_count
+
+    @property
     def created_at(self):
         """
         Gets the created_at of this GroupSummary.
@@ -142,60 +142,6 @@ class GroupSummary(object):
         """
 
         self._created_at = created_at
-
-    @property
-    def object(self):
-        """
-        Gets the object of this GroupSummary.
-        Entity name: always 'group'
-
-        :return: The object of this GroupSummary.
-        :rtype: str
-        """
-        return self._object
-
-    @object.setter
-    def object(self, object):
-        """
-        Sets the object of this GroupSummary.
-        Entity name: always 'group'
-
-        :param object: The object of this GroupSummary.
-        :type: str
-        """
-        if object is None:
-            raise ValueError("Invalid value for `object`, must not be `None`")
-        allowed_values = ["user", "api-key", "group", "account", "account-template", "trusted-cert", "list", "error", "policy", "identity-provider"]
-        if object not in allowed_values:
-            raise ValueError(
-                "Invalid value for `object` ({0}), must be one of {1}"
-                .format(object, allowed_values)
-            )
-
-        self._object = object
-
-    @property
-    def updated_at(self):
-        """
-        Gets the updated_at of this GroupSummary.
-        Last update UTC time RFC3339.
-
-        :return: The updated_at of this GroupSummary.
-        :rtype: datetime
-        """
-        return self._updated_at
-
-    @updated_at.setter
-    def updated_at(self, updated_at):
-        """
-        Sets the updated_at of this GroupSummary.
-        Last update UTC time RFC3339.
-
-        :param updated_at: The updated_at of this GroupSummary.
-        :type: datetime
-        """
-
-        self._updated_at = updated_at
 
     @property
     def etag(self):
@@ -221,31 +167,6 @@ class GroupSummary(object):
             raise ValueError("Invalid value for `etag`, must not be `None`")
 
         self._etag = etag
-
-    @property
-    def apikey_count(self):
-        """
-        Gets the apikey_count of this GroupSummary.
-        The number of API keys in this group.
-
-        :return: The apikey_count of this GroupSummary.
-        :rtype: int
-        """
-        return self._apikey_count
-
-    @apikey_count.setter
-    def apikey_count(self, apikey_count):
-        """
-        Sets the apikey_count of this GroupSummary.
-        The number of API keys in this group.
-
-        :param apikey_count: The apikey_count of this GroupSummary.
-        :type: int
-        """
-        if apikey_count is None:
-            raise ValueError("Invalid value for `apikey_count`, must not be `None`")
-
-        self._apikey_count = apikey_count
 
     @property
     def id(self):
@@ -296,6 +217,85 @@ class GroupSummary(object):
             raise ValueError("Invalid value for `name`, must not be `None`")
 
         self._name = name
+
+    @property
+    def object(self):
+        """
+        Gets the object of this GroupSummary.
+        Entity name: always 'group'
+
+        :return: The object of this GroupSummary.
+        :rtype: str
+        """
+        return self._object
+
+    @object.setter
+    def object(self, object):
+        """
+        Sets the object of this GroupSummary.
+        Entity name: always 'group'
+
+        :param object: The object of this GroupSummary.
+        :type: str
+        """
+        if object is None:
+            raise ValueError("Invalid value for `object`, must not be `None`")
+        allowed_values = ["group"]
+        if object not in allowed_values:
+            raise ValueError(
+                "Invalid value for `object` ({0}), must be one of {1}"
+                .format(object, allowed_values)
+            )
+
+        self._object = object
+
+    @property
+    def updated_at(self):
+        """
+        Gets the updated_at of this GroupSummary.
+        Last update UTC time RFC3339.
+
+        :return: The updated_at of this GroupSummary.
+        :rtype: datetime
+        """
+        return self._updated_at
+
+    @updated_at.setter
+    def updated_at(self, updated_at):
+        """
+        Sets the updated_at of this GroupSummary.
+        Last update UTC time RFC3339.
+
+        :param updated_at: The updated_at of this GroupSummary.
+        :type: datetime
+        """
+
+        self._updated_at = updated_at
+
+    @property
+    def user_count(self):
+        """
+        Gets the user_count of this GroupSummary.
+        The number of users in this group.
+
+        :return: The user_count of this GroupSummary.
+        :rtype: int
+        """
+        return self._user_count
+
+    @user_count.setter
+    def user_count(self, user_count):
+        """
+        Sets the user_count of this GroupSummary.
+        The number of users in this group.
+
+        :param user_count: The user_count of this GroupSummary.
+        :type: int
+        """
+        if user_count is None:
+            raise ValueError("Invalid value for `user_count`, must not be `None`")
+
+        self._user_count = user_count
 
     def to_dict(self):
         """

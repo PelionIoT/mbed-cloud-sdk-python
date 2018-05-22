@@ -31,26 +31,77 @@ class ApiKeyUpdateReq(object):
                             and the value is json key in definition.
     """
     swagger_types = {
+        'groups': 'list[str]',
+        'name': 'str',
         'owner': 'str',
-        'status': 'str',
-        'name': 'str'
+        'status': 'str'
     }
 
     attribute_map = {
+        'groups': 'groups',
+        'name': 'name',
         'owner': 'owner',
-        'status': 'status',
-        'name': 'name'
+        'status': 'status'
     }
 
-    def __init__(self, owner=None, status=None, name=None):
+    def __init__(self, groups=None, name=None, owner=None, status=None):
         """
         ApiKeyUpdateReq - a model defined in Swagger
         """
 
+        self._groups = groups
+        self._name = name
         self._owner = owner
         self._status = status
-        self._name = name
         self.discriminator = None
+
+    @property
+    def groups(self):
+        """
+        Gets the groups of this ApiKeyUpdateReq.
+        A list of group IDs this API key belongs to.
+
+        :return: The groups of this ApiKeyUpdateReq.
+        :rtype: list[str]
+        """
+        return self._groups
+
+    @groups.setter
+    def groups(self, groups):
+        """
+        Sets the groups of this ApiKeyUpdateReq.
+        A list of group IDs this API key belongs to.
+
+        :param groups: The groups of this ApiKeyUpdateReq.
+        :type: list[str]
+        """
+
+        self._groups = groups
+
+    @property
+    def name(self):
+        """
+        Gets the name of this ApiKeyUpdateReq.
+        The display name for the API key, not longer than 100 characters.
+
+        :return: The name of this ApiKeyUpdateReq.
+        :rtype: str
+        """
+        return self._name
+
+    @name.setter
+    def name(self, name):
+        """
+        Sets the name of this ApiKeyUpdateReq.
+        The display name for the API key, not longer than 100 characters.
+
+        :param name: The name of this ApiKeyUpdateReq.
+        :type: str
+        """
+        if name is None:
+            raise ValueError("Invalid value for `name`, must not be `None`")
+
+        self._name = name
 
     @property
     def owner(self):
@@ -103,31 +154,6 @@ class ApiKeyUpdateReq(object):
             )
 
         self._status = status
-
-    @property
-    def name(self):
-        """
-        Gets the name of this ApiKeyUpdateReq.
-        The display name for the API key, not longer than 100 characters.
-
-        :return: The name of this ApiKeyUpdateReq.
-        :rtype: str
-        """
-        return self._name
-
-    @name.setter
-    def name(self, name):
-        """
-        Sets the name of this ApiKeyUpdateReq.
-        The display name for the API key, not longer than 100 characters.
-
-        :param name: The name of this ApiKeyUpdateReq.
-        :type: str
-        """
-        if name is None:
-            raise ValueError("Invalid value for `name`, must not be `None`")
-
-        self._name = name
 
     def to_dict(self):
         """

@@ -31,126 +31,83 @@ class AccountCreationResp(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'address_line2': 'str',
-        'city': 'str',
         'address_line1': 'str',
-        'enrollment_link': 'str',
-        'country': 'str',
-        'company': 'str',
-        'postal_code': 'str',
-        'admin_id': 'str',
-        'email': 'str',
-        'state': 'str',
-        'contact': 'str',
-        'admin_key': 'str',
-        'admin_password': 'str',
-        'admin_name': 'str',
-        'admin_full_name': 'str',
-        'display_name': 'str',
-        'end_market': 'str',
+        'address_line2': 'str',
         'admin_email': 'str',
-        'phone_number': 'str',
+        'admin_full_name': 'str',
+        'admin_id': 'str',
+        'admin_key': 'str',
+        'admin_name': 'str',
+        'admin_password': 'str',
+        'aliases': 'list[str]',
+        'city': 'str',
+        'company': 'str',
+        'contact': 'str',
+        'contract_number': 'str',
+        'country': 'str',
+        'customer_number': 'str',
+        'display_name': 'str',
+        'email': 'str',
+        'end_market': 'str',
         'id': 'str',
-        'aliases': 'list[str]'
+        'phone_number': 'str',
+        'postal_code': 'str',
+        'state': 'str'
     }
 
     attribute_map = {
-        'address_line2': 'address_line2',
-        'city': 'city',
         'address_line1': 'address_line1',
-        'enrollment_link': 'enrollment_link',
-        'country': 'country',
-        'company': 'company',
-        'postal_code': 'postal_code',
-        'admin_id': 'admin_id',
-        'email': 'email',
-        'state': 'state',
-        'contact': 'contact',
-        'admin_key': 'admin_key',
-        'admin_password': 'admin_password',
-        'admin_name': 'admin_name',
-        'admin_full_name': 'admin_full_name',
-        'display_name': 'display_name',
-        'end_market': 'end_market',
+        'address_line2': 'address_line2',
         'admin_email': 'admin_email',
-        'phone_number': 'phone_number',
+        'admin_full_name': 'admin_full_name',
+        'admin_id': 'admin_id',
+        'admin_key': 'admin_key',
+        'admin_name': 'admin_name',
+        'admin_password': 'admin_password',
+        'aliases': 'aliases',
+        'city': 'city',
+        'company': 'company',
+        'contact': 'contact',
+        'contract_number': 'contract_number',
+        'country': 'country',
+        'customer_number': 'customer_number',
+        'display_name': 'display_name',
+        'email': 'email',
+        'end_market': 'end_market',
         'id': 'id',
-        'aliases': 'aliases'
+        'phone_number': 'phone_number',
+        'postal_code': 'postal_code',
+        'state': 'state'
     }
 
-    def __init__(self, address_line2=None, city=None, address_line1=None, enrollment_link=None, country=None, company=None, postal_code=None, admin_id=None, email=None, state=None, contact=None, admin_key=None, admin_password=None, admin_name=None, admin_full_name=None, display_name=None, end_market=None, admin_email=None, phone_number=None, id=None, aliases=None):
+    def __init__(self, address_line1=None, address_line2=None, admin_email=None, admin_full_name=None, admin_id=None, admin_key=None, admin_name=None, admin_password=None, aliases=None, city=None, company=None, contact=None, contract_number=None, country=None, customer_number=None, display_name=None, email=None, end_market=None, id=None, phone_number=None, postal_code=None, state=None):
         """
         AccountCreationResp - a model defined in Swagger
         """
 
-        self._address_line2 = address_line2
-        self._city = city
         self._address_line1 = address_line1
-        self._enrollment_link = enrollment_link
-        self._country = country
-        self._company = company
-        self._postal_code = postal_code
-        self._admin_id = admin_id
-        self._email = email
-        self._state = state
-        self._contact = contact
-        self._admin_key = admin_key
-        self._admin_password = admin_password
-        self._admin_name = admin_name
-        self._admin_full_name = admin_full_name
-        self._display_name = display_name
-        self._end_market = end_market
-        self._admin_email = admin_email
-        self._phone_number = phone_number
-        self._id = id
-        self._aliases = aliases
-        self.discriminator = None
-
-    @property
-    def address_line2(self):
-        """
-        Gets the address_line2 of this AccountCreationResp.
-        Postal address line 2, not longer than 100 characters.
-
-        :return: The address_line2 of this AccountCreationResp.
-        :rtype: str
-        """
-        return self._address_line2
-
-    @address_line2.setter
-    def address_line2(self, address_line2):
-        """
-        Sets the address_line2 of this AccountCreationResp.
-        Postal address line 2, not longer than 100 characters.
-
-        :param address_line2: The address_line2 of this AccountCreationResp.
-        :type: str
-        """
-
         self._address_line2 = address_line2
-
-    @property
-    def city(self):
-        """
-        Gets the city of this AccountCreationResp.
-        The city part of the postal address, not longer than 100 characters. Required for commercial accounts only.
-
-        :return: The city of this AccountCreationResp.
-        :rtype: str
-        """
-        return self._city
-
-    @city.setter
-    def city(self, city):
-        """
-        Sets the city of this AccountCreationResp.
-        The city part of the postal address, not longer than 100 characters. Required for commercial accounts only.
-
-        :param city: The city of this AccountCreationResp.
-        :type: str
-        """
-
+        self._admin_email = admin_email
+        self._admin_full_name = admin_full_name
+        self._admin_id = admin_id
+        self._admin_key = admin_key
+        self._admin_name = admin_name
+        self._admin_password = admin_password
+        self._aliases = aliases
         self._city = city
+        self._company = company
+        self._contact = contact
+        self._contract_number = contract_number
+        self._country = country
+        self._customer_number = customer_number
+        self._display_name = display_name
+        self._email = email
+        self._end_market = end_market
+        self._id = id
+        self._phone_number = phone_number
+        self._postal_code = postal_code
+        self._state = state
+        self.discriminator = None
 
     @property
     def address_line1(self):
@@ -176,96 +133,73 @@ class AccountCreationResp(object):
         self._address_line1 = address_line1
 
     @property
-    def enrollment_link(self):
+    def address_line2(self):
         """
-        Gets the enrollment_link of this AccountCreationResp.
-        The enrollment finalisation link which can be provided for the customer.
+        Gets the address_line2 of this AccountCreationResp.
+        Postal address line 2, not longer than 100 characters.
 
-        :return: The enrollment_link of this AccountCreationResp.
+        :return: The address_line2 of this AccountCreationResp.
         :rtype: str
         """
-        return self._enrollment_link
+        return self._address_line2
 
-    @enrollment_link.setter
-    def enrollment_link(self, enrollment_link):
+    @address_line2.setter
+    def address_line2(self, address_line2):
         """
-        Sets the enrollment_link of this AccountCreationResp.
-        The enrollment finalisation link which can be provided for the customer.
+        Sets the address_line2 of this AccountCreationResp.
+        Postal address line 2, not longer than 100 characters.
 
-        :param enrollment_link: The enrollment_link of this AccountCreationResp.
+        :param address_line2: The address_line2 of this AccountCreationResp.
         :type: str
         """
 
-        self._enrollment_link = enrollment_link
+        self._address_line2 = address_line2
 
     @property
-    def country(self):
+    def admin_email(self):
         """
-        Gets the country of this AccountCreationResp.
-        The country part of the postal address, not longer than 100 characters. Required for commercial accounts only.
+        Gets the admin_email of this AccountCreationResp.
+        The email address of the account admin, not longer than 254 characters.
 
-        :return: The country of this AccountCreationResp.
+        :return: The admin_email of this AccountCreationResp.
         :rtype: str
         """
-        return self._country
+        return self._admin_email
 
-    @country.setter
-    def country(self, country):
+    @admin_email.setter
+    def admin_email(self, admin_email):
         """
-        Sets the country of this AccountCreationResp.
-        The country part of the postal address, not longer than 100 characters. Required for commercial accounts only.
+        Sets the admin_email of this AccountCreationResp.
+        The email address of the account admin, not longer than 254 characters.
 
-        :param country: The country of this AccountCreationResp.
+        :param admin_email: The admin_email of this AccountCreationResp.
         :type: str
         """
 
-        self._country = country
+        self._admin_email = admin_email
 
     @property
-    def company(self):
+    def admin_full_name(self):
         """
-        Gets the company of this AccountCreationResp.
-        The name of the company, not longer than 100 characters. Required for commercial accounts only.
+        Gets the admin_full_name of this AccountCreationResp.
+        The full name of the admin user to be created.
 
-        :return: The company of this AccountCreationResp.
+        :return: The admin_full_name of this AccountCreationResp.
         :rtype: str
         """
-        return self._company
+        return self._admin_full_name
 
-    @company.setter
-    def company(self, company):
+    @admin_full_name.setter
+    def admin_full_name(self, admin_full_name):
         """
-        Sets the company of this AccountCreationResp.
-        The name of the company, not longer than 100 characters. Required for commercial accounts only.
+        Sets the admin_full_name of this AccountCreationResp.
+        The full name of the admin user to be created.
 
-        :param company: The company of this AccountCreationResp.
+        :param admin_full_name: The admin_full_name of this AccountCreationResp.
         :type: str
         """
 
-        self._company = company
-
-    @property
-    def postal_code(self):
-        """
-        Gets the postal_code of this AccountCreationResp.
-        The postal code part of the postal address, not longer than 100 characters.
-
-        :return: The postal_code of this AccountCreationResp.
-        :rtype: str
-        """
-        return self._postal_code
-
-    @postal_code.setter
-    def postal_code(self, postal_code):
-        """
-        Sets the postal_code of this AccountCreationResp.
-        The postal code part of the postal address, not longer than 100 characters.
-
-        :param postal_code: The postal_code of this AccountCreationResp.
-        :type: str
-        """
-
-        self._postal_code = postal_code
+        self._admin_full_name = admin_full_name
 
     @property
     def admin_id(self):
@@ -293,75 +227,6 @@ class AccountCreationResp(object):
         self._admin_id = admin_id
 
     @property
-    def email(self):
-        """
-        Gets the email of this AccountCreationResp.
-        The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
-
-        :return: The email of this AccountCreationResp.
-        :rtype: str
-        """
-        return self._email
-
-    @email.setter
-    def email(self, email):
-        """
-        Sets the email of this AccountCreationResp.
-        The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
-
-        :param email: The email of this AccountCreationResp.
-        :type: str
-        """
-
-        self._email = email
-
-    @property
-    def state(self):
-        """
-        Gets the state of this AccountCreationResp.
-        The state part of the postal address, not longer than 100 characters.
-
-        :return: The state of this AccountCreationResp.
-        :rtype: str
-        """
-        return self._state
-
-    @state.setter
-    def state(self, state):
-        """
-        Sets the state of this AccountCreationResp.
-        The state part of the postal address, not longer than 100 characters.
-
-        :param state: The state of this AccountCreationResp.
-        :type: str
-        """
-
-        self._state = state
-
-    @property
-    def contact(self):
-        """
-        Gets the contact of this AccountCreationResp.
-        The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.
-
-        :return: The contact of this AccountCreationResp.
-        :rtype: str
-        """
-        return self._contact
-
-    @contact.setter
-    def contact(self, contact):
-        """
-        Sets the contact of this AccountCreationResp.
-        The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.
-
-        :param contact: The contact of this AccountCreationResp.
-        :type: str
-        """
-
-        self._contact = contact
-
-    @property
     def admin_key(self):
         """
         Gets the admin_key of this AccountCreationResp.
@@ -383,29 +248,6 @@ class AccountCreationResp(object):
         """
 
         self._admin_key = admin_key
-
-    @property
-    def admin_password(self):
-        """
-        Gets the admin_password of this AccountCreationResp.
-        The password when creating a new user. It will be generated when not present in the request.
-
-        :return: The admin_password of this AccountCreationResp.
-        :rtype: str
-        """
-        return self._admin_password
-
-    @admin_password.setter
-    def admin_password(self, admin_password):
-        """
-        Sets the admin_password of this AccountCreationResp.
-        The password when creating a new user. It will be generated when not present in the request.
-
-        :param admin_password: The admin_password of this AccountCreationResp.
-        :type: str
-        """
-
-        self._admin_password = admin_password
 
     @property
     def admin_name(self):
@@ -431,27 +273,188 @@ class AccountCreationResp(object):
         self._admin_name = admin_name
 
     @property
-    def admin_full_name(self):
+    def admin_password(self):
         """
-        Gets the admin_full_name of this AccountCreationResp.
-        The full name of the admin user to be created.
+        Gets the admin_password of this AccountCreationResp.
+        The password when creating a new user. It will be generated when not present in the request.
 
-        :return: The admin_full_name of this AccountCreationResp.
+        :return: The admin_password of this AccountCreationResp.
         :rtype: str
         """
-        return self._admin_full_name
+        return self._admin_password
 
-    @admin_full_name.setter
-    def admin_full_name(self, admin_full_name):
+    @admin_password.setter
+    def admin_password(self, admin_password):
         """
-        Sets the admin_full_name of this AccountCreationResp.
-        The full name of the admin user to be created.
+        Sets the admin_password of this AccountCreationResp.
+        The password when creating a new user. It will be generated when not present in the request.
 
-        :param admin_full_name: The admin_full_name of this AccountCreationResp.
+        :param admin_password: The admin_password of this AccountCreationResp.
         :type: str
         """
 
-        self._admin_full_name = admin_full_name
+        self._admin_password = admin_password
+
+    @property
+    def aliases(self):
+        """
+        Gets the aliases of this AccountCreationResp.
+        An array of aliases, not more than 10. An alias is not shorter than 8 and not longer than 100 characters.
+
+        :return: The aliases of this AccountCreationResp.
+        :rtype: list[str]
+        """
+        return self._aliases
+
+    @aliases.setter
+    def aliases(self, aliases):
+        """
+        Sets the aliases of this AccountCreationResp.
+        An array of aliases, not more than 10. An alias is not shorter than 8 and not longer than 100 characters.
+
+        :param aliases: The aliases of this AccountCreationResp.
+        :type: list[str]
+        """
+
+        self._aliases = aliases
+
+    @property
+    def city(self):
+        """
+        Gets the city of this AccountCreationResp.
+        The city part of the postal address, not longer than 100 characters. Required for commercial accounts only.
+
+        :return: The city of this AccountCreationResp.
+        :rtype: str
+        """
+        return self._city
+
+    @city.setter
+    def city(self, city):
+        """
+        Sets the city of this AccountCreationResp.
+        The city part of the postal address, not longer than 100 characters. Required for commercial accounts only.
+
+        :param city: The city of this AccountCreationResp.
+        :type: str
+        """
+
+        self._city = city
+
+    @property
+    def company(self):
+        """
+        Gets the company of this AccountCreationResp.
+        The name of the company, not longer than 100 characters. Required for commercial accounts only.
+
+        :return: The company of this AccountCreationResp.
+        :rtype: str
+        """
+        return self._company
+
+    @company.setter
+    def company(self, company):
+        """
+        Sets the company of this AccountCreationResp.
+        The name of the company, not longer than 100 characters. Required for commercial accounts only.
+
+        :param company: The company of this AccountCreationResp.
+        :type: str
+        """
+
+        self._company = company
+
+    @property
+    def contact(self):
+        """
+        Gets the contact of this AccountCreationResp.
+        The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.
+
+        :return: The contact of this AccountCreationResp.
+        :rtype: str
+        """
+        return self._contact
+
+    @contact.setter
+    def contact(self, contact):
+        """
+        Sets the contact of this AccountCreationResp.
+        The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.
+
+        :param contact: The contact of this AccountCreationResp.
+        :type: str
+        """
+
+        self._contact = contact
+
+    @property
+    def contract_number(self):
+        """
+        Gets the contract_number of this AccountCreationResp.
+        Contract number of the customer.
+
+        :return: The contract_number of this AccountCreationResp.
+        :rtype: str
+        """
+        return self._contract_number
+
+    @contract_number.setter
+    def contract_number(self, contract_number):
+        """
+        Sets the contract_number of this AccountCreationResp.
+        Contract number of the customer.
+
+        :param contract_number: The contract_number of this AccountCreationResp.
+        :type: str
+        """
+
+        self._contract_number = contract_number
+
+    @property
+    def country(self):
+        """
+        Gets the country of this AccountCreationResp.
+        The country part of the postal address, not longer than 100 characters. Required for commercial accounts only.
+
+        :return: The country of this AccountCreationResp.
+        :rtype: str
+        """
+        return self._country
+
+    @country.setter
+    def country(self, country):
+        """
+        Sets the country of this AccountCreationResp.
+        The country part of the postal address, not longer than 100 characters. Required for commercial accounts only.
+
+        :param country: The country of this AccountCreationResp.
+        :type: str
+        """
+
+        self._country = country
+
+    @property
+    def customer_number(self):
+        """
+        Gets the customer_number of this AccountCreationResp.
+        Customer number of the customer.
+
+        :return: The customer_number of this AccountCreationResp.
+        :rtype: str
+        """
+        return self._customer_number
+
+    @customer_number.setter
+    def customer_number(self, customer_number):
+        """
+        Sets the customer_number of this AccountCreationResp.
+        Customer number of the customer.
+
+        :param customer_number: The customer_number of this AccountCreationResp.
+        :type: str
+        """
+
+        self._customer_number = customer_number
 
     @property
     def display_name(self):
@@ -475,6 +478,29 @@ class AccountCreationResp(object):
         """
 
         self._display_name = display_name
+
+    @property
+    def email(self):
+        """
+        Gets the email of this AccountCreationResp.
+        The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
+
+        :return: The email of this AccountCreationResp.
+        :rtype: str
+        """
+        return self._email
+
+    @email.setter
+    def email(self, email):
+        """
+        Sets the email of this AccountCreationResp.
+        The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
+
+        :param email: The email of this AccountCreationResp.
+        :type: str
+        """
+
+        self._email = email
 
     @property
     def end_market(self):
@@ -502,27 +528,29 @@ class AccountCreationResp(object):
         self._end_market = end_market
 
     @property
-    def admin_email(self):
+    def id(self):
         """
-        Gets the admin_email of this AccountCreationResp.
-        The email address of the account admin, not longer than 254 characters.
+        Gets the id of this AccountCreationResp.
+        Account ID.
 
-        :return: The admin_email of this AccountCreationResp.
+        :return: The id of this AccountCreationResp.
         :rtype: str
         """
-        return self._admin_email
+        return self._id
 
-    @admin_email.setter
-    def admin_email(self, admin_email):
+    @id.setter
+    def id(self, id):
         """
-        Sets the admin_email of this AccountCreationResp.
-        The email address of the account admin, not longer than 254 characters.
+        Sets the id of this AccountCreationResp.
+        Account ID.
 
-        :param admin_email: The admin_email of this AccountCreationResp.
+        :param id: The id of this AccountCreationResp.
         :type: str
         """
+        if id is None:
+            raise ValueError("Invalid value for `id`, must not be `None`")
 
-        self._admin_email = admin_email
+        self._id = id
 
     @property
     def phone_number(self):
@@ -548,50 +576,50 @@ class AccountCreationResp(object):
         self._phone_number = phone_number
 
     @property
-    def id(self):
+    def postal_code(self):
         """
-        Gets the id of this AccountCreationResp.
-        Account ID.
+        Gets the postal_code of this AccountCreationResp.
+        The postal code part of the postal address, not longer than 100 characters.
 
-        :return: The id of this AccountCreationResp.
+        :return: The postal_code of this AccountCreationResp.
         :rtype: str
         """
-        return self._id
+        return self._postal_code
 
-    @id.setter
-    def id(self, id):
+    @postal_code.setter
+    def postal_code(self, postal_code):
         """
-        Sets the id of this AccountCreationResp.
-        Account ID.
+        Sets the postal_code of this AccountCreationResp.
+        The postal code part of the postal address, not longer than 100 characters.
 
-        :param id: The id of this AccountCreationResp.
+        :param postal_code: The postal_code of this AccountCreationResp.
         :type: str
         """
 
-        self._id = id
+        self._postal_code = postal_code
 
     @property
-    def aliases(self):
+    def state(self):
         """
-        Gets the aliases of this AccountCreationResp.
-        An array of aliases, not more than 10. An alias is not shorter than 8 and not longer than 100 characters.
+        Gets the state of this AccountCreationResp.
+        The state part of the postal address, not longer than 100 characters.
 
-        :return: The aliases of this AccountCreationResp.
-        :rtype: list[str]
+        :return: The state of this AccountCreationResp.
+        :rtype: str
         """
-        return self._aliases
+        return self._state
 
-    @aliases.setter
-    def aliases(self, aliases):
+    @state.setter
+    def state(self, state):
         """
-        Sets the aliases of this AccountCreationResp.
-        An array of aliases, not more than 10. An alias is not shorter than 8 and not longer than 100 characters.
+        Sets the state of this AccountCreationResp.
+        The state part of the postal address, not longer than 100 characters.
 
-        :param aliases: The aliases of this AccountCreationResp.
-        :type: list[str]
+        :param state: The state of this AccountCreationResp.
+        :type: str
         """
 
-        self._aliases = aliases
+        self._state = state
 
     def to_dict(self):
         """

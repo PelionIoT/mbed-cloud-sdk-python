@@ -31,90 +31,141 @@ class UserInfoReq(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'phone_number': 'str',
-        'username': 'str',
+        'address': 'str',
+        'custom_fields': 'dict(str, str)',
+        'email': 'str',
+        'full_name': 'str',
         'groups': 'list[str]',
         'is_gtc_accepted': 'bool',
-        'full_name': 'str',
         'is_marketing_accepted': 'bool',
-        'address': 'str',
         'password': 'str',
-        'email': 'str'
+        'phone_number': 'str',
+        'username': 'str'
     }
 
     attribute_map = {
-        'phone_number': 'phone_number',
-        'username': 'username',
+        'address': 'address',
+        'custom_fields': 'custom_fields',
+        'email': 'email',
+        'full_name': 'full_name',
         'groups': 'groups',
         'is_gtc_accepted': 'is_gtc_accepted',
-        'full_name': 'full_name',
         'is_marketing_accepted': 'is_marketing_accepted',
-        'address': 'address',
         'password': 'password',
-        'email': 'email'
+        'phone_number': 'phone_number',
+        'username': 'username'
     }
 
-    def __init__(self, phone_number=None, username=None, groups=None, is_gtc_accepted=None, full_name=None, is_marketing_accepted=None, address=None, password=None, email=None):
+    def __init__(self, address=None, custom_fields=None, email=None, full_name=None, groups=None, is_gtc_accepted=None, is_marketing_accepted=None, password=None, phone_number=None, username=None):
         """
         UserInfoReq - a model defined in Swagger
         """
 
-        self._phone_number = phone_number
-        self._username = username
+        self._address = address
+        self._custom_fields = custom_fields
+        self._email = email
+        self._full_name = full_name
         self._groups = groups
         self._is_gtc_accepted = is_gtc_accepted
-        self._full_name = full_name
         self._is_marketing_accepted = is_marketing_accepted
-        self._address = address
         self._password = password
-        self._email = email
+        self._phone_number = phone_number
+        self._username = username
         self.discriminator = None
 
     @property
-    def phone_number(self):
+    def address(self):
         """
-        Gets the phone_number of this UserInfoReq.
-        Phone number, not longer than 100 characters.
+        Gets the address of this UserInfoReq.
+        Address, not longer than 100 characters.
 
-        :return: The phone_number of this UserInfoReq.
+        :return: The address of this UserInfoReq.
         :rtype: str
         """
-        return self._phone_number
+        return self._address
 
-    @phone_number.setter
-    def phone_number(self, phone_number):
+    @address.setter
+    def address(self, address):
         """
-        Sets the phone_number of this UserInfoReq.
-        Phone number, not longer than 100 characters.
+        Sets the address of this UserInfoReq.
+        Address, not longer than 100 characters.
 
-        :param phone_number: The phone_number of this UserInfoReq.
+        :param address: The address of this UserInfoReq.
         :type: str
         """
 
-        self._phone_number = phone_number
+        self._address = address
 
     @property
-    def username(self):
+    def custom_fields(self):
         """
-        Gets the username of this UserInfoReq.
-        A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
+        Gets the custom_fields of this UserInfoReq.
+        User's account-specific custom properties as key-value pairs, with a maximum of 100 keys. The maximum length of a key is 100 characters. The values are handled as strings and the maximum length for a value is 4000 characters.
 
-        :return: The username of this UserInfoReq.
+        :return: The custom_fields of this UserInfoReq.
+        :rtype: dict(str, str)
+        """
+        return self._custom_fields
+
+    @custom_fields.setter
+    def custom_fields(self, custom_fields):
+        """
+        Sets the custom_fields of this UserInfoReq.
+        User's account-specific custom properties as key-value pairs, with a maximum of 100 keys. The maximum length of a key is 100 characters. The values are handled as strings and the maximum length for a value is 4000 characters.
+
+        :param custom_fields: The custom_fields of this UserInfoReq.
+        :type: dict(str, str)
+        """
+
+        self._custom_fields = custom_fields
+
+    @property
+    def email(self):
+        """
+        Gets the email of this UserInfoReq.
+        The email address, not longer than 254 characters.
+
+        :return: The email of this UserInfoReq.
         :rtype: str
         """
-        return self._username
+        return self._email
 
-    @username.setter
-    def username(self, username):
+    @email.setter
+    def email(self, email):
         """
-        Sets the username of this UserInfoReq.
-        A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
+        Sets the email of this UserInfoReq.
+        The email address, not longer than 254 characters.
 
-        :param username: The username of this UserInfoReq.
+        :param email: The email of this UserInfoReq.
+        :type: str
+        """
+        if email is None:
+            raise ValueError("Invalid value for `email`, must not be `None`")
+
+        self._email = email
+
+    @property
+    def full_name(self):
+        """
+        Gets the full_name of this UserInfoReq.
+        The full name of the user, not longer than 100 characters.
+
+        :return: The full_name of this UserInfoReq.
+        :rtype: str
+        """
+        return self._full_name
+
+    @full_name.setter
+    def full_name(self, full_name):
+        """
+        Sets the full_name of this UserInfoReq.
+        The full name of the user, not longer than 100 characters.
+
+        :param full_name: The full_name of this UserInfoReq.
         :type: str
         """
 
-        self._username = username
+        self._full_name = full_name
 
     @property
     def groups(self):
@@ -163,29 +214,6 @@ class UserInfoReq(object):
         self._is_gtc_accepted = is_gtc_accepted
 
     @property
-    def full_name(self):
-        """
-        Gets the full_name of this UserInfoReq.
-        The full name of the user, not longer than 100 characters.
-
-        :return: The full_name of this UserInfoReq.
-        :rtype: str
-        """
-        return self._full_name
-
-    @full_name.setter
-    def full_name(self, full_name):
-        """
-        Sets the full_name of this UserInfoReq.
-        The full name of the user, not longer than 100 characters.
-
-        :param full_name: The full_name of this UserInfoReq.
-        :type: str
-        """
-
-        self._full_name = full_name
-
-    @property
     def is_marketing_accepted(self):
         """
         Gets the is_marketing_accepted of this UserInfoReq.
@@ -207,29 +235,6 @@ class UserInfoReq(object):
         """
 
         self._is_marketing_accepted = is_marketing_accepted
-
-    @property
-    def address(self):
-        """
-        Gets the address of this UserInfoReq.
-        Address, not longer than 100 characters.
-
-        :return: The address of this UserInfoReq.
-        :rtype: str
-        """
-        return self._address
-
-    @address.setter
-    def address(self, address):
-        """
-        Sets the address of this UserInfoReq.
-        Address, not longer than 100 characters.
-
-        :param address: The address of this UserInfoReq.
-        :type: str
-        """
-
-        self._address = address
 
     @property
     def password(self):
@@ -255,29 +260,50 @@ class UserInfoReq(object):
         self._password = password
 
     @property
-    def email(self):
+    def phone_number(self):
         """
-        Gets the email of this UserInfoReq.
-        The email address, not longer than 254 characters.
+        Gets the phone_number of this UserInfoReq.
+        Phone number, not longer than 100 characters.
 
-        :return: The email of this UserInfoReq.
+        :return: The phone_number of this UserInfoReq.
         :rtype: str
         """
-        return self._email
+        return self._phone_number
 
-    @email.setter
-    def email(self, email):
+    @phone_number.setter
+    def phone_number(self, phone_number):
         """
-        Sets the email of this UserInfoReq.
-        The email address, not longer than 254 characters.
+        Sets the phone_number of this UserInfoReq.
+        Phone number, not longer than 100 characters.
 
-        :param email: The email of this UserInfoReq.
+        :param phone_number: The phone_number of this UserInfoReq.
         :type: str
         """
-        if email is None:
-            raise ValueError("Invalid value for `email`, must not be `None`")
 
-        self._email = email
+        self._phone_number = phone_number
+
+    @property
+    def username(self):
+        """
+        Gets the username of this UserInfoReq.
+        A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
+
+        :return: The username of this UserInfoReq.
+        :rtype: str
+        """
+        return self._username
+
+    @username.setter
+    def username(self, username):
+        """
+        Sets the username of this UserInfoReq.
+        A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
+
+        :param username: The username of this UserInfoReq.
+        :type: str
+        """
+
+        self._username = username
 
     def to_dict(self):
         """

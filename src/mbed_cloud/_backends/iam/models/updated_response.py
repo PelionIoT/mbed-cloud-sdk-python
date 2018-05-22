@@ -32,33 +32,33 @@ class UpdatedResponse(object):
     """
     swagger_types = {
         'code': 'int',
+        'id': 'str',
+        'message': 'str',
         'object': 'str',
         'request_id': 'str',
-        'message': 'str',
-        'type': 'str',
-        'id': 'str'
+        'type': 'str'
     }
 
     attribute_map = {
         'code': 'code',
+        'id': 'id',
+        'message': 'message',
         'object': 'object',
         'request_id': 'request_id',
-        'message': 'message',
-        'type': 'type',
-        'id': 'id'
+        'type': 'type'
     }
 
-    def __init__(self, code=None, object=None, request_id=None, message=None, type=None, id=None):
+    def __init__(self, code=None, id=None, message=None, object=None, request_id=None, type=None):
         """
         UpdatedResponse - a model defined in Swagger
         """
 
         self._code = code
+        self._id = id
+        self._message = message
         self._object = object
         self._request_id = request_id
-        self._message = message
         self._type = type
-        self._id = id
         self.discriminator = None
 
     @property
@@ -87,6 +87,56 @@ class UpdatedResponse(object):
         self._code = code
 
     @property
+    def id(self):
+        """
+        Gets the id of this UpdatedResponse.
+        Entity ID.
+
+        :return: The id of this UpdatedResponse.
+        :rtype: str
+        """
+        return self._id
+
+    @id.setter
+    def id(self, id):
+        """
+        Sets the id of this UpdatedResponse.
+        Entity ID.
+
+        :param id: The id of this UpdatedResponse.
+        :type: str
+        """
+        if id is None:
+            raise ValueError("Invalid value for `id`, must not be `None`")
+
+        self._id = id
+
+    @property
+    def message(self):
+        """
+        Gets the message of this UpdatedResponse.
+        A human readable message with detailed info.
+
+        :return: The message of this UpdatedResponse.
+        :rtype: str
+        """
+        return self._message
+
+    @message.setter
+    def message(self, message):
+        """
+        Sets the message of this UpdatedResponse.
+        A human readable message with detailed info.
+
+        :param message: The message of this UpdatedResponse.
+        :type: str
+        """
+        if message is None:
+            raise ValueError("Invalid value for `message`, must not be `None`")
+
+        self._message = message
+
+    @property
     def object(self):
         """
         Gets the object of this UpdatedResponse.
@@ -108,7 +158,7 @@ class UpdatedResponse(object):
         """
         if object is None:
             raise ValueError("Invalid value for `object`, must not be `None`")
-        allowed_values = ["user", "api-key", "group", "account", "account-template", "trusted-cert", "list", "error", "policy", "identity-provider"]
+        allowed_values = ["user", "api-key", "group", "account", "account-template", "trusted-cert", "list", "error", "policy", "identity-provider", "user-session"]
         if object not in allowed_values:
             raise ValueError(
                 "Invalid value for `object` ({0}), must be one of {1}"
@@ -143,31 +193,6 @@ class UpdatedResponse(object):
         self._request_id = request_id
 
     @property
-    def message(self):
-        """
-        Gets the message of this UpdatedResponse.
-        A human readable message with detailed info.
-
-        :return: The message of this UpdatedResponse.
-        :rtype: str
-        """
-        return self._message
-
-    @message.setter
-    def message(self, message):
-        """
-        Sets the message of this UpdatedResponse.
-        A human readable message with detailed info.
-
-        :param message: The message of this UpdatedResponse.
-        :type: str
-        """
-        if message is None:
-            raise ValueError("Invalid value for `message`, must not be `None`")
-
-        self._message = message
-
-    @property
     def type(self):
         """
         Gets the type of this UpdatedResponse.
@@ -189,7 +214,7 @@ class UpdatedResponse(object):
         """
         if type is None:
             raise ValueError("Invalid value for `type`, must not be `None`")
-        allowed_values = ["success", "created", "accepted", "permanently_deleted", "validation_error", "invalid_token", "invalid_apikey", "reauth_required", "access_denied", "account_limit_exceeded", "not_found", "method_not_supported", "not_acceptable", "duplicate", "precondition_failed", "unsupported_media_type", "rate_limit_exceeded", "internal_server_error", "system_unavailable"]
+        allowed_values = ["success"]
         if type not in allowed_values:
             raise ValueError(
                 "Invalid value for `type` ({0}), must be one of {1}"
@@ -197,31 +222,6 @@ class UpdatedResponse(object):
             )
 
         self._type = type
-
-    @property
-    def id(self):
-        """
-        Gets the id of this UpdatedResponse.
-        Entity ID.
-
-        :return: The id of this UpdatedResponse.
-        :rtype: str
-        """
-        return self._id
-
-    @id.setter
-    def id(self, id):
-        """
-        Sets the id of this UpdatedResponse.
-        Entity ID.
-
-        :param id: The id of this UpdatedResponse.
-        :type: str
-        """
-        if id is None:
-            raise ValueError("Invalid value for `id`, must not be `None`")
-
-        self._id = id
 
     def to_dict(self):
         """

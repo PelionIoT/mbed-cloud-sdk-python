@@ -3,7 +3,7 @@
 """
     Connect CA API
 
-    Connect CA API provides methods to create and get Developer certificate. Also Connect CA provides server-credentials for Bootstarp and LWM2M Server.
+    mbed Cloud Connect CA API allows services to get device credentials.
 
     OpenAPI spec version: 3
     
@@ -31,58 +31,35 @@ class ServerCredentialsResponseData(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'server_uri': 'str',
-        'created_at': 'str',
+        'created_at': 'datetime',
+        'etag': 'str',
+        'id': 'str',
         'object': 'str',
         'server_certificate': 'str',
-        'etag': 'str',
-        'id': 'str'
+        'server_uri': 'str'
     }
 
     attribute_map = {
-        'server_uri': 'server_uri',
         'created_at': 'created_at',
+        'etag': 'etag',
+        'id': 'id',
         'object': 'object',
         'server_certificate': 'server_certificate',
-        'etag': 'etag',
-        'id': 'id'
+        'server_uri': 'server_uri'
     }
 
-    def __init__(self, server_uri=None, created_at=None, object=None, server_certificate=None, etag=None, id=None):
+    def __init__(self, created_at=None, etag=None, id=None, object=None, server_certificate=None, server_uri=None):
         """
         ServerCredentialsResponseData - a model defined in Swagger
         """
 
-        self._server_uri = server_uri
         self._created_at = created_at
-        self._object = object
-        self._server_certificate = server_certificate
         self._etag = etag
         self._id = id
-        self.discriminator = None
-
-    @property
-    def server_uri(self):
-        """
-        Gets the server_uri of this ServerCredentialsResponseData.
-        The server URI to which the client needs to connect to.
-
-        :return: The server_uri of this ServerCredentialsResponseData.
-        :rtype: str
-        """
-        return self._server_uri
-
-    @server_uri.setter
-    def server_uri(self, server_uri):
-        """
-        Sets the server_uri of this ServerCredentialsResponseData.
-        The server URI to which the client needs to connect to.
-
-        :param server_uri: The server_uri of this ServerCredentialsResponseData.
-        :type: str
-        """
-
+        self._object = object
+        self._server_certificate = server_certificate
         self._server_uri = server_uri
+        self.discriminator = None
 
     @property
     def created_at(self):
@@ -91,7 +68,7 @@ class ServerCredentialsResponseData(object):
         Creation UTC time RFC3339.
 
         :return: The created_at of this ServerCredentialsResponseData.
-        :rtype: str
+        :rtype: datetime
         """
         return self._created_at
 
@@ -102,56 +79,10 @@ class ServerCredentialsResponseData(object):
         Creation UTC time RFC3339.
 
         :param created_at: The created_at of this ServerCredentialsResponseData.
-        :type: str
+        :type: datetime
         """
 
         self._created_at = created_at
-
-    @property
-    def object(self):
-        """
-        Gets the object of this ServerCredentialsResponseData.
-        The entity name, always `server-credentials`.
-
-        :return: The object of this ServerCredentialsResponseData.
-        :rtype: str
-        """
-        return self._object
-
-    @object.setter
-    def object(self, object):
-        """
-        Sets the object of this ServerCredentialsResponseData.
-        The entity name, always `server-credentials`.
-
-        :param object: The object of this ServerCredentialsResponseData.
-        :type: str
-        """
-
-        self._object = object
-
-    @property
-    def server_certificate(self):
-        """
-        Gets the server_certificate of this ServerCredentialsResponseData.
-        The PEM format X.509 server certificate that is used to validate the server certificate that is received during the TLS/DTLS handshake.
-
-        :return: The server_certificate of this ServerCredentialsResponseData.
-        :rtype: str
-        """
-        return self._server_certificate
-
-    @server_certificate.setter
-    def server_certificate(self, server_certificate):
-        """
-        Sets the server_certificate of this ServerCredentialsResponseData.
-        The PEM format X.509 server certificate that is used to validate the server certificate that is received during the TLS/DTLS handshake.
-
-        :param server_certificate: The server_certificate of this ServerCredentialsResponseData.
-        :type: str
-        """
-
-        self._server_certificate = server_certificate
 
     @property
     def etag(self):
@@ -180,7 +111,7 @@ class ServerCredentialsResponseData(object):
     def id(self):
         """
         Gets the id of this ServerCredentialsResponseData.
-        The mUUID that uniquely identifies the entity.
+        mUUID that uniquely identifies the entity.
 
         :return: The id of this ServerCredentialsResponseData.
         :rtype: str
@@ -191,13 +122,82 @@ class ServerCredentialsResponseData(object):
     def id(self, id):
         """
         Sets the id of this ServerCredentialsResponseData.
-        The mUUID that uniquely identifies the entity.
+        mUUID that uniquely identifies the entity.
 
         :param id: The id of this ServerCredentialsResponseData.
         :type: str
         """
 
         self._id = id
+
+    @property
+    def object(self):
+        """
+        Gets the object of this ServerCredentialsResponseData.
+        Entity name, always 'server-credentials'
+
+        :return: The object of this ServerCredentialsResponseData.
+        :rtype: str
+        """
+        return self._object
+
+    @object.setter
+    def object(self, object):
+        """
+        Sets the object of this ServerCredentialsResponseData.
+        Entity name, always 'server-credentials'
+
+        :param object: The object of this ServerCredentialsResponseData.
+        :type: str
+        """
+
+        self._object = object
+
+    @property
+    def server_certificate(self):
+        """
+        Gets the server_certificate of this ServerCredentialsResponseData.
+        PEM format X.509 server certificate that will be used to validate the server certificate that will be received during the TLS/DTLS handshake.
+
+        :return: The server_certificate of this ServerCredentialsResponseData.
+        :rtype: str
+        """
+        return self._server_certificate
+
+    @server_certificate.setter
+    def server_certificate(self, server_certificate):
+        """
+        Sets the server_certificate of this ServerCredentialsResponseData.
+        PEM format X.509 server certificate that will be used to validate the server certificate that will be received during the TLS/DTLS handshake.
+
+        :param server_certificate: The server_certificate of this ServerCredentialsResponseData.
+        :type: str
+        """
+
+        self._server_certificate = server_certificate
+
+    @property
+    def server_uri(self):
+        """
+        Gets the server_uri of this ServerCredentialsResponseData.
+        Server URI to which the client needs to connect to.
+
+        :return: The server_uri of this ServerCredentialsResponseData.
+        :rtype: str
+        """
+        return self._server_uri
+
+    @server_uri.setter
+    def server_uri(self, server_uri):
+        """
+        Sets the server_uri of this ServerCredentialsResponseData.
+        Server URI to which the client needs to connect to.
+
+        :param server_uri: The server_uri of this ServerCredentialsResponseData.
+        :type: str
+        """
+
+        self._server_uri = server_uri
 
     def to_dict(self):
         """

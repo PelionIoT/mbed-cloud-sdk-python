@@ -20,7 +20,9 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import datetime
+import platform
 
+from mbed_cloud import __version__
 from mbed_cloud.configuration import Config
 from mbed_cloud import filters
 
@@ -36,7 +38,10 @@ class BaseAPI(object):
     api_structure = {}
 
     def __init__(self, params=None):
-        """Ensure the config is valid and has all required fields."""
+        """A module to access this section of the Mbed Cloud API.
+
+        :param params: Dictionary to override configuration values
+        """
         self.config = Config(params)
         self.apis = {}
         self.api_clients = {}
@@ -51,6 +56,10 @@ class BaseAPI(object):
         self.api_clients[api_parent_class] = api_client
 
         api_client.configuration.__class__._default = None  # disable codegen's singleton behaviour
+        api_client.user_agent = "mbed-cloud-sdk-python/{sdk_ver} ({pfm}) Python/{py_ver}".format(
+            sdk_ver=__version__,
+            pfm=platform.platform(),
+            py_ver=platform.python_version())
         api_client.configuration.api_key_prefix['Authorization'] = 'Bearer'
         api_client.configuration.safe_chars_for_path_param = "/"  # don't encode (resource paths)
         self._update_api_client(api_parent_class)
@@ -116,9 +125,11 @@ class BaseAPI(object):
 class StubAPI(BaseAPI):
     """Used in test framework"""
 
-    def __init__(self, **kwargs):
+    def __init__(self, params):
         """For use in test verification"""
-        self.kwargs = kwargs
+        # because we take a positional dictionary rather than **kwargs
+        # we have to be careful to replicate this for the testrunner
+        self.kwargs = params
 
     def exception(self):
         """Raises an exception"""

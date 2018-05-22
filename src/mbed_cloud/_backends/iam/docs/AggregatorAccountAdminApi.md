@@ -4,6 +4,7 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**add_account_api_key_to_groups**](AggregatorAccountAdminApi.md#add_account_api_key_to_groups) | **POST** /v3/accounts/{accountID}/api-keys/{apiKey}/groups | Add API key to a list of groups.
 [**add_account_certificate**](AggregatorAccountAdminApi.md#add_account_certificate) | **POST** /v3/accounts/{accountID}/trusted-certificates | Upload new trusted certificate.
 [**add_account_user_to_groups**](AggregatorAccountAdminApi.md#add_account_user_to_groups) | **POST** /v3/accounts/{accountID}/users/{user-id}/groups | Add user to a list of groups.
 [**add_subjects_to_account_group**](AggregatorAccountAdminApi.md#add_subjects_to_account_group) | **POST** /v3/accounts/{accountID}/policy-groups/{groupID} | Add members to a group.
@@ -25,8 +26,10 @@ Method | HTTP request | Description
 [**get_all_account_users**](AggregatorAccountAdminApi.md#get_all_account_users) | **GET** /v3/accounts/{accountID}/users | Get all user details.
 [**get_all_accounts**](AggregatorAccountAdminApi.md#get_all_accounts) | **GET** /v3/accounts | Get all accounts.
 [**get_api_keys_of_account_group**](AggregatorAccountAdminApi.md#get_api_keys_of_account_group) | **GET** /v3/accounts/{accountID}/policy-groups/{groupID}/api-keys | Get API keys of a group.
+[**get_groups_of_account_apikey**](AggregatorAccountAdminApi.md#get_groups_of_account_apikey) | **GET** /v3/accounts/{accountID}/api-keys/{apiKey}/groups | Get groups of the API key.
 [**get_groups_of_account_user**](AggregatorAccountAdminApi.md#get_groups_of_account_user) | **GET** /v3/accounts/{accountID}/users/{user-id}/groups | Get groups of the user.
 [**get_users_of_account_group**](AggregatorAccountAdminApi.md#get_users_of_account_group) | **GET** /v3/accounts/{accountID}/policy-groups/{groupID}/users | Get users of a group.
+[**remove_account_api_key_from_groups**](AggregatorAccountAdminApi.md#remove_account_api_key_from_groups) | **DELETE** /v3/accounts/{accountID}/api-keys/{apiKey}/groups | Remove API key from groups.
 [**remove_account_user_from_groups**](AggregatorAccountAdminApi.md#remove_account_user_from_groups) | **DELETE** /v3/accounts/{accountID}/users/{user-id}/groups | Remove user from groups.
 [**remove_api_keys_from_account_group**](AggregatorAccountAdminApi.md#remove_api_keys_from_account_group) | **DELETE** /v3/accounts/{accountID}/policy-groups/{groupID}/api-keys | Remove API keys from a group.
 [**remove_users_from_account_group**](AggregatorAccountAdminApi.md#remove_users_from_account_group) | **DELETE** /v3/accounts/{accountID}/policy-groups/{groupID}/users | Remove users from a group.
@@ -37,6 +40,64 @@ Method | HTTP request | Description
 [**update_account_user**](AggregatorAccountAdminApi.md#update_account_user) | **PUT** /v3/accounts/{accountID}/users/{user-id} | Update user details.
 [**validate_account_user_email**](AggregatorAccountAdminApi.md#validate_account_user_email) | **POST** /v3/accounts/{accountID}/users/{user-id}/validate-email | Validate the user email.
 
+
+# **add_account_api_key_to_groups**
+> UpdatedResponse add_account_api_key_to_groups(account_id, api_key, body)
+
+Add API key to a list of groups.
+
+An endpoint for adding API key to groups.
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import iam
+from iam.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+configuration = iam.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = iam.AggregatorAccountAdminApi(iam.ApiClient(configuration))
+account_id = 'account_id_example' # str | Account ID.
+api_key = 'api_key_example' # str | The ID of the API key to be added to the group.
+body = [iam.list[str]()] # list[str] | A list of IDs of the groups to be updated.
+
+try: 
+    # Add API key to a list of groups.
+    api_response = api_instance.add_account_api_key_to_groups(account_id, api_key, body)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AggregatorAccountAdminApi->add_account_api_key_to_groups: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **account_id** | **str**| Account ID. | 
+ **api_key** | **str**| The ID of the API key to be added to the group. | 
+ **body** | **list[str]**| A list of IDs of the groups to be updated. | 
+
+### Return type
+
+[**UpdatedResponse**](UpdatedResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **add_account_certificate**
 > TrustedCertificateResp add_account_certificate(account_id, body)
@@ -827,7 +888,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_account_user**
-> MyUserInfoResp get_account_user(account_id, user_id, scratch_codes=scratch_codes, properties=properties)
+> UserInfoResp get_account_user(account_id, user_id, properties=properties)
 
 Details of the user.
 
@@ -851,12 +912,11 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 api_instance = iam.AggregatorAccountAdminApi(iam.ApiClient(configuration))
 account_id = 'account_id_example' # str | Account ID.
 user_id = 'user_id_example' # str | The ID of the user to be retrieved.
-scratch_codes = 'scratch_codes_example' # str | Request to regenerate new emergency scratch codes. (optional)
 properties = 'properties_example' # str | Request to return account specific user property values according to the given property name. (optional)
 
 try: 
     # Details of the user.
-    api_response = api_instance.get_account_user(account_id, user_id, scratch_codes=scratch_codes, properties=properties)
+    api_response = api_instance.get_account_user(account_id, user_id, properties=properties)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling AggregatorAccountAdminApi->get_account_user: %s\n" % e)
@@ -868,12 +928,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **account_id** | **str**| Account ID. | 
  **user_id** | **str**| The ID of the user to be retrieved. | 
- **scratch_codes** | **str**| Request to regenerate new emergency scratch codes. | [optional] 
  **properties** | **str**| Request to return account specific user property values according to the given property name. | [optional] 
 
 ### Return type
 
-[**MyUserInfoResp**](MyUserInfoResp.md)
+[**UserInfoResp**](UserInfoResp.md)
 
 ### Authorization
 
@@ -987,8 +1046,8 @@ device_execution_mode__eq = 56 # int | Filter for developer certificates (option
 device_execution_mode__neq = 56 # int | Filter for not developer certificates (optional)
 owner__eq = 'owner__eq_example' # str | Owner name filter (optional)
 enrollment_mode__eq = true # bool | Enrollment mode filter (optional)
-issuer__like = 'issuer__like_example' # str | Filter for issuer (optional)
-subject__like = 'subject__like_example' # str | Filter for subject (optional)
+issuer__like = 'issuer__like_example' # str | Filter for issuer. Finds all matches where the filter value is a case insensitive substring of the result. Example: issuer__like=cn=iss matches CN=issuer. (optional)
+subject__like = 'subject__like_example' # str | Filter for subject. Finds all matches where the filter value is a case insensitive substring of the result. Example: subject__like=cn=su matches CN=subject. (optional)
 
 try: 
     # Get all trusted certificates.
@@ -1014,8 +1073,8 @@ Name | Type | Description  | Notes
  **device_execution_mode__neq** | **int**| Filter for not developer certificates | [optional] 
  **owner__eq** | **str**| Owner name filter | [optional] 
  **enrollment_mode__eq** | **bool**| Enrollment mode filter | [optional] 
- **issuer__like** | **str**| Filter for issuer | [optional] 
- **subject__like** | **str**| Filter for subject | [optional] 
+ **issuer__like** | **str**| Filter for issuer. Finds all matches where the filter value is a case insensitive substring of the result. Example: issuer__like&#x3D;cn&#x3D;iss matches CN&#x3D;issuer. | [optional] 
+ **subject__like** | **str**| Filter for subject. Finds all matches where the filter value is a case insensitive substring of the result. Example: subject__like&#x3D;cn&#x3D;su matches CN&#x3D;subject. | [optional] 
 
 ### Return type
 
@@ -1097,7 +1156,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_all_account_users**
-> UserInfoRespList get_all_account_users(account_id, limit=limit, after=after, order=order, include=include, email__eq=email__eq, status__eq=status__eq)
+> UserInfoRespList get_all_account_users(account_id, limit=limit, after=after, order=order, include=include, email__eq=email__eq, status__eq=status__eq, status__in=status__in, status__nin=status__nin)
 
 Get all user details.
 
@@ -1126,10 +1185,12 @@ order = 'ASC' # str | The order of the records based on creation time, ASC or DE
 include = 'include_example' # str | Comma separated additional data to return. Currently supported: total_count (optional)
 email__eq = 'email__eq_example' # str | Filter for email address (optional)
 status__eq = 'status__eq_example' # str | Filter for status (optional)
+status__in = 'status__in_example' # str | An optional filter for getting users with a specified set of statuses. (optional)
+status__nin = 'status__nin_example' # str | An optional filter for excluding users with a specified set of statuses. (optional)
 
 try: 
     # Get all user details.
-    api_response = api_instance.get_all_account_users(account_id, limit=limit, after=after, order=order, include=include, email__eq=email__eq, status__eq=status__eq)
+    api_response = api_instance.get_all_account_users(account_id, limit=limit, after=after, order=order, include=include, email__eq=email__eq, status__eq=status__eq, status__in=status__in, status__nin=status__nin)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling AggregatorAccountAdminApi->get_all_account_users: %s\n" % e)
@@ -1146,6 +1207,8 @@ Name | Type | Description  | Notes
  **include** | **str**| Comma separated additional data to return. Currently supported: total_count | [optional] 
  **email__eq** | **str**| Filter for email address | [optional] 
  **status__eq** | **str**| Filter for status | [optional] 
+ **status__in** | **str**| An optional filter for getting users with a specified set of statuses. | [optional] 
+ **status__nin** | **str**| An optional filter for excluding users with a specified set of statuses. | [optional] 
 
 ### Return type
 
@@ -1163,7 +1226,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_all_accounts**
-> AccountInfoList get_all_accounts(status__eq=status__eq, tier__eq=tier__eq, parent__eq=parent__eq, end_market__eq=end_market__eq, country__like=country__like, limit=limit, after=after, order=order, include=include, format=format, properties=properties)
+> AccountInfoList get_all_accounts(status__eq=status__eq, status__in=status__in, status__nin=status__nin, tier__eq=tier__eq, parent__eq=parent__eq, end_market__eq=end_market__eq, country__like=country__like, limit=limit, after=after, order=order, include=include, format=format, properties=properties)
 
 Get all accounts.
 
@@ -1186,10 +1249,12 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = iam.AggregatorAccountAdminApi(iam.ApiClient(configuration))
 status__eq = 'status__eq_example' # str | An optional filter for account status, ENROLLING, ACTIVE, RESTRICTED or SUSPENDED. (optional)
+status__in = 'status__in_example' # str | An optional filter for getting accounts with a specified set of statuses. (optional)
+status__nin = 'status__nin_example' # str | An optional filter for excluding accounts with a specified set of statuses. (optional)
 tier__eq = 'tier__eq_example' # str | An optional filter for tier level, must be 0, 1, 2, 98, 99 or omitted. (optional)
 parent__eq = 'parent__eq_example' # str | An optional filter for parent account ID. (optional)
 end_market__eq = 'end_market__eq_example' # str | An optional filter for account end market. (optional)
-country__like = 'country__like_example' # str | An optional filter for account country. (optional)
+country__like = 'country__like_example' # str | An optional filter for account country. Finds all matches where the filter value is a case insensitive substring of the result. Example: country__like=LAND matches Ireland. (optional)
 limit = 1000 # int | The number of results to return (2-1000), default is 1000. (optional) (default to 1000)
 after = 'after_example' # str | The entity ID to fetch after the given one. (optional)
 order = 'ASC' # str | The order of the records based on creation time, ASC or DESC. Default value is ASC (optional) (default to ASC)
@@ -1199,7 +1264,7 @@ properties = 'properties_example' # str | Property name to be returned from acco
 
 try: 
     # Get all accounts.
-    api_response = api_instance.get_all_accounts(status__eq=status__eq, tier__eq=tier__eq, parent__eq=parent__eq, end_market__eq=end_market__eq, country__like=country__like, limit=limit, after=after, order=order, include=include, format=format, properties=properties)
+    api_response = api_instance.get_all_accounts(status__eq=status__eq, status__in=status__in, status__nin=status__nin, tier__eq=tier__eq, parent__eq=parent__eq, end_market__eq=end_market__eq, country__like=country__like, limit=limit, after=after, order=order, include=include, format=format, properties=properties)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling AggregatorAccountAdminApi->get_all_accounts: %s\n" % e)
@@ -1210,10 +1275,12 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **status__eq** | **str**| An optional filter for account status, ENROLLING, ACTIVE, RESTRICTED or SUSPENDED. | [optional] 
+ **status__in** | **str**| An optional filter for getting accounts with a specified set of statuses. | [optional] 
+ **status__nin** | **str**| An optional filter for excluding accounts with a specified set of statuses. | [optional] 
  **tier__eq** | **str**| An optional filter for tier level, must be 0, 1, 2, 98, 99 or omitted. | [optional] 
  **parent__eq** | **str**| An optional filter for parent account ID. | [optional] 
  **end_market__eq** | **str**| An optional filter for account end market. | [optional] 
- **country__like** | **str**| An optional filter for account country. | [optional] 
+ **country__like** | **str**| An optional filter for account country. Finds all matches where the filter value is a case insensitive substring of the result. Example: country__like&#x3D;LAND matches Ireland. | [optional] 
  **limit** | **int**| The number of results to return (2-1000), default is 1000. | [optional] [default to 1000]
  **after** | **str**| The entity ID to fetch after the given one. | [optional] 
  **order** | **str**| The order of the records based on creation time, ASC or DESC. Default value is ASC | [optional] [default to ASC]
@@ -1300,6 +1367,70 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **get_groups_of_account_apikey**
+> GroupSummaryList get_groups_of_account_apikey(account_id, api_key, limit=limit, after=after, order=order, include=include)
+
+Get groups of the API key.
+
+An endpoint for retrieving groups of the API key.
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import iam
+from iam.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+configuration = iam.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = iam.AggregatorAccountAdminApi(iam.ApiClient(configuration))
+account_id = 'account_id_example' # str | Account ID.
+api_key = 'api_key_example' # str | The ID of the API key whose details are retrieved.
+limit = 50 # int | The number of results to return (2-1000), default is 50. (optional) (default to 50)
+after = 'after_example' # str | The entity ID to fetch after the given one. (optional)
+order = 'ASC' # str | The order of the records based on creation time, ASC or DESC; by default ASC (optional) (default to ASC)
+include = 'include_example' # str | Comma separated additional data to return. Currently supported: total_count (optional)
+
+try: 
+    # Get groups of the API key.
+    api_response = api_instance.get_groups_of_account_apikey(account_id, api_key, limit=limit, after=after, order=order, include=include)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AggregatorAccountAdminApi->get_groups_of_account_apikey: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **account_id** | **str**| Account ID. | 
+ **api_key** | **str**| The ID of the API key whose details are retrieved. | 
+ **limit** | **int**| The number of results to return (2-1000), default is 50. | [optional] [default to 50]
+ **after** | **str**| The entity ID to fetch after the given one. | [optional] 
+ **order** | **str**| The order of the records based on creation time, ASC or DESC; by default ASC | [optional] [default to ASC]
+ **include** | **str**| Comma separated additional data to return. Currently supported: total_count | [optional] 
+
+### Return type
+
+[**GroupSummaryList**](GroupSummaryList.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **get_groups_of_account_user**
 > GroupSummaryList get_groups_of_account_user(account_id, user_id, limit=limit, after=after, order=order, include=include)
 
@@ -1365,7 +1496,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_users_of_account_group**
-> UserInfoRespList get_users_of_account_group(account_id, group_id, limit=limit, after=after, order=order, include=include)
+> UserInfoRespList get_users_of_account_group(account_id, group_id, limit=limit, after=after, order=order, include=include, status__eq=status__eq, status__in=status__in, status__nin=status__nin)
 
 Get users of a group.
 
@@ -1393,10 +1524,13 @@ limit = 50 # int | The number of results to return (2-1000), default is 50. (opt
 after = 'after_example' # str | The entity ID to fetch after the given one. (optional)
 order = 'ASC' # str | The order of the records based on creation time, ASC or DESC; by default ASC (optional) (default to ASC)
 include = 'include_example' # str | Comma separated additional data to return. Currently supported: total_count (optional)
+status__eq = 'status__eq_example' # str | An optional filter for getting users by status. (optional)
+status__in = 'status__in_example' # str | An optional filter for getting users with a specified set of statuses. (optional)
+status__nin = 'status__nin_example' # str | An optional filter for excluding users with a specified set of statuses. (optional)
 
 try: 
     # Get users of a group.
-    api_response = api_instance.get_users_of_account_group(account_id, group_id, limit=limit, after=after, order=order, include=include)
+    api_response = api_instance.get_users_of_account_group(account_id, group_id, limit=limit, after=after, order=order, include=include, status__eq=status__eq, status__in=status__in, status__nin=status__nin)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling AggregatorAccountAdminApi->get_users_of_account_group: %s\n" % e)
@@ -1412,6 +1546,9 @@ Name | Type | Description  | Notes
  **after** | **str**| The entity ID to fetch after the given one. | [optional] 
  **order** | **str**| The order of the records based on creation time, ASC or DESC; by default ASC | [optional] [default to ASC]
  **include** | **str**| Comma separated additional data to return. Currently supported: total_count | [optional] 
+ **status__eq** | **str**| An optional filter for getting users by status. | [optional] 
+ **status__in** | **str**| An optional filter for getting users with a specified set of statuses. | [optional] 
+ **status__nin** | **str**| An optional filter for excluding users with a specified set of statuses. | [optional] 
 
 ### Return type
 
@@ -1424,6 +1561,64 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **remove_account_api_key_from_groups**
+> UpdatedResponse remove_account_api_key_from_groups(account_id, api_key, body)
+
+Remove API key from groups.
+
+An endpoint for removing API key from groups.
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import iam
+from iam.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+configuration = iam.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = iam.AggregatorAccountAdminApi(iam.ApiClient(configuration))
+account_id = 'account_id_example' # str | Account ID.
+api_key = 'api_key_example' # str | The ID of the API key to be removed from the group.
+body = [iam.list[str]()] # list[str] | A list of IDs of the groups to be updated.
+
+try: 
+    # Remove API key from groups.
+    api_response = api_instance.remove_account_api_key_from_groups(account_id, api_key, body)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AggregatorAccountAdminApi->remove_account_api_key_from_groups: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **account_id** | **str**| Account ID. | 
+ **api_key** | **str**| The ID of the API key to be removed from the group. | 
+ **body** | **list[str]**| A list of IDs of the groups to be updated. | 
+
+### Return type
+
+[**UpdatedResponse**](UpdatedResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -1855,7 +2050,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 api_instance = iam.AggregatorAccountAdminApi(iam.ApiClient(configuration))
 account_id = 'account_id_example' # str | Account ID.
 user_id = 'user_id_example' # str | The ID of the user to be updated.
-body = iam.AdminUserUpdateReq() # AdminUserUpdateReq | A user object with attributes.
+body = iam.UserUpdateReq() # UserUpdateReq | A user object with attributes.
 
 try: 
     # Update user details.
@@ -1871,7 +2066,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **account_id** | **str**| Account ID. | 
  **user_id** | **str**| The ID of the user to be updated. | 
- **body** | [**AdminUserUpdateReq**](AdminUserUpdateReq.md)| A user object with attributes. | 
+ **body** | [**UserUpdateReq**](UserUpdateReq.md)| A user object with attributes. | 
 
 ### Return type
 

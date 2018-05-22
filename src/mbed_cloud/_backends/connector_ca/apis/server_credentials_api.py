@@ -3,7 +3,7 @@
 """
     Connect CA API
 
-    Connect CA API provides methods to create and get Developer certificate. Also Connect CA provides server-credentials for Bootstarp and LWM2M Server.
+    mbed Cloud Connect CA API allows services to get device credentials.
 
     OpenAPI spec version: 3
     
@@ -35,13 +35,107 @@ class ServerCredentialsApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def v3_server_credentials_bootstrap_get(self, authorization, **kwargs):
+    def get_all_server_credentials(self, authorization, **kwargs):
         """
-        Fetch bootstrap server credentials.
-        This REST API is intended to be used by customers to fetch bootstrap server credentials that they need to use with their clients to connect to bootstrap server. 
+        Fetch all (Bootstrap and LWM2M) server credentials.
+        This REST API is intended to be used by customers to fetch all (Bootstrap and LWM2M) server credentials that they will need to use with their clients to connect to bootstrap or LWM2M server.  **Example usage:** curl -X GET \"http://api.us-east-1.mbedcloud.com/v3/server-credentials\" -H \"accept: application/json\" -H \"Authorization: Bearer THE_ACCESS_TOKEN\"         
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
-        >>> thread = api.v3_server_credentials_bootstrap_get(authorization, async=True)
+        >>> thread = api.get_all_server_credentials(authorization, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str authorization: Bearer {Access Token}.  (required)
+        :return: AllServerCredentialsResponseData
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.get_all_server_credentials_with_http_info(authorization, **kwargs)
+        else:
+            (data) = self.get_all_server_credentials_with_http_info(authorization, **kwargs)
+            return data
+
+    def get_all_server_credentials_with_http_info(self, authorization, **kwargs):
+        """
+        Fetch all (Bootstrap and LWM2M) server credentials.
+        This REST API is intended to be used by customers to fetch all (Bootstrap and LWM2M) server credentials that they will need to use with their clients to connect to bootstrap or LWM2M server.  **Example usage:** curl -X GET \"http://api.us-east-1.mbedcloud.com/v3/server-credentials\" -H \"accept: application/json\" -H \"Authorization: Bearer THE_ACCESS_TOKEN\"         
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.get_all_server_credentials_with_http_info(authorization, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str authorization: Bearer {Access Token}.  (required)
+        :return: AllServerCredentialsResponseData
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['authorization']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_all_server_credentials" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'authorization' is set
+        if ('authorization' not in params) or (params['authorization'] is None):
+            raise ValueError("Missing the required parameter `authorization` when calling `get_all_server_credentials`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+
+        query_params = []
+
+        header_params = {}
+        if 'authorization' in params:
+            header_params['Authorization'] = params['authorization']
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/server-credentials', 'GET',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='AllServerCredentialsResponseData',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
+    def get_bootstrap_server_credentials(self, authorization, **kwargs):
+        """
+        Fetch bootstrap server credentials.
+        This REST API is intended to be used by customers to fetch bootstrap server credentials that they will need to use with their clients to connect to bootstrap server.  **Example usage:** curl -X GET \"http://api.us-east-1.mbedcloud.com/v3/server-credentials/bootstrap\" -H \"accept: application/json\" -H \"Authorization: Bearer THE_ACCESS_TOKEN\" 
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.get_bootstrap_server_credentials(authorization, async=True)
         >>> result = thread.get()
 
         :param async bool
@@ -52,18 +146,18 @@ class ServerCredentialsApi(object):
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async'):
-            return self.v3_server_credentials_bootstrap_get_with_http_info(authorization, **kwargs)
+            return self.get_bootstrap_server_credentials_with_http_info(authorization, **kwargs)
         else:
-            (data) = self.v3_server_credentials_bootstrap_get_with_http_info(authorization, **kwargs)
+            (data) = self.get_bootstrap_server_credentials_with_http_info(authorization, **kwargs)
             return data
 
-    def v3_server_credentials_bootstrap_get_with_http_info(self, authorization, **kwargs):
+    def get_bootstrap_server_credentials_with_http_info(self, authorization, **kwargs):
         """
         Fetch bootstrap server credentials.
-        This REST API is intended to be used by customers to fetch bootstrap server credentials that they need to use with their clients to connect to bootstrap server. 
+        This REST API is intended to be used by customers to fetch bootstrap server credentials that they will need to use with their clients to connect to bootstrap server.  **Example usage:** curl -X GET \"http://api.us-east-1.mbedcloud.com/v3/server-credentials/bootstrap\" -H \"accept: application/json\" -H \"Authorization: Bearer THE_ACCESS_TOKEN\" 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
-        >>> thread = api.v3_server_credentials_bootstrap_get_with_http_info(authorization, async=True)
+        >>> thread = api.get_bootstrap_server_credentials_with_http_info(authorization, async=True)
         >>> result = thread.get()
 
         :param async bool
@@ -84,13 +178,13 @@ class ServerCredentialsApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method v3_server_credentials_bootstrap_get" % key
+                    " to method get_bootstrap_server_credentials" % key
                 )
             params[key] = val
         del params['kwargs']
         # verify the required parameter 'authorization' is set
         if ('authorization' not in params) or (params['authorization'] is None):
-            raise ValueError("Missing the required parameter `authorization` when calling `v3_server_credentials_bootstrap_get`")
+            raise ValueError("Missing the required parameter `authorization` when calling `get_bootstrap_server_credentials`")
 
 
         collection_formats = {}
@@ -129,13 +223,13 @@ class ServerCredentialsApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
-    def v3_server_credentials_lwm2m_get(self, authorization, **kwargs):
+    def get_l2_m2_m_server_credentials(self, authorization, **kwargs):
         """
         Fetch LWM2M server credentials.
-        This REST API is intended to be used by customers to fetch LWM2M server credentials that they need to use with their clients to connect to LWM2M server. 
+        This REST API is intended to be used by customers to fetch LWM2M server credentials that they will need to use with their clients to connect to LWM2M server.  **Example usage:** curl -X GET \"http://api.us-east-1.mbedcloud.com/v3/server-credentials/lwm2m\" -H \"accept: application/json\" -H \"Authorization: Bearer THE_ACCESS_TOKEN\" 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
-        >>> thread = api.v3_server_credentials_lwm2m_get(authorization, async=True)
+        >>> thread = api.get_l2_m2_m_server_credentials(authorization, async=True)
         >>> result = thread.get()
 
         :param async bool
@@ -146,18 +240,18 @@ class ServerCredentialsApi(object):
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async'):
-            return self.v3_server_credentials_lwm2m_get_with_http_info(authorization, **kwargs)
+            return self.get_l2_m2_m_server_credentials_with_http_info(authorization, **kwargs)
         else:
-            (data) = self.v3_server_credentials_lwm2m_get_with_http_info(authorization, **kwargs)
+            (data) = self.get_l2_m2_m_server_credentials_with_http_info(authorization, **kwargs)
             return data
 
-    def v3_server_credentials_lwm2m_get_with_http_info(self, authorization, **kwargs):
+    def get_l2_m2_m_server_credentials_with_http_info(self, authorization, **kwargs):
         """
         Fetch LWM2M server credentials.
-        This REST API is intended to be used by customers to fetch LWM2M server credentials that they need to use with their clients to connect to LWM2M server. 
+        This REST API is intended to be used by customers to fetch LWM2M server credentials that they will need to use with their clients to connect to LWM2M server.  **Example usage:** curl -X GET \"http://api.us-east-1.mbedcloud.com/v3/server-credentials/lwm2m\" -H \"accept: application/json\" -H \"Authorization: Bearer THE_ACCESS_TOKEN\" 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
-        >>> thread = api.v3_server_credentials_lwm2m_get_with_http_info(authorization, async=True)
+        >>> thread = api.get_l2_m2_m_server_credentials_with_http_info(authorization, async=True)
         >>> result = thread.get()
 
         :param async bool
@@ -178,13 +272,13 @@ class ServerCredentialsApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method v3_server_credentials_lwm2m_get" % key
+                    " to method get_l2_m2_m_server_credentials" % key
                 )
             params[key] = val
         del params['kwargs']
         # verify the required parameter 'authorization' is set
         if ('authorization' not in params) or (params['authorization'] is None):
-            raise ValueError("Missing the required parameter `authorization` when calling `v3_server_credentials_lwm2m_get`")
+            raise ValueError("Missing the required parameter `authorization` when calling `get_l2_m2_m_server_credentials`")
 
 
         collection_formats = {}

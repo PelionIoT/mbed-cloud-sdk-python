@@ -35,787 +35,9 @@ class DefaultApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def campaign_create(self, campaign, **kwargs):
-        """
-        Create an update campaign.
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.campaign_create(campaign, async=True)
-        >>> result = thread.get()
-
-        :param async bool
-        :param UpdateCampaignPostRequest campaign: Update campaign (required)
-        :return: UpdateCampaign
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
-            return self.campaign_create_with_http_info(campaign, **kwargs)
-        else:
-            (data) = self.campaign_create_with_http_info(campaign, **kwargs)
-            return data
-
-    def campaign_create_with_http_info(self, campaign, **kwargs):
-        """
-        Create an update campaign.
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.campaign_create_with_http_info(campaign, async=True)
-        >>> result = thread.get()
-
-        :param async bool
-        :param UpdateCampaignPostRequest campaign: Update campaign (required)
-        :return: UpdateCampaign
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['campaign']
-        all_params.append('async')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method campaign_create" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'campaign' is set
-        if ('campaign' not in params) or (params['campaign'] is None):
-            raise ValueError("Missing the required parameter `campaign` when calling `campaign_create`")
-
-
-        collection_formats = {}
-
-        path_params = {}
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'campaign' in params:
-            body_params = params['campaign']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept(['application/json'])
-
-        # Authentication setting
-        auth_settings = ['Bearer']
-
-        return self.api_client.call_api('/v3/campaigns/', 'POST',
-                                        path_params,
-                                        query_params,
-                                        header_params,
-                                        body=body_params,
-                                        post_params=form_params,
-                                        files=local_var_files,
-                                        response_type='UpdateCampaign',
-                                        auth_settings=auth_settings,
-                                        async=params.get('async'),
-                                        _return_http_data_only=params.get('_return_http_data_only'),
-                                        _preload_content=params.get('_preload_content', True),
-                                        _request_timeout=params.get('_request_timeout'),
-                                        collection_formats=collection_formats)
-
-    def campaign_destroy(self, campaign_id, **kwargs):
-        """
-        Delete an update campaign.
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.campaign_destroy(campaign_id, async=True)
-        >>> result = thread.get()
-
-        :param async bool
-        :param str campaign_id: The ID of the update campaign (required)
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
-            return self.campaign_destroy_with_http_info(campaign_id, **kwargs)
-        else:
-            (data) = self.campaign_destroy_with_http_info(campaign_id, **kwargs)
-            return data
-
-    def campaign_destroy_with_http_info(self, campaign_id, **kwargs):
-        """
-        Delete an update campaign.
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.campaign_destroy_with_http_info(campaign_id, async=True)
-        >>> result = thread.get()
-
-        :param async bool
-        :param str campaign_id: The ID of the update campaign (required)
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['campaign_id']
-        all_params.append('async')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method campaign_destroy" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'campaign_id' is set
-        if ('campaign_id' not in params) or (params['campaign_id'] is None):
-            raise ValueError("Missing the required parameter `campaign_id` when calling `campaign_destroy`")
-
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'campaign_id' in params:
-            path_params['campaign_id'] = params['campaign_id']
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept(['application/json'])
-
-        # Authentication setting
-        auth_settings = ['Bearer']
-
-        return self.api_client.call_api('/v3/campaigns/{campaign_id}/', 'DELETE',
-                                        path_params,
-                                        query_params,
-                                        header_params,
-                                        body=body_params,
-                                        post_params=form_params,
-                                        files=local_var_files,
-                                        response_type=None,
-                                        auth_settings=auth_settings,
-                                        async=params.get('async'),
-                                        _return_http_data_only=params.get('_return_http_data_only'),
-                                        _preload_content=params.get('_preload_content', True),
-                                        _request_timeout=params.get('_request_timeout'),
-                                        collection_formats=collection_formats)
-
-    def campaign_list(self, **kwargs):
-        """
-        Get update campaigns for devices specified by a filter.
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.campaign_list(async=True)
-        >>> result = thread.get()
-
-        :param async bool
-        :param int limit: How many update campaigns to retrieve
-        :param str order: The order of the records. Acceptable values: ASC, DESC. Default: ASC
-        :param str after: The ID of the the item after which to retrieve the next page
-        :param str filter: URL-encoded query string parameter to filter returned data  `?filter={URL-encoded query string}`  The query string is made up of key-value pairs separated by ampersands. For example, this query: `key1=value1&key2=value2&key3=value3`  would be URL-encoded as: `?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3`   **Filtering by campaign properties** `state=[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired]`  `root_manifest_id=43217771234242e594ddb433816c498a`  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  `{field name}[|__lte|__gte]={UTC RFC3339 date-time}`  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  `created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering on multiple fields**  `state=deployed&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `state__nin=draft,scheduled,expired`
-        :param str include: Comma-separated list of data fields to return. Currently supported: total_count
-        :return: UpdateCampaignPage
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
-            return self.campaign_list_with_http_info(**kwargs)
-        else:
-            (data) = self.campaign_list_with_http_info(**kwargs)
-            return data
-
-    def campaign_list_with_http_info(self, **kwargs):
-        """
-        Get update campaigns for devices specified by a filter.
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.campaign_list_with_http_info(async=True)
-        >>> result = thread.get()
-
-        :param async bool
-        :param int limit: How many update campaigns to retrieve
-        :param str order: The order of the records. Acceptable values: ASC, DESC. Default: ASC
-        :param str after: The ID of the the item after which to retrieve the next page
-        :param str filter: URL-encoded query string parameter to filter returned data  `?filter={URL-encoded query string}`  The query string is made up of key-value pairs separated by ampersands. For example, this query: `key1=value1&key2=value2&key3=value3`  would be URL-encoded as: `?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3`   **Filtering by campaign properties** `state=[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired]`  `root_manifest_id=43217771234242e594ddb433816c498a`  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  `{field name}[|__lte|__gte]={UTC RFC3339 date-time}`  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  `created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering on multiple fields**  `state=deployed&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `state__nin=draft,scheduled,expired`
-        :param str include: Comma-separated list of data fields to return. Currently supported: total_count
-        :return: UpdateCampaignPage
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['limit', 'order', 'after', 'filter', 'include']
-        all_params.append('async')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method campaign_list" % key
-                )
-            params[key] = val
-        del params['kwargs']
-
-
-        collection_formats = {}
-
-        path_params = {}
-
-        query_params = []
-        if 'limit' in params:
-            query_params.append(('limit', params['limit']))
-        if 'order' in params:
-            query_params.append(('order', params['order']))
-        if 'after' in params:
-            query_params.append(('after', params['after']))
-        if 'filter' in params:
-            query_params.append(('filter', params['filter']))
-        if 'include' in params:
-            query_params.append(('include', params['include']))
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept(['application/json'])
-
-        # Authentication setting
-        auth_settings = ['Bearer']
-
-        return self.api_client.call_api('/v3/campaigns/', 'GET',
-                                        path_params,
-                                        query_params,
-                                        header_params,
-                                        body=body_params,
-                                        post_params=form_params,
-                                        files=local_var_files,
-                                        response_type='UpdateCampaignPage',
-                                        auth_settings=auth_settings,
-                                        async=params.get('async'),
-                                        _return_http_data_only=params.get('_return_http_data_only'),
-                                        _preload_content=params.get('_preload_content', True),
-                                        _request_timeout=params.get('_request_timeout'),
-                                        collection_formats=collection_formats)
-
-    def campaign_metadata_list(self, campaign_id, **kwargs):
-        """
-        Get campaign device metadata.
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.campaign_metadata_list(campaign_id, async=True)
-        >>> result = thread.get()
-
-        :param async bool
-        :param str campaign_id: The update campaign ID (required)
-        :param int limit: How many objects to retrieve in the page
-        :param str order: ASC or DESC
-        :param str after: The ID of the the item after which to retrieve the next page
-        :param str include: Comma-separated list of data fields to return. Currently supported: total_count
-        :return: CampaignDeviceMetadataPage
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
-            return self.campaign_metadata_list_with_http_info(campaign_id, **kwargs)
-        else:
-            (data) = self.campaign_metadata_list_with_http_info(campaign_id, **kwargs)
-            return data
-
-    def campaign_metadata_list_with_http_info(self, campaign_id, **kwargs):
-        """
-        Get campaign device metadata.
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.campaign_metadata_list_with_http_info(campaign_id, async=True)
-        >>> result = thread.get()
-
-        :param async bool
-        :param str campaign_id: The update campaign ID (required)
-        :param int limit: How many objects to retrieve in the page
-        :param str order: ASC or DESC
-        :param str after: The ID of the the item after which to retrieve the next page
-        :param str include: Comma-separated list of data fields to return. Currently supported: total_count
-        :return: CampaignDeviceMetadataPage
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['campaign_id', 'limit', 'order', 'after', 'include']
-        all_params.append('async')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method campaign_metadata_list" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'campaign_id' is set
-        if ('campaign_id' not in params) or (params['campaign_id'] is None):
-            raise ValueError("Missing the required parameter `campaign_id` when calling `campaign_metadata_list`")
-
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'campaign_id' in params:
-            path_params['campaign_id'] = params['campaign_id']
-
-        query_params = []
-        if 'limit' in params:
-            query_params.append(('limit', params['limit']))
-        if 'order' in params:
-            query_params.append(('order', params['order']))
-        if 'after' in params:
-            query_params.append(('after', params['after']))
-        if 'include' in params:
-            query_params.append(('include', params['include']))
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept(['application/json'])
-
-        # Authentication setting
-        auth_settings = ['Bearer']
-
-        return self.api_client.call_api('/v3/campaigns/{campaign_id}/campaign-device-metadata/', 'GET',
-                                        path_params,
-                                        query_params,
-                                        header_params,
-                                        body=body_params,
-                                        post_params=form_params,
-                                        files=local_var_files,
-                                        response_type='CampaignDeviceMetadataPage',
-                                        auth_settings=auth_settings,
-                                        async=params.get('async'),
-                                        _return_http_data_only=params.get('_return_http_data_only'),
-                                        _preload_content=params.get('_preload_content', True),
-                                        _request_timeout=params.get('_request_timeout'),
-                                        collection_formats=collection_formats)
-
-    def campaign_metadata_retreive(self, campaign_id, campaign_device_metadata_id, **kwargs):
-        """
-        Get update campaign metadata.
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.campaign_metadata_retreive(campaign_id, campaign_device_metadata_id, async=True)
-        >>> result = thread.get()
-
-        :param async bool
-        :param str campaign_id: The update campaign ID (required)
-        :param str campaign_device_metadata_id: The campaign device metadata ID (required)
-        :return: CampaignDeviceMetadata
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
-            return self.campaign_metadata_retreive_with_http_info(campaign_id, campaign_device_metadata_id, **kwargs)
-        else:
-            (data) = self.campaign_metadata_retreive_with_http_info(campaign_id, campaign_device_metadata_id, **kwargs)
-            return data
-
-    def campaign_metadata_retreive_with_http_info(self, campaign_id, campaign_device_metadata_id, **kwargs):
-        """
-        Get update campaign metadata.
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.campaign_metadata_retreive_with_http_info(campaign_id, campaign_device_metadata_id, async=True)
-        >>> result = thread.get()
-
-        :param async bool
-        :param str campaign_id: The update campaign ID (required)
-        :param str campaign_device_metadata_id: The campaign device metadata ID (required)
-        :return: CampaignDeviceMetadata
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['campaign_id', 'campaign_device_metadata_id']
-        all_params.append('async')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method campaign_metadata_retreive" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'campaign_id' is set
-        if ('campaign_id' not in params) or (params['campaign_id'] is None):
-            raise ValueError("Missing the required parameter `campaign_id` when calling `campaign_metadata_retreive`")
-        # verify the required parameter 'campaign_device_metadata_id' is set
-        if ('campaign_device_metadata_id' not in params) or (params['campaign_device_metadata_id'] is None):
-            raise ValueError("Missing the required parameter `campaign_device_metadata_id` when calling `campaign_metadata_retreive`")
-
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'campaign_id' in params:
-            path_params['campaign_id'] = params['campaign_id']
-        if 'campaign_device_metadata_id' in params:
-            path_params['campaign_device_metadata_id'] = params['campaign_device_metadata_id']
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept(['application/json'])
-
-        # Authentication setting
-        auth_settings = ['Bearer']
-
-        return self.api_client.call_api('/v3/campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/', 'GET',
-                                        path_params,
-                                        query_params,
-                                        header_params,
-                                        body=body_params,
-                                        post_params=form_params,
-                                        files=local_var_files,
-                                        response_type='CampaignDeviceMetadata',
-                                        auth_settings=auth_settings,
-                                        async=params.get('async'),
-                                        _return_http_data_only=params.get('_return_http_data_only'),
-                                        _preload_content=params.get('_preload_content', True),
-                                        _request_timeout=params.get('_request_timeout'),
-                                        collection_formats=collection_formats)
-
-    def campaign_retrieve(self, campaign_id, **kwargs):
-        """
-        Get an update campaign.
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.campaign_retrieve(campaign_id, async=True)
-        >>> result = thread.get()
-
-        :param async bool
-        :param str campaign_id: The campaign ID (required)
-        :return: UpdateCampaign
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
-            return self.campaign_retrieve_with_http_info(campaign_id, **kwargs)
-        else:
-            (data) = self.campaign_retrieve_with_http_info(campaign_id, **kwargs)
-            return data
-
-    def campaign_retrieve_with_http_info(self, campaign_id, **kwargs):
-        """
-        Get an update campaign.
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.campaign_retrieve_with_http_info(campaign_id, async=True)
-        >>> result = thread.get()
-
-        :param async bool
-        :param str campaign_id: The campaign ID (required)
-        :return: UpdateCampaign
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['campaign_id']
-        all_params.append('async')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method campaign_retrieve" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'campaign_id' is set
-        if ('campaign_id' not in params) or (params['campaign_id'] is None):
-            raise ValueError("Missing the required parameter `campaign_id` when calling `campaign_retrieve`")
-
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'campaign_id' in params:
-            path_params['campaign_id'] = params['campaign_id']
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept(['application/json'])
-
-        # Authentication setting
-        auth_settings = ['Bearer']
-
-        return self.api_client.call_api('/v3/campaigns/{campaign_id}/', 'GET',
-                                        path_params,
-                                        query_params,
-                                        header_params,
-                                        body=body_params,
-                                        post_params=form_params,
-                                        files=local_var_files,
-                                        response_type='UpdateCampaign',
-                                        auth_settings=auth_settings,
-                                        async=params.get('async'),
-                                        _return_http_data_only=params.get('_return_http_data_only'),
-                                        _preload_content=params.get('_preload_content', True),
-                                        _request_timeout=params.get('_request_timeout'),
-                                        collection_formats=collection_formats)
-
-    def campaign_stop(self, campaign_id, **kwargs):
-        """
-        Stop a running update campaign.
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.campaign_stop(campaign_id, async=True)
-        >>> result = thread.get()
-
-        :param async bool
-        :param str campaign_id: The campaign ID (required)
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
-            return self.campaign_stop_with_http_info(campaign_id, **kwargs)
-        else:
-            (data) = self.campaign_stop_with_http_info(campaign_id, **kwargs)
-            return data
-
-    def campaign_stop_with_http_info(self, campaign_id, **kwargs):
-        """
-        Stop a running update campaign.
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.campaign_stop_with_http_info(campaign_id, async=True)
-        >>> result = thread.get()
-
-        :param async bool
-        :param str campaign_id: The campaign ID (required)
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['campaign_id']
-        all_params.append('async')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method campaign_stop" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'campaign_id' is set
-        if ('campaign_id' not in params) or (params['campaign_id'] is None):
-            raise ValueError("Missing the required parameter `campaign_id` when calling `campaign_stop`")
-
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'campaign_id' in params:
-            path_params['campaign_id'] = params['campaign_id']
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept(['application/json'])
-
-        # Authentication setting
-        auth_settings = ['Bearer']
-
-        return self.api_client.call_api('/v3/campaigns/{campaign_id}/stop', 'POST',
-                                        path_params,
-                                        query_params,
-                                        header_params,
-                                        body=body_params,
-                                        post_params=form_params,
-                                        files=local_var_files,
-                                        response_type=None,
-                                        auth_settings=auth_settings,
-                                        async=params.get('async'),
-                                        _return_http_data_only=params.get('_return_http_data_only'),
-                                        _preload_content=params.get('_preload_content', True),
-                                        _request_timeout=params.get('_request_timeout'),
-                                        collection_formats=collection_formats)
-
-    def campaign_update(self, campaign_id, campaign, **kwargs):
-        """
-        Modify an update campaign.
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.campaign_update(campaign_id, campaign, async=True)
-        >>> result = thread.get()
-
-        :param async bool
-        :param str campaign_id: (required)
-        :param UpdateCampaignPutRequest campaign: Update campaign (required)
-        :return: UpdateCampaign
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
-            return self.campaign_update_with_http_info(campaign_id, campaign, **kwargs)
-        else:
-            (data) = self.campaign_update_with_http_info(campaign_id, campaign, **kwargs)
-            return data
-
-    def campaign_update_with_http_info(self, campaign_id, campaign, **kwargs):
-        """
-        Modify an update campaign.
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.campaign_update_with_http_info(campaign_id, campaign, async=True)
-        >>> result = thread.get()
-
-        :param async bool
-        :param str campaign_id: (required)
-        :param UpdateCampaignPutRequest campaign: Update campaign (required)
-        :return: UpdateCampaign
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['campaign_id', 'campaign']
-        all_params.append('async')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method campaign_update" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'campaign_id' is set
-        if ('campaign_id' not in params) or (params['campaign_id'] is None):
-            raise ValueError("Missing the required parameter `campaign_id` when calling `campaign_update`")
-        # verify the required parameter 'campaign' is set
-        if ('campaign' not in params) or (params['campaign'] is None):
-            raise ValueError("Missing the required parameter `campaign` when calling `campaign_update`")
-
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'campaign_id' in params:
-            path_params['campaign_id'] = params['campaign_id']
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'campaign' in params:
-            body_params = params['campaign']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept(['application/json'])
-
-        # Authentication setting
-        auth_settings = ['Bearer']
-
-        return self.api_client.call_api('/v3/campaigns/{campaign_id}/', 'PUT',
-                                        path_params,
-                                        query_params,
-                                        header_params,
-                                        body=body_params,
-                                        post_params=form_params,
-                                        files=local_var_files,
-                                        response_type='UpdateCampaign',
-                                        auth_settings=auth_settings,
-                                        async=params.get('async'),
-                                        _return_http_data_only=params.get('_return_http_data_only'),
-                                        _preload_content=params.get('_preload_content', True),
-                                        _request_timeout=params.get('_request_timeout'),
-                                        collection_formats=collection_formats)
-
     def firmware_image_create(self, datafile, name, **kwargs):
         """
+        Create an image
         Create firmware image.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -839,6 +61,7 @@ class DefaultApi(object):
 
     def firmware_image_create_with_http_info(self, datafile, name, **kwargs):
         """
+        Create an image
         Create firmware image.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -925,6 +148,7 @@ class DefaultApi(object):
 
     def firmware_image_destroy(self, image_id, **kwargs):
         """
+        Delete an image
         Delete firmware image.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -946,6 +170,7 @@ class DefaultApi(object):
 
     def firmware_image_destroy_with_http_info(self, image_id, **kwargs):
         """
+        Delete an image
         Delete firmware image.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -1017,6 +242,7 @@ class DefaultApi(object):
 
     def firmware_image_list(self, **kwargs):
         """
+        List all images
         List all firmware images.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -1027,7 +253,7 @@ class DefaultApi(object):
         :param int limit: How many firmware images to retrieve
         :param str order: ASC or DESC
         :param str after: The ID of the the item after which to retrieve the next page
-        :param str filter: URL-encoded query string parameter to filter returned data  `?filter={URL-encoded query string}`  The query string is made up of key-value pairs separated by ampersands. For example, this query: `key1=value1&key2=value2&key3=value3`  would be URL-encoded as: `?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3`   **Filtering by properties** `name=myimage`  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  `{field name}[|__lte|__gte]={UTC RFC3339 date-time}`  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  `created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering on multiple fields**  `name=myimage&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `name__in=fw-image1,fw-image2`
+        :param str filter: URL-encoded query string parameter to filter returned data  `?filter={URL-encoded query string}`  ###### Filterable fields:  The below table lists all the fields that can be filtered on with certain filters:  |       Field       | = / __eq / __neq | __in /  __nin | __lte / __gte | |:-----------------:|:----------------:|:-------------:|:-------------:| |     created_at    |         ✓        |       ✓       |       ✓       | |      datafile     |         ✓        |       ✓       |               | | datafile_checksum |         ✓        |       ✓       |               | |   datafile_size   |         ✓        |       ✓       |               | |    description    |         ✓        |       ✓       |               | |        etag       |         ✓        |       ✓       |       ✓       | |         id        |         ✓        |       ✓       |               | |        name       |         ✓        |       ✓       |               | |     timestamp     |         ✓        |       ✓       |       ✓       | |     updated_at    |         ✓        |       ✓       |       ✓       |  The query string is made up of key-value pairs separated by ampersands. For example, this query: `key1=value1&key2=value2&key3=value3`  would be URL-encoded as: `?filter=key1__eq%3Dvalue1%26key2__eq%3Dvalue2%26key3__eq%3Dvalue3`   **Filtering by properties** `name__eq=myimage`  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality by appending `__eq` to the field name * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  `{field name}[|__eq|__lte|__gte]={UTC RFC3339 date-time}`  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  `created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering on multiple fields**  `name__eq=myimage&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `name__in=fw-image1,fw-image2`
         :param str include: Comma-separated list of data fields to return. Currently supported: total_count
         :return: FirmwareImagePage
                  If the method is called asynchronously,
@@ -1042,6 +268,7 @@ class DefaultApi(object):
 
     def firmware_image_list_with_http_info(self, **kwargs):
         """
+        List all images
         List all firmware images.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -1052,7 +279,7 @@ class DefaultApi(object):
         :param int limit: How many firmware images to retrieve
         :param str order: ASC or DESC
         :param str after: The ID of the the item after which to retrieve the next page
-        :param str filter: URL-encoded query string parameter to filter returned data  `?filter={URL-encoded query string}`  The query string is made up of key-value pairs separated by ampersands. For example, this query: `key1=value1&key2=value2&key3=value3`  would be URL-encoded as: `?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3`   **Filtering by properties** `name=myimage`  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  `{field name}[|__lte|__gte]={UTC RFC3339 date-time}`  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  `created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering on multiple fields**  `name=myimage&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `name__in=fw-image1,fw-image2`
+        :param str filter: URL-encoded query string parameter to filter returned data  `?filter={URL-encoded query string}`  ###### Filterable fields:  The below table lists all the fields that can be filtered on with certain filters:  |       Field       | = / __eq / __neq | __in /  __nin | __lte / __gte | |:-----------------:|:----------------:|:-------------:|:-------------:| |     created_at    |         ✓        |       ✓       |       ✓       | |      datafile     |         ✓        |       ✓       |               | | datafile_checksum |         ✓        |       ✓       |               | |   datafile_size   |         ✓        |       ✓       |               | |    description    |         ✓        |       ✓       |               | |        etag       |         ✓        |       ✓       |       ✓       | |         id        |         ✓        |       ✓       |               | |        name       |         ✓        |       ✓       |               | |     timestamp     |         ✓        |       ✓       |       ✓       | |     updated_at    |         ✓        |       ✓       |       ✓       |  The query string is made up of key-value pairs separated by ampersands. For example, this query: `key1=value1&key2=value2&key3=value3`  would be URL-encoded as: `?filter=key1__eq%3Dvalue1%26key2__eq%3Dvalue2%26key3__eq%3Dvalue3`   **Filtering by properties** `name__eq=myimage`  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality by appending `__eq` to the field name * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  `{field name}[|__eq|__lte|__gte]={UTC RFC3339 date-time}`  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  `created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering on multiple fields**  `name__eq=myimage&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `name__in=fw-image1,fw-image2`
         :param str include: Comma-separated list of data fields to return. Currently supported: total_count
         :return: FirmwareImagePage
                  If the method is called asynchronously,
@@ -1122,6 +349,7 @@ class DefaultApi(object):
 
     def firmware_image_retrieve(self, image_id, **kwargs):
         """
+        Get an image
         Retrieve firmware image.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -1143,6 +371,7 @@ class DefaultApi(object):
 
     def firmware_image_retrieve_with_http_info(self, image_id, **kwargs):
         """
+        Get an image
         Retrieve firmware image.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -1214,6 +443,7 @@ class DefaultApi(object):
 
     def firmware_manifest_create(self, datafile, name, **kwargs):
         """
+        Create a manifest
         Create firmware manifest.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -1224,6 +454,7 @@ class DefaultApi(object):
         :param file datafile: The manifest file to create. The API gateway enforces the account-specific file size. (required)
         :param str name: The name of the firmware manifest (required)
         :param str description: The description of the firmware manifest
+        :param file key_table: The key table of pre-shared keys for devices
         :return: FirmwareManifest
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1237,6 +468,7 @@ class DefaultApi(object):
 
     def firmware_manifest_create_with_http_info(self, datafile, name, **kwargs):
         """
+        Create a manifest
         Create firmware manifest.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -1247,12 +479,13 @@ class DefaultApi(object):
         :param file datafile: The manifest file to create. The API gateway enforces the account-specific file size. (required)
         :param str name: The name of the firmware manifest (required)
         :param str description: The description of the firmware manifest
+        :param file key_table: The key table of pre-shared keys for devices
         :return: FirmwareManifest
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['datafile', 'name', 'description']
+        all_params = ['datafile', 'name', 'description', 'key_table']
         all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -1291,6 +524,8 @@ class DefaultApi(object):
             local_var_files['datafile'] = params['datafile']
         if 'description' in params:
             form_params.append(('description', params['description']))
+        if 'key_table' in params:
+            local_var_files['key_table'] = params['key_table']
         if 'name' in params:
             form_params.append(('name', params['name']))
 
@@ -1323,6 +558,7 @@ class DefaultApi(object):
 
     def firmware_manifest_destroy(self, manifest_id, **kwargs):
         """
+        Delete a manifest
         Delete firmware manifest.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -1344,6 +580,7 @@ class DefaultApi(object):
 
     def firmware_manifest_destroy_with_http_info(self, manifest_id, **kwargs):
         """
+        Delete a manifest
         Delete firmware manifest.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -1415,6 +652,7 @@ class DefaultApi(object):
 
     def firmware_manifest_list(self, **kwargs):
         """
+        List manifests
         List firmware manifests.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -1425,7 +663,7 @@ class DefaultApi(object):
         :param int limit: How many firmware manifests to retrieve
         :param str order: ASC or DESC
         :param str after: The ID of the the item after which to retrieve the next page.
-        :param str filter: URL-encoded query string parameter to filter returned data  `?filter={URL-encoded query string}`  The query string is made up of key-value pairs separated by ampersands. For example, this query: `key1=value1&key2=value2&key3=value3`  would be URL-encoded as: `?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3`   **Filtering by properties** `name=mymanifest`  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  `{field name}[|__lte|__gte]={UTC RFC3339 date-time}`  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  `created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering on multiple fields**  `name=mymanifest&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `name__in=fw-manifest1,fw-manifest2`
+        :param str filter: URL-encoded query string parameter to filter returned data  `?filter={URL-encoded query string}`  ###### Filterable fields:  The below table lists all the fields that can be filtered on with certain filters:  |     Field     | = / __eq / __neq | __in /  __nin | __lte / __gte | |:-------------:|:----------------:|:-------------:|:-------------:| |   created_at  |         ✓        |       ✓       |       ✓       | |    datafile   |         ✓        |       ✓       |               | | datafile_size |         ✓        |       ✓       |               | |  description  |         ✓        |       ✓       |               | |  device_class |         ✓        |       ✓       |               | |      etag     |         ✓        |       ✓       |       ✓       | |       id      |         ✓        |       ✓       |               | |      name     |         ✓        |       ✓       |               | |   timestamp   |         ✓        |       ✓       |       ✓       | |   updated_at  |         ✓        |       ✓       |       ✓       |  The query string is made up of key-value pairs separated by ampersands. For example, this query: `key1__eq=value1&key2__eq=value2&key3__eq=value3`  would be URL-encoded as: `?filter=key1__eq%3Dvalue1%26key2__eq%3Dvalue2%26key3__eq%3Dvalue3`   **Filtering by properties** `name__eq=mymanifest`  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality by appending `__eq` to the field name * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  `{field name}[|__eq|__lte|__gte]={UTC RFC3339 date-time}`  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  `created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering on multiple fields**  `name__eq=mymanifest&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `name__in=fw-manifest1,fw-manifest2`
         :param str include: Comma-separated list of data fields to return. Currently supported: total_count
         :return: FirmwareManifestPage
                  If the method is called asynchronously,
@@ -1440,6 +678,7 @@ class DefaultApi(object):
 
     def firmware_manifest_list_with_http_info(self, **kwargs):
         """
+        List manifests
         List firmware manifests.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -1450,7 +689,7 @@ class DefaultApi(object):
         :param int limit: How many firmware manifests to retrieve
         :param str order: ASC or DESC
         :param str after: The ID of the the item after which to retrieve the next page.
-        :param str filter: URL-encoded query string parameter to filter returned data  `?filter={URL-encoded query string}`  The query string is made up of key-value pairs separated by ampersands. For example, this query: `key1=value1&key2=value2&key3=value3`  would be URL-encoded as: `?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3`   **Filtering by properties** `name=mymanifest`  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  `{field name}[|__lte|__gte]={UTC RFC3339 date-time}`  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  `created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering on multiple fields**  `name=mymanifest&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `name__in=fw-manifest1,fw-manifest2`
+        :param str filter: URL-encoded query string parameter to filter returned data  `?filter={URL-encoded query string}`  ###### Filterable fields:  The below table lists all the fields that can be filtered on with certain filters:  |     Field     | = / __eq / __neq | __in /  __nin | __lte / __gte | |:-------------:|:----------------:|:-------------:|:-------------:| |   created_at  |         ✓        |       ✓       |       ✓       | |    datafile   |         ✓        |       ✓       |               | | datafile_size |         ✓        |       ✓       |               | |  description  |         ✓        |       ✓       |               | |  device_class |         ✓        |       ✓       |               | |      etag     |         ✓        |       ✓       |       ✓       | |       id      |         ✓        |       ✓       |               | |      name     |         ✓        |       ✓       |               | |   timestamp   |         ✓        |       ✓       |       ✓       | |   updated_at  |         ✓        |       ✓       |       ✓       |  The query string is made up of key-value pairs separated by ampersands. For example, this query: `key1__eq=value1&key2__eq=value2&key3__eq=value3`  would be URL-encoded as: `?filter=key1__eq%3Dvalue1%26key2__eq%3Dvalue2%26key3__eq%3Dvalue3`   **Filtering by properties** `name__eq=mymanifest`  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality by appending `__eq` to the field name * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  `{field name}[|__eq|__lte|__gte]={UTC RFC3339 date-time}`  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  `created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering on multiple fields**  `name__eq=mymanifest&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `name__in=fw-manifest1,fw-manifest2`
         :param str include: Comma-separated list of data fields to return. Currently supported: total_count
         :return: FirmwareManifestPage
                  If the method is called asynchronously,
@@ -1520,6 +759,7 @@ class DefaultApi(object):
 
     def firmware_manifest_retrieve(self, manifest_id, **kwargs):
         """
+        Get a manifest
         Retrieve firmware manifest.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -1541,6 +781,7 @@ class DefaultApi(object):
 
     def firmware_manifest_retrieve_with_http_info(self, manifest_id, **kwargs):
         """
+        Get a manifest
         Retrieve firmware manifest.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -1612,6 +853,7 @@ class DefaultApi(object):
 
     def update_campaign_create(self, campaign, **kwargs):
         """
+        Create a campaign
         Create an update campaign.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -1633,6 +875,7 @@ class DefaultApi(object):
 
     def update_campaign_create_with_http_info(self, campaign, **kwargs):
         """
+        Create a campaign
         Create an update campaign.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -1704,6 +947,7 @@ class DefaultApi(object):
 
     def update_campaign_destroy(self, campaign_id, **kwargs):
         """
+        Delete a campaign
         Delete an update campaign.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -1725,6 +969,7 @@ class DefaultApi(object):
 
     def update_campaign_destroy_with_http_info(self, campaign_id, **kwargs):
         """
+        Delete a campaign
         Delete an update campaign.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -1796,7 +1041,8 @@ class DefaultApi(object):
 
     def update_campaign_list(self, **kwargs):
         """
-        Get update campaigns for devices specified by a filter. Can also use the `/campaigns/` alias.
+        List all campaigns
+        Get update campaigns for devices specified by a filter.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.update_campaign_list(async=True)
@@ -1806,7 +1052,7 @@ class DefaultApi(object):
         :param int limit: How many update campaigns to retrieve
         :param str order: The order of the records. Acceptable values: ASC, DESC. Default: ASC
         :param str after: The ID of the the item after which to retrieve the next page
-        :param str filter: URL-encoded query string parameter to filter returned data  `?filter={URL-encoded query string}`  The query string is made up of key-value pairs separated by ampersands. For example, this query: `key1=value1&key2=value2&key3=value3`  would be URL-encoded as: `?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3`   **Filtering by campaign properties** `state=[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired]`  `root_manifest_id=43217771234242e594ddb433816c498a`  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  `{field name}[|__lte|__gte]={UTC RFC3339 date-time}`  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  `created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering on multiple fields**  `state=deployed&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `name__in=fw-image1,fw-image2`
+        :param str filter: URL-encoded query string parameter to filter returned data  `?filter={URL-encoded query string}`   ###### Filterable fields:    The below table lists all the fields that can be filtered on with certain filters:    |       Field      | = / __eq / __neq | __in /  __nin | __lte / __gte |   |:----------------:|:----------------:|:-------------:|:-------------:|   |    created_at    |         ✓        |       ✓       |       ✓       |   |    description   |         ✓        |       ✓       |               |   |   device_filter  |         ✓        |       ✓       |               |   |       etag       |         ✓        |       ✓       |       ✓       |   |     finished     |         ✓        |       ✓       |       ✓       |   |        id        |         ✓        |       ✓       |               |   |       name       |         ✓        |       ✓       |               |   | root_manifest_id |         ✓        |       ✓       |               |   |    started_at    |         ✓        |       ✓       |       ✓       |   |       state      |         ✓        |       ✓       |               |   |    updated_at    |         ✓        |       ✓       |       ✓       |   |       when       |         ✓        |       ✓       |       ✓       |  The query string is made up of key-value pairs separated by ampersands. For example, this query: `key1__eq=value1&key2__eq=value2&key3__eq=value3`  would be URL-encoded as: `?filter=key1__eq%3Dvalue1%26key2__eq%3Dvalue2%26key3__eq%3Dvalue3`   **Filtering by campaign properties** `state__eq=[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired]`  `root_manifest_id__eq=43217771234242e594ddb433816c498a`  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality by appending `__eq` to the field name * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  `{field name}[|__eq|__lte|__gte]={UTC RFC3339 date-time}`  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  `created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering on multiple fields**  `state__eq=deployed&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `name__in=fw-image1,fw-image2`
         :param str include: Comma-separated list of data fields to return. Currently supported: total_count
         :return: UpdateCampaignPage
                  If the method is called asynchronously,
@@ -1821,7 +1067,8 @@ class DefaultApi(object):
 
     def update_campaign_list_with_http_info(self, **kwargs):
         """
-        Get update campaigns for devices specified by a filter. Can also use the `/campaigns/` alias.
+        List all campaigns
+        Get update campaigns for devices specified by a filter.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.update_campaign_list_with_http_info(async=True)
@@ -1831,7 +1078,7 @@ class DefaultApi(object):
         :param int limit: How many update campaigns to retrieve
         :param str order: The order of the records. Acceptable values: ASC, DESC. Default: ASC
         :param str after: The ID of the the item after which to retrieve the next page
-        :param str filter: URL-encoded query string parameter to filter returned data  `?filter={URL-encoded query string}`  The query string is made up of key-value pairs separated by ampersands. For example, this query: `key1=value1&key2=value2&key3=value3`  would be URL-encoded as: `?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3`   **Filtering by campaign properties** `state=[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired]`  `root_manifest_id=43217771234242e594ddb433816c498a`  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  `{field name}[|__lte|__gte]={UTC RFC3339 date-time}`  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  `created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering on multiple fields**  `state=deployed&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `name__in=fw-image1,fw-image2`
+        :param str filter: URL-encoded query string parameter to filter returned data  `?filter={URL-encoded query string}`   ###### Filterable fields:    The below table lists all the fields that can be filtered on with certain filters:    |       Field      | = / __eq / __neq | __in /  __nin | __lte / __gte |   |:----------------:|:----------------:|:-------------:|:-------------:|   |    created_at    |         ✓        |       ✓       |       ✓       |   |    description   |         ✓        |       ✓       |               |   |   device_filter  |         ✓        |       ✓       |               |   |       etag       |         ✓        |       ✓       |       ✓       |   |     finished     |         ✓        |       ✓       |       ✓       |   |        id        |         ✓        |       ✓       |               |   |       name       |         ✓        |       ✓       |               |   | root_manifest_id |         ✓        |       ✓       |               |   |    started_at    |         ✓        |       ✓       |       ✓       |   |       state      |         ✓        |       ✓       |               |   |    updated_at    |         ✓        |       ✓       |       ✓       |   |       when       |         ✓        |       ✓       |       ✓       |  The query string is made up of key-value pairs separated by ampersands. For example, this query: `key1__eq=value1&key2__eq=value2&key3__eq=value3`  would be URL-encoded as: `?filter=key1__eq%3Dvalue1%26key2__eq%3Dvalue2%26key3__eq%3Dvalue3`   **Filtering by campaign properties** `state__eq=[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired]`  `root_manifest_id__eq=43217771234242e594ddb433816c498a`  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality by appending `__eq` to the field name * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  `{field name}[|__eq|__lte|__gte]={UTC RFC3339 date-time}`  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  `created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering on multiple fields**  `state__eq=deployed&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `name__in=fw-image1,fw-image2`
         :param str include: Comma-separated list of data fields to return. Currently supported: total_count
         :return: UpdateCampaignPage
                  If the method is called asynchronously,
@@ -1901,6 +1148,7 @@ class DefaultApi(object):
 
     def update_campaign_metadata_list(self, campaign_id, **kwargs):
         """
+        List all campaign device metadata
         Get campaign device metadata.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -1926,6 +1174,7 @@ class DefaultApi(object):
 
     def update_campaign_metadata_list_with_http_info(self, campaign_id, **kwargs):
         """
+        List all campaign device metadata
         Get campaign device metadata.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -2009,6 +1258,7 @@ class DefaultApi(object):
 
     def update_campaign_metadata_retrieve(self, campaign_id, campaign_device_metadata_id, **kwargs):
         """
+        Get a campaign device metadata
         Get update campaign metadata.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -2031,6 +1281,7 @@ class DefaultApi(object):
 
     def update_campaign_metadata_retrieve_with_http_info(self, campaign_id, campaign_device_metadata_id, **kwargs):
         """
+        Get a campaign device metadata
         Get update campaign metadata.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -2108,6 +1359,7 @@ class DefaultApi(object):
 
     def update_campaign_metadata_stop(self, campaign_id, **kwargs):
         """
+        Stop a running campaign
         Stop a running update campaign.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -2129,6 +1381,7 @@ class DefaultApi(object):
 
     def update_campaign_metadata_stop_with_http_info(self, campaign_id, **kwargs):
         """
+        Stop a running campaign
         Stop a running update campaign.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -2200,6 +1453,7 @@ class DefaultApi(object):
 
     def update_campaign_retrieve(self, campaign_id, **kwargs):
         """
+        Get a campaign.
         Get an update campaign.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -2221,6 +1475,7 @@ class DefaultApi(object):
 
     def update_campaign_retrieve_with_http_info(self, campaign_id, **kwargs):
         """
+        Get a campaign.
         Get an update campaign.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -2292,6 +1547,7 @@ class DefaultApi(object):
 
     def update_campaign_update(self, campaign_id, campaign, **kwargs):
         """
+        Modify a campaign
         Modify an update campaign.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -2314,6 +1570,7 @@ class DefaultApi(object):
 
     def update_campaign_update_with_http_info(self, campaign_id, campaign, **kwargs):
         """
+        Modify a campaign
         Modify an update campaign.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True

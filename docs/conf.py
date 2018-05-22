@@ -197,7 +197,8 @@ html_static_path = ['_static']
 html_sidebars = {
     '**': [
         'about.html',
-        'searchbox.html'
+        'searchbox.html',
+        'globaltoc.html',
     ]
 }
 
@@ -366,3 +367,6 @@ texinfo_documents = [
 # If true, do not generate a @detailmenu in the "Top" node's menu.
 #
 # texinfo_no_detailmenu = False
+
+# Bonus funky stuff
+autoclass_content = 'init'  # render class vs __init__ docstrings

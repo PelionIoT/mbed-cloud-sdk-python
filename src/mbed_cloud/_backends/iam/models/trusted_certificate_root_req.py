@@ -31,96 +31,44 @@ class TrustedCertificateRootReq(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'status': 'str',
-        'enrollment_mode': 'bool',
         'certificate': 'str',
+        'description': 'str',
+        'enrollment_mode': 'bool',
         'name': 'str',
         'service': 'str',
         'signature': 'str',
-        'description': 'str'
+        'status': 'str'
     }
 
     attribute_map = {
-        'status': 'status',
-        'enrollment_mode': 'enrollment_mode',
         'certificate': 'certificate',
+        'description': 'description',
+        'enrollment_mode': 'enrollment_mode',
         'name': 'name',
         'service': 'service',
         'signature': 'signature',
-        'description': 'description'
+        'status': 'status'
     }
 
-    def __init__(self, status=None, enrollment_mode=None, certificate=None, name=None, service=None, signature=None, description=None):
+    def __init__(self, certificate=None, description=None, enrollment_mode=None, name=None, service=None, signature=None, status=None):
         """
         TrustedCertificateRootReq - a model defined in Swagger
         """
 
-        self._status = status
-        self._enrollment_mode = enrollment_mode
         self._certificate = certificate
+        self._description = description
+        self._enrollment_mode = enrollment_mode
         self._name = name
         self._service = service
         self._signature = signature
-        self._description = description
-        self.discriminator = None
-
-    @property
-    def status(self):
-        """
-        Gets the status of this TrustedCertificateRootReq.
-        Status of the certificate.
-
-        :return: The status of this TrustedCertificateRootReq.
-        :rtype: str
-        """
-        return self._status
-
-    @status.setter
-    def status(self, status):
-        """
-        Sets the status of this TrustedCertificateRootReq.
-        Status of the certificate.
-
-        :param status: The status of this TrustedCertificateRootReq.
-        :type: str
-        """
-        allowed_values = ["ACTIVE", "INACTIVE"]
-        if status not in allowed_values:
-            raise ValueError(
-                "Invalid value for `status` ({0}), must be one of {1}"
-                .format(status, allowed_values)
-            )
-
         self._status = status
-
-    @property
-    def enrollment_mode(self):
-        """
-        Gets the enrollment_mode of this TrustedCertificateRootReq.
-        If true, signature parameter is not required. Default value is false.
-
-        :return: The enrollment_mode of this TrustedCertificateRootReq.
-        :rtype: bool
-        """
-        return self._enrollment_mode
-
-    @enrollment_mode.setter
-    def enrollment_mode(self, enrollment_mode):
-        """
-        Sets the enrollment_mode of this TrustedCertificateRootReq.
-        If true, signature parameter is not required. Default value is false.
-
-        :param enrollment_mode: The enrollment_mode of this TrustedCertificateRootReq.
-        :type: bool
-        """
-
-        self._enrollment_mode = enrollment_mode
+        self.discriminator = None
 
     @property
     def certificate(self):
         """
         Gets the certificate of this TrustedCertificateRootReq.
-        X509.v3 trusted certificate in PEM format.
+        X509.v3 trusted certificate in PEM format. Chaining multiple certificates after one another is supported.
 
         :return: The certificate of this TrustedCertificateRootReq.
         :rtype: str
@@ -131,7 +79,7 @@ class TrustedCertificateRootReq(object):
     def certificate(self, certificate):
         """
         Sets the certificate of this TrustedCertificateRootReq.
-        X509.v3 trusted certificate in PEM format.
+        X509.v3 trusted certificate in PEM format. Chaining multiple certificates after one another is supported.
 
         :param certificate: The certificate of this TrustedCertificateRootReq.
         :type: str
@@ -140,6 +88,52 @@ class TrustedCertificateRootReq(object):
             raise ValueError("Invalid value for `certificate`, must not be `None`")
 
         self._certificate = certificate
+
+    @property
+    def description(self):
+        """
+        Gets the description of this TrustedCertificateRootReq.
+        Human readable description of this certificate, not longer than 500 characters.
+
+        :return: The description of this TrustedCertificateRootReq.
+        :rtype: str
+        """
+        return self._description
+
+    @description.setter
+    def description(self, description):
+        """
+        Sets the description of this TrustedCertificateRootReq.
+        Human readable description of this certificate, not longer than 500 characters.
+
+        :param description: The description of this TrustedCertificateRootReq.
+        :type: str
+        """
+
+        self._description = description
+
+    @property
+    def enrollment_mode(self):
+        """
+        Gets the enrollment_mode of this TrustedCertificateRootReq.
+        Certificate is used in enrollment mode. Default value is false.
+
+        :return: The enrollment_mode of this TrustedCertificateRootReq.
+        :rtype: bool
+        """
+        return self._enrollment_mode
+
+    @enrollment_mode.setter
+    def enrollment_mode(self, enrollment_mode):
+        """
+        Sets the enrollment_mode of this TrustedCertificateRootReq.
+        Certificate is used in enrollment mode. Default value is false.
+
+        :param enrollment_mode: The enrollment_mode of this TrustedCertificateRootReq.
+        :type: bool
+        """
+
+        self._enrollment_mode = enrollment_mode
 
     @property
     def name(self):
@@ -201,7 +195,7 @@ class TrustedCertificateRootReq(object):
     def signature(self):
         """
         Gets the signature of this TrustedCertificateRootReq.
-        Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256. Optional if enrollment_mode is 'true'.
+        DEPRECATED: Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256. Optional if enrollment_mode is 'true'.
 
         :return: The signature of this TrustedCertificateRootReq.
         :rtype: str
@@ -212,7 +206,7 @@ class TrustedCertificateRootReq(object):
     def signature(self, signature):
         """
         Sets the signature of this TrustedCertificateRootReq.
-        Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256. Optional if enrollment_mode is 'true'.
+        DEPRECATED: Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256. Optional if enrollment_mode is 'true'.
 
         :param signature: The signature of this TrustedCertificateRootReq.
         :type: str
@@ -221,27 +215,33 @@ class TrustedCertificateRootReq(object):
         self._signature = signature
 
     @property
-    def description(self):
+    def status(self):
         """
-        Gets the description of this TrustedCertificateRootReq.
-        Human readable description of this certificate, not longer than 500 characters.
+        Gets the status of this TrustedCertificateRootReq.
+        Status of the certificate.
 
-        :return: The description of this TrustedCertificateRootReq.
+        :return: The status of this TrustedCertificateRootReq.
         :rtype: str
         """
-        return self._description
+        return self._status
 
-    @description.setter
-    def description(self, description):
+    @status.setter
+    def status(self, status):
         """
-        Sets the description of this TrustedCertificateRootReq.
-        Human readable description of this certificate, not longer than 500 characters.
+        Sets the status of this TrustedCertificateRootReq.
+        Status of the certificate.
 
-        :param description: The description of this TrustedCertificateRootReq.
+        :param status: The status of this TrustedCertificateRootReq.
         :type: str
         """
+        allowed_values = ["ACTIVE", "INACTIVE"]
+        if status not in allowed_values:
+            raise ValueError(
+                "Invalid value for `status` ({0}), must be one of {1}"
+                .format(status, allowed_values)
+            )
 
-        self._description = description
+        self._status = status
 
     def to_dict(self):
         """

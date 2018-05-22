@@ -21,7 +21,6 @@ from .account_info_list import AccountInfoList
 from .account_update_req import AccountUpdateReq
 from .account_update_root_req import AccountUpdateRootReq
 from .active_session import ActiveSession
-from .admin_user_update_req import AdminUserUpdateReq
 from .api_key_info_req import ApiKeyInfoReq
 from .api_key_info_resp import ApiKeyInfoResp
 from .api_key_info_resp_list import ApiKeyInfoRespList
@@ -32,8 +31,8 @@ from .field import Field
 from .group_creation_info import GroupCreationInfo
 from .group_summary import GroupSummary
 from .group_summary_list import GroupSummaryList
+from .group_update_info import GroupUpdateInfo
 from .login_history import LoginHistory
-from .my_user_info_resp import MyUserInfoResp
 from .password_policy import PasswordPolicy
 from .subject_list import SubjectList
 from .trusted_certificate_internal_resp import TrustedCertificateInternalResp

@@ -21,11 +21,16 @@ import logging
 import os
 import traceback
 
+ENVVAR_API_HOST = 'MBED_CLOUD_SDK_HOST'
+ENVVAR_API_KEY = 'MBED_CLOUD_SDK_API_KEY'
+
+LOG = logging.getLogger(__name__)
+
 
 class Config(dict):
     """Create configuration dict, reading config file(s) on initialisation."""
 
-    logger = logging.getLogger(__name__)
+    path_from_env_key = 'MBED_CLOUD_SDK_CONFIG'
 
     def __init__(self, updates=None):
         """Go through list of directories in priority order and add to config.
@@ -36,7 +41,9 @@ class Config(dict):
         Of highest priority is using the `MBED_CLOUD_SDK_CONFIG` environment
         variable, to specify a config JSON file.
         """
+        # if no root logger is defined yet, configure a default stream handler
         logging.basicConfig(level=logging.INFO)
+
         self._using_paths = []
 
         try:
@@ -45,9 +52,10 @@ class Config(dict):
             raise Exception(
                 "There was a problem loading the SDK configuration file.\n"
                 "Paths attempted, in priority order: \n\t%s\n"
+                "Config file can be set using env key: `%s`\n"
                 "The original traceback is recorded below:\n"
                 "\n%s"
-                % (',\n\t'.join(self._using_paths), traceback.format_exc())
+                % (',\n\t'.join(self._using_paths), self.path_from_env_key, traceback.format_exc())
             )
 
     def paths(self):
@@ -64,7 +72,7 @@ class Config(dict):
             os.path.join(os.getcwd(), filename),
 
             # Config file specified using environment variable
-            os.environ.get("MBED_CLOUD_SDK_CONFIG")
+            os.environ.get(self.path_from_env_key)
         ]
 
     def load(self, updates):
@@ -82,6 +90,10 @@ class Config(dict):
             self._using_paths.append(' exists: %s' % abs_path)
             with open(abs_path) as fh:
                 self.update(json.load(fh))
+        for env_var, key in {ENVVAR_API_HOST: 'host', ENVVAR_API_KEY: 'api_key'}.items():
+            env_value = os.getenv(env_var)
+            if env_value is not None:
+                self[key] = env_value
         if updates:
             self.update(updates)
         self.validate()

@@ -37,7 +37,8 @@ class DefaultApi(object):
 
     def device_create(self, device, **kwargs):
         """
-        Create device.
+        Create a device
+        Create a new device.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.device_create(device, async=True)
@@ -58,7 +59,8 @@ class DefaultApi(object):
 
     def device_create_with_http_info(self, device, **kwargs):
         """
-        Create device.
+        Create a device
+        Create a new device.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.device_create_with_http_info(device, async=True)
@@ -129,6 +131,7 @@ class DefaultApi(object):
 
     def device_destroy(self, id, **kwargs):
         """
+        Delete a device.
         Delete device. Only available for devices with a developer certificate. Attempts to delete a device with a production certicate will return a 400 response.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -150,6 +153,7 @@ class DefaultApi(object):
 
     def device_destroy_with_http_info(self, id, **kwargs):
         """
+        Delete a device.
         Delete device. Only available for devices with a developer certificate. Attempts to delete a device with a production certicate will return a 400 response.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -222,6 +226,7 @@ class DefaultApi(object):
     def device_event_list(self, **kwargs):
         """
         List all device events.
+        List all device events for an account.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.device_event_list(async=True)
@@ -231,7 +236,7 @@ class DefaultApi(object):
         :param int limit: How many objects to retrieve in the page.
         :param str order: The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.
         :param str after: The ID of The item after which to retrieve the next page.
-        :param str filter: URL encoded query string parameter to filter returned data.  ##### Filtering ```?filter={URL encoded query string}```  The query string is made up of key/value pairs separated by ampersands. So for a query of ```key1=value1&key2=value2&key3=value3``` this would be encoded as follows: ```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3``` The examples below show the queries in *unencoded* form.  ###### By id: ```id={id}```  ###### By state change: ```state_change=[True|False]```  ###### By event type: ```event_type={value}```  ###### On date-time fields: Date-time fields should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &ndash; field name suffixed with ```__gte``` * less than or equal to &ndash; field name suffixed with ```__lte```  Lower and upper limits to a date-time range may be specified by including both the ```__gte``` and ```__lte``` forms in the filter.  ```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```  ##### Multi-field example  ```id=0158d38771f70000000000010010038c&state_change=True&date_time__gte=2016-11-30T16:25:12.1234Z```  Encoded:  ```?filter=id%3D0158d38771f70000000000010010038c%26state_change%3DTrue%26date_time__gte%3D2016-11-30T16%3A25%3A12.1234Z```  ##### Filtering with filter operators  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `event_type__in=update.device.device-created,update.device.device-updated`
+        :param str filter: URL encoded query string parameter to filter returned data.  ##### Filtering ```?filter={URL encoded query string}```  The query string is made up of key/value pairs separated by ampersands. So for a query of ```key1=value1&key2=value2&key3=value3``` this would be encoded as follows: ```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3```  ###### Filterable fields:  The below table lists all the fields that can be filtered on with certain filters:  |     Field    | = / __eq / __neq | __in /  __nin | __lte / __gte | |:------------:|:----------------:|:-------------:|:-------------:| |   date_time  |         ✓        |       ✓       |       ✓       | |  description |         ✓        |       ✓       |               | |      id      |         ✓        |       ✓       |               | |   device_id  |         ✓        |       ✓       |               | |  event_type  |         ✓        |       ✓       |               | | state_change |         ✓        |       ✓       |               |  The examples below show the queries in *unencoded* form.  ###### By id: ```id={id}```  ###### By state change: ```state_change=[True|False]```  ###### By event type: ```event_type={value}```  ###### On date-time fields: Date-time fields should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &ndash; field name suffixed with ```__gte``` * less than or equal to &ndash; field name suffixed with ```__lte```  Lower and upper limits to a date-time range may be specified by including both the ```__gte``` and ```__lte``` forms in the filter.  ```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```  ##### Multi-field example  ```id=0158d38771f70000000000010010038c&state_change=True&date_time__gte=2016-11-30T16:25:12.1234Z```  Encoded:  ```?filter=id%3D0158d38771f70000000000010010038c%26state_change%3DTrue%26date_time__gte%3D2016-11-30T16%3A25%3A12.1234Z```  ##### Filtering with filter operators  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `event_type__in=update.device.device-created,update.device.device-updated`
         :param str include: Comma-separated list of data fields to return. Currently supported: `total_count`
         :return: DeviceEventPage
                  If the method is called asynchronously,
@@ -247,6 +252,7 @@ class DefaultApi(object):
     def device_event_list_with_http_info(self, **kwargs):
         """
         List all device events.
+        List all device events for an account.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.device_event_list_with_http_info(async=True)
@@ -256,7 +262,7 @@ class DefaultApi(object):
         :param int limit: How many objects to retrieve in the page.
         :param str order: The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.
         :param str after: The ID of The item after which to retrieve the next page.
-        :param str filter: URL encoded query string parameter to filter returned data.  ##### Filtering ```?filter={URL encoded query string}```  The query string is made up of key/value pairs separated by ampersands. So for a query of ```key1=value1&key2=value2&key3=value3``` this would be encoded as follows: ```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3``` The examples below show the queries in *unencoded* form.  ###### By id: ```id={id}```  ###### By state change: ```state_change=[True|False]```  ###### By event type: ```event_type={value}```  ###### On date-time fields: Date-time fields should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &ndash; field name suffixed with ```__gte``` * less than or equal to &ndash; field name suffixed with ```__lte```  Lower and upper limits to a date-time range may be specified by including both the ```__gte``` and ```__lte``` forms in the filter.  ```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```  ##### Multi-field example  ```id=0158d38771f70000000000010010038c&state_change=True&date_time__gte=2016-11-30T16:25:12.1234Z```  Encoded:  ```?filter=id%3D0158d38771f70000000000010010038c%26state_change%3DTrue%26date_time__gte%3D2016-11-30T16%3A25%3A12.1234Z```  ##### Filtering with filter operators  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `event_type__in=update.device.device-created,update.device.device-updated`
+        :param str filter: URL encoded query string parameter to filter returned data.  ##### Filtering ```?filter={URL encoded query string}```  The query string is made up of key/value pairs separated by ampersands. So for a query of ```key1=value1&key2=value2&key3=value3``` this would be encoded as follows: ```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3```  ###### Filterable fields:  The below table lists all the fields that can be filtered on with certain filters:  |     Field    | = / __eq / __neq | __in /  __nin | __lte / __gte | |:------------:|:----------------:|:-------------:|:-------------:| |   date_time  |         ✓        |       ✓       |       ✓       | |  description |         ✓        |       ✓       |               | |      id      |         ✓        |       ✓       |               | |   device_id  |         ✓        |       ✓       |               | |  event_type  |         ✓        |       ✓       |               | | state_change |         ✓        |       ✓       |               |  The examples below show the queries in *unencoded* form.  ###### By id: ```id={id}```  ###### By state change: ```state_change=[True|False]```  ###### By event type: ```event_type={value}```  ###### On date-time fields: Date-time fields should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &ndash; field name suffixed with ```__gte``` * less than or equal to &ndash; field name suffixed with ```__lte```  Lower and upper limits to a date-time range may be specified by including both the ```__gte``` and ```__lte``` forms in the filter.  ```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```  ##### Multi-field example  ```id=0158d38771f70000000000010010038c&state_change=True&date_time__gte=2016-11-30T16:25:12.1234Z```  Encoded:  ```?filter=id%3D0158d38771f70000000000010010038c%26state_change%3DTrue%26date_time__gte%3D2016-11-30T16%3A25%3A12.1234Z```  ##### Filtering with filter operators  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `event_type__in=update.device.device-created,update.device.device-updated`
         :param str include: Comma-separated list of data fields to return. Currently supported: `total_count`
         :return: DeviceEventPage
                  If the method is called asynchronously,
@@ -326,7 +332,8 @@ class DefaultApi(object):
 
     def device_event_retrieve(self, device_event_id, **kwargs):
         """
-        Retrieve device event.
+        Retrieve a device event.
+        Retrieve a specific device event.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.device_event_retrieve(device_event_id, async=True)
@@ -347,7 +354,8 @@ class DefaultApi(object):
 
     def device_event_retrieve_with_http_info(self, device_event_id, **kwargs):
         """
-        Retrieve device event.
+        Retrieve a device event.
+        Retrieve a specific device event.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.device_event_retrieve_with_http_info(device_event_id, async=True)
@@ -419,6 +427,7 @@ class DefaultApi(object):
     def device_list(self, **kwargs):
         """
         List all devices.
+        List all devices.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.device_list(async=True)
@@ -428,7 +437,7 @@ class DefaultApi(object):
         :param int limit: How many objects to retrieve in the page.
         :param str order: The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.
         :param str after: The ID of The item after which to retrieve the next page.
-        :param str filter: URL encoded query string parameter to filter returned data.  ##### Filtering ```?filter={URL encoded query string}```  The query string is made up of key/value pairs separated by ampersands. So for a query of ```key1=value1&key2=value2&key3=value3``` this would be encoded as follows: ```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3``` The examples below show the queries in *unencoded* form.  ###### By device properties (all properties are filterable): ```state=[unenrolled|cloud_enrolling|bootstrapped|registered]```  ```device_class={value}```  ###### On date-time fields: Date-time fields should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &ndash; field name suffixed with ```__gte``` * less than or equal to &ndash; field name suffixed with ```__lte```  Lower and upper limits to a date-time range may be specified by including both the ```__gte``` and ```__lte``` forms in the filter.  ```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```  ###### On device custom attributes:  ```custom_attributes__{param}={value}``` ```custom_attributes__tag=TAG1```  ##### Multi-field example  ```state=bootstrapped&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z```  Encoded:  ```?filter=state%3Dbootstrapped%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z```  ##### Filtering with filter operators  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `state__nin=unenrolled,dergistered`
+        :param str filter: URL encoded query string parameter to filter returned data.  ##### Filtering ```?filter={URL encoded query string}```  The query string is made up of key/value pairs separated by ampersands. So for a query of ```key1=value1&key2=value2&key3=value3``` this would be encoded as follows: ```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3```  ###### Filterable fields:  The below table lists all the fields that can be filtered on with certain filters:  |           Field           | = / __eq / __neq | __in /  __nin | __lte / __gte | |:-------------------------:|:----------------:|:-------------:|:-------------:| |         account_id        |         ✓        |       ✓       |               | |        auto_update        |         ✓        |       ✓       |               | | bootstrap_expiration_date |         ✓        |       ✓       |       ✓       | |   bootstrapped_timestamp  |         ✓        |       ✓       |       ✓       | |           ca_id           |         ✓        |       ✓       |               | | connector_expiration_date |         ✓        |       ✓       |       ✓       | |         created_at        |         ✓        |       ✓       |       ✓       | |     custom_attributes     |         ✓        |               |               | |       deployed_state      |         ✓        |       ✓       |               | |         deployment        |         ✓        |       ✓       |               | |        description        |         ✓        |       ✓       |               | |        device_class       |         ✓        |       ✓       |               | |   device_execution_mode   |         ✓        |       ✓       |               | |         device_key        |         ✓        |       ✓       |               | |       endpoint_name       |         ✓        |       ✓       |               | |       endpoint_type       |         ✓        |       ✓       |               | |  enrolment_list_timestamp |         ✓        |       ✓       |       ✓       | |            etag           |         ✓        |       ✓       |       ✓       | |     firmware_checksum     |         ✓        |       ✓       |               | |        host_gateway       |         ✓        |       ✓       |               | |             id            |         ✓        |       ✓       |               | |          manifest         |         ✓        |       ✓       |               | |     manifest_timestamp    |         ✓        |       ✓       |       ✓       | |         mechanism         |         ✓        |       ✓       |               | |       mechanism_url       |         ✓        |       ✓       |               | |            name           |         ✓        |       ✓       |               | |       serial_number       |         ✓        |       ✓       |               | |           state           |         ✓        |       ✓       |               | |         updated_at        |         ✓        |       ✓       |       ✓       | |         vendor_id         |         ✓        |       ✓       |               |   The examples below show the queries in *unencoded* form.  ###### By device properties (all properties are filterable): ```state=[unenrolled|cloud_enrolling|bootstrapped|registered]```  ```device_class={value}```  ###### On date-time fields: Date-time fields should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &ndash; field name suffixed with ```__gte``` * less than or equal to &ndash; field name suffixed with ```__lte```  Lower and upper limits to a date-time range may be specified by including both the ```__gte``` and ```__lte``` forms in the filter.  ```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```  ###### On device custom attributes:  ```custom_attributes__{param}={value}``` ```custom_attributes__tag=TAG1```  ##### Multi-field example  ```state=bootstrapped&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z```  Encoded:  ```?filter=state%3Dbootstrapped%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z```  ##### Filtering with filter operators  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `state__nin=unenrolled,dergistered`
         :param str include: Comma-separated list of data fields to return. Currently supported: `total_count`.
         :return: DevicePage
                  If the method is called asynchronously,
@@ -444,6 +453,7 @@ class DefaultApi(object):
     def device_list_with_http_info(self, **kwargs):
         """
         List all devices.
+        List all devices.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.device_list_with_http_info(async=True)
@@ -453,7 +463,7 @@ class DefaultApi(object):
         :param int limit: How many objects to retrieve in the page.
         :param str order: The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.
         :param str after: The ID of The item after which to retrieve the next page.
-        :param str filter: URL encoded query string parameter to filter returned data.  ##### Filtering ```?filter={URL encoded query string}```  The query string is made up of key/value pairs separated by ampersands. So for a query of ```key1=value1&key2=value2&key3=value3``` this would be encoded as follows: ```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3``` The examples below show the queries in *unencoded* form.  ###### By device properties (all properties are filterable): ```state=[unenrolled|cloud_enrolling|bootstrapped|registered]```  ```device_class={value}```  ###### On date-time fields: Date-time fields should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &ndash; field name suffixed with ```__gte``` * less than or equal to &ndash; field name suffixed with ```__lte```  Lower and upper limits to a date-time range may be specified by including both the ```__gte``` and ```__lte``` forms in the filter.  ```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```  ###### On device custom attributes:  ```custom_attributes__{param}={value}``` ```custom_attributes__tag=TAG1```  ##### Multi-field example  ```state=bootstrapped&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z```  Encoded:  ```?filter=state%3Dbootstrapped%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z```  ##### Filtering with filter operators  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `state__nin=unenrolled,dergistered`
+        :param str filter: URL encoded query string parameter to filter returned data.  ##### Filtering ```?filter={URL encoded query string}```  The query string is made up of key/value pairs separated by ampersands. So for a query of ```key1=value1&key2=value2&key3=value3``` this would be encoded as follows: ```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3```  ###### Filterable fields:  The below table lists all the fields that can be filtered on with certain filters:  |           Field           | = / __eq / __neq | __in /  __nin | __lte / __gte | |:-------------------------:|:----------------:|:-------------:|:-------------:| |         account_id        |         ✓        |       ✓       |               | |        auto_update        |         ✓        |       ✓       |               | | bootstrap_expiration_date |         ✓        |       ✓       |       ✓       | |   bootstrapped_timestamp  |         ✓        |       ✓       |       ✓       | |           ca_id           |         ✓        |       ✓       |               | | connector_expiration_date |         ✓        |       ✓       |       ✓       | |         created_at        |         ✓        |       ✓       |       ✓       | |     custom_attributes     |         ✓        |               |               | |       deployed_state      |         ✓        |       ✓       |               | |         deployment        |         ✓        |       ✓       |               | |        description        |         ✓        |       ✓       |               | |        device_class       |         ✓        |       ✓       |               | |   device_execution_mode   |         ✓        |       ✓       |               | |         device_key        |         ✓        |       ✓       |               | |       endpoint_name       |         ✓        |       ✓       |               | |       endpoint_type       |         ✓        |       ✓       |               | |  enrolment_list_timestamp |         ✓        |       ✓       |       ✓       | |            etag           |         ✓        |       ✓       |       ✓       | |     firmware_checksum     |         ✓        |       ✓       |               | |        host_gateway       |         ✓        |       ✓       |               | |             id            |         ✓        |       ✓       |               | |          manifest         |         ✓        |       ✓       |               | |     manifest_timestamp    |         ✓        |       ✓       |       ✓       | |         mechanism         |         ✓        |       ✓       |               | |       mechanism_url       |         ✓        |       ✓       |               | |            name           |         ✓        |       ✓       |               | |       serial_number       |         ✓        |       ✓       |               | |           state           |         ✓        |       ✓       |               | |         updated_at        |         ✓        |       ✓       |       ✓       | |         vendor_id         |         ✓        |       ✓       |               |   The examples below show the queries in *unencoded* form.  ###### By device properties (all properties are filterable): ```state=[unenrolled|cloud_enrolling|bootstrapped|registered]```  ```device_class={value}```  ###### On date-time fields: Date-time fields should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &ndash; field name suffixed with ```__gte``` * less than or equal to &ndash; field name suffixed with ```__lte```  Lower and upper limits to a date-time range may be specified by including both the ```__gte``` and ```__lte``` forms in the filter.  ```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```  ###### On device custom attributes:  ```custom_attributes__{param}={value}``` ```custom_attributes__tag=TAG1```  ##### Multi-field example  ```state=bootstrapped&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z```  Encoded:  ```?filter=state%3Dbootstrapped%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z```  ##### Filtering with filter operators  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `state__nin=unenrolled,dergistered`
         :param str include: Comma-separated list of data fields to return. Currently supported: `total_count`.
         :return: DevicePage
                  If the method is called asynchronously,
@@ -523,6 +533,7 @@ class DefaultApi(object):
 
     def device_log_list(self, **kwargs):
         """
+        DEPRECATED: List all device events.
         DEPRECATED: List all device events. Use `/v3/device-events/` instead.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -533,7 +544,7 @@ class DefaultApi(object):
         :param int limit: How many objects to retrieve in the page.
         :param str order: The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.
         :param str after: The ID of The item after which to retrieve the next page.
-        :param str filter: URL encoded query string parameter to filter returned data.  ##### Filtering ```?filter={URL encoded query string}```  The query string is made up of key/value pairs separated by ampersands. So for a query of ```key1=value1&key2=value2&key3=value3``` this would be encoded as follows: ```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3``` The examples below show the queries in *unencoded* form.  ###### By id: ```id={id}```  ###### By state change: ```state_change=[True|False]```  ###### By event type: ```event_type={value}```  ###### On date-time fields: Date-time fields should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &ndash; field name suffixed with ```__gte``` * less than or equal to &ndash; field name suffixed with ```__lte```  Lower and upper limits to a date-time range may be specified by including both the ```__gte``` and ```__lte``` forms in the filter.  ```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```  ##### Multi-field example  ```id=0158d38771f70000000000010010038c&state_change=True&date_time__gte=2016-11-30T16:25:12.1234Z```  Encoded:  ```?filter=id%3D0158d38771f70000000000010010038c%26state_change%3DTrue%26date_time__gte%3D2016-11-30T16%3A25%3A12.1234Z```  ##### Filtering with filter operators  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `event_type__in=update.device.device-created,update.device.device-updated`
+        :param str filter: URL encoded query string parameter to filter returned data.  ##### Filtering ```?filter={URL encoded query string}```  The query string is made up of key/value pairs separated by ampersands. So for a query of ```key1=value1&key2=value2&key3=value3``` this would be encoded as follows: ```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3```  ###### Filterable fields:  The below table lists all the fields that can be filtered on with certain filters:  |     Field    | = / __eq / __neq | __in /  __nin | __lte / __gte | |:------------:|:----------------:|:-------------:|:-------------:| |   date_time  |         ✓        |       ✓       |       ✓       | |  description |         ✓        |       ✓       |               | |      id      |         ✓        |       ✓       |               | |   device_id  |         ✓        |       ✓       |               | |  event_type  |         ✓        |       ✓       |               | | state_change |         ✓        |       ✓       |               |  The examples below show the queries in *unencoded* form.  ###### By id: ```id={id}```  ###### By state change: ```state_change=[True|False]```  ###### By event type: ```event_type={value}```  ###### On date-time fields: Date-time fields should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &ndash; field name suffixed with ```__gte``` * less than or equal to &ndash; field name suffixed with ```__lte```  Lower and upper limits to a date-time range may be specified by including both the ```__gte``` and ```__lte``` forms in the filter.  ```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```  ##### Multi-field example  ```id=0158d38771f70000000000010010038c&state_change=True&date_time__gte=2016-11-30T16:25:12.1234Z```  Encoded:  ```?filter=id%3D0158d38771f70000000000010010038c%26state_change%3DTrue%26date_time__gte%3D2016-11-30T16%3A25%3A12.1234Z```  ##### Filtering with filter operators  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `event_type__in=update.device.device-created,update.device.device-updated`
         :param str include: Comma-separated list of data fields to return. Currently supported: `total_count`.
         :return: DeviceEventPage
                  If the method is called asynchronously,
@@ -548,6 +559,7 @@ class DefaultApi(object):
 
     def device_log_list_with_http_info(self, **kwargs):
         """
+        DEPRECATED: List all device events.
         DEPRECATED: List all device events. Use `/v3/device-events/` instead.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -558,7 +570,7 @@ class DefaultApi(object):
         :param int limit: How many objects to retrieve in the page.
         :param str order: The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.
         :param str after: The ID of The item after which to retrieve the next page.
-        :param str filter: URL encoded query string parameter to filter returned data.  ##### Filtering ```?filter={URL encoded query string}```  The query string is made up of key/value pairs separated by ampersands. So for a query of ```key1=value1&key2=value2&key3=value3``` this would be encoded as follows: ```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3``` The examples below show the queries in *unencoded* form.  ###### By id: ```id={id}```  ###### By state change: ```state_change=[True|False]```  ###### By event type: ```event_type={value}```  ###### On date-time fields: Date-time fields should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &ndash; field name suffixed with ```__gte``` * less than or equal to &ndash; field name suffixed with ```__lte```  Lower and upper limits to a date-time range may be specified by including both the ```__gte``` and ```__lte``` forms in the filter.  ```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```  ##### Multi-field example  ```id=0158d38771f70000000000010010038c&state_change=True&date_time__gte=2016-11-30T16:25:12.1234Z```  Encoded:  ```?filter=id%3D0158d38771f70000000000010010038c%26state_change%3DTrue%26date_time__gte%3D2016-11-30T16%3A25%3A12.1234Z```  ##### Filtering with filter operators  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `event_type__in=update.device.device-created,update.device.device-updated`
+        :param str filter: URL encoded query string parameter to filter returned data.  ##### Filtering ```?filter={URL encoded query string}```  The query string is made up of key/value pairs separated by ampersands. So for a query of ```key1=value1&key2=value2&key3=value3``` this would be encoded as follows: ```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3```  ###### Filterable fields:  The below table lists all the fields that can be filtered on with certain filters:  |     Field    | = / __eq / __neq | __in /  __nin | __lte / __gte | |:------------:|:----------------:|:-------------:|:-------------:| |   date_time  |         ✓        |       ✓       |       ✓       | |  description |         ✓        |       ✓       |               | |      id      |         ✓        |       ✓       |               | |   device_id  |         ✓        |       ✓       |               | |  event_type  |         ✓        |       ✓       |               | | state_change |         ✓        |       ✓       |               |  The examples below show the queries in *unencoded* form.  ###### By id: ```id={id}```  ###### By state change: ```state_change=[True|False]```  ###### By event type: ```event_type={value}```  ###### On date-time fields: Date-time fields should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &ndash; field name suffixed with ```__gte``` * less than or equal to &ndash; field name suffixed with ```__lte```  Lower and upper limits to a date-time range may be specified by including both the ```__gte``` and ```__lte``` forms in the filter.  ```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```  ##### Multi-field example  ```id=0158d38771f70000000000010010038c&state_change=True&date_time__gte=2016-11-30T16:25:12.1234Z```  Encoded:  ```?filter=id%3D0158d38771f70000000000010010038c%26state_change%3DTrue%26date_time__gte%3D2016-11-30T16%3A25%3A12.1234Z```  ##### Filtering with filter operators  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `event_type__in=update.device.device-created,update.device.device-updated`
         :param str include: Comma-separated list of data fields to return. Currently supported: `total_count`.
         :return: DeviceEventPage
                  If the method is called asynchronously,
@@ -628,6 +640,7 @@ class DefaultApi(object):
 
     def device_log_retrieve(self, device_event_id, **kwargs):
         """
+        DEPRECATED: Retrieve a device event.
         Retrieve device event (deprecated, use /v3/device-events/{device_event_id}/ instead)
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -649,6 +662,7 @@ class DefaultApi(object):
 
     def device_log_retrieve_with_http_info(self, device_event_id, **kwargs):
         """
+        DEPRECATED: Retrieve a device event.
         Retrieve device event (deprecated, use /v3/device-events/{device_event_id}/ instead)
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -720,7 +734,8 @@ class DefaultApi(object):
 
     def device_query_create(self, device, **kwargs):
         """
-        Create device query.
+        Create a device query
+        Create a new device query.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.device_query_create(device, async=True)
@@ -741,7 +756,8 @@ class DefaultApi(object):
 
     def device_query_create_with_http_info(self, device, **kwargs):
         """
-        Create device query.
+        Create a device query
+        Create a new device query.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.device_query_create_with_http_info(device, async=True)
@@ -812,7 +828,8 @@ class DefaultApi(object):
 
     def device_query_destroy(self, query_id, **kwargs):
         """
-        Delete device query.
+        Delete a device query
+        Delete a device query.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.device_query_destroy(query_id, async=True)
@@ -833,7 +850,8 @@ class DefaultApi(object):
 
     def device_query_destroy_with_http_info(self, query_id, **kwargs):
         """
-        Delete device query.
+        Delete a device query
+        Delete a device query.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.device_query_destroy_with_http_info(query_id, async=True)
@@ -904,6 +922,7 @@ class DefaultApi(object):
 
     def device_query_list(self, **kwargs):
         """
+        List device queries.
         List all device queries. The result will be paged into pages of 100.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -914,7 +933,7 @@ class DefaultApi(object):
         :param int limit: How many objects to retrieve in the page.
         :param str order: The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.
         :param str after: The ID of The item after which to retrieve the next page.
-        :param str filter: URL encoded query string parameter to filter returned data.  ##### Filtering ```?filter={URL encoded query string}```  The query string is made up of key/value pairs separated by ampersands. So for a query of ```key1=value1&key2=value2&key3=value3``` this would be encoded as follows: ```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3``` The examples below show the queries in *unencoded* form.  ###### By device query properties (all properties are filterable): For example: ```description={value}```  ###### On date-time fields: Date-time fields should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &ndash; field name suffixed with ```__gte``` * less than or equal to &ndash; field name suffixed with ```__lte```  Lower and upper limits to a date-time range may be specified by including both the ```__gte``` and ```__lte``` forms in the filter.  ```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```  ##### Multi-field example  ```query_id=0158d38771f70000000000010010038c&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z```  Encoded:  ```filter=query_id%3D0158d38771f70000000000010010038c%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z```  ##### Filtering with filter operators  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `name__nin=query1,query2`
+        :param str filter: URL encoded query string parameter to filter returned data.  ##### Filtering ```?filter={URL encoded query string}```  The query string is made up of key/value pairs separated by ampersands. So for a query of ```key1=value1&key2=value2&key3=value3``` this would be encoded as follows: ```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3```  The below table lists all the fields that can be filtered on with certain filters:  |    Field   | = / __eq / __neq | __in /  __nin | __lte / __gte | |:----------:|:----------------:|:-------------:|:-------------:| | created_at |         ✓        |       ✓       |       ✓       | |    etag    |         ✓        |       ✓       |       ✓       | |     id     |         ✓        |       ✓       |               | |    name    |         ✓        |       ✓       |               | |    query   |         ✓        |       ✓       |               | | updated_at |         ✓        |       ✓       |       ✓       |   The examples below show the queries in *unencoded* form.  ###### By device query properties (all properties are filterable): For example: ```description={value}```  ###### On date-time fields: Date-time fields should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &ndash; field name suffixed with ```__gte``` * less than or equal to &ndash; field name suffixed with ```__lte```  Lower and upper limits to a date-time range may be specified by including both the ```__gte``` and ```__lte``` forms in the filter.  ```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```  ##### Multi-field example  ```query_id=0158d38771f70000000000010010038c&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z```  Encoded:  ```filter=query_id%3D0158d38771f70000000000010010038c%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z```  ##### Filtering with filter operators  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `name__nin=query1,query2`
         :param str include: Comma-separated list of data fields to return. Currently supported: `total_count`.
         :return: DeviceQueryPage
                  If the method is called asynchronously,
@@ -929,6 +948,7 @@ class DefaultApi(object):
 
     def device_query_list_with_http_info(self, **kwargs):
         """
+        List device queries.
         List all device queries. The result will be paged into pages of 100.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -939,7 +959,7 @@ class DefaultApi(object):
         :param int limit: How many objects to retrieve in the page.
         :param str order: The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.
         :param str after: The ID of The item after which to retrieve the next page.
-        :param str filter: URL encoded query string parameter to filter returned data.  ##### Filtering ```?filter={URL encoded query string}```  The query string is made up of key/value pairs separated by ampersands. So for a query of ```key1=value1&key2=value2&key3=value3``` this would be encoded as follows: ```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3``` The examples below show the queries in *unencoded* form.  ###### By device query properties (all properties are filterable): For example: ```description={value}```  ###### On date-time fields: Date-time fields should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &ndash; field name suffixed with ```__gte``` * less than or equal to &ndash; field name suffixed with ```__lte```  Lower and upper limits to a date-time range may be specified by including both the ```__gte``` and ```__lte``` forms in the filter.  ```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```  ##### Multi-field example  ```query_id=0158d38771f70000000000010010038c&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z```  Encoded:  ```filter=query_id%3D0158d38771f70000000000010010038c%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z```  ##### Filtering with filter operators  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `name__nin=query1,query2`
+        :param str filter: URL encoded query string parameter to filter returned data.  ##### Filtering ```?filter={URL encoded query string}```  The query string is made up of key/value pairs separated by ampersands. So for a query of ```key1=value1&key2=value2&key3=value3``` this would be encoded as follows: ```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3```  The below table lists all the fields that can be filtered on with certain filters:  |    Field   | = / __eq / __neq | __in /  __nin | __lte / __gte | |:----------:|:----------------:|:-------------:|:-------------:| | created_at |         ✓        |       ✓       |       ✓       | |    etag    |         ✓        |       ✓       |       ✓       | |     id     |         ✓        |       ✓       |               | |    name    |         ✓        |       ✓       |               | |    query   |         ✓        |       ✓       |               | | updated_at |         ✓        |       ✓       |       ✓       |   The examples below show the queries in *unencoded* form.  ###### By device query properties (all properties are filterable): For example: ```description={value}```  ###### On date-time fields: Date-time fields should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &ndash; field name suffixed with ```__gte``` * less than or equal to &ndash; field name suffixed with ```__lte```  Lower and upper limits to a date-time range may be specified by including both the ```__gte``` and ```__lte``` forms in the filter.  ```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```  ##### Multi-field example  ```query_id=0158d38771f70000000000010010038c&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z```  Encoded:  ```filter=query_id%3D0158d38771f70000000000010010038c%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z```  ##### Filtering with filter operators  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `name__nin=query1,query2`
         :param str include: Comma-separated list of data fields to return. Currently supported: `total_count`.
         :return: DeviceQueryPage
                  If the method is called asynchronously,
@@ -1009,7 +1029,8 @@ class DefaultApi(object):
 
     def device_query_retrieve(self, query_id, **kwargs):
         """
-        Retrieve device query.
+        Retrieve a device query.
+        Retrieve a specific device query.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.device_query_retrieve(query_id, async=True)
@@ -1030,7 +1051,8 @@ class DefaultApi(object):
 
     def device_query_retrieve_with_http_info(self, query_id, **kwargs):
         """
-        Retrieve device query.
+        Retrieve a device query.
+        Retrieve a specific device query.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.device_query_retrieve_with_http_info(query_id, async=True)
@@ -1101,7 +1123,8 @@ class DefaultApi(object):
 
     def device_query_update(self, query_id, body, **kwargs):
         """
-        Update device query.
+        Update a device query
+        Update a specifc device query.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.device_query_update(query_id, body, async=True)
@@ -1123,7 +1146,8 @@ class DefaultApi(object):
 
     def device_query_update_with_http_info(self, query_id, body, **kwargs):
         """
-        Update device query.
+        Update a device query
+        Update a specifc device query.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.device_query_update_with_http_info(query_id, body, async=True)
@@ -1200,7 +1224,8 @@ class DefaultApi(object):
 
     def device_retrieve(self, id, **kwargs):
         """
-        Retrieve device.
+        Get a devices
+        Retrieve information about a specific device.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.device_retrieve(id, async=True)
@@ -1221,7 +1246,8 @@ class DefaultApi(object):
 
     def device_retrieve_with_http_info(self, id, **kwargs):
         """
-        Retrieve device.
+        Get a devices
+        Retrieve information about a specific device.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.device_retrieve_with_http_info(id, async=True)
@@ -1292,7 +1318,8 @@ class DefaultApi(object):
 
     def device_update(self, id, device, **kwargs):
         """
-        Update device.
+        Update a device
+        Update a specific device.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.device_update(id, device, async=True)
@@ -1314,7 +1341,8 @@ class DefaultApi(object):
 
     def device_update_with_http_info(self, id, device, **kwargs):
         """
-        Update device.
+        Update a device
+        Update a specific device.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.device_update_with_http_info(id, device, async=True)

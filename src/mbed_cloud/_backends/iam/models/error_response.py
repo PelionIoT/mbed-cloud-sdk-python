@@ -33,31 +33,31 @@ class ErrorResponse(object):
     swagger_types = {
         'code': 'int',
         'fields': 'list[Field]',
+        'message': 'str',
         'object': 'str',
         'request_id': 'str',
-        'message': 'str',
         'type': 'str'
     }
 
     attribute_map = {
         'code': 'code',
         'fields': 'fields',
+        'message': 'message',
         'object': 'object',
         'request_id': 'request_id',
-        'message': 'message',
         'type': 'type'
     }
 
-    def __init__(self, code=None, fields=None, object=None, request_id=None, message=None, type=None):
+    def __init__(self, code=None, fields=None, message=None, object=None, request_id=None, type=None):
         """
         ErrorResponse - a model defined in Swagger
         """
 
         self._code = code
         self._fields = fields
+        self._message = message
         self._object = object
         self._request_id = request_id
-        self._message = message
         self._type = type
         self.discriminator = None
 
@@ -110,6 +110,31 @@ class ErrorResponse(object):
         self._fields = fields
 
     @property
+    def message(self):
+        """
+        Gets the message of this ErrorResponse.
+        A human readable message with detailed info.
+
+        :return: The message of this ErrorResponse.
+        :rtype: str
+        """
+        return self._message
+
+    @message.setter
+    def message(self, message):
+        """
+        Sets the message of this ErrorResponse.
+        A human readable message with detailed info.
+
+        :param message: The message of this ErrorResponse.
+        :type: str
+        """
+        if message is None:
+            raise ValueError("Invalid value for `message`, must not be `None`")
+
+        self._message = message
+
+    @property
     def object(self):
         """
         Gets the object of this ErrorResponse.
@@ -131,7 +156,7 @@ class ErrorResponse(object):
         """
         if object is None:
             raise ValueError("Invalid value for `object`, must not be `None`")
-        allowed_values = ["user", "api-key", "group", "account", "account-template", "trusted-cert", "list", "error", "policy", "identity-provider"]
+        allowed_values = ["error"]
         if object not in allowed_values:
             raise ValueError(
                 "Invalid value for `object` ({0}), must be one of {1}"
@@ -164,31 +189,6 @@ class ErrorResponse(object):
             raise ValueError("Invalid value for `request_id`, must not be `None`")
 
         self._request_id = request_id
-
-    @property
-    def message(self):
-        """
-        Gets the message of this ErrorResponse.
-        A human readable message with detailed info.
-
-        :return: The message of this ErrorResponse.
-        :rtype: str
-        """
-        return self._message
-
-    @message.setter
-    def message(self, message):
-        """
-        Sets the message of this ErrorResponse.
-        A human readable message with detailed info.
-
-        :param message: The message of this ErrorResponse.
-        :type: str
-        """
-        if message is None:
-            raise ValueError("Invalid value for `message`, must not be `None`")
-
-        self._message = message
 
     @property
     def type(self):

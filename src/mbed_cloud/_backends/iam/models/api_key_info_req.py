@@ -31,29 +31,77 @@ class ApiKeyInfoReq(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'owner': 'str',
-        'status': 'str',
+        'groups': 'list[str]',
         'name': 'str',
-        'groups': 'list[str]'
+        'owner': 'str',
+        'status': 'str'
     }
 
     attribute_map = {
-        'owner': 'owner',
-        'status': 'status',
+        'groups': 'groups',
         'name': 'name',
-        'groups': 'groups'
+        'owner': 'owner',
+        'status': 'status'
     }
 
-    def __init__(self, owner=None, status=None, name=None, groups=None):
+    def __init__(self, groups=None, name=None, owner=None, status=None):
         """
         ApiKeyInfoReq - a model defined in Swagger
         """
 
+        self._groups = groups
+        self._name = name
         self._owner = owner
         self._status = status
-        self._name = name
-        self._groups = groups
         self.discriminator = None
+
+    @property
+    def groups(self):
+        """
+        Gets the groups of this ApiKeyInfoReq.
+        A list of group IDs this API key belongs to.
+
+        :return: The groups of this ApiKeyInfoReq.
+        :rtype: list[str]
+        """
+        return self._groups
+
+    @groups.setter
+    def groups(self, groups):
+        """
+        Sets the groups of this ApiKeyInfoReq.
+        A list of group IDs this API key belongs to.
+
+        :param groups: The groups of this ApiKeyInfoReq.
+        :type: list[str]
+        """
+
+        self._groups = groups
+
+    @property
+    def name(self):
+        """
+        Gets the name of this ApiKeyInfoReq.
+        The display name for the API key, not longer than 100 characters.
+
+        :return: The name of this ApiKeyInfoReq.
+        :rtype: str
+        """
+        return self._name
+
+    @name.setter
+    def name(self, name):
+        """
+        Sets the name of this ApiKeyInfoReq.
+        The display name for the API key, not longer than 100 characters.
+
+        :param name: The name of this ApiKeyInfoReq.
+        :type: str
+        """
+        if name is None:
+            raise ValueError("Invalid value for `name`, must not be `None`")
+
+        self._name = name
 
     @property
     def owner(self):
@@ -106,54 +154,6 @@ class ApiKeyInfoReq(object):
             )
 
         self._status = status
-
-    @property
-    def name(self):
-        """
-        Gets the name of this ApiKeyInfoReq.
-        The display name for the API key, not longer than 100 characters.
-
-        :return: The name of this ApiKeyInfoReq.
-        :rtype: str
-        """
-        return self._name
-
-    @name.setter
-    def name(self, name):
-        """
-        Sets the name of this ApiKeyInfoReq.
-        The display name for the API key, not longer than 100 characters.
-
-        :param name: The name of this ApiKeyInfoReq.
-        :type: str
-        """
-        if name is None:
-            raise ValueError("Invalid value for `name`, must not be `None`")
-
-        self._name = name
-
-    @property
-    def groups(self):
-        """
-        Gets the groups of this ApiKeyInfoReq.
-        A list of group IDs this API key belongs to.
-
-        :return: The groups of this ApiKeyInfoReq.
-        :rtype: list[str]
-        """
-        return self._groups
-
-    @groups.setter
-    def groups(self, groups):
-        """
-        Sets the groups of this ApiKeyInfoReq.
-        A list of group IDs this API key belongs to.
-
-        :param groups: The groups of this ApiKeyInfoReq.
-        :type: list[str]
-        """
-
-        self._groups = groups
 
     def to_dict(self):
         """

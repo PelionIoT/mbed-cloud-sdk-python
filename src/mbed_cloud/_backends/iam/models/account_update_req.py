@@ -31,120 +31,97 @@ class AccountUpdateReq(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'address_line2': 'str',
-        'city': 'str',
-        'address_line1': 'str',
-        'display_name': 'str',
-        'mfa_status': 'str',
-        'country': 'str',
-        'company': 'str',
-        'idle_timeout': 'str',
-        'notification_emails': 'list[str]',
-        'state': 'str',
-        'contact': 'str',
-        'postal_code': 'str',
         'account_properties': 'dict(str, dict(str, str))',
-        'expiration_warning_threshold': 'str',
-        'password_policy': 'PasswordPolicy',
-        'end_market': 'str',
-        'phone_number': 'str',
+        'address_line1': 'str',
+        'address_line2': 'str',
+        'aliases': 'list[str]',
+        'city': 'str',
+        'company': 'str',
+        'contact': 'str',
+        'country': 'str',
+        'display_name': 'str',
         'email': 'str',
-        'aliases': 'list[str]'
+        'end_market': 'str',
+        'expiration_warning_threshold': 'str',
+        'idle_timeout': 'str',
+        'mfa_status': 'str',
+        'notification_emails': 'list[str]',
+        'password_policy': 'PasswordPolicy',
+        'phone_number': 'str',
+        'postal_code': 'str',
+        'state': 'str'
     }
 
     attribute_map = {
-        'address_line2': 'address_line2',
-        'city': 'city',
-        'address_line1': 'address_line1',
-        'display_name': 'display_name',
-        'mfa_status': 'mfa_status',
-        'country': 'country',
-        'company': 'company',
-        'idle_timeout': 'idle_timeout',
-        'notification_emails': 'notification_emails',
-        'state': 'state',
-        'contact': 'contact',
-        'postal_code': 'postal_code',
         'account_properties': 'account_properties',
-        'expiration_warning_threshold': 'expiration_warning_threshold',
-        'password_policy': 'password_policy',
-        'end_market': 'end_market',
-        'phone_number': 'phone_number',
+        'address_line1': 'address_line1',
+        'address_line2': 'address_line2',
+        'aliases': 'aliases',
+        'city': 'city',
+        'company': 'company',
+        'contact': 'contact',
+        'country': 'country',
+        'display_name': 'display_name',
         'email': 'email',
-        'aliases': 'aliases'
+        'end_market': 'end_market',
+        'expiration_warning_threshold': 'expiration_warning_threshold',
+        'idle_timeout': 'idle_timeout',
+        'mfa_status': 'mfa_status',
+        'notification_emails': 'notification_emails',
+        'password_policy': 'password_policy',
+        'phone_number': 'phone_number',
+        'postal_code': 'postal_code',
+        'state': 'state'
     }
 
-    def __init__(self, address_line2=None, city=None, address_line1=None, display_name=None, mfa_status=None, country=None, company=None, idle_timeout=None, notification_emails=None, state=None, contact=None, postal_code=None, account_properties=None, expiration_warning_threshold=None, password_policy=None, end_market=None, phone_number=None, email=None, aliases=None):
+    def __init__(self, account_properties=None, address_line1=None, address_line2=None, aliases=None, city=None, company=None, contact=None, country=None, display_name=None, email=None, end_market=None, expiration_warning_threshold=None, idle_timeout=None, mfa_status=None, notification_emails=None, password_policy=None, phone_number=None, postal_code=None, state=None):
         """
         AccountUpdateReq - a model defined in Swagger
         """
 
-        self._address_line2 = address_line2
-        self._city = city
-        self._address_line1 = address_line1
-        self._display_name = display_name
-        self._mfa_status = mfa_status
-        self._country = country
-        self._company = company
-        self._idle_timeout = idle_timeout
-        self._notification_emails = notification_emails
-        self._state = state
-        self._contact = contact
-        self._postal_code = postal_code
         self._account_properties = account_properties
-        self._expiration_warning_threshold = expiration_warning_threshold
-        self._password_policy = password_policy
-        self._end_market = end_market
-        self._phone_number = phone_number
-        self._email = email
+        self._address_line1 = address_line1
+        self._address_line2 = address_line2
         self._aliases = aliases
+        self._city = city
+        self._company = company
+        self._contact = contact
+        self._country = country
+        self._display_name = display_name
+        self._email = email
+        self._end_market = end_market
+        self._expiration_warning_threshold = expiration_warning_threshold
+        self._idle_timeout = idle_timeout
+        self._mfa_status = mfa_status
+        self._notification_emails = notification_emails
+        self._password_policy = password_policy
+        self._phone_number = phone_number
+        self._postal_code = postal_code
+        self._state = state
         self.discriminator = None
 
     @property
-    def address_line2(self):
+    def account_properties(self):
         """
-        Gets the address_line2 of this AccountUpdateReq.
-        Postal address line 2, not longer than 100 characters.
+        Gets the account_properties of this AccountUpdateReq.
+        Properties for this account.
 
-        :return: The address_line2 of this AccountUpdateReq.
-        :rtype: str
+        :return: The account_properties of this AccountUpdateReq.
+        :rtype: dict(str, dict(str, str))
         """
-        return self._address_line2
+        return self._account_properties
 
-    @address_line2.setter
-    def address_line2(self, address_line2):
+    @account_properties.setter
+    def account_properties(self, account_properties):
         """
-        Sets the address_line2 of this AccountUpdateReq.
-        Postal address line 2, not longer than 100 characters.
+        Sets the account_properties of this AccountUpdateReq.
+        Properties for this account.
 
-        :param address_line2: The address_line2 of this AccountUpdateReq.
-        :type: str
-        """
-
-        self._address_line2 = address_line2
-
-    @property
-    def city(self):
-        """
-        Gets the city of this AccountUpdateReq.
-        The city part of the postal address, not longer than 100 characters. Required for commercial accounts only.
-
-        :return: The city of this AccountUpdateReq.
-        :rtype: str
-        """
-        return self._city
-
-    @city.setter
-    def city(self, city):
-        """
-        Sets the city of this AccountUpdateReq.
-        The city part of the postal address, not longer than 100 characters. Required for commercial accounts only.
-
-        :param city: The city of this AccountUpdateReq.
-        :type: str
+        :param account_properties: The account_properties of this AccountUpdateReq.
+        :type: dict(str, dict(str, str))
         """
 
-        self._city = city
+        self._account_properties = account_properties
 
     @property
     def address_line1(self):
@@ -170,6 +147,144 @@ class AccountUpdateReq(object):
         self._address_line1 = address_line1
 
     @property
+    def address_line2(self):
+        """
+        Gets the address_line2 of this AccountUpdateReq.
+        Postal address line 2, not longer than 100 characters.
+
+        :return: The address_line2 of this AccountUpdateReq.
+        :rtype: str
+        """
+        return self._address_line2
+
+    @address_line2.setter
+    def address_line2(self, address_line2):
+        """
+        Sets the address_line2 of this AccountUpdateReq.
+        Postal address line 2, not longer than 100 characters.
+
+        :param address_line2: The address_line2 of this AccountUpdateReq.
+        :type: str
+        """
+
+        self._address_line2 = address_line2
+
+    @property
+    def aliases(self):
+        """
+        Gets the aliases of this AccountUpdateReq.
+        An array of aliases, not more than 10. An alias is not shorter than 8 and not longer than 100 characters.
+
+        :return: The aliases of this AccountUpdateReq.
+        :rtype: list[str]
+        """
+        return self._aliases
+
+    @aliases.setter
+    def aliases(self, aliases):
+        """
+        Sets the aliases of this AccountUpdateReq.
+        An array of aliases, not more than 10. An alias is not shorter than 8 and not longer than 100 characters.
+
+        :param aliases: The aliases of this AccountUpdateReq.
+        :type: list[str]
+        """
+
+        self._aliases = aliases
+
+    @property
+    def city(self):
+        """
+        Gets the city of this AccountUpdateReq.
+        The city part of the postal address, not longer than 100 characters. Required for commercial accounts only.
+
+        :return: The city of this AccountUpdateReq.
+        :rtype: str
+        """
+        return self._city
+
+    @city.setter
+    def city(self, city):
+        """
+        Sets the city of this AccountUpdateReq.
+        The city part of the postal address, not longer than 100 characters. Required for commercial accounts only.
+
+        :param city: The city of this AccountUpdateReq.
+        :type: str
+        """
+
+        self._city = city
+
+    @property
+    def company(self):
+        """
+        Gets the company of this AccountUpdateReq.
+        The name of the company, not longer than 100 characters. Required for commercial accounts only.
+
+        :return: The company of this AccountUpdateReq.
+        :rtype: str
+        """
+        return self._company
+
+    @company.setter
+    def company(self, company):
+        """
+        Sets the company of this AccountUpdateReq.
+        The name of the company, not longer than 100 characters. Required for commercial accounts only.
+
+        :param company: The company of this AccountUpdateReq.
+        :type: str
+        """
+
+        self._company = company
+
+    @property
+    def contact(self):
+        """
+        Gets the contact of this AccountUpdateReq.
+        The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.
+
+        :return: The contact of this AccountUpdateReq.
+        :rtype: str
+        """
+        return self._contact
+
+    @contact.setter
+    def contact(self, contact):
+        """
+        Sets the contact of this AccountUpdateReq.
+        The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.
+
+        :param contact: The contact of this AccountUpdateReq.
+        :type: str
+        """
+
+        self._contact = contact
+
+    @property
+    def country(self):
+        """
+        Gets the country of this AccountUpdateReq.
+        The country part of the postal address, not longer than 100 characters. Required for commercial accounts only.
+
+        :return: The country of this AccountUpdateReq.
+        :rtype: str
+        """
+        return self._country
+
+    @country.setter
+    def country(self, country):
+        """
+        Sets the country of this AccountUpdateReq.
+        The country part of the postal address, not longer than 100 characters. Required for commercial accounts only.
+
+        :param country: The country of this AccountUpdateReq.
+        :type: str
+        """
+
+        self._country = country
+
+    @property
     def display_name(self):
         """
         Gets the display_name of this AccountUpdateReq.
@@ -191,6 +306,98 @@ class AccountUpdateReq(object):
         """
 
         self._display_name = display_name
+
+    @property
+    def email(self):
+        """
+        Gets the email of this AccountUpdateReq.
+        The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
+
+        :return: The email of this AccountUpdateReq.
+        :rtype: str
+        """
+        return self._email
+
+    @email.setter
+    def email(self, email):
+        """
+        Sets the email of this AccountUpdateReq.
+        The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
+
+        :param email: The email of this AccountUpdateReq.
+        :type: str
+        """
+
+        self._email = email
+
+    @property
+    def end_market(self):
+        """
+        Gets the end_market of this AccountUpdateReq.
+        The end market for this account, not longer than 100 characters.
+
+        :return: The end_market of this AccountUpdateReq.
+        :rtype: str
+        """
+        return self._end_market
+
+    @end_market.setter
+    def end_market(self, end_market):
+        """
+        Sets the end_market of this AccountUpdateReq.
+        The end market for this account, not longer than 100 characters.
+
+        :param end_market: The end_market of this AccountUpdateReq.
+        :type: str
+        """
+
+        self._end_market = end_market
+
+    @property
+    def expiration_warning_threshold(self):
+        """
+        Gets the expiration_warning_threshold of this AccountUpdateReq.
+        Indicates how many days before account expiration a notification email should be sent. Valid values are: 1-180.
+
+        :return: The expiration_warning_threshold of this AccountUpdateReq.
+        :rtype: str
+        """
+        return self._expiration_warning_threshold
+
+    @expiration_warning_threshold.setter
+    def expiration_warning_threshold(self, expiration_warning_threshold):
+        """
+        Sets the expiration_warning_threshold of this AccountUpdateReq.
+        Indicates how many days before account expiration a notification email should be sent. Valid values are: 1-180.
+
+        :param expiration_warning_threshold: The expiration_warning_threshold of this AccountUpdateReq.
+        :type: str
+        """
+
+        self._expiration_warning_threshold = expiration_warning_threshold
+
+    @property
+    def idle_timeout(self):
+        """
+        Gets the idle_timeout of this AccountUpdateReq.
+        The reference token expiration time in minutes for this account. Between 1 and 120 minutes.
+
+        :return: The idle_timeout of this AccountUpdateReq.
+        :rtype: str
+        """
+        return self._idle_timeout
+
+    @idle_timeout.setter
+    def idle_timeout(self, idle_timeout):
+        """
+        Sets the idle_timeout of this AccountUpdateReq.
+        The reference token expiration time in minutes for this account. Between 1 and 120 minutes.
+
+        :param idle_timeout: The idle_timeout of this AccountUpdateReq.
+        :type: str
+        """
+
+        self._idle_timeout = idle_timeout
 
     @property
     def mfa_status(self):
@@ -222,75 +429,6 @@ class AccountUpdateReq(object):
         self._mfa_status = mfa_status
 
     @property
-    def country(self):
-        """
-        Gets the country of this AccountUpdateReq.
-        The country part of the postal address, not longer than 100 characters. Required for commercial accounts only.
-
-        :return: The country of this AccountUpdateReq.
-        :rtype: str
-        """
-        return self._country
-
-    @country.setter
-    def country(self, country):
-        """
-        Sets the country of this AccountUpdateReq.
-        The country part of the postal address, not longer than 100 characters. Required for commercial accounts only.
-
-        :param country: The country of this AccountUpdateReq.
-        :type: str
-        """
-
-        self._country = country
-
-    @property
-    def company(self):
-        """
-        Gets the company of this AccountUpdateReq.
-        The name of the company, not longer than 100 characters. Required for commercial accounts only.
-
-        :return: The company of this AccountUpdateReq.
-        :rtype: str
-        """
-        return self._company
-
-    @company.setter
-    def company(self, company):
-        """
-        Sets the company of this AccountUpdateReq.
-        The name of the company, not longer than 100 characters. Required for commercial accounts only.
-
-        :param company: The company of this AccountUpdateReq.
-        :type: str
-        """
-
-        self._company = company
-
-    @property
-    def idle_timeout(self):
-        """
-        Gets the idle_timeout of this AccountUpdateReq.
-        The reference token expiration time in minutes for this account. Between 1 and 120 minutes.
-
-        :return: The idle_timeout of this AccountUpdateReq.
-        :rtype: str
-        """
-        return self._idle_timeout
-
-    @idle_timeout.setter
-    def idle_timeout(self, idle_timeout):
-        """
-        Sets the idle_timeout of this AccountUpdateReq.
-        The reference token expiration time in minutes for this account. Between 1 and 120 minutes.
-
-        :param idle_timeout: The idle_timeout of this AccountUpdateReq.
-        :type: str
-        """
-
-        self._idle_timeout = idle_timeout
-
-    @property
     def notification_emails(self):
         """
         Gets the notification_emails of this AccountUpdateReq.
@@ -312,121 +450,6 @@ class AccountUpdateReq(object):
         """
 
         self._notification_emails = notification_emails
-
-    @property
-    def state(self):
-        """
-        Gets the state of this AccountUpdateReq.
-        The state part of the postal address, not longer than 100 characters.
-
-        :return: The state of this AccountUpdateReq.
-        :rtype: str
-        """
-        return self._state
-
-    @state.setter
-    def state(self, state):
-        """
-        Sets the state of this AccountUpdateReq.
-        The state part of the postal address, not longer than 100 characters.
-
-        :param state: The state of this AccountUpdateReq.
-        :type: str
-        """
-
-        self._state = state
-
-    @property
-    def contact(self):
-        """
-        Gets the contact of this AccountUpdateReq.
-        The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.
-
-        :return: The contact of this AccountUpdateReq.
-        :rtype: str
-        """
-        return self._contact
-
-    @contact.setter
-    def contact(self, contact):
-        """
-        Sets the contact of this AccountUpdateReq.
-        The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.
-
-        :param contact: The contact of this AccountUpdateReq.
-        :type: str
-        """
-
-        self._contact = contact
-
-    @property
-    def postal_code(self):
-        """
-        Gets the postal_code of this AccountUpdateReq.
-        The postal code part of the postal address, not longer than 100 characters.
-
-        :return: The postal_code of this AccountUpdateReq.
-        :rtype: str
-        """
-        return self._postal_code
-
-    @postal_code.setter
-    def postal_code(self, postal_code):
-        """
-        Sets the postal_code of this AccountUpdateReq.
-        The postal code part of the postal address, not longer than 100 characters.
-
-        :param postal_code: The postal_code of this AccountUpdateReq.
-        :type: str
-        """
-
-        self._postal_code = postal_code
-
-    @property
-    def account_properties(self):
-        """
-        Gets the account_properties of this AccountUpdateReq.
-        Properties for this account.
-
-        :return: The account_properties of this AccountUpdateReq.
-        :rtype: dict(str, dict(str, str))
-        """
-        return self._account_properties
-
-    @account_properties.setter
-    def account_properties(self, account_properties):
-        """
-        Sets the account_properties of this AccountUpdateReq.
-        Properties for this account.
-
-        :param account_properties: The account_properties of this AccountUpdateReq.
-        :type: dict(str, dict(str, str))
-        """
-
-        self._account_properties = account_properties
-
-    @property
-    def expiration_warning_threshold(self):
-        """
-        Gets the expiration_warning_threshold of this AccountUpdateReq.
-        Indicates how many days before the account expiration a notification email should be sent.
-
-        :return: The expiration_warning_threshold of this AccountUpdateReq.
-        :rtype: str
-        """
-        return self._expiration_warning_threshold
-
-    @expiration_warning_threshold.setter
-    def expiration_warning_threshold(self, expiration_warning_threshold):
-        """
-        Sets the expiration_warning_threshold of this AccountUpdateReq.
-        Indicates how many days before the account expiration a notification email should be sent.
-
-        :param expiration_warning_threshold: The expiration_warning_threshold of this AccountUpdateReq.
-        :type: str
-        """
-
-        self._expiration_warning_threshold = expiration_warning_threshold
 
     @property
     def password_policy(self):
@@ -452,29 +475,6 @@ class AccountUpdateReq(object):
         self._password_policy = password_policy
 
     @property
-    def end_market(self):
-        """
-        Gets the end_market of this AccountUpdateReq.
-        The end market for this account, not longer than 100 characters.
-
-        :return: The end_market of this AccountUpdateReq.
-        :rtype: str
-        """
-        return self._end_market
-
-    @end_market.setter
-    def end_market(self, end_market):
-        """
-        Sets the end_market of this AccountUpdateReq.
-        The end market for this account, not longer than 100 characters.
-
-        :param end_market: The end_market of this AccountUpdateReq.
-        :type: str
-        """
-
-        self._end_market = end_market
-
-    @property
     def phone_number(self):
         """
         Gets the phone_number of this AccountUpdateReq.
@@ -498,50 +498,50 @@ class AccountUpdateReq(object):
         self._phone_number = phone_number
 
     @property
-    def email(self):
+    def postal_code(self):
         """
-        Gets the email of this AccountUpdateReq.
-        The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
+        Gets the postal_code of this AccountUpdateReq.
+        The postal code part of the postal address, not longer than 100 characters.
 
-        :return: The email of this AccountUpdateReq.
+        :return: The postal_code of this AccountUpdateReq.
         :rtype: str
         """
-        return self._email
+        return self._postal_code
 
-    @email.setter
-    def email(self, email):
+    @postal_code.setter
+    def postal_code(self, postal_code):
         """
-        Sets the email of this AccountUpdateReq.
-        The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
+        Sets the postal_code of this AccountUpdateReq.
+        The postal code part of the postal address, not longer than 100 characters.
 
-        :param email: The email of this AccountUpdateReq.
+        :param postal_code: The postal_code of this AccountUpdateReq.
         :type: str
         """
 
-        self._email = email
+        self._postal_code = postal_code
 
     @property
-    def aliases(self):
+    def state(self):
         """
-        Gets the aliases of this AccountUpdateReq.
-        An array of aliases, not more than 10. An alias is not shorter than 8 and not longer than 100 characters.
+        Gets the state of this AccountUpdateReq.
+        The state part of the postal address, not longer than 100 characters.
 
-        :return: The aliases of this AccountUpdateReq.
-        :rtype: list[str]
+        :return: The state of this AccountUpdateReq.
+        :rtype: str
         """
-        return self._aliases
+        return self._state
 
-    @aliases.setter
-    def aliases(self, aliases):
+    @state.setter
+    def state(self, state):
         """
-        Sets the aliases of this AccountUpdateReq.
-        An array of aliases, not more than 10. An alias is not shorter than 8 and not longer than 100 characters.
+        Sets the state of this AccountUpdateReq.
+        The state part of the postal address, not longer than 100 characters.
 
-        :param aliases: The aliases of this AccountUpdateReq.
-        :type: list[str]
+        :param state: The state of this AccountUpdateReq.
+        :type: str
         """
 
-        self._aliases = aliases
+        self._state = state
 
     def to_dict(self):
         """

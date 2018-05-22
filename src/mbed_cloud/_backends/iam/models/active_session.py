@@ -31,82 +31,35 @@ class ActiveSession(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'user_agent': 'str',
-        'ip_address': 'str',
         'account_id': 'str',
+        'ip_address': 'str',
+        'login_time': 'datetime',
+        'object': 'str',
         'reference_token': 'str',
-        'login_time': 'datetime'
+        'user_agent': 'str'
     }
 
     attribute_map = {
-        'user_agent': 'user_agent',
-        'ip_address': 'ip_address',
         'account_id': 'account_id',
+        'ip_address': 'ip_address',
+        'login_time': 'login_time',
+        'object': 'object',
         'reference_token': 'reference_token',
-        'login_time': 'login_time'
+        'user_agent': 'user_agent'
     }
 
-    def __init__(self, user_agent=None, ip_address=None, account_id=None, reference_token=None, login_time=None):
+    def __init__(self, account_id=None, ip_address=None, login_time=None, object=None, reference_token=None, user_agent=None):
         """
         ActiveSession - a model defined in Swagger
         """
 
-        self._user_agent = user_agent
-        self._ip_address = ip_address
         self._account_id = account_id
-        self._reference_token = reference_token
-        self._login_time = login_time
-        self.discriminator = None
-
-    @property
-    def user_agent(self):
-        """
-        Gets the user_agent of this ActiveSession.
-        User Agent header from the login request.
-
-        :return: The user_agent of this ActiveSession.
-        :rtype: str
-        """
-        return self._user_agent
-
-    @user_agent.setter
-    def user_agent(self, user_agent):
-        """
-        Sets the user_agent of this ActiveSession.
-        User Agent header from the login request.
-
-        :param user_agent: The user_agent of this ActiveSession.
-        :type: str
-        """
-        if user_agent is None:
-            raise ValueError("Invalid value for `user_agent`, must not be `None`")
-
-        self._user_agent = user_agent
-
-    @property
-    def ip_address(self):
-        """
-        Gets the ip_address of this ActiveSession.
-        IP address of the client.
-
-        :return: The ip_address of this ActiveSession.
-        :rtype: str
-        """
-        return self._ip_address
-
-    @ip_address.setter
-    def ip_address(self, ip_address):
-        """
-        Sets the ip_address of this ActiveSession.
-        IP address of the client.
-
-        :param ip_address: The ip_address of this ActiveSession.
-        :type: str
-        """
-        if ip_address is None:
-            raise ValueError("Invalid value for `ip_address`, must not be `None`")
-
         self._ip_address = ip_address
+        self._login_time = login_time
+        self._object = object
+        self._reference_token = reference_token
+        self._user_agent = user_agent
+        self.discriminator = None
 
     @property
     def account_id(self):
@@ -134,29 +87,29 @@ class ActiveSession(object):
         self._account_id = account_id
 
     @property
-    def reference_token(self):
+    def ip_address(self):
         """
-        Gets the reference_token of this ActiveSession.
-        The reference token.
+        Gets the ip_address of this ActiveSession.
+        IP address of the client.
 
-        :return: The reference_token of this ActiveSession.
+        :return: The ip_address of this ActiveSession.
         :rtype: str
         """
-        return self._reference_token
+        return self._ip_address
 
-    @reference_token.setter
-    def reference_token(self, reference_token):
+    @ip_address.setter
+    def ip_address(self, ip_address):
         """
-        Sets the reference_token of this ActiveSession.
-        The reference token.
+        Sets the ip_address of this ActiveSession.
+        IP address of the client.
 
-        :param reference_token: The reference_token of this ActiveSession.
+        :param ip_address: The ip_address of this ActiveSession.
         :type: str
         """
-        if reference_token is None:
-            raise ValueError("Invalid value for `reference_token`, must not be `None`")
+        if ip_address is None:
+            raise ValueError("Invalid value for `ip_address`, must not be `None`")
 
-        self._reference_token = reference_token
+        self._ip_address = ip_address
 
     @property
     def login_time(self):
@@ -182,6 +135,87 @@ class ActiveSession(object):
             raise ValueError("Invalid value for `login_time`, must not be `None`")
 
         self._login_time = login_time
+
+    @property
+    def object(self):
+        """
+        Gets the object of this ActiveSession.
+        Entity name: always 'user-session'
+
+        :return: The object of this ActiveSession.
+        :rtype: str
+        """
+        return self._object
+
+    @object.setter
+    def object(self, object):
+        """
+        Sets the object of this ActiveSession.
+        Entity name: always 'user-session'
+
+        :param object: The object of this ActiveSession.
+        :type: str
+        """
+        if object is None:
+            raise ValueError("Invalid value for `object`, must not be `None`")
+        allowed_values = ["user-session"]
+        if object not in allowed_values:
+            raise ValueError(
+                "Invalid value for `object` ({0}), must be one of {1}"
+                .format(object, allowed_values)
+            )
+
+        self._object = object
+
+    @property
+    def reference_token(self):
+        """
+        Gets the reference_token of this ActiveSession.
+        The reference token.
+
+        :return: The reference_token of this ActiveSession.
+        :rtype: str
+        """
+        return self._reference_token
+
+    @reference_token.setter
+    def reference_token(self, reference_token):
+        """
+        Sets the reference_token of this ActiveSession.
+        The reference token.
+
+        :param reference_token: The reference_token of this ActiveSession.
+        :type: str
+        """
+        if reference_token is None:
+            raise ValueError("Invalid value for `reference_token`, must not be `None`")
+
+        self._reference_token = reference_token
+
+    @property
+    def user_agent(self):
+        """
+        Gets the user_agent of this ActiveSession.
+        User Agent header from the login request.
+
+        :return: The user_agent of this ActiveSession.
+        :rtype: str
+        """
+        return self._user_agent
+
+    @user_agent.setter
+    def user_agent(self, user_agent):
+        """
+        Sets the user_agent of this ActiveSession.
+        User Agent header from the login request.
+
+        :param user_agent: The user_agent of this ActiveSession.
+        :type: str
+        """
+        if user_agent is None:
+            raise ValueError("Invalid value for `user_agent`, must not be `None`")
+
+        self._user_agent = user_agent
 
     def to_dict(self):
         """
