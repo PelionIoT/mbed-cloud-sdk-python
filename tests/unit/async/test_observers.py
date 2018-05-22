@@ -9,6 +9,8 @@ from mbed_cloud.subscribe.observer import Observer
 
 from tests.common import BaseCase
 
+DEFAULT_TIMEOUT = 1
+
 
 class Test(BaseCase):
     def test_subscribe_first(self):
@@ -19,8 +21,8 @@ class Test(BaseCase):
         obs.notify('b')
         obs.notify('c')
         self.assertNotEqual(a, b)
-        self.assertEqual(a.block(), 'a')
-        self.assertEqual(b.block(), 'b')
+        self.assertEqual(a.block(DEFAULT_TIMEOUT), 'a')
+        self.assertEqual(b.block(DEFAULT_TIMEOUT), 'b')
 
     def test_notify_first(self):
         obs = Observer()
@@ -30,8 +32,8 @@ class Test(BaseCase):
         a = obs.next()
         b = obs.next()
         self.assertNotEqual(a, b)
-        self.assertEqual(a.block(), 'a')
-        self.assertEqual(b.block(), 'b')
+        self.assertEqual(a.block(DEFAULT_TIMEOUT), 'a')
+        self.assertEqual(b.block(DEFAULT_TIMEOUT), 'b')
 
     def test_interleaved(self):
         obs = Observer()
@@ -45,11 +47,11 @@ class Test(BaseCase):
         obs.notify('d')
         obs.notify('e')
         e = obs.next()
-        self.assertEqual(a.block(), 'a')
-        self.assertEqual(b.block(), 'b')
-        self.assertEqual(c.block(), 'c')
-        self.assertEqual(d.block(), 'd')
-        self.assertEqual(e.block(), 'e')
+        self.assertEqual(a.block(DEFAULT_TIMEOUT), 'a')
+        self.assertEqual(b.block(DEFAULT_TIMEOUT), 'b')
+        self.assertEqual(c.block(DEFAULT_TIMEOUT), 'c')
+        self.assertEqual(d.block(DEFAULT_TIMEOUT), 'd')
+        self.assertEqual(e.block(DEFAULT_TIMEOUT), 'e')
 
     def test_stream(self):
         """Looping over the observer with iteration"""
@@ -61,7 +63,7 @@ class Test(BaseCase):
         # and we can read from them asynchronously
         items = []
         for new_item in itertools.islice(obs, 0, n-1):
-            items.append(new_item.block().get('i'))
+            items.append(new_item.block(DEFAULT_TIMEOUT).get('i'))
         self.assertEqual(items, list(range(6)))
 
     def test_threaded_stream(self):
@@ -85,7 +87,7 @@ class Test(BaseCase):
             start.wait()
             # finite iteration of infinite generator
             for new_item in itertools.islice(obs, 0, n - 1):
-                result.append(new_item.block().get('a_key'))
+                result.append(new_item.block(DEFAULT_TIMEOUT).get('a_key'))
                 time.sleep(sleepy())
 
         results = []
