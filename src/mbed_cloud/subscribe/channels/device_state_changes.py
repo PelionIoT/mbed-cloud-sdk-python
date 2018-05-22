@@ -17,7 +17,7 @@
 """A Channels API module"""
 from __future__ import absolute_import
 
-from mbed_cloud.subscribe.channels.channel import _API_CHANNELS
+from mbed_cloud.subscribe.channels.channel import ChannelIdentifiers
 from mbed_cloud.subscribe.channels.channel import ChannelSubscription
 
 from mbed_cloud.subscribe.subscribe import expand_dict_as_keys
@@ -27,20 +27,27 @@ class DeviceStateChanges(ChannelSubscription):
     """Triggers on changes to registration state of devices"""
 
     def __init__(self, device_id=None, **extra_filters):
-        """Channel"""
+        """Triggers on changes to registration state of devices
+
+        .. warning:: This functionality is considered experimental;
+           the interface may change in future releases
+
+        :param device_id: a device identifier
+        :param extra_filters: additional filters e.g. dict(channel=API_CHANNELS.registrations)
+        """
+        super(DeviceStateChanges, self).__init__()
         self._route_keys = expand_dict_as_keys(dict(
             channel=[
-                _API_CHANNELS.de_registrations,
-                _API_CHANNELS.reg_updates,
-                _API_CHANNELS.registrations_expired,
-                _API_CHANNELS.registrations,
+                ChannelIdentifiers.de_registrations,
+                ChannelIdentifiers.reg_updates,
+                ChannelIdentifiers.registrations_expired,
+                ChannelIdentifiers.registrations,
             ],
         ))
         self._optional_filters = {}
         if device_id is not None:
             self._optional_filters['device_id'] = device_id
         self._optional_filters.update(extra_filters)
-        self._optional_filter_keys = expand_dict_as_keys(self._optional_filters)
 
     def start(self):
         """Start the channel"""

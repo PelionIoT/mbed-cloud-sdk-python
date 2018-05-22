@@ -31,110 +31,47 @@ class FirmwareManifestInNinFilter(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'datafile': 'str',
-        'description': 'str',
-        'timestamp': 'datetime',
         'created_at': 'datetime',
-        'updated_at': 'datetime',
-        'etag': 'datetime',
-        'device_class': 'str',
+        'datafile': 'str',
         'datafile_size': 'int',
+        'description': 'str',
+        'device_class': 'str',
+        'etag': 'datetime',
         'id': 'str',
-        'name': 'str'
+        'name': 'str',
+        'timestamp': 'datetime',
+        'updated_at': 'datetime'
     }
 
     attribute_map = {
-        'datafile': 'datafile',
-        'description': 'description',
-        'timestamp': 'timestamp',
         'created_at': 'created_at',
-        'updated_at': 'updated_at',
-        'etag': 'etag',
-        'device_class': 'device_class',
+        'datafile': 'datafile',
         'datafile_size': 'datafile_size',
+        'description': 'description',
+        'device_class': 'device_class',
+        'etag': 'etag',
         'id': 'id',
-        'name': 'name'
+        'name': 'name',
+        'timestamp': 'timestamp',
+        'updated_at': 'updated_at'
     }
 
-    def __init__(self, datafile=None, description=None, timestamp=None, created_at=None, updated_at=None, etag=None, device_class=None, datafile_size=None, id=None, name=None):
+    def __init__(self, created_at=None, datafile=None, datafile_size=None, description=None, device_class=None, etag=None, id=None, name=None, timestamp=None, updated_at=None):
         """
         FirmwareManifestInNinFilter - a model defined in Swagger
         """
 
-        self._datafile = datafile
-        self._description = description
-        self._timestamp = timestamp
         self._created_at = created_at
-        self._updated_at = updated_at
-        self._etag = etag
-        self._device_class = device_class
+        self._datafile = datafile
         self._datafile_size = datafile_size
+        self._description = description
+        self._device_class = device_class
+        self._etag = etag
         self._id = id
         self._name = name
-        self.discriminator = None
-
-    @property
-    def datafile(self):
-        """
-        Gets the datafile of this FirmwareManifestInNinFilter.
-
-        :return: The datafile of this FirmwareManifestInNinFilter.
-        :rtype: str
-        """
-        return self._datafile
-
-    @datafile.setter
-    def datafile(self, datafile):
-        """
-        Sets the datafile of this FirmwareManifestInNinFilter.
-
-        :param datafile: The datafile of this FirmwareManifestInNinFilter.
-        :type: str
-        """
-
-        self._datafile = datafile
-
-    @property
-    def description(self):
-        """
-        Gets the description of this FirmwareManifestInNinFilter.
-
-        :return: The description of this FirmwareManifestInNinFilter.
-        :rtype: str
-        """
-        return self._description
-
-    @description.setter
-    def description(self, description):
-        """
-        Sets the description of this FirmwareManifestInNinFilter.
-
-        :param description: The description of this FirmwareManifestInNinFilter.
-        :type: str
-        """
-
-        self._description = description
-
-    @property
-    def timestamp(self):
-        """
-        Gets the timestamp of this FirmwareManifestInNinFilter.
-
-        :return: The timestamp of this FirmwareManifestInNinFilter.
-        :rtype: datetime
-        """
-        return self._timestamp
-
-    @timestamp.setter
-    def timestamp(self, timestamp):
-        """
-        Sets the timestamp of this FirmwareManifestInNinFilter.
-
-        :param timestamp: The timestamp of this FirmwareManifestInNinFilter.
-        :type: datetime
-        """
-
         self._timestamp = timestamp
+        self._updated_at = updated_at
+        self.discriminator = None
 
     @property
     def created_at(self):
@@ -158,46 +95,67 @@ class FirmwareManifestInNinFilter(object):
         self._created_at = created_at
 
     @property
-    def updated_at(self):
+    def datafile(self):
         """
-        Gets the updated_at of this FirmwareManifestInNinFilter.
+        Gets the datafile of this FirmwareManifestInNinFilter.
 
-        :return: The updated_at of this FirmwareManifestInNinFilter.
-        :rtype: datetime
+        :return: The datafile of this FirmwareManifestInNinFilter.
+        :rtype: str
         """
-        return self._updated_at
+        return self._datafile
 
-    @updated_at.setter
-    def updated_at(self, updated_at):
+    @datafile.setter
+    def datafile(self, datafile):
         """
-        Sets the updated_at of this FirmwareManifestInNinFilter.
+        Sets the datafile of this FirmwareManifestInNinFilter.
 
-        :param updated_at: The updated_at of this FirmwareManifestInNinFilter.
-        :type: datetime
+        :param datafile: The datafile of this FirmwareManifestInNinFilter.
+        :type: str
         """
 
-        self._updated_at = updated_at
+        self._datafile = datafile
 
     @property
-    def etag(self):
+    def datafile_size(self):
         """
-        Gets the etag of this FirmwareManifestInNinFilter.
+        Gets the datafile_size of this FirmwareManifestInNinFilter.
 
-        :return: The etag of this FirmwareManifestInNinFilter.
-        :rtype: datetime
+        :return: The datafile_size of this FirmwareManifestInNinFilter.
+        :rtype: int
         """
-        return self._etag
+        return self._datafile_size
 
-    @etag.setter
-    def etag(self, etag):
+    @datafile_size.setter
+    def datafile_size(self, datafile_size):
         """
-        Sets the etag of this FirmwareManifestInNinFilter.
+        Sets the datafile_size of this FirmwareManifestInNinFilter.
 
-        :param etag: The etag of this FirmwareManifestInNinFilter.
-        :type: datetime
+        :param datafile_size: The datafile_size of this FirmwareManifestInNinFilter.
+        :type: int
         """
 
-        self._etag = etag
+        self._datafile_size = datafile_size
+
+    @property
+    def description(self):
+        """
+        Gets the description of this FirmwareManifestInNinFilter.
+
+        :return: The description of this FirmwareManifestInNinFilter.
+        :rtype: str
+        """
+        return self._description
+
+    @description.setter
+    def description(self, description):
+        """
+        Sets the description of this FirmwareManifestInNinFilter.
+
+        :param description: The description of this FirmwareManifestInNinFilter.
+        :type: str
+        """
+
+        self._description = description
 
     @property
     def device_class(self):
@@ -221,25 +179,25 @@ class FirmwareManifestInNinFilter(object):
         self._device_class = device_class
 
     @property
-    def datafile_size(self):
+    def etag(self):
         """
-        Gets the datafile_size of this FirmwareManifestInNinFilter.
+        Gets the etag of this FirmwareManifestInNinFilter.
 
-        :return: The datafile_size of this FirmwareManifestInNinFilter.
-        :rtype: int
+        :return: The etag of this FirmwareManifestInNinFilter.
+        :rtype: datetime
         """
-        return self._datafile_size
+        return self._etag
 
-    @datafile_size.setter
-    def datafile_size(self, datafile_size):
+    @etag.setter
+    def etag(self, etag):
         """
-        Sets the datafile_size of this FirmwareManifestInNinFilter.
+        Sets the etag of this FirmwareManifestInNinFilter.
 
-        :param datafile_size: The datafile_size of this FirmwareManifestInNinFilter.
-        :type: int
+        :param etag: The etag of this FirmwareManifestInNinFilter.
+        :type: datetime
         """
 
-        self._datafile_size = datafile_size
+        self._etag = etag
 
     @property
     def id(self):
@@ -282,6 +240,48 @@ class FirmwareManifestInNinFilter(object):
         """
 
         self._name = name
+
+    @property
+    def timestamp(self):
+        """
+        Gets the timestamp of this FirmwareManifestInNinFilter.
+
+        :return: The timestamp of this FirmwareManifestInNinFilter.
+        :rtype: datetime
+        """
+        return self._timestamp
+
+    @timestamp.setter
+    def timestamp(self, timestamp):
+        """
+        Sets the timestamp of this FirmwareManifestInNinFilter.
+
+        :param timestamp: The timestamp of this FirmwareManifestInNinFilter.
+        :type: datetime
+        """
+
+        self._timestamp = timestamp
+
+    @property
+    def updated_at(self):
+        """
+        Gets the updated_at of this FirmwareManifestInNinFilter.
+
+        :return: The updated_at of this FirmwareManifestInNinFilter.
+        :rtype: datetime
+        """
+        return self._updated_at
+
+    @updated_at.setter
+    def updated_at(self, updated_at):
+        """
+        Sets the updated_at of this FirmwareManifestInNinFilter.
+
+        :param updated_at: The updated_at of this FirmwareManifestInNinFilter.
+        :type: datetime
+        """
+
+        self._updated_at = updated_at
 
     def to_dict(self):
         """

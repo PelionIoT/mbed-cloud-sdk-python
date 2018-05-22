@@ -28,7 +28,7 @@ class Test(BaseCase):
 
         # an irrelevant channel
         subs.notify({
-            channels._API_CHANNELS.async_responses: [
+            channels.ChannelIdentifiers.async_responses: [
                 dict(a=1, b=2, device_id='A')
             ]
         })
@@ -38,7 +38,7 @@ class Test(BaseCase):
         self.assertFalse(future_c.ready())
 
         subs.notify({
-            channels._API_CHANNELS.reg_updates: [
+            channels.ChannelIdentifiers.reg_updates: [
                 dict(a=1, b=2, device_id='A')
             ]
         })
@@ -54,30 +54,13 @@ class Test(BaseCase):
         result = future_c.get()
         self.assertDictContainsSubset(dict(a=1, b=2), result)
 
-    def test_subscribe_conflict(self):
-        subs = SubscriptionsManager(mock.MagicMock())
-        observer_a = subs.subscribe(channels.ResourceValueCurrent(device_id='A', resource_path=5))
-        observer_b = subs.subscribe(channels.ResourceValueCurrent(device_id='B', resource_path=5))
-        channel_c = channels.ResourceValueCurrent(device_id='A', resource_path=2)
-        observer_c = subs.subscribe(channel_c)
-
-        subs.notify({
-            channels._API_CHANNELS.async_responses: [
-                dict(a=1, b=2, device_id='A', resource_path=2, id=channel_c.async_id)
-            ]
-        })
-
-        result = observer_c.next().defer().get(timeout=2)
-        self.assertDictContainsSubset(dict(a=1, b=2), result)
-        self.assertDictContainsSubset(dict(a=1, b=2), result)
-
     @unittest.skipIf(os.environ.get('CI'), 'Do not run in CI')
-    def test_live_A(self):
+    def test_live_create_and_cleanup(self):
         # integration - ResourceValueCurrent cleans up
         from mbed_cloud.connect import ConnectAPI
         api = ConnectAPI()
         d = api.list_connected_devices().first()
-        r = api.subscribe(api.subscribe.channels.ResourceValueCurrent(
+        r = api.subscribe(api.subscribe.channels.ResourceValues(
             device_id=d.id,
             resource_path='/3/0/0',
         )).next().block(timeout=2)
@@ -95,7 +78,7 @@ class Test(BaseCase):
             self.fail('Routing table not empty')
 
     @unittest.skipIf(os.environ.get('CI'), 'Do not run in CI')
-    def test_live_B(self):
+    def test_live_device_state_change(self):
         # integration - DeviceStateChanges local filter
         from mbed_cloud.connect import ConnectAPI
         api = ConnectAPI()
@@ -103,7 +86,7 @@ class Test(BaseCase):
         observer = api.subscribe(api.subscribe.channels.DeviceStateChanges(device_id=d.id))
         # cheat, waiting takes too long
         api.subscribe.notify({
-            channels._API_CHANNELS.reg_updates: [
+            channels.ChannelIdentifiers.reg_updates: [
                 dict(a=1, b=2, device_id=d.id),
                 dict(a=1, b=2, device_id='A'),
                 dict(a=1, b=2, device_id='B'),

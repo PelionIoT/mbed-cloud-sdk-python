@@ -32,36 +32,36 @@ class TrustedCertificateRespList(object):
     """
     swagger_types = {
         'after': 'str',
-        'has_more': 'bool',
-        'total_count': 'int',
-        'object': 'str',
-        'limit': 'int',
         'data': 'list[TrustedCertificateResp]',
-        'order': 'str'
+        'has_more': 'bool',
+        'limit': 'int',
+        'object': 'str',
+        'order': 'str',
+        'total_count': 'int'
     }
 
     attribute_map = {
         'after': 'after',
-        'has_more': 'has_more',
-        'total_count': 'total_count',
-        'object': 'object',
-        'limit': 'limit',
         'data': 'data',
-        'order': 'order'
+        'has_more': 'has_more',
+        'limit': 'limit',
+        'object': 'object',
+        'order': 'order',
+        'total_count': 'total_count'
     }
 
-    def __init__(self, after=None, has_more=None, total_count=None, object=None, limit=None, data=None, order=None):
+    def __init__(self, after=None, data=None, has_more=None, limit=None, object=None, order=None, total_count=None):
         """
         TrustedCertificateRespList - a model defined in Swagger
         """
 
         self._after = after
-        self._has_more = has_more
-        self._total_count = total_count
-        self._object = object
-        self._limit = limit
         self._data = data
+        self._has_more = has_more
+        self._limit = limit
+        self._object = object
         self._order = order
+        self._total_count = total_count
         self.discriminator = None
 
     @property
@@ -86,6 +86,31 @@ class TrustedCertificateRespList(object):
         """
 
         self._after = after
+
+    @property
+    def data(self):
+        """
+        Gets the data of this TrustedCertificateRespList.
+        A list of entities.
+
+        :return: The data of this TrustedCertificateRespList.
+        :rtype: list[TrustedCertificateResp]
+        """
+        return self._data
+
+    @data.setter
+    def data(self, data):
+        """
+        Sets the data of this TrustedCertificateRespList.
+        A list of entities.
+
+        :param data: The data of this TrustedCertificateRespList.
+        :type: list[TrustedCertificateResp]
+        """
+        if data is None:
+            raise ValueError("Invalid value for `data`, must not be `None`")
+
+        self._data = data
 
     @property
     def has_more(self):
@@ -113,29 +138,29 @@ class TrustedCertificateRespList(object):
         self._has_more = has_more
 
     @property
-    def total_count(self):
+    def limit(self):
         """
-        Gets the total_count of this TrustedCertificateRespList.
-        The total number or records, if requested. It might be returned also for small lists.
+        Gets the limit of this TrustedCertificateRespList.
+        The number of results to return, (range: 2-1000), or equals to `total_count`
 
-        :return: The total_count of this TrustedCertificateRespList.
+        :return: The limit of this TrustedCertificateRespList.
         :rtype: int
         """
-        return self._total_count
+        return self._limit
 
-    @total_count.setter
-    def total_count(self, total_count):
+    @limit.setter
+    def limit(self, limit):
         """
-        Sets the total_count of this TrustedCertificateRespList.
-        The total number or records, if requested. It might be returned also for small lists.
+        Sets the limit of this TrustedCertificateRespList.
+        The number of results to return, (range: 2-1000), or equals to `total_count`
 
-        :param total_count: The total_count of this TrustedCertificateRespList.
+        :param limit: The limit of this TrustedCertificateRespList.
         :type: int
         """
-        if total_count is None:
-            raise ValueError("Invalid value for `total_count`, must not be `None`")
+        if limit is None:
+            raise ValueError("Invalid value for `limit`, must not be `None`")
 
-        self._total_count = total_count
+        self._limit = limit
 
     @property
     def object(self):
@@ -169,56 +194,6 @@ class TrustedCertificateRespList(object):
         self._object = object
 
     @property
-    def limit(self):
-        """
-        Gets the limit of this TrustedCertificateRespList.
-        The number of results to return, (range: 2-1000), or equals to `total_count`
-
-        :return: The limit of this TrustedCertificateRespList.
-        :rtype: int
-        """
-        return self._limit
-
-    @limit.setter
-    def limit(self, limit):
-        """
-        Sets the limit of this TrustedCertificateRespList.
-        The number of results to return, (range: 2-1000), or equals to `total_count`
-
-        :param limit: The limit of this TrustedCertificateRespList.
-        :type: int
-        """
-        if limit is None:
-            raise ValueError("Invalid value for `limit`, must not be `None`")
-
-        self._limit = limit
-
-    @property
-    def data(self):
-        """
-        Gets the data of this TrustedCertificateRespList.
-        A list of entities.
-
-        :return: The data of this TrustedCertificateRespList.
-        :rtype: list[TrustedCertificateResp]
-        """
-        return self._data
-
-    @data.setter
-    def data(self, data):
-        """
-        Sets the data of this TrustedCertificateRespList.
-        A list of entities.
-
-        :param data: The data of this TrustedCertificateRespList.
-        :type: list[TrustedCertificateResp]
-        """
-        if data is None:
-            raise ValueError("Invalid value for `data`, must not be `None`")
-
-        self._data = data
-
-    @property
     def order(self):
         """
         Gets the order of this TrustedCertificateRespList.
@@ -246,6 +221,31 @@ class TrustedCertificateRespList(object):
             )
 
         self._order = order
+
+    @property
+    def total_count(self):
+        """
+        Gets the total_count of this TrustedCertificateRespList.
+        The total number or records, if requested. It might be returned also for small lists.
+
+        :return: The total_count of this TrustedCertificateRespList.
+        :rtype: int
+        """
+        return self._total_count
+
+    @total_count.setter
+    def total_count(self, total_count):
+        """
+        Sets the total_count of this TrustedCertificateRespList.
+        The total number or records, if requested. It might be returned also for small lists.
+
+        :param total_count: The total_count of this TrustedCertificateRespList.
+        :type: int
+        """
+        if total_count is None:
+            raise ValueError("Invalid value for `total_count`, must not be `None`")
+
+        self._total_count = total_count
 
     def to_dict(self):
         """

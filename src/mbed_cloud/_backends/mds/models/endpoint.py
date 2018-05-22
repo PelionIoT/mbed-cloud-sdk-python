@@ -3,7 +3,7 @@
 """
     Connect API
 
-    Mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
+    Mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. Mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
 
     OpenAPI spec version: 2
     
@@ -31,29 +31,75 @@ class Endpoint(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'status': 'str',
+        'name': 'str',
         'q': 'bool',
-        'type': 'str',
-        'name': 'str'
+        'status': 'str',
+        'type': 'str'
     }
 
     attribute_map = {
-        'status': 'status',
+        'name': 'name',
         'q': 'q',
-        'type': 'type',
-        'name': 'name'
+        'status': 'status',
+        'type': 'type'
     }
 
-    def __init__(self, status=None, q=None, type=None, name=None):
+    def __init__(self, name=None, q=None, status=None, type=None):
         """
         Endpoint - a model defined in Swagger
         """
 
-        self._status = status
-        self._q = q
-        self._type = type
         self._name = name
+        self._q = q
+        self._status = status
+        self._type = type
         self.discriminator = None
+
+    @property
+    def name(self):
+        """
+        Gets the name of this Endpoint.
+        Unique Mbed Cloud Device ID representing the endpoint.
+
+        :return: The name of this Endpoint.
+        :rtype: str
+        """
+        return self._name
+
+    @name.setter
+    def name(self, name):
+        """
+        Sets the name of this Endpoint.
+        Unique Mbed Cloud Device ID representing the endpoint.
+
+        :param name: The name of this Endpoint.
+        :type: str
+        """
+
+        self._name = name
+
+    @property
+    def q(self):
+        """
+        Gets the q of this Endpoint.
+        Determines whether the device is in queue mode. <br/><br/><b>Queue mode</b><br/> When an endpoint is in queue mode, messages sent to the endpoint do not wake up the physical device. The messages are queued and delivered when the device wakes up and connects to Mbed Cloud Connect itself. You can also use the queue mode when the device is behind a NAT and cannot be reached directly by Mbed Cloud Connect. 
+
+        :return: The q of this Endpoint.
+        :rtype: bool
+        """
+        return self._q
+
+    @q.setter
+    def q(self, q):
+        """
+        Sets the q of this Endpoint.
+        Determines whether the device is in queue mode. <br/><br/><b>Queue mode</b><br/> When an endpoint is in queue mode, messages sent to the endpoint do not wake up the physical device. The messages are queued and delivered when the device wakes up and connects to Mbed Cloud Connect itself. You can also use the queue mode when the device is behind a NAT and cannot be reached directly by Mbed Cloud Connect. 
+
+        :param q: The q of this Endpoint.
+        :type: bool
+        """
+
+        self._q = q
 
     @property
     def status(self):
@@ -79,29 +125,6 @@ class Endpoint(object):
         self._status = status
 
     @property
-    def q(self):
-        """
-        Gets the q of this Endpoint.
-        Determines whether the device is in queue mode.  <br/><br/><b>Queue mode</b><br/> When an endpoint is in queue mode, messages sent to the endpoint do not wake up the physical device. The messages are queued  and delivered when the device wakes up and connects to Mbed Cloud Connect itself. You can also use the queue mode when  the device is behind a NAT and cannot be reached directly by Mbed Cloud Connect. 
-
-        :return: The q of this Endpoint.
-        :rtype: bool
-        """
-        return self._q
-
-    @q.setter
-    def q(self, q):
-        """
-        Sets the q of this Endpoint.
-        Determines whether the device is in queue mode.  <br/><br/><b>Queue mode</b><br/> When an endpoint is in queue mode, messages sent to the endpoint do not wake up the physical device. The messages are queued  and delivered when the device wakes up and connects to Mbed Cloud Connect itself. You can also use the queue mode when  the device is behind a NAT and cannot be reached directly by Mbed Cloud Connect. 
-
-        :param q: The q of this Endpoint.
-        :type: bool
-        """
-
-        self._q = q
-
-    @property
     def type(self):
         """
         Gets the type of this Endpoint.
@@ -123,29 +146,6 @@ class Endpoint(object):
         """
 
         self._type = type
-
-    @property
-    def name(self):
-        """
-        Gets the name of this Endpoint.
-        Unique Mbed Cloud Device ID representing the endpoint.
-
-        :return: The name of this Endpoint.
-        :rtype: str
-        """
-        return self._name
-
-    @name.setter
-    def name(self, name):
-        """
-        Sets the name of this Endpoint.
-        Unique Mbed Cloud Device ID representing the endpoint.
-
-        :param name: The name of this Endpoint.
-        :type: str
-        """
-
-        self._name = name
 
     def to_dict(self):
         """

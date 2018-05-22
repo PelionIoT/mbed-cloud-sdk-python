@@ -31,78 +31,53 @@ class CampaignDeviceMetadata(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'description': 'str',
         'campaign': 'str',
         'created_at': 'datetime',
-        'object': 'str',
-        'updated_at': 'datetime',
-        'mechanism': 'str',
-        'name': 'str',
-        'etag': 'str',
-        'mechanism_url': 'str',
         'deployment_state': 'str',
+        'description': 'str',
+        'device_id': 'str',
+        'etag': 'str',
         'id': 'str',
-        'device_id': 'str'
+        'mechanism': 'str',
+        'mechanism_url': 'str',
+        'name': 'str',
+        'object': 'str',
+        'updated_at': 'datetime'
     }
 
     attribute_map = {
-        'description': 'description',
         'campaign': 'campaign',
         'created_at': 'created_at',
-        'object': 'object',
-        'updated_at': 'updated_at',
-        'mechanism': 'mechanism',
-        'name': 'name',
-        'etag': 'etag',
-        'mechanism_url': 'mechanism_url',
         'deployment_state': 'deployment_state',
+        'description': 'description',
+        'device_id': 'device_id',
+        'etag': 'etag',
         'id': 'id',
-        'device_id': 'device_id'
+        'mechanism': 'mechanism',
+        'mechanism_url': 'mechanism_url',
+        'name': 'name',
+        'object': 'object',
+        'updated_at': 'updated_at'
     }
 
-    def __init__(self, description=None, campaign=None, created_at=None, object=None, updated_at=None, mechanism=None, name=None, etag=None, mechanism_url=None, deployment_state=None, id=None, device_id=None):
+    def __init__(self, campaign=None, created_at=None, deployment_state=None, description=None, device_id=None, etag=None, id=None, mechanism=None, mechanism_url=None, name=None, object=None, updated_at=None):
         """
         CampaignDeviceMetadata - a model defined in Swagger
         """
 
-        self._description = description
         self._campaign = campaign
         self._created_at = created_at
+        self._deployment_state = deployment_state
+        self._description = description
+        self._device_id = device_id
+        self._etag = etag
+        self._id = id
+        self._mechanism = mechanism
+        self._mechanism_url = mechanism_url
+        self._name = name
         self._object = object
         self._updated_at = updated_at
-        self._mechanism = mechanism
-        self._name = name
-        self._etag = etag
-        self._mechanism_url = mechanism_url
-        self._deployment_state = deployment_state
-        self._id = id
-        self._device_id = device_id
         self.discriminator = None
-
-    @property
-    def description(self):
-        """
-        Gets the description of this CampaignDeviceMetadata.
-        Description
-
-        :return: The description of this CampaignDeviceMetadata.
-        :rtype: str
-        """
-        return self._description
-
-    @description.setter
-    def description(self, description):
-        """
-        Sets the description of this CampaignDeviceMetadata.
-        Description
-
-        :param description: The description of this CampaignDeviceMetadata.
-        :type: str
-        """
-        if description is not None and len(description) > 2000:
-            raise ValueError("Invalid value for `description`, length must be less than or equal to `2000`")
-
-        self._description = description
 
     @property
     def campaign(self):
@@ -151,6 +126,200 @@ class CampaignDeviceMetadata(object):
         self._created_at = created_at
 
     @property
+    def deployment_state(self):
+        """
+        Gets the deployment_state of this CampaignDeviceMetadata.
+        The state of the update campaign on the device
+
+        :return: The deployment_state of this CampaignDeviceMetadata.
+        :rtype: str
+        """
+        return self._deployment_state
+
+    @deployment_state.setter
+    def deployment_state(self, deployment_state):
+        """
+        Sets the deployment_state of this CampaignDeviceMetadata.
+        The state of the update campaign on the device
+
+        :param deployment_state: The deployment_state of this CampaignDeviceMetadata.
+        :type: str
+        """
+        allowed_values = ["pending", "updated_connector_channel", "failed_connector_channel_update", "deployed", "manifestremoved", "deregistered"]
+        if deployment_state not in allowed_values:
+            raise ValueError(
+                "Invalid value for `deployment_state` ({0}), must be one of {1}"
+                .format(deployment_state, allowed_values)
+            )
+
+        self._deployment_state = deployment_state
+
+    @property
+    def description(self):
+        """
+        Gets the description of this CampaignDeviceMetadata.
+        Description
+
+        :return: The description of this CampaignDeviceMetadata.
+        :rtype: str
+        """
+        return self._description
+
+    @description.setter
+    def description(self, description):
+        """
+        Sets the description of this CampaignDeviceMetadata.
+        Description
+
+        :param description: The description of this CampaignDeviceMetadata.
+        :type: str
+        """
+        if description is not None and len(description) > 2000:
+            raise ValueError("Invalid value for `description`, length must be less than or equal to `2000`")
+
+        self._description = description
+
+    @property
+    def device_id(self):
+        """
+        Gets the device_id of this CampaignDeviceMetadata.
+        The device ID
+
+        :return: The device_id of this CampaignDeviceMetadata.
+        :rtype: str
+        """
+        return self._device_id
+
+    @device_id.setter
+    def device_id(self, device_id):
+        """
+        Sets the device_id of this CampaignDeviceMetadata.
+        The device ID
+
+        :param device_id: The device_id of this CampaignDeviceMetadata.
+        :type: str
+        """
+
+        self._device_id = device_id
+
+    @property
+    def etag(self):
+        """
+        Gets the etag of this CampaignDeviceMetadata.
+        API resource entity version
+
+        :return: The etag of this CampaignDeviceMetadata.
+        :rtype: str
+        """
+        return self._etag
+
+    @etag.setter
+    def etag(self, etag):
+        """
+        Sets the etag of this CampaignDeviceMetadata.
+        API resource entity version
+
+        :param etag: The etag of this CampaignDeviceMetadata.
+        :type: str
+        """
+
+        self._etag = etag
+
+    @property
+    def id(self):
+        """
+        Gets the id of this CampaignDeviceMetadata.
+        The metadata record ID
+
+        :return: The id of this CampaignDeviceMetadata.
+        :rtype: str
+        """
+        return self._id
+
+    @id.setter
+    def id(self, id):
+        """
+        Sets the id of this CampaignDeviceMetadata.
+        The metadata record ID
+
+        :param id: The id of this CampaignDeviceMetadata.
+        :type: str
+        """
+
+        self._id = id
+
+    @property
+    def mechanism(self):
+        """
+        Gets the mechanism of this CampaignDeviceMetadata.
+        How the firmware is delivered (connector or direct)
+
+        :return: The mechanism of this CampaignDeviceMetadata.
+        :rtype: str
+        """
+        return self._mechanism
+
+    @mechanism.setter
+    def mechanism(self, mechanism):
+        """
+        Sets the mechanism of this CampaignDeviceMetadata.
+        How the firmware is delivered (connector or direct)
+
+        :param mechanism: The mechanism of this CampaignDeviceMetadata.
+        :type: str
+        """
+
+        self._mechanism = mechanism
+
+    @property
+    def mechanism_url(self):
+        """
+        Gets the mechanism_url of this CampaignDeviceMetadata.
+        The Cloud Connect URL
+
+        :return: The mechanism_url of this CampaignDeviceMetadata.
+        :rtype: str
+        """
+        return self._mechanism_url
+
+    @mechanism_url.setter
+    def mechanism_url(self, mechanism_url):
+        """
+        Sets the mechanism_url of this CampaignDeviceMetadata.
+        The Cloud Connect URL
+
+        :param mechanism_url: The mechanism_url of this CampaignDeviceMetadata.
+        :type: str
+        """
+
+        self._mechanism_url = mechanism_url
+
+    @property
+    def name(self):
+        """
+        Gets the name of this CampaignDeviceMetadata.
+        The record name
+
+        :return: The name of this CampaignDeviceMetadata.
+        :rtype: str
+        """
+        return self._name
+
+    @name.setter
+    def name(self, name):
+        """
+        Sets the name of this CampaignDeviceMetadata.
+        The record name
+
+        :param name: The name of this CampaignDeviceMetadata.
+        :type: str
+        """
+        if name is not None and len(name) > 128:
+            raise ValueError("Invalid value for `name`, length must be less than or equal to `128`")
+
+        self._name = name
+
+    @property
     def object(self):
         """
         Gets the object of this CampaignDeviceMetadata.
@@ -195,175 +364,6 @@ class CampaignDeviceMetadata(object):
         """
 
         self._updated_at = updated_at
-
-    @property
-    def mechanism(self):
-        """
-        Gets the mechanism of this CampaignDeviceMetadata.
-        How the firmware is delivered (connector or direct)
-
-        :return: The mechanism of this CampaignDeviceMetadata.
-        :rtype: str
-        """
-        return self._mechanism
-
-    @mechanism.setter
-    def mechanism(self, mechanism):
-        """
-        Sets the mechanism of this CampaignDeviceMetadata.
-        How the firmware is delivered (connector or direct)
-
-        :param mechanism: The mechanism of this CampaignDeviceMetadata.
-        :type: str
-        """
-
-        self._mechanism = mechanism
-
-    @property
-    def name(self):
-        """
-        Gets the name of this CampaignDeviceMetadata.
-        The record name
-
-        :return: The name of this CampaignDeviceMetadata.
-        :rtype: str
-        """
-        return self._name
-
-    @name.setter
-    def name(self, name):
-        """
-        Sets the name of this CampaignDeviceMetadata.
-        The record name
-
-        :param name: The name of this CampaignDeviceMetadata.
-        :type: str
-        """
-        if name is not None and len(name) > 128:
-            raise ValueError("Invalid value for `name`, length must be less than or equal to `128`")
-
-        self._name = name
-
-    @property
-    def etag(self):
-        """
-        Gets the etag of this CampaignDeviceMetadata.
-        API resource entity version
-
-        :return: The etag of this CampaignDeviceMetadata.
-        :rtype: str
-        """
-        return self._etag
-
-    @etag.setter
-    def etag(self, etag):
-        """
-        Sets the etag of this CampaignDeviceMetadata.
-        API resource entity version
-
-        :param etag: The etag of this CampaignDeviceMetadata.
-        :type: str
-        """
-
-        self._etag = etag
-
-    @property
-    def mechanism_url(self):
-        """
-        Gets the mechanism_url of this CampaignDeviceMetadata.
-        The Cloud Connect URL
-
-        :return: The mechanism_url of this CampaignDeviceMetadata.
-        :rtype: str
-        """
-        return self._mechanism_url
-
-    @mechanism_url.setter
-    def mechanism_url(self, mechanism_url):
-        """
-        Sets the mechanism_url of this CampaignDeviceMetadata.
-        The Cloud Connect URL
-
-        :param mechanism_url: The mechanism_url of this CampaignDeviceMetadata.
-        :type: str
-        """
-
-        self._mechanism_url = mechanism_url
-
-    @property
-    def deployment_state(self):
-        """
-        Gets the deployment_state of this CampaignDeviceMetadata.
-        The state of the update campaign on the device
-
-        :return: The deployment_state of this CampaignDeviceMetadata.
-        :rtype: str
-        """
-        return self._deployment_state
-
-    @deployment_state.setter
-    def deployment_state(self, deployment_state):
-        """
-        Sets the deployment_state of this CampaignDeviceMetadata.
-        The state of the update campaign on the device
-
-        :param deployment_state: The deployment_state of this CampaignDeviceMetadata.
-        :type: str
-        """
-        allowed_values = ["pending", "updated_connector_channel", "failed_connector_channel_update", "deployed", "manifestremoved", "deregistered"]
-        if deployment_state not in allowed_values:
-            raise ValueError(
-                "Invalid value for `deployment_state` ({0}), must be one of {1}"
-                .format(deployment_state, allowed_values)
-            )
-
-        self._deployment_state = deployment_state
-
-    @property
-    def id(self):
-        """
-        Gets the id of this CampaignDeviceMetadata.
-        The metadata record ID
-
-        :return: The id of this CampaignDeviceMetadata.
-        :rtype: str
-        """
-        return self._id
-
-    @id.setter
-    def id(self, id):
-        """
-        Sets the id of this CampaignDeviceMetadata.
-        The metadata record ID
-
-        :param id: The id of this CampaignDeviceMetadata.
-        :type: str
-        """
-
-        self._id = id
-
-    @property
-    def device_id(self):
-        """
-        Gets the device_id of this CampaignDeviceMetadata.
-        The device ID
-
-        :return: The device_id of this CampaignDeviceMetadata.
-        :rtype: str
-        """
-        return self._device_id
-
-    @device_id.setter
-    def device_id(self, device_id):
-        """
-        Sets the device_id of this CampaignDeviceMetadata.
-        The device ID
-
-        :param device_id: The device_id of this CampaignDeviceMetadata.
-        :type: str
-        """
-
-        self._device_id = device_id
 
     def to_dict(self):
         """

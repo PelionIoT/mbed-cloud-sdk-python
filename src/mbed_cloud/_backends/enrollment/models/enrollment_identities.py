@@ -3,7 +3,7 @@
 """
     Enrollment API
 
-    Mbed Cloud Connect Enrollment Service allows users to claim the ownership of a device which is not yet assigned to an account. A device without an assigned account can be a device purchased from the open market (OEM dealer) or a device trasferred from an account to another. More information in [Device overship: First-to-claim](TODO: link needed) document. 
+    Mbed Cloud Connect Enrollment Service allows users to claim the ownership of a device which is not yet assigned to an account. A device without an assigned account can be a device purchased from the open market (OEM dealer) or a device transferred from an account to another. More information in [Device ownership: First-to-claim](https://cloud.mbed.com/docs/current/connecting/device-ownership.html) document. 
 
     OpenAPI spec version: 3
     
@@ -32,36 +32,36 @@ class EnrollmentIdentities(object):
     """
     swagger_types = {
         'after': 'str',
-        'has_more': 'bool',
-        'total_count': 'int',
-        'object': 'str',
-        'limit': 'int',
         'data': 'list[EnrollmentIdentity]',
-        'order': 'str'
+        'has_more': 'bool',
+        'limit': 'int',
+        'object': 'str',
+        'order': 'str',
+        'total_count': 'int'
     }
 
     attribute_map = {
         'after': 'after',
-        'has_more': 'has_more',
-        'total_count': 'total_count',
-        'object': 'object',
-        'limit': 'limit',
         'data': 'data',
-        'order': 'order'
+        'has_more': 'has_more',
+        'limit': 'limit',
+        'object': 'object',
+        'order': 'order',
+        'total_count': 'total_count'
     }
 
-    def __init__(self, after=None, has_more=None, total_count=None, object=None, limit=None, data=None, order='ASC'):
+    def __init__(self, after=None, data=None, has_more=None, limit=None, object=None, order='ASC', total_count=None):
         """
         EnrollmentIdentities - a model defined in Swagger
         """
 
         self._after = after
-        self._has_more = has_more
-        self._total_count = total_count
-        self._object = object
-        self._limit = limit
         self._data = data
+        self._has_more = has_more
+        self._limit = limit
+        self._object = object
         self._order = order
+        self._total_count = total_count
         self.discriminator = None
 
     @property
@@ -92,6 +92,29 @@ class EnrollmentIdentities(object):
         self._after = after
 
     @property
+    def data(self):
+        """
+        Gets the data of this EnrollmentIdentities.
+
+        :return: The data of this EnrollmentIdentities.
+        :rtype: list[EnrollmentIdentity]
+        """
+        return self._data
+
+    @data.setter
+    def data(self, data):
+        """
+        Sets the data of this EnrollmentIdentities.
+
+        :param data: The data of this EnrollmentIdentities.
+        :type: list[EnrollmentIdentity]
+        """
+        if data is None:
+            raise ValueError("Invalid value for `data`, must not be `None`")
+
+        self._data = data
+
+    @property
     def has_more(self):
         """
         Gets the has_more of this EnrollmentIdentities.
@@ -113,60 +136,6 @@ class EnrollmentIdentities(object):
             raise ValueError("Invalid value for `has_more`, must not be `None`")
 
         self._has_more = has_more
-
-    @property
-    def total_count(self):
-        """
-        Gets the total_count of this EnrollmentIdentities.
-
-        :return: The total_count of this EnrollmentIdentities.
-        :rtype: int
-        """
-        return self._total_count
-
-    @total_count.setter
-    def total_count(self, total_count):
-        """
-        Sets the total_count of this EnrollmentIdentities.
-
-        :param total_count: The total_count of this EnrollmentIdentities.
-        :type: int
-        """
-        if total_count is None:
-            raise ValueError("Invalid value for `total_count`, must not be `None`")
-        if total_count is not None and total_count < 1:
-            raise ValueError("Invalid value for `total_count`, must be a value greater than or equal to `1`")
-
-        self._total_count = total_count
-
-    @property
-    def object(self):
-        """
-        Gets the object of this EnrollmentIdentities.
-
-        :return: The object of this EnrollmentIdentities.
-        :rtype: str
-        """
-        return self._object
-
-    @object.setter
-    def object(self, object):
-        """
-        Sets the object of this EnrollmentIdentities.
-
-        :param object: The object of this EnrollmentIdentities.
-        :type: str
-        """
-        if object is None:
-            raise ValueError("Invalid value for `object`, must not be `None`")
-        allowed_values = ["list"]
-        if object not in allowed_values:
-            raise ValueError(
-                "Invalid value for `object` ({0}), must be one of {1}"
-                .format(object, allowed_values)
-            )
-
-        self._object = object
 
     @property
     def limit(self):
@@ -198,27 +167,33 @@ class EnrollmentIdentities(object):
         self._limit = limit
 
     @property
-    def data(self):
+    def object(self):
         """
-        Gets the data of this EnrollmentIdentities.
+        Gets the object of this EnrollmentIdentities.
 
-        :return: The data of this EnrollmentIdentities.
-        :rtype: list[EnrollmentIdentity]
+        :return: The object of this EnrollmentIdentities.
+        :rtype: str
         """
-        return self._data
+        return self._object
 
-    @data.setter
-    def data(self, data):
+    @object.setter
+    def object(self, object):
         """
-        Sets the data of this EnrollmentIdentities.
+        Sets the object of this EnrollmentIdentities.
 
-        :param data: The data of this EnrollmentIdentities.
-        :type: list[EnrollmentIdentity]
+        :param object: The object of this EnrollmentIdentities.
+        :type: str
         """
-        if data is None:
-            raise ValueError("Invalid value for `data`, must not be `None`")
+        if object is None:
+            raise ValueError("Invalid value for `object`, must not be `None`")
+        allowed_values = ["list"]
+        if object not in allowed_values:
+            raise ValueError(
+                "Invalid value for `object` ({0}), must be one of {1}"
+                .format(object, allowed_values)
+            )
 
-        self._data = data
+        self._object = object
 
     @property
     def order(self):
@@ -248,6 +223,31 @@ class EnrollmentIdentities(object):
             )
 
         self._order = order
+
+    @property
+    def total_count(self):
+        """
+        Gets the total_count of this EnrollmentIdentities.
+
+        :return: The total_count of this EnrollmentIdentities.
+        :rtype: int
+        """
+        return self._total_count
+
+    @total_count.setter
+    def total_count(self, total_count):
+        """
+        Sets the total_count of this EnrollmentIdentities.
+
+        :param total_count: The total_count of this EnrollmentIdentities.
+        :type: int
+        """
+        if total_count is None:
+            raise ValueError("Invalid value for `total_count`, must not be `None`")
+        if total_count is not None and total_count < 1:
+            raise ValueError("Invalid value for `total_count`, must be a value greater than or equal to `1`")
+
+        self._total_count = total_count
 
     def to_dict(self):
         """

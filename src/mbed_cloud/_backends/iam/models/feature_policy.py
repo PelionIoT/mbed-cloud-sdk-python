@@ -32,30 +32,30 @@ class FeaturePolicy(object):
     """
     swagger_types = {
         'action': 'str',
-        'resource': 'str',
-        'feature': 'str',
         'allow': 'bool',
-        'inherited': 'bool'
+        'feature': 'str',
+        'inherited': 'bool',
+        'resource': 'str'
     }
 
     attribute_map = {
         'action': 'action',
-        'resource': 'resource',
-        'feature': 'feature',
         'allow': 'allow',
-        'inherited': 'inherited'
+        'feature': 'feature',
+        'inherited': 'inherited',
+        'resource': 'resource'
     }
 
-    def __init__(self, action=None, resource=None, feature=None, allow=None, inherited=None):
+    def __init__(self, action=None, allow=None, feature=None, inherited=None, resource=None):
         """
         FeaturePolicy - a model defined in Swagger
         """
 
         self._action = action
-        self._resource = resource
-        self._feature = feature
         self._allow = allow
+        self._feature = feature
         self._inherited = inherited
+        self._resource = resource
         self.discriminator = None
 
     @property
@@ -82,27 +82,27 @@ class FeaturePolicy(object):
         self._action = action
 
     @property
-    def resource(self):
+    def allow(self):
         """
-        Gets the resource of this FeaturePolicy.
-        Resource that is protected by this policy.
+        Gets the allow of this FeaturePolicy.
+        True or false controlling whether an action is allowed or not.
 
-        :return: The resource of this FeaturePolicy.
-        :rtype: str
+        :return: The allow of this FeaturePolicy.
+        :rtype: bool
         """
-        return self._resource
+        return self._allow
 
-    @resource.setter
-    def resource(self, resource):
+    @allow.setter
+    def allow(self, allow):
         """
-        Sets the resource of this FeaturePolicy.
-        Resource that is protected by this policy.
+        Sets the allow of this FeaturePolicy.
+        True or false controlling whether an action is allowed or not.
 
-        :param resource: The resource of this FeaturePolicy.
-        :type: str
+        :param allow: The allow of this FeaturePolicy.
+        :type: bool
         """
 
-        self._resource = resource
+        self._allow = allow
 
     @property
     def feature(self):
@@ -128,29 +128,6 @@ class FeaturePolicy(object):
         self._feature = feature
 
     @property
-    def allow(self):
-        """
-        Gets the allow of this FeaturePolicy.
-        True or false controlling whether an action is allowed or not.
-
-        :return: The allow of this FeaturePolicy.
-        :rtype: bool
-        """
-        return self._allow
-
-    @allow.setter
-    def allow(self, allow):
-        """
-        Sets the allow of this FeaturePolicy.
-        True or false controlling whether an action is allowed or not.
-
-        :param allow: The allow of this FeaturePolicy.
-        :type: bool
-        """
-
-        self._allow = allow
-
-    @property
     def inherited(self):
         """
         Gets the inherited of this FeaturePolicy.
@@ -172,6 +149,29 @@ class FeaturePolicy(object):
         """
 
         self._inherited = inherited
+
+    @property
+    def resource(self):
+        """
+        Gets the resource of this FeaturePolicy.
+        Resource that is protected by this policy.
+
+        :return: The resource of this FeaturePolicy.
+        :rtype: str
+        """
+        return self._resource
+
+    @resource.setter
+    def resource(self, resource):
+        """
+        Sets the resource of this FeaturePolicy.
+        Resource that is protected by this policy.
+
+        :param resource: The resource of this FeaturePolicy.
+        :type: str
+        """
+
+        self._resource = resource
 
     def to_dict(self):
         """

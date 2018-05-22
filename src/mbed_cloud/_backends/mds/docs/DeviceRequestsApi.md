@@ -4,15 +4,15 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**v2_device_requests_device_id_post**](DeviceRequestsApi.md#v2_device_requests_device_id_post) | **POST** /v2/device-requests/{device-id} | Send an async request to device
+[**create_async_request**](DeviceRequestsApi.md#create_async_request) | **POST** /v2/device-requests/{device-id} | Send an async request to device
 
 
-# **v2_device_requests_device_id_post**
-> v2_device_requests_device_id_post(device_id, async_id, body)
+# **create_async_request**
+> create_async_request(device_id, async_id, body)
 
 Send an async request to device
 
-This API provides an interface to asynchronously call methods on a device.  The `async-id` is provided by the client, enabling the client to track the end-to-end flow with an identifier that is relevant to the end application. For example, a web application's session ID along with the device ID and the resource path could be used as the `async-id`. This also avoids any race conditions with [the notification channel](/docs/v1.2/connecting/event-notification.html). All responses are sent through the currently configured notification channel as [AsyncIDResponse](/docs/v1.2/service-api-references/connect-api.html#AsyncIDResponse).  For `GET` methods, values may be fetched from an internal cache, instead of contacting the device.  See also: [/v2/endpoints/{device-id}/{resourcePath}](/docs/v1.2/service-api-references/connect-api.html#v2EndpointsDeviceIdResourcePathGet)  ``` Example URI: POST /v2/device-requests/015f2fa34d310000000000010030036c?async-id=123e4567-e89b-12d3-a456-426655440000  Example payloads: { \"method\": \"GET\", \"uri\": \"/5/0/1\" } { \"method\": \"PUT\", \"uri\": \"/5/0/1%20?k1=v1&k2=v2%22\", \"accept\": \"text/plain\", \"content-type\": \"text/plain\", \"payload-b64\": \"dmFsdWUxCg==\" }  Immediate response: 202 Accepted  Example AsyncIDResponse, delivered via the notification channel: { \"async-responses\": [ { \"id\": \"123e4567-e89b-12d3-a456-426655440000\", \"status\": 200, \"payload\": \"dmFsdWUxCg==\", \"ct\": \"text/plain\", \"max-age\": 600 } ] } ``` 
+This API provides an interface to asynchronously call methods on a device.  The `async-id` is provided by the client, enabling the client to track the end-to-end flow with an identifier that is relevant to the end application. For example, a web application's session ID along with the device ID and the resource path could be used as the `async-id`. This also avoids any race conditions with [the notification channel](/docs/current/integrate-web-app/event-notification.html). All responses are sent through the currently configured notification channel as an **AsyncIDResponse**.  For `GET` methods, values may be fetched from an internal cache, instead of contacting the device.  See also /v2/endpoints/{device-id}/{resourcePath}.  ``` Example URI: POST /v2/device-requests/015f2fa34d310000000000010030036c?async-id=123e4567-e89b-12d3-a456-426655440000  Example payloads: { \"method\": \"GET\", \"uri\": \"/5/0/1\" } { \"method\": \"PUT\", \"uri\": \"/5/0/1%20?k1=v1&k2=v2%22\", \"accept\": \"text/plain\", \"content-type\": \"text/plain\", \"payload-b64\": \"dmFsdWUxCg==\" }  Immediate response: 202 Accepted  Example AsyncIDResponse, delivered via the notification channel: { \"async-responses\": [ { \"id\": \"123e4567-e89b-12d3-a456-426655440000\", \"status\": 200, \"payload\": \"dmFsdWUxCg==\", \"ct\": \"text/plain\", \"max-age\": 600 } ] } ``` 
 
 ### Example 
 ```python
@@ -36,9 +36,9 @@ body = mds.DeviceRequest() # DeviceRequest | Device request to send.
 
 try: 
     # Send an async request to device
-    api_instance.v2_device_requests_device_id_post(device_id, async_id, body)
+    api_instance.create_async_request(device_id, async_id, body)
 except ApiException as e:
-    print("Exception when calling DeviceRequestsApi->v2_device_requests_device_id_post: %s\n" % e)
+    print("Exception when calling DeviceRequestsApi->create_async_request: %s\n" % e)
 ```
 
 ### Parameters

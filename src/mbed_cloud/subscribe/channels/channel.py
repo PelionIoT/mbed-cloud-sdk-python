@@ -16,11 +16,17 @@
 # --------------------------------------------------------------------------
 """A Channels API module"""
 import logging
+
 from mbed_cloud.subscribe.observer import Observer
 
+LOG = logging.getLogger(__name__)
 
-class _API_CHANNELS(object):
-    """API channels"""
+
+class ChannelIdentifiers(object):
+    """API channels
+
+    Internal Mbed Cloud channel identifiers
+    """
 
     notifications = 'notifications'
     async_responses = 'async_responses'
@@ -28,6 +34,26 @@ class _API_CHANNELS(object):
     de_registrations = 'de_registrations'
     reg_updates = 'reg_updates'
     registrations_expired = 'registrations_expired'
+
+
+class FirstValue(object):
+    """Container for 'first value' modes
+
+    'First value' refers to how soon after requesting a subscription
+    the first resource value is fetched.
+
+    There is a tradeoff in terms of performance/api calls/device power usage
+    """
+
+    # waits for a device to send re-register message. one api call. long wait.
+    on_registration = 'on_registration'
+
+    # sets up subscriptions on existing live resources. many api calls. medium wait.
+    on_value_update = 'on_value_update'
+
+    # TODO(first value immediate):
+    # explicitly requests value update from each matching resource. many api calls. immediate.
+    # immediately='immediately'
 
 
 class ChannelSubscription(object):
@@ -40,25 +66,29 @@ class ChannelSubscription(object):
     with multiple receiving channels applying different filters, on the server or client-side.
     """
 
-    _api = None  # type: mbed_cloud.connect.ConnectAPI
-    _observer = None
-    _observer_class = Observer
-    _observer_params = None
-    _manager = None
-    _routes = None
-    _optional_filters = None
-    _optional_filter_keys = None
-    _route_keys = None
-    _active = False
-    _filter_func = None
+    def __init__(self, *args, **kwargs):
+        """New Channel Subscription Instance"""
+        self._active = False
+        self._api = None  # type: mbed_cloud.connect.ConnectAPI
+        self._filter_func = None
+        self._filters = []
+        self._manager = None  # type: mbed_cloud.subscribe.SubscriptionsManager
+        self._observer = None
+        self._observer_class = Observer
+        self._observer_params = None
+        self._optional_filters = None
+        self._route_keys = None
+        self.add_filter_function(self._filter_optional_keys)
+        super(ChannelSubscription, self).__init__()
 
     def get_routing_keys(self):
         """Primary, mandatory routing keys (list of hashables)"""
         return self._route_keys
 
-    def get_extra_keys(self):
-        """Secondary, optional routing keys (list of hashables)"""
-        return self._optional_filter_keys
+    def add_filter_function(self, func):
+        """Adds a function for local notification filtering"""
+        self._filters.append(func)
+        return self
 
     @property
     def active(self):
@@ -75,23 +105,31 @@ class ChannelSubscription(object):
         """
         return self._observer
 
-    def filter_notification(self, data):
-        """Filtering for this channel, based on key-value matching
-
-        Subclasses can further extend or override this to provide
-        custom behaviours e.g. filtering on timestamp ranges or other conditions
-        """
-        for k, v in (self._optional_filters or {}).items():
-            logging.debug('optional filter %s: %s (%s)', k, v, data.get(k))
-            if data.get(k) not in v:
-                logging.debug('optional filter rejecting %s: %s (%s)', k, v, data.get(k))
+    def _filter_optional_keys(self, data):
+        """Filtering for this channel, based on key-value matching"""
+        for filter_key, filter_value in (self._optional_filters or {}).items():
+            data_value = data.get(filter_key)
+            LOG.debug(
+                'optional keys filter %s: %s (%s)',
+                filter_key, filter_value, data_value
+            )
+            if data_value is None or data_value not in filter_value:
+                LOG.debug(
+                    'optional keys filter rejecting %s: %s (%s)',
+                    filter_key, filter_value, data_value
+                )
                 return False
-        return self._filter_func(data) if self._filter_func else True
+        return True
+
+    def _notify(self, data):
+        self.observer.notify(data)
 
     def notify(self, data):
         """Notify this channel of inbound data"""
-        if self.filter_notification(data):
-            self.observer.notify(data)
+        for filter_function in self._filters:
+            if not filter_function(data):
+                return
+        self._notify(data)
 
     def __enter__(self):
         """Enter"""
@@ -135,6 +173,6 @@ class ChannelSubscription(object):
             return self
         self.stop()
         self.observer.cancel()
-        self._manager.remove_routes(self.get_routing_keys())  # hmm - SoC?
+        self._manager.remove_routes(self, self.get_routing_keys())
         self._active = False
         return self

@@ -39,10 +39,17 @@ class Test(BaseCase):
         from mbed_cloud.enrollment import EnrollmentAPI
         from mbed_cloud.enrollment import EnrollmentClaim
 
+    def test_bootstrap(self):
+        from mbed_cloud import BootstrapAPI
+        from mbed_cloud.bootstrap import BootstrapAPI
+        from mbed_cloud.bootstrap import PreSharedKey
+
     def test_z_object_attr_maps(self):
+        # check attribute counts align (run last - after importing all packages)
         from mbed_cloud.core import BaseObject
         all_objs_classes = BaseObject.__subclasses__()
-        self.assertEqual(len(all_objs_classes), 16)
+        # check if the BaseObject child class count changed
+        self.assertEqual(len(all_objs_classes), 17)
         fail = {}
         for obj in all_objs_classes:
             attr_map = obj._get_attributes_map()

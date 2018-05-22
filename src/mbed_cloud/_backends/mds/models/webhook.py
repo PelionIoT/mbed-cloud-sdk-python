@@ -3,7 +3,7 @@
 """
     Connect API
 
-    Mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
+    Mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. Mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
 
     OpenAPI spec version: 2
     
@@ -31,23 +31,46 @@ class Webhook(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'url': 'str',
-        'headers': 'dict(str, str)'
+        'headers': 'dict(str, str)',
+        'url': 'str'
     }
 
     attribute_map = {
-        'url': 'url',
-        'headers': 'headers'
+        'headers': 'headers',
+        'url': 'url'
     }
 
-    def __init__(self, url=None, headers=None):
+    def __init__(self, headers=None, url=None):
         """
         Webhook - a model defined in Swagger
         """
 
-        self._url = url
         self._headers = headers
+        self._url = url
         self.discriminator = None
+
+    @property
+    def headers(self):
+        """
+        Gets the headers of this Webhook.
+        The headers (key/value) sent with the notification. Optional.
+
+        :return: The headers of this Webhook.
+        :rtype: dict(str, str)
+        """
+        return self._headers
+
+    @headers.setter
+    def headers(self, headers):
+        """
+        Sets the headers of this Webhook.
+        The headers (key/value) sent with the notification. Optional.
+
+        :param headers: The headers of this Webhook.
+        :type: dict(str, str)
+        """
+
+        self._headers = headers
 
     @property
     def url(self):
@@ -73,29 +96,6 @@ class Webhook(object):
             raise ValueError("Invalid value for `url`, must not be `None`")
 
         self._url = url
-
-    @property
-    def headers(self):
-        """
-        Gets the headers of this Webhook.
-        The headers (key/value) sent with the notification. Optional.
-
-        :return: The headers of this Webhook.
-        :rtype: dict(str, str)
-        """
-        return self._headers
-
-    @headers.setter
-    def headers(self, headers):
-        """
-        Sets the headers of this Webhook.
-        The headers (key/value) sent with the notification. Optional.
-
-        :param headers: The headers of this Webhook.
-        :type: dict(str, str)
-        """
-
-        self._headers = headers
 
     def to_dict(self):
         """

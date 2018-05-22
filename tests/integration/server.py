@@ -35,6 +35,7 @@ app = flask.Flask(__name__)
 STORE = {}
 MODULE_REMAP = dict(  # to avoid writing these as attributes in the SDK, we map them here
     AccountManagementAPI='account_management',
+    BootstrapAPI='bootstrap',
     CertificatesAPI='certificates',
     ConnectAPI='connect',
     DeviceDirectoryAPI='device_directory',
@@ -115,7 +116,7 @@ def modules_all_instances(module):
 def modules_new_instance(module):
     instance = LockedInstance(
         lock=threading.Lock(),
-        instance=MODULES.get(module)(**request.get_json()),
+        instance=MODULES.get(module)(params=request.get_json()),
         module=module,
         uuid=str(uuid.uuid4().hex),
         created_at=datetime.datetime.utcnow(),

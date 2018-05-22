@@ -2,7 +2,7 @@
 """
     Connect API
 
-    Mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
+    Mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. Mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
 
     OpenAPI spec version: 2
     
@@ -366,7 +366,6 @@ class ApiClient(object):
         """
         Makes the HTTP request using RESTClient.
         """
-
         if method == "GET":
             return self.rest_client.GET(url,
                                         query_params=query_params,

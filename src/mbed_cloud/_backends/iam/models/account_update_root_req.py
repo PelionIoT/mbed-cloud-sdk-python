@@ -31,198 +31,83 @@ class AccountUpdateRootReq(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'end_market': 'str',
-        'password_policy': 'PasswordPolicy',
-        'sales_contact': 'str',
-        'email': 'str',
-        'postal_code': 'str',
         'account_properties': 'dict(str, dict(str, str))',
-        'aliases': 'list[str]',
-        'address_line2': 'str',
-        'city': 'str',
         'address_line1': 'str',
-        'display_name': 'str',
-        'mfa_status': 'str',
-        'state': 'str',
-        'contract_number': 'str',
-        'phone_number': 'str',
+        'address_line2': 'str',
+        'aliases': 'list[str]',
+        'city': 'str',
         'company': 'str',
-        'idle_timeout': 'str',
+        'contact': 'str',
+        'contract_number': 'str',
         'country': 'str',
         'customer_number': 'str',
+        'display_name': 'str',
+        'email': 'str',
+        'end_market': 'str',
         'expiration_warning_threshold': 'str',
-        'contact': 'str',
-        'notification_emails': 'list[str]'
+        'idle_timeout': 'str',
+        'mfa_status': 'str',
+        'notification_emails': 'list[str]',
+        'password_policy': 'PasswordPolicy',
+        'phone_number': 'str',
+        'postal_code': 'str',
+        'sales_contact': 'str',
+        'state': 'str'
     }
 
     attribute_map = {
-        'end_market': 'end_market',
-        'password_policy': 'password_policy',
-        'sales_contact': 'sales_contact',
-        'email': 'email',
-        'postal_code': 'postal_code',
         'account_properties': 'account_properties',
-        'aliases': 'aliases',
-        'address_line2': 'address_line2',
-        'city': 'city',
         'address_line1': 'address_line1',
-        'display_name': 'display_name',
-        'mfa_status': 'mfa_status',
-        'state': 'state',
-        'contract_number': 'contract_number',
-        'phone_number': 'phone_number',
+        'address_line2': 'address_line2',
+        'aliases': 'aliases',
+        'city': 'city',
         'company': 'company',
-        'idle_timeout': 'idle_timeout',
+        'contact': 'contact',
+        'contract_number': 'contract_number',
         'country': 'country',
         'customer_number': 'customer_number',
+        'display_name': 'display_name',
+        'email': 'email',
+        'end_market': 'end_market',
         'expiration_warning_threshold': 'expiration_warning_threshold',
-        'contact': 'contact',
-        'notification_emails': 'notification_emails'
+        'idle_timeout': 'idle_timeout',
+        'mfa_status': 'mfa_status',
+        'notification_emails': 'notification_emails',
+        'password_policy': 'password_policy',
+        'phone_number': 'phone_number',
+        'postal_code': 'postal_code',
+        'sales_contact': 'sales_contact',
+        'state': 'state'
     }
 
-    def __init__(self, end_market=None, password_policy=None, sales_contact=None, email=None, postal_code=None, account_properties=None, aliases=None, address_line2=None, city=None, address_line1=None, display_name=None, mfa_status=None, state=None, contract_number=None, phone_number=None, company=None, idle_timeout=None, country=None, customer_number=None, expiration_warning_threshold=None, contact=None, notification_emails=None):
+    def __init__(self, account_properties=None, address_line1=None, address_line2=None, aliases=None, city=None, company=None, contact=None, contract_number=None, country=None, customer_number=None, display_name=None, email=None, end_market=None, expiration_warning_threshold=None, idle_timeout=None, mfa_status=None, notification_emails=None, password_policy=None, phone_number=None, postal_code=None, sales_contact=None, state=None):
         """
         AccountUpdateRootReq - a model defined in Swagger
         """
 
-        self._end_market = end_market
-        self._password_policy = password_policy
-        self._sales_contact = sales_contact
-        self._email = email
-        self._postal_code = postal_code
         self._account_properties = account_properties
-        self._aliases = aliases
-        self._address_line2 = address_line2
-        self._city = city
         self._address_line1 = address_line1
-        self._display_name = display_name
-        self._mfa_status = mfa_status
-        self._state = state
-        self._contract_number = contract_number
-        self._phone_number = phone_number
+        self._address_line2 = address_line2
+        self._aliases = aliases
+        self._city = city
         self._company = company
-        self._idle_timeout = idle_timeout
+        self._contact = contact
+        self._contract_number = contract_number
         self._country = country
         self._customer_number = customer_number
-        self._expiration_warning_threshold = expiration_warning_threshold
-        self._contact = contact
-        self._notification_emails = notification_emails
-        self.discriminator = None
-
-    @property
-    def end_market(self):
-        """
-        Gets the end_market of this AccountUpdateRootReq.
-        The end market for this account, not longer than 100 characters.
-
-        :return: The end_market of this AccountUpdateRootReq.
-        :rtype: str
-        """
-        return self._end_market
-
-    @end_market.setter
-    def end_market(self, end_market):
-        """
-        Sets the end_market of this AccountUpdateRootReq.
-        The end market for this account, not longer than 100 characters.
-
-        :param end_market: The end_market of this AccountUpdateRootReq.
-        :type: str
-        """
-
-        self._end_market = end_market
-
-    @property
-    def password_policy(self):
-        """
-        Gets the password_policy of this AccountUpdateRootReq.
-        Password policy for this account.
-
-        :return: The password_policy of this AccountUpdateRootReq.
-        :rtype: PasswordPolicy
-        """
-        return self._password_policy
-
-    @password_policy.setter
-    def password_policy(self, password_policy):
-        """
-        Sets the password_policy of this AccountUpdateRootReq.
-        Password policy for this account.
-
-        :param password_policy: The password_policy of this AccountUpdateRootReq.
-        :type: PasswordPolicy
-        """
-
-        self._password_policy = password_policy
-
-    @property
-    def sales_contact(self):
-        """
-        Gets the sales_contact of this AccountUpdateRootReq.
-        Email address of the sales contact.
-
-        :return: The sales_contact of this AccountUpdateRootReq.
-        :rtype: str
-        """
-        return self._sales_contact
-
-    @sales_contact.setter
-    def sales_contact(self, sales_contact):
-        """
-        Sets the sales_contact of this AccountUpdateRootReq.
-        Email address of the sales contact.
-
-        :param sales_contact: The sales_contact of this AccountUpdateRootReq.
-        :type: str
-        """
-
-        self._sales_contact = sales_contact
-
-    @property
-    def email(self):
-        """
-        Gets the email of this AccountUpdateRootReq.
-        The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
-
-        :return: The email of this AccountUpdateRootReq.
-        :rtype: str
-        """
-        return self._email
-
-    @email.setter
-    def email(self, email):
-        """
-        Sets the email of this AccountUpdateRootReq.
-        The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
-
-        :param email: The email of this AccountUpdateRootReq.
-        :type: str
-        """
-
+        self._display_name = display_name
         self._email = email
-
-    @property
-    def postal_code(self):
-        """
-        Gets the postal_code of this AccountUpdateRootReq.
-        The postal code part of the postal address, not longer than 100 characters.
-
-        :return: The postal_code of this AccountUpdateRootReq.
-        :rtype: str
-        """
-        return self._postal_code
-
-    @postal_code.setter
-    def postal_code(self, postal_code):
-        """
-        Sets the postal_code of this AccountUpdateRootReq.
-        The postal code part of the postal address, not longer than 100 characters.
-
-        :param postal_code: The postal_code of this AccountUpdateRootReq.
-        :type: str
-        """
-
+        self._end_market = end_market
+        self._expiration_warning_threshold = expiration_warning_threshold
+        self._idle_timeout = idle_timeout
+        self._mfa_status = mfa_status
+        self._notification_emails = notification_emails
+        self._password_policy = password_policy
+        self._phone_number = phone_number
         self._postal_code = postal_code
+        self._sales_contact = sales_contact
+        self._state = state
+        self.discriminator = None
 
     @property
     def account_properties(self):
@@ -248,27 +133,27 @@ class AccountUpdateRootReq(object):
         self._account_properties = account_properties
 
     @property
-    def aliases(self):
+    def address_line1(self):
         """
-        Gets the aliases of this AccountUpdateRootReq.
-        An array of aliases, not more than 10. An alias is not shorter than 8 and not longer than 100 characters.
+        Gets the address_line1 of this AccountUpdateRootReq.
+        Postal address line 1, not longer than 100 characters. Required for commercial accounts only.
 
-        :return: The aliases of this AccountUpdateRootReq.
-        :rtype: list[str]
+        :return: The address_line1 of this AccountUpdateRootReq.
+        :rtype: str
         """
-        return self._aliases
+        return self._address_line1
 
-    @aliases.setter
-    def aliases(self, aliases):
+    @address_line1.setter
+    def address_line1(self, address_line1):
         """
-        Sets the aliases of this AccountUpdateRootReq.
-        An array of aliases, not more than 10. An alias is not shorter than 8 and not longer than 100 characters.
+        Sets the address_line1 of this AccountUpdateRootReq.
+        Postal address line 1, not longer than 100 characters. Required for commercial accounts only.
 
-        :param aliases: The aliases of this AccountUpdateRootReq.
-        :type: list[str]
+        :param address_line1: The address_line1 of this AccountUpdateRootReq.
+        :type: str
         """
 
-        self._aliases = aliases
+        self._address_line1 = address_line1
 
     @property
     def address_line2(self):
@@ -294,6 +179,29 @@ class AccountUpdateRootReq(object):
         self._address_line2 = address_line2
 
     @property
+    def aliases(self):
+        """
+        Gets the aliases of this AccountUpdateRootReq.
+        An array of aliases, not more than 10. An alias is not shorter than 8 and not longer than 100 characters.
+
+        :return: The aliases of this AccountUpdateRootReq.
+        :rtype: list[str]
+        """
+        return self._aliases
+
+    @aliases.setter
+    def aliases(self, aliases):
+        """
+        Sets the aliases of this AccountUpdateRootReq.
+        An array of aliases, not more than 10. An alias is not shorter than 8 and not longer than 100 characters.
+
+        :param aliases: The aliases of this AccountUpdateRootReq.
+        :type: list[str]
+        """
+
+        self._aliases = aliases
+
+    @property
     def city(self):
         """
         Gets the city of this AccountUpdateRootReq.
@@ -315,150 +223,6 @@ class AccountUpdateRootReq(object):
         """
 
         self._city = city
-
-    @property
-    def address_line1(self):
-        """
-        Gets the address_line1 of this AccountUpdateRootReq.
-        Postal address line 1, not longer than 100 characters. Required for commercial accounts only.
-
-        :return: The address_line1 of this AccountUpdateRootReq.
-        :rtype: str
-        """
-        return self._address_line1
-
-    @address_line1.setter
-    def address_line1(self, address_line1):
-        """
-        Sets the address_line1 of this AccountUpdateRootReq.
-        Postal address line 1, not longer than 100 characters. Required for commercial accounts only.
-
-        :param address_line1: The address_line1 of this AccountUpdateRootReq.
-        :type: str
-        """
-
-        self._address_line1 = address_line1
-
-    @property
-    def display_name(self):
-        """
-        Gets the display_name of this AccountUpdateRootReq.
-        The display name for the account, not longer than 100 characters.
-
-        :return: The display_name of this AccountUpdateRootReq.
-        :rtype: str
-        """
-        return self._display_name
-
-    @display_name.setter
-    def display_name(self, display_name):
-        """
-        Sets the display_name of this AccountUpdateRootReq.
-        The display name for the account, not longer than 100 characters.
-
-        :param display_name: The display_name of this AccountUpdateRootReq.
-        :type: str
-        """
-
-        self._display_name = display_name
-
-    @property
-    def mfa_status(self):
-        """
-        Gets the mfa_status of this AccountUpdateRootReq.
-        The enforcement status of setting up the multi-factor authentication. 'Enforced' means that setting up the MFA is required after login. 'Optional' means that the MFA is not required.
-
-        :return: The mfa_status of this AccountUpdateRootReq.
-        :rtype: str
-        """
-        return self._mfa_status
-
-    @mfa_status.setter
-    def mfa_status(self, mfa_status):
-        """
-        Sets the mfa_status of this AccountUpdateRootReq.
-        The enforcement status of setting up the multi-factor authentication. 'Enforced' means that setting up the MFA is required after login. 'Optional' means that the MFA is not required.
-
-        :param mfa_status: The mfa_status of this AccountUpdateRootReq.
-        :type: str
-        """
-        allowed_values = ["enforced", "optional"]
-        if mfa_status not in allowed_values:
-            raise ValueError(
-                "Invalid value for `mfa_status` ({0}), must be one of {1}"
-                .format(mfa_status, allowed_values)
-            )
-
-        self._mfa_status = mfa_status
-
-    @property
-    def state(self):
-        """
-        Gets the state of this AccountUpdateRootReq.
-        The state part of the postal address, not longer than 100 characters.
-
-        :return: The state of this AccountUpdateRootReq.
-        :rtype: str
-        """
-        return self._state
-
-    @state.setter
-    def state(self, state):
-        """
-        Sets the state of this AccountUpdateRootReq.
-        The state part of the postal address, not longer than 100 characters.
-
-        :param state: The state of this AccountUpdateRootReq.
-        :type: str
-        """
-
-        self._state = state
-
-    @property
-    def contract_number(self):
-        """
-        Gets the contract_number of this AccountUpdateRootReq.
-        Contract number of the customer.
-
-        :return: The contract_number of this AccountUpdateRootReq.
-        :rtype: str
-        """
-        return self._contract_number
-
-    @contract_number.setter
-    def contract_number(self, contract_number):
-        """
-        Sets the contract_number of this AccountUpdateRootReq.
-        Contract number of the customer.
-
-        :param contract_number: The contract_number of this AccountUpdateRootReq.
-        :type: str
-        """
-
-        self._contract_number = contract_number
-
-    @property
-    def phone_number(self):
-        """
-        Gets the phone_number of this AccountUpdateRootReq.
-        The phone number of a representative of the company, not longer than 100 characters.
-
-        :return: The phone_number of this AccountUpdateRootReq.
-        :rtype: str
-        """
-        return self._phone_number
-
-    @phone_number.setter
-    def phone_number(self, phone_number):
-        """
-        Sets the phone_number of this AccountUpdateRootReq.
-        The phone number of a representative of the company, not longer than 100 characters.
-
-        :param phone_number: The phone_number of this AccountUpdateRootReq.
-        :type: str
-        """
-
-        self._phone_number = phone_number
 
     @property
     def company(self):
@@ -484,27 +248,50 @@ class AccountUpdateRootReq(object):
         self._company = company
 
     @property
-    def idle_timeout(self):
+    def contact(self):
         """
-        Gets the idle_timeout of this AccountUpdateRootReq.
-        The reference token expiration time in minutes for this account. Between 1 and 120 minutes.
+        Gets the contact of this AccountUpdateRootReq.
+        The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.
 
-        :return: The idle_timeout of this AccountUpdateRootReq.
+        :return: The contact of this AccountUpdateRootReq.
         :rtype: str
         """
-        return self._idle_timeout
+        return self._contact
 
-    @idle_timeout.setter
-    def idle_timeout(self, idle_timeout):
+    @contact.setter
+    def contact(self, contact):
         """
-        Sets the idle_timeout of this AccountUpdateRootReq.
-        The reference token expiration time in minutes for this account. Between 1 and 120 minutes.
+        Sets the contact of this AccountUpdateRootReq.
+        The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.
 
-        :param idle_timeout: The idle_timeout of this AccountUpdateRootReq.
+        :param contact: The contact of this AccountUpdateRootReq.
         :type: str
         """
 
-        self._idle_timeout = idle_timeout
+        self._contact = contact
+
+    @property
+    def contract_number(self):
+        """
+        Gets the contract_number of this AccountUpdateRootReq.
+        Contract number of the customer.
+
+        :return: The contract_number of this AccountUpdateRootReq.
+        :rtype: str
+        """
+        return self._contract_number
+
+    @contract_number.setter
+    def contract_number(self, contract_number):
+        """
+        Sets the contract_number of this AccountUpdateRootReq.
+        Contract number of the customer.
+
+        :param contract_number: The contract_number of this AccountUpdateRootReq.
+        :type: str
+        """
+
+        self._contract_number = contract_number
 
     @property
     def country(self):
@@ -553,6 +340,75 @@ class AccountUpdateRootReq(object):
         self._customer_number = customer_number
 
     @property
+    def display_name(self):
+        """
+        Gets the display_name of this AccountUpdateRootReq.
+        The display name for the account, not longer than 100 characters.
+
+        :return: The display_name of this AccountUpdateRootReq.
+        :rtype: str
+        """
+        return self._display_name
+
+    @display_name.setter
+    def display_name(self, display_name):
+        """
+        Sets the display_name of this AccountUpdateRootReq.
+        The display name for the account, not longer than 100 characters.
+
+        :param display_name: The display_name of this AccountUpdateRootReq.
+        :type: str
+        """
+
+        self._display_name = display_name
+
+    @property
+    def email(self):
+        """
+        Gets the email of this AccountUpdateRootReq.
+        The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
+
+        :return: The email of this AccountUpdateRootReq.
+        :rtype: str
+        """
+        return self._email
+
+    @email.setter
+    def email(self, email):
+        """
+        Sets the email of this AccountUpdateRootReq.
+        The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
+
+        :param email: The email of this AccountUpdateRootReq.
+        :type: str
+        """
+
+        self._email = email
+
+    @property
+    def end_market(self):
+        """
+        Gets the end_market of this AccountUpdateRootReq.
+        The end market for this account, not longer than 100 characters.
+
+        :return: The end_market of this AccountUpdateRootReq.
+        :rtype: str
+        """
+        return self._end_market
+
+    @end_market.setter
+    def end_market(self, end_market):
+        """
+        Sets the end_market of this AccountUpdateRootReq.
+        The end market for this account, not longer than 100 characters.
+
+        :param end_market: The end_market of this AccountUpdateRootReq.
+        :type: str
+        """
+
+        self._end_market = end_market
+
+    @property
     def expiration_warning_threshold(self):
         """
         Gets the expiration_warning_threshold of this AccountUpdateRootReq.
@@ -576,27 +432,56 @@ class AccountUpdateRootReq(object):
         self._expiration_warning_threshold = expiration_warning_threshold
 
     @property
-    def contact(self):
+    def idle_timeout(self):
         """
-        Gets the contact of this AccountUpdateRootReq.
-        The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.
+        Gets the idle_timeout of this AccountUpdateRootReq.
+        The reference token expiration time in minutes for this account. Between 1 and 120 minutes.
 
-        :return: The contact of this AccountUpdateRootReq.
+        :return: The idle_timeout of this AccountUpdateRootReq.
         :rtype: str
         """
-        return self._contact
+        return self._idle_timeout
 
-    @contact.setter
-    def contact(self, contact):
+    @idle_timeout.setter
+    def idle_timeout(self, idle_timeout):
         """
-        Sets the contact of this AccountUpdateRootReq.
-        The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.
+        Sets the idle_timeout of this AccountUpdateRootReq.
+        The reference token expiration time in minutes for this account. Between 1 and 120 minutes.
 
-        :param contact: The contact of this AccountUpdateRootReq.
+        :param idle_timeout: The idle_timeout of this AccountUpdateRootReq.
         :type: str
         """
 
-        self._contact = contact
+        self._idle_timeout = idle_timeout
+
+    @property
+    def mfa_status(self):
+        """
+        Gets the mfa_status of this AccountUpdateRootReq.
+        The enforcement status of setting up the multi-factor authentication. 'Enforced' means that setting up the MFA is required after login. 'Optional' means that the MFA is not required.
+
+        :return: The mfa_status of this AccountUpdateRootReq.
+        :rtype: str
+        """
+        return self._mfa_status
+
+    @mfa_status.setter
+    def mfa_status(self, mfa_status):
+        """
+        Sets the mfa_status of this AccountUpdateRootReq.
+        The enforcement status of setting up the multi-factor authentication. 'Enforced' means that setting up the MFA is required after login. 'Optional' means that the MFA is not required.
+
+        :param mfa_status: The mfa_status of this AccountUpdateRootReq.
+        :type: str
+        """
+        allowed_values = ["enforced", "optional"]
+        if mfa_status not in allowed_values:
+            raise ValueError(
+                "Invalid value for `mfa_status` ({0}), must be one of {1}"
+                .format(mfa_status, allowed_values)
+            )
+
+        self._mfa_status = mfa_status
 
     @property
     def notification_emails(self):
@@ -620,6 +505,121 @@ class AccountUpdateRootReq(object):
         """
 
         self._notification_emails = notification_emails
+
+    @property
+    def password_policy(self):
+        """
+        Gets the password_policy of this AccountUpdateRootReq.
+        Password policy for this account.
+
+        :return: The password_policy of this AccountUpdateRootReq.
+        :rtype: PasswordPolicy
+        """
+        return self._password_policy
+
+    @password_policy.setter
+    def password_policy(self, password_policy):
+        """
+        Sets the password_policy of this AccountUpdateRootReq.
+        Password policy for this account.
+
+        :param password_policy: The password_policy of this AccountUpdateRootReq.
+        :type: PasswordPolicy
+        """
+
+        self._password_policy = password_policy
+
+    @property
+    def phone_number(self):
+        """
+        Gets the phone_number of this AccountUpdateRootReq.
+        The phone number of a representative of the company, not longer than 100 characters.
+
+        :return: The phone_number of this AccountUpdateRootReq.
+        :rtype: str
+        """
+        return self._phone_number
+
+    @phone_number.setter
+    def phone_number(self, phone_number):
+        """
+        Sets the phone_number of this AccountUpdateRootReq.
+        The phone number of a representative of the company, not longer than 100 characters.
+
+        :param phone_number: The phone_number of this AccountUpdateRootReq.
+        :type: str
+        """
+
+        self._phone_number = phone_number
+
+    @property
+    def postal_code(self):
+        """
+        Gets the postal_code of this AccountUpdateRootReq.
+        The postal code part of the postal address, not longer than 100 characters.
+
+        :return: The postal_code of this AccountUpdateRootReq.
+        :rtype: str
+        """
+        return self._postal_code
+
+    @postal_code.setter
+    def postal_code(self, postal_code):
+        """
+        Sets the postal_code of this AccountUpdateRootReq.
+        The postal code part of the postal address, not longer than 100 characters.
+
+        :param postal_code: The postal_code of this AccountUpdateRootReq.
+        :type: str
+        """
+
+        self._postal_code = postal_code
+
+    @property
+    def sales_contact(self):
+        """
+        Gets the sales_contact of this AccountUpdateRootReq.
+        Email address of the sales contact.
+
+        :return: The sales_contact of this AccountUpdateRootReq.
+        :rtype: str
+        """
+        return self._sales_contact
+
+    @sales_contact.setter
+    def sales_contact(self, sales_contact):
+        """
+        Sets the sales_contact of this AccountUpdateRootReq.
+        Email address of the sales contact.
+
+        :param sales_contact: The sales_contact of this AccountUpdateRootReq.
+        :type: str
+        """
+
+        self._sales_contact = sales_contact
+
+    @property
+    def state(self):
+        """
+        Gets the state of this AccountUpdateRootReq.
+        The state part of the postal address, not longer than 100 characters.
+
+        :return: The state of this AccountUpdateRootReq.
+        :rtype: str
+        """
+        return self._state
+
+    @state.setter
+    def state(self, state):
+        """
+        Sets the state of this AccountUpdateRootReq.
+        The state part of the postal address, not longer than 100 characters.
+
+        :param state: The state of this AccountUpdateRootReq.
+        :type: str
+        """
+
+        self._state = state
 
     def to_dict(self):
         """

@@ -31,101 +31,38 @@ class FirmwareManifestPage(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'object': 'str',
-        'has_more': 'bool',
-        'total_count': 'int',
         'after': 'str',
-        'limit': 'int',
         'data': 'list[FirmwareManifest]',
-        'order': 'str'
+        'has_more': 'bool',
+        'limit': 'int',
+        'object': 'str',
+        'order': 'str',
+        'total_count': 'int'
     }
 
     attribute_map = {
-        'object': 'object',
-        'has_more': 'has_more',
-        'total_count': 'total_count',
         'after': 'after',
-        'limit': 'limit',
         'data': 'data',
-        'order': 'order'
+        'has_more': 'has_more',
+        'limit': 'limit',
+        'object': 'object',
+        'order': 'order',
+        'total_count': 'total_count'
     }
 
-    def __init__(self, object=None, has_more=None, total_count=None, after=None, limit=None, data=None, order=None):
+    def __init__(self, after=None, data=None, has_more=None, limit=None, object=None, order=None, total_count=None):
         """
         FirmwareManifestPage - a model defined in Swagger
         """
 
-        self._object = object
-        self._has_more = has_more
-        self._total_count = total_count
         self._after = after
-        self._limit = limit
         self._data = data
-        self._order = order
-        self.discriminator = None
-
-    @property
-    def object(self):
-        """
-        Gets the object of this FirmwareManifestPage.
-
-        :return: The object of this FirmwareManifestPage.
-        :rtype: str
-        """
-        return self._object
-
-    @object.setter
-    def object(self, object):
-        """
-        Sets the object of this FirmwareManifestPage.
-
-        :param object: The object of this FirmwareManifestPage.
-        :type: str
-        """
-
-        self._object = object
-
-    @property
-    def has_more(self):
-        """
-        Gets the has_more of this FirmwareManifestPage.
-
-        :return: The has_more of this FirmwareManifestPage.
-        :rtype: bool
-        """
-        return self._has_more
-
-    @has_more.setter
-    def has_more(self, has_more):
-        """
-        Sets the has_more of this FirmwareManifestPage.
-
-        :param has_more: The has_more of this FirmwareManifestPage.
-        :type: bool
-        """
-
         self._has_more = has_more
-
-    @property
-    def total_count(self):
-        """
-        Gets the total_count of this FirmwareManifestPage.
-
-        :return: The total_count of this FirmwareManifestPage.
-        :rtype: int
-        """
-        return self._total_count
-
-    @total_count.setter
-    def total_count(self, total_count):
-        """
-        Sets the total_count of this FirmwareManifestPage.
-
-        :param total_count: The total_count of this FirmwareManifestPage.
-        :type: int
-        """
-
+        self._limit = limit
+        self._object = object
+        self._order = order
         self._total_count = total_count
+        self.discriminator = None
 
     @property
     def after(self):
@@ -149,6 +86,48 @@ class FirmwareManifestPage(object):
         self._after = after
 
     @property
+    def data(self):
+        """
+        Gets the data of this FirmwareManifestPage.
+
+        :return: The data of this FirmwareManifestPage.
+        :rtype: list[FirmwareManifest]
+        """
+        return self._data
+
+    @data.setter
+    def data(self, data):
+        """
+        Sets the data of this FirmwareManifestPage.
+
+        :param data: The data of this FirmwareManifestPage.
+        :type: list[FirmwareManifest]
+        """
+
+        self._data = data
+
+    @property
+    def has_more(self):
+        """
+        Gets the has_more of this FirmwareManifestPage.
+
+        :return: The has_more of this FirmwareManifestPage.
+        :rtype: bool
+        """
+        return self._has_more
+
+    @has_more.setter
+    def has_more(self, has_more):
+        """
+        Sets the has_more of this FirmwareManifestPage.
+
+        :param has_more: The has_more of this FirmwareManifestPage.
+        :type: bool
+        """
+
+        self._has_more = has_more
+
+    @property
     def limit(self):
         """
         Gets the limit of this FirmwareManifestPage.
@@ -170,25 +149,25 @@ class FirmwareManifestPage(object):
         self._limit = limit
 
     @property
-    def data(self):
+    def object(self):
         """
-        Gets the data of this FirmwareManifestPage.
+        Gets the object of this FirmwareManifestPage.
 
-        :return: The data of this FirmwareManifestPage.
-        :rtype: list[FirmwareManifest]
+        :return: The object of this FirmwareManifestPage.
+        :rtype: str
         """
-        return self._data
+        return self._object
 
-    @data.setter
-    def data(self, data):
+    @object.setter
+    def object(self, object):
         """
-        Sets the data of this FirmwareManifestPage.
+        Sets the object of this FirmwareManifestPage.
 
-        :param data: The data of this FirmwareManifestPage.
-        :type: list[FirmwareManifest]
+        :param object: The object of this FirmwareManifestPage.
+        :type: str
         """
 
-        self._data = data
+        self._object = object
 
     @property
     def order(self):
@@ -218,6 +197,27 @@ class FirmwareManifestPage(object):
             )
 
         self._order = order
+
+    @property
+    def total_count(self):
+        """
+        Gets the total_count of this FirmwareManifestPage.
+
+        :return: The total_count of this FirmwareManifestPage.
+        :rtype: int
+        """
+        return self._total_count
+
+    @total_count.setter
+    def total_count(self, total_count):
+        """
+        Sets the total_count of this FirmwareManifestPage.
+
+        :param total_count: The total_count of this FirmwareManifestPage.
+        :type: int
+        """
+
+        self._total_count = total_count
 
     def to_dict(self):
         """

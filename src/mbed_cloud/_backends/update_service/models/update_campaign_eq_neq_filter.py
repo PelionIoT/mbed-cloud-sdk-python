@@ -31,95 +31,53 @@ class UpdateCampaignEqNeqFilter(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'description': 'str',
-        'root_manifest_id': 'str',
         'created_at': 'datetime',
-        'when': 'datetime',
-        'updated_at': 'datetime',
-        'state': 'str',
+        'description': 'str',
+        'device_filter': 'str',
         'etag': 'datetime',
         'finished': 'datetime',
-        'started_at': 'datetime',
         'id': 'str',
-        'device_filter': 'str',
-        'name': 'str'
+        'name': 'str',
+        'root_manifest_id': 'str',
+        'started_at': 'datetime',
+        'state': 'str',
+        'updated_at': 'datetime',
+        'when': 'datetime'
     }
 
     attribute_map = {
-        'description': 'description',
-        'root_manifest_id': 'root_manifest_id',
         'created_at': 'created_at',
-        'when': 'when',
-        'updated_at': 'updated_at',
-        'state': 'state',
+        'description': 'description',
+        'device_filter': 'device_filter',
         'etag': 'etag',
         'finished': 'finished',
-        'started_at': 'started_at',
         'id': 'id',
-        'device_filter': 'device_filter',
-        'name': 'name'
+        'name': 'name',
+        'root_manifest_id': 'root_manifest_id',
+        'started_at': 'started_at',
+        'state': 'state',
+        'updated_at': 'updated_at',
+        'when': 'when'
     }
 
-    def __init__(self, description=None, root_manifest_id=None, created_at=None, when=None, updated_at=None, state=None, etag=None, finished=None, started_at=None, id=None, device_filter=None, name=None):
+    def __init__(self, created_at=None, description=None, device_filter=None, etag=None, finished=None, id=None, name=None, root_manifest_id=None, started_at=None, state=None, updated_at=None, when=None):
         """
         UpdateCampaignEqNeqFilter - a model defined in Swagger
         """
 
-        self._description = description
-        self._root_manifest_id = root_manifest_id
         self._created_at = created_at
-        self._when = when
-        self._updated_at = updated_at
-        self._state = state
+        self._description = description
+        self._device_filter = device_filter
         self._etag = etag
         self._finished = finished
-        self._started_at = started_at
         self._id = id
-        self._device_filter = device_filter
         self._name = name
-        self.discriminator = None
-
-    @property
-    def description(self):
-        """
-        Gets the description of this UpdateCampaignEqNeqFilter.
-
-        :return: The description of this UpdateCampaignEqNeqFilter.
-        :rtype: str
-        """
-        return self._description
-
-    @description.setter
-    def description(self, description):
-        """
-        Sets the description of this UpdateCampaignEqNeqFilter.
-
-        :param description: The description of this UpdateCampaignEqNeqFilter.
-        :type: str
-        """
-
-        self._description = description
-
-    @property
-    def root_manifest_id(self):
-        """
-        Gets the root_manifest_id of this UpdateCampaignEqNeqFilter.
-
-        :return: The root_manifest_id of this UpdateCampaignEqNeqFilter.
-        :rtype: str
-        """
-        return self._root_manifest_id
-
-    @root_manifest_id.setter
-    def root_manifest_id(self, root_manifest_id):
-        """
-        Sets the root_manifest_id of this UpdateCampaignEqNeqFilter.
-
-        :param root_manifest_id: The root_manifest_id of this UpdateCampaignEqNeqFilter.
-        :type: str
-        """
-
         self._root_manifest_id = root_manifest_id
+        self._started_at = started_at
+        self._state = state
+        self._updated_at = updated_at
+        self._when = when
+        self.discriminator = None
 
     @property
     def created_at(self):
@@ -143,67 +101,46 @@ class UpdateCampaignEqNeqFilter(object):
         self._created_at = created_at
 
     @property
-    def when(self):
+    def description(self):
         """
-        Gets the when of this UpdateCampaignEqNeqFilter.
+        Gets the description of this UpdateCampaignEqNeqFilter.
 
-        :return: The when of this UpdateCampaignEqNeqFilter.
-        :rtype: datetime
-        """
-        return self._when
-
-    @when.setter
-    def when(self, when):
-        """
-        Sets the when of this UpdateCampaignEqNeqFilter.
-
-        :param when: The when of this UpdateCampaignEqNeqFilter.
-        :type: datetime
-        """
-
-        self._when = when
-
-    @property
-    def updated_at(self):
-        """
-        Gets the updated_at of this UpdateCampaignEqNeqFilter.
-
-        :return: The updated_at of this UpdateCampaignEqNeqFilter.
-        :rtype: datetime
-        """
-        return self._updated_at
-
-    @updated_at.setter
-    def updated_at(self, updated_at):
-        """
-        Sets the updated_at of this UpdateCampaignEqNeqFilter.
-
-        :param updated_at: The updated_at of this UpdateCampaignEqNeqFilter.
-        :type: datetime
-        """
-
-        self._updated_at = updated_at
-
-    @property
-    def state(self):
-        """
-        Gets the state of this UpdateCampaignEqNeqFilter.
-
-        :return: The state of this UpdateCampaignEqNeqFilter.
+        :return: The description of this UpdateCampaignEqNeqFilter.
         :rtype: str
         """
-        return self._state
+        return self._description
 
-    @state.setter
-    def state(self, state):
+    @description.setter
+    def description(self, description):
         """
-        Sets the state of this UpdateCampaignEqNeqFilter.
+        Sets the description of this UpdateCampaignEqNeqFilter.
 
-        :param state: The state of this UpdateCampaignEqNeqFilter.
+        :param description: The description of this UpdateCampaignEqNeqFilter.
         :type: str
         """
 
-        self._state = state
+        self._description = description
+
+    @property
+    def device_filter(self):
+        """
+        Gets the device_filter of this UpdateCampaignEqNeqFilter.
+
+        :return: The device_filter of this UpdateCampaignEqNeqFilter.
+        :rtype: str
+        """
+        return self._device_filter
+
+    @device_filter.setter
+    def device_filter(self, device_filter):
+        """
+        Sets the device_filter of this UpdateCampaignEqNeqFilter.
+
+        :param device_filter: The device_filter of this UpdateCampaignEqNeqFilter.
+        :type: str
+        """
+
+        self._device_filter = device_filter
 
     @property
     def etag(self):
@@ -248,27 +185,6 @@ class UpdateCampaignEqNeqFilter(object):
         self._finished = finished
 
     @property
-    def started_at(self):
-        """
-        Gets the started_at of this UpdateCampaignEqNeqFilter.
-
-        :return: The started_at of this UpdateCampaignEqNeqFilter.
-        :rtype: datetime
-        """
-        return self._started_at
-
-    @started_at.setter
-    def started_at(self, started_at):
-        """
-        Sets the started_at of this UpdateCampaignEqNeqFilter.
-
-        :param started_at: The started_at of this UpdateCampaignEqNeqFilter.
-        :type: datetime
-        """
-
-        self._started_at = started_at
-
-    @property
     def id(self):
         """
         Gets the id of this UpdateCampaignEqNeqFilter.
@@ -290,27 +206,6 @@ class UpdateCampaignEqNeqFilter(object):
         self._id = id
 
     @property
-    def device_filter(self):
-        """
-        Gets the device_filter of this UpdateCampaignEqNeqFilter.
-
-        :return: The device_filter of this UpdateCampaignEqNeqFilter.
-        :rtype: str
-        """
-        return self._device_filter
-
-    @device_filter.setter
-    def device_filter(self, device_filter):
-        """
-        Sets the device_filter of this UpdateCampaignEqNeqFilter.
-
-        :param device_filter: The device_filter of this UpdateCampaignEqNeqFilter.
-        :type: str
-        """
-
-        self._device_filter = device_filter
-
-    @property
     def name(self):
         """
         Gets the name of this UpdateCampaignEqNeqFilter.
@@ -330,6 +225,111 @@ class UpdateCampaignEqNeqFilter(object):
         """
 
         self._name = name
+
+    @property
+    def root_manifest_id(self):
+        """
+        Gets the root_manifest_id of this UpdateCampaignEqNeqFilter.
+
+        :return: The root_manifest_id of this UpdateCampaignEqNeqFilter.
+        :rtype: str
+        """
+        return self._root_manifest_id
+
+    @root_manifest_id.setter
+    def root_manifest_id(self, root_manifest_id):
+        """
+        Sets the root_manifest_id of this UpdateCampaignEqNeqFilter.
+
+        :param root_manifest_id: The root_manifest_id of this UpdateCampaignEqNeqFilter.
+        :type: str
+        """
+
+        self._root_manifest_id = root_manifest_id
+
+    @property
+    def started_at(self):
+        """
+        Gets the started_at of this UpdateCampaignEqNeqFilter.
+
+        :return: The started_at of this UpdateCampaignEqNeqFilter.
+        :rtype: datetime
+        """
+        return self._started_at
+
+    @started_at.setter
+    def started_at(self, started_at):
+        """
+        Sets the started_at of this UpdateCampaignEqNeqFilter.
+
+        :param started_at: The started_at of this UpdateCampaignEqNeqFilter.
+        :type: datetime
+        """
+
+        self._started_at = started_at
+
+    @property
+    def state(self):
+        """
+        Gets the state of this UpdateCampaignEqNeqFilter.
+
+        :return: The state of this UpdateCampaignEqNeqFilter.
+        :rtype: str
+        """
+        return self._state
+
+    @state.setter
+    def state(self, state):
+        """
+        Sets the state of this UpdateCampaignEqNeqFilter.
+
+        :param state: The state of this UpdateCampaignEqNeqFilter.
+        :type: str
+        """
+
+        self._state = state
+
+    @property
+    def updated_at(self):
+        """
+        Gets the updated_at of this UpdateCampaignEqNeqFilter.
+
+        :return: The updated_at of this UpdateCampaignEqNeqFilter.
+        :rtype: datetime
+        """
+        return self._updated_at
+
+    @updated_at.setter
+    def updated_at(self, updated_at):
+        """
+        Sets the updated_at of this UpdateCampaignEqNeqFilter.
+
+        :param updated_at: The updated_at of this UpdateCampaignEqNeqFilter.
+        :type: datetime
+        """
+
+        self._updated_at = updated_at
+
+    @property
+    def when(self):
+        """
+        Gets the when of this UpdateCampaignEqNeqFilter.
+
+        :return: The when of this UpdateCampaignEqNeqFilter.
+        :rtype: datetime
+        """
+        return self._when
+
+    @when.setter
+    def when(self, when):
+        """
+        Sets the when of this UpdateCampaignEqNeqFilter.
+
+        :param when: The when of this UpdateCampaignEqNeqFilter.
+        :type: datetime
+        """
+
+        self._when = when
 
     def to_dict(self):
         """

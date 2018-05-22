@@ -3,7 +3,7 @@
 """
     Connect API
 
-    Mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
+    Mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. Mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
 
     OpenAPI spec version: 2
     
@@ -31,35 +31,58 @@ class Resource(object):
                             and the value is json key in definition.
     """
     swagger_types = {
+        'obs': 'bool',
         'rt': 'str',
         'type': 'str',
-        'uri': 'str',
-        'obs': 'bool'
+        'uri': 'str'
     }
 
     attribute_map = {
+        'obs': 'obs',
         'rt': 'rt',
         'type': 'type',
-        'uri': 'uri',
-        'obs': 'obs'
+        'uri': 'uri'
     }
 
-    def __init__(self, rt=None, type=None, uri=None, obs=None):
+    def __init__(self, obs=None, rt=None, type=None, uri=None):
         """
         Resource - a model defined in Swagger
         """
 
+        self._obs = obs
         self._rt = rt
         self._type = type
         self._uri = uri
-        self._obs = obs
         self.discriminator = None
+
+    @property
+    def obs(self):
+        """
+        Gets the obs of this Resource.
+        Observable determines whether you can subscribe to changes for this resource. It can have values \"true\" or \"false\". 
+
+        :return: The obs of this Resource.
+        :rtype: bool
+        """
+        return self._obs
+
+    @obs.setter
+    def obs(self, obs):
+        """
+        Sets the obs of this Resource.
+        Observable determines whether you can subscribe to changes for this resource. It can have values \"true\" or \"false\". 
+
+        :param obs: The obs of this Resource.
+        :type: bool
+        """
+
+        self._obs = obs
 
     @property
     def rt(self):
         """
         Gets the rt of this Resource.
-        Application specific resource type that describes this resource. [It is created by the client side application](/docs/v1.2/collecting/resource-setup-in-mbed-cloud-client.html). Not meant to be a human-readable name for the resource. Multiple resource types may be included, they are separated by a space.
+        Application specific resource type that describes this resource. [It is created by the client side application](/docs/current/connecting/resource-setup-in-mbed-cloud-client.html). Not meant to be a human-readable name for the resource. Multiple resource types may be included, they are separated by a space.
 
         :return: The rt of this Resource.
         :rtype: str
@@ -70,7 +93,7 @@ class Resource(object):
     def rt(self, rt):
         """
         Sets the rt of this Resource.
-        Application specific resource type that describes this resource. [It is created by the client side application](/docs/v1.2/collecting/resource-setup-in-mbed-cloud-client.html). Not meant to be a human-readable name for the resource. Multiple resource types may be included, they are separated by a space.
+        Application specific resource type that describes this resource. [It is created by the client side application](/docs/current/connecting/resource-setup-in-mbed-cloud-client.html). Not meant to be a human-readable name for the resource. Multiple resource types may be included, they are separated by a space.
 
         :param rt: The rt of this Resource.
         :type: str
@@ -125,29 +148,6 @@ class Resource(object):
             raise ValueError("Invalid value for `uri`, must not be `None`")
 
         self._uri = uri
-
-    @property
-    def obs(self):
-        """
-        Gets the obs of this Resource.
-        Observable determines whether you can subscribe to changes for this resource. It can have values \"true\" or \"false\". 
-
-        :return: The obs of this Resource.
-        :rtype: bool
-        """
-        return self._obs
-
-    @obs.setter
-    def obs(self, obs):
-        """
-        Sets the obs of this Resource.
-        Observable determines whether you can subscribe to changes for this resource. It can have values \"true\" or \"false\". 
-
-        :param obs: The obs of this Resource.
-        :type: bool
-        """
-
-        self._obs = obs
 
     def to_dict(self):
         """
