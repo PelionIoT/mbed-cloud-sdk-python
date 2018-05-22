@@ -34,6 +34,16 @@ FIELDNAMES = ('PkgName', 'PkgType', 'PkgOriginator', 'PkgVersion',
 # Licence strings to exclude from the report as they don't add value
 EXCLUDED_LICENSE_STRINGS = ('unknown', 'license', 'licence', 'licensing', 'licencing')
 
+TPIP_FIELD_MAPPINGS = {
+    'version': 'PkgVersion',
+    'home-page': 'PkgHomePageURL',
+    'author': 'PkgOriginator',
+    'author-email': 'PkgAuthorEmail',
+    'summary': 'PkgSummary',
+    'license': 'PkgLicense',
+    'licence': 'PkgLicense',
+}
+
 
 def get_metadata(item):
     """Get metadata information from the distribution.
@@ -53,6 +63,38 @@ def get_metadata(item):
             metadata_lines = []
 
     return metadata_lines
+
+
+def get_package_info_from_line(tpip_pkg, line):
+    """Given a line of text from metadata, extract semantic info"""
+    lower_line = line.lower()
+
+    try:
+        metadata_key, metadata_value = lower_line.split(':', 1)
+    except ValueError:
+        return
+
+    metadata_key = metadata_key.strip()
+    metadata_value = metadata_value.strip()
+
+    if metadata_value == 'unknown':
+        return
+
+    # extract exact matches
+    if metadata_key in TPIP_FIELD_MAPPINGS:
+        tpip_pkg[TPIP_FIELD_MAPPINGS[metadata_key]] = metadata_value
+        return
+
+    if metadata_key.startswith('version') and not tpip_pkg.get('PkgVersion'):
+        # ... but if not, we'll use whatever we find
+        tpip_pkg['PkgVersion'] = metadata_value
+        return
+
+    # Handle british and american spelling of licence/license
+    if not tpip_pkg.get('PkgLicense') and 'licen' in lower_line:
+        if metadata_key.startswith('classifier') or '::' in metadata_value:
+            metadata_value_from_end = lower_line.rsplit(':')[-1].strip()
+            tpip_pkg['PkgLicense'] = metadata_value_from_end
 
 
 def process_metadata(pkg_name, metadata_lines):
@@ -76,54 +118,18 @@ def process_metadata(pkg_name, metadata_lines):
     :rtype: Dict[str, str]
     """
     # Initialise a dictionary with all the fields to report on.
-    tpip_pkg = {}
-
-    tpip_mappings = {
-        'version': 'PkgVersion',
-        'home-page': 'PkgHomePageURL',
-        'author': 'PkgOriginator',
-        'author-email': 'PkgAuthorEmail',
-        'summary': 'PkgSummary',
-        'license': 'PkgLicense',
-        'licence': 'PkgLicense',
-    }
-
-    tpip_pkg['PkgName'] = pkg_name
-    tpip_pkg['PkgType'] = 'python package'
-    tpip_pkg['PkgMgrURL'] = 'https://pypi.org/project/%s/' % pkg_name
+    tpip_pkg = dict(
+        PkgName=pkg_name,
+        PkgType='python package',
+        PkgMgrURL='https://pypi.org/project/%s/' % pkg_name,
+    )
 
     # Extract the metadata into a list for each field as there may be multiple
     # entries for each one.
     for line in metadata_lines:
-        lower_line = line.lower()
+        get_package_info_from_line(tpip_pkg, line)
 
-        try:
-            metadata_key, metadata_value = lower_line.split(':', 1)
-        except ValueError:
-            continue
-
-        metadata_key = metadata_key.strip()
-        metadata_value = metadata_value.strip()
-
-        if metadata_value == 'unknown':
-            continue
-
-        # extract exact matches
-        if metadata_key in tpip_mappings:
-            tpip_pkg[tpip_mappings[metadata_key]] = metadata_value
-            continue
-
-        if metadata_key.startswith('version') and not tpip_pkg.get('PkgVersion'):
-            # ... but if not, we'll use whatever we find
-            tpip_pkg['PkgVersion'] = metadata_value
-            continue
-
-        # Handle british and american spelling of licence/license
-        if not tpip_pkg.get('PkgLicense') and 'licen' in lower_line:
-            if metadata_key.startswith('classifier') or '::' in metadata_value:
-                metadata_value_from_end = lower_line.rsplit(':')[-1].strip()
-                tpip_pkg['PkgLicense'] = metadata_value_from_end
-
+    # condense PkgAuthorEmail into the Originator field
     if 'PkgAuthorEmail' in tpip_pkg:
         tpip_pkg['PkgOriginator'] = '%s <%s>' % (
             tpip_pkg['PkgOriginator'],
