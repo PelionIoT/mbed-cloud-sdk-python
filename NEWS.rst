@@ -54,11 +54,6 @@ Bugfixes
 
 - Link to the new location of the online documentation (#1109)
 
-Misc
-----
-
-- #1235
-
 
 1.2.7.968 (2018-03-27)
 ======================
