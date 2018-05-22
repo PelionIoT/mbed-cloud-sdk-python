@@ -21,19 +21,34 @@ The report is output as a CSV file to the local directory.
 
 import argparse
 import csv
+import json
 import os
 import pkg_resources
 
 # Python packages to exclude form the TPIP report
-EXCLUDED_PACKAGES = ('python', 'wheel', 'setuptools', 'pip')
+EXCLUDED_PACKAGES = {
+    'mbed-cloud-sdk',
+    'packaging',
+    'pip',
+    'python',
+    'setuptools',
+    'wheel',
+}
 
 # Report field names in CSV
-FIELDNAMES = ('PkgName', 'PkgType', 'PkgOriginator', 'PkgVersion',
-              'PkgSummary', 'PkgHomePageURL', 'PkgLicense', 'PkgLicenseURL', 'PkgMgrURL')
+FIELDNAMES = {
+    'PkgName',
+    'PkgType',
+    'PkgOriginator',
+    'PkgVersion',
+    'PkgSummary',
+    'PkgHomePageURL',
+    'PkgLicense',
+    'PkgLicenseURL',
+    'PkgMgrURL',
+}
 
-# Licence strings to exclude from the report as they don't add value
-EXCLUDED_LICENSE_STRINGS = ('unknown', 'license', 'licence', 'licensing', 'licencing')
-
+# map from metadata keys to Mbed-standardised TPIP report fields
 TPIP_FIELD_MAPPINGS = {
     'version': 'PkgVersion',
     'home-page': 'PkgHomePageURL',
@@ -171,13 +186,22 @@ def main():
                         help='the output path and filename')
     args = parser.parse_args()
 
+    skips = []
     tpip_pkgs = []
     for pkg_name, pkg_item in sorted(pkg_resources.working_set.by_key.items()):
-        if pkg_name not in EXCLUDED_PACKAGES:
-            metadata_lines = get_metadata(pkg_item)
-            tpip_pkg = process_metadata(pkg_name, metadata_lines)
-            tpip_pkgs.append(force_ascii_values(tpip_pkg))
+        if pkg_name in EXCLUDED_PACKAGES:
+            skips.append(pkg_name)
+            continue
+        metadata_lines = get_metadata(pkg_item)
+        tpip_pkg = process_metadata(pkg_name, metadata_lines)
+        tpip_pkgs.append(force_ascii_values(tpip_pkg))
 
+    print(json.dumps(tpip_pkgs, indent=2, sort_keys=True))
+    print('Parsed %s packages\nOutput to CSV: `%s`\nIgnored packages: %s' % (
+        len(tpip_pkgs),
+        os.path.abspath(args.output_filename),
+        ', '.join(skips),
+    ))
     write_csv_file(args.output_filename, tpip_pkgs)
 
 
