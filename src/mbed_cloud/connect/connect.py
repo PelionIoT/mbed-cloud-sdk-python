@@ -148,7 +148,7 @@ class ConnectAPI(BaseAPI):
             self._notifications_thread = None
             stopping = thread.stop()
             api = self._get_api(mds.NotificationsApi)
-            api.v2_notification_pull_delete()
+            api.delete_long_poll_channel()
             return stopping.wait()
 
     @catch_exceptions(device_directory.rest.ApiException)
@@ -220,7 +220,7 @@ class ConnectAPI(BaseAPI):
         :rtype: list
         """
         api = self._get_api(mds.EndpointsApi)
-        return [Resource(r) for r in api.v2_endpoints_device_id_get(device_id)]
+        return [Resource(r) for r in api.get_endpoint_resources(device_id)]
 
     @catch_exceptions(mds.rest.ApiException)
     def get_resource(self, device_id, resource_path):
@@ -244,7 +244,7 @@ class ConnectAPI(BaseAPI):
         api = self._get_api(mds.DeviceRequestsApi)
         async_id = async_id or utils.new_async_id()
         device_request = mds.DeviceRequest(**params)
-        api.v2_device_requests_device_id_post(
+        api.create_async_request(
             device_id,
             async_id=async_id,
             body=device_request,
@@ -358,9 +358,9 @@ class ConnectAPI(BaseAPI):
             resource_path = resource_path[1:]
 
         api = self._get_api(mds.ResourcesApi)
-        resp = api.v2_endpoints_device_id_resource_path_put(device_id,
-                                                            resource_path,
-                                                            resource_value)
+        resp = api.update_resource_value(device_id,
+                                         resource_path,
+                                         resource_value)
         return AsyncConsumer(resp.async_response_id, self._db)
 
     @catch_exceptions(mds.rest.ApiException)
@@ -394,9 +394,9 @@ class ConnectAPI(BaseAPI):
             resource_path = resource_path[1:]
 
         api = self._get_api(mds.ResourcesApi)
-        resp = api.v2_endpoints_device_id_resource_path_post(device_id,
-                                                             resource_path,
-                                                             **kwargs)
+        resp = api.execute_or_create_resource(device_id,
+                                              resource_path,
+                                              **kwargs)
         consumer = AsyncConsumer(resp.async_response_id, self._db)
         return consumer.wait(timeout)
 
@@ -429,9 +429,9 @@ class ConnectAPI(BaseAPI):
 
         api = self._get_api(mds.ResourcesApi)
 
-        resp = api.v2_endpoints_device_id_resource_path_post(device_id,
-                                                             resource_path,
-                                                             **kwargs)
+        resp = api.execute_or_create_resource(device_id,
+                                              resource_path,
+                                              **kwargs)
 
         return AsyncConsumer(resp.async_response_id, self._db)
 
@@ -538,7 +538,7 @@ class ConnectAPI(BaseAPI):
                 "_resource_path": presubscription.get("resource_paths", None)
             }
             presubscriptions_list.append(PresubscriptionData(**presubscription))
-        return api.v2_subscriptions_put(presubscriptions_list)
+        return api.update_pre_subscriptions(presubscriptions_list)
 
     @catch_exceptions(mds.rest.ApiException)
     def delete_presubscriptions(self):
@@ -575,7 +575,7 @@ class ConnectAPI(BaseAPI):
         :rtype: list of mbed_cloud.presubscription.Presubscription
         """
         api = self._get_api(mds.SubscriptionsApi)
-        resp = api.v2_subscriptions_get(**kwargs)
+        resp = api.get_pre_subscriptions(**kwargs)
         return [Presubscription(p) for p in resp]
 
     @catch_exceptions(mds.rest.ApiException)
@@ -674,7 +674,7 @@ class ConnectAPI(BaseAPI):
         :return: The currently set webhook
         """
         api = self._get_api(mds.NotificationsApi)
-        return Webhook(api.v2_notification_callback_get())
+        return Webhook(api.get_webhook())
 
     @catch_exceptions(mds.rest.ApiException)
     def update_webhook(self, url, headers=None):
@@ -690,11 +690,11 @@ class ConnectAPI(BaseAPI):
         api = self._get_api(mds.NotificationsApi)
 
         # Delete notifications channel
-        api.v2_notification_pull_delete()
+        api.delete_long_poll_channel()
 
         # Send the request to register the webhook
         webhook_obj = WebhookData(url=url, headers=headers)
-        api.v2_notification_callback_put(webhook_obj)
+        api.register_webhook(webhook_obj)
         return
 
     @catch_exceptions(mds.rest.ApiException)
@@ -709,7 +709,7 @@ class ConnectAPI(BaseAPI):
         :return: void
         """
         api = self._get_api(mds.DefaultApi)
-        api.v2_notification_callback_delete()
+        api.deregister_webhook()
 
         # Every subscription will be deleted, so we can clear the queues too.
         self._queues.clear()
