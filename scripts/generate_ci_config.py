@@ -47,8 +47,8 @@ base_structure = OrderedDict(
 
 CloudHost = namedtuple('CloudHost', ['name', 'envvar_host', 'envvar_key'])
 mbed_cloud_hosts = dict(
-    osii=CloudHost('osii', 'MBED_CLOUD_API_HOST_OS2', 'MBED_CLOUD_API_KEY_OS2'),
-    production=CloudHost('production', 'MBED_CLOUD_API_HOST_PROD', 'MBED_CLOUD_API_KEY_PROD'),
+    osii=CloudHost('OS2', 'MBED_CLOUD_API_HOST_OS2', 'MBED_CLOUD_API_KEY_OS2'),
+    production=CloudHost('PROD', 'MBED_CLOUD_API_HOST_PROD', 'MBED_CLOUD_API_KEY_PROD'),
 )
 
 py2_openssl_install = """
@@ -58,6 +58,7 @@ RUN apk add libffi-dev
 RUN apk add openssl-dev
 RUN apk add openssl
 """
+
 py2_openssl_cp = """
 # openssl install
 COPY --from=PY_SDK_BUILDER /usr/bin/openssl /usr/bin/openssl
@@ -76,7 +77,7 @@ PyVer = namedtuple('PyVer', [
 ])
 python_versions = dict(
     two=PyVer(
-        'python_two',
+        'py2',
         'python:2.7.14-alpine3.6',
         'mbed_sdk_py2:latest',
         'py2.Dockerfile',
@@ -85,7 +86,7 @@ python_versions = dict(
         py2_openssl_cp,
     ),
     three=PyVer(
-        'python_three',
+        'py3',
         'python:3.6.3-alpine3.6',
         'mbed_sdk_py3:latest',
         'py3.Dockerfile',
@@ -98,7 +99,7 @@ python_versions = dict(
 # we have multiple release targets
 ReleaseTarget = namedtuple('ReleaseTarget', ['name', 'twine_repo'])
 release_targets = dict(
-    test=ReleaseTarget('test', 'pypitest'),
+    test=ReleaseTarget('beta', 'pypitest'),
     live=ReleaseTarget('live', 'pypi'),
 )
 
