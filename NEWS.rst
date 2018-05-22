@@ -13,6 +13,48 @@ a list of versions that have been released on PyPI.
 ..
     begin_release_notes
 
+1.2.8.970 (2018-05-22)
+======================
+
+Features
+--------
+
+- Third Party IP reports are generated according to a common format. (#1008)
+
+- New dockerised CI build system (#1037)
+
+- Client-Lite: Add device bootstrap API. This provides the ability to set
+  Pre-Shared Keys for device bring-up. (#1099)
+
+- Adds 'Value Change' subscription channel. This supercedes 'presubscription'
+  and 'subscription' behaviours to provide a uniform interface, in line with
+  the existing 'Device State' channel. (#1102)
+
+- Add new 'in' and 'not in (nin)' filter operators to enable that functionality
+  in the IAM api. (#1225)
+
+- Client-Lite: Manifest upload supports upload of keytable file (#552)
+
+- First to Claim: If a certificate is in enrollment mode, signature is not
+  required (#924)
+
+- Configuration can be set using environment variables `MBED_CLOUD_SDK_HOST`
+  and `MBED_CLOUD_SDK_API_KEY` (m0)
+
+- All pull requests against the repository should have a news file describing
+  the benefit of the work done. (m1)
+
+Bugfixes
+--------
+
+- Log messages no longer go directly to the root logger (#1091)
+
+- Online documentation now links back to GitHub for license and contribution
+  guidelines (#1097)
+
+- Link to the new location of the online documentation (#1109)
+
+
 1.2.7.968 (2018-03-27)
 ======================
 
