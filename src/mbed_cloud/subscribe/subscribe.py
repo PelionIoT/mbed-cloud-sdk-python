@@ -165,15 +165,15 @@ class SubscriptionsManager(RoutingBase):
             route_keys = expand_dict_as_keys(plucked)
             for route in route_keys:
                 channels = self.get_route_items(route) or {}
-                logging.debug('subscribed channels: %s', channels)
+                LOG.debug('subscribed channels: %s', channels)
                 if not channels:
-                    logging.debug(
+                    LOG.debug(
                         'no subscribers for message.\nkey %s\nroutes: %s',
                         route,
                         self._routes
                     )
                 for channel in channels:
-                    logging.debug('routing dispatch: %s', item)
+                    LOG.debug('routing dispatch: %s', item)
                     channel.notify(item)
 
     def notify(self, data):

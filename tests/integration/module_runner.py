@@ -9,6 +9,8 @@ from dateutil import tz as du_tz
 
 from builtins import str
 
+LOG = logging.getLogger(__name__)
+
 
 def serialise(obj):
     """Serialises custom datatypes used in the SDK"""
@@ -36,9 +38,9 @@ def deserialise(obj):
             # 1970-01-21T21:14:37+12:45 -> 1970-01-21 08:29:37 (1970-01-21T08:29:37)
             x = obj
             obj = du_parser.parse(obj).astimezone(tz=du_tz.tzutc()).replace(tzinfo=None)
-            logging.info('datetime rehydrated: %s -> %s (%s)' % (x, obj, obj.isoformat()))
+            LOG.info('datetime rehydrated: %s -> %s (%s)' % (x, obj, obj.isoformat()))
         except Exception as e:
-            logging.debug('not a date: %s (%s)' % (obj, e))
+            LOG.debug('not a date: %s (%s)' % (obj, e))
     return obj
 
 
