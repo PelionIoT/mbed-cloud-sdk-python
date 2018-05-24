@@ -66,6 +66,7 @@ def main():
     subprocess.check_call(['git', 'branch', '--set-upstream-to', branch_spec])
     print('pushing tags')
     subprocess.check_call(['git', 'tag', version])
+    subprocess.check_call(['git', 'tag', 'latest'])
     subprocess.check_call(['git', 'push', 'origin', '--tags'])
     print('pushing news')
     subprocess.check_call(['git', 'add', 'NEWS.rst'])
