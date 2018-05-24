@@ -1,0 +1,2 @@
+If autostart is disabled, a CloudException is no longer raised when there is no long-polling thread.
+This fixes a regression that stopped Webhooks from being cleanly enabled.
