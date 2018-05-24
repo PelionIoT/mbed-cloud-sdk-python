@@ -2,7 +2,6 @@ import mock
 
 from tests.common import BaseCase
 from mbed_cloud import ConnectAPI
-from mbed_cloud.exceptions import CloudUnhandledError
 
 
 class Test(BaseCase):

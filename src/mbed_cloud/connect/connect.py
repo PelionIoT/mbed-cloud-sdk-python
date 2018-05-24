@@ -47,7 +47,6 @@ from mbed_cloud.decorators import catch_exceptions
 from mbed_cloud.device_directory import Device
 
 from mbed_cloud.exceptions import CloudApiException
-from mbed_cloud.exceptions import CloudUnhandledError
 from mbed_cloud.exceptions import CloudValueError
 from mbed_cloud.subscribe import SubscriptionsManager
 from mbed_cloud import utils
