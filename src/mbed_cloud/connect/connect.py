@@ -101,11 +101,9 @@ class ConnectAPI(BaseAPI):
 
     def ensure_notifications_thread(self):
         """Ensure notification thread is running"""
-        if not self.has_active_notification_thread:
-            if self.config.get('autostart_notification_thread'):
+        if self.config.get('autostart_notification_thread'):
+            if not self.has_active_notification_thread:
                 self.start_notifications()
-            else:
-                raise CloudUnhandledError("notifications thread required for this API call")
 
     def start_notifications(self):
         """Start the notifications thread.
@@ -708,7 +706,7 @@ class ConnectAPI(BaseAPI):
 
         :return: void
         """
-        api = self._get_api(mds.DefaultApi)
+        api = self._get_api(mds.NotificationsApi)
         api.deregister_webhook()
 
         # Every subscription will be deleted, so we can clear the queues too.

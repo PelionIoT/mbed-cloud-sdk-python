@@ -50,12 +50,12 @@ Two third-party tools are used in this example:
 
 - Install python libraries: `pip install ngrok hug`
 - Install ngrok from https://ngrok.com/
-    - Follow the ngrok instructions to configure a tunnel
-- Run the example in a terminal with the following command:
+    - Follow the ngrok documentation to configure a tunnel:
+    - `ngrok http 8000`
+- Run this Python SDK example in a terminal with the following command:
     - `hug -f examples/webhook_ngrok.py https://YOUR_NGROK_ID_GOES_HERE.ngrok.io`
-- [optional] Visit `https://YOUR_NGROK_ID_GOES_HERE.ngrok.io/404`
-  (a 404 page will indicate that your connection works)
-- Visit `http://127.0.0.1:8000/start` in your browser to initiate the sequence
+- Visit `https://YOUR_NGROK_ID_GOES_HERE.ngrok.io/start` to initiate the sequence
+  (use a GET request or point your web browser at this url)
 - View the result of the application in the terminal
 
 """
@@ -68,7 +68,7 @@ import sys
 import threading
 import traceback
 
-api = ConnectAPI()
+api = ConnectAPI(dict(autostart_notification_thread=False))
 ngrok_url = sys.argv[-1] if len(sys.argv) == 4 else (
     os.environ.get('NGROK_URL') or
     'https://YOUR_NGROK_ID_GOES_HERE.ngrok.io'
@@ -95,13 +95,14 @@ def my_application(api):
         deferred = api.get_resource_value_async(device_id=device.id, resource_path=resource_path)
         print('waiting for async #', deferred.async_id)
         result = deferred.wait(15)
-        print('webhook sent us:', repr(result))
+        print('webhook sent us this payload value:', repr(result))
         return result
     except Exception:
         print(traceback.format_exc())
     finally:
         api.delete_webhook()
         print("Deregistered and unsubscribed from all resources. Exiting.")
+        exit(1)
 
 
 @hug.put('/', parse_body=False)
@@ -129,7 +130,7 @@ def start_sequence():
     (ideally in future the async id database will be capable of being more than
     just a dictionary)
     """
-    print('doing something!...')
+    print('getting started!...')
     t = threading.Thread(target=my_application, kwargs=dict(api=api))
     t.daemon = True
     t.start()
