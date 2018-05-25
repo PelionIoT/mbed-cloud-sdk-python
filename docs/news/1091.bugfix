@@ -1,1 +1,1 @@
-Remove some lingering calls to root logger.
+Log messages no longer go directly to the root logger

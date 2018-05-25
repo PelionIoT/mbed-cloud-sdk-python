@@ -47,7 +47,7 @@ Features
 Bugfixes
 --------
 
-- Log messages no longer go directly to the root logger (#1091)
+- Reduce the number of logs that go directly to the root logger (#1091)
 
 - Online documentation now links back to GitHub for license and contribution
   guidelines (#1097)
