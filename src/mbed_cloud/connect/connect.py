@@ -81,6 +81,9 @@ class ConnectAPI(BaseAPI):
         """A module to access this section of the Mbed Cloud API.
 
         :param params: Dictionary to override configuration values
+                     : autostart_notification_thread : Automatically starts a thread
+                     if needed for Async APIs (e.g. get_resource_value).
+                     This should be set to False when using webhooks for notifications.
         """
         super(ConnectAPI, self).__init__(params)
 

@@ -68,6 +68,8 @@ import sys
 import threading
 import traceback
 
+# we must disable automatic creation of a long-poll thread
+# as webhooks and long polling are mutually exclusive on mbed cloud
 api = ConnectAPI(dict(autostart_notification_thread=False))
 ngrok_url = sys.argv[-1] if len(sys.argv) == 4 else (
     os.environ.get('NGROK_URL') or
