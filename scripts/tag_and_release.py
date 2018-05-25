@@ -68,7 +68,7 @@ def main():
     subprocess.check_call(['git', 'tag', version])
     subprocess.check_call(['git', 'push', 'origin', '--tags'])
     print('pushing news')
-    subprocess.check_call(['git', 'add', 'NEWS.rst'])
+    subprocess.check_call(['git', 'add', 'CHANGELOG.rst'])
     subprocess.check_call(['git', 'add', 'docs/news/*'])
     subprocess.check_call(['git', 'commit', '-m', ':newspaper: Update changelog [skip ci]'])
     subprocess.check_call(['git', 'push', 'origin'])

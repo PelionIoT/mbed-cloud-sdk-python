@@ -1,1 +1,1 @@
-.. include:: ../NEWS.rst
+.. include:: ../CHANGELOG.rst
