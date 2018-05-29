@@ -26,8 +26,10 @@ class D:
 
 
 class ListResponse:
-    def __init__(self, stubber_total=5, limit=2, include=None, after=None, **kwargs):
+    def __init__(self, stubber_total=5, limit=None, include=None, after=None, **kwargs):
         """Statelessly stubs the behaviour of APIs to match the swagger specs
+
+        we create [D0, D1, ... DN] data objects that contain an ID
 
         :param stubber_total: actual total number of results
         :param limit: requested page size
@@ -35,16 +37,25 @@ class ListResponse:
         :param after: return results after this ID
         :returns: a list of data objects
         """
-        data = [D(i) for i in range(stubber_total)]
-        if after is not None:
-            after += 1  # because 'after' refers to IDs (right-aligned) rather than indices (left-aligned)
-            data = data[after:after + limit]
-        else:
-            data = data[:limit]
+        # upper index to return from results list
+        upper_bound = None
+
+        # in the apis 'after' refers to IDs (right-aligned)
+        # so increment to convert to indices (left-aligned)
+        after = after + 1 if after is not None else 0
+
+        # apis typically have a minimum limit of 2, if it is set
+        if limit is not None:
+            limit = max(2, limit)
+            upper_bound = after + limit
+
+        # has_more indicates whether there's another page of results
+        self.has_more = after + (limit or 0) < stubber_total
+
+        # slicing the range operator provides truncation of upper_bound
+        self.data = [D(i) for i in range(stubber_total)[slice(after, upper_bound)]]
         if include:
             self.total_count = stubber_total
-        self.has_more = (after or 0) + limit < stubber_total
-        self.data = data
 
 
 class ListCompatMixin(object):
@@ -61,9 +72,9 @@ class TestStubber(BaseCase, ListCompatMixin):
         self.assertNotEqual(D(0), D(1))
 
     def test_stubber_at_zero(self):
-        R = ListResponse()
+        R = ListResponse(stubber_total=4)
         self.assertTrue(R.has_more)
-        self.assert_list_compat(R.data, [D(0), D(1)])
+        self.assert_list_compat(R.data, [D(0), D(1), D(2), D(3)])
 
     def test_stubber_limit(self):
         # aka page size
@@ -77,20 +88,25 @@ class TestStubber(BaseCase, ListCompatMixin):
         self.assertEqual(len(R.data), 2)
 
     def test_stubber_has_more(self):
-        R = ListResponse(stubber_total=3)
+        R = ListResponse(stubber_total=3, limit=2)
         self.assertTrue(R.has_more, '[0, 1] 2 -> more')
+        self.assert_list_compat(R.data, [D(0), D(1)])
 
-        R = ListResponse(stubber_total=4, after=0)
+        R = ListResponse(stubber_total=4, limit=2, after=0)
         self.assertTrue(R.has_more, '0, [1, 2], 3 -> more')
+        self.assert_list_compat(R.data, [D(1), D(2)])
 
-        R = ListResponse(stubber_total=3, after=0)
+        R = ListResponse(stubber_total=3, limit=2, after=0)
         self.assertFalse(R.has_more, '0, [1, 2] -> no more')
+        self.assert_list_compat(R.data, [D(1), D(2)])
 
-        R = ListResponse(stubber_total=3, after=1)
+        R = ListResponse(stubber_total=3, limit=2, after=1)
         self.assertFalse(R.has_more, '0, 1, [2] -> no more')
+        self.assert_list_compat(R.data, [D(2)])
 
         R = ListResponse(stubber_total=3, limit=3)
         self.assertFalse(R.has_more, '[0, 1, 2] -> no more')
+        self.assert_list_compat(R.data, [D(0), D(1), D(2)])
 
 
 class Test(BaseCase, ListCompatMixin):
