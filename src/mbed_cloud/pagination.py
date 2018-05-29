@@ -35,13 +35,24 @@ class PaginatedResponse(object):
     - [item for item in response]   [{}, ...] iteration over generator
     """
 
-    def __init__(self, func, lwrap_type=None, _results_cache=True, **kwargs):
+    def __init__(
+            self,
+            func,
+            lwrap_type=None,
+            _results_cache=True,
+            page_size=None,
+            max_results=None,
+            **kwargs,
+    ):
         """Initialize wrapper by passing in object with metadata structure.
 
         :param func: API function called to obtain a page of results
-        :param lwrap_type: Wrapper called for each returned result object
+        :param lwrap_type: Wrapper class called for each returned result object
         :param _results_cache: Retains a copy of all returned results to reduce API calls
-                               Set to None to disable (for use as a pure generator)
+                               Set to None to disable (for use as a pure generator,
+                               and to reduce memory usage)
+        :param page_size: Number of results to request per page
+        :param max_results: Total maximum number of results to retrieve
         """
         self._func = func
         self._lwrap_type = lwrap_type
@@ -56,7 +67,10 @@ class PaginatedResponse(object):
         self._results_cache = [] if _results_cache else None
         self._current_data_page = []
         self._current_count = 0
-        self._limit = kwargs.get('limit')
+
+        # 'limit' parameter is deprecated, but used to approximate both values:
+        self._max_results = max_results if max_results is not None else kwargs.get('limit')
+        self._page_size = kwargs.get('limit') or page_size
 
     @property
     def _is_caching(self):
@@ -65,7 +79,7 @@ class PaginatedResponse(object):
     @property
     def _is_at_query_limit(self):
         # we track query limit ourselves in case the API is too lenient
-        return self._limit is not None and self._current_count >= self._limit
+        return self._max_results is not None and self._current_count >= self._max_results
 
     def _get_total_concrete(self):
         # total number of results seen for certain, ignoring 'total_count' responses
@@ -75,7 +89,9 @@ class PaginatedResponse(object):
         query = {}
         query.update(self._kwargs)
         if self._next_id is not None:
-            query.update(dict(after=self._next_id))
+            query['after'] = self._next_id
+        if self._page_size is not None:
+            query['limit'] = self._page_size
 
         resp = self._func(**query)
 
@@ -162,12 +178,13 @@ class PaginatedResponse(object):
     def to_dict(self):
         """Internal state"""
         return dict(
+            after=self._kwargs.get('after'),
             data=list(self),
             has_more=self._has_more,
+            limit=self._max_results,
+            order=self._kwargs.get('order', 'ASC'),
+            page_size=self._page_size,
             total_count=self.count(),
-            limit=self._limit,
-            after=self._kwargs.get('after'),
-            order=self._kwargs.get('order', 'ASC')
         )
 
     @property
