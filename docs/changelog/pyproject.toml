@@ -1,6 +1,6 @@
 [tool.towncrier]
 directory = '../news'
-filename = '../../NEWS.rst'
+filename = '../../CHANGELOG.rst'
 package = 'mbed_cloud'
 package_dir = 'src'
 template = 'template.rst'
