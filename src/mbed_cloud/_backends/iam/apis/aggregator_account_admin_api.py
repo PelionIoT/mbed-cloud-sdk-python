@@ -588,7 +588,7 @@ class AggregatorAccountAdminApi(object):
 
         :param async bool
         :param AccountCreationReq body: Details of the account to be created. (required)
-        :param str action: Action, either 'create', 'enroll' or 'enrollment_link'.
+        :param str action: Action, either 'create' or 'enroll'. <ul><li>'create' creates the account where its admin user has ACTIVE status if admin_password was defined in the request, or RESET status if no admin_password was defined. If the user already exists, its status is not modified. </li><li>'enroll' creates the account where its admin user has ENROLLING status. If the user already exists, its status is not modified. Email to finish the enrollment or to notify the existing user about the new account is sent to the admin_email defined in the request. </li></ul>
         :return: AccountCreationResp
                  If the method is called asynchronously,
                  returns the request thread.
@@ -611,7 +611,7 @@ class AggregatorAccountAdminApi(object):
 
         :param async bool
         :param AccountCreationReq body: Details of the account to be created. (required)
-        :param str action: Action, either 'create', 'enroll' or 'enrollment_link'.
+        :param str action: Action, either 'create' or 'enroll'. <ul><li>'create' creates the account where its admin user has ACTIVE status if admin_password was defined in the request, or RESET status if no admin_password was defined. If the user already exists, its status is not modified. </li><li>'enroll' creates the account where its admin user has ENROLLING status. If the user already exists, its status is not modified. Email to finish the enrollment or to notify the existing user about the new account is sent to the admin_email defined in the request. </li></ul>
         :return: AccountCreationResp
                  If the method is called asynchronously,
                  returns the request thread.
