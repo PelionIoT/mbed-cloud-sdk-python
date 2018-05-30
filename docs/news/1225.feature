@@ -1,1 +1,0 @@
-Add new 'in' and 'not in (nin)' filter operators to enable that functionality in the IAM api.
