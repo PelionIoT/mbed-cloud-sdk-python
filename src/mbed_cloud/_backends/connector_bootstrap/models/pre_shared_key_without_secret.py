@@ -31,20 +31,46 @@ class PreSharedKeyWithoutSecret(object):
                             and the value is json key in definition.
     """
     swagger_types = {
+        'created_at': 'datetime',
         'endpoint_name': 'str'
     }
 
     attribute_map = {
+        'created_at': 'created_at',
         'endpoint_name': 'endpoint_name'
     }
 
-    def __init__(self, endpoint_name=None):
+    def __init__(self, created_at=None, endpoint_name=None):
         """
         PreSharedKeyWithoutSecret - a model defined in Swagger
         """
 
+        self._created_at = created_at
         self._endpoint_name = endpoint_name
         self.discriminator = None
+
+    @property
+    def created_at(self):
+        """
+        Gets the created_at of this PreSharedKeyWithoutSecret.
+        The date-time (RFC3339) when this pre-shared key was uploaded to Mbed Cloud.
+
+        :return: The created_at of this PreSharedKeyWithoutSecret.
+        :rtype: datetime
+        """
+        return self._created_at
+
+    @created_at.setter
+    def created_at(self, created_at):
+        """
+        Sets the created_at of this PreSharedKeyWithoutSecret.
+        The date-time (RFC3339) when this pre-shared key was uploaded to Mbed Cloud.
+
+        :param created_at: The created_at of this PreSharedKeyWithoutSecret.
+        :type: datetime
+        """
+
+        self._created_at = created_at
 
     @property
     def endpoint_name(self):

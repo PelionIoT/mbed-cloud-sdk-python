@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**delete_pre_shared_key**](PreSharedKeysApi.md#delete_pre_shared_key) | **DELETE** /v2/device-shared-keys/{endpoint_name} | Remove a pre-shared key.
 [**get_pre_shared_key**](PreSharedKeysApi.md#get_pre_shared_key) | **GET** /v2/device-shared-keys/{endpoint_name} | Get a pre-shared key.
+[**list_pre_shared_keys**](PreSharedKeysApi.md#list_pre_shared_keys) | **GET** /v2/device-shared-keys | List pre-shared keys.
 [**upload_pre_shared_key**](PreSharedKeysApi.md#upload_pre_shared_key) | **POST** /v2/device-shared-keys | Upload a pre-shared key to Mbed Cloud.
 
 
@@ -113,6 +114,62 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **list_pre_shared_keys**
+> ListOfPreSharedKeysWithoutSecret list_pre_shared_keys(limit=limit, after=after)
+
+List pre-shared keys.
+
+List pre-shared keys with pagination and default page size of 50 entries. 
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import connector_bootstrap
+from connector_bootstrap.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+configuration = connector_bootstrap.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = connector_bootstrap.PreSharedKeysApi(connector_bootstrap.ApiClient(configuration))
+limit = 56 # int | The number of entries per page (optional)
+after = 'after_example' # str | An offset token for fetching a specific page. Provided by the server. (optional)
+
+try: 
+    # List pre-shared keys.
+    api_response = api_instance.list_pre_shared_keys(limit=limit, after=after)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling PreSharedKeysApi->list_pre_shared_keys: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **limit** | **int**| The number of entries per page | [optional] 
+ **after** | **str**| An offset token for fetching a specific page. Provided by the server. | [optional] 
+
+### Return type
+
+[**ListOfPreSharedKeysWithoutSecret**](ListOfPreSharedKeysWithoutSecret.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
