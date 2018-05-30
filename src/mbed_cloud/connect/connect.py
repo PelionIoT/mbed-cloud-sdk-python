@@ -47,7 +47,6 @@ from mbed_cloud.decorators import catch_exceptions
 from mbed_cloud.device_directory import Device
 
 from mbed_cloud.exceptions import CloudApiException
-from mbed_cloud.exceptions import CloudUnhandledError
 from mbed_cloud.exceptions import CloudValueError
 from mbed_cloud.subscribe import SubscriptionsManager
 from mbed_cloud import utils
@@ -82,6 +81,9 @@ class ConnectAPI(BaseAPI):
         """A module to access this section of the Mbed Cloud API.
 
         :param params: Dictionary to override configuration values
+                     : autostart_notification_thread : Automatically starts a thread
+                     if needed for Async APIs (e.g. get_resource_value).
+                     This should be set to False when using webhooks for notifications.
         """
         super(ConnectAPI, self).__init__(params)
 
@@ -101,11 +103,9 @@ class ConnectAPI(BaseAPI):
 
     def ensure_notifications_thread(self):
         """Ensure notification thread is running"""
-        if not self.has_active_notification_thread:
-            if self.config.get('autostart_notification_thread'):
+        if self.config.get('autostart_notification_thread'):
+            if not self.has_active_notification_thread:
                 self.start_notifications()
-            else:
-                raise CloudUnhandledError("notifications thread required for this API call")
 
     def start_notifications(self):
         """Start the notifications thread.
@@ -708,7 +708,7 @@ class ConnectAPI(BaseAPI):
 
         :return: void
         """
-        api = self._get_api(mds.DefaultApi)
+        api = self._get_api(mds.NotificationsApi)
         api.deregister_webhook()
 
         # Every subscription will be deleted, so we can clear the queues too.
