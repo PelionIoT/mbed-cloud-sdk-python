@@ -14,6 +14,7 @@
 from __future__ import absolute_import
 
 # import models into sdk package
+from .models.list_of_pre_shared_keys_without_secret import ListOfPreSharedKeysWithoutSecret
 from .models.pre_shared_key import PreSharedKey
 from .models.pre_shared_key_without_secret import PreSharedKeyWithoutSecret
 
