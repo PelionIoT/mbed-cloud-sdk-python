@@ -42,7 +42,7 @@ class PaginatedResponse(object):
             _results_cache=True,
             page_size=None,
             max_results=None,
-            **kwargs,
+            **kwargs
     ):
         """Initialize wrapper by passing in object with metadata structure.
 
