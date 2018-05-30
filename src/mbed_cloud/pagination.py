@@ -83,8 +83,14 @@ class PaginatedResponse(object):
             self._current_data_page.append(self._lwrap_type(item) if self._lwrap_type else item)
         self._has_more = resp.has_more
         self._total_count = getattr(resp, 'total_count', None)
-        if self._current_data_page:
-            self._next_id = self._current_data_page[-1].id
+
+        if self._has_more and self._current_data_page:
+            # we need to find the marker for the next page
+            # 'continuation_marker' is used by connector_bootstrap
+            #  everything else uses id of last item
+            self._next_id = (
+                getattr(resp, 'continuation_marker', None) or self._current_data_page[-1].id
+            )
 
     def _get_total_count(self):
         len_query = {}

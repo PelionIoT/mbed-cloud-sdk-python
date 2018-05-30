@@ -25,6 +25,8 @@ from mbed_cloud.core import BaseObject
 
 from mbed_cloud.decorators import catch_exceptions
 
+from mbed_cloud.pagination import PaginatedResponse
+
 # Import backend API
 import mbed_cloud._backends.connector_bootstrap as bootstrap
 from mbed_cloud._backends.connector_bootstrap import models
@@ -52,6 +54,12 @@ class BootstrapAPI(BaseAPI):
         """Get"""
         api = self._get_api(bootstrap.PreSharedKeysApi)
         return PreSharedKey(api.get_pre_shared_key(endpoint_name=endpoint_name))
+
+    @catch_exceptions(BootstrapAPIException)
+    def list_psks(self, **kwargs):
+        """List"""
+        api = self._get_api(bootstrap.PreSharedKeysApi)
+        return PaginatedResponse(api.list_pre_shared_keys, lwrap_type=PreSharedKey, **kwargs)
 
     @catch_exceptions(BootstrapAPIException)
     def delete_psk(self, endpoint_name, **kwargs):
