@@ -28,6 +28,7 @@ import networkx
 
 import yaml
 
+LOG = logging.getLogger(__name__)
 PROJECT_ROOT = os.path.dirname(os.path.dirname(__file__))
 container_config_root = os.path.join(PROJECT_ROOT, 'container')
 script_templates_root = os.path.join(PROJECT_ROOT, 'scripts', 'templates')
@@ -293,8 +294,8 @@ def generate_circle_output():
     workflow_config_key = 'workflow_config'
     base = new_base()
     workflow = networkx.DiGraph()
-    logging.info('%s python versions', len(python_versions))
-    logging.info('%s mbed cloud hosts', len(mbed_cloud_hosts))
+    LOG.info('%s python versions', len(python_versions))
+    LOG.info('%s mbed cloud hosts', len(mbed_cloud_hosts))
 
     job, content = new_tpip()
     base['jobs'].update({job: content})
@@ -371,7 +372,7 @@ def generate_circle_output():
             job_config.update(workflow.get_edge_data(*edge))
             job_config.setdefault('requires', []).append(edge[0])
 
-    logging.info('%s circle jobs', len(base['jobs']))
+    LOG.info('%s circle jobs', len(base['jobs']))
     return dict(base)
 
 
@@ -435,7 +436,7 @@ def main(output_path=None):
         )
 
     for path, content in generate_docker_targets().items():
-        logging.info('writing %s', path)
+        LOG.info('writing %s', path)
         with open(path, 'w') as fh:
             fh.write(content)
 
