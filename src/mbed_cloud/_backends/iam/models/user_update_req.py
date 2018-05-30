@@ -106,7 +106,7 @@ class UserUpdateReq(object):
     def custom_fields(self):
         """
         Gets the custom_fields of this UserUpdateReq.
-        User's account specific custom properties. The value is handled as a string.
+        User's account specific custom properties, with a maximum of 10 keys. The maximum length of a key is 100 characters. The values are handled as strings and the maximum length for a value is 1000 characters.
 
         :return: The custom_fields of this UserUpdateReq.
         :rtype: dict(str, str)
@@ -117,7 +117,7 @@ class UserUpdateReq(object):
     def custom_fields(self, custom_fields):
         """
         Sets the custom_fields of this UserUpdateReq.
-        User's account specific custom properties. The value is handled as a string.
+        User's account specific custom properties, with a maximum of 10 keys. The maximum length of a key is 100 characters. The values are handled as strings and the maximum length for a value is 1000 characters.
 
         :param custom_fields: The custom_fields of this UserUpdateReq.
         :type: dict(str, str)
