@@ -351,7 +351,7 @@ class Account(BaseObject):
             "updated_at": "updated_at",
             "reason": "reason",
             "template_id": "template_id",
-            "custom_properties": "account_properties",
+            "custom_properties": "custom_fields",
             "sales_contact_email": "sales_contact",
             "contract_number": "contract_number",
             "customer_number": "customer_number",
