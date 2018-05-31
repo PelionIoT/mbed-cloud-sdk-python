@@ -11,7 +11,7 @@ def worker(id, start, api, device, total):
     print('new worker', id)
     start.wait()
     for i in range(total):
-        value = api.get_resource_value(device_id=device.id, resource_path='/3/0/1')
+        value = api.get_resource_value_async(device_id=device.id, resource_path='/3/0/1').wait(30)
         print('%6s\t%6s\t%s' % (id, i, value))
 
 
