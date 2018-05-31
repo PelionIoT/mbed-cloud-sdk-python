@@ -68,7 +68,7 @@ class TrustedCertificateUpdateReq(object):
     def certificate(self):
         """
         Gets the certificate of this TrustedCertificateUpdateReq.
-        X509.v3 trusted certificate in PEM format.
+        A chain of X509.v3 trusted certificates in PEM format. The chain must contain all certificates from root to leaf. Otherwise, the signature parameter is required.
 
         :return: The certificate of this TrustedCertificateUpdateReq.
         :rtype: str
@@ -79,7 +79,7 @@ class TrustedCertificateUpdateReq(object):
     def certificate(self, certificate):
         """
         Sets the certificate of this TrustedCertificateUpdateReq.
-        X509.v3 trusted certificate in PEM format.
+        A chain of X509.v3 trusted certificates in PEM format. The chain must contain all certificates from root to leaf. Otherwise, the signature parameter is required.
 
         :param certificate: The certificate of this TrustedCertificateUpdateReq.
         :type: str
@@ -189,7 +189,7 @@ class TrustedCertificateUpdateReq(object):
     def signature(self):
         """
         Gets the signature of this TrustedCertificateUpdateReq.
-        DEPRECATED: Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256. Optional if enrollment_mode is 'true'.
+        DEPRECATED: Base64 encoded signature of the account ID signed by the certificate to be uploaded. The signature must be hashed with SHA256. Needed when uploading an interim certificate without the full chain.
 
         :return: The signature of this TrustedCertificateUpdateReq.
         :rtype: str
@@ -200,7 +200,7 @@ class TrustedCertificateUpdateReq(object):
     def signature(self, signature):
         """
         Sets the signature of this TrustedCertificateUpdateReq.
-        DEPRECATED: Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256. Optional if enrollment_mode is 'true'.
+        DEPRECATED: Base64 encoded signature of the account ID signed by the certificate to be uploaded. The signature must be hashed with SHA256. Needed when uploading an interim certificate without the full chain.
 
         :param signature: The signature of this TrustedCertificateUpdateReq.
         :type: str
