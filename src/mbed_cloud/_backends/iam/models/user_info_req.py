@@ -100,7 +100,7 @@ class UserInfoReq(object):
     def custom_fields(self):
         """
         Gets the custom_fields of this UserInfoReq.
-        User's account-specific custom properties as key-value pairs, with a maximum of 100 keys. The maximum length of a key is 100 characters. The values are handled as strings and the maximum length for a value is 4000 characters.
+        User's account-specific custom properties as key-value pairs, with a maximum of 10 keys. The maximum length of a key is 100 characters. The values are handled as strings and the maximum length for a value is 1000 characters.
 
         :return: The custom_fields of this UserInfoReq.
         :rtype: dict(str, str)
@@ -111,7 +111,7 @@ class UserInfoReq(object):
     def custom_fields(self, custom_fields):
         """
         Sets the custom_fields of this UserInfoReq.
-        User's account-specific custom properties as key-value pairs, with a maximum of 100 keys. The maximum length of a key is 100 characters. The values are handled as strings and the maximum length for a value is 4000 characters.
+        User's account-specific custom properties as key-value pairs, with a maximum of 10 keys. The maximum length of a key is 100 characters. The values are handled as strings and the maximum length for a value is 1000 characters.
 
         :param custom_fields: The custom_fields of this UserInfoReq.
         :type: dict(str, str)

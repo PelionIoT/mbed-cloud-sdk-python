@@ -39,7 +39,6 @@ class UserUpdateReq(object):
         'is_gtc_accepted': 'bool',
         'is_marketing_accepted': 'bool',
         'is_totp_enabled': 'bool',
-        'password': 'str',
         'phone_number': 'str',
         'status': 'str',
         'username': 'str'
@@ -54,13 +53,12 @@ class UserUpdateReq(object):
         'is_gtc_accepted': 'is_gtc_accepted',
         'is_marketing_accepted': 'is_marketing_accepted',
         'is_totp_enabled': 'is_totp_enabled',
-        'password': 'password',
         'phone_number': 'phone_number',
         'status': 'status',
         'username': 'username'
     }
 
-    def __init__(self, address=None, custom_fields=None, email=None, full_name=None, groups=None, is_gtc_accepted=None, is_marketing_accepted=None, is_totp_enabled=None, password=None, phone_number=None, status=None, username=None):
+    def __init__(self, address=None, custom_fields=None, email=None, full_name=None, groups=None, is_gtc_accepted=None, is_marketing_accepted=None, is_totp_enabled=None, phone_number=None, status=None, username=None):
         """
         UserUpdateReq - a model defined in Swagger
         """
@@ -73,7 +71,6 @@ class UserUpdateReq(object):
         self._is_gtc_accepted = is_gtc_accepted
         self._is_marketing_accepted = is_marketing_accepted
         self._is_totp_enabled = is_totp_enabled
-        self._password = password
         self._phone_number = phone_number
         self._status = status
         self._username = username
@@ -106,7 +103,7 @@ class UserUpdateReq(object):
     def custom_fields(self):
         """
         Gets the custom_fields of this UserUpdateReq.
-        User's account specific custom properties. The value is handled as a string.
+        User's account specific custom properties, with a maximum of 10 keys. The maximum length of a key is 100 characters. The values are handled as strings and the maximum length for a value is 1000 characters.
 
         :return: The custom_fields of this UserUpdateReq.
         :rtype: dict(str, str)
@@ -117,7 +114,7 @@ class UserUpdateReq(object):
     def custom_fields(self, custom_fields):
         """
         Sets the custom_fields of this UserUpdateReq.
-        User's account specific custom properties. The value is handled as a string.
+        User's account specific custom properties, with a maximum of 10 keys. The maximum length of a key is 100 characters. The values are handled as strings and the maximum length for a value is 1000 characters.
 
         :param custom_fields: The custom_fields of this UserUpdateReq.
         :type: dict(str, str)
@@ -262,29 +259,6 @@ class UserUpdateReq(object):
         """
 
         self._is_totp_enabled = is_totp_enabled
-
-    @property
-    def password(self):
-        """
-        Gets the password of this UserUpdateReq.
-        The password when creating a new user. It will be generated when not present in the request.
-
-        :return: The password of this UserUpdateReq.
-        :rtype: str
-        """
-        return self._password
-
-    @password.setter
-    def password(self, password):
-        """
-        Sets the password of this UserUpdateReq.
-        The password when creating a new user. It will be generated when not present in the request.
-
-        :param password: The password of this UserUpdateReq.
-        :type: str
-        """
-
-        self._password = password
 
     @property
     def phone_number(self):

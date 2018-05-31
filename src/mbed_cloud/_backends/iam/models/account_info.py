@@ -31,7 +31,6 @@ class AccountInfo(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'account_properties': 'dict(str, dict(str, str))',
         'address_line1': 'str',
         'address_line2': 'str',
         'aliases': 'list[str]',
@@ -41,6 +40,7 @@ class AccountInfo(object):
         'contract_number': 'str',
         'country': 'str',
         'created_at': 'datetime',
+        'custom_fields': 'dict(str, str)',
         'customer_number': 'str',
         'display_name': 'str',
         'email': 'str',
@@ -71,7 +71,6 @@ class AccountInfo(object):
     }
 
     attribute_map = {
-        'account_properties': 'account_properties',
         'address_line1': 'address_line1',
         'address_line2': 'address_line2',
         'aliases': 'aliases',
@@ -81,6 +80,7 @@ class AccountInfo(object):
         'contract_number': 'contract_number',
         'country': 'country',
         'created_at': 'created_at',
+        'custom_fields': 'custom_fields',
         'customer_number': 'customer_number',
         'display_name': 'display_name',
         'email': 'email',
@@ -110,12 +110,11 @@ class AccountInfo(object):
         'upgraded_at': 'upgraded_at'
     }
 
-    def __init__(self, account_properties=None, address_line1=None, address_line2=None, aliases=None, city=None, company=None, contact=None, contract_number=None, country=None, created_at=None, customer_number=None, display_name=None, email=None, end_market=None, etag=None, expiration_warning_threshold=None, id=None, idle_timeout=None, limits=None, mfa_status=None, notification_emails=None, object=None, parent_id=None, password_policy=None, phone_number=None, policies=None, postal_code=None, reason=None, reference_note=None, sales_contact=None, state=None, status=None, sub_accounts=None, template_id=None, tier=None, updated_at=None, upgraded_at=None):
+    def __init__(self, address_line1=None, address_line2=None, aliases=None, city=None, company=None, contact=None, contract_number=None, country=None, created_at=None, custom_fields=None, customer_number=None, display_name=None, email=None, end_market=None, etag=None, expiration_warning_threshold=None, id=None, idle_timeout=None, limits=None, mfa_status=None, notification_emails=None, object=None, parent_id=None, password_policy=None, phone_number=None, policies=None, postal_code=None, reason=None, reference_note=None, sales_contact=None, state=None, status=None, sub_accounts=None, template_id=None, tier=None, updated_at=None, upgraded_at=None):
         """
         AccountInfo - a model defined in Swagger
         """
 
-        self._account_properties = account_properties
         self._address_line1 = address_line1
         self._address_line2 = address_line2
         self._aliases = aliases
@@ -125,6 +124,7 @@ class AccountInfo(object):
         self._contract_number = contract_number
         self._country = country
         self._created_at = created_at
+        self._custom_fields = custom_fields
         self._customer_number = customer_number
         self._display_name = display_name
         self._email = email
@@ -153,29 +153,6 @@ class AccountInfo(object):
         self._updated_at = updated_at
         self._upgraded_at = upgraded_at
         self.discriminator = None
-
-    @property
-    def account_properties(self):
-        """
-        Gets the account_properties of this AccountInfo.
-        Account specific custom properties.
-
-        :return: The account_properties of this AccountInfo.
-        :rtype: dict(str, dict(str, str))
-        """
-        return self._account_properties
-
-    @account_properties.setter
-    def account_properties(self, account_properties):
-        """
-        Sets the account_properties of this AccountInfo.
-        Account specific custom properties.
-
-        :param account_properties: The account_properties of this AccountInfo.
-        :type: dict(str, dict(str, str))
-        """
-
-        self._account_properties = account_properties
 
     @property
     def address_line1(self):
@@ -385,6 +362,29 @@ class AccountInfo(object):
         """
 
         self._created_at = created_at
+
+    @property
+    def custom_fields(self):
+        """
+        Gets the custom_fields of this AccountInfo.
+        Account's custom properties as key-value pairs.
+
+        :return: The custom_fields of this AccountInfo.
+        :rtype: dict(str, str)
+        """
+        return self._custom_fields
+
+    @custom_fields.setter
+    def custom_fields(self, custom_fields):
+        """
+        Sets the custom_fields of this AccountInfo.
+        Account's custom properties as key-value pairs.
+
+        :param custom_fields: The custom_fields of this AccountInfo.
+        :type: dict(str, str)
+        """
+
+        self._custom_fields = custom_fields
 
     @property
     def customer_number(self):
