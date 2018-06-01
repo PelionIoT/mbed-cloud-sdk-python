@@ -109,10 +109,15 @@ class PaginatedResponse(object):
             )
 
     def _get_total_count(self):
+        # FIXME: even new APIs refuse to conform to spec
+        from mbed_cloud.bootstrap.bootstrap import PreSharedKey
+        if self._lwrap_type == PreSharedKey:
+            return 0
+
         len_query = {}
-        len_query.update(dict(include='total_count'))
+        len_query['include'] = 'total_count'
         len_query.update(self._kwargs)
-        len_query.update(dict(limit=2))
+        len_query['limit'] = 2
         resp = self._func(**len_query)
         return getattr(resp, 'total_count', 0)
 
