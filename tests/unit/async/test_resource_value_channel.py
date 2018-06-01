@@ -63,6 +63,40 @@ class Test(BaseCase):
         self.assertEqual(1, observer_c.notify_count)
         self.assertEqual(2, observer_d.notify_count)
 
+    def test_payload(self):
+        # subscription to wildcard value should be triggered when receiving specific value
+        device_id1 = 'ABCD_E'
+        subs = SubscriptionsManager(mock.MagicMock())
+        observer_a = subs.subscribe(channels.ResourceValues(device_id=device_id1, resource_path=5))
+
+        subs.notify({
+            channels.ChannelIdentifiers.notifications: [
+                # should trigger A
+                {
+                    'unexpected': 'extra',
+                    'endpoint-name': device_id1,
+                    'resource-path': '5',
+                    'ct': 'tlv',
+                    'payload': 'iAsLSAAIAAAAAAAAAAA=',
+                },
+            ]
+        })
+
+        self.assertEqual(1, observer_a.notify_count)
+        received_payload = observer_a.next().block(1)
+
+        self.assertEqual(
+            received_payload,
+            {
+                'unexpected': 'extra',
+                'endpoint-name': device_id1,
+                'resource-path': '5',
+                'ct': 'tlv',
+                'payload': {'11': {'0': 0}},
+                'channel': 'notifications',
+            }
+        )
+
     def test_parameters_as_lists(self):
         subs = SubscriptionsManager(mock.MagicMock())
         observer_a = subs.subscribe(channels.ResourceValues(device_id='a', resource_path=['a', 'b']))
