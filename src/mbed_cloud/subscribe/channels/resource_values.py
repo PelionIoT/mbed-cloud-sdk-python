@@ -180,12 +180,14 @@ class ResourceValues(ChannelSubscription):
             self._subscribe_all_matching()
 
     def _notify(self, data):
-        payload = tlv.decode(
+        decoded = {}
+        decoded.update(data)
+        decoded['payload'] = tlv.decode(
             payload=data.get('payload'),
             content_type=data.get('ct'),
             decode_b64=True
         )
-        super(ResourceValues, self)._notify(payload)
+        super(ResourceValues, self)._notify(decoded)
 
     def stop(self):
         """Stop the channel"""
