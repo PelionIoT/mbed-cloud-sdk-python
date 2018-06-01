@@ -3,7 +3,6 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**account_properties** | [**dict(str, dict(str, str))**](dict.md) | Properties for this account. | [optional] 
 **address_line1** | **str** | Postal address line 1, not longer than 100 characters. Required for commercial accounts only. | [optional] 
 **address_line2** | **str** | Postal address line 2, not longer than 100 characters. | [optional] 
 **aliases** | **list[str]** | An array of aliases, not more than 10. An alias is not shorter than 8 and not longer than 100 characters. | [optional] 
@@ -11,6 +10,7 @@ Name | Type | Description | Notes
 **company** | **str** | The name of the company, not longer than 100 characters. Required for commercial accounts only. | [optional] 
 **contact** | **str** | The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only. | [optional] 
 **country** | **str** | The country part of the postal address, not longer than 100 characters. Required for commercial accounts only. | [optional] 
+**custom_fields** | **dict(str, str)** | Account&#39;s custom properties as key-value pairs, with a maximum of 10 keys. The maximum length of a key is 100 characters. The values are handled as strings and the maximum length for a value is 1000 characters. | [optional] 
 **display_name** | **str** | The display name for the account, not longer than 100 characters. | [optional] 
 **email** | **str** | The company email address for this account, not longer than 254 characters. Required for commercial accounts only. | [optional] 
 **end_market** | **str** | The end market for this account, not longer than 100 characters. | [optional] 
