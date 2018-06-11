@@ -1,0 +1,1 @@
+PaginatedResponse objects used in API list endpoints now takes `max_results` and `page_size` to remove the ambiguity of the `limit` parameter.

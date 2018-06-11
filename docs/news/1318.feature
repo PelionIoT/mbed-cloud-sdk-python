@@ -1,0 +1,1 @@
+Resources channel now receives the full notification rather than just the payload.

@@ -14,6 +14,7 @@ class Test(BaseCase):
             self.assertFalse(a.has_active_notification_thread)
             a.get_resource_value_async('abc123', '/3/4/5')
             self.assertTrue(a.has_active_notification_thread)
+            a.stop_notifications()
 
     def test_autostart_disabled(self):
         with mock.patch('urllib3.PoolManager.request') as mocked:
@@ -24,3 +25,4 @@ class Test(BaseCase):
             self.assertFalse(a.has_active_notification_thread)
             a.get_resource_value_async('abc123', '/3/4/5')
             self.assertFalse(a.has_active_notification_thread)
+            a.stop_notifications()
