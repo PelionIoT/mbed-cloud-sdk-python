@@ -4,6 +4,10 @@ from mbed_cloud.subscribe import channels
 from tests.common import BaseCase
 
 import mock
+import six
+
+from multiprocessing.pool import ThreadPool
+
 import os
 import time
 import unittest
@@ -57,15 +61,16 @@ class Test(BaseCase):
 
     def test_subscribe_custom_threadpool(self):
         subs = SubscriptionsManager(mock.MagicMock())
-        fake_threads = mock.MagicMock()
-        fake_threads.apply_async.return_value = 42
+        custom_threads = ThreadPool(processes=1)
         observer_a = subs.subscribe(
             channels.DeviceStateChanges(device_id='A'),
-            provider=fake_threads
+            provider=custom_threads
         )
-        # with a custom threadpool with only two processes, we'll time out on any call
-        # because there are no threads available
-        self.assertEqual(observer_a.next().defer(), 42)
+        with mock.patch.object(custom_threads, 'apply_async') as custom:
+            observer_a.next().defer()
+            observer_a.next().defer()
+            # prove that we used the threadpool we provided
+            self.assertEqual(custom_threads.apply_async.call_count, 2)
 
     @unittest.skipIf(os.environ.get('CI'), 'Do not run in CI')
     def test_live_create_and_cleanup(self):
