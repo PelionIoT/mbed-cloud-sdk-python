@@ -106,6 +106,8 @@ class TestWithRPC(BaseCase):
             raise IOError('could not find integration results')
 
         self.outcome = ElementTree.parse('results/results.xml').getroot().attrib
-        remote_failures = int(self.outcome.get('failures', 0))
-        if remote_failures:
-            self.fail('Remote test had %s failures' % (remote_failures,))
+
+        for outcome in {'errors', 'failures'}:
+            remote_value = int(self.outcome.get(outcome, 0))
+            if remote_value:
+                self.fail('Remote test had %s %s' % (remote_value, outcome))
