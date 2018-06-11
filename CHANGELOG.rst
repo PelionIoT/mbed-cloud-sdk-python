@@ -13,6 +13,30 @@ a list of versions that have been released on PyPI.
 ..
     begin_release_notes
 
+1.2.8.1183 (2018-06-11)
+=======================
+
+Features
+--------
+
+- `News` renamed to `Changelog` (#1278)
+
+- PaginatedResponse objects used in API list endpoints now takes `max_results`
+  and `page_size` to remove the ambiguity of the `limit` parameter. (#1296)
+
+- Resources channel now receives the full notification rather than just the
+  payload. (#1318)
+
+Bugfixes
+--------
+
+- Log messages no longer go directly to the root logger (#1091)
+
+- If autostart is disabled, a CloudException is no longer raised when there is
+  no long-polling thread (e.g. for the get_resource_value method). This fixes a
+  regression that stopped Webhooks from being cleanly enabled. (#1292)
+
+
 1.2.8.970 (2018-05-22)
 ======================
 
