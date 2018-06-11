@@ -18,6 +18,7 @@
 import functools
 import logging
 import queue
+import threading
 
 from mbed_cloud.subscribe.async_wrapper import AsyncWrapper
 
@@ -63,6 +64,7 @@ class Observer(object):
         self._once_done = False
         self._timeout = timeout
         self._filters = filters
+        self._lock = threading.Lock()
 
         # a queue of internally waitable objects
         self._waitables = queue.Queue()
@@ -104,15 +106,18 @@ class Observer(object):
             func=getter,
             concurrency_provider=self._provider
         )
-        try:
-            # get latest notification
-            data = self._notifications.get_nowait()
-        except queue.Empty:
-            # store the consumer
-            self._waitables.put(waitable)
-        else:
-            # if we have a notification, pass it to the consumer immediately
-            waitable.put_nowait(data)
+        with self._lock:
+            try:
+                # get latest notification
+                data = self._notifications.get_nowait()
+            except queue.Empty:
+                # store the consumer
+                self._waitables.put(waitable)
+                LOG.debug('no data for new consumer')
+            else:
+                # if we have a notification, pass it to the consumer immediately
+                waitable.put_nowait(data)
+                LOG.debug('new consumer taking next data immediately')
         return self._latest_item
 
     def next(self):
@@ -129,17 +134,18 @@ class Observer(object):
         if self._once_done and self._once:
             LOG.debug('notify skipping due to `once`')
             return self
-        try:
-            # notify next consumer immediately
-            self._waitables.get_nowait().put_nowait(data)
-            LOG.debug('found a consumer, notifying')
-        except queue.Empty:
-            # store the notification
-            LOG.debug('no consumers, queueing data')
+        with self._lock:
             try:
-                self._notifications.put_nowait(data)
-            except queue.Full:
-                LOG.warning('notification queue full - discarding new data')
+                # notify next consumer immediately
+                self._waitables.get_nowait().put_nowait(data)
+                LOG.debug('found a consumer, notifying')
+            except queue.Empty:
+                # store the notification
+                try:
+                    self._notifications.put_nowait(data)
+                    LOG.debug('no consumers, queueing data')
+                except queue.Full:
+                    LOG.warning('notification queue full - discarding new data')
 
         # callbacks are sent straight away
         # bombproofing should be handled by individual callbacks
