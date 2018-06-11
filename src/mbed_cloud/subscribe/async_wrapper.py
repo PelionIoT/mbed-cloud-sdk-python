@@ -137,9 +137,8 @@ class AsyncWrapper(object):
             raise RuntimeError('Already activated this call by deferring it')
         with self._lock:
             if not hasattr(self, '_result'):
-                defr = self.defer(*args, **kwargs)
                 self._result = (
-                    self._concurrency_provider.run_until_complete(defr)
+                    self._concurrency_provider.run_until_complete(self.defer(*args, **kwargs))
                     if self._is_asyncio_provider else self._func(*args, **kwargs)
                 )
             self._blocked = True

@@ -9,7 +9,7 @@ from mbed_cloud.subscribe.observer import Observer
 
 from tests.common import BaseCase
 
-DEFAULT_TIMEOUT = 1
+DEFAULT_TIMEOUT = 5
 
 
 class Test(BaseCase):
@@ -69,7 +69,7 @@ class Test(BaseCase):
     def test_threaded_stream(self):
         """Behaviour in threaded environment"""
         obs = Observer()
-        n = 12
+        n = 15
         start = threading.Event()
         sleepy = lambda: random.randrange(1, 3) / 1000.0
 
@@ -87,7 +87,7 @@ class Test(BaseCase):
             start.wait()
             # finite iteration of infinite generator
             for new_item in itertools.islice(obs, 0, n - 1):
-                result.append(new_item.block(DEFAULT_TIMEOUT).get('a_key'))
+                result.append(new_item.block(timeout=DEFAULT_TIMEOUT).get('a_key'))
                 time.sleep(sleepy())
 
         results = []
@@ -96,8 +96,11 @@ class Test(BaseCase):
         read.start()
 
         start.set()
-        add.join()
-        read.join()
+        add.join(timeout=2*DEFAULT_TIMEOUT)
+        read.join(timeout=2*DEFAULT_TIMEOUT)
+
+        self.assertFalse(add.isAlive())
+        self.assertFalse(read.isAlive())
 
         # the sequence of values from all the subscribers
         # should be in the same order as the data was added
@@ -138,7 +141,7 @@ class Test(BaseCase):
             with self.assertLogs(level=logging.WARNING):
                 obs.notify(1)
         obs.notify(1)
-        self.assertTrue(obs.next().defer().get(0.05))
+        self.assertTrue(obs.next().defer().get(timeout=DEFAULT_TIMEOUT))
 
         # The second waiter will never resolve because the queue was too short
         waiter = obs.next().defer()
