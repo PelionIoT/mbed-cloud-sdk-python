@@ -26,17 +26,18 @@ class Test(BaseCase):
         self.assertIsNot(future_a, future_b)
         self.assertIsNot(future_b, future_c)
 
-        # an irrelevant channel
+        # a valid, but irrelevant channel
         subs.notify({
             channels.ChannelIdentifiers.async_responses: [
                 dict(a=1, b=2, device_id='A')
             ]
         })
-        result = future_a.wait(timeout=0.01)
+        time.sleep(0.01)
         self.assertFalse(future_a.ready())
         self.assertFalse(future_b.ready())
         self.assertFalse(future_c.ready())
 
+        # a valid channel, relevant for DeviceState
         subs.notify({
             channels.ChannelIdentifiers.reg_updates: [
                 dict(a=1, b=2, device_id='A')
@@ -53,6 +54,18 @@ class Test(BaseCase):
         # self.assertTrue(future_c.ready())
         result = future_c.get()
         self.assertDictContainsSubset(dict(a=1, b=2), result)
+
+    def test_subscribe_custom_threadpool(self):
+        subs = SubscriptionsManager(mock.MagicMock())
+        fake_threads = mock.MagicMock()
+        fake_threads.apply_async.return_value = 42
+        observer_a = subs.subscribe(
+            channels.DeviceStateChanges(device_id='A'),
+            provider=fake_threads
+        )
+        # with a custom threadpool with only two processes, we'll time out on any call
+        # because there are no threads available
+        self.assertEqual(observer_a.next().defer(), 42)
 
     @unittest.skipIf(os.environ.get('CI'), 'Do not run in CI')
     def test_live_create_and_cleanup(self):
