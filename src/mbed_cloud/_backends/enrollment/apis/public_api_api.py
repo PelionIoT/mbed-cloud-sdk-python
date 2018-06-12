@@ -35,10 +35,108 @@ class PublicAPIApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
+    def create_bulk_device_enrollment(self, enrollment_identities, **kwargs):
+        """
+        Bulk upload
+        With bulk upload you can upload a CSV file containing a number of enrollment IDs.  First line of the CSV is read as a header and not as a enrollment identity. **Example usage:** ``` curl -X POST \\ -H 'Authorization: Bearer <valid access token>' \\ -F 'enrollments=@/path/to/enrollments/enrollments.csv' \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads ``` 
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.create_bulk_device_enrollment(enrollment_identities, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param file enrollment_identities: Enrollment identities CSV file. Maximum file size is 10MB.  (required)
+        :return: BulkCreateResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.create_bulk_device_enrollment_with_http_info(enrollment_identities, **kwargs)
+        else:
+            (data) = self.create_bulk_device_enrollment_with_http_info(enrollment_identities, **kwargs)
+            return data
+
+    def create_bulk_device_enrollment_with_http_info(self, enrollment_identities, **kwargs):
+        """
+        Bulk upload
+        With bulk upload you can upload a CSV file containing a number of enrollment IDs.  First line of the CSV is read as a header and not as a enrollment identity. **Example usage:** ``` curl -X POST \\ -H 'Authorization: Bearer <valid access token>' \\ -F 'enrollments=@/path/to/enrollments/enrollments.csv' \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads ``` 
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.create_bulk_device_enrollment_with_http_info(enrollment_identities, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param file enrollment_identities: Enrollment identities CSV file. Maximum file size is 10MB.  (required)
+        :return: BulkCreateResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['enrollment_identities']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method create_bulk_device_enrollment" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'enrollment_identities' is set
+        if ('enrollment_identities' not in params) or (params['enrollment_identities'] is None):
+            raise ValueError("Missing the required parameter `enrollment_identities` when calling `create_bulk_device_enrollment`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+        if 'enrollment_identities' in params:
+            local_var_files['enrollment_identities'] = params['enrollment_identities']
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['multipart/form-data'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/device-enrollments-bulk-uploads', 'POST',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='BulkCreateResponse',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
     def create_device_enrollment(self, enrollment_identity, **kwargs):
         """
         Place an enrollment claim for one or several devices.
-        When the device connects to the bootstrap server and provides the enrollment ID, it will be assigned to your account. 
+        When the device connects to the bootstrap server and provides the enrollment ID, it will be assigned to your account. <br> **Example usage:** ``` curl -X POST \\ -H 'Authorization: Bearer <valid access token>' \\ -H 'content-type: application/json' \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments \\ -d '{\"enrollment_identity\": \"A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5\"}' ``` 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.create_device_enrollment(enrollment_identity, async=True)
@@ -60,7 +158,7 @@ class PublicAPIApi(object):
     def create_device_enrollment_with_http_info(self, enrollment_identity, **kwargs):
         """
         Place an enrollment claim for one or several devices.
-        When the device connects to the bootstrap server and provides the enrollment ID, it will be assigned to your account. 
+        When the device connects to the bootstrap server and provides the enrollment ID, it will be assigned to your account. <br> **Example usage:** ``` curl -X POST \\ -H 'Authorization: Bearer <valid access token>' \\ -H 'content-type: application/json' \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments \\ -d '{\"enrollment_identity\": \"A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5\"}' ``` 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.create_device_enrollment_with_http_info(enrollment_identity, async=True)
@@ -136,14 +234,14 @@ class PublicAPIApi(object):
     def delete_device_enrollment(self, id, **kwargs):
         """
         Delete an enrollment by ID.
-        To free a device from your account you can delete the enrollment claim. To bypass the device ownership, you need to delete the enrollment and do a factory reset for the device. For more information on the ownership trasfer, see [https://github.com/ARMmbed/mbed_Cloud_Docs/blob/restructure/Docs/provisioning/generic_instructions/device-ownership.md#transferring-ownership-using-first-to-claim](TODO put the right link).
+        To free a device from your account you can delete the enrollment claim. To bypass the device ownership, you need to delete the enrollment and do a factory reset for the device. For more information, see [Transferring the ownership using First-to-Claim](/docs/current/connecting/device-ownership.html). <br> **Example usage:** ``` curl -X DELETE \\ -H 'Authorization: Bearer <valid access token>' \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments/{id} ``` 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.delete_device_enrollment(id, async=True)
         >>> result = thread.get()
 
         :param async bool
-        :param str id: Enrollment identity internal id (required)
+        :param str id: Enrollment identity. (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -158,14 +256,14 @@ class PublicAPIApi(object):
     def delete_device_enrollment_with_http_info(self, id, **kwargs):
         """
         Delete an enrollment by ID.
-        To free a device from your account you can delete the enrollment claim. To bypass the device ownership, you need to delete the enrollment and do a factory reset for the device. For more information on the ownership trasfer, see [https://github.com/ARMmbed/mbed_Cloud_Docs/blob/restructure/Docs/provisioning/generic_instructions/device-ownership.md#transferring-ownership-using-first-to-claim](TODO put the right link).
+        To free a device from your account you can delete the enrollment claim. To bypass the device ownership, you need to delete the enrollment and do a factory reset for the device. For more information, see [Transferring the ownership using First-to-Claim](/docs/current/connecting/device-ownership.html). <br> **Example usage:** ``` curl -X DELETE \\ -H 'Authorization: Bearer <valid access token>' \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments/{id} ``` 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.delete_device_enrollment_with_http_info(id, async=True)
         >>> result = thread.get()
 
         :param async bool
-        :param str id: Enrollment identity internal id (required)
+        :param str id: Enrollment identity. (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -209,6 +307,10 @@ class PublicAPIApi(object):
         header_params['Accept'] = self.api_client.\
             select_header_accept(['application/json'])
 
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -227,17 +329,115 @@ class PublicAPIApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
+    def get_bulk_device_enrollment(self, id, **kwargs):
+        """
+        Get bulk upload entity
+        Provides info about bulk upload for the given ID. For example bulk status and processed count of enrollment identities. Info includes also links for the bulk upload reports. **Example usage:** ``` curl -X GET \\ -H 'Authorization: Bearer <valid access token>' \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/{id} ``` 
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.get_bulk_device_enrollment(id, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str id: Bulk create task entity ID (required)
+        :return: BulkCreateResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.get_bulk_device_enrollment_with_http_info(id, **kwargs)
+        else:
+            (data) = self.get_bulk_device_enrollment_with_http_info(id, **kwargs)
+            return data
+
+    def get_bulk_device_enrollment_with_http_info(self, id, **kwargs):
+        """
+        Get bulk upload entity
+        Provides info about bulk upload for the given ID. For example bulk status and processed count of enrollment identities. Info includes also links for the bulk upload reports. **Example usage:** ``` curl -X GET \\ -H 'Authorization: Bearer <valid access token>' \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/{id} ``` 
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.get_bulk_device_enrollment_with_http_info(id, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str id: Bulk create task entity ID (required)
+        :return: BulkCreateResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['id']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_bulk_device_enrollment" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `get_bulk_device_enrollment`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'id' in params:
+            path_params['id'] = params['id']
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/device-enrollments-bulk-uploads/{id}', 'GET',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='BulkCreateResponse',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
     def get_device_enrollment(self, id, **kwargs):
         """
         Get details of an enrollment by ID.
-        To check the enrollment info in detail, for example claming date and expiration date.
+        To check the enrollment info in detail, for example date of claim and expiration date. **Example usage:** ``` curl -X GET \\ -H 'Authorization: Bearer <valid access token>' \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments/{id} ``` 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.get_device_enrollment(id, async=True)
         >>> result = thread.get()
 
         :param async bool
-        :param str id: Enrollment identity internal id (required)
+        :param str id: Enrollment identity. (required)
         :return: EnrollmentIdentity
                  If the method is called asynchronously,
                  returns the request thread.
@@ -252,14 +452,14 @@ class PublicAPIApi(object):
     def get_device_enrollment_with_http_info(self, id, **kwargs):
         """
         Get details of an enrollment by ID.
-        To check the enrollment info in detail, for example claming date and expiration date.
+        To check the enrollment info in detail, for example date of claim and expiration date. **Example usage:** ``` curl -X GET \\ -H 'Authorization: Bearer <valid access token>' \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments/{id} ``` 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.get_device_enrollment_with_http_info(id, async=True)
         >>> result = thread.get()
 
         :param async bool
-        :param str id: Enrollment identity internal id (required)
+        :param str id: Enrollment identity. (required)
         :return: EnrollmentIdentity
                  If the method is called asynchronously,
                  returns the request thread.
@@ -303,6 +503,10 @@ class PublicAPIApi(object):
         header_params['Accept'] = self.api_client.\
             select_header_accept(['application/json'])
 
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/json'])
+
         # Authentication setting
         auth_settings = ['Bearer']
 
@@ -324,7 +528,7 @@ class PublicAPIApi(object):
     def get_device_enrollments(self, **kwargs):
         """
         Get enrollment list.
-        Provides a list of pending and claimed enrollments. Example usage: 
+        Provides a list of pending and claimed enrollments. **Example usage:** ``` curl -X GET \\ -H 'Authorization: Bearer <valid access token>' \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments ``` With query parameters: ``` curl -X GET \\ -H 'Authorization: Bearer <valid access token>' \\ 'https://api.us-east-1.mbedcloud.com/v3/device-enrollments?limit=10' ``` 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.get_device_enrollments(async=True)
@@ -334,7 +538,7 @@ class PublicAPIApi(object):
         :param int limit: Number of results to be returned. Between 2 and 1000, inclusive.
         :param str after: Entity ID to fetch after.
         :param str order: ASC or DESC
-        :param str include: Comma separate additional data to return. Currently supported: total_count
+        :param str include: Comma-separated additional data to return. Currently supported: total_count.
         :return: EnrollmentIdentities
                  If the method is called asynchronously,
                  returns the request thread.
@@ -349,7 +553,7 @@ class PublicAPIApi(object):
     def get_device_enrollments_with_http_info(self, **kwargs):
         """
         Get enrollment list.
-        Provides a list of pending and claimed enrollments. Example usage: 
+        Provides a list of pending and claimed enrollments. **Example usage:** ``` curl -X GET \\ -H 'Authorization: Bearer <valid access token>' \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments ``` With query parameters: ``` curl -X GET \\ -H 'Authorization: Bearer <valid access token>' \\ 'https://api.us-east-1.mbedcloud.com/v3/device-enrollments?limit=10' ``` 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.get_device_enrollments_with_http_info(async=True)
@@ -359,7 +563,7 @@ class PublicAPIApi(object):
         :param int limit: Number of results to be returned. Between 2 and 1000, inclusive.
         :param str after: Entity ID to fetch after.
         :param str order: ASC or DESC
-        :param str include: Comma separate additional data to return. Currently supported: total_count
+        :param str include: Comma-separated additional data to return. Currently supported: total_count.
         :return: EnrollmentIdentities
                  If the method is called asynchronously,
                  returns the request thread.
@@ -409,6 +613,10 @@ class PublicAPIApi(object):
         # HTTP header `Accept`
         header_params['Accept'] = self.api_client.\
             select_header_accept(['application/json'])
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/json'])
 
         # Authentication setting
         auth_settings = ['Bearer']

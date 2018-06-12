@@ -68,7 +68,7 @@ class EnrollmentIdentities(object):
     def after(self):
         """
         Gets the after of this EnrollmentIdentities.
-        muuid
+        ID
 
         :return: The after of this EnrollmentIdentities.
         :rtype: str
@@ -79,7 +79,7 @@ class EnrollmentIdentities(object):
     def after(self, after):
         """
         Sets the after of this EnrollmentIdentities.
-        muuid
+        ID
 
         :param after: The after of this EnrollmentIdentities.
         :type: str

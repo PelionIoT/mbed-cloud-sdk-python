@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**after** | **str** | muuid | 
+**after** | **str** | ID | 
 **data** | [**list[EnrollmentIdentity]**](EnrollmentIdentity.md) |  | 
 **has_more** | **bool** |  | 
 **limit** | **int** | Range 2-1000, or default. | 

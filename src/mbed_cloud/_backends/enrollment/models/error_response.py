@@ -169,7 +169,7 @@ class ErrorResponse(object):
     def request_id(self):
         """
         Gets the request_id of this ErrorResponse.
-        Request ID (muuid).
+        Request ID.
 
         :return: The request_id of this ErrorResponse.
         :rtype: str
@@ -180,7 +180,7 @@ class ErrorResponse(object):
     def request_id(self, request_id):
         """
         Sets the request_id of this ErrorResponse.
-        Request ID (muuid).
+        Request ID.
 
         :param request_id: The request_id of this ErrorResponse.
         :type: str
