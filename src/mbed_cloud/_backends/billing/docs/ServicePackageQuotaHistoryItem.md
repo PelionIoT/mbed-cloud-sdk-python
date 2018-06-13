@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**added** | **str** | Added time of quota history entry. | 
+**added** | **datetime** | Added time of quota history entry. | 
 **amount** | **int** | the amount of quota usage, negative or positive | 
 **id** | **str** | Service package quota history id. | 
 **reason** | **str** | Type of quota usage entry. | 

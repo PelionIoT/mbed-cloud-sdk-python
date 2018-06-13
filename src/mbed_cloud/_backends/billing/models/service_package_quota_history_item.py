@@ -31,7 +31,7 @@ class ServicePackageQuotaHistoryItem(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'added': 'str',
+        'added': 'datetime',
         'amount': 'int',
         'id': 'str',
         'reason': 'str',
@@ -68,7 +68,7 @@ class ServicePackageQuotaHistoryItem(object):
         Added time of quota history entry.
 
         :return: The added of this ServicePackageQuotaHistoryItem.
-        :rtype: str
+        :rtype: datetime
         """
         return self._added
 
@@ -79,12 +79,10 @@ class ServicePackageQuotaHistoryItem(object):
         Added time of quota history entry.
 
         :param added: The added of this ServicePackageQuotaHistoryItem.
-        :type: str
+        :type: datetime
         """
         if added is None:
             raise ValueError("Invalid value for `added`, must not be `None`")
-        if added is not None and not re.search('^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$', added):
-            raise ValueError("Invalid value for `added`, must be a follow pattern or equal to `/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$/`")
 
         self._added = added
 

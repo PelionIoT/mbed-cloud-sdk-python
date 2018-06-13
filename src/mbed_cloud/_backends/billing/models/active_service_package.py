@@ -31,15 +31,15 @@ class ActiveServicePackage(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'created': 'str',
-        'expires': 'str',
+        'created': 'datetime',
+        'expires': 'datetime',
         'firmware_update_count': 'int',
         'grace_period': 'bool',
         'id': 'str',
-        'modified': 'str',
+        'modified': 'datetime',
         'next_id': 'str',
         'previous_id': 'str',
-        'start_time': 'str'
+        'start_time': 'datetime'
     }
 
     attribute_map = {
@@ -77,7 +77,7 @@ class ActiveServicePackage(object):
         Service package creation time in RFC3339 date-time with UTC time zone.
 
         :return: The created of this ActiveServicePackage.
-        :rtype: str
+        :rtype: datetime
         """
         return self._created
 
@@ -88,12 +88,10 @@ class ActiveServicePackage(object):
         Service package creation time in RFC3339 date-time with UTC time zone.
 
         :param created: The created of this ActiveServicePackage.
-        :type: str
+        :type: datetime
         """
         if created is None:
             raise ValueError("Invalid value for `created`, must not be `None`")
-        if created is not None and not re.search('^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$', created):
-            raise ValueError("Invalid value for `created`, must be a follow pattern or equal to `/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$/`")
 
         self._created = created
 
@@ -104,7 +102,7 @@ class ActiveServicePackage(object):
         Service package expiration time in RFC3339 date-time with UTC time zone.
 
         :return: The expires of this ActiveServicePackage.
-        :rtype: str
+        :rtype: datetime
         """
         return self._expires
 
@@ -115,12 +113,10 @@ class ActiveServicePackage(object):
         Service package expiration time in RFC3339 date-time with UTC time zone.
 
         :param expires: The expires of this ActiveServicePackage.
-        :type: str
+        :type: datetime
         """
         if expires is None:
             raise ValueError("Invalid value for `expires`, must not be `None`")
-        if expires is not None and not re.search('^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$', expires):
-            raise ValueError("Invalid value for `expires`, must be a follow pattern or equal to `/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$/`")
 
         self._expires = expires
 
@@ -206,7 +202,7 @@ class ActiveServicePackage(object):
         Service package latest modified time in RFC3339 date-time with UTC time zone.
 
         :return: The modified of this ActiveServicePackage.
-        :rtype: str
+        :rtype: datetime
         """
         return self._modified
 
@@ -217,12 +213,10 @@ class ActiveServicePackage(object):
         Service package latest modified time in RFC3339 date-time with UTC time zone.
 
         :param modified: The modified of this ActiveServicePackage.
-        :type: str
+        :type: datetime
         """
         if modified is None:
             raise ValueError("Invalid value for `modified`, must not be `None`")
-        if modified is not None and not re.search('^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$', modified):
-            raise ValueError("Invalid value for `modified`, must be a follow pattern or equal to `/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$/`")
 
         self._modified = modified
 
@@ -279,7 +273,7 @@ class ActiveServicePackage(object):
         Service package start time in RFC3339 date-time with UTC time zone.
 
         :return: The start_time of this ActiveServicePackage.
-        :rtype: str
+        :rtype: datetime
         """
         return self._start_time
 
@@ -290,12 +284,10 @@ class ActiveServicePackage(object):
         Service package start time in RFC3339 date-time with UTC time zone.
 
         :param start_time: The start_time of this ActiveServicePackage.
-        :type: str
+        :type: datetime
         """
         if start_time is None:
             raise ValueError("Invalid value for `start_time`, must not be `None`")
-        if start_time is not None and not re.search('^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$', start_time):
-            raise ValueError("Invalid value for `start_time`, must be a follow pattern or equal to `/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$/`")
 
         self._start_time = start_time
 

@@ -31,11 +31,11 @@ class ServicePackageQuotaHistoryServicePackage(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'expires': 'str',
+        'expires': 'datetime',
         'firmware_update_count': 'int',
         'id': 'str',
         'previous_id': 'str',
-        'start_time': 'str'
+        'start_time': 'datetime'
     }
 
     attribute_map = {
@@ -65,7 +65,7 @@ class ServicePackageQuotaHistoryServicePackage(object):
         Service package expiration time in RFC3339 date-time with UTC time zone.
 
         :return: The expires of this ServicePackageQuotaHistoryServicePackage.
-        :rtype: str
+        :rtype: datetime
         """
         return self._expires
 
@@ -76,12 +76,10 @@ class ServicePackageQuotaHistoryServicePackage(object):
         Service package expiration time in RFC3339 date-time with UTC time zone.
 
         :param expires: The expires of this ServicePackageQuotaHistoryServicePackage.
-        :type: str
+        :type: datetime
         """
         if expires is None:
             raise ValueError("Invalid value for `expires`, must not be `None`")
-        if expires is not None and not re.search('^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$', expires):
-            raise ValueError("Invalid value for `expires`, must be a follow pattern or equal to `/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$/`")
 
         self._expires = expires
 
@@ -165,7 +163,7 @@ class ServicePackageQuotaHistoryServicePackage(object):
         Service package start time in RFC3339 date-time with UTC time zone.
 
         :return: The start_time of this ServicePackageQuotaHistoryServicePackage.
-        :rtype: str
+        :rtype: datetime
         """
         return self._start_time
 
@@ -176,12 +174,10 @@ class ServicePackageQuotaHistoryServicePackage(object):
         Service package start time in RFC3339 date-time with UTC time zone.
 
         :param start_time: The start_time of this ServicePackageQuotaHistoryServicePackage.
-        :type: str
+        :type: datetime
         """
         if start_time is None:
             raise ValueError("Invalid value for `start_time`, must not be `None`")
-        if start_time is not None and not re.search('^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$', start_time):
-            raise ValueError("Invalid value for `start_time`, must be a follow pattern or equal to `/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$/`")
 
         self._start_time = start_time
 
