@@ -113,10 +113,13 @@ class ResourceValues(ChannelSubscription):
 
     def _wildcard_filter(self, data):
         # custom local filtering based on wildcard string matches for each field
-        for k, list_v in self._local_filters.items():
-            value = data.get(k, '')
-            for v in list_v:
-                if self._wildcard_match(value, v):
+        for required_key, any_required_values in self._local_filters.items():
+            value = data.get(required_key)
+            if value is None:
+                # the filter key is missing from the data
+                return False
+            for required_value in any_required_values:
+                if self._wildcard_match(str(value), required_value):
                     break
             else:
                 # no match from optional list: this data is not a match
