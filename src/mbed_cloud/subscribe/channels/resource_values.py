@@ -75,9 +75,8 @@ class ResourceValues(ChannelSubscription):
             'channel': ChannelIdentifiers.notifications,
         }
 
-        spec_map = Presubscription._get_attributes_map()
-
         # turn our parameters into a presubscriptions-compatible list (one device id per entry)
+        # note: pluralised 'resource_paths'
         self._sdk_presub_params = [
             {
                 k: v for k, v in dict(
@@ -88,12 +87,9 @@ class ResourceValues(ChannelSubscription):
             for d in self.device_ids or [None]
         ]
 
-        # separate our parameters into two groups: routable keys, and wildcard local filters
-        params = dict(device_id=self.device_ids, resource_paths=self.resource_paths)
-        for key, values in params.items():
-            # we have to map to api-style keys for inbound routing and filtering
-            values = utils.ensure_listable(values)
-            api_key_name = spec_map.get(key, key)
+        # api sends back different field names on the notification channel so remap them before
+        # putting them in the routing table
+        for api_key_name, values in dict(ep=self.device_ids, path=self.resource_paths).items():
             has_wildcards = any(self._is_wildcard(v) for v in values if v)
             for to_validate in values:
                 if to_validate is None:
@@ -102,6 +98,9 @@ class ResourceValues(ChannelSubscription):
                     raise ValueError(
                         'Wildcards can only be used at the end of values: "%s"' % (to_validate,)
                     )
+                # local filters recreate behaviour of server-side wildcard filter, but are not
+                # routable (can't look them up in a dictionary)
+                # routable filters are for explicit key-value pairs
                 if has_wildcards:
                     self._local_filters.setdefault(api_key_name, []).append(to_validate)
                 else:
@@ -187,6 +186,9 @@ class ResourceValues(ChannelSubscription):
             content_type=data.get('ct'),
             decode_b64=True
         )
+        for k, v in dict(ep='device_id', path='resource_path').items():
+            if k in decoded:
+                decoded[v] = decoded.pop(k, None)
         super(ResourceValues, self)._notify(decoded)
 
     def stop(self):

@@ -21,21 +21,21 @@ class Test(BaseCase):
 
     def test_valid_wildcard(self):
         channel = channels.ResourceValues(device_id='AB')
-        self.assertEqual({'channel': 'notifications', 'endpoint-name': ['AB']}, channel._route_seeds)
+        self.assertEqual({'channel': 'notifications', 'ep': ['AB']}, channel._route_seeds)
 
         channel = channels.ResourceValues(device_id=['A', 'B'])
-        self.assertEqual({'channel': 'notifications', 'endpoint-name': ['A', 'B']}, channel._route_seeds)
+        self.assertEqual({'channel': 'notifications', 'ep': ['A', 'B']}, channel._route_seeds)
 
         channel = channels.ResourceValues(device_id='AB*')
         self.assertEqual({'channel': 'notifications'}, channel._route_seeds)
 
         channel = channels.ResourceValues(device_id='A', resource_path='/3/0/1/*')
-        self.assertEqual({'channel': 'notifications', 'endpoint-name': ['A']}, channel._route_seeds)
-        self.assertEqual({'resource-path': ['/3/0/1/*']}, channel._local_filters)
+        self.assertEqual({'channel': 'notifications', 'ep': ['A']}, channel._route_seeds)
+        self.assertEqual({'path': ['/3/0/1/*']}, channel._local_filters)
 
         channel = channels.ResourceValues(device_id=['a*', 'b'], resource_path=['/3/0/1/*', '4/*'])
         self.assertEqual({'channel': 'notifications'}, channel._route_seeds)
-        self.assertEqual({'endpoint-name': ['a*', 'b'], 'resource-path': ['/3/0/1/*', '4/*']}, channel._local_filters)
+        self.assertEqual({'ep': ['a*', 'b'], 'path': ['/3/0/1/*', '4/*']}, channel._local_filters)
 
     def test_wildcards(self):
         # subscription to wildcard value should be triggered when receiving specific value
@@ -50,11 +50,11 @@ class Test(BaseCase):
         subs.notify({
             channels.ChannelIdentifiers.notifications: [
                 # should trigger B and C (matches B, wildcard matches C)
-                {'unexpected': 'extra', 'endpoint-name': device_id2, 'resource-path': '5'},
+                {'unexpected': 'extra', 'ep': device_id2, 'path': '5'},
                 # should only trigger D (resource_path is different)
-                {'unexpected': 'extra', 'endpoint-name': device_id1, 'resource-path': '2'},
+                {'unexpected': 'extra', 'ep': device_id1, 'path': '2'},
                 # should trigger D (matches device id 1, custom attr)
-                {'endpoint-name': device_id1, 'custom_attr': 'x'},
+                {'ep': device_id1, 'custom_attr': 'x'},
             ]
         })
 
@@ -67,19 +67,19 @@ class Test(BaseCase):
         # subscription to wildcard value should be triggered when receiving specific value
         device_id1 = 'ABCD_E'
         subs = SubscriptionsManager(mock.MagicMock())
-        observer_a = subs.subscribe(channels.ResourceValues(device_id=device_id1, resource_path=5))
+        observer_a = subs.subscribe(channels.ResourceValues(device_id=device_id1, resource_path='/10255/0/4'))
 
         subs.notify({
             channels.ChannelIdentifiers.notifications: [
-                # should trigger A
                 {
+                    "ct": "application/vnd.oma.lwm2m+tlv",
+                    "ep": device_id1,
+                    "max-age": 0,
+                    "path": "/10255/0/4",
+                    "payload": "iAsLSAAIAAAAAAAAAAA=",
                     'unexpected': 'extra',
-                    'endpoint-name': device_id1,
-                    'resource-path': '5',
-                    'ct': 'tlv',
-                    'payload': 'iAsLSAAIAAAAAAAAAAA=',
                 },
-            ]
+            ],
         })
 
         self.assertEqual(1, observer_a.notify_count)
@@ -88,12 +88,13 @@ class Test(BaseCase):
         self.assertEqual(
             received_payload,
             {
-                'unexpected': 'extra',
-                'endpoint-name': device_id1,
-                'resource-path': '5',
-                'ct': 'tlv',
+                'ct': 'application/vnd.oma.lwm2m+tlv',
+                'device_id': device_id1,
+                'max-age': 0,
+                'resource_path': '/10255/0/4',
                 'payload': {'11': {'0': 0}},
                 'channel': 'notifications',
+                'unexpected': 'extra',
             }
         )
 
@@ -104,11 +105,11 @@ class Test(BaseCase):
         subs.notify({
             channels.ChannelIdentifiers.notifications: [
                 # should trigger A
-                {'endpoint-name': 'a', 'resource-path': 'a'},
+                {'ep': 'a', 'path': 'a'},
                 # should trigger A
-                {'endpoint-name': 'a', 'resource-path': 'b'},
+                {'ep': 'a', 'path': 'b'},
                 # should trigger B
-                {'endpoint-name': 'x', 'resource-path': 'b'},
+                {'ep': 'x', 'path': 'b'},
             ]
         })
 
