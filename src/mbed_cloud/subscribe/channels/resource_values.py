@@ -23,8 +23,6 @@ from mbed_cloud.subscribe.channels.channel import FirstValue
 
 from mbed_cloud.subscribe.subscribe import expand_dict_as_keys
 
-from mbed_cloud.connect.presubscription import Presubscription
-
 from mbed_cloud import tlv
 from mbed_cloud import utils
 
