@@ -46,6 +46,7 @@ class Test(BaseCase):
         observer_b = subs.subscribe(channels.ResourceValues(device_id=device_id2, resource_path=5))
         observer_c = subs.subscribe(channels.ResourceValues(device_id='ABCD*', resource_path=5))
         observer_d = subs.subscribe(channels.ResourceValues(device_id=device_id1, custom_attr='x'))
+        observer_e = subs.subscribe(channels.ResourceValues(device_id='*'))
 
         subs.notify({
             channels.ChannelIdentifiers.notifications: [
@@ -55,6 +56,8 @@ class Test(BaseCase):
                 {'unexpected': 'extra', 'ep': device_id1, 'path': '2'},
                 # should trigger D (matches device id 1, custom attr)
                 {'ep': device_id1, 'custom_attr': 'x'},
+                # should not trigger anything
+                {'endpoint': device_id1, 'custom_attr': 'x'},
             ]
         })
 
@@ -62,6 +65,7 @@ class Test(BaseCase):
         self.assertEqual(1, observer_b.notify_count)
         self.assertEqual(1, observer_c.notify_count)
         self.assertEqual(2, observer_d.notify_count)
+        self.assertEqual(3, observer_e.notify_count)
 
     def test_payload(self):
         # subscription to wildcard value should be triggered when receiving specific value
