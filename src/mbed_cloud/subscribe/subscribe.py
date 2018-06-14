@@ -156,6 +156,7 @@ class SubscriptionsManager(RoutingBase):
 
     def _notify(self, item):
         """Route inbound items to individual channels"""
+        triggered_channels = []
         for key_set in self.watch_keys:
             # only pluck keys if they exist
             plucked = {
@@ -174,10 +175,17 @@ class SubscriptionsManager(RoutingBase):
                     )
                 for channel in channels:
                     LOG.debug('routing dispatch: %s', item)
-                    channel.notify(item)
+                    try:
+                        channel.notify(item)
+                    except Exception:  # noqa
+                        LOG.exception('Channel notification failed')
+                    else:
+                        triggered_channels.append(channel)
+        return triggered_channels
 
     def notify(self, data):
         """Notify subscribers that data was received"""
+        triggered_channels = []
         for channel_name, items in data.items():
             for item in items or []:
                 LOG.debug('notified: %s', item)
@@ -185,9 +193,10 @@ class SubscriptionsManager(RoutingBase):
                     # inject the channel name to the data (so channels can filter on it)
                     item = dict(item)
                     item['channel'] = channel_name
-                    self._notify(item)
+                    triggered_channels.extend(self._notify(item))
                 except Exception:  # noqa
                     LOG.exception('Subscription notification failed')
+        return triggered_channels
 
     def unsubscribe_all(self):
         """Unsubscribes all channels"""

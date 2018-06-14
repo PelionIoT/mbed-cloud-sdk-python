@@ -128,8 +128,9 @@ class ChannelSubscription(object):
         """Notify this channel of inbound data"""
         for filter_function in self._filters:
             if not filter_function(data):
-                return
+                return False
         self._notify(data)
+        return True
 
     def __enter__(self):
         """Enter"""
