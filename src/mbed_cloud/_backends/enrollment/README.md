@@ -57,14 +57,14 @@ enrollment.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # enrollment.configuration.api_key_prefix['Authorization'] = 'Bearer'
 # create an instance of the API class
 api_instance = enrollment.PublicAPIApi()
-enrollment_identity = enrollment.EnrollmentId() # EnrollmentId | 
+enrollment_identities = '/path/to/file.txt' # file | Enrollment identities CSV file. Maximum file size is 10MB. 
 
 try:
-    # Place an enrollment claim for one or several devices.
-    api_response = api_instance.create_device_enrollment(enrollment_identity)
+    # Bulk upload
+    api_response = api_instance.create_bulk_device_enrollment(enrollment_identities)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling PublicAPIApi->create_device_enrollment: %s\n" % e)
+    print("Exception when calling PublicAPIApi->create_bulk_device_enrollment: %s\n" % e)
 
 ```
 
@@ -74,14 +74,17 @@ All URIs are relative to *http://api.us-east-1.mbedcloud.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*PublicAPIApi* | [**create_bulk_device_enrollment**](docs/PublicAPIApi.md#create_bulk_device_enrollment) | **POST** /v3/device-enrollments-bulk-uploads | Bulk upload
 *PublicAPIApi* | [**create_device_enrollment**](docs/PublicAPIApi.md#create_device_enrollment) | **POST** /v3/device-enrollments | Place an enrollment claim for one or several devices.
 *PublicAPIApi* | [**delete_device_enrollment**](docs/PublicAPIApi.md#delete_device_enrollment) | **DELETE** /v3/device-enrollments/{id} | Delete an enrollment by ID.
+*PublicAPIApi* | [**get_bulk_device_enrollment**](docs/PublicAPIApi.md#get_bulk_device_enrollment) | **GET** /v3/device-enrollments-bulk-uploads/{id} | Get bulk upload entity
 *PublicAPIApi* | [**get_device_enrollment**](docs/PublicAPIApi.md#get_device_enrollment) | **GET** /v3/device-enrollments/{id} | Get details of an enrollment by ID.
 *PublicAPIApi* | [**get_device_enrollments**](docs/PublicAPIApi.md#get_device_enrollments) | **GET** /v3/device-enrollments | Get enrollment list.
 
 
 ## Documentation For Models
 
+ - [BulkCreateResponse](docs/BulkCreateResponse.md)
  - [EnrollmentId](docs/EnrollmentId.md)
  - [EnrollmentIdentities](docs/EnrollmentIdentities.md)
  - [EnrollmentIdentity](docs/EnrollmentIdentity.md)

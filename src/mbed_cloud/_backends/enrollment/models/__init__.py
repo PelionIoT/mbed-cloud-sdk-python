@@ -14,6 +14,7 @@
 from __future__ import absolute_import
 
 # import models into model package
+from .bulk_create_response import BulkCreateResponse
 from .enrollment_id import EnrollmentId
 from .enrollment_identities import EnrollmentIdentities
 from .enrollment_identity import EnrollmentIdentity
