@@ -2,6 +2,7 @@ from mbed_cloud.subscribe import SubscriptionsManager
 from mbed_cloud.subscribe import channels
 from mbed_cloud.connect import ConnectAPI
 
+from types import SimpleNamespace
 from tests.common import BaseCase
 
 import mock
@@ -39,33 +40,67 @@ class Test(BaseCase):
 
     def test_wildcards(self):
         # subscription to wildcard value should be triggered when receiving specific value
-        device_id1 = 'ABCD_E'
-        device_id2 = 'ABCD_F'
+        device_id1 = 'ABCDEF'
+        device_id2 = 'ABC123'
         subs = SubscriptionsManager(mock.MagicMock())
-        observer_a = subs.subscribe(channels.ResourceValues(device_id=device_id1, resource_path=5))
-        observer_b = subs.subscribe(channels.ResourceValues(device_id=device_id2, resource_path=5))
-        observer_c = subs.subscribe(channels.ResourceValues(device_id='ABCD*', resource_path=5))
-        observer_d = subs.subscribe(channels.ResourceValues(device_id=device_id1, custom_attr='x'))
-        observer_e = subs.subscribe(channels.ResourceValues(device_id='*'))
 
-        subs.notify({
-            channels.ChannelIdentifiers.notifications: [
-                # should trigger B and C (matches B, wildcard matches C)
-                {'unexpected': 'extra', 'ep': device_id2, 'path': '5'},
-                # should only trigger D (resource_path is different)
-                {'unexpected': 'extra', 'ep': device_id1, 'path': '2'},
-                # should trigger D (matches device id 1, custom attr)
-                {'ep': device_id1, 'custom_attr': 'x'},
-                # should not trigger anything
-                {'endpoint': device_id1, 'custom_attr': 'x'},
-            ]
+        # channels
+        A = subs.channels.ResourceValues(device_id=device_id1, resource_path=999)
+        B = subs.channels.ResourceValues(device_id='ABCD*')
+        C = subs.channels.ResourceValues(device_id='ABC*', resource_path=5)
+        D = subs.channels.ResourceValues(device_id=device_id1, custom_attr='x')
+        E = subs.channels.ResourceValues(device_id='*')
+        F = subs.channels.ResourceValues(resource_path=[4, 5, 6, 7])
+
+        # set names for clarity of logging
+        A.name = 'A'
+        B.name = 'B'
+        C.name = 'C'
+        D.name = 'D'
+        E.name = 'E'
+        F.name = 'F'
+
+        sequence = [A, B, C, D, E, F]
+
+        # set up the channels
+        for channel in sequence:
+            subs.subscribe(channel)
+
+        # notification payloads
+        notifications = [
+            # device id matches ALL but doesn't match A, C, F because of resource paths, D due to custom attr
+            ({'ep': device_id1}, (B, E)),
+            # device id matches ALL but doesn't match A because of resource paths, D due to custom attr
+            ({'ep': device_id1, 'path': '5'}, (B, C, E, F)),
+            # should work as above
+            ({'ep': device_id1, 'path': '5', 'unexpected': 'extra'}, (B, C, E, F)),
+            # only matches D due to custom attr, E due to having any device id
+            ({'ep': device_id1, 'custom_attr': 'x'}, (B, D, E)),
+            # matches C and F due to resource path
+            ({'ep': device_id2, 'path': '5'}, (C, E, F)),
+            # should not trigger anything
+            ({'endpoint': device_id1, 'custom_attr': 'x'}, tuple()),
+        ]
+
+        # trigger one-by-one
+        for notification, expected_triggers in notifications:
+            triggered = subs.notify({
+                channels.ChannelIdentifiers.notifications: [notification]
+            })
+            expected_names = [c.name for c in expected_triggers]
+            actual_names = [c.name for c in triggered]
+            self.assertEqual(sorted(expected_names), sorted(actual_names))
+
+        # trigger in one go
+        triggered = subs.notify({
+            channels.ChannelIdentifiers.notifications: [n[0] for n in notifications]
         })
+        all_expected_channels = [c.name for n in notifications for c in n[1]]
+        actual_names = [c.name for c in triggered]
+        self.assertEqual(sorted(all_expected_channels), sorted(actual_names))
 
-        self.assertEqual(0, observer_a.notify_count)
-        self.assertEqual(1, observer_b.notify_count)
-        self.assertEqual(1, observer_c.notify_count)
-        self.assertEqual(2, observer_d.notify_count)
-        self.assertEqual(3, observer_e.notify_count)
+        self.assertEqual(8, B.observer.notify_count)
+        self.assertEqual(2, D.observer.notify_count)
 
     def test_payload(self):
         # subscription to wildcard value should be triggered when receiving specific value
