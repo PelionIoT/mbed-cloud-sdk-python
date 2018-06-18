@@ -2,7 +2,6 @@ from mbed_cloud.subscribe import SubscriptionsManager
 from mbed_cloud.subscribe import channels
 from mbed_cloud.connect import ConnectAPI
 
-from types import SimpleNamespace
 from tests.common import BaseCase
 
 import mock
