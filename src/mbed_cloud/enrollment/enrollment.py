@@ -81,7 +81,7 @@ class EnrollmentAPI(BaseAPI):
         :returns: BulkCreateResponse
         """
         api = self._get_api(enrollment.PublicAPIApi)
-        return api.create_bulk_device_enrollment(datafile)
+        return api.create_bulk_device_enrollment(enrollment_identities=datafile)
 
     @catch_exceptions(EnrollmentAPIException)
     def get_bulk_add_enrollment_claim_status(self, bulk_id):
@@ -93,7 +93,7 @@ class EnrollmentAPI(BaseAPI):
         :returns: BulkCreateResponse
         """
         api = self._get_api(enrollment.PublicAPIApi)
-        return api.get_bulk_device_enrollment(bulk_id)
+        return api.get_bulk_device_enrollment(id=bulk_id)
 
 
 class EnrollmentClaim(BaseObject):
