@@ -85,6 +85,10 @@ def get_metadata(item):
 
 
 def license_cleanup(text):
+    """Tidy up a license string
+
+    e.g. "::OSI::   mit software license" -> "MIT"
+    """
     if not text:
         return None
     text = text.rsplit(':', 1)[-1]
@@ -219,14 +223,16 @@ def main():
     """Generate a TPIP report."""
     parser = argparse.ArgumentParser(description='Generate a TPIP report as a CSV file.')
     parser.add_argument('output_filename', type=str, metavar='output-file',
-                        help='the output path and filename')
+                        help='the output path and filename', nargs='?')
     parser.add_argument('--only', type=str, help='only parse this package')
     args = parser.parse_args()
+
+    output_path = os.path.abspath(args.output_filename) if args.output_filename else None
 
     skips = []
     tpip_pkgs = []
     for pkg_name, pkg_item in sorted(pkg_resources.working_set.by_key.items()):
-        if args.only and not args.only in pkg_name.lower():
+        if args.only and args.only not in pkg_name.lower():
             continue
         if pkg_name in EXCLUDED_PACKAGES:
             skips.append(pkg_name)
@@ -238,10 +244,10 @@ def main():
     print(json.dumps(tpip_pkgs, indent=2, sort_keys=True))
     print('Parsed %s packages\nOutput to CSV: `%s`\nIgnored packages: %s' % (
         len(tpip_pkgs),
-        os.path.abspath(args.output_filename),
+        output_path,
         ', '.join(skips),
     ))
-    write_csv_file(args.output_filename, tpip_pkgs)
+    output_path and write_csv_file(output_path, tpip_pkgs)
 
 
 if __name__ == '__main__':
