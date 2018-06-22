@@ -35,8 +35,12 @@ EXCLUDED_PACKAGES = {
     'wheel',
 }
 
+BAD_LICENSES = {
+    'dual',
+}
+
 # Report field names in CSV
-FIELDNAMES = {
+FIELDNAMES = [
     'PkgName',
     'PkgType',
     'PkgOriginator',
@@ -46,7 +50,7 @@ FIELDNAMES = {
     'PkgLicense',
     'PkgLicenseURL',
     'PkgMgrURL',
-}
+]
 
 # map from metadata keys to Mbed-standardised TPIP report fields
 TPIP_FIELD_MAPPINGS = {
@@ -80,6 +84,28 @@ def get_metadata(item):
     return metadata_lines
 
 
+def license_cleanup(text):
+    if not text:
+        return None
+    text = text.rsplit(':', 1)[-1]
+    replacements = [
+        'licenses',
+        'license',
+        'licences',
+        'licence',
+        'software',
+        ',',
+    ]
+    for replacement in replacements:
+        text = text.replace(replacement, '')
+    text = text.strip().upper()
+    text = text.replace(' ', '_')
+    text = text.replace('-', '_')
+    if any(trigger.upper() in text for trigger in BAD_LICENSES):
+        return None
+    return text
+
+
 def get_package_info_from_line(tpip_pkg, line):
     """Given a line of text from metadata, extract semantic info"""
     lower_line = line.lower()
@@ -106,10 +132,12 @@ def get_package_info_from_line(tpip_pkg, line):
         return
 
     # Handle british and american spelling of licence/license
-    if not tpip_pkg.get('PkgLicense') and 'licen' in lower_line:
+    if 'licen' in lower_line:
         if metadata_key.startswith('classifier') or '::' in metadata_value:
-            metadata_value_from_end = lower_line.rsplit(':')[-1].strip()
-            tpip_pkg['PkgLicense'] = metadata_value_from_end
+            license = lower_line.rsplit(':')[-1].strip().lower()
+            license = license_cleanup(license)
+            if license:
+                tpip_pkg.setdefault('PkgLicenses', []).append(license)
 
 
 def process_metadata(pkg_name, metadata_lines):
@@ -151,6 +179,14 @@ def process_metadata(pkg_name, metadata_lines):
             tpip_pkg.pop('PkgAuthorEmail')
         )
 
+    explicit_license = license_cleanup(tpip_pkg.get('PkgLicense'))
+    license_candidates = tpip_pkg.pop('PkgLicenses', [])
+
+    if explicit_license:
+        tpip_pkg['PkgLicense'] = explicit_license
+    else:
+        tpip_pkg['PkgLicense'] = ' '.join(set(license_candidates))
+
     return tpip_pkg
 
 
@@ -184,11 +220,14 @@ def main():
     parser = argparse.ArgumentParser(description='Generate a TPIP report as a CSV file.')
     parser.add_argument('output_filename', type=str, metavar='output-file',
                         help='the output path and filename')
+    parser.add_argument('--only', type=str, help='only parse this package')
     args = parser.parse_args()
 
     skips = []
     tpip_pkgs = []
     for pkg_name, pkg_item in sorted(pkg_resources.working_set.by_key.items()):
+        if args.only and not args.only in pkg_name.lower():
+            continue
         if pkg_name in EXCLUDED_PACKAGES:
             skips.append(pkg_name)
             continue
