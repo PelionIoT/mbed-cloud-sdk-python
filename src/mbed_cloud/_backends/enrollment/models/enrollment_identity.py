@@ -34,7 +34,6 @@ class EnrollmentIdentity(object):
         'account_id': 'str',
         'claimed_at': 'datetime',
         'created_at': 'datetime',
-        'device_id': 'str',
         'enrolled_device_id': 'str',
         'enrollment_identity': 'str',
         'etag': 'str',
@@ -47,7 +46,6 @@ class EnrollmentIdentity(object):
         'account_id': 'account_id',
         'claimed_at': 'claimed_at',
         'created_at': 'created_at',
-        'device_id': 'device_id',
         'enrolled_device_id': 'enrolled_device_id',
         'enrollment_identity': 'enrollment_identity',
         'etag': 'etag',
@@ -56,7 +54,7 @@ class EnrollmentIdentity(object):
         'object': 'object'
     }
 
-    def __init__(self, account_id=None, claimed_at=None, created_at=None, device_id=None, enrolled_device_id=None, enrollment_identity=None, etag=None, expires_at=None, id=None, object=None):
+    def __init__(self, account_id=None, claimed_at=None, created_at=None, enrolled_device_id=None, enrollment_identity=None, etag=None, expires_at=None, id=None, object=None):
         """
         EnrollmentIdentity - a model defined in Swagger
         """
@@ -64,7 +62,6 @@ class EnrollmentIdentity(object):
         self._account_id = account_id
         self._claimed_at = claimed_at
         self._created_at = created_at
-        self._device_id = device_id
         self._enrolled_device_id = enrolled_device_id
         self._enrollment_identity = enrollment_identity
         self._etag = etag
@@ -77,7 +74,7 @@ class EnrollmentIdentity(object):
     def account_id(self):
         """
         Gets the account_id of this EnrollmentIdentity.
-        muuid
+        ID
 
         :return: The account_id of this EnrollmentIdentity.
         :rtype: str
@@ -88,7 +85,7 @@ class EnrollmentIdentity(object):
     def account_id(self, account_id):
         """
         Sets the account_id of this EnrollmentIdentity.
-        muuid
+        ID
 
         :param account_id: The account_id of this EnrollmentIdentity.
         :type: str
@@ -118,6 +115,8 @@ class EnrollmentIdentity(object):
         :param claimed_at: The claimed_at of this EnrollmentIdentity.
         :type: datetime
         """
+        if claimed_at is None:
+            raise ValueError("Invalid value for `claimed_at`, must not be `None`")
 
         self._claimed_at = claimed_at
 
@@ -147,33 +146,10 @@ class EnrollmentIdentity(object):
         self._created_at = created_at
 
     @property
-    def device_id(self):
-        """
-        Gets the device_id of this EnrollmentIdentity.
-        The ID of the device in the Device Directory once it has been registered.
-
-        :return: The device_id of this EnrollmentIdentity.
-        :rtype: str
-        """
-        return self._device_id
-
-    @device_id.setter
-    def device_id(self, device_id):
-        """
-        Sets the device_id of this EnrollmentIdentity.
-        The ID of the device in the Device Directory once it has been registered.
-
-        :param device_id: The device_id of this EnrollmentIdentity.
-        :type: str
-        """
-
-        self._device_id = device_id
-
-    @property
     def enrolled_device_id(self):
         """
         Gets the enrolled_device_id of this EnrollmentIdentity.
-        Enrolled device internal ID
+        The ID of the device in the Device Directory once it has been registered.
 
         :return: The enrolled_device_id of this EnrollmentIdentity.
         :rtype: str
@@ -184,11 +160,13 @@ class EnrollmentIdentity(object):
     def enrolled_device_id(self, enrolled_device_id):
         """
         Sets the enrolled_device_id of this EnrollmentIdentity.
-        Enrolled device internal ID
+        The ID of the device in the Device Directory once it has been registered.
 
         :param enrolled_device_id: The enrolled_device_id of this EnrollmentIdentity.
         :type: str
         """
+        if enrolled_device_id is None:
+            raise ValueError("Invalid value for `enrolled_device_id`, must not be `None`")
         if enrolled_device_id is not None and not re.search('^[A-Za-z0-9]{32}', enrolled_device_id):
             raise ValueError("Invalid value for `enrolled_device_id`, must be a follow pattern or equal to `/^[A-Za-z0-9]{32}/`")
 
@@ -214,6 +192,8 @@ class EnrollmentIdentity(object):
         :param enrollment_identity: The enrollment_identity of this EnrollmentIdentity.
         :type: str
         """
+        if enrollment_identity is None:
+            raise ValueError("Invalid value for `enrollment_identity`, must not be `None`")
         if enrollment_identity is not None and not re.search('^A-[A-Za-z0-9:]{95}$', enrollment_identity):
             raise ValueError("Invalid value for `enrollment_identity`, must be a follow pattern or equal to `/^A-[A-Za-z0-9:]{95}$/`")
 
@@ -273,7 +253,7 @@ class EnrollmentIdentity(object):
     def id(self):
         """
         Gets the id of this EnrollmentIdentity.
-        Enrollment identity internal id
+        Enrollment identity.
 
         :return: The id of this EnrollmentIdentity.
         :rtype: str
@@ -284,7 +264,7 @@ class EnrollmentIdentity(object):
     def id(self, id):
         """
         Sets the id of this EnrollmentIdentity.
-        Enrollment identity internal id
+        Enrollment identity.
 
         :param id: The id of this EnrollmentIdentity.
         :type: str
@@ -314,6 +294,8 @@ class EnrollmentIdentity(object):
         :param object: The object of this EnrollmentIdentity.
         :type: str
         """
+        if object is None:
+            raise ValueError("Invalid value for `object`, must not be `None`")
         allowed_values = ["enrollment"]
         if object not in allowed_values:
             raise ValueError(

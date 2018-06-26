@@ -14,6 +14,7 @@
 from __future__ import absolute_import
 
 # import models into sdk package
+from .models.bulk_create_response import BulkCreateResponse
 from .models.enrollment_id import EnrollmentId
 from .models.enrollment_identities import EnrollmentIdentities
 from .models.enrollment_identity import EnrollmentIdentity

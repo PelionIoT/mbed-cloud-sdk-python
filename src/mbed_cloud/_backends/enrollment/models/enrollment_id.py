@@ -66,6 +66,8 @@ class EnrollmentId(object):
         :param enrollment_identity: The enrollment_identity of this EnrollmentId.
         :type: str
         """
+        if enrollment_identity is None:
+            raise ValueError("Invalid value for `enrollment_identity`, must not be `None`")
         if enrollment_identity is not None and not re.search('^A-[A-Za-z0-9:]{95}$', enrollment_identity):
             raise ValueError("Invalid value for `enrollment_identity`, must be a follow pattern or equal to `/^A-[A-Za-z0-9:]{95}$/`")
 
