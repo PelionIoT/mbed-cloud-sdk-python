@@ -51,6 +51,7 @@ RUN pipenv run pytest --durations=3 tests/unit
 RUN pipenv run pytest --durations=3 tests/static
 
 # build the documentation
+RUN pipenv run sphinx-apidoc src/mbed_cloud -o docs/built_api -e -M
 RUN pipenv run sphinx-build -a -b html -c docs/ docs/ built_docs
 
 # check the package file is good

@@ -176,6 +176,16 @@ def new_build(py_ver: PyVer):
       - persist_to_workspace: # workspace is used later in this same build
           root: {cache_dir}
           paths: '{cache_file}'
+      
+      # extracting documentation for review:
+      - run:
+          name: Start a named container
+          command: docker run --name=SDK {py_ver.tag}
+      - run:
+          name: Extract the documentation
+          command: 'docker cp SDK:/build/built_docs ./built_docs'
+      - store_artifacts:
+          path: built_docs
     """)
     return build_name(py_ver), template
 

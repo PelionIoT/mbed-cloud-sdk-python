@@ -4,8 +4,21 @@ Mbed Cloud SDK for Python
 The ``mbed-cloud-sdk`` gives developers access to the full `Arm Mbed <https://docs.mbed.com/>`__ suite using Python.
 
 .. toctree::
+    :maxdepth: 1
+
+    All Modules <module.rst>
+
+.. toctree::
+    :maxdepth: 3
+
+    Full API Reference <built_api/mbed_cloud.rst>
+
+.. include:: ../README.rst
+   :start-after: common_content_anchor
+
+.. toctree::
   :maxdepth: 1
-  :caption: Components
+  :caption: Detailed Usage
 
   account_management
   certificates
@@ -29,6 +42,3 @@ The ``mbed-cloud-sdk`` gives developers access to the full `Arm Mbed <https://do
   :caption: Change History
 
   changelog
-
-.. include:: ../README.rst
-   :start-after: common_content_anchor
