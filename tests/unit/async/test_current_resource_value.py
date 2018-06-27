@@ -12,7 +12,7 @@ import unittest
 
 class Test(BaseCase):
 
-    def test_wildcards(self):
+    def test_current_resource_value(self):
         device_id1 = 'ABCD_E'
         device_id2 = 'ABCD_F'
         resource_path = '/3/4/5'

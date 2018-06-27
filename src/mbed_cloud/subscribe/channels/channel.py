@@ -79,6 +79,7 @@ class ChannelSubscription(object):
         self._optional_filters = None
         self._route_keys = None
         self.add_filter_function(self._filter_optional_keys)
+        self.name = None
         super(ChannelSubscription, self).__init__()
 
     def get_routing_keys(self):
@@ -128,8 +129,9 @@ class ChannelSubscription(object):
         """Notify this channel of inbound data"""
         for filter_function in self._filters:
             if not filter_function(data):
-                return
+                return False
         self._notify(data)
+        return True
 
     def __enter__(self):
         """Enter"""
@@ -138,6 +140,10 @@ class ChannelSubscription(object):
     def __exit__(self, exc_type, exc_value, traceback):
         """Exit"""
         return self.ensure_stopped()
+
+    def __repr__(self):
+        """String representation"""
+        return '<%s %s>' % (self.__class__.__name__, self.name or self._route_keys)
 
     def start(self):
         """Base method for starting the channel"""
