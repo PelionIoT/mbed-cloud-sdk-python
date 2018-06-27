@@ -351,7 +351,6 @@ class Account(BaseObject):
             "updated_at": "updated_at",
             "reason": "reason",
             "template_id": "template_id",
-            "custom_properties": "custom_fields",
             "sales_contact_email": "sales_contact",
             "contract_number": "contract_number",
             "customer_number": "customer_number",
@@ -553,17 +552,6 @@ class Account(BaseObject):
         return self._contract_number
 
     @property
-    def custom_properties(self):
-        """Gets the custom_properties of this AccountInfo.
-
-        Account specific custom properties.
-
-        :return: The account_properties of this AccountInfo.
-        :rtype: dict(str, dict(str, str))
-        """
-        return self._custom_properties
-
-    @property
     def customer_number(self):
         """Gets the customer_number of this AccountInfo.
 
@@ -689,7 +677,6 @@ class User(BaseObject):
             "last_login_time": "last_login_time",
             "two_factor_authentication": "is_totp_enabled",
             "login_history": "login_history",
-            "custom_properties": "custom_fields",
         }
 
     @property
@@ -848,15 +835,6 @@ class User(BaseObject):
         :rtype: LoginHistory
         """
         return self._login_history
-
-    @property
-    def custom_properties(self):
-        """User properties
-
-        :returns: dictionary of properties
-        :rtype: dict(str, str)
-        """
-        return self._custom_properties
 
 
 class Group(BaseObject):
