@@ -33,9 +33,9 @@ class ReportBillingData(object):
     swagger_types = {
         'active_devices': 'int',
         'firmware_updates': 'int',
-        'generated': 'str',
-        'period_end': 'str',
-        'period_start': 'str'
+        'generated': 'datetime',
+        'period_end': 'datetime',
+        'period_start': 'datetime'
     }
 
     attribute_map = {
@@ -114,7 +114,7 @@ class ReportBillingData(object):
         Gets the generated of this ReportBillingData.
 
         :return: The generated of this ReportBillingData.
-        :rtype: str
+        :rtype: datetime
         """
         return self._generated
 
@@ -124,12 +124,10 @@ class ReportBillingData(object):
         Sets the generated of this ReportBillingData.
 
         :param generated: The generated of this ReportBillingData.
-        :type: str
+        :type: datetime
         """
         if generated is None:
             raise ValueError("Invalid value for `generated`, must not be `None`")
-        if generated is not None and not re.search('^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$', generated):
-            raise ValueError("Invalid value for `generated`, must be a follow pattern or equal to `/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$/`")
 
         self._generated = generated
 
@@ -139,7 +137,7 @@ class ReportBillingData(object):
         Gets the period_end of this ReportBillingData.
 
         :return: The period_end of this ReportBillingData.
-        :rtype: str
+        :rtype: datetime
         """
         return self._period_end
 
@@ -149,12 +147,10 @@ class ReportBillingData(object):
         Sets the period_end of this ReportBillingData.
 
         :param period_end: The period_end of this ReportBillingData.
-        :type: str
+        :type: datetime
         """
         if period_end is None:
             raise ValueError("Invalid value for `period_end`, must not be `None`")
-        if period_end is not None and not re.search('^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$', period_end):
-            raise ValueError("Invalid value for `period_end`, must be a follow pattern or equal to `/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$/`")
 
         self._period_end = period_end
 
@@ -164,7 +160,7 @@ class ReportBillingData(object):
         Gets the period_start of this ReportBillingData.
 
         :return: The period_start of this ReportBillingData.
-        :rtype: str
+        :rtype: datetime
         """
         return self._period_start
 
@@ -174,12 +170,10 @@ class ReportBillingData(object):
         Sets the period_start of this ReportBillingData.
 
         :param period_start: The period_start of this ReportBillingData.
-        :type: str
+        :type: datetime
         """
         if period_start is None:
             raise ValueError("Invalid value for `period_start`, must not be `None`")
-        if period_start is not None and not re.search('^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$', period_start):
-            raise ValueError("Invalid value for `period_start`, must be a follow pattern or equal to `/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$/`")
 
         self._period_start = period_start
 

@@ -116,7 +116,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api('/billing-report', 'GET',
+        return self.api_client.call_api('/v3/billing-report', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -124,6 +124,198 @@ class DefaultApi(object):
                                         post_params=form_params,
                                         files=local_var_files,
                                         response_type='ReportResponse',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
+    def get_billing_report_active_devices(self, month, **kwargs):
+        """
+        Get raw active devices billing data for the month.
+        Fetch raw active devices billing data for the currently authenticated commercial non-subtenant account. They are supplementary data for billing report. The raw active devices billing data for subtenant accounts are included in their aggregator's raw active devices billing data.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.get_billing_report_active_devices(month, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str month: Queried year and month of billing report (required)
+        :return: None
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.get_billing_report_active_devices_with_http_info(month, **kwargs)
+        else:
+            (data) = self.get_billing_report_active_devices_with_http_info(month, **kwargs)
+            return data
+
+    def get_billing_report_active_devices_with_http_info(self, month, **kwargs):
+        """
+        Get raw active devices billing data for the month.
+        Fetch raw active devices billing data for the currently authenticated commercial non-subtenant account. They are supplementary data for billing report. The raw active devices billing data for subtenant accounts are included in their aggregator's raw active devices billing data.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.get_billing_report_active_devices_with_http_info(month, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str month: Queried year and month of billing report (required)
+        :return: None
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['month']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_billing_report_active_devices" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'month' is set
+        if ('month' not in params) or (params['month'] is None):
+            raise ValueError("Missing the required parameter `month` when calling `get_billing_report_active_devices`")
+
+        if 'month' in params and not re.search('^\\d{4}-\\d{2}$', params['month']):
+            raise ValueError("Invalid value for parameter `month` when calling `get_billing_report_active_devices`, must conform to the pattern `/^\\d{4}-\\d{2}$/`")
+
+        collection_formats = {}
+
+        path_params = {}
+
+        query_params = []
+        if 'month' in params:
+            query_params.append(('month', params['month']))
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/billing-report-active-devices', 'GET',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type=None,
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
+    def get_billing_report_firmware_updates(self, month, **kwargs):
+        """
+        Get raw firmware updates billing data for the month.
+        Fetch generated firmware update devices billing report for the currently authenticated commercial non-subtenant account. The firmware update devices billing reports for subtenant accounts are included in their aggregator's firmware update devices billing report.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.get_billing_report_firmware_updates(month, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str month: Queried year and month of billing report (required)
+        :return: None
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.get_billing_report_firmware_updates_with_http_info(month, **kwargs)
+        else:
+            (data) = self.get_billing_report_firmware_updates_with_http_info(month, **kwargs)
+            return data
+
+    def get_billing_report_firmware_updates_with_http_info(self, month, **kwargs):
+        """
+        Get raw firmware updates billing data for the month.
+        Fetch generated firmware update devices billing report for the currently authenticated commercial non-subtenant account. The firmware update devices billing reports for subtenant accounts are included in their aggregator's firmware update devices billing report.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.get_billing_report_firmware_updates_with_http_info(month, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str month: Queried year and month of billing report (required)
+        :return: None
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['month']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_billing_report_firmware_updates" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'month' is set
+        if ('month' not in params) or (params['month'] is None):
+            raise ValueError("Missing the required parameter `month` when calling `get_billing_report_firmware_updates`")
+
+        if 'month' in params and not re.search('^\\d{4}-\\d{2}$', params['month']):
+            raise ValueError("Invalid value for parameter `month` when calling `get_billing_report_firmware_updates`, must conform to the pattern `/^\\d{4}-\\d{2}$/`")
+
+        collection_formats = {}
+
+        path_params = {}
+
+        query_params = []
+        if 'month' in params:
+            query_params.append(('month', params['month']))
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/billing-report-firmware-updates', 'GET',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type=None,
                                         auth_settings=auth_settings,
                                         async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -202,7 +394,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api('/service-packages-quota', 'GET',
+        return self.api_client.call_api('/v3/service-packages-quota', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -305,7 +497,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api('/service-packages-quota-history', 'GET',
+        return self.api_client.call_api('/v3/service-packages-quota-history', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -391,7 +583,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api('/service-packages', 'GET',
+        return self.api_client.call_api('/v3/service-packages', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,

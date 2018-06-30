@@ -33,7 +33,7 @@ class QuotaUsageReport(object):
     swagger_types = {
         'amount': 'int',
         'campaign_name': 'str',
-        'time': 'str',
+        'time': 'datetime',
         'type': 'str'
     }
 
@@ -110,7 +110,7 @@ class QuotaUsageReport(object):
         Added time of quota usage entry.
 
         :return: The time of this QuotaUsageReport.
-        :rtype: str
+        :rtype: datetime
         """
         return self._time
 
@@ -121,12 +121,10 @@ class QuotaUsageReport(object):
         Added time of quota usage entry.
 
         :param time: The time of this QuotaUsageReport.
-        :type: str
+        :type: datetime
         """
         if time is None:
             raise ValueError("Invalid value for `time`, must not be `None`")
-        if time is not None and not re.search('^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$', time):
-            raise ValueError("Invalid value for `time`, must be a follow pattern or equal to `/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$/`")
 
         self._time = time
 

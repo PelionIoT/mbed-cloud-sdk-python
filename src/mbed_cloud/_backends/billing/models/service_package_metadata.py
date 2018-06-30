@@ -31,10 +31,10 @@ class ServicePackageMetadata(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'end_time': 'str',
+        'end_time': 'datetime',
         'remaining_quota': 'int',
         'reserved_quota': 'int',
-        'start_time': 'str'
+        'start_time': 'datetime'
     }
 
     attribute_map = {
@@ -62,7 +62,7 @@ class ServicePackageMetadata(object):
         Service package end time.
 
         :return: The end_time of this ServicePackageMetadata.
-        :rtype: str
+        :rtype: datetime
         """
         return self._end_time
 
@@ -73,12 +73,10 @@ class ServicePackageMetadata(object):
         Service package end time.
 
         :param end_time: The end_time of this ServicePackageMetadata.
-        :type: str
+        :type: datetime
         """
         if end_time is None:
             raise ValueError("Invalid value for `end_time`, must not be `None`")
-        if end_time is not None and not re.search('^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$', end_time):
-            raise ValueError("Invalid value for `end_time`, must be a follow pattern or equal to `/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$/`")
 
         self._end_time = end_time
 
@@ -143,7 +141,7 @@ class ServicePackageMetadata(object):
         Service package start time.
 
         :return: The start_time of this ServicePackageMetadata.
-        :rtype: str
+        :rtype: datetime
         """
         return self._start_time
 
@@ -154,12 +152,10 @@ class ServicePackageMetadata(object):
         Service package start time.
 
         :param start_time: The start_time of this ServicePackageMetadata.
-        :type: str
+        :type: datetime
         """
         if start_time is None:
             raise ValueError("Invalid value for `start_time`, must not be `None`")
-        if start_time is not None and not re.search('^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$', start_time):
-            raise ValueError("Invalid value for `start_time`, must be a follow pattern or equal to `/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$/`")
 
         self._start_time = start_time
 

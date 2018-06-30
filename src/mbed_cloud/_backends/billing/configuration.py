@@ -50,7 +50,7 @@ class Configuration(with_metaclass(TypeWithDefault, object)):
         Constructor
         """
         # Default Base url
-        self.host = "http://mbed-billing.example.com/v3"
+        self.host = "http://mbed-billing.example.com"
         # Temp file folder for downloading files
         self.temp_folder_path = None
 
