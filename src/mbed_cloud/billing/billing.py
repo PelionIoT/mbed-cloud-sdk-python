@@ -27,7 +27,7 @@ from mbed_cloud.pagination import PaginatedResponse
 from mbed_cloud.decorators import catch_exceptions
 
 # Import backend API
-import mbed_cloud._backends.billing as billing
+from mbed_cloud._backends import billing
 from mbed_cloud._backends.billing import models
 from mbed_cloud._backends.billing.rest import ApiException as BillingAPIException
 
@@ -39,56 +39,133 @@ class BillingAPI(BaseAPI):
 
     api_structure = {billing: [billing.DefaultApi]}
 
-    billing.DefaultApi.get_service_package_quota()
-    billing.DefaultApi.get_service_package_quota_history()
-    billing.DefaultApi.get_service_packages()
-
     @catch_exceptions(BillingAPIException)
-    def get_service_package_quota(self):
+    def get_quota_remaining(self):
         """Get the available firmware update quota"""
         api = self._get_api(billing.DefaultApi)
-        return api.get_service_package_quota().get('quota')
+        quota = api.get_service_package_quota().get('quota')
+        return None if quota is None else int(quota)
 
     @catch_exceptions(BillingAPIException)
-    def get_service_package_quota_history(self, id, **kwargs):
+    def get_quota_history(self, **kwargs):
         """Get your quota usage history"""
         kwargs = self._verify_sort_options(kwargs)
-        kwargs = self._verify_filters(kwargs, BillingClaim)
+        kwargs = self._verify_filters(kwargs, Package)
         api = self._get_api(billing.DefaultApi)
         # TODO: handle missing 'include' parameter for getting total count
         return PaginatedResponse(
             api.get_service_package_quota_history,
-            lwrap_type=dict,
+            lwrap_type=QuotaHistory,
             **kwargs
         )
 
     @catch_exceptions(BillingAPIException)
-    def get_service_packages(self, **kwargs):
+    def get_packages(self, **kwargs):
         """Get all service packages"""
         api = self._get_api(billing.DefaultApi)
         return api.get_service_packages()
 
+    @catch_exceptions(BillingAPIException)
+    def get_report_overview(self, file_path, month, **kwargs):
+        """Downloads a report overview"""
+        api = self._get_api(billing.DefaultApi)
+        return api.get_billing_report(month)
 
-class BillingClaim(BaseObject):
-    """Describes device object from the catalog."""
+
+class QuotaHistory(BaseObject):
+    """An audit history entry for billing entities"""
 
     @staticmethod
     def _get_attributes_map():
-        return {
-            "account_id": "account_id",
-            "claimed_at": "claimed_at",
-            "created_at": "created_at",
-            "device_id": "enrolled_device_id",
-            "claim_id": "billing_identity",
-            "expires_at": "expires_at",
-            "id": "id",
-        }
+        return dict(
+            id='id',
+            added_at='added',
+            amount='amount',
+            reason='reason',
+            reservation='reservation',
+            service_package='service_package',
+        )
 
     @property
-    def account_id(self):
-        """Gets the account_id of this BillingIdentity.
+    def id(self):
+        return self._id
 
-        :return: The account_id of this BillingIdentity.
-        :rtype: str
-        """
-        return self._account_id
+    @property
+    def added_at(self):
+        return self._added_at
+
+    @property
+    def amount(self):
+        return self._amount
+
+    @property
+    def reason(self):
+        return self._reason
+
+    @property
+    def reservation(self):
+        return self._reservation
+
+    @property
+    def service_package(self):
+        return self._service_package
+
+
+class Package(BaseObject):
+    """A billing package"""
+
+    @staticmethod
+    def _get_attributes_map():
+        return dict(
+            created_at='created',
+            modified_at='modified',
+            starts_at='starts_time',
+            expires_at='expires',
+            ends_at='end_time',
+            grace_period='grace_period',
+            firmware_update_count='firmware_update_count',
+            reason='reason',
+            previous_id='previous_id',
+            next_id='next_id',
+        )
+
+    @property
+    def created_at(self):
+        return self._created_at
+
+    @property
+    def modified_at(self):
+        return self._modified_at
+
+    @property
+    def starts_at(self):
+        return self._starts_at
+
+    @property
+    def expires_at(self):
+        return self._expires_at
+
+    @property
+    def ends_at(self):
+        return self._ends_at
+
+    @property
+    def grace_period(self):
+        return self._grace_period
+
+    @property
+    def reason(self):
+        return self._reason
+
+    @property
+    def previous_id(self):
+        return self._previous_id
+
+    @property
+    def next_id(self):
+        return self._next_id
+
+    @property
+    def firmware_update_count(self):
+        return self._firmware_update_count
+
