@@ -18,6 +18,7 @@
 from __future__ import absolute_import
 from __future__ import unicode_literals
 import logging
+import datetime
 
 # Import common functions and exceptions from frontend API
 from mbed_cloud.core import BaseAPI
@@ -66,10 +67,24 @@ class BillingAPI(BaseAPI):
         return api.get_service_packages()
 
     @catch_exceptions(BillingAPIException)
-    def get_report_overview(self, file_path, month, **kwargs):
-        """Downloads a report overview"""
+    def get_report_overview(self, file_path=None, month=None, **kwargs):
+        """Downloads a report overview
+
+        :param file_path: location to store output file [otherwise return json]
+        :param month: month as datetime instance or string in YYYY-MM format
+        :param kwargs:
+        :return:
+        """
+        if not month:
+            month = datetime.datetime.utcnow()
+        if isinstance(month, datetime.datetime):
+            month = '%s-%02d' % (month.year, month.day)
         api = self._get_api(billing.DefaultApi)
-        return api.get_billing_report(month)
+        response = api.get_billing_report(month)
+        if file_path:
+            with open(file_path, 'w') as fh:
+                fh.write(response)
+        return response
 
 
 class QuotaHistory(BaseObject):
