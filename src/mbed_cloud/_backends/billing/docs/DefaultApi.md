@@ -1,13 +1,176 @@
 # billing.DefaultApi
 
-All URIs are relative to *http://mbed-billing.example.com/v3*
+All URIs are relative to *http://mbed-billing.example.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**get_service_package_quota**](DefaultApi.md#get_service_package_quota) | **GET** /service-packages-quota | Service package quota
-[**get_service_package_quota_history**](DefaultApi.md#get_service_package_quota_history) | **GET** /service-packages-quota-history | Service package quota history
-[**get_service_packages**](DefaultApi.md#get_service_packages) | **GET** /service-packages | Get all service packages.
+[**get_billing_report**](DefaultApi.md#get_billing_report) | **GET** /v3/billing-report | Get billing report.
+[**get_billing_report_active_devices**](DefaultApi.md#get_billing_report_active_devices) | **GET** /billing-report-active-devices | Get raw active devices billing data for the month.
+[**get_billing_report_firmware_updates**](DefaultApi.md#get_billing_report_firmware_updates) | **GET** /billing-report-firmware-updates | Get raw firmware updates billing data for the month.
+[**get_service_package_quota**](DefaultApi.md#get_service_package_quota) | **GET** /v3/service-packages-quota | Service package quota
+[**get_service_package_quota_history**](DefaultApi.md#get_service_package_quota_history) | **GET** /v3/service-packages-quota-history | Service package quota history
+[**get_service_packages**](DefaultApi.md#get_service_packages) | **GET** /v3/service-packages | Get all service packages.
 
+
+# **get_billing_report**
+> ReportResponse get_billing_report(month)
+
+Get billing report.
+
+Fetch generated billing report for the currently authenticated commercial non-subtenant account. Billing reports for subtenant accounts are included in their aggregator's billing report response.
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import billing
+from billing.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+configuration = billing.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = billing.DefaultApi(billing.ApiClient(configuration))
+month = 'month_example' # str | Queried year and month of billing report
+
+try: 
+    # Get billing report.
+    api_response = api_instance.get_billing_report(month)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->get_billing_report: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **month** | **str**| Queried year and month of billing report | 
+
+### Return type
+
+[**ReportResponse**](ReportResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_billing_report_active_devices**
+> get_billing_report_active_devices(month)
+
+Get raw active devices billing data for the month.
+
+Fetch raw active devices billing data for the currently authenticated commercial non-subtenant account. They are supplementary data for billing report. The raw active devices billing data for subtenant accounts are included in their aggregator's raw active devices billing data.
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import billing
+from billing.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+configuration = billing.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = billing.DefaultApi(billing.ApiClient(configuration))
+month = 'month_example' # str | Queried year and month of billing report
+
+try: 
+    # Get raw active devices billing data for the month.
+    api_instance.get_billing_report_active_devices(month)
+except ApiException as e:
+    print("Exception when calling DefaultApi->get_billing_report_active_devices: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **month** | **str**| Queried year and month of billing report | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_billing_report_firmware_updates**
+> get_billing_report_firmware_updates(month)
+
+Get raw firmware updates billing data for the month.
+
+Fetch generated firmware update devices billing report for the currently authenticated commercial non-subtenant account. The firmware update devices billing reports for subtenant accounts are included in their aggregator's firmware update devices billing report.
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import billing
+from billing.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+configuration = billing.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = billing.DefaultApi(billing.ApiClient(configuration))
+month = 'month_example' # str | Queried year and month of billing report
+
+try: 
+    # Get raw firmware updates billing data for the month.
+    api_instance.get_billing_report_firmware_updates(month)
+except ApiException as e:
+    print("Exception when calling DefaultApi->get_billing_report_firmware_updates: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **month** | **str**| Queried year and month of billing report | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_service_package_quota**
 > ServicePackageQuota get_service_package_quota()
