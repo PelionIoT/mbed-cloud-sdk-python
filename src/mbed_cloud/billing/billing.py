@@ -19,12 +19,13 @@ from __future__ import absolute_import
 from __future__ import unicode_literals
 import logging
 import datetime
+import json
 
 # Import common functions and exceptions from frontend API
 from mbed_cloud.core import BaseAPI
 from mbed_cloud.core import BaseObject
 from mbed_cloud.pagination import PaginatedResponse
-
+from mbed_cloud.utils import ensure_listable
 from mbed_cloud.decorators import catch_exceptions
 
 # Import backend API
@@ -33,6 +34,8 @@ from mbed_cloud._backends.billing import models
 from mbed_cloud._backends.billing.rest import ApiException as BillingAPIException
 
 LOG = logging.getLogger(__name__)
+
+PACKAGE_STATES = ('pending', 'active', 'previous')
 
 
 class BillingAPI(BaseAPI):
@@ -44,12 +47,12 @@ class BillingAPI(BaseAPI):
     def get_quota_remaining(self):
         """Get the available firmware update quota"""
         api = self._get_api(billing.DefaultApi)
-        quota = api.get_service_package_quota().get('quota')
-        return None if quota is None else int(quota)
+        quota = api.get_service_package_quota()
+        return None if quota is None else int(quota.quota)
 
     @catch_exceptions(BillingAPIException)
     def get_quota_history(self, **kwargs):
-        """Get your quota usage history"""
+        """Get quota usage history"""
         kwargs = self._verify_sort_options(kwargs)
         kwargs = self._verify_filters(kwargs, Package)
         api = self._get_api(billing.DefaultApi)
@@ -64,10 +67,19 @@ class BillingAPI(BaseAPI):
     def get_packages(self, **kwargs):
         """Get all service packages"""
         api = self._get_api(billing.DefaultApi)
-        return api.get_service_packages()
+        package_response = api.get_service_packages()
+        packages = []
+        for state in PACKAGE_STATES:
+            # iterate states in order
+            items = getattr(package_response, state) or []
+            for item in ensure_listable(items):
+                params = item.to_dict()
+                params['state'] = state
+                packages.append(Package(params))
+        return packages
 
     @catch_exceptions(BillingAPIException)
-    def get_report_overview(self, file_path=None, month=None, **kwargs):
+    def get_report_overview(self, month=None, file_path=None, **kwargs):
         """Downloads a report overview
 
         :param file_path: location to store output file [otherwise return json]
@@ -80,10 +92,16 @@ class BillingAPI(BaseAPI):
         if isinstance(month, datetime.datetime):
             month = '%s-%02d' % (month.year, month.day)
         api = self._get_api(billing.DefaultApi)
-        response = api.get_billing_report(month)
-        if file_path:
+        response = api.get_billing_report(month=month)
+        if file_path and response:
             with open(file_path, 'w') as fh:
-                fh.write(response)
+                fh.write(
+                    json.dumps(
+                        api.api_client.sanitize_for_serialization(response.to_dict()),
+                        sort_keys=True,
+                        indent=2,
+                    )
+                )
         return response
 
 
@@ -142,6 +160,7 @@ class Package(BaseObject):
             reason='reason',
             previous_id='previous_id',
             next_id='next_id',
+            state='state',
         )
 
     @property
@@ -183,4 +202,8 @@ class Package(BaseObject):
     @property
     def firmware_update_count(self):
         return self._firmware_update_count
+
+    @property
+    def state(self):
+        return self._state
 
