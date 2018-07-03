@@ -80,10 +80,11 @@ class BillingAPI(BaseAPI):
     def get_report_overview(self, month=None, file_path=None, **kwargs):
         """Downloads a report overview
 
-        :param file_path: location to store output file [otherwise return json]
-        :param month: month as datetime instance or string in YYYY-MM format
-        :param kwargs:
-        :return:
+        :param str file_path: [optional] location to store output file
+        :param month: [default: utcnow] month as datetime instance, or string in YYYY-MM format
+        :type month: str or datetime
+        :return: The report structure
+        :rtype: dict
         """
         if not month:
             month = datetime.datetime.utcnow()

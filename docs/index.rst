@@ -8,6 +8,7 @@ The ``mbed-cloud-sdk`` gives developers access to the full `Arm Mbed <https://do
   :caption: Components
 
   account_management
+  billing
   certificates
   connect
   device_directory
