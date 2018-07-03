@@ -62,7 +62,7 @@ class BillingAPI(BaseAPI):
         )
 
     @catch_exceptions(BillingAPIException)
-    def get_service_packages(self, **kwargs):
+    def get_service_packages(self):
         """Get all service packages"""
         api = self._get_api(billing.DefaultApi)
         package_response = api.get_service_packages()
@@ -77,7 +77,7 @@ class BillingAPI(BaseAPI):
         return packages
 
     @catch_exceptions(BillingAPIException)
-    def get_report_overview(self, month=None, file_path=None, **kwargs):
+    def get_report_overview(self, month=None, file_path=None):
         """Downloads a report overview
 
         :param str file_path: [optional] location to store output file
@@ -111,8 +111,8 @@ class QuotaHistory(BaseObject):
     def _get_attributes_map():
         return dict(
             id='id',
-            added_at='added',
-            amount='amount',
+            created_at='added',
+            remaining_firmware_updates='amount',
             reason='reason',
             reservation='reservation',
             service_package='service_package',
@@ -124,14 +124,14 @@ class QuotaHistory(BaseObject):
         return self._id
 
     @property
-    def added_at(self):
+    def created_at(self):
         """The time this entry was created"""
-        return self._added_at
+        return self._created_at
 
     @property
-    def amount(self):
-        """The remaining quota at the time this entry was created"""
-        return self._amount
+    def remaining_firmware_updates(self):
+        """The remaining firmware updates from the quota, at the time this entry was created"""
+        return self._remaining_firmware_updates
 
     @property
     def reason(self):
