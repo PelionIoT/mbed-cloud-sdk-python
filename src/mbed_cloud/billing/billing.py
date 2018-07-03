@@ -44,7 +44,7 @@ class BillingAPI(BaseAPI):
 
     @catch_exceptions(BillingAPIException)
     def get_quota_remaining(self):
-        """Get the available firmware update quota"""
+        """Get the remaining value"""
         api = self._get_api(billing.DefaultApi)
         quota = api.get_service_package_quota()
         return None if quota is None else int(quota.quota)
@@ -112,7 +112,7 @@ class QuotaHistory(BaseObject):
         return dict(
             id='id',
             created_at='added',
-            remaining_firmware_updates='amount',
+            delta='amount',
             reason='reason',
             reservation='reservation',
             service_package='service_package',
@@ -129,9 +129,13 @@ class QuotaHistory(BaseObject):
         return self._created_at
 
     @property
-    def remaining_firmware_updates(self):
-        """The remaining firmware updates from the quota, at the time this entry was created"""
-        return self._remaining_firmware_updates
+    def delta(self):
+        """The change in remaining value, at the time this entry was created
+
+        Negative values mean the remaining amount has been reduced
+        for example, a reservation caused by starting a campaign
+        """
+        return self._delta
 
     @property
     def reason(self):
@@ -140,7 +144,7 @@ class QuotaHistory(BaseObject):
 
     @property
     def reservation(self):
-        """The update campaign reservation that this entry refers to"""
+        """The campaign reservation that this entry refers to"""
         return self._reservation
 
     @property
