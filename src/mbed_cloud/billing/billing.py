@@ -54,7 +54,7 @@ class BillingAPI(BaseAPI):
     def get_quota_history(self, **kwargs):
         """Get quota usage history"""
         kwargs = self._verify_sort_options(kwargs)
-        kwargs = self._verify_filters(kwargs, Package)
+        kwargs = self._verify_filters(kwargs, ServicePackage)
         api = self._get_api(billing.DefaultApi)
         # TODO: handle missing 'include' parameter for getting total count
         return PaginatedResponse(
@@ -64,7 +64,7 @@ class BillingAPI(BaseAPI):
         )
 
     @catch_exceptions(BillingAPIException)
-    def get_packages(self, **kwargs):
+    def get_service_packages(self, **kwargs):
         """Get all service packages"""
         api = self._get_api(billing.DefaultApi)
         package_response = api.get_service_packages()
@@ -75,7 +75,7 @@ class BillingAPI(BaseAPI):
             for item in ensure_listable(items):
                 params = item.to_dict()
                 params['state'] = state
-                packages.append(Package(params))
+                packages.append(ServicePackage(params))
         return packages
 
     @catch_exceptions(BillingAPIException)
@@ -144,12 +144,13 @@ class QuotaHistory(BaseObject):
         return self._service_package
 
 
-class Package(BaseObject):
+class ServicePackage(BaseObject):
     """A billing package"""
 
     @staticmethod
     def _get_attributes_map():
         return dict(
+            id='id',
             created_at='created',
             modified_at='modified',
             starts_at='starts_time',
@@ -162,6 +163,10 @@ class Package(BaseObject):
             next_id='next_id',
             state='state',
         )
+
+    @property
+    def id(self):
+        return self._id
 
     @property
     def created_at(self):
