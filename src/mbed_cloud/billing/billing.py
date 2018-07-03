@@ -17,20 +17,19 @@
 """Public API for Billing API."""
 from __future__ import absolute_import
 from __future__ import unicode_literals
-import logging
 import datetime
 import json
+import logging
 
 # Import common functions and exceptions from frontend API
 from mbed_cloud.core import BaseAPI
 from mbed_cloud.core import BaseObject
+from mbed_cloud.decorators import catch_exceptions
 from mbed_cloud.pagination import PaginatedResponse
 from mbed_cloud.utils import ensure_listable
-from mbed_cloud.decorators import catch_exceptions
 
 # Import backend API
 from mbed_cloud._backends import billing
-from mbed_cloud._backends.billing import models
 from mbed_cloud._backends.billing.rest import ApiException as BillingAPIException
 
 LOG = logging.getLogger(__name__)
@@ -56,7 +55,6 @@ class BillingAPI(BaseAPI):
         kwargs = self._verify_sort_options(kwargs)
         kwargs = self._verify_filters(kwargs, ServicePackage)
         api = self._get_api(billing.DefaultApi)
-        # TODO: handle missing 'include' parameter for getting total count
         return PaginatedResponse(
             api.get_service_package_quota_history,
             lwrap_type=QuotaHistory,
@@ -121,26 +119,32 @@ class QuotaHistory(BaseObject):
 
     @property
     def id(self):
+        """The id of this QuotaHistory"""
         return self._id
 
     @property
     def added_at(self):
+        """The time this entry was created"""
         return self._added_at
 
     @property
     def amount(self):
+        """The remaining quota at the time this entry was created"""
         return self._amount
 
     @property
     def reason(self):
+        """The reason this entry was created"""
         return self._reason
 
     @property
     def reservation(self):
+        """The update campaign reservation that this entry refers to"""
         return self._reservation
 
     @property
     def service_package(self):
+        """The service package that this entry refers to"""
         return self._service_package
 
 
@@ -166,49 +170,60 @@ class ServicePackage(BaseObject):
 
     @property
     def id(self):
+        """The id of this package"""
         return self._id
 
     @property
     def created_at(self):
+        """The creation datetime of this package"""
         return self._created_at
 
     @property
     def modified_at(self):
+        """The modification datetime of this package"""
         return self._modified_at
 
     @property
     def starts_at(self):
+        """The start datetime of this package"""
         return self._starts_at
 
     @property
     def expires_at(self):
+        """The expiry datetime of this package"""
         return self._expires_at
 
     @property
     def ends_at(self):
+        """The end datetime of this package"""
         return self._ends_at
 
     @property
     def grace_period(self):
+        """Period after package ending in which existing update campaigns continue to function"""
         return self._grace_period
 
     @property
     def reason(self):
+        """The reason for package ending"""
         return self._reason
 
     @property
     def previous_id(self):
+        """The previous package in the sequence"""
         return self._previous_id
 
     @property
     def next_id(self):
+        """The next package in the sequence"""
         return self._next_id
 
     @property
     def firmware_update_count(self):
+        """The firmware update count"""
         return self._firmware_update_count
 
     @property
     def state(self):
+        """The state"""
         return self._state
-
