@@ -75,8 +75,8 @@ All URIs are relative to *http://mbed-billing.example.com*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DefaultApi* | [**get_billing_report**](docs/DefaultApi.md#get_billing_report) | **GET** /v3/billing-report | Get billing report.
-*DefaultApi* | [**get_billing_report_active_devices**](docs/DefaultApi.md#get_billing_report_active_devices) | **GET** /billing-report-active-devices | Get raw active devices billing data for the month.
-*DefaultApi* | [**get_billing_report_firmware_updates**](docs/DefaultApi.md#get_billing_report_firmware_updates) | **GET** /billing-report-firmware-updates | Get raw firmware updates billing data for the month.
+*DefaultApi* | [**get_billing_report_active_devices**](docs/DefaultApi.md#get_billing_report_active_devices) | **GET** /v3/billing-report-active-devices | Get raw active devices billing data for the month.
+*DefaultApi* | [**get_billing_report_firmware_updates**](docs/DefaultApi.md#get_billing_report_firmware_updates) | **GET** /v3/billing-report-firmware-updates | Get raw firmware updates billing data for the month.
 *DefaultApi* | [**get_service_package_quota**](docs/DefaultApi.md#get_service_package_quota) | **GET** /v3/service-packages-quota | Service package quota
 *DefaultApi* | [**get_service_package_quota_history**](docs/DefaultApi.md#get_service_package_quota_history) | **GET** /v3/service-packages-quota-history | Service package quota history
 *DefaultApi* | [**get_service_packages**](docs/DefaultApi.md#get_service_packages) | **GET** /v3/service-packages | Get all service packages.

@@ -5,8 +5,8 @@ All URIs are relative to *http://mbed-billing.example.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**get_billing_report**](DefaultApi.md#get_billing_report) | **GET** /v3/billing-report | Get billing report.
-[**get_billing_report_active_devices**](DefaultApi.md#get_billing_report_active_devices) | **GET** /billing-report-active-devices | Get raw active devices billing data for the month.
-[**get_billing_report_firmware_updates**](DefaultApi.md#get_billing_report_firmware_updates) | **GET** /billing-report-firmware-updates | Get raw firmware updates billing data for the month.
+[**get_billing_report_active_devices**](DefaultApi.md#get_billing_report_active_devices) | **GET** /v3/billing-report-active-devices | Get raw active devices billing data for the month.
+[**get_billing_report_firmware_updates**](DefaultApi.md#get_billing_report_firmware_updates) | **GET** /v3/billing-report-firmware-updates | Get raw firmware updates billing data for the month.
 [**get_service_package_quota**](DefaultApi.md#get_service_package_quota) | **GET** /v3/service-packages-quota | Service package quota
 [**get_service_package_quota_history**](DefaultApi.md#get_service_package_quota_history) | **GET** /v3/service-packages-quota-history | Service package quota history
 [**get_service_packages**](DefaultApi.md#get_service_packages) | **GET** /v3/service-packages | Get all service packages.

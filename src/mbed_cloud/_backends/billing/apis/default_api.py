@@ -212,7 +212,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api('/billing-report-active-devices', 'GET',
+        return self.api_client.call_api('/v3/billing-report-active-devices', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -308,7 +308,7 @@ class DefaultApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api('/billing-report-firmware-updates', 'GET',
+        return self.api_client.call_api('/v3/billing-report-firmware-updates', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
