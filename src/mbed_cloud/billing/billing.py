@@ -112,6 +112,42 @@ class BillingAPI(BaseAPI):
                 )
         return response if response else None
 
+    @catch_exceptions(BillingAPIException)
+    def get_report_active_devices(self, month=None, file_path=None):
+        """Downloads a report of the active devices
+
+        :param str file_path: [optional] location to store output file
+        :param month: [default: utcnow] month as datetime instance, or string in YYYY-MM format
+        :type month: str or datetime
+        :return: The report structure
+        :rtype: dict
+        """
+        if not month:
+            month = datetime.datetime.utcnow()
+        if isinstance(month, datetime.datetime):
+            month = '%s-%02d' % (month.year, month.day)
+        api = self._get_api(billing.DefaultApi)
+
+        try:
+            response = api.get_billing_report_active_devices(month=month)
+        except BillingAPIException as e:
+            if str(e.status) == '404':
+                response = {}
+            else:
+                raise
+
+        if file_path:
+            content = api.api_client.sanitize_for_serialization(response.to_dict()) if response else {}
+            with open(file_path, 'w') as fh:
+                fh.write(
+                    json.dumps(
+                        content,
+                        sort_keys=True,
+                        indent=2,
+                    )
+                )
+        return response if response else None
+
 
 class QuotaHistory(BaseObject):
     """An audit history entry for billing entities"""
