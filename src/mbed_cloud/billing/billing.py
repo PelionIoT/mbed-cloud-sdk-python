@@ -91,17 +91,26 @@ class BillingAPI(BaseAPI):
         if isinstance(month, datetime.datetime):
             month = '%s-%02d' % (month.year, month.day)
         api = self._get_api(billing.DefaultApi)
-        response = api.get_billing_report(month=month)
-        if file_path and response:
+
+        try:
+            response = api.get_billing_report(month=month)
+        except BillingAPIException as e:
+            if str(e.status) == '404':
+                response = {}
+            else:
+                raise
+
+        if file_path:
+            content = api.api_client.sanitize_for_serialization(response.to_dict()) if response else {}
             with open(file_path, 'w') as fh:
                 fh.write(
                     json.dumps(
-                        api.api_client.sanitize_for_serialization(response.to_dict()),
+                        content,
                         sort_keys=True,
                         indent=2,
                     )
                 )
-        return response
+        return response if response else None
 
 
 class QuotaHistory(BaseObject):
