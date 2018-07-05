@@ -154,8 +154,11 @@ class SubscriptionsManager(RoutingBase):
         return self.get_channel(subscription_channel, **observer_params).ensure_started().observer
     __call__ = subscribe
 
-    def _notify(self, item):
+    def _notify_single_item(self, item):
         """Route inbound items to individual channels"""
+        # channels that this individual item has already triggered
+        # (dont want to trigger them again)
+        triggered_channels = set()
         for key_set in self.watch_keys:
             # only pluck keys if they exist
             plucked = {
@@ -165,7 +168,7 @@ class SubscriptionsManager(RoutingBase):
             route_keys = expand_dict_as_keys(plucked)
             for route in route_keys:
                 channels = self.get_route_items(route) or {}
-                LOG.debug('subscribed channels: %s', channels)
+                LOG.debug('route table match: %s -> %s', route, channels)
                 if not channels:
                     LOG.debug(
                         'no subscribers for message.\nkey %s\nroutes: %s',
@@ -173,21 +176,30 @@ class SubscriptionsManager(RoutingBase):
                         self._routes
                     )
                 for channel in channels:
-                    LOG.debug('routing dispatch: %s', item)
-                    channel.notify(item)
+                    if channel in triggered_channels:
+                        LOG.debug('skipping dispatch to %s', channel)
+                        continue
+                    LOG.debug('routing dispatch to %s: %s', channel, item)
+                    try:
+                        channel.notify(item) and triggered_channels.add(channel)
+                    except Exception:  # noqa
+                        LOG.exception('Channel notification failed')
+        return triggered_channels
 
     def notify(self, data):
         """Notify subscribers that data was received"""
+        triggered_channels = []
         for channel_name, items in data.items():
             for item in items or []:
-                LOG.debug('notified: %s', item)
+                LOG.debug('notify received: %s', item)
                 try:
                     # inject the channel name to the data (so channels can filter on it)
                     item = dict(item)
                     item['channel'] = channel_name
-                    self._notify(item)
+                    triggered_channels.extend(list(self._notify_single_item(item)))
                 except Exception:  # noqa
                     LOG.exception('Subscription notification failed')
+        return triggered_channels
 
     def unsubscribe_all(self):
         """Unsubscribes all channels"""

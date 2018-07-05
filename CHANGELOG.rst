@@ -13,6 +13,28 @@ a list of versions that have been released on PyPI.
 ..
     begin_release_notes
 
+1.2.9.1210 (2018-06-27)
+=======================
+
+Features
+--------
+
+- Remove custom properties from accounts and user entities. (#1362)
+
+- Documentation now includes a full API reference, generated from the source
+  code. (#1407)
+
+Bugfixes
+--------
+
+- Minor adjustments to TPIP reporting. (#1346)
+
+- Previously, notifications for resource value changes would not be triggered.
+  Resource value change subscriptions now use the correct routing keys. The SDK
+  now provides the expected values for `device_id` and `resource_path` when
+  notifying user code. (#1361)
+
+
 1.2.8.1183 (2018-06-11)
 =======================
 

@@ -32,6 +32,14 @@ jobs:
     - persist_to_workspace:
         paths: app_py2.tar
         root: ~/caches
+    - run:
+        command: docker run --name=SDK mbed_sdk_py2:latest
+        name: Start a named container
+    - run:
+        command: docker cp SDK:/build/built_docs ./built_docs
+        name: Extract the documentation
+    - store_artifacts:
+        path: built_docs
   build_py3:
     machine:
       image: circleci/classic:201710-02
@@ -62,6 +70,14 @@ jobs:
     - persist_to_workspace:
         paths: app_py3.tar
         root: ~/caches
+    - run:
+        command: docker run --name=SDK mbed_sdk_py3:latest
+        name: Start a named container
+    - run:
+        command: docker cp SDK:/build/built_docs ./built_docs
+        name: Extract the documentation
+    - store_artifacts:
+        path: built_docs
   deploy_py3_beta:
     machine:
       image: circleci/classic:201710-02

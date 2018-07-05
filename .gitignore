@@ -16,5 +16,6 @@ build/
 built_docs/
 dist/
 docs/build/
+/docs/built_api/
 test_fixtures/
 venv/
