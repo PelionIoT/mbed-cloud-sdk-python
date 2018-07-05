@@ -13,6 +13,16 @@ a list of versions that have been released on PyPI.
 ..
     begin_release_notes
 
+1.2.10.1235 (2018-07-05)
+========================
+
+Features
+--------
+
+- Add the Billing module, which provides access to the account's financial
+  configurations. (#1210)
+
+
 1.2.9.1210 (2018-06-27)
 =======================
 
