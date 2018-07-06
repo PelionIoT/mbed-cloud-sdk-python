@@ -50,6 +50,7 @@ Bugfixes
 
 Features
 --------
+- Support List Pre Shared Keys endpoint for Bootstrap API (#631)
 
 - `News` renamed to `Changelog` (#1278)
 
