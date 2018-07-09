@@ -47,7 +47,7 @@ else:
     SDK_MINOR += COMMIT_COUNT
 
 if DEV:
-    SDK_MINOR = 'dev%s' % SDK_MINOR
+    SDK_MINOR = 'dev%s' % (SDK_MINOR or 0)
 
 __version__ = '.'.join(part for part in (
     API_MAJOR,
