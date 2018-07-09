@@ -21,6 +21,8 @@ import logging
 import os
 import traceback
 
+from dotenv import load_dotenv
+
 ENVVAR_API_HOST = 'MBED_CLOUD_SDK_HOST'
 ENVVAR_API_KEY = 'MBED_CLOUD_SDK_API_KEY'
 
@@ -77,10 +79,9 @@ class Config(dict):
 
     def load(self, updates):
         """Load configuration data"""
-        paths = self.paths()
 
-        # Go through in order and override the config
-        for path in paths:
+        # Go through in order and override the config (`.mbed_cloud_config.json` loader)
+        for path in self.paths():
             if not path:
                 continue
             abs_path = os.path.abspath(os.path.expanduser(path))
@@ -90,6 +91,11 @@ class Config(dict):
             self._using_paths.append(' exists: %s' % abs_path)
             with open(abs_path) as fh:
                 self.update(json.load(fh))
+
+        # New dotenv loader
+        load_dotenv()
+
+        # Pluck config values out of the environment
         for env_var, key in {ENVVAR_API_HOST: 'host', ENVVAR_API_KEY: 'api_key'}.items():
             env_value = os.getenv(env_var)
             if env_value is not None:

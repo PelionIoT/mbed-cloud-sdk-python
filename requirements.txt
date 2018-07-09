@@ -3,3 +3,4 @@ six >= 1.10
 certifi >= 2017
 python-dateutil>= 2
 future >= 0.16
+python-dotenv
