@@ -79,7 +79,6 @@ class Config(dict):
 
     def load(self, updates):
         """Load configuration data"""
-
         # Go through in order and override the config (`.mbed_cloud_config.json` loader)
         for path in self.paths():
             if not path:
