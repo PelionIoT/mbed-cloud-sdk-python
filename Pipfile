@@ -10,6 +10,7 @@ mbed_cloud_sdk = {editable = true, path = "."}
 [dev-packages]
 codecov = "*"
 coverage = "*"
+flake8 = "*"
 flake8-copyright = "*"
 flake8-docstrings = "*"
 flask = "*"
@@ -21,4 +22,3 @@ pytest-html = "*"
 slackclient = "*"
 sphinx = "*"
 towncrier = "==17.8.0"
-mbed-cloud-sdk = {editable = true, path = "."}
