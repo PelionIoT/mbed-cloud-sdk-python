@@ -87,7 +87,7 @@ class BillingAPI(BaseAPI):
         :rtype: True or None
         """
         if isinstance(month, datetime.datetime):
-            month = '%s-%02d' % (month.year, month.day)
+            month = '%s-%02d' % (month.year, month.month)
         api = self._get_api(billing.DefaultApi)
         response = api.get_billing_report(month=month)
 
