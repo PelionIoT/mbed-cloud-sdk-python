@@ -68,7 +68,7 @@ class PendingServicePackage(object):
     def created(self):
         """
         Gets the created of this PendingServicePackage.
-        Service package creation time in RFC3339 date-time with UTC time zone.
+        Service package creation time in RFC3339 date-time with millisecond accuracy and UTC time zone.
 
         :return: The created of this PendingServicePackage.
         :rtype: datetime
@@ -79,7 +79,7 @@ class PendingServicePackage(object):
     def created(self, created):
         """
         Sets the created of this PendingServicePackage.
-        Service package creation time in RFC3339 date-time with UTC time zone.
+        Service package creation time in RFC3339 date-time with millisecond accuracy and UTC time zone.
 
         :param created: The created of this PendingServicePackage.
         :type: datetime
@@ -93,7 +93,7 @@ class PendingServicePackage(object):
     def expires(self):
         """
         Gets the expires of this PendingServicePackage.
-        Service package expiration time in RFC3339 date-time with UTC time zone.
+        Service package expiration time in RFC3339 date-time with millisecond accuracy and UTC time zone.
 
         :return: The expires of this PendingServicePackage.
         :rtype: datetime
@@ -104,7 +104,7 @@ class PendingServicePackage(object):
     def expires(self, expires):
         """
         Sets the expires of this PendingServicePackage.
-        Service package expiration time in RFC3339 date-time with UTC time zone.
+        Service package expiration time in RFC3339 date-time with millisecond accuracy and UTC time zone.
 
         :param expires: The expires of this PendingServicePackage.
         :type: datetime
@@ -168,7 +168,7 @@ class PendingServicePackage(object):
     def modified(self):
         """
         Gets the modified of this PendingServicePackage.
-        Service package latest modified time in RFC3339 date-time with UTC time zone.
+        Service package latest modified time in RFC3339 date-time with millisecond accuracy and UTC time zone.
 
         :return: The modified of this PendingServicePackage.
         :rtype: datetime
@@ -179,7 +179,7 @@ class PendingServicePackage(object):
     def modified(self, modified):
         """
         Sets the modified of this PendingServicePackage.
-        Service package latest modified time in RFC3339 date-time with UTC time zone.
+        Service package latest modified time in RFC3339 date-time with millisecond accuracy and UTC time zone.
 
         :param modified: The modified of this PendingServicePackage.
         :type: datetime
@@ -218,7 +218,7 @@ class PendingServicePackage(object):
     def start_time(self):
         """
         Gets the start_time of this PendingServicePackage.
-        Service package start time in RFC3339 date-time with UTC time zone.
+        Service package start time in RFC3339 date-time with millisecond accuracy and UTC time zone.
 
         :return: The start_time of this PendingServicePackage.
         :rtype: datetime
@@ -229,7 +229,7 @@ class PendingServicePackage(object):
     def start_time(self, start_time):
         """
         Sets the start_time of this PendingServicePackage.
-        Service package start time in RFC3339 date-time with UTC time zone.
+        Service package start time in RFC3339 date-time with millisecond accuracy and UTC time zone.
 
         :param start_time: The start_time of this PendingServicePackage.
         :type: datetime

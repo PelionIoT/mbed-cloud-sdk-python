@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**added** | **datetime** | Added time of quota history entry. | 
+**added** | **datetime** | Added time of quota history entry in RFC3339 date-time with millisecond accuracy and UTC time zone. | 
 **amount** | **int** | the amount of quota usage, negative or positive | 
 **id** | **str** | Service package quota history id. | 
 **reason** | **str** | Type of quota usage entry. | 

@@ -133,7 +133,7 @@ class AggregatedQuotaUsageReport(object):
     def time(self):
         """
         Gets the time of this AggregatedQuotaUsageReport.
-        Added time of quota usage entry.
+        Added time of quota usage entry in RFC3339 date-time with millisecond accuracy and UTC time zone.
 
         :return: The time of this AggregatedQuotaUsageReport.
         :rtype: datetime
@@ -144,7 +144,7 @@ class AggregatedQuotaUsageReport(object):
     def time(self, time):
         """
         Sets the time of this AggregatedQuotaUsageReport.
-        Added time of quota usage entry.
+        Added time of quota usage entry in RFC3339 date-time with millisecond accuracy and UTC time zone.
 
         :param time: The time of this AggregatedQuotaUsageReport.
         :type: datetime
