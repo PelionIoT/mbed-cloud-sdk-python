@@ -31,29 +31,24 @@ COMMIT = ''  # auto
 COMMIT_COUNT = ''  # auto
 
 # Manually configured
-API_MAJOR = '2'
-API_MINOR = '0'
-API_VERSION = '.'.join((API_MAJOR, API_MINOR))
-
-SDK_MAJOR = '0'
-SDK_MINOR = ''
+SDK_MAJOR = '2'
+SDK_MINOR = '0'
+SDK_PATCH = '0'
+SDK_SUB_PATCH = COMMIT_COUNT
 LOCAL = None
 BETA = False
 DEV = not COMMIT
 
 if BETA:
-    SDK_MAJOR += 'b%s' % COMMIT_COUNT
-else:
-    SDK_MINOR += COMMIT_COUNT
+    SDK_PATCH += 'b%s' % SDK_SUB_PATCH
 
 if DEV:
-    SDK_MINOR = 'dev%s' % SDK_MINOR
+    SDK_PATCH = 'dev%s' % SDK_SUB_PATCH or 0
 
 __version__ = '.'.join(part for part in (
-    API_MAJOR,
-    API_MINOR,
     SDK_MAJOR,
     SDK_MINOR,
+    SDK_PATCH
 ) if part)
 
 if LOCAL:

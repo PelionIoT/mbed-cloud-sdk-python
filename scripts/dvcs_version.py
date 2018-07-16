@@ -24,10 +24,20 @@ https://pypi.python.org/pypi/bumpversion
 https://github.com/warner/python-versioneer
 
 """
+import ast
 import fileinput
 import os
 import shlex
+import sys
 import subprocess
+
+
+def increment(text_line):
+    """Given a text line, increment the assigned value"""
+    current = ast.literal_eval(text_line.split('=')[-1].strip())
+    val = int(current)
+    val += 1
+    return str(val)
 
 
 def write_out(**params):
@@ -42,24 +52,34 @@ def write_out(**params):
     try:
         for line in fh:
             for k, v in params.items():
-                if line.startswith(k):
-                    print("%s = '%s'  # auto" % (k, v))
+                if line.split('=')[0].strip() == k:
+                    if hasattr(v, '__call__'):
+                        v = v(line)
+                    print('%s = %r  # auto (see %s)' % (k, v, __file__))
                     params.pop(k)
                     break
             else:
                 print(line.rstrip())
     finally:
         fh.close()
+    if params:
+        raise Exception('Failed to complete all replacements: %r' % params)
 
 
-def main():
+def main(**replacements):
     """Generates DVCS version information"""
     cmd = 'git rev-list --count HEAD'
     commit_count = str(int(subprocess.check_output(shlex.split(cmd)).strip()))
     cmd = 'git rev-parse HEAD'
     commit = subprocess.check_output(shlex.split(cmd)).strip().decode()
-    write_out(COMMIT=commit, COMMIT_COUNT=commit_count)
+    replacement_params = dict(COMMIT=commit, COMMIT_COUNT=commit_count, SDK_MAJOR=increment)
+    replacement_params.update(replacements)
+    write_out(**replacement_params)
 
 
 if __name__ == '__main__':
-    main()
+    replacements = {}
+    for kwargs in sys.argv[1:]:
+        k, v = kwargs.split('=')
+        replacements[k.strip()] = ast.literal_eval(v.strip())
+    main(**replacements)
