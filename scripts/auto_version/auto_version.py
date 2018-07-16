@@ -30,13 +30,69 @@ import fileinput
 import glob
 import os
 import pprint
+import re
 import shlex
 import subprocess
 
-# TODO: move these items into a configuration system
-from .defaults import KEY_GROUP, VALUE_GROUP, VERSION_FIELD, RELEASED_FIELD, COMMIT_FIELD, \
-    COMMIT_COUNT_FIELD, SemVerFields, SemVer, SemVerAliases, targets, re_assignment_detector, use_xml, \
-    re_assignment_detector_xml, trigger_patterns
+from collections import namedtuple
+
+import toml
+
+SemVerFields = namedtuple('SemVerFields', ['major', 'minor', 'patch'])
+SemVer = SemVerFields(*SemVerFields._fields)
+
+
+class AutoVersionConfig(object):
+    COMMIT_COUNT_FIELD = 'COMMIT_COUNT'
+    COMMIT_FIELD = 'COMMIT'
+    KEY_GROUP = 'KEY'
+    PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+    RELEASED_FIELD = 'PRODUCTION'
+    VALUE_GROUP = 'VALUE'
+    VERSION_FIELD = '__version__'
+    SemVerAliases = {
+        SemVer.major: 'SDK_MAJOR',
+        SemVer.minor: 'SDK_MINOR',
+        SemVer.patch: 'SDK_PATCH',
+        VERSION_FIELD: '__version__',
+    }
+    targets = [
+        os.path.join(
+            PROJECT_ROOT, 'src', 'mbed_cloud', '_version.py'
+        ),
+        os.path.join(
+            PROJECT_ROOT, 'src', 'mbed_cloud', '_build_info.py'
+        ),
+    ]
+    regexers = {
+        '.json': r"""(?P<KEY>\w+)\s?[=:]\s?['\"]?(?P<VALUE>[\w\.\-_]+)['\"]?""",
+        '.py':   r"""(?P<KEY>\w+)\s?[=:]\s?['\"]?(?P<VALUE>[\w\.\-_]+)['\"]?""",
+        '.csproj': r"""<(?P<KEY>\w+)>(?P<VALUE>\S+)<\/\w+>""",
+    }
+    trigger_patterns = {
+        SemVer.major: os.path.join(PROJECT_ROOT, 'docs', 'news', '*.major'),
+        SemVer.minor: os.path.join(PROJECT_ROOT, 'docs', 'news', '*.feature'),
+    }
+    devmode_template = '{version}.dev{count}'
+
+    _config_key = 'AutoVersionConfig'
+
+    @classmethod
+    def _deflate(cls):
+        data = {k: v for k, v in vars(cls).items() if not k.startswith('_')}
+        return {cls._config_key: data}
+
+    @classmethod
+    def _inflate(cls, data):
+        for k, v in data[cls._config_key].items():
+            if isinstance(v, dict):
+                getattr(cls, k).update(v)
+            else:
+                setattr(cls, k, v)
+        return cls._deflate()
+
+
+config = AutoVersionConfig()
 
 
 class ReplacementHandler(object):
@@ -51,16 +107,16 @@ class ReplacementHandler(object):
     def __call__(self, match):
         """Given a regex Match Object, return the entire replacement string"""
         original = match.string.strip('\r\n')
-        key = match.group(KEY_GROUP)
+        key = match.group(config.KEY_GROUP)
         replacement = self.params.get(key)
         if replacement is None:  # if this isn't a key we are interested in replacing
             replaced = original
         else:
             self.missing.remove(key)
             replaced = ''.join([
-                original[:match.start(VALUE_GROUP)],
+                original[:match.start(config.VALUE_GROUP)],
                 str(replacement),
-                original[match.end(VALUE_GROUP):],
+                original[match.end(config.VALUE_GROUP):],
             ])
         return replaced
 
@@ -84,7 +140,7 @@ def regexer_for_targets(targets):
     """Pairs up target files with their correct regex"""
     for target in targets:
         path, file_ext = os.path.splitext(target)
-        regexer = re_assignment_detector_xml if file_ext in use_xml else re_assignment_detector
+        regexer = config.regexers[file_ext]
         yield target, regexer
 
 
@@ -98,7 +154,7 @@ def read(targets):
                 if not match:
                     continue
                 k_v = match.groupdict()
-                results[k_v[KEY_GROUP]] = k_v[VALUE_GROUP]
+                results[k_v[config.KEY_GROUP]] = k_v[config.VALUE_GROUP]
     return results
 
 
@@ -114,10 +170,10 @@ def detect_file_triggers(trigger_patterns):
 def get_current_semver(data):
     """Given a dictionary of all version data available, determine the current version"""
     # get the not-none values from data
-    known = {key: data.get(alias) for key, alias in SemVerAliases.items() if data.get(alias) is not None}
+    known = {key: data.get(alias) for key, alias in config.SemVerAliases.items() if data.get(alias) is not None}
 
     inferred_semver = None
-    parts = (known.pop(VERSION_FIELD) or '').split('.')[:3]
+    parts = (known.pop(config.VERSION_FIELD) or '').split('.')[:3]
     if len(parts) == 3:
         inferred_semver = SemVerFields(*parts)
 
@@ -156,16 +212,16 @@ def get_dvcs_info():
     commit_count = str(int(subprocess.check_output(shlex.split(cmd)).decode('utf8').strip()))
     cmd = 'git rev-parse HEAD'
     commit = str(subprocess.check_output(shlex.split(cmd)).decode('utf8').strip())
-    return {COMMIT_FIELD: commit, COMMIT_COUNT_FIELD: commit_count}
+    return {config.COMMIT_FIELD: commit, config.COMMIT_COUNT_FIELD: commit_count}
 
 
 def get_cli():
-    parser = argparse.ArgumentParser(description="controls version number of releases")
+    parser = argparse.ArgumentParser(description='controls version number of releases')
     parser.add_argument(
         '--target',
         action='append',
         default=[],
-        help='The target version file (default: %s).' % (targets,),
+        help='The target version file (default: %s).' % (config.targets,),
     )
     parser.add_argument(
         '--bump',
@@ -182,6 +238,10 @@ def get_cli():
         default=False,
         help='Marks as a release build, which flags the build as released.',
     )
+    parser.add_argument(
+        '--config',
+        help='Configuration file path.',
+    )
     args, others = parser.parse_known_args()
 
     # pull extra kwargs from commandline, e.g. TESTRUNNER_VERSION
@@ -193,24 +253,45 @@ def get_cli():
     return args, updates
 
 
+def get_or_create_config(path):
+    if os.path.isfile(path):
+        with open(path) as fh:
+            config._inflate(toml.load(fh))
+    else:
+        try:
+            os.makedirs(os.path.dirname(path))
+        except OSError:
+            pass
+        with open(path, 'w') as fh:
+            toml.dump(config._deflate(), fh)
+
+
 def main():
     args, updates = get_cli()
 
-    triggered = detect_file_triggers(trigger_patterns)
-    all_data = read(targets)
+    if args.config:
+        get_or_create_config(args.config)
+
+    for k, v in config.regexers.items():
+        config.regexers[k] = re.compile(v)
+
+    triggered = detect_file_triggers(config.trigger_patterns)
+    if args.bump:
+        triggered.add(args.bump)
+    all_data = read(config.targets)
     current_semver = get_current_semver(all_data)
     new_semver = args.set if args.set else make_new_semver(current_semver, triggered)
-    updates.update({RELEASED_FIELD: args.release})
+    updates.update({config.RELEASED_FIELD: args.release})
     updates.update(get_dvcs_info())
 
     # where possible, write back any other aliases based on the semver
-    for k, v in SemVerAliases.items():
+    for k, v in config.SemVerAliases.items():
         updates[v] = getattr(new_semver, k, '.'.join(new_semver))
 
     print(current_semver)
     print(new_semver)
     pprint.pprint(updates)
-    write_out(targets, **updates)
+    write_out(config.targets, **updates)
 
 
 __name__ == '__main__' and main()
