@@ -59,7 +59,7 @@ class QuotaUsageReport(object):
     def amount(self):
         """
         Gets the amount of this QuotaUsageReport.
-        Amount of quota usage entry. Negavtive if it is quota consumption.
+        Amount of quota usage entry. Negative if it is quota consumption.
 
         :return: The amount of this QuotaUsageReport.
         :rtype: int
@@ -70,7 +70,7 @@ class QuotaUsageReport(object):
     def amount(self, amount):
         """
         Sets the amount of this QuotaUsageReport.
-        Amount of quota usage entry. Negavtive if it is quota consumption.
+        Amount of quota usage entry. Negative if it is quota consumption.
 
         :param amount: The amount of this QuotaUsageReport.
         :type: int

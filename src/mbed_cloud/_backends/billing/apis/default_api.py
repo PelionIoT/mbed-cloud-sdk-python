@@ -134,7 +134,7 @@ class DefaultApi(object):
     def get_billing_report_active_devices(self, month, **kwargs):
         """
         Get raw active devices billing data for the month.
-        Fetch raw active devices billing data for the currently authenticated commercial non-subtenant account. They are supplementary data for billing report. The raw active devices billing data for subtenant accounts are included in their aggregator's raw active devices billing data.
+        Fetch raw active devices billing data for the currently authenticated commercial non-subtenant account. They are supplementary data for billing report. The raw active devices billing data for subtenant accounts are included in their aggregator's raw active devices billing data. Endpoint returns the URL to download the gzipped csv file. First line of the file is the header which describes information of active devices included, e.g. active device id.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.get_billing_report_active_devices(month, async=True)
@@ -142,7 +142,7 @@ class DefaultApi(object):
 
         :param async bool
         :param str month: Queried year and month of billing report (required)
-        :return: None
+        :return: BillingReportRawDataResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -156,7 +156,7 @@ class DefaultApi(object):
     def get_billing_report_active_devices_with_http_info(self, month, **kwargs):
         """
         Get raw active devices billing data for the month.
-        Fetch raw active devices billing data for the currently authenticated commercial non-subtenant account. They are supplementary data for billing report. The raw active devices billing data for subtenant accounts are included in their aggregator's raw active devices billing data.
+        Fetch raw active devices billing data for the currently authenticated commercial non-subtenant account. They are supplementary data for billing report. The raw active devices billing data for subtenant accounts are included in their aggregator's raw active devices billing data. Endpoint returns the URL to download the gzipped csv file. First line of the file is the header which describes information of active devices included, e.g. active device id.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.get_billing_report_active_devices_with_http_info(month, async=True)
@@ -164,7 +164,7 @@ class DefaultApi(object):
 
         :param async bool
         :param str month: Queried year and month of billing report (required)
-        :return: None
+        :return: BillingReportRawDataResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -219,7 +219,7 @@ class DefaultApi(object):
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type=None,
+                                        response_type='BillingReportRawDataResponse',
                                         auth_settings=auth_settings,
                                         async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -230,7 +230,7 @@ class DefaultApi(object):
     def get_billing_report_firmware_updates(self, month, **kwargs):
         """
         Get raw firmware updates billing data for the month.
-        Fetch generated firmware update devices billing report for the currently authenticated commercial non-subtenant account. The firmware update devices billing reports for subtenant accounts are included in their aggregator's firmware update devices billing report.
+        Fetch raw firmware updates billing data for the currently authenticated commercial non-subtenant account. They are supplementary data for billing report. The raw firmware updates billing data for subtenant accounts are included in their aggregator's raw firmware updates billing data. Endpoint returns the URL to download the gzipped csv file. First line of the file is the header which describes information of firmware updates included, e.g. firmware update device id.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.get_billing_report_firmware_updates(month, async=True)
@@ -238,7 +238,7 @@ class DefaultApi(object):
 
         :param async bool
         :param str month: Queried year and month of billing report (required)
-        :return: None
+        :return: BillingReportRawDataResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -252,7 +252,7 @@ class DefaultApi(object):
     def get_billing_report_firmware_updates_with_http_info(self, month, **kwargs):
         """
         Get raw firmware updates billing data for the month.
-        Fetch generated firmware update devices billing report for the currently authenticated commercial non-subtenant account. The firmware update devices billing reports for subtenant accounts are included in their aggregator's firmware update devices billing report.
+        Fetch raw firmware updates billing data for the currently authenticated commercial non-subtenant account. They are supplementary data for billing report. The raw firmware updates billing data for subtenant accounts are included in their aggregator's raw firmware updates billing data. Endpoint returns the URL to download the gzipped csv file. First line of the file is the header which describes information of firmware updates included, e.g. firmware update device id.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
         >>> thread = api.get_billing_report_firmware_updates_with_http_info(month, async=True)
@@ -260,7 +260,7 @@ class DefaultApi(object):
 
         :param async bool
         :param str month: Queried year and month of billing report (required)
-        :return: None
+        :return: BillingReportRawDataResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -315,7 +315,7 @@ class DefaultApi(object):
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type=None,
+                                        response_type='BillingReportRawDataResponse',
                                         auth_settings=auth_settings,
                                         async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),

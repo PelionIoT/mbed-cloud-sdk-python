@@ -18,6 +18,7 @@ from .active_service_package import ActiveServicePackage
 from .aggregated_quota_usage_report import AggregatedQuotaUsageReport
 from .bad_request_error_response import BadRequestErrorResponse
 from .bad_request_error_response_field import BadRequestErrorResponseField
+from .billing_report_raw_data_response import BillingReportRawDataResponse
 from .forbidden_error_response import ForbiddenErrorResponse
 from .internal_server_error_response import InternalServerErrorResponse
 from .pending_service_package import PendingServicePackage

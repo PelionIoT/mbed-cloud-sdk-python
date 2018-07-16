@@ -67,11 +67,11 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_billing_report_active_devices**
-> get_billing_report_active_devices(month)
+> BillingReportRawDataResponse get_billing_report_active_devices(month)
 
 Get raw active devices billing data for the month.
 
-Fetch raw active devices billing data for the currently authenticated commercial non-subtenant account. They are supplementary data for billing report. The raw active devices billing data for subtenant accounts are included in their aggregator's raw active devices billing data.
+Fetch raw active devices billing data for the currently authenticated commercial non-subtenant account. They are supplementary data for billing report. The raw active devices billing data for subtenant accounts are included in their aggregator's raw active devices billing data. Endpoint returns the URL to download the gzipped csv file. First line of the file is the header which describes information of active devices included, e.g. active device id.
 
 ### Example 
 ```python
@@ -93,7 +93,8 @@ month = 'month_example' # str | Queried year and month of billing report
 
 try: 
     # Get raw active devices billing data for the month.
-    api_instance.get_billing_report_active_devices(month)
+    api_response = api_instance.get_billing_report_active_devices(month)
+    pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->get_billing_report_active_devices: %s\n" % e)
 ```
@@ -106,7 +107,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**BillingReportRawDataResponse**](BillingReportRawDataResponse.md)
 
 ### Authorization
 
@@ -120,11 +121,11 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_billing_report_firmware_updates**
-> get_billing_report_firmware_updates(month)
+> BillingReportRawDataResponse get_billing_report_firmware_updates(month)
 
 Get raw firmware updates billing data for the month.
 
-Fetch generated firmware update devices billing report for the currently authenticated commercial non-subtenant account. The firmware update devices billing reports for subtenant accounts are included in their aggregator's firmware update devices billing report.
+Fetch raw firmware updates billing data for the currently authenticated commercial non-subtenant account. They are supplementary data for billing report. The raw firmware updates billing data for subtenant accounts are included in their aggregator's raw firmware updates billing data. Endpoint returns the URL to download the gzipped csv file. First line of the file is the header which describes information of firmware updates included, e.g. firmware update device id.
 
 ### Example 
 ```python
@@ -146,7 +147,8 @@ month = 'month_example' # str | Queried year and month of billing report
 
 try: 
     # Get raw firmware updates billing data for the month.
-    api_instance.get_billing_report_firmware_updates(month)
+    api_response = api_instance.get_billing_report_firmware_updates(month)
+    pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->get_billing_report_firmware_updates: %s\n" % e)
 ```
@@ -159,7 +161,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**BillingReportRawDataResponse**](BillingReportRawDataResponse.md)
 
 ### Authorization
 

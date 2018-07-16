@@ -85,7 +85,7 @@ class AggregatedQuotaUsageReport(object):
     def amount(self):
         """
         Gets the amount of this AggregatedQuotaUsageReport.
-        Amount of quota usage entry. Negavtive if it is quota consumption.
+        Amount of quota usage entry. Negative if it is quota consumption.
 
         :return: The amount of this AggregatedQuotaUsageReport.
         :rtype: int
@@ -96,7 +96,7 @@ class AggregatedQuotaUsageReport(object):
     def amount(self, amount):
         """
         Sets the amount of this AggregatedQuotaUsageReport.
-        Amount of quota usage entry. Negavtive if it is quota consumption.
+        Amount of quota usage entry. Negative if it is quota consumption.
 
         :param amount: The amount of this AggregatedQuotaUsageReport.
         :type: int
