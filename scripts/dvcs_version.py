@@ -32,8 +32,9 @@ import os
 import shlex
 import subprocess
 
-SemVer = namedtuple('SemVer', ['major', 'minor', 'patch', 'beta', 'release'])
-SemVer = SemVer(*SemVer._fields)
+SemVerFields = namedtuple('SemVerFields', ['major', 'minor', 'patch'])
+SemVer = SemVerFields(*SemVerFields._fields)
+NewsVer = SemVerFields('.major', '.feature', None)
 
 
 def get_current_value(text_line):
@@ -48,33 +49,42 @@ def increment(text_line):
     return str(val)
 
 
-def is_bump_locked(target):
+def get_in_files(targets, key):
+    """Finds a line in a file containing an assignment"""
+    for target in targets:
+        with open(target) as fh:
+            for line in fh.readlines():
+                if line.startswith(key):
+                    return get_current_value(line)
+
+
+def is_bump_locked(targets):
     """Whether the version is currently undergoing a X.X.0 release and should not be bumped"""
-    with open(target) as fh:
-        for line in fh.readlines():
-            if line.startswith('RESET_PATCH'):
-                return get_current_value(line)
+    return get_in_files(targets, 'RESET_PATCH')
 
 
-def write_out(target, **params):
+def write_out(targets, template, **params):
     """Writes version info into version file inline - primarily used in CI
 
     (imports during setup.py are fraught with peril)
     """
-    fh = fileinput.FileInput(target, inplace=True)
-    try:
-        for line in fh:
-            for k, v in params.items():
-                if line.split('=')[0].strip() == k:
-                    if hasattr(v, '__call__'):
-                        v = v(line)
-                    print('%s = %r  # auto (see %s)' % (k, v, __file__))
-                    params.pop(k)
-                    break
-            else:
-                print(line.rstrip())
-    finally:
-        fh.close()
+    for target in targets:
+        fh = fileinput.FileInput(target, inplace=True)
+        try:
+            for line in fh:
+                for k, v in params.items():
+                    parts = line.split('=')
+                    if len(parts) == 2 and parts[0].strip() == k:
+                        if hasattr(v, '__call__'):
+                            # pass value through a filter before rendering
+                            v = v(line)
+                        print(template % dict(key=k, value=v, script=__file__))
+                        params.pop(k)
+                        break
+                else:
+                    print(line.rstrip())
+        finally:
+            fh.close()
     if params:
         raise Exception('Failed to complete all replacements: %r' % params)
 
@@ -90,52 +100,69 @@ def get_release_info():
 
 def main():
     """Generates DVCS version information"""
-    parser = argparse.ArgumentParser(description="controls version number of releases")
-    parser.add_argument(
-        'target',
-        nargs='?',
-        default=os.path.join(
+    default_filepaths = [
+        os.path.join(
             os.path.dirname(os.path.dirname(__file__)), 'src', 'mbed_cloud', '_version.py'
         ),
-        help='The target version file.',
+        os.path.join(
+            os.path.dirname(os.path.dirname(__file__)), 'src', 'mbed_cloud', '_semver.py'
+        ),
+    ]
+    default_template = '%(key)s = %(value)r  # auto (see %(script)s)'
+    parser = argparse.ArgumentParser(description="controls version number of releases")
+    parser.add_argument(
+        '--target',
+        action='append',
+        default=[],
+        help='The target version file (default: %s).' % (default_filepaths,),
     )
     parser.add_argument(
         '--bump',
         choices=SemVer,
         help='Bumps the specified part of SemVer string. Use this locally to correctly modify the version file.',
     )
+    parser.add_argument(
+        '--release',
+        action='store_true',
+        help='Marks as a release build, which flags the build as released.',
+    )
+    parser.add_argument(
+        '--template',
+        default=default_template,
+        help='Template for re-writing lines (default).',
+    )
+    parser.add_argument(
+        '--exists',
+        help='Specify filepath to automatically bump version based on existence of '
+             'files with extensions: %s.' % (NewsVer,),
+    )
     args, others = parser.parse_known_args()
+    targets = args.target or default_filepaths
 
     if os.getenv('CI') and args.bump != SemVer.prod:
         raise ValueError('should be building production version numbers in CI')
 
-    replacements = dict(
-        BETA=False,
-    )
-
+    replacements = get_release_info()
     replacement_defaults = {
         SemVer.major: dict(
-            RESET_PATCH=True,
             SDK_MAJOR=increment,
             SDK_MINOR='0',
             SDK_PATCH='0',
         ),
         SemVer.minor: dict(
-            RESET_PATCH=True,
             SDK_MINOR=increment,
             SDK_PATCH='0',
         ),
         SemVer.patch: dict(
             SDK_PATCH=increment,
         ),
-        SemVer.beta: dict(
-            BETA=True
-        ),
-        SemVer.release: get_release_info(),
     }
 
     # apply the conditional kwargs based on SemVer mode
     replacements.update(replacement_defaults.get(args.bump, {}))
+
+    if args.release:
+        replacements.update(RELEASE=True)
 
     # pull extra kwargs from commandline
     for kwargs in others:
@@ -143,12 +170,23 @@ def main():
         replacements[k.strip()] = ast.literal_eval(v.strip())
 
     # unless we're bump locked
-    if is_bump_locked(args.target):
+    if is_bump_locked(targets):
         # if version is a X.X.0 release, then remove the bump lock (for next time) and do not bump patch
         replacements.pop('SDK_PATCH')
         replacements.setdefault('RESET_PATCH', False)
 
-    write_out(args.target, **replacements)
+    # pure semver
+    LAST_RELEASE = get_in_files(targets, 'LAST_RELEASE')
+    MAJOR, MINOR, PATCH = LAST_RELEASE.split('.')[:3]
+    print(LAST_RELEASE)
+    LAST_RELEASE = '.'.join([
+        replacements.get('SDK_MAJOR', MAJOR),
+        replacements.get('SDK_MINOR', MINOR),
+        replacements.get('SDK_PATCH', PATCH)
+    ])
+    print(LAST_RELEASE)
+
+    write_out(targets, args.template, **replacements)
 
 
 __name__ == '__main__' and main()

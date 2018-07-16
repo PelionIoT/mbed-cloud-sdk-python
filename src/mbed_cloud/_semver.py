@@ -14,31 +14,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # --------------------------------------------------------------------------
-
-"""Version number is composed from SDK semantic version.
-
-Breaking changes in SDK will increment major version number.
-API version number will follow Mbed release schedule (~quarterly releases).
-
-See https://www.python.org/dev/peps/pep-0440/ for reference
-
-Validate with:
-python -c "from mbed_cloud import __version__; print(__version__)"
 """
-from ._semver import SDK_MAJOR
-from ._semver import SDK_MINOR
-from ._semver import SDK_PATCH
-from ._semver import COMMIT_COUNT
-
-RELEASE = True  # auto (see scripts\dvcs_version.py)
-
-if not RELEASE:
-    SDK_PATCH += '.dev%s' % (COMMIT_COUNT or 0)
-
-__version__ = '.'.join(part for part in (
-    SDK_MAJOR,
-    SDK_MINOR,
-    SDK_PATCH
-) if part)
-
-__version__ = __version__.lower()
+The semantic version - see https://semver.org/
+"""
+SDK_MAJOR = '2'  # auto (see scripts\dvcs_version.py)
+SDK_MINOR = '0'  # auto (see scripts\dvcs_version.py)
+SDK_PATCH = '0'  # auto (see scripts\dvcs_version.py)
+COMMIT = u''  # auto (see scripts\dvcs_version.py)
+COMMIT_COUNT = ''  # auto (see scripts\dvcs_version.py)
+LAST_RELEASE = '1.2.10.1235'
