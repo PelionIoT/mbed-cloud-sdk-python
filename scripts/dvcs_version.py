@@ -146,7 +146,7 @@ def main():
     if is_bump_locked(args.target):
         # if version is a X.X.0 release, then remove the bump lock (for next time) and do not bump patch
         replacements.pop('SDK_PATCH')
-        replacements['RESET_PATCH'] = False
+        replacements.setdefault('RESET_PATCH', False)
 
     write_out(args.target, **replacements)
 
