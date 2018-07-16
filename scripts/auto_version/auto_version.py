@@ -43,14 +43,17 @@ SemVer = SemVerFields(*SemVerFields._fields)
 
 
 class AutoVersionConfig(object):
+    CONFIG_NAME = 'DEFAULT'
+
     COMMIT_COUNT_FIELD = 'COMMIT_COUNT'
     COMMIT_FIELD = 'COMMIT'
     KEY_GROUP = 'KEY'
     PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
     RELEASED_FIELD = 'PRODUCTION'
+    RELEASED_VALUE = True
     VALUE_GROUP = 'VALUE'
     VERSION_FIELD = '__version__'
-    SemVerAliases = {
+    semver_aliases = {
         SemVer.major: 'SDK_MAJOR',
         SemVer.minor: 'SDK_MINOR',
         SemVer.patch: 'SDK_PATCH',
@@ -66,14 +69,14 @@ class AutoVersionConfig(object):
     ]
     regexers = {
         '.json': r"""(?P<KEY>\w+)\s?[=:]\s?['\"]?(?P<VALUE>[\w\.\-_]+)['\"]?""",
-        '.py':   r"""(?P<KEY>\w+)\s?[=:]\s?['\"]?(?P<VALUE>[\w\.\-_]+)['\"]?""",
+        '.py': r"""(?P<KEY>\w+)\s?[=:]\s?['\"]?(?P<VALUE>[\w\.\-_]+)['\"]?""",
         '.csproj': r"""<(?P<KEY>\w+)>(?P<VALUE>\S+)<\/\w+>""",
     }
     trigger_patterns = {
         SemVer.major: os.path.join(PROJECT_ROOT, 'docs', 'news', '*.major'),
         SemVer.minor: os.path.join(PROJECT_ROOT, 'docs', 'news', '*.feature'),
     }
-    devmode_template = '{version}.dev{count}'
+    DEVMODE_TEMPLATE = '{version}.dev{count}'
 
     _config_key = 'AutoVersionConfig'
 
@@ -92,7 +95,7 @@ class AutoVersionConfig(object):
         return cls._deflate()
 
 
-config = AutoVersionConfig()
+config = AutoVersionConfig
 
 
 class ReplacementHandler(object):
@@ -100,6 +103,7 @@ class ReplacementHandler(object):
 
     We store state so that we consume our parameters as we make each replacement
     """
+
     def __init__(self, **params):
         self.params = params
         self.missing = set(params.keys())
@@ -170,7 +174,7 @@ def detect_file_triggers(trigger_patterns):
 def get_current_semver(data):
     """Given a dictionary of all version data available, determine the current version"""
     # get the not-none values from data
-    known = {key: data.get(alias) for key, alias in config.SemVerAliases.items() if data.get(alias) is not None}
+    known = {key: data.get(alias) for key, alias in config.semver_aliases.items() if data.get(alias) is not None}
 
     inferred_semver = None
     parts = (known.pop(config.VERSION_FIELD) or '').split('.')[:3]
@@ -221,7 +225,8 @@ def get_cli():
         '--target',
         action='append',
         default=[],
-        help='The target version file (default: %s).' % (config.targets,),
+        help='Files containing version info. Assumes unique variable names between files. (default: %s).' % (
+        config.targets,),
     )
     parser.add_argument(
         '--bump',
@@ -256,6 +261,7 @@ def get_cli():
 def get_or_create_config(path):
     if os.path.isfile(path):
         with open(path) as fh:
+            print('loading config from %s' % path)
             config._inflate(toml.load(fh))
     else:
         try:
@@ -271,6 +277,7 @@ def main():
 
     if args.config:
         get_or_create_config(args.config)
+    print('using config: %r' % config.CONFIG_NAME)
 
     for k, v in config.regexers.items():
         config.regexers[k] = re.compile(v)
@@ -280,12 +287,15 @@ def main():
         triggered.add(args.bump)
     all_data = read(config.targets)
     current_semver = get_current_semver(all_data)
-    new_semver = args.set if args.set else make_new_semver(current_semver, triggered)
-    updates.update({config.RELEASED_FIELD: args.release})
+    new_semver = SemVerFields(*args.set.split('.')) if args.set else make_new_semver(current_semver, triggered)
+
+    if args.release:
+        updates[config.RELEASED_FIELD] = config.RELEASED_VALUE
+
     updates.update(get_dvcs_info())
 
     # where possible, write back any other aliases based on the semver
-    for k, v in config.SemVerAliases.items():
+    for k, v in config.semver_aliases.items():
         updates[v] = getattr(new_semver, k, '.'.join(new_semver))
 
     print(current_semver)

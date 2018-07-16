@@ -31,9 +31,9 @@ from ._build_info import COMMIT_COUNT
 from ._build_info import PRODUCTION
 
 SDK_MAJOR = '2'
-SDK_MINOR = '2'
-SDK_PATCH = '1'
-__version__ = '2.2.1'
+SDK_MINOR = '0'
+SDK_PATCH = '0'
+__version__ = '2.0.0'
 
 if not PRODUCTION:
     __version__ += '.dev%s' % (COMMIT_COUNT or 0)
