@@ -20,25 +20,21 @@
 Breaking changes in SDK will increment major version number.
 API version number will follow Mbed release schedule (~quarterly releases).
 
-See https://www.python.org/dev/peps/pep-0440/ for reference
+references:
+- https://semver.org/
+- https://www.python.org/dev/peps/pep-0440/
 
 Validate with:
 python -c "from mbed_cloud import __version__; print(__version__)"
 """
-from ._semver import SDK_MAJOR
-from ._semver import SDK_MINOR
-from ._semver import SDK_PATCH
-from ._semver import COMMIT_COUNT
+from ._build_info import COMMIT_COUNT
 
-RELEASE = True  # auto (see scripts\dvcs_version.py)
+SDK_MAJOR = '2'
+SDK_MINOR = '0'
+SDK_PATCH = '14'
+__version__ = '2.0.14'
+
+RELEASE = True
 
 if not RELEASE:
-    SDK_PATCH += '.dev%s' % (COMMIT_COUNT or 0)
-
-__version__ = '.'.join(part for part in (
-    SDK_MAJOR,
-    SDK_MINOR,
-    SDK_PATCH
-) if part)
-
-__version__ = __version__.lower()
+    __version__ += '.dev%s' % (COMMIT_COUNT or 0)

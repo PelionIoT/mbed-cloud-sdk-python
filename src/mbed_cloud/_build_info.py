@@ -14,12 +14,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # --------------------------------------------------------------------------
-"""
-The semantic version - see https://semver.org/
-"""
-SDK_MAJOR = '2'  # auto (see scripts\dvcs_version.py)
-SDK_MINOR = '0'  # auto (see scripts\dvcs_version.py)
-SDK_PATCH = '0'  # auto (see scripts\dvcs_version.py)
-COMMIT = u''  # auto (see scripts\dvcs_version.py)
-COMMIT_COUNT = ''  # auto (see scripts\dvcs_version.py)
-LAST_RELEASE = '1.2.10.1235'
+
+COMMIT = ''
+COMMIT_COUNT = ''

@@ -19,3 +19,4 @@ docs/build/
 /docs/built_api/
 test_fixtures/
 venv/
+.gh_token
