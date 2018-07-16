@@ -24,39 +24,19 @@ https://pypi.python.org/pypi/bumpversion
 https://github.com/warner/python-versioneer
 
 """
-from collections import namedtuple
 import argparse
 import ast
 import fileinput
 import glob
 import os
-import re
 import pprint
 import shlex
 import subprocess
 
 # TODO: move these items into a configuration system
-KEY_GROUP = 'KEY'
-VALUE_GROUP = 'VALUE'
-VERSION_FIELD = '__version__'
-SemVerFields = namedtuple('SemVerFields', ['major', 'minor', 'patch'])
-SemVer = SemVerFields(*SemVerFields._fields)
-SemVerAliases = {
-    SemVer.major: 'SDK_MAJOR',
-    SemVer.minor: 'SDK_MINOR',
-    SemVer.patch: 'SDK_PATCH',
-    VERSION_FIELD: '__version__',
-}
-
-PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-
-re_assignment_detector = re.compile(r"""(?P<KEY>\w+)\s?[=:]\s?['\"]?(?P<VALUE>[\w\.\-_]+)['\"]?""")
-use_xml = {'.csproj'}
-re_assignment_detector_xml = re.compile(r"""<(?P<KEY>\w+)>(?P<VALUE>\S+)<\/\w+>""")
-trigger_patterns = {
-    SemVer.major: os.path.join(PROJECT_ROOT, 'docs', 'news', '*.major'),
-    SemVer.minor: os.path.join(PROJECT_ROOT, 'docs', 'news', '*.feature'),
-}
+from .defaults import KEY_GROUP, VALUE_GROUP, VERSION_FIELD, RELEASED_FIELD, COMMIT_FIELD, \
+    COMMIT_COUNT_FIELD, SemVerFields, SemVer, SemVerAliases, targets, re_assignment_detector, use_xml, \
+    re_assignment_detector_xml, trigger_patterns
 
 
 class ReplacementHandler(object):
@@ -79,7 +59,7 @@ class ReplacementHandler(object):
             self.missing.remove(key)
             replaced = ''.join([
                 original[:match.start(VALUE_GROUP)],
-                replacement,
+                str(replacement),
                 original[match.end(VALUE_GROUP):],
             ])
         return replaced
@@ -156,7 +136,6 @@ def get_current_semver(data):
 
 def make_new_semver(current_semver, all_triggers):
     """defines how to increment semver based on which significant figure is triggered"""
-    all_triggers = all_triggers or {SemVer.patch}  # minimum increment is patch
     new_semver = {}
     bumped = False
     for sig_fig in SemVer:  # iterate sig figs in order of significance
@@ -171,26 +150,63 @@ def make_new_semver(current_semver, all_triggers):
     return SemVerFields(**new_semver)
 
 
+def get_dvcs_info():
+    """Gets current repository info from git"""
+    cmd = 'git rev-list --count HEAD'
+    commit_count = str(int(subprocess.check_output(shlex.split(cmd)).decode('utf8').strip()))
+    cmd = 'git rev-parse HEAD'
+    commit = str(subprocess.check_output(shlex.split(cmd)).decode('utf8').strip())
+    return {COMMIT_FIELD: commit, COMMIT_COUNT_FIELD: commit_count}
+
+
+def get_cli():
+    parser = argparse.ArgumentParser(description="controls version number of releases")
+    parser.add_argument(
+        '--target',
+        action='append',
+        default=[],
+        help='The target version file (default: %s).' % (targets,),
+    )
+    parser.add_argument(
+        '--bump',
+        choices=SemVer,
+        help='Bumps the specified part of SemVer string. Use this locally to correctly modify the version file.',
+    )
+    parser.add_argument(
+        '--set',
+        help='Set the SemVer string. Use this locally to set the project version explicitly.',
+    )
+    parser.add_argument(
+        '--release',
+        action='store_true',
+        default=False,
+        help='Marks as a release build, which flags the build as released.',
+    )
+    args, others = parser.parse_known_args()
+
+    # pull extra kwargs from commandline, e.g. TESTRUNNER_VERSION
+    updates = {}
+    for kwargs in others:
+        k, v = kwargs.split('=')
+        updates[k.strip()] = ast.literal_eval(v.strip())
+
+    return args, updates
+
+
 def main():
-    # load cli
-    # load config file
-    # load git extras
-    targets = [
-        os.path.join(
-            PROJECT_ROOT, 'src', 'mbed_cloud', '_version.py'
-        ),
-        os.path.join(
-            PROJECT_ROOT, 'src', 'mbed_cloud', '_build_info.py'
-        ),
-    ]
+    args, updates = get_cli()
+
     triggered = detect_file_triggers(trigger_patterns)
     all_data = read(targets)
     current_semver = get_current_semver(all_data)
-    new_semver = make_new_semver(current_semver, triggered)
-    updates = {}
-    # if available, write back to any aliases
+    new_semver = args.set if args.set else make_new_semver(current_semver, triggered)
+    updates.update({RELEASED_FIELD: args.release})
+    updates.update(get_dvcs_info())
+
+    # where possible, write back any other aliases based on the semver
     for k, v in SemVerAliases.items():
         updates[v] = getattr(new_semver, k, '.'.join(new_semver))
+
     print(current_semver)
     print(new_semver)
     pprint.pprint(updates)

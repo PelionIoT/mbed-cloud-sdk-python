@@ -20,3 +20,4 @@ docs/build/
 test_fixtures/
 venv/
 .gh_token
+_build_info.py
