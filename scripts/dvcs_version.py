@@ -24,30 +24,43 @@ https://pypi.python.org/pypi/bumpversion
 https://github.com/warner/python-versioneer
 
 """
+from collections import namedtuple
+import argparse
 import ast
 import fileinput
 import os
 import shlex
-import sys
 import subprocess
+
+SemVer = namedtuple('SemVer', ['major', 'minor', 'patch', 'beta', 'release'])
+SemVer = SemVer(*SemVer._fields)
+
+
+def get_current_value(text_line):
+    """Parses a line, returns the current value"""
+    return ast.literal_eval(text_line.split('=')[-1].strip())
 
 
 def increment(text_line):
     """Given a text line, increment the assigned value"""
-    current = ast.literal_eval(text_line.split('=')[-1].strip())
-    val = int(current)
+    val = int(get_current_value(text_line))
     val += 1
     return str(val)
 
 
-def write_out(**params):
-    """Writes version info into version file inline - only used in CI
+def is_bump_locked(target):
+    """Whether the version is currently undergoing a X.X.0 release and should not be bumped"""
+    with open(target) as fh:
+        for line in fh.readlines():
+            if line.startswith('RESET_PATCH'):
+                return get_current_value(line)
+
+
+def write_out(target, **params):
+    """Writes version info into version file inline - primarily used in CI
 
     (imports during setup.py are fraught with peril)
     """
-    target = os.path.join(
-        os.path.dirname(os.path.dirname(__file__)), 'src', 'mbed_cloud', '_version.py'
-    )
     fh = fileinput.FileInput(target, inplace=True)
     try:
         for line in fh:
@@ -66,20 +79,76 @@ def write_out(**params):
         raise Exception('Failed to complete all replacements: %r' % params)
 
 
-def main(**replacements):
-    """Generates DVCS version information"""
+def get_release_info():
+    """Gets info from git"""
     cmd = 'git rev-list --count HEAD'
-    commit_count = str(int(subprocess.check_output(shlex.split(cmd)).strip()))
+    commit_count = str(int(subprocess.check_output(shlex.split(cmd)).decode('utf8').strip()))
     cmd = 'git rev-parse HEAD'
-    commit = subprocess.check_output(shlex.split(cmd)).strip().decode()
-    replacement_params = dict(COMMIT=commit, COMMIT_COUNT=commit_count, SDK_MAJOR=increment)
-    replacement_params.update(replacements)
-    write_out(**replacement_params)
+    commit = subprocess.check_output(shlex.split(cmd)).decode('utf8').strip()
+    return dict(COMMIT=commit, COMMIT_COUNT=commit_count, SDK_PATCH=increment)
 
 
-if __name__ == '__main__':
-    replacements = {}
-    for kwargs in sys.argv[1:]:
+def main():
+    """Generates DVCS version information"""
+    parser = argparse.ArgumentParser(description="controls version number of releases")
+    parser.add_argument(
+        'target',
+        nargs='?',
+        default=os.path.join(
+            os.path.dirname(os.path.dirname(__file__)), 'src', 'mbed_cloud', '_version.py'
+        ),
+        help='The target version file.',
+    )
+    parser.add_argument(
+        '--bump',
+        choices=SemVer,
+        help='Bumps the specified part of SemVer string. Use this locally to correctly modify the version file.',
+    )
+    args, others = parser.parse_known_args()
+
+    if os.getenv('CI') and args.bump != SemVer.prod:
+        raise ValueError('should be building production version numbers in CI')
+
+    replacements = dict(
+        BETA=False,
+    )
+
+    replacement_defaults = {
+        SemVer.major: dict(
+            RESET_PATCH=True,
+            SDK_MAJOR=increment,
+            SDK_MINOR='0',
+            SDK_PATCH='0',
+        ),
+        SemVer.minor: dict(
+            RESET_PATCH=True,
+            SDK_MINOR=increment,
+            SDK_PATCH='0',
+        ),
+        SemVer.patch: dict(
+            SDK_PATCH=increment,
+        ),
+        SemVer.beta: dict(
+            BETA=True
+        ),
+        SemVer.release: get_release_info(),
+    }
+
+    # apply the conditional kwargs based on SemVer mode
+    replacements.update(replacement_defaults.get(args.bump, {}))
+
+    # pull extra kwargs from commandline
+    for kwargs in others:
         k, v = kwargs.split('=')
         replacements[k.strip()] = ast.literal_eval(v.strip())
-    main(**replacements)
+
+    # unless we're bump locked
+    if is_bump_locked(args.target):
+        # if version is a X.X.0 release, then remove the bump lock (for next time) and do not bump patch
+        replacements.pop('SDK_PATCH')
+        replacements['RESET_PATCH'] = False
+
+    write_out(args.target, **replacements)
+
+
+__name__ == '__main__' and main()

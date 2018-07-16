@@ -35,6 +35,7 @@ SDK_MAJOR = '2'
 SDK_MINOR = '0'
 SDK_PATCH = '0'
 SDK_SUB_PATCH = COMMIT_COUNT
+RESET_PATCH = True
 LOCAL = None
 BETA = False
 DEV = not COMMIT
@@ -43,7 +44,7 @@ if BETA:
     SDK_PATCH += 'b%s' % SDK_SUB_PATCH
 
 if DEV:
-    SDK_PATCH = 'dev%s' % SDK_SUB_PATCH or 0
+    SDK_PATCH += '.dev%s' % (SDK_SUB_PATCH or 0)
 
 __version__ = '.'.join(part for part in (
     SDK_MAJOR,
