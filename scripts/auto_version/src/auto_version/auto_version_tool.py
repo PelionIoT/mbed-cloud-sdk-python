@@ -32,10 +32,10 @@ import re
 import shlex
 import subprocess
 
-import auto_version.definitions
 from auto_version.cli import get_cli
 from auto_version.config import AutoVersionConfig as config
 from auto_version.config import get_or_create_config
+import auto_version.definitions
 from auto_version.replacement_handler import ReplacementHandler
 
 from auto_version import semver
@@ -97,6 +97,14 @@ def get_dvcs_info():
 
 
 def main():
+    """Main workflow.
+
+    Load config from cli and file
+    Detect "bump triggers" - things that cause a version increment
+    Find the current version
+    Create a new version
+    Write out new version and any other requested variables
+    """
     args, updates = get_cli()
 
     if args.config:
@@ -111,7 +119,11 @@ def main():
         triggered.add(args.bump)
     all_data = read_targets(config.targets)
     current_semver = semver.get_current_semver(all_data)
-    new_semver = auto_version.definitions.SemVer(*args.set.split('.')) if args.set else semver.make_new_semver(current_semver, triggered)
+    new_semver = (
+        auto_version.definitions.SemVer(*args.set.split('.'))
+        if args.set else
+        semver.make_new_semver(current_semver, triggered)
+    )
 
     version_string = '.'.join(new_semver)
 

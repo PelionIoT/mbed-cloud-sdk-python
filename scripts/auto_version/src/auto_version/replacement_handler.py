@@ -1,3 +1,4 @@
+"""Regex substitution handler"""
 from auto_version.config import AutoVersionConfig as config
 
 
@@ -8,6 +9,10 @@ class ReplacementHandler(object):
     """
 
     def __init__(self, **params):
+        """New handler instance
+
+        :param params: mapping of <key to match> <value to replace with>
+        """
         self.params = params
         self.missing = set(params.keys())
 

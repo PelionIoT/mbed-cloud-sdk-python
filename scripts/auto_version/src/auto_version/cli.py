@@ -1,11 +1,13 @@
+"""Load cli options"""
 import argparse
 import ast
 
-from auto_version.definitions import SemVerSigFig
 from auto_version.config import AutoVersionConfig as config
+from auto_version.definitions import SemVerSigFig
 
 
 def get_cli():
+    """Load cli options"""
     parser = argparse.ArgumentParser(description='controls version number of releases')
     parser.add_argument(
         '--target',
@@ -17,7 +19,8 @@ def get_cli():
     parser.add_argument(
         '--bump',
         choices=SemVerSigFig,
-        help='Bumps the specified part of SemVer string. Use this locally to correctly modify the version file.',
+        help='Bumps the specified part of SemVer string. '
+             'Use this locally to correctly modify the version file.',
     )
     parser.add_argument(
         '--set',

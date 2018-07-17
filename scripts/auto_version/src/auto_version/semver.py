@@ -1,12 +1,17 @@
+"""Functions for manipulating SemVer objects (Major.Minor.Patch)"""
+from auto_version.config import AutoVersionConfig as config
 from auto_version.definitions import SemVer
 from auto_version.definitions import SemVerSigFig
-from auto_version.config import AutoVersionConfig as config
 
 
 def get_current_semver(data):
     """Given a dictionary of all version data available, determine the current version"""
     # get the not-none values from data
-    known = {key: data.get(alias) for key, alias in config.semver_aliases.items() if data.get(alias) is not None}
+    known = {
+        key: data.get(alias)
+        for key, alias in config.semver_aliases.items()
+        if data.get(alias) is not None
+    }
 
     inferred_semver = None
     parts = (known.pop(config.VERSION_FIELD) or '').split('.')[:3]
@@ -18,7 +23,11 @@ def get_current_semver(data):
         explicit_semver = SemVer(**known)
 
     if inferred_semver and explicit_semver and (explicit_semver != inferred_semver):
-        raise ValueError('conflicting versions within project: %s %s' % (inferred_semver, explicit_semver))
+        raise ValueError(
+            'conflicting versions within project: %s %s' % (
+                inferred_semver, explicit_semver
+            )
+        )
 
     using_existing = inferred_semver or explicit_semver
     if not using_existing:
@@ -27,7 +36,7 @@ def get_current_semver(data):
 
 
 def make_new_semver(current_semver, all_triggers):
-    """defines how to increment semver based on which significant figure is triggered"""
+    """Defines how to increment semver based on which significant figure is triggered"""
     new_semver = {}
     bumped = False
     for sig_fig in SemVerSigFig:  # iterate sig figs in order of significance
