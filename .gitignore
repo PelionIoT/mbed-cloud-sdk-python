@@ -19,3 +19,5 @@ docs/build/
 /docs/built_api/
 test_fixtures/
 venv/
+.gh_token
+/src/mbed_cloud/_build_info.py

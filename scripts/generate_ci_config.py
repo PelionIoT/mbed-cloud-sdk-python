@@ -301,7 +301,6 @@ def generate_circle_output():
     builds the circleci structure
     also links individual jobs into a workflow graph
     """
-    workflow_config_key = 'workflow_config'
     base = new_base()
     workflow = networkx.DiGraph()
     LOG.info('%s python versions', len(python_versions))
