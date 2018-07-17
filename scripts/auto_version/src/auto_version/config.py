@@ -41,6 +41,7 @@ class AutoVersionConfig(object):
         '.json': r"""(?P<KEY>\w+)\s?[=:]\s?['\"]?(?P<VALUE>[\w\.\-_]+)['\"]?""",
         '.py': r"""(?P<KEY>\w+)\s?[=:]\s?['\"]?(?P<VALUE>[\w\.\-_]+)['\"]?""",
         '.csproj': r"""<(?P<KEY>\w+)>(?P<VALUE>\S+)<\/\w+>""",
+        '.properties': r"""(?P<KEY>\w+)\s*[=:]\s*(?P<VALUE>[\w\.\-_]+)""",
     }
     trigger_patterns = {
         SemVerSigFig.major: os.path.join(PROJECT_ROOT, 'docs', 'news', '*.major'),

@@ -106,7 +106,7 @@ def main():
     Write out new version and any other requested variables
     """
     args, updates = get_cli()
-
+    updates.update(get_dvcs_info())
     if args.config:
         get_or_create_config(args.config, config)
     print('using config: %r' % config.CONFIG_NAME)
@@ -136,8 +136,6 @@ def main():
             version=version_string,
             count=updates.get(config.COMMIT_COUNT_FIELD, 0)
         )
-
-    updates.update(get_dvcs_info())
 
     # where possible, write back any other aliases based on the semver
     for k, v in config.semver_aliases.items():
