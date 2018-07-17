@@ -22,7 +22,7 @@ class AutoVersionConfig(object):
     RELEASED_FIELD = 'PRODUCTION'
     RELEASED_VALUE = True
     VALUE_GROUP = 'VALUE'
-    VERSION_FIELD = '__version__'
+    VERSION_FIELD = 'VERSION_KEY'
     semver_aliases = {
         SemVerSigFig.major: 'SDK_MAJOR',
         SemVerSigFig.minor: 'SDK_MINOR',
@@ -62,10 +62,7 @@ class AutoVersionConfig(object):
     def _inflate(cls, data):
         """Update config by deserialising input dictionary"""
         for k, v in data[cls._config_key].items():
-            if isinstance(v, dict):
-                getattr(cls, k).update(v)
-            else:
-                setattr(cls, k, v)
+            setattr(cls, k, v)
         return cls._deflate()
 
 

@@ -23,7 +23,7 @@ WORKDIR /build
 RUN apk update
 RUN apk add git
 
-RUN python -m pip install -U setuptools pip==10.0.0 pipenv==11.10.0
+RUN python -m pip install -U setuptools==40.0.0 pip==10.0.1 pipenv==11.10.0
 
 # add bare minimum files to survive a pip install
 COPY scripts/auto_version/* scripts/auto_version/
@@ -32,6 +32,10 @@ COPY setup* ./
 COPY README.rst ./
 COPY requirements.txt ./
 COPY Pip* ./
+
+RUN ls -lah
+RUN ls -lah scripts
+RUN ls -lah scripts/auto_version
 
 # install the project (with dev dependencies)
 RUN pipenv install --dev
