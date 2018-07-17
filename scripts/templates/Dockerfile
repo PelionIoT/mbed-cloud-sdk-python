@@ -26,7 +26,7 @@ RUN apk add git
 RUN python -m pip install -U setuptools pip==10.0.0 pipenv==11.10.0
 
 # add bare minimum files to survive a pip install
-COPY scripts/auto_version/* scripts/auto_version
+COPY scripts/auto_version/* scripts/auto_version/
 COPY src/mbed_cloud/_version.py src/mbed_cloud/_version.py
 COPY setup* ./
 COPY README.rst ./
