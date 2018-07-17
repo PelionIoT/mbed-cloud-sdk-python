@@ -26,7 +26,7 @@ RUN apk add git
 RUN python -m pip install -U setuptools pip==10.0.0 pipenv==11.10.0
 
 # add bare minimum files to survive a pip install
-COPY scripts/dvcs_version.py scripts/dvcs_version.py
+COPY scripts/auto_version/* scripts/auto_version
 COPY src/mbed_cloud/_version.py src/mbed_cloud/_version.py
 COPY setup* ./
 COPY README.rst ./
@@ -40,7 +40,7 @@ RUN pipenv install --dev
 COPY . .
 
 # version the codebase
-RUN pipenv run python scripts/dvcs_version.py
+RUN pipenv run auto_version --bump=patch --release TESTRUNNER_VERSION='dev'
 RUN pipenv run python -c "import mbed_cloud; print(mbed_cloud.__version__)"
 RUN pipenv run python scripts/generate_news.py
 

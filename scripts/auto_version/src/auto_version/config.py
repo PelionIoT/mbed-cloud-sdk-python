@@ -45,6 +45,7 @@ class AutoVersionConfig(object):
     trigger_patterns = {
         SemVerSigFig.major: os.path.join(PROJECT_ROOT, 'docs', 'news', '*.major'),
         SemVerSigFig.minor: os.path.join(PROJECT_ROOT, 'docs', 'news', '*.feature'),
+        SemVerSigFig.patch: os.path.join(PROJECT_ROOT, 'docs', 'news', '*.bugfix'),
     }
     DEVMODE_TEMPLATE = '{version}.dev{count}'
 

@@ -40,7 +40,7 @@ RUN pipenv install --dev
 COPY . .
 
 # version the codebase
-RUN pipenv run python scripts/dvcs_version.py
+RUN pipenv run auto_version --bump=patch --release TESTRUNNER_VERSION='dev'
 RUN pipenv run python -c "import mbed_cloud; print(mbed_cloud.__version__)"
 RUN pipenv run python scripts/generate_news.py
 
