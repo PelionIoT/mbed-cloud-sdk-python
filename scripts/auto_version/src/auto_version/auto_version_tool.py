@@ -105,7 +105,8 @@ def main():
     Create a new version
     Write out new version and any other requested variables
     """
-    args, updates = get_cli()
+    updates = {}
+    args, command_line_updates = get_cli()
     updates.update(get_dvcs_info())
     if args.config:
         get_or_create_config(args.config, config)
@@ -137,9 +138,16 @@ def main():
             count=updates.get(config.COMMIT_COUNT_FIELD, 0)
         )
 
-    # where possible, write back any other aliases based on the semver
-    for k, v in config.semver_aliases.items():
-        updates[v] = getattr(new_semver, k, version_string)
+    # make available all components of the semantic version including the full string
+    updates[config.VERSION_FIELD] = version_string
+    for part in semver.SemVerSigFig:
+        updates[part] = getattr(new_semver, part)
+
+    # remap and strip updates to match only those included in the configured aliases
+    updates = {config.semver_aliases[k]: v for k, v in updates.items() if k in config.semver_aliases}
+
+    # finally, add in commandline overrides
+    updates.update(command_line_updates)
 
     print(current_semver)
     print(new_semver)
