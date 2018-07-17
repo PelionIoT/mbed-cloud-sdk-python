@@ -14,7 +14,7 @@ def get_current_semver(data):
     }
 
     inferred_semver = None
-    parts = (known.pop(config.semver_aliases.get(SemVerSigFig)) or '').split('.')[:3]
+    parts = (known.pop(config.VERSION_FIELD) or '').split('.')[:3]
     if len(parts) == 3:
         inferred_semver = SemVer(*parts)
 
