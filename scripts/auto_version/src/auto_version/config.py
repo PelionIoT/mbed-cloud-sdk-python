@@ -2,7 +2,7 @@ import os
 
 import toml
 
-from auto_version.definitions import SemVer
+from auto_version.definitions import SemVerSigFig
 
 
 class AutoVersionConfig(object):
@@ -17,9 +17,9 @@ class AutoVersionConfig(object):
     VALUE_GROUP = 'VALUE'
     VERSION_FIELD = '__version__'
     semver_aliases = {
-        SemVer.major: 'SDK_MAJOR',
-        SemVer.minor: 'SDK_MINOR',
-        SemVer.patch: 'SDK_PATCH',
+        SemVerSigFig.major: 'SDK_MAJOR',
+        SemVerSigFig.minor: 'SDK_MINOR',
+        SemVerSigFig.patch: 'SDK_PATCH',
         VERSION_FIELD: '__version__',
     }
     targets = [
@@ -36,8 +36,8 @@ class AutoVersionConfig(object):
         '.csproj': r"""<(?P<KEY>\w+)>(?P<VALUE>\S+)<\/\w+>""",
     }
     trigger_patterns = {
-        SemVer.major: os.path.join(PROJECT_ROOT, 'docs', 'news', '*.major'),
-        SemVer.minor: os.path.join(PROJECT_ROOT, 'docs', 'news', '*.feature'),
+        SemVerSigFig.major: os.path.join(PROJECT_ROOT, 'docs', 'news', '*.major'),
+        SemVerSigFig.minor: os.path.join(PROJECT_ROOT, 'docs', 'news', '*.feature'),
     }
     DEVMODE_TEMPLATE = '{version}.dev{count}'
 

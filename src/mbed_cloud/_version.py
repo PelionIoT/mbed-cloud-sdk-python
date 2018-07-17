@@ -35,5 +35,5 @@ SDK_MINOR = '0'
 SDK_PATCH = '0'
 __version__ = '2.0.0'
 
-if not PRODUCTION:
+if not PRODUCTION and 'dev' not in __version__:
     __version__ += '.dev%s' % (COMMIT_COUNT or 0)

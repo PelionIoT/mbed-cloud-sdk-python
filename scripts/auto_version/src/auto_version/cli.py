@@ -1,7 +1,7 @@
 import argparse
 import ast
 
-from auto_version.definitions import SemVer
+from auto_version.definitions import SemVerSigFig
 from auto_version.config import AutoVersionConfig as config
 
 
@@ -16,7 +16,7 @@ def get_cli():
     )
     parser.add_argument(
         '--bump',
-        choices=SemVer,
+        choices=SemVerSigFig,
         help='Bumps the specified part of SemVer string. Use this locally to correctly modify the version file.',
     )
     parser.add_argument(

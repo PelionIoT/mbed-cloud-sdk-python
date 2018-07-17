@@ -111,7 +111,7 @@ def main():
         triggered.add(args.bump)
     all_data = read_targets(config.targets)
     current_semver = semver.get_current_semver(all_data)
-    new_semver = auto_version.definitions.SemVerFields(*args.set.split('.')) if args.set else semver.make_new_semver(current_semver, triggered)
+    new_semver = auto_version.definitions.SemVer(*args.set.split('.')) if args.set else semver.make_new_semver(current_semver, triggered)
 
     version_string = '.'.join(new_semver)
 
