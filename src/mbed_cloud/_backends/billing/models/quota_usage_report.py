@@ -59,7 +59,7 @@ class QuotaUsageReport(object):
     def amount(self):
         """
         Gets the amount of this QuotaUsageReport.
-        Amount of quota usage entry. Negavtive if it is quota consumption.
+        Amount of quota usage entry. Negative if it is quota consumption.
 
         :return: The amount of this QuotaUsageReport.
         :rtype: int
@@ -70,7 +70,7 @@ class QuotaUsageReport(object):
     def amount(self, amount):
         """
         Sets the amount of this QuotaUsageReport.
-        Amount of quota usage entry. Negavtive if it is quota consumption.
+        Amount of quota usage entry. Negative if it is quota consumption.
 
         :param amount: The amount of this QuotaUsageReport.
         :type: int
@@ -107,7 +107,7 @@ class QuotaUsageReport(object):
     def time(self):
         """
         Gets the time of this QuotaUsageReport.
-        Added time of quota usage entry.
+        Added time of quota usage entry in RFC3339 date-time with millisecond accuracy and UTC time zone.
 
         :return: The time of this QuotaUsageReport.
         :rtype: datetime
@@ -118,7 +118,7 @@ class QuotaUsageReport(object):
     def time(self, time):
         """
         Sets the time of this QuotaUsageReport.
-        Added time of quota usage entry.
+        Added time of quota usage entry in RFC3339 date-time with millisecond accuracy and UTC time zone.
 
         :param time: The time of this QuotaUsageReport.
         :type: datetime

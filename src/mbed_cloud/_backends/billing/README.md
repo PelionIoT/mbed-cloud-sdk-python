@@ -88,6 +88,7 @@ Class | Method | HTTP request | Description
  - [AggregatedQuotaUsageReport](docs/AggregatedQuotaUsageReport.md)
  - [BadRequestErrorResponse](docs/BadRequestErrorResponse.md)
  - [BadRequestErrorResponseField](docs/BadRequestErrorResponseField.md)
+ - [BillingReportRawDataResponse](docs/BillingReportRawDataResponse.md)
  - [ForbiddenErrorResponse](docs/ForbiddenErrorResponse.md)
  - [InternalServerErrorResponse](docs/InternalServerErrorResponse.md)
  - [PendingServicePackage](docs/PendingServicePackage.md)

@@ -77,7 +77,7 @@ class PreviousServicePackage(object):
     def created(self):
         """
         Gets the created of this PreviousServicePackage.
-        Service package creation time in RFC3339 date-time with UTC time zone.
+        Service package creation time in RFC3339 date-time with millisecond accuracy and UTC time zone.
 
         :return: The created of this PreviousServicePackage.
         :rtype: datetime
@@ -88,7 +88,7 @@ class PreviousServicePackage(object):
     def created(self, created):
         """
         Sets the created of this PreviousServicePackage.
-        Service package creation time in RFC3339 date-time with UTC time zone.
+        Service package creation time in RFC3339 date-time with millisecond accuracy and UTC time zone.
 
         :param created: The created of this PreviousServicePackage.
         :type: datetime
@@ -102,7 +102,7 @@ class PreviousServicePackage(object):
     def end_time(self):
         """
         Gets the end_time of this PreviousServicePackage.
-        Service package end time in RFC3339 date-time with UTC time zone.
+        Service package end time in RFC3339 date-time with millisecond accuracy and UTC time zone.
 
         :return: The end_time of this PreviousServicePackage.
         :rtype: datetime
@@ -113,7 +113,7 @@ class PreviousServicePackage(object):
     def end_time(self, end_time):
         """
         Sets the end_time of this PreviousServicePackage.
-        Service package end time in RFC3339 date-time with UTC time zone.
+        Service package end time in RFC3339 date-time with millisecond accuracy and UTC time zone.
 
         :param end_time: The end_time of this PreviousServicePackage.
         :type: datetime
@@ -127,7 +127,7 @@ class PreviousServicePackage(object):
     def expires(self):
         """
         Gets the expires of this PreviousServicePackage.
-        Service package expiration time in RFC3339 date-time with UTC time zone.
+        Service package expiration time in RFC3339 date-time with millisecond accuracy and UTC time zone.
 
         :return: The expires of this PreviousServicePackage.
         :rtype: datetime
@@ -138,7 +138,7 @@ class PreviousServicePackage(object):
     def expires(self, expires):
         """
         Sets the expires of this PreviousServicePackage.
-        Service package expiration time in RFC3339 date-time with UTC time zone.
+        Service package expiration time in RFC3339 date-time with millisecond accuracy and UTC time zone.
 
         :param expires: The expires of this PreviousServicePackage.
         :type: datetime
@@ -202,7 +202,7 @@ class PreviousServicePackage(object):
     def modified(self):
         """
         Gets the modified of this PreviousServicePackage.
-        Service package latest modified time in RFC3339 date-time with UTC time zone.
+        Service package latest modified time in RFC3339 date-time with millisecond accuracy and UTC time zone.
 
         :return: The modified of this PreviousServicePackage.
         :rtype: datetime
@@ -213,7 +213,7 @@ class PreviousServicePackage(object):
     def modified(self, modified):
         """
         Sets the modified of this PreviousServicePackage.
-        Service package latest modified time in RFC3339 date-time with UTC time zone.
+        Service package latest modified time in RFC3339 date-time with millisecond accuracy and UTC time zone.
 
         :param modified: The modified of this PreviousServicePackage.
         :type: datetime
@@ -304,7 +304,7 @@ class PreviousServicePackage(object):
     def start_time(self):
         """
         Gets the start_time of this PreviousServicePackage.
-        Service package start time in RFC3339 date-time with UTC time zone.
+        Service package start time in RFC3339 date-time with millisecond accuracy and UTC time zone.
 
         :return: The start_time of this PreviousServicePackage.
         :rtype: datetime
@@ -315,7 +315,7 @@ class PreviousServicePackage(object):
     def start_time(self, start_time):
         """
         Sets the start_time of this PreviousServicePackage.
-        Service package start time in RFC3339 date-time with UTC time zone.
+        Service package start time in RFC3339 date-time with millisecond accuracy and UTC time zone.
 
         :param start_time: The start_time of this PreviousServicePackage.
         :type: datetime
