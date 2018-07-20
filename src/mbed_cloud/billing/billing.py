@@ -17,9 +17,13 @@
 """Public API for Billing API."""
 from __future__ import absolute_import
 from __future__ import unicode_literals
+from six.moves import urllib
+
 import datetime
 import json
 import logging
+import os
+
 
 # Import common functions and exceptions from frontend API
 from mbed_cloud.core import BaseAPI
@@ -76,6 +80,34 @@ class BillingAPI(BaseAPI):
                 packages.append(ServicePackage(params))
         return packages
 
+    def _month_converter(self, date_time):
+        """Returns Billing API format YYYY-DD"""
+        if not date_time:
+            date_time = datetime.datetime.utcnow()
+        if isinstance(date_time, datetime.datetime):
+            date_time = '%s-%02d' % (date_time.year, date_time.month)
+        return date_time
+
+    def _filepath_converter(self, user_path, file_name):
+        """Logic for obtaining a file path
+
+        :param user_path: a path as provided by the user. perhaps a file or directory?
+        :param file_ext: the extension of the remote file
+        :return:
+        """
+        path = user_path or os.path.join(os.getcwd(), 'billing_reports', os.path.sep)
+        dir_specified = path.endswith(os.sep)
+        if dir_specified:
+            path = os.path.join(path, file_name)
+        path = os.path.abspath(path)
+
+        directory = os.path.dirname(path)
+        if not os.path.isdir(directory):
+            os.makedirs(directory)
+
+        if os.path.exists(path):
+            raise IOError('SDK will not write into an existing path: %r' % path)
+
     @catch_exceptions(BillingAPIException)
     def get_report_overview(self, month=None, file_path=None):
         """Downloads a report overview
@@ -86,11 +118,8 @@ class BillingAPI(BaseAPI):
         :return: The report structure
         :rtype: dict
         """
-        if not month:
-            month = datetime.datetime.utcnow()
-        if isinstance(month, datetime.datetime):
-            month = '%s-%02d' % (month.year, month.day)
         api = self._get_api(billing.DefaultApi)
+        month = self._month_converter(month)
 
         try:
             response = api.get_billing_report(month=month)
@@ -122,35 +151,15 @@ class BillingAPI(BaseAPI):
         :return: The report structure
         :rtype: dict
         """
-        if not month:
-            month = datetime.datetime.utcnow()
-        if isinstance(month, datetime.datetime):
-            month = '%s-%02d' % (month.year, month.month)
         api = self._get_api(billing.DefaultApi)
+        month = self._month_converter(month)
 
-        try:
-            print(month)
-            response, status, headers = api.get_billing_report_active_devices_with_http_info(month=month)
-            print(vars(response))
-            print(vars(headers))
-        except BillingAPIException as e:
-            print(vars(e))
-            if str(e.status) == '404':
-                response = {}
-            else:
-                raise
-
+        response = api.get_billing_report_active_devices(month=month)
+        download_url = response.get('url')
+        file_path = self._filepath_converter(file_path, response.get('filename'))
         if file_path:
-            content = api.api_client.sanitize_for_serialization(response.to_dict()) if response else {}
-            with open(file_path, 'w') as fh:
-                fh.write(
-                    json.dumps(
-                        content,
-                        sort_keys=True,
-                        indent=2,
-                    )
-                )
-        return response if response else None
+            urllib.request.urlretrieve(download_url, file_path)
+        return response
 
     @catch_exceptions(BillingAPIException)
     def get_report_firmware_updates(self, month=None, file_path=None):
@@ -162,31 +171,15 @@ class BillingAPI(BaseAPI):
         :return: The report structure
         :rtype: dict
         """
-        if not month:
-            month = datetime.datetime.utcnow()
-        if isinstance(month, datetime.datetime):
-            month = '%s-%02d' % (month.year, month.day)
         api = self._get_api(billing.DefaultApi)
+        month = self._month_converter(month)
 
-        try:
-            response = api.get_billing_report_firmware_updates(month=month)
-        except BillingAPIException as e:
-            if str(e.status) == '404':
-                response = {}
-            else:
-                raise
-
+        response = api.get_billing_report_firmware_updates(month=month)
+        download_url = response.get('url')
+        file_path = self._filepath_converter(file_path, response.get('filename'))
         if file_path:
-            content = api.api_client.sanitize_for_serialization(response.to_dict()) if response else {}
-            with open(file_path, 'w') as fh:
-                fh.write(
-                    json.dumps(
-                        content,
-                        sort_keys=True,
-                        indent=2,
-                    )
-                )
-        return response if response else None
+            urllib.request.urlretrieve(download_url, file_path)
+        return response
 
 
 class QuotaHistory(BaseObject):
