@@ -11,6 +11,6 @@ setup(
     packages=find_packages('src'),
     install_requires=['toml'],
     entry_points=dict(
-        console_scripts=['auto_version = auto_version.auto_version_tool:main', ],
+        console_scripts=['auto_version = auto_version.auto_version_tool:main_from_cli', ],
     )
 )
