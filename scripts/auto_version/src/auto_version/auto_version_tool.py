@@ -96,7 +96,7 @@ def get_dvcs_info():
     return {config.COMMIT_FIELD: commit, config.COMMIT_COUNT_FIELD: commit_count}
 
 
-def main():
+def main(set_to=None, release=None, bump=None, config_path=None, **extra_updates):
     """Main workflow.
 
     Load config from cli and file
@@ -104,31 +104,36 @@ def main():
     Find the current version
     Create a new version
     Write out new version and any other requested variables
+
+    :param set_to: explicitly set to this version string
+    :param release: marks with a production flag
+    :param bump: string indicating major/minor/patch
+    :param config_path: path to config file
+    :param extra_updates:
+    :return:
     """
     updates = {}
-    args, command_line_updates = get_cli()
     updates.update(get_dvcs_info())
-    if args.config:
-        get_or_create_config(args.config, config)
-    print('using config: %r' % config.CONFIG_NAME)
+    if config_path:
+        get_or_create_config(config_path, config)
 
     for k, v in config.regexers.items():
         config.regexers[k] = re.compile(v)
 
     triggered = detect_file_triggers(config.trigger_patterns)
-    if args.bump:
-        triggered.add(args.bump)
+    if bump:
+        triggered.add(bump)
     all_data = read_targets(config.targets)
     current_semver = semver.get_current_semver(all_data)
     new_semver = (
-        auto_version.definitions.SemVer(*args.set.split('.'))
-        if args.set else
+        auto_version.definitions.SemVer(*set_to.split('.'))
+        if set_to else
         semver.make_new_semver(current_semver, triggered)
     )
 
     version_string = '.'.join(new_semver)
 
-    if args.release:
+    if release:
         # in production, we have something like `1.2.3`, as well as a flag e.g. PRODUCTION=True
         updates[config.RELEASED_FIELD] = config.RELEASED_VALUE
     else:
@@ -151,12 +156,33 @@ def main():
     }
 
     # finally, add in commandline overrides
-    updates.update(command_line_updates)
+    updates.update(extra_updates)
 
-    print(current_semver)
-    print(new_semver)
-    pprint.pprint(updates)
     write_targets(config.targets, **updates)
 
+    return current_semver, new_semver, updates
 
-__name__ == '__main__' and main()
+
+def main_from_cli():
+    """Main workflow.
+
+    Load config from cli and file
+    Detect "bump triggers" - things that cause a version increment
+    Find the current version
+    Create a new version
+    Write out new version and any other requested variables
+    """
+    args, command_line_updates = get_cli()
+    old, new, updates = main(
+        set_to=args.set,
+        release=args.release,
+        bump=args.bump,
+        config_path=args.config,
+        **command_line_updates
+    )
+    print(old)
+    print(new)
+    pprint.pprint(updates)
+
+
+__name__ == '__main__' and main_from_cli()

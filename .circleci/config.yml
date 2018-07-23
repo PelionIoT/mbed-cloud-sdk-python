@@ -169,8 +169,8 @@ jobs:
         command: docker pull 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
         name: Pull TestRunner Image
     - run:
-        command: docker run 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
-          python -m trunner --version >> ~/caches/testrunner_version.txt
+        command: $(docker run 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
+          python -m trunner --version) >> ~/caches/testrunner_version.txt
         name: Obtain Testrunner Version
     - run:
         command: mkdir -p ~/caches
