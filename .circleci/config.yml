@@ -12,12 +12,18 @@ jobs:
         - v2-py2-{{ .Branch }}
         paths:
         - ~/caches/app_py2.tar
+    - attach_workspace:
+        at: ~/caches
+    - run:
+        command: docker load -i ~/caches/testrunner.tar
+        name: Load docker image for TestRunner
     - run:
         command: docker load -i ~/caches/app_py2.tar || true
         name: Load docker image layer cache
     - run:
         command: docker build --cache-from=mbed_sdk_py2:latest -t mbed_sdk_py2:latest
-          -f container/py2.Dockerfile .
+          --build-arg TESTRUNNER_VERSION=$(cat ~/caches/testrunner_version.txt) -f
+          container/py2.Dockerfile .
         name: Build application docker image
     - run:
         command: mkdir -p ~/caches
@@ -50,12 +56,18 @@ jobs:
         - v2-py3-{{ .Branch }}
         paths:
         - ~/caches/app_py3.tar
+    - attach_workspace:
+        at: ~/caches
+    - run:
+        command: docker load -i ~/caches/testrunner.tar
+        name: Load docker image for TestRunner
     - run:
         command: docker load -i ~/caches/app_py3.tar || true
         name: Load docker image layer cache
     - run:
         command: docker build --cache-from=mbed_sdk_py3:latest -t mbed_sdk_py3:latest
-          -f container/py3.Dockerfile .
+          --build-arg TESTRUNNER_VERSION=$(cat ~/caches/testrunner_version.txt) -f
+          container/py3.Dockerfile .
         name: Build application docker image
     - run:
         command: mkdir -p ~/caches
@@ -144,6 +156,36 @@ jobs:
     steps:
     - checkout
     - run: python scripts/assert_news.py
+  preload:
+    machine:
+      image: circleci/classic:201710-02
+    steps:
+    - run:
+        command: 'login="$(aws ecr get-login --no-include-email)"
+
+          ${login}'
+        name: AWS login
+    - run:
+        command: docker pull 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
+        name: Pull TestRunner Image
+    - run:
+        command: docker run 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
+          python -m trunner --version >> testrunner_version.txt
+        name: Obtain Testrunner Version
+    - run:
+        command: mkdir -p ~/caches
+        name: Make cache directory
+    - run:
+        command: docker save -o ~/caches/testrunner.tar 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
+        name: Export docker image layer cache
+    - persist_to_workspace:
+        paths: testrunner.tar
+        root: ~/caches
+    - persist_to_workspace:
+        paths: testrunner_version.txt
+        root: ~/caches
+    - store_artifacts:
+        path: testrunner_version.txt
   test_py2_OS2:
     machine:
       image: circleci/classic:201710-02
@@ -153,15 +195,13 @@ jobs:
         at: ~/caches
     - run:
         command: docker load -i ~/caches/app_py2.tar
-        name: Load docker image layer cache
+        name: Load docker image for SDK
+    - run:
+        command: docker load -i ~/caches/testrunner.tar
+        name: Load docker image for TestRunner
     - run:
         command: pip install docker-compose==1.21.0
         name: Get docker-compose
-    - run:
-        command: 'login="$(aws ecr get-login --no-include-email)"
-
-          ${login}'
-        name: AWS login
     - run:
         command: 'echo ''export TEST_RUNNER_DEFAULT_API_HOST=${MBED_CLOUD_API_HOST_OS2}''
           >> $BASH_ENV
@@ -188,15 +228,13 @@ jobs:
         at: ~/caches
     - run:
         command: docker load -i ~/caches/app_py2.tar
-        name: Load docker image layer cache
+        name: Load docker image for SDK
+    - run:
+        command: docker load -i ~/caches/testrunner.tar
+        name: Load docker image for TestRunner
     - run:
         command: pip install docker-compose==1.21.0
         name: Get docker-compose
-    - run:
-        command: 'login="$(aws ecr get-login --no-include-email)"
-
-          ${login}'
-        name: AWS login
     - run:
         command: 'echo ''export TEST_RUNNER_DEFAULT_API_HOST=${MBED_CLOUD_API_HOST_PROD}''
           >> $BASH_ENV
@@ -223,15 +261,13 @@ jobs:
         at: ~/caches
     - run:
         command: docker load -i ~/caches/app_py3.tar
-        name: Load docker image layer cache
+        name: Load docker image for SDK
+    - run:
+        command: docker load -i ~/caches/testrunner.tar
+        name: Load docker image for TestRunner
     - run:
         command: pip install docker-compose==1.21.0
         name: Get docker-compose
-    - run:
-        command: 'login="$(aws ecr get-login --no-include-email)"
-
-          ${login}'
-        name: AWS login
     - run:
         command: 'echo ''export TEST_RUNNER_DEFAULT_API_HOST=${MBED_CLOUD_API_HOST_OS2}''
           >> $BASH_ENV
@@ -258,15 +294,13 @@ jobs:
         at: ~/caches
     - run:
         command: docker load -i ~/caches/app_py3.tar
-        name: Load docker image layer cache
+        name: Load docker image for SDK
+    - run:
+        command: docker load -i ~/caches/testrunner.tar
+        name: Load docker image for TestRunner
     - run:
         command: pip install docker-compose==1.21.0
         name: Get docker-compose
-    - run:
-        command: 'login="$(aws ecr get-login --no-include-email)"
-
-          ${login}'
-        name: AWS login
     - run:
         command: 'echo ''export TEST_RUNNER_DEFAULT_API_HOST=${MBED_CLOUD_API_HOST_PROD}''
           >> $BASH_ENV
@@ -297,7 +331,10 @@ version: 2
 workflows:
   python_sdk_workflow:
     jobs:
-    - build_py3: {}
+    - preload: {}
+    - build_py3:
+        requires:
+        - preload
     - test_py3_PROD:
         requires:
         - build_py3
@@ -311,7 +348,9 @@ workflows:
     - deploy_py3_beta:
         requires:
         - release_beta
-    - build_py2: {}
+    - build_py2:
+        requires:
+        - preload
     - test_py2_PROD:
         requires:
         - build_py2

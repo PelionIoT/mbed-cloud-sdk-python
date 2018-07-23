@@ -144,7 +144,11 @@ def main():
         updates[part] = getattr(new_semver, part)
 
     # remap and strip updates to match only those included in the configured aliases
-    updates = {config.semver_aliases[k]: v for k, v in updates.items() if k in config.semver_aliases}
+    updates = {
+        config.semver_aliases[k]: v
+        for k, v in updates.items()
+        if k in config.semver_aliases
+    }
 
     # finally, add in commandline overrides
     updates.update(command_line_updates)

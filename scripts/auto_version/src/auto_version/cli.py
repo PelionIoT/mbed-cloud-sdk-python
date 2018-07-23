@@ -42,6 +42,7 @@ def get_cli():
     updates = {}
     for kwargs in others:
         k, v = kwargs.split('=')
+        print('unpacking %r = %r' % (k, v))
         updates[k.strip()] = ast.literal_eval(v.strip())
 
     return args, updates
