@@ -137,7 +137,7 @@ def new_preload():
           command: docker pull {testrunner_image}
       - run:
           name: Obtain Testrunner Version
-          command: docker run {testrunner_image} python -m trunner --version >> {version_file}
+          command: docker run {testrunner_image} python -m trunner --version >> {cache_dir}/{version_file}
       - run:
           name: Make cache directory
           command: mkdir -p {cache_dir}
