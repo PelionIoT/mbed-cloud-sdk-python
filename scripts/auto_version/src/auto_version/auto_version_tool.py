@@ -130,6 +130,12 @@ def main(
     for k, v in config.regexers.items():
         config.regexers[k] = re.compile(v)
 
+    # a forward-mapping of the configured aliases
+    # giving <our config param> : <the configured value>
+    # if a value occurs multiple times, we take the last set value
+    for k, v in config.key_aliases.items():
+        config._forward_aliases[v] = k
+
     triggers = set()
     if file_triggers:
         triggers = triggers.union(detect_file_triggers(config.trigger_patterns))
@@ -140,7 +146,7 @@ def main(
     all_data = read_targets(config.targets)
 
     # binary state lock protects from version increments if set
-    lock_key = config.key_aliases.get(Constants.VERSION_LOCK_FIELD)
+    lock_key = config._forward_aliases.get(Constants.VERSION_LOCK_FIELD)
     if triggers and lock_key and str(all_data.get(lock_key)) == str(config.VERSION_LOCK_VALUE):
         triggers.clear()
         updates[Constants.VERSION_LOCK_FIELD] = config.VERSION_UNLOCK_VALUE
@@ -173,19 +179,19 @@ def main(
     if set_to or lock:
         updates[Constants.VERSION_LOCK_FIELD] = config.VERSION_LOCK_VALUE
 
-    # remap and strip updates to match only those included in the configured aliases
-    updates = {
-        config.key_aliases[k]: v
-        for k, v in updates.items()
-        if k in config.key_aliases
+    # only rewrite field the user has specified in the configuration
+    native_updates = {
+        native: updates.get(key)
+        for native, key in config.key_aliases.items()
+        if updates.get(key) is not None
     }
 
     # finally, add in commandline overrides
-    updates.update(extra_updates)
+    native_updates.update(extra_updates)
 
-    write_targets(config.targets, **updates)
+    write_targets(config.targets, **native_updates)
 
-    return current_semver, new_semver, updates
+    return current_semver, new_semver, native_updates
 
 
 def main_from_cli():

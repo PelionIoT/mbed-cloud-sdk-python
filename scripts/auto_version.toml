@@ -8,14 +8,14 @@ targets = [ "src/mbed_cloud/_version.py", "src/mbed_cloud/_build_info.py",]
 DEVMODE_TEMPLATE = "{version}.dev{count}"
 
 [AutoVersionConfig.key_aliases]
-major = "SDK_MAJOR"
-minor = "SDK_MINOR"
-patch = "SDK_PATCH"
-VERSION_KEY = "__version__"
-VERSION_LOCK = "_locked"
-RELEASE_FIELD = "PRODUCTION"
-COMMIT_COUNT = "COMMIT_COUNT"
+__version__ = "VERSION_KEY"
+_locked = "VERSION_LOCK"
 COMMIT = "COMMIT"
+COMMIT_COUNT = "COMMIT_COUNT"
+PRODUCTION = "RELEASE_FIELD"
+SDK_MAJOR = "major"
+SDK_MINOR= "minor"
+SDK_PATCH = "patch"
 
 [AutoVersionConfig.regexers]
 ".json" = "(?P<KEY>\\w+)\\s?[=:]\\s?['\\\"]?(?P<VALUE>[\\w\\.\\-_]+)['\\\"]?"

@@ -15,6 +15,7 @@ class Constants(object):
 
     # internal field keys
     VERSION_FIELD = 'VERSION_KEY'
+    VERSION_STRICT_FIELD = 'VERSION_KEY_STRICT'
     VERSION_LOCK_FIELD = 'VERSION_LOCK'
     RELEASE_FIELD = 'RELEASE_FIELD'
     COMMIT_COUNT_FIELD = 'COMMIT_COUNT'
@@ -23,47 +24,51 @@ class Constants(object):
     # as used in toml file
     CONFIG_KEY = 'AutoVersionConfig'
 
-
-class AutoVersionConfig(object):
-    """Configuration - can be overridden using a toml config file"""
-
-    CONFIG_NAME = 'DEFAULT'
     PROJECT_ROOT = os.path.dirname(
         os.path.dirname(
             os.path.dirname(
                 os.path.dirname(
                     os.path.dirname(__file__)))))
+
+
+class AutoVersionConfig(object):
+    """Configuration - can be overridden using a toml config file"""
+
+    CONFIG_NAME = 'DEFAULT'
     RELEASED_VALUE = True
     VERSION_LOCK_VALUE = True
     VERSION_UNLOCK_VALUE = False
     key_aliases = {
-        SemVerSigFig.major: 'SDK_MAJOR',
-        SemVerSigFig.minor: 'SDK_MINOR',
-        SemVerSigFig.patch: 'SDK_PATCH',
-        Constants.VERSION_FIELD: '__version__',
-        Constants.VERSION_LOCK_FIELD: 'VERSION_LOCK',
-        Constants.RELEASE_FIELD: 'PRODUCTION',
+        '__version__': Constants.VERSION_FIELD,
+        '__strict_version__': Constants.VERSION_STRICT_FIELD,
+        'PRODUCTION': Constants.RELEASE_FIELD,
+        'SDK_MAJOR': SemVerSigFig.major,
+        'SDK_MINOR': SemVerSigFig.minor,
+        'SDK_PATCH': SemVerSigFig.patch,
+        'VERSION_LOCK': Constants.VERSION_LOCK_FIELD,
         Constants.COMMIT_COUNT_FIELD: Constants.COMMIT_COUNT_FIELD,
         Constants.COMMIT_FIELD: Constants.COMMIT_FIELD,
     }
+    _forward_aliases = {}  # autopopulated later - reverse mapping of the above
     targets = [
         os.path.join(
-            PROJECT_ROOT, 'src', 'mbed_cloud', '_version.py'
+            Constants.PROJECT_ROOT, 'src', 'mbed_cloud', '_version.py'
         ),
         os.path.join(
-            PROJECT_ROOT, 'src', 'mbed_cloud', '_build_info.py'
+            Constants.PROJECT_ROOT, 'src', 'mbed_cloud', '_build_info.py'
         ),
     ]
     regexers = {
-        '.json': r"""(?P<KEY>\w+)\s?[=:]\s?['\"]?(?P<VALUE>[\w\.\-_]+)['\"]?""",
-        '.py': r"""(?P<KEY>\w+)\s?[=:]\s?['\"]?(?P<VALUE>[\w\.\-_]+)['\"]?""",
-        '.csproj': r"""<(?P<KEY>\w+)>(?P<VALUE>\S+)<\/\w+>""",
+        '.json':       r"""(?P<KEY>\w+)\s?[=:]\s?['\"]?(?P<VALUE>[\w\.\-_]+)['\"]?""",
+        '.py':         r"""(?P<KEY>\w+)\s?[=:]\s?['\"]?(?P<VALUE>[\w\.\-_]+)['\"]?""",
+        '.cs':         r"""(?P<KEY>\w+)\s?[=:]\s?['\"]?(?P<VALUE>[\w\.\-_]+)['\"]?""",
+        '.csproj':     r"""<(?P<KEY>\w+)>(?P<VALUE>\S+)<\/\w+>""",
         '.properties': r"""(?P<KEY>\w+)\s*[=:]\s*(?P<VALUE>[\w\.\-_]+)""",
     }
     trigger_patterns = {
-        SemVerSigFig.major: os.path.join(PROJECT_ROOT, 'docs', 'news', '*.major'),
-        SemVerSigFig.minor: os.path.join(PROJECT_ROOT, 'docs', 'news', '*.feature'),
-        SemVerSigFig.patch: os.path.join(PROJECT_ROOT, 'docs', 'news', '*.bugfix'),
+        SemVerSigFig.major: os.path.join(Constants.PROJECT_ROOT, 'docs', 'news', '*.major'),
+        SemVerSigFig.minor: os.path.join(Constants.PROJECT_ROOT, 'docs', 'news', '*.feature'),
+        SemVerSigFig.patch: os.path.join(Constants.PROJECT_ROOT, 'docs', 'news', '*.bugfix'),
     }
     DEVMODE_TEMPLATE = '{version}.dev{count}'
 

@@ -10,7 +10,7 @@ def get_current_semver(data):
     # get the not-none values from data
     known = {
         key: data.get(alias)
-        for key, alias in config.key_aliases.items()
+        for key, alias in config._forward_aliases.items()
         if data.get(alias) is not None
     }
     inferred_semver = None
