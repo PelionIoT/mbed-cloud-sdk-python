@@ -22,12 +22,15 @@ class ReplacementHandler(object):
         key = match.group(Constants.KEY_GROUP)
         replacement = self.params.get(key)
         if replacement is None:  # if this isn't a key we are interested in replacing
-            replaced = original
+            return original
         else:
+            start, end = match.span(Constants.VALUE_GROUP)
+            if start < 0:
+                start = end = len(original)
             self.missing.remove(key)
             replaced = ''.join([
-                original[:match.start(Constants.VALUE_GROUP)],
+                original[:start],
                 str(replacement),
-                original[match.end(Constants.VALUE_GROUP):],
+                original[end:],
             ])
         return replaced

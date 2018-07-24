@@ -63,7 +63,7 @@ class AutoVersionConfig(object):
         '.py':         r"""(?P<KEY>\w+)\s?[=:]\s?['\"]?(?P<VALUE>[\w\.\-_]+)['\"]?""",
         '.cs':         r"""(?P<KEY>\w+)\s?[=:]\s?['\"]?(?P<VALUE>[\w\.\-_]+)['\"]?""",
         '.csproj':     r"""<(?P<KEY>\w+)>(?P<VALUE>\S+)<\/\w+>""",
-        '.properties': r"""(?P<KEY>\w+)\s*[=:]\s*(?P<VALUE>[\w\.\-_]+)""",
+        '.properties': r"""(?P<KEY>\w+)\s*=\s*(?P<VALUE>[\w\.\-\:\/\\]+)?""",
     }
     trigger_patterns = {
         SemVerSigFig.major: os.path.join(Constants.PROJECT_ROOT, 'docs', 'news', '*.major'),
