@@ -6,28 +6,42 @@ import toml
 from auto_version.definitions import SemVerSigFig
 
 
-class AutoVersionConfig(object):
-    """Configuration - can be overriden using a toml config file"""
+class Constants(object):
+    # regex groups
+    KEY_GROUP = 'KEY'
+    VALUE_GROUP = 'VALUE'
 
-    CONFIG_NAME = 'DEFAULT'
-
+    # internal field keys
+    VERSION_FIELD = 'VERSION_KEY'
+    VERSION_LOCK_FIELD = 'VERSION_LOCK'
+    RELEASE_FIELD = 'RELEASE_FIELD'
     COMMIT_COUNT_FIELD = 'COMMIT_COUNT'
     COMMIT_FIELD = 'COMMIT'
-    KEY_GROUP = 'KEY'
+
+    # as used in toml file
+    CONFIG_KEY = 'AutoVersionConfig'
+
+
+class AutoVersionConfig(object):
+    """Configuration - can be overridden using a toml config file"""
+    CONFIG_NAME = 'DEFAULT'
     PROJECT_ROOT = os.path.dirname(
         os.path.dirname(
             os.path.dirname(
                 os.path.dirname(
                     os.path.dirname(__file__)))))
-    RELEASED_FIELD = 'PRODUCTION'
     RELEASED_VALUE = True
-    VALUE_GROUP = 'VALUE'
-    VERSION_FIELD = 'VERSION_KEY'
-    semver_aliases = {
+    VERSION_LOCK_VALUE = True
+    VERSION_UNLOCK_VALUE = False
+    key_aliases = {
         SemVerSigFig.major: 'SDK_MAJOR',
         SemVerSigFig.minor: 'SDK_MINOR',
         SemVerSigFig.patch: 'SDK_PATCH',
-        VERSION_FIELD: '__version__',
+        Constants.VERSION_FIELD: '__version__',
+        Constants.VERSION_LOCK_FIELD: 'VERSION_LOCK',
+        Constants.RELEASE_FIELD: 'PRODUCTION',
+        Constants.COMMIT_COUNT_FIELD: Constants.COMMIT_COUNT_FIELD,
+        Constants.COMMIT_FIELD: Constants.COMMIT_FIELD,
     }
     targets = [
         os.path.join(
@@ -50,18 +64,16 @@ class AutoVersionConfig(object):
     }
     DEVMODE_TEMPLATE = '{version}.dev{count}'
 
-    _config_key = 'AutoVersionConfig'
-
     @classmethod
     def _deflate(cls):
         """Prepare for serialisation - returns a dictionary"""
         data = {k: v for k, v in vars(cls).items() if not k.startswith('_')}
-        return {cls._config_key: data}
+        return {Constants.CONFIG_KEY: data}
 
     @classmethod
     def _inflate(cls, data):
         """Update config by deserialising input dictionary"""
-        for k, v in data[cls._config_key].items():
+        for k, v in data[Constants.CONFIG_KEY].items():
             setattr(cls, k, v)
         return cls._deflate()
 

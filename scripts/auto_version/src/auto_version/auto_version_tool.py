@@ -35,6 +35,7 @@ import subprocess
 from auto_version.cli import get_cli
 from auto_version.config import AutoVersionConfig as config
 from auto_version.config import get_or_create_config
+from auto_version.config import Constants
 import auto_version.definitions
 from auto_version.replacement_handler import ReplacementHandler
 
@@ -74,7 +75,7 @@ def read_targets(targets):
                 if not match:
                     continue
                 k_v = match.groupdict()
-                results[k_v[config.KEY_GROUP]] = k_v[config.VALUE_GROUP]
+                results[k_v[Constants.KEY_GROUP]] = k_v[Constants.VALUE_GROUP]
     return results
 
 
@@ -93,10 +94,10 @@ def get_dvcs_info():
     commit_count = str(int(subprocess.check_output(shlex.split(cmd)).decode('utf8').strip()))
     cmd = 'git rev-parse HEAD'
     commit = str(subprocess.check_output(shlex.split(cmd)).decode('utf8').strip())
-    return {config.COMMIT_FIELD: commit, config.COMMIT_COUNT_FIELD: commit_count}
+    return {Constants.COMMIT_FIELD: commit, Constants.COMMIT_COUNT_FIELD: commit_count}
 
 
-def main(set_to=None, release=None, bump=None, config_path=None, **extra_updates):
+def main(set_to=None, release=None, bump=None, lock=None, file_triggers=None, config_path=None, **extra_updates):
     """Main workflow.
 
     Load config from cli and file
@@ -108,6 +109,8 @@ def main(set_to=None, release=None, bump=None, config_path=None, **extra_updates
     :param set_to: explicitly set to this version string
     :param release: marks with a production flag
     :param bump: string indicating major/minor/patch
+    :param lock: locks the version string for the next call to autoversion
+    :param file_triggers: whether to enable bumping based on file triggers
     :param config_path: path to config file
     :param extra_updates:
     :return:
@@ -120,10 +123,21 @@ def main(set_to=None, release=None, bump=None, config_path=None, **extra_updates
     for k, v in config.regexers.items():
         config.regexers[k] = re.compile(v)
 
-    triggered = detect_file_triggers(config.trigger_patterns)
+    triggered = set()
+    if file_triggers:
+        triggered = triggered.union(detect_file_triggers(config.trigger_patterns))
+
     if bump:
         triggered.add(bump)
+
     all_data = read_targets(config.targets)
+
+    # binary state lock protects from version increments if set
+    lock_key = config.key_aliases.get(Constants.VERSION_LOCK_FIELD)
+    if lock_key and str(all_data.get(lock_key)) == str(config.VERSION_LOCK_VALUE):
+        triggered.clear()
+        updates[Constants.VERSION_LOCK_FIELD] = config.VERSION_UNLOCK_VALUE
+
     current_semver = semver.get_current_semver(all_data)
     new_semver = (
         auto_version.definitions.SemVer(*set_to.split('.'))
@@ -135,24 +149,28 @@ def main(set_to=None, release=None, bump=None, config_path=None, **extra_updates
 
     if release:
         # in production, we have something like `1.2.3`, as well as a flag e.g. PRODUCTION=True
-        updates[config.RELEASED_FIELD] = config.RELEASED_VALUE
+        updates[Constants.RELEASE_FIELD] = config.RELEASED_VALUE
     else:
         # in dev mode, we have a dev marker e.g. `1.2.3.dev678`
         version_string = config.DEVMODE_TEMPLATE.format(
             version=version_string,
-            count=updates.get(config.COMMIT_COUNT_FIELD, 0)
+            count=updates.get(Constants.COMMIT_COUNT_FIELD, 0)
         )
 
     # make available all components of the semantic version including the full string
-    updates[config.VERSION_FIELD] = version_string
+    updates[Constants.VERSION_FIELD] = version_string
     for part in semver.SemVerSigFig:
         updates[part] = getattr(new_semver, part)
 
+    # if we are explicitly setting or locking the version, then set the lock field
+    if set_to or lock:
+        updates[Constants.VERSION_LOCK_FIELD] = config.VERSION_LOCK_VALUE
+
     # remap and strip updates to match only those included in the configured aliases
     updates = {
-        config.semver_aliases[k]: v
+        config.key_aliases[k]: v
         for k, v in updates.items()
-        if k in config.semver_aliases
+        if k in config.key_aliases
     }
 
     # finally, add in commandline overrides
@@ -175,8 +193,10 @@ def main_from_cli():
     args, command_line_updates = get_cli()
     old, new, updates = main(
         set_to=args.set,
+        lock=args.lock,
         release=args.release,
         bump=args.bump,
+        file_triggers=args.file_triggers,
         config_path=args.config,
         **command_line_updates
     )

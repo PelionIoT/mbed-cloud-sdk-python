@@ -1,0 +1,29 @@
+[AutoVersionConfig]
+CONFIG_NAME = "DEFAULT"
+PROJECT_ROOT = "mbed-cloud-sdk-python"
+RELEASED_VALUE = true
+VERSION_LOCK_VALUE = true
+VERSION_UNLOCK_VALUE = false
+targets = [ "src\\mbed_cloud\\_version.py", "src\\mbed_cloud\\_build_info.py",]
+DEVMODE_TEMPLATE = "{version}.dev{count}"
+
+[AutoVersionConfig.key_aliases]
+major = "SDK_MAJOR"
+minor = "SDK_MINOR"
+patch = "SDK_PATCH"
+VERSION_KEY = "__version__"
+VERSION_LOCK = "_locked"
+RELEASE_FIELD = "PRODUCTION"
+COMMIT_COUNT = "COMMIT_COUNT"
+COMMIT = "COMMIT"
+
+[AutoVersionConfig.regexers]
+".json" = "(?P<KEY>\\w+)\\s?[=:]\\s?['\\\"]?(?P<VALUE>[\\w\\.\\-_]+)['\\\"]?"
+".py" = "(?P<KEY>\\w+)\\s?[=:]\\s?['\\\"]?(?P<VALUE>[\\w\\.\\-_]+)['\\\"]?"
+".csproj" = "<(?P<KEY>\\w+)>(?P<VALUE>\\S+)<\\/\\w+>"
+".properties" = "(?P<KEY>\\w+)\\s*[=:]\\s*(?P<VALUE>[\\w\\.\\-_]+)"
+
+[AutoVersionConfig.trigger_patterns]
+major = "docs\\news\\*.major"
+minor = "docs\\news\\*.feature"
+patch = "docs\\news\\*.bugfix"

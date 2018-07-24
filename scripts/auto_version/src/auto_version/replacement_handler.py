@@ -1,5 +1,6 @@
 """Regex substitution handler"""
 from auto_version.config import AutoVersionConfig as config
+from auto_version.config import Constants
 
 
 class ReplacementHandler(object):
@@ -19,15 +20,15 @@ class ReplacementHandler(object):
     def __call__(self, match):
         """Given a regex Match Object, return the entire replacement string"""
         original = match.string.strip('\r\n')
-        key = match.group(config.KEY_GROUP)
+        key = match.group(Constants.KEY_GROUP)
         replacement = self.params.get(key)
         if replacement is None:  # if this isn't a key we are interested in replacing
             replaced = original
         else:
             self.missing.remove(key)
             replaced = ''.join([
-                original[:match.start(config.VALUE_GROUP)],
+                original[:match.start(Constants.VALUE_GROUP)],
                 str(replacement),
-                original[match.end(config.VALUE_GROUP):],
+                original[match.end(Constants.VALUE_GROUP):],
             ])
         return replaced

@@ -26,7 +26,7 @@ The ``mbed-cloud-sdk`` gives developers access to the full `Mbed Cloud suite <ht
 Prerequisites
 -------------
 
-Python 2.7.10+ / Python 3.4.3+, built with SSL support.
+Python 2.7.10+ / Python 3.4.3 < 3.7, built with SSL support.
 
 Use of `virtual
 environments <http://docs.python-guide.org/en/latest/dev/virtualenvs/>`__

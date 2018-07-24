@@ -23,8 +23,19 @@ def get_cli():
              'Use this locally to correctly modify the version file.',
     )
     parser.add_argument(
+        '--news', '--file-triggers',
+        action='store_true',
+        dest='file_triggers',
+        help='Detects need to bump based on presence of files (as specified in config).',
+    )
+    parser.add_argument(
         '--set',
         help='Set the SemVer string. Use this locally to set the project version explicitly.',
+    )
+    parser.add_argument(
+        '--lock',
+        action='store_true',
+        help='Locks the SemVer string. Lock will remain for another call to autoversion before being cleared.',
     )
     parser.add_argument(
         '--release',

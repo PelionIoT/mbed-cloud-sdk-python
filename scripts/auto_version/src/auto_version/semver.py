@@ -1,5 +1,6 @@
 """Functions for manipulating SemVer objects (Major.Minor.Patch)"""
 from auto_version.config import AutoVersionConfig as config
+from auto_version.config import Constants
 from auto_version.definitions import SemVer
 from auto_version.definitions import SemVerSigFig
 
@@ -9,18 +10,18 @@ def get_current_semver(data):
     # get the not-none values from data
     known = {
         key: data.get(alias)
-        for key, alias in config.semver_aliases.items()
+        for key, alias in config.key_aliases.items()
         if data.get(alias) is not None
     }
-
     inferred_semver = None
-    parts = (known.pop(config.VERSION_FIELD) or '').split('.')[:3]
+    parts = (known.pop(Constants.VERSION_FIELD, None) or '').split('.')[:3]
     if len(parts) == 3:
         inferred_semver = SemVer(*parts)
 
     explicit_semver = None
-    if len(known) == 3:
-        explicit_semver = SemVer(**known)
+    from_components = {k: v for k, v in known.items() if k in SemVerSigFig._fields}
+    if len(from_components) == 3:
+        explicit_semver = SemVer(**from_components)
 
     if inferred_semver and explicit_semver and (explicit_semver != inferred_semver):
         raise ValueError(
