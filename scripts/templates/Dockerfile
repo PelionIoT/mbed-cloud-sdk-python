@@ -42,7 +42,7 @@ COPY . .
 # version the codebase
 # we must be told the testrunner version that will be used to test this build
 ARG TESTRUNNER_VERSION
-RUN pipenv run auto_version --bump=patch --release "TESTRUNNER_VERSION='${{TESTRUNNER_VERSION}}'"
+RUN pipenv run auto_version --config=scripts/auto_version.toml --news --bump=patch "TESTRUNNER_VERSION='${{TESTRUNNER_VERSION}}'"
 RUN pipenv run python -c "import mbed_cloud; print(mbed_cloud.__version__)"
 RUN pipenv run python scripts/generate_news.py
 
@@ -61,6 +61,10 @@ RUN pipenv run python setup.py check -r -s
 
 # generate a package
 RUN pipenv run python setup.py clean --all bdist_wheel
+
+# generate a release package
+RUN pipenv run auto_version --config=scripts/auto_version.toml --release
+RUN pipenv run python setup.py clean --all --dist-dir release-dist bdist_wheel
 
 
 #

@@ -106,11 +106,15 @@ def main(set_to=None, release=None, bump=None, lock=None, file_triggers=None, co
     Create a new version
     Write out new version and any other requested variables
 
-    :param set_to: explicitly set to this version string
+    :param set_to: explicitly set semver to this version string
     :param release: marks with a production flag
+                just sets a single flag as per config
     :param bump: string indicating major/minor/patch
+                more significant bumps will zero the less significant ones
     :param lock: locks the version string for the next call to autoversion
+                lock only removed if a version bump would have occurred
     :param file_triggers: whether to enable bumping based on file triggers
+                bumping occurs once if any file(s) exist that match the config
     :param config_path: path to config file
     :param extra_updates:
     :return:
@@ -123,26 +127,26 @@ def main(set_to=None, release=None, bump=None, lock=None, file_triggers=None, co
     for k, v in config.regexers.items():
         config.regexers[k] = re.compile(v)
 
-    triggered = set()
-    if file_triggers:
-        triggered = triggered.union(detect_file_triggers(config.trigger_patterns))
+    triggers = set()
+    if triggers:
+        triggers = triggers.union(detect_file_triggers(config.trigger_patterns))
 
     if bump:
-        triggered.add(bump)
+        triggers.add(bump)
 
     all_data = read_targets(config.targets)
 
     # binary state lock protects from version increments if set
     lock_key = config.key_aliases.get(Constants.VERSION_LOCK_FIELD)
-    if lock_key and str(all_data.get(lock_key)) == str(config.VERSION_LOCK_VALUE):
-        triggered.clear()
+    if triggers and lock_key and str(all_data.get(lock_key)) == str(config.VERSION_LOCK_VALUE):
+        triggers.clear()
         updates[Constants.VERSION_LOCK_FIELD] = config.VERSION_UNLOCK_VALUE
 
     current_semver = semver.get_current_semver(all_data)
     new_semver = (
         auto_version.definitions.SemVer(*set_to.split('.'))
         if set_to else
-        semver.make_new_semver(current_semver, triggered)
+        semver.make_new_semver(current_semver, triggers)
     )
 
     version_string = '.'.join(new_semver)

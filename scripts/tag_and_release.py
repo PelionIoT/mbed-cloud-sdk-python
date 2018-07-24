@@ -79,7 +79,7 @@ def main():
     print('pushing commits')
     subprocess.check_call(['git', 'push', 'origin'])
     print('uploading to pypi')
-    subprocess.check_call(['python', '-m', 'twine', 'upload', 'dist/*'])
+    subprocess.check_call(['python', '-m', 'twine', 'upload', 'release-dist/*'])
     print('uploading to pypi successful')
 
 
