@@ -70,8 +70,7 @@ RUN pipenv run python setup.py clean --all bdist_wheel
 
 # generate a release package
 RUN pipenv run auto_version --config=scripts/auto_version.toml --release
-RUN pipenv run python setup.py clean --all --dist-dir release-dist bdist_wheel
-
+RUN pipenv run python setup.py clean --all bdist_wheel --dist-dir release-dist
 
 #
 # Minimal
