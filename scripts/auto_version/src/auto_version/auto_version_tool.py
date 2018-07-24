@@ -31,6 +31,7 @@ import pprint
 import re
 import shlex
 import subprocess
+import warnings
 
 from auto_version.cli import get_cli
 from auto_version.config import AutoVersionConfig as config
@@ -46,13 +47,11 @@ def write_targets(targets, **params):
     """Writes version info into version file inline"""
     handler = ReplacementHandler(**params)
     for target, regexer in regexer_for_targets(targets):
-        fh = fileinput.FileInput(target, inplace=True)
-        try:
-            for line in fh:
-                # printing to stdout writes to the file
-                print(regexer.sub(handler, line).rstrip())
-        finally:
-            fh.close()
+        with open(target) as fh:
+            lines = fh.readlines()
+        lines = [regexer.sub(handler, line) for line in lines]
+        with open(target, 'w') as fh:
+            fh.writelines(lines)
     if handler.missing:
         raise Exception('Failed to complete all expected replacements: %r' % handler.missing)
 
@@ -124,6 +123,7 @@ def main(
     """
     updates = {}
     updates.update(get_dvcs_info())
+
     if config_path:
         get_or_create_config(config_path, config)
 
@@ -152,38 +152,45 @@ def main(
         updates[Constants.VERSION_LOCK_FIELD] = config.VERSION_UNLOCK_VALUE
 
     current_semver = semver.get_current_semver(all_data)
-    new_semver = (
-        auto_version.definitions.SemVer(*set_to.split('.'))
-        if set_to else
-        semver.make_new_semver(current_semver, triggers)
-    )
+
+    if set_to:
+        new_semver = auto_version.definitions.SemVer(*set_to.split('.'))
+        if not lock:
+            warnings.warn(
+                'After setting version manually, does it need locking for a CI flow?',
+                UserWarning
+            )
+    else:
+        new_semver = semver.make_new_semver(current_semver, triggers)
 
     version_string = '.'.join(new_semver)
+    maybe_dev_version_string = version_string
 
     if release:
         # in production, we have something like `1.2.3`, as well as a flag e.g. PRODUCTION=True
         updates[Constants.RELEASE_FIELD] = config.RELEASED_VALUE
     else:
         # in dev mode, we have a dev marker e.g. `1.2.3.dev678`
-        version_string = config.DEVMODE_TEMPLATE.format(
+        maybe_dev_version_string = config.DEVMODE_TEMPLATE.format(
             version=version_string,
             count=updates.get(Constants.COMMIT_COUNT_FIELD, 0)
         )
 
     # make available all components of the semantic version including the full string
-    updates[Constants.VERSION_FIELD] = version_string
+    updates[Constants.VERSION_FIELD] = maybe_dev_version_string
+    updates[Constants.VERSION_STRICT_FIELD] = version_string
     for part in semver.SemVerSigFig:
         updates[part] = getattr(new_semver, part)
 
     # if we are explicitly setting or locking the version, then set the lock field
-    if set_to or lock:
+    if lock:
         updates[Constants.VERSION_LOCK_FIELD] = config.VERSION_LOCK_VALUE
 
     # only rewrite field the user has specified in the configuration
     native_updates = {
-        native: updates.get(key)
+        native: updates[key]
         for native, key in config.key_aliases.items()
-        if updates.get(key) is not None
+        if key in updates
     }
 
     # finally, add in commandline overrides

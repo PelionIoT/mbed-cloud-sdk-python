@@ -90,7 +90,7 @@ def get_or_create_config(path, config):
     """Using TOML format, load config from given path, or write out example based on defaults"""
     if os.path.isfile(path):
         with open(path) as fh:
-            print('loading config from %s' % path)
+            print('loading config from %s' % os.path.abspath(path))
             config._inflate(toml.load(fh))
     else:
         try:
