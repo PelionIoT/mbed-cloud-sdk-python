@@ -19,5 +19,5 @@ pytest-cov = "*"
 pytest-html = "*"
 slackclient = "*"
 sphinx = "*"
-towncrier = "*"
+towncrier = "==17.8.0"
 auto-version = {editable = true, path = "./scripts/auto_version"}

@@ -39,10 +39,6 @@ COPY README.rst ./
 COPY requirements.txt ./
 COPY Pip* ./
 
-RUN ls -lah
-RUN ls -lah scripts
-RUN ls -lah scripts/auto_version
-
 # install the project (with dev dependencies)
 RUN pipenv install --dev
 
