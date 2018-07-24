@@ -24,7 +24,6 @@ https://pypi.python.org/pypi/bumpversion
 https://github.com/warner/python-versioneer
 
 """
-import fileinput
 import glob
 import os
 import pprint
@@ -80,11 +79,55 @@ def read_targets(targets):
 
 def detect_file_triggers(trigger_patterns):
     """The existence of files matching configured globs will trigger a version bump"""
-    triggered = set()
+    triggers = set()
     for trigger, pattern in trigger_patterns.items():
         if glob.glob(pattern):
-            triggered.add(trigger)
-    return triggered
+            triggers.add(trigger)
+    return triggers
+
+
+def get_all_triggers(bump, file_triggers):
+    """Aggregated set of significant figures to bump"""
+    triggers = set()
+    if file_triggers:
+        triggers = triggers.union(detect_file_triggers(config.trigger_patterns))
+    if bump:
+        triggers.add(bump)
+    return triggers
+
+
+def get_lock_behaviour(triggers, all_data, lock):
+    """Binary state lock protects from version increments if set"""
+    updates = {}
+    lock_key = config._forward_aliases.get(Constants.VERSION_LOCK_FIELD)
+    # if we are explicitly setting or locking the version, then set the lock field True anyway
+    if lock:
+        updates[Constants.VERSION_LOCK_FIELD] = config.VERSION_LOCK_VALUE
+    elif triggers and lock_key and str(all_data.get(lock_key)) == str(config.VERSION_LOCK_VALUE):
+        triggers.clear()
+        updates[Constants.VERSION_LOCK_FIELD] = config.VERSION_UNLOCK_VALUE
+    return updates
+
+
+def get_final_version_string(release_mode, semver):
+    """Generates update dictionary entries for the version string"""
+    version_string = '.'.join(semver)
+    maybe_dev_version_string = version_string
+    updates = {}
+    if release_mode:
+        # in production, we have something like `1.2.3`, as well as a flag e.g. PRODUCTION=True
+        updates[Constants.RELEASE_FIELD] = config.RELEASED_VALUE
+    else:
+        # in dev mode, we have a dev marker e.g. `1.2.3.dev678`
+        maybe_dev_version_string = config.DEVMODE_TEMPLATE.format(
+            version=version_string,
+            count=updates.get(Constants.COMMIT_COUNT_FIELD, 0)
+        )
+
+    # make available all components of the semantic version including the full string
+    updates[Constants.VERSION_FIELD] = maybe_dev_version_string
+    updates[Constants.VERSION_STRICT_FIELD] = version_string
+    return updates
 
 
 def get_dvcs_info():
@@ -97,8 +140,8 @@ def get_dvcs_info():
 
 
 def main(
-    set_to=None, release=None, bump=None, lock=None, file_triggers=None,
-    config_path=None, **extra_updates
+        set_to=None, release=None, bump=None, lock=None, file_triggers=None,
+        config_path=None, **extra_updates
 ):
     """Main workflow.
 
@@ -122,7 +165,6 @@ def main(
     :return:
     """
     updates = {}
-    updates.update(get_dvcs_info())
 
     if config_path:
         get_or_create_config(config_path, config)
@@ -136,22 +178,12 @@ def main(
     for k, v in config.key_aliases.items():
         config._forward_aliases[v] = k
 
-    triggers = set()
-    if file_triggers:
-        triggers = triggers.union(detect_file_triggers(config.trigger_patterns))
-
-    if bump:
-        triggers.add(bump)
-
     all_data = read_targets(config.targets)
-
-    # binary state lock protects from version increments if set
-    lock_key = config._forward_aliases.get(Constants.VERSION_LOCK_FIELD)
-    if triggers and lock_key and str(all_data.get(lock_key)) == str(config.VERSION_LOCK_VALUE):
-        triggers.clear()
-        updates[Constants.VERSION_LOCK_FIELD] = config.VERSION_UNLOCK_VALUE
-
     current_semver = semver.get_current_semver(all_data)
+
+    triggers = get_all_triggers(bump, file_triggers)
+    updates.update(get_lock_behaviour(triggers, all_data, lock))
+    updates.update(get_dvcs_info())
 
     if set_to:
         new_semver = auto_version.definitions.SemVer(*set_to.split('.'))
@@ -163,30 +195,12 @@ def main(
     else:
         new_semver = semver.make_new_semver(current_semver, triggers)
 
-    version_string = '.'.join(new_semver)
-    maybe_dev_version_string = version_string
+    updates.update(get_final_version_string(release_mode=release, semver=new_semver))
 
-    if release:
-        # in production, we have something like `1.2.3`, as well as a flag e.g. PRODUCTION=True
-        updates[Constants.RELEASE_FIELD] = config.RELEASED_VALUE
-    else:
-        # in dev mode, we have a dev marker e.g. `1.2.3.dev678`
-        maybe_dev_version_string = config.DEVMODE_TEMPLATE.format(
-            version=version_string,
-            count=updates.get(Constants.COMMIT_COUNT_FIELD, 0)
-        )
-
-    # make available all components of the semantic version including the full string
-    updates[Constants.VERSION_FIELD] = maybe_dev_version_string
-    updates[Constants.VERSION_STRICT_FIELD] = version_string
     for part in semver.SemVerSigFig:
         updates[part] = getattr(new_semver, part)
 
-    # if we are explicitly setting or locking the version, then set the lock field
-    if lock:
-        updates[Constants.VERSION_LOCK_FIELD] = config.VERSION_LOCK_VALUE
-
-    # only rewrite field the user has specified in the configuration
+    # only rewrite a field that the user has specified in the configuration
     native_updates = {
         native: updates[key]
         for native, key in config.key_aliases.items()

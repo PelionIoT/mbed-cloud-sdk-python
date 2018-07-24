@@ -59,11 +59,11 @@ class AutoVersionConfig(object):
         ),
     ]
     regexers = {
-        '.json':       r"""(?P<KEY>\w+)\s?[=:]\s?['\"]?(?P<VALUE>[\w\.\-_]+)['\"]?""",
-        '.py':         r"""(?P<KEY>\w+)\s?[=:]\s?['\"]?(?P<VALUE>[\w\.\-_]+)['\"]?""",
-        '.cs':         r"""(?P<KEY>\w+)\s?[=:]\s?['\"]?(?P<VALUE>[\w\.\-_]+)['\"]?""",
-        '.csproj':     r"""<(?P<KEY>\w+)>(?P<VALUE>\S+)<\/\w+>""",
-        '.properties': r"""(?P<KEY>\w+)\s*=\s*(?P<VALUE>[\w\.\-\:\/\\]+)?""",
+        '.json':       r"""(?P<KEY>\w+)\s?[=:]\s?['\"]?(?P<VALUE>[\w\.\-_]+)['\"]?""",  # noqa
+        '.py':         r"""(?P<KEY>\w+)\s?[=:]\s?['\"]?(?P<VALUE>[\w\.\-_]+)['\"]?""",  # noqa
+        '.cs':         r"""(?P<KEY>\w+)\s?[=:]\s?['\"]?(?P<VALUE>[\w\.\-_]+)['\"]?""",  # noqa
+        '.csproj':     r"""<(?P<KEY>\w+)>(?P<VALUE>\S+)<\/\w+>""",  # noqa
+        '.properties': r"""(?P<KEY>\w+)\s*=\s*(?P<VALUE>[\w\.\-\:\/\\]+)?""",  # noqa
     }
     trigger_patterns = {
         SemVerSigFig.major: os.path.join(Constants.PROJECT_ROOT, 'docs', 'news', '*.major'),
