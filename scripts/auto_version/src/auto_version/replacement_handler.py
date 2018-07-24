@@ -1,5 +1,4 @@
 """Regex substitution handler"""
-from auto_version.config import AutoVersionConfig as config
 from auto_version.config import Constants
 
 

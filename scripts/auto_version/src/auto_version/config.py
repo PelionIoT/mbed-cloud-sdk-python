@@ -7,6 +7,8 @@ from auto_version.definitions import SemVerSigFig
 
 
 class Constants(object):
+    """Internal - reused strings"""
+
     # regex groups
     KEY_GROUP = 'KEY'
     VALUE_GROUP = 'VALUE'
@@ -24,6 +26,7 @@ class Constants(object):
 
 class AutoVersionConfig(object):
     """Configuration - can be overridden using a toml config file"""
+
     CONFIG_NAME = 'DEFAULT'
     PROJECT_ROOT = os.path.dirname(
         os.path.dirname(

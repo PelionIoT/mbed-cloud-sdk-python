@@ -97,7 +97,10 @@ def get_dvcs_info():
     return {Constants.COMMIT_FIELD: commit, Constants.COMMIT_COUNT_FIELD: commit_count}
 
 
-def main(set_to=None, release=None, bump=None, lock=None, file_triggers=None, config_path=None, **extra_updates):
+def main(
+    set_to=None, release=None, bump=None, lock=None, file_triggers=None,
+    config_path=None, **extra_updates
+):
     """Main workflow.
 
     Load config from cli and file
@@ -128,7 +131,7 @@ def main(set_to=None, release=None, bump=None, lock=None, file_triggers=None, co
         config.regexers[k] = re.compile(v)
 
     triggers = set()
-    if triggers:
+    if file_triggers:
         triggers = triggers.union(detect_file_triggers(config.trigger_patterns))
 
     if bump:

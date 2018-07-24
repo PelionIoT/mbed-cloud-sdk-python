@@ -35,7 +35,8 @@ def get_cli():
     parser.add_argument(
         '--lock',
         action='store_true',
-        help='Locks the SemVer string. Lock will remain for another call to autoversion before being cleared.',
+        help='Locks the SemVer string. '
+             'Lock will remain for another call to autoversion before being cleared.',
     )
     parser.add_argument(
         '--release',
