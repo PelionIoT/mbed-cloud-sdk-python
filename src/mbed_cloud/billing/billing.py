@@ -108,6 +108,8 @@ class BillingAPI(BaseAPI):
         if os.path.exists(path):
             raise IOError('SDK will not write into an existing path: %r' % path)
 
+        return path
+
     @catch_exceptions(BillingAPIException)
     def get_report_overview(self, month=None, file_path=None):
         """Downloads a report overview
@@ -120,17 +122,9 @@ class BillingAPI(BaseAPI):
         """
         api = self._get_api(billing.DefaultApi)
         month = self._month_converter(month)
-
-        try:
-            response = api.get_billing_report(month=month)
-        except BillingAPIException as e:
-            if str(e.status) == '404':
-                response = {}
-            else:
-                raise
-
-        if file_path:
-            content = api.api_client.sanitize_for_serialization(response.to_dict()) if response else {}
+        response = api.get_billing_report(month=month)
+        if file_path and response:
+            content = api.api_client.sanitize_for_serialization(response.to_dict())
             with open(file_path, 'w') as fh:
                 fh.write(
                     json.dumps(
@@ -139,7 +133,7 @@ class BillingAPI(BaseAPI):
                         indent=2,
                     )
                 )
-        return response if response else None
+        return response
 
     @catch_exceptions(BillingAPIException)
     def get_report_active_devices(self, month=None, file_path=None):
@@ -155,8 +149,9 @@ class BillingAPI(BaseAPI):
         month = self._month_converter(month)
 
         response = api.get_billing_report_active_devices(month=month)
-        download_url = response.get('url')
-        file_path = self._filepath_converter(file_path, response.get('filename'))
+        download_url = response.url
+        file_path = self._filepath_converter(file_path, response.filename)
+        print(download_url, file_path)
         if file_path:
             urllib.request.urlretrieve(download_url, file_path)
         return response
@@ -175,8 +170,9 @@ class BillingAPI(BaseAPI):
         month = self._month_converter(month)
 
         response = api.get_billing_report_firmware_updates(month=month)
-        download_url = response.get('url')
-        file_path = self._filepath_converter(file_path, response.get('filename'))
+        download_url = response.url
+        file_path = self._filepath_converter(file_path, response.filename)
+        print(download_url, file_path)
         if file_path:
             urllib.request.urlretrieve(download_url, file_path)
         return response
