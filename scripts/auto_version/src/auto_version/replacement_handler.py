@@ -22,7 +22,7 @@ class ReplacementHandler(object):
         key = match.group(Constants.KEY_GROUP)
         replacement = self.params.get(key)
         if replacement is None:  # if this isn't a key we are interested in replacing
-            return original
+            replaced = original
         else:
             start, end = match.span(Constants.VALUE_GROUP)
             if start < 0:
