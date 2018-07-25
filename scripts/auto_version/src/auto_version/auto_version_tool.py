@@ -25,6 +25,7 @@ https://github.com/warner/python-versioneer
 
 """
 import glob
+import logging
 import os
 import pprint
 import re
@@ -41,12 +42,17 @@ from auto_version.replacement_handler import ReplacementHandler
 
 from auto_version import semver
 
+_LOG = logging.getLogger(__file__)
+
 
 def get_whitespace_parts(line):
     """Prefix whitespace, the line content, and then suffix whitespace"""
     prefix = line[:len(line) - len(line.lstrip())]
     suffix = line[len(line.rstrip()) - len(line):]
-    return prefix, line.strip(), suffix
+    content = line.strip()
+    if not content:
+        return '', line, ''
+    return prefix, content, suffix
 
 
 def replace_lines(regexer, handler, lines):
@@ -261,9 +267,12 @@ def main_from_cli():
         config_path=args.config,
         **command_line_updates
     )
-    print(old)
-    print(new)
-    pprint.pprint(updates)
+    log_level = logging.WARNING - 10 * args.verbosity
+    logging.basicConfig(level=log_level, format='%(module)s %(levelname)8s %(message)s')
+    _LOG.info('previously: %s', old)
+    _LOG.info('currently:  %s', new)
+    _LOG.debug('updates:\n%s', pprint.pformat(updates))
+    print(updates.get(config._forward_aliases.get(Constants.VERSION_FIELD)))
 
 
 __name__ == '__main__' and main_from_cli()

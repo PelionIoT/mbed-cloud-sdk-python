@@ -78,6 +78,12 @@ class TestsWithNoSideEffects(unittest.TestCase):
         self.assertEqual('x', line)
         self.assertEqual('\n', suffix)
 
+    def test_whitespace_blank(self):
+        prefix, line, suffix = get_whitespace_parts('\n')
+        self.assertEqual('', prefix)
+        self.assertEqual('\n', line)
+        self.assertEqual('', suffix)
+
 
 class BaseReplaceCheck(unittest.TestCase):
     key = 'custom_Key'

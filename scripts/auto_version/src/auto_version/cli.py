@@ -48,6 +48,13 @@ def get_cli():
         '--config',
         help='Configuration file path.',
     )
+    parser.add_argument(
+        '-v', '--verbosity',
+        action='count',
+        default=0,
+        help='increase output verbosity. '
+             'can be specified multiple times'
+    )
     args, others = parser.parse_known_args()
 
     # pull extra kwargs from commandline, e.g. TESTRUNNER_VERSION

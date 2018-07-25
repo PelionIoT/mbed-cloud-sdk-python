@@ -1,9 +1,12 @@
 """Configuration system for the auto_version tool"""
 import os
+import logging
 
 import toml
 
 from auto_version.definitions import SemVerSigFig
+
+_LOG = logging.getLogger(__name__)
 
 
 class Constants(object):
@@ -60,7 +63,7 @@ class AutoVersionConfig(object):
     ]
     regexers = {
         '.json':       r"""\s*['\"]?(?P<KEY>\w+)['\"]?\s*[=:][\t ]*['\"]?(?P<VALUE>[^\r\n\t\f\v\"']+)['\"]?""",  # noqa
-        '.py':         r"""\s*['\"]?(?P<KEY>\w+)['\"]?\s*[=:][\t ]*['\"]?(?P<VALUE>[^\r\n\t\f\v\"']+)['\"]?""",  # noqa
+        '.py':         r"""\s*['\"]?(?P<KEY>\w+)['\"]? = ['\"]?(?P<VALUE>[^\r\n\t\f\v\"']+)['\"]?""",  # noqa
         '.cs':         r"""\s*['\"]?(?P<KEY>\w+)['\"]?\s*[=:][\t ]*['\"]?(?P<VALUE>[^\r\n\t\f\v\"']+)['\"]?""",  # noqa
         '.csproj':     r"""<(?P<KEY>\w+)>(?P<VALUE>\S+)<\/\w+>""",  # noqa
         '.properties': r"""\s*(?P<KEY>\w+)\s*=[\t ]*(?P<VALUE>[^\r\n\t\f\v\"']+)?""",  # noqa
@@ -90,7 +93,7 @@ def get_or_create_config(path, config):
     """Using TOML format, load config from given path, or write out example based on defaults"""
     if os.path.isfile(path):
         with open(path) as fh:
-            print('loading config from %s' % os.path.abspath(path))
+            _LOG.debug('loading config from %s', os.path.abspath(path))
             config._inflate(toml.load(fh))
     else:
         try:
