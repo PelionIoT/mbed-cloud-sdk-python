@@ -89,5 +89,5 @@ class PropertiesRegexTest(BaseReplaceCheck):
     regexer = re.compile(config.regexers['.properties'])
     lines = [
         'custom_Key=1.2.3.4+dev0\r\n',
-        '    custom_Key="1.2.3.4+dev0"\r\n',
+        '    custom_Key = 1.2.3.4+dev0\r\n',
     ]
