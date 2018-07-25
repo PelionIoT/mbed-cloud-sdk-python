@@ -59,9 +59,9 @@ class AutoVersionConfig(object):
         ),
     ]
     regexers = {
-        '.json':       r"""(?P<KEY>\w+)\s?[=:]\s?['\"]?(?P<VALUE>[\w\.\-_]+)['\"]?""",  # noqa
-        '.py':         r"""(?P<KEY>\w+)\s?[=:]\s?['\"]?(?P<VALUE>[\w\.\-_]+)['\"]?""",  # noqa
-        '.cs':         r"""(?P<KEY>\w+)\s?[=:]\s?['\"]?(?P<VALUE>[\w\.\-_]+)['\"]?""",  # noqa
+        '.json':       r"""\s*(?P<KEY>\w+)\s?[=:]\s?['\"]?(?P<VALUE>[^\r\n\t\f\v\"']+)['\"]?""",  # noqa
+        '.py':         r"""\s*(?P<KEY>\w+)\s?[=:]\s?['\"]?(?P<VALUE>[^\r\n\t\f\v\"']+)['\"]?""",  # noqa
+        '.cs':         r"""\s*(?P<KEY>\w+)\s?[=:]\s?['\"]?(?P<VALUE>[^\r\n\t\f\v\"']+)['\"]?""",  # noqa
         '.csproj':     r"""<(?P<KEY>\w+)>(?P<VALUE>\S+)<\/\w+>""",  # noqa
         '.properties': r"""(?P<KEY>\w+)\s*=\s*(?P<VALUE>[\w\.\-\:\/\\]+)?""",  # noqa
     }
