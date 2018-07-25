@@ -1,5 +1,5 @@
 [AutoVersionConfig]
-CONFIG_NAME = "DEFAULT"
+CONFIG_NAME = "PYTHON"
 PROJECT_ROOT = "mbed-cloud-sdk-python"
 RELEASED_VALUE = true
 VERSION_LOCK_VALUE = true
@@ -16,14 +16,3 @@ PRODUCTION = "RELEASE_FIELD"
 SDK_MAJOR = "major"
 SDK_MINOR= "minor"
 SDK_PATCH = "patch"
-
-[AutoVersionConfig.regexers]
-".json" = "(?P<KEY>\\w+)\\s?[=:]\\s?['\\\"]?(?P<VALUE>[\\w\\.\\-_]+)['\\\"]?"
-".py" = "(?P<KEY>\\w+)\\s?[=:]\\s?['\\\"]?(?P<VALUE>[\\w\\.\\-_]+)['\\\"]?"
-".csproj" = "<(?P<KEY>\\w+)>(?P<VALUE>\\S+)<\\/\\w+>"
-".properties" = "(?P<KEY>\\w+)\\s*[=:]\\s*(?P<VALUE>[\\w\\.\\-_]+)"
-
-[AutoVersionConfig.trigger_patterns]
-major = "docs/news/*.major"
-minor = "docs/news/*.feature"
-patch = "docs/news/*.bugfix"
