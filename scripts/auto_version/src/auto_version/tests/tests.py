@@ -1,5 +1,7 @@
+import importlib
 import os
 import unittest
+import ast
 import functools
 import re
 
@@ -54,6 +56,12 @@ class Test(unittest.TestCase):
             'VERSION': '19.99.0.devX',
             'VERSION_AGAIN': '19.99.0.devX',
         })
+
+    def test_end_to_end(self):
+        old, new, updates = self.call(bump='major')
+        params = {}
+        example = importlib.import_module('example')
+        self.assertEqual(example.VERSION, '20.0.0.devX')
 
 
 class BaseReplaceCheck(unittest.TestCase):

@@ -53,7 +53,7 @@ def write_targets(targets, **params):
     for target, regexer in regexer_for_targets(targets):
         with open(target) as fh:
             lines = fh.readlines()
-        replace_lines(regexer, handler, lines)
+        lines = replace_lines(regexer, handler, lines)
         with open(target, 'w') as fh:
             fh.writelines(lines)
     if handler.missing:
