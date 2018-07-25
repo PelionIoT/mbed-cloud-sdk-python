@@ -18,7 +18,7 @@ class ReplacementHandler(object):
 
     def __call__(self, match):
         """Given a regex Match Object, return the entire replacement string"""
-        original = match.string.strip('\r\n')
+        original = match.string
         key = match.group(Constants.KEY_GROUP)
         replacement = self.params.get(key)
         if replacement is None:  # if this isn't a key we are interested in replacing
@@ -26,7 +26,10 @@ class ReplacementHandler(object):
         else:
             start, end = match.span(Constants.VALUE_GROUP)
             if start < 0:
-                start = end = len(original)
+                # when there's a match but zero-length for the value group, we insert it at the end
+                # of the line just after the last non-whitespace character
+                # e.g. blah=\n --> blah=text\n
+                start = end = len(original.rstrip())
             self.missing.remove(key)
             replaced = ''.join([
                 original[:start],

@@ -42,9 +42,20 @@ from auto_version.replacement_handler import ReplacementHandler
 from auto_version import semver
 
 
+def get_whitespace_parts(line):
+    """Prefix whitespace, the line content, and then suffix whitespace"""
+    prefix = line[:len(line) - len(line.lstrip())]
+    suffix = line[len(line.rstrip()) - len(line):]
+    return prefix, line.strip(), suffix
+
+
 def replace_lines(regexer, handler, lines):
     """Uses replacement handler to perform replacements on lines of text"""
-    return [regexer.sub(handler, line) for line in lines]
+    result = []
+    for line in lines:
+        prefix, line, suffix = get_whitespace_parts(line)
+        result.append(prefix + regexer.sub(handler, line) + suffix)
+    return result
 
 
 def write_targets(targets, **params):
@@ -72,7 +83,7 @@ def extract_keypairs(lines, regexer):
     """Given some lines of text, extract key-value pairs from them"""
     updates = {}
     for line in lines:
-        match = regexer.match(line.strip())
+        match = regexer.match(line)
         if not match:
             continue
         k_v = match.groupdict()

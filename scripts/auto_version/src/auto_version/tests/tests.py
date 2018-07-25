@@ -1,25 +1,26 @@
-import importlib
+import imp
 import os
 import unittest
-import ast
 import functools
 import re
 
 from auto_version.auto_version_tool import main
 from auto_version.auto_version_tool import extract_keypairs
 from auto_version.auto_version_tool import replace_lines
+from auto_version.auto_version_tool import get_whitespace_parts
 from auto_version.replacement_handler import ReplacementHandler
 from auto_version.config import AutoVersionConfig as config
 
 
 class Test(unittest.TestCase):
+    call = functools.partial(main, config_path='example.toml')
+
     @classmethod
     def setUpClass(cls):
         dir = os.path.dirname(__file__)
         os.chdir(os.path.abspath(dir))
 
-    def setUp(self):
-        self.call = functools.partial(main, config_path='example.toml')
+    def tearDown(self):
         self.call(set_to='19.99.0')
 
     def test_bump_patch(self):
@@ -58,10 +59,24 @@ class Test(unittest.TestCase):
         })
 
     def test_end_to_end(self):
-        old, new, updates = self.call(bump='major')
-        params = {}
-        example = importlib.import_module('example')
+        self.call(bump='major')
+        filepath = os.path.join(os.path.dirname(__file__), 'example.py')
+        example = imp.load_source('example', filepath)
         self.assertEqual(example.VERSION, '20.0.0.devX')
+
+
+class TestsWithNoSideEffects(unittest.TestCase):
+    def test_whitespace(self):
+        prefix, line, suffix = get_whitespace_parts('   some text we like \r\n')
+        self.assertEqual('   ', prefix)
+        self.assertEqual('some text we like', line)
+        self.assertEqual(' \r\n', suffix)
+
+    def test_whitespace_short(self):
+        prefix, line, suffix = get_whitespace_parts('x\n')
+        self.assertEqual('', prefix)
+        self.assertEqual('x', line)
+        self.assertEqual('\n', suffix)
 
 
 class BaseReplaceCheck(unittest.TestCase):
@@ -69,7 +84,8 @@ class BaseReplaceCheck(unittest.TestCase):
     value = '1.2.3.4+dev0'
     value_replaced = '5.6.7.8+dev1'
     regexer = None
-    lines = []
+    lines = []  # simply specify the line if it's trivial to do ''.replace() with
+    explicit_replacement = {}  # otherwise, specify the line, and the output
 
     def test_match(self):
         for line in self.lines:
@@ -78,15 +94,17 @@ class BaseReplaceCheck(unittest.TestCase):
                 self.assertEqual({self.key: self.value}, extracted)
 
     def test_replace(self):
-        for line in self.lines:
-            replaced = line.replace(self.value, self.value_replaced)
+        replacements = {}
+        replacements.update(self.explicit_replacement)
+        replacements.update({k: k.replace(self.value, self.value_replaced) for k in self.lines})
+        for line, replaced in replacements.items():
             with self.subTest(line=line):
                 extracted = replace_lines(self.regexer, ReplacementHandler(**{self.key: self.value_replaced}), [line])
                 self.assertEqual([replaced], extracted)
 
 
 class PythonRegexTest(BaseReplaceCheck):
-    regexer = re.compile(config.regexers['.py'])
+    regexer = re.compile(config.regexers['.py'], flags=re.DOTALL)
     lines = [
         'custom_Key = "1.2.3.4+dev0"\r\n',
         '    custom_Key = "1.2.3.4+dev0"\r\n',
@@ -99,3 +117,6 @@ class PropertiesRegexTest(BaseReplaceCheck):
         'custom_Key=1.2.3.4+dev0\r\n',
         '    custom_Key = 1.2.3.4+dev0\r\n',
     ]
+    explicit_replacement = {
+        'custom_Key=\r\n': 'custom_Key=5.6.7.8+dev1\r\n'
+    }
