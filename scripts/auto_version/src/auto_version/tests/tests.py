@@ -1,8 +1,13 @@
 import os
 import unittest
 import functools
+import re
 
 from auto_version.auto_version_tool import main
+from auto_version.auto_version_tool import extract_keypairs
+from auto_version.auto_version_tool import replace_lines
+from auto_version.replacement_handler import ReplacementHandler
+from auto_version.config import AutoVersionConfig as config
 
 
 class Test(unittest.TestCase):
@@ -49,3 +54,40 @@ class Test(unittest.TestCase):
             'VERSION': '19.99.0.devX',
             'VERSION_AGAIN': '19.99.0.devX',
         })
+
+
+class BaseReplaceCheck(unittest.TestCase):
+    key = 'custom_Key'
+    value = '1.2.3.4+dev0'
+    value_replaced = '5.6.7.8+dev1'
+    regexer = None
+    lines = []
+
+    def test_match(self):
+        for line in self.lines:
+            with self.subTest(line=line):
+                extracted = extract_keypairs([line], self.regexer)
+                self.assertEqual({self.key: self.value}, extracted)
+
+    def test_replace(self):
+        for line in self.lines:
+            replaced = line.replace(self.value, self.value_replaced)
+            with self.subTest(line=line):
+                extracted = replace_lines(self.regexer, ReplacementHandler(**{self.key: self.value_replaced}), [line])
+                self.assertEqual([replaced], extracted)
+
+
+class PythonRegexTest(BaseReplaceCheck):
+    regexer = re.compile(config.regexers['.py'])
+    lines = [
+        'custom_Key = "1.2.3.4+dev0"\r\n',
+        '    custom_Key = "1.2.3.4+dev0"\r\n',
+    ]
+
+
+class PropertiesRegexTest(BaseReplaceCheck):
+    regexer = re.compile(config.regexers['.properties'])
+    lines = [
+        'custom_Key=1.2.3.4+dev0\r\n',
+        '    custom_Key="1.2.3.4+dev0"\r\n',
+    ]

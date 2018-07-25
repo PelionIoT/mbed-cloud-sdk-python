@@ -42,13 +42,18 @@ from auto_version.replacement_handler import ReplacementHandler
 from auto_version import semver
 
 
+def replace_lines(regexer, handler, lines):
+    """Uses replacement handler to perform replacements on lines of text"""
+    return [regexer.sub(handler, line) for line in lines]
+
+
 def write_targets(targets, **params):
-    """Writes version info into version file inline"""
+    """Writes version info into version file"""
     handler = ReplacementHandler(**params)
     for target, regexer in regexer_for_targets(targets):
         with open(target) as fh:
             lines = fh.readlines()
-        lines = [regexer.sub(handler, line) for line in lines]
+        replace_lines(regexer, handler, lines)
         with open(target, 'w') as fh:
             fh.writelines(lines)
     if handler.missing:
@@ -63,17 +68,24 @@ def regexer_for_targets(targets):
         yield target, regexer
 
 
+def extract_keypairs(lines, regexer):
+    """Given some lines of text, extract key-value pairs from them"""
+    updates = {}
+    for line in lines:
+        match = regexer.match(line.strip())
+        if not match:
+            continue
+        k_v = match.groupdict()
+        updates[k_v[Constants.KEY_GROUP]] = k_v[Constants.VALUE_GROUP]
+    return updates
+
+
 def read_targets(targets):
     """Reads generic key-value pairs from input files"""
     results = {}
     for target, regexer in regexer_for_targets(targets):
         with open(target) as fh:
-            for line in fh:
-                match = regexer.match(line.strip())
-                if not match:
-                    continue
-                k_v = match.groupdict()
-                results[k_v[Constants.KEY_GROUP]] = k_v[Constants.VALUE_GROUP]
+            results.update(extract_keypairs(fh.readlines(), regexer))
     return results
 
 
