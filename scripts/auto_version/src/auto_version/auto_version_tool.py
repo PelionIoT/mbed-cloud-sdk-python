@@ -132,7 +132,7 @@ def get_lock_behaviour(triggers, all_data, lock):
     return updates
 
 
-def get_final_version_string(release_mode, semver):
+def get_final_version_string(release_mode, semver, commit_count=0):
     """Generates update dictionary entries for the version string"""
     version_string = '.'.join(semver)
     maybe_dev_version_string = version_string
@@ -144,7 +144,7 @@ def get_final_version_string(release_mode, semver):
         # in dev mode, we have a dev marker e.g. `1.2.3.dev678`
         maybe_dev_version_string = config.DEVMODE_TEMPLATE.format(
             version=version_string,
-            count=updates.get(Constants.COMMIT_COUNT_FIELD, 0)
+            count=commit_count
         )
 
     # make available all components of the semantic version including the full string
@@ -218,7 +218,11 @@ def main(
     else:
         new_semver = semver.make_new_semver(current_semver, triggers)
 
-    updates.update(get_final_version_string(release_mode=release, semver=new_semver))
+    updates.update(get_final_version_string(
+        release_mode=release,
+        semver=new_semver,
+        commit_count=updates.get(Constants.COMMIT_COUNT_FIELD, 0)
+    ))
 
     for part in semver.SemVerSigFig:
         updates[part] = getattr(new_semver, part)
