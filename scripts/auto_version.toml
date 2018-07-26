@@ -1,6 +1,5 @@
 [AutoVersionConfig]
 CONFIG_NAME = "PYTHON"
-PROJECT_ROOT = "mbed-cloud-sdk-python"
 RELEASED_VALUE = true
 VERSION_LOCK_VALUE = true
 VERSION_UNLOCK_VALUE = false

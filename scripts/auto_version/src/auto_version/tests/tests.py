@@ -25,7 +25,6 @@ class Test(unittest.TestCase):
 
     def test_bump_patch(self):
         old, new, updates = self.call(bump='patch', release=True)
-        updates.pop('COMMIT')
         self.assertEqual(updates, {
             'RELEASE': True,
             'VERSION': '19.99.1',
@@ -34,7 +33,6 @@ class Test(unittest.TestCase):
 
     def test_bump_major(self):
         old, new, updates = self.call(bump='major', release=True)
-        updates.pop('COMMIT')
         self.assertEqual(updates, {
             'RELEASE': True,
             'VERSION': '20.0.0',
@@ -43,7 +41,6 @@ class Test(unittest.TestCase):
 
     def test_bump_news(self):
         old, new, updates = self.call(file_triggers=True, release=True)
-        updates.pop('COMMIT')
         self.assertEqual(updates, {
             'RELEASE': True,
             'VERSION': '19.100.0',
@@ -52,7 +49,6 @@ class Test(unittest.TestCase):
 
     def test_dev(self):
         old, new, updates = self.call()
-        updates.pop('COMMIT')
         self.assertEqual(updates, {
             'VERSION': '19.99.0.devX',
             'VERSION_AGAIN': '19.99.0.devX',
@@ -114,7 +110,28 @@ class PythonRegexTest(BaseReplaceCheck):
     lines = [
         'custom_Key = "1.2.3.4+dev0"\r\n',
         '    custom_Key = "1.2.3.4+dev0"\r\n',
+        '    custom_Key: "1.2.3.4+dev0",\r\n',
     ]
+
+
+class JSONRegexTest(BaseReplaceCheck):
+    regexer = re.compile(config.regexers['.json'])
+    lines = [
+        '"custom_Key": "1.2.3.4+dev0"\r\n',
+        '    "custom_Key" : "1.2.3.4+dev0",\r\n',
+    ]
+
+
+class JSONBoolRegexTest(BaseReplaceCheck):
+    regexer = re.compile(config.regexers['.json'])
+    value = 'false'
+    value_replaced = 'true'
+    key = 'is_production'
+    lines = [
+    ]
+    explicit_replacement = {
+        '"is_production": false,\r\n': '"is_production": true,\r\n'
+    }
 
 
 class PropertiesRegexTest(BaseReplaceCheck):

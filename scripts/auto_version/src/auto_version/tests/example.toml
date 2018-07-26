@@ -7,7 +7,6 @@ targets = ["example.py"]
 VERSION = "VERSION_KEY"
 VERSION_AGAIN = "VERSION_KEY"
 LOCK = "VERSION_LOCK"
-COMMIT = "COMMIT"
 RELEASE = "RELEASE_FIELD"
 
 [AutoVersionConfig.trigger_patterns]

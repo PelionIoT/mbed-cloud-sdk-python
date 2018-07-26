@@ -272,7 +272,10 @@ def main_from_cli():
     _LOG.info('previously: %s', old)
     _LOG.info('currently:  %s', new)
     _LOG.debug('updates:\n%s', pprint.pformat(updates))
-    print(updates.get(config._forward_aliases.get(Constants.VERSION_FIELD)))
+    print(
+        updates.get(config._forward_aliases.get(Constants.VERSION_FIELD)) or
+        updates.get(config._forward_aliases.get(Constants.VERSION_STRICT_FIELD))
+    )
 
 
 __name__ == '__main__' and main_from_cli()

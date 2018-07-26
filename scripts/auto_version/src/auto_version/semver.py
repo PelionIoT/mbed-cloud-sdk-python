@@ -1,8 +1,12 @@
 """Functions for manipulating SemVer objects (Major.Minor.Patch)"""
+import logging
+
 from auto_version.config import AutoVersionConfig as config
 from auto_version.config import Constants
 from auto_version.definitions import SemVer
 from auto_version.definitions import SemVerSigFig
+
+_LOG = logging.getLogger(__file__)
 
 
 def get_current_semver(data):
@@ -14,7 +18,11 @@ def get_current_semver(data):
         if data.get(alias) is not None
     }
     inferred_semver = None
-    parts = (known.pop(Constants.VERSION_FIELD, None) or '').split('.')[:3]
+    parts = (
+        known.pop(Constants.VERSION_FIELD, None) or
+        known.pop(Constants.VERSION_STRICT_FIELD, None) or
+        ''
+    ).split('.')[:3]
     if len(parts) == 3:
         inferred_semver = SemVer(*parts)
 
@@ -32,6 +40,7 @@ def get_current_semver(data):
 
     using_existing = inferred_semver or explicit_semver
     if not using_existing:
+        _LOG.debug('Key pairs found: \n%r', known)
         raise ValueError('could not find existing semver')
     return using_existing
 
