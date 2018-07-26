@@ -88,12 +88,19 @@ class BaseReplaceCheck(unittest.TestCase):
     regexer = None
     lines = []  # simply specify the line if it's trivial to do ''.replace() with
     explicit_replacement = {}  # otherwise, specify the line, and the output
+    non_matching = []  # specify example lines that should not match
 
     def test_match(self):
         for line in self.lines:
             with self.subTest(line=line):
                 extracted = extract_keypairs([line], self.regexer)
                 self.assertEqual({self.key: self.value}, extracted)
+
+    def test_non_match(self):
+        for line in self.non_matching:
+            with self.subTest(line=line):
+                extracted = extract_keypairs([line], self.regexer)
+                self.assertEqual({}, extracted)
 
     def test_replace(self):
         replacements = {}
@@ -111,6 +118,9 @@ class PythonRegexTest(BaseReplaceCheck):
         'custom_Key = "1.2.3.4+dev0"\r\n',
         '    custom_Key = "1.2.3.4+dev0"\r\n',
         '    custom_Key: "1.2.3.4+dev0",\r\n',
+    ]
+    non_matching = [
+        '# custom_Key = "1.2.3.4+dev0"\r\n',
     ]
 
 
@@ -149,4 +159,19 @@ class CSharpRegexTest(BaseReplaceCheck):
     regexer = re.compile(config.regexers['.cs'])
     lines = [
         '  public const string custom_Key = "1.2.3.4+dev0";  // auto\r\n',
+    ]
+    non_matching = [
+        '// <copyright file="Version.cs" company="Arm">\r\n',
+        '//  public const string custom_Key = "1.2.3.4+dev0";  // auto\r\n',
+    ]
+
+
+class XMLRegexTest(BaseReplaceCheck):
+    regexer = re.compile(config.regexers['.csproj'])
+    lines = [
+        '  <custom_Key>1.2.3.4+dev0</custom_Key>\r\n',
+    ]
+    non_matching = [
+        '<Project Sdk="Microsoft.NET.Sdk">\r\n',
+        '''<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">\r\n''',
     ]

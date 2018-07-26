@@ -89,7 +89,8 @@ def extract_keypairs(lines, regexer):
     """Given some lines of text, extract key-value pairs from them"""
     updates = {}
     for line in lines:
-        match = regexer.match(line)
+        # for consistency we must match the replacer and strip whitespace / newlines
+        match = regexer.match(line.strip())
         if not match:
             continue
         k_v = match.groupdict()
@@ -110,8 +111,12 @@ def detect_file_triggers(trigger_patterns):
     """The existence of files matching configured globs will trigger a version bump"""
     triggers = set()
     for trigger, pattern in trigger_patterns.items():
-        if glob.glob(pattern):
+        matches = glob.glob(pattern)
+        if matches:
+            _LOG.debug('trigger: %s bump from %r\n\t%s', trigger, pattern, matches)
             triggers.add(trigger)
+        else:
+            _LOG.debug('trigger: no match on %r', pattern)
     return triggers
 
 
@@ -121,6 +126,7 @@ def get_all_triggers(bump, file_triggers):
     if file_triggers:
         triggers = triggers.union(detect_file_triggers(config.trigger_patterns))
     if bump:
+        _LOG.debug('trigger: %s bump requested', bump)
         triggers.add(bump)
     return triggers
 
@@ -258,6 +264,8 @@ def main_from_cli():
     Write out new version and any other requested variables
     """
     args, command_line_updates = get_cli()
+    log_level = logging.WARNING - 10 * args.verbosity
+    logging.basicConfig(level=log_level, format='%(module)s %(levelname)8s %(message)s')
     old, new, updates = main(
         set_to=args.set,
         lock=args.lock,
@@ -267,8 +275,6 @@ def main_from_cli():
         config_path=args.config,
         **command_line_updates
     )
-    log_level = logging.WARNING - 10 * args.verbosity
-    logging.basicConfig(level=log_level, format='%(module)s %(levelname)8s %(message)s')
     _LOG.info('previously: %s', old)
     _LOG.info('currently:  %s', new)
     _LOG.debug('updates:\n%s', pprint.pformat(updates))

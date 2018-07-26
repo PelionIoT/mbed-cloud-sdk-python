@@ -1,5 +1,6 @@
 """Functions for manipulating SemVer objects (Major.Minor.Patch)"""
 import logging
+import re
 
 from auto_version.config import AutoVersionConfig as config
 from auto_version.config import Constants
@@ -7,6 +8,8 @@ from auto_version.definitions import SemVer
 from auto_version.definitions import SemVerSigFig
 
 _LOG = logging.getLogger(__file__)
+
+re_semver = re.compile(r"""(?P<major>\d+).(?P<minor>\d+).(?P<patch>\d+)(?P<tail>.*)""")
 
 
 def get_current_semver(data):
@@ -17,32 +20,34 @@ def get_current_semver(data):
         for key, alias in config._forward_aliases.items()
         if data.get(alias) is not None
     }
-    inferred_semver = None
-    parts = (
-        known.pop(Constants.VERSION_FIELD, None) or
-        known.pop(Constants.VERSION_STRICT_FIELD, None) or
-        ''
-    ).split('.')[:3]
-    if len(parts) == 3:
-        inferred_semver = SemVer(*parts)
 
-    explicit_semver = None
-    from_components = {k: v for k, v in known.items() if k in SemVerSigFig._fields}
+    # prefer the strict field, if available
+    potentials = [
+        known.pop(Constants.VERSION_STRICT_FIELD, None),
+        known.pop(Constants.VERSION_FIELD, None),
+    ]
+
+    from_components = [known.get(k) for k in SemVerSigFig._fields if k in known]
     if len(from_components) == 3:
-        explicit_semver = SemVer(**from_components)
+        potentials.append('.'.join(from_components))
 
-    if inferred_semver and explicit_semver and (explicit_semver != inferred_semver):
-        raise ValueError(
-            'conflicting versions within project: %s %s' % (
-                inferred_semver, explicit_semver
-            )
-        )
+    versions = set()
+    for potential in potentials:
+        if not potential:
+            continue
+        match = re_semver.match(potential)
+        if match:
+            parts = match.groupdict()
+            parts.pop('tail')
+            versions.add(SemVer(**parts))
 
-    using_existing = inferred_semver or explicit_semver
-    if not using_existing:
-        _LOG.debug('Key pairs found: \n%r', known)
+    if len(versions) > 1:
+        raise ValueError('conflicting versions within project: %s' % versions)
+
+    if not versions:
+        _LOG.debug('key pairs found: \n%r', known)
         raise ValueError('could not find existing semver')
-    return using_existing
+    return versions.pop()
 
 
 def make_new_semver(current_semver, all_triggers):
