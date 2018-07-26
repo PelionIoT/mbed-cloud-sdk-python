@@ -143,3 +143,10 @@ class PropertiesRegexTest(BaseReplaceCheck):
     explicit_replacement = {
         'custom_Key=\r\n': 'custom_Key=5.6.7.8+dev1\r\n'
     }
+
+
+class CSharpRegexTest(BaseReplaceCheck):
+    regexer = re.compile(config.regexers['.cs'])
+    lines = [
+        '  public const string custom_Key = "1.2.3.4+dev0";  // auto\r\n',
+    ]
