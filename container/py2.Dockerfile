@@ -58,6 +58,9 @@ RUN pipenv run pytest --durations=3 tests/unit
 # run static analysis
 RUN pipenv run pytest --durations=3 tests/static
 
+# run submodule tests
+RUN pipenv run pytest scripts
+
 # build the documentation
 RUN pipenv run sphinx-apidoc src/mbed_cloud -o docs/built_api -e -M
 RUN pipenv run sphinx-build -a -b html -c docs/ docs/ built_docs
