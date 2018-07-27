@@ -1,8 +1,11 @@
 import imp
+import contextlib
 import os
 import unittest
 import functools
 import re
+
+import six
 
 from auto_version.auto_version_tool import main
 from auto_version.auto_version_tool import extract_keypairs
@@ -81,6 +84,12 @@ class TestsWithNoSideEffects(unittest.TestCase):
         self.assertEqual('', suffix)
 
 
+@contextlib.contextmanager
+def Noop():
+    """A no-op context manager"""
+    yield
+
+
 class BaseReplaceCheck(unittest.TestCase):
     key = 'custom_Key'
     value = '1.2.3.4+dev0'
@@ -92,13 +101,13 @@ class BaseReplaceCheck(unittest.TestCase):
 
     def test_match(self):
         for line in self.lines:
-            with self.subTest(line=line):
+            with self.subTest(line=line) if six.PY3 else Noop():
                 extracted = extract_keypairs([line], self.regexer)
                 self.assertEqual({self.key: self.value}, extracted)
 
     def test_non_match(self):
         for line in self.non_matching:
-            with self.subTest(line=line):
+            with self.subTest(line=line) if six.PY3 else Noop():
                 extracted = extract_keypairs([line], self.regexer)
                 self.assertEqual({}, extracted)
 
@@ -107,7 +116,7 @@ class BaseReplaceCheck(unittest.TestCase):
         replacements.update(self.explicit_replacement)
         replacements.update({k: k.replace(self.value, self.value_replaced) for k in self.lines})
         for line, replaced in replacements.items():
-            with self.subTest(line=line):
+            with self.subTest(line=line) if six.PY3 else Noop():
                 extracted = replace_lines(self.regexer, ReplacementHandler(**{self.key: self.value_replaced}), [line])
                 self.assertEqual([replaced], extracted)
 
