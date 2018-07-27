@@ -4,6 +4,7 @@
 jobs:
   build_py2:
     machine:
+      docker_layer_caching: true
       image: circleci/classic:201710-02
     steps:
     - checkout
@@ -48,6 +49,7 @@ jobs:
         path: built_docs
   build_py3:
     machine:
+      docker_layer_caching: true
       image: circleci/classic:201710-02
     steps:
     - checkout

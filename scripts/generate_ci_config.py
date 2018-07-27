@@ -196,6 +196,7 @@ def new_build(py_ver: PyVer):
     template = yaml.safe_load(f"""
     machine:
       image: 'circleci/classic:201710-02'
+      docker_layer_caching: true
     steps:
       - checkout
       - restore_cache:
