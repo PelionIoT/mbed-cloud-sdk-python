@@ -20,8 +20,6 @@ import os
 
 from slackclient import SlackClient
 
-import mbed_cloud
-
 
 def main():
     """Sends release notifications to interested parties
@@ -33,22 +31,33 @@ def main():
      otherwise: https://github.com/slackapi/python-slackclient#joining-a-channel
     """
     slack_token = os.environ.get('SLACK_API_TOKEN')
+    channel_id = os.environ.get('SLACK_CHANNEL', '#mbed-cloud-sdk')
+    message = os.environ.get('SLACK_MESSAGE', (
+        ':checkered_flag: New version of :snake: Python SDK released: *{version}* '
+        '(<https://pypi.org/project/mbed-cloud-sdk/{v}/|PyPI>)'
+    ))
+
     if not slack_token:
         print('no slack token')
         return
 
-    channel_id = '#mbed-cloud-sdk'
-    payload = (
-        ':checkered_flag: New version of :snake: Python SDK released: *{v}* '
-        '(<https://pypi.org/project/mbed-cloud-sdk/{v}/|PyPI>)'
-    ).format(v=mbed_cloud.__version__)
+    version = os.environ.get('SLACK_NOTIFY_VERSION')
+    if not version:
+        try:
+            import mbed_cloud
+        except ImportError:
+            pass
+        else:
+            version = mbed_cloud.__version__
+
+    payload = message.format(version=version) if version else message
 
     print('notifying slack channel %s with payload:\n%s' % (channel_id, payload))
 
     sc = SlackClient(slack_token)
     sc.api_call(
         'chat.postMessage',
-        channel=os.environ.get('SLACK_CHANNEL', channel_id),
+        channel=channel_id,
         text=payload,
     )
 
