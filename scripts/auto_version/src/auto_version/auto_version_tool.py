@@ -45,26 +45,19 @@ from auto_version import semver
 _LOG = logging.getLogger(__file__)
 
 
-def get_whitespace_parts(line):
-    """Splits text into three parts: (prefix whitespace, line content, suffix whitespace)"""
-    content = line.strip()
-    if not content:
-        return '', line, ''
-
-    lh_whitespace_size = len(line) - len(line.lstrip())
-    rh_whitespace_size = len(line) - len(line.rstrip())
-
-    prefix = line[:lh_whitespace_size] if lh_whitespace_size else ''
-    suffix = line[-rh_whitespace_size:] if rh_whitespace_size else ''
-    return prefix, content, suffix
-
-
 def replace_lines(regexer, handler, lines):
-    """Uses replacement handler to perform replacements on lines of text"""
+    """Uses replacement handler to perform replacements on lines of text
+
+    First we strip off all whitespace
+    We run the replacement on a clean 'content' string
+    Finally we replace the original content with the replaced version
+    This ensures that we retain the correct whitespace from the original line
+    """
     result = []
     for line in lines:
-        prefix, content, suffix = get_whitespace_parts(line)
-        result.append(prefix + regexer.sub(handler, content) + suffix)
+        content = line.strip()
+        replaced = regexer.sub(handler, content)
+        result.append(line.replace(content, replaced, 1))
     return result
 
 

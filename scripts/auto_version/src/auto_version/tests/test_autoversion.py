@@ -10,7 +10,6 @@ import six
 from auto_version.auto_version_tool import main
 from auto_version.auto_version_tool import extract_keypairs
 from auto_version.auto_version_tool import replace_lines
-from auto_version.auto_version_tool import get_whitespace_parts
 from auto_version.replacement_handler import ReplacementHandler
 from auto_version.config import AutoVersionConfig as config
 
@@ -62,50 +61,6 @@ class Test(unittest.TestCase):
         filepath = os.path.join(os.path.dirname(__file__), 'example.py')
         example = imp.load_source('example', filepath)
         self.assertEqual(example.VERSION, '20.0.0.devX')
-
-
-class TestWhitespace(unittest.TestCase):
-    def test_whitespace(self):
-        prefix, line, suffix = get_whitespace_parts('   some text we like \r\n')
-        self.assertEqual('   ', prefix)
-        self.assertEqual('some text we like', line)
-        self.assertEqual(' \r\n', suffix)
-
-    def test_whitespace_alt(self):
-        prefix, line, suffix = get_whitespace_parts('   some text we like \t')
-        self.assertEqual('   ', prefix)
-        self.assertEqual('some text we like', line)
-        self.assertEqual(' \t', suffix)
-
-    def test_whitespace_interstitial(self):
-        prefix, line, suffix = get_whitespace_parts('\tx o x\n')
-        self.assertEqual('\t', prefix)
-        self.assertEqual('x o x', line)
-        self.assertEqual('\n', suffix)
-
-    def test_whitespace_short(self):
-        prefix, line, suffix = get_whitespace_parts('x')
-        self.assertEqual('', prefix)
-        self.assertEqual('x', line)
-        self.assertEqual('', suffix)
-
-    def test_whitespace_prefix(self):
-        prefix, line, suffix = get_whitespace_parts('\tx')
-        self.assertEqual('\t', prefix)
-        self.assertEqual('x', line)
-        self.assertEqual('', suffix)
-
-    def test_whitespace_newline(self):
-        prefix, line, suffix = get_whitespace_parts('x\n')
-        self.assertEqual('', prefix)
-        self.assertEqual('x', line)
-        self.assertEqual('\n', suffix)
-
-    def test_whitespace_blank(self):
-        prefix, line, suffix = get_whitespace_parts('\n')
-        self.assertEqual('', prefix)
-        self.assertEqual('\n', line)
-        self.assertEqual('', suffix)
 
 
 @contextlib.contextmanager
