@@ -27,12 +27,6 @@ class Constants(object):
     # as used in toml file
     CONFIG_KEY = 'AutoVersionConfig'
 
-    PROJECT_ROOT = os.path.dirname(
-        os.path.dirname(
-            os.path.dirname(
-                os.path.dirname(
-                    os.path.dirname(__file__)))))
-
 
 class AutoVersionConfig(object):
     """Configuration - can be overridden using a toml config file"""
@@ -54,12 +48,8 @@ class AutoVersionConfig(object):
     }
     _forward_aliases = {}  # autopopulated later - reverse mapping of the above
     targets = [
-        os.path.join(
-            Constants.PROJECT_ROOT, 'src', 'mbed_cloud', '_version.py'
-        ),
-        os.path.join(
-            Constants.PROJECT_ROOT, 'src', 'mbed_cloud', '_build_info.py'
-        ),
+        os.path.join('src', 'mbed_cloud', '_version.py'),
+        os.path.join('src', 'mbed_cloud', '_build_info.py'),
     ]
     regexers = {
         '.json':       r"""^\s*[\"]?(?P<KEY>\w+)[\"]?\s*:[\t ]*[\"]?(?P<VALUE>[^\r\n\t\f\v\"',]+)[\"]?,?""",  # noqa
@@ -69,9 +59,9 @@ class AutoVersionConfig(object):
         '.properties': r"""^\s*(?P<KEY>\w+)\s*=[\t ]*(?P<VALUE>[^\r\n\t\f\v\"']+)?""",  # noqa
     }
     trigger_patterns = {
-        SemVerSigFig.major: os.path.join(Constants.PROJECT_ROOT, 'docs', 'news', '*.major'),
-        SemVerSigFig.minor: os.path.join(Constants.PROJECT_ROOT, 'docs', 'news', '*.feature'),
-        SemVerSigFig.patch: os.path.join(Constants.PROJECT_ROOT, 'docs', 'news', '*.bugfix'),
+        SemVerSigFig.major: os.path.join('docs', 'news', '*.major'),
+        SemVerSigFig.minor: os.path.join('docs', 'news', '*.feature'),
+        SemVerSigFig.patch: os.path.join('docs', 'news', '*.bugfix'),
     }
     DEVMODE_TEMPLATE = '{version}.dev{count}'
 
