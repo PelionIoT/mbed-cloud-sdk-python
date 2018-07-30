@@ -64,14 +64,38 @@ class Test(unittest.TestCase):
         self.assertEqual(example.VERSION, '20.0.0.devX')
 
 
-class TestsWithNoSideEffects(unittest.TestCase):
+class TestWhitespace(unittest.TestCase):
     def test_whitespace(self):
         prefix, line, suffix = get_whitespace_parts('   some text we like \r\n')
         self.assertEqual('   ', prefix)
         self.assertEqual('some text we like', line)
         self.assertEqual(' \r\n', suffix)
 
+    def test_whitespace_alt(self):
+        prefix, line, suffix = get_whitespace_parts('   some text we like \t')
+        self.assertEqual('   ', prefix)
+        self.assertEqual('some text we like', line)
+        self.assertEqual(' \t', suffix)
+
+    def test_whitespace_interstitial(self):
+        prefix, line, suffix = get_whitespace_parts('\tx o x\n')
+        self.assertEqual('\t', prefix)
+        self.assertEqual('x o x', line)
+        self.assertEqual('\n', suffix)
+
     def test_whitespace_short(self):
+        prefix, line, suffix = get_whitespace_parts('x')
+        self.assertEqual('', prefix)
+        self.assertEqual('x', line)
+        self.assertEqual('', suffix)
+
+    def test_whitespace_prefix(self):
+        prefix, line, suffix = get_whitespace_parts('\tx')
+        self.assertEqual('\t', prefix)
+        self.assertEqual('x', line)
+        self.assertEqual('', suffix)
+
+    def test_whitespace_newline(self):
         prefix, line, suffix = get_whitespace_parts('x\n')
         self.assertEqual('', prefix)
         self.assertEqual('x', line)
@@ -173,6 +197,11 @@ class CSharpRegexTest(BaseReplaceCheck):
         '// <copyright file="Version.cs" company="Arm">\r\n',
         '//  public const string custom_Key = "1.2.3.4+dev0";  // auto\r\n',
     ]
+    explicit_replacement = {
+        # check for no-op on these comment strings that contain variable assignment
+        '// <copyright file="Version.cs" company="Arm">': '// <copyright file="Version.cs" company="Arm">',
+        '// <copyright file="Version.cs" company="Arm">\r\n': '// <copyright file="Version.cs" company="Arm">\r\n',
+    }
 
 
 class XMLRegexTest(BaseReplaceCheck):

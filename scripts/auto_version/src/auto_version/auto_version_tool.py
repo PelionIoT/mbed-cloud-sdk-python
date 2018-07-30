@@ -46,12 +46,16 @@ _LOG = logging.getLogger(__file__)
 
 
 def get_whitespace_parts(line):
-    """Prefix whitespace, the line content, and then suffix whitespace"""
-    prefix = line[:len(line) - len(line.lstrip())]
-    suffix = line[len(line.rstrip()) - len(line):]
+    """Splits text into three parts: (prefix whitespace, line content, suffix whitespace)"""
     content = line.strip()
     if not content:
         return '', line, ''
+
+    lh_whitespace_size = len(line) - len(line.lstrip())
+    rh_whitespace_size = len(line) - len(line.rstrip())
+
+    prefix = line[:lh_whitespace_size] if lh_whitespace_size else ''
+    suffix = line[-rh_whitespace_size:] if rh_whitespace_size else ''
     return prefix, content, suffix
 
 
@@ -59,8 +63,8 @@ def replace_lines(regexer, handler, lines):
     """Uses replacement handler to perform replacements on lines of text"""
     result = []
     for line in lines:
-        prefix, line, suffix = get_whitespace_parts(line)
-        result.append(prefix + regexer.sub(handler, line) + suffix)
+        prefix, content, suffix = get_whitespace_parts(line)
+        result.append(prefix + regexer.sub(handler, content) + suffix)
     return result
 
 
