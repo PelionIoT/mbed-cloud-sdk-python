@@ -92,7 +92,7 @@ class BillingAPI(BaseAPI):
         """Logic for obtaining a file path
 
         :param user_path: a path as provided by the user. perhaps a file or directory?
-        :param file_ext: the extension of the remote file
+        :param file_name: the name of the remote file
         :return:
         """
         path = user_path or os.path.join(os.getcwd(), 'billing_reports', os.path.sep)
@@ -151,7 +151,6 @@ class BillingAPI(BaseAPI):
         response = api.get_billing_report_active_devices(month=month)
         download_url = response.url
         file_path = self._filepath_converter(file_path, response.filename)
-        print(download_url, file_path)
         if file_path:
             urllib.request.urlretrieve(download_url, file_path)
         return response
@@ -172,7 +171,6 @@ class BillingAPI(BaseAPI):
         response = api.get_billing_report_firmware_updates(month=month)
         download_url = response.url
         file_path = self._filepath_converter(file_path, response.filename)
-        print(download_url, file_path)
         if file_path:
             urllib.request.urlretrieve(download_url, file_path)
         return response
