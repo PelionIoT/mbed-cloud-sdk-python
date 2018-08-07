@@ -23,10 +23,10 @@ WORKDIR /build
 RUN apk update
 RUN apk add git
 
-RUN python -m pip install -U setuptools pip==10.0.0 pipenv==11.10.0
+RUN python -m pip install -U setuptools==40.0.0 pip==10.0.1 pipenv==11.10.0
 
 # add bare minimum files to survive a pip install
-COPY scripts/dvcs_version.py scripts/dvcs_version.py
+COPY scripts scripts
 COPY src/mbed_cloud/_version.py src/mbed_cloud/_version.py
 COPY setup* ./
 COPY README.rst ./
@@ -40,7 +40,9 @@ RUN pipenv install --dev
 COPY . .
 
 # version the codebase
-RUN pipenv run python scripts/dvcs_version.py
+# we must be told the testrunner version that will be used to test this build
+ARG TESTRUNNER_VERSION
+RUN pipenv run auto_version --config=scripts/auto_version.toml --news --bump=patch "TESTRUNNER_VERSION='${TESTRUNNER_VERSION}'"
 RUN pipenv run python -c "import mbed_cloud; print(mbed_cloud.__version__)"
 RUN pipenv run python scripts/generate_news.py
 
@@ -49,6 +51,9 @@ RUN pipenv run pytest --durations=3 tests/unit
 
 # run static analysis
 RUN pipenv run pytest --durations=3 tests/static
+
+# run submodule tests (but ignore coverage)
+RUN pipenv run pytest scripts --no-cov
 
 # build the documentation
 RUN pipenv run sphinx-apidoc src/mbed_cloud -o docs/built_api -e -M
@@ -60,6 +65,9 @@ RUN pipenv run python setup.py check -r -s
 # generate a package
 RUN pipenv run python setup.py clean --all bdist_wheel
 
+# generate a release package
+RUN pipenv run auto_version --config=scripts/auto_version.toml --release
+RUN pipenv run python setup.py clean --all bdist_wheel --dist-dir release-dist
 
 #
 # Minimal

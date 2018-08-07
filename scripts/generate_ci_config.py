@@ -34,6 +34,7 @@ container_config_root = os.path.join(PROJECT_ROOT, 'container')
 script_templates_root = os.path.join(PROJECT_ROOT, 'scripts', 'templates')
 author_file = os.path.relpath(__file__, PROJECT_ROOT)
 cache_dir = f'~/caches'
+testrunner_cache = f'testrunner.tar'
 
 base_structure = OrderedDict(
     version=2,
@@ -105,9 +106,54 @@ release_targets = dict(
 )
 
 
+def get_testrunner_image():
+    """Load testrunner image from docker compose"""
+    with open(os.path.join(PROJECT_ROOT, 'scripts', 'templates', 'docker-compose.yml')) as fh:
+        docker_compose_spec = yaml.safe_load(fh)
+    return docker_compose_spec['services']['testrunner']['image']
+
+
 def new_base():
     """The high level structure of circle's config"""
     return copy.deepcopy(base_structure)
+
+
+def new_preload():
+    """Job running prior to builds - fetches TestRunner image"""
+    testrunner_image = get_testrunner_image()
+    local_image = testrunner_image.rsplit(':')[-2].rsplit('/')[-1]
+    version_file = 'testrunner_version.txt'
+    template = yaml.safe_load(f"""
+    machine:
+      image: 'circleci/classic:201710-02'
+    steps:
+      - run:
+          name: AWS login
+          command: |-
+            login="$(aws ecr get-login --no-include-email)"
+            ${{login}}
+      - run:
+          name: Pull TestRunner Image
+          command: docker pull {testrunner_image}
+      - run:
+          name: Make cache directory
+          command: mkdir -p {cache_dir}
+      - run:
+          name: Obtain Testrunner Version
+          command: echo $(docker run {testrunner_image} python -m trunner --version) > {cache_dir}/{version_file}
+      - run:
+          name: Export docker image layer cache
+          command: docker save -o {cache_dir}/{testrunner_cache} {testrunner_image}
+      - persist_to_workspace: # workspace is used later in this same build
+          root: {cache_dir}
+          paths: '{testrunner_cache}'
+      - persist_to_workspace: # workspace is used later in this same build
+          root: {cache_dir}
+          paths: '{version_file}'
+      - store_artifacts:
+          path: {version_file}
+    """)
+    return 'preload', template
 
 
 def new_tpip():
@@ -150,11 +196,17 @@ def new_build(py_ver: PyVer):
     template = yaml.safe_load(f"""
     machine:
       image: 'circleci/classic:201710-02'
+      docker_layer_caching: true
     steps:
       - checkout
       - restore_cache:
           keys: ['{cache_key}']
           paths: ['{cache_path}']
+      - attach_workspace:
+          at: {cache_dir}
+      - run:
+          name: Load docker image for TestRunner
+          command: docker load -i {cache_dir}/{testrunner_cache}
       - run:
           name: Load docker image layer cache
           command: docker load -i {cache_path} || true  # silent failure if missing cache
@@ -163,6 +215,7 @@ def new_build(py_ver: PyVer):
           command: >-
             docker build --cache-from={py_ver.tag}
             -t {py_ver.tag}
+            --build-arg TESTRUNNER_VERSION=$(cat {cache_dir}/testrunner_version.txt)
             -f container/{py_ver.docker_file} .
       - run:
           name: Make cache directory
@@ -197,8 +250,7 @@ def test_name(py_ver: PyVer, cloud_host: CloudHost):
 
 def new_test(py_ver: PyVer, cloud_host: CloudHost):
     """Job for running integration/coverage tests"""
-    cache_file = f'app_{py_ver.name}.tar'
-    cache_path = f'{cache_dir}/{cache_file}'
+    sdk_docker_cache = f'app_{py_ver.name}.tar'
     template = yaml.safe_load(f"""
     machine:
       image: circleci/classic:201710-02
@@ -207,16 +259,14 @@ def new_test(py_ver: PyVer, cloud_host: CloudHost):
       - attach_workspace:
           at: {cache_dir}
       - run:
-          name: Load docker image layer cache
-          command: docker load -i {cache_path}
+          name: Load docker image for SDK
+          command: docker load -i {cache_dir}/{sdk_docker_cache}
+      - run:
+          name: Load docker image for TestRunner
+          command: docker load -i {cache_dir}/{testrunner_cache}
       - run:
           name: Get docker-compose
           command: pip install docker-compose==1.21.0
-      - run:
-          name: AWS login
-          command: |-
-            login="$(aws ecr get-login --no-include-email)"
-            ${{login}}
       - run:
           name: Set testrunner parameters
           command: |-
@@ -248,7 +298,6 @@ def deploy_name(py_ver: PyVer, release_target: ReleaseTarget):
 def new_deploy(py_ver: PyVer, release_target: ReleaseTarget):
     """Job for deploying package to pypi"""
     cache_file = f'app_{py_ver.name}.tar'
-    cache_path = f'{cache_dir}/{cache_file}'
     template = yaml.safe_load(f"""
     machine:
       image: circleci/classic:201710-02
@@ -261,7 +310,7 @@ def new_deploy(py_ver: PyVer, release_target: ReleaseTarget):
           command: sudo pip install awscli
       - run:
           name: Load docker image layer cache
-          command: docker load -i {cache_path}
+          command: docker load -i {cache_dir}/{cache_file}
       - run:
           name: Start a named container
           command: docker run --name=SDK {py_ver.tag}
@@ -301,7 +350,6 @@ def generate_circle_output():
     builds the circleci structure
     also links individual jobs into a workflow graph
     """
-    workflow_config_key = 'workflow_config'
     base = new_base()
     workflow = networkx.DiGraph()
     LOG.info('%s python versions', len(python_versions))
@@ -325,9 +373,14 @@ def generate_circle_output():
         )
     )
 
+    preload_job, content = new_preload()
+    base['jobs'].update({preload_job: content})
+    workflow.add_node(job)
+
     for py_ver in python_versions.values():
         build_job, build_content = new_build(py_ver=py_ver)
         base['jobs'].update({build_job: build_content})
+        workflow.add_edge(preload_job, build_job)
 
         for cloud_host in mbed_cloud_hosts.values():
             test_job, test_content = new_test(py_ver=py_ver, cloud_host=cloud_host)

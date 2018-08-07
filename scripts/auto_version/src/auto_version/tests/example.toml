@@ -1,0 +1,14 @@
+[AutoVersionConfig]
+CONFIG_NAME = 'example'
+DEVMODE_TEMPLATE = "{version}.devX"
+targets = ["example.py"]
+
+[AutoVersionConfig.key_aliases]
+VERSION = "VERSION_KEY"
+VERSION_AGAIN = "VERSION_KEY"
+LOCK = "VERSION_LOCK"
+RELEASE = "RELEASE_FIELD"
+
+[AutoVersionConfig.trigger_patterns]
+# this will trigger on existence of any python file
+minor = "*.py"
