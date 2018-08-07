@@ -65,7 +65,7 @@ class ServicePackageQuotaHistoryItem(object):
     def added(self):
         """
         Gets the added of this ServicePackageQuotaHistoryItem.
-        Added time of quota history entry.
+        Added time of quota history entry in RFC3339 date-time with millisecond accuracy and UTC time zone.
 
         :return: The added of this ServicePackageQuotaHistoryItem.
         :rtype: datetime
@@ -76,7 +76,7 @@ class ServicePackageQuotaHistoryItem(object):
     def added(self, added):
         """
         Sets the added of this ServicePackageQuotaHistoryItem.
-        Added time of quota history entry.
+        Added time of quota history entry in RFC3339 date-time with millisecond accuracy and UTC time zone.
 
         :param added: The added of this ServicePackageQuotaHistoryItem.
         :type: datetime

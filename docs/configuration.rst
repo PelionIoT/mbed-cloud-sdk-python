@@ -1,37 +1,10 @@
 Configuration
 -------------
-Configuration parameters can be set in the following ways:
+Individual parameters can be set in the following ways:
 
-- In JSON file(s)
 - Directly when instantiating a new API object
-
-Configuration parameters
-========================
-
-You can configure the SDK with the following parameters:
-
-- `api_key`: The API key created in https://portal.us-east-1.mbedcloud.com/ (Required)
-- `host`: The fully qualified hostname (schema, host, port) of the api server (Optional)
-
-Configuration files
-==========================
-The file should be named `.mbed_cloud_config.json` and contain JSON describing configuration options
-
-.. code-block:: text
-
-  $ cat .mbed_cloud_config.json
-  {
-    "api_key": "ak_*********"
-  }
-
-In case of multiple configs, precedence for conflicting parameters is given to the more specific config.
-In order of increasing specificity, config file(s) should be placed in one of the following directories:
-
-- `/etc/`
-- current user home
-- current working directory
-- the path specified by the environment variable: `MBED_CLOUD_SDK_CONFIG`
-
+- Through environment variables
+- Through environment variables configured in *.env* files
 
 Configuration on instantiation
 ==============================
@@ -43,3 +16,35 @@ Configuration on a per-object basis takes precedence over any other configuratio
   from mbed_cloud import AccountManagementAPI
   config = { "api_key": "ak_*********" }
   api = AccountManagementAPI(config)
+
+Production deployment
+=====================
+Many CI and production server providers allow direct configuration of environment variables
+in a secure manner, to the equivalent of:
+
+``export MBED_CLOUD_SDK_API_KEY=ak_abcdef123``
+
+Local development
+=================
+When developing locally, a `.env` file excluded from version control can be used to
+configure the SDK without modifying your system's environment:
+
+*(in file: "/path/to/my/project/.env")*
+
+``MBED_CLOUD_SDK_API_KEY=ak_abcdef123``
+
+The file should be named `.env` and placed at any level on your directory tree between
+your project's working directory and the root.
+Files closer to the working directory, and any variables in the system environment, take priority.
+
+Configuration parameters
+========================
+
+You can configure the SDK with the following parameters:
+
+=========== ========================== =================================================================== ========
+Parameter   Environment Variable       Description                                                         Optional
+=========== ========================== =================================================================== ========
+``api_key`` ``MBED_CLOUD_SDK_HOST``    The API key created in the portal                                   Required
+``host``    ``MBED_CLOUD_SDK_API_KEY`` The fully qualified hostname (scheme, host, port) of the API server Optional
+=========== ========================== =================================================================== ========

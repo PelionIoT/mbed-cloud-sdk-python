@@ -62,7 +62,7 @@ class ServicePackageQuotaHistoryServicePackage(object):
     def expires(self):
         """
         Gets the expires of this ServicePackageQuotaHistoryServicePackage.
-        Service package expiration time in RFC3339 date-time with UTC time zone.
+        Service package expiration time in RFC3339 date-time with millisecond accuracy and UTC time zone.
 
         :return: The expires of this ServicePackageQuotaHistoryServicePackage.
         :rtype: datetime
@@ -73,7 +73,7 @@ class ServicePackageQuotaHistoryServicePackage(object):
     def expires(self, expires):
         """
         Sets the expires of this ServicePackageQuotaHistoryServicePackage.
-        Service package expiration time in RFC3339 date-time with UTC time zone.
+        Service package expiration time in RFC3339 date-time with millisecond accuracy and UTC time zone.
 
         :param expires: The expires of this ServicePackageQuotaHistoryServicePackage.
         :type: datetime
@@ -160,7 +160,7 @@ class ServicePackageQuotaHistoryServicePackage(object):
     def start_time(self):
         """
         Gets the start_time of this ServicePackageQuotaHistoryServicePackage.
-        Service package start time in RFC3339 date-time with UTC time zone.
+        Service package start time in RFC3339 date-time with millisecond accuracy and UTC time zone.
 
         :return: The start_time of this ServicePackageQuotaHistoryServicePackage.
         :rtype: datetime
@@ -171,7 +171,7 @@ class ServicePackageQuotaHistoryServicePackage(object):
     def start_time(self, start_time):
         """
         Sets the start_time of this ServicePackageQuotaHistoryServicePackage.
-        Service package start time in RFC3339 date-time with UTC time zone.
+        Service package start time in RFC3339 date-time with millisecond accuracy and UTC time zone.
 
         :param start_time: The start_time of this ServicePackageQuotaHistoryServicePackage.
         :type: datetime

@@ -25,6 +25,7 @@ import uuid
 import flask
 from flask import request
 from flask import jsonify
+from werkzeug.exceptions import NotFound
 
 from module_runner import run_module
 
@@ -83,11 +84,11 @@ def startup():
 def get_instance_or_404(uuid):
     instance = STORE.get(uuid)
     if not instance:
-        raise DoesNotExist('SDK server: no such instance %s' % (uuid,))
+        raise NotFound('404 Not Found: SDK server has no such instance %r' % (uuid,))
     return instance
 
 
-@app.errorhandler(DoesNotExist)
+@app.errorhandler(NotFound)
 def handle_missing_objects(exc):
     # missing objects are subtly different from missing API
     return jsonify(dict(

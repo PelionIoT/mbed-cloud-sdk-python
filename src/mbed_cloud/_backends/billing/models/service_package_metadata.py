@@ -59,7 +59,7 @@ class ServicePackageMetadata(object):
     def end_time(self):
         """
         Gets the end_time of this ServicePackageMetadata.
-        Service package end time.
+        Service package end time in RFC3339 date-time with millisecond accuracy and UTC time zone.
 
         :return: The end_time of this ServicePackageMetadata.
         :rtype: datetime
@@ -70,7 +70,7 @@ class ServicePackageMetadata(object):
     def end_time(self, end_time):
         """
         Sets the end_time of this ServicePackageMetadata.
-        Service package end time.
+        Service package end time in RFC3339 date-time with millisecond accuracy and UTC time zone.
 
         :param end_time: The end_time of this ServicePackageMetadata.
         :type: datetime
@@ -138,7 +138,7 @@ class ServicePackageMetadata(object):
     def start_time(self):
         """
         Gets the start_time of this ServicePackageMetadata.
-        Service package start time.
+        Service package start time in RFC3339 date-time with millisecond accuracy and UTC time zone.
 
         :return: The start_time of this ServicePackageMetadata.
         :rtype: datetime
@@ -149,7 +149,7 @@ class ServicePackageMetadata(object):
     def start_time(self, start_time):
         """
         Sets the start_time of this ServicePackageMetadata.
-        Service package start time.
+        Service package start time in RFC3339 date-time with millisecond accuracy and UTC time zone.
 
         :param start_time: The start_time of this ServicePackageMetadata.
         :type: datetime
