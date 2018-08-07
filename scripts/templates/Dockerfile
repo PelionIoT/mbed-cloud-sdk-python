@@ -39,7 +39,7 @@ RUN pipenv install --dev
 # load the entire project from local checkout as build context
 COPY . .
 
-# version the codebase
+# generate a development version
 # we must be told the testrunner version that will be used to test this build
 ARG TESTRUNNER_VERSION
 RUN pipenv run auto_version --config=scripts/auto_version.toml --news --bump=patch "TESTRUNNER_VERSION='${{TESTRUNNER_VERSION}}'"
@@ -55,18 +55,20 @@ RUN pipenv run pytest --durations=3 tests/static
 # run submodule tests (but ignore coverage)
 RUN pipenv run pytest scripts --no-cov
 
+# check the package file is good
+RUN pipenv run python setup.py check -r -s
+
+# generate a development package
+RUN pipenv run python setup.py clean --all bdist_wheel
+
+# generate a release version
+RUN pipenv run auto_version --config=scripts/auto_version.toml --release
+
 # build the documentation
 RUN pipenv run sphinx-apidoc src/mbed_cloud -o docs/built_api -e -M
 RUN pipenv run sphinx-build -a -b html -c docs/ docs/ built_docs
 
-# check the package file is good
-RUN pipenv run python setup.py check -r -s
-
-# generate a package
-RUN pipenv run python setup.py clean --all bdist_wheel
-
 # generate a release package
-RUN pipenv run auto_version --config=scripts/auto_version.toml --release
 RUN pipenv run python setup.py clean --all bdist_wheel --dist-dir release-dist
 
 #
