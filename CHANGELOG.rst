@@ -13,6 +13,31 @@ a list of versions that have been released on PyPI.
 ..
     begin_release_notes
 
+2.0.0.dev1335 (2018-08-07)
+==========================
+
+Features
+--------
+
+- Change to versioning scheme. Semver `Major.Minor.Patch` scheme now reflects
+  state of SDK rather than API. (#1416)
+
+- Settings can now be configured from `.env` files through use of
+  https://pypi.org/project/python-dotenv/ (#927)
+
+Bugfixes
+--------
+
+- Fix for incorrect month/day parameter being sent to API (billing report
+  overview) (billing)
+
+Improved Documentation
+----------------------
+
+- This major version increment marks departure from the previous semver
+  approach that tracked API major and minor versions. (release)
+
+
 1.2.10.1235 (2018-07-05)
 ========================
 
