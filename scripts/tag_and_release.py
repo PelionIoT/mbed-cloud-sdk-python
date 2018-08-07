@@ -74,7 +74,8 @@ def main():
     subprocess.check_call(['git', 'add', 'CHANGELOG.rst'])
     subprocess.check_call(['git', 'add', 'docs/news/*'])
     print('git - commit changes')
-    subprocess.check_call(['git', 'commit', '-m', ':checkered_flag: :newspaper: releasing version %s\n[skip ci]' % version])
+    message = ':checkered_flag: :newspaper: releasing version %s\n[skip ci]' % version
+    subprocess.check_call(['git', 'commit', '-m', message])
     print('git - pushing commits')
     subprocess.check_call(['git', 'push', 'origin'])
     print('pypi - uploading')
