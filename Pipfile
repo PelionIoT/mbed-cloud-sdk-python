@@ -5,20 +5,20 @@ name = "pypi"
 
 [packages]
 # defer to setup.py
-mbed_cloud_sdk = {path = ".", editable = true}
+mbed_cloud_sdk = {editable = true, path = "."}
 
 [dev-packages]
 codecov = "*"
 coverage = "*"
+flake8 = "*"
 flake8-copyright = "*"
 flake8-docstrings = "*"
 flask = "*"
-hacking = "*"
+funcsigs = "*"
 mock = "*"
-pycodestyle = "*"
 pytest = "*"
 pytest-cov = "*"
 pytest-html = "*"
 slackclient = "*"
 sphinx = "*"
-towncrier = "*"
+towncrier = "==17.8.0"

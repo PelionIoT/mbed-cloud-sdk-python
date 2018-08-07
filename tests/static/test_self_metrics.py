@@ -19,6 +19,10 @@ def re_render(out):
         by_path.setdefault(path, {}).setdefault((int(line), int(column)), []).append(failure)
 
     indented = ['\n\tFiles: %s, failures: %s\n' % (len(by_path), sum_failures)]
+
+    if not by_path:
+        indented.append(out)
+
     for path, by_location in by_path.items():
         indented.append('\t%s:' % path)
         for line_column, failures in sorted(by_location.items()):
