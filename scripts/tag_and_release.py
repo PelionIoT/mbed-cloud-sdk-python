@@ -65,6 +65,7 @@ def main():
     subprocess.check_call(['git', 'remote', 'set-url', 'origin', new_url])
     branch_spec = 'origin/%s' % os.getenv('CIRCLE_BRANCH')
     subprocess.check_call(['git', 'branch', '--set-upstream-to', branch_spec])
+    subprocess.check_call(['git', 'fetch', '--tags', '--force'])
     print('git - pushing tags')
     subprocess.check_call(['git', 'tag', '-a', version, '-m', 'release %s' % version])
     subprocess.check_call(['git', 'tag', '-f', 'latest'])
