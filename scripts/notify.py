@@ -34,7 +34,7 @@ def main():
     channel_id = os.environ.get('SLACK_CHANNEL', '#mbed-cloud-sdk')
     message = os.environ.get('SLACK_MESSAGE', (
         ':checkered_flag: New version of :snake: Python SDK released: *{version}* '
-        '(<https://pypi.org/project/mbed-cloud-sdk/{v}/|PyPI>)'
+        '(<https://pypi.org/project/mbed-cloud-sdk/{version}/|PyPI>)'
     ))
 
     if not slack_token:
