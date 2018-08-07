@@ -135,6 +135,9 @@ class BillingAPI(BaseAPI):
                 )
         return response
 
+    @catch_exceptions(BillingAPIException)
+    def get_report_active_devices(self, month=None, file_path=None):
+        """Downloads a report of the active devices
 
         :param str file_path: [optional] location to store output file
         :param month: [default: utcnow] month as datetime instance, or string in YYYY-MM format
@@ -154,7 +157,7 @@ class BillingAPI(BaseAPI):
 
     @catch_exceptions(BillingAPIException)
     def get_report_firmware_updates(self, month=None, file_path=None):
-        """Downloads a report of the active devices
+        """Downloads a report of the firmware updates
 
         :param str file_path: [optional] location to store output file
         :param month: [default: utcnow] month as datetime instance, or string in YYYY-MM format
