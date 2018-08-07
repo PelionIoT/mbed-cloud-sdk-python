@@ -1,1 +1,0 @@
-Documentation now includes a full API reference, generated from the source code.

@@ -111,14 +111,14 @@ class BillingAPI(BaseAPI):
         return path
 
     @catch_exceptions(BillingAPIException)
-    def get_report_overview(self, month=None, file_path=None):
+    def get_report_overview(self, month, file_path):
         """Downloads a report overview
 
-        :param str file_path: [optional] location to store output file
-        :param month: [default: utcnow] month as datetime instance, or string in YYYY-MM format
+        :param month: month as datetime instance, or string in YYYY-MM format
         :type month: str or datetime
-        :return: The report structure
-        :rtype: dict
+        :param str file_path: location to store output file
+        :return: outcome
+        :rtype: True or None
         """
         api = self._get_api(billing.DefaultApi)
         month = self._month_converter(month)
@@ -135,9 +135,6 @@ class BillingAPI(BaseAPI):
                 )
         return response
 
-    @catch_exceptions(BillingAPIException)
-    def get_report_active_devices(self, month=None, file_path=None):
-        """Downloads a report of the active devices
 
         :param str file_path: [optional] location to store output file
         :param month: [default: utcnow] month as datetime instance, or string in YYYY-MM format

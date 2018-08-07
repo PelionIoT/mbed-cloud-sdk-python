@@ -1,3 +1,0 @@
-Previously, notifications for resource value changes would not be triggered.
-Resource value change subscriptions now use the correct routing keys. The SDK now provides the expected values for
-`device_id` and `resource_path` when notifying user code.

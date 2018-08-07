@@ -22,6 +22,7 @@ The ``mbed-cloud-sdk`` gives developers access to the full `Arm Mbed <https://do
 
   account_management
   billing
+  bootstrap
   certificates
   connect
   device_directory

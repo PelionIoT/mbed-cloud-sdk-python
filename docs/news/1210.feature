@@ -1,1 +1,0 @@
-Add the Billing module, which provides access to the account's financial configurations.
