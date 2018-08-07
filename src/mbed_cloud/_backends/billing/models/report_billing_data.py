@@ -112,6 +112,7 @@ class ReportBillingData(object):
     def generated(self):
         """
         Gets the generated of this ReportBillingData.
+        Billing report generated time in RFC3339 date-time with millisecond accuracy and UTC time zone.
 
         :return: The generated of this ReportBillingData.
         :rtype: datetime
@@ -122,6 +123,7 @@ class ReportBillingData(object):
     def generated(self, generated):
         """
         Sets the generated of this ReportBillingData.
+        Billing report generated time in RFC3339 date-time with millisecond accuracy and UTC time zone.
 
         :param generated: The generated of this ReportBillingData.
         :type: datetime
@@ -135,6 +137,7 @@ class ReportBillingData(object):
     def period_end(self):
         """
         Gets the period_end of this ReportBillingData.
+        Billing report end time in RFC3339 date-time with millisecond accuracy and UTC time zone.
 
         :return: The period_end of this ReportBillingData.
         :rtype: datetime
@@ -145,6 +148,7 @@ class ReportBillingData(object):
     def period_end(self, period_end):
         """
         Sets the period_end of this ReportBillingData.
+        Billing report end time in RFC3339 date-time with millisecond accuracy and UTC time zone.
 
         :param period_end: The period_end of this ReportBillingData.
         :type: datetime
@@ -158,6 +162,7 @@ class ReportBillingData(object):
     def period_start(self):
         """
         Gets the period_start of this ReportBillingData.
+        Billing report start time in RFC3339 date-time with millisecond accuracy and UTC time zone.
 
         :return: The period_start of this ReportBillingData.
         :rtype: datetime
@@ -168,6 +173,7 @@ class ReportBillingData(object):
     def period_start(self, period_start):
         """
         Sets the period_start of this ReportBillingData.
+        Billing report start time in RFC3339 date-time with millisecond accuracy and UTC time zone.
 
         :param period_start: The period_start of this ReportBillingData.
         :type: datetime
