@@ -1,0 +1,111 @@
+import os
+
+import requests
+import dotenv
+
+from mbed_cloud import utils
+
+dotenv.load_dotenv(dotenv.find_dotenv(usecwd=True))
+DEFAULT_HOST = 'https://api.us-east-1.mbedcloud.com'
+
+def pluck_if_not_none(source, *pluck):
+    return {k: source[k] for k in pluck if source[k] is not None}
+
+def strip_none_values(dictionary):
+    return {k: v for k, v in dictionary.items() if v is not None}
+{{#entities}}
+
+
+class {{_KeY}}:
+    """Represents the remote `{{_KeY}}` entity in Mbed Cloud"""
+    def __init__(self, {{#fields}}{{_key}}=None, {{/fields}}):
+        """Creates a local `{{_KeY}}` instance
+
+        {{#fields}}
+        :param {{_key}}: {{description}}
+        :type {{_key}}: {{type}}
+        {{/fields}}
+        """
+        {{#fields}}
+        self.{{_key}} = {{_key}}
+        {{/fields}}
+        self._fieldnames = [
+            {{#fields}}
+            '{{_key}}',
+            {{/fields}}
+        ]
+        self._auth_api_key = os.getenv('MBED_CLOUD_SDK_API_KEY')
+        self._auth_host = os.getenv('MBED_CLOUD_SDK_HOST')
+        self._default_headers = {
+            'Authorization': 'Bearer %s' % self._auth_api_key,
+            'UserAgent': utils.get_user_agent(),
+        }
+
+    def __repr__(self):
+        return repr({k: v for k, v in vars(self).items() if k in self._fieldnames})
+
+    {{#modes}}
+
+    def {{mode}}(
+        self,
+        {{#fields_external}}
+        {{_key}},
+        {{/fields_external}}
+    ):
+        """{{summary}}
+        """
+        path_params = {
+            {{#fields_path_internal}}
+            '{{api_fieldname}}': self.{{_key}},
+            {{/fields_path_internal}}
+            {{#fields_path_external}}
+            '{{api_fieldname}}': {{_key}},
+            {{/fields_path_external}}
+        }
+        query = strip_none_values({
+            {{#fields_query_internal}}
+            '{{api_fieldname}}': self.{{_key}},
+            {{/fields_query_internal}}
+            {{#fields_query_external}}
+            '{{api_fieldname}}': {{_key}},
+            {{/fields_query_external}}
+        })
+        data = strip_none_values({
+            {{#fields_body_internal}}
+            '{{api_fieldname}}': self.{{_key}},
+            {{/fields_body_internal}}
+            {{#fields_body_external}}
+            '{{api_fieldname}}': {{_key}},
+            {{/fields_body_external}}
+        })
+        headers = {}
+        headers.update(self._default_headers)
+        headers.update(strip_none_values({
+            {{#fields_header_internal}}
+            '{{api_fieldname}}': self.{{_key}},
+            {{/fields_header_internal}}
+            {{#fields_header_external}}
+            '{{api_fieldname}}': {{_key}},
+            {{/fields_header_external}}
+        }))
+        response = requests.request(
+            method='{{method}}',
+            url='{host}{{path}}'.format(host=self._auth_host or DEFAULT_HOST, **path_params),
+            json=data,
+            params=query,
+            headers=headers
+        )
+        inbound_renames = {
+            {{#field_renames}}
+            '{{api_fieldname}}': '{{_key}}',
+            {{/field_renames}}
+        }
+        if response.status_code // 100 == 2:
+            for k, v in response.json().items():
+                setattr(self, inbound_renames.get(k, k), v)
+        else:
+            print(response.content)
+        response.raise_for_status()
+        return response
+    {{/modes}}
+{{/entities}}
