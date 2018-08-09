@@ -13,8 +13,8 @@ a list of versions that have been released on PyPI.
 ..
     begin_release_notes
 
-2.0.0.dev1335 (2018-08-07)
-==========================
+2.0.0 (2018-08-07)
+==================
 
 Features
 --------
