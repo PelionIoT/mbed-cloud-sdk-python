@@ -17,11 +17,14 @@
 """Some shared utilities"""
 import datetime
 import logging
+import platform
 import uuid
 
+from mbed_cloud import __version__
 from mbed_cloud.exceptions import CloudValueError
 
 LOG = logging.getLogger(__name__)
+USERAGENT = None
 
 
 def logging_check():
@@ -50,3 +53,14 @@ def force_utc(time, name='field', precision=6):
 def new_async_id():
     """A source of new client-side async ids"""
     return str(uuid.uuid4())
+
+
+def get_user_agent():
+    global USERAGENT
+    if not USERAGENT:
+        USERAGENT = "mbed-cloud-sdk-python/{sdk_ver} ({pfm}) Python/{py_ver}".format(
+            sdk_ver=__version__,
+            pfm=platform.platform(),
+            py_ver=platform.python_version()
+        )
+    return USERAGENT

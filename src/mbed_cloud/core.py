@@ -20,11 +20,10 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import datetime
-import platform
 
-from mbed_cloud import __version__
 from mbed_cloud.configuration import Config
 from mbed_cloud import filters
+from mbed_cloud import utils
 
 from builtins import object
 from six.moves import urllib
@@ -56,10 +55,7 @@ class BaseAPI(object):
         self.api_clients[api_parent_class] = api_client
 
         api_client.configuration.__class__._default = None  # disable codegen's singleton behaviour
-        api_client.user_agent = "mbed-cloud-sdk-python/{sdk_ver} ({pfm}) Python/{py_ver}".format(
-            sdk_ver=__version__,
-            pfm=platform.platform(),
-            py_ver=platform.python_version())
+        api_client.user_agent = utils.get_user_agent()
         api_client.configuration.api_key_prefix['Authorization'] = 'Bearer'
         api_client.configuration.safe_chars_for_path_param = "/"  # don't encode (resource paths)
         self._update_api_client(api_parent_class)
