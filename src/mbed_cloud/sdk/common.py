@@ -2,6 +2,7 @@ import functools
 import requests
 import dotenv
 import os
+import json
 import functools
 import textwrap
 
@@ -17,11 +18,10 @@ def strip_none_values(dictionary):
     return {k: v for k, v in dictionary.items() if v is not None}
 
 
-dotenv.load_dotenv(dotenv.find_dotenv(usecwd=True))
 DEFAULT_HOST = "https://api.us-east-1.mbedcloud.com"
 DEFAULT_API_KEY = None
 
-global global_sdk
+global_sdk = None
 
 
 class ApiErrorResponse(requests.HTTPError):
@@ -47,9 +47,26 @@ def paginate(unpack):
 
 
 class Config:
-    def __init__(self, api_key=None, host=None):
-        self.api_key = api_key or os.getenv("MBED_CLOUD_SDK_HOST") or DEFAULT_API_KEY
-        self.host = host or os.getenv("MBED_CLOUD_SDK_HOST", DEFAULT_HOST)
+    _tried_dotenv = False
+    api_key = None
+    host = None
+
+    def __init__(self, **kwargs):
+        self._set_defaults(**kwargs)
+        if not self.api_key and not Config._tried_dotenv:
+            dotenv.load_dotenv(
+                dotenv.find_dotenv(usecwd=True, raise_error_if_not_found=True)
+            )
+            self._set_defaults()
+            # mark dotenv load complete, so we don't have to do it again
+            Config._tried_dotenv = True
+
+    def _set_defaults(self, **updates):
+        self.update(updates)
+        self.api_key = (
+            self.api_key or os.getenv("MBED_CLOUD_SDK_API_KEY") or DEFAULT_API_KEY
+        )
+        self.host = self.host or os.getenv("MBED_CLOUD_SDK_HOST") or DEFAULT_HOST
         self.user_agent = utils.get_user_agent()
 
     def update(self, *updates, **kwargs):
@@ -73,18 +90,11 @@ class SDK:
 
         from mbed_cloud.sdk import api
 
-        self.models = api.EntityManager(self)
-        self.models2 = api.InstanceFactory(self)
         self.factory = api.InstanceFactory(self)
 
     @property
     def client(self):
         return self._client
-
-    def get_entity(self, klass, **kwargs):
-        from mbed_cloud.sdk import api
-
-        return getattr(api, kl)
 
 
 class Client:
@@ -98,18 +108,10 @@ class Client:
         self.session = requests.Session()
         self.session.headers.update(
             {
-                "Authorization": "Bearer %s" % self._config.api_key,
+                "Authorization": "Bearer %s" % self.config.api_key,
                 "UserAgent": utils.get_user_agent(),
             }
         )
-
-
-def manage(sdk, entity):
-    # @functools.wraps(entity)
-    class WrappedEntity(entity):
-        _sdk = sdk
-
-    return WrappedEntity
 
 
 def get_or_create_global_sdk_instance():
@@ -149,8 +151,10 @@ class Entity:
         unpack=None,
         **kwargs,
     ):
-        """Plugs in to some http request handling mechanism"""
-        url = (self._client.config.host + path).format(**path_params)
+        """Uses an http request handling mechanism to fetch and return results from the network"""
+        url = self._client.config.host + path
+        if path_params:
+            url = url.format(**path_params)
         response = self._client.session.request(
             method=method,
             url=url,
@@ -158,7 +162,7 @@ class Entity:
             params=query_params,
             json=body_params,
             files=stream_params,
-            stream=any(stream_params),
+            stream=bool(stream_params),
             **kwargs,
         )
         if unpack is None:
@@ -167,12 +171,39 @@ class Entity:
         if response.status_code // 100 == 2:
             if unpack:
                 for k, v in response.json().items():
-                    setattr(unpack, inbound_renames.get(k, k), v)
+                    setattr(unpack, "_" + inbound_renames.get(k, k), v)
                 return unpack
             else:
                 return response
         else:
-            raise ApiErrorResponse(
-                "Error response from API (HTTP %s):\n%s"
-                % textwrap.indent(response.content, "  ")
+            # check if we didn't have an api key set
+            all_params = locals()
+            api_key = self._client.config.api_key or ""
+            host = self._client.config.host
+            hints = [
+                "URL: %s" % url,
+                "Using host: %r api_key: '%s%s%s'"
+                % (host, api_key[:2], "***" if api_key else "", api_key[-3:]),
+                "More parameters are attached to this error as `all_parameters`.",
+            ]
+            if not api_key:
+                hints.append(
+                    "There was no API key detected. You need to set one to interact with the cloud."
+                )
+            if not host.startswith("https"):
+                hints.append(
+                    "The host scheme should start with 'https' for a secure connection to the cloud."
+                )
+            hints = "\n".join(hints)
+            try:
+                content = json.loads(response.content)
+            except Exception:
+                content = {"response": content}
+            api_feedback = textwrap.indent(json.dumps(content, indent=2), "  ")
+            error = ApiErrorResponse(
+                "Error response from API (HTTP %s):\n%s\nMore information:\n%s"
+                % (response.status_code, api_feedback, hints)
             )
+            error.content = content
+            error.all_parameters = all_params
+            raise error

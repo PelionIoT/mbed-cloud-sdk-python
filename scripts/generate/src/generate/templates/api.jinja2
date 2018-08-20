@@ -1,33 +1,18 @@
 from mbed_cloud import pagination
 from mbed_cloud.sdk import common
-import functools
 
-class EntityManager:
-    def __init__(self, sdk):
-        self.sdk = sdk
-
-    {% for entity in entities %}
-    @property
-    def {{ entity._key.pascal }}(self):
-        """
-        :rtype: SDK{{ entity._key.pascal }}
-        """
-        class SDK{{ entity._key.pascal }}({{ entity._key.pascal }}):
-            _sdk = self.sdk
-        return SDK{{ entity._key.pascal }}
-    {% endfor %}
 
 class InstanceFactory:
-    def __init__(self, sdk):
-        self.sdk = sdk
+    """Creates instances of Entities with a client mixed in"""
+    def __init__(self, client):
+        self.client = client
 
     {% for entity in entities %}
-    @property
-    def {{ entity._key.pascal }}(self):
+    def {{ entity._key.snake }}(self, **kwargs):
         """
         :rtype: {{ entity._key.pascal }}
         """
-        return functools.partial({{ entity._key.pascal }}, client=self.sdk)
+        return {{ entity._key.pascal }}(client=self.client, **kwargs)
     {% endfor %}
 
 {% for entity in entities %}
@@ -49,11 +34,12 @@ class {{ entity._key.pascal }}(common.Entity):
         {% endfor %}
     ):
         """Creates a local `{{entity._key.pascal}}` instance
+
         {% for field in entity.fields %}:param {{field._key.snake}}: {{field.description}}
         :type {{field._key.snake}}: {{field.type}}
         {% endfor %}"""
 
-        super({{entity._key.pascal}}).__init__(client=client)
+        super().__init__(client=client)
 
         # Attributes
         {% for field in entity.fields %}self._{{field._key.snake}} = {{field._key.snake}}
@@ -62,7 +48,17 @@ class {{ entity._key.pascal }}(common.Entity):
     {% for field in entity.fields %}
     @property
     def {{field._key.snake}}(self):
+        """{{ field.description }}
+        {% if field.example %}
+        api example: {{ field.example|repr }}
+        {% endif %}
+        """
         return self._{{field._key.snake}}
+    {% if not field.read_only and not field=='id' %}
+    @{{ field._key.snake }}.setter
+    def {{field._key.snake}}(self, value):
+        self._{{field._key.snake}} = value
+    {% endif %}
     {% endfor %}
 
     {% for mode in entity.modes %}
@@ -102,35 +98,35 @@ class {{ entity._key.pascal }}(common.Entity):
             {% if mode.fields_path %}
             path_params = {
                 {% for field in mode.fields_path %}
-                '{{field.api_fieldname}}': {% if not field.external_param %}self.{% endif %}{{field._key.snake}},
+                '{{field.parameter_fieldname}}': {% if not field.external_param %}self.{% endif %}{{field._key.snake}},
                 {% endfor %}
             },
             {% endif %}
             {% if mode.fields_header %}
             header_params = {
                 {% for field in mode.fields_header %}
-                '{{field.api_fieldname}}': {% if not field.external_param %}self.{% endif %}{{field._key.snake}},
+                '{{field.parameter_fieldname}}': {% if not field.external_param %}self.{% endif %}{{field._key.snake}},
                 {% endfor %}
             },
             {% endif %}
             {% if mode.fields_query %}
             query_params = {
                 {% for field in mode.fields_query %}
-                '{{field.api_fieldname}}': {% if not field.external_param %}self.{% endif %}{{field._key.snake}},
+                '{{field.parameter_fieldname}}': {% if not field.external_param %}self.{% endif %}{{field._key.snake}},
                 {% endfor %}
             },
             {% endif %}
             {% if mode.fields_body %}
             body_params = {
                 {% for field in mode.fields_body %}
-                '{{field.api_fieldname}}': {% if not field.external_param %}self.{% endif %}{{field._key.snake}},
+                '{{field.parameter_fieldname}}': {% if not field.external_param %}self.{% endif %}{{field._key.snake}},
                 {% endfor %}
             },
             {% endif %}
             {% if mode.fields_file %}
             stream_params = {
                 {% for field in mode.fields_file %}
-                '{{field.api_fieldname}}': {% if not field.external_param %}self.{% endif %}{{field._key.snake}},
+                '{{field.parameter_fieldname}}': {% if not field.external_param %}self.{% endif %}{{field._key.snake}},
                 {% endfor %}
             },
             {% endif %}

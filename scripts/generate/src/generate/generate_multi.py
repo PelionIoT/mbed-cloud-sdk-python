@@ -18,7 +18,6 @@
 import logging
 import os
 import subprocess
-import pathlib
 
 import jinja2
 import yaml
@@ -34,22 +33,22 @@ def main(input_file, output_dir):
     with open(input_file, encoding='utf8') as fh:
         config = yaml.safe_load(fh)
 
-    jinja_env = jinja2.Environment(
-        loader=jinja2.FileSystemLoader(TEMPLATE_DIR)
-    )
-    jinja_env.filters['repr'] = repr
-    tpl = jinja_env.get_template('api.jinja2')
-    rendered = tpl.render(config)
+    template = os.path.join(TEMPLATE_DIR, 'api.jinja2')
+    _LOG.info('reading %s', template)
+    with open(template) as tpl:
+        template_content = tpl.read()
 
-    if not os.path.exists(output_dir):
-        os.makedirs(output_dir)
+    for group in config['by_group']:
+        output_path = os.path.join(output_dir, group['group']['snake'])
+        if not os.path.exists(output_path):
+            os.makedirs(output_path)
+        _LOG.info('post-formatting %s', output_path)
+        rendered = jinja2.Template(template_content).render(group)
+        output_path = os.path.join(output_path, 'models.py')
+        with open(output_path, 'w') as fh:
+            _LOG.info('writing %s', output_path)
+            fh.write(rendered)
 
-    output = os.path.join(output_dir, 'api.py')
-    with open(output, 'w') as fh:
-        _LOG.info('writing %s', output)
-        fh.write(rendered)
-
-    _LOG.info('post-formatting %s', output_dir)
     subprocess.run(['black', output_dir])
 
 

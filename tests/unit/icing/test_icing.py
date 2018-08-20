@@ -13,13 +13,13 @@ class TestIcing(BaseCase):
         from mbed_cloud.sdk.common import SDK
         sdk = SDK()
         u = sdk.models.User
-        p = u.phone_number # dynamic replacement class not introspectable :(
+        p = u.phone_number  # dynamic replacement class not introspectable :(
 
     def test_client_root_alt(self):
         from mbed_cloud.sdk.common import SDK
         sdk = SDK()
         u = sdk.models2.User
-        x = u() # functools.partial not introspectable :(
+        x = u()  # functools.partial not introspectable :(
         p = x.phone_number
 
     def test_client_root_instances(self):
