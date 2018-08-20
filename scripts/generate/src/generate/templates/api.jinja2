@@ -1,5 +1,35 @@
 from mbed_cloud import pagination
-from mbed_cloud.core import common
+from mbed_cloud.sdk import common
+import functools
+
+class EntityManager:
+    def __init__(self, sdk):
+        self.sdk = sdk
+
+    {% for entity in entities %}
+    @property
+    def {{ entity._key.pascal }}(self):
+        """
+        :rtype: SDK{{ entity._key.pascal }}
+        """
+        class SDK{{ entity._key.pascal }}({{ entity._key.pascal }}):
+            _sdk = self.sdk
+        return SDK{{ entity._key.pascal }}
+    {% endfor %}
+
+class InstanceFactory:
+    def __init__(self, sdk):
+        self.sdk = sdk
+
+    {% for entity in entities %}
+    @property
+    def {{ entity._key.pascal }}(self):
+        """
+        :rtype: {{ entity._key.pascal }}
+        """
+        return functools.partial({{ entity._key.pascal }}, client=self.sdk)
+    {% endfor %}
+
 {% for entity in entities %}
 
 
@@ -11,10 +41,9 @@ class {{ entity._key.pascal }}(common.Entity):
         '{{field._key.snake}}',
         {% endfor %}
     ]
-    __slots__ = _fieldnames
 
     def __init__(
-        self{% if entity.fields %},{% endif %}
+        self, client=None{% if entity.fields %},{% endif %}
         {% for field in entity.fields %}
             {{field._key.snake}}=None,
         {% endfor %}
@@ -24,11 +53,17 @@ class {{ entity._key.pascal }}(common.Entity):
         :type {{field._key.snake}}: {{field.type}}
         {% endfor %}"""
 
-        super({{entity._key.pascal}}).__init__()
+        super({{entity._key.pascal}}).__init__(client=client)
 
         # Attributes
-        {% for field in entity.fields %}self.{{field._key.snake}} = {{field._key.snake}}
+        {% for field in entity.fields %}self._{{field._key.snake}} = {{field._key.snake}}
         {% endfor %}
+
+    {% for field in entity.fields %}
+    @property
+    def {{field._key.snake}}(self):
+        return self._{{field._key.snake}}
+    {% endfor %}
 
     {% for mode in entity.modes %}
     def {{mode._key.snake}}(

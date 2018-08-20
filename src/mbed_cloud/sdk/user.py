@@ -1,7 +1,7 @@
 import os
 
 from mbed_cloud import utils
-from mbed_cloud.core import common
+from mbed_cloud.sdk import common
 
 
 class User:

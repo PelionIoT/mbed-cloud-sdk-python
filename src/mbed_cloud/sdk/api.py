@@ -1,86 +1,92 @@
 from mbed_cloud import pagination
-from mbed_cloud.core import common
+from mbed_cloud.sdk import common
+import functools
 
 
-class PSK(common.Entity):
-    """Represents the remote `PSK` entity in Mbed Cloud"""
+class EntityManager:
+    def __init__(self, sdk):
+        self.sdk = sdk
 
-    _fieldnames = ["created_at", "endpoint_name"]
-    __slots__ = _fieldnames
-
-    def __init__(self, created_at=None, endpoint_name=None):
-        """Creates a local `PSK` instance
-        :param created_at: The date-time (RFC3339) when this pre-shared key was uploaded to Mbed Cloud.
-        :type created_at: string
-        :param endpoint_name: The unique endpoint identifier that this pre-shared key applies to. 16-64 [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters) (non-control) ASCII characters.
-        :type endpoint_name: string
+    @property
+    def AccountGroup(self):
+        """
+        :rtype: SDKAccountGroup
         """
 
-        super(PSK).__init__()
+        class SDKAccountGroup(AccountGroup):
+            _sdk = self.sdk
 
-        # Attributes
-        self.created_at = created_at
-        self.endpoint_name = endpoint_name
+        return SDKAccountGroup
 
-    def create(self, secret_hex):
-        """Upload a pre-shared key to Mbed Cloud.
-        
-        :param secret_hex: The secret of the pre-shared key in hexadecimal. It is not case sensitive; 4a is same as 4A, and it is allowed with or without 0x in the beginning. The minimum length of the secret is 128 bits and maximum 256 bits.
-        :type secret_hex: string
-        
+    @property
+    def ApiKey(self):
+        """
+        :rtype: SDKApiKey
         """
 
-        return self._call_api(
-            method="post",
-            path="/v2/device-shared-keys",
-            body_params={"secret_hex": secret_hex},
-        )
+        class SDKApiKey(ApiKey):
+            _sdk = self.sdk
 
-    def delete(self):
-        """Remove a pre-shared key.
+        return SDKApiKey
+
+    @property
+    def PSK(self):
+        """
+        :rtype: SDKPSK
         """
 
-        return self._call_api(
-            method="delete", path="/v2/device-shared-keys/{endpoint_name}"
-        )
+        class SDKPSK(PSK):
+            _sdk = self.sdk
 
-    def list(self, after, limit):
-        """List pre-shared keys.
-        
-        :param after: An offset token for fetching a specific page. Provided by the server.
-        :type after: string
-        :param limit: The number of entries per page
-        :type limit: integer
-        
+        return SDKPSK
+
+    @property
+    def User(self):
+        """
+        :rtype: SDKUser
         """
 
-        return pagination.PaginatedResponse(
-            func=self._list, lwrap_type=self.__class__, after=after, limit=limit
-        )
+        class SDKUser(User):
+            _sdk = self.sdk
 
-    def _list(self, after, limit):
-        """Internal 'next-page' behaviour for pagination"""
+        return SDKUser
 
-        return self._call_api(
-            method="get",
-            path="/v2/device-shared-keys",
-            query_params={"after": after, "limit": limit},
-            unpack=False,
-        )
 
-    def read(self):
-        """Get a pre-shared key.
+class InstanceFactory:
+    def __init__(self, sdk):
+        self.sdk = sdk
+
+    @property
+    def AccountGroup(self):
         """
+        :rtype: AccountGroup
+        """
+        return AccountGroupclient=self.sdk)
 
-        return self._call_api(
-            method="get",
-            path="/v2/device-shared-keys/{endpoint_name}",
-            path_params={"endpoint_name": self.endpoint_name},
-        )
+    @property
+    def ApiKey(self):
+        """
+        :rtype: ApiKey
+        """
+        return functools.partial(ApiKey, client=self.sdk)
+
+    @property
+    def PSK(self):
+        """
+        :rtype: PSK
+        """
+        return functools.partial(PSK, client=self.sdk)
+
+    @property
+    def User(self):
+        """
+        :rtype: User
+        """
+        return functools.partial(User, client=self.sdk)
 
 
 class AccountGroup(common.Entity):
-    """Represents the remote `AccountGroup` entity in Mbed Cloud"""
+    """Represents the `AccountGroup` entity in Mbed Cloud"""
 
     _fieldnames = [
         "account_id",
@@ -95,10 +101,10 @@ class AccountGroup(common.Entity):
         "updated_at",
         "user_count",
     ]
-    __slots__ = _fieldnames
 
     def __init__(
         self,
+        client=None,
         account_id=None,
         apikey_count=None,
         code=None,
@@ -136,20 +142,64 @@ class AccountGroup(common.Entity):
         :type user_count: integer
         """
 
-        super(AccountGroup).__init__()
+        super(AccountGroup).__init__(client=client)
 
         # Attributes
-        self.account_id = account_id
-        self.apikey_count = apikey_count
-        self.code = code
-        self.created_at = created_at
-        self.id = id
-        self.message = message
-        self.name = name
-        self.request_id = request_id
-        self.type = type
-        self.updated_at = updated_at
-        self.user_count = user_count
+        self._account_id = account_id
+        self._apikey_count = apikey_count
+        self._code = code
+        self._created_at = created_at
+        self._id = id
+        self._message = message
+        self._name = name
+        self._request_id = request_id
+        self._type = type
+        self._updated_at = updated_at
+        self._user_count = user_count
+
+    @property
+    def account_id(self):
+        return self._account_id
+
+    @property
+    def apikey_count(self):
+        return self._apikey_count
+
+    @property
+    def code(self):
+        return self._code
+
+    @property
+    def created_at(self):
+        return self._created_at
+
+    @property
+    def id(self):
+        return self._id
+
+    @property
+    def message(self):
+        return self._message
+
+    @property
+    def name(self):
+        return self._name
+
+    @property
+    def request_id(self):
+        return self._request_id
+
+    @property
+    def type(self):
+        return self._type
+
+    @property
+    def updated_at(self):
+        return self._updated_at
+
+    @property
+    def user_count(self):
+        return self._user_count
 
     def read(self, groupid):
         """Get group information.
@@ -181,7 +231,7 @@ class AccountGroup(common.Entity):
 
 
 class ApiKey(common.Entity):
-    """Represents the remote `ApiKey` entity in Mbed Cloud"""
+    """Represents the `ApiKey` entity in Mbed Cloud"""
 
     _fieldnames = [
         "created_at",
@@ -195,10 +245,10 @@ class ApiKey(common.Entity):
         "status",
         "updated_at",
     ]
-    __slots__ = _fieldnames
 
     def __init__(
         self,
+        client=None,
         created_at=None,
         creation_time=None,
         groups=None,
@@ -233,19 +283,59 @@ class ApiKey(common.Entity):
         :type updated_at: string
         """
 
-        super(ApiKey).__init__()
+        super(ApiKey).__init__(client=client)
 
         # Attributes
-        self.created_at = created_at
-        self.creation_time = creation_time
-        self.groups = groups
-        self.id = id
-        self.key = key
-        self.last_login_time = last_login_time
-        self.name = name
-        self.owner = owner
-        self.status = status
-        self.updated_at = updated_at
+        self._created_at = created_at
+        self._creation_time = creation_time
+        self._groups = groups
+        self._id = id
+        self._key = key
+        self._last_login_time = last_login_time
+        self._name = name
+        self._owner = owner
+        self._status = status
+        self._updated_at = updated_at
+
+    @property
+    def created_at(self):
+        return self._created_at
+
+    @property
+    def creation_time(self):
+        return self._creation_time
+
+    @property
+    def groups(self):
+        return self._groups
+
+    @property
+    def id(self):
+        return self._id
+
+    @property
+    def key(self):
+        return self._key
+
+    @property
+    def last_login_time(self):
+        return self._last_login_time
+
+    @property
+    def name(self):
+        return self._name
+
+    @property
+    def owner(self):
+        return self._owner
+
+    @property
+    def status(self):
+        return self._status
+
+    @property
+    def updated_at(self):
+        return self._updated_at
 
     def create(self):
         """Create a new API key.
@@ -353,8 +443,92 @@ class ApiKey(common.Entity):
         )
 
 
+class PSK(common.Entity):
+    """Represents the `PSK` entity in Mbed Cloud"""
+
+    _fieldnames = ["created_at", "endpoint_name"]
+
+    def __init__(self, client=None, created_at=None, endpoint_name=None):
+        """Creates a local `PSK` instance
+        :param created_at: The date-time (RFC3339) when this pre-shared key was uploaded to Mbed Cloud.
+        :type created_at: string
+        :param endpoint_name: The unique endpoint identifier that this pre-shared key applies to. 16-64 [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters) (non-control) ASCII characters.
+        :type endpoint_name: string
+        """
+
+        super(PSK).__init__(client=client)
+
+        # Attributes
+        self._created_at = created_at
+        self._endpoint_name = endpoint_name
+
+    @property
+    def created_at(self):
+        return self._created_at
+
+    @property
+    def endpoint_name(self):
+        return self._endpoint_name
+
+    def create(self, secret_hex):
+        """Upload a pre-shared key to Mbed Cloud.
+        
+        :param secret_hex: The secret of the pre-shared key in hexadecimal. It is not case sensitive; 4a is same as 4A, and it is allowed with or without 0x in the beginning. The minimum length of the secret is 128 bits and maximum 256 bits.
+        :type secret_hex: string
+        
+        """
+
+        return self._call_api(
+            method="post",
+            path="/v2/device-shared-keys",
+            body_params={"secret_hex": secret_hex},
+        )
+
+    def delete(self):
+        """Remove a pre-shared key.
+        """
+
+        return self._call_api(
+            method="delete", path="/v2/device-shared-keys/{endpoint_name}"
+        )
+
+    def list(self, after, limit):
+        """List pre-shared keys.
+        
+        :param after: An offset token for fetching a specific page. Provided by the server.
+        :type after: string
+        :param limit: The number of entries per page
+        :type limit: integer
+        
+        """
+
+        return pagination.PaginatedResponse(
+            func=self._list, lwrap_type=self.__class__, after=after, limit=limit
+        )
+
+    def _list(self, after, limit):
+        """Internal 'next-page' behaviour for pagination"""
+
+        return self._call_api(
+            method="get",
+            path="/v2/device-shared-keys",
+            query_params={"after": after, "limit": limit},
+            unpack=False,
+        )
+
+    def read(self):
+        """Get a pre-shared key.
+        """
+
+        return self._call_api(
+            method="get",
+            path="/v2/device-shared-keys/{endpoint_name}",
+            path_params={"endpoint_name": self.endpoint_name},
+        )
+
+
 class User(common.Entity):
-    """Represents the remote `User` entity in Mbed Cloud"""
+    """Represents the `User` entity in Mbed Cloud"""
 
     _fieldnames = [
         "account_id",
@@ -378,10 +552,10 @@ class User(common.Entity):
         "updated_at",
         "username",
     ]
-    __slots__ = _fieldnames
 
     def __init__(
         self,
+        client=None,
         account_id=None,
         address=None,
         created_at=None,
@@ -446,29 +620,109 @@ class User(common.Entity):
         :type username: string
         """
 
-        super(User).__init__()
+        super(User).__init__(client=client)
 
         # Attributes
-        self.account_id = account_id
-        self.address = address
-        self.created_at = created_at
-        self.creation_time = creation_time
-        self.email = email
-        self.email_verified = email_verified
-        self.full_name = full_name
-        self.groups = groups
-        self.id = id
-        self.is_gtc_accepted = is_gtc_accepted
-        self.is_marketing_accepted = is_marketing_accepted
-        self.last_login_time = last_login_time
-        self.login_history = login_history
-        self.password = password
-        self.password_changed_time = password_changed_time
-        self.phone_number = phone_number
-        self.status = status
-        self.two_factor_auth_enabled = two_factor_auth_enabled
-        self.updated_at = updated_at
-        self.username = username
+        self._account_id = account_id
+        self._address = address
+        self._created_at = created_at
+        self._creation_time = creation_time
+        self._email = email
+        self._email_verified = email_verified
+        self._full_name = full_name
+        self._groups = groups
+        self._id = id
+        self._is_gtc_accepted = is_gtc_accepted
+        self._is_marketing_accepted = is_marketing_accepted
+        self._last_login_time = last_login_time
+        self._login_history = login_history
+        self._password = password
+        self._password_changed_time = password_changed_time
+        self._phone_number = phone_number
+        self._status = status
+        self._two_factor_auth_enabled = two_factor_auth_enabled
+        self._updated_at = updated_at
+        self._username = username
+
+    @property
+    def account_id(self):
+        return self._account_id
+
+    @property
+    def address(self):
+        return self._address
+
+    @property
+    def created_at(self):
+        return self._created_at
+
+    @property
+    def creation_time(self):
+        return self._creation_time
+
+    @property
+    def email(self):
+        return self._email
+
+    @property
+    def email_verified(self):
+        return self._email_verified
+
+    @property
+    def full_name(self):
+        return self._full_name
+
+    @property
+    def groups(self):
+        return self._groups
+
+    @property
+    def id(self):
+        return self._id
+
+    @property
+    def is_gtc_accepted(self):
+        return self._is_gtc_accepted
+
+    @property
+    def is_marketing_accepted(self):
+        return self._is_marketing_accepted
+
+    @property
+    def last_login_time(self):
+        return self._last_login_time
+
+    @property
+    def login_history(self):
+        return self._login_history
+
+    @property
+    def password(self):
+        return self._password
+
+    @property
+    def password_changed_time(self):
+        return self._password_changed_time
+
+    @property
+    def phone_number(self):
+        return self._phone_number
+
+    @property
+    def status(self):
+        return self._status
+
+    @property
+    def two_factor_auth_enabled(self):
+        return self._two_factor_auth_enabled
+
+    @property
+    def updated_at(self):
+        return self._updated_at
+
+    @property
+    def username(self):
+        return self._username
 
     def delete(self):
         """Delete a user.
