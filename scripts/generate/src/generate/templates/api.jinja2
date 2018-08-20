@@ -1,0 +1,114 @@
+from mbed_cloud import pagination
+from mbed_cloud.core import common
+{% for entity in entities %}
+
+
+class {{ entity._key.pascal }}(common.Entity):
+    """Represents the `{{entity._key.pascal}}` entity in Mbed Cloud"""
+
+    _fieldnames = [
+        {% for field in entity.fields %}
+        '{{field._key.snake}}',
+        {% endfor %}
+    ]
+    __slots__ = _fieldnames
+
+    def __init__(
+        self{% if entity.fields %},{% endif %}
+        {% for field in entity.fields %}
+            {{field._key.snake}}=None,
+        {% endfor %}
+    ):
+        """Creates a local `{{entity._key.pascal}}` instance
+        {% for field in entity.fields %}:param {{field._key.snake}}: {{field.description}}
+        :type {{field._key.snake}}: {{field.type}}
+        {% endfor %}"""
+
+        super({{entity._key.pascal}}).__init__()
+
+        # Attributes
+        {% for field in entity.fields %}self.{{field._key.snake}} = {{field._key.snake}}
+        {% endfor %}
+
+    {% for mode in entity.modes %}
+    def {{mode._key.snake}}(
+        self
+        {% for field in mode.fields_external %},
+        {{field._key.snake}}
+        {% endfor %}
+    ):
+        """{{mode.summary}}
+        {% if mode.fields_external %}
+        {% for field in mode.fields_external %}:param {{field._key.snake}}: {{field.description}}
+        :type {{field._key.snake}}: {{field.type}}
+        {% endfor %}
+        {% endif %}"""
+
+    {% if mode.pagination %}
+        {# continuing from the outer, 'public' definition ... #}
+        return pagination.PaginatedResponse(
+            func=self._{{mode._key.snake}},
+            lwrap_type=self.__class__,
+            {% for field in mode.fields_external %}{{field._key.snake}}={{field._key.snake}},
+            {% endfor %}
+        )
+
+    def _{{mode._key.snake}}(
+        self
+        {% for field in mode.fields_external %},
+        {{field._key.snake}}
+        {% endfor %}
+    ):
+        """Internal 'next-page' behaviour for pagination"""
+    {% endif %}
+        return self._call_api(
+            method='{{mode.method}}',
+            path='{{ mode.path }}',
+            {% if mode.fields_path %}
+            path_params = {
+                {% for field in mode.fields_path %}
+                '{{field.api_fieldname}}': {% if not field.external_param %}self.{% endif %}{{field._key.snake}},
+                {% endfor %}
+            },
+            {% endif %}
+            {% if mode.fields_header %}
+            header_params = {
+                {% for field in mode.fields_header %}
+                '{{field.api_fieldname}}': {% if not field.external_param %}self.{% endif %}{{field._key.snake}},
+                {% endfor %}
+            },
+            {% endif %}
+            {% if mode.fields_query %}
+            query_params = {
+                {% for field in mode.fields_query %}
+                '{{field.api_fieldname}}': {% if not field.external_param %}self.{% endif %}{{field._key.snake}},
+                {% endfor %}
+            },
+            {% endif %}
+            {% if mode.fields_body %}
+            body_params = {
+                {% for field in mode.fields_body %}
+                '{{field.api_fieldname}}': {% if not field.external_param %}self.{% endif %}{{field._key.snake}},
+                {% endfor %}
+            },
+            {% endif %}
+            {% if mode.fields_file %}
+            stream_params = {
+                {% for field in mode.fields_file %}
+                '{{field.api_fieldname}}': {% if not field.external_param %}self.{% endif %}{{field._key.snake}},
+                {% endfor %}
+            },
+            {% endif %}
+            {% if mode.field_renames %}
+            inbound_renames = {
+                {% for rename in mode.field_renames %}
+                '{{rename.api_fieldname}}': '{{rename._key.snake}}',
+                {% endfor %}
+            },
+            {% endif %}
+            {% if mode.pagination %}
+            unpack = False,
+            {% endif %}
+        )
+    {% endfor %}
+{% endfor %}

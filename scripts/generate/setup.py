@@ -9,5 +9,5 @@ setup(
     include_package_data=True,
     package_dir={'': 'src'},
     packages=find_packages('src'),
-    install_requires=['pyyaml', 'chevron'],
+    install_requires=['pyyaml', 'jinja2'],
 )
