@@ -1,5 +1,7 @@
 from mbed_cloud import pagination
 from mbed_cloud.sdk import common
+from mbed_cloud.sdk import fields
+from mbed_cloud.sdk import enums
 
 
 class InstanceFactory:
@@ -35,42 +37,52 @@ class {{ entity._key.pascal }}(common.Entity):
     ):
         """Creates a local `{{entity._key.pascal}}` instance
 
-        {% for field in entity.fields %}:param {{field._key.snake}}: {{field.description}}
+        {% for field in entity.fields %}:param {{field._key.snake}}: {{ field.description|wordwrap(width=88)|indent(width=12) }}
         :type {{field._key.snake}}: {{field.type}}
         {% endfor %}"""
 
         super().__init__(client=client)
 
-        # Attributes
-        {% for field in entity.fields %}self._{{field._key.snake}} = {{field._key.snake}}
+        # Field attributes
+        {% for field in entity.fields %}self._{{field._key.snake}} = fields.{{field.python_field}}({{field._key.snake}})
         {% endfor %}
 
     {% for field in entity.fields %}
     @property
     def {{field._key.snake}}(self):
-        """{{ field.description }}
+        """{{ field.description|wordwrap(width=88)|indent(width=8) }}
         {% if field.example %}
-        api example: {{ field.example|repr }}
+        api example: {{ field.example|repr|wordwrap(width=88)|indent(width=12) }}
         {% endif %}
+        :rtype: {{ field.python_type }}
         """
-        return self._{{field._key.snake}}
+        return self._{{field._key.snake}}.value
     {% if not field.read_only and not field=='id' %}
     @{{ field._key.snake }}.setter
     def {{field._key.snake}}(self, value):
-        self._{{field._key.snake}} = value
+        """
+        :param value: set value of `{{ field._key.snake }}`
+        :type value: {{ field.python_type }}
+        """
+        self._{{field._key.snake}}.set(value)
     {% endif %}
     {% endfor %}
 
     {% for mode in entity.modes %}
     def {{mode._key.snake}}(
         self
-        {% for field in mode.fields_external %},
+        {% for field in mode.fields_external_required %},
         {{field._key.snake}}
+        {% endfor %}
+        {% for field in mode.fields_external_optional %},
+        {{field._key.snake}}=None
         {% endfor %}
     ):
         """{{mode.summary}}
+
+        api documentation: https://os.mbed.com/search/?q={{ mode.path }}
         {% if mode.fields_external %}
-        {% for field in mode.fields_external %}:param {{field._key.snake}}: {{field.description}}
+        {% for field in mode.fields_external %}:param {{field._key.snake}}: {{ field.description|wordwrap(width=88)|indent(width=12) }}
         :type {{field._key.snake}}: {{field.type}}
         {% endfor %}
         {% endif %}"""
@@ -86,8 +98,11 @@ class {{ entity._key.pascal }}(common.Entity):
 
     def _{{mode._key.snake}}(
         self
-        {% for field in mode.fields_external %},
+        {% for field in mode.fields_external_required %},
         {{field._key.snake}}
+        {% endfor %}
+        {% for field in mode.fields_external_optional %},
+        {{field._key.snake}}=None
         {% endfor %}
     ):
         """Internal 'next-page' behaviour for pagination"""
@@ -98,35 +113,40 @@ class {{ entity._key.pascal }}(common.Entity):
             {% if mode.fields_path %}
             path_params = {
                 {% for field in mode.fields_path %}
-                '{{field.parameter_fieldname}}': {% if not field.external_param %}self.{% endif %}{{field._key.snake}},
+                '{{field.parameter_fieldname}}':
+                    {% if field.external_param %}
+                        fields.{{ field.python_field }}({{field._key.snake}}{% if field.enum_reference %}, enum=enums.{{ field.enum_reference.pascal }}{% endif %}).to_api()
+                    {% else %}
+                        self._{{field._key.snake}}.to_api()
+                    {% endif %},
                 {% endfor %}
             },
             {% endif %}
             {% if mode.fields_header %}
             header_params = {
                 {% for field in mode.fields_header %}
-                '{{field.parameter_fieldname}}': {% if not field.external_param %}self.{% endif %}{{field._key.snake}},
+                '{{field.parameter_fieldname}}': {% if field.external_param %}fields.{{ field.python_field }}({{field._key.snake}}).to_api(){% else %}self._{{field._key.snake}}.to_api(){% endif %},
                 {% endfor %}
             },
             {% endif %}
             {% if mode.fields_query %}
             query_params = {
                 {% for field in mode.fields_query %}
-                '{{field.parameter_fieldname}}': {% if not field.external_param %}self.{% endif %}{{field._key.snake}},
+                '{{field.parameter_fieldname}}': {% if field.external_param %}fields.{{ field.python_field }}({{field._key.snake}}).to_api(){% else %}self._{{field._key.snake}}.to_api(){% endif %},
                 {% endfor %}
             },
             {% endif %}
             {% if mode.fields_body %}
             body_params = {
                 {% for field in mode.fields_body %}
-                '{{field.parameter_fieldname}}': {% if not field.external_param %}self.{% endif %}{{field._key.snake}},
+                '{{field.parameter_fieldname}}': {% if field.external_param %}fields.{{ field.python_field }}({{field._key.snake}}).to_api(){% else %}self._{{field._key.snake}}.to_api(){% endif %},
                 {% endfor %}
             },
             {% endif %}
             {% if mode.fields_file %}
             stream_params = {
                 {% for field in mode.fields_file %}
-                '{{field.parameter_fieldname}}': {% if not field.external_param %}self.{% endif %}{{field._key.snake}},
+                '{{field.parameter_fieldname}}': {% if field.external_param %}fields.{{ field.python_field }}({{field._key.snake}}).to_api(){% else %}self._{{field._key.snake}}.to_api(){% endif %},
                 {% endfor %}
             },
             {% endif %}
