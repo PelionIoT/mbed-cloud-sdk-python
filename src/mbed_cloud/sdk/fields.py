@@ -7,8 +7,9 @@ from dateutil.parser import parse
 class Field(object):
     base_type = None
 
-    def __init__(self, value):
+    def __init__(self, value, enum=None):
         self._val = None
+        self._enum = enum
         self.set(value)
 
     @property
@@ -18,6 +19,8 @@ class Field(object):
     def set(self, value):
         if not isinstance(value, (self.base_type, type(None))):
             raise TypeError("%s is not a %s" % (value, self.base_type))
+        if self._enum and value not in self._enum.values:
+            raise ValueError("%s must be a value from %s" % (value, self._enum))
         self._val = value
         return self
 

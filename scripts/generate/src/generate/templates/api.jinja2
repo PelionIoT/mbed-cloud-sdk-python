@@ -125,28 +125,48 @@ class {{ entity._key.pascal }}(common.Entity):
             {% if mode.fields_header %}
             header_params = {
                 {% for field in mode.fields_header %}
-                '{{field.parameter_fieldname}}': {% if field.external_param %}fields.{{ field.python_field }}({{field._key.snake}}).to_api(){% else %}self._{{field._key.snake}}.to_api(){% endif %},
+                '{{field.parameter_fieldname}}':
+                    {% if field.external_param %}
+                        fields.{{ field.python_field }}({{field._key.snake}}{% if field.enum_reference %}, enum=enums.{{ field.enum_reference.pascal }}{% endif %}).to_api()
+                    {% else %}
+                        self._{{field._key.snake}}.to_api()
+                    {% endif %},
                 {% endfor %}
             },
             {% endif %}
             {% if mode.fields_query %}
             query_params = {
                 {% for field in mode.fields_query %}
-                '{{field.parameter_fieldname}}': {% if field.external_param %}fields.{{ field.python_field }}({{field._key.snake}}).to_api(){% else %}self._{{field._key.snake}}.to_api(){% endif %},
+                '{{field.parameter_fieldname}}':
+                    {% if field.external_param %}
+                        fields.{{ field.python_field }}({{field._key.snake}}{% if field.enum_reference %}, enum=enums.{{ field.enum_reference.pascal }}{% endif %}).to_api()
+                    {% else %}
+                        self._{{field._key.snake}}.to_api()
+                    {% endif %},
                 {% endfor %}
             },
             {% endif %}
             {% if mode.fields_body %}
             body_params = {
                 {% for field in mode.fields_body %}
-                '{{field.parameter_fieldname}}': {% if field.external_param %}fields.{{ field.python_field }}({{field._key.snake}}).to_api(){% else %}self._{{field._key.snake}}.to_api(){% endif %},
+                '{{field.parameter_fieldname}}':
+                    {% if field.external_param %}
+                        fields.{{ field.python_field }}({{field._key.snake}}{% if field.enum_reference %}, enum=enums.{{ field.enum_reference.pascal }}{% endif %}).to_api()
+                    {% else %}
+                        self._{{field._key.snake}}.to_api()
+                    {% endif %},
                 {% endfor %}
             },
             {% endif %}
             {% if mode.fields_file %}
             stream_params = {
                 {% for field in mode.fields_file %}
-                '{{field.parameter_fieldname}}': {% if field.external_param %}fields.{{ field.python_field }}({{field._key.snake}}).to_api(){% else %}self._{{field._key.snake}}.to_api(){% endif %},
+                '{{field.parameter_fieldname}}':
+                    {% if field.external_param %}
+                        fields.{{ field.python_field }}({{field._key.snake}}{% if field.enum_reference %}, enum=enums.{{ field.enum_reference.pascal }}{% endif %}).to_api()
+                    {% else %}
+                        self._{{field._key.snake}}.to_api()
+                    {% endif %},
                 {% endfor %}
             },
             {% endif %}

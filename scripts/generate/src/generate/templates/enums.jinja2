@@ -1,0 +1,16 @@
+{% for enum in enums %}
+
+class {{ enum.enum_name.pascal }}:
+    """Represents the `{{enum.enum_name.pascal}}` options as used by Mbed Cloud {{ enum.group_id.snake }} functionality"""
+
+    {% for value in enum['values'] %}{{ value|upper }} = '{{ value }}'
+    {% endfor %}
+
+    values = frozenset((
+        {% for value in enum['values'] %}'{{ value }}',
+        {% endfor %}
+    ))
+
+    def __setattr__(self, name, value):
+        raise Exception('enum container values cannot be modified')
+{% endfor %}

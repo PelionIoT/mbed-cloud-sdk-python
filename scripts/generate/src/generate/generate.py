@@ -31,6 +31,7 @@ TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), 'templates')
 
 
 def main(input_file, output_dir):
+    _LOG.info('loading %s', input_file)
     with open(input_file, encoding='utf8') as fh:
         config = yaml.safe_load(fh)
 
@@ -38,16 +39,19 @@ def main(input_file, output_dir):
         loader=jinja2.FileSystemLoader(TEMPLATE_DIR)
     )
     jinja_env.filters['repr'] = repr
-    tpl = jinja_env.get_template('api.jinja2')
-    rendered = tpl.render(config)
 
-    if not os.path.exists(output_dir):
-        os.makedirs(output_dir)
+    for template_name, render_name in {'api.jinja2': 'api.py', 'enums.jinja2': 'enums.py'}.items():
+        tpl = jinja_env.get_template(template_name)
+        _LOG.info('rendering %s', template_name)
+        rendered = tpl.render(config)
 
-    output = os.path.join(output_dir, 'api.py')
-    with open(output, 'w') as fh:
-        _LOG.info('writing %s', output)
-        fh.write(rendered)
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
+
+        output = os.path.join(output_dir, render_name)
+        with open(output, 'w') as fh:
+            _LOG.info('writing %s', output)
+            fh.write(rendered)
 
     _LOG.info('post-formatting %s', output_dir)
     subprocess.run(['black', output_dir])

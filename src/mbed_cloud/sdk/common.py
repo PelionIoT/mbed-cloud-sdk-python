@@ -171,7 +171,7 @@ class Entity:
         if response.status_code // 100 == 2:
             if unpack:
                 for k, v in response.json().items():
-                    field = getattr(unpack, '_' + inbound_renames.get(k, k), None)
+                    field = getattr(unpack, "_" + inbound_renames.get(k, k), None)
                     if field:
                         field.from_api(v)
                 return unpack
