@@ -136,7 +136,7 @@ class Entity:
         self._client = client
 
     def __repr__(self):
-        return repr({k: v for k, v in vars(self).items() if k in self._fieldnames})
+        return repr({field: getattr(self, field) for field in self._fieldnames})
 
     def _call_api(
         self,
@@ -184,8 +184,8 @@ class Entity:
             host = self._client.config.host
             hints = [
                 "URL: %s" % url,
-                "Using host: %r api_key: '%s%s%s'"
-                % (host, api_key[:2], "***" if api_key else "", api_key[-3:]),
+                "HTTP method: %s, api_key: '%s%s%s'"
+                % (method.upper(), api_key[:2], "***" if api_key else "", api_key[-3:]),
                 "More parameters are attached to this error as `all_parameters`.",
             ]
             if not api_key:
@@ -201,11 +201,16 @@ class Entity:
                 content = json.loads(response.content)
             except Exception:
                 content = {"response": content}
+            else:
+                # remap error response fields too!
+                fields = content.get("fields", [])
+                fields[:] = [inbound_renames.get(f, f) for f in fields]
             api_feedback = textwrap.indent(json.dumps(content, indent=2), "  ")
             error = ApiErrorResponse(
                 "Error response from API (HTTP %s):\n%s\nMore information:\n%s"
                 % (response.status_code, api_feedback, hints)
             )
             error.content = content
+            error.response = response
             error.all_parameters = all_params
             raise error

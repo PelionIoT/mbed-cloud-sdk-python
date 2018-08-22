@@ -2,6 +2,8 @@ import random
 
 from tests.common import BaseCase
 
+from mbed_cloud.sdk import enums
+
 
 class TestUserFactory(BaseCase):
     """
@@ -77,6 +79,11 @@ class TestUserMethods(BaseCase):
         new_number = str(random.randint(1e6, 1e7 - 1))
         user.phone_number = new_number
         self.assertEqual(user.phone_number, new_number)
+
+        print(user.status)
+        user.status = enums.UserStatusEnum.ENROLLING
+        print(user.status)
+
         user.update()
         print(user.phone_number)
 
@@ -90,8 +97,24 @@ class TestUserMethods(BaseCase):
         print(user.groups)
         print(user.login_history)
 
+    def test_related(self):
+        from mbed_cloud.sdk.api import User
+        user = User(id='015f4d70658002420a010a1000000000')
+        user.read()
+        for g in user.group_ids:
+            print('groups', g)
+
+    def test_nested(self):
+        from mbed_cloud.sdk.api import User
+        user = User(id='015f4d70658002420a010a1000000000')
+        user.read()
+        for history in user.login_history:
+            print(history)
+
     def test_paginate_get(self):
         from mbed_cloud.sdk.api import User
         user = User(id='015f4d70658002420a010a1000000000')
         user.read()
-        print(user.group_ids(accountid=user.account_id))
+        groups = user.groups()
+        print(type(groups))
+        print(groups)
