@@ -30,6 +30,38 @@ _LOG = logging.getLogger(__file__)
 TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), 'templates')
 
 
+class GenModule:
+    def __init__(self, name=None, data=None, root=None):
+        self.name = name
+        self.data = data or {}
+        self.root = root
+
+
+class FileMap:
+    def __init__(self, jinja_env, output_dir, template, target=None, per_module=None):
+        self.jinja_env = jinja_env
+        self.output_dir = output_dir
+        self.target = target or template.replace('jinja2', 'py')
+        self.template = self.jinja_env.get_template(template)
+        self.per_module = per_module or [GenModule()]
+
+    def run(self, config):
+        for gen_module in self.per_module:
+            _LOG.info('rendering %s', self.template)
+            module_config = {'gen_module': gen_module.data}
+            module_config.update(config)
+            rendered = self.template.render(module_config)
+            output_dir = os.path.join(*[p for p in (self.output_dir, gen_module.root, gen_module.name) if p])
+
+            if not os.path.exists(output_dir):
+                os.makedirs(output_dir)
+
+            output = os.path.join(output_dir, self.target)
+            with open(output, 'w') as fh:
+                _LOG.info('writing %s', output)
+                fh.write(rendered)
+
+
 def main(input_file, output_dir):
     _LOG.info('loading %s', input_file)
     with open(input_file, encoding='utf8') as fh:
@@ -40,18 +72,25 @@ def main(input_file, output_dir):
     )
     jinja_env.filters['repr'] = repr
 
-    for template_name, render_name in {'api.jinja2': 'api.py', 'enums.jinja2': 'enums.py'}.items():
-        tpl = jinja_env.get_template(template_name)
-        _LOG.info('rendering %s', template_name)
-        rendered = tpl.render(config)
+    sub_modules = [
+        GenModule(name=g['_key']['snake'], root='modules', data=g) for g in config.get('groups')
+    ]
 
-        if not os.path.exists(output_dir):
-            os.makedirs(output_dir)
+    file_maps = [
+        FileMap(jinja_env, output_dir, 'api.jinja2'),
+        FileMap(jinja_env, output_dir, 'enums.jinja2'),
+        FileMap(jinja_env, output_dir, '__init__.jinja2', per_module=sub_modules),
+    ]
 
-        output = os.path.join(output_dir, render_name)
-        with open(output, 'w') as fh:
-            _LOG.info('writing %s', output)
-            fh.write(rendered)
+    for file_map in file_maps:
+        file_map.run(config)
+
+    # write a blank __init__
+    _LOG.info('writing supplementary files')
+    with open(os.path.join(output_dir, '__init__.py'), 'a'):
+        pass
+    with open(os.path.join(output_dir, 'modules', '__init__.py'), 'a'):
+        pass
 
     _LOG.info('post-formatting %s', output_dir)
     subprocess.run(['black', output_dir])

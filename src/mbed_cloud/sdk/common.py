@@ -10,6 +10,8 @@ import textwrap
 from mbed_cloud import utils
 from mbed_cloud import pagination
 
+from mbed_cloud.sdk.logs import LOGGER
+
 
 def pluck_if_not_none(source, *pluck):
     return {k: source[k] for k in pluck if source[k] is not None}
@@ -93,7 +95,7 @@ class SDK:
 
         from mbed_cloud.sdk import api
 
-        self.factory = api.InstanceFactory(self)
+        self.entities = api.InstanceFactory(self)
 
     @property
     def client(self):
@@ -124,6 +126,17 @@ def get_or_create_global_sdk_instance():
     return global_sdk
 
 
+def pretty_literal(content, indent=2, replace_null=True):
+    """Given content comprised of literals, render them line-by-line
+
+    json lib is used instead of pretty print because it looks better
+    """
+    content = textwrap.indent(
+        json.dumps(content, indent=2, default=lambda x: str(type(x))), " " * indent
+    )
+    return content.replace(" null", " None") if replace_null else content
+
+
 class Entity:
     _fieldnames = []
 
@@ -139,6 +152,7 @@ class Entity:
         if isinstance(client, SDK):
             client = client.client
         self._client = client
+        self._logger = LOGGER.getChild(self.__class__.__name__)
 
     def __str__(self):
         friendly = "?"
@@ -194,6 +208,8 @@ class Entity:
         if unpack is None:
             unpack = self
 
+        inbound_renames = inbound_renames or {}
+
         if response.status_code // 100 == 2:
             if unpack:
                 if inspect.isclass(unpack):
@@ -209,10 +225,12 @@ class Entity:
         api_key = self._client.config.api_key or ""
         host = self._client.config.host
         hints = [
+            "Request parameters:",
             "URL: %s" % url,
             "HTTP method: %s, api_key: '%s%s%s'"
             % (method.upper(), api_key[:2], "***" if api_key else "", api_key[-3:]),
-            "More parameters are attached to this error as `all_parameters`.",
+            "Any additional parameters are attached to this %s instance."
+            % ApiErrorResponse.__name__,
         ]
         if not api_key:
             hints.append(
@@ -221,6 +239,11 @@ class Entity:
         if not host.startswith("https"):
             hints.append(
                 "The host scheme should start with 'https' for a secure connection to the cloud."
+            )
+        if path_params and not all(path_params.values()):
+            hints.append(
+                "Some parameters required in the URL appear to be missing:\n%s"
+                % pretty_literal(path_params)
             )
         hints = "\n".join(hints)
         try:
@@ -231,9 +254,9 @@ class Entity:
             # remap error response fields too!
             fields = content.get("fields", [])
             fields[:] = [inbound_renames.get(f, f) for f in fields]
-        api_feedback = textwrap.indent(json.dumps(content, indent=2), "  ")
+        api_feedback = pretty_literal(content)
         error = ApiErrorResponse(
-            "Error response from API (HTTP %s):\n%s\nMore information:\n%s"
+            "Error response from API (HTTP %s):\n%s\n%s"
             % (response.status_code, api_feedback, hints)
         )
         error.content = content
