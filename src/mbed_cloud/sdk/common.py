@@ -25,8 +25,10 @@ DEFAULT_API_KEY = None
 global_sdk = None
 
 
-class ApiErrorResponse(requests.HTTPError):
-    pass
+class ApiErrorResponse(IOError):
+    raw = None
+    status_code = None
+    all_parameters = None
 
 
 def paginate(unpack):
@@ -152,6 +154,9 @@ class Entity:
     def __repr__(self):
         return repr({field: getattr(self, field) for field in self._fieldnames})
 
+    def to_literal(self):
+        return {field: getattr(self, field).to_literal() for field in self._fieldnames}
+
     def _from_api(self, inbound_renames, **kwargs):
         for k, v in kwargs.items():
             field = getattr(self, "_" + inbound_renames.get(k, k), None)
@@ -189,8 +194,6 @@ class Entity:
         if unpack is None:
             unpack = self
 
-        print(response.content)
-
         if response.status_code // 100 == 2:
             if unpack:
                 if inspect.isclass(unpack):
@@ -198,40 +201,43 @@ class Entity:
                 return unpack._from_api(inbound_renames, **response.json())
             else:
                 return response
-        else:
-            # check if we didn't have an api key set
-            all_params = locals()
-            api_key = self._client.config.api_key or ""
-            host = self._client.config.host
-            hints = [
-                "URL: %s" % url,
-                "HTTP method: %s, api_key: '%s%s%s'"
-                % (method.upper(), api_key[:2], "***" if api_key else "", api_key[-3:]),
-                "More parameters are attached to this error as `all_parameters`.",
-            ]
-            if not api_key:
-                hints.append(
-                    "There was no API key detected. You need to set one to interact with the cloud."
-                )
-            if not host.startswith("https"):
-                hints.append(
-                    "The host scheme should start with 'https' for a secure connection to the cloud."
-                )
-            hints = "\n".join(hints)
-            try:
-                content = json.loads(response.content)
-            except Exception:
-                content = {"response": content}
-            else:
-                # remap error response fields too!
-                fields = content.get("fields", [])
-                fields[:] = [inbound_renames.get(f, f) for f in fields]
-            api_feedback = textwrap.indent(json.dumps(content, indent=2), "  ")
-            error = ApiErrorResponse(
-                "Error response from API (HTTP %s):\n%s\nMore information:\n%s"
-                % (response.status_code, api_feedback, hints)
+
+        # else the response indicates an error
+
+        # check if we didn't have an api key set
+        all_params = locals()
+        api_key = self._client.config.api_key or ""
+        host = self._client.config.host
+        hints = [
+            "URL: %s" % url,
+            "HTTP method: %s, api_key: '%s%s%s'"
+            % (method.upper(), api_key[:2], "***" if api_key else "", api_key[-3:]),
+            "More parameters are attached to this error as `all_parameters`.",
+        ]
+        if not api_key:
+            hints.append(
+                "There was no API key detected. You need to set one to interact with the cloud."
             )
-            error.content = content
-            error.response = response
-            error.all_parameters = all_params
-            raise error
+        if not host.startswith("https"):
+            hints.append(
+                "The host scheme should start with 'https' for a secure connection to the cloud."
+            )
+        hints = "\n".join(hints)
+        try:
+            content = json.loads(response.content)
+        except Exception:
+            content = {"response": content}
+        else:
+            # remap error response fields too!
+            fields = content.get("fields", [])
+            fields[:] = [inbound_renames.get(f, f) for f in fields]
+        api_feedback = textwrap.indent(json.dumps(content, indent=2), "  ")
+        error = ApiErrorResponse(
+            "Error response from API (HTTP %s):\n%s\nMore information:\n%s"
+            % (response.status_code, api_feedback, hints)
+        )
+        error.content = content
+        error.status_code = response.status_code
+        error.raw = all_params.pop("response")
+        error.all_parameters = all_params
+        raise error

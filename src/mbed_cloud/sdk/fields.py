@@ -25,7 +25,7 @@ class Field(object):
         self._val = value
         return self
 
-    def to_json(self):
+    def to_literal(self):
         return self.value
 
     def to_api(self):
@@ -38,7 +38,7 @@ class Field(object):
 class DateTimeField(Field):
     base_type = datetime
 
-    def to_json(self):
+    def to_literal(self):
         return self.value.isoformat() if self.value else None
 
     def to_api(self):

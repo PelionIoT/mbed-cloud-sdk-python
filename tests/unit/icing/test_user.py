@@ -117,9 +117,9 @@ class TestUserMethods(BaseCase):
         user = User(id='015f4d70658002420a010a1000000000')
         user.read()
         groups = user.groups()
-        print(type(groups))
+        print(groups)
         print(len(groups))
         print(user.group_ids)
         for group in groups:
             print(group)
-        print(groups)
+        print(repr(groups.first()))

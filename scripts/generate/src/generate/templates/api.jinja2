@@ -109,7 +109,7 @@ class {{ entity._key.pascal }}(common.Entity):
     {% if mode.pagination %}
         {# continuing from the outer, 'public' definition ... #}
         def mapper(api_data):
-            return self.__class__()._from_api(
+            return {{ mode.foreign_key.entity.pascal }}()._from_api(
                 inbound_renames = {
                     {% for rename in mode.field_renames %}
                     '{{rename.api_fieldname}}': '{{rename._key.snake}}',

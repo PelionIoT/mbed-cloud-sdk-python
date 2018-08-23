@@ -615,7 +615,7 @@ class ApiKey(common.Entity):
         """
 
         def mapper(api_data):
-            return self.__class__()._from_api(
+            return AccountGroup()._from_api(
                 inbound_renames={"groups": "group_ids"}, **api_data
             )
 
@@ -664,7 +664,7 @@ class ApiKey(common.Entity):
         """
 
         def mapper(api_data):
-            return self.__class__()._from_api(
+            return ApiKey()._from_api(
                 inbound_renames={"groups": "group_ids"}, **api_data
             )
 
@@ -933,7 +933,7 @@ class PSK(common.Entity):
         """
 
         def mapper(api_data):
-            return self.__class__()._from_api(inbound_renames={}, **api_data)
+            return PSK()._from_api(inbound_renames={}, **api_data)
 
         return pagination.PaginatedResponse(
             func=self._list, lwrap_type=mapper, after=after, limit=limit
@@ -1520,7 +1520,7 @@ class User(common.Entity):
         """
 
         def mapper(api_data):
-            return self.__class__()._from_api(
+            return AccountGroup()._from_api(
                 inbound_renames={
                     "groups": "group_ids",
                     "is_marketing_accepted": "marketing_accepted",
@@ -1583,7 +1583,7 @@ class User(common.Entity):
         """
 
         def mapper(api_data):
-            return self.__class__()._from_api(
+            return User()._from_api(
                 inbound_renames={
                     "groups": "group_ids",
                     "is_marketing_accepted": "marketing_accepted",
