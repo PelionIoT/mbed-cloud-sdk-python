@@ -50,7 +50,18 @@ class {{ entity._key.pascal }}(common.Entity):
         super().__init__(client=client)
 
         # Field attributes
-        {% for field in entity.fields %}self._{{field._key.snake}} = fields.{{field.python_field}}({{field._key.snake}}{% if field.enum_reference %}, enum=enums.{{ field.enum_reference.pascal }}{% endif %})
+        {% for field in entity.fields %}self._{{field._key.snake}} = fields.{{field.python_field}}(
+            value={{field._key.snake}}
+            {% if field.enum_reference %},
+            enum=enums.{{ field.enum_reference.pascal }}
+            {% endif %}
+            {% if field['items'] and field['items'].foreign_key %},
+            entity={{ field['items'].foreign_key.entity.pascal }}
+            {% endif %}
+            {% if field.foreign_key %},
+            entity={{ field.foreign_key.entity.pascal }}
+            {% endif %}
+        )
         {% endfor %}
 
     {% for field in entity.fields %}
@@ -97,9 +108,18 @@ class {{ entity._key.pascal }}(common.Entity):
 
     {% if mode.pagination %}
         {# continuing from the outer, 'public' definition ... #}
+        def mapper(api_data):
+            return self.__class__()._from_api(
+                inbound_renames = {
+                    {% for rename in mode.field_renames %}
+                    '{{rename.api_fieldname}}': '{{rename._key.snake}}',
+                    {% endfor %}
+                },
+                **api_data
+            )
         return pagination.PaginatedResponse(
             func=self._{{mode._key.snake}},
-            lwrap_type=self.__class__,
+            lwrap_type=mapper,
             {% for field in mode.fields %}{% if field.external_param %}{{field._key.snake}}={{field._key.snake}},
             {% endif %}
             {% endfor %}

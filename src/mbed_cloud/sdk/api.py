@@ -104,16 +104,16 @@ class AccountGroup(common.Entity):
         super().__init__(client=client)
 
         # Field attributes
-        self._account_id = fields.StringField(account_id)
-        self._apikey_count = fields.IntegerField(apikey_count)
-        self._code = fields.IntegerField(code)
-        self._created_at = fields.DateTimeField(created_at)
-        self._id = fields.StringField(id)
-        self._message = fields.StringField(message)
-        self._name = fields.StringField(name)
-        self._request_id = fields.StringField(request_id)
-        self._updated_at = fields.DateTimeField(updated_at)
-        self._user_count = fields.IntegerField(user_count)
+        self._account_id = fields.StringField(value=account_id)
+        self._apikey_count = fields.IntegerField(value=apikey_count)
+        self._code = fields.IntegerField(value=code)
+        self._created_at = fields.DateTimeField(value=created_at)
+        self._id = fields.StringField(value=id)
+        self._message = fields.StringField(value=message)
+        self._name = fields.StringField(value=name)
+        self._request_id = fields.StringField(value=request_id)
+        self._updated_at = fields.DateTimeField(value=updated_at)
+        self._user_count = fields.IntegerField(value=user_count)
 
     @property
     def account_id(self):
@@ -325,7 +325,7 @@ class ApiKey(common.Entity):
     _fieldnames = [
         "created_at",
         "creation_time",
-        "groups",
+        "group_ids",
         "id",
         "key",
         "last_login_time",
@@ -340,7 +340,7 @@ class ApiKey(common.Entity):
         client=None,
         created_at=None,
         creation_time=None,
-        groups=None,
+        group_ids=None,
         id=None,
         key=None,
         last_login_time=None,
@@ -355,8 +355,8 @@ class ApiKey(common.Entity):
         :type created_at: string
         :param creation_time: The timestamp of the API key creation in the storage, in milliseconds.
         :type creation_time: integer
-        :param groups: A list of group IDs this API key belongs to.
-        :type groups: array
+        :param group_ids: A list of group IDs this API key belongs to.
+        :type group_ids: array
         :param id: The UUID of the API key.
         :type id: string
         :param key: The API key.
@@ -376,16 +376,16 @@ class ApiKey(common.Entity):
         super().__init__(client=client)
 
         # Field attributes
-        self._created_at = fields.DateTimeField(created_at)
-        self._creation_time = fields.IntegerField(creation_time)
-        self._groups = fields.ListField(groups)
-        self._id = fields.StringField(id)
-        self._key = fields.StringField(key)
-        self._last_login_time = fields.IntegerField(last_login_time)
-        self._name = fields.StringField(name)
-        self._owner = fields.StringField(owner)
-        self._status = fields.StringField(status, enum=enums.ApiKeyStatusEnum)
-        self._updated_at = fields.DateTimeField(updated_at)
+        self._created_at = fields.DateTimeField(value=created_at)
+        self._creation_time = fields.IntegerField(value=creation_time)
+        self._group_ids = fields.ListField(value=group_ids)
+        self._id = fields.StringField(value=id)
+        self._key = fields.StringField(value=key)
+        self._last_login_time = fields.IntegerField(value=last_login_time)
+        self._name = fields.StringField(value=name)
+        self._owner = fields.StringField(value=owner)
+        self._status = fields.StringField(value=status, enum=enums.ApiKeyStatusEnum)
+        self._updated_at = fields.DateTimeField(value=updated_at)
 
     @property
     def created_at(self):
@@ -424,20 +424,20 @@ class ApiKey(common.Entity):
         self._creation_time.set(value)
 
     @property
-    def groups(self):
+    def group_ids(self):
         """A list of group IDs this API key belongs to.
         
         :rtype: list
         """
-        return self._groups.value
+        return self._group_ids.value
 
-    @groups.setter
-    def groups(self, value):
+    @group_ids.setter
+    def group_ids(self, value):
         """
-        :param value: set value of `groups`
+        :param value: set value of `group_ids`
         :type value: list
         """
-        self._groups.set(value)
+        self._group_ids.set(value)
 
     @property
     def id(self):
@@ -575,11 +575,12 @@ class ApiKey(common.Entity):
             method="post",
             path="/v3/api-keys",
             body_params={
-                "groups": self._groups.to_api(),
+                "groups": self._group_ids.to_api(),
                 "name": self._name.to_api(),
                 "owner": self._owner.to_api(),
                 "status": self._status.to_api(),
             },
+            inbound_renames={"groups": "group_ids"},
         )
 
     def delete(self):
@@ -592,12 +593,13 @@ class ApiKey(common.Entity):
             method="delete",
             path="/v3/api-keys/{apiKey}",
             path_params={"apiKey": self._id.to_api()},
+            inbound_renames={"groups": "group_ids"},
         )
 
-    def group_ids(self, after=None, include=None, limit=50, order="ASC"):
+    def groups(self, after=None, include=None, limit=50, order="ASC"):
         """Get groups of the API key.
 
-        api documentation: https://os.mbed.com/search/?q=service+apis+/v3/api-keys/me/groups
+        api documentation: https://os.mbed.com/search/?q=service+apis+/v3/api-keys/{apiKey}/groups
         
         :param after: The entity ID to fetch after the given one.
         :type after: string
@@ -612,27 +614,34 @@ class ApiKey(common.Entity):
         :type order: string
         """
 
+        def mapper(api_data):
+            return self.__class__()._from_api(
+                inbound_renames={"groups": "group_ids"}, **api_data
+            )
+
         return pagination.PaginatedResponse(
-            func=self._group_ids,
-            lwrap_type=self.__class__,
+            func=self._groups,
+            lwrap_type=mapper,
             after=after,
             include=include,
             limit=limit,
             order=order,
         )
 
-    def _group_ids(self, after=None, include=None, limit=None, order=None):
+    def _groups(self, after=None, include=None, limit=None, order=None):
         """Internal 'next-page' behaviour for pagination"""
 
         return self._call_api(
             method="get",
-            path="/v3/api-keys/me/groups",
+            path="/v3/api-keys/{apiKey}/groups",
+            path_params={"apiKey": self._id.to_api()},
             query_params={
                 "after": fields.StringField(after).to_api(),
                 "include": fields.StringField(include).to_api(),
                 "limit": fields.IntegerField(limit).to_api(),
                 "order": fields.StringField(order).to_api(),
             },
+            inbound_renames={"groups": "group_ids"},
             unpack=False,
         )
 
@@ -654,9 +663,14 @@ class ApiKey(common.Entity):
         :type order: string
         """
 
+        def mapper(api_data):
+            return self.__class__()._from_api(
+                inbound_renames={"groups": "group_ids"}, **api_data
+            )
+
         return pagination.PaginatedResponse(
             func=self._list,
-            lwrap_type=self.__class__,
+            lwrap_type=mapper,
             after=after,
             include=include,
             limit=limit,
@@ -675,6 +689,7 @@ class ApiKey(common.Entity):
                 "limit": fields.IntegerField(limit).to_api(),
                 "order": fields.StringField(order).to_api(),
             },
+            inbound_renames={"groups": "group_ids"},
             unpack=False,
         )
 
@@ -688,6 +703,7 @@ class ApiKey(common.Entity):
             method="get",
             path="/v3/api-keys/{apiKey}",
             path_params={"apiKey": self._id.to_api()},
+            inbound_renames={"groups": "group_ids"},
         )
 
     def update(self):
@@ -700,12 +716,13 @@ class ApiKey(common.Entity):
             method="put",
             path="/v3/api-keys/{apiKey}",
             body_params={
-                "groups": self._groups.to_api(),
+                "groups": self._group_ids.to_api(),
                 "name": self._name.to_api(),
                 "owner": self._owner.to_api(),
                 "status": self._status.to_api(),
             },
             path_params={"apiKey": self._id.to_api()},
+            inbound_renames={"groups": "group_ids"},
         )
 
 
@@ -732,10 +749,10 @@ class LoginHistory(common.Entity):
         super().__init__(client=client)
 
         # Field attributes
-        self._date = fields.DateTimeField(date)
-        self._ip_address = fields.StringField(ip_address)
-        self._success = fields.BooleanField(success)
-        self._user_agent = fields.StringField(user_agent)
+        self._date = fields.DateTimeField(value=date)
+        self._ip_address = fields.StringField(value=ip_address)
+        self._success = fields.BooleanField(value=success)
+        self._user_agent = fields.StringField(value=user_agent)
 
     @property
     def date(self):
@@ -830,8 +847,8 @@ class PSK(common.Entity):
         super().__init__(client=client)
 
         # Field attributes
-        self._created_at = fields.DateTimeField(created_at)
-        self._endpoint_name = fields.StringField(endpoint_name)
+        self._created_at = fields.DateTimeField(value=created_at)
+        self._endpoint_name = fields.StringField(value=endpoint_name)
 
     @property
     def created_at(self):
@@ -915,8 +932,11 @@ class PSK(common.Entity):
         :type limit: integer
         """
 
+        def mapper(api_data):
+            return self.__class__()._from_api(inbound_renames={}, **api_data)
+
         return pagination.PaginatedResponse(
-            func=self._list, lwrap_type=self.__class__, after=after, limit=limit
+            func=self._list, lwrap_type=mapper, after=after, limit=limit
         )
 
     def _list(self, after=None, limit=None):
@@ -1047,26 +1067,28 @@ class User(common.Entity):
         super().__init__(client=client)
 
         # Field attributes
-        self._account_id = fields.StringField(account_id)
-        self._address = fields.StringField(address)
-        self._created_at = fields.DateTimeField(created_at)
-        self._creation_time = fields.IntegerField(creation_time)
-        self._email = fields.StringField(email)
-        self._email_verified = fields.BooleanField(email_verified)
-        self._full_name = fields.StringField(full_name)
-        self._group_ids = fields.ListField(group_ids)
-        self._id = fields.StringField(id)
-        self._last_login_time = fields.IntegerField(last_login_time)
-        self._login_history = fields.ListField(login_history)
-        self._marketing_accepted = fields.BooleanField(marketing_accepted)
-        self._password = fields.StringField(password)
-        self._password_changed_time = fields.IntegerField(password_changed_time)
-        self._phone_number = fields.StringField(phone_number)
-        self._status = fields.StringField(status, enum=enums.UserStatusEnum)
-        self._terms_accepted = fields.BooleanField(terms_accepted)
-        self._two_factor_auth_enabled = fields.BooleanField(two_factor_auth_enabled)
-        self._updated_at = fields.DateTimeField(updated_at)
-        self._username = fields.StringField(username)
+        self._account_id = fields.StringField(value=account_id)
+        self._address = fields.StringField(value=address)
+        self._created_at = fields.DateTimeField(value=created_at)
+        self._creation_time = fields.IntegerField(value=creation_time)
+        self._email = fields.StringField(value=email)
+        self._email_verified = fields.BooleanField(value=email_verified)
+        self._full_name = fields.StringField(value=full_name)
+        self._group_ids = fields.ListField(value=group_ids)
+        self._id = fields.StringField(value=id)
+        self._last_login_time = fields.IntegerField(value=last_login_time)
+        self._login_history = fields.ListField(value=login_history, entity=LoginHistory)
+        self._marketing_accepted = fields.BooleanField(value=marketing_accepted)
+        self._password = fields.StringField(value=password)
+        self._password_changed_time = fields.IntegerField(value=password_changed_time)
+        self._phone_number = fields.StringField(value=phone_number)
+        self._status = fields.StringField(value=status, enum=enums.UserStatusEnum)
+        self._terms_accepted = fields.BooleanField(value=terms_accepted)
+        self._two_factor_auth_enabled = fields.BooleanField(
+            value=two_factor_auth_enabled
+        )
+        self._updated_at = fields.DateTimeField(value=updated_at)
+        self._username = fields.StringField(value=username)
 
     @property
     def account_id(self):
@@ -1497,9 +1519,20 @@ class User(common.Entity):
         :type order: string
         """
 
+        def mapper(api_data):
+            return self.__class__()._from_api(
+                inbound_renames={
+                    "groups": "group_ids",
+                    "is_marketing_accepted": "marketing_accepted",
+                    "is_gtc_accepted": "terms_accepted",
+                    "is_totp_enabled": "two_factor_auth_enabled",
+                },
+                **api_data
+            )
+
         return pagination.PaginatedResponse(
             func=self._groups,
-            lwrap_type=self.__class__,
+            lwrap_type=mapper,
             after=after,
             include=include,
             limit=limit,
@@ -1549,9 +1582,20 @@ class User(common.Entity):
         :type order: string
         """
 
+        def mapper(api_data):
+            return self.__class__()._from_api(
+                inbound_renames={
+                    "groups": "group_ids",
+                    "is_marketing_accepted": "marketing_accepted",
+                    "is_gtc_accepted": "terms_accepted",
+                    "is_totp_enabled": "two_factor_auth_enabled",
+                },
+                **api_data
+            )
+
         return pagination.PaginatedResponse(
             func=self._list,
-            lwrap_type=self.__class__,
+            lwrap_type=mapper,
             after=after,
             include=include,
             limit=limit,

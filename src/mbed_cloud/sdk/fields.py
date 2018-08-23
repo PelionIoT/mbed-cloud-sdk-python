@@ -7,9 +7,10 @@ from dateutil.parser import parse
 class Field(object):
     base_type = None
 
-    def __init__(self, value, enum=None):
+    def __init__(self, value, enum=None, entity=None):
         self._val = None
         self._enum = enum
+        self._entity = entity
         self.set(value)
 
     @property
@@ -31,20 +32,20 @@ class Field(object):
         return self.value
 
     def from_api(self, value):
-        self.set(value)
+        return self.set(value)
 
 
 class DateTimeField(Field):
     base_type = datetime
 
     def to_json(self):
-        return self.value.isoformat()
+        return self.value.isoformat() if self.value else None
 
     def to_api(self):
-        return self.value.isoformat() + "Z"
+        return self.value.isoformat() + "Z" if self.value else None
 
     def from_api(self, value):
-        self.set(parse(value))
+        return self.set(parse(value) if value else value)
 
 
 class DateField(Field):
@@ -69,3 +70,9 @@ class BooleanField(Field):
 
 class ListField(Field):
     base_type = list
+
+    def from_api(self, value):
+        if self._entity:
+            return self.set([self._entity()._from_api({}, **item) for item in value])
+        else:
+            return super().from_api(value)

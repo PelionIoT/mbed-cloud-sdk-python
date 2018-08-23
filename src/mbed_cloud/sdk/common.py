@@ -1,4 +1,5 @@
 import functools
+import inspect
 import requests
 import dotenv
 import os
@@ -122,6 +123,8 @@ def get_or_create_global_sdk_instance():
 
 
 class Entity:
+    _fieldnames = []
+
     def __init__(self, client, **kwargs):
         """
 
@@ -135,8 +138,26 @@ class Entity:
             client = client.client
         self._client = client
 
+    def __str__(self):
+        friendly = "?"
+        for name in (
+            getattr(self, f, None)
+            for f in ["full_name", "name", "id"] + self._fieldnames
+        ):
+            if name is not None:
+                friendly = name
+                break
+        return "<%s %s>" % (self.__class__.__name__, friendly)
+
     def __repr__(self):
         return repr({field: getattr(self, field) for field in self._fieldnames})
+
+    def _from_api(self, inbound_renames, **kwargs):
+        for k, v in kwargs.items():
+            field = getattr(self, "_" + inbound_renames.get(k, k), None)
+            if field:
+                field.from_api(v)
+        return self
 
     def _call_api(
         self,
@@ -168,13 +189,13 @@ class Entity:
         if unpack is None:
             unpack = self
 
+        print(response.content)
+
         if response.status_code // 100 == 2:
             if unpack:
-                for k, v in response.json().items():
-                    field = getattr(unpack, "_" + inbound_renames.get(k, k), None)
-                    if field:
-                        field.from_api(v)
-                return unpack
+                if inspect.isclass(unpack):
+                    unpack = unpack()  # noqa - we're going to instantiate it
+                return unpack._from_api(inbound_renames, **response.json())
             else:
                 return response
         else:
