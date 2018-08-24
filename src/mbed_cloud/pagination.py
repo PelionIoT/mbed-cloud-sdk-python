@@ -86,16 +86,15 @@ class PaginatedResponse(object):
         return self._current_count + len(self._current_data_page)
 
     def _response_dictionary(self, response):
+        # shim to handle converting response to a dictionary
+        # e.g. from a model, dict or requests.response
         if isinstance(response, dict):
             pass
         elif hasattr(response, 'to_dict'):
-            print('from to_dict')
             response = response.to_dict()
         elif hasattr(response, 'json'):
-            print('from json')
             response = response.json()
         else:
-            print('warnging: fallback')
             response = vars(response)
         return response
 

@@ -95,9 +95,9 @@ class SDK(object):
 
         self._client = Client(self._config)
 
-        from mbed_cloud.sdk import api
+        from mbed_cloud.sdk import entities
 
-        self.entities = api.InstanceFactory(self)
+        self.entities = entities.InstanceFactory(self)
 
     @property
     def client(self):

@@ -77,7 +77,7 @@ def main(input_file, output_dir):
     ]
 
     file_maps = [
-        FileMap(jinja_env, output_dir, 'api.jinja2'),
+        FileMap(jinja_env, output_dir, 'entities.jinja2'),
         FileMap(jinja_env, output_dir, 'enums.jinja2'),
         FileMap(jinja_env, output_dir, '__init__.jinja2', per_module=sub_modules),
     ]
