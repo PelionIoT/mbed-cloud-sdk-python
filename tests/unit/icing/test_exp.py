@@ -1,3 +1,7 @@
+# Python 2 compatibility
+from __future__ import unicode_literals
+from builtins import str
+
 import random
 import weakref
 
@@ -93,7 +97,7 @@ class TestExperimental(BaseCase):
     def test(self):
         x = X(datetime.datetime.utcnow())
         print('initial', x.a)
-        print(x.a.val)
+        print(x.a)
         x.a = datetime.datetime.utcnow()
         print(x.foobar)
         print(x)

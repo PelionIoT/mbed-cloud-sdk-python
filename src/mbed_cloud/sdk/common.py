@@ -1,10 +1,12 @@
+# Python 2 compatibility
+from builtins import object
+
+import dotenv
 import functools
 import inspect
-import requests
-import dotenv
-import os
 import json
-import functools
+import os
+import requests
 import textwrap
 
 from mbed_cloud import utils
@@ -51,7 +53,7 @@ def paginate(unpack):
     return decorator
 
 
-class Config:
+class Config(object):
     _tried_dotenv = False
     api_key = None
     host = None
@@ -84,7 +86,7 @@ class Config:
         return ((k, v) for k, v in vars(self).items() if not k.startswith("_"))
 
 
-class SDK:
+class SDK(object):
     def __init__(self, config=None, **config_overrides):
         self._config = Config()
         self._config.update({"user_agent": utils.get_user_agent()})
@@ -102,7 +104,7 @@ class SDK:
         return self._client
 
 
-class Client:
+class Client(object):
     def __init__(self, config):
         """
 
@@ -137,7 +139,7 @@ def pretty_literal(content, indent=2, replace_null=True):
     return content.replace(" null", " None") if replace_null else content
 
 
-class Entity:
+class Entity(object):
     _fieldnames = []
 
     def __init__(self, client, **kwargs):
@@ -189,7 +191,7 @@ class Entity:
         stream_params=None,
         inbound_renames=None,
         unpack=None,
-        **kwargs,
+        **kwargs
     ):
         """Uses an http request handling mechanism to fetch and return results from the network"""
         url = self._client.config.host + path
@@ -203,7 +205,7 @@ class Entity:
             json=body_params,
             files=stream_params,
             stream=bool(stream_params),
-            **kwargs,
+            **kwargs
         )
         if unpack is None:
             unpack = self

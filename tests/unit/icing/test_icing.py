@@ -1,3 +1,9 @@
+# Python 2 compatibility
+from __future__ import unicode_literals
+from builtins import str
+
+import unittest
+
 from tests.common import BaseCase
 
 
@@ -9,12 +15,15 @@ class TestIcing(BaseCase):
     '''
     namespaced by class nesting
     '''
+
+    @unittest.skip('ignore')
     def test_client_root(self):
         from mbed_cloud.sdk.common import SDK
         sdk = SDK()
         u = sdk.models.User
         p = u.phone_number  # dynamic replacement class not introspectable :(
 
+    @unittest.skip('ignore')
     def test_client_root_alt(self):
         from mbed_cloud.sdk.common import SDK
         sdk = SDK()
@@ -22,16 +31,18 @@ class TestIcing(BaseCase):
         x = u()  # functools.partial not introspectable :(
         p = x.phone_number
 
+    @unittest.skip('ignore')
     def test_client_root_instances(self):
         from mbed_cloud.sdk.common import SDK
         sdk = SDK()
-        u = sdk.factory.user()
+        u = sdk.entities.user()
         p = u.phone_number  # instantiated object is introspectable
 
+    @unittest.skip('ignore')
     def test_nested_instances(self):
         from mbed_cloud.sdk.common import SDK
         sdk = SDK()
-        r = sdk.factory.device().resource()
+        r = sdk.entities.device().resource()
         v = r.kind
 
     '''

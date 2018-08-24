@@ -10,6 +10,7 @@ def get_cli():
         action='store',
         dest='input_file',
         help='The location of the input yaml.',
+        required=True,
     )
     parser.add_argument(
         '--output',

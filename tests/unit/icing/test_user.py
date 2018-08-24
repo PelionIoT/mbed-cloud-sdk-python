@@ -1,3 +1,7 @@
+# Python 2 compatibility
+from __future__ import unicode_literals
+from builtins import str
+
 import random
 
 from tests.common import BaseCase
@@ -13,7 +17,7 @@ class TestUserFactory(BaseCase):
     def get_user(self, **kwargs):
         from mbed_cloud.sdk.common import SDK
         sdk = SDK()
-        return sdk.factory.user(**kwargs)
+        return sdk.entities.user(**kwargs)
 
 
     def test_attr(self):

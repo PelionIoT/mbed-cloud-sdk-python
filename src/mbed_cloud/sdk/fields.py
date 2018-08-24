@@ -1,3 +1,10 @@
+# Python 2 compatibility
+from __future__ import unicode_literals
+from builtins import int
+from builtins import object
+from builtins import str
+from builtins import super
+
 from datetime import datetime
 from datetime import date
 
@@ -19,7 +26,7 @@ class Field(object):
 
     def set(self, value):
         if not isinstance(value, (self.base_type, type(None))):
-            raise TypeError("%s is not a %s" % (value, self.base_type))
+            raise TypeError("%r is not a %s" % (value, self.base_type))
         if value is not None and self._enum and value not in self._enum.values:
             raise ValueError("%s must be a value from %s" % (value, self._enum))
         self._val = value
