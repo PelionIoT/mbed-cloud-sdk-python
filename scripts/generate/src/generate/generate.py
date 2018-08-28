@@ -18,6 +18,7 @@
 import logging
 import os
 import subprocess
+import operator
 import pathlib
 
 import jinja2
@@ -62,6 +63,10 @@ class FileMap:
                 fh.write(rendered)
 
 
+def sort_parg_kwarg(items):
+    return sorted(items, key=lambda x: not bool(x.get('required')))
+
+
 def main(input_file, output_dir):
     _LOG.info('loading %s', input_file)
     with open(input_file, encoding='utf8') as fh:
@@ -71,6 +76,7 @@ def main(input_file, output_dir):
         loader=jinja2.FileSystemLoader(TEMPLATE_DIR)
     )
     jinja_env.filters['repr'] = repr
+    jinja_env.filters['pargs_kwargs'] = sort_parg_kwarg
 
     sub_modules = [
         GenModule(name=g['_key']['snake'], root='modules', data=g) for g in config.get('groups')

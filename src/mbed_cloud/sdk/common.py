@@ -171,7 +171,7 @@ class Entity(object):
         return repr({field: getattr(self, field) for field in self._fieldnames})
 
     def to_literal(self):
-        return {field: getattr(self, field).to_literal() for field in self._fieldnames}
+        return {field: getattr(self, '_'+field).to_literal() for field in self._fieldnames}
 
     def _from_api(self, inbound_renames, **kwargs):
         for k, v in kwargs.items():

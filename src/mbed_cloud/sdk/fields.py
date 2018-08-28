@@ -36,10 +36,10 @@ class Field(object):
         return self.value
 
     def to_api(self):
-        return self.value
+        return self.value.to_api if self._entity else self.value
 
     def from_api(self, value):
-        return self.set(value)
+        return self.set(self._entity(**value)) if value and self._entity else self.set(value)
 
 
 class DateTimeField(Field):
@@ -57,6 +57,10 @@ class DateTimeField(Field):
 
 class DateField(Field):
     base_type = date
+
+
+class DictField(Field):
+    base_type = dict
 
 
 class IntegerField(Field):
@@ -80,6 +84,6 @@ class ListField(Field):
 
     def from_api(self, value):
         if self._entity:
-            return self.set([self._entity()._from_api({}, **item) for item in value])
+            return self.set([self._entity()._from_api({}, **item) for item in value] if value else None)
         else:
             return super().from_api(value)

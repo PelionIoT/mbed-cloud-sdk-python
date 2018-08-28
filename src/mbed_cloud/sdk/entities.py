@@ -20,11 +20,11 @@ class InstanceFactory:
     def __init__(self, client):
         self.client = client
 
-    def account_group(self, **kwargs):
+    def account(self, **kwargs):
         """
-        :rtype: AccountGroup
+        :rtype: Account
         """
-        return AccountGroup(client=self.client, **kwargs)
+        return Account(client=self.client, **kwargs)
 
     def api_key(self, **kwargs):
         """
@@ -38,11 +38,29 @@ class InstanceFactory:
         """
         return LoginHistory(client=self.client, **kwargs)
 
+    def password_policy(self, **kwargs):
+        """
+        :rtype: PasswordPolicy
+        """
+        return PasswordPolicy(client=self.client, **kwargs)
+
+    def policy_group(self, **kwargs):
+        """
+        :rtype: PolicyGroup
+        """
+        return PolicyGroup(client=self.client, **kwargs)
+
     def psk(self, **kwargs):
         """
         :rtype: PSK
         """
         return PSK(client=self.client, **kwargs)
+
+    def subtenant_account(self, **kwargs):
+        """
+        :rtype: SubtenantAccount
+        """
+        return SubtenantAccount(client=self.client, **kwargs)
 
     def user(self, **kwargs):
         """
@@ -51,125 +69,351 @@ class InstanceFactory:
         return User(client=self.client, **kwargs)
 
 
-class AccountGroup(common.Entity):
-    """Represents the `AccountGroup` entity in Mbed Cloud"""
+class Account(common.Entity):
+    """Represents the `Account` entity in Mbed Cloud"""
 
     _fieldnames = [
-        "account_id",
-        "apikey_count",
-        "code",
+        "address_line1",
+        "address_line2",
+        "aliases",
+        "city",
+        "company",
+        "contact",
+        "contract_number",
+        "country",
         "created_at",
+        "custom_fields",
+        "customer_number",
+        "display_name",
+        "email",
+        "end_market",
+        "expiration_warning_threshold",
         "id",
-        "message",
-        "name",
-        "request_id",
+        "idle_timeout",
+        "limits",
+        "mfa_status",
+        "notification_emails",
+        "parent_id",
+        "password_policy",
+        "phone_number",
+        "policies",
+        "postal_code",
+        "reason",
+        "reference_note",
+        "sales_contact",
+        "state",
+        "status",
+        "sub_accounts",
+        "template_id",
+        "tier",
         "updated_at",
-        "user_count",
+        "upgraded_at",
     ]
 
     def __init__(
         self,
         client=None,
-        account_id=None,
-        apikey_count=None,
-        code=None,
+        address_line1=None,
+        address_line2=None,
+        aliases=None,
+        city=None,
+        company=None,
+        contact=None,
+        contract_number=None,
+        country=None,
         created_at=None,
+        custom_fields=None,
+        customer_number=None,
+        display_name=None,
+        email=None,
+        end_market=None,
+        expiration_warning_threshold=None,
         id=None,
-        message=None,
-        name=None,
-        request_id=None,
+        idle_timeout=None,
+        limits=None,
+        mfa_status=None,
+        notification_emails=None,
+        parent_id=None,
+        password_policy=None,
+        phone_number=None,
+        policies=None,
+        postal_code=None,
+        reason=None,
+        reference_note=None,
+        sales_contact=None,
+        state=None,
+        status=None,
+        sub_accounts=None,
+        template_id=None,
+        tier=None,
         updated_at=None,
-        user_count=None,
+        upgraded_at=None,
     ):
-        """Creates a local `AccountGroup` instance
+        """Creates a local `Account` instance
 
-        :param account_id: The UUID of the account this group belongs to.
-        :type account_id: string
-        :param apikey_count: The number of API keys in this group.
-        :type apikey_count: integer
-        :param code: Response code.
-        :type code: integer
+        :param address_line1: Postal address line 1.
+        :type address_line1: string
+        :param address_line2: Postal address line 2.
+        :type address_line2: string
+        :param aliases: An array of aliases.
+        :type aliases: array
+        :param city: The city part of the postal address.
+        :type city: string
+        :param company: The name of the company.
+        :type company: string
+        :param contact: The name of the contact person for this account.
+        :type contact: string
+        :param contract_number: Contract number of the customer.
+        :type contract_number: string
+        :param country: The country part of the postal address.
+        :type country: string
         :param created_at: Creation UTC time RFC3339.
         :type created_at: string
-        :param id: Entity ID.
+        :param custom_fields: Account's custom properties as key-value pairs.
+        :type custom_fields: object
+        :param customer_number: Customer number of the customer.
+        :type customer_number: string
+        :param display_name: The display name for the account.
+        :type display_name: string
+        :param email: The company email address for this account.
+        :type email: string
+        :param end_market: Account end market.
+        :type end_market: string
+        :param expiration_warning_threshold: Indicates how many days (1-180) before account expiration a notification email should be
+            sent.
+        :type expiration_warning_threshold: string
+        :param id: Account ID.
         :type id: string
-        :param message: A human readable message with detailed info.
-        :type message: string
-        :param name: The name of the group.
-        :type name: string
-        :param request_id: Request ID.
-        :type request_id: string
+        :param idle_timeout: The reference token expiration time in minutes for this account.
+        :type idle_timeout: string
+        :param limits: List of limits as key-value pairs if requested.
+        :type limits: object
+        :param mfa_status: The enforcement status of the multi-factor authentication, either 'enforced' or
+            'optional'.
+        :type mfa_status: string
+        :param notification_emails: A list of notification email addresses.
+        :type notification_emails: array
+        :param parent_id: The ID of the parent account, if it has any.
+        :type parent_id: string
+        :param password_policy: 
+        :type password_policy: object
+        :param phone_number: The phone number of a representative of the company.
+        :type phone_number: string
+        :param policies: List of policies if requested.
+        :type policies: array
+        :param postal_code: The postal code part of the postal address.
+        :type postal_code: string
+        :param reason: A reason note for updating the status of the account
+        :type reason: string
+        :param reference_note: A reference note for updating the status of the account
+        :type reference_note: string
+        :param sales_contact: Email address of the sales contact.
+        :type sales_contact: string
+        :param state: The state part of the postal address.
+        :type state: string
+        :param status: The status of the account.
+        :type status: string
+        :param sub_accounts: List of sub accounts. Not available for developer users.
+        :type sub_accounts: array
+        :param template_id: Account template ID.
+        :type template_id: string
+        :param tier: The tier level of the account; '0': free tier, '1': commercial account, '2': partner
+            tier. Other values are reserved for the future.
+        :type tier: string
         :param updated_at: Last update UTC time RFC3339.
         :type updated_at: string
-        :param user_count: The number of users in this group.
-        :type user_count: integer
+        :param upgraded_at: Time when upgraded to commercial account in UTC format RFC3339.
+        :type upgraded_at: string
         """
 
         super().__init__(client=client)
 
         # Field attributes
-        self._account_id = fields.StringField(value=account_id)
-        self._apikey_count = fields.IntegerField(value=apikey_count)
-        self._code = fields.IntegerField(value=code)
+        self._address_line1 = fields.StringField(value=address_line1)
+        self._address_line2 = fields.StringField(value=address_line2)
+        self._aliases = fields.ListField(value=aliases)
+        self._city = fields.StringField(value=city)
+        self._company = fields.StringField(value=company)
+        self._contact = fields.StringField(value=contact)
+        self._contract_number = fields.StringField(value=contract_number)
+        self._country = fields.StringField(value=country)
         self._created_at = fields.DateTimeField(value=created_at)
+        self._custom_fields = fields.DictField(value=custom_fields)
+        self._customer_number = fields.StringField(value=customer_number)
+        self._display_name = fields.StringField(value=display_name)
+        self._email = fields.StringField(value=email)
+        self._end_market = fields.StringField(value=end_market)
+        self._expiration_warning_threshold = fields.StringField(
+            value=expiration_warning_threshold
+        )
         self._id = fields.StringField(value=id)
-        self._message = fields.StringField(value=message)
-        self._name = fields.StringField(value=name)
-        self._request_id = fields.StringField(value=request_id)
+        self._idle_timeout = fields.StringField(value=idle_timeout)
+        self._limits = fields.DictField(value=limits)
+        self._mfa_status = fields.StringField(
+            value=mfa_status, enum=enums.AccountMfaStatusEnum
+        )
+        self._notification_emails = fields.ListField(value=notification_emails)
+        self._parent_id = fields.StringField(value=parent_id)
+        self._password_policy = fields.DictField(
+            value=password_policy, entity=PasswordPolicy
+        )
+        self._phone_number = fields.StringField(value=phone_number)
+        self._policies = fields.ListField(value=policies)
+        self._postal_code = fields.StringField(value=postal_code)
+        self._reason = fields.StringField(value=reason)
+        self._reference_note = fields.StringField(value=reference_note)
+        self._sales_contact = fields.StringField(value=sales_contact)
+        self._state = fields.StringField(value=state)
+        self._status = fields.StringField(value=status, enum=enums.AccountStatusEnum)
+        self._sub_accounts = fields.ListField(
+            value=sub_accounts, entity=SubtenantAccount
+        )
+        self._template_id = fields.StringField(value=template_id)
+        self._tier = fields.StringField(value=tier)
         self._updated_at = fields.DateTimeField(value=updated_at)
-        self._user_count = fields.IntegerField(value=user_count)
+        self._upgraded_at = fields.DateTimeField(value=upgraded_at)
 
     @property
-    def account_id(self):
-        """The UUID of the account this group belongs to.
+    def address_line1(self):
+        """Postal address line 1.
         
-        api example: '01619571e2e90242ac12000600000000'
+        api example: '110 Fulbourn Rd'
         
         :rtype: str
         """
-        return self._account_id.value
+        return self._address_line1.value
 
-    @account_id.setter
-    def account_id(self, value):
+    @address_line1.setter
+    def address_line1(self, value):
         """
-        :param value: set value of `account_id`
+        :param value: set value of `address_line1`
         :type value: str
         """
-        self._account_id.set(value)
+        self._address_line1.set(value)
 
     @property
-    def apikey_count(self):
-        """The number of API keys in this group.
+    def address_line2(self):
+        """Postal address line 2.
         
-        :rtype: int
+        api example: ' '
+        
+        :rtype: str
         """
-        return self._apikey_count.value
+        return self._address_line2.value
 
-    @apikey_count.setter
-    def apikey_count(self, value):
+    @address_line2.setter
+    def address_line2(self, value):
         """
-        :param value: set value of `apikey_count`
-        :type value: int
+        :param value: set value of `address_line2`
+        :type value: str
         """
-        self._apikey_count.set(value)
+        self._address_line2.set(value)
 
     @property
-    def code(self):
-        """Response code.
+    def aliases(self):
+        """An array of aliases.
         
-        api example: 200
-        
-        :rtype: int
+        :rtype: list
         """
-        return self._code.value
+        return self._aliases.value
 
-    @code.setter
-    def code(self, value):
+    @aliases.setter
+    def aliases(self, value):
         """
-        :param value: set value of `code`
-        :type value: int
+        :param value: set value of `aliases`
+        :type value: list
         """
-        self._code.set(value)
+        self._aliases.set(value)
+
+    @property
+    def city(self):
+        """The city part of the postal address.
+        
+        api example: 'Cambridge'
+        
+        :rtype: str
+        """
+        return self._city.value
+
+    @city.setter
+    def city(self, value):
+        """
+        :param value: set value of `city`
+        :type value: str
+        """
+        self._city.set(value)
+
+    @property
+    def company(self):
+        """The name of the company.
+        
+        api example: 'ARM Holdings Plc'
+        
+        :rtype: str
+        """
+        return self._company.value
+
+    @company.setter
+    def company(self, value):
+        """
+        :param value: set value of `company`
+        :type value: str
+        """
+        self._company.set(value)
+
+    @property
+    def contact(self):
+        """The name of the contact person for this account.
+        
+        api example: 'J. Doe'
+        
+        :rtype: str
+        """
+        return self._contact.value
+
+    @contact.setter
+    def contact(self, value):
+        """
+        :param value: set value of `contact`
+        :type value: str
+        """
+        self._contact.set(value)
+
+    @property
+    def contract_number(self):
+        """Contract number of the customer.
+        
+        api example: '1NX25_0001'
+        
+        :rtype: str
+        """
+        return self._contract_number.value
+
+    @contract_number.setter
+    def contract_number(self, value):
+        """
+        :param value: set value of `contract_number`
+        :type value: str
+        """
+        self._contract_number.set(value)
+
+    @property
+    def country(self):
+        """The country part of the postal address.
+        
+        api example: 'United Kingdom'
+        
+        :rtype: str
+        """
+        return self._country.value
+
+    @country.setter
+    def country(self, value):
+        """
+        :param value: set value of `country`
+        :type value: str
+        """
+        self._country.set(value)
 
     @property
     def created_at(self):
@@ -190,10 +434,117 @@ class AccountGroup(common.Entity):
         self._created_at.set(value)
 
     @property
-    def id(self):
-        """Entity ID.
+    def custom_fields(self):
+        """Account's custom properties as key-value pairs.
         
-        api example: '01619571dad80242ac12000600000000'
+        :rtype: dict
+        """
+        return self._custom_fields.value
+
+    @custom_fields.setter
+    def custom_fields(self, value):
+        """
+        :param value: set value of `custom_fields`
+        :type value: dict
+        """
+        self._custom_fields.set(value)
+
+    @property
+    def customer_number(self):
+        """Customer number of the customer.
+        
+        api example: '1NC25_0001'
+        
+        :rtype: str
+        """
+        return self._customer_number.value
+
+    @customer_number.setter
+    def customer_number(self, value):
+        """
+        :param value: set value of `customer_number`
+        :type value: str
+        """
+        self._customer_number.set(value)
+
+    @property
+    def display_name(self):
+        """The display name for the account.
+        
+        api example: 'ARM'
+        
+        :rtype: str
+        """
+        return self._display_name.value
+
+    @display_name.setter
+    def display_name(self, value):
+        """
+        :param value: set value of `display_name`
+        :type value: str
+        """
+        self._display_name.set(value)
+
+    @property
+    def email(self):
+        """The company email address for this account.
+        
+        api example: 'info@arm.com'
+        
+        :rtype: str
+        """
+        return self._email.value
+
+    @email.setter
+    def email(self, value):
+        """
+        :param value: set value of `email`
+        :type value: str
+        """
+        self._email.set(value)
+
+    @property
+    def end_market(self):
+        """Account end market.
+        
+        api example: 'IT'
+        
+        :rtype: str
+        """
+        return self._end_market.value
+
+    @end_market.setter
+    def end_market(self, value):
+        """
+        :param value: set value of `end_market`
+        :type value: str
+        """
+        self._end_market.set(value)
+
+    @property
+    def expiration_warning_threshold(self):
+        """Indicates how many days (1-180) before account expiration a notification email should be
+        sent.
+        
+        api example: '180'
+        
+        :rtype: str
+        """
+        return self._expiration_warning_threshold.value
+
+    @expiration_warning_threshold.setter
+    def expiration_warning_threshold(self, value):
+        """
+        :param value: set value of `expiration_warning_threshold`
+        :type value: str
+        """
+        self._expiration_warning_threshold.set(value)
+
+    @property
+    def id(self):
+        """Account ID.
+        
+        api example: '01619571e2e90242ac12000600000000'
         
         :rtype: str
         """
@@ -208,58 +559,300 @@ class AccountGroup(common.Entity):
         self._id.set(value)
 
     @property
-    def message(self):
-        """A human readable message with detailed info.
+    def idle_timeout(self):
+        """The reference token expiration time in minutes for this account.
         
-        api example: 'success'
+        api example: '30'
         
         :rtype: str
         """
-        return self._message.value
+        return self._idle_timeout.value
 
-    @message.setter
-    def message(self, value):
+    @idle_timeout.setter
+    def idle_timeout(self, value):
         """
-        :param value: set value of `message`
+        :param value: set value of `idle_timeout`
         :type value: str
         """
-        self._message.set(value)
+        self._idle_timeout.set(value)
 
     @property
-    def name(self):
-        """The name of the group.
+    def limits(self):
+        """List of limits as key-value pairs if requested.
         
-        api example: 'Administrators'
-        
-        :rtype: str
+        :rtype: dict
         """
-        return self._name.value
+        return self._limits.value
 
-    @name.setter
-    def name(self, value):
+    @limits.setter
+    def limits(self, value):
         """
-        :param value: set value of `name`
-        :type value: str
+        :param value: set value of `limits`
+        :type value: dict
         """
-        self._name.set(value)
+        self._limits.set(value)
 
     @property
-    def request_id(self):
-        """Request ID.
-        
-        api example: '0161991d63150242ac12000600000000'
+    def mfa_status(self):
+        """The enforcement status of the multi-factor authentication, either 'enforced' or
+        'optional'.
         
         :rtype: str
         """
-        return self._request_id.value
+        return self._mfa_status.value
 
-    @request_id.setter
-    def request_id(self, value):
+    @mfa_status.setter
+    def mfa_status(self, value):
         """
-        :param value: set value of `request_id`
+        :param value: set value of `mfa_status`
         :type value: str
         """
-        self._request_id.set(value)
+        self._mfa_status.set(value)
+
+    @property
+    def notification_emails(self):
+        """A list of notification email addresses.
+        
+        :rtype: list
+        """
+        return self._notification_emails.value
+
+    @notification_emails.setter
+    def notification_emails(self, value):
+        """
+        :param value: set value of `notification_emails`
+        :type value: list
+        """
+        self._notification_emails.set(value)
+
+    @property
+    def parent_id(self):
+        """The ID of the parent account, if it has any.
+        
+        api example: '01619571dad80242ac12000600000000'
+        
+        :rtype: str
+        """
+        return self._parent_id.value
+
+    @parent_id.setter
+    def parent_id(self, value):
+        """
+        :param value: set value of `parent_id`
+        :type value: str
+        """
+        self._parent_id.set(value)
+
+    @property
+    def password_policy(self):
+        """
+        
+        :rtype: dict
+        """
+        return self._password_policy.value
+
+    @password_policy.setter
+    def password_policy(self, value):
+        """
+        :param value: set value of `password_policy`
+        :type value: dict
+        """
+        self._password_policy.set(value)
+
+    @property
+    def phone_number(self):
+        """The phone number of a representative of the company.
+        
+        api example: '+44 (1223) 400 400'
+        
+        :rtype: str
+        """
+        return self._phone_number.value
+
+    @phone_number.setter
+    def phone_number(self, value):
+        """
+        :param value: set value of `phone_number`
+        :type value: str
+        """
+        self._phone_number.set(value)
+
+    @property
+    def policies(self):
+        """List of policies if requested.
+        
+        :rtype: list
+        """
+        return self._policies.value
+
+    @policies.setter
+    def policies(self, value):
+        """
+        :param value: set value of `policies`
+        :type value: list
+        """
+        self._policies.set(value)
+
+    @property
+    def postal_code(self):
+        """The postal code part of the postal address.
+        
+        api example: 'CB1 9NJ'
+        
+        :rtype: str
+        """
+        return self._postal_code.value
+
+    @postal_code.setter
+    def postal_code(self, value):
+        """
+        :param value: set value of `postal_code`
+        :type value: str
+        """
+        self._postal_code.set(value)
+
+    @property
+    def reason(self):
+        """A reason note for updating the status of the account
+        
+        api example: 'Subscription paid.'
+        
+        :rtype: str
+        """
+        return self._reason.value
+
+    @reason.setter
+    def reason(self, value):
+        """
+        :param value: set value of `reason`
+        :type value: str
+        """
+        self._reason.set(value)
+
+    @property
+    def reference_note(self):
+        """A reference note for updating the status of the account
+        
+        api example: 'ARM-INT-0001'
+        
+        :rtype: str
+        """
+        return self._reference_note.value
+
+    @reference_note.setter
+    def reference_note(self, value):
+        """
+        :param value: set value of `reference_note`
+        :type value: str
+        """
+        self._reference_note.set(value)
+
+    @property
+    def sales_contact(self):
+        """Email address of the sales contact.
+        
+        api example: 'sales@arm.com'
+        
+        :rtype: str
+        """
+        return self._sales_contact.value
+
+    @sales_contact.setter
+    def sales_contact(self, value):
+        """
+        :param value: set value of `sales_contact`
+        :type value: str
+        """
+        self._sales_contact.set(value)
+
+    @property
+    def state(self):
+        """The state part of the postal address.
+        
+        api example: ' '
+        
+        :rtype: str
+        """
+        return self._state.value
+
+    @state.setter
+    def state(self, value):
+        """
+        :param value: set value of `state`
+        :type value: str
+        """
+        self._state.set(value)
+
+    @property
+    def status(self):
+        """The status of the account.
+        
+        api example: 'ACTIVE'
+        
+        :rtype: str
+        """
+        return self._status.value
+
+    @status.setter
+    def status(self, value):
+        """
+        :param value: set value of `status`
+        :type value: str
+        """
+        self._status.set(value)
+
+    @property
+    def sub_accounts(self):
+        """List of sub accounts. Not available for developer users.
+        
+        :rtype: list
+        """
+        return self._sub_accounts.value
+
+    @sub_accounts.setter
+    def sub_accounts(self, value):
+        """
+        :param value: set value of `sub_accounts`
+        :type value: list
+        """
+        self._sub_accounts.set(value)
+
+    @property
+    def template_id(self):
+        """Account template ID.
+        
+        api example: '01619571e7160242ac12000600000000'
+        
+        :rtype: str
+        """
+        return self._template_id.value
+
+    @template_id.setter
+    def template_id(self, value):
+        """
+        :param value: set value of `template_id`
+        :type value: str
+        """
+        self._template_id.set(value)
+
+    @property
+    def tier(self):
+        """The tier level of the account; '0': free tier, '1': commercial account, '2': partner
+        tier. Other values are reserved for the future.
+        
+        api example: '1'
+        
+        :rtype: str
+        """
+        return self._tier.value
+
+    @tier.setter
+    def tier(self, value):
+        """
+        :param value: set value of `tier`
+        :type value: str
+        """
+        self._tier.set(value)
 
     @property
     def updated_at(self):
@@ -280,46 +873,75 @@ class AccountGroup(common.Entity):
         self._updated_at.set(value)
 
     @property
-    def user_count(self):
-        """The number of users in this group.
+    def upgraded_at(self):
+        """Time when upgraded to commercial account in UTC format RFC3339.
         
-        api example: 1
+        api example: '2018-02-14T15:24:14Z'
         
-        :rtype: int
+        :rtype: datetime
         """
-        return self._user_count.value
+        return self._upgraded_at.value
 
-    @user_count.setter
-    def user_count(self, value):
+    @upgraded_at.setter
+    def upgraded_at(self, value):
         """
-        :param value: set value of `user_count`
-        :type value: int
+        :param value: set value of `upgraded_at`
+        :type value: datetime
         """
-        self._user_count.set(value)
+        self._upgraded_at.set(value)
 
-    def read(self):
-        """Get group information.
+    def get(self, include=None, properties=None):
+        """Get account info.
 
-        api documentation: https://os.mbed.com/search/?q=service+apis+/v3/policy-groups/{groupID}
+        api documentation: https://os.mbed.com/search/?q=service+apis+/v3/accounts/me
+        
+        :param include: Comma separated additional data to return. Currently supported: limits, policies,
+            sub_accounts.
+        :type include: string
+        
+        :param properties: Property name to be returned from account specific properties.
+        :type properties: string
         """
 
         return self._call_api(
             method="get",
-            path="/v3/policy-groups/{groupID}",
-            path_params={"groupID": self._id.to_api()},
+            path="/v3/accounts/me",
+            query_params={
+                "include": fields.StringField(include).to_api(),
+                "properties": fields.StringField(properties).to_api(),
+            },
         )
 
     def update(self):
-        """Update the group name.
+        """Updates attributes of the account.
 
-        api documentation: https://os.mbed.com/search/?q=service+apis+/v3/policy-groups/{groupID}
+        api documentation: https://os.mbed.com/search/?q=service+apis+/v3/accounts/me
         """
 
         return self._call_api(
             method="put",
-            path="/v3/policy-groups/{groupID}",
-            body_params={"name": self._name.to_api()},
-            path_params={"groupID": self._id.to_api()},
+            path="/v3/accounts/me",
+            body_params={
+                "address_line1": self._address_line1.to_api(),
+                "address_line2": self._address_line2.to_api(),
+                "aliases": self._aliases.to_api(),
+                "city": self._city.to_api(),
+                "company": self._company.to_api(),
+                "contact": self._contact.to_api(),
+                "country": self._country.to_api(),
+                "custom_fields": self._custom_fields.to_api(),
+                "display_name": self._display_name.to_api(),
+                "email": self._email.to_api(),
+                "end_market": self._end_market.to_api(),
+                "expiration_warning_threshold": self._expiration_warning_threshold.to_api(),
+                "idle_timeout": self._idle_timeout.to_api(),
+                "mfa_status": self._mfa_status.to_api(),
+                "notification_emails": self._notification_emails.to_api(),
+                "password_policy": self._password_policy.to_api(),
+                "phone_number": self._phone_number.to_api(),
+                "postal_code": self._postal_code.to_api(),
+                "state": self._state.to_api(),
+            },
         )
 
 
@@ -600,6 +1222,19 @@ class ApiKey(common.Entity):
             inbound_renames={"groups": "group_ids"},
         )
 
+    def get(self):
+        """Get API key details.
+
+        api documentation: https://os.mbed.com/search/?q=service+apis+/v3/api-keys/{apiKey}
+        """
+
+        return self._call_api(
+            method="get",
+            path="/v3/api-keys/{apiKey}",
+            path_params={"apiKey": self._id.to_api()},
+            inbound_renames={"groups": "group_ids"},
+        )
+
     def groups(self, after=None, include=None, limit=50, order="ASC"):
         """Get groups of the API key.
 
@@ -619,7 +1254,7 @@ class ApiKey(common.Entity):
         """
 
         def mapper(api_data):
-            return AccountGroup()._from_api(
+            return PolicyGroup()._from_api(
                 inbound_renames={"groups": "group_ids"}, **api_data
             )
 
@@ -697,16 +1332,22 @@ class ApiKey(common.Entity):
             unpack=False,
         )
 
-    def read(self):
-        """Get API key details.
+    def reset_secret(self, accountid):
+        """Reset the secret key.
 
-        api documentation: https://os.mbed.com/search/?q=service+apis+/v3/api-keys/{apiKey}
+        api documentation: https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/api-keys/{apiKey}/reset-secret
+        
+        :param accountid: Account ID.
+        :type accountid: string
         """
 
         return self._call_api(
-            method="get",
-            path="/v3/api-keys/{apiKey}",
-            path_params={"apiKey": self._id.to_api()},
+            method="post",
+            path="/v3/accounts/{accountID}/api-keys/{apiKey}/reset-secret",
+            path_params={
+                "accountID": fields.StringField(accountid).to_api(),
+                "apiKey": self._id.to_api(),
+            },
             inbound_renames={"groups": "group_ids"},
         )
 
@@ -832,6 +1473,465 @@ class LoginHistory(common.Entity):
         self._user_agent.set(value)
 
 
+class PasswordPolicy(common.Entity):
+    """Represents the `PasswordPolicy` entity in Mbed Cloud"""
+
+    _fieldnames = ["minimum_length"]
+
+    def __init__(self, client=None, minimum_length=None):
+        """Creates a local `PasswordPolicy` instance
+
+        :param minimum_length: Minimum length for the password. A number between 8 and 512.
+        :type minimum_length: string
+        """
+
+        super().__init__(client=client)
+
+        # Field attributes
+        self._minimum_length = fields.StringField(value=minimum_length)
+
+    @property
+    def minimum_length(self):
+        """Minimum length for the password. A number between 8 and 512.
+        
+        api example: '8'
+        
+        :rtype: str
+        """
+        return self._minimum_length.value
+
+    @minimum_length.setter
+    def minimum_length(self, value):
+        """
+        :param value: set value of `minimum_length`
+        :type value: str
+        """
+        self._minimum_length.set(value)
+
+
+class PolicyGroup(common.Entity):
+    """Represents the `PolicyGroup` entity in Mbed Cloud"""
+
+    _fieldnames = [
+        "account_id",
+        "after",
+        "apikey_count",
+        "created_at",
+        "data",
+        "has_more",
+        "id",
+        "limit",
+        "name",
+        "order",
+        "total_count",
+        "updated_at",
+        "user_count",
+    ]
+
+    def __init__(
+        self,
+        client=None,
+        account_id=None,
+        after=None,
+        apikey_count=None,
+        created_at=None,
+        data=None,
+        has_more=None,
+        id=None,
+        limit=None,
+        name=None,
+        order=None,
+        total_count=None,
+        updated_at=None,
+        user_count=None,
+    ):
+        """Creates a local `PolicyGroup` instance
+
+        :param account_id: The UUID of the account this group belongs to.
+        :type account_id: string
+        :param after: The entity ID to fetch after the given one.
+        :type after: string
+        :param apikey_count: The number of API keys in this group.
+        :type apikey_count: integer
+        :param created_at: Creation UTC time RFC3339.
+        :type created_at: string
+        :param data: A list of entities.
+        :type data: array
+        :param has_more: Flag indicating whether there is more results.
+        :type has_more: boolean
+        :param id: The UUID of the group.
+        :type id: string
+        :param limit: The number of results to return, (range: 2-1000), or equals to `total_count`
+        :type limit: integer
+        :param name: The name of the group.
+        :type name: string
+        :param order: The order of the records to return based on creation time. Available values: ASC, DESC;
+            by default ASC.
+        :type order: string
+        :param total_count: The total number or records, if requested. It might be returned also for small lists.
+        :type total_count: integer
+        :param updated_at: Last update UTC time RFC3339.
+        :type updated_at: string
+        :param user_count: The number of users in this group.
+        :type user_count: integer
+        """
+
+        super().__init__(client=client)
+
+        # Field attributes
+        self._account_id = fields.StringField(value=account_id)
+        self._after = fields.StringField(value=after)
+        self._apikey_count = fields.IntegerField(value=apikey_count)
+        self._created_at = fields.DateTimeField(value=created_at)
+        self._data = fields.ListField(value=data, entity=User)
+        self._has_more = fields.BooleanField(value=has_more)
+        self._id = fields.StringField(value=id)
+        self._limit = fields.IntegerField(value=limit)
+        self._name = fields.StringField(value=name)
+        self._order = fields.StringField(value=order, enum=enums.PolicyGroupOrderEnum)
+        self._total_count = fields.IntegerField(value=total_count)
+        self._updated_at = fields.DateTimeField(value=updated_at)
+        self._user_count = fields.IntegerField(value=user_count)
+
+    @property
+    def account_id(self):
+        """The UUID of the account this group belongs to.
+        
+        api example: '01619571e2e90242ac12000600000000'
+        
+        :rtype: str
+        """
+        return self._account_id.value
+
+    @account_id.setter
+    def account_id(self, value):
+        """
+        :param value: set value of `account_id`
+        :type value: str
+        """
+        self._account_id.set(value)
+
+    @property
+    def after(self):
+        """The entity ID to fetch after the given one.
+        
+        api example: '01619571f3c00242ac12000600000000'
+        
+        :rtype: str
+        """
+        return self._after.value
+
+    @after.setter
+    def after(self, value):
+        """
+        :param value: set value of `after`
+        :type value: str
+        """
+        self._after.set(value)
+
+    @property
+    def apikey_count(self):
+        """The number of API keys in this group.
+        
+        :rtype: int
+        """
+        return self._apikey_count.value
+
+    @apikey_count.setter
+    def apikey_count(self, value):
+        """
+        :param value: set value of `apikey_count`
+        :type value: int
+        """
+        self._apikey_count.set(value)
+
+    @property
+    def created_at(self):
+        """Creation UTC time RFC3339.
+        
+        api example: '2018-02-13T09:35:20Z'
+        
+        :rtype: datetime
+        """
+        return self._created_at.value
+
+    @created_at.setter
+    def created_at(self, value):
+        """
+        :param value: set value of `created_at`
+        :type value: datetime
+        """
+        self._created_at.set(value)
+
+    @property
+    def data(self):
+        """A list of entities.
+        
+        :rtype: list
+        """
+        return self._data.value
+
+    @data.setter
+    def data(self, value):
+        """
+        :param value: set value of `data`
+        :type value: list
+        """
+        self._data.set(value)
+
+    @property
+    def has_more(self):
+        """Flag indicating whether there is more results.
+        
+        :rtype: bool
+        """
+        return self._has_more.value
+
+    @has_more.setter
+    def has_more(self, value):
+        """
+        :param value: set value of `has_more`
+        :type value: bool
+        """
+        self._has_more.set(value)
+
+    @property
+    def id(self):
+        """The UUID of the group.
+        
+        api example: '01619571dec00242ac12000600000000'
+        
+        :rtype: str
+        """
+        return self._id.value
+
+    @id.setter
+    def id(self, value):
+        """
+        :param value: set value of `id`
+        :type value: str
+        """
+        self._id.set(value)
+
+    @property
+    def limit(self):
+        """The number of results to return, (range: 2-1000), or equals to `total_count`
+        
+        api example: 50
+        
+        :rtype: int
+        """
+        return self._limit.value
+
+    @limit.setter
+    def limit(self, value):
+        """
+        :param value: set value of `limit`
+        :type value: int
+        """
+        self._limit.set(value)
+
+    @property
+    def name(self):
+        """The name of the group.
+        
+        api example: 'Administrators'
+        
+        :rtype: str
+        """
+        return self._name.value
+
+    @name.setter
+    def name(self, value):
+        """
+        :param value: set value of `name`
+        :type value: str
+        """
+        self._name.set(value)
+
+    @property
+    def order(self):
+        """The order of the records to return based on creation time. Available values: ASC, DESC;
+        by default ASC.
+        
+        :rtype: str
+        """
+        return self._order.value
+
+    @order.setter
+    def order(self, value):
+        """
+        :param value: set value of `order`
+        :type value: str
+        """
+        self._order.set(value)
+
+    @property
+    def total_count(self):
+        """The total number or records, if requested. It might be returned also for small lists.
+        
+        api example: 20
+        
+        :rtype: int
+        """
+        return self._total_count.value
+
+    @total_count.setter
+    def total_count(self, value):
+        """
+        :param value: set value of `total_count`
+        :type value: int
+        """
+        self._total_count.set(value)
+
+    @property
+    def updated_at(self):
+        """Last update UTC time RFC3339.
+        
+        api example: '2018-02-14T15:24:14Z'
+        
+        :rtype: datetime
+        """
+        return self._updated_at.value
+
+    @updated_at.setter
+    def updated_at(self, value):
+        """
+        :param value: set value of `updated_at`
+        :type value: datetime
+        """
+        self._updated_at.set(value)
+
+    @property
+    def user_count(self):
+        """The number of users in this group.
+        
+        api example: 1
+        
+        :rtype: int
+        """
+        return self._user_count.value
+
+    @user_count.setter
+    def user_count(self, value):
+        """
+        :param value: set value of `user_count`
+        :type value: int
+        """
+        self._user_count.set(value)
+
+    def api_keys(self, include=None):
+        """Get the API keys of a group.
+
+        api documentation: https://os.mbed.com/search/?q=service+apis+/v3/policy-groups/{groupID}/api-keys
+        
+        :param include: Comma separated additional data to return. Currently supported: total_count
+        :type include: string
+        """
+
+        def mapper(api_data):
+            return ApiKey()._from_api(inbound_renames={}, **api_data)
+
+        return pagination.PaginatedResponse(
+            func=self._api_keys, lwrap_type=mapper, include=include
+        )
+
+    def _api_keys(self, include=None):
+        """Internal 'next-page' behaviour for pagination"""
+
+        return self._call_api(
+            method="get",
+            path="/v3/policy-groups/{groupID}/api-keys",
+            path_params={"groupID": self._id.to_api()},
+            query_params={
+                "after": self._after.to_api(),
+                "include": fields.StringField(include).to_api(),
+                "limit": self._limit.to_api(),
+                "order": self._order.to_api(),
+            },
+            unpack=False,
+        )
+
+    def get(self):
+        """Get group information.
+
+        api documentation: https://os.mbed.com/search/?q=service+apis+/v3/policy-groups/{groupID}
+        """
+
+        return self._call_api(
+            method="get",
+            path="/v3/policy-groups/{groupID}",
+            path_params={"groupID": self._id.to_api()},
+        )
+
+    def list(self, include=None, name__eq=None):
+        """Get all group information.
+
+        api documentation: https://os.mbed.com/search/?q=service+apis+/v3/policy-groups
+        
+        :param include: Comma separated additional data to return. Currently supported: total_count
+        :type include: string
+        
+        :param name__eq: Filter for group name
+        :type name__eq: string
+        """
+
+        def mapper(api_data):
+            return PolicyGroup()._from_api(inbound_renames={}, **api_data)
+
+        return pagination.PaginatedResponse(
+            func=self._list, lwrap_type=mapper, include=include, name__eq=name__eq
+        )
+
+    def _list(self, include=None, name__eq=None):
+        """Internal 'next-page' behaviour for pagination"""
+
+        return self._call_api(
+            method="get",
+            path="/v3/policy-groups",
+            query_params={
+                "after": self._after.to_api(),
+                "include": fields.StringField(include).to_api(),
+                "limit": self._limit.to_api(),
+                "name__eq": fields.StringField(name__eq).to_api(),
+                "order": self._order.to_api(),
+            },
+            unpack=False,
+        )
+
+    def users(self, include=None):
+        """Get users of a group.
+
+        api documentation: https://os.mbed.com/search/?q=service+apis+/v3/policy-groups/{groupID}/users
+        
+        :param include: Comma separated additional data to return. Currently supported: total_count
+        :type include: string
+        """
+
+        def mapper(api_data):
+            return User()._from_api(inbound_renames={}, **api_data)
+
+        return pagination.PaginatedResponse(
+            func=self._users, lwrap_type=mapper, include=include
+        )
+
+    def _users(self, include=None):
+        """Internal 'next-page' behaviour for pagination"""
+
+        return self._call_api(
+            method="get",
+            path="/v3/policy-groups/{groupID}/users",
+            path_params={"groupID": self._id.to_api()},
+            query_params={
+                "after": self._after.to_api(),
+                "include": fields.StringField(include).to_api(),
+                "limit": self._limit.to_api(),
+                "order": self._order.to_api(),
+            },
+            unpack=False,
+        )
+
+
 class PSK(common.Entity):
     """Represents the `PSK` entity in Mbed Cloud"""
 
@@ -892,7 +1992,7 @@ class PSK(common.Entity):
         """
         self._endpoint_name.set(value)
 
-    def create(self, secret_hex):
+    def create(self, secret_hex=None):
         """Upload a pre-shared key to Mbed Cloud.
 
         api documentation: https://os.mbed.com/search/?q=service+apis+/v2/device-shared-keys
@@ -920,6 +2020,18 @@ class PSK(common.Entity):
 
         return self._call_api(
             method="delete",
+            path="/v2/device-shared-keys/{endpoint_name}",
+            path_params={"endpoint_name": self._endpoint_name.to_api()},
+        )
+
+    def get(self):
+        """Get a pre-shared key.
+
+        api documentation: https://os.mbed.com/search/?q=service+apis+/v2/device-shared-keys/{endpoint_name}
+        """
+
+        return self._call_api(
+            method="get",
             path="/v2/device-shared-keys/{endpoint_name}",
             path_params={"endpoint_name": self._endpoint_name.to_api()},
         )
@@ -956,16 +2068,1301 @@ class PSK(common.Entity):
             unpack=False,
         )
 
-    def read(self):
-        """Get a pre-shared key.
 
-        api documentation: https://os.mbed.com/search/?q=service+apis+/v2/device-shared-keys/{endpoint_name}
+class SubtenantAccount(common.Entity):
+    """Represents the `SubtenantAccount` entity in Mbed Cloud"""
+
+    _fieldnames = [
+        "address_line1",
+        "address_line2",
+        "admin_email",
+        "admin_full_name",
+        "admin_id",
+        "admin_key",
+        "admin_name",
+        "admin_password",
+        "aliases",
+        "city",
+        "company",
+        "contact",
+        "contract_number",
+        "country",
+        "created_at",
+        "custom_fields",
+        "customer_number",
+        "display_name",
+        "email",
+        "end_market",
+        "expiration_warning_threshold",
+        "id",
+        "idle_timeout",
+        "limits",
+        "mfa_status",
+        "notification_emails",
+        "parent_id",
+        "password_policy",
+        "phone_number",
+        "policies",
+        "postal_code",
+        "reason",
+        "reference_note",
+        "sales_contact",
+        "state",
+        "status",
+        "sub_accounts",
+        "template_id",
+        "tier",
+        "updated_at",
+        "upgraded_at",
+    ]
+
+    def __init__(
+        self,
+        client=None,
+        address_line1=None,
+        address_line2=None,
+        admin_email=None,
+        admin_full_name=None,
+        admin_id=None,
+        admin_key=None,
+        admin_name=None,
+        admin_password=None,
+        aliases=None,
+        city=None,
+        company=None,
+        contact=None,
+        contract_number=None,
+        country=None,
+        created_at=None,
+        custom_fields=None,
+        customer_number=None,
+        display_name=None,
+        email=None,
+        end_market=None,
+        expiration_warning_threshold=None,
+        id=None,
+        idle_timeout=None,
+        limits=None,
+        mfa_status=None,
+        notification_emails=None,
+        parent_id=None,
+        password_policy=None,
+        phone_number=None,
+        policies=None,
+        postal_code=None,
+        reason=None,
+        reference_note=None,
+        sales_contact=None,
+        state=None,
+        status=None,
+        sub_accounts=None,
+        template_id=None,
+        tier=None,
+        updated_at=None,
+        upgraded_at=None,
+    ):
+        """Creates a local `SubtenantAccount` instance
+
+        :param address_line1: Postal address line 1.
+        :type address_line1: string
+        :param address_line2: Postal address line 2.
+        :type address_line2: string
+        :param admin_email: The email address of the account admin, not longer than 254 characters.
+        :type admin_email: string
+        :param admin_full_name: The full name of the admin user to be created.
+        :type admin_full_name: string
+        :param admin_id: The ID of the admin user created.
+        :type admin_id: string
+        :param admin_key: The admin API key created for the account.
+        :type admin_key: string
+        :param admin_name: The username of the admin user to be created, containing alphanumerical letters and
+            -,._@+= characters. It must be at least 4 but not more than 30 character long.
+        :type admin_name: string
+        :param admin_password: The password when creating a new user. It will be generated when not present in the
+            request.
+        :type admin_password: string
+        :param aliases: An array of aliases.
+        :type aliases: array
+        :param city: The city part of the postal address.
+        :type city: string
+        :param company: The name of the company.
+        :type company: string
+        :param contact: The name of the contact person for this account.
+        :type contact: string
+        :param contract_number: Contract number of the customer.
+        :type contract_number: string
+        :param country: The country part of the postal address.
+        :type country: string
+        :param created_at: Creation UTC time RFC3339.
+        :type created_at: string
+        :param custom_fields: Account's custom properties as key-value pairs.
+        :type custom_fields: object
+        :param customer_number: Customer number of the customer.
+        :type customer_number: string
+        :param display_name: The display name for the account.
+        :type display_name: string
+        :param email: The company email address for this account.
+        :type email: string
+        :param end_market: Account end market.
+        :type end_market: string
+        :param expiration_warning_threshold: Indicates how many days (1-180) before account expiration a notification email should be
+            sent.
+        :type expiration_warning_threshold: string
+        :param id: Account ID.
+        :type id: string
+        :param idle_timeout: The reference token expiration time in minutes for this account.
+        :type idle_timeout: string
+        :param limits: List of limits as key-value pairs if requested.
+        :type limits: object
+        :param mfa_status: The enforcement status of the multi-factor authentication, either 'enforced' or
+            'optional'.
+        :type mfa_status: string
+        :param notification_emails: A list of notification email addresses.
+        :type notification_emails: array
+        :param parent_id: The ID of the parent account, if it has any.
+        :type parent_id: string
+        :param password_policy: 
+        :type password_policy: object
+        :param phone_number: The phone number of a representative of the company.
+        :type phone_number: string
+        :param policies: List of policies if requested.
+        :type policies: array
+        :param postal_code: The postal code part of the postal address.
+        :type postal_code: string
+        :param reason: A reason note for updating the status of the account
+        :type reason: string
+        :param reference_note: A reference note for updating the status of the account
+        :type reference_note: string
+        :param sales_contact: Email address of the sales contact.
+        :type sales_contact: string
+        :param state: The state part of the postal address.
+        :type state: string
+        :param status: The status of the account.
+        :type status: string
+        :param sub_accounts: List of sub accounts. Not available for developer users.
+        :type sub_accounts: array
+        :param template_id: Account template ID.
+        :type template_id: string
+        :param tier: The tier level of the account; '0': free tier, '1': commercial account, '2': partner
+            tier. Other values are reserved for the future.
+        :type tier: string
+        :param updated_at: Last update UTC time RFC3339.
+        :type updated_at: string
+        :param upgraded_at: Time when upgraded to commercial account in UTC format RFC3339.
+        :type upgraded_at: string
+        """
+
+        super().__init__(client=client)
+
+        # Field attributes
+        self._address_line1 = fields.StringField(value=address_line1)
+        self._address_line2 = fields.StringField(value=address_line2)
+        self._admin_email = fields.StringField(value=admin_email)
+        self._admin_full_name = fields.StringField(value=admin_full_name)
+        self._admin_id = fields.StringField(value=admin_id)
+        self._admin_key = fields.StringField(value=admin_key)
+        self._admin_name = fields.StringField(value=admin_name)
+        self._admin_password = fields.StringField(value=admin_password)
+        self._aliases = fields.ListField(value=aliases)
+        self._city = fields.StringField(value=city)
+        self._company = fields.StringField(value=company)
+        self._contact = fields.StringField(value=contact)
+        self._contract_number = fields.StringField(value=contract_number)
+        self._country = fields.StringField(value=country)
+        self._created_at = fields.DateTimeField(value=created_at)
+        self._custom_fields = fields.DictField(value=custom_fields)
+        self._customer_number = fields.StringField(value=customer_number)
+        self._display_name = fields.StringField(value=display_name)
+        self._email = fields.StringField(value=email)
+        self._end_market = fields.StringField(value=end_market)
+        self._expiration_warning_threshold = fields.StringField(
+            value=expiration_warning_threshold
+        )
+        self._id = fields.StringField(value=id)
+        self._idle_timeout = fields.StringField(value=idle_timeout)
+        self._limits = fields.DictField(value=limits)
+        self._mfa_status = fields.StringField(
+            value=mfa_status, enum=enums.SubtenantAccountMfaStatusEnum
+        )
+        self._notification_emails = fields.ListField(value=notification_emails)
+        self._parent_id = fields.StringField(value=parent_id)
+        self._password_policy = fields.DictField(
+            value=password_policy, entity=PasswordPolicy
+        )
+        self._phone_number = fields.StringField(value=phone_number)
+        self._policies = fields.ListField(value=policies)
+        self._postal_code = fields.StringField(value=postal_code)
+        self._reason = fields.StringField(value=reason)
+        self._reference_note = fields.StringField(value=reference_note)
+        self._sales_contact = fields.StringField(value=sales_contact)
+        self._state = fields.StringField(value=state)
+        self._status = fields.StringField(
+            value=status, enum=enums.SubtenantAccountStatusEnum
+        )
+        self._sub_accounts = fields.ListField(
+            value=sub_accounts, entity=SubtenantAccount
+        )
+        self._template_id = fields.StringField(value=template_id)
+        self._tier = fields.StringField(value=tier)
+        self._updated_at = fields.DateTimeField(value=updated_at)
+        self._upgraded_at = fields.DateTimeField(value=upgraded_at)
+
+    @property
+    def address_line1(self):
+        """Postal address line 1.
+        
+        api example: '110 Fulbourn Rd'
+        
+        :rtype: str
+        """
+        return self._address_line1.value
+
+    @address_line1.setter
+    def address_line1(self, value):
+        """
+        :param value: set value of `address_line1`
+        :type value: str
+        """
+        self._address_line1.set(value)
+
+    @property
+    def address_line2(self):
+        """Postal address line 2.
+        
+        api example: ' '
+        
+        :rtype: str
+        """
+        return self._address_line2.value
+
+    @address_line2.setter
+    def address_line2(self, value):
+        """
+        :param value: set value of `address_line2`
+        :type value: str
+        """
+        self._address_line2.set(value)
+
+    @property
+    def admin_email(self):
+        """The email address of the account admin, not longer than 254 characters.
+        
+        api example: 'admin@arm.com'
+        
+        :rtype: str
+        """
+        return self._admin_email.value
+
+    @admin_email.setter
+    def admin_email(self, value):
+        """
+        :param value: set value of `admin_email`
+        :type value: str
+        """
+        self._admin_email.set(value)
+
+    @property
+    def admin_full_name(self):
+        """The full name of the admin user to be created.
+        
+        api example: 'Admin Doe'
+        
+        :rtype: str
+        """
+        return self._admin_full_name.value
+
+    @admin_full_name.setter
+    def admin_full_name(self, value):
+        """
+        :param value: set value of `admin_full_name`
+        :type value: str
+        """
+        self._admin_full_name.set(value)
+
+    @property
+    def admin_id(self):
+        """The ID of the admin user created.
+        
+        api example: '01619571e2e89242ac12000600000000'
+        
+        :rtype: str
+        """
+        return self._admin_id.value
+
+    @admin_id.setter
+    def admin_id(self, value):
+        """
+        :param value: set value of `admin_id`
+        :type value: str
+        """
+        self._admin_id.set(value)
+
+    @property
+    def admin_key(self):
+        """The admin API key created for the account.
+        
+        api example: 'ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJAD
+            MANmAscAj0Ot0n2yeQnyt9tT'
+        
+        :rtype: str
+        """
+        return self._admin_key.value
+
+    @admin_key.setter
+    def admin_key(self, value):
+        """
+        :param value: set value of `admin_key`
+        :type value: str
+        """
+        self._admin_key.set(value)
+
+    @property
+    def admin_name(self):
+        """The username of the admin user to be created, containing alphanumerical letters and
+        -,._@+= characters. It must be at least 4 but not more than 30 character long.
+        
+        api example: 'admin'
+        
+        :rtype: str
+        """
+        return self._admin_name.value
+
+    @admin_name.setter
+    def admin_name(self, value):
+        """
+        :param value: set value of `admin_name`
+        :type value: str
+        """
+        self._admin_name.set(value)
+
+    @property
+    def admin_password(self):
+        """The password when creating a new user. It will be generated when not present in the
+        request.
+        
+        api example: 'PZf9eEUH43DAPE9ULINFeuj'
+        
+        :rtype: str
+        """
+        return self._admin_password.value
+
+    @admin_password.setter
+    def admin_password(self, value):
+        """
+        :param value: set value of `admin_password`
+        :type value: str
+        """
+        self._admin_password.set(value)
+
+    @property
+    def aliases(self):
+        """An array of aliases.
+        
+        :rtype: list
+        """
+        return self._aliases.value
+
+    @aliases.setter
+    def aliases(self, value):
+        """
+        :param value: set value of `aliases`
+        :type value: list
+        """
+        self._aliases.set(value)
+
+    @property
+    def city(self):
+        """The city part of the postal address.
+        
+        api example: 'Cambridge'
+        
+        :rtype: str
+        """
+        return self._city.value
+
+    @city.setter
+    def city(self, value):
+        """
+        :param value: set value of `city`
+        :type value: str
+        """
+        self._city.set(value)
+
+    @property
+    def company(self):
+        """The name of the company.
+        
+        api example: 'ARM Holdings Plc'
+        
+        :rtype: str
+        """
+        return self._company.value
+
+    @company.setter
+    def company(self, value):
+        """
+        :param value: set value of `company`
+        :type value: str
+        """
+        self._company.set(value)
+
+    @property
+    def contact(self):
+        """The name of the contact person for this account.
+        
+        api example: 'J. Doe'
+        
+        :rtype: str
+        """
+        return self._contact.value
+
+    @contact.setter
+    def contact(self, value):
+        """
+        :param value: set value of `contact`
+        :type value: str
+        """
+        self._contact.set(value)
+
+    @property
+    def contract_number(self):
+        """Contract number of the customer.
+        
+        api example: '1NX25_0001'
+        
+        :rtype: str
+        """
+        return self._contract_number.value
+
+    @contract_number.setter
+    def contract_number(self, value):
+        """
+        :param value: set value of `contract_number`
+        :type value: str
+        """
+        self._contract_number.set(value)
+
+    @property
+    def country(self):
+        """The country part of the postal address.
+        
+        api example: 'United Kingdom'
+        
+        :rtype: str
+        """
+        return self._country.value
+
+    @country.setter
+    def country(self, value):
+        """
+        :param value: set value of `country`
+        :type value: str
+        """
+        self._country.set(value)
+
+    @property
+    def created_at(self):
+        """Creation UTC time RFC3339.
+        
+        api example: '2018-02-13T09:35:20Z'
+        
+        :rtype: datetime
+        """
+        return self._created_at.value
+
+    @created_at.setter
+    def created_at(self, value):
+        """
+        :param value: set value of `created_at`
+        :type value: datetime
+        """
+        self._created_at.set(value)
+
+    @property
+    def custom_fields(self):
+        """Account's custom properties as key-value pairs.
+        
+        :rtype: dict
+        """
+        return self._custom_fields.value
+
+    @custom_fields.setter
+    def custom_fields(self, value):
+        """
+        :param value: set value of `custom_fields`
+        :type value: dict
+        """
+        self._custom_fields.set(value)
+
+    @property
+    def customer_number(self):
+        """Customer number of the customer.
+        
+        api example: '1NC25_0001'
+        
+        :rtype: str
+        """
+        return self._customer_number.value
+
+    @customer_number.setter
+    def customer_number(self, value):
+        """
+        :param value: set value of `customer_number`
+        :type value: str
+        """
+        self._customer_number.set(value)
+
+    @property
+    def display_name(self):
+        """The display name for the account.
+        
+        api example: 'ARM'
+        
+        :rtype: str
+        """
+        return self._display_name.value
+
+    @display_name.setter
+    def display_name(self, value):
+        """
+        :param value: set value of `display_name`
+        :type value: str
+        """
+        self._display_name.set(value)
+
+    @property
+    def email(self):
+        """The company email address for this account.
+        
+        api example: 'info@arm.com'
+        
+        :rtype: str
+        """
+        return self._email.value
+
+    @email.setter
+    def email(self, value):
+        """
+        :param value: set value of `email`
+        :type value: str
+        """
+        self._email.set(value)
+
+    @property
+    def end_market(self):
+        """Account end market.
+        
+        api example: 'IT'
+        
+        :rtype: str
+        """
+        return self._end_market.value
+
+    @end_market.setter
+    def end_market(self, value):
+        """
+        :param value: set value of `end_market`
+        :type value: str
+        """
+        self._end_market.set(value)
+
+    @property
+    def expiration_warning_threshold(self):
+        """Indicates how many days (1-180) before account expiration a notification email should be
+        sent.
+        
+        api example: '180'
+        
+        :rtype: str
+        """
+        return self._expiration_warning_threshold.value
+
+    @expiration_warning_threshold.setter
+    def expiration_warning_threshold(self, value):
+        """
+        :param value: set value of `expiration_warning_threshold`
+        :type value: str
+        """
+        self._expiration_warning_threshold.set(value)
+
+    @property
+    def id(self):
+        """Account ID.
+        
+        api example: '01619571e2e90242ac12000600000000'
+        
+        :rtype: str
+        """
+        return self._id.value
+
+    @id.setter
+    def id(self, value):
+        """
+        :param value: set value of `id`
+        :type value: str
+        """
+        self._id.set(value)
+
+    @property
+    def idle_timeout(self):
+        """The reference token expiration time in minutes for this account.
+        
+        api example: '30'
+        
+        :rtype: str
+        """
+        return self._idle_timeout.value
+
+    @idle_timeout.setter
+    def idle_timeout(self, value):
+        """
+        :param value: set value of `idle_timeout`
+        :type value: str
+        """
+        self._idle_timeout.set(value)
+
+    @property
+    def limits(self):
+        """List of limits as key-value pairs if requested.
+        
+        :rtype: dict
+        """
+        return self._limits.value
+
+    @limits.setter
+    def limits(self, value):
+        """
+        :param value: set value of `limits`
+        :type value: dict
+        """
+        self._limits.set(value)
+
+    @property
+    def mfa_status(self):
+        """The enforcement status of the multi-factor authentication, either 'enforced' or
+        'optional'.
+        
+        :rtype: str
+        """
+        return self._mfa_status.value
+
+    @mfa_status.setter
+    def mfa_status(self, value):
+        """
+        :param value: set value of `mfa_status`
+        :type value: str
+        """
+        self._mfa_status.set(value)
+
+    @property
+    def notification_emails(self):
+        """A list of notification email addresses.
+        
+        :rtype: list
+        """
+        return self._notification_emails.value
+
+    @notification_emails.setter
+    def notification_emails(self, value):
+        """
+        :param value: set value of `notification_emails`
+        :type value: list
+        """
+        self._notification_emails.set(value)
+
+    @property
+    def parent_id(self):
+        """The ID of the parent account, if it has any.
+        
+        api example: '01619571dad80242ac12000600000000'
+        
+        :rtype: str
+        """
+        return self._parent_id.value
+
+    @parent_id.setter
+    def parent_id(self, value):
+        """
+        :param value: set value of `parent_id`
+        :type value: str
+        """
+        self._parent_id.set(value)
+
+    @property
+    def password_policy(self):
+        """
+        
+        :rtype: dict
+        """
+        return self._password_policy.value
+
+    @password_policy.setter
+    def password_policy(self, value):
+        """
+        :param value: set value of `password_policy`
+        :type value: dict
+        """
+        self._password_policy.set(value)
+
+    @property
+    def phone_number(self):
+        """The phone number of a representative of the company.
+        
+        api example: '+44 (1223) 400 400'
+        
+        :rtype: str
+        """
+        return self._phone_number.value
+
+    @phone_number.setter
+    def phone_number(self, value):
+        """
+        :param value: set value of `phone_number`
+        :type value: str
+        """
+        self._phone_number.set(value)
+
+    @property
+    def policies(self):
+        """List of policies if requested.
+        
+        :rtype: list
+        """
+        return self._policies.value
+
+    @policies.setter
+    def policies(self, value):
+        """
+        :param value: set value of `policies`
+        :type value: list
+        """
+        self._policies.set(value)
+
+    @property
+    def postal_code(self):
+        """The postal code part of the postal address.
+        
+        api example: 'CB1 9NJ'
+        
+        :rtype: str
+        """
+        return self._postal_code.value
+
+    @postal_code.setter
+    def postal_code(self, value):
+        """
+        :param value: set value of `postal_code`
+        :type value: str
+        """
+        self._postal_code.set(value)
+
+    @property
+    def reason(self):
+        """A reason note for updating the status of the account
+        
+        api example: 'Subscription paid.'
+        
+        :rtype: str
+        """
+        return self._reason.value
+
+    @reason.setter
+    def reason(self, value):
+        """
+        :param value: set value of `reason`
+        :type value: str
+        """
+        self._reason.set(value)
+
+    @property
+    def reference_note(self):
+        """A reference note for updating the status of the account
+        
+        api example: 'ARM-INT-0001'
+        
+        :rtype: str
+        """
+        return self._reference_note.value
+
+    @reference_note.setter
+    def reference_note(self, value):
+        """
+        :param value: set value of `reference_note`
+        :type value: str
+        """
+        self._reference_note.set(value)
+
+    @property
+    def sales_contact(self):
+        """Email address of the sales contact.
+        
+        api example: 'sales@arm.com'
+        
+        :rtype: str
+        """
+        return self._sales_contact.value
+
+    @sales_contact.setter
+    def sales_contact(self, value):
+        """
+        :param value: set value of `sales_contact`
+        :type value: str
+        """
+        self._sales_contact.set(value)
+
+    @property
+    def state(self):
+        """The state part of the postal address.
+        
+        api example: ' '
+        
+        :rtype: str
+        """
+        return self._state.value
+
+    @state.setter
+    def state(self, value):
+        """
+        :param value: set value of `state`
+        :type value: str
+        """
+        self._state.set(value)
+
+    @property
+    def status(self):
+        """The status of the account.
+        
+        api example: 'ACTIVE'
+        
+        :rtype: str
+        """
+        return self._status.value
+
+    @status.setter
+    def status(self, value):
+        """
+        :param value: set value of `status`
+        :type value: str
+        """
+        self._status.set(value)
+
+    @property
+    def sub_accounts(self):
+        """List of sub accounts. Not available for developer users.
+        
+        :rtype: list
+        """
+        return self._sub_accounts.value
+
+    @sub_accounts.setter
+    def sub_accounts(self, value):
+        """
+        :param value: set value of `sub_accounts`
+        :type value: list
+        """
+        self._sub_accounts.set(value)
+
+    @property
+    def template_id(self):
+        """Account template ID.
+        
+        api example: '01619571e7160242ac12000600000000'
+        
+        :rtype: str
+        """
+        return self._template_id.value
+
+    @template_id.setter
+    def template_id(self, value):
+        """
+        :param value: set value of `template_id`
+        :type value: str
+        """
+        self._template_id.set(value)
+
+    @property
+    def tier(self):
+        """The tier level of the account; '0': free tier, '1': commercial account, '2': partner
+        tier. Other values are reserved for the future.
+        
+        api example: '1'
+        
+        :rtype: str
+        """
+        return self._tier.value
+
+    @tier.setter
+    def tier(self, value):
+        """
+        :param value: set value of `tier`
+        :type value: str
+        """
+        self._tier.set(value)
+
+    @property
+    def updated_at(self):
+        """Last update UTC time RFC3339.
+        
+        api example: '2018-02-14T15:24:14Z'
+        
+        :rtype: datetime
+        """
+        return self._updated_at.value
+
+    @updated_at.setter
+    def updated_at(self, value):
+        """
+        :param value: set value of `updated_at`
+        :type value: datetime
+        """
+        self._updated_at.set(value)
+
+    @property
+    def upgraded_at(self):
+        """Time when upgraded to commercial account in UTC format RFC3339.
+        
+        api example: '2018-02-14T15:24:14Z'
+        
+        :rtype: datetime
+        """
+        return self._upgraded_at.value
+
+    @upgraded_at.setter
+    def upgraded_at(self, value):
+        """
+        :param value: set value of `upgraded_at`
+        :type value: datetime
+        """
+        self._upgraded_at.set(value)
+
+    def api_keys(
+        self, accountid, groupid, after=None, include=None, limit=50, order="ASC"
+    ):
+        """Get API keys of a group.
+
+        api documentation: https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/policy-groups/{groupID}/api-keys
+        
+        :param accountid: Account ID.
+        :type accountid: string
+        
+        :param after: The entity ID to fetch after the given one.
+        :type after: string
+        
+        :param groupid: The ID of the group whose API keys are retrieved.
+        :type groupid: string
+        
+        :param include: Comma separated additional data to return. Currently supported: total_count
+        :type include: string
+        
+        :param limit: The number of results to return (2-1000), default is 50.
+        :type limit: integer
+        
+        :param order: The order of the records based on creation time, ASC or DESC; by default ASC
+        :type order: string
+        """
+
+        def mapper(api_data):
+            return ApiKey()._from_api(inbound_renames={}, **api_data)
+
+        return pagination.PaginatedResponse(
+            func=self._api_keys,
+            lwrap_type=mapper,
+            accountid=accountid,
+            after=after,
+            groupid=groupid,
+            include=include,
+            limit=limit,
+            order=order,
+        )
+
+    def _api_keys(
+        self, accountid, groupid, after=None, include=None, limit=None, order=None
+    ):
+        """Internal 'next-page' behaviour for pagination"""
+
+        return self._call_api(
+            method="get",
+            path="/v3/accounts/{accountID}/policy-groups/{groupID}/api-keys",
+            path_params={
+                "accountID": fields.StringField(accountid).to_api(),
+                "groupID": fields.StringField(groupid).to_api(),
+            },
+            query_params={
+                "after": fields.StringField(after).to_api(),
+                "include": fields.StringField(include).to_api(),
+                "limit": fields.IntegerField(limit).to_api(),
+                "order": fields.StringField(order).to_api(),
+            },
+            unpack=False,
+        )
+
+    def create(self, action="create"):
+        """Create a new account.
+
+        api documentation: https://os.mbed.com/search/?q=service+apis+/v3/accounts
+        
+        :param action: Action, either 'create' or 'enroll'. <ul><li>'create' creates the account where its
+            admin user has ACTIVE status if admin_password was defined in the request, or RESET
+            status if no admin_password was defined. If the user already exists, its status is not
+            modified. </li><li>'enroll' creates the account where its admin user has ENROLLING
+            status. If the user already exists, its status is not modified. Email to finish the
+            enrollment or to notify the existing user about the new account is sent to the
+            admin_email defined in the request. </li></ul>
+        :type action: string
+        """
+
+        return self._call_api(
+            method="post",
+            path="/v3/accounts",
+            body_params={
+                "address_line1": self._address_line1.to_api(),
+                "address_line2": self._address_line2.to_api(),
+                "admin_email": self._admin_email.to_api(),
+                "admin_full_name": self._admin_full_name.to_api(),
+                "admin_name": self._admin_name.to_api(),
+                "admin_password": self._admin_password.to_api(),
+                "aliases": self._aliases.to_api(),
+                "city": self._city.to_api(),
+                "company": self._company.to_api(),
+                "contact": self._contact.to_api(),
+                "contract_number": self._contract_number.to_api(),
+                "country": self._country.to_api(),
+                "customer_number": self._customer_number.to_api(),
+                "display_name": self._display_name.to_api(),
+                "email": self._email.to_api(),
+                "end_market": self._end_market.to_api(),
+                "phone_number": self._phone_number.to_api(),
+                "postal_code": self._postal_code.to_api(),
+                "state": self._state.to_api(),
+            },
+            query_params={"action": fields.StringField(action).to_api()},
+        )
+
+    def get(self, accountid, include=None, properties=None):
+        """Get account info.
+
+        api documentation: https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}
+        
+        :param accountid: The ID of the account to be fetched.
+        :type accountid: string
+        
+        :param include: Comma separated additional data to return. Currently supported: limits, policies,
+            sub_accounts
+        :type include: string
+        
+        :param properties: Property name to be returned from account specific properties.
+        :type properties: string
         """
 
         return self._call_api(
             method="get",
-            path="/v2/device-shared-keys/{endpoint_name}",
-            path_params={"endpoint_name": self._endpoint_name.to_api()},
+            path="/v3/accounts/{accountID}",
+            path_params={"accountID": fields.StringField(accountid).to_api()},
+            query_params={
+                "include": fields.StringField(include).to_api(),
+                "properties": fields.StringField(properties).to_api(),
+            },
+        )
+
+    def list(
+        self,
+        after=None,
+        country__like=None,
+        end_market__eq=None,
+        format=None,
+        include=None,
+        limit=1000,
+        order="ASC",
+        parent__eq=None,
+        properties=None,
+        tier__eq=None,
+    ):
+        """Get all accounts.
+
+        api documentation: https://os.mbed.com/search/?q=service+apis+/v3/accounts
+        
+        :param after: The entity ID to fetch after the given one.
+        :type after: string
+        
+        :param country__like: An optional filter for account country. Finds all matches where the filter value is a
+            case insensitive substring of the result. Example: country__like=LAND matches Ireland.
+        :type country__like: string
+        
+        :param end_market__eq: An optional filter for account end market.
+        :type end_market__eq: string
+        
+        :param format: Format information for the response to the query, supported: format=breakdown.
+        :type format: string
+        
+        :param include: Comma separated additional data to return. Currently supported: limits, policies,
+            sub_accounts
+        :type include: string
+        
+        :param limit: The number of results to return (2-1000), default is 1000.
+        :type limit: integer
+        
+        :param order: The order of the records based on creation time, ASC or DESC. Default value is ASC
+        :type order: string
+        
+        :param parent__eq: An optional filter for parent account ID.
+        :type parent__eq: string
+        
+        :param properties: Property name to be returned from account specific properties.
+        :type properties: string
+        
+        :param tier__eq: An optional filter for tier level, must be 0, 1, 2, 98, 99 or omitted.
+        :type tier__eq: string
+        """
+
+        def mapper(api_data):
+            return Account()._from_api(inbound_renames={}, **api_data)
+
+        return pagination.PaginatedResponse(
+            func=self._list,
+            lwrap_type=mapper,
+            after=after,
+            country__like=country__like,
+            end_market__eq=end_market__eq,
+            format=format,
+            include=include,
+            limit=limit,
+            order=order,
+            parent__eq=parent__eq,
+            properties=properties,
+            tier__eq=tier__eq,
+        )
+
+    def _list(
+        self,
+        after=None,
+        country__like=None,
+        end_market__eq=None,
+        format=None,
+        include=None,
+        limit=None,
+        order=None,
+        parent__eq=None,
+        properties=None,
+        tier__eq=None,
+    ):
+        """Internal 'next-page' behaviour for pagination"""
+
+        return self._call_api(
+            method="get",
+            path="/v3/accounts",
+            query_params={
+                "after": fields.StringField(after).to_api(),
+                "country__like": fields.StringField(country__like).to_api(),
+                "end_market__eq": fields.StringField(end_market__eq).to_api(),
+                "format": fields.StringField(format).to_api(),
+                "include": fields.StringField(include).to_api(),
+                "limit": fields.IntegerField(limit).to_api(),
+                "order": fields.StringField(order).to_api(),
+                "parent__eq": fields.StringField(parent__eq).to_api(),
+                "properties": fields.StringField(properties).to_api(),
+                "tier__eq": fields.StringField(tier__eq).to_api(),
+            },
+            unpack=False,
+        )
+
+    def update(self, accountid):
+        """Update attributes of an existing account.
+
+        api documentation: https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}
+        
+        :param accountid: The ID of the account to be updated.
+        :type accountid: string
+        """
+
+        return self._call_api(
+            method="put",
+            path="/v3/accounts/{accountID}",
+            body_params={
+                "address_line1": self._address_line1.to_api(),
+                "address_line2": self._address_line2.to_api(),
+                "aliases": self._aliases.to_api(),
+                "city": self._city.to_api(),
+                "company": self._company.to_api(),
+                "contact": self._contact.to_api(),
+                "contract_number": self._contract_number.to_api(),
+                "country": self._country.to_api(),
+                "custom_fields": self._custom_fields.to_api(),
+                "customer_number": self._customer_number.to_api(),
+                "display_name": self._display_name.to_api(),
+                "email": self._email.to_api(),
+                "end_market": self._end_market.to_api(),
+                "expiration_warning_threshold": self._expiration_warning_threshold.to_api(),
+                "idle_timeout": self._idle_timeout.to_api(),
+                "mfa_status": self._mfa_status.to_api(),
+                "notification_emails": self._notification_emails.to_api(),
+                "password_policy": self._password_policy.to_api(),
+                "phone_number": self._phone_number.to_api(),
+                "postal_code": self._postal_code.to_api(),
+                "sales_contact": self._sales_contact.to_api(),
+                "state": self._state.to_api(),
+            },
+            path_params={"accountID": fields.StringField(accountid).to_api()},
+        )
+
+    def users(
+        self, accountid, groupid, after=None, include=None, limit=50, order="ASC"
+    ):
+        """Get users of a group.
+
+        api documentation: https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/policy-groups/{groupID}/users
+        
+        :param accountid: Account ID.
+        :type accountid: string
+        
+        :param after: The entity ID to fetch after the given one.
+        :type after: string
+        
+        :param groupid: The ID of the group whose users are retrieved.
+        :type groupid: string
+        
+        :param include: Comma separated additional data to return. Currently supported: total_count
+        :type include: string
+        
+        :param limit: The number of results to return (2-1000), default is 50.
+        :type limit: integer
+        
+        :param order: The order of the records based on creation time, ASC or DESC; by default ASC
+        :type order: string
+        """
+
+        def mapper(api_data):
+            return User()._from_api(inbound_renames={}, **api_data)
+
+        return pagination.PaginatedResponse(
+            func=self._users,
+            lwrap_type=mapper,
+            accountid=accountid,
+            after=after,
+            groupid=groupid,
+            include=include,
+            limit=limit,
+            order=order,
+        )
+
+    def _users(
+        self, accountid, groupid, after=None, include=None, limit=None, order=None
+    ):
+        """Internal 'next-page' behaviour for pagination"""
+
+        return self._call_api(
+            method="get",
+            path="/v3/accounts/{accountID}/policy-groups/{groupID}/users",
+            path_params={
+                "accountID": fields.StringField(accountid).to_api(),
+                "groupID": fields.StringField(groupid).to_api(),
+            },
+            query_params={
+                "after": fields.StringField(after).to_api(),
+                "include": fields.StringField(include).to_api(),
+                "limit": fields.IntegerField(limit).to_api(),
+                "order": fields.StringField(order).to_api(),
+            },
+            unpack=False,
         )
 
 
@@ -1505,6 +3902,24 @@ class User(common.Entity):
             },
         )
 
+    def get(self):
+        """Details of a user.
+
+        api documentation: https://os.mbed.com/search/?q=service+apis+/v3/users/{user-id}
+        """
+
+        return self._call_api(
+            method="get",
+            path="/v3/users/{user-id}",
+            path_params={"user-id": self._id.to_api()},
+            inbound_renames={
+                "groups": "group_ids",
+                "is_marketing_accepted": "marketing_accepted",
+                "is_gtc_accepted": "terms_accepted",
+                "is_totp_enabled": "two_factor_auth_enabled",
+            },
+        )
+
     def groups(self, after=None, include=None, limit=50, order="ASC"):
         """Get groups of the user.
 
@@ -1524,7 +3939,7 @@ class User(common.Entity):
         """
 
         def mapper(api_data):
-            return AccountGroup()._from_api(
+            return PolicyGroup()._from_api(
                 inbound_renames={
                     "groups": "group_ids",
                     "is_marketing_accepted": "marketing_accepted",
@@ -1627,24 +4042,6 @@ class User(common.Entity):
             unpack=False,
         )
 
-    def read(self):
-        """Details of a user.
-
-        api documentation: https://os.mbed.com/search/?q=service+apis+/v3/users/{user-id}
-        """
-
-        return self._call_api(
-            method="get",
-            path="/v3/users/{user-id}",
-            path_params={"user-id": self._id.to_api()},
-            inbound_renames={
-                "groups": "group_ids",
-                "is_marketing_accepted": "marketing_accepted",
-                "is_gtc_accepted": "terms_accepted",
-                "is_totp_enabled": "two_factor_auth_enabled",
-            },
-        )
-
     def update(self):
         """Update user details.
 
@@ -1664,6 +4061,27 @@ class User(common.Entity):
                 "username": self._username.to_api(),
             },
             path_params={"user-id": self._id.to_api()},
+            inbound_renames={
+                "groups": "group_ids",
+                "is_marketing_accepted": "marketing_accepted",
+                "is_gtc_accepted": "terms_accepted",
+                "is_totp_enabled": "two_factor_auth_enabled",
+            },
+        )
+
+    def validate_email(self):
+        """Validate the user email.
+
+        api documentation: https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/users/{user-id}/validate-email
+        """
+
+        return self._call_api(
+            method="post",
+            path="/v3/accounts/{accountID}/users/{user-id}/validate-email",
+            path_params={
+                "accountID": self._account_id.to_api(),
+                "user-id": self._id.to_api(),
+            },
             inbound_renames={
                 "groups": "group_ids",
                 "is_marketing_accepted": "marketing_accepted",

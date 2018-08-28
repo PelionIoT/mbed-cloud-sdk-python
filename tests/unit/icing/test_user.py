@@ -30,26 +30,26 @@ class TestUserFactory(BaseCase):
 
     def test_attr_read(self):
         user = self.get_user(id='015f4d70658002420a010a1000000000')
-        user.read()
+        user.get()
         self.assertEqual(user.id, '015f4d70658002420a010a1000000000')
         self.assertIsNotNone(user.phone_number)
 
     def test_attr_read(self):
         user = self.get_user(id='015f4d70658002420a010a1000000000')
-        user.read()
+        user.get()
 
 
 class TestUserImplicit(TestUserFactory):
 
     def get_user(self, **kwargs):
-        from mbed_cloud.sdk.api import User
+        from mbed_cloud.sdk.entities import User
         return User(**kwargs)
 
 
 class TestUserExplicit(TestUserFactory):
 
     def get_user(self, **kwargs):
-        from mbed_cloud.sdk.api import User
+        from mbed_cloud.sdk.entities import User
         from mbed_cloud.sdk.common import SDK
         sdk = SDK()
         return User(client=sdk, **kwargs)  # instantiated object is introspectable
@@ -57,7 +57,7 @@ class TestUserExplicit(TestUserFactory):
 
 class TestUserLazyExplicit(TestUserFactory):
     def get_user(self, **kwargs):
-        from mbed_cloud.sdk.api import User
+        from mbed_cloud.sdk.entities import User
         from mbed_cloud.sdk.common import SDK
         sdk = SDK()
         u = User(**kwargs)  # instantiated object is introspectable
@@ -68,10 +68,10 @@ class TestUserLazyExplicit(TestUserFactory):
 class TestUserMethods(BaseCase):
 
     def test_attr_read_set(self):
-        from mbed_cloud.sdk.api import User
+        from mbed_cloud.sdk.entities import User
         user = User(id='015f4d70658002420a010a1000000000')
         print(user.phone_number)
-        user.read()
+        user.get()
 
         print(user._phone_number.value)
 
@@ -94,7 +94,7 @@ class TestUserMethods(BaseCase):
         user = User(id='015f4d70658002420a010a1000000000')
         self.assertEqual(user.phone_number, None)
         print(user.phone_number)
-        user.read()
+        user.get()
         self.assertEqual(user.phone_number, new_number)
         print(user.phone_number)
 
@@ -102,24 +102,24 @@ class TestUserMethods(BaseCase):
         print(user.login_history)
 
     def test_related(self):
-        from mbed_cloud.sdk.api import User
+        from mbed_cloud.sdk.entities import User
         user = User(id='015f4d70658002420a010a1000000000')
-        user.read()
+        user.get()
         for g in user.group_ids:
             print('group_ids', g)
 
     def test_nested(self):
-        from mbed_cloud.sdk.api import User
+        from mbed_cloud.sdk.entities import User
         user = User(id='015f4d70658002420a010a1000000000')
-        user.read()
+        user.get()
         print(user)
         for history in user.login_history:
             print(history)
 
     def test_paginate_get(self):
-        from mbed_cloud.sdk.api import User
+        from mbed_cloud.sdk.entities import User
         user = User(id='015f4d70658002420a010a1000000000')
-        user.read()
+        user.get()
         groups = user.groups()
         print(groups)
         print(len(groups))

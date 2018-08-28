@@ -47,7 +47,7 @@ class {{ entity._key.pascal }}(common.Entity):
     ):
         """Creates a local `{{entity._key.pascal}}` instance
 
-        {% for field in entity.fields %}:param {{field._key.snake}}: {{ field.description|wordwrap(width=88)|indent(width=12) }}
+        {% for field in entity.fields %}:param {{field._key.snake}}: {{ (field.description or '')|wordwrap(width=88)|indent(width=12) }}
         :type {{field._key.snake}}: {{field.type}}
         {% endfor %}"""
 
@@ -71,7 +71,7 @@ class {{ entity._key.pascal }}(common.Entity):
     {% for field in entity.fields %}
     @property
     def {{field._key.snake}}(self):
-        """{{ field.description|wordwrap(width=88)|indent(width=8) }}
+        """{{ (field.description or '')|wordwrap(width=88)|indent(width=8) }}
         {% if field.example %}
         api example: {{ field.example|repr|wordwrap(width=88)|indent(width=12) }}
         {% endif %}
@@ -92,7 +92,7 @@ class {{ entity._key.pascal }}(common.Entity):
     {% for mode in entity.modes %}
     def {{mode._key.snake}}(
         self
-        {% for field in mode.fields %}
+        {% for field in mode.fields|pargs_kwargs %}
             {% if field.external_param %},
                 {% if field.required %}
                     {{field._key.snake}}
@@ -131,7 +131,7 @@ class {{ entity._key.pascal }}(common.Entity):
 
     def _{{mode._key.snake}}(
         self
-        {% for field in mode.fields %}
+        {% for field in mode.fields|pargs_kwargs %}
             {% if field.external_param %},
                 {% if field.required %}
                     {{field._key.snake}}
