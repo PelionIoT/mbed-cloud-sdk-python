@@ -33,11 +33,19 @@ class InstanceFactory:
 class {{ entity._key.pascal }}(common.Entity):
     """Represents the `{{entity._key.pascal}}` entity in Mbed Cloud"""
 
+    # all fields available on this entity
     _fieldnames = [
         {% for field in entity.fields %}
         '{{field._key.snake}}',
         {% endfor %}
     ]
+
+    # common renames used when mapping {<API spec>: <SDK>}
+    _renames = {
+        {% for rename in entity.field_renames %}
+        '{{rename.api_fieldname}}': '{{rename._key.snake}}',
+        {% endfor %}
+    }
 
     def __init__(
         self, client=None{% if entity.fields %},{% endif %}
@@ -53,7 +61,7 @@ class {{ entity._key.pascal }}(common.Entity):
 
         super().__init__(client=client)
 
-        # Field attributes
+        # fields
         {% for field in entity.fields %}self._{{field._key.snake}} = fields.{{field.python_field}}(
             value={{field._key.snake}}
             {% if field.enum_reference %},
@@ -113,14 +121,8 @@ class {{ entity._key.pascal }}(common.Entity):
     {% if mode.pagination %}
         {# continuing from the outer, 'public' definition ... #}
         def mapper(api_data):
-            return {{ mode.foreign_key.entity.pascal }}()._from_api(
-                inbound_renames = {
-                    {% for rename in mode.field_renames %}
-                    '{{rename.api_fieldname}}': '{{rename._key.snake}}',
-                    {% endfor %}
-                },
-                **api_data
-            )
+            return {{ mode.foreign_key.entity.pascal }}()._from_api(**api_data)
+
         return pagination.PaginatedResponse(
             func=self._{{mode._key.snake}},
             lwrap_type=mapper,
@@ -162,13 +164,6 @@ class {{ entity._key.pascal }}(common.Entity):
                 },
                 {% endif %}
             {% endfor %}
-            {% if mode.field_renames %}
-            inbound_renames = {
-                {% for rename in mode.field_renames %}
-                '{{rename.api_fieldname}}': '{{rename._key.snake}}',
-                {% endfor %}
-            },
-            {% endif %}
             {% if mode.pagination %}
             unpack = False,
             {% endif %}

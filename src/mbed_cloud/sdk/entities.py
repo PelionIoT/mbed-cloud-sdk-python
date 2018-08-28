@@ -72,6 +72,7 @@ class InstanceFactory:
 class Account(common.Entity):
     """Represents the `Account` entity in Mbed Cloud"""
 
+    # all fields available on this entity
     _fieldnames = [
         "address_line1",
         "address_line2",
@@ -109,6 +110,9 @@ class Account(common.Entity):
         "updated_at",
         "upgraded_at",
     ]
+
+    # common renames used when mapping {<API spec>: <SDK>}
+    _renames = {}
 
     def __init__(
         self,
@@ -228,7 +232,7 @@ class Account(common.Entity):
 
         super().__init__(client=client)
 
-        # Field attributes
+        # fields
         self._address_line1 = fields.StringField(value=address_line1)
         self._address_line2 = fields.StringField(value=address_line2)
         self._aliases = fields.ListField(value=aliases)
@@ -948,6 +952,7 @@ class Account(common.Entity):
 class ApiKey(common.Entity):
     """Represents the `ApiKey` entity in Mbed Cloud"""
 
+    # all fields available on this entity
     _fieldnames = [
         "created_at",
         "creation_time",
@@ -960,6 +965,9 @@ class ApiKey(common.Entity):
         "status",
         "updated_at",
     ]
+
+    # common renames used when mapping {<API spec>: <SDK>}
+    _renames = {"groups": "group_ids"}
 
     def __init__(
         self,
@@ -1001,7 +1009,7 @@ class ApiKey(common.Entity):
 
         super().__init__(client=client)
 
-        # Field attributes
+        # fields
         self._created_at = fields.DateTimeField(value=created_at)
         self._creation_time = fields.IntegerField(value=creation_time)
         self._group_ids = fields.ListField(value=group_ids)
@@ -1206,7 +1214,6 @@ class ApiKey(common.Entity):
                 "owner": self._owner.to_api(),
                 "status": self._status.to_api(),
             },
-            inbound_renames={"groups": "group_ids"},
         )
 
     def delete(self):
@@ -1219,7 +1226,6 @@ class ApiKey(common.Entity):
             method="delete",
             path="/v3/api-keys/{apiKey}",
             path_params={"apiKey": self._id.to_api()},
-            inbound_renames={"groups": "group_ids"},
         )
 
     def get(self):
@@ -1232,7 +1238,6 @@ class ApiKey(common.Entity):
             method="get",
             path="/v3/api-keys/{apiKey}",
             path_params={"apiKey": self._id.to_api()},
-            inbound_renames={"groups": "group_ids"},
         )
 
     def groups(self, after=None, include=None, limit=50, order="ASC"):
@@ -1254,9 +1259,7 @@ class ApiKey(common.Entity):
         """
 
         def mapper(api_data):
-            return PolicyGroup()._from_api(
-                inbound_renames={"groups": "group_ids"}, **api_data
-            )
+            return PolicyGroup()._from_api(**api_data)
 
         return pagination.PaginatedResponse(
             func=self._groups,
@@ -1280,7 +1283,6 @@ class ApiKey(common.Entity):
                 "limit": fields.IntegerField(limit).to_api(),
                 "order": fields.StringField(order).to_api(),
             },
-            inbound_renames={"groups": "group_ids"},
             unpack=False,
         )
 
@@ -1303,9 +1305,7 @@ class ApiKey(common.Entity):
         """
 
         def mapper(api_data):
-            return ApiKey()._from_api(
-                inbound_renames={"groups": "group_ids"}, **api_data
-            )
+            return ApiKey()._from_api(**api_data)
 
         return pagination.PaginatedResponse(
             func=self._list,
@@ -1328,7 +1328,6 @@ class ApiKey(common.Entity):
                 "limit": fields.IntegerField(limit).to_api(),
                 "order": fields.StringField(order).to_api(),
             },
-            inbound_renames={"groups": "group_ids"},
             unpack=False,
         )
 
@@ -1348,7 +1347,6 @@ class ApiKey(common.Entity):
                 "accountID": fields.StringField(accountid).to_api(),
                 "apiKey": self._id.to_api(),
             },
-            inbound_renames={"groups": "group_ids"},
         )
 
     def update(self):
@@ -1367,14 +1365,17 @@ class ApiKey(common.Entity):
                 "status": self._status.to_api(),
             },
             path_params={"apiKey": self._id.to_api()},
-            inbound_renames={"groups": "group_ids"},
         )
 
 
 class LoginHistory(common.Entity):
     """Represents the `LoginHistory` entity in Mbed Cloud"""
 
+    # all fields available on this entity
     _fieldnames = ["date", "ip_address", "success", "user_agent"]
+
+    # common renames used when mapping {<API spec>: <SDK>}
+    _renames = {}
 
     def __init__(
         self, client=None, date=None, ip_address=None, success=None, user_agent=None
@@ -1393,7 +1394,7 @@ class LoginHistory(common.Entity):
 
         super().__init__(client=client)
 
-        # Field attributes
+        # fields
         self._date = fields.DateTimeField(value=date)
         self._ip_address = fields.StringField(value=ip_address)
         self._success = fields.BooleanField(value=success)
@@ -1476,7 +1477,11 @@ class LoginHistory(common.Entity):
 class PasswordPolicy(common.Entity):
     """Represents the `PasswordPolicy` entity in Mbed Cloud"""
 
+    # all fields available on this entity
     _fieldnames = ["minimum_length"]
+
+    # common renames used when mapping {<API spec>: <SDK>}
+    _renames = {}
 
     def __init__(self, client=None, minimum_length=None):
         """Creates a local `PasswordPolicy` instance
@@ -1487,7 +1492,7 @@ class PasswordPolicy(common.Entity):
 
         super().__init__(client=client)
 
-        # Field attributes
+        # fields
         self._minimum_length = fields.StringField(value=minimum_length)
 
     @property
@@ -1512,36 +1517,28 @@ class PasswordPolicy(common.Entity):
 class PolicyGroup(common.Entity):
     """Represents the `PolicyGroup` entity in Mbed Cloud"""
 
+    # all fields available on this entity
     _fieldnames = [
         "account_id",
-        "after",
         "apikey_count",
         "created_at",
-        "data",
-        "has_more",
         "id",
-        "limit",
         "name",
-        "order",
-        "total_count",
         "updated_at",
         "user_count",
     ]
+
+    # common renames used when mapping {<API spec>: <SDK>}
+    _renames = {}
 
     def __init__(
         self,
         client=None,
         account_id=None,
-        after=None,
         apikey_count=None,
         created_at=None,
-        data=None,
-        has_more=None,
         id=None,
-        limit=None,
         name=None,
-        order=None,
-        total_count=None,
         updated_at=None,
         user_count=None,
     ):
@@ -1549,27 +1546,14 @@ class PolicyGroup(common.Entity):
 
         :param account_id: The UUID of the account this group belongs to.
         :type account_id: string
-        :param after: The entity ID to fetch after the given one.
-        :type after: string
         :param apikey_count: The number of API keys in this group.
         :type apikey_count: integer
         :param created_at: Creation UTC time RFC3339.
         :type created_at: string
-        :param data: A list of entities.
-        :type data: array
-        :param has_more: Flag indicating whether there is more results.
-        :type has_more: boolean
         :param id: The UUID of the group.
         :type id: string
-        :param limit: The number of results to return, (range: 2-1000), or equals to `total_count`
-        :type limit: integer
         :param name: The name of the group.
         :type name: string
-        :param order: The order of the records to return based on creation time. Available values: ASC, DESC;
-            by default ASC.
-        :type order: string
-        :param total_count: The total number or records, if requested. It might be returned also for small lists.
-        :type total_count: integer
         :param updated_at: Last update UTC time RFC3339.
         :type updated_at: string
         :param user_count: The number of users in this group.
@@ -1578,18 +1562,12 @@ class PolicyGroup(common.Entity):
 
         super().__init__(client=client)
 
-        # Field attributes
+        # fields
         self._account_id = fields.StringField(value=account_id)
-        self._after = fields.StringField(value=after)
         self._apikey_count = fields.IntegerField(value=apikey_count)
         self._created_at = fields.DateTimeField(value=created_at)
-        self._data = fields.ListField(value=data, entity=User)
-        self._has_more = fields.BooleanField(value=has_more)
         self._id = fields.StringField(value=id)
-        self._limit = fields.IntegerField(value=limit)
         self._name = fields.StringField(value=name)
-        self._order = fields.StringField(value=order, enum=enums.PolicyGroupOrderEnum)
-        self._total_count = fields.IntegerField(value=total_count)
         self._updated_at = fields.DateTimeField(value=updated_at)
         self._user_count = fields.IntegerField(value=user_count)
 
@@ -1610,24 +1588,6 @@ class PolicyGroup(common.Entity):
         :type value: str
         """
         self._account_id.set(value)
-
-    @property
-    def after(self):
-        """The entity ID to fetch after the given one.
-        
-        api example: '01619571f3c00242ac12000600000000'
-        
-        :rtype: str
-        """
-        return self._after.value
-
-    @after.setter
-    def after(self, value):
-        """
-        :param value: set value of `after`
-        :type value: str
-        """
-        self._after.set(value)
 
     @property
     def apikey_count(self):
@@ -1664,38 +1624,6 @@ class PolicyGroup(common.Entity):
         self._created_at.set(value)
 
     @property
-    def data(self):
-        """A list of entities.
-        
-        :rtype: list
-        """
-        return self._data.value
-
-    @data.setter
-    def data(self, value):
-        """
-        :param value: set value of `data`
-        :type value: list
-        """
-        self._data.set(value)
-
-    @property
-    def has_more(self):
-        """Flag indicating whether there is more results.
-        
-        :rtype: bool
-        """
-        return self._has_more.value
-
-    @has_more.setter
-    def has_more(self, value):
-        """
-        :param value: set value of `has_more`
-        :type value: bool
-        """
-        self._has_more.set(value)
-
-    @property
     def id(self):
         """The UUID of the group.
         
@@ -1714,24 +1642,6 @@ class PolicyGroup(common.Entity):
         self._id.set(value)
 
     @property
-    def limit(self):
-        """The number of results to return, (range: 2-1000), or equals to `total_count`
-        
-        api example: 50
-        
-        :rtype: int
-        """
-        return self._limit.value
-
-    @limit.setter
-    def limit(self, value):
-        """
-        :param value: set value of `limit`
-        :type value: int
-        """
-        self._limit.set(value)
-
-    @property
     def name(self):
         """The name of the group.
         
@@ -1748,41 +1658,6 @@ class PolicyGroup(common.Entity):
         :type value: str
         """
         self._name.set(value)
-
-    @property
-    def order(self):
-        """The order of the records to return based on creation time. Available values: ASC, DESC;
-        by default ASC.
-        
-        :rtype: str
-        """
-        return self._order.value
-
-    @order.setter
-    def order(self, value):
-        """
-        :param value: set value of `order`
-        :type value: str
-        """
-        self._order.set(value)
-
-    @property
-    def total_count(self):
-        """The total number or records, if requested. It might be returned also for small lists.
-        
-        api example: 20
-        
-        :rtype: int
-        """
-        return self._total_count.value
-
-    @total_count.setter
-    def total_count(self, value):
-        """
-        :param value: set value of `total_count`
-        :type value: int
-        """
-        self._total_count.set(value)
 
     @property
     def updated_at(self):
@@ -1820,23 +1695,37 @@ class PolicyGroup(common.Entity):
         """
         self._user_count.set(value)
 
-    def api_keys(self, include=None):
+    def api_keys(self, after=None, include=None, limit=50, order="ASC"):
         """Get the API keys of a group.
 
         api documentation: https://os.mbed.com/search/?q=service+apis+/v3/policy-groups/{groupID}/api-keys
         
+        :param after: The entity ID to fetch after the given one.
+        :type after: string
+        
         :param include: Comma separated additional data to return. Currently supported: total_count
         :type include: string
+        
+        :param limit: The number of results to return (2-1000), default is 50.
+        :type limit: integer
+        
+        :param order: The order of the records based on creation time, ASC or DESC; by default ASC
+        :type order: string
         """
 
         def mapper(api_data):
-            return ApiKey()._from_api(inbound_renames={}, **api_data)
+            return ApiKey()._from_api(**api_data)
 
         return pagination.PaginatedResponse(
-            func=self._api_keys, lwrap_type=mapper, include=include
+            func=self._api_keys,
+            lwrap_type=mapper,
+            after=after,
+            include=include,
+            limit=limit,
+            order=order,
         )
 
-    def _api_keys(self, include=None):
+    def _api_keys(self, after=None, include=None, limit=None, order=None):
         """Internal 'next-page' behaviour for pagination"""
 
         return self._call_api(
@@ -1844,10 +1733,10 @@ class PolicyGroup(common.Entity):
             path="/v3/policy-groups/{groupID}/api-keys",
             path_params={"groupID": self._id.to_api()},
             query_params={
-                "after": self._after.to_api(),
+                "after": fields.StringField(after).to_api(),
                 "include": fields.StringField(include).to_api(),
-                "limit": self._limit.to_api(),
-                "order": self._order.to_api(),
+                "limit": fields.IntegerField(limit).to_api(),
+                "order": fields.StringField(order).to_api(),
             },
             unpack=False,
         )
@@ -1864,58 +1753,87 @@ class PolicyGroup(common.Entity):
             path_params={"groupID": self._id.to_api()},
         )
 
-    def list(self, include=None, name__eq=None):
+    def list(self, after=None, include=None, limit=50, name__eq=None, order="ASC"):
         """Get all group information.
 
         api documentation: https://os.mbed.com/search/?q=service+apis+/v3/policy-groups
         
+        :param after: The entity ID to fetch after the given one.
+        :type after: string
+        
         :param include: Comma separated additional data to return. Currently supported: total_count
         :type include: string
         
+        :param limit: The number of results to return (2-1000), default is 50.
+        :type limit: integer
+        
         :param name__eq: Filter for group name
         :type name__eq: string
+        
+        :param order: The order of the records based on creation time, ASC or DESC; by default ASC
+        :type order: string
         """
 
         def mapper(api_data):
-            return PolicyGroup()._from_api(inbound_renames={}, **api_data)
+            return PolicyGroup()._from_api(**api_data)
 
         return pagination.PaginatedResponse(
-            func=self._list, lwrap_type=mapper, include=include, name__eq=name__eq
+            func=self._list,
+            lwrap_type=mapper,
+            after=after,
+            include=include,
+            limit=limit,
+            name__eq=name__eq,
+            order=order,
         )
 
-    def _list(self, include=None, name__eq=None):
+    def _list(self, after=None, include=None, limit=None, name__eq=None, order=None):
         """Internal 'next-page' behaviour for pagination"""
 
         return self._call_api(
             method="get",
             path="/v3/policy-groups",
             query_params={
-                "after": self._after.to_api(),
+                "after": fields.StringField(after).to_api(),
                 "include": fields.StringField(include).to_api(),
-                "limit": self._limit.to_api(),
+                "limit": fields.IntegerField(limit).to_api(),
                 "name__eq": fields.StringField(name__eq).to_api(),
-                "order": self._order.to_api(),
+                "order": fields.StringField(order).to_api(),
             },
             unpack=False,
         )
 
-    def users(self, include=None):
+    def users(self, after=None, include=None, limit=50, order="ASC"):
         """Get users of a group.
 
         api documentation: https://os.mbed.com/search/?q=service+apis+/v3/policy-groups/{groupID}/users
         
+        :param after: The entity ID to fetch after the given one.
+        :type after: string
+        
         :param include: Comma separated additional data to return. Currently supported: total_count
         :type include: string
+        
+        :param limit: The number of results to return (2-1000), default is 50.
+        :type limit: integer
+        
+        :param order: The order of the records based on creation time, ASC or DESC; by default ASC
+        :type order: string
         """
 
         def mapper(api_data):
-            return User()._from_api(inbound_renames={}, **api_data)
+            return User()._from_api(**api_data)
 
         return pagination.PaginatedResponse(
-            func=self._users, lwrap_type=mapper, include=include
+            func=self._users,
+            lwrap_type=mapper,
+            after=after,
+            include=include,
+            limit=limit,
+            order=order,
         )
 
-    def _users(self, include=None):
+    def _users(self, after=None, include=None, limit=None, order=None):
         """Internal 'next-page' behaviour for pagination"""
 
         return self._call_api(
@@ -1923,10 +1841,10 @@ class PolicyGroup(common.Entity):
             path="/v3/policy-groups/{groupID}/users",
             path_params={"groupID": self._id.to_api()},
             query_params={
-                "after": self._after.to_api(),
+                "after": fields.StringField(after).to_api(),
                 "include": fields.StringField(include).to_api(),
-                "limit": self._limit.to_api(),
-                "order": self._order.to_api(),
+                "limit": fields.IntegerField(limit).to_api(),
+                "order": fields.StringField(order).to_api(),
             },
             unpack=False,
         )
@@ -1935,9 +1853,15 @@ class PolicyGroup(common.Entity):
 class PSK(common.Entity):
     """Represents the `PSK` entity in Mbed Cloud"""
 
-    _fieldnames = ["created_at", "endpoint_name"]
+    # all fields available on this entity
+    _fieldnames = ["created_at", "endpoint_name", "secret_hex"]
 
-    def __init__(self, client=None, created_at=None, endpoint_name=None):
+    # common renames used when mapping {<API spec>: <SDK>}
+    _renames = {}
+
+    def __init__(
+        self, client=None, created_at=None, endpoint_name=None, secret_hex=None
+    ):
         """Creates a local `PSK` instance
 
         :param created_at: The date-time (RFC3339) when this pre-shared key was uploaded to Mbed Cloud.
@@ -1946,13 +1870,18 @@ class PSK(common.Entity):
             [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters) (non-control)
             ASCII characters.
         :type endpoint_name: string
+        :param secret_hex: The secret of the pre-shared key in hexadecimal. It is not case sensitive; 4a is same as
+            4A, and it is allowed with or without 0x in the beginning. The minimum length of the
+            secret is 128 bits and maximum 256 bits.
+        :type secret_hex: string
         """
 
         super().__init__(client=client)
 
-        # Field attributes
+        # fields
         self._created_at = fields.DateTimeField(value=created_at)
         self._endpoint_name = fields.StringField(value=endpoint_name)
+        self._secret_hex = fields.StringField(value=secret_hex)
 
     @property
     def created_at(self):
@@ -1992,15 +1921,30 @@ class PSK(common.Entity):
         """
         self._endpoint_name.set(value)
 
-    def create(self, secret_hex=None):
+    @property
+    def secret_hex(self):
+        """The secret of the pre-shared key in hexadecimal. It is not case sensitive; 4a is same as
+        4A, and it is allowed with or without 0x in the beginning. The minimum length of the
+        secret is 128 bits and maximum 256 bits.
+        
+        api example: '4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a'
+        
+        :rtype: str
+        """
+        return self._secret_hex.value
+
+    @secret_hex.setter
+    def secret_hex(self, value):
+        """
+        :param value: set value of `secret_hex`
+        :type value: str
+        """
+        self._secret_hex.set(value)
+
+    def create(self):
         """Upload a pre-shared key to Mbed Cloud.
 
         api documentation: https://os.mbed.com/search/?q=service+apis+/v2/device-shared-keys
-        
-        :param secret_hex: The secret of the pre-shared key in hexadecimal. It is not case sensitive; 4a is same as
-            4A, and it is allowed with or without 0x in the beginning. The minimum length of the
-            secret is 128 bits and maximum 256 bits.
-        :type secret_hex: string
         """
 
         return self._call_api(
@@ -2008,7 +1952,7 @@ class PSK(common.Entity):
             path="/v2/device-shared-keys",
             body_params={
                 "endpoint_name": self._endpoint_name.to_api(),
-                "secret_hex": fields.StringField(secret_hex).to_api(),
+                "secret_hex": self._secret_hex.to_api(),
             },
         )
 
@@ -2049,7 +1993,7 @@ class PSK(common.Entity):
         """
 
         def mapper(api_data):
-            return PSK()._from_api(inbound_renames={}, **api_data)
+            return PSK()._from_api(**api_data)
 
         return pagination.PaginatedResponse(
             func=self._list, lwrap_type=mapper, after=after, limit=limit
@@ -2072,6 +2016,7 @@ class PSK(common.Entity):
 class SubtenantAccount(common.Entity):
     """Represents the `SubtenantAccount` entity in Mbed Cloud"""
 
+    # all fields available on this entity
     _fieldnames = [
         "address_line1",
         "address_line2",
@@ -2115,6 +2060,9 @@ class SubtenantAccount(common.Entity):
         "updated_at",
         "upgraded_at",
     ]
+
+    # common renames used when mapping {<API spec>: <SDK>}
+    _renames = {}
 
     def __init__(
         self,
@@ -2254,7 +2202,7 @@ class SubtenantAccount(common.Entity):
 
         super().__init__(client=client)
 
-        # Field attributes
+        # fields
         self._address_line1 = fields.StringField(value=address_line1)
         self._address_line2 = fields.StringField(value=address_line2)
         self._admin_email = fields.StringField(value=admin_email)
@@ -3035,21 +2983,16 @@ class SubtenantAccount(common.Entity):
         """
         self._upgraded_at.set(value)
 
-    def api_keys(
-        self, accountid, groupid, after=None, include=None, limit=50, order="ASC"
-    ):
+    def api_keys(self, group_id, after=None, include=None, limit=50, order="ASC"):
         """Get API keys of a group.
 
         api documentation: https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/policy-groups/{groupID}/api-keys
         
-        :param accountid: Account ID.
-        :type accountid: string
-        
         :param after: The entity ID to fetch after the given one.
         :type after: string
         
-        :param groupid: The ID of the group whose API keys are retrieved.
-        :type groupid: string
+        :param group_id: The ID of the group whose API keys are retrieved.
+        :type group_id: string
         
         :param include: Comma separated additional data to return. Currently supported: total_count
         :type include: string
@@ -3062,30 +3005,27 @@ class SubtenantAccount(common.Entity):
         """
 
         def mapper(api_data):
-            return ApiKey()._from_api(inbound_renames={}, **api_data)
+            return ApiKey()._from_api(**api_data)
 
         return pagination.PaginatedResponse(
             func=self._api_keys,
             lwrap_type=mapper,
-            accountid=accountid,
             after=after,
-            groupid=groupid,
+            group_id=group_id,
             include=include,
             limit=limit,
             order=order,
         )
 
-    def _api_keys(
-        self, accountid, groupid, after=None, include=None, limit=None, order=None
-    ):
+    def _api_keys(self, group_id, after=None, include=None, limit=None, order=None):
         """Internal 'next-page' behaviour for pagination"""
 
         return self._call_api(
             method="get",
             path="/v3/accounts/{accountID}/policy-groups/{groupID}/api-keys",
             path_params={
-                "accountID": fields.StringField(accountid).to_api(),
-                "groupID": fields.StringField(groupid).to_api(),
+                "groupID": fields.StringField(group_id).to_api(),
+                "accountID": self._id.to_api(),
             },
             query_params={
                 "after": fields.StringField(after).to_api(),
@@ -3138,13 +3078,10 @@ class SubtenantAccount(common.Entity):
             query_params={"action": fields.StringField(action).to_api()},
         )
 
-    def get(self, accountid, include=None, properties=None):
+    def get(self, include=None, properties=None):
         """Get account info.
 
         api documentation: https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}
-        
-        :param accountid: The ID of the account to be fetched.
-        :type accountid: string
         
         :param include: Comma separated additional data to return. Currently supported: limits, policies,
             sub_accounts
@@ -3157,7 +3094,7 @@ class SubtenantAccount(common.Entity):
         return self._call_api(
             method="get",
             path="/v3/accounts/{accountID}",
-            path_params={"accountID": fields.StringField(accountid).to_api()},
+            path_params={"accountID": self._id.to_api()},
             query_params={
                 "include": fields.StringField(include).to_api(),
                 "properties": fields.StringField(properties).to_api(),
@@ -3215,7 +3152,7 @@ class SubtenantAccount(common.Entity):
         """
 
         def mapper(api_data):
-            return Account()._from_api(inbound_renames={}, **api_data)
+            return Account()._from_api(**api_data)
 
         return pagination.PaginatedResponse(
             func=self._list,
@@ -3265,13 +3202,10 @@ class SubtenantAccount(common.Entity):
             unpack=False,
         )
 
-    def update(self, accountid):
+    def update(self):
         """Update attributes of an existing account.
 
         api documentation: https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}
-        
-        :param accountid: The ID of the account to be updated.
-        :type accountid: string
         """
 
         return self._call_api(
@@ -3301,24 +3235,19 @@ class SubtenantAccount(common.Entity):
                 "sales_contact": self._sales_contact.to_api(),
                 "state": self._state.to_api(),
             },
-            path_params={"accountID": fields.StringField(accountid).to_api()},
+            path_params={"accountID": self._id.to_api()},
         )
 
-    def users(
-        self, accountid, groupid, after=None, include=None, limit=50, order="ASC"
-    ):
+    def users(self, group_id, after=None, include=None, limit=50, order="ASC"):
         """Get users of a group.
 
         api documentation: https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/policy-groups/{groupID}/users
         
-        :param accountid: Account ID.
-        :type accountid: string
-        
         :param after: The entity ID to fetch after the given one.
         :type after: string
         
-        :param groupid: The ID of the group whose users are retrieved.
-        :type groupid: string
+        :param group_id: The ID of the group whose users are retrieved.
+        :type group_id: string
         
         :param include: Comma separated additional data to return. Currently supported: total_count
         :type include: string
@@ -3331,30 +3260,27 @@ class SubtenantAccount(common.Entity):
         """
 
         def mapper(api_data):
-            return User()._from_api(inbound_renames={}, **api_data)
+            return User()._from_api(**api_data)
 
         return pagination.PaginatedResponse(
             func=self._users,
             lwrap_type=mapper,
-            accountid=accountid,
             after=after,
-            groupid=groupid,
+            group_id=group_id,
             include=include,
             limit=limit,
             order=order,
         )
 
-    def _users(
-        self, accountid, groupid, after=None, include=None, limit=None, order=None
-    ):
+    def _users(self, group_id, after=None, include=None, limit=None, order=None):
         """Internal 'next-page' behaviour for pagination"""
 
         return self._call_api(
             method="get",
             path="/v3/accounts/{accountID}/policy-groups/{groupID}/users",
             path_params={
-                "accountID": fields.StringField(accountid).to_api(),
-                "groupID": fields.StringField(groupid).to_api(),
+                "groupID": fields.StringField(group_id).to_api(),
+                "accountID": self._id.to_api(),
             },
             query_params={
                 "after": fields.StringField(after).to_api(),
@@ -3369,6 +3295,7 @@ class SubtenantAccount(common.Entity):
 class User(common.Entity):
     """Represents the `User` entity in Mbed Cloud"""
 
+    # all fields available on this entity
     _fieldnames = [
         "account_id",
         "address",
@@ -3387,10 +3314,18 @@ class User(common.Entity):
         "phone_number",
         "status",
         "terms_accepted",
-        "two_factor_auth_enabled",
+        "two_factor_authentication",
         "updated_at",
         "username",
     ]
+
+    # common renames used when mapping {<API spec>: <SDK>}
+    _renames = {
+        "groups": "group_ids",
+        "is_marketing_accepted": "marketing_accepted",
+        "is_gtc_accepted": "terms_accepted",
+        "is_totp_enabled": "two_factor_authentication",
+    }
 
     def __init__(
         self,
@@ -3412,7 +3347,7 @@ class User(common.Entity):
         phone_number=None,
         status=None,
         terms_accepted=None,
-        two_factor_auth_enabled=None,
+        two_factor_authentication=None,
         updated_at=None,
         username=None,
     ):
@@ -3457,8 +3392,8 @@ class User(common.Entity):
         :type status: string
         :param terms_accepted: A flag indicating that the General Terms and Conditions has been accepted.
         :type terms_accepted: boolean
-        :param two_factor_auth_enabled: A flag indicating whether 2-factor authentication (TOTP) has been enabled.
-        :type two_factor_auth_enabled: boolean
+        :param two_factor_authentication: A flag indicating whether 2-factor authentication (TOTP) has been enabled.
+        :type two_factor_authentication: boolean
         :param updated_at: Last update UTC time RFC3339.
         :type updated_at: string
         :param username: A username containing alphanumerical letters and -,._@+= characters.
@@ -3467,7 +3402,7 @@ class User(common.Entity):
 
         super().__init__(client=client)
 
-        # Field attributes
+        # fields
         self._account_id = fields.StringField(value=account_id)
         self._address = fields.StringField(value=address)
         self._created_at = fields.DateTimeField(value=created_at)
@@ -3485,8 +3420,8 @@ class User(common.Entity):
         self._phone_number = fields.StringField(value=phone_number)
         self._status = fields.StringField(value=status, enum=enums.UserStatusEnum)
         self._terms_accepted = fields.BooleanField(value=terms_accepted)
-        self._two_factor_auth_enabled = fields.BooleanField(
-            value=two_factor_auth_enabled
+        self._two_factor_authentication = fields.BooleanField(
+            value=two_factor_authentication
         )
         self._updated_at = fields.DateTimeField(value=updated_at)
         self._username = fields.StringField(value=username)
@@ -3799,22 +3734,22 @@ class User(common.Entity):
         self._terms_accepted.set(value)
 
     @property
-    def two_factor_auth_enabled(self):
+    def two_factor_authentication(self):
         """A flag indicating whether 2-factor authentication (TOTP) has been enabled.
         
         api example: True
         
         :rtype: bool
         """
-        return self._two_factor_auth_enabled.value
+        return self._two_factor_authentication.value
 
-    @two_factor_auth_enabled.setter
-    def two_factor_auth_enabled(self, value):
+    @two_factor_authentication.setter
+    def two_factor_authentication(self, value):
         """
-        :param value: set value of `two_factor_auth_enabled`
+        :param value: set value of `two_factor_authentication`
         :type value: bool
         """
-        self._two_factor_auth_enabled.set(value)
+        self._two_factor_authentication.set(value)
 
     @property
     def updated_at(self):
@@ -3876,12 +3811,6 @@ class User(common.Entity):
                 "username": self._username.to_api(),
             },
             query_params={"action": fields.StringField(action).to_api()},
-            inbound_renames={
-                "groups": "group_ids",
-                "is_marketing_accepted": "marketing_accepted",
-                "is_gtc_accepted": "terms_accepted",
-                "is_totp_enabled": "two_factor_auth_enabled",
-            },
         )
 
     def delete(self):
@@ -3894,12 +3823,6 @@ class User(common.Entity):
             method="delete",
             path="/v3/users/{user-id}",
             path_params={"user-id": self._id.to_api()},
-            inbound_renames={
-                "groups": "group_ids",
-                "is_marketing_accepted": "marketing_accepted",
-                "is_gtc_accepted": "terms_accepted",
-                "is_totp_enabled": "two_factor_auth_enabled",
-            },
         )
 
     def get(self):
@@ -3912,12 +3835,6 @@ class User(common.Entity):
             method="get",
             path="/v3/users/{user-id}",
             path_params={"user-id": self._id.to_api()},
-            inbound_renames={
-                "groups": "group_ids",
-                "is_marketing_accepted": "marketing_accepted",
-                "is_gtc_accepted": "terms_accepted",
-                "is_totp_enabled": "two_factor_auth_enabled",
-            },
         )
 
     def groups(self, after=None, include=None, limit=50, order="ASC"):
@@ -3939,15 +3856,7 @@ class User(common.Entity):
         """
 
         def mapper(api_data):
-            return PolicyGroup()._from_api(
-                inbound_renames={
-                    "groups": "group_ids",
-                    "is_marketing_accepted": "marketing_accepted",
-                    "is_gtc_accepted": "terms_accepted",
-                    "is_totp_enabled": "two_factor_auth_enabled",
-                },
-                **api_data
-            )
+            return PolicyGroup()._from_api(**api_data)
 
         return pagination.PaginatedResponse(
             func=self._groups,
@@ -3974,12 +3883,6 @@ class User(common.Entity):
                 "limit": fields.IntegerField(limit).to_api(),
                 "order": fields.StringField(order).to_api(),
             },
-            inbound_renames={
-                "groups": "group_ids",
-                "is_marketing_accepted": "marketing_accepted",
-                "is_gtc_accepted": "terms_accepted",
-                "is_totp_enabled": "two_factor_auth_enabled",
-            },
             unpack=False,
         )
 
@@ -4002,15 +3905,7 @@ class User(common.Entity):
         """
 
         def mapper(api_data):
-            return User()._from_api(
-                inbound_renames={
-                    "groups": "group_ids",
-                    "is_marketing_accepted": "marketing_accepted",
-                    "is_gtc_accepted": "terms_accepted",
-                    "is_totp_enabled": "two_factor_auth_enabled",
-                },
-                **api_data
-            )
+            return User()._from_api(**api_data)
 
         return pagination.PaginatedResponse(
             func=self._list,
@@ -4033,12 +3928,6 @@ class User(common.Entity):
                 "limit": fields.IntegerField(limit).to_api(),
                 "order": fields.StringField(order).to_api(),
             },
-            inbound_renames={
-                "groups": "group_ids",
-                "is_marketing_accepted": "marketing_accepted",
-                "is_gtc_accepted": "terms_accepted",
-                "is_totp_enabled": "two_factor_auth_enabled",
-            },
             unpack=False,
         )
 
@@ -4058,15 +3947,10 @@ class User(common.Entity):
                 "is_marketing_accepted": self._marketing_accepted.to_api(),
                 "phone_number": self._phone_number.to_api(),
                 "is_gtc_accepted": self._terms_accepted.to_api(),
+                "is_totp_enabled": self._two_factor_authentication.to_api(),
                 "username": self._username.to_api(),
             },
             path_params={"user-id": self._id.to_api()},
-            inbound_renames={
-                "groups": "group_ids",
-                "is_marketing_accepted": "marketing_accepted",
-                "is_gtc_accepted": "terms_accepted",
-                "is_totp_enabled": "two_factor_auth_enabled",
-            },
         )
 
     def validate_email(self):
@@ -4081,11 +3965,5 @@ class User(common.Entity):
             path_params={
                 "accountID": self._account_id.to_api(),
                 "user-id": self._id.to_api(),
-            },
-            inbound_renames={
-                "groups": "group_ids",
-                "is_marketing_accepted": "marketing_accepted",
-                "is_gtc_accepted": "terms_accepted",
-                "is_totp_enabled": "two_factor_auth_enabled",
             },
         )

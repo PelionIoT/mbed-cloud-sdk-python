@@ -11,7 +11,6 @@ from mbed_cloud.sdk.entities import ApiKey
 from mbed_cloud.sdk.entities import Account
 from mbed_cloud.sdk.entities import SubtenantAccount
 
-from mbed_cloud.sdk.enums import PolicyGroupOrderEnum
 from mbed_cloud.sdk.enums import UserStatusEnum
 from mbed_cloud.sdk.enums import ApiKeyStatusEnum
 from mbed_cloud.sdk.enums import AccountStatusEnum

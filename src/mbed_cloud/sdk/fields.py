@@ -39,7 +39,11 @@ class Field(object):
         return self.value.to_api if self._entity else self.value
 
     def from_api(self, value):
-        return self.set(self._entity(**value)) if value and self._entity else self.set(value)
+        return (
+            self.set(self._entity(**value))
+            if value and self._entity
+            else self.set(value)
+        )
 
 
 class DateTimeField(Field):
@@ -55,7 +59,7 @@ class DateTimeField(Field):
         return self.set(parse(value) if value else value)
 
 
-class DateField(Field):
+class DateField(DateTimeField):
     base_type = date
 
 
@@ -82,8 +86,16 @@ class BooleanField(Field):
 class ListField(Field):
     base_type = list
 
+    def to_literal(self):
+        if self._entity:
+            return [item.to_literal() for item in self._val]
+        else:
+            return super().to_literal()
+
     def from_api(self, value):
         if self._entity:
-            return self.set([self._entity()._from_api({}, **item) for item in value] if value else None)
+            return self.set(
+                [self._entity()._from_api(**item) for item in value] if value else None
+            )
         else:
             return super().from_api(value)

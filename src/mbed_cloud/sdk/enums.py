@@ -10,18 +10,6 @@ from builtins import str
 from builtins import object
 
 
-class PolicyGroupOrderEnum(object):
-    """Represents the `PolicyGroupOrderEnum` options as used by Mbed Cloud accounts functionality"""
-
-    ASC = "ASC"
-    DESC = "DESC"
-
-    values = frozenset(("ASC", "DESC"))
-
-    def __setattr__(self, name, value):
-        raise Exception("enum container values cannot be modified")
-
-
 class UserStatusEnum(object):
     """Represents the `UserStatusEnum` options as used by Mbed Cloud accounts functionality"""
 

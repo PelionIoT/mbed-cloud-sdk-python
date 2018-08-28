@@ -12,6 +12,8 @@ import textwrap
 from mbed_cloud import utils
 from mbed_cloud import pagination
 
+from mbed_cloud.sdk import fields
+
 from mbed_cloud.sdk.logs import LOGGER
 
 
@@ -141,6 +143,7 @@ def pretty_literal(content, indent=2, replace_null=True):
 
 class Entity(object):
     _fieldnames = []
+    _renames = {}
 
     def __init__(self, client, **kwargs):
         """
@@ -171,13 +174,20 @@ class Entity(object):
         return repr({field: getattr(self, field) for field in self._fieldnames})
 
     def to_literal(self):
-        return {field: getattr(self, '_'+field).to_literal() for field in self._fieldnames}
+        return {
+            field: getattr(self, "_" + field).to_literal() for field in self._fieldnames
+        }
 
-    def _from_api(self, inbound_renames, **kwargs):
+    def _from_api(self, **kwargs):
         for k, v in kwargs.items():
-            field = getattr(self, "_" + inbound_renames.get(k, k), None)
+            field = getattr(self, "_" + self._renames.get(k, k), None)
             if field:
-                field.from_api(v)
+                if isinstance(field, fields.Field):
+                    field.from_api(v)
+                else:
+                    print(repr(field))
+                    print(v)
+
         return self
 
     def _call_api(
@@ -189,7 +199,6 @@ class Entity(object):
         query_params=None,
         body_params=None,
         stream_params=None,
-        inbound_renames=None,
         unpack=None,
         **kwargs
     ):
@@ -210,13 +219,11 @@ class Entity(object):
         if unpack is None:
             unpack = self
 
-        inbound_renames = inbound_renames or {}
-
         if response.status_code // 100 == 2:
             if unpack:
                 if inspect.isclass(unpack):
                     unpack = unpack()  # noqa - we're going to instantiate it
-                return unpack._from_api(inbound_renames, **response.json())
+                return unpack._from_api(**response.json())
             else:
                 return response
 
@@ -255,7 +262,7 @@ class Entity(object):
         else:
             # remap error response fields too!
             fields = content.get("fields", [])
-            fields[:] = [inbound_renames.get(f, f) for f in fields]
+            fields[:] = [self.inbound_renames.get(f, f) for f in fields]
         api_feedback = pretty_literal(content)
         error = ApiErrorResponse(
             "Error response from API (HTTP %s):\n%s\n%s"
