@@ -1,6 +1,6 @@
 from mbed_cloud import utils
 from mbed_cloud.sdk import Config
-from mbed_cloud.sdk.http import Client
+from mbed_cloud.sdk.common.http import Client
 
 global_sdk = None
 
@@ -14,9 +14,9 @@ class SDK(object):
 
         self._client = Client(self._config)
 
-        from mbed_cloud.sdk import entities
+        from mbed_cloud.sdk.common._entities import InstanceFactory
 
-        self.entities = entities.InstanceFactory(self)
+        self.entities = InstanceFactory(self)
 
     @property
     def client(self):

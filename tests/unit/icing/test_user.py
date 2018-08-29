@@ -6,7 +6,7 @@ import random
 
 from tests.common import BaseCase
 
-from mbed_cloud.sdk import enums, SDK
+from mbed_cloud.sdk.common import enums, SDK
 
 
 class TestUserFactory(BaseCase):

@@ -18,7 +18,10 @@ class BaseEnum(object):
 
 
 class UserStatusEnum(BaseEnum):
-    """Represents the `UserStatusEnum` options as used by Mbed Cloud accounts functionality"""
+    """Represents the `UserStatusEnum` options
+
+    as used by Mbed Cloud "accounts" functionality
+    """
 
     ACTIVE = "ACTIVE"
     ENROLLING = "ENROLLING"
@@ -30,7 +33,10 @@ class UserStatusEnum(BaseEnum):
 
 
 class ApiKeyStatusEnum(BaseEnum):
-    """Represents the `ApiKeyStatusEnum` options as used by Mbed Cloud accounts functionality"""
+    """Represents the `ApiKeyStatusEnum` options
+
+    as used by Mbed Cloud "accounts" functionality
+    """
 
     ACTIVE = "ACTIVE"
     INACTIVE = "INACTIVE"
@@ -39,7 +45,10 @@ class ApiKeyStatusEnum(BaseEnum):
 
 
 class AccountStatusEnum(BaseEnum):
-    """Represents the `AccountStatusEnum` options as used by Mbed Cloud accounts functionality"""
+    """Represents the `AccountStatusEnum` options
+
+    as used by Mbed Cloud "accounts" functionality
+    """
 
     ACTIVE = "ACTIVE"
     ENROLLING = "ENROLLING"
@@ -50,7 +59,10 @@ class AccountStatusEnum(BaseEnum):
 
 
 class AccountMfaStatusEnum(BaseEnum):
-    """Represents the `AccountMfaStatusEnum` options as used by Mbed Cloud accounts functionality"""
+    """Represents the `AccountMfaStatusEnum` options
+
+    as used by Mbed Cloud "accounts" functionality
+    """
 
     ENFORCED = "enforced"
     OPTIONAL = "optional"
@@ -59,7 +71,10 @@ class AccountMfaStatusEnum(BaseEnum):
 
 
 class SubtenantAccountStatusEnum(BaseEnum):
-    """Represents the `SubtenantAccountStatusEnum` options as used by Mbed Cloud accounts functionality"""
+    """Represents the `SubtenantAccountStatusEnum` options
+
+    as used by Mbed Cloud "accounts" functionality
+    """
 
     ACTIVE = "ACTIVE"
     ENROLLING = "ENROLLING"
@@ -70,7 +85,10 @@ class SubtenantAccountStatusEnum(BaseEnum):
 
 
 class SubtenantAccountMfaStatusEnum(BaseEnum):
-    """Represents the `SubtenantAccountMfaStatusEnum` options as used by Mbed Cloud accounts functionality"""
+    """Represents the `SubtenantAccountMfaStatusEnum` options
+
+    as used by Mbed Cloud "accounts" functionality
+    """
 
     ENFORCED = "enforced"
     OPTIONAL = "optional"

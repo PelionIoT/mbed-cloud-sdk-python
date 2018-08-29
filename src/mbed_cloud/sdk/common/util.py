@@ -45,7 +45,7 @@ def remap_error_fields(remap, fields):
     """
     if all(isinstance(f, dict) for f in fields):
         for f in fields:
-            name = f['name']
-            f['name'] = remap.get(name, name)
+            name = f["name"]
+            f["name"] = remap.get(name, name)
     else:
         fields[:] = [remap.get(f, f) for f in fields]

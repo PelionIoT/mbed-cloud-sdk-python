@@ -1,5 +1,5 @@
 from mbed_cloud import utils
-from mbed_cloud.sdk.config import Config
+from mbed_cloud.sdk.common.config import Config
 
 import requests
 

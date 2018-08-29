@@ -82,9 +82,11 @@ def main(input_file, output_dir):
         GenModule(name=g['_key']['snake'], root='modules', data=g) for g in config.get('groups')
     ]
 
+    common_dir = os.path.join(output_dir, 'common')
+
     file_maps = [
-        FileMap(jinja_env, output_dir, 'entities.jinja2'),
-        FileMap(jinja_env, output_dir, 'enums.jinja2'),
+        FileMap(jinja_env, common_dir, 'entities.jinja2', '_entities.py'),
+        FileMap(jinja_env, common_dir, 'enums.jinja2', '_enums.py'),
         FileMap(jinja_env, output_dir, '__init__.jinja2', per_module=sub_modules),
     ]
 
@@ -104,6 +106,9 @@ def main(input_file, output_dir):
 
 def main_from_cli():
     """Generate the SDK
+
+    example cmd from sdk top level directory:
+    python -m generate --source=C:\coding\mbed-cloud-api-contract\out\sdk_generation_cache.yaml.python.yaml --output=src\mbed_cloud\sdk\common
     """
     args = get_cli()
     params = vars(args)

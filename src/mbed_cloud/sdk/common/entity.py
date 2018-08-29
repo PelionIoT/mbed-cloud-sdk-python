@@ -1,10 +1,12 @@
 import inspect
 import json
 
-from mbed_cloud.sdk import SDK, fields, ApiErrorResponse
-from mbed_cloud.sdk import common
-from mbed_cloud.sdk.sdk import get_or_create_global_sdk_instance
-from mbed_cloud.sdk.logs import LOGGER
+from mbed_cloud.sdk import ApiErrorResponse
+from mbed_cloud.sdk import SDK
+from mbed_cloud.sdk.common import fields
+from mbed_cloud.sdk.common import util
+from mbed_cloud.sdk.common.sdk import get_or_create_global_sdk_instance
+from mbed_cloud.sdk.common.logs import LOGGER
 
 
 class Entity(object):
@@ -118,20 +120,23 @@ class Entity(object):
         if path_params and not all(path_params.values()):
             hints.append(
                 "Some parameters required in the URL appear to be missing:\n%s"
-                % common.pretty_literal(path_params)
+                % util.pretty_literal(path_params)
             )
         hints = "\n".join(hints)
         try:
             content = json.loads(response.content)
         except Exception:
+            self._logger.warning("Failed to unpack error body as json")
             content = {"response": content}
         else:
             # remap error response fields too!
             try:
-                common.remap_error_fields(self._renames, content.get("fields", []))
+                util.remap_error_fields(self._renames, content.get("fields", []))
             except Exception as e:
-                self._logger.exception('Failed to remap fields')
-        api_feedback = common.pretty_literal(content)
+                self._logger.exception("Failed to remap fields")
+        api_feedback = util.pretty_literal(content)
+
+        # build and raise an Exception
         error = ApiErrorResponse(
             "Error response from API (HTTP %s):\n%s\n%s"
             % (response.status_code, api_feedback, hints)

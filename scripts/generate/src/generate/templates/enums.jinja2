@@ -9,6 +9,7 @@ from __future__ import unicode_literals
 from builtins import str
 from builtins import object
 
+
 class BaseEnum(object):
     values = frozenset()
 
@@ -18,7 +19,10 @@ class BaseEnum(object):
 {% for enum in enums %}
 
 class {{ enum.enum_name.pascal }}(BaseEnum):
-    """Represents the `{{enum.enum_name.pascal}}` options as used by Mbed Cloud {{ enum.group_id.snake }} functionality"""
+    """Represents the `{{enum.enum_name.pascal}}` options
+
+    as used by Mbed Cloud "{{ enum.group_id.snake }}" functionality
+    """
 
     {% for value in enum['values'] %}{{ value|upper }} = '{{ value }}'
     {% endfor %}

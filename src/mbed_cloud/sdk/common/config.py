@@ -3,7 +3,7 @@ import os
 import dotenv
 
 from mbed_cloud import utils
-from mbed_cloud.sdk import constants
+from mbed_cloud.sdk.common import constants
 
 
 class Config(object):
@@ -24,9 +24,13 @@ class Config(object):
     def _set_defaults(self, **updates):
         self.update(updates)
         self.api_key = (
-            self.api_key or os.getenv(constants.ENVVAR_API_KEY) or constants.DEFAULT_API_KEY
+            self.api_key
+            or os.getenv(constants.ENVVAR_API_KEY)
+            or constants.DEFAULT_API_KEY
         )
-        self.host = self.host or os.getenv(constants.ENVVAR_HOST) or constants.DEFAULT_HOST
+        self.host = (
+            self.host or os.getenv(constants.ENVVAR_HOST) or constants.DEFAULT_HOST
+        )
         self.user_agent = utils.get_user_agent()
 
     def update(self, *updates, **kwargs):
