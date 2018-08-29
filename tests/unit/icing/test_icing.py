@@ -18,14 +18,14 @@ class TestIcing(BaseCase):
 
     @unittest.skip('ignore')
     def test_client_root(self):
-        from mbed_cloud.sdk.common import SDK
+        from mbed_cloud.sdk import SDK
         sdk = SDK()
         u = sdk.models.User
         p = u.phone_number  # dynamic replacement class not introspectable :(
 
     @unittest.skip('ignore')
     def test_client_root_alt(self):
-        from mbed_cloud.sdk.common import SDK
+        from mbed_cloud.sdk import SDK
         sdk = SDK()
         u = sdk.models2.User
         x = u()  # functools.partial not introspectable :(
@@ -33,14 +33,14 @@ class TestIcing(BaseCase):
 
     @unittest.skip('ignore')
     def test_client_root_instances(self):
-        from mbed_cloud.sdk.common import SDK
+        from mbed_cloud.sdk import SDK
         sdk = SDK()
         u = sdk.entities.user()
         p = u.phone_number  # instantiated object is introspectable
 
     @unittest.skip('ignore')
     def test_nested_instances(self):
-        from mbed_cloud.sdk.common import SDK
+        from mbed_cloud.sdk import SDK
         sdk = SDK()
         r = sdk.entities.device().resource()
         v = r.kind
@@ -66,14 +66,14 @@ class TestIcing(BaseCase):
 
     def test_module_explicit(self):
         from mbed_cloud.sdk.api import User
-        from mbed_cloud.sdk.common import SDK
+        from mbed_cloud.sdk import SDK
         sdk = SDK()
         u = User(client=sdk)  # instantiated object is introspectable
         p = u.phone_number
 
     def test_module_lazy_explicit(self):
         from mbed_cloud.sdk.api import User
-        from mbed_cloud.sdk.common import SDK
+        from mbed_cloud.sdk import SDK
         sdk = SDK()
         u = User()  # instantiated object is introspectable
         u.client = sdk

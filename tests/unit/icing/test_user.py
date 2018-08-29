@@ -6,7 +6,7 @@ import random
 
 from tests.common import BaseCase
 
-from mbed_cloud.sdk import enums
+from mbed_cloud.sdk import enums, SDK
 
 
 class TestUserFactory(BaseCase):
@@ -15,7 +15,6 @@ class TestUserFactory(BaseCase):
     """
 
     def get_user(self, **kwargs):
-        from mbed_cloud.sdk.common import SDK
         sdk = SDK()
         return sdk.entities.user(**kwargs)
 

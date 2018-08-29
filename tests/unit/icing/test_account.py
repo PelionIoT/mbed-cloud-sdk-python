@@ -17,15 +17,17 @@ class TestAccount(BaseCase):
         user = entities.User(id='015f4d70658002420a010a1000000000')
         user.get()
         account_id = user.account_id
-        g = user.groups()
-        print(list(g))
+        # g = user.groups()
+        # print(list(g))
         # account = entities.Account(id=account_id)
         # account.get()
         # print(common.pretty_literal(account.to_literal()))
 
         sub_account = entities.SubtenantAccount(id=account_id)
-        sub_account.get(accountid=user.account_id)
+        sub_account.get()
         # print(common.pretty_literal(sub_account.to_literal()))
-        account_users = sub_account.users(accountid=user.account_id, groupid=user.group_ids[0])
+        account_users = sub_account.users(group_id=user.group_ids[0])
 
-        print(account_users.first().to_literal())
+        print(common.pretty_literal(account_users.first().to_literal()))
+
+        sub_account.create()

@@ -10,7 +10,14 @@ from builtins import str
 from builtins import object
 
 
-class UserStatusEnum(object):
+class BaseEnum(object):
+    values = frozenset()
+
+    def __setattr__(self, name, value):
+        raise Exception("enum container values cannot be modified")
+
+
+class UserStatusEnum(BaseEnum):
     """Represents the `UserStatusEnum` options as used by Mbed Cloud accounts functionality"""
 
     ACTIVE = "ACTIVE"
@@ -21,11 +28,8 @@ class UserStatusEnum(object):
 
     values = frozenset(("ACTIVE", "ENROLLING", "INACTIVE", "INVITED", "RESET"))
 
-    def __setattr__(self, name, value):
-        raise Exception("enum container values cannot be modified")
 
-
-class ApiKeyStatusEnum(object):
+class ApiKeyStatusEnum(BaseEnum):
     """Represents the `ApiKeyStatusEnum` options as used by Mbed Cloud accounts functionality"""
 
     ACTIVE = "ACTIVE"
@@ -33,11 +37,8 @@ class ApiKeyStatusEnum(object):
 
     values = frozenset(("ACTIVE", "INACTIVE"))
 
-    def __setattr__(self, name, value):
-        raise Exception("enum container values cannot be modified")
 
-
-class AccountStatusEnum(object):
+class AccountStatusEnum(BaseEnum):
     """Represents the `AccountStatusEnum` options as used by Mbed Cloud accounts functionality"""
 
     ACTIVE = "ACTIVE"
@@ -47,11 +48,8 @@ class AccountStatusEnum(object):
 
     values = frozenset(("ACTIVE", "ENROLLING", "RESTRICTED", "SUSPENDED"))
 
-    def __setattr__(self, name, value):
-        raise Exception("enum container values cannot be modified")
 
-
-class AccountMfaStatusEnum(object):
+class AccountMfaStatusEnum(BaseEnum):
     """Represents the `AccountMfaStatusEnum` options as used by Mbed Cloud accounts functionality"""
 
     ENFORCED = "enforced"
@@ -59,11 +57,8 @@ class AccountMfaStatusEnum(object):
 
     values = frozenset(("enforced", "optional"))
 
-    def __setattr__(self, name, value):
-        raise Exception("enum container values cannot be modified")
 
-
-class SubtenantAccountStatusEnum(object):
+class SubtenantAccountStatusEnum(BaseEnum):
     """Represents the `SubtenantAccountStatusEnum` options as used by Mbed Cloud accounts functionality"""
 
     ACTIVE = "ACTIVE"
@@ -73,17 +68,11 @@ class SubtenantAccountStatusEnum(object):
 
     values = frozenset(("ACTIVE", "ENROLLING", "RESTRICTED", "SUSPENDED"))
 
-    def __setattr__(self, name, value):
-        raise Exception("enum container values cannot be modified")
 
-
-class SubtenantAccountMfaStatusEnum(object):
+class SubtenantAccountMfaStatusEnum(BaseEnum):
     """Represents the `SubtenantAccountMfaStatusEnum` options as used by Mbed Cloud accounts functionality"""
 
     ENFORCED = "enforced"
     OPTIONAL = "optional"
 
     values = frozenset(("enforced", "optional"))
-
-    def __setattr__(self, name, value):
-        raise Exception("enum container values cannot be modified")

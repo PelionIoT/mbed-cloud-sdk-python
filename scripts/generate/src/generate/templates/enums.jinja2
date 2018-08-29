@@ -9,9 +9,15 @@ from __future__ import unicode_literals
 from builtins import str
 from builtins import object
 
+class BaseEnum(object):
+    values = frozenset()
+
+    def __setattr__(self, name, value):
+        raise Exception('enum container values cannot be modified')
+
 {% for enum in enums %}
 
-class {{ enum.enum_name.pascal }}(object):
+class {{ enum.enum_name.pascal }}(BaseEnum):
     """Represents the `{{enum.enum_name.pascal}}` options as used by Mbed Cloud {{ enum.group_id.snake }} functionality"""
 
     {% for value in enum['values'] %}{{ value|upper }} = '{{ value }}'
@@ -21,7 +27,4 @@ class {{ enum.enum_name.pascal }}(object):
         {% for value in enum['values'] %}'{{ value }}',
         {% endfor %}
     ))
-
-    def __setattr__(self, name, value):
-        raise Exception('enum container values cannot be modified')
 {% endfor %}
