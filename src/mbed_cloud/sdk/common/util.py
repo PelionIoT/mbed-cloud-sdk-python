@@ -32,6 +32,9 @@ def pretty_literal(content, indent=2, replace_null=True):
         json.dumps(content, indent=2, default=lambda x: str(type(x))), " " * indent
     )
     if replace_null:
+        # straightforward replacement of json literals with Python ones.
+        # might get mucky if it's a phrase in a string, but then it's only meant
+        # for helping displaying error messages
         content = content.replace(" null", " None")
         content = content.replace(" false", " False")
         content = content.replace(" true", " True")

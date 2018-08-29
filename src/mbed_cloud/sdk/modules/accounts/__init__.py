@@ -17,5 +17,3 @@ from mbed_cloud.sdk.common._enums import AccountStatusEnum
 from mbed_cloud.sdk.common._enums import AccountMfaStatusEnum
 from mbed_cloud.sdk.common._enums import SubtenantAccountStatusEnum
 from mbed_cloud.sdk.common._enums import SubtenantAccountMfaStatusEnum
-
-7

@@ -1,6 +1,7 @@
-urllib3 >= 1.15
-six >= 1.10
 certifi >= 2017
-python-dateutil>= 2
 future >= 0.16
+python-dateutil>= 2
 python-dotenv >= 0.8.2
+requests >= 2.10
+six >= 1.10
+urllib3 >= 1.15
