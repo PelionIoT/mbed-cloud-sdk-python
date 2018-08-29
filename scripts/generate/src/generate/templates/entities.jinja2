@@ -19,14 +19,14 @@ class InstanceFactory:
     """Creates instances of Entities with a client mixed in"""
     def __init__(self, client):
         """InstanceFactory takes a client to attach to the models it creates"""
-        self.client = client
+        self._client = client
 
     {% for entity in entities %}
     def {{ entity._key.snake }}(self, **kwargs):
         """
         :rtype: {{ entity._key.pascal }}
         """
-        return {{ entity._key.pascal }}(client=self.client, **kwargs)
+        return {{ entity._key.pascal }}(_client=self._client, **kwargs)
     {% endfor %}
 
 {% for entity in entities %}
@@ -50,7 +50,7 @@ class {{ entity._key.pascal }}(Entity):
     }
 
     def __init__(
-        self, client=None{% if entity.fields %},{% endif %}
+        self, _client=None{% if entity.fields %},{% endif %}
         {% for field in entity.fields %}
             {{field._key.snake}}=None,
         {% endfor %}
@@ -61,7 +61,7 @@ class {{ entity._key.pascal }}(Entity):
         :type {{field._key.snake}}: {{field.python_type}}
         {% endfor %}"""
 
-        super().__init__(client=client)
+        super().__init__(_client=_client)
 
         # fields
         {% for field in entity.fields %}self._{{field._key.snake}} = fields.{{field.python_field}}(
@@ -85,7 +85,7 @@ class {{ entity._key.pascal }}(Entity):
         {% if field.example %}
         api example: {{ field.example|repr|wordwrap(width=78)|indent(width=12) }}
         {% endif %}
-        :rtype: {{ field.python_type }}
+        :rtype: {{ field.python_type }}{% if field['items'] and field['items'].foreign_key %}[{{ field['items'].foreign_key.entity.pascal }}]{% endif %}{% if field.foreign_key %}[{{ field.foreign_key.entity.pascal }}]{% endif %}
         """
         return self._{{field._key.snake}}.value
     {% if not field.read_only and not field=='id' %}
@@ -94,7 +94,7 @@ class {{ entity._key.pascal }}(Entity):
         """Set value of `{{ field._key.snake }}`
 
         :param value: value to set
-        :type value: {{ field.python_type }}
+        :type value: {{ field.python_type }}{% if field['items'] and field['items'].foreign_key %}[{{ field['items'].foreign_key.entity.pascal }}]{% endif %}{% if field.foreign_key %}[{{ field.foreign_key.entity.pascal }}]{% endif %}
         """
         self._{{field._key.snake}}.set(value)
     {% endif %}
@@ -125,7 +125,7 @@ class {{ entity._key.pascal }}(Entity):
     {% if mode.pagination %}
         {# continuing from the outer, 'public' definition ... #}
         def mapper(api_data):
-            return {{ mode.foreign_key.entity.pascal }}()._from_api(**api_data)
+            return {{ mode.foreign_key.entity.pascal }}().from_api(**api_data)
 
         return PaginatedResponse(
             func=self._{{mode._key.snake}},
@@ -170,6 +170,8 @@ class {{ entity._key.pascal }}(Entity):
             {% endfor %}
             {% if mode.pagination %}
             unpack = False,
+            {% else %}
+            unpack = self,
             {% endif %}
         )
     {% endfor %}

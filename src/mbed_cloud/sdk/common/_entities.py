@@ -20,49 +20,49 @@ class InstanceFactory:
 
     def __init__(self, client):
         """InstanceFactory takes a client to attach to the models it creates"""
-        self.client = client
+        self._client = client
 
     def account(self, **kwargs):
         """
         :rtype: Account
         """
-        return Account(client=self.client, **kwargs)
+        return Account(_client=self._client, **kwargs)
 
     def api_key(self, **kwargs):
         """
         :rtype: ApiKey
         """
-        return ApiKey(client=self.client, **kwargs)
+        return ApiKey(_client=self._client, **kwargs)
 
     def login_history(self, **kwargs):
         """
         :rtype: LoginHistory
         """
-        return LoginHistory(client=self.client, **kwargs)
+        return LoginHistory(_client=self._client, **kwargs)
 
     def password_policy(self, **kwargs):
         """
         :rtype: PasswordPolicy
         """
-        return PasswordPolicy(client=self.client, **kwargs)
+        return PasswordPolicy(_client=self._client, **kwargs)
 
     def policy_group(self, **kwargs):
         """
         :rtype: PolicyGroup
         """
-        return PolicyGroup(client=self.client, **kwargs)
+        return PolicyGroup(_client=self._client, **kwargs)
 
     def subtenant_account(self, **kwargs):
         """
         :rtype: SubtenantAccount
         """
-        return SubtenantAccount(client=self.client, **kwargs)
+        return SubtenantAccount(_client=self._client, **kwargs)
 
     def user(self, **kwargs):
         """
         :rtype: User
         """
-        return User(client=self.client, **kwargs)
+        return User(_client=self._client, **kwargs)
 
 
 class Account(Entity):
@@ -112,7 +112,7 @@ class Account(Entity):
 
     def __init__(
         self,
-        client=None,
+        _client=None,
         address_line1=None,
         address_line2=None,
         aliases=None,
@@ -150,7 +150,7 @@ class Account(Entity):
         upgraded_at=None,
     ):
         """Creates a local `Account` instance
-
+    
         :param address_line1: Postal address line 1.
         :type address_line1: str
         :param address_line2: Postal address line 2.
@@ -227,7 +227,7 @@ class Account(Entity):
         :type upgraded_at: datetime
         """
 
-        super().__init__(client=client)
+        super().__init__(_client=_client)
 
         # fields
         self._address_line1 = fields.StringField(value=address_line1)
@@ -669,7 +669,7 @@ class Account(Entity):
     def password_policy(self):
         """
         
-        :rtype: dict
+        :rtype: dict[PasswordPolicy]
         """
         return self._password_policy.value
 
@@ -678,7 +678,7 @@ class Account(Entity):
         """Set value of `password_policy`
 
         :param value: value to set
-        :type value: dict
+        :type value: dict[PasswordPolicy]
         """
         self._password_policy.set(value)
 
@@ -836,7 +836,7 @@ class Account(Entity):
     def sub_accounts(self):
         """List of sub accounts. Not available for developer users.
         
-        :rtype: list
+        :rtype: list[SubtenantAccount]
         """
         return self._sub_accounts.value
 
@@ -845,7 +845,7 @@ class Account(Entity):
         """Set value of `sub_accounts`
 
         :param value: value to set
-        :type value: list
+        :type value: list[SubtenantAccount]
         """
         self._sub_accounts.set(value)
 
@@ -947,6 +947,7 @@ class Account(Entity):
                 "include": fields.StringField(include).to_api(),
                 "properties": fields.StringField(properties).to_api(),
             },
+            unpack=self,
         )
 
     def update(self):
@@ -980,6 +981,7 @@ class Account(Entity):
                 "postal_code": self._postal_code.to_api(),
                 "state": self._state.to_api(),
             },
+            unpack=self,
         )
 
 
@@ -1005,7 +1007,7 @@ class ApiKey(Entity):
 
     def __init__(
         self,
-        client=None,
+        _client=None,
         created_at=None,
         creation_time=None,
         group_ids=None,
@@ -1018,7 +1020,7 @@ class ApiKey(Entity):
         updated_at=None,
     ):
         """Creates a local `ApiKey` instance
-
+    
         :param created_at: Creation UTC time RFC3339.
         :type created_at: datetime
         :param creation_time: The timestamp of the API key creation in the storage, in
@@ -1042,7 +1044,7 @@ class ApiKey(Entity):
         :type updated_at: datetime
         """
 
-        super().__init__(client=client)
+        super().__init__(_client=_client)
 
         # fields
         self._created_at = fields.DateTimeField(value=created_at)
@@ -1261,6 +1263,7 @@ class ApiKey(Entity):
                 "owner": self._owner.to_api(),
                 "status": self._status.to_api(),
             },
+            unpack=self,
         )
 
     def delete(self):
@@ -1274,6 +1277,7 @@ class ApiKey(Entity):
             method="delete",
             path="/v3/api-keys/{apiKey}",
             path_params={"apiKey": self._id.to_api()},
+            unpack=self,
         )
 
     def get(self):
@@ -1287,6 +1291,7 @@ class ApiKey(Entity):
             method="get",
             path="/v3/api-keys/{apiKey}",
             path_params={"apiKey": self._id.to_api()},
+            unpack=self,
         )
 
     def groups(self, after=None, include=None, limit=50, order="ASC"):
@@ -1311,7 +1316,7 @@ class ApiKey(Entity):
         """
 
         def mapper(api_data):
-            return PolicyGroup()._from_api(**api_data)
+            return PolicyGroup().from_api(**api_data)
 
         return PaginatedResponse(
             func=self._groups,
@@ -1360,7 +1365,7 @@ class ApiKey(Entity):
         """
 
         def mapper(api_data):
-            return ApiKey()._from_api(**api_data)
+            return ApiKey().from_api(**api_data)
 
         return PaginatedResponse(
             func=self._list,
@@ -1403,6 +1408,7 @@ class ApiKey(Entity):
                 "accountID": fields.StringField(accountid).to_api(),
                 "apiKey": self._id.to_api(),
             },
+            unpack=self,
         )
 
     def update(self):
@@ -1422,6 +1428,7 @@ class ApiKey(Entity):
                 "status": self._status.to_api(),
             },
             path_params={"apiKey": self._id.to_api()},
+            unpack=self,
         )
 
 
@@ -1435,10 +1442,10 @@ class LoginHistory(Entity):
     _renames = {}
 
     def __init__(
-        self, client=None, date=None, ip_address=None, success=None, user_agent=None
+        self, _client=None, date=None, ip_address=None, success=None, user_agent=None
     ):
         """Creates a local `LoginHistory` instance
-
+    
         :param date: UTC time RFC3339 for this login attempt.
         :type date: datetime
         :param ip_address: IP address of the client.
@@ -1449,7 +1456,7 @@ class LoginHistory(Entity):
         :type user_agent: str
         """
 
-        super().__init__(client=client)
+        super().__init__(_client=_client)
 
         # fields
         self._date = fields.DateTimeField(value=date)
@@ -1544,14 +1551,14 @@ class PasswordPolicy(Entity):
     # common renames used when mapping {<API spec>: <SDK>}
     _renames = {}
 
-    def __init__(self, client=None, minimum_length=None):
+    def __init__(self, _client=None, minimum_length=None):
         """Creates a local `PasswordPolicy` instance
-
+    
         :param minimum_length: Minimum length for the password. A number between 8 and 512.
         :type minimum_length: str
         """
 
-        super().__init__(client=client)
+        super().__init__(_client=_client)
 
         # fields
         self._minimum_length = fields.StringField(value=minimum_length)
@@ -1595,7 +1602,7 @@ class PolicyGroup(Entity):
 
     def __init__(
         self,
-        client=None,
+        _client=None,
         account_id=None,
         apikey_count=None,
         created_at=None,
@@ -1605,7 +1612,7 @@ class PolicyGroup(Entity):
         user_count=None,
     ):
         """Creates a local `PolicyGroup` instance
-
+    
         :param account_id: The UUID of the account this group belongs to.
         :type account_id: str
         :param apikey_count: The number of API keys in this group.
@@ -1622,7 +1629,7 @@ class PolicyGroup(Entity):
         :type user_count: int
         """
 
-        super().__init__(client=client)
+        super().__init__(_client=_client)
 
         # fields
         self._account_id = fields.StringField(value=account_id)
@@ -1786,7 +1793,7 @@ class PolicyGroup(Entity):
         """
 
         def mapper(api_data):
-            return ApiKey()._from_api(**api_data)
+            return ApiKey().from_api(**api_data)
 
         return PaginatedResponse(
             func=self._api_keys,
@@ -1824,6 +1831,7 @@ class PolicyGroup(Entity):
             method="get",
             path="/v3/policy-groups/{groupID}",
             path_params={"groupID": self._id.to_api()},
+            unpack=self,
         )
 
     def list(self, after=None, include=None, limit=50, name__eq=None, order="ASC"):
@@ -1851,7 +1859,7 @@ class PolicyGroup(Entity):
         """
 
         def mapper(api_data):
-            return PolicyGroup()._from_api(**api_data)
+            return PolicyGroup().from_api(**api_data)
 
         return PaginatedResponse(
             func=self._list,
@@ -1901,7 +1909,7 @@ class PolicyGroup(Entity):
         """
 
         def mapper(api_data):
-            return User()._from_api(**api_data)
+            return User().from_api(**api_data)
 
         return PaginatedResponse(
             func=self._users,
@@ -1982,7 +1990,7 @@ class SubtenantAccount(Entity):
 
     def __init__(
         self,
-        client=None,
+        _client=None,
         address_line1=None,
         address_line2=None,
         admin_email=None,
@@ -2026,7 +2034,7 @@ class SubtenantAccount(Entity):
         upgraded_at=None,
     ):
         """Creates a local `SubtenantAccount` instance
-
+    
         :param address_line1: Postal address line 1.
         :type address_line1: str
         :param address_line2: Postal address line 2.
@@ -2119,7 +2127,7 @@ class SubtenantAccount(Entity):
         :type upgraded_at: datetime
         """
 
-        super().__init__(client=client)
+        super().__init__(_client=_client)
 
         # fields
         self._address_line1 = fields.StringField(value=address_line1)
@@ -2687,7 +2695,7 @@ class SubtenantAccount(Entity):
     def password_policy(self):
         """
         
-        :rtype: dict
+        :rtype: dict[PasswordPolicy]
         """
         return self._password_policy.value
 
@@ -2696,7 +2704,7 @@ class SubtenantAccount(Entity):
         """Set value of `password_policy`
 
         :param value: value to set
-        :type value: dict
+        :type value: dict[PasswordPolicy]
         """
         self._password_policy.set(value)
 
@@ -2854,7 +2862,7 @@ class SubtenantAccount(Entity):
     def sub_accounts(self):
         """List of sub accounts. Not available for developer users.
         
-        :rtype: list
+        :rtype: list[SubtenantAccount]
         """
         return self._sub_accounts.value
 
@@ -2863,7 +2871,7 @@ class SubtenantAccount(Entity):
         """Set value of `sub_accounts`
 
         :param value: value to set
-        :type value: list
+        :type value: list[SubtenantAccount]
         """
         self._sub_accounts.set(value)
 
@@ -2969,7 +2977,7 @@ class SubtenantAccount(Entity):
         """
 
         def mapper(api_data):
-            return ApiKey()._from_api(**api_data)
+            return ApiKey().from_api(**api_data)
 
         return PaginatedResponse(
             func=self._api_keys,
@@ -3043,6 +3051,7 @@ class SubtenantAccount(Entity):
                 "state": self._state.to_api(),
             },
             query_params={"action": fields.StringField(action).to_api()},
+            unpack=self,
         )
 
     def get(self, include=None, properties=None):
@@ -3067,6 +3076,7 @@ class SubtenantAccount(Entity):
                 "include": fields.StringField(include).to_api(),
                 "properties": fields.StringField(properties).to_api(),
             },
+            unpack=self,
         )
 
     def list(
@@ -3124,7 +3134,7 @@ class SubtenantAccount(Entity):
         """
 
         def mapper(api_data):
-            return Account()._from_api(**api_data)
+            return Account().from_api(**api_data)
 
         return PaginatedResponse(
             func=self._list,
@@ -3209,6 +3219,7 @@ class SubtenantAccount(Entity):
                 "state": self._state.to_api(),
             },
             path_params={"accountID": self._id.to_api()},
+            unpack=self,
         )
 
     def users(self, group_id, after=None, include=None, limit=50, order="ASC"):
@@ -3236,7 +3247,7 @@ class SubtenantAccount(Entity):
         """
 
         def mapper(api_data):
-            return User()._from_api(**api_data)
+            return User().from_api(**api_data)
 
         return PaginatedResponse(
             func=self._users,
@@ -3305,7 +3316,7 @@ class User(Entity):
 
     def __init__(
         self,
-        client=None,
+        _client=None,
         account_id=None,
         address=None,
         created_at=None,
@@ -3328,7 +3339,7 @@ class User(Entity):
         username=None,
     ):
         """Creates a local `User` instance
-
+    
         :param account_id: The UUID of the account.
         :type account_id: str
         :param address: Address.
@@ -3384,7 +3395,7 @@ class User(Entity):
         :type username: str
         """
 
-        super().__init__(client=client)
+        super().__init__(_client=_client)
 
         # fields
         self._account_id = fields.StringField(value=account_id)
@@ -3603,7 +3614,7 @@ class User(Entity):
         """Timestamps, succeedings, IP addresses and user agent information of the last
         five logins of the user, with timestamps in RFC3339 format.
         
-        :rtype: list
+        :rtype: list[LoginHistory]
         """
         return self._login_history.value
 
@@ -3612,7 +3623,7 @@ class User(Entity):
         """Set value of `login_history`
 
         :param value: value to set
-        :type value: list
+        :type value: list[LoginHistory]
         """
         self._login_history.set(value)
 
@@ -3817,6 +3828,7 @@ class User(Entity):
                 "username": self._username.to_api(),
             },
             query_params={"action": fields.StringField(action).to_api()},
+            unpack=self,
         )
 
     def delete(self):
@@ -3830,6 +3842,7 @@ class User(Entity):
             method="delete",
             path="/v3/users/{user-id}",
             path_params={"user-id": self._id.to_api()},
+            unpack=self,
         )
 
     def get(self):
@@ -3843,6 +3856,7 @@ class User(Entity):
             method="get",
             path="/v3/users/{user-id}",
             path_params={"user-id": self._id.to_api()},
+            unpack=self,
         )
 
     def groups(self, after=None, include=None, limit=50, order="ASC"):
@@ -3867,7 +3881,7 @@ class User(Entity):
         """
 
         def mapper(api_data):
-            return PolicyGroup()._from_api(**api_data)
+            return PolicyGroup().from_api(**api_data)
 
         return PaginatedResponse(
             func=self._groups,
@@ -3919,7 +3933,7 @@ class User(Entity):
         """
 
         def mapper(api_data):
-            return User()._from_api(**api_data)
+            return User().from_api(**api_data)
 
         return PaginatedResponse(
             func=self._list,
@@ -3966,6 +3980,7 @@ class User(Entity):
                 "username": self._username.to_api(),
             },
             path_params={"user-id": self._id.to_api()},
+            unpack=self,
         )
 
     def validate_email(self):
@@ -3982,4 +3997,5 @@ class User(Entity):
                 "accountID": self._account_id.to_api(),
                 "user-id": self._id.to_api(),
             },
+            unpack=self,
         )

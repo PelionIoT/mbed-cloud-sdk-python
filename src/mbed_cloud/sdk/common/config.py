@@ -50,5 +50,5 @@ class Config(object):
         for k, v in kwargs.items():
             setattr(self, k, v)
 
-    def items(self):
-        return ((k, v) for k, v in vars(self).items() if not k.startswith("_"))
+    def to_dict(self):
+        return {k: v for k, v in vars(self).items() if not k.startswith("_")}

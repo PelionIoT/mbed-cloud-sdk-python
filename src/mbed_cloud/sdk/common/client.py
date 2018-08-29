@@ -25,7 +25,7 @@ class Client(object):
             }
         )
 
-    def _call_api(
+    def call_api(
         self,
         method,
         path,
@@ -71,12 +71,20 @@ class Client(object):
         # happy path - we successfully connect and receive a 2XX response:
 
         if response.status_code // 100 == 2:
-            if unpack:
-                if inspect.isclass(unpack):
-                    unpack = unpack()  # noqa - we're going to instantiate it
-                return unpack._from_api(**response.json())
-            else:
+            if not unpack:
                 return response
+            if inspect.isclass(unpack):
+                unpack = unpack()  # noqa - we're going to instantiate it
+            try:
+                decoded = response.json()
+            except Exception as e:
+                # TODO: support other content types
+                pass
+            else:
+                return unpack.from_api(**decoded)
+
+            # not sure how to unpack, so just return it
+            return response.content
 
         # else the response indicates an error, so the rest of this is error handling:
 
@@ -114,8 +122,8 @@ class Client(object):
         else:
             # remap error response fields too!
             try:
-                util.remap_error_fields(unpack._renames, content.get("fields", []))
-            except Exception as e:
+                unpack and util.remap_error_fields(unpack._renames, content.get("fields", []))
+            except Exception:
                 self.config.logger.exception("Failed to remap fields")
         api_feedback = util.pretty_literal(content)
 

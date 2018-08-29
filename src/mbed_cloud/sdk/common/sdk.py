@@ -13,9 +13,11 @@ class SDK(object):
         :type config: Config
 
         :param config_overrides: Key-value updates to apply to the config
-        :type config_overrides: dict
+        :type config_overrides: dict(str, str)
         """
-        self._config = config or Config()
+        self._config = Config()
+        if config:
+            self._config.update(config.to_dict())
         self._config.update(**config_overrides)
         self._client = Client(self._config)
 

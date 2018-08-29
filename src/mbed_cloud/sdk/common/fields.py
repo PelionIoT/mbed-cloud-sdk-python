@@ -36,11 +36,18 @@ class Field(object):
         return self.value
 
     def to_api(self):
-        return self.value.to_api if self._entity else self.value
+        return self.value.to_api() if self._entity else self.value
 
     def from_api(self, value):
         return (
-            self.set(self._entity(**value))
+            self.set(self._entity().from_api(**value))
+            if value and self._entity
+            else self.set(value)
+        )
+
+    def from_literal(self, value):
+        return (
+            self.set(self._entity().from_literal(**value))
             if value and self._entity
             else self.set(value)
         )
@@ -57,6 +64,8 @@ class DateTimeField(Field):
 
     def from_api(self, value):
         return self.set(parse(value) if value else value)
+
+    from_literal = from_api
 
 
 class DateField(DateTimeField):
@@ -92,10 +101,26 @@ class ListField(Field):
         else:
             return super().to_literal()
 
+    def to_api(self):
+        if self._entity:
+            return [item.to_api() for item in self._val]
+        else:
+            return super().to_api()
+
     def from_api(self, value):
         if self._entity:
             return self.set(
-                [self._entity()._from_api(**item) for item in value] if value else None
+                [self._entity().from_api(**item) for item in value] if value else None
+            )
+        else:
+            return super().from_api(value)
+
+    def from_literal(self, value):
+        if self._entity:
+            return self.set(
+                [self._entity().from_literal(**item) for item in value]
+                if value
+                else None
             )
         else:
             return super().from_api(value)

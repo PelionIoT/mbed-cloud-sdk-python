@@ -1,6 +1,5 @@
 import functools
 import json
-import textwrap
 
 from mbed_cloud import pagination
 
@@ -28,9 +27,14 @@ def pretty_literal(content, indent=2, replace_null=True):
 
     json lib is used instead of pretty print because subjectively it looks better
     """
-    content = textwrap.indent(
-        json.dumps(content, indent=2, default=lambda x: str(type(x))), " " * indent
-    )
+
+    # create a mostly-foolproof serialisation of the object
+    content = json.dumps(content, indent=2, default=lambda x: str(type(x)))
+
+    # perform 'textwrap.indent'
+    # we would use textwrap but it behaves differently on 2/3
+    content = '\n'.join(' '* indent + l.rstrip() for l in content.splitlines(True))
+
     if replace_null:
         # straightforward replacement of json literals with Python ones.
         # might get mucky if it's a phrase in a string, but then it's only meant
