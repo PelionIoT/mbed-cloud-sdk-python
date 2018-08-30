@@ -12,11 +12,11 @@ class TestExamples(BaseCase):
 
     def test_quick(self):
         # an example: checking account status
-        from mbed_cloud.sdk.modules.accounts import Account
-        from mbed_cloud.sdk.modules.accounts import AccountStatusEnum
-        my_account = Account()
+        from mbed_cloud.sdk.modules.accounts import MyAccount
+        from mbed_cloud.sdk.modules.accounts import MyAccountStatusEnum
+        my_account = MyAccount()
         my_account.get()
-        is_active = my_account.status == AccountStatusEnum.ACTIVE
+        is_active = my_account.status == MyAccountStatusEnum.ACTIVE
         # end of example
         self.assertTrue(is_active)
 
