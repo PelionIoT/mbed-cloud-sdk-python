@@ -113,7 +113,7 @@ class Client(object):
                 "Some parameters required in the URL appear to be missing:\n%s"
                 % util.pretty_literal(path_params)
             )
-        hints = "\n".join(hints)
+
         try:
             content = json.loads(response.content)
         except Exception:
@@ -122,10 +122,25 @@ class Client(object):
         else:
             # remap error response fields too!
             try:
-                unpack and util.remap_error_fields(unpack._renames, content.get("fields", []))
+                if unpack:
+                    fields = content.get("fields", [])
+                    util.remap_error_fields(unpack._renames, fields)
+                    for field in fields:
+                        fieldname = (
+                            field.get("name", "") if isinstance(field, dict) else field
+                        )
+                        hints.append(
+                            "Docs for %r field:\n\t%s"
+                            % (
+                                fieldname,
+                                getattr(unpack.__class__, fieldname, None).__doc__,
+                            )
+                        )
             except Exception:
                 self.config.logger.exception("Failed to remap fields")
         api_feedback = util.pretty_literal(content)
+
+        hints = "\n".join(hints)
 
         # build and raise an Exception
         error = ApiErrorResponse(

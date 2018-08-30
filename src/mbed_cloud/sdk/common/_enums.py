@@ -44,8 +44,8 @@ class ApiKeyStatusEnum(BaseEnum):
     values = frozenset(("ACTIVE", "INACTIVE"))
 
 
-class AccountStatusEnum(BaseEnum):
-    """Represents the `AccountStatusEnum` options
+class MyAccountStatusEnum(BaseEnum):
+    """Represents the `MyAccountStatusEnum` options
 
     as used by Mbed Cloud "accounts" functionality
     """
@@ -58,8 +58,8 @@ class AccountStatusEnum(BaseEnum):
     values = frozenset(("ACTIVE", "ENROLLING", "RESTRICTED", "SUSPENDED"))
 
 
-class AccountMfaStatusEnum(BaseEnum):
-    """Represents the `AccountMfaStatusEnum` options
+class MyAccountMfaStatusEnum(BaseEnum):
+    """Represents the `MyAccountMfaStatusEnum` options
 
     as used by Mbed Cloud "accounts" functionality
     """

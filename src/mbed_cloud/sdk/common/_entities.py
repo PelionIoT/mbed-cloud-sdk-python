@@ -22,12 +22,6 @@ class InstanceFactory:
         """InstanceFactory takes a client to attach to the models it creates"""
         self._client = client
 
-    def account(self, **kwargs):
-        """
-        :rtype: Account
-        """
-        return Account(_client=self._client, **kwargs)
-
     def api_key(self, **kwargs):
         """
         :rtype: ApiKey
@@ -39,6 +33,12 @@ class InstanceFactory:
         :rtype: LoginHistory
         """
         return LoginHistory(_client=self._client, **kwargs)
+
+    def my_account(self, **kwargs):
+        """
+        :rtype: MyAccount
+        """
+        return MyAccount(_client=self._client, **kwargs)
 
     def password_policy(self, **kwargs):
         """
@@ -65,8 +65,565 @@ class InstanceFactory:
         return User(_client=self._client, **kwargs)
 
 
-class Account(Entity):
-    """Represents the `Account` entity in Mbed Cloud"""
+class ApiKey(Entity):
+    """Represents the `ApiKey` entity in Mbed Cloud"""
+
+    # all fields available on this entity
+    _fieldnames = [
+        "created_at",
+        "creation_time",
+        "group_ids",
+        "id",
+        "key",
+        "last_login_time",
+        "name",
+        "owner",
+        "status",
+        "updated_at",
+    ]
+
+    # common renames used when mapping {<API spec>: <SDK>}
+    _renames = {"groups": "group_ids"}
+
+    def __init__(
+        self,
+        _client=None,
+        created_at=None,
+        creation_time=None,
+        group_ids=None,
+        id=None,
+        key=None,
+        last_login_time=None,
+        name=None,
+        owner=None,
+        status=None,
+        updated_at=None,
+    ):
+        """Creates a local `ApiKey` instance
+
+        :param created_at: Creation UTC time RFC3339.
+        :type created_at: datetime
+        :param creation_time: The timestamp of the API key creation in the storage, in
+            milliseconds.
+        :type creation_time: int
+        :param group_ids: A list of group IDs this API key belongs to.
+        :type group_ids: list
+        :param id: The UUID of the API key.
+        :type id: str
+        :param key: The API key.
+        :type key: str
+        :param last_login_time: The timestamp of the latest API key usage, in milliseconds.
+        :type last_login_time: int
+        :param name: The display name for the API key.
+        :type name: str
+        :param owner: The owner of this API key, who is the creator by default.
+        :type owner: str
+        :param status: The status of the API key.
+        :type status: str
+        :param updated_at: Last update UTC time RFC3339.
+        :type updated_at: datetime
+        """
+
+        super().__init__(_client=_client)
+
+        # fields
+        self._created_at = fields.DateTimeField(value=created_at)
+        self._creation_time = fields.IntegerField(value=creation_time)
+        self._group_ids = fields.ListField(value=group_ids)
+        self._id = fields.StringField(value=id)
+        self._key = fields.StringField(value=key)
+        self._last_login_time = fields.IntegerField(value=last_login_time)
+        self._name = fields.StringField(value=name)
+        self._owner = fields.StringField(value=owner)
+        self._status = fields.StringField(value=status, enum=enums.ApiKeyStatusEnum)
+        self._updated_at = fields.DateTimeField(value=updated_at)
+
+    @property
+    def created_at(self):
+        """Creation UTC time RFC3339.
+        
+        api example: '2018-02-13T09:35:20Z'
+        
+        :rtype: datetime
+        """
+        return self._created_at.value
+
+    @created_at.setter
+    def created_at(self, value):
+        """Set value of `created_at`
+
+        :param value: value to set
+        :type value: datetime
+        """
+        self._created_at.set(value)
+
+    @property
+    def creation_time(self):
+        """The timestamp of the API key creation in the storage, in milliseconds.
+        
+        api example: 1518630727683
+        
+        :rtype: int
+        """
+        return self._creation_time.value
+
+    @creation_time.setter
+    def creation_time(self, value):
+        """Set value of `creation_time`
+
+        :param value: value to set
+        :type value: int
+        """
+        self._creation_time.set(value)
+
+    @property
+    def group_ids(self):
+        """A list of group IDs this API key belongs to.
+        
+        :rtype: list
+        """
+        return self._group_ids.value
+
+    @group_ids.setter
+    def group_ids(self, value):
+        """Set value of `group_ids`
+
+        :param value: value to set
+        :type value: list
+        """
+        self._group_ids.set(value)
+
+    @property
+    def id(self):
+        """The UUID of the API key.
+        
+        api example: '01619571f7020242ac12000600000000'
+        
+        :rtype: str
+        """
+        return self._id.value
+
+    @id.setter
+    def id(self, value):
+        """Set value of `id`
+
+        :param value: value to set
+        :type value: str
+        """
+        self._id.set(value)
+
+    @property
+    def key(self):
+        """The API key.
+        
+        api example: 'ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac120006000000
+            00'
+        
+        :rtype: str
+        """
+        return self._key.value
+
+    @key.setter
+    def key(self, value):
+        """Set value of `key`
+
+        :param value: value to set
+        :type value: str
+        """
+        self._key.set(value)
+
+    @property
+    def last_login_time(self):
+        """The timestamp of the latest API key usage, in milliseconds.
+        
+        api example: 1518630727688
+        
+        :rtype: int
+        """
+        return self._last_login_time.value
+
+    @last_login_time.setter
+    def last_login_time(self, value):
+        """Set value of `last_login_time`
+
+        :param value: value to set
+        :type value: int
+        """
+        self._last_login_time.set(value)
+
+    @property
+    def name(self):
+        """The display name for the API key.
+        
+        api example: 'API key gorgon'
+        
+        :rtype: str
+        """
+        return self._name.value
+
+    @name.setter
+    def name(self, value):
+        """Set value of `name`
+
+        :param value: value to set
+        :type value: str
+        """
+        self._name.set(value)
+
+    @property
+    def owner(self):
+        """The owner of this API key, who is the creator by default.
+        
+        api example: '01619571e2e89242ac12000600000000'
+        
+        :rtype: str
+        """
+        return self._owner.value
+
+    @owner.setter
+    def owner(self, value):
+        """Set value of `owner`
+
+        :param value: value to set
+        :type value: str
+        """
+        self._owner.set(value)
+
+    @property
+    def status(self):
+        """The status of the API key.
+        
+        api example: 'ACTIVE'
+        
+        :rtype: str
+        """
+        return self._status.value
+
+    @status.setter
+    def status(self, value):
+        """Set value of `status`
+
+        :param value: value to set
+        :type value: str
+        """
+        self._status.set(value)
+
+    @property
+    def updated_at(self):
+        """Last update UTC time RFC3339.
+        
+        api example: '2018-02-14T15:24:14Z'
+        
+        :rtype: datetime
+        """
+        return self._updated_at.value
+
+    @updated_at.setter
+    def updated_at(self, value):
+        """Set value of `updated_at`
+
+        :param value: value to set
+        :type value: datetime
+        """
+        self._updated_at.set(value)
+
+    def create(self):
+        """Create a new API key.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/api-keys
+        """
+
+        return self._client.call_api(
+            method="post",
+            path="/v3/api-keys",
+            body_params={
+                "groups": self._group_ids.to_api(),
+                "name": self._name.to_api(),
+                "owner": self._owner.to_api(),
+                "status": self._status.to_api(),
+            },
+            unpack=self,
+        )
+
+    def delete(self):
+        """Delete API key.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/api-keys/{apiKey}
+        """
+
+        return self._client.call_api(
+            method="delete",
+            path="/v3/api-keys/{apiKey}",
+            path_params={"apiKey": self._id.to_api()},
+            unpack=self,
+        )
+
+    def get(self):
+        """Get API key details.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/api-keys/{apiKey}
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/api-keys/{apiKey}",
+            path_params={"apiKey": self._id.to_api()},
+            unpack=self,
+        )
+
+    def groups(self, after=None, include=None, limit=50, order="ASC"):
+        """Get groups of the API key.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/api-keys/{apiKey}/groups
+        
+        :param after: The entity ID to fetch after the given one.
+        :type after: str
+        
+        :param include: Comma separated additional data to return. Currently supported:
+            total_count
+        :type include: str
+        
+        :param limit: The number of results to return (2-1000), default is 50.
+        :type limit: int
+        
+        :param order: The order of the records based on creation time, ASC or DESC; by
+            default ASC
+        :type order: str
+        """
+
+        def mapper(api_data):
+            return PolicyGroup().from_api(**api_data)
+
+        return PaginatedResponse(
+            func=self._groups,
+            lwrap_type=mapper,
+            after=after,
+            include=include,
+            limit=limit,
+            order=order,
+        )
+
+    def _groups(self, after=None, include=None, limit=None, order=None):
+        """Internal 'next-page' behaviour for pagination"""
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/api-keys/{apiKey}/groups",
+            path_params={"apiKey": self._id.to_api()},
+            query_params={
+                "after": fields.StringField(after).to_api(),
+                "include": fields.StringField(include).to_api(),
+                "limit": fields.IntegerField(limit).to_api(),
+                "order": fields.StringField(order).to_api(),
+            },
+            unpack=False,
+        )
+
+    def list(self, after=None, include=None, limit=50, order="ASC"):
+        """Get all API keys
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/api-keys
+        
+        :param after: The entity ID to fetch after the given one.
+        :type after: str
+        
+        :param include: Comma separated additional data to return. Currently supported:
+            total_count
+        :type include: str
+        
+        :param limit: The number of results to return (2-1000), default is 50.
+        :type limit: int
+        
+        :param order: The order of the records based on creation time, ASC or DESC; by
+            default ASC
+        :type order: str
+        """
+
+        def mapper(api_data):
+            return ApiKey().from_api(**api_data)
+
+        return PaginatedResponse(
+            func=self._list,
+            lwrap_type=mapper,
+            after=after,
+            include=include,
+            limit=limit,
+            order=order,
+        )
+
+    def _list(self, after=None, include=None, limit=None, order=None):
+        """Internal 'next-page' behaviour for pagination"""
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/api-keys",
+            query_params={
+                "after": fields.StringField(after).to_api(),
+                "include": fields.StringField(include).to_api(),
+                "limit": fields.IntegerField(limit).to_api(),
+                "order": fields.StringField(order).to_api(),
+            },
+            unpack=False,
+        )
+
+    def reset_secret(self, accountid):
+        """Reset the secret key.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/api-keys/{apiKey}/reset-secret
+        
+        :param accountid: Account ID.
+        :type accountid: str
+        """
+
+        return self._client.call_api(
+            method="post",
+            path="/v3/accounts/{accountID}/api-keys/{apiKey}/reset-secret",
+            path_params={
+                "accountID": fields.StringField(accountid).to_api(),
+                "apiKey": self._id.to_api(),
+            },
+            unpack=self,
+        )
+
+    def update(self):
+        """Update API key details.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/api-keys/{apiKey}
+        """
+
+        return self._client.call_api(
+            method="put",
+            path="/v3/api-keys/{apiKey}",
+            body_params={
+                "groups": self._group_ids.to_api(),
+                "name": self._name.to_api(),
+                "owner": self._owner.to_api(),
+                "status": self._status.to_api(),
+            },
+            path_params={"apiKey": self._id.to_api()},
+            unpack=self,
+        )
+
+
+class LoginHistory(Entity):
+    """Represents the `LoginHistory` entity in Mbed Cloud"""
+
+    # all fields available on this entity
+    _fieldnames = ["date", "ip_address", "success", "user_agent"]
+
+    # common renames used when mapping {<API spec>: <SDK>}
+    _renames = {}
+
+    def __init__(
+        self, _client=None, date=None, ip_address=None, success=None, user_agent=None
+    ):
+        """Creates a local `LoginHistory` instance
+
+        :param date: UTC time RFC3339 for this login attempt.
+        :type date: datetime
+        :param ip_address: IP address of the client.
+        :type ip_address: str
+        :param success: Flag indicating whether login attempt was successful or not.
+        :type success: bool
+        :param user_agent: User Agent header from the login request.
+        :type user_agent: str
+        """
+
+        super().__init__(_client=_client)
+
+        # fields
+        self._date = fields.DateTimeField(value=date)
+        self._ip_address = fields.StringField(value=ip_address)
+        self._success = fields.BooleanField(value=success)
+        self._user_agent = fields.StringField(value=user_agent)
+
+    @property
+    def date(self):
+        """UTC time RFC3339 for this login attempt.
+        
+        api example: '2018-02-14T17:52:07Z'
+        
+        :rtype: datetime
+        """
+        return self._date.value
+
+    @date.setter
+    def date(self, value):
+        """Set value of `date`
+
+        :param value: value to set
+        :type value: datetime
+        """
+        self._date.set(value)
+
+    @property
+    def ip_address(self):
+        """IP address of the client.
+        
+        api example: '127.0.0.1'
+        
+        :rtype: str
+        """
+        return self._ip_address.value
+
+    @ip_address.setter
+    def ip_address(self, value):
+        """Set value of `ip_address`
+
+        :param value: value to set
+        :type value: str
+        """
+        self._ip_address.set(value)
+
+    @property
+    def success(self):
+        """Flag indicating whether login attempt was successful or not.
+        
+        api example: True
+        
+        :rtype: bool
+        """
+        return self._success.value
+
+    @success.setter
+    def success(self, value):
+        """Set value of `success`
+
+        :param value: value to set
+        :type value: bool
+        """
+        self._success.set(value)
+
+    @property
+    def user_agent(self):
+        """User Agent header from the login request.
+        
+        api example: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML,
+            like Gecko) Chrome/41.0.2227.1 Safari/537.36'
+        
+        :rtype: str
+        """
+        return self._user_agent.value
+
+    @user_agent.setter
+    def user_agent(self, value):
+        """Set value of `user_agent`
+
+        :param value: value to set
+        :type value: str
+        """
+        self._user_agent.set(value)
+
+
+class MyAccount(Entity):
+    """Represents the `MyAccount` entity in Mbed Cloud"""
 
     # all fields available on this entity
     _fieldnames = [
@@ -149,8 +706,8 @@ class Account(Entity):
         updated_at=None,
         upgraded_at=None,
     ):
-        """Creates a local `Account` instance
-    
+        """Creates a local `MyAccount` instance
+
         :param address_line1: Postal address line 1.
         :type address_line1: str
         :param address_line2: Postal address line 2.
@@ -251,7 +808,7 @@ class Account(Entity):
         self._idle_timeout = fields.StringField(value=idle_timeout)
         self._limits = fields.DictField(value=limits)
         self._mfa_status = fields.StringField(
-            value=mfa_status, enum=enums.AccountMfaStatusEnum
+            value=mfa_status, enum=enums.MyAccountMfaStatusEnum
         )
         self._notification_emails = fields.ListField(value=notification_emails)
         self._parent_id = fields.StringField(value=parent_id)
@@ -265,7 +822,7 @@ class Account(Entity):
         self._reference_note = fields.StringField(value=reference_note)
         self._sales_contact = fields.StringField(value=sales_contact)
         self._state = fields.StringField(value=state)
-        self._status = fields.StringField(value=status, enum=enums.AccountStatusEnum)
+        self._status = fields.StringField(value=status, enum=enums.MyAccountStatusEnum)
         self._sub_accounts = fields.ListField(
             value=sub_accounts, entity=SubtenantAccount
         )
@@ -985,563 +1542,6 @@ class Account(Entity):
         )
 
 
-class ApiKey(Entity):
-    """Represents the `ApiKey` entity in Mbed Cloud"""
-
-    # all fields available on this entity
-    _fieldnames = [
-        "created_at",
-        "creation_time",
-        "group_ids",
-        "id",
-        "key",
-        "last_login_time",
-        "name",
-        "owner",
-        "status",
-        "updated_at",
-    ]
-
-    # common renames used when mapping {<API spec>: <SDK>}
-    _renames = {"groups": "group_ids"}
-
-    def __init__(
-        self,
-        _client=None,
-        created_at=None,
-        creation_time=None,
-        group_ids=None,
-        id=None,
-        key=None,
-        last_login_time=None,
-        name=None,
-        owner=None,
-        status=None,
-        updated_at=None,
-    ):
-        """Creates a local `ApiKey` instance
-    
-        :param created_at: Creation UTC time RFC3339.
-        :type created_at: datetime
-        :param creation_time: The timestamp of the API key creation in the storage, in
-            milliseconds.
-        :type creation_time: int
-        :param group_ids: A list of group IDs this API key belongs to.
-        :type group_ids: list
-        :param id: The UUID of the API key.
-        :type id: str
-        :param key: The API key.
-        :type key: str
-        :param last_login_time: The timestamp of the latest API key usage, in milliseconds.
-        :type last_login_time: int
-        :param name: The display name for the API key.
-        :type name: str
-        :param owner: The owner of this API key, who is the creator by default.
-        :type owner: str
-        :param status: The status of the API key.
-        :type status: str
-        :param updated_at: Last update UTC time RFC3339.
-        :type updated_at: datetime
-        """
-
-        super().__init__(_client=_client)
-
-        # fields
-        self._created_at = fields.DateTimeField(value=created_at)
-        self._creation_time = fields.IntegerField(value=creation_time)
-        self._group_ids = fields.ListField(value=group_ids)
-        self._id = fields.StringField(value=id)
-        self._key = fields.StringField(value=key)
-        self._last_login_time = fields.IntegerField(value=last_login_time)
-        self._name = fields.StringField(value=name)
-        self._owner = fields.StringField(value=owner)
-        self._status = fields.StringField(value=status, enum=enums.ApiKeyStatusEnum)
-        self._updated_at = fields.DateTimeField(value=updated_at)
-
-    @property
-    def created_at(self):
-        """Creation UTC time RFC3339.
-        
-        api example: '2018-02-13T09:35:20Z'
-        
-        :rtype: datetime
-        """
-        return self._created_at.value
-
-    @created_at.setter
-    def created_at(self, value):
-        """Set value of `created_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-        self._created_at.set(value)
-
-    @property
-    def creation_time(self):
-        """The timestamp of the API key creation in the storage, in milliseconds.
-        
-        api example: 1518630727683
-        
-        :rtype: int
-        """
-        return self._creation_time.value
-
-    @creation_time.setter
-    def creation_time(self, value):
-        """Set value of `creation_time`
-
-        :param value: value to set
-        :type value: int
-        """
-        self._creation_time.set(value)
-
-    @property
-    def group_ids(self):
-        """A list of group IDs this API key belongs to.
-        
-        :rtype: list
-        """
-        return self._group_ids.value
-
-    @group_ids.setter
-    def group_ids(self, value):
-        """Set value of `group_ids`
-
-        :param value: value to set
-        :type value: list
-        """
-        self._group_ids.set(value)
-
-    @property
-    def id(self):
-        """The UUID of the API key.
-        
-        api example: '01619571f7020242ac12000600000000'
-        
-        :rtype: str
-        """
-        return self._id.value
-
-    @id.setter
-    def id(self, value):
-        """Set value of `id`
-
-        :param value: value to set
-        :type value: str
-        """
-        self._id.set(value)
-
-    @property
-    def key(self):
-        """The API key.
-        
-        api example: 'ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac120006000000
-            00'
-        
-        :rtype: str
-        """
-        return self._key.value
-
-    @key.setter
-    def key(self, value):
-        """Set value of `key`
-
-        :param value: value to set
-        :type value: str
-        """
-        self._key.set(value)
-
-    @property
-    def last_login_time(self):
-        """The timestamp of the latest API key usage, in milliseconds.
-        
-        api example: 1518630727688
-        
-        :rtype: int
-        """
-        return self._last_login_time.value
-
-    @last_login_time.setter
-    def last_login_time(self, value):
-        """Set value of `last_login_time`
-
-        :param value: value to set
-        :type value: int
-        """
-        self._last_login_time.set(value)
-
-    @property
-    def name(self):
-        """The display name for the API key.
-        
-        api example: 'API key gorgon'
-        
-        :rtype: str
-        """
-        return self._name.value
-
-    @name.setter
-    def name(self, value):
-        """Set value of `name`
-
-        :param value: value to set
-        :type value: str
-        """
-        self._name.set(value)
-
-    @property
-    def owner(self):
-        """The owner of this API key, who is the creator by default.
-        
-        api example: '01619571e2e89242ac12000600000000'
-        
-        :rtype: str
-        """
-        return self._owner.value
-
-    @owner.setter
-    def owner(self, value):
-        """Set value of `owner`
-
-        :param value: value to set
-        :type value: str
-        """
-        self._owner.set(value)
-
-    @property
-    def status(self):
-        """The status of the API key.
-        
-        api example: 'ACTIVE'
-        
-        :rtype: str
-        """
-        return self._status.value
-
-    @status.setter
-    def status(self, value):
-        """Set value of `status`
-
-        :param value: value to set
-        :type value: str
-        """
-        self._status.set(value)
-
-    @property
-    def updated_at(self):
-        """Last update UTC time RFC3339.
-        
-        api example: '2018-02-14T15:24:14Z'
-        
-        :rtype: datetime
-        """
-        return self._updated_at.value
-
-    @updated_at.setter
-    def updated_at(self, value):
-        """Set value of `updated_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-        self._updated_at.set(value)
-
-    def create(self):
-        """Create a new API key.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/api-keys
-        """
-
-        return self._client.call_api(
-            method="post",
-            path="/v3/api-keys",
-            body_params={
-                "groups": self._group_ids.to_api(),
-                "name": self._name.to_api(),
-                "owner": self._owner.to_api(),
-                "status": self._status.to_api(),
-            },
-            unpack=self,
-        )
-
-    def delete(self):
-        """Delete API key.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/api-keys/{apiKey}
-        """
-
-        return self._client.call_api(
-            method="delete",
-            path="/v3/api-keys/{apiKey}",
-            path_params={"apiKey": self._id.to_api()},
-            unpack=self,
-        )
-
-    def get(self):
-        """Get API key details.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/api-keys/{apiKey}
-        """
-
-        return self._client.call_api(
-            method="get",
-            path="/v3/api-keys/{apiKey}",
-            path_params={"apiKey": self._id.to_api()},
-            unpack=self,
-        )
-
-    def groups(self, after=None, include=None, limit=50, order="ASC"):
-        """Get groups of the API key.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/api-keys/{apiKey}/groups
-        
-        :param after: The entity ID to fetch after the given one.
-        :type after: str
-        
-        :param include: Comma separated additional data to return. Currently supported:
-            total_count
-        :type include: str
-        
-        :param limit: The number of results to return (2-1000), default is 50.
-        :type limit: int
-        
-        :param order: The order of the records based on creation time, ASC or DESC; by
-            default ASC
-        :type order: str
-        """
-
-        def mapper(api_data):
-            return PolicyGroup().from_api(**api_data)
-
-        return PaginatedResponse(
-            func=self._groups,
-            lwrap_type=mapper,
-            after=after,
-            include=include,
-            limit=limit,
-            order=order,
-        )
-
-    def _groups(self, after=None, include=None, limit=None, order=None):
-        """Internal 'next-page' behaviour for pagination"""
-
-        return self._client.call_api(
-            method="get",
-            path="/v3/api-keys/{apiKey}/groups",
-            path_params={"apiKey": self._id.to_api()},
-            query_params={
-                "after": fields.StringField(after).to_api(),
-                "include": fields.StringField(include).to_api(),
-                "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(order).to_api(),
-            },
-            unpack=False,
-        )
-
-    def list(self, after=None, include=None, limit=50, order="ASC"):
-        """Get all API keys
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/api-keys
-        
-        :param after: The entity ID to fetch after the given one.
-        :type after: str
-        
-        :param include: Comma separated additional data to return. Currently supported:
-            total_count
-        :type include: str
-        
-        :param limit: The number of results to return (2-1000), default is 50.
-        :type limit: int
-        
-        :param order: The order of the records based on creation time, ASC or DESC; by
-            default ASC
-        :type order: str
-        """
-
-        def mapper(api_data):
-            return ApiKey().from_api(**api_data)
-
-        return PaginatedResponse(
-            func=self._list,
-            lwrap_type=mapper,
-            after=after,
-            include=include,
-            limit=limit,
-            order=order,
-        )
-
-    def _list(self, after=None, include=None, limit=None, order=None):
-        """Internal 'next-page' behaviour for pagination"""
-
-        return self._client.call_api(
-            method="get",
-            path="/v3/api-keys",
-            query_params={
-                "after": fields.StringField(after).to_api(),
-                "include": fields.StringField(include).to_api(),
-                "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(order).to_api(),
-            },
-            unpack=False,
-        )
-
-    def reset_secret(self, accountid):
-        """Reset the secret key.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/api-keys/{apiKey}/reset-secret
-        
-        :param accountid: Account ID.
-        :type accountid: str
-        """
-
-        return self._client.call_api(
-            method="post",
-            path="/v3/accounts/{accountID}/api-keys/{apiKey}/reset-secret",
-            path_params={
-                "accountID": fields.StringField(accountid).to_api(),
-                "apiKey": self._id.to_api(),
-            },
-            unpack=self,
-        )
-
-    def update(self):
-        """Update API key details.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/api-keys/{apiKey}
-        """
-
-        return self._client.call_api(
-            method="put",
-            path="/v3/api-keys/{apiKey}",
-            body_params={
-                "groups": self._group_ids.to_api(),
-                "name": self._name.to_api(),
-                "owner": self._owner.to_api(),
-                "status": self._status.to_api(),
-            },
-            path_params={"apiKey": self._id.to_api()},
-            unpack=self,
-        )
-
-
-class LoginHistory(Entity):
-    """Represents the `LoginHistory` entity in Mbed Cloud"""
-
-    # all fields available on this entity
-    _fieldnames = ["date", "ip_address", "success", "user_agent"]
-
-    # common renames used when mapping {<API spec>: <SDK>}
-    _renames = {}
-
-    def __init__(
-        self, _client=None, date=None, ip_address=None, success=None, user_agent=None
-    ):
-        """Creates a local `LoginHistory` instance
-    
-        :param date: UTC time RFC3339 for this login attempt.
-        :type date: datetime
-        :param ip_address: IP address of the client.
-        :type ip_address: str
-        :param success: Flag indicating whether login attempt was successful or not.
-        :type success: bool
-        :param user_agent: User Agent header from the login request.
-        :type user_agent: str
-        """
-
-        super().__init__(_client=_client)
-
-        # fields
-        self._date = fields.DateTimeField(value=date)
-        self._ip_address = fields.StringField(value=ip_address)
-        self._success = fields.BooleanField(value=success)
-        self._user_agent = fields.StringField(value=user_agent)
-
-    @property
-    def date(self):
-        """UTC time RFC3339 for this login attempt.
-        
-        api example: '2018-02-14T17:52:07Z'
-        
-        :rtype: datetime
-        """
-        return self._date.value
-
-    @date.setter
-    def date(self, value):
-        """Set value of `date`
-
-        :param value: value to set
-        :type value: datetime
-        """
-        self._date.set(value)
-
-    @property
-    def ip_address(self):
-        """IP address of the client.
-        
-        api example: '127.0.0.1'
-        
-        :rtype: str
-        """
-        return self._ip_address.value
-
-    @ip_address.setter
-    def ip_address(self, value):
-        """Set value of `ip_address`
-
-        :param value: value to set
-        :type value: str
-        """
-        self._ip_address.set(value)
-
-    @property
-    def success(self):
-        """Flag indicating whether login attempt was successful or not.
-        
-        api example: True
-        
-        :rtype: bool
-        """
-        return self._success.value
-
-    @success.setter
-    def success(self, value):
-        """Set value of `success`
-
-        :param value: value to set
-        :type value: bool
-        """
-        self._success.set(value)
-
-    @property
-    def user_agent(self):
-        """User Agent header from the login request.
-        
-        api example: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML,
-            like Gecko) Chrome/41.0.2227.1 Safari/537.36'
-        
-        :rtype: str
-        """
-        return self._user_agent.value
-
-    @user_agent.setter
-    def user_agent(self, value):
-        """Set value of `user_agent`
-
-        :param value: value to set
-        :type value: str
-        """
-        self._user_agent.set(value)
-
-
 class PasswordPolicy(Entity):
     """Represents the `PasswordPolicy` entity in Mbed Cloud"""
 
@@ -1553,7 +1553,7 @@ class PasswordPolicy(Entity):
 
     def __init__(self, _client=None, minimum_length=None):
         """Creates a local `PasswordPolicy` instance
-    
+
         :param minimum_length: Minimum length for the password. A number between 8 and 512.
         :type minimum_length: str
         """
@@ -1612,7 +1612,7 @@ class PolicyGroup(Entity):
         user_count=None,
     ):
         """Creates a local `PolicyGroup` instance
-    
+
         :param account_id: The UUID of the account this group belongs to.
         :type account_id: str
         :param apikey_count: The number of API keys in this group.
@@ -2034,7 +2034,7 @@ class SubtenantAccount(Entity):
         upgraded_at=None,
     ):
         """Creates a local `SubtenantAccount` instance
-    
+
         :param address_line1: Postal address line 1.
         :type address_line1: str
         :param address_line2: Postal address line 2.
@@ -2952,17 +2952,14 @@ class SubtenantAccount(Entity):
         """
         self._upgraded_at.set(value)
 
-    def api_keys(self, group_id, after=None, include=None, limit=50, order="ASC"):
-        """Get API keys of a group.
+    def api_keys(self, after=None, include=None, limit=50, order="ASC"):
+        """Get all API keys.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/policy-groups/{groupID}/api-keys
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/api-keys
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
-        
-        :param group_id: The ID of the group whose API keys are retrieved.
-        :type group_id: str
         
         :param include: Comma separated additional data to return. Currently supported:
             total_count
@@ -2983,22 +2980,18 @@ class SubtenantAccount(Entity):
             func=self._api_keys,
             lwrap_type=mapper,
             after=after,
-            group_id=group_id,
             include=include,
             limit=limit,
             order=order,
         )
 
-    def _api_keys(self, group_id, after=None, include=None, limit=None, order=None):
+    def _api_keys(self, after=None, include=None, limit=None, order=None):
         """Internal 'next-page' behaviour for pagination"""
 
         return self._client.call_api(
             method="get",
-            path="/v3/accounts/{accountID}/policy-groups/{groupID}/api-keys",
-            path_params={
-                "groupID": fields.StringField(group_id).to_api(),
-                "accountID": self._id.to_api(),
-            },
+            path="/v3/accounts/{accountID}/api-keys",
+            path_params={"accountID": self._id.to_api()},
             query_params={
                 "after": fields.StringField(after).to_api(),
                 "include": fields.StringField(include).to_api(),
@@ -3079,6 +3072,60 @@ class SubtenantAccount(Entity):
             unpack=self,
         )
 
+    def groups(self, after=None, include=None, limit=50, name__eq=None, order="ASC"):
+        """Get all group information.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/policy-groups
+        
+        :param after: The entity ID to fetch after the given one.
+        :type after: str
+        
+        :param include: Comma separated additional data to return. Currently supported:
+            total_count
+        :type include: str
+        
+        :param limit: The number of results to return (2-1000), default is 50.
+        :type limit: int
+        
+        :param name__eq: Filter for group name
+        :type name__eq: str
+        
+        :param order: The order of the records based on creation time, ASC or DESC; by
+            default ASC
+        :type order: str
+        """
+
+        def mapper(api_data):
+            return PolicyGroup().from_api(**api_data)
+
+        return PaginatedResponse(
+            func=self._groups,
+            lwrap_type=mapper,
+            after=after,
+            include=include,
+            limit=limit,
+            name__eq=name__eq,
+            order=order,
+        )
+
+    def _groups(self, after=None, include=None, limit=None, name__eq=None, order=None):
+        """Internal 'next-page' behaviour for pagination"""
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/accounts/{accountID}/policy-groups",
+            path_params={"accountID": self._id.to_api()},
+            query_params={
+                "after": fields.StringField(after).to_api(),
+                "include": fields.StringField(include).to_api(),
+                "limit": fields.IntegerField(limit).to_api(),
+                "name__eq": fields.StringField(name__eq).to_api(),
+                "order": fields.StringField(order).to_api(),
+            },
+            unpack=False,
+        )
+
     def list(
         self,
         after=None,
@@ -3134,7 +3181,7 @@ class SubtenantAccount(Entity):
         """
 
         def mapper(api_data):
-            return Account().from_api(**api_data)
+            return SubtenantAccount().from_api(**api_data)
 
         return PaginatedResponse(
             func=self._list,
@@ -3222,17 +3269,14 @@ class SubtenantAccount(Entity):
             unpack=self,
         )
 
-    def users(self, group_id, after=None, include=None, limit=50, order="ASC"):
-        """Get users of a group.
+    def users(self, after=None, include=None, limit=50, order="ASC"):
+        """Get all user details.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/policy-groups/{groupID}/users
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/users
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
-        
-        :param group_id: The ID of the group whose users are retrieved.
-        :type group_id: str
         
         :param include: Comma separated additional data to return. Currently supported:
             total_count
@@ -3253,22 +3297,18 @@ class SubtenantAccount(Entity):
             func=self._users,
             lwrap_type=mapper,
             after=after,
-            group_id=group_id,
             include=include,
             limit=limit,
             order=order,
         )
 
-    def _users(self, group_id, after=None, include=None, limit=None, order=None):
+    def _users(self, after=None, include=None, limit=None, order=None):
         """Internal 'next-page' behaviour for pagination"""
 
         return self._client.call_api(
             method="get",
-            path="/v3/accounts/{accountID}/policy-groups/{groupID}/users",
-            path_params={
-                "groupID": fields.StringField(group_id).to_api(),
-                "accountID": self._id.to_api(),
-            },
+            path="/v3/accounts/{accountID}/users",
+            path_params={"accountID": self._id.to_api()},
             query_params={
                 "after": fields.StringField(after).to_api(),
                 "include": fields.StringField(include).to_api(),
@@ -3339,7 +3379,7 @@ class User(Entity):
         username=None,
     ):
         """Creates a local `User` instance
-    
+
         :param account_id: The UUID of the account.
         :type account_id: str
         :param address: Address.
@@ -3863,7 +3903,7 @@ class User(Entity):
         """Get groups of the user.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/users/{user-id}/groups
+        https://os.mbed.com/search/?q=service+apis+/v3/users/{user-id}/groups
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
@@ -3897,11 +3937,8 @@ class User(Entity):
 
         return self._client.call_api(
             method="get",
-            path="/v3/accounts/{accountID}/users/{user-id}/groups",
-            path_params={
-                "accountID": self._account_id.to_api(),
-                "user-id": self._id.to_api(),
-            },
+            path="/v3/users/{user-id}/groups",
+            path_params={"user-id": self._id.to_api()},
             query_params={
                 "after": fields.StringField(after).to_api(),
                 "include": fields.StringField(include).to_api(),

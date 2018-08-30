@@ -8,12 +8,12 @@ from mbed_cloud.sdk.common._entities import LoginHistory
 from mbed_cloud.sdk.common._entities import PolicyGroup
 from mbed_cloud.sdk.common._entities import User
 from mbed_cloud.sdk.common._entities import ApiKey
-from mbed_cloud.sdk.common._entities import Account
+from mbed_cloud.sdk.common._entities import MyAccount
 from mbed_cloud.sdk.common._entities import SubtenantAccount
 
 from mbed_cloud.sdk.common._enums import UserStatusEnum
 from mbed_cloud.sdk.common._enums import ApiKeyStatusEnum
-from mbed_cloud.sdk.common._enums import AccountStatusEnum
-from mbed_cloud.sdk.common._enums import AccountMfaStatusEnum
+from mbed_cloud.sdk.common._enums import MyAccountStatusEnum
+from mbed_cloud.sdk.common._enums import MyAccountMfaStatusEnum
 from mbed_cloud.sdk.common._enums import SubtenantAccountStatusEnum
 from mbed_cloud.sdk.common._enums import SubtenantAccountMfaStatusEnum

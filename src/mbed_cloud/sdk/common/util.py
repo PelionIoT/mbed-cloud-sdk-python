@@ -33,7 +33,7 @@ def pretty_literal(content, indent=2, replace_null=True):
 
     # perform 'textwrap.indent'
     # we would use textwrap but it behaves differently on 2/3
-    content = '\n'.join(' '* indent + l.rstrip() for l in content.splitlines(True))
+    content = "\n".join(" " * indent + l.rstrip() for l in content.splitlines(True))
 
     if replace_null:
         # straightforward replacement of json literals with Python ones.
