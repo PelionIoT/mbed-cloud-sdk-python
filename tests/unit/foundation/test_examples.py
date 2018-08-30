@@ -45,3 +45,15 @@ class TestExamples(BaseCase):
         all_users = SDK(config).entities.user().list()
         # end of example
         self.assertIsInstance(all_users, PaginatedResponse)
+
+    def test_custom_api_call(self):
+        # an example: custom api call
+        from mbed_cloud.sdk import SDK
+        from mbed_cloud.sdk.modules.accounts import User
+        response = SDK().client.call_api('get', '/v3/users', query_params={'limit': 2})
+        # response object from the`requests` library
+        for user_data in response.json()['data']:
+            user = User().from_api(**user_data)
+        # end of example
+        self.assertIsInstance(user, User)
+        self.assertIsNotNone(user.id)
