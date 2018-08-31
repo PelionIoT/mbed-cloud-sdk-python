@@ -10,7 +10,9 @@ from mbed_cloud.sdk import SDK
 from mbed_cloud.sdk.common import util
 from mbed_cloud.sdk.modules.accounts import SubtenantAccount
 
-random_string = lambda: str(random.randint(1e6, 1e7 - 1))
+
+def random_string():
+    return str(random.randint(1e6, 1e7 - 1))
 
 
 @unittest.skip('accounts cant be removed after creation')
