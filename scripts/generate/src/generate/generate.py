@@ -15,11 +15,14 @@
 # limitations under the License.
 # --------------------------------------------------------------------------
 
+"""Generates the Foundation API for the Python SDK
+
+You'll be wanting to use Python 3 for this.
+"""
+
 import logging
 import os
 import subprocess
-import operator
-import pathlib
 
 import jinja2
 import yaml
@@ -32,14 +35,35 @@ TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), 'templates')
 
 
 class GenModule:
+    """Container for 'modules' (aka groups from the intermediate file)"""
+
     def __init__(self, name=None, data=None, root=None):
+        """Init
+
+        :param name: name of the module
+        :param data: data to render using template
+        :param root: file path containing this module
+        """
         self.name = name
         self.data = data or {}
         self.root = root
 
 
 class FileMap:
+    """Container for matching rendering of templates into directories
+
+    Includes iteration over a list of GenModules
+    """
+
     def __init__(self, jinja_env, output_dir, template, target=None, per_module=None):
+        """Init
+
+        :param jinja_env:
+        :param output_dir:
+        :param template:
+        :param target:
+        :param per_module:
+        """
         self.jinja_env = jinja_env
         self.output_dir = output_dir
         self.target = target or template.replace('jinja2', 'py')
@@ -47,12 +71,19 @@ class FileMap:
         self.per_module = per_module or [GenModule()]
 
     def run(self, config):
+        """Use self.template to write a file each GenModule directory
+
+        using self.output_dir as a starting point
+        and self.target as the name of the destination file
+        """
         for gen_module in self.per_module:
             _LOG.info('rendering %s', self.template)
             module_config = {'gen_module': gen_module.data}
             module_config.update(config)
             rendered = self.template.render(module_config)
-            output_dir = os.path.join(*[p for p in (self.output_dir, gen_module.root, gen_module.name) if p])
+            output_dir = os.path.join(*[
+                p for p in (self.output_dir, gen_module.root, gen_module.name) if p
+            ])
 
             if not os.path.exists(output_dir):
                 os.makedirs(output_dir)
@@ -64,10 +95,17 @@ class FileMap:
 
 
 def sort_parg_kwarg(items):
+    """Very specific sort ordering for ensuring pargs, kwargs are in the correct order"""
     return sorted(items, key=lambda x: not bool(x.get('required')))
 
 
 def main(input_file, output_dir):
+    """Bulk of the generation work
+
+    :param input_file: The 'inter.yaml' intermediate yaml configuration / specification file
+    :param output_dir: Directory to generate the SDK in to
+    :return:
+    """
     _LOG.info('loading %s', input_file)
     with open(input_file, encoding='utf8') as fh:
         config = yaml.safe_load(fh)
@@ -105,10 +143,12 @@ def main(input_file, output_dir):
 
 
 def main_from_cli():
-    """Generate the SDK
+    r"""Generate the SDK
 
     example cmd from sdk top level directory:
-    python -m generate --source=C:\coding\mbed-cloud-api-contract\out\sdk_generation_cache.yaml.python.yaml --output=src\mbed_cloud\sdk\common
+    python -m generate
+     --source=C:\coding\mbed-cloud-api-contract\out\sdk_generation_cache.yaml.python.yaml
+     --output=src\mbed_cloud\sdk\common
     """
     args = get_cli()
     params = vars(args)

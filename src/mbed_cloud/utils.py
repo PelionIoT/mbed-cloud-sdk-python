@@ -56,6 +56,7 @@ def new_async_id():
 
 
 def get_user_agent():
+    """Common method for obtaining user agent"""
     global USERAGENT
     if not USERAGENT:
         USERAGENT = "mbed-cloud-sdk-python/{sdk_ver} ({pfm}) Python/{py_ver}".format(
