@@ -17,10 +17,10 @@ class Config(object):
         self._logger = logs.LOGGER.getChild(self.__class__.__name__)
         self.update(**kwargs)
         if not self.api_key and not Config._tried_dotenv:
-            dotenv.load_dotenv(
-                dotenv.find_dotenv(usecwd=True, raise_error_if_not_found=True)
-            )
             # mark dotenv load complete, so we don't have to do it again
+            dotenv.load_dotenv(
+                dotenv.find_dotenv(usecwd=True, raise_error_if_not_found=False)
+            )
             Config._tried_dotenv = True
         self._set_defaults()
 

@@ -102,7 +102,8 @@ class Client(object):
         ]
         if not api_key:
             hints.append(
-                "There was no API key detected. You need to set one to interact with the cloud."
+                "There was no API key detected. You need to set one to interact with the cloud "
+                "(See: https://cloud.mbed.com/docs/current/integrate-web-app/api-keys.html)."
             )
         if not host.startswith("https"):
             hints.append(

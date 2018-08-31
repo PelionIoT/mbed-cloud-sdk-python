@@ -56,11 +56,7 @@ def beta_warning(header, category=FutureWarning):
     global has_warned
     if not has_warned:
         warnings.warn(
-"""
-`%s`
-[Beta] this section of the SDK is at a `beta` release level
-       and is subject to change without notice
-""" % header,
+            "[Beta] this section of the SDK is at a `beta` release level and is subject to change without notice: %s" % header,
             category=category,
             stacklevel=3  # make the trace log from two levels above this `warnings.warn` line
         )
