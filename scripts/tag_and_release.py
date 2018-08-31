@@ -45,10 +45,13 @@ def git_url_ssh_to_https(url):
     return new.format(GITHUB_TOKEN=os.getenv('GITHUB_TOKEN'))
 
 
-def main(mode: ReleaseTarget):
+def main(mode):
     """Tags the current repository
 
     and commits changes to news files
+    
+    :param mode: ReleaseTarget mode (i.e. beta or prod)
+    :type mode: ReleaseTarget
     """
     # see:
     # https://packaging.python.org/tutorials/distributing-packages/#uploading-your-project-to-pypi
