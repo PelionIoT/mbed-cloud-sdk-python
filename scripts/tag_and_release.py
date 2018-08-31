@@ -49,7 +49,7 @@ def main(mode):
     """Tags the current repository
 
     and commits changes to news files
-    
+
     :param mode: ReleaseTarget mode (i.e. beta or prod)
     :type mode: ReleaseTarget
     """

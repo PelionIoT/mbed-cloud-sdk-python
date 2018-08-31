@@ -18,6 +18,15 @@
 from itertools import islice
 
 
+class ToDictWrapper(object):
+    """A wrapper to proxy any dictionary to have it look like an SDK object"""
+    def __init__(self, data):
+        self.data = data
+
+    def to_dict(self):
+        return self.data
+
+
 class PaginatedResponse(object):
     """Represents a sequence of results from the API
 
@@ -106,10 +115,18 @@ class PaginatedResponse(object):
         if self._page_size is not None:
             query['limit'] = self._page_size
 
-        resp = self._response_dictionary(self._func(**query))
+        raw_function_response = self._func(**query)
+        resp = self._response_dictionary(raw_function_response)
 
         for item in resp.get('data') or []:
+            # some hoop jumping for compatibility with Foundation API
+            if hasattr(raw_function_response, 'to_dict'):
+                item = ToDictWrapper(item)
+
+            # 'lwrap' presumably meant 'list wrap' or something
+            # we wrap each item with this function call before storing it in the results list
             self._current_data_page.append(self._lwrap_type(item) if self._lwrap_type else item)
+
         self._has_more = resp.get('has_more')
         self._total_count = resp.get('total_count')
 
