@@ -27,11 +27,13 @@ class TestSubTenants(BaseCase):
             admin_full_name='bob the wombat',
             admin_email='bob@example.com',
         )
-        new_subtenant.create()
+        # when creating a new subtenant, this is the only opportunity to obtain
+        # the `admin_key` for that subtenant account
+        new_subtenant.create()  # populates new_subtenant.admin_key
 
         print(util.pretty_literal(new_subtenant.to_literal()))
 
-        # now log in as this subtenant
+        # now log in as this subtenant using the `admin_key`
         sdk = SDK(api_key=new_subtenant.admin_key)
 
         # and add another user
