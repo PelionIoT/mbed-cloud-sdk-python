@@ -2,12 +2,16 @@
 from __future__ import unicode_literals
 from builtins import str
 
+import os
+import unittest
+
 from tests.common import BaseCase
 
 from mbed_cloud.sdk import ApiErrorResponse
 from mbed_cloud.pagination import PaginatedResponse
 
 
+@BaseCase._skip_in_ci
 class TestExamples(BaseCase):
 
     def test_quick(self):

@@ -32,7 +32,7 @@ class Test(BaseCase):
         self.assertEqual(1, observer_a.notify_count)
         self.assertEqual(0, observer_b.notify_count)
 
-    @unittest.skipIf(os.environ.get('CI'), 'Do not run in CI')
+    @BaseCase._skip_in_ci
     def test_live_device_state_change(self):
         api = ConnectAPI()
         d = api.list_connected_devices().first()
