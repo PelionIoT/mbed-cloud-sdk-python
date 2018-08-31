@@ -22,14 +22,17 @@ class SDK(object):
         :type config_overrides: dict(str, str)
         """
         beta_warning(self.__class__)
-        self._config = Config()
-        if config:
-            self._config.update(config.to_dict())
-        self._config.update(**config_overrides)
+
+        # create a new config based on those we received
+        existing = config.to_dict() if config else {}
+        existing.update(config_overrides)
+        self._config = Config(**existing)
+
+        # create a new client for making http calls
         self._client = Client(self._config)
 
+        # create a new InstanceFactory for providing access to Entities directly from this instance
         from mbed_cloud.sdk.common._entities import InstanceFactory
-
         self.entities = InstanceFactory(self.client)
 
     @property

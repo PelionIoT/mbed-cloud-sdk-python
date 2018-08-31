@@ -96,7 +96,7 @@ class Client(object):
             "Request parameters:",
             "URL: %s" % url,
             "HTTP method: %s, api_key: '%s%s%s'"
-            % (method.upper(), api_key[:2], "***" if api_key else "", api_key[-3:]),
+            % (method.upper(), api_key[:6], "***" if api_key else "", api_key[-3:]),
             "Any additional parameters are attached to this %s instance."
             % ApiErrorResponse.__name__,
         ]

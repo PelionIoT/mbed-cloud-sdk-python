@@ -36,7 +36,7 @@ class Field(object):
         return self.value
 
     def to_api(self):
-        return self.value.to_api() if self._entity else self.value
+        return self.value.to_api() if self.value and self._entity else self.value
 
     def from_api(self, value):
         return (
@@ -97,13 +97,13 @@ class ListField(Field):
 
     def to_literal(self):
         if self._entity:
-            return [item.to_literal() for item in self._val]
+            return [item.to_literal() for item in self._val] if self._val else None
         else:
             return super().to_literal()
 
     def to_api(self):
         if self._entity:
-            return [item.to_api() for item in self._val]
+            return [item.to_api() for item in self._val] if self._val else None
         else:
             return super().to_api()
 

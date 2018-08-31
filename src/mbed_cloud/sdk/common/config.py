@@ -14,25 +14,27 @@ class Config(object):
     user_agent = None
 
     def __init__(self, **kwargs):
-        self._set_defaults(**kwargs)
         self._logger = logs.LOGGER.getChild(self.__class__.__name__)
+        self.update(**kwargs)
         if not self.api_key and not Config._tried_dotenv:
             dotenv.load_dotenv(
                 dotenv.find_dotenv(usecwd=True, raise_error_if_not_found=True)
             )
-            self._set_defaults()
             # mark dotenv load complete, so we don't have to do it again
             Config._tried_dotenv = True
+        self._set_defaults()
 
-    def _set_defaults(self, **updates):
-        self.update(updates)
+    def _set_defaults(self):
+        """Configures any default parameters"""
         self.api_key = (
             self.api_key
             or os.getenv(constants.ENVVAR_API_KEY)
             or constants.DEFAULT_API_KEY
         )
         self.host = (
-            self.host or os.getenv(constants.ENVVAR_HOST) or constants.DEFAULT_HOST
+            self.host
+            or os.getenv(constants.ENVVAR_HOST)
+            or constants.DEFAULT_HOST
         )
         self.user_agent = utils.get_user_agent()
 
