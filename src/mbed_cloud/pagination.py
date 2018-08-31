@@ -20,10 +20,13 @@ from itertools import islice
 
 class ToDictWrapper(object):
     """A wrapper to proxy any dictionary to have it look like an SDK object"""
+
     def __init__(self, data):
+        """Just holds data as a dictionary"""
         self.data = data
 
     def to_dict(self):
+        """Return data as dictionary"""
         return self.data
 
 

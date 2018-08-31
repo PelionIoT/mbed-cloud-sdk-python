@@ -17,9 +17,9 @@
 """Part of the CI process"""
 
 import argparse
+from collections import namedtuple
 import os
 import subprocess
-from collections import namedtuple
 
 ReleaseTarget = namedtuple('ReleaseTarget', ['name', 'mode', 'bundle', 'twine_repo'])
 release_targets = [
@@ -91,7 +91,7 @@ def main(mode):
     subprocess.check_call(['git', 'commit', '-m', message])
 
     if mode == release_target_map['prod']:
-        print(f'git - pushing %s changelog commit' % mode.name)
+        print('git - pushing %s changelog commit' % mode.name)
         subprocess.check_call(['git', 'push', 'origin'])
 
     print('pypi - uploading')
