@@ -77,7 +77,7 @@ def main(mode: ReleaseTarget):
     subprocess.check_call(['git', 'tag', '-a', version, '-m', 'release %s' % version])
     subprocess.check_call(['git', 'tag', '-f', 'latest'])
     if mode == release_target_map['prod']:
-        print(f'git - pushing {mode.name} tags')
+        print('git - pushing %s tags' % mode.name)
         subprocess.check_call(['git', 'push', '-f', 'origin', '--tags'])
 
     print('git - add changes')
@@ -88,7 +88,7 @@ def main(mode: ReleaseTarget):
     subprocess.check_call(['git', 'commit', '-m', message])
 
     if mode == release_target_map['prod']:
-        print(f'git - pushing {mode.name} changelog commit')
+        print(f'git - pushing %s changelog commit' % mode.name)
         subprocess.check_call(['git', 'push', 'origin'])
 
     print('pypi - uploading')
