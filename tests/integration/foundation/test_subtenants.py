@@ -6,10 +6,7 @@ import unittest
 import random
 from tests.common import BaseCase
 
-from mbed_cloud.sdk import SDK
 from mbed_cloud.sdk.common import util
-from mbed_cloud.sdk.modules.accounts import SubtenantAccount
-
 
 def random_string():
     return str(random.randint(1e6, 1e7 - 1))
@@ -20,6 +17,7 @@ class TestSubTenants(BaseCase):
     """Demonstrate a subtenant workflow"""
     def test_flow(self):
         # an example: creating and managing a subtenant account
+        from mbed_cloud.sdk.modules.accounts import SubtenantAccount
         new_subtenant = SubtenantAccount(
             display_name='sdk test bob',
             aliases=['sdk_test_bob_'+random_string()],
@@ -34,6 +32,7 @@ class TestSubTenants(BaseCase):
         print(util.pretty_literal(new_subtenant.to_literal()))
 
         # now log in as this subtenant using the `admin_key`
+        from mbed_cloud.sdk import SDK
         sdk = SDK(api_key=new_subtenant.admin_key)
 
         # and add another user
@@ -47,11 +46,11 @@ class TestSubTenants(BaseCase):
 
         # back as the aggregator again ...
         users = list(new_subtenant.users())
-        self.assertEqual(2, len(users))
 
         for user in users:
             print(util.pretty_literal(user.to_literal()))
         # end of example
 
+        self.assertEqual(2, len(users))
         if not any(user.username == user_name for user in users):
             self.fail('no user here')
