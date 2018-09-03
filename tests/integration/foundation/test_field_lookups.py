@@ -11,6 +11,7 @@ from mbed_cloud.sdk.modules.accounts import User
 from mbed_cloud.sdk.modules.accounts import PolicyGroup
 
 
+@BaseCase._skip_in_ci
 class TestLookups(BaseCase):
     """This test should implement something like the following sequence:
 
