@@ -1,2 +1,0 @@
-[snippet]
-input_glob=['tests/**/*.py', 'examples/**/*.py', 'examples/setup_example.md']

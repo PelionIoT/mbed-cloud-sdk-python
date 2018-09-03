@@ -8,6 +8,7 @@ from tests.common import BaseCase
 
 from mbed_cloud.sdk.common import util
 
+
 def random_string():
     return str(random.randint(1e6, 1e7 - 1))
 
