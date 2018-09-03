@@ -14,17 +14,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # --------------------------------------------------------------------------
-"""Example: listing active endpoints using Connect API."""
+"""Example: Basic configuration of the API"""
 
 
 def run():
-    # an example: list devices in mbed cloud
-    from mbed_cloud import ConnectAPI
-    api = ConnectAPI()
-
-    # Print all devices
-    for device in api.list_connected_devices(order='asc', max_results=900):
-        print(device.id, device.state)
+    # an example: configuring the SDK
+    from mbed_cloud import AccountManagementAPI
+    config = dict(api_key='ak_1234abc')
+    # alternatively, configuration can be loaded from json files or environment variables
+    # if the host is not the default Mbed Cloud, it needs to be specified
+    config['host'] = 'https://custom-mbed-cloud-host.com'
+    # create an instance of one of the SDK modules
+    api = AccountManagementAPI(params=config)
+    # do something with the SDK
+    print(api.get_account())
     # end of example
 
 

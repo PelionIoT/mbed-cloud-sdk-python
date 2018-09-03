@@ -14,16 +14,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # --------------------------------------------------------------------------
-"""Example: listing active endpoints using Connect API."""
+"""Example: listing stale devices"""
 
 
 def run():
-    # an example: list devices in mbed cloud
-    from mbed_cloud import ConnectAPI
-    api = ConnectAPI()
+    # an example: list deregistered devices in mbed cloud
+    from mbed_cloud import DeviceDirectoryAPI
+    api = DeviceDirectoryAPI()
 
     # Print all devices
-    for device in api.list_connected_devices(order='asc', max_results=900):
+    for device in api.list_devices(filter=dict(state='deregistered'), order='asc', max_results=900):
         print(device.id, device.state)
     # end of example
 

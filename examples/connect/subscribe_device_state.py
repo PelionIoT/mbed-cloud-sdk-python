@@ -14,17 +14,29 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # --------------------------------------------------------------------------
-"""Example: listing active endpoints using Connect API."""
+"""Example showing basic usage of device state subscriptions."""
 
 
 def run():
-    # an example: list devices in mbed cloud
+    # an example: subscribing to device state changes
+    # creates an Observer listening to device state changes for devices
+    # whose id starts with `016`
     from mbed_cloud import ConnectAPI
     api = ConnectAPI()
-
-    # Print all devices
-    for device in api.list_connected_devices(order='asc', max_results=900):
-        print(device.id, device.state)
+    # prepare a channel
+    channel = api.subscribe.channels.DeviceStateChanges(
+        device_id='016*',
+        # here, `channel` refers to the filterable device state received from
+        # the notification system
+        channel=[
+            api.subscribe.channels.ChannelIdentifiers.registrations,
+            api.subscribe.channels.ChannelIdentifiers.registrations_expired
+        ]
+    )
+    # start listening for updates
+    observer = api.subscribe(channel)
+    # on the first update for the channel, block for the specified timeout
+    print(observer.next().block(timeout=120000))
     # end of example
 
 
