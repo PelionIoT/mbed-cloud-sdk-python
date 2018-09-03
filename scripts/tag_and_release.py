@@ -101,7 +101,7 @@ def main(mode):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('mode', choices=[t.mode for t in release_targets])
+    parser.add_argument('--mode', choices=[t.mode for t in release_targets])
     args = parser.parse_args()
     mode = release_target_map[args.mode]
     main(mode=mode)
