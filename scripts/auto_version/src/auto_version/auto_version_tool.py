@@ -35,8 +35,8 @@ import warnings
 
 from auto_version.cli import get_cli
 from auto_version.config import AutoVersionConfig as config
-from auto_version.config import get_or_create_config
 from auto_version.config import Constants
+from auto_version.config import get_or_create_config
 import auto_version.definitions
 from auto_version.replacement_handler import ReplacementHandler
 

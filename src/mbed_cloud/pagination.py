@@ -18,6 +18,18 @@
 from itertools import islice
 
 
+class ToDictWrapper(object):
+    """A wrapper to proxy any dictionary to have it look like an SDK object"""
+
+    def __init__(self, data):
+        """Just holds data as a dictionary"""
+        self.data = data
+
+    def to_dict(self):
+        """Return data as dictionary"""
+        return self.data
+
+
 class PaginatedResponse(object):
     """Represents a sequence of results from the API
 
@@ -85,6 +97,19 @@ class PaginatedResponse(object):
         # total number of results seen for certain, ignoring 'total_count' responses
         return self._current_count + len(self._current_data_page)
 
+    def _response_dictionary(self, response):
+        # shim to handle converting response to a dictionary
+        # e.g. from a model, dict or requests.response
+        if isinstance(response, dict):
+            pass
+        elif hasattr(response, 'to_dict'):
+            response = response.to_dict()
+        elif hasattr(response, 'json'):
+            response = response.json()
+        else:
+            response = vars(response)
+        return response
+
     def _get_next_page(self):
         query = {}
         query.update(self._kwargs)
@@ -93,19 +118,27 @@ class PaginatedResponse(object):
         if self._page_size is not None:
             query['limit'] = self._page_size
 
-        resp = self._func(**query)
+        raw_function_response = self._func(**query)
+        resp = self._response_dictionary(raw_function_response)
 
-        for item in resp.data or []:
+        for item in resp.get('data') or []:
+            # some hoop jumping for compatibility with Foundation API
+            if hasattr(raw_function_response, 'to_dict'):
+                item = ToDictWrapper(item)
+
+            # 'lwrap' presumably meant 'list wrap' or something
+            # we wrap each item with this function call before storing it in the results list
             self._current_data_page.append(self._lwrap_type(item) if self._lwrap_type else item)
-        self._has_more = resp.has_more
-        self._total_count = getattr(resp, 'total_count', None)
+
+        self._has_more = resp.get('has_more')
+        self._total_count = resp.get('total_count')
 
         if self._has_more and self._current_data_page:
             # we need to find the marker for the next page
             # 'continuation_marker' is used by connector_bootstrap
             #  everything else uses id of last item
             self._next_id = (
-                getattr(resp, 'continuation_marker', None) or self._current_data_page[-1].id
+                resp.get('continuation_marker') or self._current_data_page[-1].id
             )
 
     def _get_total_count(self):
@@ -118,8 +151,8 @@ class PaginatedResponse(object):
         len_query['include'] = 'total_count'
         len_query.update(self._kwargs)
         len_query['limit'] = 2
-        resp = self._func(**len_query)
-        return getattr(resp, 'total_count', 0)
+        resp = self._response_dictionary(self._func(**len_query))
+        return resp.get('total_count', 0)
 
     def count(self):
         """Approximate number of results, according to the API"""

@@ -16,7 +16,7 @@ def bench(n):
     return sum([x ** 2 for x in items])
 
 
-@unittest.skipIf(os.environ.get('CI'), 'Do not run in CI')
+@BaseCase._skip_in_ci
 class Test(BaseCase):
     @classmethod
     def setUpClass(cls):
