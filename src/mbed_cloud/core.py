@@ -21,6 +21,7 @@ from __future__ import unicode_literals
 
 import datetime
 import platform
+import threading
 
 from mbed_cloud import __version__
 from mbed_cloud.configuration import Config
@@ -30,6 +31,8 @@ from builtins import object
 from six.moves import urllib
 
 from six import iteritems
+
+_codegen_singleton_protection = threading.Lock()
 
 
 class BaseAPI(object):
@@ -52,10 +55,13 @@ class BaseAPI(object):
         return self.apis.get(api_class, None)
 
     def _init_api(self, api_parent_class, apis):
-        api_client = api_parent_class.ApiClient()
-        self.api_clients[api_parent_class] = api_client
+        with _codegen_singleton_protection:
+            api_client = api_parent_class.ApiClient()
+            self.api_clients[api_parent_class] = api_client
+            # disable codegen's singleton behaviour
+            # otherwise `TypeWithDefault` will try copying the config details
+            api_client.configuration.__class__._default = None
 
-        api_client.configuration.__class__._default = None  # disable codegen's singleton behaviour
         api_client.user_agent = "mbed-cloud-sdk-python/{sdk_ver} ({pfm}) Python/{py_ver}".format(
             sdk_ver=__version__,
             pfm=platform.platform(),
