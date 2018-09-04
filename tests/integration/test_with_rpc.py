@@ -1,7 +1,8 @@
+import logging
 import os
-import sys
 import shlex
 import subprocess
+import sys
 import time
 
 from threading import Timer
@@ -13,6 +14,8 @@ from requests.packages.urllib3.util.retry import Retry
 from tests.common import BaseCase
 
 from xml.etree import ElementTree
+
+LOG = logging.getLogger(__name__)
 
 
 def timeout_check_output(timeout=5, process=None, _or_fail=True, *args, **kwargs):
@@ -60,6 +63,7 @@ def new_server_process(coverage=True):
     if coverage:
         cmd.extend(['-m', 'coverage', 'run'])
     cmd.append(target)
+    LOG.info('starting new test server: `%s`', cmd)
     process = subprocess.Popen(args=cmd, universal_newlines=True)
     try:
         # ping the server to make sure it's up
@@ -70,13 +74,13 @@ def new_server_process(coverage=True):
         response = s.get(url, timeout=(15, 15))
         response.raise_for_status()
     except Exception as e:
-        print('could not reach test server locally: %s\n%s' % (cmd, e))
-        print('server status', process.poll(), process.pid)
-        print(timeout_check_output(args=shlex.split('ps -aux')))
-        print(timeout_check_output(args=shlex.split('netstat -aon')))
+        LOG.error('could not reach test server locally: %s\n%s' % (cmd, e))
+        LOG.info('server status', process.poll(), process.pid)
+        LOG.info(timeout_check_output(args=shlex.split('ps -aux')))
+        LOG.info(timeout_check_output(args=shlex.split('netstat -aon')))
         raise
     else:
-        print('SDK test server is running locally on %s' % (test_server_local_address,))
+        LOG.info('SDK test server is running locally on %s' % (test_server_local_address,))
     return process
 
 
@@ -86,9 +90,12 @@ class TestWithRPC(BaseCase):
 
     def setUp(self):
         self.process = new_server_process()
+        logging.basicConfig(level=logging.INFO)
 
     def test_run(self):
+        timeout_check_output(process=self.process, timeout=9*60)
         self.process.wait()
+        LOG.info('Test server was shut down')
 
         # now go to the rpc test result directory and load outcome
         for i in range(10):
@@ -99,12 +106,8 @@ class TestWithRPC(BaseCase):
             raise IOError('could not find integration results')
 
         self.outcome = ElementTree.parse('results/results.xml').getroot().attrib
-        remote_failures = int(self.outcome.get('failures', 0))
-        if remote_failures:
-            self.fail('Remote test had %s failures' % (remote_failures,))
 
-    def tearDown(self):
-        timeout_check_output(process=self.process)
-        remote_errors = int(self.outcome.get('errors', 0))
-        if remote_errors:
-            self.fail('Remote test had %s errors' % (remote_errors,))
+        for outcome in {'errors', 'failures'}:
+            remote_value = int(self.outcome.get(outcome, 0))
+            if remote_value:
+                self.fail('Remote test had %s %s' % (remote_value, outcome))

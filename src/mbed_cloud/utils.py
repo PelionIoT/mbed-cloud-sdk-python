@@ -36,11 +36,15 @@ def ensure_listable(obj):
     return obj if isinstance(obj, (list, tuple, set)) else [obj]
 
 
-def force_utc(time, name='field'):
+def force_utc(time, name='field', precision=6):
     """Appending 'Z' to isoformatted time - explicit timezone is required for most APIs"""
     if not isinstance(time, datetime.datetime):
         raise CloudValueError("%s should be of type datetime" % (name,))
-    return time.isoformat() + "Z"
+    clip = 6 - precision
+    timestring = time.isoformat()
+    if clip:
+        timestring = timestring[:-clip]
+    return timestring + "Z"
 
 
 def new_async_id():

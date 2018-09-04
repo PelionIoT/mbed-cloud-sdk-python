@@ -11,9 +11,11 @@ Method | HTTP request | Description
 [**check_account_api_key**](AggregatorAccountAdminApi.md#check_account_api_key) | **POST** /v3/accounts/{accountID}/api-keys/{apiKey} | Check the API key.
 [**create_account**](AggregatorAccountAdminApi.md#create_account) | **POST** /v3/accounts | Create a new account.
 [**create_account_api_key**](AggregatorAccountAdminApi.md#create_account_api_key) | **POST** /v3/accounts/{accountID}/api-keys | Create a new API key.
+[**create_account_group**](AggregatorAccountAdminApi.md#create_account_group) | **POST** /v3/accounts/{accountID}/policy-groups | Create a new group.
 [**create_account_user**](AggregatorAccountAdminApi.md#create_account_user) | **POST** /v3/accounts/{accountID}/users | Create a new user.
 [**delete_account_api_key**](AggregatorAccountAdminApi.md#delete_account_api_key) | **DELETE** /v3/accounts/{accountID}/api-keys/{apiKey} | Delete the API key.
 [**delete_account_certificate**](AggregatorAccountAdminApi.md#delete_account_certificate) | **DELETE** /v3/accounts/{accountID}/trusted-certificates/{cert-id} | Delete trusted certificate by ID.
+[**delete_account_group**](AggregatorAccountAdminApi.md#delete_account_group) | **DELETE** /v3/accounts/{accountID}/policy-groups/{groupID} | Delete a group.
 [**delete_account_user**](AggregatorAccountAdminApi.md#delete_account_user) | **DELETE** /v3/accounts/{accountID}/users/{user-id} | Delete a user.
 [**get_account_api_key**](AggregatorAccountAdminApi.md#get_account_api_key) | **GET** /v3/accounts/{accountID}/api-keys/{apiKey} | Get API key details.
 [**get_account_certificate**](AggregatorAccountAdminApi.md#get_account_certificate) | **GET** /v3/accounts/{accountID}/trusted-certificates/{cert-id} | Get trusted certificate by ID.
@@ -37,6 +39,7 @@ Method | HTTP request | Description
 [**update_account**](AggregatorAccountAdminApi.md#update_account) | **PUT** /v3/accounts/{accountID} | Update attributes of an existing account.
 [**update_account_api_key**](AggregatorAccountAdminApi.md#update_account_api_key) | **PUT** /v3/accounts/{accountID}/api-keys/{apiKey} | Update API key details.
 [**update_account_certificate**](AggregatorAccountAdminApi.md#update_account_certificate) | **PUT** /v3/accounts/{accountID}/trusted-certificates/{cert-id} | Update trusted certificate.
+[**update_account_group_name**](AggregatorAccountAdminApi.md#update_account_group_name) | **PUT** /v3/accounts/{accountID}/policy-groups/{groupID} | Update the group name.
 [**update_account_user**](AggregatorAccountAdminApi.md#update_account_user) | **PUT** /v3/accounts/{accountID}/users/{user-id} | Update user details.
 [**validate_account_user_email**](AggregatorAccountAdminApi.md#validate_account_user_email) | **POST** /v3/accounts/{accountID}/users/{user-id}/validate-email | Validate the user email.
 
@@ -350,7 +353,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = iam.AggregatorAccountAdminApi(iam.ApiClient(configuration))
 body = iam.AccountCreationReq() # AccountCreationReq | Details of the account to be created.
-action = 'create' # str | Action, either 'create', 'enroll' or 'enrollment_link'. (optional) (default to create)
+action = 'create' # str | Action, either 'create' or 'enroll'. <ul><li>'create' creates the account where its admin user has ACTIVE status if admin_password was defined in the request, or RESET status if no admin_password was defined. If the user already exists, its status is not modified. </li><li>'enroll' creates the account where its admin user has ENROLLING status. If the user already exists, its status is not modified. Email to finish the enrollment or to notify the existing user about the new account is sent to the admin_email defined in the request. </li></ul> (optional) (default to create)
 
 try: 
     # Create a new account.
@@ -365,7 +368,7 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **body** | [**AccountCreationReq**](AccountCreationReq.md)| Details of the account to be created. | 
- **action** | **str**| Action, either &#39;create&#39;, &#39;enroll&#39; or &#39;enrollment_link&#39;. | [optional] [default to create]
+ **action** | **str**| Action, either &#39;create&#39; or &#39;enroll&#39;. &lt;ul&gt;&lt;li&gt;&#39;create&#39; creates the account where its admin user has ACTIVE status if admin_password was defined in the request, or RESET status if no admin_password was defined. If the user already exists, its status is not modified. &lt;/li&gt;&lt;li&gt;&#39;enroll&#39; creates the account where its admin user has ENROLLING status. If the user already exists, its status is not modified. Email to finish the enrollment or to notify the existing user about the new account is sent to the admin_email defined in the request. &lt;/li&gt;&lt;/ul&gt; | [optional] [default to create]
 
 ### Return type
 
@@ -426,6 +429,62 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ApiKeyInfoResp**](ApiKeyInfoResp.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **create_account_group**
+> GroupSummary create_account_group(account_id, body)
+
+Create a new group.
+
+An endpoint for creating a new group.
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import iam
+from iam.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+configuration = iam.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = iam.AggregatorAccountAdminApi(iam.ApiClient(configuration))
+account_id = 'account_id_example' # str | Account ID.
+body = iam.GroupCreationInfo() # GroupCreationInfo | Details of the group to be created.
+
+try: 
+    # Create a new group.
+    api_response = api_instance.create_account_group(account_id, body)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AggregatorAccountAdminApi->create_account_group: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **account_id** | **str**| Account ID. | 
+ **body** | [**GroupCreationInfo**](GroupCreationInfo.md)| Details of the group to be created. | 
+
+### Return type
+
+[**GroupSummary**](GroupSummary.md)
 
 ### Authorization
 
@@ -590,6 +649,61 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **account_id** | **str**| Account ID. | 
  **cert_id** | **str**| The ID of the trusted certificate to be deleted. | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **delete_account_group**
+> delete_account_group(account_id, group_id)
+
+Delete a group.
+
+An endpoint for deleting a group.
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import iam
+from iam.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+configuration = iam.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = iam.AggregatorAccountAdminApi(iam.ApiClient(configuration))
+account_id = 'account_id_example' # str | Account ID.
+group_id = 'group_id_example' # str | The ID of the group to be deleted.
+
+try: 
+    # Delete a group.
+    api_instance.delete_account_group(account_id, group_id)
+except ApiException as e:
+    print("Exception when calling AggregatorAccountAdminApi->delete_account_group: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **account_id** | **str**| Account ID. | 
+ **group_id** | **str**| The ID of the group to be deleted. | 
 
 ### Return type
 
@@ -1092,7 +1206,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_all_account_groups**
-> list[GroupSummary] get_all_account_groups(account_id, limit=limit, after=after, order=order, include=include, name__eq=name__eq)
+> GroupSummaryList get_all_account_groups(account_id, limit=limit, after=after, order=order, include=include, name__eq=name__eq)
 
 Get all group information.
 
@@ -1142,7 +1256,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**list[GroupSummary]**](GroupSummary.md)
+[**GroupSummaryList**](GroupSummaryList.md)
 
 ### Authorization
 
@@ -2013,6 +2127,64 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**TrustedCertificateInternalResp**](TrustedCertificateInternalResp.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **update_account_group_name**
+> UpdatedResponse update_account_group_name(account_id, group_id, body)
+
+Update the group name.
+
+An endpoint for updating a group name.
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import iam
+from iam.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+configuration = iam.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = iam.AggregatorAccountAdminApi(iam.ApiClient(configuration))
+account_id = 'account_id_example' # str | Account ID.
+group_id = 'group_id_example' # str | The ID of the group to be updated.
+body = iam.GroupUpdateInfo() # GroupUpdateInfo | Details of the group to be created.
+
+try: 
+    # Update the group name.
+    api_response = api_instance.update_account_group_name(account_id, group_id, body)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AggregatorAccountAdminApi->update_account_group_name: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **account_id** | **str**| Account ID. | 
+ **group_id** | **str**| The ID of the group to be updated. | 
+ **body** | [**GroupUpdateInfo**](GroupUpdateInfo.md)| Details of the group to be created. | 
+
+### Return type
+
+[**UpdatedResponse**](UpdatedResponse.md)
 
 ### Authorization
 

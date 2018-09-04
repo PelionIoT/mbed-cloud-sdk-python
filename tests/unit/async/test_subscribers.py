@@ -4,6 +4,10 @@ from mbed_cloud.subscribe import channels
 from tests.common import BaseCase
 
 import mock
+import six
+
+from multiprocessing.pool import ThreadPool
+
 import os
 import time
 import unittest
@@ -26,17 +30,18 @@ class Test(BaseCase):
         self.assertIsNot(future_a, future_b)
         self.assertIsNot(future_b, future_c)
 
-        # an irrelevant channel
+        # a valid, but irrelevant channel
         subs.notify({
             channels.ChannelIdentifiers.async_responses: [
                 dict(a=1, b=2, device_id='A')
             ]
         })
-        result = future_a.wait(timeout=0.01)
+        time.sleep(0.01)
         self.assertFalse(future_a.ready())
         self.assertFalse(future_b.ready())
         self.assertFalse(future_c.ready())
 
+        # a valid channel, relevant for DeviceState
         subs.notify({
             channels.ChannelIdentifiers.reg_updates: [
                 dict(a=1, b=2, device_id='A')
@@ -53,6 +58,19 @@ class Test(BaseCase):
         # self.assertTrue(future_c.ready())
         result = future_c.get()
         self.assertDictContainsSubset(dict(a=1, b=2), result)
+
+    def test_subscribe_custom_threadpool(self):
+        subs = SubscriptionsManager(mock.MagicMock())
+        custom_threads = ThreadPool(processes=1)
+        observer_a = subs.subscribe(
+            channels.DeviceStateChanges(device_id='A'),
+            provider=custom_threads
+        )
+        with mock.patch.object(custom_threads, 'apply_async') as custom:
+            observer_a.next().defer()
+            observer_a.next().defer()
+            # prove that we used the threadpool we provided
+            self.assertEqual(custom_threads.apply_async.call_count, 2)
 
     @unittest.skipIf(os.environ.get('CI'), 'Do not run in CI')
     def test_live_create_and_cleanup(self):

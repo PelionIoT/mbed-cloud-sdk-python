@@ -31,7 +31,6 @@ class AccountUpdateReq(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'account_properties': 'dict(str, dict(str, str))',
         'address_line1': 'str',
         'address_line2': 'str',
         'aliases': 'list[str]',
@@ -39,6 +38,7 @@ class AccountUpdateReq(object):
         'company': 'str',
         'contact': 'str',
         'country': 'str',
+        'custom_fields': 'dict(str, str)',
         'display_name': 'str',
         'email': 'str',
         'end_market': 'str',
@@ -53,7 +53,6 @@ class AccountUpdateReq(object):
     }
 
     attribute_map = {
-        'account_properties': 'account_properties',
         'address_line1': 'address_line1',
         'address_line2': 'address_line2',
         'aliases': 'aliases',
@@ -61,6 +60,7 @@ class AccountUpdateReq(object):
         'company': 'company',
         'contact': 'contact',
         'country': 'country',
+        'custom_fields': 'custom_fields',
         'display_name': 'display_name',
         'email': 'email',
         'end_market': 'end_market',
@@ -74,12 +74,11 @@ class AccountUpdateReq(object):
         'state': 'state'
     }
 
-    def __init__(self, account_properties=None, address_line1=None, address_line2=None, aliases=None, city=None, company=None, contact=None, country=None, display_name=None, email=None, end_market=None, expiration_warning_threshold=None, idle_timeout=None, mfa_status=None, notification_emails=None, password_policy=None, phone_number=None, postal_code=None, state=None):
+    def __init__(self, address_line1=None, address_line2=None, aliases=None, city=None, company=None, contact=None, country=None, custom_fields=None, display_name=None, email=None, end_market=None, expiration_warning_threshold=None, idle_timeout=None, mfa_status=None, notification_emails=None, password_policy=None, phone_number=None, postal_code=None, state=None):
         """
         AccountUpdateReq - a model defined in Swagger
         """
 
-        self._account_properties = account_properties
         self._address_line1 = address_line1
         self._address_line2 = address_line2
         self._aliases = aliases
@@ -87,6 +86,7 @@ class AccountUpdateReq(object):
         self._company = company
         self._contact = contact
         self._country = country
+        self._custom_fields = custom_fields
         self._display_name = display_name
         self._email = email
         self._end_market = end_market
@@ -99,29 +99,6 @@ class AccountUpdateReq(object):
         self._postal_code = postal_code
         self._state = state
         self.discriminator = None
-
-    @property
-    def account_properties(self):
-        """
-        Gets the account_properties of this AccountUpdateReq.
-        Properties for this account.
-
-        :return: The account_properties of this AccountUpdateReq.
-        :rtype: dict(str, dict(str, str))
-        """
-        return self._account_properties
-
-    @account_properties.setter
-    def account_properties(self, account_properties):
-        """
-        Sets the account_properties of this AccountUpdateReq.
-        Properties for this account.
-
-        :param account_properties: The account_properties of this AccountUpdateReq.
-        :type: dict(str, dict(str, str))
-        """
-
-        self._account_properties = account_properties
 
     @property
     def address_line1(self):
@@ -283,6 +260,29 @@ class AccountUpdateReq(object):
         """
 
         self._country = country
+
+    @property
+    def custom_fields(self):
+        """
+        Gets the custom_fields of this AccountUpdateReq.
+        Account's custom properties as key-value pairs, with a maximum of 10 keys. The maximum length of a key is 100 characters. The values are handled as strings and the maximum length for a value is 1000 characters.
+
+        :return: The custom_fields of this AccountUpdateReq.
+        :rtype: dict(str, str)
+        """
+        return self._custom_fields
+
+    @custom_fields.setter
+    def custom_fields(self, custom_fields):
+        """
+        Sets the custom_fields of this AccountUpdateReq.
+        Account's custom properties as key-value pairs, with a maximum of 10 keys. The maximum length of a key is 100 characters. The values are handled as strings and the maximum length for a value is 1000 characters.
+
+        :param custom_fields: The custom_fields of this AccountUpdateReq.
+        :type: dict(str, str)
+        """
+
+        self._custom_fields = custom_fields
 
     @property
     def display_name(self):

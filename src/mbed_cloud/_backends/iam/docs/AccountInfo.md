@@ -3,7 +3,6 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**account_properties** | [**dict(str, dict(str, str))**](dict.md) | Account specific custom properties. | [optional] 
 **address_line1** | **str** | Postal address line 1. | [optional] 
 **address_line2** | **str** | Postal address line 2. | [optional] 
 **aliases** | **list[str]** | An array of aliases. | 
@@ -13,6 +12,7 @@ Name | Type | Description | Notes
 **contract_number** | **str** | Contract number of the customer. | [optional] 
 **country** | **str** | The country part of the postal address. | [optional] 
 **created_at** | **datetime** | Creation UTC time RFC3339. | [optional] 
+**custom_fields** | **dict(str, str)** | Account&#39;s custom properties as key-value pairs. | [optional] 
 **customer_number** | **str** | Customer number of the customer. | [optional] 
 **display_name** | **str** | The display name for the account. | [optional] 
 **email** | **str** | The company email address for this account. | [optional] 

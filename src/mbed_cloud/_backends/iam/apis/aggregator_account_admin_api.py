@@ -588,7 +588,7 @@ class AggregatorAccountAdminApi(object):
 
         :param async bool
         :param AccountCreationReq body: Details of the account to be created. (required)
-        :param str action: Action, either 'create', 'enroll' or 'enrollment_link'.
+        :param str action: Action, either 'create' or 'enroll'. <ul><li>'create' creates the account where its admin user has ACTIVE status if admin_password was defined in the request, or RESET status if no admin_password was defined. If the user already exists, its status is not modified. </li><li>'enroll' creates the account where its admin user has ENROLLING status. If the user already exists, its status is not modified. Email to finish the enrollment or to notify the existing user about the new account is sent to the admin_email defined in the request. </li></ul>
         :return: AccountCreationResp
                  If the method is called asynchronously,
                  returns the request thread.
@@ -611,7 +611,7 @@ class AggregatorAccountAdminApi(object):
 
         :param async bool
         :param AccountCreationReq body: Details of the account to be created. (required)
-        :param str action: Action, either 'create', 'enroll' or 'enrollment_link'.
+        :param str action: Action, either 'create' or 'enroll'. <ul><li>'create' creates the account where its admin user has ACTIVE status if admin_password was defined in the request, or RESET status if no admin_password was defined. If the user already exists, its status is not modified. </li><li>'enroll' creates the account where its admin user has ENROLLING status. If the user already exists, its status is not modified. Email to finish the enrollment or to notify the existing user about the new account is sent to the admin_email defined in the request. </li></ul>
         :return: AccountCreationResp
                  If the method is called asynchronously,
                  returns the request thread.
@@ -777,6 +777,111 @@ class AggregatorAccountAdminApi(object):
                                         post_params=form_params,
                                         files=local_var_files,
                                         response_type='ApiKeyInfoResp',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
+    def create_account_group(self, account_id, body, **kwargs):
+        """
+        Create a new group.
+        An endpoint for creating a new group.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.create_account_group(account_id, body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param GroupCreationInfo body: Details of the group to be created. (required)
+        :return: GroupSummary
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.create_account_group_with_http_info(account_id, body, **kwargs)
+        else:
+            (data) = self.create_account_group_with_http_info(account_id, body, **kwargs)
+            return data
+
+    def create_account_group_with_http_info(self, account_id, body, **kwargs):
+        """
+        Create a new group.
+        An endpoint for creating a new group.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.create_account_group_with_http_info(account_id, body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param GroupCreationInfo body: Details of the group to be created. (required)
+        :return: GroupSummary
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['account_id', 'body']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method create_account_group" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'account_id' is set
+        if ('account_id' not in params) or (params['account_id'] is None):
+            raise ValueError("Missing the required parameter `account_id` when calling `create_account_group`")
+        # verify the required parameter 'body' is set
+        if ('body' not in params) or (params['body'] is None):
+            raise ValueError("Missing the required parameter `body` when calling `create_account_group`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'account_id' in params:
+            path_params['accountID'] = params['account_id']
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'body' in params:
+            body_params = params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/accounts/{accountID}/policy-groups', 'POST',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='GroupSummary',
                                         auth_settings=auth_settings,
                                         async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -1081,6 +1186,107 @@ class AggregatorAccountAdminApi(object):
         auth_settings = ['Bearer']
 
         return self.api_client.call_api('/v3/accounts/{accountID}/trusted-certificates/{cert-id}', 'DELETE',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type=None,
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
+    def delete_account_group(self, account_id, group_id, **kwargs):
+        """
+        Delete a group.
+        An endpoint for deleting a group.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.delete_account_group(account_id, group_id, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param str group_id: The ID of the group to be deleted. (required)
+        :return: None
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.delete_account_group_with_http_info(account_id, group_id, **kwargs)
+        else:
+            (data) = self.delete_account_group_with_http_info(account_id, group_id, **kwargs)
+            return data
+
+    def delete_account_group_with_http_info(self, account_id, group_id, **kwargs):
+        """
+        Delete a group.
+        An endpoint for deleting a group.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.delete_account_group_with_http_info(account_id, group_id, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param str group_id: The ID of the group to be deleted. (required)
+        :return: None
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['account_id', 'group_id']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method delete_account_group" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'account_id' is set
+        if ('account_id' not in params) or (params['account_id'] is None):
+            raise ValueError("Missing the required parameter `account_id` when calling `delete_account_group`")
+        # verify the required parameter 'group_id' is set
+        if ('group_id' not in params) or (params['group_id'] is None):
+            raise ValueError("Missing the required parameter `group_id` when calling `delete_account_group`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'account_id' in params:
+            path_params['accountID'] = params['account_id']
+        if 'group_id' in params:
+            path_params['groupID'] = params['group_id']
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/accounts/{accountID}/policy-groups/{groupID}', 'DELETE',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -1986,7 +2192,7 @@ class AggregatorAccountAdminApi(object):
         :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
         :param str include: Comma separated additional data to return. Currently supported: total_count
         :param str name__eq: Filter for group name
-        :return: list[GroupSummary]
+        :return: GroupSummaryList
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -2013,7 +2219,7 @@ class AggregatorAccountAdminApi(object):
         :param str order: The order of the records based on creation time, ASC or DESC; by default ASC
         :param str include: Comma separated additional data to return. Currently supported: total_count
         :param str name__eq: Filter for group name
-        :return: list[GroupSummary]
+        :return: GroupSummaryList
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -2076,7 +2282,7 @@ class AggregatorAccountAdminApi(object):
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='list[GroupSummary]',
+                                        response_type='GroupSummaryList',
                                         auth_settings=auth_settings,
                                         async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -3690,6 +3896,118 @@ class AggregatorAccountAdminApi(object):
                                         post_params=form_params,
                                         files=local_var_files,
                                         response_type='TrustedCertificateInternalResp',
+                                        auth_settings=auth_settings,
+                                        async=params.get('async'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
+    def update_account_group_name(self, account_id, group_id, body, **kwargs):
+        """
+        Update the group name.
+        An endpoint for updating a group name.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.update_account_group_name(account_id, group_id, body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param str group_id: The ID of the group to be updated. (required)
+        :param GroupUpdateInfo body: Details of the group to be created. (required)
+        :return: UpdatedResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.update_account_group_name_with_http_info(account_id, group_id, body, **kwargs)
+        else:
+            (data) = self.update_account_group_name_with_http_info(account_id, group_id, body, **kwargs)
+            return data
+
+    def update_account_group_name_with_http_info(self, account_id, group_id, body, **kwargs):
+        """
+        Update the group name.
+        An endpoint for updating a group name.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.update_account_group_name_with_http_info(account_id, group_id, body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str account_id: Account ID. (required)
+        :param str group_id: The ID of the group to be updated. (required)
+        :param GroupUpdateInfo body: Details of the group to be created. (required)
+        :return: UpdatedResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['account_id', 'group_id', 'body']
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method update_account_group_name" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'account_id' is set
+        if ('account_id' not in params) or (params['account_id'] is None):
+            raise ValueError("Missing the required parameter `account_id` when calling `update_account_group_name`")
+        # verify the required parameter 'group_id' is set
+        if ('group_id' not in params) or (params['group_id'] is None):
+            raise ValueError("Missing the required parameter `group_id` when calling `update_account_group_name`")
+        # verify the required parameter 'body' is set
+        if ('body' not in params) or (params['body'] is None):
+            raise ValueError("Missing the required parameter `body` when calling `update_account_group_name`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'account_id' in params:
+            path_params['accountID'] = params['account_id']
+        if 'group_id' in params:
+            path_params['groupID'] = params['group_id']
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'body' in params:
+            body_params = params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/v3/accounts/{accountID}/policy-groups/{groupID}', 'PUT',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='UpdatedResponse',
                                         auth_settings=auth_settings,
                                         async=params.get('async'),
                                         _return_http_data_only=params.get('_return_http_data_only'),

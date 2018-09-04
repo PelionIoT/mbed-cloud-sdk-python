@@ -1,1 +1,0 @@
-`News` renamed to `Changelog`

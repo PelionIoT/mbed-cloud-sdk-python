@@ -56,6 +56,7 @@ def main():
     if 'dev' in version:
         raise Exception('cannot release unversioned project: %s' % version)
 
+    print('python - preparing environment')
     subprocess.check_call(['apk', 'update'])
     subprocess.check_call(['apk', 'add', 'git'])
     subprocess.check_call(['pip', 'install', 'twine'])
@@ -64,17 +65,23 @@ def main():
     subprocess.check_call(['git', 'remote', 'set-url', 'origin', new_url])
     branch_spec = 'origin/%s' % os.getenv('CIRCLE_BRANCH')
     subprocess.check_call(['git', 'branch', '--set-upstream-to', branch_spec])
-    print('pushing tags')
+    subprocess.check_call(['git', 'fetch', '--tags', '--force'])
+    print('git - pushing tags')
     subprocess.check_call(['git', 'tag', '-a', version, '-m', 'release %s' % version])
     subprocess.check_call(['git', 'tag', '-f', 'latest'])
-    subprocess.check_call(['git', 'push', 'origin', '--tags'])
-    print('pushing news')
+    subprocess.check_call(['git', 'push', '-f', 'origin', '--tags'])
+    print('git - add changes')
+    subprocess.check_call(['git', 'add', 'src/mbed_cloud/_version.py'])
     subprocess.check_call(['git', 'add', 'CHANGELOG.rst'])
     subprocess.check_call(['git', 'add', 'docs/news/*'])
-    subprocess.check_call(['git', 'commit', '-m', ':newspaper: Update changelog [skip ci]'])
+    print('git - commit changes')
+    message = ':checkered_flag: :newspaper: releasing version %s\n[skip ci]' % version
+    subprocess.check_call(['git', 'commit', '-m', message])
+    print('git - pushing commits')
     subprocess.check_call(['git', 'push', 'origin'])
-    print('uploading to pypi')
-    subprocess.check_call(['python', '-m', 'twine', 'upload', 'dist/*'])
+    print('pypi - uploading')
+    subprocess.check_call(['python', '-m', 'twine', 'upload', 'release-dist/*'])
+    print('pypi - uploading successful')
 
 
 if __name__ == '__main__':

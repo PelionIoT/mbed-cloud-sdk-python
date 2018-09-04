@@ -49,7 +49,7 @@ class TestUserAgent(BaseCase):
         # "mbed-cloud-sdk-python/1.2.6.850 (Darwin-17.4.0-x86_64-i386-64bit) Python/3.6.3"
         self.assertRegexpMatches(
             user_agent,
-            r"^mbed-cloud-sdk-python/\d+.\d+.\d+.\w+ \(\S*\) Python/\d+.\d+.\d+$",
+            r"^mbed-cloud-sdk-python/\d+\.\d+\.\d+\.?\w* \(\S*\) Python/\d+\.\d+\.\d+$",
             "User-Agent does not have the expected format")
 
     def test_account_management_api(self):

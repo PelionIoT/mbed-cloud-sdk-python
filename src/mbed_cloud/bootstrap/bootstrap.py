@@ -81,6 +81,7 @@ class PreSharedKey(BaseObject):
         return {
             'endpoint_name': 'endpoint_name',
             'secret_hex': 'secret_hex',
+            'created_at': 'created_at',
         }
 
     @property
@@ -113,3 +114,14 @@ class PreSharedKey(BaseObject):
         :rtype: str
         """
         return self._secret_hex
+
+    @property
+    def created_at(self):
+        """Gets the created_at of this PreSharedKey.
+
+        The date-time (RFC3339) when this pre-shared key was uploaded to Mbed Cloud.
+
+        :return: The created_at of this PreSharedKey.
+        :rtype: datetime
+        """
+        return self._created_at

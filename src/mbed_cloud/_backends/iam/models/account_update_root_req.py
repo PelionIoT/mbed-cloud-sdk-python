@@ -31,7 +31,6 @@ class AccountUpdateRootReq(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'account_properties': 'dict(str, dict(str, str))',
         'address_line1': 'str',
         'address_line2': 'str',
         'aliases': 'list[str]',
@@ -40,6 +39,7 @@ class AccountUpdateRootReq(object):
         'contact': 'str',
         'contract_number': 'str',
         'country': 'str',
+        'custom_fields': 'dict(str, str)',
         'customer_number': 'str',
         'display_name': 'str',
         'email': 'str',
@@ -56,7 +56,6 @@ class AccountUpdateRootReq(object):
     }
 
     attribute_map = {
-        'account_properties': 'account_properties',
         'address_line1': 'address_line1',
         'address_line2': 'address_line2',
         'aliases': 'aliases',
@@ -65,6 +64,7 @@ class AccountUpdateRootReq(object):
         'contact': 'contact',
         'contract_number': 'contract_number',
         'country': 'country',
+        'custom_fields': 'custom_fields',
         'customer_number': 'customer_number',
         'display_name': 'display_name',
         'email': 'email',
@@ -80,12 +80,11 @@ class AccountUpdateRootReq(object):
         'state': 'state'
     }
 
-    def __init__(self, account_properties=None, address_line1=None, address_line2=None, aliases=None, city=None, company=None, contact=None, contract_number=None, country=None, customer_number=None, display_name=None, email=None, end_market=None, expiration_warning_threshold=None, idle_timeout=None, mfa_status=None, notification_emails=None, password_policy=None, phone_number=None, postal_code=None, sales_contact=None, state=None):
+    def __init__(self, address_line1=None, address_line2=None, aliases=None, city=None, company=None, contact=None, contract_number=None, country=None, custom_fields=None, customer_number=None, display_name=None, email=None, end_market=None, expiration_warning_threshold=None, idle_timeout=None, mfa_status=None, notification_emails=None, password_policy=None, phone_number=None, postal_code=None, sales_contact=None, state=None):
         """
         AccountUpdateRootReq - a model defined in Swagger
         """
 
-        self._account_properties = account_properties
         self._address_line1 = address_line1
         self._address_line2 = address_line2
         self._aliases = aliases
@@ -94,6 +93,7 @@ class AccountUpdateRootReq(object):
         self._contact = contact
         self._contract_number = contract_number
         self._country = country
+        self._custom_fields = custom_fields
         self._customer_number = customer_number
         self._display_name = display_name
         self._email = email
@@ -108,29 +108,6 @@ class AccountUpdateRootReq(object):
         self._sales_contact = sales_contact
         self._state = state
         self.discriminator = None
-
-    @property
-    def account_properties(self):
-        """
-        Gets the account_properties of this AccountUpdateRootReq.
-        Properties for this account.
-
-        :return: The account_properties of this AccountUpdateRootReq.
-        :rtype: dict(str, dict(str, str))
-        """
-        return self._account_properties
-
-    @account_properties.setter
-    def account_properties(self, account_properties):
-        """
-        Sets the account_properties of this AccountUpdateRootReq.
-        Properties for this account.
-
-        :param account_properties: The account_properties of this AccountUpdateRootReq.
-        :type: dict(str, dict(str, str))
-        """
-
-        self._account_properties = account_properties
 
     @property
     def address_line1(self):
@@ -315,6 +292,29 @@ class AccountUpdateRootReq(object):
         """
 
         self._country = country
+
+    @property
+    def custom_fields(self):
+        """
+        Gets the custom_fields of this AccountUpdateRootReq.
+        Account's custom properties as key-value pairs, with a maximum of 10 keys. The maximum length of a key is 100 characters. The values are handled as strings and the maximum length for a value is 1000 characters.
+
+        :return: The custom_fields of this AccountUpdateRootReq.
+        :rtype: dict(str, str)
+        """
+        return self._custom_fields
+
+    @custom_fields.setter
+    def custom_fields(self, custom_fields):
+        """
+        Sets the custom_fields of this AccountUpdateRootReq.
+        Account's custom properties as key-value pairs, with a maximum of 10 keys. The maximum length of a key is 100 characters. The values are handled as strings and the maximum length for a value is 1000 characters.
+
+        :param custom_fields: The custom_fields of this AccountUpdateRootReq.
+        :type: dict(str, str)
+        """
+
+        self._custom_fields = custom_fields
 
     @property
     def customer_number(self):

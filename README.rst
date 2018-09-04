@@ -26,7 +26,7 @@ The ``mbed-cloud-sdk`` gives developers access to the full `Mbed Cloud suite <ht
 Prerequisites
 -------------
 
-Python 2.7.10+ / Python 3.4.3+, built with SSL support.
+Python 2.7.10+ / Python 3.4.3 < 3.7, built with SSL support.
 
 Use of `virtual
 environments <http://docs.python-guide.org/en/latest/dev/virtualenvs/>`__
@@ -108,9 +108,9 @@ License 2.0. See `LICENCE <https://github.com/ARMmbed/mbed-cloud-sdk-python/tree
 Versioning
 ----------
 
-The current version scheme used by the SDK reflects the version of the API it abstracts, and otherwise follows PEP440:
+The current version scheme used by the SDK follows PEP440:
 
-:code:`<API major>.<API minor>.<SDK major>.<SDK minor>.<SDK patch>`
+:code:`<SDK major>.<SDK minor>.<SDK patch>`
 
 Troubleshooting
 ---------------

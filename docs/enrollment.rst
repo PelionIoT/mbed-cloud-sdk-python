@@ -17,4 +17,4 @@ Reference
 ---------
 
 .. automodule:: mbed_cloud.enrollment
-  :members: EnrollmentAPI
+  :members: EnrollmentAPI, EnrollmentClaim
