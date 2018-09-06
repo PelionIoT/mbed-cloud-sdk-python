@@ -9,9 +9,7 @@ from __future__ import unicode_literals
 from builtins import str  # noqa
 from builtins import super
 
-from mbed_cloud.pagination import PaginatedResponse
 from mbed_cloud.sdk.common.entity import Entity
-from mbed_cloud.sdk import enums
 from mbed_cloud.sdk.common import fields
 
 
@@ -224,12 +222,16 @@ class PolicyGroup(Entity):
         :param order: The order of the records based on creation time, ASC or DESC; by
             default ASC
         :type order: str
+        
+        :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 
         def mapper(api_data):
             from mbed_cloud.sdk.entities import ApiKey
 
             return ApiKey().from_api(**api_data)
+
+        from mbed_cloud.pagination import PaginatedResponse
 
         return PaginatedResponse(
             func=self._api_keys,
@@ -261,6 +263,8 @@ class PolicyGroup(Entity):
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/policy-groups/{groupID}
+        
+        :rtype: PolicyGroup
         """
 
         return self._client.call_api(
@@ -292,12 +296,16 @@ class PolicyGroup(Entity):
         :param order: The order of the records based on creation time, ASC or DESC; by
             default ASC
         :type order: str
+        
+        :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 
         def mapper(api_data):
             from mbed_cloud.sdk.entities import PolicyGroup
 
             return PolicyGroup().from_api(**api_data)
+
+        from mbed_cloud.pagination import PaginatedResponse
 
         return PaginatedResponse(
             func=self._list,
@@ -344,12 +352,16 @@ class PolicyGroup(Entity):
         :param order: The order of the records based on creation time, ASC or DESC; by
             default ASC
         :type order: str
+        
+        :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 
         def mapper(api_data):
             from mbed_cloud.sdk.entities import User
 
             return User().from_api(**api_data)
+
+        from mbed_cloud.pagination import PaginatedResponse
 
         return PaginatedResponse(
             func=self._users,

@@ -9,9 +9,7 @@ from __future__ import unicode_literals
 from builtins import str  # noqa
 from builtins import super
 
-from mbed_cloud.pagination import PaginatedResponse
 from mbed_cloud.sdk.common.entity import Entity
-from mbed_cloud.sdk import enums
 from mbed_cloud.sdk.common import fields
 
 
@@ -286,6 +284,8 @@ class ApiKey(Entity):
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/api-keys
+        
+        :rtype: ApiKey
         """
 
         return self._client.call_api(
@@ -305,6 +305,8 @@ class ApiKey(Entity):
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/api-keys/{apiKey}
+        
+        :rtype: ApiKey
         """
 
         return self._client.call_api(
@@ -319,6 +321,8 @@ class ApiKey(Entity):
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/api-keys/{apiKey}
+        
+        :rtype: ApiKey
         """
 
         return self._client.call_api(
@@ -347,12 +351,16 @@ class ApiKey(Entity):
         :param order: The order of the records based on creation time, ASC or DESC; by
             default ASC
         :type order: str
+        
+        :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 
         def mapper(api_data):
             from mbed_cloud.sdk.entities import PolicyGroup
 
             return PolicyGroup().from_api(**api_data)
+
+        from mbed_cloud.pagination import PaginatedResponse
 
         return PaginatedResponse(
             func=self._groups,
@@ -398,12 +406,16 @@ class ApiKey(Entity):
         :param order: The order of the records based on creation time, ASC or DESC; by
             default ASC
         :type order: str
+        
+        :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 
         def mapper(api_data):
             from mbed_cloud.sdk.entities import ApiKey
 
             return ApiKey().from_api(**api_data)
+
+        from mbed_cloud.pagination import PaginatedResponse
 
         return PaginatedResponse(
             func=self._list,
@@ -437,6 +449,8 @@ class ApiKey(Entity):
         
         :param accountid: Account ID.
         :type accountid: str
+        
+        :rtype: ApiKey
         """
 
         return self._client.call_api(
@@ -454,6 +468,8 @@ class ApiKey(Entity):
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/api-keys/{apiKey}
+        
+        :rtype: ApiKey
         """
 
         return self._client.call_api(

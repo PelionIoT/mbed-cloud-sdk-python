@@ -9,9 +9,7 @@ from __future__ import unicode_literals
 from builtins import str  # noqa
 from builtins import super
 
-from mbed_cloud.pagination import PaginatedResponse
 from mbed_cloud.sdk.common.entity import Entity
-from mbed_cloud.sdk import enums
 from mbed_cloud.sdk.common import fields
 
 
@@ -20,8 +18,6 @@ class SubtenantAccount(Entity):
 
     # all fields available on this entity
     _fieldnames = [
-        "account_id",
-        "address",
         "address_line1",
         "address_line2",
         "admin_email",
@@ -37,29 +33,18 @@ class SubtenantAccount(Entity):
         "contract_number",
         "country",
         "created_at",
-        "creation_time",
         "custom_fields",
         "customer_number",
         "display_name",
         "email",
-        "email_verified",
         "end_market",
         "expiration_warning_threshold",
-        "full_name",
-        "groups",
         "id",
         "idle_timeout",
-        "is_gtc_accepted",
-        "is_marketing_accepted",
-        "is_totp_enabled",
-        "last_login_time",
         "limits",
-        "login_history",
         "mfa_status",
         "notification_emails",
         "parent_id",
-        "password",
-        "password_changed_time",
         "password_policy",
         "phone_number",
         "policies",
@@ -74,7 +59,6 @@ class SubtenantAccount(Entity):
         "tier",
         "updated_at",
         "upgraded_at",
-        "username",
     ]
 
     # common renames used when mapping {<API spec>: <SDK>}
@@ -83,8 +67,6 @@ class SubtenantAccount(Entity):
     def __init__(
         self,
         _client=None,
-        account_id=None,
-        address=None,
         address_line1=None,
         address_line2=None,
         admin_email=None,
@@ -100,29 +82,18 @@ class SubtenantAccount(Entity):
         contract_number=None,
         country=None,
         created_at=None,
-        creation_time=None,
         custom_fields=None,
         customer_number=None,
         display_name=None,
         email=None,
-        email_verified=None,
         end_market=None,
         expiration_warning_threshold=None,
-        full_name=None,
-        groups=None,
         id=None,
         idle_timeout=None,
-        is_gtc_accepted=None,
-        is_marketing_accepted=None,
-        is_totp_enabled=None,
-        last_login_time=None,
         limits=None,
-        login_history=None,
         mfa_status=None,
         notification_emails=None,
         parent_id=None,
-        password=None,
-        password_changed_time=None,
         password_policy=None,
         phone_number=None,
         policies=None,
@@ -137,14 +108,9 @@ class SubtenantAccount(Entity):
         tier=None,
         updated_at=None,
         upgraded_at=None,
-        username=None,
     ):
         """Creates a local `SubtenantAccount` instance
 
-        :param account_id: The UUID of the account.
-        :type account_id: str
-        :param address: Address.
-        :type address: str
         :param address_line1: Postal address line 1.
         :type address_line1: str
         :param address_line2: Postal address line 2.
@@ -179,49 +145,25 @@ class SubtenantAccount(Entity):
         :type country: str
         :param created_at: Creation UTC time RFC3339.
         :type created_at: datetime
-        :param creation_time: A timestamp of the user creation in the storage, in milliseconds.
-        :type creation_time: int
         :param custom_fields: Account's custom properties as key-value pairs.
         :type custom_fields: dict
         :param customer_number: Customer number of the customer.
         :type customer_number: str
         :param display_name: The display name for the account.
         :type display_name: str
-        :param email: The email address.
+        :param email: The company email address for this account.
         :type email: str
-        :param email_verified: A flag indicating whether the user's email address has been
-            verified or not.
-        :type email_verified: bool
         :param end_market: Account end market.
         :type end_market: str
         :param expiration_warning_threshold: Indicates how many days (1-180) before account expiration a
             notification email should be sent.
         :type expiration_warning_threshold: str
-        :param full_name: The full name of the user.
-        :type full_name: str
-        :param groups: A list of IDs of the groups this user belongs to.
-        :type groups: list
-        :param id: The UUID of the user.
+        :param id: Account ID.
         :type id: str
         :param idle_timeout: The reference token expiration time in minutes for this account.
         :type idle_timeout: str
-        :param is_gtc_accepted: A flag indicating that the General Terms and Conditions has been
-            accepted.
-        :type is_gtc_accepted: bool
-        :param is_marketing_accepted: A flag indicating that receiving marketing information has been
-            accepted.
-        :type is_marketing_accepted: bool
-        :param is_totp_enabled: A flag indicating whether 2-factor authentication (TOTP) has been
-            enabled.
-        :type is_totp_enabled: bool
-        :param last_login_time: A timestamp of the latest login of the user, in milliseconds.
-        :type last_login_time: int
         :param limits: List of limits as key-value pairs if requested.
         :type limits: dict
-        :param login_history: Timestamps, succeedings, IP addresses and user agent information
-            of the last five logins of the user, with timestamps in RFC3339
-            format.
-        :type login_history: list
         :param mfa_status: The enforcement status of the multi-factor authentication, either
             'enforced' or 'optional'.
         :type mfa_status: str
@@ -229,15 +171,9 @@ class SubtenantAccount(Entity):
         :type notification_emails: list
         :param parent_id: The ID of the parent account, if it has any.
         :type parent_id: str
-        :param password: The password when creating a new user. It will be generated when
-            not present in the request.
-        :type password: str
-        :param password_changed_time: A timestamp of the latest change of the user password, in
-            milliseconds.
-        :type password_changed_time: int
         :param password_policy: 
         :type password_policy: dict
-        :param phone_number: Phone number.
+        :param phone_number: The phone number of a representative of the company.
         :type phone_number: str
         :param policies: List of policies if requested.
         :type policies: list
@@ -251,11 +187,7 @@ class SubtenantAccount(Entity):
         :type sales_contact: str
         :param state: The state part of the postal address.
         :type state: str
-        :param status: The status of the user. ENROLLING state indicates that the user is
-            in the middle of the enrollment process. INVITED means that the
-            user has not accepted the invitation request. RESET means that the
-            password must be changed immediately. INACTIVE users are locked
-            out and not permitted to use the system.
+        :param status: The status of the account.
         :type status: str
         :param sub_accounts: List of sub accounts. Not available for developer users.
         :type sub_accounts: list
@@ -269,16 +201,12 @@ class SubtenantAccount(Entity):
         :type updated_at: datetime
         :param upgraded_at: Time when upgraded to commercial account in UTC format RFC3339.
         :type upgraded_at: datetime
-        :param username: A username containing alphanumerical letters and -,._@+=
-            characters.
-        :type username: str
         """
 
         super().__init__(_client=_client)
 
         # inline imports for avoiding circular references and bulk imports
 
-        from mbed_cloud.sdk._modules.accounts.entities.login_history import LoginHistory
         from mbed_cloud.sdk._modules.accounts.entities.password_policy import (
             PasswordPolicy
         )
@@ -290,8 +218,6 @@ class SubtenantAccount(Entity):
         from mbed_cloud.sdk.enums import SubtenantAccountStatusEnum
 
         # fields
-        self._account_id = fields.StringField(value=account_id)
-        self._address = fields.StringField(value=address)
         self._address_line1 = fields.StringField(value=address_line1)
         self._address_line2 = fields.StringField(value=address_line2)
         self._admin_email = fields.StringField(value=admin_email)
@@ -307,33 +233,22 @@ class SubtenantAccount(Entity):
         self._contract_number = fields.StringField(value=contract_number)
         self._country = fields.StringField(value=country)
         self._created_at = fields.DateTimeField(value=created_at)
-        self._creation_time = fields.IntegerField(value=creation_time)
         self._custom_fields = fields.DictField(value=custom_fields)
         self._customer_number = fields.StringField(value=customer_number)
         self._display_name = fields.StringField(value=display_name)
         self._email = fields.StringField(value=email)
-        self._email_verified = fields.BooleanField(value=email_verified)
         self._end_market = fields.StringField(value=end_market)
         self._expiration_warning_threshold = fields.StringField(
             value=expiration_warning_threshold
         )
-        self._full_name = fields.StringField(value=full_name)
-        self._groups = fields.ListField(value=groups)
         self._id = fields.StringField(value=id)
         self._idle_timeout = fields.StringField(value=idle_timeout)
-        self._is_gtc_accepted = fields.BooleanField(value=is_gtc_accepted)
-        self._is_marketing_accepted = fields.BooleanField(value=is_marketing_accepted)
-        self._is_totp_enabled = fields.BooleanField(value=is_totp_enabled)
-        self._last_login_time = fields.IntegerField(value=last_login_time)
         self._limits = fields.DictField(value=limits)
-        self._login_history = fields.ListField(value=login_history, entity=LoginHistory)
         self._mfa_status = fields.StringField(
             value=mfa_status, enum=SubtenantAccountMfaStatusEnum
         )
         self._notification_emails = fields.ListField(value=notification_emails)
         self._parent_id = fields.StringField(value=parent_id)
-        self._password = fields.StringField(value=password)
-        self._password_changed_time = fields.IntegerField(value=password_changed_time)
         self._password_policy = fields.DictField(
             value=password_policy, entity=PasswordPolicy
         )
@@ -352,45 +267,6 @@ class SubtenantAccount(Entity):
         self._tier = fields.StringField(value=tier)
         self._updated_at = fields.DateTimeField(value=updated_at)
         self._upgraded_at = fields.DateTimeField(value=upgraded_at)
-        self._username = fields.StringField(value=username)
-
-    @property
-    def account_id(self):
-        """The UUID of the account.
-        
-        api example: '01619571e2e90242ac12000600000000'
-        
-        :rtype: str
-        """
-        return self._account_id.value
-
-    @account_id.setter
-    def account_id(self, value):
-        """Set value of `account_id`
-
-        :param value: value to set
-        :type value: str
-        """
-        self._account_id.set(value)
-
-    @property
-    def address(self):
-        """Address.
-        
-        api example: '110 Fulbourn Rd, Cambridge, United Kingdom'
-        
-        :rtype: str
-        """
-        return self._address.value
-
-    @address.setter
-    def address(self, value):
-        """Set value of `address`
-
-        :param value: value to set
-        :type value: str
-        """
-        self._address.set(value)
 
     @property
     def address_line1(self):
@@ -680,25 +556,6 @@ class SubtenantAccount(Entity):
         self._created_at.set(value)
 
     @property
-    def creation_time(self):
-        """A timestamp of the user creation in the storage, in milliseconds.
-        
-        api example: 1518630727683
-        
-        :rtype: int
-        """
-        return self._creation_time.value
-
-    @creation_time.setter
-    def creation_time(self, value):
-        """Set value of `creation_time`
-
-        :param value: value to set
-        :type value: int
-        """
-        self._creation_time.set(value)
-
-    @property
     def custom_fields(self):
         """Account's custom properties as key-value pairs.
         
@@ -755,9 +612,9 @@ class SubtenantAccount(Entity):
 
     @property
     def email(self):
-        """The email address.
+        """The company email address for this account.
         
-        api example: 'user@arm.com'
+        api example: 'info@arm.com'
         
         :rtype: str
         """
@@ -771,25 +628,6 @@ class SubtenantAccount(Entity):
         :type value: str
         """
         self._email.set(value)
-
-    @property
-    def email_verified(self):
-        """A flag indicating whether the user's email address has been verified or not.
-        
-        api example: True
-        
-        :rtype: bool
-        """
-        return self._email_verified.value
-
-    @email_verified.setter
-    def email_verified(self, value):
-        """Set value of `email_verified`
-
-        :param value: value to set
-        :type value: bool
-        """
-        self._email_verified.set(value)
 
     @property
     def end_market(self):
@@ -831,46 +669,10 @@ class SubtenantAccount(Entity):
         self._expiration_warning_threshold.set(value)
 
     @property
-    def full_name(self):
-        """The full name of the user.
-        
-        api example: 'User Doe'
-        
-        :rtype: str
-        """
-        return self._full_name.value
-
-    @full_name.setter
-    def full_name(self, value):
-        """Set value of `full_name`
-
-        :param value: value to set
-        :type value: str
-        """
-        self._full_name.set(value)
-
-    @property
-    def groups(self):
-        """A list of IDs of the groups this user belongs to.
-        
-        :rtype: list
-        """
-        return self._groups.value
-
-    @groups.setter
-    def groups(self, value):
-        """Set value of `groups`
-
-        :param value: value to set
-        :type value: list
-        """
-        self._groups.set(value)
-
-    @property
     def id(self):
-        """The UUID of the user.
+        """Account ID.
         
-        api example: '01619571e2e89242ac12000600000000'
+        api example: '01619571e2e90242ac12000600000000'
         
         :rtype: str
         """
@@ -905,82 +707,6 @@ class SubtenantAccount(Entity):
         self._idle_timeout.set(value)
 
     @property
-    def is_gtc_accepted(self):
-        """A flag indicating that the General Terms and Conditions has been accepted.
-        
-        api example: True
-        
-        :rtype: bool
-        """
-        return self._is_gtc_accepted.value
-
-    @is_gtc_accepted.setter
-    def is_gtc_accepted(self, value):
-        """Set value of `is_gtc_accepted`
-
-        :param value: value to set
-        :type value: bool
-        """
-        self._is_gtc_accepted.set(value)
-
-    @property
-    def is_marketing_accepted(self):
-        """A flag indicating that receiving marketing information has been accepted.
-        
-        api example: True
-        
-        :rtype: bool
-        """
-        return self._is_marketing_accepted.value
-
-    @is_marketing_accepted.setter
-    def is_marketing_accepted(self, value):
-        """Set value of `is_marketing_accepted`
-
-        :param value: value to set
-        :type value: bool
-        """
-        self._is_marketing_accepted.set(value)
-
-    @property
-    def is_totp_enabled(self):
-        """A flag indicating whether 2-factor authentication (TOTP) has been enabled.
-        
-        api example: True
-        
-        :rtype: bool
-        """
-        return self._is_totp_enabled.value
-
-    @is_totp_enabled.setter
-    def is_totp_enabled(self, value):
-        """Set value of `is_totp_enabled`
-
-        :param value: value to set
-        :type value: bool
-        """
-        self._is_totp_enabled.set(value)
-
-    @property
-    def last_login_time(self):
-        """A timestamp of the latest login of the user, in milliseconds.
-        
-        api example: 1518630727688
-        
-        :rtype: int
-        """
-        return self._last_login_time.value
-
-    @last_login_time.setter
-    def last_login_time(self, value):
-        """Set value of `last_login_time`
-
-        :param value: value to set
-        :type value: int
-        """
-        self._last_login_time.set(value)
-
-    @property
     def limits(self):
         """List of limits as key-value pairs if requested.
         
@@ -996,24 +722,6 @@ class SubtenantAccount(Entity):
         :type value: dict
         """
         self._limits.set(value)
-
-    @property
-    def login_history(self):
-        """Timestamps, succeedings, IP addresses and user agent information of the last
-        five logins of the user, with timestamps in RFC3339 format.
-        
-        :rtype: list[LoginHistory]
-        """
-        return self._login_history.value
-
-    @login_history.setter
-    def login_history(self, value):
-        """Set value of `login_history`
-
-        :param value: value to set
-        :type value: list[LoginHistory]
-        """
-        self._login_history.set(value)
 
     @property
     def mfa_status(self):
@@ -1070,45 +778,6 @@ class SubtenantAccount(Entity):
         self._parent_id.set(value)
 
     @property
-    def password(self):
-        """The password when creating a new user. It will be generated when not present
-        in the request.
-        
-        api example: 'PZf9eEUH43DAPE9ULINFeuj'
-        
-        :rtype: str
-        """
-        return self._password.value
-
-    @password.setter
-    def password(self, value):
-        """Set value of `password`
-
-        :param value: value to set
-        :type value: str
-        """
-        self._password.set(value)
-
-    @property
-    def password_changed_time(self):
-        """A timestamp of the latest change of the user password, in milliseconds.
-        
-        api example: 1518630727688
-        
-        :rtype: int
-        """
-        return self._password_changed_time.value
-
-    @password_changed_time.setter
-    def password_changed_time(self, value):
-        """Set value of `password_changed_time`
-
-        :param value: value to set
-        :type value: int
-        """
-        self._password_changed_time.set(value)
-
-    @property
     def password_policy(self):
         """
         
@@ -1127,7 +796,7 @@ class SubtenantAccount(Entity):
 
     @property
     def phone_number(self):
-        """Phone number.
+        """The phone number of a representative of the company.
         
         api example: '+44 (1223) 400 400'
         
@@ -1258,11 +927,7 @@ class SubtenantAccount(Entity):
 
     @property
     def status(self):
-        """The status of the user. ENROLLING state indicates that the user is in the
-        middle of the enrollment process. INVITED means that the user has not accepted
-        the invitation request. RESET means that the password must be changed
-        immediately. INACTIVE users are locked out and not permitted to use the
-        system.
+        """The status of the account.
         
         api example: 'ACTIVE'
         
@@ -1373,25 +1038,6 @@ class SubtenantAccount(Entity):
         """
         self._upgraded_at.set(value)
 
-    @property
-    def username(self):
-        """A username containing alphanumerical letters and -,._@+= characters.
-        
-        api example: 'admin'
-        
-        :rtype: str
-        """
-        return self._username.value
-
-    @username.setter
-    def username(self, value):
-        """Set value of `username`
-
-        :param value: value to set
-        :type value: str
-        """
-        self._username.set(value)
-
     def api_keys(self, after=None, include=None, limit=50, order="ASC"):
         """Get all API keys.
 
@@ -1411,12 +1057,16 @@ class SubtenantAccount(Entity):
         :param order: The order of the records based on creation time, ASC or DESC; by
             default ASC
         :type order: str
+        
+        :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 
         def mapper(api_data):
             from mbed_cloud.sdk.entities import ApiKey
 
             return ApiKey().from_api(**api_data)
+
+        from mbed_cloud.pagination import PaginatedResponse
 
         return PaginatedResponse(
             func=self._api_keys,
@@ -1459,6 +1109,8 @@ class SubtenantAccount(Entity):
             user about the new account is sent to the admin_email defined in the
             request. </li></ul>
         :type action: str
+        
+        :rtype: SubtenantAccount
         """
 
         return self._client.call_api(
@@ -1489,35 +1141,6 @@ class SubtenantAccount(Entity):
             unpack=self,
         )
 
-    def create_user(self, action="create"):
-        """Create a new user.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/users
-        
-        :param action: Create or invite user.
-        :type action: str
-        """
-
-        return self._client.call_api(
-            method="post",
-            path="/v3/accounts/{accountID}/users",
-            body_params={
-                "address": self._address.to_api(),
-                "email": self._email.to_api(),
-                "full_name": self._full_name.to_api(),
-                "groups": self._groups.to_api(),
-                "is_gtc_accepted": self._is_gtc_accepted.to_api(),
-                "is_marketing_accepted": self._is_marketing_accepted.to_api(),
-                "password": self._password.to_api(),
-                "phone_number": self._phone_number.to_api(),
-                "username": self._username.to_api(),
-            },
-            path_params={"accountID": self._id.to_api()},
-            query_params={"action": fields.StringField(action).to_api()},
-            unpack=self,
-        )
-
     def get(self, include=None, properties=None):
         """Get account info.
 
@@ -1530,6 +1153,8 @@ class SubtenantAccount(Entity):
         
         :param properties: Property name to be returned from account specific properties.
         :type properties: str
+        
+        :rtype: SubtenantAccount
         """
 
         return self._client.call_api(
@@ -1565,12 +1190,16 @@ class SubtenantAccount(Entity):
         :param order: The order of the records based on creation time, ASC or DESC; by
             default ASC
         :type order: str
+        
+        :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 
         def mapper(api_data):
             from mbed_cloud.sdk.entities import PolicyGroup
 
             return PolicyGroup().from_api(**api_data)
+
+        from mbed_cloud.pagination import PaginatedResponse
 
         return PaginatedResponse(
             func=self._groups,
@@ -1651,12 +1280,16 @@ class SubtenantAccount(Entity):
         
         :param tier__eq: An optional filter for tier level, must be 0, 1, 2, 98, 99 or omitted.
         :type tier__eq: str
+        
+        :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 
         def mapper(api_data):
             from mbed_cloud.sdk.entities import SubtenantAccount
 
             return SubtenantAccount().from_api(**api_data)
+
+        from mbed_cloud.pagination import PaginatedResponse
 
         return PaginatedResponse(
             func=self._list,
@@ -1711,6 +1344,8 @@ class SubtenantAccount(Entity):
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}
+        
+        :rtype: SubtenantAccount
         """
 
         return self._client.call_api(
@@ -1763,12 +1398,16 @@ class SubtenantAccount(Entity):
         :param order: The order of the records based on creation time, ASC or DESC; by
             default ASC
         :type order: str
+        
+        :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 
         def mapper(api_data):
             from mbed_cloud.sdk.entities import User
 
             return User().from_api(**api_data)
+
+        from mbed_cloud.pagination import PaginatedResponse
 
         return PaginatedResponse(
             func=self._users,

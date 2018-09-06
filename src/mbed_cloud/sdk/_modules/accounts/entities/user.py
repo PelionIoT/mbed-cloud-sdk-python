@@ -9,9 +9,7 @@ from __future__ import unicode_literals
 from builtins import str  # noqa
 from builtins import super
 
-from mbed_cloud.pagination import PaginatedResponse
 from mbed_cloud.sdk.common.entity import Entity
-from mbed_cloud.sdk import enums
 from mbed_cloud.sdk.common import fields
 
 
@@ -553,6 +551,8 @@ class User(Entity):
         
         :param action: Action, either 'create' or 'invite'.
         :type action: str
+        
+        :rtype: User
         """
 
         return self._client.call_api(
@@ -578,6 +578,8 @@ class User(Entity):
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/users/{user-id}
+        
+        :rtype: User
         """
 
         return self._client.call_api(
@@ -592,12 +594,14 @@ class User(Entity):
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/users/{user-id}
+        
+        :rtype: User
         """
 
         return self._client.call_api(
             method="get",
             path="/v3/users/{user-id}",
-            path_params={"accountID": self._id.to_api()},
+            path_params={"user-id": self._id.to_api()},
             unpack=self,
         )
 
@@ -620,12 +624,16 @@ class User(Entity):
         :param order: The order of the records based on creation time, ASC or DESC; by
             default ASC
         :type order: str
+        
+        :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 
         def mapper(api_data):
             from mbed_cloud.sdk.entities import PolicyGroup
 
             return PolicyGroup().from_api(**api_data)
+
+        from mbed_cloud.pagination import PaginatedResponse
 
         return PaginatedResponse(
             func=self._groups,
@@ -671,12 +679,16 @@ class User(Entity):
         :param order: The order of the records based on creation time, ASC or DESC; by
             default ASC
         :type order: str
+        
+        :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 
         def mapper(api_data):
             from mbed_cloud.sdk.entities import User
 
             return User().from_api(**api_data)
+
+        from mbed_cloud.pagination import PaginatedResponse
 
         return PaginatedResponse(
             func=self._list,
@@ -707,6 +719,8 @@ class User(Entity):
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/users/{user-id}
+        
+        :rtype: User
         """
 
         return self._client.call_api(
@@ -722,7 +736,7 @@ class User(Entity):
                 "is_totp_enabled": self._two_factor_authentication.to_api(),
                 "username": self._username.to_api(),
             },
-            path_params={"accountID": self._id.to_api()},
+            path_params={"user-id": self._id.to_api()},
             unpack=self,
         )
 
@@ -731,6 +745,8 @@ class User(Entity):
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/users/{user-id}/validate-email
+        
+        :rtype: User
         """
 
         return self._client.call_api(

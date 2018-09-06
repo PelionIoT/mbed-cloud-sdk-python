@@ -73,23 +73,10 @@ class SubtenantAccountStatusEnum(BaseEnum):
 
     ACTIVE = "ACTIVE"
     ENROLLING = "ENROLLING"
-    INACTIVE = "INACTIVE"
-    INVITED = "INVITED"
-    RESET = "RESET"
     RESTRICTED = "RESTRICTED"
     SUSPENDED = "SUSPENDED"
 
-    values = frozenset(
-        (
-            "ACTIVE",
-            "ENROLLING",
-            "INACTIVE",
-            "INVITED",
-            "RESET",
-            "RESTRICTED",
-            "SUSPENDED",
-        )
-    )
+    values = frozenset(("ACTIVE", "ENROLLING", "RESTRICTED", "SUSPENDED"))
 
 
 class SubtenantAccountMfaStatusEnum(BaseEnum):

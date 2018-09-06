@@ -9,9 +9,7 @@ from __future__ import unicode_literals
 from builtins import str  # noqa
 from builtins import super
 
-from mbed_cloud.pagination import PaginatedResponse
 from mbed_cloud.sdk.common.entity import Entity
-from mbed_cloud.sdk import enums
 from mbed_cloud.sdk.common import fields
 
 {% for entity in entities %}
@@ -109,13 +107,17 @@ class {{ entity._key.pascal }}(Entity):
         {% for field in mode.fields %}{% if field.external_param %}
         :param {{field._key.snake}}: {{ field.description|wordwrap(width=70)|indent(width=12) }}
         :type {{field._key.snake}}: {{field.python_type}}
-        {% endif %}{% endfor %}"""
+        {% endif %}{% endfor %}
+        :rtype: {% if mode.pagination %}mbed_cloud.pagination.PaginatedResponse{% else %}{{ entity._key.pascal }}{% endif %}
+        """
 
     {% if mode.pagination %}
         {# continuing from the outer, 'public' definition ... #}
         def mapper(api_data):
             from mbed_cloud.sdk.entities import {{ mode.foreign_key.entity.pascal }}
             return {{ mode.foreign_key.entity.pascal }}().from_api(**api_data)
+
+        from mbed_cloud.pagination import PaginatedResponse
 
         return PaginatedResponse(
             func=self._{{mode._key.snake}},

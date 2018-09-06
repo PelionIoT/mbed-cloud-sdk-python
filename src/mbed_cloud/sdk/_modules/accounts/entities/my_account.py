@@ -9,9 +9,7 @@ from __future__ import unicode_literals
 from builtins import str  # noqa
 from builtins import super
 
-from mbed_cloud.pagination import PaginatedResponse
 from mbed_cloud.sdk.common.entity import Entity
-from mbed_cloud.sdk import enums
 from mbed_cloud.sdk.common import fields
 
 
@@ -900,6 +898,8 @@ class MyAccount(Entity):
         
         :param properties: Property name to be returned from account specific properties.
         :type properties: str
+        
+        :rtype: MyAccount
         """
 
         return self._client.call_api(
@@ -917,6 +917,8 @@ class MyAccount(Entity):
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/accounts/me
+        
+        :rtype: MyAccount
         """
 
         return self._client.call_api(

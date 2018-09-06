@@ -310,8 +310,6 @@ class InstanceFactory:
 
     def subtenant_account(
         self,
-        account_id=None,
-        address=None,
         address_line1=None,
         address_line2=None,
         admin_email=None,
@@ -327,29 +325,18 @@ class InstanceFactory:
         contract_number=None,
         country=None,
         created_at=None,
-        creation_time=None,
         custom_fields=None,
         customer_number=None,
         display_name=None,
         email=None,
-        email_verified=None,
         end_market=None,
         expiration_warning_threshold=None,
-        full_name=None,
-        groups=None,
         id=None,
         idle_timeout=None,
-        is_gtc_accepted=None,
-        is_marketing_accepted=None,
-        is_totp_enabled=None,
-        last_login_time=None,
         limits=None,
-        login_history=None,
         mfa_status=None,
         notification_emails=None,
         parent_id=None,
-        password=None,
-        password_changed_time=None,
         password_policy=None,
         phone_number=None,
         policies=None,
@@ -364,14 +351,9 @@ class InstanceFactory:
         tier=None,
         updated_at=None,
         upgraded_at=None,
-        username=None,
     ):
         """Creates a local `SubtenantAccount` instance, binding the client
 
-        :param account_id: The UUID of the account.
-        :type account_id: str
-        :param address: Address.
-        :type address: str
         :param address_line1: Postal address line 1.
         :type address_line1: str
         :param address_line2: Postal address line 2.
@@ -406,49 +388,25 @@ class InstanceFactory:
         :type country: str
         :param created_at: Creation UTC time RFC3339.
         :type created_at: datetime
-        :param creation_time: A timestamp of the user creation in the storage, in milliseconds.
-        :type creation_time: int
         :param custom_fields: Account's custom properties as key-value pairs.
         :type custom_fields: dict
         :param customer_number: Customer number of the customer.
         :type customer_number: str
         :param display_name: The display name for the account.
         :type display_name: str
-        :param email: The email address.
+        :param email: The company email address for this account.
         :type email: str
-        :param email_verified: A flag indicating whether the user's email address has been
-            verified or not.
-        :type email_verified: bool
         :param end_market: Account end market.
         :type end_market: str
         :param expiration_warning_threshold: Indicates how many days (1-180) before account expiration a
             notification email should be sent.
         :type expiration_warning_threshold: str
-        :param full_name: The full name of the user.
-        :type full_name: str
-        :param groups: A list of IDs of the groups this user belongs to.
-        :type groups: list
-        :param id: The UUID of the user.
+        :param id: Account ID.
         :type id: str
         :param idle_timeout: The reference token expiration time in minutes for this account.
         :type idle_timeout: str
-        :param is_gtc_accepted: A flag indicating that the General Terms and Conditions has been
-            accepted.
-        :type is_gtc_accepted: bool
-        :param is_marketing_accepted: A flag indicating that receiving marketing information has been
-            accepted.
-        :type is_marketing_accepted: bool
-        :param is_totp_enabled: A flag indicating whether 2-factor authentication (TOTP) has been
-            enabled.
-        :type is_totp_enabled: bool
-        :param last_login_time: A timestamp of the latest login of the user, in milliseconds.
-        :type last_login_time: int
         :param limits: List of limits as key-value pairs if requested.
         :type limits: dict
-        :param login_history: Timestamps, succeedings, IP addresses and user agent information
-            of the last five logins of the user, with timestamps in RFC3339
-            format.
-        :type login_history: list
         :param mfa_status: The enforcement status of the multi-factor authentication, either
             'enforced' or 'optional'.
         :type mfa_status: str
@@ -456,15 +414,9 @@ class InstanceFactory:
         :type notification_emails: list
         :param parent_id: The ID of the parent account, if it has any.
         :type parent_id: str
-        :param password: The password when creating a new user. It will be generated when
-            not present in the request.
-        :type password: str
-        :param password_changed_time: A timestamp of the latest change of the user password, in
-            milliseconds.
-        :type password_changed_time: int
         :param password_policy: 
         :type password_policy: dict
-        :param phone_number: Phone number.
+        :param phone_number: The phone number of a representative of the company.
         :type phone_number: str
         :param policies: List of policies if requested.
         :type policies: list
@@ -478,11 +430,7 @@ class InstanceFactory:
         :type sales_contact: str
         :param state: The state part of the postal address.
         :type state: str
-        :param status: The status of the user. ENROLLING state indicates that the user is
-            in the middle of the enrollment process. INVITED means that the
-            user has not accepted the invitation request. RESET means that the
-            password must be changed immediately. INACTIVE users are locked
-            out and not permitted to use the system.
+        :param status: The status of the account.
         :type status: str
         :param sub_accounts: List of sub accounts. Not available for developer users.
         :type sub_accounts: list
@@ -496,9 +444,6 @@ class InstanceFactory:
         :type updated_at: datetime
         :param upgraded_at: Time when upgraded to commercial account in UTC format RFC3339.
         :type upgraded_at: datetime
-        :param username: A username containing alphanumerical letters and -,._@+=
-            characters.
-        :type username: str
         
         :rtype: mbed_cloud.sdk.entities.SubtenantAccount
         """
@@ -506,8 +451,6 @@ class InstanceFactory:
 
         return SubtenantAccount(
             _client=self._client,
-            account_id=account_id,
-            address=address,
             address_line1=address_line1,
             address_line2=address_line2,
             admin_email=admin_email,
@@ -523,29 +466,18 @@ class InstanceFactory:
             contract_number=contract_number,
             country=country,
             created_at=created_at,
-            creation_time=creation_time,
             custom_fields=custom_fields,
             customer_number=customer_number,
             display_name=display_name,
             email=email,
-            email_verified=email_verified,
             end_market=end_market,
             expiration_warning_threshold=expiration_warning_threshold,
-            full_name=full_name,
-            groups=groups,
             id=id,
             idle_timeout=idle_timeout,
-            is_gtc_accepted=is_gtc_accepted,
-            is_marketing_accepted=is_marketing_accepted,
-            is_totp_enabled=is_totp_enabled,
-            last_login_time=last_login_time,
             limits=limits,
-            login_history=login_history,
             mfa_status=mfa_status,
             notification_emails=notification_emails,
             parent_id=parent_id,
-            password=password,
-            password_changed_time=password_changed_time,
             password_policy=password_policy,
             phone_number=phone_number,
             policies=policies,
@@ -560,7 +492,6 @@ class InstanceFactory:
             tier=tier,
             updated_at=updated_at,
             upgraded_at=upgraded_at,
-            username=username,
         )
 
     def user(
