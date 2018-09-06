@@ -3,6 +3,8 @@ import warnings
 from mbed_cloud.sdk import Config
 from mbed_cloud.sdk.common.client import Client
 
+# create a new InstanceFactory for providing access to Entities directly from this instance
+from mbed_cloud.sdk._modules._factory import InstanceFactory
 
 global_sdk = None
 has_warned = None
@@ -31,8 +33,6 @@ class SDK(object):
         # create a new client for making http calls
         self._client = Client(self._config)
 
-        # create a new InstanceFactory for providing access to Entities directly from this instance
-        from mbed_cloud.sdk.common._entities import InstanceFactory
         self.entities = InstanceFactory(self.client)
 
     @property
@@ -56,8 +56,9 @@ def beta_warning(header, category=FutureWarning):
     global has_warned
     if not has_warned:
         warnings.warn(
-            "[Beta] this section of the SDK is at a `beta` release level and is subject to change without notice: %s" % header,
+            "[Beta] this section of the SDK is at a `beta` release level and is subject to change without notice: %s"
+            % header,
             category=category,
-            stacklevel=3  # make the trace log from two levels above this `warnings.warn` line
+            stacklevel=3,  # make the trace log from two levels above this `warnings.warn` line
         )
         has_warned = True

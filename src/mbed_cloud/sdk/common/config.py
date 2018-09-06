@@ -32,9 +32,7 @@ class Config(object):
             or constants.DEFAULT_API_KEY
         )
         self.host = (
-            self.host
-            or os.getenv(constants.ENVVAR_HOST)
-            or constants.DEFAULT_HOST
+            self.host or os.getenv(constants.ENVVAR_HOST) or constants.DEFAULT_HOST
         )
         self.user_agent = utils.get_user_agent()
 

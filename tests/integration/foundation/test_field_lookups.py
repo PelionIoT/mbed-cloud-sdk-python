@@ -7,8 +7,8 @@ import random
 
 from tests.common import BaseCase
 
-from mbed_cloud.sdk.modules.accounts import User
-from mbed_cloud.sdk.modules.accounts import PolicyGroup
+from mbed_cloud.sdk.entities import User
+from mbed_cloud.sdk.entities import PolicyGroup
 
 
 @BaseCase._skip_in_ci

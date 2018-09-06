@@ -37,7 +37,7 @@ TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), 'templates')
 class GenModule:
     """Container for 'modules' (aka groups from the intermediate file)"""
 
-    def __init__(self, name=None, data=None, root=None):
+    def __init__(self, name=None, data=None, root=None, target=None):
         """Init
 
         :param name: name of the module
@@ -47,6 +47,7 @@ class GenModule:
         self.name = name
         self.data = data or {}
         self.root = root
+        self.target = target
 
 
 class FileMap:
@@ -71,16 +72,15 @@ class FileMap:
         self.per_module = per_module or [GenModule()]
 
     def run(self, config):
-        """Use self.template to write a file each GenModule directory
+        """Use self.template to write a file in each GenModule directory
 
         using self.output_dir as a starting point
         and self.target as the name of the destination file
         """
         for gen_module in self.per_module:
             _LOG.info('rendering %s', self.template)
-            module_config = {'gen_module': gen_module.data}
-            module_config.update(config)
-            rendered = self.template.render(module_config)
+            rendered = self.template.render(gen_module.data or config)
+
             output_dir = os.path.join(*[
                 p for p in (self.output_dir, gen_module.root, gen_module.name) if p
             ])
@@ -88,7 +88,7 @@ class FileMap:
             if not os.path.exists(output_dir):
                 os.makedirs(output_dir)
 
-            output = os.path.join(output_dir, self.target)
+            output = os.path.join(output_dir, gen_module.target or self.target)
             with open(output, 'w') as fh:
                 _LOG.info('writing %s', output)
                 fh.write(rendered)
@@ -116,27 +116,41 @@ def main(input_file, output_dir):
     jinja_env.filters['repr'] = repr
     jinja_env.filters['pargs_kwargs'] = sort_parg_kwarg
 
+    generation_root = '_modules'
+    generation_dir = os.path.join(output_dir, generation_root)
+
     sub_modules = [
-        GenModule(name=g['_key']['snake'], root='modules', data=g) for g in config.get('groups')
+        GenModule(name=g['_key']['snake'], root=generation_root, data=g) for g in config.get('groups')
+    ]
+    entity_modules = [
+        GenModule(name='entities', root=os.path.join(generation_root, e['group_id']['snake']), data={'entities': [e]}, target=e['_key']['snake']+'.py') for e in config.get('entities')
+    ]
+    enum_modules = [
+        GenModule(
+            # name='enums',
+            root=os.path.join(generation_root, g['_key']['snake']),
+            data=dict(
+              enums=[e for e in config.get('enums') if e['group_id']['name']==g['_key']['name']]
+            )
+        ) for g in config.get('groups')
     ]
 
-    common_dir = os.path.join(output_dir, 'common')
+    enum_dir = os.path.join(output_dir, 'enums')
+    entities_dir = os.path.join(output_dir, 'entities')
 
     file_maps = [
-        FileMap(jinja_env, common_dir, 'entities.jinja2', '_entities.py'),
-        FileMap(jinja_env, common_dir, 'enums.jinja2', '_enums.py'),
+        FileMap(jinja_env, generation_dir, 'factory.jinja2', '_factory.py'),
+        FileMap(jinja_env, enum_dir, 'enums__init__.jinja2', '__init__.py'),
+        FileMap(jinja_env, entities_dir, 'entities__init__.jinja2', '__init__.py'),
+
+        # layed out in the module structure
+        FileMap(jinja_env, output_dir, 'entity.jinja2', per_module=entity_modules),
+        FileMap(jinja_env, output_dir, 'enum.jinja2', 'enums.py', per_module=enum_modules),
         FileMap(jinja_env, output_dir, '__init__.jinja2', per_module=sub_modules),
     ]
 
     for file_map in file_maps:
         file_map.run(config)
-
-    # write a blank __init__
-    _LOG.info('writing supplementary files')
-    with open(os.path.join(output_dir, '__init__.py'), 'a'):
-        pass
-    with open(os.path.join(output_dir, 'modules', '__init__.py'), 'a'):
-        pass
 
     _LOG.info('post-formatting %s', output_dir)
     subprocess.run(['black', output_dir])

@@ -16,8 +16,12 @@ class TestExamples(BaseCase):
 
     def test_quick(self):
         # an example: checking account status
-        from mbed_cloud.sdk.modules.accounts import MyAccount
-        from mbed_cloud.sdk.modules.accounts import MyAccountStatusEnum
+        from mbed_cloud.sdk.entities import MyAccount
+        from mbed_cloud.sdk.enums import MyAccountStatusEnum
+
+        from mbed_cloud.sdk import SDK
+        SDK().entities.User
+
         my_account = MyAccount()
         my_account.get()
         is_active = my_account.status == MyAccountStatusEnum.ACTIVE
@@ -26,7 +30,7 @@ class TestExamples(BaseCase):
 
     def test_listing(self):
         # an example: listing api keys
-        from mbed_cloud.sdk.modules.accounts import ApiKey
+        from mbed_cloud.sdk.entities import ApiKey
         all_keys = ApiKey().list()
         all_key_names = [key.name for key in all_keys]
         # end of example
@@ -38,7 +42,7 @@ class TestExamples(BaseCase):
             from mbed_cloud.sdk import SDK
             all_users = []
             for account_key in ('ak_1', 'ak_2'):
-                all_users.extend(SDK(api_key=account_key).entities.user().list())
+                all_users.extend(SDK(api_key=account_key).entities.User().list())
             # end of example
 
     def test_really_custom_config(self):
@@ -46,14 +50,14 @@ class TestExamples(BaseCase):
         from mbed_cloud.sdk import SDK
         from mbed_cloud.sdk import Config
         config = Config(api_key='ak_1', host='https://example')
-        all_users = SDK(config).entities.user().list()
+        all_users = SDK(config).entities.User().list()
         # end of example
         self.assertIsInstance(all_users, PaginatedResponse)
 
     def test_custom_api_call(self):
         # an example: custom api call
         from mbed_cloud.sdk import SDK
-        from mbed_cloud.sdk.modules.accounts import User
+        from mbed_cloud.sdk.entities import User
         response = SDK().client.call_api('get', '/v3/users', query_params={'limit': 2})
         # response object from the`requests` library
         for user_data in response.json()['data']:
