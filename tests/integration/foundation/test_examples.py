@@ -19,9 +19,6 @@ class TestExamples(BaseCase):
         from mbed_cloud.sdk.entities import MyAccount
         from mbed_cloud.sdk.enums import MyAccountStatusEnum
 
-        from mbed_cloud.sdk import SDK
-        SDK().entities.User
-
         my_account = MyAccount()
         my_account.get()
         is_active = my_account.status == MyAccountStatusEnum.ACTIVE
