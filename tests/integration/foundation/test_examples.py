@@ -36,7 +36,7 @@ class TestExamples(BaseCase):
             from mbed_cloud.sdk import SDK
             all_users = []
             for account_key in ('ak_1', 'ak_2'):
-                all_users.extend(SDK(api_key=account_key).entities.User().list())
+                all_users.extend(SDK(api_key=account_key).entities.user().list())
             # end of example
 
     def test_really_custom_config(self):
@@ -44,7 +44,7 @@ class TestExamples(BaseCase):
         from mbed_cloud.sdk import SDK
         from mbed_cloud.sdk import Config
         config = Config(api_key='ak_1', host='https://example')
-        all_users = SDK(config).entities.User().list()
+        all_users = SDK(config).entities.user().list()
         # end of example
         self.assertIsInstance(all_users, PaginatedResponse)
 
