@@ -3,7 +3,7 @@
 """
     Device Directory API
 
-    This is the API Documentation for the Mbed Device Directory service.
+    This is the API Documentation for the Device Directory service.
 
     OpenAPI spec version: 3
     
@@ -24,6 +24,9 @@ from .models.device_event_eq_neq_filter import DeviceEventEqNeqFilter
 from .models.device_event_gte_lte_filter import DeviceEventGteLteFilter
 from .models.device_event_in_nin_filter import DeviceEventInNinFilter
 from .models.device_event_page import DeviceEventPage
+from .models.device_group import DeviceGroup
+from .models.device_group_manipulation import DeviceGroupManipulation
+from .models.device_group_page import DeviceGroupPage
 from .models.device_gte_lte_filter import DeviceGteLteFilter
 from .models.device_in_nin_filter import DeviceInNinFilter
 from .models.device_page import DevicePage
@@ -34,6 +37,10 @@ from .models.device_query_in_nin_filter import DeviceQueryInNinFilter
 from .models.device_query_page import DeviceQueryPage
 from .models.device_query_patch_request import DeviceQueryPatchRequest
 from .models.device_query_post_put_request import DeviceQueryPostPutRequest
+from .models.error_response import ErrorResponse
+from .models.error_response_fields import ErrorResponseFields
+from .models.group import Group
+from .models.group_1 import Group1
 
 # import apis into sdk package
 from .apis.default_api import DefaultApi
