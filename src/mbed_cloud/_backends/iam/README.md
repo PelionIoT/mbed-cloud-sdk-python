@@ -80,12 +80,16 @@ Class | Method | HTTP request | Description
 *AccountAdminApi* | [**add_subjects_to_group**](docs/AccountAdminApi.md#add_subjects_to_group) | **POST** /v3/policy-groups/{groupID} | Add members to a group.
 *AccountAdminApi* | [**add_user_to_groups**](docs/AccountAdminApi.md#add_user_to_groups) | **POST** /v3/users/{user-id}/groups | Add user to a list of groups.
 *AccountAdminApi* | [**create_group**](docs/AccountAdminApi.md#create_group) | **POST** /v3/policy-groups | Create a new group.
+*AccountAdminApi* | [**create_invitation**](docs/AccountAdminApi.md#create_invitation) | **POST** /v3/user-invitations | Create a user invitation.
 *AccountAdminApi* | [**create_user**](docs/AccountAdminApi.md#create_user) | **POST** /v3/users | Create a new user.
 *AccountAdminApi* | [**delete_group**](docs/AccountAdminApi.md#delete_group) | **DELETE** /v3/policy-groups/{groupID} | Delete a group.
+*AccountAdminApi* | [**delete_invitation**](docs/AccountAdminApi.md#delete_invitation) | **DELETE** /v3/user-invitations/{invitation-id} | Delete a user invitation.
 *AccountAdminApi* | [**delete_user**](docs/AccountAdminApi.md#delete_user) | **DELETE** /v3/users/{user-id} | Delete a user.
+*AccountAdminApi* | [**get_all_invitations**](docs/AccountAdminApi.md#get_all_invitations) | **GET** /v3/user-invitations | Get the details of all the user invitations.
 *AccountAdminApi* | [**get_all_users**](docs/AccountAdminApi.md#get_all_users) | **GET** /v3/users | Get the details of all users.
 *AccountAdminApi* | [**get_groups_of_apikey**](docs/AccountAdminApi.md#get_groups_of_apikey) | **GET** /v3/api-keys/{apiKey}/groups | Get groups of the API key.
 *AccountAdminApi* | [**get_groups_of_user**](docs/AccountAdminApi.md#get_groups_of_user) | **GET** /v3/users/{user-id}/groups | Get groups of the user.
+*AccountAdminApi* | [**get_invitation**](docs/AccountAdminApi.md#get_invitation) | **GET** /v3/user-invitations/{invitation-id} | Details of a user invitation.
 *AccountAdminApi* | [**get_user**](docs/AccountAdminApi.md#get_user) | **GET** /v3/users/{user-id} | Details of a user.
 *AccountAdminApi* | [**get_users_of_group**](docs/AccountAdminApi.md#get_users_of_group) | **GET** /v3/policy-groups/{groupID}/users | Get users of a group.
 *AccountAdminApi* | [**remove_api_key_from_groups**](docs/AccountAdminApi.md#remove_api_key_from_groups) | **DELETE** /v3/api-keys/{apiKey}/groups | Remove API key from groups.
@@ -102,19 +106,23 @@ Class | Method | HTTP request | Description
 *AggregatorAccountAdminApi* | [**create_account**](docs/AggregatorAccountAdminApi.md#create_account) | **POST** /v3/accounts | Create a new account.
 *AggregatorAccountAdminApi* | [**create_account_api_key**](docs/AggregatorAccountAdminApi.md#create_account_api_key) | **POST** /v3/accounts/{accountID}/api-keys | Create a new API key.
 *AggregatorAccountAdminApi* | [**create_account_group**](docs/AggregatorAccountAdminApi.md#create_account_group) | **POST** /v3/accounts/{accountID}/policy-groups | Create a new group.
+*AggregatorAccountAdminApi* | [**create_account_invitation**](docs/AggregatorAccountAdminApi.md#create_account_invitation) | **POST** /v3/accounts/{account-id}/user-invitations | Create a user invitation.
 *AggregatorAccountAdminApi* | [**create_account_user**](docs/AggregatorAccountAdminApi.md#create_account_user) | **POST** /v3/accounts/{accountID}/users | Create a new user.
 *AggregatorAccountAdminApi* | [**delete_account_api_key**](docs/AggregatorAccountAdminApi.md#delete_account_api_key) | **DELETE** /v3/accounts/{accountID}/api-keys/{apiKey} | Delete the API key.
 *AggregatorAccountAdminApi* | [**delete_account_certificate**](docs/AggregatorAccountAdminApi.md#delete_account_certificate) | **DELETE** /v3/accounts/{accountID}/trusted-certificates/{cert-id} | Delete trusted certificate by ID.
 *AggregatorAccountAdminApi* | [**delete_account_group**](docs/AggregatorAccountAdminApi.md#delete_account_group) | **DELETE** /v3/accounts/{accountID}/policy-groups/{groupID} | Delete a group.
+*AggregatorAccountAdminApi* | [**delete_account_invitation**](docs/AggregatorAccountAdminApi.md#delete_account_invitation) | **DELETE** /v3/accounts/{account-id}/user-invitations/{invitation-id} | Delete a user invitation.
 *AggregatorAccountAdminApi* | [**delete_account_user**](docs/AggregatorAccountAdminApi.md#delete_account_user) | **DELETE** /v3/accounts/{accountID}/users/{user-id} | Delete a user.
 *AggregatorAccountAdminApi* | [**get_account_api_key**](docs/AggregatorAccountAdminApi.md#get_account_api_key) | **GET** /v3/accounts/{accountID}/api-keys/{apiKey} | Get API key details.
 *AggregatorAccountAdminApi* | [**get_account_certificate**](docs/AggregatorAccountAdminApi.md#get_account_certificate) | **GET** /v3/accounts/{accountID}/trusted-certificates/{cert-id} | Get trusted certificate by ID.
 *AggregatorAccountAdminApi* | [**get_account_group_summary**](docs/AggregatorAccountAdminApi.md#get_account_group_summary) | **GET** /v3/accounts/{accountID}/policy-groups/{groupID} | Get group information.
 *AggregatorAccountAdminApi* | [**get_account_info**](docs/AggregatorAccountAdminApi.md#get_account_info) | **GET** /v3/accounts/{accountID} | Get account info.
+*AggregatorAccountAdminApi* | [**get_account_invitation**](docs/AggregatorAccountAdminApi.md#get_account_invitation) | **GET** /v3/accounts/{account-id}/user-invitations/{invitation-id} | Details of a user invitation.
 *AggregatorAccountAdminApi* | [**get_account_user**](docs/AggregatorAccountAdminApi.md#get_account_user) | **GET** /v3/accounts/{accountID}/users/{user-id} | Details of the user.
 *AggregatorAccountAdminApi* | [**get_all_account_api_keys**](docs/AggregatorAccountAdminApi.md#get_all_account_api_keys) | **GET** /v3/accounts/{accountID}/api-keys | Get all API keys.
 *AggregatorAccountAdminApi* | [**get_all_account_certificates**](docs/AggregatorAccountAdminApi.md#get_all_account_certificates) | **GET** /v3/accounts/{accountID}/trusted-certificates | Get all trusted certificates.
 *AggregatorAccountAdminApi* | [**get_all_account_groups**](docs/AggregatorAccountAdminApi.md#get_all_account_groups) | **GET** /v3/accounts/{accountID}/policy-groups | Get all group information.
+*AggregatorAccountAdminApi* | [**get_all_account_invitations**](docs/AggregatorAccountAdminApi.md#get_all_account_invitations) | **GET** /v3/accounts/{account-id}/user-invitations | Get the details of all the user invitations.
 *AggregatorAccountAdminApi* | [**get_all_account_users**](docs/AggregatorAccountAdminApi.md#get_all_account_users) | **GET** /v3/accounts/{accountID}/users | Get all user details.
 *AggregatorAccountAdminApi* | [**get_all_accounts**](docs/AggregatorAccountAdminApi.md#get_all_accounts) | **GET** /v3/accounts | Get all accounts.
 *AggregatorAccountAdminApi* | [**get_api_keys_of_account_group**](docs/AggregatorAccountAdminApi.md#get_api_keys_of_account_group) | **GET** /v3/accounts/{accountID}/policy-groups/{groupID}/api-keys | Get API keys of a group.
@@ -161,7 +169,6 @@ Class | Method | HTTP request | Description
  - [AccountInfoList](docs/AccountInfoList.md)
  - [AccountUpdateReq](docs/AccountUpdateReq.md)
  - [AccountUpdateRootReq](docs/AccountUpdateRootReq.md)
- - [ActiveSession](docs/ActiveSession.md)
  - [ApiKeyInfoReq](docs/ApiKeyInfoReq.md)
  - [ApiKeyInfoResp](docs/ApiKeyInfoResp.md)
  - [ApiKeyInfoRespList](docs/ApiKeyInfoRespList.md)
@@ -187,8 +194,10 @@ Class | Method | HTTP request | Description
  - [UserInfoReq](docs/UserInfoReq.md)
  - [UserInfoResp](docs/UserInfoResp.md)
  - [UserInfoRespList](docs/UserInfoRespList.md)
+ - [UserInvitationReq](docs/UserInvitationReq.md)
+ - [UserInvitationResp](docs/UserInvitationResp.md)
+ - [UserInvitationRespList](docs/UserInvitationRespList.md)
  - [UserUpdateReq](docs/UserUpdateReq.md)
- - [UserUpdateResp](docs/UserUpdateResp.md)
 
 
 ## Documentation For Authorization

@@ -3,7 +3,7 @@
 """
     Update Service API
 
-    This is the API documentation for the Mbed deployment service, which is part of the update service.
+    This is the API documentation for the Device Management deployment service, which is part of the Update service.
 
     OpenAPI spec version: 3
     
@@ -16,6 +16,9 @@ from __future__ import absolute_import
 # import models into sdk package
 from .models.campaign_device_metadata import CampaignDeviceMetadata
 from .models.campaign_device_metadata_page import CampaignDeviceMetadataPage
+from .models.campaign_metrics import CampaignMetrics
+from .models.error_response import ErrorResponse
+from .models.error_response_fields import ErrorResponseFields
 from .models.firmware_image import FirmwareImage
 from .models.firmware_image_eq_neq_filter import FirmwareImageEqNeqFilter
 from .models.firmware_image_gte_lte_filter import FirmwareImageGteLteFilter
@@ -31,9 +34,13 @@ from .models.update_campaign_eq_neq_filter import UpdateCampaignEqNeqFilter
 from .models.update_campaign_gte_lte_filter import UpdateCampaignGteLteFilter
 from .models.update_campaign_in_nin_filter import UpdateCampaignInNinFilter
 from .models.update_campaign_page import UpdateCampaignPage
-from .models.update_campaign_patch_request import UpdateCampaignPatchRequest
 from .models.update_campaign_post_request import UpdateCampaignPostRequest
 from .models.update_campaign_put_request import UpdateCampaignPutRequest
+from .models.upload_chunk_info import UploadChunkInfo
+from .models.upload_chunk_info_page import UploadChunkInfoPage
+from .models.upload_job import UploadJob
+from .models.upload_job_1 import UploadJob1
+from .models.upload_job_page import UploadJobPage
 
 # import apis into sdk package
 from .apis.default_api import DefaultApi

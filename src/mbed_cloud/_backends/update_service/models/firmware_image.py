@@ -3,7 +3,7 @@
 """
     Update Service API
 
-    This is the API documentation for the Mbed deployment service, which is part of the update service.
+    This is the API documentation for the Device Management deployment service, which is part of the Update service.
 
     OpenAPI spec version: 3
     
@@ -127,7 +127,7 @@ class FirmwareImage(object):
     def datafile_checksum(self):
         """
         Gets the datafile_checksum of this FirmwareImage.
-        Checksum (sha256) generated for the datafile
+        The checksum (sha256) generated for the datafile
 
         :return: The datafile_checksum of this FirmwareImage.
         :rtype: str
@@ -138,7 +138,7 @@ class FirmwareImage(object):
     def datafile_checksum(self, datafile_checksum):
         """
         Sets the datafile_checksum of this FirmwareImage.
-        Checksum (sha256) generated for the datafile
+        The checksum (sha256) generated for the datafile
 
         :param datafile_checksum: The datafile_checksum of this FirmwareImage.
         :type: str
@@ -152,7 +152,7 @@ class FirmwareImage(object):
     def datafile_size(self):
         """
         Gets the datafile_size of this FirmwareImage.
-        Size of the datafile in bytes
+        The size of the datafile in bytes
 
         :return: The datafile_size of this FirmwareImage.
         :rtype: int
@@ -163,7 +163,7 @@ class FirmwareImage(object):
     def datafile_size(self, datafile_size):
         """
         Sets the datafile_size of this FirmwareImage.
-        Size of the datafile in bytes
+        The size of the datafile in bytes
 
         :param datafile_size: The datafile_size of this FirmwareImage.
         :type: int

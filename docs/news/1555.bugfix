@@ -1,0 +1,2 @@
+Unless otherwise specified, configuration always explicitly sets a default API host. Resolves "The API is only accessible over HTTPS" error when using
+certificate APIs.

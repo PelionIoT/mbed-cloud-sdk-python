@@ -3,7 +3,7 @@
 """
     Device Directory API
 
-    This is the API Documentation for the Mbed Device Directory service.
+    This is the API Documentation for the Device Directory service.
 
     OpenAPI spec version: 3
     
@@ -45,6 +45,7 @@ class DeviceDataPostRequest(object):
         'endpoint_name': 'str',
         'endpoint_type': 'str',
         'firmware_checksum': 'str',
+        'groups': 'list[str]',
         'host_gateway': 'str',
         'manifest': 'str',
         'mechanism': 'str',
@@ -71,6 +72,7 @@ class DeviceDataPostRequest(object):
         'endpoint_name': 'endpoint_name',
         'endpoint_type': 'endpoint_type',
         'firmware_checksum': 'firmware_checksum',
+        'groups': 'groups',
         'host_gateway': 'host_gateway',
         'manifest': 'manifest',
         'mechanism': 'mechanism',
@@ -82,7 +84,7 @@ class DeviceDataPostRequest(object):
         'vendor_id': 'vendor_id'
     }
 
-    def __init__(self, auto_update=None, bootstrap_expiration_date=None, bootstrapped_timestamp=None, ca_id=None, connector_expiration_date=None, custom_attributes=None, deployment=None, description=None, device_class=None, device_execution_mode=None, device_key=None, endpoint_name=None, endpoint_type=None, firmware_checksum=None, host_gateway=None, manifest=None, mechanism=None, mechanism_url=None, name=None, object=None, serial_number=None, state=None, vendor_id=None):
+    def __init__(self, auto_update=None, bootstrap_expiration_date=None, bootstrapped_timestamp=None, ca_id=None, connector_expiration_date=None, custom_attributes=None, deployment=None, description=None, device_class=None, device_execution_mode=None, device_key=None, endpoint_name=None, endpoint_type=None, firmware_checksum=None, groups=None, host_gateway=None, manifest=None, mechanism=None, mechanism_url=None, name=None, object=None, serial_number=None, state=None, vendor_id=None):
         """
         DeviceDataPostRequest - a model defined in Swagger
         """
@@ -101,6 +103,7 @@ class DeviceDataPostRequest(object):
         self._endpoint_name = endpoint_name
         self._endpoint_type = endpoint_type
         self._firmware_checksum = firmware_checksum
+        self._groups = groups
         self._host_gateway = host_gateway
         self._manifest = manifest
         self._mechanism = mechanism
@@ -210,7 +213,7 @@ class DeviceDataPostRequest(object):
     def connector_expiration_date(self):
         """
         Gets the connector_expiration_date of this DeviceDataPostRequest.
-        The expiration date of the certificate used to connect to the LWM2M server.
+        The expiration date of the certificate used to connect to the LwM2M server.
 
         :return: The connector_expiration_date of this DeviceDataPostRequest.
         :rtype: datetime
@@ -221,7 +224,7 @@ class DeviceDataPostRequest(object):
     def connector_expiration_date(self, connector_expiration_date):
         """
         Sets the connector_expiration_date of this DeviceDataPostRequest.
-        The expiration date of the certificate used to connect to the LWM2M server.
+        The expiration date of the certificate used to connect to the LwM2M server.
 
         :param connector_expiration_date: The connector_expiration_date of this DeviceDataPostRequest.
         :type: datetime
@@ -233,7 +236,7 @@ class DeviceDataPostRequest(object):
     def custom_attributes(self):
         """
         Gets the custom_attributes of this DeviceDataPostRequest.
-        Up to five custom key-value attributes. Note that keys cannot start with a number.
+        Up to five custom key-value attributes. Note that keys cannot start with a number. Both keys and values are limited to 128 characters.
 
         :return: The custom_attributes of this DeviceDataPostRequest.
         :rtype: dict(str, str)
@@ -244,7 +247,7 @@ class DeviceDataPostRequest(object):
     def custom_attributes(self, custom_attributes):
         """
         Sets the custom_attributes of this DeviceDataPostRequest.
-        Up to five custom key-value attributes. Note that keys cannot start with a number.
+        Up to five custom key-value attributes. Note that keys cannot start with a number. Both keys and values are limited to 128 characters.
 
         :param custom_attributes: The custom_attributes of this DeviceDataPostRequest.
         :type: dict(str, str)
@@ -447,6 +450,29 @@ class DeviceDataPostRequest(object):
             raise ValueError("Invalid value for `firmware_checksum`, length must be less than or equal to `64`")
 
         self._firmware_checksum = firmware_checksum
+
+    @property
+    def groups(self):
+        """
+        Gets the groups of this DeviceDataPostRequest.
+        An array containing an id of each group this device belongs to
+
+        :return: The groups of this DeviceDataPostRequest.
+        :rtype: list[str]
+        """
+        return self._groups
+
+    @groups.setter
+    def groups(self, groups):
+        """
+        Sets the groups of this DeviceDataPostRequest.
+        An array containing an id of each group this device belongs to
+
+        :param groups: The groups of this DeviceDataPostRequest.
+        :type: list[str]
+        """
+
+        self._groups = groups
 
     @property
     def host_gateway(self):

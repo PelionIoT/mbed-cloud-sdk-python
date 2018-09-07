@@ -25,6 +25,7 @@ from dotenv import load_dotenv
 
 ENVVAR_API_HOST = 'MBED_CLOUD_SDK_HOST'
 ENVVAR_API_KEY = 'MBED_CLOUD_SDK_API_KEY'
+DEFAULT_CLOUD_HOST = 'https://api.us-east-1.mbedcloud.com'
 
 LOG = logging.getLogger(__name__)
 
@@ -107,7 +108,7 @@ class Config(dict):
         """Validate / fix up the current config"""
         if not self.get('api_key'):
             raise ValueError("api_key not found in config. Please see documentation.")
-        host = self.get('host')
+        host = self.get('host') or DEFAULT_CLOUD_HOST
         if host:
             # remove extraneous slashes and force to byte string
             # otherwise msg += message_body in httplib will fail in python2

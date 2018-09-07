@@ -9,12 +9,16 @@ Method | HTTP request | Description
 [**add_subjects_to_group**](AccountAdminApi.md#add_subjects_to_group) | **POST** /v3/policy-groups/{groupID} | Add members to a group.
 [**add_user_to_groups**](AccountAdminApi.md#add_user_to_groups) | **POST** /v3/users/{user-id}/groups | Add user to a list of groups.
 [**create_group**](AccountAdminApi.md#create_group) | **POST** /v3/policy-groups | Create a new group.
+[**create_invitation**](AccountAdminApi.md#create_invitation) | **POST** /v3/user-invitations | Create a user invitation.
 [**create_user**](AccountAdminApi.md#create_user) | **POST** /v3/users | Create a new user.
 [**delete_group**](AccountAdminApi.md#delete_group) | **DELETE** /v3/policy-groups/{groupID} | Delete a group.
+[**delete_invitation**](AccountAdminApi.md#delete_invitation) | **DELETE** /v3/user-invitations/{invitation-id} | Delete a user invitation.
 [**delete_user**](AccountAdminApi.md#delete_user) | **DELETE** /v3/users/{user-id} | Delete a user.
+[**get_all_invitations**](AccountAdminApi.md#get_all_invitations) | **GET** /v3/user-invitations | Get the details of all the user invitations.
 [**get_all_users**](AccountAdminApi.md#get_all_users) | **GET** /v3/users | Get the details of all users.
 [**get_groups_of_apikey**](AccountAdminApi.md#get_groups_of_apikey) | **GET** /v3/api-keys/{apiKey}/groups | Get groups of the API key.
 [**get_groups_of_user**](AccountAdminApi.md#get_groups_of_user) | **GET** /v3/users/{user-id}/groups | Get groups of the user.
+[**get_invitation**](AccountAdminApi.md#get_invitation) | **GET** /v3/user-invitations/{invitation-id} | Details of a user invitation.
 [**get_user**](AccountAdminApi.md#get_user) | **GET** /v3/users/{user-id} | Details of a user.
 [**get_users_of_group**](AccountAdminApi.md#get_users_of_group) | **GET** /v3/policy-groups/{groupID}/users | Get users of a group.
 [**remove_api_key_from_groups**](AccountAdminApi.md#remove_api_key_from_groups) | **DELETE** /v3/api-keys/{apiKey}/groups | Remove API key from groups.
@@ -301,6 +305,60 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **create_invitation**
+> UserInvitationResp create_invitation(body)
+
+Create a user invitation.
+
+An endpoint for inviting a new or an existing user to join the account.   **Example usage:** `curl -X POST https://api.us-east-1.mbedcloud.com/v3/user-invitations -d {\"email\": \"myemail@company.com\"} -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import iam
+from iam.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+configuration = iam.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = iam.AccountAdminApi(iam.ApiClient(configuration))
+body = iam.UserInvitationReq() # UserInvitationReq | A user invitation object with attributes.
+
+try: 
+    # Create a user invitation.
+    api_response = api_instance.create_invitation(body)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AccountAdminApi->create_invitation: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**UserInvitationReq**](UserInvitationReq.md)| A user invitation object with attributes. | 
+
+### Return type
+
+[**UserInvitationResp**](UserInvitationResp.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **create_user**
 > UserInfoResp create_user(body, action=action)
 
@@ -410,6 +468,59 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **delete_invitation**
+> delete_invitation(invitation_id)
+
+Delete a user invitation.
+
+An endpoint for deleting an active user invitation which has been sent for a new or an existing user to join the account.   **Example usage:** `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/user-invitations/{invitation-id} -H 'Authorization: Bearer API_KEY'`
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import iam
+from iam.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+configuration = iam.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = iam.AccountAdminApi(iam.ApiClient(configuration))
+invitation_id = 'invitation_id_example' # str | The ID of the invitation to be deleted.
+
+try: 
+    # Delete a user invitation.
+    api_instance.delete_invitation(invitation_id)
+except ApiException as e:
+    print("Exception when calling AccountAdminApi->delete_invitation: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **invitation_id** | **str**| The ID of the invitation to be deleted. | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **delete_user**
 > delete_user(user_id)
 
@@ -451,6 +562,64 @@ Name | Type | Description  | Notes
 ### Return type
 
 void (empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_all_invitations**
+> UserInvitationRespList get_all_invitations(limit=limit, after=after, order=order)
+
+Get the details of all the user invitations.
+
+An endpoint for retrieving the details of all the active user invitations sent for new or existing users to join the account.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/user-invitations -H 'Authorization: Bearer API_KEY'`
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import iam
+from iam.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+configuration = iam.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = iam.AccountAdminApi(iam.ApiClient(configuration))
+limit = 50 # int | The number of results to return (2-1000), default is 50. (optional) (default to 50)
+after = 'after_example' # str | The entity ID to fetch after the given one. (optional)
+order = 'ASC' # str | The order of the records based on creation time, ASC or DESC; by default ASC (optional) (default to ASC)
+
+try: 
+    # Get the details of all the user invitations.
+    api_response = api_instance.get_all_invitations(limit=limit, after=after, order=order)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AccountAdminApi->get_all_invitations: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **limit** | **int**| The number of results to return (2-1000), default is 50. | [optional] [default to 50]
+ **after** | **str**| The entity ID to fetch after the given one. | [optional] 
+ **order** | **str**| The order of the records based on creation time, ASC or DESC; by default ASC | [optional] [default to ASC]
+
+### Return type
+
+[**UserInvitationRespList**](UserInvitationRespList.md)
 
 ### Authorization
 
@@ -655,8 +824,62 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **get_invitation**
+> UserInvitationResp get_invitation(invitation_id)
+
+Details of a user invitation.
+
+An endpoint for retrieving the details of an active user invitation sent for a new or an existing user to join the account.   **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/user-invitations/{invitation-id} -H 'Authorization: Bearer API_KEY'`
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import iam
+from iam.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+configuration = iam.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = iam.AccountAdminApi(iam.ApiClient(configuration))
+invitation_id = 'invitation_id_example' # str | The ID of the invitation to be retrieved.
+
+try: 
+    # Details of a user invitation.
+    api_response = api_instance.get_invitation(invitation_id)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AccountAdminApi->get_invitation: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **invitation_id** | **str**| The ID of the invitation to be retrieved. | 
+
+### Return type
+
+[**UserInvitationResp**](UserInvitationResp.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **get_user**
-> UserInfoResp get_user(user_id, properties=properties)
+> UserInfoResp get_user(user_id)
 
 Details of a user.
 
@@ -679,11 +902,10 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = iam.AccountAdminApi(iam.ApiClient(configuration))
 user_id = 'user_id_example' # str | The ID of the user whose details are retrieved.
-properties = 'properties_example' # str | Request to return account specific user property values according to the given property name. (optional)
 
 try: 
     # Details of a user.
-    api_response = api_instance.get_user(user_id, properties=properties)
+    api_response = api_instance.get_user(user_id)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling AccountAdminApi->get_user: %s\n" % e)
@@ -694,7 +916,6 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **user_id** | **str**| The ID of the user whose details are retrieved. | 
- **properties** | **str**| Request to return account specific user property values according to the given property name. | [optional] 
 
 ### Return type
 
