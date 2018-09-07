@@ -3,7 +3,7 @@
 """
     Update Service API
 
-    This is the API documentation for the Mbed deployment service, which is part of the update service.
+    This is the API documentation for the Device Management deployment service, which is part of the Update service.
 
     OpenAPI spec version: 3
     
@@ -16,6 +16,9 @@ from __future__ import absolute_import
 # import models into model package
 from .campaign_device_metadata import CampaignDeviceMetadata
 from .campaign_device_metadata_page import CampaignDeviceMetadataPage
+from .campaign_metrics import CampaignMetrics
+from .error_response import ErrorResponse
+from .error_response_fields import ErrorResponseFields
 from .firmware_image import FirmwareImage
 from .firmware_image_eq_neq_filter import FirmwareImageEqNeqFilter
 from .firmware_image_gte_lte_filter import FirmwareImageGteLteFilter
@@ -31,6 +34,10 @@ from .update_campaign_eq_neq_filter import UpdateCampaignEqNeqFilter
 from .update_campaign_gte_lte_filter import UpdateCampaignGteLteFilter
 from .update_campaign_in_nin_filter import UpdateCampaignInNinFilter
 from .update_campaign_page import UpdateCampaignPage
-from .update_campaign_patch_request import UpdateCampaignPatchRequest
 from .update_campaign_post_request import UpdateCampaignPostRequest
 from .update_campaign_put_request import UpdateCampaignPutRequest
+from .upload_chunk_info import UploadChunkInfo
+from .upload_chunk_info_page import UploadChunkInfoPage
+from .upload_job import UploadJob
+from .upload_job_1 import UploadJob1
+from .upload_job_page import UploadJobPage
