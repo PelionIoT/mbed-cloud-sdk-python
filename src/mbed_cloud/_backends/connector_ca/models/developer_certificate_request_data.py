@@ -3,7 +3,7 @@
 """
     Connect CA API
 
-    mbed Cloud Connect CA API allows services to get device credentials.
+    Connect CA API allows services to get device credentials.
 
     OpenAPI spec version: 3
     
@@ -53,7 +53,7 @@ class DeveloperCertificateRequestData(object):
     def description(self):
         """
         Gets the description of this DeveloperCertificateRequestData.
-        Description for the developer certificate. There is a limit on the length of the description. Please see [TrustedCertificateReq](/docs/v1.2/api-references/account-management-api.html#trustedcertificatereq)
+        Description for the developer certificate. There is a limit on the length of the description. Please see [TrustedCertificateReq](/docs/current/api-references/account-management-api.html#trustedcertificatereq)
 
         :return: The description of this DeveloperCertificateRequestData.
         :rtype: str
@@ -64,7 +64,7 @@ class DeveloperCertificateRequestData(object):
     def description(self, description):
         """
         Sets the description of this DeveloperCertificateRequestData.
-        Description for the developer certificate. There is a limit on the length of the description. Please see [TrustedCertificateReq](/docs/v1.2/api-references/account-management-api.html#trustedcertificatereq)
+        Description for the developer certificate. There is a limit on the length of the description. Please see [TrustedCertificateReq](/docs/current/api-references/account-management-api.html#trustedcertificatereq)
 
         :param description: The description of this DeveloperCertificateRequestData.
         :type: str
@@ -76,7 +76,7 @@ class DeveloperCertificateRequestData(object):
     def name(self):
         """
         Gets the name of this DeveloperCertificateRequestData.
-        Name of the developer certificate, must be unique. There is a limit on the length of the name. Please see [TrustedCertificateReq](/docs/v1.2/api-references/account-management-api.html#trustedcertificatereq)
+        Name of the developer certificate, must be unique. There is a limit on the length of the name. Please see [TrustedCertificateReq](/docs/current/api-references/account-management-api.html#trustedcertificatereq)
 
         :return: The name of this DeveloperCertificateRequestData.
         :rtype: str
@@ -87,7 +87,7 @@ class DeveloperCertificateRequestData(object):
     def name(self, name):
         """
         Sets the name of this DeveloperCertificateRequestData.
-        Name of the developer certificate, must be unique. There is a limit on the length of the name. Please see [TrustedCertificateReq](/docs/v1.2/api-references/account-management-api.html#trustedcertificatereq)
+        Name of the developer certificate, must be unique. There is a limit on the length of the name. Please see [TrustedCertificateReq](/docs/current/api-references/account-management-api.html#trustedcertificatereq)
 
         :param name: The name of this DeveloperCertificateRequestData.
         :type: str

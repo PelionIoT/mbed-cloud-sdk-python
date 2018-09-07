@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **contact** | **str** |  | [optional] 
 **country** | **str** |  | [optional] 
 **email** | **str** |  | [optional] 
-**id** | **str** | Account id. | 
+**id** | **str** | Account ID. | 
 **phone_number** | **str** |  | [optional] 
 **postal_code** | **str** |  | [optional] 
 **state** | **str** |  | [optional] 

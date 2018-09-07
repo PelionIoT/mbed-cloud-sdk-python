@@ -3,7 +3,7 @@
 """
     Update Service API
 
-    This is the API documentation for the Mbed deployment service, which is part of the update service.
+    This is the API documentation for the Device Management deployment service, which is part of the Update service.
 
     OpenAPI spec version: 3
     
@@ -31,11 +31,13 @@ class UpdateCampaign(object):
                             and the value is json key in definition.
     """
     swagger_types = {
+        'autostop_reason': 'str',
         'created_at': 'datetime',
         'description': 'str',
         'device_filter': 'str',
         'etag': 'str',
         'finished': 'datetime',
+        'health_indicator': 'str',
         'id': 'str',
         'name': 'str',
         'object': 'str',
@@ -49,11 +51,13 @@ class UpdateCampaign(object):
     }
 
     attribute_map = {
+        'autostop_reason': 'autostop_reason',
         'created_at': 'created_at',
         'description': 'description',
         'device_filter': 'device_filter',
         'etag': 'etag',
         'finished': 'finished',
+        'health_indicator': 'health_indicator',
         'id': 'id',
         'name': 'name',
         'object': 'object',
@@ -66,16 +70,18 @@ class UpdateCampaign(object):
         'when': 'when'
     }
 
-    def __init__(self, created_at=None, description=None, device_filter=None, etag=None, finished=None, id=None, name=None, object=None, phase=None, root_manifest_id=None, root_manifest_url=None, started_at=None, state=None, updated_at=None, when=None):
+    def __init__(self, autostop_reason=None, created_at=None, description=None, device_filter=None, etag=None, finished=None, health_indicator=None, id=None, name=None, object=None, phase=None, root_manifest_id=None, root_manifest_url=None, started_at=None, state=None, updated_at=None, when=None):
         """
         UpdateCampaign - a model defined in Swagger
         """
 
+        self._autostop_reason = autostop_reason
         self._created_at = created_at
         self._description = description
         self._device_filter = device_filter
         self._etag = etag
         self._finished = finished
+        self._health_indicator = health_indicator
         self._id = id
         self._name = name
         self._object = object
@@ -87,6 +93,29 @@ class UpdateCampaign(object):
         self._updated_at = updated_at
         self._when = when
         self.discriminator = None
+
+    @property
+    def autostop_reason(self):
+        """
+        Gets the autostop_reason of this UpdateCampaign.
+        Text description of why a campaign failed to start or why a campaign stopped.
+
+        :return: The autostop_reason of this UpdateCampaign.
+        :rtype: str
+        """
+        return self._autostop_reason
+
+    @autostop_reason.setter
+    def autostop_reason(self, autostop_reason):
+        """
+        Sets the autostop_reason of this UpdateCampaign.
+        Text description of why a campaign failed to start or why a campaign stopped.
+
+        :param autostop_reason: The autostop_reason of this UpdateCampaign.
+        :type: str
+        """
+
+        self._autostop_reason = autostop_reason
 
     @property
     def created_at(self):
@@ -115,7 +144,7 @@ class UpdateCampaign(object):
     def description(self):
         """
         Gets the description of this UpdateCampaign.
-        The optional description of the campaign
+        An optional description of the campaign
 
         :return: The description of this UpdateCampaign.
         :rtype: str
@@ -126,7 +155,7 @@ class UpdateCampaign(object):
     def description(self, description):
         """
         Sets the description of this UpdateCampaign.
-        The optional description of the campaign
+        An optional description of the campaign
 
         :param description: The description of this UpdateCampaign.
         :type: str
@@ -140,7 +169,7 @@ class UpdateCampaign(object):
     def device_filter(self):
         """
         Gets the device_filter of this UpdateCampaign.
-        The filter for the devices the campaign will target
+        The filter for the devices the campaign is targeting at
 
         :return: The device_filter of this UpdateCampaign.
         :rtype: str
@@ -151,7 +180,7 @@ class UpdateCampaign(object):
     def device_filter(self, device_filter):
         """
         Sets the device_filter of this UpdateCampaign.
-        The filter for the devices the campaign will target
+        The filter for the devices the campaign is targeting at
 
         :param device_filter: The device_filter of this UpdateCampaign.
         :type: str
@@ -204,6 +233,35 @@ class UpdateCampaign(object):
         """
 
         self._finished = finished
+
+    @property
+    def health_indicator(self):
+        """
+        Gets the health_indicator of this UpdateCampaign.
+        An indication to the condition of the campaign.
+
+        :return: The health_indicator of this UpdateCampaign.
+        :rtype: str
+        """
+        return self._health_indicator
+
+    @health_indicator.setter
+    def health_indicator(self, health_indicator):
+        """
+        Sets the health_indicator of this UpdateCampaign.
+        An indication to the condition of the campaign.
+
+        :param health_indicator: The health_indicator of this UpdateCampaign.
+        :type: str
+        """
+        allowed_values = ["ok", "warning", "error"]
+        if health_indicator not in allowed_values:
+            raise ValueError(
+                "Invalid value for `health_indicator` ({0}), must be one of {1}"
+                .format(health_indicator, allowed_values)
+            )
+
+        self._health_indicator = health_indicator
 
     @property
     def id(self):
@@ -418,7 +476,7 @@ class UpdateCampaign(object):
     def when(self):
         """
         Gets the when of this UpdateCampaign.
-        The scheduled start time for the update campaign
+        The scheduled start time for the campaign. The campaign will start within 1 minute when then start time has elapsed.
 
         :return: The when of this UpdateCampaign.
         :rtype: datetime
@@ -429,7 +487,7 @@ class UpdateCampaign(object):
     def when(self, when):
         """
         Sets the when of this UpdateCampaign.
-        The scheduled start time for the update campaign
+        The scheduled start time for the campaign. The campaign will start within 1 minute when then start time has elapsed.
 
         :param when: The when of this UpdateCampaign.
         :type: datetime

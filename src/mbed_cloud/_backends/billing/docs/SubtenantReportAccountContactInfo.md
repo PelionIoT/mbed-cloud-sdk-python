@@ -9,9 +9,9 @@ Name | Type | Description | Notes
 **company** | **str** |  | 
 **contact** | **str** |  | [optional] 
 **country** | **str** |  | [optional] 
-**customer_subtenant_id** | **str** | Account subtenant id if it is a subtenant. | 
+**customer_subtenant_id** | **str** | Account subtenant ID if it is a subtenant. | 
 **email** | **str** |  | [optional] 
-**id** | **str** | Account id. | 
+**id** | **str** | Account ID. | 
 **phone_number** | **str** |  | [optional] 
 **postal_code** | **str** |  | [optional] 
 **state** | **str** |  | [optional] 

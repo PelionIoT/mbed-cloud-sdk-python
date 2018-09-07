@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**delete_pre_shared_key**](PreSharedKeysApi.md#delete_pre_shared_key) | **DELETE** /v2/device-shared-keys/{endpoint_name} | Remove a pre-shared key.
 [**get_pre_shared_key**](PreSharedKeysApi.md#get_pre_shared_key) | **GET** /v2/device-shared-keys/{endpoint_name} | Get a pre-shared key.
 [**list_pre_shared_keys**](PreSharedKeysApi.md#list_pre_shared_keys) | **GET** /v2/device-shared-keys | List pre-shared keys.
-[**upload_pre_shared_key**](PreSharedKeysApi.md#upload_pre_shared_key) | **POST** /v2/device-shared-keys | Upload a pre-shared key to Mbed Cloud.
+[**upload_pre_shared_key**](PreSharedKeysApi.md#upload_pre_shared_key) | **POST** /v2/device-shared-keys | Upload a pre-shared key to Pelion Device Management.
 
 
 # **delete_pre_shared_key**
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 Remove a pre-shared key.
 
-Remove a pre-shared key.
+Remove a pre-shared key.  **Example usage:**  ``` curl -H \"authorization: Bearer ${API_TOKEN}\" -X DELETE https://api.us-east-1.mbedcloud.com/v2/device-shared-keys/my-endpoint-0001 ``` 
 
 ### Example 
 ```python
@@ -68,7 +68,7 @@ void (empty response body)
 
 Get a pre-shared key.
 
-Check if a pre-shared key for an endpoint exists or not. The response does not contain the secret itself. 
+Check if a pre-shared key for an endpoint exists or not. The response does not contain the secret itself.  **Example usage:**  ``` curl -H \"authorization: Bearer ${API_TOKEN}\" https://api.us-east-1.mbedcloud.com/v2/device-shared-keys/my-endpoint-0001 ``` 
 
 ### Example 
 ```python
@@ -122,7 +122,7 @@ Name | Type | Description  | Notes
 
 List pre-shared keys.
 
-List pre-shared keys with pagination and default page size of 50 entries. 
+List pre-shared keys with pagination and default page size of 50 entries.  **Example usage:**  ``` curl -H \"authorization: Bearer ${API_TOKEN}\" https://api.us-east-1.mbedcloud.com/v2/device-shared-keys ``` 
 
 ### Example 
 ```python
@@ -176,9 +176,9 @@ Name | Type | Description  | Notes
 # **upload_pre_shared_key**
 > upload_pre_shared_key(body)
 
-Upload a pre-shared key to Mbed Cloud.
+Upload a pre-shared key to Pelion Device Management.
 
-Upload a pre-shared key (PSK) for an endpoint to allow it to bootstrap. The existing key will not be overwritten but needs to be deleted first in case of re-setting PSK for an endpoint.  **Note**: The PSK APIs are available only to accounts that have this feature enabled.  ``` Example payloads: {\"endpoint_name\": \"myEndpoint.host.com\", \"secret_hex\": \"4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a\" } {\"endpoint_name\": \"myEndpoint.host.com\", \"secret_hex\": \"0x4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a\" } ``` 
+Upload a pre-shared key (PSK) for an endpoint to allow it to bootstrap. The existing key will not be overwritten but needs to be deleted first in case of re-setting PSK for an endpoint.  **Note**: The PSK APIs are available only to accounts that have this feature enabled.  **Example usage:**  ``` curl -H \"authorization: Bearer ${API_TOKEN}\" -H \"content-type: application/json\" -X POST https://api.us-east-1.mbedcloud.com/v2/device-shared-keys \\      -d '{\"endpoint_name\": \"my-endpoint-0001\", \"secret_hex\": \"4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a\" }' ``` 
 
 ### Example 
 ```python
@@ -199,7 +199,7 @@ api_instance = connector_bootstrap.PreSharedKeysApi(connector_bootstrap.ApiClien
 body = connector_bootstrap.PreSharedKey() # PreSharedKey | Pre-shared key to be uploaded.
 
 try: 
-    # Upload a pre-shared key to Mbed Cloud.
+    # Upload a pre-shared key to Pelion Device Management.
     api_instance.upload_pre_shared_key(body)
 except ApiException as e:
     print("Exception when calling PreSharedKeysApi->upload_pre_shared_key: %s\n" % e)

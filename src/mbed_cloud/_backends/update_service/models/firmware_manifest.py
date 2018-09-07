@@ -3,7 +3,7 @@
 """
     Update Service API
 
-    This is the API documentation for the Mbed deployment service, which is part of the update service.
+    This is the API documentation for the Device Management deployment service, which is part of the Update service.
 
     OpenAPI spec version: 3
     
@@ -133,7 +133,7 @@ class FirmwareManifest(object):
     def datafile_size(self):
         """
         Gets the datafile_size of this FirmwareManifest.
-        Size of the datafile in bytes
+        The size of the datafile in bytes
 
         :return: The datafile_size of this FirmwareManifest.
         :rtype: int
@@ -144,7 +144,7 @@ class FirmwareManifest(object):
     def datafile_size(self, datafile_size):
         """
         Sets the datafile_size of this FirmwareManifest.
-        Size of the datafile in bytes
+        The size of the datafile in bytes
 
         :param datafile_size: The datafile_size of this FirmwareManifest.
         :type: int

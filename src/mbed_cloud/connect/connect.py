@@ -743,7 +743,7 @@ class ConnectAPI(BaseAPI):
         include = Metric._map_includes(include)
         kwargs.update(dict(include=include, interval=interval))
         api = self._get_api(statistics.StatisticsApi)
-        return PaginatedResponse(api.v3_metrics_get, lwrap_type=Metric, **kwargs)
+        return PaginatedResponse(api.get_metrics, lwrap_type=Metric, **kwargs)
 
     def _subscription_handler(self, queue, device_id, path, callback_fn):
         while True:

@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 Create a new developer certificate to connect to the bootstrap server.
 
-This REST API is intended to be used by customers to get a developer certificate (a certificate that can be flashed into multiple devices to connect to bootstrap server).  **Note:** The number of developer certificates allowed per account is limited. Please see [Using your own certificate authority](/docs/v1.2/mbed-cloud-deploy/instructions-for-factory-setup-and-device-provision.html#using-your-own-certificate-authority-with-mbed-cloud).  **Example usage:** curl -X POST \"http://api.us-east-1.mbedcloud.com/v3/developer-certificates\" -H \"accept: application/json\" -H \"Authorization: Bearer THE_ACCESS_TOKEN\" -H \"content-type: application/json\" -d \"{ \\\"name\\\": \\\"THE_CERTIFICATE_NAME\\\", \\\"description\\\": \\\"THE_CERTIFICATE_DESCRIPTION\\\"}\"         
+This REST API is intended to be used by customers to get a developer certificate (a certificate that can be flashed into multiple devices to connect to bootstrap server).  **Note:** The number of developer certificates allowed per account is limited. Please see [Using your own certificate authority](/docs/current/mbed-cloud-deploy/instructions-for-factory-setup-and-device-provision.html#using-your-own-certificate-authority-with-mbed-cloud).  **Example usage:** curl -X POST \"http://api.us-east-1.mbedcloud.com/v3/developer-certificates\" -H \"accept: application/json\" -H \"Authorization: Bearer THE_ACCESS_TOKEN\" -H \"content-type: application/json\" -d \"{ \\\"name\\\": \\\"THE_CERTIFICATE_NAME\\\", \\\"description\\\": \\\"THE_CERTIFICATE_DESCRIPTION\\\"}\" 
 
 ### Example 
 ```python
