@@ -32,7 +32,6 @@ class UserInfoReq(object):
     """
     swagger_types = {
         'address': 'str',
-        'custom_fields': 'dict(str, str)',
         'email': 'str',
         'full_name': 'str',
         'groups': 'list[str]',
@@ -45,7 +44,6 @@ class UserInfoReq(object):
 
     attribute_map = {
         'address': 'address',
-        'custom_fields': 'custom_fields',
         'email': 'email',
         'full_name': 'full_name',
         'groups': 'groups',
@@ -56,13 +54,12 @@ class UserInfoReq(object):
         'username': 'username'
     }
 
-    def __init__(self, address=None, custom_fields=None, email=None, full_name=None, groups=None, is_gtc_accepted=None, is_marketing_accepted=None, password=None, phone_number=None, username=None):
+    def __init__(self, address=None, email=None, full_name=None, groups=None, is_gtc_accepted=None, is_marketing_accepted=None, password=None, phone_number=None, username=None):
         """
         UserInfoReq - a model defined in Swagger
         """
 
         self._address = address
-        self._custom_fields = custom_fields
         self._email = email
         self._full_name = full_name
         self._groups = groups
@@ -95,29 +92,6 @@ class UserInfoReq(object):
         """
 
         self._address = address
-
-    @property
-    def custom_fields(self):
-        """
-        Gets the custom_fields of this UserInfoReq.
-        User's account-specific custom properties as key-value pairs, with a maximum of 10 keys. The maximum length of a key is 100 characters. The values are handled as strings and the maximum length for a value is 1000 characters.
-
-        :return: The custom_fields of this UserInfoReq.
-        :rtype: dict(str, str)
-        """
-        return self._custom_fields
-
-    @custom_fields.setter
-    def custom_fields(self, custom_fields):
-        """
-        Sets the custom_fields of this UserInfoReq.
-        User's account-specific custom properties as key-value pairs, with a maximum of 10 keys. The maximum length of a key is 100 characters. The values are handled as strings and the maximum length for a value is 1000 characters.
-
-        :param custom_fields: The custom_fields of this UserInfoReq.
-        :type: dict(str, str)
-        """
-
-        self._custom_fields = custom_fields
 
     @property
     def email(self):
