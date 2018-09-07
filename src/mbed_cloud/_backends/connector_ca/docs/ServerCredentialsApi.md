@@ -4,17 +4,17 @@ All URIs are relative to *http://api.us-east-1.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**get_all_server_credentials**](ServerCredentialsApi.md#get_all_server_credentials) | **GET** /v3/server-credentials | Fetch all (Bootstrap and LWM2M) server credentials.
+[**get_all_server_credentials**](ServerCredentialsApi.md#get_all_server_credentials) | **GET** /v3/server-credentials | Fetch all (Bootstrap and LwM2M) server credentials.
 [**get_bootstrap_server_credentials**](ServerCredentialsApi.md#get_bootstrap_server_credentials) | **GET** /v3/server-credentials/bootstrap | Fetch bootstrap server credentials.
-[**get_l2_m2_m_server_credentials**](ServerCredentialsApi.md#get_l2_m2_m_server_credentials) | **GET** /v3/server-credentials/lwm2m | Fetch LWM2M server credentials.
+[**get_l2_m2_m_server_credentials**](ServerCredentialsApi.md#get_l2_m2_m_server_credentials) | **GET** /v3/server-credentials/lwm2m | Fetch LwM2M server credentials.
 
 
 # **get_all_server_credentials**
 > AllServerCredentialsResponseData get_all_server_credentials(authorization)
 
-Fetch all (Bootstrap and LWM2M) server credentials.
+Fetch all (Bootstrap and LwM2M) server credentials.
 
-This REST API is intended to be used by customers to fetch all (Bootstrap and LWM2M) server credentials that they will need to use with their clients to connect to bootstrap or LWM2M server.  **Example usage:** curl -X GET \"http://api.us-east-1.mbedcloud.com/v3/server-credentials\" -H \"accept: application/json\" -H \"Authorization: Bearer THE_ACCESS_TOKEN\"         
+This REST API is intended to be used by customers to fetch all (Bootstrap and LwM2M) server credentials that they will need to use with their clients to connect to bootstrap or LwM2M server.  **Example usage:** curl -X GET \"http://api.us-east-1.mbedcloud.com/v3/server-credentials\" -H \"accept: application/json\" -H \"Authorization: Bearer THE_ACCESS_TOKEN\" 
 
 ### Example 
 ```python
@@ -35,7 +35,7 @@ api_instance = connector_ca.ServerCredentialsApi(connector_ca.ApiClient(configur
 authorization = 'authorization_example' # str | Bearer {Access Token}. 
 
 try: 
-    # Fetch all (Bootstrap and LWM2M) server credentials.
+    # Fetch all (Bootstrap and LwM2M) server credentials.
     api_response = api_instance.get_all_server_credentials(authorization)
     pprint(api_response)
 except ApiException as e:
@@ -120,9 +120,9 @@ Name | Type | Description  | Notes
 # **get_l2_m2_m_server_credentials**
 > ServerCredentialsResponseData get_l2_m2_m_server_credentials(authorization)
 
-Fetch LWM2M server credentials.
+Fetch LwM2M server credentials.
 
-This REST API is intended to be used by customers to fetch LWM2M server credentials that they will need to use with their clients to connect to LWM2M server.  **Example usage:** curl -X GET \"http://api.us-east-1.mbedcloud.com/v3/server-credentials/lwm2m\" -H \"accept: application/json\" -H \"Authorization: Bearer THE_ACCESS_TOKEN\" 
+This REST API is intended to be used by customers to fetch LwM2M server credentials that they will need to use with their clients to connect to LwM2M server.  **Example usage:** curl -X GET \"http://api.us-east-1.mbedcloud.com/v3/server-credentials/lwm2m\" -H \"accept: application/json\" -H \"Authorization: Bearer THE_ACCESS_TOKEN\" 
 
 ### Example 
 ```python
@@ -143,7 +143,7 @@ api_instance = connector_ca.ServerCredentialsApi(connector_ca.ApiClient(configur
 authorization = 'authorization_example' # str | Bearer {Access Token}. 
 
 try: 
-    # Fetch LWM2M server credentials.
+    # Fetch LwM2M server credentials.
     api_response = api_instance.get_l2_m2_m_server_credentials(authorization)
     pprint(api_response)
 except ApiException as e:
