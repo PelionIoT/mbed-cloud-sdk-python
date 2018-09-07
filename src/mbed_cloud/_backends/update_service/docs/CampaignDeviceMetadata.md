@@ -11,10 +11,10 @@ Name | Type | Description | Notes
 **etag** | **str** | API resource entity version | [optional] 
 **id** | **str** | The metadata record ID | [optional] 
 **mechanism** | **str** | How the firmware is delivered (connector or direct) | [optional] 
-**mechanism_url** | **str** | The Cloud Connect URL | [optional] 
+**mechanism_url** | **str** | The Device Management Connect URL | [optional] 
 **name** | **str** | The record name | [optional] 
-**object** | **str** | Entity name: always &#39;update-campaign-device-metadata&#39; | [optional] 
-**updated_at** | **datetime** | This time this record was modified in the database format: date-time | [optional] 
+**object** | **str** | The entity name: always &#39;update-campaign-device-metadata&#39; | [optional] 
+**updated_at** | **datetime** | The record was modified in the database format: date-time | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

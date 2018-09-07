@@ -3,7 +3,7 @@
 """
     Update Service API
 
-    This is the API documentation for the Mbed deployment service, which is part of the update service.
+    This is the API documentation for the Device Management deployment service, which is part of the Update service.
 
     OpenAPI spec version: 3
     
@@ -114,7 +114,7 @@ class CampaignDeviceMetadataPage(object):
     def has_more(self):
         """
         Gets the has_more of this CampaignDeviceMetadataPage.
-        Flag indicating whether there are more results
+        A flag indicating whether there are more results
 
         :return: The has_more of this CampaignDeviceMetadataPage.
         :rtype: bool
@@ -125,7 +125,7 @@ class CampaignDeviceMetadataPage(object):
     def has_more(self, has_more):
         """
         Sets the has_more of this CampaignDeviceMetadataPage.
-        Flag indicating whether there are more results
+        A flag indicating whether there are more results
 
         :param has_more: The has_more of this CampaignDeviceMetadataPage.
         :type: bool
@@ -160,7 +160,7 @@ class CampaignDeviceMetadataPage(object):
     def object(self):
         """
         Gets the object of this CampaignDeviceMetadataPage.
-        Entity name: always 'list'
+        The entity name: always 'list'
 
         :return: The object of this CampaignDeviceMetadataPage.
         :rtype: str
@@ -171,7 +171,7 @@ class CampaignDeviceMetadataPage(object):
     def object(self, object):
         """
         Sets the object of this CampaignDeviceMetadataPage.
-        Entity name: always 'list'
+        The entity name: always 'list'
 
         :param object: The object of this CampaignDeviceMetadataPage.
         :type: str
@@ -212,7 +212,7 @@ class CampaignDeviceMetadataPage(object):
     def total_count(self):
         """
         Gets the total_count of this CampaignDeviceMetadataPage.
-        The total number or records, if requested. It might be returned also for small lists.
+        The total number or records, if requested. It may be returned also for small lists.
 
         :return: The total_count of this CampaignDeviceMetadataPage.
         :rtype: int
@@ -223,7 +223,7 @@ class CampaignDeviceMetadataPage(object):
     def total_count(self, total_count):
         """
         Sets the total_count of this CampaignDeviceMetadataPage.
-        The total number or records, if requested. It might be returned also for small lists.
+        The total number or records, if requested. It may be returned also for small lists.
 
         :param total_count: The total_count of this CampaignDeviceMetadataPage.
         :type: int
