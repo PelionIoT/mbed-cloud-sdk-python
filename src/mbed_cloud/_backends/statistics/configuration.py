@@ -3,7 +3,7 @@
 """
     Connect Statistics API
 
-    mbed Cloud Connect Statistics API provides statistics about other cloud services through defined counters.
+    Connect Statistics API provides statistics about other cloud services through defined counters.
 
     OpenAPI spec version: 3
     
@@ -50,7 +50,7 @@ class Configuration(with_metaclass(TypeWithDefault, object)):
         Constructor
         """
         # Default Base url
-        self.host = "https://api.us-east-1.mbedcloud.com"
+        self.host = "http://api.us-east-1.mbedcloud.com"
         # Temp file folder for downloading files
         self.temp_folder_path = None
 
