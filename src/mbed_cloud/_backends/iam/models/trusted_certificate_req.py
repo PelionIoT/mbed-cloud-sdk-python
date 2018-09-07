@@ -195,7 +195,7 @@ class TrustedCertificateReq(object):
     def signature(self):
         """
         Gets the signature of this TrustedCertificateReq.
-        DEPRECATED: Base64 encoded signature of the account ID signed by the certificate to be uploaded. The signature must be hashed with SHA256. Needed when uploading an interim certificate without the full chain.
+        DEPRECATED: Base64 encoded signature of the account ID signed by the certificate to be uploaded. The signature must be hashed with SHA256.
 
         :return: The signature of this TrustedCertificateReq.
         :rtype: str
@@ -206,7 +206,7 @@ class TrustedCertificateReq(object):
     def signature(self, signature):
         """
         Sets the signature of this TrustedCertificateReq.
-        DEPRECATED: Base64 encoded signature of the account ID signed by the certificate to be uploaded. The signature must be hashed with SHA256. Needed when uploading an interim certificate without the full chain.
+        DEPRECATED: Base64 encoded signature of the account ID signed by the certificate to be uploaded. The signature must be hashed with SHA256.
 
         :param signature: The signature of this TrustedCertificateReq.
         :type: str
