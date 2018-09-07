@@ -45,6 +45,6 @@ You can configure the SDK with the following parameters:
 =========== ========================== =================================================================== ========
 Parameter   Environment Variable       Description                                                         Optional
 =========== ========================== =================================================================== ========
-``api_key`` ``MBED_CLOUD_SDK_HOST``    The API key created in the portal                                   Required
-``host``    ``MBED_CLOUD_SDK_API_KEY`` The fully qualified hostname (scheme, host, port) of the API server Optional
+``api_key`` ``MBED_CLOUD_SDK_API_KEY`` The API key created in the portal                                   Required
+``host``    ``MBED_CLOUD_SDK_HOST``    The fully qualified hostname (scheme, host, port) of the API server Optional
 =========== ========================== =================================================================== ========
