@@ -3,7 +3,7 @@
 """
     Enrollment API
 
-    Mbed Cloud Connect Enrollment Service allows users to claim the ownership of a device which is not yet assigned to an account. A device without an assigned account can be a device purchased from the open market (OEM dealer) or a device transferred from an account to another. More information in [Device ownership: First-to-claim](https://cloud.mbed.com/docs/current/connecting/device-ownership.html) document. 
+    Connect Enrollment Service allows users to claim the ownership of a device which is not yet assigned to an account. A device without an assigned account can be a device purchased from the open market (OEM dealer) or a device transferred from an account to another. More information in [Device ownership: First-to-claim](/docs/current/connecting/device-ownership-first-to-claim-by-enrollment-list.html) document. 
 
     OpenAPI spec version: 3
     
@@ -169,7 +169,7 @@ class ErrorResponse(object):
     def request_id(self):
         """
         Gets the request_id of this ErrorResponse.
-        Request ID (muuid).
+        Request ID.
 
         :return: The request_id of this ErrorResponse.
         :rtype: str
@@ -180,7 +180,7 @@ class ErrorResponse(object):
     def request_id(self, request_id):
         """
         Sets the request_id of this ErrorResponse.
-        Request ID (muuid).
+        Request ID.
 
         :param request_id: The request_id of this ErrorResponse.
         :type: str
