@@ -1,0 +1,1 @@
+Ensure documentation and changelog is built using the CI release version, rather than the dev version.
