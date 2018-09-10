@@ -123,6 +123,9 @@ def main(input_file, output_dir):
         GenModule(name=g['_key']['snake'], root=generation_root, data=g) for g in config.get('groups')
     ]
     entity_modules = [
+        GenModule(name='entities', root=os.path.join(generation_root, e['group_id']['snake']), data=e['group_id']) for e in config.get('entities')
+    ]
+    src_entity_modules = [
         GenModule(name='entities', root=os.path.join(generation_root, e['group_id']['snake']), data={'entities': [e]}, target=e['_key']['snake']+'.py') for e in config.get('entities')
     ]
     enum_modules = [
@@ -144,9 +147,10 @@ def main(input_file, output_dir):
         FileMap(jinja_env, entities_dir, 'entities__init__.jinja2', '__init__.py'),
 
         # layed out in the module structure
-        FileMap(jinja_env, output_dir, 'entity.jinja2', per_module=entity_modules),
+        FileMap(jinja_env, output_dir, 'entity.jinja2', per_module=src_entity_modules),
         FileMap(jinja_env, output_dir, 'enum.jinja2', 'enums.py', per_module=enum_modules),
         FileMap(jinja_env, output_dir, '__init__.jinja2', per_module=sub_modules),
+        FileMap(jinja_env, output_dir, '__init__.jinja2', per_module=entity_modules),
     ]
 
     for file_map in file_maps:
