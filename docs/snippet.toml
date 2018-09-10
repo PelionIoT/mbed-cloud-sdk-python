@@ -1,2 +1,0 @@
-# config for snippet project (https://github.com/ARMmbed/snippet)
-input_glob = 'tests/unit/icing/*.py'
