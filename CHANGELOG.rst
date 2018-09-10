@@ -13,6 +13,27 @@ a list of versions that have been released on PyPI.
 ..
     begin_release_notes
 
+2.0.1 (2018-09-07)
+==================
+
+Bugfixes
+--------
+
+- SDK is now Python 3.7 compatible. Changes the underlying codegen module to be
+  compatible with Python 3.7 (cannot assign to async: is a reserved keyword).
+  (#1459)
+
+- Unless otherwise specified, configuration always explicitly sets a default
+  API host. Resolves "The API is only accessible over HTTPS" error when using
+  certificate APIs. (#1555)
+
+Improved Documentation
+----------------------
+
+- Ensure documentation and changelog is built using the CI release version,
+  rather than the dev version. (#1481)
+
+
 2.0.0 (2018-08-07)
 ==================
 

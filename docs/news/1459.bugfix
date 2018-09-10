@@ -1,1 +1,0 @@
-SDK is now Python 3.7 compatible. Changes the underlying codegen module to be compatible with Python 3.7 (cannot assign to async: is a reserved keyword).
