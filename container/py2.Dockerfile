@@ -50,7 +50,6 @@ COPY . .
 ARG TESTRUNNER_VERSION
 RUN pipenv run auto_version --config=scripts/auto_version.toml --news --bump=patch "TESTRUNNER_VERSION='${TESTRUNNER_VERSION}'"
 RUN pipenv run python -c "import mbed_cloud; print(mbed_cloud.__version__)"
-RUN pipenv run python scripts/generate_news.py
 
 # run smoke tests
 RUN pipenv run pytest --durations=3 tests/unit
@@ -86,6 +85,7 @@ RUN pipenv run python setup.py clean --all bdist_wheel --dist-dir beta-dist
 RUN pipenv run auto_version --config=scripts/auto_version.toml --release
 
 # build the documentation
+RUN pipenv run python scripts/generate_news.py
 RUN pipenv run sphinx-apidoc src/mbed_cloud -o docs/built_api -e -M
 RUN pipenv run sphinx-build -a -b html -c docs/ docs/ built_docs
 
