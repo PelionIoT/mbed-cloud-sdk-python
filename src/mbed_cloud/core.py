@@ -30,8 +30,6 @@ from six.moves import urllib
 
 from six import iteritems
 
-_codegen_singleton_protection = threading.Lock()
-
 
 class BaseAPI(object):
     """BaseAPI is parent class for all APIs. Ensuring config is valid and available."""
@@ -53,12 +51,8 @@ class BaseAPI(object):
         return self.apis.get(api_class, None)
 
     def _init_api(self, api_parent_class, apis):
-        with _codegen_singleton_protection:
-            api_client = api_parent_class.ApiClient()
-            self.api_clients[api_parent_class] = api_client
-            # disable codegen's singleton behaviour
-            # otherwise `TypeWithDefault` will try copying the config details
-            api_client.configuration.__class__._default = None
+        api_client = api_parent_class.ApiClient()
+        self.api_clients[api_parent_class] = api_client
 
         api_client.user_agent = utils.get_user_agent()
         api_client.configuration.api_key_prefix['Authorization'] = 'Bearer'
