@@ -5,6 +5,7 @@ import functools
 import mbed_cloud
 from mbed_cloud.sdk import entities
 from mbed_cloud import sdk
+from mbed_cloud.pagination import PaginatedResponse
 
 import ast
 import random
@@ -67,7 +68,10 @@ def call_method(context, name, method):
         created = getattr(context, 'created_entities', [])
         created.append(entity)
         context.created_entities = created
-    getattr(entity, method)()
+    response = getattr(entity, method)()
+    if isinstance(response, PaginatedResponse):
+        context.last_list = response
+    return response
 
 
 when_or_given(u'we call {name} {method}')(call_method)
@@ -97,22 +101,31 @@ def step_impl(context, entity, name=None):
     call_method(context, key, 'create')
 
 
-@behave.then(u'{name} {attr} is {operator} {other_name} {attr}')
-def step_impl(context, name, attr, operator, other_name, other_attr):
-    first = getattr(context.entities[name], attr)
-    second = getattr(context.entities[other_name], other_attr)
-    if operator == 'equivalent to':
-        is_equal(first, second)
-    elif operator == 'not equivalent to':
-        is_not_equal(first, second)
+def operator_compare(a, b, operator):
+    if operator == 'equivalent-to':
+        is_equal(a, b)
+    elif operator == 'not-equivalent-to':
+        is_not_equal(a, b)
+    elif operator == 'contains':
+        if b not in a:
+            raise AssertionError('%s not in the list' % b)
+    elif operator == 'does-not-contain':
+        if b in a:
+            raise AssertionError('%s should not be in the list' % b)
 
 
 @behave.then(u'{name} object is {operator} {other_name}')
 def step_impl(context, name, operator, other_name):
-    if operator == 'equivalent to':
-        is_equal(context.entities[name], context.entities[other_name])
-    elif operator == 'not equivalent to':
-        is_not_equal(context.entities[name], context.entities[other_name])
+    first = context.entities[name]
+    second = context.entities[other_name]
+    operator_compare(first, second, operator)
+
+
+@behave.then(u'{name} {attr} is {operator} {other_name} {other_attr}')
+def step_impl(context, name, attr, operator, other_name, other_attr):
+    first = getattr(context.entities[name], attr)
+    second = getattr(context.entities[other_name], other_attr)
+    operator_compare(first, second, operator)
 
 
 @behave.then(u'{name} {attr} is literally {value}')
@@ -125,3 +138,10 @@ def step_impl(context, name, attr, value):
 def step_impl(context, name, attr):
     first = getattr(context.entities[name], attr)
     is_equal(bool(first), True)
+
+
+@behave.then(u'the list {operator} {name}')
+def step_impl(context, operator, name):
+    first = context.entities[name]
+    listed = context.last_list
+    operator_compare(listed, first, operator)
