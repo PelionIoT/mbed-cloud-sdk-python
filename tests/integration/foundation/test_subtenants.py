@@ -18,7 +18,7 @@ class TestSubTenants(BaseCase):
     """Demonstrate a subtenant workflow"""
     def test_flow(self):
         # an example: creating and managing a subtenant account
-        from mbed_cloud.sdk.modules.accounts import SubtenantAccount
+        from mbed_cloud.sdk.entities import SubtenantAccount
         new_subtenant = SubtenantAccount(
             display_name='sdk test bob',
             aliases=['sdk_test_bob_'+random_string()],
