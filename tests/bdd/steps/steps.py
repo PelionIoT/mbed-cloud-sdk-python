@@ -62,26 +62,32 @@ wrapped = when_or_given(u'we have a new {entity} called {name}')(wrapped)
 wrapped = when_or_given(u'we have a new {entity}')(wrapped)
 
 
-def call_method(context, name, method):
+def call_method(context, name, method, store_as=None):
     entity = context.entities[name]
     if method == 'create':
         created = getattr(context, 'created_entities', [])
         created.append(entity)
         context.created_entities = created
     response = getattr(entity, method)()
-    if isinstance(response, PaginatedResponse):
-        context.last_list = response
+
+    # store the result for use later
+    store_as = store_as or '%s.%s' % (name, method)
+    store = getattr(context, 'stored_results', {})
+    store[store_as] = response
+    context.stored_results = store
+
     return response
 
 
-when_or_given(u'we call {name} {method}')(call_method)
+call_method = when_or_given(u'we call {name} {method} --> {store_as}')(call_method)
+call_method = when_or_given(u'we call {name} {method}')(call_method)
 
 
 def set_value(context, name, attr, value):
     setattr(context.entities[name], attr, ast.literal_eval(value))
 
 
-when_or_given(u'we set {name} {attr} literally to {value}')(set_value)
+set_value = when_or_given(u'we set {name} {attr} literally to {value}')(set_value)
 
 
 @when_or_given(u'we set {name} {attr} to {other_name} {other_attr}')
@@ -98,20 +104,39 @@ def step_impl(context, entity, name=None):
     instance, key = new_instance(context, entity, name)
     if entity == 'ApiKey':
         set_value(context, key, 'name', '"test-api-key-bdd-%s"' % randstr())
+    if entity == 'User':
+        set_value(context, key, 'email', '"test+%s@example.com"' % randstr())
     call_method(context, key, 'create')
 
 
+def ensure_list(item):
+    if hasattr(item, '__iter__ ') or hasattr(item, '__len__'):
+        item = list(item)
+    else:
+        item = [item]
+    return item
+
+
 def operator_compare(a, b, operator):
+    if hasattr(a, '__call__'):
+        a = a()
+    if hasattr(b, '__call__'):
+        b = b()
+
     if operator == 'equivalent-to':
         is_equal(a, b)
     elif operator == 'not-equivalent-to':
         is_not_equal(a, b)
     elif operator == 'contains':
-        if b not in a:
-            raise AssertionError('%s not in the list' % b)
+        b = ensure_list(b)
+        for item in b:
+            if item not in a:
+                raise AssertionError('%s not in the list' % b)
     elif operator == 'does-not-contain':
-        if b in a:
-            raise AssertionError('%s should not be in the list' % b)
+        b = ensure_list(b)
+        for item in b:
+            if item in a:
+                raise AssertionError('%s should not be in the list' % b)
 
 
 @behave.then(u'{name} object is {operator} {other_name}')
@@ -134,14 +159,17 @@ def step_impl(context, name, attr, value):
     is_equal(first, ast.literal_eval(value))
 
 
-@behave.then(u'{name} {attr} has a truthy value')
-def step_impl(context, name, attr):
+@behave.then(u'{name} {attr} has a {bool_like} value')
+def step_impl(context, name, attr, bool_like):
     first = getattr(context.entities[name], attr)
-    is_equal(bool(first), True)
+    is_equal(bool(first), bool_like == 'truthy')
 
 
-@behave.then(u'the list {operator} {name}')
-def step_impl(context, operator, name):
+@behave.then(u'{stored} {operator} {name}')
+@behave.then(u'{stored} {operator} {name} {attr}')
+def step_impl(context, stored, operator, name, attr=None):
     first = context.entities[name]
-    listed = context.last_list
-    operator_compare(listed, first, operator)
+    second = context.stored_results[stored]
+    if attr:
+        first = getattr(first, attr)
+    operator_compare(second, first, operator)
