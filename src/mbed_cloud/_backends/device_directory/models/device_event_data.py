@@ -3,7 +3,7 @@
 """
     Device Directory API
 
-    This is the API Documentation for the Mbed Device Directory service.
+    This is the API Documentation for the Device Directory service.
 
     OpenAPI spec version: 3
     
@@ -31,42 +31,54 @@ class DeviceEventData(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'changes': 'object',
+        'changes': 'dict(str, str)',
+        'created_at': 'datetime',
         'data': 'object',
         'date_time': 'datetime',
         'description': 'str',
         'device_id': 'str',
+        'etag': 'datetime',
         'event_type': 'str',
+        'event_type_category': 'str',
         'event_type_description': 'str',
         'id': 'str',
+        'object': 'str',
         'state_change': 'bool'
     }
 
     attribute_map = {
         'changes': 'changes',
+        'created_at': 'created_at',
         'data': 'data',
         'date_time': 'date_time',
         'description': 'description',
         'device_id': 'device_id',
+        'etag': 'etag',
         'event_type': 'event_type',
+        'event_type_category': 'event_type_category',
         'event_type_description': 'event_type_description',
         'id': 'id',
+        'object': 'object',
         'state_change': 'state_change'
     }
 
-    def __init__(self, changes=None, data=None, date_time=None, description=None, device_id=None, event_type=None, event_type_description=None, id=None, state_change=None):
+    def __init__(self, changes=None, created_at=None, data=None, date_time=None, description=None, device_id=None, etag=None, event_type=None, event_type_category=None, event_type_description=None, id=None, object=None, state_change=None):
         """
         DeviceEventData - a model defined in Swagger
         """
 
         self._changes = changes
+        self._created_at = created_at
         self._data = data
         self._date_time = date_time
         self._description = description
         self._device_id = device_id
+        self._etag = etag
         self._event_type = event_type
+        self._event_type_category = event_type_category
         self._event_type_description = event_type_description
         self._id = id
+        self._object = object
         self._state_change = state_change
         self.discriminator = None
 
@@ -74,9 +86,10 @@ class DeviceEventData(object):
     def changes(self):
         """
         Gets the changes of this DeviceEventData.
+        Additional data relevant to the event.
 
         :return: The changes of this DeviceEventData.
-        :rtype: object
+        :rtype: dict(str, str)
         """
         return self._changes
 
@@ -84,12 +97,34 @@ class DeviceEventData(object):
     def changes(self, changes):
         """
         Sets the changes of this DeviceEventData.
+        Additional data relevant to the event.
 
         :param changes: The changes of this DeviceEventData.
-        :type: object
+        :type: dict(str, str)
         """
 
         self._changes = changes
+
+    @property
+    def created_at(self):
+        """
+        Gets the created_at of this DeviceEventData.
+
+        :return: The created_at of this DeviceEventData.
+        :rtype: datetime
+        """
+        return self._created_at
+
+    @created_at.setter
+    def created_at(self, created_at):
+        """
+        Sets the created_at of this DeviceEventData.
+
+        :param created_at: The created_at of this DeviceEventData.
+        :type: datetime
+        """
+
+        self._created_at = created_at
 
     @property
     def data(self):
@@ -178,9 +213,31 @@ class DeviceEventData(object):
         self._device_id = device_id
 
     @property
+    def etag(self):
+        """
+        Gets the etag of this DeviceEventData.
+
+        :return: The etag of this DeviceEventData.
+        :rtype: datetime
+        """
+        return self._etag
+
+    @etag.setter
+    def etag(self, etag):
+        """
+        Sets the etag of this DeviceEventData.
+
+        :param etag: The etag of this DeviceEventData.
+        :type: datetime
+        """
+
+        self._etag = etag
+
+    @property
     def event_type(self):
         """
         Gets the event_type of this DeviceEventData.
+        Event code
 
         :return: The event_type of this DeviceEventData.
         :rtype: str
@@ -191,6 +248,7 @@ class DeviceEventData(object):
     def event_type(self, event_type):
         """
         Sets the event_type of this DeviceEventData.
+        Event code
 
         :param event_type: The event_type of this DeviceEventData.
         :type: str
@@ -201,9 +259,33 @@ class DeviceEventData(object):
         self._event_type = event_type
 
     @property
+    def event_type_category(self):
+        """
+        Gets the event_type_category of this DeviceEventData.
+        Category code which groups the event type by a summary category.
+
+        :return: The event_type_category of this DeviceEventData.
+        :rtype: str
+        """
+        return self._event_type_category
+
+    @event_type_category.setter
+    def event_type_category(self, event_type_category):
+        """
+        Sets the event_type_category of this DeviceEventData.
+        Category code which groups the event type by a summary category.
+
+        :param event_type_category: The event_type_category of this DeviceEventData.
+        :type: str
+        """
+
+        self._event_type_category = event_type_category
+
+    @property
     def event_type_description(self):
         """
         Gets the event_type_description of this DeviceEventData.
+        Generic description of the event
 
         :return: The event_type_description of this DeviceEventData.
         :rtype: str
@@ -214,6 +296,7 @@ class DeviceEventData(object):
     def event_type_description(self, event_type_description):
         """
         Sets the event_type_description of this DeviceEventData.
+        Generic description of the event
 
         :param event_type_description: The event_type_description of this DeviceEventData.
         :type: str
@@ -243,6 +326,29 @@ class DeviceEventData(object):
             raise ValueError("Invalid value for `id`, must not be `None`")
 
         self._id = id
+
+    @property
+    def object(self):
+        """
+        Gets the object of this DeviceEventData.
+        The API resource entity.
+
+        :return: The object of this DeviceEventData.
+        :rtype: str
+        """
+        return self._object
+
+    @object.setter
+    def object(self, object):
+        """
+        Sets the object of this DeviceEventData.
+        The API resource entity.
+
+        :param object: The object of this DeviceEventData.
+        :type: str
+        """
+
+        self._object = object
 
     @property
     def state_change(self):

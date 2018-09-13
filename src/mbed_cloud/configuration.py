@@ -21,8 +21,11 @@ import logging
 import os
 import traceback
 
+from dotenv import load_dotenv
+
 ENVVAR_API_HOST = 'MBED_CLOUD_SDK_HOST'
 ENVVAR_API_KEY = 'MBED_CLOUD_SDK_API_KEY'
+DEFAULT_CLOUD_HOST = 'https://api.us-east-1.mbedcloud.com'
 
 LOG = logging.getLogger(__name__)
 
@@ -77,10 +80,8 @@ class Config(dict):
 
     def load(self, updates):
         """Load configuration data"""
-        paths = self.paths()
-
-        # Go through in order and override the config
-        for path in paths:
+        # Go through in order and override the config (`.mbed_cloud_config.json` loader)
+        for path in self.paths():
             if not path:
                 continue
             abs_path = os.path.abspath(os.path.expanduser(path))
@@ -90,6 +91,11 @@ class Config(dict):
             self._using_paths.append(' exists: %s' % abs_path)
             with open(abs_path) as fh:
                 self.update(json.load(fh))
+
+        # New dotenv loader
+        load_dotenv()
+
+        # Pluck config values out of the environment
         for env_var, key in {ENVVAR_API_HOST: 'host', ENVVAR_API_KEY: 'api_key'}.items():
             env_value = os.getenv(env_var)
             if env_value is not None:
@@ -102,7 +108,7 @@ class Config(dict):
         """Validate / fix up the current config"""
         if not self.get('api_key'):
             raise ValueError("api_key not found in config. Please see documentation.")
-        host = self.get('host')
+        host = self.get('host') or DEFAULT_CLOUD_HOST
         if host:
             # remove extraneous slashes and force to byte string
             # otherwise msg += message_body in httplib will fail in python2

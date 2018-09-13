@@ -3,7 +3,7 @@
 """
     Update Service API
 
-    This is the API documentation for the Mbed deployment service, which is part of the update service.
+    This is the API documentation for the Device Management deployment service, which is part of the Update service.
 
     OpenAPI spec version: 3
     
@@ -84,8 +84,6 @@ class UpdateCampaignPutRequest(object):
         :param description: The description of this UpdateCampaignPutRequest.
         :type: str
         """
-        if description is None:
-            raise ValueError("Invalid value for `description`, must not be `None`")
         if description is not None and len(description) > 2000:
             raise ValueError("Invalid value for `description`, length must be less than or equal to `2000`")
 
@@ -95,7 +93,7 @@ class UpdateCampaignPutRequest(object):
     def device_filter(self):
         """
         Gets the device_filter of this UpdateCampaignPutRequest.
-        The filter for the devices the campaign will target
+        The filter for the devices the campaign is targeting at
 
         :return: The device_filter of this UpdateCampaignPutRequest.
         :rtype: str
@@ -106,13 +104,11 @@ class UpdateCampaignPutRequest(object):
     def device_filter(self, device_filter):
         """
         Sets the device_filter of this UpdateCampaignPutRequest.
-        The filter for the devices the campaign will target
+        The filter for the devices the campaign is targeting at
 
         :param device_filter: The device_filter of this UpdateCampaignPutRequest.
         :type: str
         """
-        if device_filter is None:
-            raise ValueError("Invalid value for `device_filter`, must not be `None`")
 
         self._device_filter = device_filter
 
@@ -136,8 +132,6 @@ class UpdateCampaignPutRequest(object):
         :param name: The name of this UpdateCampaignPutRequest.
         :type: str
         """
-        if name is None:
-            raise ValueError("Invalid value for `name`, must not be `None`")
         if name is not None and len(name) > 128:
             raise ValueError("Invalid value for `name`, length must be less than or equal to `128`")
 
@@ -163,8 +157,6 @@ class UpdateCampaignPutRequest(object):
         :param object: The object of this UpdateCampaignPutRequest.
         :type: str
         """
-        if object is None:
-            raise ValueError("Invalid value for `object`, must not be `None`")
 
         self._object = object
 
@@ -186,8 +178,6 @@ class UpdateCampaignPutRequest(object):
         :param root_manifest_id: The root_manifest_id of this UpdateCampaignPutRequest.
         :type: str
         """
-        if root_manifest_id is None:
-            raise ValueError("Invalid value for `root_manifest_id`, must not be `None`")
         if root_manifest_id is not None and len(root_manifest_id) > 32:
             raise ValueError("Invalid value for `root_manifest_id`, length must be less than or equal to `32`")
 
@@ -213,8 +203,6 @@ class UpdateCampaignPutRequest(object):
         :param state: The state of this UpdateCampaignPutRequest.
         :type: str
         """
-        if state is None:
-            raise ValueError("Invalid value for `state`, must not be `None`")
         allowed_values = ["draft", "scheduled", "allocatingquota", "allocatedquota", "quotaallocationfailed", "checkingmanifest", "checkedmanifest", "devicefetch", "devicecopy", "devicecheck", "publishing", "deploying", "deployed", "manifestremoved", "expired", "stopping", "autostopped", "userstopped", "conflict"]
         if state not in allowed_values:
             raise ValueError(
@@ -228,7 +216,7 @@ class UpdateCampaignPutRequest(object):
     def when(self):
         """
         Gets the when of this UpdateCampaignPutRequest.
-        The scheduled start time for the update campaign
+        The scheduled start time for the update campaign. Not in use.
 
         :return: The when of this UpdateCampaignPutRequest.
         :rtype: datetime
@@ -239,13 +227,11 @@ class UpdateCampaignPutRequest(object):
     def when(self, when):
         """
         Sets the when of this UpdateCampaignPutRequest.
-        The scheduled start time for the update campaign
+        The scheduled start time for the update campaign. Not in use.
 
         :param when: The when of this UpdateCampaignPutRequest.
         :type: datetime
         """
-        if when is None:
-            raise ValueError("Invalid value for `when`, must not be `None`")
 
         self._when = when
 

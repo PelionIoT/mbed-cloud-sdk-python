@@ -3,7 +3,7 @@
 """
     Update Service API
 
-    This is the API documentation for the Mbed deployment service, which is part of the update service.
+    This is the API documentation for the Device Management deployment service, which is part of the Update service.
 
     OpenAPI spec version: 3
     
@@ -68,7 +68,7 @@ class UpdateCampaignPostRequest(object):
     def description(self):
         """
         Gets the description of this UpdateCampaignPostRequest.
-        The optional description of the campaign
+        An optional description of the campaign
 
         :return: The description of this UpdateCampaignPostRequest.
         :rtype: str
@@ -79,7 +79,7 @@ class UpdateCampaignPostRequest(object):
     def description(self, description):
         """
         Sets the description of this UpdateCampaignPostRequest.
-        The optional description of the campaign
+        An optional description of the campaign
 
         :param description: The description of this UpdateCampaignPostRequest.
         :type: str
@@ -93,7 +93,7 @@ class UpdateCampaignPostRequest(object):
     def device_filter(self):
         """
         Gets the device_filter of this UpdateCampaignPostRequest.
-        The filter for the devices the campaign will target
+        The filter for the devices the campaign is targeting at
 
         :return: The device_filter of this UpdateCampaignPostRequest.
         :rtype: str
@@ -104,7 +104,7 @@ class UpdateCampaignPostRequest(object):
     def device_filter(self, device_filter):
         """
         Sets the device_filter of this UpdateCampaignPostRequest.
-        The filter for the devices the campaign will target
+        The filter for the devices the campaign is targeting at
 
         :param device_filter: The device_filter of this UpdateCampaignPostRequest.
         :type: str
@@ -134,8 +134,6 @@ class UpdateCampaignPostRequest(object):
         :param name: The name of this UpdateCampaignPostRequest.
         :type: str
         """
-        if name is None:
-            raise ValueError("Invalid value for `name`, must not be `None`")
         if name is not None and len(name) > 128:
             raise ValueError("Invalid value for `name`, length must be less than or equal to `128`")
 
@@ -220,7 +218,7 @@ class UpdateCampaignPostRequest(object):
     def when(self):
         """
         Gets the when of this UpdateCampaignPostRequest.
-        The scheduled start time for the update campaign
+        The scheduled start time for the update campaign. Not in use.
 
         :return: The when of this UpdateCampaignPostRequest.
         :rtype: datetime
@@ -231,7 +229,7 @@ class UpdateCampaignPostRequest(object):
     def when(self, when):
         """
         Sets the when of this UpdateCampaignPostRequest.
-        The scheduled start time for the update campaign
+        The scheduled start time for the update campaign. Not in use.
 
         :param when: The when of this UpdateCampaignPostRequest.
         :type: datetime

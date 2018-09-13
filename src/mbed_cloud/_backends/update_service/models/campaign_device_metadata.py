@@ -3,7 +3,7 @@
 """
     Update Service API
 
-    This is the API documentation for the Mbed deployment service, which is part of the update service.
+    This is the API documentation for the Device Management deployment service, which is part of the Update service.
 
     OpenAPI spec version: 3
     
@@ -275,7 +275,7 @@ class CampaignDeviceMetadata(object):
     def mechanism_url(self):
         """
         Gets the mechanism_url of this CampaignDeviceMetadata.
-        The Cloud Connect URL
+        The Device Management Connect URL
 
         :return: The mechanism_url of this CampaignDeviceMetadata.
         :rtype: str
@@ -286,7 +286,7 @@ class CampaignDeviceMetadata(object):
     def mechanism_url(self, mechanism_url):
         """
         Sets the mechanism_url of this CampaignDeviceMetadata.
-        The Cloud Connect URL
+        The Device Management Connect URL
 
         :param mechanism_url: The mechanism_url of this CampaignDeviceMetadata.
         :type: str
@@ -323,7 +323,7 @@ class CampaignDeviceMetadata(object):
     def object(self):
         """
         Gets the object of this CampaignDeviceMetadata.
-        Entity name: always 'update-campaign-device-metadata'
+        The entity name: always 'update-campaign-device-metadata'
 
         :return: The object of this CampaignDeviceMetadata.
         :rtype: str
@@ -334,7 +334,7 @@ class CampaignDeviceMetadata(object):
     def object(self, object):
         """
         Sets the object of this CampaignDeviceMetadata.
-        Entity name: always 'update-campaign-device-metadata'
+        The entity name: always 'update-campaign-device-metadata'
 
         :param object: The object of this CampaignDeviceMetadata.
         :type: str
@@ -346,7 +346,7 @@ class CampaignDeviceMetadata(object):
     def updated_at(self):
         """
         Gets the updated_at of this CampaignDeviceMetadata.
-        This time this record was modified in the database format: date-time
+        The record was modified in the database format: date-time
 
         :return: The updated_at of this CampaignDeviceMetadata.
         :rtype: datetime
@@ -357,7 +357,7 @@ class CampaignDeviceMetadata(object):
     def updated_at(self, updated_at):
         """
         Sets the updated_at of this CampaignDeviceMetadata.
-        This time this record was modified in the database format: date-time
+        The record was modified in the database format: date-time
 
         :param updated_at: The updated_at of this CampaignDeviceMetadata.
         :type: datetime

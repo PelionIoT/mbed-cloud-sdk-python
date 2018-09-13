@@ -20,7 +20,6 @@ from .models.account_info import AccountInfo
 from .models.account_info_list import AccountInfoList
 from .models.account_update_req import AccountUpdateReq
 from .models.account_update_root_req import AccountUpdateRootReq
-from .models.active_session import ActiveSession
 from .models.api_key_info_req import ApiKeyInfoReq
 from .models.api_key_info_resp import ApiKeyInfoResp
 from .models.api_key_info_resp_list import ApiKeyInfoRespList
@@ -46,8 +45,10 @@ from .models.updated_response import UpdatedResponse
 from .models.user_info_req import UserInfoReq
 from .models.user_info_resp import UserInfoResp
 from .models.user_info_resp_list import UserInfoRespList
+from .models.user_invitation_req import UserInvitationReq
+from .models.user_invitation_resp import UserInvitationResp
+from .models.user_invitation_resp_list import UserInvitationRespList
 from .models.user_update_req import UserUpdateReq
-from .models.user_update_resp import UserUpdateResp
 
 # import apis into sdk package
 from .apis.account_admin_api import AccountAdminApi

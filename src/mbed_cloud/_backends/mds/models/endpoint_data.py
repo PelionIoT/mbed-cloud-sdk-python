@@ -3,7 +3,7 @@
 """
     Connect API
 
-    Mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. Mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
+    Pelion Device Management Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. Device Management Connect allows connectivity to devices by queueing requests and caching resource values.
 
     OpenAPI spec version: 2
     
@@ -62,7 +62,7 @@ class EndpointData(object):
     def ep(self):
         """
         Gets the ep of this EndpointData.
-        Unique Mbed Cloud device ID.
+        Unique Device Management device ID.
 
         :return: The ep of this EndpointData.
         :rtype: str
@@ -73,7 +73,7 @@ class EndpointData(object):
     def ep(self, ep):
         """
         Sets the ep of this EndpointData.
-        Unique Mbed Cloud device ID.
+        Unique Device Management device ID.
 
         :param ep: The ep of this EndpointData.
         :type: str
@@ -108,7 +108,7 @@ class EndpointData(object):
     def original_ep(self):
         """
         Gets the original_ep of this EndpointData.
-        In case of a self-provided endpoint name that is used to initiate the device registration, Mbed Cloud provides a new device ID to be used from that point on. The new Mbed-Cloud-provided Device ID is forwarded as the 'ep' property and the original self-provided one as the optional 'original-ep' property in a registration notification. The name and ID can then be mapped accordingly. Mbed Cloud saves the original endpoint name in the Device Directory for future device registrations so that you don't need to do the mapping again. 
+        In case of a self-provided endpoint name that is used to initiate the device registration, Device Management provides a new device ID to be used from that point on. The new Pelion platform provided Device ID is forwarded as the 'ep' property and the original self-provided one as the optional 'original-ep' property in a registration notification. The name and ID can then be mapped accordingly. Device Management saves the original endpoint name in the Device Directory for future device registrations so that you don't need to do the mapping again. 
 
         :return: The original_ep of this EndpointData.
         :rtype: str
@@ -119,7 +119,7 @@ class EndpointData(object):
     def original_ep(self, original_ep):
         """
         Sets the original_ep of this EndpointData.
-        In case of a self-provided endpoint name that is used to initiate the device registration, Mbed Cloud provides a new device ID to be used from that point on. The new Mbed-Cloud-provided Device ID is forwarded as the 'ep' property and the original self-provided one as the optional 'original-ep' property in a registration notification. The name and ID can then be mapped accordingly. Mbed Cloud saves the original endpoint name in the Device Directory for future device registrations so that you don't need to do the mapping again. 
+        In case of a self-provided endpoint name that is used to initiate the device registration, Device Management provides a new device ID to be used from that point on. The new Pelion platform provided Device ID is forwarded as the 'ep' property and the original self-provided one as the optional 'original-ep' property in a registration notification. The name and ID can then be mapped accordingly. Device Management saves the original endpoint name in the Device Directory for future device registrations so that you don't need to do the mapping again. 
 
         :param original_ep: The original_ep of this EndpointData.
         :type: str

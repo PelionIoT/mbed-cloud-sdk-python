@@ -3,7 +3,7 @@
 """
     Device Directory API
 
-    This is the API Documentation for the Mbed Device Directory service.
+    This is the API Documentation for the Device Directory service.
 
     OpenAPI spec version: 3
     
@@ -33,10 +33,10 @@ class DeviceData(object):
     swagger_types = {
         'account_id': 'str',
         'auto_update': 'bool',
-        'bootstrap_expiration_date': 'datetime',
+        'bootstrap_expiration_date': 'date',
         'bootstrapped_timestamp': 'datetime',
         'ca_id': 'str',
-        'connector_expiration_date': 'datetime',
+        'connector_expiration_date': 'date',
         'created_at': 'datetime',
         'custom_attributes': 'dict(str, str)',
         'deployed_state': 'str',
@@ -50,6 +50,7 @@ class DeviceData(object):
         'enrolment_list_timestamp': 'datetime',
         'etag': 'datetime',
         'firmware_checksum': 'str',
+        'groups': 'list[str]',
         'host_gateway': 'str',
         'id': 'str',
         'manifest': 'str',
@@ -84,6 +85,7 @@ class DeviceData(object):
         'enrolment_list_timestamp': 'enrolment_list_timestamp',
         'etag': 'etag',
         'firmware_checksum': 'firmware_checksum',
+        'groups': 'groups',
         'host_gateway': 'host_gateway',
         'id': 'id',
         'manifest': 'manifest',
@@ -98,7 +100,7 @@ class DeviceData(object):
         'vendor_id': 'vendor_id'
     }
 
-    def __init__(self, account_id=None, auto_update=None, bootstrap_expiration_date=None, bootstrapped_timestamp=None, ca_id=None, connector_expiration_date=None, created_at=None, custom_attributes=None, deployed_state=None, deployment=None, description=None, device_class=None, device_execution_mode=None, device_key=None, endpoint_name=None, endpoint_type=None, enrolment_list_timestamp=None, etag=None, firmware_checksum=None, host_gateway=None, id=None, manifest=None, manifest_timestamp=None, mechanism=None, mechanism_url=None, name=None, object=None, serial_number=None, state=None, updated_at=None, vendor_id=None):
+    def __init__(self, account_id=None, auto_update=None, bootstrap_expiration_date=None, bootstrapped_timestamp=None, ca_id=None, connector_expiration_date=None, created_at=None, custom_attributes=None, deployed_state=None, deployment=None, description=None, device_class=None, device_execution_mode=None, device_key=None, endpoint_name=None, endpoint_type=None, enrolment_list_timestamp=None, etag=None, firmware_checksum=None, groups=None, host_gateway=None, id=None, manifest=None, manifest_timestamp=None, mechanism=None, mechanism_url=None, name=None, object=None, serial_number=None, state=None, updated_at=None, vendor_id=None):
         """
         DeviceData - a model defined in Swagger
         """
@@ -122,6 +124,7 @@ class DeviceData(object):
         self._enrolment_list_timestamp = enrolment_list_timestamp
         self._etag = etag
         self._firmware_checksum = firmware_checksum
+        self._groups = groups
         self._host_gateway = host_gateway
         self._id = id
         self._manifest = manifest
@@ -189,7 +192,7 @@ class DeviceData(object):
         The expiration date of the certificate used to connect to bootstrap server.
 
         :return: The bootstrap_expiration_date of this DeviceData.
-        :rtype: datetime
+        :rtype: date
         """
         return self._bootstrap_expiration_date
 
@@ -200,7 +203,7 @@ class DeviceData(object):
         The expiration date of the certificate used to connect to bootstrap server.
 
         :param bootstrap_expiration_date: The bootstrap_expiration_date of this DeviceData.
-        :type: datetime
+        :type: date
         """
 
         self._bootstrap_expiration_date = bootstrap_expiration_date
@@ -257,10 +260,10 @@ class DeviceData(object):
     def connector_expiration_date(self):
         """
         Gets the connector_expiration_date of this DeviceData.
-        The expiration date of the certificate used to connect to LWM2M server.
+        The expiration date of the certificate used to connect to LwM2M server.
 
         :return: The connector_expiration_date of this DeviceData.
-        :rtype: datetime
+        :rtype: date
         """
         return self._connector_expiration_date
 
@@ -268,10 +271,10 @@ class DeviceData(object):
     def connector_expiration_date(self, connector_expiration_date):
         """
         Sets the connector_expiration_date of this DeviceData.
-        The expiration date of the certificate used to connect to LWM2M server.
+        The expiration date of the certificate used to connect to LwM2M server.
 
         :param connector_expiration_date: The connector_expiration_date of this DeviceData.
-        :type: datetime
+        :type: date
         """
 
         self._connector_expiration_date = connector_expiration_date
@@ -590,6 +593,29 @@ class DeviceData(object):
         self._firmware_checksum = firmware_checksum
 
     @property
+    def groups(self):
+        """
+        Gets the groups of this DeviceData.
+        An array containing an id of each group this device belongs to
+
+        :return: The groups of this DeviceData.
+        :rtype: list[str]
+        """
+        return self._groups
+
+    @groups.setter
+    def groups(self, groups):
+        """
+        Sets the groups of this DeviceData.
+        An array containing an id of each group this device belongs to
+
+        :param groups: The groups of this DeviceData.
+        :type: list[str]
+        """
+
+        self._groups = groups
+
+    @property
     def host_gateway(self):
         """
         Gets the host_gateway of this DeviceData.
@@ -616,7 +642,7 @@ class DeviceData(object):
     def id(self):
         """
         Gets the id of this DeviceData.
-        The ID of the device. The device ID is used to manage a device across all Mbed Cloud APIs.
+        The ID of the device. The device ID is used across all Device Management APIs.
 
         :return: The id of this DeviceData.
         :rtype: str
@@ -627,7 +653,7 @@ class DeviceData(object):
     def id(self, id):
         """
         Sets the id of this DeviceData.
-        The ID of the device. The device ID is used to manage a device across all Mbed Cloud APIs.
+        The ID of the device. The device ID is used across all Device Management APIs.
 
         :param id: The id of this DeviceData.
         :type: str

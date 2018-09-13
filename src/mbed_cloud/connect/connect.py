@@ -742,9 +742,8 @@ class ConnectAPI(BaseAPI):
         self._verify_arguments(interval, kwargs)
         include = Metric._map_includes(include)
         kwargs.update(dict(include=include, interval=interval))
-        kwargs = self._verify_filters(kwargs, Metric)
         api = self._get_api(statistics.StatisticsApi)
-        return PaginatedResponse(api.v3_metrics_get, lwrap_type=Metric, **kwargs)
+        return PaginatedResponse(api.get_metrics, lwrap_type=Metric, **kwargs)
 
     def _subscription_handler(self, queue, device_id, path, callback_fn):
         while True:
@@ -768,7 +767,7 @@ class ConnectAPI(BaseAPI):
             raise CloudValueError("interval is incorrect. Sample values: 2h, 3w, 4d.")
         # convert start into UTC RFC3339 format
         if start:
-            kwargs['start'] = utils.force_utc(start, 'start')
+            kwargs['start'] = utils.force_utc(start, 'start', precision=3)
         # convert end into UTC RFC3339 format
         if end:
-            kwargs['end'] = utils.force_utc(end, 'end')
+            kwargs['end'] = utils.force_utc(end, 'end', precision=3)

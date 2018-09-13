@@ -3,7 +3,7 @@
 """
     Device Directory API
 
-    This is the API Documentation for the Mbed Device Directory service.
+    This is the API Documentation for the Device Directory service.
 
     OpenAPI spec version: 3
     
@@ -38,6 +38,7 @@ class DeviceDataPatchRequest(object):
         'device_key': 'str',
         'endpoint_name': 'str',
         'endpoint_type': 'str',
+        'groups': 'list[str]',
         'host_gateway': 'str',
         'name': 'str',
         'object': 'str'
@@ -51,12 +52,13 @@ class DeviceDataPatchRequest(object):
         'device_key': 'device_key',
         'endpoint_name': 'endpoint_name',
         'endpoint_type': 'endpoint_type',
+        'groups': 'groups',
         'host_gateway': 'host_gateway',
         'name': 'name',
         'object': 'object'
     }
 
-    def __init__(self, auto_update=None, ca_id=None, custom_attributes=None, description=None, device_key=None, endpoint_name=None, endpoint_type=None, host_gateway=None, name=None, object=None):
+    def __init__(self, auto_update=None, ca_id=None, custom_attributes=None, description=None, device_key=None, endpoint_name=None, endpoint_type=None, groups=None, host_gateway=None, name=None, object=None):
         """
         DeviceDataPatchRequest - a model defined in Swagger
         """
@@ -68,6 +70,7 @@ class DeviceDataPatchRequest(object):
         self._device_key = device_key
         self._endpoint_name = endpoint_name
         self._endpoint_type = endpoint_type
+        self._groups = groups
         self._host_gateway = host_gateway
         self._name = name
         self._object = object
@@ -125,7 +128,7 @@ class DeviceDataPatchRequest(object):
     def custom_attributes(self):
         """
         Gets the custom_attributes of this DeviceDataPatchRequest.
-        Up to five custom key-value attributes. Note that keys cannot start with a number.
+        Up to five custom key-value attributes. Note that keys cannot start with a number. Both keys and values are limited to 128 characters.
 
         :return: The custom_attributes of this DeviceDataPatchRequest.
         :rtype: dict(str, str)
@@ -136,7 +139,7 @@ class DeviceDataPatchRequest(object):
     def custom_attributes(self, custom_attributes):
         """
         Sets the custom_attributes of this DeviceDataPatchRequest.
-        Up to five custom key-value attributes. Note that keys cannot start with a number.
+        Up to five custom key-value attributes. Note that keys cannot start with a number. Both keys and values are limited to 128 characters.
 
         :param custom_attributes: The custom_attributes of this DeviceDataPatchRequest.
         :type: dict(str, str)
@@ -243,6 +246,29 @@ class DeviceDataPatchRequest(object):
             raise ValueError("Invalid value for `endpoint_type`, length must be less than or equal to `64`")
 
         self._endpoint_type = endpoint_type
+
+    @property
+    def groups(self):
+        """
+        Gets the groups of this DeviceDataPatchRequest.
+        An array containing an id of each group this device belongs to
+
+        :return: The groups of this DeviceDataPatchRequest.
+        :rtype: list[str]
+        """
+        return self._groups
+
+    @groups.setter
+    def groups(self, groups):
+        """
+        Sets the groups of this DeviceDataPatchRequest.
+        An array containing an id of each group this device belongs to
+
+        :param groups: The groups of this DeviceDataPatchRequest.
+        :type: list[str]
+        """
+
+        self._groups = groups
 
     @property
     def host_gateway(self):

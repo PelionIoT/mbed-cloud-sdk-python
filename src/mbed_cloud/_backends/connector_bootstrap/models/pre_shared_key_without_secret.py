@@ -3,7 +3,7 @@
 """
     Bootstrap API
 
-    Mbed Cloud Bootstrap API allows web applications to control the device bootstrapping process.
+    Bootstrap API allows web applications to control the device bootstrapping process.
 
     OpenAPI spec version: 2
     
@@ -53,7 +53,7 @@ class PreSharedKeyWithoutSecret(object):
     def created_at(self):
         """
         Gets the created_at of this PreSharedKeyWithoutSecret.
-        The date-time (RFC3339) when this pre-shared key was uploaded to Mbed Cloud.
+        The date-time (RFC3339) when this pre-shared key was uploaded to Pelion device management.
 
         :return: The created_at of this PreSharedKeyWithoutSecret.
         :rtype: datetime
@@ -64,7 +64,7 @@ class PreSharedKeyWithoutSecret(object):
     def created_at(self, created_at):
         """
         Sets the created_at of this PreSharedKeyWithoutSecret.
-        The date-time (RFC3339) when this pre-shared key was uploaded to Mbed Cloud.
+        The date-time (RFC3339) when this pre-shared key was uploaded to Pelion device management.
 
         :param created_at: The created_at of this PreSharedKeyWithoutSecret.
         :type: datetime

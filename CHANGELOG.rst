@@ -13,11 +13,90 @@ a list of versions that have been released on PyPI.
 ..
     begin_release_notes
 
+2.0.1 (2018-09-07)
+==================
+
+Bugfixes
+--------
+
+- SDK is now Python 3.7 compatible. Changes the underlying codegen module to be
+  compatible with Python 3.7 (cannot assign to async: is a reserved keyword).
+  (#1459)
+
+- Unless otherwise specified, configuration always explicitly sets a default
+  API host. Resolves "The API is only accessible over HTTPS" error when using
+  certificate APIs. (#1555)
+
+Improved Documentation
+----------------------
+
+- Ensure documentation and changelog is built using the CI release version,
+  rather than the dev version. (#1481)
+
+
+2.0.0 (2018-08-07)
+==================
+
+Features
+--------
+
+- Change to versioning scheme. Semver `Major.Minor.Patch` scheme now reflects
+  state of SDK rather than API. (#1416)
+
+- Settings can now be configured from `.env` files through use of
+  https://pypi.org/project/python-dotenv/ (#927)
+
+Bugfixes
+--------
+
+- Fix for incorrect month/day parameter being sent to API (billing report
+  overview) (billing)
+
+Improved Documentation
+----------------------
+
+- This major version increment marks departure from the previous semver
+  approach that tracked API major and minor versions. (release)
+
+
+1.2.10.1235 (2018-07-05)
+========================
+
+Features
+--------
+
+- Add the Billing module, which provides access to the account's financial
+  configurations. (#1210)
+
+
+1.2.9.1210 (2018-06-27)
+=======================
+
+Features
+--------
+
+- Remove custom properties from accounts and user entities. (#1362)
+
+- Documentation now includes a full API reference, generated from the source
+  code. (#1407)
+
+Bugfixes
+--------
+
+- Minor adjustments to TPIP reporting. (#1346)
+
+- Previously, notifications for resource value changes would not be triggered.
+  Resource value change subscriptions now use the correct routing keys. The SDK
+  now provides the expected values for `device_id` and `resource_path` when
+  notifying user code. (#1361)
+
+
 1.2.8.1183 (2018-06-11)
 =======================
 
 Features
 --------
+- Support List Pre Shared Keys endpoint for Bootstrap API (#631)
 
 - `News` renamed to `Changelog` (#1278)
 

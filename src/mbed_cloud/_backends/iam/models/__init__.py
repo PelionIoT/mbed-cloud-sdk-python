@@ -20,7 +20,6 @@ from .account_info import AccountInfo
 from .account_info_list import AccountInfoList
 from .account_update_req import AccountUpdateReq
 from .account_update_root_req import AccountUpdateRootReq
-from .active_session import ActiveSession
 from .api_key_info_req import ApiKeyInfoReq
 from .api_key_info_resp import ApiKeyInfoResp
 from .api_key_info_resp_list import ApiKeyInfoRespList
@@ -46,5 +45,7 @@ from .updated_response import UpdatedResponse
 from .user_info_req import UserInfoReq
 from .user_info_resp import UserInfoResp
 from .user_info_resp_list import UserInfoRespList
+from .user_invitation_req import UserInvitationReq
+from .user_invitation_resp import UserInvitationResp
+from .user_invitation_resp_list import UserInvitationRespList
 from .user_update_req import UserUpdateReq
-from .user_update_resp import UserUpdateResp

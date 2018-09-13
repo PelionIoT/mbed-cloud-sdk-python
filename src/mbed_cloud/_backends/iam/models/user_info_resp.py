@@ -35,7 +35,6 @@ class UserInfoResp(object):
         'address': 'str',
         'created_at': 'datetime',
         'creation_time': 'int',
-        'custom_fields': 'dict(str, str)',
         'email': 'str',
         'email_verified': 'bool',
         'etag': 'str',
@@ -61,7 +60,6 @@ class UserInfoResp(object):
         'address': 'address',
         'created_at': 'created_at',
         'creation_time': 'creation_time',
-        'custom_fields': 'custom_fields',
         'email': 'email',
         'email_verified': 'email_verified',
         'etag': 'etag',
@@ -82,7 +80,7 @@ class UserInfoResp(object):
         'username': 'username'
     }
 
-    def __init__(self, account_id=None, address=None, created_at=None, creation_time=None, custom_fields=None, email=None, email_verified=None, etag=None, full_name=None, groups=None, id=None, is_gtc_accepted=None, is_marketing_accepted=None, is_totp_enabled=None, last_login_time=None, login_history=None, object=None, password=None, password_changed_time=None, phone_number=None, status=None, updated_at=None, username=None):
+    def __init__(self, account_id=None, address=None, created_at=None, creation_time=None, email=None, email_verified=None, etag=None, full_name=None, groups=None, id=None, is_gtc_accepted=None, is_marketing_accepted=None, is_totp_enabled=None, last_login_time=None, login_history=None, object=None, password=None, password_changed_time=None, phone_number=None, status=None, updated_at=None, username=None):
         """
         UserInfoResp - a model defined in Swagger
         """
@@ -91,7 +89,6 @@ class UserInfoResp(object):
         self._address = address
         self._created_at = created_at
         self._creation_time = creation_time
-        self._custom_fields = custom_fields
         self._email = email
         self._email_verified = email_verified
         self._etag = etag
@@ -205,29 +202,6 @@ class UserInfoResp(object):
         """
 
         self._creation_time = creation_time
-
-    @property
-    def custom_fields(self):
-        """
-        Gets the custom_fields of this UserInfoResp.
-        User's account specific custom properties. The value is a string.
-
-        :return: The custom_fields of this UserInfoResp.
-        :rtype: dict(str, str)
-        """
-        return self._custom_fields
-
-    @custom_fields.setter
-    def custom_fields(self, custom_fields):
-        """
-        Sets the custom_fields of this UserInfoResp.
-        User's account specific custom properties. The value is a string.
-
-        :param custom_fields: The custom_fields of this UserInfoResp.
-        :type: dict(str, str)
-        """
-
-        self._custom_fields = custom_fields
 
     @property
     def email(self):

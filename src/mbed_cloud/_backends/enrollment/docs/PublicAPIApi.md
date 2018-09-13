@@ -6,18 +6,20 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**create_bulk_device_enrollment**](PublicAPIApi.md#create_bulk_device_enrollment) | **POST** /v3/device-enrollments-bulk-uploads | Bulk upload
 [**create_device_enrollment**](PublicAPIApi.md#create_device_enrollment) | **POST** /v3/device-enrollments | Place an enrollment claim for one or several devices.
+[**delete_bulk_device_enrollment**](PublicAPIApi.md#delete_bulk_device_enrollment) | **POST** /v3/device-enrollments-bulk-deletes | Bulk delete
 [**delete_device_enrollment**](PublicAPIApi.md#delete_device_enrollment) | **DELETE** /v3/device-enrollments/{id} | Delete an enrollment by ID.
 [**get_bulk_device_enrollment**](PublicAPIApi.md#get_bulk_device_enrollment) | **GET** /v3/device-enrollments-bulk-uploads/{id} | Get bulk upload entity
+[**get_bulk_device_enrollment_delete**](PublicAPIApi.md#get_bulk_device_enrollment_delete) | **GET** /v3/device-enrollments-bulk-deletes/{id} | Get bulk delete entity
 [**get_device_enrollment**](PublicAPIApi.md#get_device_enrollment) | **GET** /v3/device-enrollments/{id} | Get details of an enrollment by ID.
 [**get_device_enrollments**](PublicAPIApi.md#get_device_enrollments) | **GET** /v3/device-enrollments | Get enrollment list.
 
 
 # **create_bulk_device_enrollment**
-> BulkCreateResponse create_bulk_device_enrollment(enrollment_identities)
+> BulkResponse create_bulk_device_enrollment(enrollment_identities)
 
 Bulk upload
 
-With bulk upload you can upload a CSV file containing a number of enrollment IDs.  First line of the CSV is read as a header and not as a enrollment identity. **Example usage:** ``` curl -X POST \\ -H 'Authorization: Bearer <valid access token>' \\ -F 'enrollments=@/path/to/enrollments/enrollments.csv' \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads ``` 
+With bulk upload, you can upload a `CSV` file containing a number of enrollment IDs.  **Example usage:** ``` curl -X POST \\ -H 'Authorization: Bearer <valid access token>' \\ -F 'enrollment_identities=@/path/to/enrollments/enrollments.csv' \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads  ``` **An example `CSV` file:** 1. The first line is assumed to be the header. The content of the header is not validated. 2. Each line can contain comma-separated values, where the first value is always assumed to be the Enrollment ID. 3. Only one enrollment ID is expected per line. 4. Valid enrollments begin with A followed by a - and 95 characters in the format as below. 5. Valid enrollment identities may be enclosed within quotes. 6. UTF-8 encoding is expected.  ``` \"enrollment_identity\" \"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12\", \"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12\",  ``` 
 
 ### Example 
 ```python
@@ -35,7 +37,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = enrollment.PublicAPIApi(enrollment.ApiClient(configuration))
-enrollment_identities = '/path/to/file.txt' # file | Enrollment identities CSV file. Maximum file size is 10MB. 
+enrollment_identities = '/path/to/file.txt' # file | The `CSV` file containing the enrollment IDs. The maximum file size is 10MB. 
 
 try: 
     # Bulk upload
@@ -49,11 +51,11 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **enrollment_identities** | **file**| Enrollment identities CSV file. Maximum file size is 10MB.  | 
+ **enrollment_identities** | **file**| The &#x60;CSV&#x60; file containing the enrollment IDs. The maximum file size is 10MB.  | 
 
 ### Return type
 
-[**BulkCreateResponse**](BulkCreateResponse.md)
+[**BulkResponse**](BulkResponse.md)
 
 ### Authorization
 
@@ -120,6 +122,60 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **delete_bulk_device_enrollment**
+> BulkResponse delete_bulk_device_enrollment(enrollment_identities)
+
+Bulk delete
+
+With bulk delete, you can upload a `CSV` file containing a number of enrollment IDs to be deleted.  **Example usage:** ``` curl -X POST \\ -H 'Authorization: Bearer <valid access token>' \\ -F 'enrollment_identities=@/path/to/enrollments/enrollments.csv' \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-deletes  ``` **An example `CSV` file:** 1. The first line is assumed to be the header. The content of the header is not validated. 2. Each line can contain comma-separated values, where the first value is always assumed to be the Enrollment ID. 3. Only one enrollment ID is expected per line. 4. Valid enrollments begin with A followed by a - and 95 characters in the format as below. 5. Valid enrollment identities may be enclosed within quotes. 6. UTF-8 encoding is expected.  ``` \"enrollment_identity\" \"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12\", \"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12\",  ``` 
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import enrollment
+from enrollment.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+configuration = enrollment.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = enrollment.PublicAPIApi(enrollment.ApiClient(configuration))
+enrollment_identities = '/path/to/file.txt' # file | The `CSV` file containing the enrollment IDs. The maximum file size is 10MB. 
+
+try: 
+    # Bulk delete
+    api_response = api_instance.delete_bulk_device_enrollment(enrollment_identities)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling PublicAPIApi->delete_bulk_device_enrollment: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **enrollment_identities** | **file**| The &#x60;CSV&#x60; file containing the enrollment IDs. The maximum file size is 10MB.  | 
+
+### Return type
+
+[**BulkResponse**](BulkResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: multipart/form-data
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **delete_device_enrollment**
 > delete_device_enrollment(id)
 
@@ -174,11 +230,11 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_bulk_device_enrollment**
-> BulkCreateResponse get_bulk_device_enrollment(id)
+> BulkResponse get_bulk_device_enrollment(id)
 
 Get bulk upload entity
 
-Provides info about bulk upload for the given ID. For example bulk status and processed count of enrollment identities. Info includes also links for the bulk upload reports. **Example usage:** ``` curl -X GET \\ -H 'Authorization: Bearer <valid access token>' \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/{id} ``` 
+Provides information on bulk upload for the given ID. For example, the bulk status and the number of processed enrollment identities. Also links to the bulk upload reports are provided. **Example usage:** ``` curl -X GET \\ -H 'Authorization: Bearer <valid access token>' \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/{id} ``` 
 
 ### Example 
 ```python
@@ -214,7 +270,61 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**BulkCreateResponse**](BulkCreateResponse.md)
+[**BulkResponse**](BulkResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_bulk_device_enrollment_delete**
+> BulkResponse get_bulk_device_enrollment_delete(id)
+
+Get bulk delete entity
+
+Provides information on bulk delete for the given ID. For example, the bulk status and the number of processed enrollment identities. Also links to the bulk delete reports are provided. **Example usage:** ``` curl -X GET \\ -H 'Authorization: Bearer <valid access token>' \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-deletes/{id} ``` 
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import enrollment
+from enrollment.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+configuration = enrollment.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = enrollment.PublicAPIApi(enrollment.ApiClient(configuration))
+id = 'id_example' # str | Bulk delete task entity ID
+
+try: 
+    # Get bulk delete entity
+    api_response = api_instance.get_bulk_device_enrollment_delete(id)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling PublicAPIApi->get_bulk_device_enrollment_delete: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| Bulk delete task entity ID | 
+
+### Return type
+
+[**BulkResponse**](BulkResponse.md)
 
 ### Authorization
 
