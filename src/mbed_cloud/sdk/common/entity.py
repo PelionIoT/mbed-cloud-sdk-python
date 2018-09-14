@@ -123,7 +123,7 @@ class Entity(object):
                 field and field.from_api(value)
             except Exception:
                 self._logger.exception(
-                    "unable to deserialise received field: %s %s %s",
+                    "unable to deserialise received field: %s %s %r",
                     self,
                     api_field_name,
                     value,

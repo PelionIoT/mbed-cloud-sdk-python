@@ -48,7 +48,7 @@ class {{ entity._key.pascal }}(Entity):
 
         # inline imports for avoiding circular references and bulk imports
         {% for field in entity.fields %}{% set fkey = field.foreign_key or (field['items'] and field['items'].foreign_key) %}{% if fkey %}
-        from mbed_cloud.sdk._modules.{{ fkey.group.snake }}.entities.{{ fkey.entity.snake }} import {{ fkey.entity.pascal }}{% endif %}{% endfor %}
+        from mbed_cloud.sdk._modules.{{ fkey.group.snake }}.{{ fkey.entity.snake }} import {{ fkey.entity.pascal }}{% endif %}{% endfor %}
 
         {% for field in entity.fields %}{% if field.enum_reference %}
         from mbed_cloud.sdk.enums import {{ field.enum_reference.pascal }}{% endif %}{% endfor %}
@@ -114,8 +114,11 @@ class {{ entity._key.pascal }}(Entity):
     {% if mode.pagination %}
         {# continuing from the outer, 'public' definition ... #}
         def mapper(api_data):
-            from mbed_cloud.sdk.entities import {{ mode.foreign_key.entity.pascal }}
-            return {{ mode.foreign_key.entity.pascal }}().from_api(**api_data)
+            {% set klass = mode.foreign_key.entity.pascal if mode.foreign_key else 'self.__class__' %}
+            {% if mode.foreign_key %}
+            from mbed_cloud.sdk.entities import {{ klass }}
+            {% endif %}
+            return {{ klass }}().from_api(**api_data)
 
         from mbed_cloud.pagination import PaginatedResponse
 

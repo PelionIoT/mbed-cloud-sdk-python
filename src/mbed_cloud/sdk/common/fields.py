@@ -10,6 +10,8 @@ from datetime import date
 
 from dateutil.parser import parse
 
+from io import BufferedIOBase
+
 
 class Field(object):
     base_type = None
@@ -124,3 +126,15 @@ class ListField(Field):
             )
         else:
             return super().from_api(value)
+
+
+class FileField(Field):
+    """A file object
+
+    nb. potential to provide some overloaded behaviours here
+    e.g. use a stream/file object, otherwise if user provides a string,
+    we can either open that as a file if it exists,
+    or, finally, treat it as raw data to pass in (StringIO)
+    """
+
+    base_type = BufferedIOBase

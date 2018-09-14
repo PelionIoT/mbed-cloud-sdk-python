@@ -25,5 +25,10 @@ def get_cli():
         help='increase output verbosity. '
              'can be specified multiple times'
     )
+    parser.add_argument(
+        '--clean',
+        action='store_true',
+        help='clean top level directory',
+    )
     args, others = parser.parse_known_args()
     return args
