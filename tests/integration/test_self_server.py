@@ -8,7 +8,7 @@ from tests.integration.test_with_rpc import new_server_process
 server_addr = 'http://127.0.0.1:5000'
 
 
-@unittest.skipIf(os.environ.get('CI'), 'Does not run in CI')
+@BaseCase._skip_in_ci
 class Test(BaseCase):
     server = None
     instance = []

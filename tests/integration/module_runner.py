@@ -4,6 +4,8 @@ import datetime
 
 import queue
 
+from mbed_cloud import pagination
+from mbed_cloud.core import BaseObject
 from dateutil import parser as du_parser
 from dateutil import tz as du_tz
 
@@ -14,17 +16,20 @@ LOG = logging.getLogger(__name__)
 
 def serialise(obj):
     """Serialises custom datatypes used in the SDK"""
-    try:
-        return obj.to_dict()
-    except AttributeError:
-        pass
-
     if isinstance(obj, datetime.datetime):
         # maybe assume UTC (as deserialise does the reverse)
         return obj.replace(tzinfo=du_tz.tzutc()).isoformat()
 
     if isinstance(obj, queue.Queue):
         return {}
+
+    if isinstance(obj, (pagination.PaginatedResponse, BaseObject)):
+        return obj.to_dict()
+
+    try:
+        return obj.to_dict()
+    except AttributeError:
+        pass
 
     raise TypeError("Object of type '%s' is not JSON serializable" %
                     obj.__class__.__name__)

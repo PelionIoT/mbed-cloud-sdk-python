@@ -21,3 +21,5 @@ test_fixtures/
 venv/
 .gh_token
 /src/mbed_cloud/_build_info.py
+
+src/mbed_cloud/sdk/api\.py

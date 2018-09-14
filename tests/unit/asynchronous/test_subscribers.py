@@ -72,7 +72,7 @@ class Test(BaseCase):
             # prove that we used the threadpool we provided
             self.assertEqual(custom_threads.apply_async.call_count, 2)
 
-    @unittest.skipIf(os.environ.get('CI'), 'Do not run in CI')
+    @BaseCase._skip_in_ci
     def test_live_create_and_cleanup(self):
         # integration - ResourceValueCurrent cleans up
         from mbed_cloud.connect import ConnectAPI
@@ -95,7 +95,7 @@ class Test(BaseCase):
         else:
             self.fail('Routing table not empty')
 
-    @unittest.skipIf(os.environ.get('CI'), 'Do not run in CI')
+    @BaseCase._skip_in_ci
     def test_live_device_state_change(self):
         # integration - DeviceStateChanges local filter
         from mbed_cloud.connect import ConnectAPI

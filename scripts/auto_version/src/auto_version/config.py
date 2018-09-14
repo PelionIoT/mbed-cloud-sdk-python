@@ -1,6 +1,6 @@
 """Configuration system for the auto_version tool"""
-import os
 import logging
+import os
 
 import toml
 

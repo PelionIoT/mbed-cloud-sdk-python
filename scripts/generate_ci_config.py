@@ -28,6 +28,9 @@ import networkx
 
 import yaml
 
+from tag_and_release import ReleaseTarget
+from tag_and_release import release_target_map
+
 LOG = logging.getLogger(__name__)
 PROJECT_ROOT = os.path.dirname(os.path.dirname(__file__))
 container_config_root = os.path.join(PROJECT_ROOT, 'container')
@@ -96,13 +99,6 @@ python_versions = dict(
         '',
         '',
     ),
-)
-
-# we have multiple release targets
-ReleaseTarget = namedtuple('ReleaseTarget', ['name', 'twine_repo'])
-release_targets = dict(
-    test=ReleaseTarget('beta', 'pypitest'),
-    live=ReleaseTarget('live', 'pypi'),
 )
 
 
@@ -328,7 +324,7 @@ def new_deploy(py_ver: PyVer, release_target: ReleaseTarget):
             docker run --env-file=scripts/templates/envvars.env
             -e TWINE_REPOSITORY={release_target.twine_repo}
             {py_ver.tag}
-            sh -c "source .venv/bin/activate && python scripts/tag_and_release.py"
+            sh -c "source .venv/bin/activate && python scripts/tag_and_release.py --mode={release_target.mode}"
       - run:
           name: Start the release party!
           command: >-
@@ -387,39 +383,39 @@ def generate_circle_output():
             base['jobs'].update({test_job: test_content})
             workflow.add_edge(build_job, test_job)
 
-    for twine_target in release_targets.values():
+    for release_target in release_target_map.values():
         deploy_job, deploy_content = new_deploy(
             py_ver=python_versions['three'],
-            release_target=twine_target
+            release_target=release_target
         )
         base['jobs'].update({deploy_job: deploy_content})
 
     # wire up the release gates (clicky buttons)
     workflow.add_edge(
         test_name(python_versions['three'], mbed_cloud_hosts['osii']),
-        release_name(release_targets['test']),
+        release_name(release_target_map['beta']),
         type='approval',
     )
     workflow.add_edge(
         test_name(python_versions['three'], mbed_cloud_hosts['production']),
-        release_name(release_targets['live']),
+        release_name(release_target_map['prod']),
         type='approval',
         filters=dict(branches=dict(only='master')),
     )
     workflow.add_edge(
         test_name(python_versions['two'], mbed_cloud_hosts['production']),
-        release_name(release_targets['live']),
+        release_name(release_target_map['prod']),
     )
 
     # we only want to deploy in certain conditions
     workflow.add_edge(
-        release_name(release_targets['test']),
-        deploy_name(python_versions['three'], release_targets['test'])
+        release_name(release_target_map['beta']),
+        deploy_name(python_versions['three'], release_target_map['beta'])
     )
 
     workflow.add_edge(
-        release_name(release_targets['live']),
-        deploy_name(python_versions['three'], release_targets['live'])
+        release_name(release_target_map['prod']),
+        deploy_name(python_versions['three'], release_target_map['prod'])
     )
 
     workflow_jobs = base['workflows']['python_sdk_workflow']['jobs']
