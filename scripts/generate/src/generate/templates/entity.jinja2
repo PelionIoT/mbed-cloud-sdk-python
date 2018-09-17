@@ -87,8 +87,8 @@ class {{ entity._key.pascal }}(Entity):
     {% endif %}
     {% endfor %}
 
-    {% for mode in entity.modes %}
-    def {{mode._key.snake}}(
+    {% for mode in entity.modes|sort(attribute='_key.snake') %}
+    def {% if mode.private_method %}_{% endif %}{{mode._key.snake}}(
         self
         {% for field in mode.fields|pargs_kwargs %}
             {% if field.external_param %},
@@ -111,36 +111,21 @@ class {{ entity._key.pascal }}(Entity):
         :rtype: {% if mode.pagination %}mbed_cloud.pagination.PaginatedResponse{% else %}{{ entity._key.pascal }}{% endif %}
         """
 
-    {% if mode.pagination %}
-        {# continuing from the outer, 'public' definition ... #}
-        def mapper(api_data):
-            from mbed_cloud.sdk.entities import {{ mode.foreign_key.entity.pascal }}
-            return {{ mode.foreign_key.entity.pascal }}().from_api(**api_data)
+    {% if mode.custom_method %}
+        from mbed_cloud.sdk.common._custom_methods import {{ mode.custom_method }}
+        {% if mode.foreign_key %}from mbed_cloud.sdk.entities import {{ mode.foreign_key.entity.pascal }}{% endif %}
 
-        from mbed_cloud.pagination import PaginatedResponse
-
-        return PaginatedResponse(
-            func=self._{{mode._key.snake}},
-            lwrap_type=mapper,
-            {% for field in mode.fields %}{% if field.external_param %}{{field._key.snake}}={{field._key.snake}},
-            {% endif %}
-            {% endfor %}
-        )
-
-    def _{{mode._key.snake}}(
-        self
-        {% for field in mode.fields|pargs_kwargs %}
-            {% if field.external_param %},
-                {% if field.required %}
-                    {{field._key.snake}}
-                {% else %}
-                    {{field._key.snake}}=None
+        return {{ mode.custom_method }}(
+            self=self,
+            foreign_key={% if mode.foreign_key %}{{ mode.foreign_key.entity.pascal }}{% else %}self.__class__{% endif %}
+            {% for field in mode.fields|pargs_kwargs %}
+                {% if field.external_param %},
+                    {{field._key.snake}}={{field._key.snake}}
                 {% endif %}
-            {% endif %}
-        {% endfor %}
-    ):
-        """Internal 'next-page' behaviour for pagination"""
-    {% endif %}
+            {% endfor %}
+            {% if mode.pagination %},wraps=self._{{ mode.paginate_target }}{% endif %}
+        )
+    {% else %}
         return self._client.call_api(
             method='{{mode.method}}',
             path='{{ mode.path }}',
@@ -166,5 +151,6 @@ class {{ entity._key.pascal }}(Entity):
             unpack = self,
             {% endif %}
         )
+    {% endif %}
     {% endfor %}
 {% endfor %}

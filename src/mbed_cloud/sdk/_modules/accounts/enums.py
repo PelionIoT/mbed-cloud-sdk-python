@@ -27,6 +27,18 @@ class UserStatusEnum(BaseEnum):
     values = frozenset(("ACTIVE", "ENROLLING", "INACTIVE", "INVITED", "RESET"))
 
 
+class MyApiKeyStatusEnum(BaseEnum):
+    """Represents the `MyApiKeyStatusEnum` options
+
+    as used by Mbed Cloud "accounts" functionality
+    """
+
+    ACTIVE = "ACTIVE"
+    INACTIVE = "INACTIVE"
+
+    values = frozenset(("ACTIVE", "INACTIVE"))
+
+
 class ApiKeyStatusEnum(BaseEnum):
     """Represents the `ApiKeyStatusEnum` options
 

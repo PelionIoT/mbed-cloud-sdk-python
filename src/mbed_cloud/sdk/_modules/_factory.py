@@ -254,6 +254,61 @@ class InstanceFactory:
             upgraded_at=upgraded_at,
         )
 
+    def my_api_key(
+        self,
+        created_at=None,
+        creation_time=None,
+        group_ids=None,
+        id=None,
+        key=None,
+        last_login_time=None,
+        name=None,
+        owner=None,
+        status=None,
+        updated_at=None,
+    ):
+        """Creates a local `MyApiKey` instance, binding the client
+
+        :param created_at: Creation UTC time RFC3339.
+        :type created_at: datetime
+        :param creation_time: The timestamp of the API key creation in the storage, in
+            milliseconds.
+        :type creation_time: int
+        :param group_ids: A list of group IDs this API key belongs to.
+        :type group_ids: list
+        :param id: The UUID of the API key.
+        :type id: str
+        :param key: The API key.
+        :type key: str
+        :param last_login_time: The timestamp of the latest API key usage, in milliseconds.
+        :type last_login_time: int
+        :param name: The display name for the API key.
+        :type name: str
+        :param owner: The owner of this API key, who is the creator by default.
+        :type owner: str
+        :param status: The status of the API key.
+        :type status: str
+        :param updated_at: Last update UTC time RFC3339.
+        :type updated_at: datetime
+        
+        :rtype: mbed_cloud.sdk.entities.MyApiKey
+        """
+        from mbed_cloud.sdk.entities import MyApiKey
+
+        return MyApiKey(
+            _client=self._client,
+            created_at=created_at,
+            creation_time=creation_time,
+            group_ids=group_ids,
+            id=id,
+            key=key,
+            last_login_time=last_login_time,
+            name=name,
+            owner=owner,
+            status=status,
+            updated_at=updated_at,
+        )
+
     def password_policy(self, minimum_length=None):
         """Creates a local `PasswordPolicy` instance, binding the client
 

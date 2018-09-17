@@ -547,6 +547,26 @@ class User(Entity):
         """Create a new user.
 
         api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/users
+        
+        :param action: Create or invite user.
+        :type action: str
+        
+        :rtype: User
+        """
+
+        from mbed_cloud.sdk.common._custom_methods import (
+            subtenant_account_switch_create
+        )
+
+        return subtenant_account_switch_create(
+            self=self, foreign_key=self.__class__, action=action
+        )
+
+    def _create_on_aggregator(self, action="create"):
+        """Create a new user.
+
+        api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/users
         
         :param action: Action, either 'create' or 'invite'.
@@ -573,6 +593,37 @@ class User(Entity):
             unpack=self,
         )
 
+    def _create_on_subtenant(self, action="create"):
+        """Create a new user.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/users
+        
+        :param action: Create or invite user.
+        :type action: str
+        
+        :rtype: User
+        """
+
+        return self._client.call_api(
+            method="post",
+            path="/v3/accounts/{accountID}/users",
+            body_params={
+                "address": self._address.to_api(),
+                "email": self._email.to_api(),
+                "full_name": self._full_name.to_api(),
+                "groups": self._group_ids.to_api(),
+                "is_marketing_accepted": self._marketing_accepted.to_api(),
+                "password": self._password.to_api(),
+                "phone_number": self._phone_number.to_api(),
+                "is_gtc_accepted": self._terms_accepted.to_api(),
+                "username": self._username.to_api(),
+            },
+            path_params={"accountID": self._account_id.to_api()},
+            query_params={"action": fields.StringField(action).to_api()},
+            unpack=self,
+        )
+
     def delete(self):
         """Delete a user.
 
@@ -590,6 +641,19 @@ class User(Entity):
         )
 
     def get(self):
+        """Details of the user.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/users/{user-id}
+        
+        :rtype: User
+        """
+
+        from mbed_cloud.sdk.common._custom_methods import subtenant_account_switch_get
+
+        return subtenant_account_switch_get(self=self, foreign_key=self.__class__)
+
+    def _get_on_aggregator(self):
         """Details of a user.
 
         api documentation:
@@ -602,6 +666,25 @@ class User(Entity):
             method="get",
             path="/v3/users/{user-id}",
             path_params={"user-id": self._id.to_api()},
+            unpack=self,
+        )
+
+    def _get_on_subtenant(self):
+        """Details of the user.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/users/{user-id}
+        
+        :rtype: User
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/accounts/{accountID}/users/{user-id}",
+            path_params={
+                "accountID": self._account_id.to_api(),
+                "user-id": self._id.to_api(),
+            },
             unpack=self,
         )
 
@@ -628,36 +711,17 @@ class User(Entity):
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 
-        def mapper(api_data):
-            from mbed_cloud.sdk.entities import PolicyGroup
+        from mbed_cloud.sdk.common._custom_methods import paginate
+        from mbed_cloud.sdk.entities import PolicyGroup
 
-            return PolicyGroup().from_api(**api_data)
-
-        from mbed_cloud.pagination import PaginatedResponse
-
-        return PaginatedResponse(
-            func=self._groups,
-            lwrap_type=mapper,
+        return paginate(
+            self=self,
+            foreign_key=PolicyGroup,
             after=after,
             include=include,
             limit=limit,
             order=order,
-        )
-
-    def _groups(self, after=None, include=None, limit=None, order=None):
-        """Internal 'next-page' behaviour for pagination"""
-
-        return self._client.call_api(
-            method="get",
-            path="/v3/users/{user-id}/groups",
-            path_params={"user-id": self._id.to_api()},
-            query_params={
-                "after": fields.StringField(after).to_api(),
-                "include": fields.StringField(include).to_api(),
-                "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(order).to_api(),
-            },
-            unpack=False,
+            wraps=self._paginate_groups,
         )
 
     def list(self, after=None, include=None, limit=50, order="ASC"):
@@ -683,24 +747,77 @@ class User(Entity):
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 
-        def mapper(api_data):
-            from mbed_cloud.sdk.entities import User
+        from mbed_cloud.sdk.common._custom_methods import paginate
+        from mbed_cloud.sdk.entities import User
 
-            return User().from_api(**api_data)
-
-        from mbed_cloud.pagination import PaginatedResponse
-
-        return PaginatedResponse(
-            func=self._list,
-            lwrap_type=mapper,
+        return paginate(
+            self=self,
+            foreign_key=User,
             after=after,
             include=include,
             limit=limit,
             order=order,
+            wraps=self._paginate_list,
         )
 
-    def _list(self, after=None, include=None, limit=None, order=None):
-        """Internal 'next-page' behaviour for pagination"""
+    def _paginate_groups(self, after=None, include=None, limit=50, order="ASC"):
+        """Get groups of the user.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/users/{user-id}/groups
+        
+        :param after: The entity ID to fetch after the given one.
+        :type after: str
+        
+        :param include: Comma separated additional data to return. Currently supported:
+            total_count
+        :type include: str
+        
+        :param limit: The number of results to return (2-1000), default is 50.
+        :type limit: int
+        
+        :param order: The order of the records based on creation time, ASC or DESC; by
+            default ASC
+        :type order: str
+        
+        :rtype: mbed_cloud.pagination.PaginatedResponse
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/users/{user-id}/groups",
+            path_params={"user-id": self._id.to_api()},
+            query_params={
+                "after": fields.StringField(after).to_api(),
+                "include": fields.StringField(include).to_api(),
+                "limit": fields.IntegerField(limit).to_api(),
+                "order": fields.StringField(order).to_api(),
+            },
+            unpack=False,
+        )
+
+    def _paginate_list(self, after=None, include=None, limit=50, order="ASC"):
+        """Get the details of all users.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/users
+        
+        :param after: The entity ID to fetch after the given one.
+        :type after: str
+        
+        :param include: Comma separated additional data to return. Currently supported:
+            total_count
+        :type include: str
+        
+        :param limit: The number of results to return (2-1000), default is 50.
+        :type limit: int
+        
+        :param order: The order of the records based on creation time, ASC or DESC; by
+            default ASC
+        :type order: str
+        
+        :rtype: mbed_cloud.pagination.PaginatedResponse
+        """
 
         return self._client.call_api(
             method="get",
