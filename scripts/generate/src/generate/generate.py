@@ -157,7 +157,7 @@ def main(input_file, output_dir):
         file_map.run(config)
 
     _LOG.info('post-formatting %s', output_dir)
-    subprocess.run(['black', output_dir])
+    subprocess.run(['black', output_dir, '--fast'])
 
 
 def main_from_cli():

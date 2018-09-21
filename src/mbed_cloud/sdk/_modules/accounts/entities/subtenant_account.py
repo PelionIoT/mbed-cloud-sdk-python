@@ -11,6 +11,7 @@ from builtins import super
 
 from mbed_cloud.sdk.common.entity import Entity
 from mbed_cloud.sdk.common import fields
+from mbed_cloud.sdk import enums
 
 
 class SubtenantAccount(Entity):
@@ -207,16 +208,6 @@ class SubtenantAccount(Entity):
 
         # inline imports for avoiding circular references and bulk imports
 
-        from mbed_cloud.sdk._modules.accounts.entities.password_policy import (
-            PasswordPolicy
-        )
-        from mbed_cloud.sdk._modules.accounts.entities.subtenant_account import (
-            SubtenantAccount
-        )
-
-        from mbed_cloud.sdk.enums import SubtenantAccountMfaStatusEnum
-        from mbed_cloud.sdk.enums import SubtenantAccountStatusEnum
-
         # fields
         self._address_line1 = fields.StringField(value=address_line1)
         self._address_line2 = fields.StringField(value=address_line2)
@@ -245,13 +236,11 @@ class SubtenantAccount(Entity):
         self._idle_timeout = fields.StringField(value=idle_timeout)
         self._limits = fields.DictField(value=limits)
         self._mfa_status = fields.StringField(
-            value=mfa_status, enum=SubtenantAccountMfaStatusEnum
+            value=mfa_status, enum=enums.SubtenantAccountMfaStatusEnum
         )
         self._notification_emails = fields.ListField(value=notification_emails)
         self._parent_id = fields.StringField(value=parent_id)
-        self._password_policy = fields.DictField(
-            value=password_policy, entity=PasswordPolicy
-        )
+        self._password_policy = fields.DictField(value=password_policy)
         self._phone_number = fields.StringField(value=phone_number)
         self._policies = fields.ListField(value=policies)
         self._postal_code = fields.StringField(value=postal_code)
@@ -259,7 +248,9 @@ class SubtenantAccount(Entity):
         self._reference_note = fields.StringField(value=reference_note)
         self._sales_contact = fields.StringField(value=sales_contact)
         self._state = fields.StringField(value=state)
-        self._status = fields.StringField(value=status, enum=SubtenantAccountStatusEnum)
+        self._status = fields.StringField(
+            value=status, enum=enums.SubtenantAccountStatusEnum
+        )
         self._sub_accounts = fields.ListField(
             value=sub_accounts, entity=SubtenantAccount
         )
@@ -781,7 +772,7 @@ class SubtenantAccount(Entity):
     def password_policy(self):
         """
         
-        :rtype: dict[PasswordPolicy]
+        :rtype: dict
         """
         return self._password_policy.value
 
@@ -790,7 +781,7 @@ class SubtenantAccount(Entity):
         """Set value of `password_policy`
 
         :param value: value to set
-        :type value: dict[PasswordPolicy]
+        :type value: dict
         """
         self._password_policy.set(value)
 
@@ -1122,6 +1113,21 @@ class SubtenantAccount(Entity):
             unpack=self,
         )
 
+    def create_user(self, user):
+        """Add a user to this subtenant
+
+        
+        
+        :param user: A user entity
+        :type user: mbed_cloud.sdk.entities.User
+        
+        :rtype: User
+        """
+
+        user.account_id = self.id
+
+        return user.create()
+
     def get(self, include=None, properties=None):
         """Get account info.
 
@@ -1295,7 +1301,9 @@ class SubtenantAccount(Entity):
                 "after": fields.StringField(after).to_api(),
                 "include": fields.StringField(include).to_api(),
                 "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(order).to_api(),
+                "order": fields.StringField(
+                    order, enum=enums.SubtenantAccountOrderEnum
+                ).to_api(),
             },
             unpack=False,
         )
@@ -1337,7 +1345,9 @@ class SubtenantAccount(Entity):
                 "include": fields.StringField(include).to_api(),
                 "limit": fields.IntegerField(limit).to_api(),
                 "name__eq": fields.StringField(name__eq).to_api(),
-                "order": fields.StringField(order).to_api(),
+                "order": fields.StringField(
+                    order, enum=enums.SubtenantAccountOrderEnum
+                ).to_api(),
             },
             unpack=False,
         )
@@ -1408,7 +1418,9 @@ class SubtenantAccount(Entity):
                 "format": fields.StringField(format).to_api(),
                 "include": fields.StringField(include).to_api(),
                 "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(order).to_api(),
+                "order": fields.StringField(
+                    order, enum=enums.SubtenantAccountOrderEnum
+                ).to_api(),
                 "parent__eq": fields.StringField(parent__eq).to_api(),
                 "properties": fields.StringField(properties).to_api(),
                 "tier__eq": fields.StringField(tier__eq).to_api(),
@@ -1447,7 +1459,9 @@ class SubtenantAccount(Entity):
                 "after": fields.StringField(after).to_api(),
                 "include": fields.StringField(include).to_api(),
                 "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(order).to_api(),
+                "order": fields.StringField(
+                    order, enum=enums.SubtenantAccountOrderEnum
+                ).to_api(),
             },
             unpack=False,
         )

@@ -91,6 +91,7 @@ class Entity(object):
             try:
                 field and field.from_literal(value)
             except Exception:
+                # we don't care why loading the field fails. maybe it's bad data? log it.
                 self._logger.exception(
                     "unable to deserialise literal field: %s %s %s",
                     self,
@@ -121,7 +122,8 @@ class Entity(object):
             )
             try:
                 field and field.from_api(value)
-            except Exception:
+            except Exception:  # noqa
+                # we don't care why loading the field fails. maybe the API changed? log it.
                 self._logger.exception(
                     "unable to deserialise received field: %s %s %s",
                     self,

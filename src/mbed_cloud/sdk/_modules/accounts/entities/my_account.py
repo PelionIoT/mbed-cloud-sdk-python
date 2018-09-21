@@ -11,6 +11,7 @@ from builtins import super
 
 from mbed_cloud.sdk.common.entity import Entity
 from mbed_cloud.sdk.common import fields
+from mbed_cloud.sdk import enums
 
 
 class MyAccount(Entity):
@@ -179,15 +180,9 @@ class MyAccount(Entity):
 
         # inline imports for avoiding circular references and bulk imports
 
-        from mbed_cloud.sdk._modules.accounts.entities.password_policy import (
-            PasswordPolicy
-        )
         from mbed_cloud.sdk._modules.accounts.entities.subtenant_account import (
             SubtenantAccount
         )
-
-        from mbed_cloud.sdk.enums import MyAccountMfaStatusEnum
-        from mbed_cloud.sdk.enums import MyAccountStatusEnum
 
         # fields
         self._address_line1 = fields.StringField(value=address_line1)
@@ -211,13 +206,11 @@ class MyAccount(Entity):
         self._idle_timeout = fields.StringField(value=idle_timeout)
         self._limits = fields.DictField(value=limits)
         self._mfa_status = fields.StringField(
-            value=mfa_status, enum=MyAccountMfaStatusEnum
+            value=mfa_status, enum=enums.MyAccountMfaStatusEnum
         )
         self._notification_emails = fields.ListField(value=notification_emails)
         self._parent_id = fields.StringField(value=parent_id)
-        self._password_policy = fields.DictField(
-            value=password_policy, entity=PasswordPolicy
-        )
+        self._password_policy = fields.DictField(value=password_policy)
         self._phone_number = fields.StringField(value=phone_number)
         self._policies = fields.ListField(value=policies)
         self._postal_code = fields.StringField(value=postal_code)
@@ -225,7 +218,7 @@ class MyAccount(Entity):
         self._reference_note = fields.StringField(value=reference_note)
         self._sales_contact = fields.StringField(value=sales_contact)
         self._state = fields.StringField(value=state)
-        self._status = fields.StringField(value=status, enum=MyAccountStatusEnum)
+        self._status = fields.StringField(value=status, enum=enums.MyAccountStatusEnum)
         self._sub_accounts = fields.ListField(
             value=sub_accounts, entity=SubtenantAccount
         )
@@ -629,7 +622,7 @@ class MyAccount(Entity):
     def password_policy(self):
         """
         
-        :rtype: dict[PasswordPolicy]
+        :rtype: dict
         """
         return self._password_policy.value
 
@@ -638,7 +631,7 @@ class MyAccount(Entity):
         """Set value of `password_policy`
 
         :param value: value to set
-        :type value: dict[PasswordPolicy]
+        :type value: dict
         """
         self._password_policy.set(value)
 

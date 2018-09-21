@@ -72,29 +72,299 @@ class InstanceFactory:
             updated_at=updated_at,
         )
 
-    def login_history(self, date=None, ip_address=None, success=None, user_agent=None):
+    def certificate(
+        self,
+        account_id=None,
+        certificate=None,
+        created_at=None,
+        description=None,
+        developer_certificate=None,
+        developer_private_key=None,
+        device_execution_mode=None,
+        enrollment_mode=None,
+        id=None,
+        issuer=None,
+        name=None,
+        owner_id=None,
+        security_file_content=None,
+        service=None,
+        status=None,
+        subject=None,
+        updated_at=None,
+        validity=None,
+    ):
+        """Creates a local `Certificate` instance, binding the client
+
+        :param account_id: The UUID of the account.
+        :type account_id: str
+        :param certificate: X509.v3 trusted certificate in PEM format.
+        :type certificate: str
+        :param created_at: Creation UTC time RFC3339.
+        :type created_at: datetime
+        :param description: Human readable description of this certificate.
+        :type description: str
+        :param developer_certificate: PEM format X.509 developer certificate.
+        :type developer_certificate: str
+        :param developer_private_key: PEM format developer private key associated to the certificate.
+        :type developer_private_key: str
+        :param device_execution_mode: Device execution mode where 1 means a developer certificate.
+        :type device_execution_mode: int
+        :param enrollment_mode: If true, signature is not required. Default value false.
+        :type enrollment_mode: bool
+        :param id: Entity ID.
+        :type id: str
+        :param issuer: Issuer of the certificate.
+        :type issuer: str
+        :param name: Certificate name.
+        :type name: str
+        :param owner_id: The UUID of the owner.
+        :type owner_id: str
+        :param security_file_content: Content of the security.c file that will be flashed into the
+            device to provide the security credentials
+        :type security_file_content: str
+        :param service: Service name where the certificate is to be used.
+        :type service: str
+        :param status: Status of the certificate.
+        :type status: str
+        :param subject: Subject of the certificate.
+        :type subject: str
+        :param updated_at: Last update UTC time RFC3339.
+        :type updated_at: datetime
+        :param validity: Expiration time in UTC formatted as RFC3339.
+        :type validity: datetime
+        
+        :rtype: mbed_cloud.sdk.entities.Certificate
+        """
+        from mbed_cloud.sdk.entities import Certificate
+
+        return Certificate(
+            _client=self._client,
+            account_id=account_id,
+            certificate=certificate,
+            created_at=created_at,
+            description=description,
+            developer_certificate=developer_certificate,
+            developer_private_key=developer_private_key,
+            device_execution_mode=device_execution_mode,
+            enrollment_mode=enrollment_mode,
+            id=id,
+            issuer=issuer,
+            name=name,
+            owner_id=owner_id,
+            security_file_content=security_file_content,
+            service=service,
+            status=status,
+            subject=subject,
+            updated_at=updated_at,
+            validity=validity,
+        )
+
+    def certificate_enrollment(
+        self,
+        certificate_name=None,
+        created_at=None,
+        device_id=None,
+        enroll_result=None,
+        enroll_status=None,
+        id=None,
+    ):
+        """Creates a local `CertificateEnrollment` instance, binding the client
+
+        :param certificate_name: The certificate name.
+        :type certificate_name: str
+        :param created_at: Creation UTC time RFC3339.
+        :type created_at: datetime
+        :param device_id: The device ID.
+        :type device_id: str
+        :param enroll_result: 
+        :type enroll_result: str
+        :param enroll_status: 
+        :type enroll_status: str
+        :param id: The ID of the certificate enrollment.
+        :type id: str
+        
+        :rtype: mbed_cloud.sdk.entities.CertificateEnrollment
+        """
+        from mbed_cloud.sdk.entities import CertificateEnrollment
+
+        return CertificateEnrollment(
+            _client=self._client,
+            certificate_name=certificate_name,
+            created_at=created_at,
+            device_id=device_id,
+            enroll_result=enroll_result,
+            enroll_status=enroll_status,
+            id=id,
+        )
+
+    def enrollment_bulk_create_task(
+        self,
+        account_id=None,
+        completed_at=None,
+        created_at=None,
+        errors_count=None,
+        errors_report_file=None,
+        full_report_file=None,
+        id=None,
+        processed_count=None,
+        status=None,
+        total_count=None,
+    ):
+        """Creates a local `EnrollmentBulkCreateTask` instance, binding the client
+
+        :param account_id: ID
+        :type account_id: str
+        :param completed_at: The time of completing the bulk creation task.
+        :type completed_at: datetime
+        :param created_at: The time of receiving the bulk creation task.
+        :type created_at: datetime
+        :param errors_count: The number of enrollment identities with failed processing.
+        :type errors_count: int
+        :param errors_report_file: 
+        :type errors_report_file: str
+        :param full_report_file: 
+        :type full_report_file: str
+        :param id: Bulk ID
+        :type id: str
+        :param processed_count: The number of enrollment identities processed until now.
+        :type processed_count: int
+        :param status: The state of the process is 'new' at the time of creation. If the
+            creation is still in progress, the state is shown as 'processing'.
+            When the request has been fully processed, the state changes to
+            'completed'.
+        :type status: str
+        :param total_count: Total number of enrollment identities found in the input CSV.
+        :type total_count: int
+        
+        :rtype: mbed_cloud.sdk.entities.EnrollmentBulkCreateTask
+        """
+        from mbed_cloud.sdk.entities import EnrollmentBulkCreateTask
+
+        return EnrollmentBulkCreateTask(
+            _client=self._client,
+            account_id=account_id,
+            completed_at=completed_at,
+            created_at=created_at,
+            errors_count=errors_count,
+            errors_report_file=errors_report_file,
+            full_report_file=full_report_file,
+            id=id,
+            processed_count=processed_count,
+            status=status,
+            total_count=total_count,
+        )
+
+    def enrollment_bulk_delete_task(
+        self,
+        account_id=None,
+        completed_at=None,
+        created_at=None,
+        errors_count=None,
+        errors_report_file=None,
+        full_report_file=None,
+        id=None,
+        processed_count=None,
+        status=None,
+        total_count=None,
+    ):
+        """Creates a local `EnrollmentBulkDeleteTask` instance, binding the client
+
+        :param account_id: ID
+        :type account_id: str
+        :param completed_at: The time of completing the bulk creation task.
+        :type completed_at: datetime
+        :param created_at: The time of receiving the bulk creation task.
+        :type created_at: datetime
+        :param errors_count: The number of enrollment identities with failed processing.
+        :type errors_count: int
+        :param errors_report_file: 
+        :type errors_report_file: str
+        :param full_report_file: 
+        :type full_report_file: str
+        :param id: Bulk ID
+        :type id: str
+        :param processed_count: The number of enrollment identities processed until now.
+        :type processed_count: int
+        :param status: The state of the process is 'new' at the time of creation. If the
+            creation is still in progress, the state is shown as 'processing'.
+            When the request has been fully processed, the state changes to
+            'completed'.
+        :type status: str
+        :param total_count: Total number of enrollment identities found in the input CSV.
+        :type total_count: int
+        
+        :rtype: mbed_cloud.sdk.entities.EnrollmentBulkDeleteTask
+        """
+        from mbed_cloud.sdk.entities import EnrollmentBulkDeleteTask
+
+        return EnrollmentBulkDeleteTask(
+            _client=self._client,
+            account_id=account_id,
+            completed_at=completed_at,
+            created_at=created_at,
+            errors_count=errors_count,
+            errors_report_file=errors_report_file,
+            full_report_file=full_report_file,
+            id=id,
+            processed_count=processed_count,
+            status=status,
+            total_count=total_count,
+        )
+
+    def enrollment_claim(
+        self,
+        account_id=None,
+        claimed_at=None,
+        created_at=None,
+        enrolled_device_id=None,
+        enrollment_identity=None,
+        expires_at=None,
+        id=None,
+    ):
+        """Creates a local `EnrollmentClaim` instance, binding the client
+
+        :param account_id: ID
+        :type account_id: str
+        :param claimed_at: The time of claiming the device to be assigned to the account.
+        :type claimed_at: datetime
+        :param created_at: The time of the enrollment identity creation.
+        :type created_at: datetime
+        :param enrolled_device_id: The ID of the device in the Device Directory once it has been
+            registered.
+        :type enrolled_device_id: str
+        :param enrollment_identity: Enrollment identity.
+        :type enrollment_identity: str
+        :param expires_at: The enrollment claim expiration time. If the device does not
+            connect to Device Management before the expiration, the claim is
+            removed without a separate notice
+        :type expires_at: datetime
+        :param id: Enrollment identity.
+        :type id: str
+        
+        :rtype: mbed_cloud.sdk.entities.EnrollmentClaim
+        """
+        from mbed_cloud.sdk.entities import EnrollmentClaim
+
+        return EnrollmentClaim(
+            _client=self._client,
+            account_id=account_id,
+            claimed_at=claimed_at,
+            created_at=created_at,
+            enrolled_device_id=enrolled_device_id,
+            enrollment_identity=enrollment_identity,
+            expires_at=expires_at,
+            id=id,
+        )
+
+    def login_history(self,):
         """Creates a local `LoginHistory` instance, binding the client
 
-        :param date: UTC time RFC3339 for this login attempt.
-        :type date: datetime
-        :param ip_address: IP address of the client.
-        :type ip_address: str
-        :param success: Flag indicating whether login attempt was successful or not.
-        :type success: bool
-        :param user_agent: User Agent header from the login request.
-        :type user_agent: str
         
         :rtype: mbed_cloud.sdk.entities.LoginHistory
         """
         from mbed_cloud.sdk.entities import LoginHistory
 
-        return LoginHistory(
-            _client=self._client,
-            date=date,
-            ip_address=ip_address,
-            success=success,
-            user_agent=user_agent,
-        )
+        return LoginHistory(_client=self._client)
 
     def my_account(
         self,
@@ -309,17 +579,15 @@ class InstanceFactory:
             updated_at=updated_at,
         )
 
-    def password_policy(self, minimum_length=None):
+    def password_policy(self,):
         """Creates a local `PasswordPolicy` instance, binding the client
 
-        :param minimum_length: Minimum length for the password. A number between 8 and 512.
-        :type minimum_length: str
         
         :rtype: mbed_cloud.sdk.entities.PasswordPolicy
         """
         from mbed_cloud.sdk.entities import PasswordPolicy
 
-        return PasswordPolicy(_client=self._client, minimum_length=minimum_length)
+        return PasswordPolicy(_client=self._client)
 
     def policy_group(
         self,
@@ -361,6 +629,46 @@ class InstanceFactory:
             name=name,
             updated_at=updated_at,
             user_count=user_count,
+        )
+
+    def server_credentials(
+        self,
+        bootstrap=None,
+        created_at=None,
+        id=None,
+        lwm2m=None,
+        server_certificate=None,
+        server_uri=None,
+    ):
+        """Creates a local `ServerCredentials` instance, binding the client
+
+        :param bootstrap: 
+        :type bootstrap: dict
+        :param created_at: Creation UTC time RFC3339.
+        :type created_at: datetime
+        :param id: mUUID that uniquely identifies the entity.
+        :type id: str
+        :param lwm2m: 
+        :type lwm2m: dict
+        :param server_certificate: PEM format X.509 server certificate that will be used to validate
+            the server certificate that will be received during the TLS/DTLS
+            handshake.
+        :type server_certificate: str
+        :param server_uri: Server URI to which the client needs to connect to.
+        :type server_uri: str
+        
+        :rtype: mbed_cloud.sdk.entities.ServerCredentials
+        """
+        from mbed_cloud.sdk.entities import ServerCredentials
+
+        return ServerCredentials(
+            _client=self._client,
+            bootstrap=bootstrap,
+            created_at=created_at,
+            id=id,
+            lwm2m=lwm2m,
+            server_certificate=server_certificate,
+            server_uri=server_uri,
         )
 
     def subtenant_account(
@@ -591,7 +899,7 @@ class InstanceFactory:
         :type full_name: str
         :param group_ids: A list of IDs of the groups this user belongs to.
         :type group_ids: list
-        :param id: The UUID of the user.
+        :param id: Entity ID.
         :type id: str
         :param last_login_time: A timestamp of the latest login of the user, in milliseconds.
         :type last_login_time: int

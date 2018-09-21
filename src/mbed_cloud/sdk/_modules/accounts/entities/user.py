@@ -11,6 +11,7 @@ from builtins import super
 
 from mbed_cloud.sdk.common.entity import Entity
 from mbed_cloud.sdk.common import fields
+from mbed_cloud.sdk import enums
 
 
 class User(Entity):
@@ -91,7 +92,7 @@ class User(Entity):
         :type full_name: str
         :param group_ids: A list of IDs of the groups this user belongs to.
         :type group_ids: list
-        :param id: The UUID of the user.
+        :param id: Entity ID.
         :type id: str
         :param last_login_time: A timestamp of the latest login of the user, in milliseconds.
         :type last_login_time: int
@@ -133,10 +134,6 @@ class User(Entity):
 
         # inline imports for avoiding circular references and bulk imports
 
-        from mbed_cloud.sdk._modules.accounts.entities.login_history import LoginHistory
-
-        from mbed_cloud.sdk.enums import UserStatusEnum
-
         # fields
         self._account_id = fields.StringField(value=account_id)
         self._address = fields.StringField(value=address)
@@ -148,12 +145,12 @@ class User(Entity):
         self._group_ids = fields.ListField(value=group_ids)
         self._id = fields.StringField(value=id)
         self._last_login_time = fields.IntegerField(value=last_login_time)
-        self._login_history = fields.ListField(value=login_history, entity=LoginHistory)
+        self._login_history = fields.ListField(value=login_history)
         self._marketing_accepted = fields.BooleanField(value=marketing_accepted)
         self._password = fields.StringField(value=password)
         self._password_changed_time = fields.IntegerField(value=password_changed_time)
         self._phone_number = fields.StringField(value=phone_number)
-        self._status = fields.StringField(value=status, enum=UserStatusEnum)
+        self._status = fields.StringField(value=status, enum=enums.UserStatusEnum)
         self._terms_accepted = fields.BooleanField(value=terms_accepted)
         self._two_factor_authentication = fields.BooleanField(
             value=two_factor_authentication
@@ -313,9 +310,9 @@ class User(Entity):
 
     @property
     def id(self):
-        """The UUID of the user.
+        """Entity ID.
         
-        api example: '01619571e2e89242ac12000600000000'
+        api example: '01619571dad80242ac12000600000000'
         
         :rtype: str
         """
@@ -354,7 +351,7 @@ class User(Entity):
         """Timestamps, succeedings, IP addresses and user agent information of the last
         five logins of the user, with timestamps in RFC3339 format.
         
-        :rtype: list[LoginHistory]
+        :rtype: list
         """
         return self._login_history.value
 
@@ -363,7 +360,7 @@ class User(Entity):
         """Set value of `login_history`
 
         :param value: value to set
-        :type value: list[LoginHistory]
+        :type value: list
         """
         self._login_history.set(value)
 
@@ -543,13 +540,33 @@ class User(Entity):
         """
         self._username.set(value)
 
+    def add_to_groups(self, add_to_group_ids):
+        """Add user to a list of groups.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/users/{user-id}/groups
+        
+        :param add_to_group_ids: A list of IDs of the groups to be updated.
+        :type add_to_group_ids: list
+        
+        :rtype: User
+        """
+
+        return self._client.call_api(
+            method="post",
+            path="/v3/users/{user-id}/groups",
+            body_params=fields.ListField(add_to_group_ids).to_api(),
+            path_params={"user-id": self._id.to_api()},
+            unpack=self,
+        )
+
     def create(self, action="create"):
         """Create a new user.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/users
+        https://os.mbed.com/search/?q=service+apis+/v3/users
         
-        :param action: Create or invite user.
+        :param action: Action, either 'create' or 'invite'.
         :type action: str
         
         :rtype: User
@@ -636,7 +653,7 @@ class User(Entity):
         return self._client.call_api(
             method="delete",
             path="/v3/users/{user-id}",
-            path_params={"user-id": self._id.to_api()},
+            path_params={"": self._id.to_api()},
             unpack=self,
         )
 
@@ -791,7 +808,9 @@ class User(Entity):
                 "after": fields.StringField(after).to_api(),
                 "include": fields.StringField(include).to_api(),
                 "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(order).to_api(),
+                "order": fields.StringField(
+                    order, enum=enums.SubtenantAccountOrderEnum
+                ).to_api(),
             },
             unpack=False,
         )
@@ -826,7 +845,9 @@ class User(Entity):
                 "after": fields.StringField(after).to_api(),
                 "include": fields.StringField(include).to_api(),
                 "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(order).to_api(),
+                "order": fields.StringField(
+                    order, enum=enums.SubtenantAccountOrderEnum
+                ).to_api(),
             },
             unpack=False,
         )

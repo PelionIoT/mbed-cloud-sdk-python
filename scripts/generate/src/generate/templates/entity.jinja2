@@ -11,6 +11,7 @@ from builtins import super
 
 from mbed_cloud.sdk.common.entity import Entity
 from mbed_cloud.sdk.common import fields
+from mbed_cloud.sdk import enums
 
 {% for entity in entities %}
 
@@ -25,7 +26,7 @@ class {{ entity._key.pascal }}(Entity):
         {% endfor %}
     ]
 
-    # common renames used when mapping {<API spec>: <SDK>}
+    # common renames used when mapping {% raw %}{<API spec>: <SDK>}{% endraw %}
     _renames = {
         {% for rename in entity.field_renames %}
         '{{rename.api_fieldname}}': '{{rename._key.snake}}',
@@ -47,17 +48,14 @@ class {{ entity._key.pascal }}(Entity):
         super().__init__(_client=_client)
 
         # inline imports for avoiding circular references and bulk imports
-        {% for field in entity.fields %}{% set fkey = field.foreign_key or (field['items'] and field['items'].foreign_key) %}{% if fkey %}
+        {% for field in entity.fields %}{% set fkey = field.foreign_key or (field['items'] and field['items'].foreign_key) %}{% if fkey and fkey.entity.name != entity._key.name%}
         from mbed_cloud.sdk._modules.{{ fkey.group.snake }}.entities.{{ fkey.entity.snake }} import {{ fkey.entity.pascal }}{% endif %}{% endfor %}
-
-        {% for field in entity.fields %}{% if field.enum_reference %}
-        from mbed_cloud.sdk.enums import {{ field.enum_reference.pascal }}{% endif %}{% endfor %}
 
         # fields
         {% for field in entity.fields %}self._{{field._key.snake}} = fields.{{field.python_field}}(
             value={{field._key.snake}}
             {% if field.enum_reference %}
-            , enum={{ field.enum_reference.pascal }}
+            , enum=enums.{{ field.enum_reference.pascal }}
             {% endif %}
             {% set fkey = field.foreign_key or (field['items'] and field['items'].foreign_key) %}{% if fkey %}
             , entity={{ fkey.entity.pascal }}
@@ -102,16 +100,24 @@ class {{ entity._key.pascal }}(Entity):
     ):
         """{{mode.summary}}
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+{{ mode.path }}
+        {% if mode.path %}api documentation:
+        https://os.mbed.com/search/?q=service+apis+{{ mode.path }}{% endif %}
         {% for field in mode.fields %}{% if field.external_param %}
-        :param {{field._key.snake}}: {{ field.description|wordwrap(width=70)|indent(width=12) }}
-        :type {{field._key.snake}}: {{field.python_type}}
+        :param {{field._key.snake}}: {{ (field.description or field.foreign_key.entity.pascal)|wordwrap(width=70)|indent(width=12) }}
+        :type {{field._key.snake}}: {{ (field.foreign_key and 'mbed_cloud.sdk.entities.' + field.foreign_key.entity.pascal) or field.python_type}}
         {% endif %}{% endfor %}
-        :rtype: {% if mode.pagination %}mbed_cloud.pagination.PaginatedResponse{% else %}{{ entity._key.pascal }}{% endif %}
+        :rtype: {% if mode.pagination %}mbed_cloud.pagination.PaginatedResponse{% else %}{{ (mode.defer_to_foreign_key_field and mode.defer_to_foreign_key_field.foreign_key.entity.pascal) or entity._key.pascal }}{% endif %}
         """
-
-    {% if mode.custom_method %}
+    {% for field in mode.fields %}
+        {% if field.set_foreign_key_properties %}
+            {% for set_on_other, set_from_self in field.set_foreign_key_properties.items() %}
+        {{field.entity_fieldname}}.{{ set_on_other }} = self.{{ set_from_self }}
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+    {% if mode.defer_to_foreign_key_field %}
+        return {{ mode.defer_to_foreign_key_field.field }}.{{ mode.defer_to_foreign_key_field.method }}()
+    {% elif mode.custom_method %}
         from mbed_cloud.sdk.common._custom_methods import {{ mode.custom_method }}
         {% if mode.foreign_key %}from mbed_cloud.sdk.entities import {{ mode.foreign_key.entity.pascal }}{% endif %}
 
@@ -129,20 +135,23 @@ class {{ entity._key.pascal }}(Entity):
         return self._client.call_api(
             method='{{mode.method}}',
             path='{{ mode.path }}',
-            {% for param_in, count in mode.params_in.items() %}
+            {% for param_in, count in mode.python_params_in.items() %}
                 {% if count %}
-                {{ param_in }}_params = {
+                {{ param_in }}_params = {% if not mode.__REPLACE_BODY or param_in != 'body' %}{% raw %}{{% endraw %}{% endif %}
                     {% for field in mode.fields %}
                     {% if field['in'] == param_in %}
-                    '{{field.parameter_fieldname}}':
+                    {% if not mode.__REPLACE_BODY or param_in != 'body' %}
+                        '{{field.parameter_fieldname}}':
+                    {% endif %}
                         {% if field.external_param %}
                             fields.{{ field.python_field }}({{field._key.snake}}{% if field.enum_reference %}, enum=enums.{{ field.enum_reference.pascal }}{% endif %}).to_api()
                         {% else %}
                             self._{{field._key.snake}}.to_api()
-                        {% endif %},
+                        {% endif %}
+                    {% if not mode.__REPLACE_BODY or param_in != 'body' %},{% endif %}
                     {% endif %}
                     {% endfor %}
-                },
+                {% if not mode.__REPLACE_BODY or param_in != 'body' %}{% raw %}}{% endraw %}{% endif %},
                 {% endif %}
             {% endfor %}
             {% if mode.pagination %}

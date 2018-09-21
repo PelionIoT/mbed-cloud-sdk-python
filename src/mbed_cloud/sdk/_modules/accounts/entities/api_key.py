@@ -11,6 +11,7 @@ from builtins import super
 
 from mbed_cloud.sdk.common.entity import Entity
 from mbed_cloud.sdk.common import fields
+from mbed_cloud.sdk import enums
 
 
 class ApiKey(Entity):
@@ -76,8 +77,6 @@ class ApiKey(Entity):
 
         # inline imports for avoiding circular references and bulk imports
 
-        from mbed_cloud.sdk.enums import ApiKeyStatusEnum
-
         # fields
         self._created_at = fields.DateTimeField(value=created_at)
         self._creation_time = fields.IntegerField(value=creation_time)
@@ -87,7 +86,7 @@ class ApiKey(Entity):
         self._last_login_time = fields.IntegerField(value=last_login_time)
         self._name = fields.StringField(value=name)
         self._owner = fields.StringField(value=owner)
-        self._status = fields.StringField(value=status, enum=ApiKeyStatusEnum)
+        self._status = fields.StringField(value=status, enum=enums.ApiKeyStatusEnum)
         self._updated_at = fields.DateTimeField(value=updated_at)
 
     @property
@@ -435,7 +434,9 @@ class ApiKey(Entity):
                 "after": fields.StringField(after).to_api(),
                 "include": fields.StringField(include).to_api(),
                 "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(order).to_api(),
+                "order": fields.StringField(
+                    order, enum=enums.SubtenantAccountOrderEnum
+                ).to_api(),
             },
             unpack=False,
         )
@@ -470,7 +471,9 @@ class ApiKey(Entity):
                 "after": fields.StringField(after).to_api(),
                 "include": fields.StringField(include).to_api(),
                 "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(order).to_api(),
+                "order": fields.StringField(
+                    order, enum=enums.SubtenantAccountOrderEnum
+                ).to_api(),
             },
             unpack=False,
         )

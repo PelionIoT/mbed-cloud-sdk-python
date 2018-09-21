@@ -12,6 +12,18 @@ from builtins import object
 from mbed_cloud.sdk.common.enum import BaseEnum
 
 
+class PolicyGroupOrderEnum(BaseEnum):
+    """Represents the `PolicyGroupOrderEnum` options
+
+    as used by Mbed Cloud "accounts" functionality
+    """
+
+    ASC = "ASC"
+    DESC = "DESC"
+
+    values = frozenset(("ASC", "DESC"))
+
+
 class UserStatusEnum(BaseEnum):
     """Represents the `UserStatusEnum` options
 
@@ -27,6 +39,18 @@ class UserStatusEnum(BaseEnum):
     values = frozenset(("ACTIVE", "ENROLLING", "INACTIVE", "INVITED", "RESET"))
 
 
+class UserOrderEnum(BaseEnum):
+    """Represents the `UserOrderEnum` options
+
+    as used by Mbed Cloud "accounts" functionality
+    """
+
+    ASC = "ASC"
+    DESC = "DESC"
+
+    values = frozenset(("ASC", "DESC"))
+
+
 class MyApiKeyStatusEnum(BaseEnum):
     """Represents the `MyApiKeyStatusEnum` options
 
@@ -39,6 +63,18 @@ class MyApiKeyStatusEnum(BaseEnum):
     values = frozenset(("ACTIVE", "INACTIVE"))
 
 
+class MyApiKeyOrderEnum(BaseEnum):
+    """Represents the `MyApiKeyOrderEnum` options
+
+    as used by Mbed Cloud "accounts" functionality
+    """
+
+    ASC = "ASC"
+    DESC = "DESC"
+
+    values = frozenset(("ASC", "DESC"))
+
+
 class ApiKeyStatusEnum(BaseEnum):
     """Represents the `ApiKeyStatusEnum` options
 
@@ -49,6 +85,18 @@ class ApiKeyStatusEnum(BaseEnum):
     INACTIVE = "INACTIVE"
 
     values = frozenset(("ACTIVE", "INACTIVE"))
+
+
+class ApiKeyOrderEnum(BaseEnum):
+    """Represents the `ApiKeyOrderEnum` options
+
+    as used by Mbed Cloud "accounts" functionality
+    """
+
+    ASC = "ASC"
+    DESC = "DESC"
+
+    values = frozenset(("ASC", "DESC"))
 
 
 class MyAccountStatusEnum(BaseEnum):
@@ -101,3 +149,15 @@ class SubtenantAccountMfaStatusEnum(BaseEnum):
     OPTIONAL = "optional"
 
     values = frozenset(("enforced", "optional"))
+
+
+class SubtenantAccountOrderEnum(BaseEnum):
+    """Represents the `SubtenantAccountOrderEnum` options
+
+    as used by Mbed Cloud "accounts" functionality
+    """
+
+    ASC = "ASC"
+    DESC = "DESC"
+
+    values = frozenset(("ASC", "DESC"))
