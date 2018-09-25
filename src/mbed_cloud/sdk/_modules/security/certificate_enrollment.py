@@ -181,3 +181,67 @@ class CertificateEnrollment(Entity):
         :type value: str
         """
         self._id.set(value)
+
+    def get(self, certificate_enrollment_id):
+        """Get a certificate enrollment by ID.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/certificate-enrollments/{certificate-enrollment-id}
+        
+        :param certificate_enrollment_id: The ID of the certificate enrollment.
+        :type certificate_enrollment_id: str
+        
+        :rtype: CertificateEnrollment
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/certificate-enrollments/{certificate-enrollment-id}",
+            path_params={
+                "certificate-enrollment-id": fields.StringField(
+                    certificate_enrollment_id
+                ).to_api()
+            },
+            unpack=self,
+        )
+
+    def list(self, device_id__eq=None):
+        """Get certificate enrollments list.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/certificate-enrollments
+        
+        :param device_id__eq: The device ID.
+        :type device_id__eq: str
+        
+        :rtype: mbed_cloud.pagination.PaginatedResponse
+        """
+
+        from mbed_cloud.sdk.common._custom_methods import paginate
+        from mbed_cloud.sdk.entities import CertificateEnrollment
+
+        return paginate(
+            self=self,
+            foreign_key=CertificateEnrollment,
+            device_id__eq=device_id__eq,
+            wraps=self._paginate_list,
+        )
+
+    def _paginate_list(self, device_id__eq=None):
+        """Get certificate enrollments list.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/certificate-enrollments
+        
+        :param device_id__eq: The device ID.
+        :type device_id__eq: str
+        
+        :rtype: mbed_cloud.pagination.PaginatedResponse
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/certificate-enrollments",
+            query_params={"device_id__eq": fields.StringField(device_id__eq).to_api()},
+            unpack=False,
+        )

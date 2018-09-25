@@ -28,7 +28,7 @@ class CertificateIssuerConfig(Entity):
     ]
 
     # common renames used when mapping {<API spec>: <SDK>}
-    _renames = {}
+    _renames = {"certificate-issuer-configuration-id": "id"}
 
     def __init__(
         self,
@@ -186,3 +186,114 @@ class CertificateIssuerConfig(Entity):
         :type value: datetime
         """
         self._updated_at.set(value)
+
+    def create(self):
+        """Create certificate issuer configuration.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/certificate-issuer-configurations
+        
+        :rtype: CertificateIssuerConfig
+        """
+
+        return self._client.call_api(
+            method="post",
+            path="/v3/certificate-issuer-configurations",
+            body_params={
+                "certificate_issuer_id": self._certificate_issuer_id.to_api(),
+                "reference": self._reference.to_api(),
+            },
+            unpack=self,
+        )
+
+    def delete(self):
+        """Delete certificate issuer configuration.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/certificate-issuer-configurations/{certificate-issuer-configuration-id}
+        
+        :rtype: CertificateIssuerConfig
+        """
+
+        return self._client.call_api(
+            method="delete",
+            path="/v3/certificate-issuer-configurations/{certificate-issuer-configuration-id}",
+            path_params={"certificate-issuer-configuration-id": self._id.to_api()},
+            unpack=self,
+        )
+
+    def get(self):
+        """Get certificate issuer configuration.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/certificate-issuer-configurations/{certificate-issuer-configuration-id}
+        
+        :rtype: CertificateIssuerConfig
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/certificate-issuer-configurations/{certificate-issuer-configuration-id}",
+            path_params={"certificate-issuer-configuration-id": self._id.to_api()},
+            unpack=self,
+        )
+
+    def list(self, reference__eq=None):
+        """Get certificate issuer configurations.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/certificate-issuer-configurations
+        
+        :param reference__eq: The certificate name to which the certificate issuer configuration
+            applies.
+        :type reference__eq: str
+        
+        :rtype: mbed_cloud.pagination.PaginatedResponse
+        """
+
+        from mbed_cloud.sdk.common._custom_methods import paginate
+        from mbed_cloud.sdk.entities import CertificateIssuerConfig
+
+        return paginate(
+            self=self,
+            foreign_key=CertificateIssuerConfig,
+            reference__eq=reference__eq,
+            wraps=self._paginate_list,
+        )
+
+    def _paginate_list(self, reference__eq=None):
+        """Get certificate issuer configurations.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/certificate-issuer-configurations
+        
+        :param reference__eq: The certificate name to which the certificate issuer configuration
+            applies.
+        :type reference__eq: str
+        
+        :rtype: mbed_cloud.pagination.PaginatedResponse
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/certificate-issuer-configurations",
+            query_params={"reference__eq": fields.StringField(reference__eq).to_api()},
+            unpack=False,
+        )
+
+    def update(self):
+        """Update certificate issuer configuration.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/certificate-issuer-configurations/{certificate-issuer-configuration-id}
+        
+        :rtype: CertificateIssuerConfig
+        """
+
+        return self._client.call_api(
+            method="put",
+            path="/v3/certificate-issuer-configurations/{certificate-issuer-configuration-id}",
+            body_params={"certificate_issuer_id": self._certificate_issuer_id.to_api()},
+            path_params={"certificate-issuer-configuration-id": self._id.to_api()},
+            unpack=self,
+        )

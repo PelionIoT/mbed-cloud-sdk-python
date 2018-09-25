@@ -203,3 +203,250 @@ class PolicyGroup(Entity):
         :type value: int
         """
         self._user_count.set(value)
+
+    def api_keys(self, after=None, include=None, limit=50, order="ASC"):
+        """Get the API keys of a group.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/policy-groups/{groupID}/api-keys
+        
+        :param after: The entity ID to fetch after the given one.
+        :type after: str
+        
+        :param include: Comma separated additional data to return. Currently supported:
+            total_count
+        :type include: str
+        
+        :param limit: The number of results to return (2-1000), default is 50.
+        :type limit: int
+        
+        :param order: The order of the records based on creation time, ASC or DESC; by
+            default ASC
+        :type order: str
+        
+        :rtype: mbed_cloud.pagination.PaginatedResponse
+        """
+
+        from mbed_cloud.sdk.common._custom_methods import paginate
+        from mbed_cloud.sdk.entities import ApiKey
+
+        return paginate(
+            self=self,
+            foreign_key=ApiKey,
+            after=after,
+            include=include,
+            limit=limit,
+            order=order,
+            wraps=self._paginate_api_keys,
+        )
+
+    def get(self):
+        """Get group information.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/policy-groups/{groupID}
+        
+        :rtype: PolicyGroup
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/policy-groups/{groupID}",
+            path_params={"groupID": self._id.to_api()},
+            unpack=self,
+        )
+
+    def list(self, after=None, include=None, limit=50, name__eq=None, order="ASC"):
+        """Get all group information.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/policy-groups
+        
+        :param after: The entity ID to fetch after the given one.
+        :type after: str
+        
+        :param include: Comma separated additional data to return. Currently supported:
+            total_count
+        :type include: str
+        
+        :param limit: The number of results to return (2-1000), default is 50.
+        :type limit: int
+        
+        :param name__eq: Filter for group name
+        :type name__eq: str
+        
+        :param order: The order of the records based on creation time, ASC or DESC; by
+            default ASC
+        :type order: str
+        
+        :rtype: mbed_cloud.pagination.PaginatedResponse
+        """
+
+        from mbed_cloud.sdk.common._custom_methods import paginate
+        from mbed_cloud.sdk.entities import PolicyGroup
+
+        return paginate(
+            self=self,
+            foreign_key=PolicyGroup,
+            after=after,
+            include=include,
+            limit=limit,
+            name__eq=name__eq,
+            order=order,
+            wraps=self._paginate_list,
+        )
+
+    def _paginate_api_keys(self, after=None, include=None, limit=50, order="ASC"):
+        """Get the API keys of a group.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/policy-groups/{groupID}/api-keys
+        
+        :param after: The entity ID to fetch after the given one.
+        :type after: str
+        
+        :param include: Comma separated additional data to return. Currently supported:
+            total_count
+        :type include: str
+        
+        :param limit: The number of results to return (2-1000), default is 50.
+        :type limit: int
+        
+        :param order: The order of the records based on creation time, ASC or DESC; by
+            default ASC
+        :type order: str
+        
+        :rtype: mbed_cloud.pagination.PaginatedResponse
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/policy-groups/{groupID}/api-keys",
+            path_params={"groupID": self._id.to_api()},
+            query_params={
+                "after": fields.StringField(after).to_api(),
+                "include": fields.StringField(include).to_api(),
+                "limit": fields.IntegerField(limit).to_api(),
+                "order": fields.StringField(
+                    order, enum=enums.SubtenantAccountOrderEnum
+                ).to_api(),
+            },
+            unpack=False,
+        )
+
+    def _paginate_list(
+        self, after=None, include=None, limit=50, name__eq=None, order="ASC"
+    ):
+        """Get all group information.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/policy-groups
+        
+        :param after: The entity ID to fetch after the given one.
+        :type after: str
+        
+        :param include: Comma separated additional data to return. Currently supported:
+            total_count
+        :type include: str
+        
+        :param limit: The number of results to return (2-1000), default is 50.
+        :type limit: int
+        
+        :param name__eq: Filter for group name
+        :type name__eq: str
+        
+        :param order: The order of the records based on creation time, ASC or DESC; by
+            default ASC
+        :type order: str
+        
+        :rtype: mbed_cloud.pagination.PaginatedResponse
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/policy-groups",
+            query_params={
+                "after": fields.StringField(after).to_api(),
+                "include": fields.StringField(include).to_api(),
+                "limit": fields.IntegerField(limit).to_api(),
+                "name__eq": fields.StringField(name__eq).to_api(),
+                "order": fields.StringField(
+                    order, enum=enums.SubtenantAccountOrderEnum
+                ).to_api(),
+            },
+            unpack=False,
+        )
+
+    def _paginate_users(self, after=None, include=None, limit=50, order="ASC"):
+        """Get users of a group.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/policy-groups/{groupID}/users
+        
+        :param after: The entity ID to fetch after the given one.
+        :type after: str
+        
+        :param include: Comma separated additional data to return. Currently supported:
+            total_count
+        :type include: str
+        
+        :param limit: The number of results to return (2-1000), default is 50.
+        :type limit: int
+        
+        :param order: The order of the records based on creation time, ASC or DESC; by
+            default ASC
+        :type order: str
+        
+        :rtype: mbed_cloud.pagination.PaginatedResponse
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/policy-groups/{groupID}/users",
+            path_params={"groupID": self._id.to_api()},
+            query_params={
+                "after": fields.StringField(after).to_api(),
+                "include": fields.StringField(include).to_api(),
+                "limit": fields.IntegerField(limit).to_api(),
+                "order": fields.StringField(
+                    order, enum=enums.SubtenantAccountOrderEnum
+                ).to_api(),
+            },
+            unpack=False,
+        )
+
+    def users(self, after=None, include=None, limit=50, order="ASC"):
+        """Get users of a group.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/policy-groups/{groupID}/users
+        
+        :param after: The entity ID to fetch after the given one.
+        :type after: str
+        
+        :param include: Comma separated additional data to return. Currently supported:
+            total_count
+        :type include: str
+        
+        :param limit: The number of results to return (2-1000), default is 50.
+        :type limit: int
+        
+        :param order: The order of the records based on creation time, ASC or DESC; by
+            default ASC
+        :type order: str
+        
+        :rtype: mbed_cloud.pagination.PaginatedResponse
+        """
+
+        from mbed_cloud.sdk.common._custom_methods import paginate
+        from mbed_cloud.sdk.entities import User
+
+        return paginate(
+            self=self,
+            foreign_key=User,
+            after=after,
+            include=include,
+            limit=limit,
+            order=order,
+            wraps=self._paginate_users,
+        )

@@ -85,10 +85,10 @@ class {{ entity._key|to_pascal }}(Entity):
     {% endif %}
     {% endfor %}
 
-    {% for mode in entity.modes|sort(attribute='_key|to_snake') %}
-    def {% if mode.private_method %}_{% endif %}{{mode._key|to_snake}}(
+    {% for method in entity.methods|sort(attribute='_key') %}
+    def {% if method.private_method %}_{% endif %}{{method._key|to_snake}}(
         self
-        {% for field in mode.fields|sort_parg_kwarg %}
+        {% for field in method.fields|sort_parg_kwarg %}
             {% if field.external_param %},
                 {% if field.required %}
                     {{field._key|to_snake}}
@@ -98,49 +98,49 @@ class {{ entity._key|to_pascal }}(Entity):
             {% endif %}
         {% endfor %}
     ):
-        """{{mode.summary}}
+        """{{method.summary}}
 
-        {% if mode.path %}api documentation:
-        https://os.mbed.com/search/?q=service+apis+{{ mode.path }}{% endif %}
-        {% for field in mode.fields %}{% if field.external_param %}
+        {% if method.path %}api documentation:
+        https://os.mbed.com/search/?q=service+apis+{{ method.path }}{% endif %}
+        {% for field in method.fields %}{% if field.external_param %}
         :param {{field._key|to_snake}}: {{ (field.description or field.foreign_key.entity|to_pascal)|wordwrap(width=70)|indent(width=12) }}
         :type {{field._key|to_snake}}: {{ (field.foreign_key and 'mbed_cloud.sdk.entities.' + field.foreign_key.entity|to_pascal) or field.python_type}}
         {% endif %}{% endfor %}
-        :rtype: {% if mode.pagination %}mbed_cloud.pagination.PaginatedResponse{% else %}{{ (mode.defer_to_foreign_key_field and mode.defer_to_foreign_key_field.foreign_key.entity|to_pascal) or entity._key|to_pascal }}{% endif %}
+        :rtype: {% if method.pagination %}mbed_cloud.pagination.PaginatedResponse{% else %}{{ (method.defer_to_foreign_key_field and method.defer_to_foreign_key_field.foreign_key.entity|to_pascal) or entity._key|to_pascal }}{% endif %}
         """
-    {% for field in mode.fields %}
+    {% for field in method.fields %}
         {% if field.set_foreign_key_properties %}
             {% for set_on_other, set_from_self in field.set_foreign_key_properties.items() %}
         {{field.entity_fieldname}}.{{ set_on_other }} = self.{{ set_from_self }}
             {% endfor %}
         {% endif %}
     {% endfor %}
-    {% if mode.defer_to_foreign_key_field %}
-        return {{ mode.defer_to_foreign_key_field.field }}.{{ mode.defer_to_foreign_key_field.method }}()
-    {% elif mode.custom_method %}
-        from mbed_cloud.sdk.common._custom_methods import {{ mode.custom_method }}
-        {% if mode.foreign_key %}from mbed_cloud.sdk.entities import {{ mode.foreign_key.entity|to_pascal }}{% endif %}
+    {% if method.defer_to_foreign_key_field %}
+        return {{ method.defer_to_foreign_key_field.field }}.{{ method.defer_to_foreign_key_field.method }}()
+    {% elif method.custom_method %}
+        from mbed_cloud.sdk.common._custom_methods import {{ method.custom_method }}
+        {% if method.foreign_key %}from mbed_cloud.sdk.entities import {{ method.foreign_key.entity|to_pascal }}{% endif %}
 
-        return {{ mode.custom_method }}(
+        return {{ method.custom_method }}(
             self=self,
-            foreign_key={% if mode.foreign_key %}{{ mode.foreign_key.entity|to_pascal }}{% else %}self.__class__{% endif %}
-            {% for field in mode.fields|pargs_kwargs %}
+            foreign_key={% if method.foreign_key %}{{ method.foreign_key.entity|to_pascal }}{% else %}self.__class__{% endif %}
+            {% for field in method.fields|pargs_kwargs %}
                 {% if field.external_param %},
                     {{field._key|to_snake}}={{field._key|to_snake}}
                 {% endif %}
             {% endfor %}
-            {% if mode.pagination %},wraps=self._{{ mode.paginate_target }}{% endif %}
+            {% if method.pagination %},wraps=self._{{ method.paginate_target }}{% endif %}
         )
     {% else %}
         return self._client.call_api(
-            method='{{mode.method}}',
-            path='{{ mode.path }}',
-            {% for param_in, count in mode.python_params_in.items() %}
+            method='{{method.method}}',
+            path='{{ method.path }}',
+            {% for param_in, count in method.python_params_in.items() %}
                 {% if count %}
-                {{ param_in }}_params = {% if not mode.__REPLACE_BODY or param_in != 'body' %}{% raw %}{{% endraw %}{% endif %}
-                    {% for field in mode.fields %}
+                {{ param_in }}_params = {% if not method.__REPLACE_BODY or param_in != 'body' %}{% raw %}{{% endraw %}{% endif %}
+                    {% for field in method.fields %}
                     {% if field['in'] == param_in %}
-                    {% if not mode.__REPLACE_BODY or param_in != 'body' %}
+                    {% if not method.__REPLACE_BODY or param_in != 'body' %}
                         '{{field.parameter_fieldname}}':
                     {% endif %}
                         {% if field.external_param %}
@@ -148,13 +148,13 @@ class {{ entity._key|to_pascal }}(Entity):
                         {% else %}
                             self._{{field._key|to_snake}}.to_api()
                         {% endif %}
-                    {% if not mode.__REPLACE_BODY or param_in != 'body' %},{% endif %}
+                    {% if not method.__REPLACE_BODY or param_in != 'body' %},{% endif %}
                     {% endif %}
                     {% endfor %}
-                {% if not mode.__REPLACE_BODY or param_in != 'body' %}{% raw %}}{% endraw %}{% endif %},
+                {% if not method.__REPLACE_BODY or param_in != 'body' %}{% raw %}}{% endraw %}{% endif %},
                 {% endif %}
             {% endfor %}
-            {% if mode.pagination %}
+            {% if method.pagination %}
             unpack = False,
             {% else %}
             unpack = self,

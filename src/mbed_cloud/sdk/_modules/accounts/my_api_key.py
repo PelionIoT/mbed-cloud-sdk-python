@@ -277,3 +277,108 @@ class MyApiKey(Entity):
         :type value: datetime
         """
         self._updated_at.set(value)
+
+    def get(self):
+        """Get API key details.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/api-keys/me
+        
+        :rtype: MyApiKey
+        """
+
+        return self._client.call_api(method="get", path="/v3/api-keys/me", unpack=self)
+
+    def groups(self, after=None, include=None, limit=50, order="ASC"):
+        """Get groups of the API key.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/api-keys/me/groups
+        
+        :param after: The entity ID to fetch after the given one.
+        :type after: str
+        
+        :param include: Comma separated additional data to return. Currently supported:
+            total_count
+        :type include: str
+        
+        :param limit: The number of results to return (2-1000), default is 50.
+        :type limit: int
+        
+        :param order: The order of the records based on creation time, ASC or DESC; by
+            default ASC
+        :type order: str
+        
+        :rtype: mbed_cloud.pagination.PaginatedResponse
+        """
+
+        from mbed_cloud.sdk.common._custom_methods import paginate
+        from mbed_cloud.sdk.entities import PolicyGroup
+
+        return paginate(
+            self=self,
+            foreign_key=PolicyGroup,
+            after=after,
+            include=include,
+            limit=limit,
+            order=order,
+            wraps=self._paginate_groups,
+        )
+
+    def _paginate_groups(self, after=None, include=None, limit=50, order="ASC"):
+        """Get groups of the API key.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/api-keys/me/groups
+        
+        :param after: The entity ID to fetch after the given one.
+        :type after: str
+        
+        :param include: Comma separated additional data to return. Currently supported:
+            total_count
+        :type include: str
+        
+        :param limit: The number of results to return (2-1000), default is 50.
+        :type limit: int
+        
+        :param order: The order of the records based on creation time, ASC or DESC; by
+            default ASC
+        :type order: str
+        
+        :rtype: mbed_cloud.pagination.PaginatedResponse
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/api-keys/me/groups",
+            query_params={
+                "after": fields.StringField(after).to_api(),
+                "include": fields.StringField(include).to_api(),
+                "limit": fields.IntegerField(limit).to_api(),
+                "order": fields.StringField(
+                    order, enum=enums.SubtenantAccountOrderEnum
+                ).to_api(),
+            },
+            unpack=False,
+        )
+
+    def update(self):
+        """Update API key details.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/api-keys/me
+        
+        :rtype: MyApiKey
+        """
+
+        return self._client.call_api(
+            method="put",
+            path="/v3/api-keys/me",
+            body_params={
+                "groups": self._group_ids.to_api(),
+                "name": self._name.to_api(),
+                "owner": self._owner.to_api(),
+                "status": self._status.to_api(),
+            },
+            unpack=self,
+        )

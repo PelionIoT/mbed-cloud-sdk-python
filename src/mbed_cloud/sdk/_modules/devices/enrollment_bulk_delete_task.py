@@ -276,3 +276,43 @@ class EnrollmentBulkDeleteTask(Entity):
         :type value: int
         """
         self._total_count.set(value)
+
+    def delete(self, enrollment_identities):
+        """Bulk delete
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/device-enrollments-bulk-deletes
+        
+        :param enrollment_identities: The `CSV` file containing the enrollment IDs. The maximum file size is
+            10MB.
+        :type enrollment_identities: file
+        
+        :rtype: EnrollmentBulkDeleteTask
+        """
+
+        return self._client.call_api(
+            method="post",
+            path="/v3/device-enrollments-bulk-deletes",
+            stream_params={
+                "enrollment_identities": fields.FileField(
+                    enrollment_identities
+                ).to_api()
+            },
+            unpack=self,
+        )
+
+    def get(self):
+        """Get bulk delete entity
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/device-enrollments-bulk-deletes/{id}
+        
+        :rtype: EnrollmentBulkDeleteTask
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/device-enrollments-bulk-deletes/{id}",
+            path_params={"id": self._id.to_api()},
+            unpack=self,
+        )

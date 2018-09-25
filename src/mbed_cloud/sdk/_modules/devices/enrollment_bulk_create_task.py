@@ -276,3 +276,43 @@ class EnrollmentBulkCreateTask(Entity):
         :type value: int
         """
         self._total_count.set(value)
+
+    def create(self, enrollment_identities):
+        """Bulk upload
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/device-enrollments-bulk-uploads
+        
+        :param enrollment_identities: The `CSV` file containing the enrollment IDs. The maximum file size is
+            10MB.
+        :type enrollment_identities: file
+        
+        :rtype: EnrollmentBulkCreateTask
+        """
+
+        return self._client.call_api(
+            method="post",
+            path="/v3/device-enrollments-bulk-uploads",
+            stream_params={
+                "enrollment_identities": fields.FileField(
+                    enrollment_identities
+                ).to_api()
+            },
+            unpack=self,
+        )
+
+    def get(self):
+        """Get bulk upload entity
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/device-enrollments-bulk-uploads/{id}
+        
+        :rtype: EnrollmentBulkCreateTask
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/device-enrollments-bulk-uploads/{id}",
+            path_params={"id": self._id.to_api()},
+            unpack=self,
+        )

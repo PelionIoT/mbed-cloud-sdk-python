@@ -465,3 +465,323 @@ class Certificate(Entity):
         :type value: datetime
         """
         self._validity.set(value)
+
+    def create_developer(self, authorization):
+        """Create a new developer certificate to connect to the bootstrap server.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/developer-certificates
+        
+        :param authorization: Bearer {Access Token}.
+        :type authorization: str
+        
+        :rtype: Certificate
+        """
+
+        return self._client.call_api(
+            method="post",
+            path="/v3/developer-certificates",
+            body_params={
+                "description": self._description.to_api(),
+                "name": self._name.to_api(),
+            },
+            header_params={"Authorization": fields.StringField(authorization).to_api()},
+            unpack=self,
+        )
+
+    def create_standard(self, signature=None):
+        """Upload a new trusted certificate.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/trusted-certificates
+        
+        :param signature: DEPRECATED: Base64 encoded signature of the account ID signed by the
+            certificate to be uploaded. The signature must be hashed with SHA256.
+        :type signature: str
+        
+        :rtype: Certificate
+        """
+
+        return self._client.call_api(
+            method="post",
+            path="/v3/trusted-certificates",
+            body_params={
+                "certificate": self._certificate.to_api(),
+                "description": self._description.to_api(),
+                "enrollment_mode": self._enrollment_mode.to_api(),
+                "name": self._name.to_api(),
+                "service": self._service.to_api(),
+                "signature": fields.StringField(signature).to_api(),
+                "status": self._status.to_api(),
+            },
+            unpack=self,
+        )
+
+    def delete(self):
+        """Delete a trusted certificate by ID.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/trusted-certificates/{cert-id}
+        
+        :rtype: Certificate
+        """
+
+        return self._client.call_api(
+            method="delete",
+            path="/v3/trusted-certificates/{cert-id}",
+            path_params={"cert-id": self._id.to_api()},
+            unpack=self,
+        )
+
+    def get_developer(self, authorization, developercertificateid):
+        """Fetch an existing developer certificate to connect to the bootstrap server.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/developer-certificates/{developerCertificateId}
+        
+        :param authorization: Bearer {Access Token}.
+        :type authorization: str
+        
+        :param developercertificateid: A unique identifier for the developer certificate.
+        :type developercertificateid: str
+        
+        :rtype: Certificate
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/developer-certificates/{developerCertificateId}",
+            header_params={"Authorization": fields.StringField(authorization).to_api()},
+            path_params={
+                "developerCertificateId": fields.StringField(
+                    developercertificateid
+                ).to_api()
+            },
+            unpack=self,
+        )
+
+    def get_standard(self):
+        """Get trusted certificate by ID.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/trusted-certificates/{cert-id}
+        
+        :rtype: Certificate
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/trusted-certificates/{cert-id}",
+            path_params={"cert-id": self._id.to_api()},
+            unpack=self,
+        )
+
+    def list(
+        self,
+        after=None,
+        device_execution_mode__eq=None,
+        device_execution_mode__neq=None,
+        enrollment_mode__eq=None,
+        expire__eq=None,
+        include=None,
+        issuer__like=None,
+        limit=50,
+        name__eq=None,
+        order="ASC",
+        service__eq=None,
+        subject__like=None,
+    ):
+        """Get all trusted certificates.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/trusted-certificates
+        
+        :param after: The entity ID to fetch after the given one.
+        :type after: str
+        
+        :param device_execution_mode__eq: Device execution mode, as 1 for developer certificates or as another
+            natural integer value
+        :type device_execution_mode__eq: int
+        
+        :param device_execution_mode__neq: Device execution mode not equals filter
+        :type device_execution_mode__neq: int
+        
+        :param enrollment_mode__eq: Enrollment mode filter
+        :type enrollment_mode__eq: bool
+        
+        :param expire__eq: Expire filter in days
+        :type expire__eq: int
+        
+        :param include: Comma separated additional data to return. Currently supported:
+            total_count
+        :type include: str
+        
+        :param issuer__like: Issuer filter. Finds all matches where the filter value is a case
+            insensitive substring of the result. Example: issuer__like=cn=iss
+            matches CN=issuer.
+        :type issuer__like: str
+        
+        :param limit: The number of results to return (2-1000), default is 50.
+        :type limit: int
+        
+        :param name__eq: Filter for certificate name
+        :type name__eq: str
+        
+        :param order: The order of the records based on creation time, ASC or DESC; by
+            default ASC
+        :type order: str
+        
+        :param service__eq: Service filter, either lwm2m or bootstrap
+        :type service__eq: str
+        
+        :param subject__like: Subject filter. Finds all matches where the filter value is a case
+            insensitive substring of the result. Example: subject__like=cn=su
+            matches CN=subject.
+        :type subject__like: str
+        
+        :rtype: mbed_cloud.pagination.PaginatedResponse
+        """
+
+        from mbed_cloud.sdk.common._custom_methods import paginate
+        from mbed_cloud.sdk.entities import Certificate
+
+        return paginate(
+            self=self,
+            foreign_key=Certificate,
+            after=after,
+            device_execution_mode__eq=device_execution_mode__eq,
+            device_execution_mode__neq=device_execution_mode__neq,
+            enrollment_mode__eq=enrollment_mode__eq,
+            expire__eq=expire__eq,
+            include=include,
+            issuer__like=issuer__like,
+            limit=limit,
+            name__eq=name__eq,
+            order=order,
+            service__eq=service__eq,
+            subject__like=subject__like,
+            wraps=self._paginate_list,
+        )
+
+    def _paginate_list(
+        self,
+        after=None,
+        device_execution_mode__eq=None,
+        device_execution_mode__neq=None,
+        enrollment_mode__eq=None,
+        expire__eq=None,
+        include=None,
+        issuer__like=None,
+        limit=50,
+        name__eq=None,
+        order="ASC",
+        service__eq=None,
+        subject__like=None,
+    ):
+        """Get all trusted certificates.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/trusted-certificates
+        
+        :param after: The entity ID to fetch after the given one.
+        :type after: str
+        
+        :param device_execution_mode__eq: Device execution mode, as 1 for developer certificates or as another
+            natural integer value
+        :type device_execution_mode__eq: int
+        
+        :param device_execution_mode__neq: Device execution mode not equals filter
+        :type device_execution_mode__neq: int
+        
+        :param enrollment_mode__eq: Enrollment mode filter
+        :type enrollment_mode__eq: bool
+        
+        :param expire__eq: Expire filter in days
+        :type expire__eq: int
+        
+        :param include: Comma separated additional data to return. Currently supported:
+            total_count
+        :type include: str
+        
+        :param issuer__like: Issuer filter. Finds all matches where the filter value is a case
+            insensitive substring of the result. Example: issuer__like=cn=iss
+            matches CN=issuer.
+        :type issuer__like: str
+        
+        :param limit: The number of results to return (2-1000), default is 50.
+        :type limit: int
+        
+        :param name__eq: Filter for certificate name
+        :type name__eq: str
+        
+        :param order: The order of the records based on creation time, ASC or DESC; by
+            default ASC
+        :type order: str
+        
+        :param service__eq: Service filter, either lwm2m or bootstrap
+        :type service__eq: str
+        
+        :param subject__like: Subject filter. Finds all matches where the filter value is a case
+            insensitive substring of the result. Example: subject__like=cn=su
+            matches CN=subject.
+        :type subject__like: str
+        
+        :rtype: mbed_cloud.pagination.PaginatedResponse
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/trusted-certificates",
+            query_params={
+                "after": fields.StringField(after).to_api(),
+                "device_execution_mode__eq": fields.IntegerField(
+                    device_execution_mode__eq
+                ).to_api(),
+                "device_execution_mode__neq": fields.IntegerField(
+                    device_execution_mode__neq
+                ).to_api(),
+                "enrollment_mode__eq": fields.BooleanField(
+                    enrollment_mode__eq
+                ).to_api(),
+                "expire__eq": fields.IntegerField(expire__eq).to_api(),
+                "include": fields.StringField(include).to_api(),
+                "issuer__like": fields.StringField(issuer__like).to_api(),
+                "limit": fields.IntegerField(limit).to_api(),
+                "name__eq": fields.StringField(name__eq).to_api(),
+                "order": fields.StringField(
+                    order, enum=enums.CertificateOrderEnum
+                ).to_api(),
+                "service__eq": fields.StringField(service__eq).to_api(),
+                "subject__like": fields.StringField(subject__like).to_api(),
+            },
+            unpack=False,
+        )
+
+    def update(self, signature=None):
+        """Update trusted certificate.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/trusted-certificates/{cert-id}
+        
+        :param signature: DEPRECATED: Base64 encoded signature of the account ID signed by the
+            certificate to be uploaded. The signature must be hashed with SHA256.
+        :type signature: str
+        
+        :rtype: Certificate
+        """
+
+        return self._client.call_api(
+            method="put",
+            path="/v3/trusted-certificates/{cert-id}",
+            body_params={
+                "certificate": self._certificate.to_api(),
+                "description": self._description.to_api(),
+                "enrollment_mode": self._enrollment_mode.to_api(),
+                "name": self._name.to_api(),
+                "service": self._service.to_api(),
+                "signature": fields.StringField(signature).to_api(),
+                "status": self._status.to_api(),
+            },
+            path_params={"cert-id": self._id.to_api()},
+            unpack=self,
+        )

@@ -29,7 +29,7 @@ class CertificateIssuer(Entity):
     ]
 
     # common renames used when mapping {<API spec>: <SDK>}
-    _renames = {}
+    _renames = {"certificate-issuer-id": "id"}
 
     def __init__(
         self,
@@ -230,3 +230,138 @@ class CertificateIssuer(Entity):
         :type value: bool
         """
         self._successful.set(value)
+
+    def create(self, issuer_credentials=None):
+        """Create certificate issuer.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/certificate-issuers
+        
+        :param issuer_credentials: The credentials required for connecting to the certificate issuer.
+            When the issuer_type is GLOBAL_SIGN, see definition of
+            GlobalSignCredentials.
+            When the issuer_type is CFSSL_AUTH, see
+            definition of CfsslAuthCredentials.
+        :type issuer_credentials: dict
+        
+        :rtype: CertificateIssuer
+        """
+
+        return self._client.call_api(
+            method="post",
+            path="/v3/certificate-issuers",
+            body_params={
+                "description": self._description.to_api(),
+                "issuer_attributes": self._issuer_attributes.to_api(),
+                "issuer_credentials": fields.DictField(issuer_credentials).to_api(),
+                "issuer_type": self._issuer_type.to_api(),
+                "name": self._name.to_api(),
+            },
+            unpack=self,
+        )
+
+    def delete(self):
+        """Delete certificate issuer.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/certificate-issuers/{certificate-issuer-id}
+        
+        :rtype: CertificateIssuer
+        """
+
+        return self._client.call_api(
+            method="delete",
+            path="/v3/certificate-issuers/{certificate-issuer-id}",
+            path_params={"certificate-issuer-id": self._id.to_api()},
+            unpack=self,
+        )
+
+    def get(self):
+        """Get certificate issuer by ID.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/certificate-issuers/{certificate-issuer-id}
+        
+        :rtype: CertificateIssuer
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/certificate-issuers/{certificate-issuer-id}",
+            path_params={"certificate-issuer-id": self._id.to_api()},
+            unpack=self,
+        )
+
+    def list(self):
+        """Get certificate issuers list.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/certificate-issuers
+        
+        :rtype: mbed_cloud.pagination.PaginatedResponse
+        """
+
+        from mbed_cloud.sdk.common._custom_methods import paginate
+        from mbed_cloud.sdk.entities import CertificateIssuer
+
+        return paginate(
+            self=self, foreign_key=CertificateIssuer, wraps=self._paginate_list
+        )
+
+    def _paginate_list(self):
+        """Get certificate issuers list.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/certificate-issuers
+        
+        :rtype: mbed_cloud.pagination.PaginatedResponse
+        """
+
+        return self._client.call_api(
+            method="get", path="/v3/certificate-issuers", unpack=False
+        )
+
+    def update(self, issuer_credentials=None):
+        """Update certificate issuer.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/certificate-issuers/{certificate-issuer-id}
+        
+        :param issuer_credentials: The credentials required for connecting to the certificate issuer.
+            When the issuer_type is GLOBAL_SIGN, see definition of
+            GlobalSignCredentials.
+            When the issuer_type is CFSSL_AUTH, see
+            definition of CfsslAuthCredentials.
+        :type issuer_credentials: dict
+        
+        :rtype: CertificateIssuer
+        """
+
+        return self._client.call_api(
+            method="put",
+            path="/v3/certificate-issuers/{certificate-issuer-id}",
+            body_params={
+                "description": self._description.to_api(),
+                "issuer_attributes": self._issuer_attributes.to_api(),
+                "issuer_credentials": fields.DictField(issuer_credentials).to_api(),
+                "name": self._name.to_api(),
+            },
+            path_params={"certificate-issuer-id": self._id.to_api()},
+            unpack=self,
+        )
+
+    def verify(self):
+        """Verify certificate issuer.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/certificate-issuers/{certificate-issuer-id}/verify
+        
+        :rtype: CertificateIssuer
+        """
+
+        return self._client.call_api(
+            method="post",
+            path="/v3/certificate-issuers/{certificate-issuer-id}/verify",
+            path_params={"certificate-issuer-id": self._id.to_api()},
+            unpack=self,
+        )

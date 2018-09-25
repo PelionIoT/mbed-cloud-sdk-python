@@ -205,3 +205,122 @@ class EnrollmentClaim(Entity):
         :type value: str
         """
         self._id.set(value)
+
+    def create(self):
+        """Place an enrollment claim for one or several devices.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/device-enrollments
+        
+        :rtype: EnrollmentClaim
+        """
+
+        return self._client.call_api(
+            method="post",
+            path="/v3/device-enrollments",
+            body_params={"enrollment_identity": self._enrollment_identity.to_api()},
+            unpack=self,
+        )
+
+    def delete(self):
+        """Delete an enrollment by ID.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/device-enrollments/{id}
+        
+        :rtype: EnrollmentClaim
+        """
+
+        return self._client.call_api(
+            method="delete",
+            path="/v3/device-enrollments/{id}",
+            path_params={"id": self._id.to_api()},
+            unpack=self,
+        )
+
+    def get(self):
+        """Get details of an enrollment by ID.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/device-enrollments/{id}
+        
+        :rtype: EnrollmentClaim
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/device-enrollments/{id}",
+            path_params={"id": self._id.to_api()},
+            unpack=self,
+        )
+
+    def list(self, after=None, include=None, limit=None, order="ASC"):
+        """Get enrollment list.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/device-enrollments
+        
+        :param after: Entity ID to fetch after.
+        :type after: str
+        
+        :param include: Comma-separated additional data to return. Currently supported:
+            total_count.
+        :type include: str
+        
+        :param limit: Number of results to be returned. Between 2 and 1000, inclusive.
+        :type limit: int
+        
+        :param order: ASC or DESC
+        :type order: str
+        
+        :rtype: mbed_cloud.pagination.PaginatedResponse
+        """
+
+        from mbed_cloud.sdk.common._custom_methods import paginate
+        from mbed_cloud.sdk.entities import EnrollmentClaim
+
+        return paginate(
+            self=self,
+            foreign_key=EnrollmentClaim,
+            after=after,
+            include=include,
+            limit=limit,
+            order=order,
+            wraps=self._paginate_list,
+        )
+
+    def _paginate_list(self, after=None, include=None, limit=None, order="ASC"):
+        """Get enrollment list.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/device-enrollments
+        
+        :param after: Entity ID to fetch after.
+        :type after: str
+        
+        :param include: Comma-separated additional data to return. Currently supported:
+            total_count.
+        :type include: str
+        
+        :param limit: Number of results to be returned. Between 2 and 1000, inclusive.
+        :type limit: int
+        
+        :param order: ASC or DESC
+        :type order: str
+        
+        :rtype: mbed_cloud.pagination.PaginatedResponse
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/device-enrollments",
+            query_params={
+                "after": fields.StringField(after).to_api(),
+                "include": fields.StringField(include).to_api(),
+                "limit": fields.IntegerField(limit).to_api(),
+                "order": fields.StringField(
+                    order, enum=enums.EnrollmentClaimOrderEnum
+                ).to_api(),
+            },
+            unpack=False,
+        )

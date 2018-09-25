@@ -874,3 +874,65 @@ class MyAccount(Entity):
         :type value: datetime
         """
         self._upgraded_at.set(value)
+
+    def get(self, include=None, properties=None):
+        """Get account info.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/me
+        
+        :param include: Comma separated additional data to return. Currently supported:
+            limits, policies, sub_accounts.
+        :type include: str
+        
+        :param properties: Property name to be returned from account specific properties.
+        :type properties: str
+        
+        :rtype: MyAccount
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/accounts/me",
+            query_params={
+                "include": fields.StringField(include).to_api(),
+                "properties": fields.StringField(properties).to_api(),
+            },
+            unpack=self,
+        )
+
+    def update(self):
+        """Updates attributes of the account.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/me
+        
+        :rtype: MyAccount
+        """
+
+        return self._client.call_api(
+            method="put",
+            path="/v3/accounts/me",
+            body_params={
+                "address_line1": self._address_line1.to_api(),
+                "address_line2": self._address_line2.to_api(),
+                "aliases": self._aliases.to_api(),
+                "city": self._city.to_api(),
+                "company": self._company.to_api(),
+                "contact": self._contact.to_api(),
+                "country": self._country.to_api(),
+                "custom_fields": self._custom_fields.to_api(),
+                "display_name": self._display_name.to_api(),
+                "email": self._email.to_api(),
+                "end_market": self._end_market.to_api(),
+                "expiration_warning_threshold": self._expiration_warning_threshold.to_api(),
+                "idle_timeout": self._idle_timeout.to_api(),
+                "mfa_status": self._mfa_status.to_api(),
+                "notification_emails": self._notification_emails.to_api(),
+                "password_policy": self._password_policy.to_api(),
+                "phone_number": self._phone_number.to_api(),
+                "postal_code": self._postal_code.to_api(),
+                "state": self._state.to_api(),
+            },
+            unpack=self,
+        )
