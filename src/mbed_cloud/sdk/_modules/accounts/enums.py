@@ -12,59 +12,8 @@ from builtins import object
 from mbed_cloud.sdk.common.enum import BaseEnum
 
 
-class PolicyGroupOrderEnum(BaseEnum):
-    """Represents the `PolicyGroupOrderEnum` options
-
-    as used by Mbed Cloud "accounts" functionality
-    """
-
-    ASC = "ASC"
-    DESC = "DESC"
-
-    values = frozenset(("ASC", "DESC"))
-
-
-class UserStatusEnum(BaseEnum):
-    """Represents the `UserStatusEnum` options
-
-    as used by Mbed Cloud "accounts" functionality
-    """
-
-    ACTIVE = "ACTIVE"
-    ENROLLING = "ENROLLING"
-    INACTIVE = "INACTIVE"
-    INVITED = "INVITED"
-    RESET = "RESET"
-
-    values = frozenset(("ACTIVE", "ENROLLING", "INACTIVE", "INVITED", "RESET"))
-
-
-class UserOrderEnum(BaseEnum):
-    """Represents the `UserOrderEnum` options
-
-    as used by Mbed Cloud "accounts" functionality
-    """
-
-    ASC = "ASC"
-    DESC = "DESC"
-
-    values = frozenset(("ASC", "DESC"))
-
-
-class MyApiKeyStatusEnum(BaseEnum):
-    """Represents the `MyApiKeyStatusEnum` options
-
-    as used by Mbed Cloud "accounts" functionality
-    """
-
-    ACTIVE = "ACTIVE"
-    INACTIVE = "INACTIVE"
-
-    values = frozenset(("ACTIVE", "INACTIVE"))
-
-
-class MyApiKeyOrderEnum(BaseEnum):
-    """Represents the `MyApiKeyOrderEnum` options
+class ApiKeyOrderEnum(BaseEnum):
+    """Represents the `ApiKeyOrderEnum` options
 
     as used by Mbed Cloud "accounts" functionality
     """
@@ -87,16 +36,16 @@ class ApiKeyStatusEnum(BaseEnum):
     values = frozenset(("ACTIVE", "INACTIVE"))
 
 
-class ApiKeyOrderEnum(BaseEnum):
-    """Represents the `ApiKeyOrderEnum` options
+class MyAccountMfaStatusEnum(BaseEnum):
+    """Represents the `MyAccountMfaStatusEnum` options
 
     as used by Mbed Cloud "accounts" functionality
     """
 
-    ASC = "ASC"
-    DESC = "DESC"
+    ENFORCED = "enforced"
+    OPTIONAL = "optional"
 
-    values = frozenset(("ASC", "DESC"))
+    values = frozenset(("enforced", "optional"))
 
 
 class MyAccountStatusEnum(BaseEnum):
@@ -113,30 +62,40 @@ class MyAccountStatusEnum(BaseEnum):
     values = frozenset(("ACTIVE", "ENROLLING", "RESTRICTED", "SUSPENDED"))
 
 
-class MyAccountMfaStatusEnum(BaseEnum):
-    """Represents the `MyAccountMfaStatusEnum` options
+class MyApiKeyOrderEnum(BaseEnum):
+    """Represents the `MyApiKeyOrderEnum` options
 
     as used by Mbed Cloud "accounts" functionality
     """
 
-    ENFORCED = "enforced"
-    OPTIONAL = "optional"
+    ASC = "ASC"
+    DESC = "DESC"
 
-    values = frozenset(("enforced", "optional"))
+    values = frozenset(("ASC", "DESC"))
 
 
-class SubtenantAccountStatusEnum(BaseEnum):
-    """Represents the `SubtenantAccountStatusEnum` options
+class MyApiKeyStatusEnum(BaseEnum):
+    """Represents the `MyApiKeyStatusEnum` options
 
     as used by Mbed Cloud "accounts" functionality
     """
 
     ACTIVE = "ACTIVE"
-    ENROLLING = "ENROLLING"
-    RESTRICTED = "RESTRICTED"
-    SUSPENDED = "SUSPENDED"
+    INACTIVE = "INACTIVE"
 
-    values = frozenset(("ACTIVE", "ENROLLING", "RESTRICTED", "SUSPENDED"))
+    values = frozenset(("ACTIVE", "INACTIVE"))
+
+
+class PolicyGroupOrderEnum(BaseEnum):
+    """Represents the `PolicyGroupOrderEnum` options
+
+    as used by Mbed Cloud "accounts" functionality
+    """
+
+    ASC = "ASC"
+    DESC = "DESC"
+
+    values = frozenset(("ASC", "DESC"))
 
 
 class SubtenantAccountMfaStatusEnum(BaseEnum):
@@ -161,3 +120,44 @@ class SubtenantAccountOrderEnum(BaseEnum):
     DESC = "DESC"
 
     values = frozenset(("ASC", "DESC"))
+
+
+class SubtenantAccountStatusEnum(BaseEnum):
+    """Represents the `SubtenantAccountStatusEnum` options
+
+    as used by Mbed Cloud "accounts" functionality
+    """
+
+    ACTIVE = "ACTIVE"
+    ENROLLING = "ENROLLING"
+    RESTRICTED = "RESTRICTED"
+    SUSPENDED = "SUSPENDED"
+
+    values = frozenset(("ACTIVE", "ENROLLING", "RESTRICTED", "SUSPENDED"))
+
+
+class UserOrderEnum(BaseEnum):
+    """Represents the `UserOrderEnum` options
+
+    as used by Mbed Cloud "accounts" functionality
+    """
+
+    ASC = "ASC"
+    DESC = "DESC"
+
+    values = frozenset(("ASC", "DESC"))
+
+
+class UserStatusEnum(BaseEnum):
+    """Represents the `UserStatusEnum` options
+
+    as used by Mbed Cloud "accounts" functionality
+    """
+
+    ACTIVE = "ACTIVE"
+    ENROLLING = "ENROLLING"
+    INACTIVE = "INACTIVE"
+    INVITED = "INVITED"
+    RESET = "RESET"
+
+    values = frozenset(("ACTIVE", "ENROLLING", "INACTIVE", "INVITED", "RESET"))

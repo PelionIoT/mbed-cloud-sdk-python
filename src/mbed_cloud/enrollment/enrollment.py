@@ -71,6 +71,30 @@ class EnrollmentAPI(BaseAPI):
         api = self._get_api(enrollment.PublicAPIApi)
         return api.delete_device_enrollment(id=id)
 
+    @catch_exceptions(EnrollmentAPIException)
+    def bulk_add_enrollment_claim(self, datafile):
+        """Bulk upload
+
+        With bulk upload you can upload a CSV file containing a number of enrollment IDs.
+        First line of the CSV is read as a header and not as an enrollment identity.
+
+        :returns: BulkCreateResponse
+        """
+        api = self._get_api(enrollment.PublicAPIApi)
+        return api.create_bulk_device_enrollment(enrollment_identities=datafile)
+
+    @catch_exceptions(EnrollmentAPIException)
+    def get_bulk_add_enrollment_claim_status(self, bulk_id):
+        """Get status of bulk upload
+
+        Provides info about bulk upload for the given ID.
+        For example bulk status and processed count of enrollment identities.
+
+        :returns: BulkCreateResponse
+        """
+        api = self._get_api(enrollment.PublicAPIApi)
+        return api.get_bulk_device_enrollment(id=bulk_id)
+
 
 class EnrollmentClaim(BaseObject):
     """Describes device object from the catalog."""

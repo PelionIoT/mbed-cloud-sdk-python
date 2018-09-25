@@ -125,7 +125,7 @@ class Entity(object):
             except Exception:  # noqa
                 # we don't care why loading the field fails. maybe the API changed? log it.
                 self._logger.exception(
-                    "unable to deserialise received field: %s %s %s",
+                    "unable to deserialise received field: %s %s %r",
                     self,
                     api_field_name,
                     value,

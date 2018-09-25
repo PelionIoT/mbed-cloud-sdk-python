@@ -23,6 +23,7 @@ You'll be wanting to use Python 3 for this.
 import logging
 import os
 import subprocess
+import shutil
 import functools
 
 import jinja2
@@ -155,11 +156,12 @@ def sort_parg_kwarg(items):
     return sorted(items, key=lambda x: not bool(x.get('required')))
 
 
-def main(input_file, output_dir):
+def main(input_file, output_dir, clean=False):
     """Bulk of the generation work
 
     :param input_file: The 'inter.yaml' intermediate yaml configuration / specification file
     :param output_dir: Directory to generate the SDK in to
+    :param clean: Wipe the top level generated directory before generating
     :return:
     """
     _LOG.info('loading %s', input_file)
@@ -185,10 +187,10 @@ def main(input_file, output_dir):
         GenModule(name=to_snakecase(group['_key']), root=generation_root, data=group) for group in config.get('groups')
     ]
     entity_modules = [
-        GenModule(name='entities', root=os.path.join(generation_root, to_snakecase(e['group_id'])), data=e) for e in config.get('entities')
+        GenModule(name=None, root=os.path.join(generation_root, to_snakecase(e['group_id'])), data=e) for e in config.get('entities')
     ]
     src_entity_modules = [
-        GenModule(name='entities', root=os.path.join(generation_root, to_snakecase(e['group_id'])), data={'entities': [e]}, target=to_snakecase(e['_key'])+'.py') for e in config.get('entities')
+        GenModule(name=None, root=os.path.join(generation_root, to_snakecase(e['group_id'])), data={'entities': [e]}, target=to_snakecase(e['_key'])+'.py') for e in config.get('entities')
     ]
     enum_modules = [
         GenModule(
@@ -214,6 +216,10 @@ def main(input_file, output_dir):
         FileMap(jinja_env, output_dir, '__init__.jinja2', per_module=sub_modules),
         FileMap(jinja_env, output_dir, '__init__.jinja2', per_module=entity_modules),
     ]
+
+    if clean:
+        _LOG.info('freshen output directory (clear old files and folders)')
+        shutil.rmtree(generation_dir)
 
     for file_map in file_maps:
         file_map.run(config)

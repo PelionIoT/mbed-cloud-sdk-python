@@ -21,6 +21,7 @@ from mbed_cloud.sdk._modules.devices.enums import EnrollmentBulkDeleteTaskStatus
 from mbed_cloud.sdk._modules.devices.enums import EnrollmentClaimOrderEnum
 from mbed_cloud.sdk._modules.security.enums import CertificateEnrollmentEnrollResultEnum
 from mbed_cloud.sdk._modules.security.enums import CertificateEnrollmentEnrollStatusEnum
+from mbed_cloud.sdk._modules.security.enums import CertificateIssuerIssuerTypeEnum
 from mbed_cloud.sdk._modules.security.enums import CertificateOrderEnum
 from mbed_cloud.sdk._modules.security.enums import CertificateServiceEnum
 from mbed_cloud.sdk._modules.security.enums import CertificateStatusEnum
@@ -29,6 +30,15 @@ from mbed_cloud.sdk._modules.security.enums import CertificateStatusEnum
 __all__ = [
     "ApiKeyOrderEnum",
     "ApiKeyStatusEnum",
+    "CertificateEnrollmentEnrollResultEnum",
+    "CertificateEnrollmentEnrollStatusEnum",
+    "CertificateIssuerIssuerTypeEnum",
+    "CertificateOrderEnum",
+    "CertificateServiceEnum",
+    "CertificateStatusEnum",
+    "EnrollmentBulkCreateTaskStatusEnum",
+    "EnrollmentBulkDeleteTaskStatusEnum",
+    "EnrollmentClaimOrderEnum",
     "MyAccountMfaStatusEnum",
     "MyAccountStatusEnum",
     "MyApiKeyOrderEnum",
@@ -39,12 +49,4 @@ __all__ = [
     "SubtenantAccountStatusEnum",
     "UserOrderEnum",
     "UserStatusEnum",
-    "EnrollmentBulkCreateTaskStatusEnum",
-    "EnrollmentBulkDeleteTaskStatusEnum",
-    "EnrollmentClaimOrderEnum",
-    "CertificateEnrollmentEnrollResultEnum",
-    "CertificateEnrollmentEnrollStatusEnum",
-    "CertificateOrderEnum",
-    "CertificateServiceEnum",
-    "CertificateStatusEnum",
 ]

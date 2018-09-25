@@ -56,7 +56,7 @@ class InstanceFactory:
         
         :rtype: mbed_cloud.sdk.entities.ApiKey
         """
-        from mbed_cloud.sdk.entities import ApiKey
+        from mbed_cloud.sdk import ApiKey
 
         return ApiKey(
             _client=self._client,
@@ -135,7 +135,7 @@ class InstanceFactory:
         
         :rtype: mbed_cloud.sdk.entities.Certificate
         """
-        from mbed_cloud.sdk.entities import Certificate
+        from mbed_cloud.sdk import Certificate
 
         return Certificate(
             _client=self._client,
@@ -185,7 +185,7 @@ class InstanceFactory:
         
         :rtype: mbed_cloud.sdk.entities.CertificateEnrollment
         """
-        from mbed_cloud.sdk.entities import CertificateEnrollment
+        from mbed_cloud.sdk import CertificateEnrollment
 
         return CertificateEnrollment(
             _client=self._client,
@@ -195,6 +195,103 @@ class InstanceFactory:
             enroll_result=enroll_result,
             enroll_status=enroll_status,
             id=id,
+        )
+
+    def certificate_issuer(
+        self,
+        created_at=None,
+        description=None,
+        id=None,
+        issuer_attributes=None,
+        issuer_type=None,
+        name=None,
+        successful=None,
+    ):
+        """Creates a local `CertificateIssuer` instance, binding the client
+
+        :param created_at: Creation UTC time RFC3339.
+        :type created_at: datetime
+        :param description: General description for the certificate issuer.
+        :type description: str
+        :param id: The ID of the certificate issuer.
+        :type id: str
+        :param issuer_attributes: General attributes for connecting the certificate issuer.
+            When the
+            issuer_type is GLOBAL_SIGN, the value shall be empty.
+            When the
+            issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
+        :type issuer_attributes: dict
+        :param issuer_type: The type of the certificate issuer.
+            - GLOBAL_SIGN:
+              Certificates
+            are issued by GlobalSign service. The users must provide their own
+            GlobalSign account credentials.
+            - CFSSL_AUTH:
+              Certificates are
+            issued by CFSSL authenticated signing service.
+              The users must
+            provide their own CFSSL host_url and credentials.
+        :type issuer_type: str
+        :param name: Certificate issuer name, unique per account.
+        :type name: str
+        :param successful: Indicates whether the certificate issuer was verified
+            successfully.
+        :type successful: bool
+        
+        :rtype: mbed_cloud.sdk.entities.CertificateIssuer
+        """
+        from mbed_cloud.sdk import CertificateIssuer
+
+        return CertificateIssuer(
+            _client=self._client,
+            created_at=created_at,
+            description=description,
+            id=id,
+            issuer_attributes=issuer_attributes,
+            issuer_type=issuer_type,
+            name=name,
+            successful=successful,
+        )
+
+    def certificate_issuer_config(
+        self,
+        certificate_issuer_id=None,
+        created_at=None,
+        id=None,
+        is_custom=None,
+        reference=None,
+        updated_at=None,
+    ):
+        """Creates a local `CertificateIssuerConfig` instance, binding the client
+
+        :param certificate_issuer_id: The ID of the certificate issuer.
+            Null if Device Management
+            internal HSM is used.
+        :type certificate_issuer_id: str
+        :param created_at: Created UTC time RFC3339.
+        :type created_at: datetime
+        :param id: The ID of the certificate issuer configuration.
+        :type id: str
+        :param is_custom: 
+        :type is_custom: bool
+        :param reference: The certificate name to which the certificate issuer configuration
+            applies.
+        :type reference: str
+        :param updated_at: Updated UTC time RFC3339.
+        :type updated_at: datetime
+        
+        :rtype: mbed_cloud.sdk.entities.CertificateIssuerConfig
+        """
+        from mbed_cloud.sdk import CertificateIssuerConfig
+
+        return CertificateIssuerConfig(
+            _client=self._client,
+            certificate_issuer_id=certificate_issuer_id,
+            created_at=created_at,
+            id=id,
+            is_custom=is_custom,
+            reference=reference,
+            updated_at=updated_at,
         )
 
     def enrollment_bulk_create_task(
@@ -238,7 +335,7 @@ class InstanceFactory:
         
         :rtype: mbed_cloud.sdk.entities.EnrollmentBulkCreateTask
         """
-        from mbed_cloud.sdk.entities import EnrollmentBulkCreateTask
+        from mbed_cloud.sdk import EnrollmentBulkCreateTask
 
         return EnrollmentBulkCreateTask(
             _client=self._client,
@@ -295,7 +392,7 @@ class InstanceFactory:
         
         :rtype: mbed_cloud.sdk.entities.EnrollmentBulkDeleteTask
         """
-        from mbed_cloud.sdk.entities import EnrollmentBulkDeleteTask
+        from mbed_cloud.sdk import EnrollmentBulkDeleteTask
 
         return EnrollmentBulkDeleteTask(
             _client=self._client,
@@ -343,7 +440,7 @@ class InstanceFactory:
         
         :rtype: mbed_cloud.sdk.entities.EnrollmentClaim
         """
-        from mbed_cloud.sdk.entities import EnrollmentClaim
+        from mbed_cloud.sdk import EnrollmentClaim
 
         return EnrollmentClaim(
             _client=self._client,
@@ -362,7 +459,7 @@ class InstanceFactory:
         
         :rtype: mbed_cloud.sdk.entities.LoginHistory
         """
-        from mbed_cloud.sdk.entities import LoginHistory
+        from mbed_cloud.sdk import LoginHistory
 
         return LoginHistory(_client=self._client)
 
@@ -483,7 +580,7 @@ class InstanceFactory:
         
         :rtype: mbed_cloud.sdk.entities.MyAccount
         """
-        from mbed_cloud.sdk.entities import MyAccount
+        from mbed_cloud.sdk import MyAccount
 
         return MyAccount(
             _client=self._client,
@@ -563,7 +660,7 @@ class InstanceFactory:
         
         :rtype: mbed_cloud.sdk.entities.MyApiKey
         """
-        from mbed_cloud.sdk.entities import MyApiKey
+        from mbed_cloud.sdk import MyApiKey
 
         return MyApiKey(
             _client=self._client,
@@ -585,7 +682,7 @@ class InstanceFactory:
         
         :rtype: mbed_cloud.sdk.entities.PasswordPolicy
         """
-        from mbed_cloud.sdk.entities import PasswordPolicy
+        from mbed_cloud.sdk import PasswordPolicy
 
         return PasswordPolicy(_client=self._client)
 
@@ -618,7 +715,7 @@ class InstanceFactory:
         
         :rtype: mbed_cloud.sdk.entities.PolicyGroup
         """
-        from mbed_cloud.sdk.entities import PolicyGroup
+        from mbed_cloud.sdk import PolicyGroup
 
         return PolicyGroup(
             _client=self._client,
@@ -659,7 +756,7 @@ class InstanceFactory:
         
         :rtype: mbed_cloud.sdk.entities.ServerCredentials
         """
-        from mbed_cloud.sdk.entities import ServerCredentials
+        from mbed_cloud.sdk import ServerCredentials
 
         return ServerCredentials(
             _client=self._client,
@@ -810,7 +907,7 @@ class InstanceFactory:
         
         :rtype: mbed_cloud.sdk.entities.SubtenantAccount
         """
-        from mbed_cloud.sdk.entities import SubtenantAccount
+        from mbed_cloud.sdk import SubtenantAccount
 
         return SubtenantAccount(
             _client=self._client,
@@ -938,7 +1035,7 @@ class InstanceFactory:
         
         :rtype: mbed_cloud.sdk.entities.User
         """
-        from mbed_cloud.sdk.entities import User
+        from mbed_cloud.sdk import User
 
         return User(
             _client=self._client,
