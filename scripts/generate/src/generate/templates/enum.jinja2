@@ -14,10 +14,10 @@ from mbed_cloud.sdk.common.enum import BaseEnum
 
 {% for enum in enums %}
 
-class {{ enum.enum_name.pascal }}(BaseEnum):
-    """Represents the `{{enum.enum_name.pascal}}` options
+class {{ enum.enum_name|to_pascal }}(BaseEnum):
+    """Represents the `{{enum.enum_name|to_pascal}}` options
 
-    as used by Mbed Cloud "{{ enum.group_id.snake }}" functionality
+    as used by Mbed Cloud "{{ enum.group_id|to_snake }}" functionality
     """
 
     {% for value in enum['values'] %}{{ value|upper }} = '{{ value }}'

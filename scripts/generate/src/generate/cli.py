@@ -4,7 +4,7 @@ import argparse
 
 def get_cli():
     """Load cli options"""
-    parser = argparse.ArgumentParser(prog='generator', description='builds SDK core')
+    parser = argparse.ArgumentParser(prog='generator', description='renders SDK foundation')
     parser.add_argument(
         '--source',
         action='store',

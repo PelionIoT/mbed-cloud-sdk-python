@@ -23,6 +23,7 @@ You'll be wanting to use Python 3 for this.
 import logging
 import os
 import subprocess
+import functools
 
 import jinja2
 import yaml
@@ -78,7 +79,7 @@ class FileMap:
         and self.target as the name of the destination file
         """
         for gen_module in self.per_module:
-            _LOG.info('rendering %s', self.template)
+            _LOG.info('rendering %s (%s)', self.template, gen_module.name)
             rendered = self.template.render(gen_module.data or config)
 
             output_dir = os.path.join(*[
@@ -93,6 +94,61 @@ class FileMap:
                 _LOG.info('writing %s', output)
                 fh.write(rendered)
 
+
+@functools.lru_cache()
+def to_snakecase(name):
+    """Converts string to snake_case
+
+    we don't use title because that forces lowercase for the word, whereas we want:
+    PSK -> psk
+    api key -> api_key
+    user -> user
+    """
+    return name.replace(" ", "_").lower()
+
+
+@functools.lru_cache()
+def to_camelcase(name):
+    """Converts snake_case to camelCase
+
+    we don't use title because that forces lowercase for the word, whereas we want:
+    PSK -> PSK
+    api_key -> apiKey
+    user -> User
+    """
+    name = name.replace(" ", "_")
+    parts = name.split("_")
+    upper_first = to_pascalcase(name)
+    return upper_first[0].lower() + upper_first[1:] if len(parts) > 1 else upper_first
+
+
+@functools.lru_cache()
+def to_lower_camelcase(name):
+    """Converts snake_case to lowerCamelCase
+
+    we don't use title because that forces lowercase for the word, whereas we want:
+    PSK -> PSK
+    api_key -> apiKey
+    user -> user
+    """
+    name = name.replace(" ", "_")
+    parts = name.split("_")
+    upper_first = to_pascalcase(name)
+    return upper_first[0].lower() + upper_first[1:]
+
+
+@functools.lru_cache()
+def to_pascalcase(name):
+    """Converts snake_case to PascalCase
+
+    we don't use title because that forces lowercase for the word, whereas we want:
+    PSK -> PSK
+    api_key -> ApiKey
+    user -> User
+    """
+    name = name.replace(" ", "_")
+    name = name.replace("__", "_")
+    return name and "".join(n[0].upper() + n[1:] for n in name.split("_") if n)
 
 def sort_parg_kwarg(items):
     """Very specific sort ordering for ensuring pargs, kwargs are in the correct order"""
@@ -115,25 +171,31 @@ def main(input_file, output_dir):
     )
     jinja_env.filters['repr'] = repr
     jinja_env.filters['pargs_kwargs'] = sort_parg_kwarg
+    jinja_env.filters.update(dict(
+        repr=repr,
+        sort_parg_kwarg=sort_parg_kwarg,
+        to_snake=to_snakecase,
+        to_pascal=to_pascalcase,
+    ))
 
     generation_root = '_modules'
     generation_dir = os.path.join(output_dir, generation_root)
 
     sub_modules = [
-        GenModule(name=g['_key']['snake'], root=generation_root, data=g) for g in config.get('groups')
+        GenModule(name=to_snakecase(group['_key']), root=generation_root, data=group) for group in config.get('groups')
     ]
     entity_modules = [
-        GenModule(name='entities', root=os.path.join(generation_root, e['group_id']['snake']), data=e['group_id']) for e in config.get('entities')
+        GenModule(name='entities', root=os.path.join(generation_root, to_snakecase(e['group_id'])), data=e) for e in config.get('entities')
     ]
     src_entity_modules = [
-        GenModule(name='entities', root=os.path.join(generation_root, e['group_id']['snake']), data={'entities': [e]}, target=e['_key']['snake']+'.py') for e in config.get('entities')
+        GenModule(name='entities', root=os.path.join(generation_root, to_snakecase(e['group_id'])), data={'entities': [e]}, target=to_snakecase(e['_key'])+'.py') for e in config.get('entities')
     ]
     enum_modules = [
         GenModule(
             # name='enums',
-            root=os.path.join(generation_root, g['_key']['snake']),
+            root=os.path.join(generation_root, to_snakecase(g['_key'])),
             data=dict(
-              enums=[e for e in config.get('enums') if e['group_id']['name']==g['_key']['name']]
+              enums=[e for e in config.get('enums') if e['group_id'] == g['_key']]
             )
         ) for g in config.get('groups')
     ]
