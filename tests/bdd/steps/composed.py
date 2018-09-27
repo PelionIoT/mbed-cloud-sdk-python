@@ -5,10 +5,10 @@ from tests.bdd.steps.assignment import set_value
 from tests.bdd.steps.method_call import call_method
 
 
-@when_or_given(u"we have already created a {entity}")
-@when_or_given(u"we have already created a {entity} called {name}")
-@when_or_given(u"we have already created an {entity}")
-@when_or_given(u"we have already created an {entity} called {name}")
+@when_or_given("we have already created a {entity}")
+@when_or_given("we have already created a {entity} called {name}")
+@when_or_given("we have already created an {entity}")
+@when_or_given("we have already created an {entity} called {name}")
 def step_impl(context, entity, name=None):
     instance, key = new_instance(context, entity, name)
     if entity == "ApiKey":

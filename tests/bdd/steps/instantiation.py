@@ -9,11 +9,10 @@ def new_instance(context, entity, name=None):
     klass = getattr(entities, entity, None) or getattr(sdk, entity)
     instance = klass()
     key = name or instance.__class__.__name__.lower()
-    print("new entity", key)
     context.entities[key] = instance
     return instance, key
 
 
 wrapped = new_instance
-wrapped = when_or_given(u"we have a new {entity} called {name}")(wrapped)
-wrapped = when_or_given(u"we have a new {entity}")(wrapped)
+wrapped = when_or_given("we have a new {entity} called {name}")(wrapped)
+wrapped = when_or_given("we have a new {entity}")(wrapped)

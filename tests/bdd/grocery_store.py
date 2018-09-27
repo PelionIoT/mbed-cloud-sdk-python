@@ -6,6 +6,10 @@ import subprocess
 import dotenv
 
 
+def copy_ignore(src, contents):
+    return [c for c in contents if not os.path.exists(c)]
+
+
 def run():
     """Fetches all the cucumbers
 
@@ -21,13 +25,16 @@ def run():
     )
     logging.info("using token: ***%s", gh_token[-4:])
     grocery_store = grocery_store.format(GITHUB_TOKEN=gh_token)
-    checkout_dir = os.path.join(os.path.dirname(__file__), "user_stories")
+    bdd_root = os.path.dirname(__file__)
+    checkout_dir = os.path.join(bdd_root, "user_stories")
     if not os.path.exists(checkout_dir):
         os.makedirs(checkout_dir)
         subprocess.check_call(["git", "init"], cwd=checkout_dir)
     # subprocess.check_call(['git', 'clone', grocery_store, checkout_dir])
     subprocess.check_call(["git", "pull", "--ff", grocery_store], cwd=checkout_dir)
-    logging.info("repository ")
+    logging.info("repository cloned to %s", checkout_dir)
+    subprocess.check_call(['python', '-m', 'behave', bdd_root])
+
 
 
 __name__ == "__main__" and run()

@@ -76,9 +76,10 @@ class Client(object):
             if inspect.isclass(unpack):
                 unpack = unpack()  # noqa - we're going to instantiate it
             try:
-                decoded = response.json()
+                decoded = (response.content or {}) and response.json()
             except Exception as e:
                 # TODO: support other content types here
+                self.config.logger.error('Failed to unpack response body:\n%r', response.content)
                 e.response = response
                 raise e
             else:
