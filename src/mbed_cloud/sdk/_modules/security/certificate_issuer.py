@@ -97,6 +97,7 @@ class CertificateIssuer(Entity):
         
         :rtype: datetime
         """
+
         return self._created_at.value
 
     @created_at.setter
@@ -106,6 +107,7 @@ class CertificateIssuer(Entity):
         :param value: value to set
         :type value: datetime
         """
+
         self._created_at.set(value)
 
     @property
@@ -116,6 +118,7 @@ class CertificateIssuer(Entity):
         
         :rtype: str
         """
+
         return self._description.value
 
     @description.setter
@@ -125,6 +128,7 @@ class CertificateIssuer(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._description.set(value)
 
     @property
@@ -135,6 +139,7 @@ class CertificateIssuer(Entity):
         
         :rtype: str
         """
+
         return self._id.value
 
     @id.setter
@@ -144,6 +149,7 @@ class CertificateIssuer(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._id.set(value)
 
     @property
@@ -156,6 +162,7 @@ class CertificateIssuer(Entity):
         
         :rtype: dict
         """
+
         return self._issuer_attributes.value
 
     @issuer_attributes.setter
@@ -165,6 +172,7 @@ class CertificateIssuer(Entity):
         :param value: value to set
         :type value: dict
         """
+
         self._issuer_attributes.set(value)
 
     @property
@@ -184,6 +192,7 @@ class CertificateIssuer(Entity):
         
         :rtype: str
         """
+
         return self._issuer_type.value
 
     @issuer_type.setter
@@ -193,6 +202,7 @@ class CertificateIssuer(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._issuer_type.set(value)
 
     @property
@@ -203,6 +213,7 @@ class CertificateIssuer(Entity):
         
         :rtype: str
         """
+
         return self._name.value
 
     @name.setter
@@ -212,6 +223,7 @@ class CertificateIssuer(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._name.set(value)
 
     @property
@@ -220,6 +232,7 @@ class CertificateIssuer(Entity):
         
         :rtype: bool
         """
+
         return self._successful.value
 
     @successful.setter
@@ -229,6 +242,7 @@ class CertificateIssuer(Entity):
         :param value: value to set
         :type value: bool
         """
+
         self._successful.set(value)
 
     def create(self, issuer_credentials=None):

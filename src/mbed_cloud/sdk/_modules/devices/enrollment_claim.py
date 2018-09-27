@@ -84,6 +84,7 @@ class EnrollmentClaim(Entity):
         
         :rtype: str
         """
+
         return self._account_id.value
 
     @account_id.setter
@@ -93,6 +94,7 @@ class EnrollmentClaim(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._account_id.set(value)
 
     @property
@@ -101,6 +103,7 @@ class EnrollmentClaim(Entity):
         
         :rtype: datetime
         """
+
         return self._claimed_at.value
 
     @claimed_at.setter
@@ -110,6 +113,7 @@ class EnrollmentClaim(Entity):
         :param value: value to set
         :type value: datetime
         """
+
         self._claimed_at.set(value)
 
     @property
@@ -118,6 +122,7 @@ class EnrollmentClaim(Entity):
         
         :rtype: datetime
         """
+
         return self._created_at.value
 
     @created_at.setter
@@ -127,6 +132,7 @@ class EnrollmentClaim(Entity):
         :param value: value to set
         :type value: datetime
         """
+
         self._created_at.set(value)
 
     @property
@@ -137,6 +143,7 @@ class EnrollmentClaim(Entity):
         
         :rtype: str
         """
+
         return self._enrolled_device_id.value
 
     @enrolled_device_id.setter
@@ -146,6 +153,7 @@ class EnrollmentClaim(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._enrolled_device_id.set(value)
 
     @property
@@ -157,6 +165,7 @@ class EnrollmentClaim(Entity):
         
         :rtype: str
         """
+
         return self._enrollment_identity.value
 
     @enrollment_identity.setter
@@ -166,6 +175,7 @@ class EnrollmentClaim(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._enrollment_identity.set(value)
 
     @property
@@ -176,6 +186,7 @@ class EnrollmentClaim(Entity):
         
         :rtype: datetime
         """
+
         return self._expires_at.value
 
     @expires_at.setter
@@ -185,6 +196,7 @@ class EnrollmentClaim(Entity):
         :param value: value to set
         :type value: datetime
         """
+
         self._expires_at.set(value)
 
     @property
@@ -195,6 +207,7 @@ class EnrollmentClaim(Entity):
         
         :rtype: str
         """
+
         return self._id.value
 
     @id.setter
@@ -204,6 +217,7 @@ class EnrollmentClaim(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._id.set(value)
 
     def create(self):

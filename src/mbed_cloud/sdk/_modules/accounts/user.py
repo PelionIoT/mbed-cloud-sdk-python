@@ -166,6 +166,7 @@ class User(Entity):
         
         :rtype: str
         """
+
         return self._account_id.value
 
     @account_id.setter
@@ -175,6 +176,7 @@ class User(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._account_id.set(value)
 
     @property
@@ -185,6 +187,7 @@ class User(Entity):
         
         :rtype: str
         """
+
         return self._address.value
 
     @address.setter
@@ -194,6 +197,7 @@ class User(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._address.set(value)
 
     @property
@@ -204,6 +208,7 @@ class User(Entity):
         
         :rtype: datetime
         """
+
         return self._created_at.value
 
     @created_at.setter
@@ -213,6 +218,7 @@ class User(Entity):
         :param value: value to set
         :type value: datetime
         """
+
         self._created_at.set(value)
 
     @property
@@ -223,6 +229,7 @@ class User(Entity):
         
         :rtype: int
         """
+
         return self._creation_time.value
 
     @creation_time.setter
@@ -232,6 +239,7 @@ class User(Entity):
         :param value: value to set
         :type value: int
         """
+
         self._creation_time.set(value)
 
     @property
@@ -242,6 +250,7 @@ class User(Entity):
         
         :rtype: str
         """
+
         return self._email.value
 
     @email.setter
@@ -251,6 +260,7 @@ class User(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._email.set(value)
 
     @property
@@ -261,6 +271,7 @@ class User(Entity):
         
         :rtype: bool
         """
+
         return self._email_verified.value
 
     @email_verified.setter
@@ -270,6 +281,7 @@ class User(Entity):
         :param value: value to set
         :type value: bool
         """
+
         self._email_verified.set(value)
 
     @property
@@ -280,6 +292,7 @@ class User(Entity):
         
         :rtype: str
         """
+
         return self._full_name.value
 
     @full_name.setter
@@ -289,6 +302,7 @@ class User(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._full_name.set(value)
 
     @property
@@ -297,6 +311,7 @@ class User(Entity):
         
         :rtype: list
         """
+
         return self._group_ids.value
 
     @group_ids.setter
@@ -306,6 +321,7 @@ class User(Entity):
         :param value: value to set
         :type value: list
         """
+
         self._group_ids.set(value)
 
     @property
@@ -316,6 +332,7 @@ class User(Entity):
         
         :rtype: str
         """
+
         return self._id.value
 
     @id.setter
@@ -325,6 +342,7 @@ class User(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._id.set(value)
 
     @property
@@ -335,6 +353,7 @@ class User(Entity):
         
         :rtype: int
         """
+
         return self._last_login_time.value
 
     @last_login_time.setter
@@ -344,6 +363,7 @@ class User(Entity):
         :param value: value to set
         :type value: int
         """
+
         self._last_login_time.set(value)
 
     @property
@@ -353,6 +373,7 @@ class User(Entity):
         
         :rtype: list
         """
+
         return self._login_history.value
 
     @login_history.setter
@@ -362,6 +383,7 @@ class User(Entity):
         :param value: value to set
         :type value: list
         """
+
         self._login_history.set(value)
 
     @property
@@ -372,6 +394,7 @@ class User(Entity):
         
         :rtype: bool
         """
+
         return self._marketing_accepted.value
 
     @marketing_accepted.setter
@@ -381,6 +404,7 @@ class User(Entity):
         :param value: value to set
         :type value: bool
         """
+
         self._marketing_accepted.set(value)
 
     @property
@@ -392,6 +416,7 @@ class User(Entity):
         
         :rtype: str
         """
+
         return self._password.value
 
     @password.setter
@@ -401,6 +426,7 @@ class User(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._password.set(value)
 
     @property
@@ -411,6 +437,7 @@ class User(Entity):
         
         :rtype: int
         """
+
         return self._password_changed_time.value
 
     @password_changed_time.setter
@@ -420,6 +447,7 @@ class User(Entity):
         :param value: value to set
         :type value: int
         """
+
         self._password_changed_time.set(value)
 
     @property
@@ -430,6 +458,7 @@ class User(Entity):
         
         :rtype: str
         """
+
         return self._phone_number.value
 
     @phone_number.setter
@@ -439,6 +468,7 @@ class User(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._phone_number.set(value)
 
     @property
@@ -453,6 +483,7 @@ class User(Entity):
         
         :rtype: str
         """
+
         return self._status.value
 
     @status.setter
@@ -462,6 +493,7 @@ class User(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._status.set(value)
 
     @property
@@ -472,6 +504,7 @@ class User(Entity):
         
         :rtype: bool
         """
+
         return self._terms_accepted.value
 
     @terms_accepted.setter
@@ -481,6 +514,7 @@ class User(Entity):
         :param value: value to set
         :type value: bool
         """
+
         self._terms_accepted.set(value)
 
     @property
@@ -491,6 +525,7 @@ class User(Entity):
         
         :rtype: bool
         """
+
         return self._two_factor_authentication.value
 
     @two_factor_authentication.setter
@@ -500,6 +535,7 @@ class User(Entity):
         :param value: value to set
         :type value: bool
         """
+
         self._two_factor_authentication.set(value)
 
     @property
@@ -510,6 +546,7 @@ class User(Entity):
         
         :rtype: datetime
         """
+
         return self._updated_at.value
 
     @updated_at.setter
@@ -519,6 +556,7 @@ class User(Entity):
         :param value: value to set
         :type value: datetime
         """
+
         self._updated_at.set(value)
 
     @property
@@ -529,6 +567,7 @@ class User(Entity):
         
         :rtype: str
         """
+
         return self._username.value
 
     @username.setter
@@ -538,6 +577,7 @@ class User(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._username.set(value)
 
     def add_to_groups(self, add_to_group_ids):

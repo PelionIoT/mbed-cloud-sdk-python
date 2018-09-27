@@ -231,6 +231,7 @@ class MyAccount(Entity):
         
         :rtype: str
         """
+
         return self._address_line1.value
 
     @address_line1.setter
@@ -240,6 +241,7 @@ class MyAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._address_line1.set(value)
 
     @property
@@ -250,6 +252,7 @@ class MyAccount(Entity):
         
         :rtype: str
         """
+
         return self._address_line2.value
 
     @address_line2.setter
@@ -259,6 +262,7 @@ class MyAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._address_line2.set(value)
 
     @property
@@ -267,6 +271,7 @@ class MyAccount(Entity):
         
         :rtype: list
         """
+
         return self._aliases.value
 
     @aliases.setter
@@ -276,6 +281,7 @@ class MyAccount(Entity):
         :param value: value to set
         :type value: list
         """
+
         self._aliases.set(value)
 
     @property
@@ -286,6 +292,7 @@ class MyAccount(Entity):
         
         :rtype: str
         """
+
         return self._city.value
 
     @city.setter
@@ -295,6 +302,7 @@ class MyAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._city.set(value)
 
     @property
@@ -305,6 +313,7 @@ class MyAccount(Entity):
         
         :rtype: str
         """
+
         return self._company.value
 
     @company.setter
@@ -314,6 +323,7 @@ class MyAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._company.set(value)
 
     @property
@@ -324,6 +334,7 @@ class MyAccount(Entity):
         
         :rtype: str
         """
+
         return self._contact.value
 
     @contact.setter
@@ -333,6 +344,7 @@ class MyAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._contact.set(value)
 
     @property
@@ -343,6 +355,7 @@ class MyAccount(Entity):
         
         :rtype: str
         """
+
         return self._contract_number.value
 
     @contract_number.setter
@@ -352,6 +365,7 @@ class MyAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._contract_number.set(value)
 
     @property
@@ -362,6 +376,7 @@ class MyAccount(Entity):
         
         :rtype: str
         """
+
         return self._country.value
 
     @country.setter
@@ -371,6 +386,7 @@ class MyAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._country.set(value)
 
     @property
@@ -381,6 +397,7 @@ class MyAccount(Entity):
         
         :rtype: datetime
         """
+
         return self._created_at.value
 
     @created_at.setter
@@ -390,6 +407,7 @@ class MyAccount(Entity):
         :param value: value to set
         :type value: datetime
         """
+
         self._created_at.set(value)
 
     @property
@@ -398,6 +416,7 @@ class MyAccount(Entity):
         
         :rtype: dict
         """
+
         return self._custom_fields.value
 
     @custom_fields.setter
@@ -407,6 +426,7 @@ class MyAccount(Entity):
         :param value: value to set
         :type value: dict
         """
+
         self._custom_fields.set(value)
 
     @property
@@ -417,6 +437,7 @@ class MyAccount(Entity):
         
         :rtype: str
         """
+
         return self._customer_number.value
 
     @customer_number.setter
@@ -426,6 +447,7 @@ class MyAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._customer_number.set(value)
 
     @property
@@ -436,6 +458,7 @@ class MyAccount(Entity):
         
         :rtype: str
         """
+
         return self._display_name.value
 
     @display_name.setter
@@ -445,6 +468,7 @@ class MyAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._display_name.set(value)
 
     @property
@@ -455,6 +479,7 @@ class MyAccount(Entity):
         
         :rtype: str
         """
+
         return self._email.value
 
     @email.setter
@@ -464,6 +489,7 @@ class MyAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._email.set(value)
 
     @property
@@ -474,6 +500,7 @@ class MyAccount(Entity):
         
         :rtype: str
         """
+
         return self._end_market.value
 
     @end_market.setter
@@ -483,6 +510,7 @@ class MyAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._end_market.set(value)
 
     @property
@@ -494,6 +522,7 @@ class MyAccount(Entity):
         
         :rtype: str
         """
+
         return self._expiration_warning_threshold.value
 
     @expiration_warning_threshold.setter
@@ -503,6 +532,7 @@ class MyAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._expiration_warning_threshold.set(value)
 
     @property
@@ -513,6 +543,7 @@ class MyAccount(Entity):
         
         :rtype: str
         """
+
         return self._id.value
 
     @id.setter
@@ -522,6 +553,7 @@ class MyAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._id.set(value)
 
     @property
@@ -532,6 +564,7 @@ class MyAccount(Entity):
         
         :rtype: str
         """
+
         return self._idle_timeout.value
 
     @idle_timeout.setter
@@ -541,6 +574,7 @@ class MyAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._idle_timeout.set(value)
 
     @property
@@ -549,6 +583,7 @@ class MyAccount(Entity):
         
         :rtype: dict
         """
+
         return self._limits.value
 
     @limits.setter
@@ -558,6 +593,7 @@ class MyAccount(Entity):
         :param value: value to set
         :type value: dict
         """
+
         self._limits.set(value)
 
     @property
@@ -567,6 +603,7 @@ class MyAccount(Entity):
         
         :rtype: str
         """
+
         return self._mfa_status.value
 
     @mfa_status.setter
@@ -576,6 +613,7 @@ class MyAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._mfa_status.set(value)
 
     @property
@@ -584,6 +622,7 @@ class MyAccount(Entity):
         
         :rtype: list
         """
+
         return self._notification_emails.value
 
     @notification_emails.setter
@@ -593,6 +632,7 @@ class MyAccount(Entity):
         :param value: value to set
         :type value: list
         """
+
         self._notification_emails.set(value)
 
     @property
@@ -603,6 +643,7 @@ class MyAccount(Entity):
         
         :rtype: str
         """
+
         return self._parent_id.value
 
     @parent_id.setter
@@ -612,6 +653,7 @@ class MyAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._parent_id.set(value)
 
     @property
@@ -620,6 +662,7 @@ class MyAccount(Entity):
         
         :rtype: dict
         """
+
         return self._password_policy.value
 
     @password_policy.setter
@@ -629,6 +672,7 @@ class MyAccount(Entity):
         :param value: value to set
         :type value: dict
         """
+
         self._password_policy.set(value)
 
     @property
@@ -639,6 +683,7 @@ class MyAccount(Entity):
         
         :rtype: str
         """
+
         return self._phone_number.value
 
     @phone_number.setter
@@ -648,6 +693,7 @@ class MyAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._phone_number.set(value)
 
     @property
@@ -656,6 +702,7 @@ class MyAccount(Entity):
         
         :rtype: list
         """
+
         return self._policies.value
 
     @policies.setter
@@ -665,6 +712,7 @@ class MyAccount(Entity):
         :param value: value to set
         :type value: list
         """
+
         self._policies.set(value)
 
     @property
@@ -675,6 +723,7 @@ class MyAccount(Entity):
         
         :rtype: str
         """
+
         return self._postal_code.value
 
     @postal_code.setter
@@ -684,6 +733,7 @@ class MyAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._postal_code.set(value)
 
     @property
@@ -694,6 +744,7 @@ class MyAccount(Entity):
         
         :rtype: str
         """
+
         return self._reason.value
 
     @reason.setter
@@ -703,6 +754,7 @@ class MyAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._reason.set(value)
 
     @property
@@ -713,6 +765,7 @@ class MyAccount(Entity):
         
         :rtype: str
         """
+
         return self._reference_note.value
 
     @reference_note.setter
@@ -722,6 +775,7 @@ class MyAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._reference_note.set(value)
 
     @property
@@ -732,6 +786,7 @@ class MyAccount(Entity):
         
         :rtype: str
         """
+
         return self._sales_contact.value
 
     @sales_contact.setter
@@ -741,6 +796,7 @@ class MyAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._sales_contact.set(value)
 
     @property
@@ -751,6 +807,7 @@ class MyAccount(Entity):
         
         :rtype: str
         """
+
         return self._state.value
 
     @state.setter
@@ -760,6 +817,7 @@ class MyAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._state.set(value)
 
     @property
@@ -770,6 +828,7 @@ class MyAccount(Entity):
         
         :rtype: str
         """
+
         return self._status.value
 
     @status.setter
@@ -779,6 +838,7 @@ class MyAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._status.set(value)
 
     @property
@@ -787,6 +847,7 @@ class MyAccount(Entity):
         
         :rtype: list[SubtenantAccount]
         """
+
         return self._sub_accounts.value
 
     @sub_accounts.setter
@@ -796,6 +857,7 @@ class MyAccount(Entity):
         :param value: value to set
         :type value: list[SubtenantAccount]
         """
+
         self._sub_accounts.set(value)
 
     @property
@@ -806,6 +868,7 @@ class MyAccount(Entity):
         
         :rtype: str
         """
+
         return self._template_id.value
 
     @template_id.setter
@@ -815,6 +878,7 @@ class MyAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._template_id.set(value)
 
     @property
@@ -826,6 +890,7 @@ class MyAccount(Entity):
         
         :rtype: str
         """
+
         return self._tier.value
 
     @tier.setter
@@ -835,6 +900,7 @@ class MyAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._tier.set(value)
 
     @property
@@ -845,6 +911,7 @@ class MyAccount(Entity):
         
         :rtype: datetime
         """
+
         return self._updated_at.value
 
     @updated_at.setter
@@ -854,6 +921,7 @@ class MyAccount(Entity):
         :param value: value to set
         :type value: datetime
         """
+
         self._updated_at.set(value)
 
     @property
@@ -864,6 +932,7 @@ class MyAccount(Entity):
         
         :rtype: datetime
         """
+
         return self._upgraded_at.value
 
     @upgraded_at.setter
@@ -873,6 +942,7 @@ class MyAccount(Entity):
         :param value: value to set
         :type value: datetime
         """
+
         self._upgraded_at.set(value)
 
     def get(self, include=None, properties=None):

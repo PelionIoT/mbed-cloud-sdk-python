@@ -101,6 +101,7 @@ class EnrollmentBulkCreateTask(Entity):
         
         :rtype: str
         """
+
         return self._account_id.value
 
     @account_id.setter
@@ -110,6 +111,7 @@ class EnrollmentBulkCreateTask(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._account_id.set(value)
 
     @property
@@ -118,6 +120,7 @@ class EnrollmentBulkCreateTask(Entity):
         
         :rtype: datetime
         """
+
         return self._completed_at.value
 
     @completed_at.setter
@@ -127,6 +130,7 @@ class EnrollmentBulkCreateTask(Entity):
         :param value: value to set
         :type value: datetime
         """
+
         self._completed_at.set(value)
 
     @property
@@ -135,6 +139,7 @@ class EnrollmentBulkCreateTask(Entity):
         
         :rtype: datetime
         """
+
         return self._created_at.value
 
     @created_at.setter
@@ -144,6 +149,7 @@ class EnrollmentBulkCreateTask(Entity):
         :param value: value to set
         :type value: datetime
         """
+
         self._created_at.set(value)
 
     @property
@@ -152,6 +158,7 @@ class EnrollmentBulkCreateTask(Entity):
         
         :rtype: int
         """
+
         return self._errors_count.value
 
     @errors_count.setter
@@ -161,6 +168,7 @@ class EnrollmentBulkCreateTask(Entity):
         :param value: value to set
         :type value: int
         """
+
         self._errors_count.set(value)
 
     @property
@@ -172,6 +180,7 @@ class EnrollmentBulkCreateTask(Entity):
         
         :rtype: str
         """
+
         return self._errors_report_file.value
 
     @errors_report_file.setter
@@ -181,6 +190,7 @@ class EnrollmentBulkCreateTask(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._errors_report_file.set(value)
 
     @property
@@ -192,6 +202,7 @@ class EnrollmentBulkCreateTask(Entity):
         
         :rtype: str
         """
+
         return self._full_report_file.value
 
     @full_report_file.setter
@@ -201,6 +212,7 @@ class EnrollmentBulkCreateTask(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._full_report_file.set(value)
 
     @property
@@ -209,6 +221,7 @@ class EnrollmentBulkCreateTask(Entity):
         
         :rtype: str
         """
+
         return self._id.value
 
     @id.setter
@@ -218,6 +231,7 @@ class EnrollmentBulkCreateTask(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._id.set(value)
 
     @property
@@ -226,6 +240,7 @@ class EnrollmentBulkCreateTask(Entity):
         
         :rtype: int
         """
+
         return self._processed_count.value
 
     @processed_count.setter
@@ -235,6 +250,7 @@ class EnrollmentBulkCreateTask(Entity):
         :param value: value to set
         :type value: int
         """
+
         self._processed_count.set(value)
 
     @property
@@ -247,6 +263,7 @@ class EnrollmentBulkCreateTask(Entity):
         
         :rtype: str
         """
+
         return self._status.value
 
     @status.setter
@@ -256,6 +273,7 @@ class EnrollmentBulkCreateTask(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._status.set(value)
 
     @property
@@ -266,6 +284,7 @@ class EnrollmentBulkCreateTask(Entity):
         
         :rtype: int
         """
+
         return self._total_count.value
 
     @total_count.setter
@@ -275,6 +294,7 @@ class EnrollmentBulkCreateTask(Entity):
         :param value: value to set
         :type value: int
         """
+
         self._total_count.set(value)
 
     def create(self, enrollment_identities):

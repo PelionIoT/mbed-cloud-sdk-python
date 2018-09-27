@@ -12,6 +12,19 @@ from builtins import object
 from mbed_cloud.sdk.common.enum import BaseEnum
 
 
+class CertificateCertificateTypeEnum(BaseEnum):
+    """Represents the `CertificateCertificateTypeEnum` options
+
+    as used by Mbed Cloud "security" functionality
+    """
+
+    BOOTSTRAP = "BOOTSTRAP"
+    DEVELOPER = "DEVELOPER"
+    LWM2M = "LWM2M"
+
+    values = frozenset(("BOOTSTRAP", "DEVELOPER", "LWM2M"))
+
+
 class CertificateEnrollmentEnrollResultEnum(BaseEnum):
     """Represents the `CertificateEnrollmentEnrollResultEnum` options
 

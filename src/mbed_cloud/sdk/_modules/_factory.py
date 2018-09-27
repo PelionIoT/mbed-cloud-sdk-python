@@ -76,18 +76,17 @@ class InstanceFactory:
         self,
         account_id=None,
         certificate=None,
+        certificate_type=None,
         created_at=None,
         description=None,
         developer_certificate=None,
         developer_private_key=None,
-        device_execution_mode=None,
         enrollment_mode=None,
         id=None,
         issuer=None,
         name=None,
         owner_id=None,
         security_file_content=None,
-        service=None,
         status=None,
         subject=None,
         updated_at=None,
@@ -99,6 +98,8 @@ class InstanceFactory:
         :type account_id: str
         :param certificate: X509.v3 trusted certificate in PEM format.
         :type certificate: str
+        :param certificate_type: The type of the certificate.
+        :type certificate_type: str
         :param created_at: Creation UTC time RFC3339.
         :type created_at: datetime
         :param description: Human readable description of this certificate.
@@ -141,6 +142,7 @@ class InstanceFactory:
             _client=self._client,
             account_id=account_id,
             certificate=certificate,
+            certificate_type=certificate_type,
             created_at=created_at,
             description=description,
             developer_certificate=developer_certificate,

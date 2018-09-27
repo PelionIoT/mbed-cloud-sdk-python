@@ -80,6 +80,7 @@ class CertificateEnrollment(Entity):
         
         :rtype: str
         """
+
         return self._certificate_name.value
 
     @certificate_name.setter
@@ -89,6 +90,7 @@ class CertificateEnrollment(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._certificate_name.set(value)
 
     @property
@@ -99,6 +101,7 @@ class CertificateEnrollment(Entity):
         
         :rtype: datetime
         """
+
         return self._created_at.value
 
     @created_at.setter
@@ -108,6 +111,7 @@ class CertificateEnrollment(Entity):
         :param value: value to set
         :type value: datetime
         """
+
         self._created_at.set(value)
 
     @property
@@ -118,6 +122,7 @@ class CertificateEnrollment(Entity):
         
         :rtype: str
         """
+
         return self._device_id.value
 
     @device_id.setter
@@ -127,6 +132,7 @@ class CertificateEnrollment(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._device_id.set(value)
 
     @property
@@ -135,6 +141,7 @@ class CertificateEnrollment(Entity):
         
         :rtype: str
         """
+
         return self._enroll_result.value
 
     @enroll_result.setter
@@ -144,6 +151,7 @@ class CertificateEnrollment(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._enroll_result.set(value)
 
     @property
@@ -152,6 +160,7 @@ class CertificateEnrollment(Entity):
         
         :rtype: str
         """
+
         return self._enroll_status.value
 
     @enroll_status.setter
@@ -161,6 +170,7 @@ class CertificateEnrollment(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._enroll_status.set(value)
 
     @property
@@ -171,6 +181,7 @@ class CertificateEnrollment(Entity):
         
         :rtype: str
         """
+
         return self._id.value
 
     @id.setter
@@ -180,6 +191,7 @@ class CertificateEnrollment(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._id.set(value)
 
     def get(self, certificate_enrollment_id):

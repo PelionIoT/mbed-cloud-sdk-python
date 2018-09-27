@@ -79,7 +79,9 @@ class Client(object):
                 decoded = (response.content or {}) and response.json()
             except Exception as e:
                 # TODO: support other content types here
-                self.config.logger.error('Failed to unpack response body:\n%r', response.content)
+                self.config.logger.error(
+                    "Failed to unpack response body:\n%r", response.content
+                )
                 e.response = response
                 raise e
             else:

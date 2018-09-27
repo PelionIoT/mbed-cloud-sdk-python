@@ -21,7 +21,7 @@ class InstanceFactory:
     {% for entity in entities %}
     def {{ entity._key|to_snake }}(
         self,
-        {% for field in entity.fields %}
+        {% for field in entity.fields if not field.private_field %}
             {{field._key|to_snake}}=None,
         {% endfor %}
     ):

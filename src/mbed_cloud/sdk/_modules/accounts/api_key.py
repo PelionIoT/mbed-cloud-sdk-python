@@ -97,6 +97,7 @@ class ApiKey(Entity):
         
         :rtype: datetime
         """
+
         return self._created_at.value
 
     @created_at.setter
@@ -106,6 +107,7 @@ class ApiKey(Entity):
         :param value: value to set
         :type value: datetime
         """
+
         self._created_at.set(value)
 
     @property
@@ -116,6 +118,7 @@ class ApiKey(Entity):
         
         :rtype: int
         """
+
         return self._creation_time.value
 
     @creation_time.setter
@@ -125,6 +128,7 @@ class ApiKey(Entity):
         :param value: value to set
         :type value: int
         """
+
         self._creation_time.set(value)
 
     @property
@@ -133,6 +137,7 @@ class ApiKey(Entity):
         
         :rtype: list
         """
+
         return self._group_ids.value
 
     @group_ids.setter
@@ -142,6 +147,7 @@ class ApiKey(Entity):
         :param value: value to set
         :type value: list
         """
+
         self._group_ids.set(value)
 
     @property
@@ -152,6 +158,7 @@ class ApiKey(Entity):
         
         :rtype: str
         """
+
         return self._id.value
 
     @id.setter
@@ -161,6 +168,7 @@ class ApiKey(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._id.set(value)
 
     @property
@@ -172,6 +180,7 @@ class ApiKey(Entity):
         
         :rtype: str
         """
+
         return self._key.value
 
     @key.setter
@@ -181,6 +190,7 @@ class ApiKey(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._key.set(value)
 
     @property
@@ -191,6 +201,7 @@ class ApiKey(Entity):
         
         :rtype: int
         """
+
         return self._last_login_time.value
 
     @last_login_time.setter
@@ -200,6 +211,7 @@ class ApiKey(Entity):
         :param value: value to set
         :type value: int
         """
+
         self._last_login_time.set(value)
 
     @property
@@ -210,6 +222,7 @@ class ApiKey(Entity):
         
         :rtype: str
         """
+
         return self._name.value
 
     @name.setter
@@ -219,6 +232,7 @@ class ApiKey(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._name.set(value)
 
     @property
@@ -229,6 +243,7 @@ class ApiKey(Entity):
         
         :rtype: str
         """
+
         return self._owner.value
 
     @owner.setter
@@ -238,6 +253,7 @@ class ApiKey(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._owner.set(value)
 
     @property
@@ -248,6 +264,7 @@ class ApiKey(Entity):
         
         :rtype: str
         """
+
         return self._status.value
 
     @status.setter
@@ -257,6 +274,7 @@ class ApiKey(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._status.set(value)
 
     @property
@@ -267,6 +285,7 @@ class ApiKey(Entity):
         
         :rtype: datetime
         """
+
         return self._updated_at.value
 
     @updated_at.setter
@@ -276,6 +295,7 @@ class ApiKey(Entity):
         :param value: value to set
         :type value: datetime
         """
+
         self._updated_at.set(value)
 
     def create(self):

@@ -35,13 +35,13 @@ class {{ entity._key|to_pascal }}(Entity):
 
     def __init__(
         self, _client=None{% if entity.fields %},{% endif %}
-        {% for field in entity.fields %}
+        {% for field in entity.fields if not field.private_field %}
             {{field._key|to_snake}}=None,
         {% endfor %}
     ):
         """Creates a local `{{entity._key|to_pascal}}` instance
 
-        {% for field in entity.fields %}:param {{field._key|to_snake}}: {{ (field.description or '')|wordwrap(width=66)|indent(width=12) }}
+        {% for field in entity.fields if not field.private_field %}:param {{field._key|to_snake}}: {{ (field.description or '')|wordwrap(width=66)|indent(width=12) }}
         :type {{field._key|to_snake}}: {{field.python_type}}
         {% endfor %}"""
 
@@ -53,7 +53,7 @@ class {{ entity._key|to_pascal }}(Entity):
 
         # fields
         {% for field in entity.fields %}self._{{field._key|to_snake}} = fields.{{field.python_field}}(
-            value={{field._key|to_snake}}
+            value={{'None' if field.private_field else field._key|to_snake}}
             {% if field.enum_reference %}
             , enum=enums.{{ field.enum_reference|to_pascal }}
             {% endif %}
@@ -72,7 +72,12 @@ class {{ entity._key|to_pascal }}(Entity):
         {% endif %}
         :rtype: {{ field.python_type }}{% if field['items'] and field['items'].foreign_key %}[{{ field['items'].foreign_key.entity|to_pascal }}]{% endif %}{% if field.foreign_key %}[{{ field.foreign_key.entity|to_pascal }}]{% endif %}
         """
+        {% if field.getter_custom_method %}
+        from mbed_cloud.sdk.common._custom_methods import {{ field.getter_custom_method }}
+        return {{ field.getter_custom_method }}(self=self, field=self._{{field._key|to_snake}})
+        {% else %}
         return self._{{field._key|to_snake}}.value
+        {% endif %}
     {% if not field.read_only and not field=='id' %}
     @{{ field._key|to_snake }}.setter
     def {{field._key|to_snake}}(self, value):
@@ -81,7 +86,12 @@ class {{ entity._key|to_pascal }}(Entity):
         :param value: value to set
         :type value: {{ field.python_type }}{% if field['items'] and field['items'].foreign_key %}[{{ field['items'].foreign_key.entity|to_pascal }}]{% endif %}{% if field.foreign_key %}[{{ field.foreign_key.entity|to_pascal }}]{% endif %}
         """
+        {% if field.setter_custom_method %}
+        from mbed_cloud.sdk.common._custom_methods import {{ field.setter_custom_method }}
+        return {{ field.setter_custom_method }}(self=self, field=self._{{field._key|to_snake}}, value=value)
+        {% else %}
         self._{{field._key|to_snake}}.set(value)
+        {% endif %}
     {% endif %}
     {% endfor %}
 

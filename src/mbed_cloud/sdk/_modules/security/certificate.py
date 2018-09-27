@@ -21,6 +21,7 @@ class Certificate(Entity):
     _fieldnames = [
         "account_id",
         "certificate",
+        "certificate_type",
         "created_at",
         "description",
         "developer_certificate",
@@ -47,18 +48,17 @@ class Certificate(Entity):
         _client=None,
         account_id=None,
         certificate=None,
+        certificate_type=None,
         created_at=None,
         description=None,
         developer_certificate=None,
         developer_private_key=None,
-        device_execution_mode=None,
         enrollment_mode=None,
         id=None,
         issuer=None,
         name=None,
         owner_id=None,
         security_file_content=None,
-        service=None,
         status=None,
         subject=None,
         updated_at=None,
@@ -70,6 +70,8 @@ class Certificate(Entity):
         :type account_id: str
         :param certificate: X509.v3 trusted certificate in PEM format.
         :type certificate: str
+        :param certificate_type: The type of the certificate.
+        :type certificate_type: str
         :param created_at: Creation UTC time RFC3339.
         :type created_at: datetime
         :param description: Human readable description of this certificate.
@@ -78,8 +80,6 @@ class Certificate(Entity):
         :type developer_certificate: str
         :param developer_private_key: PEM format developer private key associated to the certificate.
         :type developer_private_key: str
-        :param device_execution_mode: Device execution mode where 1 means a developer certificate.
-        :type device_execution_mode: int
         :param enrollment_mode: If true, signature is not required. Default value false.
         :type enrollment_mode: bool
         :param id: Entity ID.
@@ -93,8 +93,6 @@ class Certificate(Entity):
         :param security_file_content: Content of the security.c file that will be flashed into the
             device to provide the security credentials
         :type security_file_content: str
-        :param service: Service name where the certificate is to be used.
-        :type service: str
         :param status: Status of the certificate.
         :type status: str
         :param subject: Subject of the certificate.
@@ -112,11 +110,14 @@ class Certificate(Entity):
         # fields
         self._account_id = fields.StringField(value=account_id)
         self._certificate = fields.StringField(value=certificate)
+        self._certificate_type = fields.StringField(
+            value=certificate_type, enum=enums.CertificateCertificateTypeEnum
+        )
         self._created_at = fields.DateTimeField(value=created_at)
         self._description = fields.StringField(value=description)
         self._developer_certificate = fields.StringField(value=developer_certificate)
         self._developer_private_key = fields.StringField(value=developer_private_key)
-        self._device_execution_mode = fields.IntegerField(value=device_execution_mode)
+        self._device_execution_mode = fields.IntegerField(value=None)
         self._enrollment_mode = fields.BooleanField(value=enrollment_mode)
         self._id = fields.StringField(value=id)
         self._issuer = fields.StringField(value=issuer)
@@ -124,7 +125,7 @@ class Certificate(Entity):
         self._owner_id = fields.StringField(value=owner_id)
         self._security_file_content = fields.StringField(value=security_file_content)
         self._service = fields.StringField(
-            value=service, enum=enums.CertificateServiceEnum
+            value=None, enum=enums.CertificateServiceEnum
         )
         self._status = fields.StringField(
             value=status, enum=enums.CertificateStatusEnum
@@ -141,6 +142,7 @@ class Certificate(Entity):
         
         :rtype: str
         """
+
         return self._account_id.value
 
     @account_id.setter
@@ -150,6 +152,7 @@ class Certificate(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._account_id.set(value)
 
     @property
@@ -160,6 +163,7 @@ class Certificate(Entity):
         
         :rtype: str
         """
+
         return self._certificate.value
 
     @certificate.setter
@@ -169,7 +173,35 @@ class Certificate(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._certificate.set(value)
+
+    @property
+    def certificate_type(self):
+        """The type of the certificate.
+        
+        api example: 'DEVELOPER'
+        
+        :rtype: str
+        """
+
+        from mbed_cloud.sdk.common._custom_methods import certificate_type_getter
+
+        return certificate_type_getter(self=self, field=self._certificate_type)
+
+    @certificate_type.setter
+    def certificate_type(self, value):
+        """Set value of `certificate_type`
+
+        :param value: value to set
+        :type value: str
+        """
+
+        from mbed_cloud.sdk.common._custom_methods import certificate_type_setter
+
+        return certificate_type_setter(
+            self=self, field=self._certificate_type, value=value
+        )
 
     @property
     def created_at(self):
@@ -179,6 +211,7 @@ class Certificate(Entity):
         
         :rtype: datetime
         """
+
         return self._created_at.value
 
     @created_at.setter
@@ -188,6 +221,7 @@ class Certificate(Entity):
         :param value: value to set
         :type value: datetime
         """
+
         self._created_at.set(value)
 
     @property
@@ -198,6 +232,7 @@ class Certificate(Entity):
         
         :rtype: str
         """
+
         return self._description.value
 
     @description.setter
@@ -207,6 +242,7 @@ class Certificate(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._description.set(value)
 
     @property
@@ -215,6 +251,7 @@ class Certificate(Entity):
         
         :rtype: str
         """
+
         return self._developer_certificate.value
 
     @developer_certificate.setter
@@ -224,6 +261,7 @@ class Certificate(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._developer_certificate.set(value)
 
     @property
@@ -232,6 +270,7 @@ class Certificate(Entity):
         
         :rtype: str
         """
+
         return self._developer_private_key.value
 
     @developer_private_key.setter
@@ -241,6 +280,7 @@ class Certificate(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._developer_private_key.set(value)
 
     @property
@@ -251,6 +291,7 @@ class Certificate(Entity):
         
         :rtype: int
         """
+
         return self._device_execution_mode.value
 
     @device_execution_mode.setter
@@ -260,6 +301,7 @@ class Certificate(Entity):
         :param value: value to set
         :type value: int
         """
+
         self._device_execution_mode.set(value)
 
     @property
@@ -268,6 +310,7 @@ class Certificate(Entity):
         
         :rtype: bool
         """
+
         return self._enrollment_mode.value
 
     @enrollment_mode.setter
@@ -277,6 +320,7 @@ class Certificate(Entity):
         :param value: value to set
         :type value: bool
         """
+
         self._enrollment_mode.set(value)
 
     @property
@@ -287,6 +331,7 @@ class Certificate(Entity):
         
         :rtype: str
         """
+
         return self._id.value
 
     @id.setter
@@ -296,6 +341,7 @@ class Certificate(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._id.set(value)
 
     @property
@@ -306,6 +352,7 @@ class Certificate(Entity):
         
         :rtype: str
         """
+
         return self._issuer.value
 
     @issuer.setter
@@ -315,6 +362,7 @@ class Certificate(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._issuer.set(value)
 
     @property
@@ -325,6 +373,7 @@ class Certificate(Entity):
         
         :rtype: str
         """
+
         return self._name.value
 
     @name.setter
@@ -334,6 +383,7 @@ class Certificate(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._name.set(value)
 
     @property
@@ -344,6 +394,7 @@ class Certificate(Entity):
         
         :rtype: str
         """
+
         return self._owner_id.value
 
     @owner_id.setter
@@ -353,6 +404,7 @@ class Certificate(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._owner_id.set(value)
 
     @property
@@ -362,6 +414,7 @@ class Certificate(Entity):
         
         :rtype: str
         """
+
         return self._security_file_content.value
 
     @security_file_content.setter
@@ -371,6 +424,7 @@ class Certificate(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._security_file_content.set(value)
 
     @property
@@ -379,6 +433,7 @@ class Certificate(Entity):
         
         :rtype: str
         """
+
         return self._service.value
 
     @service.setter
@@ -388,6 +443,7 @@ class Certificate(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._service.set(value)
 
     @property
@@ -398,6 +454,7 @@ class Certificate(Entity):
         
         :rtype: str
         """
+
         return self._status.value
 
     @status.setter
@@ -407,6 +464,7 @@ class Certificate(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._status.set(value)
 
     @property
@@ -417,6 +475,7 @@ class Certificate(Entity):
         
         :rtype: str
         """
+
         return self._subject.value
 
     @subject.setter
@@ -426,6 +485,7 @@ class Certificate(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._subject.set(value)
 
     @property
@@ -436,6 +496,7 @@ class Certificate(Entity):
         
         :rtype: datetime
         """
+
         return self._updated_at.value
 
     @updated_at.setter
@@ -445,6 +506,7 @@ class Certificate(Entity):
         :param value: value to set
         :type value: datetime
         """
+
         self._updated_at.set(value)
 
     @property
@@ -455,6 +517,7 @@ class Certificate(Entity):
         
         :rtype: datetime
         """
+
         return self._validity.value
 
     @validity.setter
@@ -464,6 +527,7 @@ class Certificate(Entity):
         :param value: value to set
         :type value: datetime
         """
+
         self._validity.set(value)
 
     def create_developer(self, authorization):
@@ -481,11 +545,12 @@ class Certificate(Entity):
         return self._client.call_api(
             method="post",
             path="/v3/developer-certificates",
+            header_params={"Authorization": fields.StringField(authorization).to_api()},
+            None_params={},
             body_params={
                 "description": self._description.to_api(),
                 "name": self._name.to_api(),
             },
-            header_params={"Authorization": fields.StringField(authorization).to_api()},
             unpack=self,
         )
 
@@ -510,10 +575,11 @@ class Certificate(Entity):
                 "description": self._description.to_api(),
                 "enrollment_mode": self._enrollment_mode.to_api(),
                 "name": self._name.to_api(),
-                "service": self._service.to_api(),
+                "": self._service.to_api(),
                 "signature": fields.StringField(signature).to_api(),
                 "status": self._status.to_api(),
             },
+            None_params={},
             unpack=self,
         )
 
@@ -529,6 +595,7 @@ class Certificate(Entity):
         return self._client.call_api(
             method="delete",
             path="/v3/trusted-certificates/{cert-id}",
+            None_params={},
             path_params={"cert-id": self._id.to_api()},
             unpack=self,
         )
@@ -552,6 +619,7 @@ class Certificate(Entity):
             method="get",
             path="/v3/developer-certificates/{developerCertificateId}",
             header_params={"Authorization": fields.StringField(authorization).to_api()},
+            None_params={},
             path_params={
                 "developerCertificateId": fields.StringField(
                     developercertificateid
@@ -572,7 +640,9 @@ class Certificate(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/trusted-certificates/{cert-id}",
+            None_params={},
             path_params={"cert-id": self._id.to_api()},
+            body_params={"": self._service.to_api()},
             unpack=self,
         )
 
@@ -754,6 +824,7 @@ class Certificate(Entity):
                 "service__eq": fields.StringField(service__eq).to_api(),
                 "subject__like": fields.StringField(subject__like).to_api(),
             },
+            None_params={},
             unpack=False,
         )
 
@@ -778,10 +849,11 @@ class Certificate(Entity):
                 "description": self._description.to_api(),
                 "enrollment_mode": self._enrollment_mode.to_api(),
                 "name": self._name.to_api(),
-                "service": self._service.to_api(),
+                "": self._service.to_api(),
                 "signature": fields.StringField(signature).to_api(),
                 "status": self._status.to_api(),
             },
+            None_params={},
             path_params={"cert-id": self._id.to_api()},
             unpack=self,
         )

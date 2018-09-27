@@ -76,6 +76,7 @@ class ServerCredentials(Entity):
         
         :rtype: dict
         """
+
         return self._bootstrap.value
 
     @bootstrap.setter
@@ -85,6 +86,7 @@ class ServerCredentials(Entity):
         :param value: value to set
         :type value: dict
         """
+
         self._bootstrap.set(value)
 
     @property
@@ -93,6 +95,7 @@ class ServerCredentials(Entity):
         
         :rtype: datetime
         """
+
         return self._created_at.value
 
     @created_at.setter
@@ -102,6 +105,7 @@ class ServerCredentials(Entity):
         :param value: value to set
         :type value: datetime
         """
+
         self._created_at.set(value)
 
     @property
@@ -110,6 +114,7 @@ class ServerCredentials(Entity):
         
         :rtype: str
         """
+
         return self._id.value
 
     @id.setter
@@ -119,6 +124,7 @@ class ServerCredentials(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._id.set(value)
 
     @property
@@ -127,6 +133,7 @@ class ServerCredentials(Entity):
         
         :rtype: dict
         """
+
         return self._lwm2m.value
 
     @lwm2m.setter
@@ -136,6 +143,7 @@ class ServerCredentials(Entity):
         :param value: value to set
         :type value: dict
         """
+
         self._lwm2m.set(value)
 
     @property
@@ -145,6 +153,7 @@ class ServerCredentials(Entity):
         
         :rtype: str
         """
+
         return self._server_certificate.value
 
     @server_certificate.setter
@@ -154,6 +163,7 @@ class ServerCredentials(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._server_certificate.set(value)
 
     @property
@@ -162,6 +172,7 @@ class ServerCredentials(Entity):
         
         :rtype: str
         """
+
         return self._server_uri.value
 
     @server_uri.setter
@@ -171,6 +182,7 @@ class ServerCredentials(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._server_uri.set(value)
 
     def get_bootstrap(self, authorization):

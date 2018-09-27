@@ -81,6 +81,7 @@ class CertificateIssuerConfig(Entity):
         
         :rtype: str
         """
+
         return self._certificate_issuer_id.value
 
     @certificate_issuer_id.setter
@@ -90,6 +91,7 @@ class CertificateIssuerConfig(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._certificate_issuer_id.set(value)
 
     @property
@@ -100,6 +102,7 @@ class CertificateIssuerConfig(Entity):
         
         :rtype: datetime
         """
+
         return self._created_at.value
 
     @created_at.setter
@@ -109,6 +112,7 @@ class CertificateIssuerConfig(Entity):
         :param value: value to set
         :type value: datetime
         """
+
         self._created_at.set(value)
 
     @property
@@ -119,6 +123,7 @@ class CertificateIssuerConfig(Entity):
         
         :rtype: str
         """
+
         return self._id.value
 
     @id.setter
@@ -128,6 +133,7 @@ class CertificateIssuerConfig(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._id.set(value)
 
     @property
@@ -138,6 +144,7 @@ class CertificateIssuerConfig(Entity):
         
         :rtype: bool
         """
+
         return self._is_custom.value
 
     @is_custom.setter
@@ -147,6 +154,7 @@ class CertificateIssuerConfig(Entity):
         :param value: value to set
         :type value: bool
         """
+
         self._is_custom.set(value)
 
     @property
@@ -157,6 +165,7 @@ class CertificateIssuerConfig(Entity):
         
         :rtype: str
         """
+
         return self._reference.value
 
     @reference.setter
@@ -166,6 +175,7 @@ class CertificateIssuerConfig(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._reference.set(value)
 
     @property
@@ -176,6 +186,7 @@ class CertificateIssuerConfig(Entity):
         
         :rtype: datetime
         """
+
         return self._updated_at.value
 
     @updated_at.setter
@@ -185,6 +196,7 @@ class CertificateIssuerConfig(Entity):
         :param value: value to set
         :type value: datetime
         """
+
         self._updated_at.set(value)
 
     def create(self):
