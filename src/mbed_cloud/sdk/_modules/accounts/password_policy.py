@@ -18,14 +18,16 @@ class PasswordPolicy(Entity):
     """Represents the `PasswordPolicy` entity in Mbed Cloud"""
 
     # all fields available on this entity
-    _fieldnames = []
+    _fieldnames = ["minimum_length"]
 
     # common renames used when mapping {<API spec>: <SDK>}
     _renames = {}
 
-    def __init__(self, _client=None):
+    def __init__(self, _client=None, minimum_length=None):
         """Creates a local `PasswordPolicy` instance
 
+        :param minimum_length: Minimum length for the password. A number between 8 and 512.
+        :type minimum_length: str
         """
 
         super().__init__(_client=_client)
@@ -33,3 +35,25 @@ class PasswordPolicy(Entity):
         # inline imports for avoiding circular references and bulk imports
 
         # fields
+        self._minimum_length = fields.StringField(value=minimum_length)
+
+    @property
+    def minimum_length(self):
+        """Minimum length for the password. A number between 8 and 512.
+        
+        api example: '8'
+        
+        :rtype: str
+        """
+
+        return self._minimum_length.value
+
+    @minimum_length.setter
+    def minimum_length(self, value):
+        """Set value of `minimum_length`
+
+        :param value: value to set
+        :type value: str
+        """
+
+        self._minimum_length.set(value)

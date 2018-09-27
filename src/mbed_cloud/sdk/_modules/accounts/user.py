@@ -134,6 +134,8 @@ class User(Entity):
 
         # inline imports for avoiding circular references and bulk imports
 
+        from mbed_cloud.sdk._modules.accounts.login_history import LoginHistory
+
         # fields
         self._account_id = fields.StringField(value=account_id)
         self._address = fields.StringField(value=address)
@@ -145,7 +147,7 @@ class User(Entity):
         self._group_ids = fields.ListField(value=group_ids)
         self._id = fields.StringField(value=id)
         self._last_login_time = fields.IntegerField(value=last_login_time)
-        self._login_history = fields.ListField(value=login_history)
+        self._login_history = fields.ListField(value=login_history, entity=LoginHistory)
         self._marketing_accepted = fields.BooleanField(value=marketing_accepted)
         self._password = fields.StringField(value=password)
         self._password_changed_time = fields.IntegerField(value=password_changed_time)
@@ -371,7 +373,7 @@ class User(Entity):
         """Timestamps, succeedings, IP addresses and user agent information of the last
         five logins of the user, with timestamps in RFC3339 format.
         
-        :rtype: list
+        :rtype: list[LoginHistory]
         """
 
         return self._login_history.value
@@ -381,7 +383,7 @@ class User(Entity):
         """Set value of `login_history`
 
         :param value: value to set
-        :type value: list
+        :type value: list[LoginHistory]
         """
 
         self._login_history.set(value)

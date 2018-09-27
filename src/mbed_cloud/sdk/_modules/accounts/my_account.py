@@ -180,6 +180,9 @@ class MyAccount(Entity):
 
         # inline imports for avoiding circular references and bulk imports
 
+        from mbed_cloud.sdk._modules.accounts.password_policy import PasswordPolicy
+        from mbed_cloud.sdk._modules.accounts.subtenant_account import SubtenantAccount
+
         # fields
         self._address_line1 = fields.StringField(value=address_line1)
         self._address_line2 = fields.StringField(value=address_line2)
@@ -206,7 +209,9 @@ class MyAccount(Entity):
         )
         self._notification_emails = fields.ListField(value=notification_emails)
         self._parent_id = fields.StringField(value=parent_id)
-        self._password_policy = fields.DictField(value=password_policy)
+        self._password_policy = fields.DictField(
+            value=password_policy, entity=PasswordPolicy
+        )
         self._phone_number = fields.StringField(value=phone_number)
         self._policies = fields.ListField(value=policies)
         self._postal_code = fields.StringField(value=postal_code)
@@ -660,7 +665,7 @@ class MyAccount(Entity):
     def password_policy(self):
         """
         
-        :rtype: dict
+        :rtype: dict[PasswordPolicy]
         """
 
         return self._password_policy.value
@@ -670,7 +675,7 @@ class MyAccount(Entity):
         """Set value of `password_policy`
 
         :param value: value to set
-        :type value: dict
+        :type value: dict[PasswordPolicy]
         """
 
         self._password_policy.set(value)

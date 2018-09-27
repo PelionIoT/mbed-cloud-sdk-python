@@ -199,9 +199,7 @@ class Certificate(Entity):
 
         from mbed_cloud.sdk.common._custom_methods import certificate_type_setter
 
-        return certificate_type_setter(
-            self=self, field=self._certificate_type, value=value
-        )
+        certificate_type_setter(self=self, field=self._certificate_type, value=value)
 
     @property
     def created_at(self):

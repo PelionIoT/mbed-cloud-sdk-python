@@ -455,15 +455,29 @@ class InstanceFactory:
             id=id,
         )
 
-    def login_history(self,):
+    def login_history(self, date=None, ip_address=None, success=None, user_agent=None):
         """Creates a local `LoginHistory` instance, binding the client
 
+        :param date: UTC time RFC3339 for this login attempt.
+        :type date: datetime
+        :param ip_address: IP address of the client.
+        :type ip_address: str
+        :param success: Flag indicating whether login attempt was successful or not.
+        :type success: bool
+        :param user_agent: User Agent header from the login request.
+        :type user_agent: str
         
         :rtype: mbed_cloud.sdk.entities.LoginHistory
         """
         from mbed_cloud.sdk import LoginHistory
 
-        return LoginHistory(_client=self._client)
+        return LoginHistory(
+            _client=self._client,
+            date=date,
+            ip_address=ip_address,
+            success=success,
+            user_agent=user_agent,
+        )
 
     def my_account(
         self,
@@ -678,15 +692,17 @@ class InstanceFactory:
             updated_at=updated_at,
         )
 
-    def password_policy(self,):
+    def password_policy(self, minimum_length=None):
         """Creates a local `PasswordPolicy` instance, binding the client
 
+        :param minimum_length: Minimum length for the password. A number between 8 and 512.
+        :type minimum_length: str
         
         :rtype: mbed_cloud.sdk.entities.PasswordPolicy
         """
         from mbed_cloud.sdk import PasswordPolicy
 
-        return PasswordPolicy(_client=self._client)
+        return PasswordPolicy(_client=self._client, minimum_length=minimum_length)
 
     def policy_group(
         self,

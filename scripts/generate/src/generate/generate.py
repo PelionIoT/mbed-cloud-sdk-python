@@ -80,9 +80,6 @@ class FileMap:
         and self.target as the name of the destination file
         """
         for gen_module in self.per_module:
-            _LOG.info('rendering %s (%s)', self.template, gen_module.name)
-            rendered = self.template.render(gen_module.data or config)
-
             output_dir = os.path.join(*[
                 p for p in (self.output_dir, gen_module.root, gen_module.name) if p
             ])
@@ -91,8 +88,12 @@ class FileMap:
                 os.makedirs(output_dir)
 
             output = os.path.join(output_dir, gen_module.target or self.target)
+
+            _LOG.info('rendering %s (%s)', self.template, output)
+
+            rendered = self.template.render(gen_module.data or config)
+
             with open(output, 'w') as fh:
-                _LOG.info('writing %s', output)
                 fh.write(rendered)
 
 

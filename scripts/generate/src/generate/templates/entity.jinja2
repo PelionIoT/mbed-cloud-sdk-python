@@ -48,7 +48,7 @@ class {{ entity._key|to_pascal }}(Entity):
         super().__init__(_client=_client)
 
         # inline imports for avoiding circular references and bulk imports
-        {% for field in entity.fields %}{% set fkey = field.foreign_key or (field['items'] and field['items'].foreign_key) %}{% if fkey and fkey.entity.name != entity._key.name%}
+        {% for field in entity.fields %}{% set fkey = (field.foreign_key or (field['items'] and field['items'].foreign_key)) %}{% if fkey and fkey.entity != entity._key%}
         from mbed_cloud.sdk._modules.{{ fkey.group|to_snake }}.{{ fkey.entity|to_snake }} import {{ fkey.entity|to_pascal }}{% endif %}{% endfor %}
 
         # fields
@@ -88,7 +88,7 @@ class {{ entity._key|to_pascal }}(Entity):
         """
         {% if field.setter_custom_method %}
         from mbed_cloud.sdk.common._custom_methods import {{ field.setter_custom_method }}
-        return {{ field.setter_custom_method }}(self=self, field=self._{{field._key|to_snake}}, value=value)
+        {{ field.setter_custom_method }}(self=self, field=self._{{field._key|to_snake}}, value=value)
         {% else %}
         self._{{field._key|to_snake}}.set(value)
         {% endif %}
@@ -114,7 +114,7 @@ class {{ entity._key|to_pascal }}(Entity):
         https://os.mbed.com/search/?q=service+apis+{{ method.path }}{% endif %}
         {% for field in method.fields %}{% if field.external_param %}
         :param {{field._key|to_snake}}: {{ (field.description or field.foreign_key.entity|to_pascal)|wordwrap(width=70)|indent(width=12) }}
-        :type {{field._key|to_snake}}: {{ (field.foreign_key and 'mbed_cloud.sdk.entities.' + field.foreign_key.entity|to_pascal) or field.python_type}}
+        :type {{field._key|to_snake}}: {{ (field.foreign_key and 'mbed_cloud.sdk.' + field.foreign_key.entity|to_pascal) or field.python_type}}
         {% endif %}{% endfor %}
         :rtype: {% if method.pagination %}mbed_cloud.pagination.PaginatedResponse{% else %}{{ (method.defer_to_foreign_key_field and method.defer_to_foreign_key_field.foreign_key.entity|to_pascal) or entity._key|to_pascal }}{% endif %}
         """
