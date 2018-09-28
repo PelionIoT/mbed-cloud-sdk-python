@@ -156,7 +156,7 @@ def handle_channel_message(db, queues, b64decode, notification_object):
         # Ensure we have subscribed for the path we received a notification for
         subscriber_queue = queues[notification.ep].get(notification.path)
         if subscriber_queue is None:
-            LOG.warning(
+            LOG.debug(
                 "Ignoring notification on %s (%s) as no subscription is registered",
                 notification.ep,
                 notification.path
