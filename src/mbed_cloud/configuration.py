@@ -22,6 +22,7 @@ import os
 import traceback
 
 from dotenv import load_dotenv
+from dotenv import find_dotenv
 
 ENVVAR_API_HOST = 'MBED_CLOUD_SDK_HOST'
 ENVVAR_API_KEY = 'MBED_CLOUD_SDK_API_KEY'
@@ -92,8 +93,8 @@ class Config(dict):
             with open(abs_path) as fh:
                 self.update(json.load(fh))
 
-        # New dotenv loader
-        load_dotenv()
+        # New dotenv loader - requires explicit instructions to use current working directory
+        load_dotenv(find_dotenv(usecwd=True))
 
         # Pluck config values out of the environment
         for env_var, key in {ENVVAR_API_HOST: 'host', ENVVAR_API_KEY: 'api_key'}.items():
