@@ -82,7 +82,8 @@ class ResourceValues(ChannelSubscription):
                     resource_paths=self.resource_paths
                 ).items() if v
             }
-            for d in self.device_ids or [None]
+            # API will not accept an empty pre-subscription, default wildcard match-all
+            for d in self.device_ids or ["*"]
         ]
 
         # api sends back different field names on the notification channel so remap them before
@@ -139,23 +140,32 @@ class ResourceValues(ChannelSubscription):
     def _matching_device_resources(self):
         device_resource_pairs = []
         devices = self._api.list_connected_devices()
+        LOG.debug('found %s connected device(s)', len(devices))
         for device in devices:
             if self.device_ids and not any(
                 self._wildcard_match(device.id, filter_id) for filter_id in self.device_ids
             ):
                 continue
             resources = self._api.list_resources(device.id)
-            for resource in resources:
-                for path in self.resource_paths:
-                    if not self.resource_paths or self._wildcard_match(resource.path, path):
+            LOG.debug('found %s resource(s) on device %s', len(resources), device.id)
+            for live_device_resource in resources:
+                # If a wildcard matches then subscribe, default to wildcard match-all
+                for filter_path in self.resource_paths or ["*"]:
+                    if self._wildcard_match(live_device_resource.path, filter_path):
                         # if we reach this point, we have matched this resource
-                        device_resource_pairs.append((device.id, resource.path))
+                        device_resource_pairs.append((device.id, live_device_resource.path))
                         break
         return device_resource_pairs
 
     def _subscribe_all_matching(self):
         device_resource_pairs = self._matching_device_resources()
-        LOG.debug('auto-subscribing to %s resources', len(device_resource_pairs))
+        device_subscription_count = len(device_resource_pairs)
+        if not device_subscription_count:
+            LOG.warning('no matching devices and resources found, unable to auto-subscribe')
+        elif device_subscription_count > 49:
+            LOG.warning('auto-subscribing to a significant number of resources (%s), this may take some time', device_subscription_count)
+        else:
+            LOG.debug('auto-subscribing to %s resources', device_subscription_count)
         for device, resource_path in device_resource_pairs:
             self._api._add_subscription(device, resource_path)
 
