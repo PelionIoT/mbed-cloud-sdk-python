@@ -13,6 +13,22 @@ a list of versions that have been released on PyPI.
 ..
     begin_release_notes
 
+2.0.2 (2018-09-28)
+==================
+
+Bugfixes
+--------
+
+- Configuration parameters will now be loaded from a .env file in the current
+  working directory. (#1762)
+
+- Warnings will no longer be given by the old notification system when using
+  new subscription system. (#1763)
+
+- Omitting `device_id` and `resource_path` parameters of `ResourceValues` now
+  works as a wildcard match-all (`*`). (#1764)
+
+
 2.0.1 (2018-09-07)
 ==================
 

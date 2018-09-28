@@ -1,1 +1,0 @@
-Omitting `device_id` and `resource_path` parameters of `ResourceValues` now works as a wildcard match-all (`*`).
