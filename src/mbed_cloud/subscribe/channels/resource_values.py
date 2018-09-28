@@ -163,7 +163,11 @@ class ResourceValues(ChannelSubscription):
         if not device_subscription_count:
             LOG.warning('no matching devices and resources found, unable to auto-subscribe')
         elif device_subscription_count > 49:
-            LOG.warning('auto-subscribing to a significant number of resources (%s), this may take some time', device_subscription_count)
+            LOG.warning(
+                'auto-subscribing to a significant number of resources (%s), '
+                'this may take some time',
+                device_subscription_count
+            )
         else:
             LOG.debug('auto-subscribing to %s resources', device_subscription_count)
         for device, resource_path in device_resource_pairs:
