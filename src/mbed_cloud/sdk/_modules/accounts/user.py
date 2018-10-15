@@ -615,7 +615,7 @@ class User(Entity):
         """
 
         from mbed_cloud.sdk.common._custom_methods import (
-            subtenant_account_switch_create
+            subtenant_account_switch_create,
         )
 
         return subtenant_account_switch_create(
@@ -695,7 +695,7 @@ class User(Entity):
         return self._client.call_api(
             method="delete",
             path="/v3/users/{user-id}",
-            path_params={"": self._id.to_api()},
+            path_params={"user-id": self._id.to_api()},
             unpack=self,
         )
 
