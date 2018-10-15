@@ -8,9 +8,9 @@ def step_impl(context, name, attr, other_name, other_attr):
     set_to = getattr(context.entities[other_name], other_attr)
     setattr(context.entities[name], attr, set_to)
 
-
+@when_or_given("we set {name} {attr} literally to {value}")
 def set_value(context, name, attr, value):
     setattr(context.entities[name], attr, ast.literal_eval(value))
 
 
-set_value = when_or_given("we set {name} {attr} literally to {value}")(set_value)
+# set_value = when_or_given("we set {name} {attr} literally to {value}")(set_value)
