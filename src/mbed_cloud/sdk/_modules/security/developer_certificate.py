@@ -289,13 +289,15 @@ class DeveloperCertificate(Entity):
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/trusted-certificates/{cert-id}
         
-        :rtype: DeveloperCertificate
+        :rtype: TrustedCertificate
         """
+
+        from mbed_cloud.sdk.entities import TrustedCertificate
 
         return self._client.call_api(
             method="get",
             path="/v3/trusted-certificates/{cert-id}",
             None_params={},
             path_params={"cert-id": self._id.to_api()},
-            unpack=self,
+            unpack=TrustedCertificate,
         )

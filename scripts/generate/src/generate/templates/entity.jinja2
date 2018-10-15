@@ -96,6 +96,24 @@ class {{ entity._key|to_pascal }}(Entity):
     {% endfor %}
 
     {% for method in entity.methods|sort(attribute='_key') %}
+    {# Determine the return type of the method, it may be a paginated response, the entity itself of a foreign key #}
+    {% if method.pagination %}
+        {% set return_type = "mbed_cloud.pagination.PaginatedResponse" %}
+        {% set unpack_type = false %}
+        {% set foreign_key_import = false %}
+    {% elif method.foreign_key %}
+        {% set return_type = method.foreign_key.entity|to_pascal %}
+        {% set unpack_type = return_type %}
+        {% set foreign_key_import = true %}
+    {% elif method.defer_to_foreign_key_field %}
+        {% set return_type = method.defer_to_foreign_key_field.foreign_key.entity|to_pascal %}
+        {% set unpack_type = return_type %}
+        {% set foreign_key_import = true %}
+    {% else %}
+        {% set return_type = entity._key|to_pascal %}
+        {% set unpack_type = "self" %}
+        {% set foreign_key_import = false %}
+    {% endif %}
     def {% if method.private_method %}_{% endif %}{{method._key|to_snake}}(
         self
         {% for field in method.fields|sort_parg_kwarg %}
@@ -116,7 +134,7 @@ class {{ entity._key|to_pascal }}(Entity):
         :param {{field._key|to_snake}}: {{ (field.description or field.foreign_key.entity|to_pascal)|wordwrap(width=70)|indent(width=12) }}
         :type {{field._key|to_snake}}: {{ (field.foreign_key and 'mbed_cloud.sdk.' + field.foreign_key.entity|to_pascal) or field.python_type}}
         {% endif %}{% endfor %}
-        :rtype: {% if method.pagination %}mbed_cloud.pagination.PaginatedResponse{% else %}{{ (method.defer_to_foreign_key_field and method.defer_to_foreign_key_field.foreign_key.entity|to_pascal) or entity._key|to_pascal }}{% endif %}
+        :rtype: {{ return_type }}
         """
     {% for field in method.fields %}
         {% if field.set_foreign_key_properties %}
@@ -142,6 +160,7 @@ class {{ entity._key|to_pascal }}(Entity):
             {% if method.pagination %},wraps=self._{{ method.paginate_target }}{% endif %}
         )
     {% else %}
+        {% if foreign_key_import %}from mbed_cloud.sdk.entities import {{ return_type }}{% endif %}
         return self._client.call_api(
             method='{{method.method}}',
             path='{{ method.path }}',
@@ -164,11 +183,7 @@ class {{ entity._key|to_pascal }}(Entity):
                 {% if not method.__REPLACE_BODY or param_in != 'body' %}{% raw %}}{% endraw %}{% endif %},
                 {% endif %}
             {% endfor %}
-            {% if method.pagination %}
-            unpack = False,
-            {% else %}
-            unpack = self,
-            {% endif %}
+            unpack = {{ unpack_type }},
         )
     {% endif %}
     {% endfor %}
