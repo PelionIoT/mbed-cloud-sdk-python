@@ -63,7 +63,7 @@ class {{ entity._key|to_pascal }}(Entity):
         )
         {% endfor %}
 
-    {% for field in entity.fields %}
+    {% for field in entity.fields if not field.private_field%}
     @property
     def {{field._key|to_snake}}(self):
         """{{ (field.description or '')|wordwrap(width=78)|indent(width=8) }}

@@ -282,27 +282,6 @@ class Certificate(Entity):
         self._developer_private_key.set(value)
 
     @property
-    def device_execution_mode(self):
-        """Device execution mode where 1 means a developer certificate.
-        
-        api example: 1
-        
-        :rtype: int
-        """
-
-        return self._device_execution_mode.value
-
-    @device_execution_mode.setter
-    def device_execution_mode(self, value):
-        """Set value of `device_execution_mode`
-
-        :param value: value to set
-        :type value: int
-        """
-
-        self._device_execution_mode.set(value)
-
-    @property
     def enrollment_mode(self):
         """If true, signature is not required. Default value false.
         
@@ -424,25 +403,6 @@ class Certificate(Entity):
         """
 
         self._security_file_content.set(value)
-
-    @property
-    def service(self):
-        """Service name where the certificate is to be used.
-        
-        :rtype: str
-        """
-
-        return self._service.value
-
-    @service.setter
-    def service(self, value):
-        """Set value of `service`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._service.set(value)
 
     @property
     def status(self):
