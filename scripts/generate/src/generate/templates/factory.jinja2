@@ -32,7 +32,7 @@ class InstanceFactory:
         {% endfor %}
         :rtype: mbed_cloud.sdk.entities.{{ entity._key|to_pascal }}
         """
-        from mbed_cloud.sdk import {{ entity._key|to_pascal }}
+        from mbed_cloud.sdk.entities import {{ entity._key|to_pascal }}
         return {{ entity._key|to_pascal }}(
             _client=self._client,
             {% for field in entity.fields %}

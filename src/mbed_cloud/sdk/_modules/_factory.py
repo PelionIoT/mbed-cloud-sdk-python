@@ -56,7 +56,7 @@ class InstanceFactory:
         
         :rtype: mbed_cloud.sdk.entities.ApiKey
         """
-        from mbed_cloud.sdk import ApiKey
+        from mbed_cloud.sdk.entities import ApiKey
 
         return ApiKey(
             _client=self._client,
@@ -136,7 +136,7 @@ class InstanceFactory:
         
         :rtype: mbed_cloud.sdk.entities.Certificate
         """
-        from mbed_cloud.sdk import Certificate
+        from mbed_cloud.sdk.entities import Certificate
 
         return Certificate(
             _client=self._client,
@@ -187,7 +187,7 @@ class InstanceFactory:
         
         :rtype: mbed_cloud.sdk.entities.CertificateEnrollment
         """
-        from mbed_cloud.sdk import CertificateEnrollment
+        from mbed_cloud.sdk.entities import CertificateEnrollment
 
         return CertificateEnrollment(
             _client=self._client,
@@ -242,7 +242,7 @@ class InstanceFactory:
         
         :rtype: mbed_cloud.sdk.entities.CertificateIssuer
         """
-        from mbed_cloud.sdk import CertificateIssuer
+        from mbed_cloud.sdk.entities import CertificateIssuer
 
         return CertificateIssuer(
             _client=self._client,
@@ -284,7 +284,7 @@ class InstanceFactory:
         
         :rtype: mbed_cloud.sdk.entities.CertificateIssuerConfig
         """
-        from mbed_cloud.sdk import CertificateIssuerConfig
+        from mbed_cloud.sdk.entities import CertificateIssuerConfig
 
         return CertificateIssuerConfig(
             _client=self._client,
@@ -337,7 +337,7 @@ class InstanceFactory:
         
         :rtype: mbed_cloud.sdk.entities.EnrollmentBulkCreateTask
         """
-        from mbed_cloud.sdk import EnrollmentBulkCreateTask
+        from mbed_cloud.sdk.entities import EnrollmentBulkCreateTask
 
         return EnrollmentBulkCreateTask(
             _client=self._client,
@@ -394,7 +394,7 @@ class InstanceFactory:
         
         :rtype: mbed_cloud.sdk.entities.EnrollmentBulkDeleteTask
         """
-        from mbed_cloud.sdk import EnrollmentBulkDeleteTask
+        from mbed_cloud.sdk.entities import EnrollmentBulkDeleteTask
 
         return EnrollmentBulkDeleteTask(
             _client=self._client,
@@ -442,7 +442,7 @@ class InstanceFactory:
         
         :rtype: mbed_cloud.sdk.entities.EnrollmentClaim
         """
-        from mbed_cloud.sdk import EnrollmentClaim
+        from mbed_cloud.sdk.entities import EnrollmentClaim
 
         return EnrollmentClaim(
             _client=self._client,
@@ -469,7 +469,7 @@ class InstanceFactory:
         
         :rtype: mbed_cloud.sdk.entities.LoginHistory
         """
-        from mbed_cloud.sdk import LoginHistory
+        from mbed_cloud.sdk.entities import LoginHistory
 
         return LoginHistory(
             _client=self._client,
@@ -596,7 +596,7 @@ class InstanceFactory:
         
         :rtype: mbed_cloud.sdk.entities.MyAccount
         """
-        from mbed_cloud.sdk import MyAccount
+        from mbed_cloud.sdk.entities import MyAccount
 
         return MyAccount(
             _client=self._client,
@@ -676,7 +676,7 @@ class InstanceFactory:
         
         :rtype: mbed_cloud.sdk.entities.MyApiKey
         """
-        from mbed_cloud.sdk import MyApiKey
+        from mbed_cloud.sdk.entities import MyApiKey
 
         return MyApiKey(
             _client=self._client,
@@ -700,7 +700,7 @@ class InstanceFactory:
         
         :rtype: mbed_cloud.sdk.entities.PasswordPolicy
         """
-        from mbed_cloud.sdk import PasswordPolicy
+        from mbed_cloud.sdk.entities import PasswordPolicy
 
         return PasswordPolicy(_client=self._client, minimum_length=minimum_length)
 
@@ -733,7 +733,7 @@ class InstanceFactory:
         
         :rtype: mbed_cloud.sdk.entities.PolicyGroup
         """
-        from mbed_cloud.sdk import PolicyGroup
+        from mbed_cloud.sdk.entities import PolicyGroup
 
         return PolicyGroup(
             _client=self._client,
@@ -774,7 +774,7 @@ class InstanceFactory:
         
         :rtype: mbed_cloud.sdk.entities.ServerCredentials
         """
-        from mbed_cloud.sdk import ServerCredentials
+        from mbed_cloud.sdk.entities import ServerCredentials
 
         return ServerCredentials(
             _client=self._client,
@@ -925,7 +925,7 @@ class InstanceFactory:
         
         :rtype: mbed_cloud.sdk.entities.SubtenantAccount
         """
-        from mbed_cloud.sdk import SubtenantAccount
+        from mbed_cloud.sdk.entities import SubtenantAccount
 
         return SubtenantAccount(
             _client=self._client,
@@ -1053,7 +1053,7 @@ class InstanceFactory:
         
         :rtype: mbed_cloud.sdk.entities.User
         """
-        from mbed_cloud.sdk import User
+        from mbed_cloud.sdk.entities import User
 
         return User(
             _client=self._client,
