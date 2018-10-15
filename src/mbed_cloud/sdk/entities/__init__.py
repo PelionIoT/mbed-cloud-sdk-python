@@ -13,19 +13,19 @@ from mbed_cloud.sdk._modules.accounts.policy_group import PolicyGroup
 from mbed_cloud.sdk._modules.accounts.subtenant_account import SubtenantAccount
 from mbed_cloud.sdk._modules.accounts.user import User
 from mbed_cloud.sdk._modules.devices.enrollment_bulk_create_task import (
-    EnrollmentBulkCreateTask
+    EnrollmentBulkCreateTask,
 )
 from mbed_cloud.sdk._modules.devices.enrollment_bulk_delete_task import (
-    EnrollmentBulkDeleteTask
+    EnrollmentBulkDeleteTask,
 )
 from mbed_cloud.sdk._modules.devices.enrollment_claim import EnrollmentClaim
 from mbed_cloud.sdk._modules.security.certificate import Certificate
 from mbed_cloud.sdk._modules.security.certificate_enrollment import (
-    CertificateEnrollment
+    CertificateEnrollment,
 )
 from mbed_cloud.sdk._modules.security.certificate_issuer import CertificateIssuer
 from mbed_cloud.sdk._modules.security.certificate_issuer_config import (
-    CertificateIssuerConfig
+    CertificateIssuerConfig,
 )
 from mbed_cloud.sdk._modules.security.server_credentials import ServerCredentials
 
