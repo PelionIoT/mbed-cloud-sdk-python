@@ -19,7 +19,6 @@ from mbed_cloud.sdk._modules.devices.enrollment_bulk_delete_task import (
     EnrollmentBulkDeleteTask,
 )
 from mbed_cloud.sdk._modules.devices.enrollment_claim import EnrollmentClaim
-from mbed_cloud.sdk._modules.security.certificate import Certificate
 from mbed_cloud.sdk._modules.security.certificate_enrollment import (
     CertificateEnrollment,
 )
@@ -27,15 +26,17 @@ from mbed_cloud.sdk._modules.security.certificate_issuer import CertificateIssue
 from mbed_cloud.sdk._modules.security.certificate_issuer_config import (
     CertificateIssuerConfig,
 )
+from mbed_cloud.sdk._modules.security.developer_certificate import DeveloperCertificate
 from mbed_cloud.sdk._modules.security.server_credentials import ServerCredentials
+from mbed_cloud.sdk._modules.security.trusted_certificate import TrustedCertificate
 
 
 __all__ = [
     "ApiKey",
-    "Certificate",
     "CertificateEnrollment",
     "CertificateIssuer",
     "CertificateIssuerConfig",
+    "DeveloperCertificate",
     "EnrollmentBulkCreateTask",
     "EnrollmentBulkDeleteTask",
     "EnrollmentClaim",
@@ -46,5 +47,6 @@ __all__ = [
     "PolicyGroup",
     "ServerCredentials",
     "SubtenantAccount",
+    "TrustedCertificate",
     "User",
 ]

@@ -12,19 +12,6 @@ from builtins import object
 from mbed_cloud.sdk.common.enum import BaseEnum
 
 
-class CertificateCertificateTypeEnum(BaseEnum):
-    """Represents the `CertificateCertificateTypeEnum` options
-
-    as used by Mbed Cloud "security" functionality
-    """
-
-    BOOTSTRAP = "BOOTSTRAP"
-    DEVELOPER = "DEVELOPER"
-    LWM2M = "LWM2M"
-
-    values = frozenset(("BOOTSTRAP", "DEVELOPER", "LWM2M"))
-
-
 class CertificateEnrollmentEnrollResultEnum(BaseEnum):
     """Represents the `CertificateEnrollmentEnrollResultEnum` options
 
@@ -63,8 +50,8 @@ class CertificateIssuerIssuerTypeEnum(BaseEnum):
     values = frozenset(("CFSSL_AUTH", "GLOBAL_SIGN"))
 
 
-class CertificateOrderEnum(BaseEnum):
-    """Represents the `CertificateOrderEnum` options
+class TrustedCertificateOrderEnum(BaseEnum):
+    """Represents the `TrustedCertificateOrderEnum` options
 
     as used by Mbed Cloud "security" functionality
     """
@@ -75,8 +62,8 @@ class CertificateOrderEnum(BaseEnum):
     values = frozenset(("ASC", "DESC"))
 
 
-class CertificateServiceEnum(BaseEnum):
-    """Represents the `CertificateServiceEnum` options
+class TrustedCertificateServiceEnum(BaseEnum):
+    """Represents the `TrustedCertificateServiceEnum` options
 
     as used by Mbed Cloud "security" functionality
     """
@@ -87,8 +74,8 @@ class CertificateServiceEnum(BaseEnum):
     values = frozenset(("bootstrap", "lwm2m"))
 
 
-class CertificateStatusEnum(BaseEnum):
-    """Represents the `CertificateStatusEnum` options
+class TrustedCertificateStatusEnum(BaseEnum):
+    """Represents the `TrustedCertificateStatusEnum` options
 
     as used by Mbed Cloud "security" functionality
     """

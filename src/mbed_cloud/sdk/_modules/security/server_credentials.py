@@ -185,6 +185,25 @@ class ServerCredentials(Entity):
 
         self._server_uri.set(value)
 
+    def get_all(self, authorization):
+        """Fetch all (Bootstrap and LwM2M) server credentials.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/server-credentials
+        
+        :param authorization: Bearer {Access Token}.
+        :type authorization: str
+        
+        :rtype: ServerCredentials
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/server-credentials",
+            header_params={"Authorization": fields.StringField(authorization).to_api()},
+            unpack=self,
+        )
+
     def get_bootstrap(self, authorization):
         """Fetch bootstrap server credentials.
 
@@ -219,25 +238,6 @@ class ServerCredentials(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/server-credentials/lwm2m",
-            header_params={"Authorization": fields.StringField(authorization).to_api()},
-            unpack=self,
-        )
-
-    def list(self, authorization):
-        """Fetch all (Bootstrap and LwM2M) server credentials.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/server-credentials
-        
-        :param authorization: Bearer {Access Token}.
-        :type authorization: str
-        
-        :rtype: ServerCredentials
-        """
-
-        return self._client.call_api(
-            method="get",
-            path="/v3/server-credentials",
             header_params={"Authorization": fields.StringField(authorization).to_api()},
             unpack=self,
         )
