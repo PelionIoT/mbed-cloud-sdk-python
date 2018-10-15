@@ -1241,7 +1241,7 @@ class SubtenantAccount(Entity):
             unpack=self,
         )
 
-    def groups(self, after=None, include=None, limit=50, name__eq=None, order="ASC"):
+    def groups(self, after=None, include=None, limit=50, order="ASC"):
         """Get all group information.
 
         api documentation:
@@ -1256,9 +1256,6 @@ class SubtenantAccount(Entity):
         
         :param limit: The number of results to return (2-1000), default is 50.
         :type limit: int
-        
-        :param name__eq: Filter for group name
-        :type name__eq: str
         
         :param order: The order of the records based on creation time, ASC or DESC; by
             default ASC
@@ -1276,7 +1273,6 @@ class SubtenantAccount(Entity):
             after=after,
             include=include,
             limit=limit,
-            name__eq=name__eq,
             order=order,
             wraps=self._paginate_groups,
         )
@@ -1394,9 +1390,7 @@ class SubtenantAccount(Entity):
             unpack=False,
         )
 
-    def _paginate_groups(
-        self, after=None, include=None, limit=50, name__eq=None, order="ASC"
-    ):
+    def _paginate_groups(self, after=None, include=None, limit=50, order="ASC"):
         """Get all group information.
 
         api documentation:
@@ -1411,9 +1405,6 @@ class SubtenantAccount(Entity):
         
         :param limit: The number of results to return (2-1000), default is 50.
         :type limit: int
-        
-        :param name__eq: Filter for group name
-        :type name__eq: str
         
         :param order: The order of the records based on creation time, ASC or DESC; by
             default ASC
@@ -1430,7 +1421,6 @@ class SubtenantAccount(Entity):
                 "after": fields.StringField(after).to_api(),
                 "include": fields.StringField(include).to_api(),
                 "limit": fields.IntegerField(limit).to_api(),
-                "name__eq": fields.StringField(name__eq).to_api(),
                 "order": fields.StringField(
                     order, enum=enums.SubtenantAccountOrderEnum
                 ).to_api(),
