@@ -459,7 +459,6 @@ class TrustedCertificate(Entity):
                 "signature": fields.StringField(signature).to_api(),
                 "status": self._status.to_api(),
             },
-            None_params={},
             unpack=self,
         )
 
@@ -475,7 +474,6 @@ class TrustedCertificate(Entity):
         return self._client.call_api(
             method="delete",
             path="/v3/trusted-certificates/{cert-id}",
-            None_params={},
             path_params={"cert-id": self._id.to_api()},
             unpack=self,
         )
@@ -494,7 +492,6 @@ class TrustedCertificate(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/developer-certificates/{developerCertificateId}",
-            None_params={},
             path_params={"developerCertificateId": self._id.to_api()},
             unpack=DeveloperCertificate,
         )
@@ -511,7 +508,6 @@ class TrustedCertificate(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/trusted-certificates/{cert-id}",
-            None_params={},
             path_params={"cert-id": self._id.to_api()},
             unpack=self,
         )
@@ -586,7 +582,6 @@ class TrustedCertificate(Entity):
                     order, enum=enums.TrustedCertificateOrderEnum
                 ).to_api(),
             },
-            None_params={},
             unpack=False,
         )
 
@@ -615,7 +610,6 @@ class TrustedCertificate(Entity):
                 "signature": fields.StringField(signature).to_api(),
                 "status": self._status.to_api(),
             },
-            None_params={},
             path_params={"cert-id": self._id.to_api()},
             unpack=self,
         )

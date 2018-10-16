@@ -297,7 +297,6 @@ class DeveloperCertificate(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/trusted-certificates/{cert-id}",
-            None_params={},
             path_params={"cert-id": self._id.to_api()},
             unpack=TrustedCertificate,
         )
