@@ -11,21 +11,16 @@ from builtins import super
 
 from mbed_cloud.sdk.common.entity import Entity
 from mbed_cloud.sdk.common import fields
+from mbed_cloud.sdk import enums
 
 
-class SubtenantAccount(Entity):
-    """Represents the `SubtenantAccount` entity in Mbed Cloud"""
+class MyAccount(Entity):
+    """Represents the `MyAccount` entity in Mbed Cloud"""
 
     # all fields available on this entity
     _fieldnames = [
         "address_line1",
         "address_line2",
-        "admin_email",
-        "admin_full_name",
-        "admin_id",
-        "admin_key",
-        "admin_name",
-        "admin_password",
         "aliases",
         "city",
         "company",
@@ -69,12 +64,6 @@ class SubtenantAccount(Entity):
         _client=None,
         address_line1=None,
         address_line2=None,
-        admin_email=None,
-        admin_full_name=None,
-        admin_id=None,
-        admin_key=None,
-        admin_name=None,
-        admin_password=None,
         aliases=None,
         city=None,
         company=None,
@@ -109,28 +98,12 @@ class SubtenantAccount(Entity):
         updated_at=None,
         upgraded_at=None,
     ):
-        """Creates a local `SubtenantAccount` instance
+        """Creates a local `MyAccount` instance
 
         :param address_line1: Postal address line 1.
         :type address_line1: str
         :param address_line2: Postal address line 2.
         :type address_line2: str
-        :param admin_email: The email address of the account admin, not longer than 254
-            characters.
-        :type admin_email: str
-        :param admin_full_name: The full name of the admin user to be created.
-        :type admin_full_name: str
-        :param admin_id: The ID of the admin user created.
-        :type admin_id: str
-        :param admin_key: The admin API key created for the account.
-        :type admin_key: str
-        :param admin_name: The username of the admin user to be created, containing
-            alphanumerical letters and -,._@+= characters. It must be at least
-            4 but not more than 30 character long.
-        :type admin_name: str
-        :param admin_password: The password when creating a new user. It will be generated when
-            not present in the request.
-        :type admin_password: str
         :param aliases: An array of aliases.
         :type aliases: list
         :param city: The city part of the postal address.
@@ -207,25 +180,12 @@ class SubtenantAccount(Entity):
 
         # inline imports for avoiding circular references and bulk imports
 
-        from mbed_cloud.sdk._modules.accounts.entities.password_policy import (
-            PasswordPolicy
-        )
-        from mbed_cloud.sdk._modules.accounts.entities.subtenant_account import (
-            SubtenantAccount
-        )
-
-        from mbed_cloud.sdk.enums import SubtenantAccountMfaStatusEnum
-        from mbed_cloud.sdk.enums import SubtenantAccountStatusEnum
+        from mbed_cloud.sdk._modules.accounts.password_policy import PasswordPolicy
+        from mbed_cloud.sdk._modules.accounts.subtenant_account import SubtenantAccount
 
         # fields
         self._address_line1 = fields.StringField(value=address_line1)
         self._address_line2 = fields.StringField(value=address_line2)
-        self._admin_email = fields.StringField(value=admin_email)
-        self._admin_full_name = fields.StringField(value=admin_full_name)
-        self._admin_id = fields.StringField(value=admin_id)
-        self._admin_key = fields.StringField(value=admin_key)
-        self._admin_name = fields.StringField(value=admin_name)
-        self._admin_password = fields.StringField(value=admin_password)
         self._aliases = fields.ListField(value=aliases)
         self._city = fields.StringField(value=city)
         self._company = fields.StringField(value=company)
@@ -245,7 +205,7 @@ class SubtenantAccount(Entity):
         self._idle_timeout = fields.StringField(value=idle_timeout)
         self._limits = fields.DictField(value=limits)
         self._mfa_status = fields.StringField(
-            value=mfa_status, enum=SubtenantAccountMfaStatusEnum
+            value=mfa_status, enum=enums.MyAccountMfaStatusEnum
         )
         self._notification_emails = fields.ListField(value=notification_emails)
         self._parent_id = fields.StringField(value=parent_id)
@@ -259,7 +219,7 @@ class SubtenantAccount(Entity):
         self._reference_note = fields.StringField(value=reference_note)
         self._sales_contact = fields.StringField(value=sales_contact)
         self._state = fields.StringField(value=state)
-        self._status = fields.StringField(value=status, enum=SubtenantAccountStatusEnum)
+        self._status = fields.StringField(value=status, enum=enums.MyAccountStatusEnum)
         self._sub_accounts = fields.ListField(
             value=sub_accounts, entity=SubtenantAccount
         )
@@ -276,6 +236,7 @@ class SubtenantAccount(Entity):
         
         :rtype: str
         """
+
         return self._address_line1.value
 
     @address_line1.setter
@@ -285,6 +246,7 @@ class SubtenantAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._address_line1.set(value)
 
     @property
@@ -295,6 +257,7 @@ class SubtenantAccount(Entity):
         
         :rtype: str
         """
+
         return self._address_line2.value
 
     @address_line2.setter
@@ -304,125 +267,8 @@ class SubtenantAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._address_line2.set(value)
-
-    @property
-    def admin_email(self):
-        """The email address of the account admin, not longer than 254 characters.
-        
-        api example: 'admin@arm.com'
-        
-        :rtype: str
-        """
-        return self._admin_email.value
-
-    @admin_email.setter
-    def admin_email(self, value):
-        """Set value of `admin_email`
-
-        :param value: value to set
-        :type value: str
-        """
-        self._admin_email.set(value)
-
-    @property
-    def admin_full_name(self):
-        """The full name of the admin user to be created.
-        
-        api example: 'Admin Doe'
-        
-        :rtype: str
-        """
-        return self._admin_full_name.value
-
-    @admin_full_name.setter
-    def admin_full_name(self, value):
-        """Set value of `admin_full_name`
-
-        :param value: value to set
-        :type value: str
-        """
-        self._admin_full_name.set(value)
-
-    @property
-    def admin_id(self):
-        """The ID of the admin user created.
-        
-        api example: '01619571e2e89242ac12000600000000'
-        
-        :rtype: str
-        """
-        return self._admin_id.value
-
-    @admin_id.setter
-    def admin_id(self, value):
-        """Set value of `admin_id`
-
-        :param value: value to set
-        :type value: str
-        """
-        self._admin_id.set(value)
-
-    @property
-    def admin_key(self):
-        """The admin API key created for the account.
-        
-        api example: 'ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac120006000000
-            00B40IkJADMANmAscAj0Ot0n2yeQnyt9tT'
-        
-        :rtype: str
-        """
-        return self._admin_key.value
-
-    @admin_key.setter
-    def admin_key(self, value):
-        """Set value of `admin_key`
-
-        :param value: value to set
-        :type value: str
-        """
-        self._admin_key.set(value)
-
-    @property
-    def admin_name(self):
-        """The username of the admin user to be created, containing alphanumerical
-        letters and -,._@+= characters. It must be at least 4 but not more than 30
-        character long.
-        
-        api example: 'admin'
-        
-        :rtype: str
-        """
-        return self._admin_name.value
-
-    @admin_name.setter
-    def admin_name(self, value):
-        """Set value of `admin_name`
-
-        :param value: value to set
-        :type value: str
-        """
-        self._admin_name.set(value)
-
-    @property
-    def admin_password(self):
-        """The password when creating a new user. It will be generated when not present
-        in the request.
-        
-        api example: 'PZf9eEUH43DAPE9ULINFeuj'
-        
-        :rtype: str
-        """
-        return self._admin_password.value
-
-    @admin_password.setter
-    def admin_password(self, value):
-        """Set value of `admin_password`
-
-        :param value: value to set
-        :type value: str
-        """
-        self._admin_password.set(value)
 
     @property
     def aliases(self):
@@ -430,6 +276,7 @@ class SubtenantAccount(Entity):
         
         :rtype: list
         """
+
         return self._aliases.value
 
     @aliases.setter
@@ -439,6 +286,7 @@ class SubtenantAccount(Entity):
         :param value: value to set
         :type value: list
         """
+
         self._aliases.set(value)
 
     @property
@@ -449,6 +297,7 @@ class SubtenantAccount(Entity):
         
         :rtype: str
         """
+
         return self._city.value
 
     @city.setter
@@ -458,6 +307,7 @@ class SubtenantAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._city.set(value)
 
     @property
@@ -468,6 +318,7 @@ class SubtenantAccount(Entity):
         
         :rtype: str
         """
+
         return self._company.value
 
     @company.setter
@@ -477,6 +328,7 @@ class SubtenantAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._company.set(value)
 
     @property
@@ -487,6 +339,7 @@ class SubtenantAccount(Entity):
         
         :rtype: str
         """
+
         return self._contact.value
 
     @contact.setter
@@ -496,6 +349,7 @@ class SubtenantAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._contact.set(value)
 
     @property
@@ -506,6 +360,7 @@ class SubtenantAccount(Entity):
         
         :rtype: str
         """
+
         return self._contract_number.value
 
     @contract_number.setter
@@ -515,6 +370,7 @@ class SubtenantAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._contract_number.set(value)
 
     @property
@@ -525,6 +381,7 @@ class SubtenantAccount(Entity):
         
         :rtype: str
         """
+
         return self._country.value
 
     @country.setter
@@ -534,6 +391,7 @@ class SubtenantAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._country.set(value)
 
     @property
@@ -544,6 +402,7 @@ class SubtenantAccount(Entity):
         
         :rtype: datetime
         """
+
         return self._created_at.value
 
     @created_at.setter
@@ -553,6 +412,7 @@ class SubtenantAccount(Entity):
         :param value: value to set
         :type value: datetime
         """
+
         self._created_at.set(value)
 
     @property
@@ -561,6 +421,7 @@ class SubtenantAccount(Entity):
         
         :rtype: dict
         """
+
         return self._custom_fields.value
 
     @custom_fields.setter
@@ -570,6 +431,7 @@ class SubtenantAccount(Entity):
         :param value: value to set
         :type value: dict
         """
+
         self._custom_fields.set(value)
 
     @property
@@ -580,6 +442,7 @@ class SubtenantAccount(Entity):
         
         :rtype: str
         """
+
         return self._customer_number.value
 
     @customer_number.setter
@@ -589,6 +452,7 @@ class SubtenantAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._customer_number.set(value)
 
     @property
@@ -599,6 +463,7 @@ class SubtenantAccount(Entity):
         
         :rtype: str
         """
+
         return self._display_name.value
 
     @display_name.setter
@@ -608,6 +473,7 @@ class SubtenantAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._display_name.set(value)
 
     @property
@@ -618,6 +484,7 @@ class SubtenantAccount(Entity):
         
         :rtype: str
         """
+
         return self._email.value
 
     @email.setter
@@ -627,6 +494,7 @@ class SubtenantAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._email.set(value)
 
     @property
@@ -637,6 +505,7 @@ class SubtenantAccount(Entity):
         
         :rtype: str
         """
+
         return self._end_market.value
 
     @end_market.setter
@@ -646,6 +515,7 @@ class SubtenantAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._end_market.set(value)
 
     @property
@@ -657,6 +527,7 @@ class SubtenantAccount(Entity):
         
         :rtype: str
         """
+
         return self._expiration_warning_threshold.value
 
     @expiration_warning_threshold.setter
@@ -666,6 +537,7 @@ class SubtenantAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._expiration_warning_threshold.set(value)
 
     @property
@@ -676,6 +548,7 @@ class SubtenantAccount(Entity):
         
         :rtype: str
         """
+
         return self._id.value
 
     @id.setter
@@ -685,6 +558,7 @@ class SubtenantAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._id.set(value)
 
     @property
@@ -695,6 +569,7 @@ class SubtenantAccount(Entity):
         
         :rtype: str
         """
+
         return self._idle_timeout.value
 
     @idle_timeout.setter
@@ -704,6 +579,7 @@ class SubtenantAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._idle_timeout.set(value)
 
     @property
@@ -712,6 +588,7 @@ class SubtenantAccount(Entity):
         
         :rtype: dict
         """
+
         return self._limits.value
 
     @limits.setter
@@ -721,6 +598,7 @@ class SubtenantAccount(Entity):
         :param value: value to set
         :type value: dict
         """
+
         self._limits.set(value)
 
     @property
@@ -730,6 +608,7 @@ class SubtenantAccount(Entity):
         
         :rtype: str
         """
+
         return self._mfa_status.value
 
     @mfa_status.setter
@@ -739,6 +618,7 @@ class SubtenantAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._mfa_status.set(value)
 
     @property
@@ -747,6 +627,7 @@ class SubtenantAccount(Entity):
         
         :rtype: list
         """
+
         return self._notification_emails.value
 
     @notification_emails.setter
@@ -756,6 +637,7 @@ class SubtenantAccount(Entity):
         :param value: value to set
         :type value: list
         """
+
         self._notification_emails.set(value)
 
     @property
@@ -766,6 +648,7 @@ class SubtenantAccount(Entity):
         
         :rtype: str
         """
+
         return self._parent_id.value
 
     @parent_id.setter
@@ -775,6 +658,7 @@ class SubtenantAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._parent_id.set(value)
 
     @property
@@ -783,6 +667,7 @@ class SubtenantAccount(Entity):
         
         :rtype: dict[PasswordPolicy]
         """
+
         return self._password_policy.value
 
     @password_policy.setter
@@ -792,6 +677,7 @@ class SubtenantAccount(Entity):
         :param value: value to set
         :type value: dict[PasswordPolicy]
         """
+
         self._password_policy.set(value)
 
     @property
@@ -802,6 +688,7 @@ class SubtenantAccount(Entity):
         
         :rtype: str
         """
+
         return self._phone_number.value
 
     @phone_number.setter
@@ -811,6 +698,7 @@ class SubtenantAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._phone_number.set(value)
 
     @property
@@ -819,6 +707,7 @@ class SubtenantAccount(Entity):
         
         :rtype: list
         """
+
         return self._policies.value
 
     @policies.setter
@@ -828,6 +717,7 @@ class SubtenantAccount(Entity):
         :param value: value to set
         :type value: list
         """
+
         self._policies.set(value)
 
     @property
@@ -838,6 +728,7 @@ class SubtenantAccount(Entity):
         
         :rtype: str
         """
+
         return self._postal_code.value
 
     @postal_code.setter
@@ -847,6 +738,7 @@ class SubtenantAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._postal_code.set(value)
 
     @property
@@ -857,6 +749,7 @@ class SubtenantAccount(Entity):
         
         :rtype: str
         """
+
         return self._reason.value
 
     @reason.setter
@@ -866,6 +759,7 @@ class SubtenantAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._reason.set(value)
 
     @property
@@ -876,6 +770,7 @@ class SubtenantAccount(Entity):
         
         :rtype: str
         """
+
         return self._reference_note.value
 
     @reference_note.setter
@@ -885,6 +780,7 @@ class SubtenantAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._reference_note.set(value)
 
     @property
@@ -895,6 +791,7 @@ class SubtenantAccount(Entity):
         
         :rtype: str
         """
+
         return self._sales_contact.value
 
     @sales_contact.setter
@@ -904,6 +801,7 @@ class SubtenantAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._sales_contact.set(value)
 
     @property
@@ -914,6 +812,7 @@ class SubtenantAccount(Entity):
         
         :rtype: str
         """
+
         return self._state.value
 
     @state.setter
@@ -923,6 +822,7 @@ class SubtenantAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._state.set(value)
 
     @property
@@ -933,6 +833,7 @@ class SubtenantAccount(Entity):
         
         :rtype: str
         """
+
         return self._status.value
 
     @status.setter
@@ -942,6 +843,7 @@ class SubtenantAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._status.set(value)
 
     @property
@@ -950,6 +852,7 @@ class SubtenantAccount(Entity):
         
         :rtype: list[SubtenantAccount]
         """
+
         return self._sub_accounts.value
 
     @sub_accounts.setter
@@ -959,6 +862,7 @@ class SubtenantAccount(Entity):
         :param value: value to set
         :type value: list[SubtenantAccount]
         """
+
         self._sub_accounts.set(value)
 
     @property
@@ -969,6 +873,7 @@ class SubtenantAccount(Entity):
         
         :rtype: str
         """
+
         return self._template_id.value
 
     @template_id.setter
@@ -978,6 +883,7 @@ class SubtenantAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._template_id.set(value)
 
     @property
@@ -989,6 +895,7 @@ class SubtenantAccount(Entity):
         
         :rtype: str
         """
+
         return self._tier.value
 
     @tier.setter
@@ -998,6 +905,7 @@ class SubtenantAccount(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._tier.set(value)
 
     @property
@@ -1008,6 +916,7 @@ class SubtenantAccount(Entity):
         
         :rtype: datetime
         """
+
         return self._updated_at.value
 
     @updated_at.setter
@@ -1017,6 +926,7 @@ class SubtenantAccount(Entity):
         :param value: value to set
         :type value: datetime
         """
+
         self._updated_at.set(value)
 
     @property
@@ -1027,6 +937,7 @@ class SubtenantAccount(Entity):
         
         :rtype: datetime
         """
+
         return self._upgraded_at.value
 
     @upgraded_at.setter
@@ -1036,131 +947,28 @@ class SubtenantAccount(Entity):
         :param value: value to set
         :type value: datetime
         """
+
         self._upgraded_at.set(value)
-
-    def api_keys(self, after=None, include=None, limit=50, order="ASC"):
-        """Get all API keys.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/api-keys
-        
-        :param after: The entity ID to fetch after the given one.
-        :type after: str
-        
-        :param include: Comma separated additional data to return. Currently supported:
-            total_count
-        :type include: str
-        
-        :param limit: The number of results to return (2-1000), default is 50.
-        :type limit: int
-        
-        :param order: The order of the records based on creation time, ASC or DESC; by
-            default ASC
-        :type order: str
-        
-        :rtype: mbed_cloud.pagination.PaginatedResponse
-        """
-
-        def mapper(api_data):
-            from mbed_cloud.sdk.entities import ApiKey
-
-            return ApiKey().from_api(**api_data)
-
-        from mbed_cloud.pagination import PaginatedResponse
-
-        return PaginatedResponse(
-            func=self._api_keys,
-            lwrap_type=mapper,
-            after=after,
-            include=include,
-            limit=limit,
-            order=order,
-        )
-
-    def _api_keys(self, after=None, include=None, limit=None, order=None):
-        """Internal 'next-page' behaviour for pagination"""
-
-        return self._client.call_api(
-            method="get",
-            path="/v3/accounts/{accountID}/api-keys",
-            path_params={"accountID": self._id.to_api()},
-            query_params={
-                "after": fields.StringField(after).to_api(),
-                "include": fields.StringField(include).to_api(),
-                "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(order).to_api(),
-            },
-            unpack=False,
-        )
-
-    def create(self, action="create"):
-        """Create a new account.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts
-        
-        :param action: Action, either 'create' or 'enroll'. <ul><li>'create' creates the
-            account where its admin user has ACTIVE status if admin_password was
-            defined in the request, or RESET status if no admin_password was
-            defined. If the user already exists, its status is not modified.
-            </li><li>'enroll' creates the account where its admin user has
-            ENROLLING status. If the user already exists, its status is not
-            modified. Email to finish the enrollment or to notify the existing
-            user about the new account is sent to the admin_email defined in the
-            request. </li></ul>
-        :type action: str
-        
-        :rtype: SubtenantAccount
-        """
-
-        return self._client.call_api(
-            method="post",
-            path="/v3/accounts",
-            body_params={
-                "address_line1": self._address_line1.to_api(),
-                "address_line2": self._address_line2.to_api(),
-                "admin_email": self._admin_email.to_api(),
-                "admin_full_name": self._admin_full_name.to_api(),
-                "admin_name": self._admin_name.to_api(),
-                "admin_password": self._admin_password.to_api(),
-                "aliases": self._aliases.to_api(),
-                "city": self._city.to_api(),
-                "company": self._company.to_api(),
-                "contact": self._contact.to_api(),
-                "contract_number": self._contract_number.to_api(),
-                "country": self._country.to_api(),
-                "customer_number": self._customer_number.to_api(),
-                "display_name": self._display_name.to_api(),
-                "email": self._email.to_api(),
-                "end_market": self._end_market.to_api(),
-                "phone_number": self._phone_number.to_api(),
-                "postal_code": self._postal_code.to_api(),
-                "state": self._state.to_api(),
-            },
-            query_params={"action": fields.StringField(action).to_api()},
-            unpack=self,
-        )
 
     def get(self, include=None, properties=None):
         """Get account info.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/me
         
         :param include: Comma separated additional data to return. Currently supported:
-            limits, policies, sub_accounts
+            limits, policies, sub_accounts.
         :type include: str
         
         :param properties: Property name to be returned from account specific properties.
         :type properties: str
         
-        :rtype: SubtenantAccount
+        :rtype: MyAccount
         """
 
         return self._client.call_api(
             method="get",
-            path="/v3/accounts/{accountID}",
-            path_params={"accountID": self._id.to_api()},
+            path="/v3/accounts/me",
             query_params={
                 "include": fields.StringField(include).to_api(),
                 "properties": fields.StringField(properties).to_api(),
@@ -1168,189 +976,18 @@ class SubtenantAccount(Entity):
             unpack=self,
         )
 
-    def groups(self, after=None, include=None, limit=50, name__eq=None, order="ASC"):
-        """Get all group information.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/policy-groups
-        
-        :param after: The entity ID to fetch after the given one.
-        :type after: str
-        
-        :param include: Comma separated additional data to return. Currently supported:
-            total_count
-        :type include: str
-        
-        :param limit: The number of results to return (2-1000), default is 50.
-        :type limit: int
-        
-        :param name__eq: Filter for group name
-        :type name__eq: str
-        
-        :param order: The order of the records based on creation time, ASC or DESC; by
-            default ASC
-        :type order: str
-        
-        :rtype: mbed_cloud.pagination.PaginatedResponse
-        """
-
-        def mapper(api_data):
-            from mbed_cloud.sdk.entities import PolicyGroup
-
-            return PolicyGroup().from_api(**api_data)
-
-        from mbed_cloud.pagination import PaginatedResponse
-
-        return PaginatedResponse(
-            func=self._groups,
-            lwrap_type=mapper,
-            after=after,
-            include=include,
-            limit=limit,
-            name__eq=name__eq,
-            order=order,
-        )
-
-    def _groups(self, after=None, include=None, limit=None, name__eq=None, order=None):
-        """Internal 'next-page' behaviour for pagination"""
-
-        return self._client.call_api(
-            method="get",
-            path="/v3/accounts/{accountID}/policy-groups",
-            path_params={"accountID": self._id.to_api()},
-            query_params={
-                "after": fields.StringField(after).to_api(),
-                "include": fields.StringField(include).to_api(),
-                "limit": fields.IntegerField(limit).to_api(),
-                "name__eq": fields.StringField(name__eq).to_api(),
-                "order": fields.StringField(order).to_api(),
-            },
-            unpack=False,
-        )
-
-    def list(
-        self,
-        after=None,
-        country__like=None,
-        end_market__eq=None,
-        format=None,
-        include=None,
-        limit=1000,
-        order="ASC",
-        parent__eq=None,
-        properties=None,
-        tier__eq=None,
-    ):
-        """Get all accounts.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts
-        
-        :param after: The entity ID to fetch after the given one.
-        :type after: str
-        
-        :param country__like: An optional filter for account country. Finds all matches where the
-            filter value is a case insensitive substring of the result. Example:
-            country__like=LAND matches Ireland.
-        :type country__like: str
-        
-        :param end_market__eq: An optional filter for account end market.
-        :type end_market__eq: str
-        
-        :param format: Format information for the response to the query, supported:
-            format=breakdown.
-        :type format: str
-        
-        :param include: Comma separated additional data to return. Currently supported:
-            limits, policies, sub_accounts
-        :type include: str
-        
-        :param limit: The number of results to return (2-1000), default is 1000.
-        :type limit: int
-        
-        :param order: The order of the records based on creation time, ASC or DESC. Default
-            value is ASC
-        :type order: str
-        
-        :param parent__eq: An optional filter for parent account ID.
-        :type parent__eq: str
-        
-        :param properties: Property name to be returned from account specific properties.
-        :type properties: str
-        
-        :param tier__eq: An optional filter for tier level, must be 0, 1, 2, 98, 99 or omitted.
-        :type tier__eq: str
-        
-        :rtype: mbed_cloud.pagination.PaginatedResponse
-        """
-
-        def mapper(api_data):
-            from mbed_cloud.sdk.entities import SubtenantAccount
-
-            return SubtenantAccount().from_api(**api_data)
-
-        from mbed_cloud.pagination import PaginatedResponse
-
-        return PaginatedResponse(
-            func=self._list,
-            lwrap_type=mapper,
-            after=after,
-            country__like=country__like,
-            end_market__eq=end_market__eq,
-            format=format,
-            include=include,
-            limit=limit,
-            order=order,
-            parent__eq=parent__eq,
-            properties=properties,
-            tier__eq=tier__eq,
-        )
-
-    def _list(
-        self,
-        after=None,
-        country__like=None,
-        end_market__eq=None,
-        format=None,
-        include=None,
-        limit=None,
-        order=None,
-        parent__eq=None,
-        properties=None,
-        tier__eq=None,
-    ):
-        """Internal 'next-page' behaviour for pagination"""
-
-        return self._client.call_api(
-            method="get",
-            path="/v3/accounts",
-            query_params={
-                "after": fields.StringField(after).to_api(),
-                "country__like": fields.StringField(country__like).to_api(),
-                "end_market__eq": fields.StringField(end_market__eq).to_api(),
-                "format": fields.StringField(format).to_api(),
-                "include": fields.StringField(include).to_api(),
-                "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(order).to_api(),
-                "parent__eq": fields.StringField(parent__eq).to_api(),
-                "properties": fields.StringField(properties).to_api(),
-                "tier__eq": fields.StringField(tier__eq).to_api(),
-            },
-            unpack=False,
-        )
-
     def update(self):
-        """Update attributes of an existing account.
+        """Updates attributes of the account.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/me
         
-        :rtype: SubtenantAccount
+        :rtype: MyAccount
         """
 
         return self._client.call_api(
             method="put",
-            path="/v3/accounts/{accountID}",
+            path="/v3/accounts/me",
             body_params={
                 "address_line1": self._address_line1.to_api(),
                 "address_line2": self._address_line2.to_api(),
@@ -1358,10 +995,8 @@ class SubtenantAccount(Entity):
                 "city": self._city.to_api(),
                 "company": self._company.to_api(),
                 "contact": self._contact.to_api(),
-                "contract_number": self._contract_number.to_api(),
                 "country": self._country.to_api(),
                 "custom_fields": self._custom_fields.to_api(),
-                "customer_number": self._customer_number.to_api(),
                 "display_name": self._display_name.to_api(),
                 "email": self._email.to_api(),
                 "end_market": self._end_market.to_api(),
@@ -1372,64 +1007,7 @@ class SubtenantAccount(Entity):
                 "password_policy": self._password_policy.to_api(),
                 "phone_number": self._phone_number.to_api(),
                 "postal_code": self._postal_code.to_api(),
-                "sales_contact": self._sales_contact.to_api(),
                 "state": self._state.to_api(),
             },
-            path_params={"accountID": self._id.to_api()},
             unpack=self,
-        )
-
-    def users(self, after=None, include=None, limit=50, order="ASC"):
-        """Get all user details.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/users
-        
-        :param after: The entity ID to fetch after the given one.
-        :type after: str
-        
-        :param include: Comma separated additional data to return. Currently supported:
-            total_count
-        :type include: str
-        
-        :param limit: The number of results to return (2-1000), default is 50.
-        :type limit: int
-        
-        :param order: The order of the records based on creation time, ASC or DESC; by
-            default ASC
-        :type order: str
-        
-        :rtype: mbed_cloud.pagination.PaginatedResponse
-        """
-
-        def mapper(api_data):
-            from mbed_cloud.sdk.entities import User
-
-            return User().from_api(**api_data)
-
-        from mbed_cloud.pagination import PaginatedResponse
-
-        return PaginatedResponse(
-            func=self._users,
-            lwrap_type=mapper,
-            after=after,
-            include=include,
-            limit=limit,
-            order=order,
-        )
-
-    def _users(self, after=None, include=None, limit=None, order=None):
-        """Internal 'next-page' behaviour for pagination"""
-
-        return self._client.call_api(
-            method="get",
-            path="/v3/accounts/{accountID}/users",
-            path_params={"accountID": self._id.to_api()},
-            query_params={
-                "after": fields.StringField(after).to_api(),
-                "include": fields.StringField(include).to_api(),
-                "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(order).to_api(),
-            },
-            unpack=False,
         )

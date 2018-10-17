@@ -76,15 +76,16 @@ class Client(object):
             if inspect.isclass(unpack):
                 unpack = unpack()  # noqa - we're going to instantiate it
             try:
-                decoded = response.json()
+                decoded = (response.content or {}) and response.json()
             except Exception as e:
-                # TODO: support other content types
-                pass
+                # TODO: support other content types here
+                self.config.logger.error(
+                    "Failed to unpack response body:\n%r", response.content
+                )
+                e.response = response
+                raise e
             else:
                 return unpack.from_api(**decoded)
-
-            # not sure how to unpack, so just return it
-            return response.content
 
         # else the response indicates an error, so the rest of this is error handling:
 
@@ -117,7 +118,8 @@ class Client(object):
 
         try:
             content = json.loads(response.content)
-        except Exception:
+        except Exception:  # noqa
+            # we don't care why loading the error content fails. maybe the API changed? log it.
             self.config.logger.warning("Failed to unpack error body as json")
             content = {"response": response.content}
         else:
@@ -137,7 +139,8 @@ class Client(object):
                                 getattr(unpack.__class__, fieldname, None).__doc__,
                             )
                         )
-            except Exception:
+            except Exception:  # noqa
+                # we don't care why remapping the field fails. we gave it a go! log it.
                 self.config.logger.exception("Failed to remap fields")
         api_feedback = util.pretty_literal(content)
 

@@ -11,6 +11,7 @@ from builtins import super
 
 from mbed_cloud.sdk.common.entity import Entity
 from mbed_cloud.sdk.common import fields
+from mbed_cloud.sdk import enums
 
 
 class PasswordPolicy(Entity):
@@ -44,6 +45,7 @@ class PasswordPolicy(Entity):
         
         :rtype: str
         """
+
         return self._minimum_length.value
 
     @minimum_length.setter
@@ -53,4 +55,5 @@ class PasswordPolicy(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._minimum_length.set(value)

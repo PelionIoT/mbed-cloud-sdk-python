@@ -4,6 +4,17 @@ import json
 from mbed_cloud import pagination
 
 
+def maybe_cache(func):
+    """If lru_cache is available, try to use it"""
+    try:
+        from functools import lru_cache
+    except ImportError:
+        pass
+    else:
+        func = lru_cache()(func)
+    return func
+
+
 def paginate(unpack):
     """Decorator that wraps listable_call
 

@@ -11,6 +11,7 @@ from builtins import super
 
 from mbed_cloud.sdk.common.entity import Entity
 from mbed_cloud.sdk.common import fields
+from mbed_cloud.sdk import enums
 
 
 class User(Entity):
@@ -91,7 +92,7 @@ class User(Entity):
         :type full_name: str
         :param group_ids: A list of IDs of the groups this user belongs to.
         :type group_ids: list
-        :param id: The UUID of the user.
+        :param id: Entity ID.
         :type id: str
         :param last_login_time: A timestamp of the latest login of the user, in milliseconds.
         :type last_login_time: int
@@ -133,9 +134,7 @@ class User(Entity):
 
         # inline imports for avoiding circular references and bulk imports
 
-        from mbed_cloud.sdk._modules.accounts.entities.login_history import LoginHistory
-
-        from mbed_cloud.sdk.enums import UserStatusEnum
+        from mbed_cloud.sdk._modules.accounts.login_history import LoginHistory
 
         # fields
         self._account_id = fields.StringField(value=account_id)
@@ -153,7 +152,7 @@ class User(Entity):
         self._password = fields.StringField(value=password)
         self._password_changed_time = fields.IntegerField(value=password_changed_time)
         self._phone_number = fields.StringField(value=phone_number)
-        self._status = fields.StringField(value=status, enum=UserStatusEnum)
+        self._status = fields.StringField(value=status, enum=enums.UserStatusEnum)
         self._terms_accepted = fields.BooleanField(value=terms_accepted)
         self._two_factor_authentication = fields.BooleanField(
             value=two_factor_authentication
@@ -169,6 +168,7 @@ class User(Entity):
         
         :rtype: str
         """
+
         return self._account_id.value
 
     @account_id.setter
@@ -178,6 +178,7 @@ class User(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._account_id.set(value)
 
     @property
@@ -188,6 +189,7 @@ class User(Entity):
         
         :rtype: str
         """
+
         return self._address.value
 
     @address.setter
@@ -197,6 +199,7 @@ class User(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._address.set(value)
 
     @property
@@ -207,6 +210,7 @@ class User(Entity):
         
         :rtype: datetime
         """
+
         return self._created_at.value
 
     @created_at.setter
@@ -216,6 +220,7 @@ class User(Entity):
         :param value: value to set
         :type value: datetime
         """
+
         self._created_at.set(value)
 
     @property
@@ -226,6 +231,7 @@ class User(Entity):
         
         :rtype: int
         """
+
         return self._creation_time.value
 
     @creation_time.setter
@@ -235,6 +241,7 @@ class User(Entity):
         :param value: value to set
         :type value: int
         """
+
         self._creation_time.set(value)
 
     @property
@@ -245,6 +252,7 @@ class User(Entity):
         
         :rtype: str
         """
+
         return self._email.value
 
     @email.setter
@@ -254,6 +262,7 @@ class User(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._email.set(value)
 
     @property
@@ -264,6 +273,7 @@ class User(Entity):
         
         :rtype: bool
         """
+
         return self._email_verified.value
 
     @email_verified.setter
@@ -273,6 +283,7 @@ class User(Entity):
         :param value: value to set
         :type value: bool
         """
+
         self._email_verified.set(value)
 
     @property
@@ -283,6 +294,7 @@ class User(Entity):
         
         :rtype: str
         """
+
         return self._full_name.value
 
     @full_name.setter
@@ -292,6 +304,7 @@ class User(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._full_name.set(value)
 
     @property
@@ -300,6 +313,7 @@ class User(Entity):
         
         :rtype: list
         """
+
         return self._group_ids.value
 
     @group_ids.setter
@@ -309,16 +323,18 @@ class User(Entity):
         :param value: value to set
         :type value: list
         """
+
         self._group_ids.set(value)
 
     @property
     def id(self):
-        """The UUID of the user.
+        """Entity ID.
         
-        api example: '01619571e2e89242ac12000600000000'
+        api example: '01619571dad80242ac12000600000000'
         
         :rtype: str
         """
+
         return self._id.value
 
     @id.setter
@@ -328,6 +344,7 @@ class User(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._id.set(value)
 
     @property
@@ -338,6 +355,7 @@ class User(Entity):
         
         :rtype: int
         """
+
         return self._last_login_time.value
 
     @last_login_time.setter
@@ -347,6 +365,7 @@ class User(Entity):
         :param value: value to set
         :type value: int
         """
+
         self._last_login_time.set(value)
 
     @property
@@ -356,6 +375,7 @@ class User(Entity):
         
         :rtype: list[LoginHistory]
         """
+
         return self._login_history.value
 
     @login_history.setter
@@ -365,6 +385,7 @@ class User(Entity):
         :param value: value to set
         :type value: list[LoginHistory]
         """
+
         self._login_history.set(value)
 
     @property
@@ -375,6 +396,7 @@ class User(Entity):
         
         :rtype: bool
         """
+
         return self._marketing_accepted.value
 
     @marketing_accepted.setter
@@ -384,6 +406,7 @@ class User(Entity):
         :param value: value to set
         :type value: bool
         """
+
         self._marketing_accepted.set(value)
 
     @property
@@ -395,6 +418,7 @@ class User(Entity):
         
         :rtype: str
         """
+
         return self._password.value
 
     @password.setter
@@ -404,6 +428,7 @@ class User(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._password.set(value)
 
     @property
@@ -414,6 +439,7 @@ class User(Entity):
         
         :rtype: int
         """
+
         return self._password_changed_time.value
 
     @password_changed_time.setter
@@ -423,6 +449,7 @@ class User(Entity):
         :param value: value to set
         :type value: int
         """
+
         self._password_changed_time.set(value)
 
     @property
@@ -433,6 +460,7 @@ class User(Entity):
         
         :rtype: str
         """
+
         return self._phone_number.value
 
     @phone_number.setter
@@ -442,6 +470,7 @@ class User(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._phone_number.set(value)
 
     @property
@@ -456,6 +485,7 @@ class User(Entity):
         
         :rtype: str
         """
+
         return self._status.value
 
     @status.setter
@@ -465,6 +495,7 @@ class User(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._status.set(value)
 
     @property
@@ -475,6 +506,7 @@ class User(Entity):
         
         :rtype: bool
         """
+
         return self._terms_accepted.value
 
     @terms_accepted.setter
@@ -484,6 +516,7 @@ class User(Entity):
         :param value: value to set
         :type value: bool
         """
+
         self._terms_accepted.set(value)
 
     @property
@@ -494,6 +527,7 @@ class User(Entity):
         
         :rtype: bool
         """
+
         return self._two_factor_authentication.value
 
     @two_factor_authentication.setter
@@ -503,6 +537,7 @@ class User(Entity):
         :param value: value to set
         :type value: bool
         """
+
         self._two_factor_authentication.set(value)
 
     @property
@@ -513,6 +548,7 @@ class User(Entity):
         
         :rtype: datetime
         """
+
         return self._updated_at.value
 
     @updated_at.setter
@@ -522,6 +558,7 @@ class User(Entity):
         :param value: value to set
         :type value: datetime
         """
+
         self._updated_at.set(value)
 
     @property
@@ -532,6 +569,7 @@ class User(Entity):
         
         :rtype: str
         """
+
         return self._username.value
 
     @username.setter
@@ -541,9 +579,50 @@ class User(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._username.set(value)
 
+    def add_to_groups(self, add_to_group_ids):
+        """Add user to a list of groups.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/users/{user-id}/groups
+        
+        :param add_to_group_ids: A list of IDs of the groups to be updated.
+        :type add_to_group_ids: list
+        
+        :rtype: User
+        """
+
+        return self._client.call_api(
+            method="post",
+            path="/v3/users/{user-id}/groups",
+            body_params=fields.ListField(add_to_group_ids).to_api(),
+            path_params={"user-id": self._id.to_api()},
+            unpack=self,
+        )
+
     def create(self, action="create"):
+        """Create a new user.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/users
+        
+        :param action: Action, either 'create' or 'invite'.
+        :type action: str
+        
+        :rtype: User
+        """
+
+        from mbed_cloud.sdk.common._custom_methods import (
+            subtenant_account_switch_create,
+        )
+
+        return subtenant_account_switch_create(
+            self=self, foreign_key=self.__class__, action=action
+        )
+
+    def _create_on_aggregator(self, action="create"):
         """Create a new user.
 
         api documentation:
@@ -573,6 +652,37 @@ class User(Entity):
             unpack=self,
         )
 
+    def _create_on_subtenant(self, action="create"):
+        """Create a new user.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/users
+        
+        :param action: Create or invite user.
+        :type action: str
+        
+        :rtype: User
+        """
+
+        return self._client.call_api(
+            method="post",
+            path="/v3/accounts/{accountID}/users",
+            body_params={
+                "address": self._address.to_api(),
+                "email": self._email.to_api(),
+                "full_name": self._full_name.to_api(),
+                "groups": self._group_ids.to_api(),
+                "is_marketing_accepted": self._marketing_accepted.to_api(),
+                "password": self._password.to_api(),
+                "phone_number": self._phone_number.to_api(),
+                "is_gtc_accepted": self._terms_accepted.to_api(),
+                "username": self._username.to_api(),
+            },
+            path_params={"accountID": self._account_id.to_api()},
+            query_params={"action": fields.StringField(action).to_api()},
+            unpack=self,
+        )
+
     def delete(self):
         """Delete a user.
 
@@ -590,6 +700,19 @@ class User(Entity):
         )
 
     def get(self):
+        """Details of the user.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/users/{user-id}
+        
+        :rtype: User
+        """
+
+        from mbed_cloud.sdk.common._custom_methods import subtenant_account_switch_get
+
+        return subtenant_account_switch_get(self=self, foreign_key=self.__class__)
+
+    def _get_on_aggregator(self):
         """Details of a user.
 
         api documentation:
@@ -602,6 +725,25 @@ class User(Entity):
             method="get",
             path="/v3/users/{user-id}",
             path_params={"user-id": self._id.to_api()},
+            unpack=self,
+        )
+
+    def _get_on_subtenant(self):
+        """Details of the user.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/users/{user-id}
+        
+        :rtype: User
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/accounts/{accountID}/users/{user-id}",
+            path_params={
+                "accountID": self._account_id.to_api(),
+                "user-id": self._id.to_api(),
+            },
             unpack=self,
         )
 
@@ -628,36 +770,17 @@ class User(Entity):
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 
-        def mapper(api_data):
-            from mbed_cloud.sdk.entities import PolicyGroup
+        from mbed_cloud.sdk.common._custom_methods import paginate
+        from mbed_cloud.sdk.entities import PolicyGroup
 
-            return PolicyGroup().from_api(**api_data)
-
-        from mbed_cloud.pagination import PaginatedResponse
-
-        return PaginatedResponse(
-            func=self._groups,
-            lwrap_type=mapper,
+        return paginate(
+            self=self,
+            foreign_key=PolicyGroup,
             after=after,
             include=include,
             limit=limit,
             order=order,
-        )
-
-    def _groups(self, after=None, include=None, limit=None, order=None):
-        """Internal 'next-page' behaviour for pagination"""
-
-        return self._client.call_api(
-            method="get",
-            path="/v3/users/{user-id}/groups",
-            path_params={"user-id": self._id.to_api()},
-            query_params={
-                "after": fields.StringField(after).to_api(),
-                "include": fields.StringField(include).to_api(),
-                "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(order).to_api(),
-            },
-            unpack=False,
+            wraps=self._paginate_groups,
         )
 
     def list(self, after=None, include=None, limit=50, order="ASC"):
@@ -683,24 +806,79 @@ class User(Entity):
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 
-        def mapper(api_data):
-            from mbed_cloud.sdk.entities import User
+        from mbed_cloud.sdk.common._custom_methods import paginate
+        from mbed_cloud.sdk.entities import User
 
-            return User().from_api(**api_data)
-
-        from mbed_cloud.pagination import PaginatedResponse
-
-        return PaginatedResponse(
-            func=self._list,
-            lwrap_type=mapper,
+        return paginate(
+            self=self,
+            foreign_key=User,
             after=after,
             include=include,
             limit=limit,
             order=order,
+            wraps=self._paginate_list,
         )
 
-    def _list(self, after=None, include=None, limit=None, order=None):
-        """Internal 'next-page' behaviour for pagination"""
+    def _paginate_groups(self, after=None, include=None, limit=50, order="ASC"):
+        """Get groups of the user.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/users/{user-id}/groups
+        
+        :param after: The entity ID to fetch after the given one.
+        :type after: str
+        
+        :param include: Comma separated additional data to return. Currently supported:
+            total_count
+        :type include: str
+        
+        :param limit: The number of results to return (2-1000), default is 50.
+        :type limit: int
+        
+        :param order: The order of the records based on creation time, ASC or DESC; by
+            default ASC
+        :type order: str
+        
+        :rtype: mbed_cloud.pagination.PaginatedResponse
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/users/{user-id}/groups",
+            path_params={"user-id": self._id.to_api()},
+            query_params={
+                "after": fields.StringField(after).to_api(),
+                "include": fields.StringField(include).to_api(),
+                "limit": fields.IntegerField(limit).to_api(),
+                "order": fields.StringField(
+                    order, enum=enums.SubtenantAccountOrderEnum
+                ).to_api(),
+            },
+            unpack=False,
+        )
+
+    def _paginate_list(self, after=None, include=None, limit=50, order="ASC"):
+        """Get the details of all users.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/users
+        
+        :param after: The entity ID to fetch after the given one.
+        :type after: str
+        
+        :param include: Comma separated additional data to return. Currently supported:
+            total_count
+        :type include: str
+        
+        :param limit: The number of results to return (2-1000), default is 50.
+        :type limit: int
+        
+        :param order: The order of the records based on creation time, ASC or DESC; by
+            default ASC
+        :type order: str
+        
+        :rtype: mbed_cloud.pagination.PaginatedResponse
+        """
 
         return self._client.call_api(
             method="get",
@@ -709,7 +887,9 @@ class User(Entity):
                 "after": fields.StringField(after).to_api(),
                 "include": fields.StringField(include).to_api(),
                 "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(order).to_api(),
+                "order": fields.StringField(
+                    order, enum=enums.SubtenantAccountOrderEnum
+                ).to_api(),
             },
             unpack=False,
         )

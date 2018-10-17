@@ -11,6 +11,7 @@ from builtins import super
 
 from mbed_cloud.sdk.common.entity import Entity
 from mbed_cloud.sdk.common import fields
+from mbed_cloud.sdk import enums
 
 
 class LoginHistory(Entity):
@@ -55,6 +56,7 @@ class LoginHistory(Entity):
         
         :rtype: datetime
         """
+
         return self._date.value
 
     @date.setter
@@ -64,6 +66,7 @@ class LoginHistory(Entity):
         :param value: value to set
         :type value: datetime
         """
+
         self._date.set(value)
 
     @property
@@ -74,6 +77,7 @@ class LoginHistory(Entity):
         
         :rtype: str
         """
+
         return self._ip_address.value
 
     @ip_address.setter
@@ -83,6 +87,7 @@ class LoginHistory(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._ip_address.set(value)
 
     @property
@@ -93,6 +98,7 @@ class LoginHistory(Entity):
         
         :rtype: bool
         """
+
         return self._success.value
 
     @success.setter
@@ -102,6 +108,7 @@ class LoginHistory(Entity):
         :param value: value to set
         :type value: bool
         """
+
         self._success.set(value)
 
     @property
@@ -113,6 +120,7 @@ class LoginHistory(Entity):
         
         :rtype: str
         """
+
         return self._user_agent.value
 
     @user_agent.setter
@@ -122,4 +130,5 @@ class LoginHistory(Entity):
         :param value: value to set
         :type value: str
         """
+
         self._user_agent.set(value)

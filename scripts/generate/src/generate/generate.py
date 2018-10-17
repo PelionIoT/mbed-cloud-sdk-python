@@ -23,6 +23,8 @@ You'll be wanting to use Python 3 for this.
 import logging
 import os
 import subprocess
+import shutil
+import functools
 
 import jinja2
 import yaml
@@ -78,9 +80,6 @@ class FileMap:
         and self.target as the name of the destination file
         """
         for gen_module in self.per_module:
-            _LOG.info('rendering %s', self.template)
-            rendered = self.template.render(gen_module.data or config)
-
             output_dir = os.path.join(*[
                 p for p in (self.output_dir, gen_module.root, gen_module.name) if p
             ])
@@ -89,21 +88,81 @@ class FileMap:
                 os.makedirs(output_dir)
 
             output = os.path.join(output_dir, gen_module.target or self.target)
+
+            _LOG.info('rendering %s (%s)', self.template, output)
+
+            rendered = self.template.render(gen_module.data or config)
+
             with open(output, 'w') as fh:
-                _LOG.info('writing %s', output)
                 fh.write(rendered)
 
+
+@functools.lru_cache()
+def to_snakecase(name):
+    """Converts string to snake_case
+
+    we don't use title because that forces lowercase for the word, whereas we want:
+    PSK -> psk
+    api key -> api_key
+    user -> user
+    """
+    return name.replace(" ", "_").lower()
+
+
+@functools.lru_cache()
+def to_camelcase(name):
+    """Converts snake_case to camelCase
+
+    we don't use title because that forces lowercase for the word, whereas we want:
+    PSK -> PSK
+    api_key -> apiKey
+    user -> User
+    """
+    name = name.replace(" ", "_")
+    parts = name.split("_")
+    upper_first = to_pascalcase(name)
+    return upper_first[0].lower() + upper_first[1:] if len(parts) > 1 else upper_first
+
+
+@functools.lru_cache()
+def to_lower_camelcase(name):
+    """Converts snake_case to lowerCamelCase
+
+    we don't use title because that forces lowercase for the word, whereas we want:
+    PSK -> PSK
+    api_key -> apiKey
+    user -> user
+    """
+    name = name.replace(" ", "_")
+    parts = name.split("_")
+    upper_first = to_pascalcase(name)
+    return upper_first[0].lower() + upper_first[1:]
+
+
+@functools.lru_cache()
+def to_pascalcase(name):
+    """Converts snake_case to PascalCase
+
+    we don't use title because that forces lowercase for the word, whereas we want:
+    PSK -> PSK
+    api_key -> ApiKey
+    user -> User
+    """
+    name = name.replace(" ", "_")
+    name = name.replace("__", "_")
+    return name and "".join(n[0].upper() + n[1:] for n in name.split("_") if n)
 
 def sort_parg_kwarg(items):
     """Very specific sort ordering for ensuring pargs, kwargs are in the correct order"""
     return sorted(items, key=lambda x: not bool(x.get('required')))
 
 
-def main(input_file, output_dir):
+def main(input_file, output_dir, clean=False):
     """Bulk of the generation work
 
     :param input_file: The 'inter.yaml' intermediate yaml configuration / specification file
     :param output_dir: Directory to generate the SDK in to
+    :param clean: Wipe the top level generated directory before generating
     :return:
     """
     _LOG.info('loading %s', input_file)
@@ -115,25 +174,31 @@ def main(input_file, output_dir):
     )
     jinja_env.filters['repr'] = repr
     jinja_env.filters['pargs_kwargs'] = sort_parg_kwarg
+    jinja_env.filters.update(dict(
+        repr=repr,
+        sort_parg_kwarg=sort_parg_kwarg,
+        to_snake=to_snakecase,
+        to_pascal=to_pascalcase,
+    ))
 
     generation_root = '_modules'
     generation_dir = os.path.join(output_dir, generation_root)
 
     sub_modules = [
-        GenModule(name=g['_key']['snake'], root=generation_root, data=g) for g in config.get('groups')
+        GenModule(name=to_snakecase(group['_key']), root=generation_root, data=group) for group in config.get('groups')
     ]
     entity_modules = [
-        GenModule(name='entities', root=os.path.join(generation_root, e['group_id']['snake']), data=e['group_id']) for e in config.get('entities')
+        GenModule(name=None, root=os.path.join(generation_root, to_snakecase(e['group_id'])), data=e) for e in config.get('entities')
     ]
     src_entity_modules = [
-        GenModule(name='entities', root=os.path.join(generation_root, e['group_id']['snake']), data={'entities': [e]}, target=e['_key']['snake']+'.py') for e in config.get('entities')
+        GenModule(name=None, root=os.path.join(generation_root, to_snakecase(e['group_id'])), data={'entities': [e]}, target=to_snakecase(e['_key'])+'.py') for e in config.get('entities')
     ]
     enum_modules = [
         GenModule(
             # name='enums',
-            root=os.path.join(generation_root, g['_key']['snake']),
+            root=os.path.join(generation_root, to_snakecase(g['_key'])),
             data=dict(
-              enums=[e for e in config.get('enums') if e['group_id']['name']==g['_key']['name']]
+              enums=[e for e in config.get('enums') if e['group_id'] == g['_key']]
             )
         ) for g in config.get('groups')
     ]
@@ -153,11 +218,15 @@ def main(input_file, output_dir):
         FileMap(jinja_env, output_dir, '__init__.jinja2', per_module=entity_modules),
     ]
 
+    if clean:
+        _LOG.info('freshen output directory (clear old files and folders)')
+        shutil.rmtree(generation_dir)
+
     for file_map in file_maps:
         file_map.run(config)
 
     _LOG.info('post-formatting %s', output_dir)
-    subprocess.run(['black', output_dir])
+    subprocess.run(['black', output_dir, '--fast'])
 
 
 def main_from_cli():
