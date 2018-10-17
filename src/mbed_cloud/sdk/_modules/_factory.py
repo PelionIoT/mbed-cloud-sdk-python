@@ -210,30 +210,30 @@ class InstanceFactory:
     def developer_certificate(
         self,
         account_id=None,
+        certificate=None,
         created_at=None,
         description=None,
-        developer_certificate=None,
-        developer_private_key=None,
         id=None,
         name=None,
+        private_key=None,
         security_file_content=None,
     ):
         """Creates a local `DeveloperCertificate` instance, binding the client
 
         :param account_id: account to which the developer certificate belongs
         :type account_id: str
+        :param certificate: PEM format X.509 developer certificate.
+        :type certificate: str
         :param created_at: Creation UTC time RFC3339.
         :type created_at: datetime
         :param description: Description for the developer certificate.
         :type description: str
-        :param developer_certificate: PEM format X.509 developer certificate.
-        :type developer_certificate: str
-        :param developer_private_key: PEM format developer private key associated to the certificate.
-        :type developer_private_key: str
         :param id: mUUID that uniquely identifies the developer certificate.
         :type id: str
         :param name: Name of the developer certificate.
         :type name: str
+        :param private_key: PEM format developer private key associated to the certificate.
+        :type private_key: str
         :param security_file_content: Content of the security.c file that will be flashed into the
             device to provide the security credentials
         :type security_file_content: str
@@ -245,12 +245,12 @@ class InstanceFactory:
         return DeveloperCertificate(
             _client=self._client,
             account_id=account_id,
+            certificate=certificate,
             created_at=created_at,
             description=description,
-            developer_certificate=developer_certificate,
-            developer_private_key=developer_private_key,
             id=id,
             name=name,
+            private_key=private_key,
             security_file_content=security_file_content,
         )
 
@@ -936,9 +936,9 @@ class InstanceFactory:
         certificate=None,
         created_at=None,
         description=None,
-        developer=None,
         enrollment_mode=None,
         id=None,
+        is_developer_certificate=None,
         issuer=None,
         name=None,
         owner_id=None,
@@ -958,14 +958,14 @@ class InstanceFactory:
         :type created_at: datetime
         :param description: Human readable description of this certificate.
         :type description: str
-        :param developer: The type of the certificate.
-        :type developer: bool
         :param device_execution_mode: Device execution mode where 1 means a developer certificate.
         :type device_execution_mode: int
         :param enrollment_mode: If true, signature is not required. Default value false.
         :type enrollment_mode: bool
         :param id: Entity ID.
         :type id: str
+        :param is_developer_certificate: Whether or not this certificate is a developer certificate.
+        :type is_developer_certificate: bool
         :param issuer: Issuer of the certificate.
         :type issuer: str
         :param name: Certificate name.
@@ -993,10 +993,10 @@ class InstanceFactory:
             certificate=certificate,
             created_at=created_at,
             description=description,
-            developer=developer,
             device_execution_mode=device_execution_mode,
             enrollment_mode=enrollment_mode,
             id=id,
+            is_developer_certificate=is_developer_certificate,
             issuer=issuer,
             name=name,
             owner_id=owner_id,

@@ -15,7 +15,7 @@ class TestTrustedtCertificates(BaseCase):
             print("="*40)
             print(trusted_certs.name)
 
-            if trusted_certs.developer:
+            if trusted_certs.is_developer_certificate:
                 print(trusted_certs.developer_certificate_info())
             else:
                 print("Not a developer certificate")

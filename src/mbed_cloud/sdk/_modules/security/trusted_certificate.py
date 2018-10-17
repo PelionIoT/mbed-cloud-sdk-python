@@ -23,10 +23,10 @@ class TrustedCertificate(Entity):
         "certificate",
         "created_at",
         "description",
-        "developer",
         "device_execution_mode",
         "enrollment_mode",
         "id",
+        "is_developer_certificate",
         "issuer",
         "name",
         "owner_id",
@@ -47,9 +47,9 @@ class TrustedCertificate(Entity):
         certificate=None,
         created_at=None,
         description=None,
-        developer=None,
         enrollment_mode=None,
         id=None,
+        is_developer_certificate=None,
         issuer=None,
         name=None,
         owner_id=None,
@@ -69,12 +69,12 @@ class TrustedCertificate(Entity):
         :type created_at: datetime
         :param description: Human readable description of this certificate.
         :type description: str
-        :param developer: The type of the certificate.
-        :type developer: bool
         :param enrollment_mode: If true, signature is not required. Default value false.
         :type enrollment_mode: bool
         :param id: Entity ID.
         :type id: str
+        :param is_developer_certificate: Whether or not this certificate is a developer certificate.
+        :type is_developer_certificate: bool
         :param issuer: Issuer of the certificate.
         :type issuer: str
         :param name: Certificate name.
@@ -102,10 +102,12 @@ class TrustedCertificate(Entity):
         self._certificate = fields.StringField(value=certificate)
         self._created_at = fields.DateTimeField(value=created_at)
         self._description = fields.StringField(value=description)
-        self._developer = fields.BooleanField(value=developer)
         self._device_execution_mode = fields.IntegerField(value=None)
         self._enrollment_mode = fields.BooleanField(value=enrollment_mode)
         self._id = fields.StringField(value=id)
+        self._is_developer_certificate = fields.BooleanField(
+            value=is_developer_certificate
+        )
         self._issuer = fields.StringField(value=issuer)
         self._name = fields.StringField(value=name)
         self._owner_id = fields.StringField(value=owner_id)
@@ -204,31 +206,6 @@ class TrustedCertificate(Entity):
         self._description.set(value)
 
     @property
-    def developer(self):
-        """The type of the certificate.
-        
-        api example: True
-        
-        :rtype: bool
-        """
-
-        from mbed_cloud.sdk.common._custom_methods import developer_certificate_getter
-
-        return developer_certificate_getter(self=self, field=self._developer)
-
-    @developer.setter
-    def developer(self, value):
-        """Set value of `developer`
-
-        :param value: value to set
-        :type value: bool
-        """
-
-        from mbed_cloud.sdk.common._custom_methods import developer_certificate_setter
-
-        developer_certificate_setter(self=self, field=self._developer, value=value)
-
-    @property
     def enrollment_mode(self):
         """If true, signature is not required. Default value false.
         
@@ -267,6 +244,39 @@ class TrustedCertificate(Entity):
         """
 
         self._id.set(value)
+
+    @property
+    def is_developer_certificate(self):
+        """Whether or not this certificate is a developer certificate.
+        
+        api example: True
+        
+        :rtype: bool
+        """
+
+        from mbed_cloud.sdk.common._custom_methods import (
+            is_developer_certificate_getter,
+        )
+
+        return is_developer_certificate_getter(
+            self=self, field=self._is_developer_certificate
+        )
+
+    @is_developer_certificate.setter
+    def is_developer_certificate(self, value):
+        """Set value of `is_developer_certificate`
+
+        :param value: value to set
+        :type value: bool
+        """
+
+        from mbed_cloud.sdk.common._custom_methods import (
+            is_developer_certificate_setter,
+        )
+
+        is_developer_certificate_setter(
+            self=self, field=self._is_developer_certificate, value=value
+        )
 
     @property
     def issuer(self):
@@ -434,15 +444,11 @@ class TrustedCertificate(Entity):
 
         self._validity.set(value)
 
-    def create(self, signature=None):
+    def create(self):
         """Upload a new trusted certificate.
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/trusted-certificates
-        
-        :param signature: DEPRECATED: Base64 encoded signature of the account ID signed by the
-            certificate to be uploaded. The signature must be hashed with SHA256.
-        :type signature: str
         
         :rtype: TrustedCertificate
         """
@@ -456,7 +462,6 @@ class TrustedCertificate(Entity):
                 "enrollment_mode": self._enrollment_mode.to_api(),
                 "name": self._name.to_api(),
                 "service": self._service.to_api(),
-                "signature": fields.StringField(signature).to_api(),
                 "status": self._status.to_api(),
             },
             unpack=self,
@@ -585,15 +590,11 @@ class TrustedCertificate(Entity):
             unpack=False,
         )
 
-    def update(self, signature=None):
+    def update(self):
         """Update trusted certificate.
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/trusted-certificates/{cert-id}
-        
-        :param signature: DEPRECATED: Base64 encoded signature of the account ID signed by the
-            certificate to be uploaded. The signature must be hashed with SHA256.
-        :type signature: str
         
         :rtype: TrustedCertificate
         """
@@ -607,7 +608,6 @@ class TrustedCertificate(Entity):
                 "enrollment_mode": self._enrollment_mode.to_api(),
                 "name": self._name.to_api(),
                 "service": self._service.to_api(),
-                "signature": fields.StringField(signature).to_api(),
                 "status": self._status.to_api(),
             },
             path_params={"cert-id": self._id.to_api()},

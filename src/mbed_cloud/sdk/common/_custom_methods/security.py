@@ -1,7 +1,7 @@
 """Custom methods for security entities."""
 
 
-def developer_certificate_setter(self, field, value):
+def is_developer_certificate_setter(self, field, value):
     """Set whether this certificate is a developer certificate or not
 
     :param self: Instance of the entity for which this is a custom method.
@@ -15,7 +15,7 @@ def developer_certificate_setter(self, field, value):
     self._device_execution_mode = 1 if value else 0
 
 
-def developer_certificate_getter(self, field):
+def is_developer_certificate_getter(self, field):
     """Return whether this certificate is a developer certificate or not.
 
     :param self: Instance of the entity for which this is a custom method.
