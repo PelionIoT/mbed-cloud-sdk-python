@@ -250,15 +250,11 @@ class CertificateIssuerConfig(Entity):
             unpack=self,
         )
 
-    def list(self, reference__eq=None):
+    def list(self):
         """Get certificate issuer configurations.
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/certificate-issuer-configurations
-        
-        :param reference__eq: The certificate name to which the certificate issuer configuration
-            applies.
-        :type reference__eq: str
         
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
@@ -267,30 +263,20 @@ class CertificateIssuerConfig(Entity):
         from mbed_cloud.sdk.entities import CertificateIssuerConfig
 
         return paginate(
-            self=self,
-            foreign_key=CertificateIssuerConfig,
-            reference__eq=reference__eq,
-            wraps=self._paginate_list,
+            self=self, foreign_key=CertificateIssuerConfig, wraps=self._paginate_list
         )
 
-    def _paginate_list(self, reference__eq=None):
+    def _paginate_list(self):
         """Get certificate issuer configurations.
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/certificate-issuer-configurations
         
-        :param reference__eq: The certificate name to which the certificate issuer configuration
-            applies.
-        :type reference__eq: str
-        
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 
         return self._client.call_api(
-            method="get",
-            path="/v3/certificate-issuer-configurations",
-            query_params={"reference__eq": fields.StringField(reference__eq).to_api()},
-            unpack=False,
+            method="get", path="/v3/certificate-issuer-configurations", unpack=False
         )
 
     def update(self):

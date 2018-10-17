@@ -217,14 +217,11 @@ class CertificateEnrollment(Entity):
             unpack=self,
         )
 
-    def list(self, device_id__eq=None):
+    def list(self):
         """Get certificate enrollments list.
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/certificate-enrollments
-        
-        :param device_id__eq: The device ID.
-        :type device_id__eq: str
         
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
@@ -233,27 +230,18 @@ class CertificateEnrollment(Entity):
         from mbed_cloud.sdk.entities import CertificateEnrollment
 
         return paginate(
-            self=self,
-            foreign_key=CertificateEnrollment,
-            device_id__eq=device_id__eq,
-            wraps=self._paginate_list,
+            self=self, foreign_key=CertificateEnrollment, wraps=self._paginate_list
         )
 
-    def _paginate_list(self, device_id__eq=None):
+    def _paginate_list(self):
         """Get certificate enrollments list.
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/certificate-enrollments
         
-        :param device_id__eq: The device ID.
-        :type device_id__eq: str
-        
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 
         return self._client.call_api(
-            method="get",
-            path="/v3/certificate-enrollments",
-            query_params={"device_id__eq": fields.StringField(device_id__eq).to_api()},
-            unpack=False,
+            method="get", path="/v3/certificate-enrollments", unpack=False
         )

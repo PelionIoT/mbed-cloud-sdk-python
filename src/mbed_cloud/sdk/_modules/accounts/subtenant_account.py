@@ -1280,15 +1280,11 @@ class SubtenantAccount(Entity):
     def list(
         self,
         after=None,
-        country__like=None,
-        end_market__eq=None,
         format=None,
         include=None,
         limit=1000,
         order="ASC",
-        parent__eq=None,
         properties=None,
-        tier__eq=None,
     ):
         """Get all accounts.
 
@@ -1297,14 +1293,6 @@ class SubtenantAccount(Entity):
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
-        
-        :param country__like: An optional filter for account country. Finds all matches where the
-            filter value is a case insensitive substring of the result. Example:
-            country__like=LAND matches Ireland.
-        :type country__like: str
-        
-        :param end_market__eq: An optional filter for account end market.
-        :type end_market__eq: str
         
         :param format: Format information for the response to the query, supported:
             format=breakdown.
@@ -1321,14 +1309,8 @@ class SubtenantAccount(Entity):
             value is ASC
         :type order: str
         
-        :param parent__eq: An optional filter for parent account ID.
-        :type parent__eq: str
-        
         :param properties: Property name to be returned from account specific properties.
         :type properties: str
-        
-        :param tier__eq: An optional filter for tier level, must be 0, 1, 2, 98, 99 or omitted.
-        :type tier__eq: str
         
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
@@ -1340,15 +1322,11 @@ class SubtenantAccount(Entity):
             self=self,
             foreign_key=SubtenantAccount,
             after=after,
-            country__like=country__like,
-            end_market__eq=end_market__eq,
             format=format,
             include=include,
             limit=limit,
             order=order,
-            parent__eq=parent__eq,
             properties=properties,
-            tier__eq=tier__eq,
             wraps=self._paginate_list,
         )
 
@@ -1431,15 +1409,11 @@ class SubtenantAccount(Entity):
     def _paginate_list(
         self,
         after=None,
-        country__like=None,
-        end_market__eq=None,
         format=None,
         include=None,
         limit=1000,
         order="ASC",
-        parent__eq=None,
         properties=None,
-        tier__eq=None,
     ):
         """Get all accounts.
 
@@ -1448,14 +1422,6 @@ class SubtenantAccount(Entity):
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
-        
-        :param country__like: An optional filter for account country. Finds all matches where the
-            filter value is a case insensitive substring of the result. Example:
-            country__like=LAND matches Ireland.
-        :type country__like: str
-        
-        :param end_market__eq: An optional filter for account end market.
-        :type end_market__eq: str
         
         :param format: Format information for the response to the query, supported:
             format=breakdown.
@@ -1472,14 +1438,8 @@ class SubtenantAccount(Entity):
             value is ASC
         :type order: str
         
-        :param parent__eq: An optional filter for parent account ID.
-        :type parent__eq: str
-        
         :param properties: Property name to be returned from account specific properties.
         :type properties: str
-        
-        :param tier__eq: An optional filter for tier level, must be 0, 1, 2, 98, 99 or omitted.
-        :type tier__eq: str
         
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
@@ -1489,17 +1449,13 @@ class SubtenantAccount(Entity):
             path="/v3/accounts",
             query_params={
                 "after": fields.StringField(after).to_api(),
-                "country__like": fields.StringField(country__like).to_api(),
-                "end_market__eq": fields.StringField(end_market__eq).to_api(),
                 "format": fields.StringField(format).to_api(),
                 "include": fields.StringField(include).to_api(),
                 "limit": fields.IntegerField(limit).to_api(),
                 "order": fields.StringField(
                     order, enum=enums.SubtenantAccountOrderEnum
                 ).to_api(),
-                "parent__eq": fields.StringField(parent__eq).to_api(),
                 "properties": fields.StringField(properties).to_api(),
-                "tier__eq": fields.StringField(tier__eq).to_api(),
             },
             unpack=False,
         )
