@@ -35,12 +35,13 @@ def _main():
 
     header = "Get statistics from 1 March 2017 to 1 April 2017"
     print("%s\n%s" % (header, len(header) * "-"))
-    start = datetime(2017, 3, 1, 0, 0, 0)
-    end = datetime(2017, 4, 1, 0, 0, 0)
+    start = datetime(2018, 3, 1, 0, 0, 0)
+    end = datetime(2018, 4, 1, 0, 0, 0)
     metrics = list(api.list_metrics(interval="1d", start=start, end=end))
     for idx, metric in enumerate(metrics):
         print(metric)
 
+# 2018-03-01T00:00Z'), ('end', '2018-04-01T00:00Z
 
 if __name__ == "__main__":
     _main()
