@@ -28,7 +28,7 @@ class CertificateIssuerConfig(Entity):
     ]
 
     # common renames used when mapping {<API spec>: <SDK>}
-    _renames = {"certificate-issuer-configuration-id": "id"}
+    _renames = {}
 
     def __init__(
         self,

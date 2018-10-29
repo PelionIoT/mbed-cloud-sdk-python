@@ -454,9 +454,7 @@ class ApiKey(Entity):
                 "after": fields.StringField(after).to_api(),
                 "include": fields.StringField(include).to_api(),
                 "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(
-                    order, enum=enums.SubtenantAccountOrderEnum
-                ).to_api(),
+                "order": fields.StringField(order, enum=enums.ApiKeyOrderEnum).to_api(),
             },
             unpack=False,
         )
@@ -491,21 +489,19 @@ class ApiKey(Entity):
                 "after": fields.StringField(after).to_api(),
                 "include": fields.StringField(include).to_api(),
                 "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(
-                    order, enum=enums.SubtenantAccountOrderEnum
-                ).to_api(),
+                "order": fields.StringField(order, enum=enums.ApiKeyOrderEnum).to_api(),
             },
             unpack=False,
         )
 
-    def reset_secret(self, accountid):
+    def reset_secret(self, account_id):
         """Reset the secret key.
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/api-keys/{apiKey}/reset-secret
         
-        :param accountid: Account ID.
-        :type accountid: str
+        :param account_id: Account ID.
+        :type account_id: str
         
         :rtype: ApiKey
         """
@@ -514,7 +510,7 @@ class ApiKey(Entity):
             method="post",
             path="/v3/accounts/{accountID}/api-keys/{apiKey}/reset-secret",
             path_params={
-                "accountID": fields.StringField(accountid).to_api(),
+                "accountID": fields.StringField(account_id).to_api(),
                 "apiKey": self._id.to_api(),
             },
             unpack=self,

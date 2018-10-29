@@ -14,8 +14,8 @@ from mbed_cloud.sdk.common import fields
 from mbed_cloud.sdk import enums
 
 
-class EnrollmentBulkCreateTask(Entity):
-    """Represents the `EnrollmentBulkCreateTask` entity in Mbed Cloud"""
+class DeviceEnrollmentBulkCreate(Entity):
+    """Represents the `DeviceEnrollmentBulkCreate` entity in Mbed Cloud"""
 
     # all fields available on this entity
     _fieldnames = [
@@ -48,7 +48,7 @@ class EnrollmentBulkCreateTask(Entity):
         status=None,
         total_count=None,
     ):
-        """Creates a local `EnrollmentBulkCreateTask` instance
+        """Creates a local `DeviceEnrollmentBulkCreate` instance
 
         :param account_id: ID
         :type account_id: str
@@ -89,7 +89,7 @@ class EnrollmentBulkCreateTask(Entity):
         self._id = fields.StringField(value=id)
         self._processed_count = fields.IntegerField(value=processed_count)
         self._status = fields.StringField(
-            value=status, enum=enums.EnrollmentBulkCreateTaskStatusEnum
+            value=status, enum=enums.DeviceEnrollmentBulkCreateStatusEnum
         )
         self._total_count = fields.IntegerField(value=total_count)
 
@@ -303,11 +303,10 @@ class EnrollmentBulkCreateTask(Entity):
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/device-enrollments-bulk-uploads
         
-        :param enrollment_identities: The `CSV` file containing the enrollment IDs. The maximum file size is
-            10MB.
+        :param enrollment_identities: Enrollment identities CSV file. Maximum file size is 10MB.
         :type enrollment_identities: file
         
-        :rtype: EnrollmentBulkCreateTask
+        :rtype: DeviceEnrollmentBulkCreate
         """
 
         return self._client.call_api(
@@ -327,7 +326,7 @@ class EnrollmentBulkCreateTask(Entity):
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/device-enrollments-bulk-uploads/{id}
         
-        :rtype: EnrollmentBulkCreateTask
+        :rtype: DeviceEnrollmentBulkCreate
         """
 
         return self._client.call_api(

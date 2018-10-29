@@ -338,7 +338,7 @@ class PolicyGroup(Entity):
                 "include": fields.StringField(include).to_api(),
                 "limit": fields.IntegerField(limit).to_api(),
                 "order": fields.StringField(
-                    order, enum=enums.SubtenantAccountOrderEnum
+                    order, enum=enums.PolicyGroupOrderEnum
                 ).to_api(),
             },
             unpack=False,
@@ -375,7 +375,7 @@ class PolicyGroup(Entity):
                 "include": fields.StringField(include).to_api(),
                 "limit": fields.IntegerField(limit).to_api(),
                 "order": fields.StringField(
-                    order, enum=enums.SubtenantAccountOrderEnum
+                    order, enum=enums.PolicyGroupOrderEnum
                 ).to_api(),
             },
             unpack=False,
@@ -413,7 +413,7 @@ class PolicyGroup(Entity):
                 "include": fields.StringField(include).to_api(),
                 "limit": fields.IntegerField(limit).to_api(),
                 "order": fields.StringField(
-                    order, enum=enums.SubtenantAccountOrderEnum
+                    order, enum=enums.PolicyGroupOrderEnum
                 ).to_api(),
             },
             unpack=False,

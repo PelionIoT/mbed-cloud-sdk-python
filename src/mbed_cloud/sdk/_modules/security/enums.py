@@ -38,6 +38,29 @@ class CertificateEnrollmentEnrollStatusEnum(BaseEnum):
     values = frozenset(("completed", "new"))
 
 
+class CertificateEnrollmentIncludeEnum(BaseEnum):
+    """Represents the `CertificateEnrollmentIncludeEnum` options
+
+    as used by Mbed Cloud "security" functionality
+    """
+
+    TOTAL_COUNT = "total_count"
+
+    values = frozenset(("total_count",))
+
+
+class CertificateEnrollmentOrderEnum(BaseEnum):
+    """Represents the `CertificateEnrollmentOrderEnum` options
+
+    as used by Mbed Cloud "security" functionality
+    """
+
+    ASC = "ASC"
+    DESC = "DESC"
+
+    values = frozenset(("ASC", "DESC"))
+
+
 class CertificateIssuerIssuerTypeEnum(BaseEnum):
     """Represents the `CertificateIssuerIssuerTypeEnum` options
 

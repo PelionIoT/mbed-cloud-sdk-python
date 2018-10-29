@@ -12,13 +12,12 @@ from mbed_cloud.sdk._modules.accounts.password_policy import PasswordPolicy
 from mbed_cloud.sdk._modules.accounts.policy_group import PolicyGroup
 from mbed_cloud.sdk._modules.accounts.subtenant_account import SubtenantAccount
 from mbed_cloud.sdk._modules.accounts.user import User
-from mbed_cloud.sdk._modules.devices.enrollment_bulk_create_task import (
-    EnrollmentBulkCreateTask,
+from mbed_cloud.sdk._modules.devices.device import Device
+from mbed_cloud.sdk._modules.devices.device_enrollment import DeviceEnrollment
+from mbed_cloud.sdk._modules.devices.device_enrollment_bulk_create import (
+    DeviceEnrollmentBulkCreate,
 )
-from mbed_cloud.sdk._modules.devices.enrollment_bulk_delete_task import (
-    EnrollmentBulkDeleteTask,
-)
-from mbed_cloud.sdk._modules.devices.enrollment_claim import EnrollmentClaim
+from mbed_cloud.sdk._modules.devices.device_events import DeviceEvents
 from mbed_cloud.sdk._modules.security.certificate_enrollment import (
     CertificateEnrollment,
 )
@@ -37,9 +36,10 @@ __all__ = [
     "CertificateIssuer",
     "CertificateIssuerConfig",
     "DeveloperCertificate",
-    "EnrollmentBulkCreateTask",
-    "EnrollmentBulkDeleteTask",
-    "EnrollmentClaim",
+    "Device",
+    "DeviceEnrollment",
+    "DeviceEnrollmentBulkCreate",
+    "DeviceEvents",
     "LoginHistory",
     "MyAccount",
     "MyApiKey",

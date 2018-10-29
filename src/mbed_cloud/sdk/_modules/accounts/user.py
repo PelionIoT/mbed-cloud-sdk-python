@@ -850,9 +850,7 @@ class User(Entity):
                 "after": fields.StringField(after).to_api(),
                 "include": fields.StringField(include).to_api(),
                 "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(
-                    order, enum=enums.SubtenantAccountOrderEnum
-                ).to_api(),
+                "order": fields.StringField(order, enum=enums.UserOrderEnum).to_api(),
             },
             unpack=False,
         )
@@ -887,9 +885,7 @@ class User(Entity):
                 "after": fields.StringField(after).to_api(),
                 "include": fields.StringField(include).to_api(),
                 "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(
-                    order, enum=enums.SubtenantAccountOrderEnum
-                ).to_api(),
+                "order": fields.StringField(order, enum=enums.UserOrderEnum).to_api(),
             },
             unpack=False,
         )

@@ -32,7 +32,6 @@ class DeveloperCertificate(Entity):
     # common renames used when mapping {<API spec>: <SDK>}
     _renames = {
         "developer_certificate": "certificate",
-        "developerCertificateId": "id",
         "developer_private_key": "private_key",
     }
 

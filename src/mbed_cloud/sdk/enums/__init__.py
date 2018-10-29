@@ -16,11 +16,15 @@ from mbed_cloud.sdk._modules.accounts.enums import SubtenantAccountOrderEnum
 from mbed_cloud.sdk._modules.accounts.enums import SubtenantAccountStatusEnum
 from mbed_cloud.sdk._modules.accounts.enums import UserOrderEnum
 from mbed_cloud.sdk._modules.accounts.enums import UserStatusEnum
-from mbed_cloud.sdk._modules.devices.enums import EnrollmentBulkCreateTaskStatusEnum
-from mbed_cloud.sdk._modules.devices.enums import EnrollmentBulkDeleteTaskStatusEnum
-from mbed_cloud.sdk._modules.devices.enums import EnrollmentClaimOrderEnum
+from mbed_cloud.sdk._modules.devices.enums import DeviceDeployedStateEnum
+from mbed_cloud.sdk._modules.devices.enums import DeviceEnrollmentBulkCreateStatusEnum
+from mbed_cloud.sdk._modules.devices.enums import DeviceEnrollmentOrderEnum
+from mbed_cloud.sdk._modules.devices.enums import DeviceMechanismEnum
+from mbed_cloud.sdk._modules.devices.enums import DeviceStateEnum
 from mbed_cloud.sdk._modules.security.enums import CertificateEnrollmentEnrollResultEnum
 from mbed_cloud.sdk._modules.security.enums import CertificateEnrollmentEnrollStatusEnum
+from mbed_cloud.sdk._modules.security.enums import CertificateEnrollmentIncludeEnum
+from mbed_cloud.sdk._modules.security.enums import CertificateEnrollmentOrderEnum
 from mbed_cloud.sdk._modules.security.enums import CertificateIssuerIssuerTypeEnum
 from mbed_cloud.sdk._modules.security.enums import TrustedCertificateOrderEnum
 from mbed_cloud.sdk._modules.security.enums import TrustedCertificateServiceEnum
@@ -32,10 +36,14 @@ __all__ = [
     "ApiKeyStatusEnum",
     "CertificateEnrollmentEnrollResultEnum",
     "CertificateEnrollmentEnrollStatusEnum",
+    "CertificateEnrollmentIncludeEnum",
+    "CertificateEnrollmentOrderEnum",
     "CertificateIssuerIssuerTypeEnum",
-    "EnrollmentBulkCreateTaskStatusEnum",
-    "EnrollmentBulkDeleteTaskStatusEnum",
-    "EnrollmentClaimOrderEnum",
+    "DeviceDeployedStateEnum",
+    "DeviceEnrollmentBulkCreateStatusEnum",
+    "DeviceEnrollmentOrderEnum",
+    "DeviceMechanismEnum",
+    "DeviceStateEnum",
     "MyAccountMfaStatusEnum",
     "MyAccountStatusEnum",
     "MyApiKeyOrderEnum",

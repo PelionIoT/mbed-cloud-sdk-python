@@ -14,8 +14,8 @@ from mbed_cloud.sdk.common import fields
 from mbed_cloud.sdk import enums
 
 
-class EnrollmentClaim(Entity):
-    """Represents the `EnrollmentClaim` entity in Mbed Cloud"""
+class DeviceEnrollment(Entity):
+    """Represents the `DeviceEnrollment` entity in Mbed Cloud"""
 
     # all fields available on this entity
     _fieldnames = [
@@ -42,7 +42,7 @@ class EnrollmentClaim(Entity):
         expires_at=None,
         id=None,
     ):
-        """Creates a local `EnrollmentClaim` instance
+        """Creates a local `DeviceEnrollment` instance
 
         :param account_id: ID
         :type account_id: str
@@ -56,8 +56,8 @@ class EnrollmentClaim(Entity):
         :param enrollment_identity: Enrollment identity.
         :type enrollment_identity: str
         :param expires_at: The enrollment claim expiration time. If the device does not
-            connect to Device Management before the expiration, the claim is
-            removed without a separate notice
+            connect to Mbed Cloud before the expiration, the claim is removed
+            without a separate notice
         :type expires_at: datetime
         :param id: Enrollment identity.
         :type id: str
@@ -180,9 +180,8 @@ class EnrollmentClaim(Entity):
 
     @property
     def expires_at(self):
-        """The enrollment claim expiration time. If the device does not connect to Device
-        Management before the expiration, the claim is removed without a separate
-        notice
+        """The enrollment claim expiration time. If the device does not connect to Mbed
+        Cloud before the expiration, the claim is removed without a separate notice
         
         :rtype: datetime
         """
@@ -226,7 +225,7 @@ class EnrollmentClaim(Entity):
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/device-enrollments
         
-        :rtype: EnrollmentClaim
+        :rtype: DeviceEnrollment
         """
 
         return self._client.call_api(
@@ -242,7 +241,7 @@ class EnrollmentClaim(Entity):
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/device-enrollments/{id}
         
-        :rtype: EnrollmentClaim
+        :rtype: DeviceEnrollment
         """
 
         return self._client.call_api(
@@ -258,7 +257,7 @@ class EnrollmentClaim(Entity):
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/device-enrollments/{id}
         
-        :rtype: EnrollmentClaim
+        :rtype: DeviceEnrollment
         """
 
         return self._client.call_api(
@@ -291,11 +290,11 @@ class EnrollmentClaim(Entity):
         """
 
         from mbed_cloud.sdk.common._custom_methods import paginate
-        from mbed_cloud.sdk.entities import EnrollmentClaim
+        from mbed_cloud.sdk.entities import DeviceEnrollment
 
         return paginate(
             self=self,
-            foreign_key=EnrollmentClaim,
+            foreign_key=DeviceEnrollment,
             after=after,
             include=include,
             limit=limit,
@@ -333,7 +332,7 @@ class EnrollmentClaim(Entity):
                 "include": fields.StringField(include).to_api(),
                 "limit": fields.IntegerField(limit).to_api(),
                 "order": fields.StringField(
-                    order, enum=enums.EnrollmentClaimOrderEnum
+                    order, enum=enums.DeviceEnrollmentOrderEnum
                 ).to_api(),
             },
             unpack=False,

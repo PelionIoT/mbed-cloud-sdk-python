@@ -12,8 +12,20 @@ from builtins import object
 from mbed_cloud.sdk.common.enum import BaseEnum
 
 
-class EnrollmentBulkCreateTaskStatusEnum(BaseEnum):
-    """Represents the `EnrollmentBulkCreateTaskStatusEnum` options
+class DeviceDeployedStateEnum(BaseEnum):
+    """Represents the `DeviceDeployedStateEnum` options
+
+    as used by Mbed Cloud "devices" functionality
+    """
+
+    DEVELOPMENT = "development"
+    PRODUCTION = "production"
+
+    values = frozenset(("development", "production"))
+
+
+class DeviceEnrollmentBulkCreateStatusEnum(BaseEnum):
+    """Represents the `DeviceEnrollmentBulkCreateStatusEnum` options
 
     as used by Mbed Cloud "devices" functionality
     """
@@ -25,21 +37,8 @@ class EnrollmentBulkCreateTaskStatusEnum(BaseEnum):
     values = frozenset(("completed", "new", "processing"))
 
 
-class EnrollmentBulkDeleteTaskStatusEnum(BaseEnum):
-    """Represents the `EnrollmentBulkDeleteTaskStatusEnum` options
-
-    as used by Mbed Cloud "devices" functionality
-    """
-
-    COMPLETED = "completed"
-    NEW = "new"
-    PROCESSING = "processing"
-
-    values = frozenset(("completed", "new", "processing"))
-
-
-class EnrollmentClaimOrderEnum(BaseEnum):
-    """Represents the `EnrollmentClaimOrderEnum` options
+class DeviceEnrollmentOrderEnum(BaseEnum):
+    """Represents the `DeviceEnrollmentOrderEnum` options
 
     as used by Mbed Cloud "devices" functionality
     """
@@ -48,3 +47,32 @@ class EnrollmentClaimOrderEnum(BaseEnum):
     DESC = "DESC"
 
     values = frozenset(("ASC", "DESC"))
+
+
+class DeviceMechanismEnum(BaseEnum):
+    """Represents the `DeviceMechanismEnum` options
+
+    as used by Mbed Cloud "devices" functionality
+    """
+
+    CONNECTOR = "connector"
+    DIRECT = "direct"
+
+    values = frozenset(("connector", "direct"))
+
+
+class DeviceStateEnum(BaseEnum):
+    """Represents the `DeviceStateEnum` options
+
+    as used by Mbed Cloud "devices" functionality
+    """
+
+    BOOTSTRAPPED = "bootstrapped"
+    CLOUD_ENROLLING = "cloud_enrolling"
+    DEREGISTERED = "deregistered"
+    REGISTERED = "registered"
+    UNENROLLED = "unenrolled"
+
+    values = frozenset(
+        ("bootstrapped", "cloud_enrolling", "deregistered", "registered", "unenrolled")
+    )

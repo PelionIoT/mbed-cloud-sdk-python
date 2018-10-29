@@ -80,6 +80,7 @@ class InstanceFactory:
         enroll_result=None,
         enroll_status=None,
         id=None,
+        updated_at=None,
     ):
         """Creates a local `CertificateEnrollment` instance, binding the client
 
@@ -95,6 +96,8 @@ class InstanceFactory:
         :type enroll_status: str
         :param id: The ID of the certificate enrollment.
         :type id: str
+        :param updated_at: Update UTC time RFC3339.
+        :type updated_at: datetime
         
         :rtype: mbed_cloud.sdk.entities.CertificateEnrollment
         """
@@ -108,6 +111,7 @@ class InstanceFactory:
             enroll_result=enroll_result,
             enroll_status=enroll_status,
             id=id,
+            updated_at=updated_at,
         )
 
     def certificate_issuer(
@@ -254,121 +258,149 @@ class InstanceFactory:
             security_file_content=security_file_content,
         )
 
-    def enrollment_bulk_create_task(
+    def device(
         self,
         account_id=None,
-        completed_at=None,
+        auto_update=None,
+        bootstrap_expiration_date=None,
+        bootstrapped_timestamp=None,
+        ca_id=None,
+        connector_expiration_date=None,
         created_at=None,
-        errors_count=None,
-        errors_report_file=None,
-        full_report_file=None,
+        custom_attributes=None,
+        deployed_state=None,
+        deployment=None,
+        description=None,
+        device_class=None,
+        device_execution_mode=None,
+        device_key=None,
+        endpoint_name=None,
+        endpoint_type=None,
+        enrolment_list_timestamp=None,
+        firmware_checksum=None,
+        host_gateway=None,
         id=None,
-        processed_count=None,
-        status=None,
-        total_count=None,
+        manifest=None,
+        manifest_timestamp=None,
+        mechanism=None,
+        mechanism_url=None,
+        name=None,
+        serial_number=None,
+        state=None,
+        updated_at=None,
+        vendor_id=None,
     ):
-        """Creates a local `EnrollmentBulkCreateTask` instance, binding the client
+        """Creates a local `Device` instance, binding the client
 
-        :param account_id: ID
+        :param account_id: The ID of the associated account.
         :type account_id: str
-        :param completed_at: The time of completing the bulk creation task.
-        :type completed_at: datetime
-        :param created_at: The time of receiving the bulk creation task.
+        :param auto_update: DEPRECATED: Mark this device for automatic firmware update.
+        :type auto_update: bool
+        :param bootstrap_expiration_date: The expiration date of the certificate used to connect to
+            bootstrap server.
+        :type bootstrap_expiration_date: date
+        :param bootstrapped_timestamp: The timestamp of the device's most recent bootstrap process.
+        :type bootstrapped_timestamp: datetime
+        :param ca_id: The certificate issuer's ID.
+        :type ca_id: str
+        :param connector_expiration_date: The expiration date of the certificate used to connect to LwM2M
+            server.
+        :type connector_expiration_date: date
+        :param created_at: The timestamp of when the device was created in the device
+            directory.
         :type created_at: datetime
-        :param errors_count: The number of enrollment identities with failed processing.
-        :type errors_count: int
-        :param errors_report_file: 
-        :type errors_report_file: str
-        :param full_report_file: 
-        :type full_report_file: str
-        :param id: Bulk ID
+        :param custom_attributes: Up to five custom key-value attributes.
+        :type custom_attributes: dict
+        :param deployed_state: DEPRECATED: The state of the device's deployment.
+        :type deployed_state: str
+        :param deployment: DEPRECATED: The last deployment used on the device.
+        :type deployment: str
+        :param description: The description of the device.
+        :type description: str
+        :param device_class: An ID representing the model and hardware revision of the device.
+        :type device_class: str
+        :param device_execution_mode: The execution mode from the certificate of the device. Defaults to
+            inheriting from host_gateway device.
+            Permitted values:
+              - 0 -
+            unspecified execution mode (default if host_gateway invalid or not
+            set)
+              - 1 - development devices
+              - 5 - production devices
+        :type device_execution_mode: int
+        :param device_key: The fingerprint of the device certificate.
+        :type device_key: str
+        :param endpoint_name: The endpoint name given to the device.
+        :type endpoint_name: str
+        :param endpoint_type: The endpoint type of the device. For example, the device is a
+            gateway.
+        :type endpoint_type: str
+        :param enrolment_list_timestamp: The claim date/time.
+        :type enrolment_list_timestamp: datetime
+        :param firmware_checksum: The SHA256 checksum of the current firmware image.
+        :type firmware_checksum: str
+        :param host_gateway: The `endpoint_name` of the host gateway, if appropriate.
+        :type host_gateway: str
+        :param id: The ID of the device. The device ID is used across all Device
+            Management APIs.
         :type id: str
-        :param processed_count: The number of enrollment identities processed until now.
-        :type processed_count: int
-        :param status: The state of the process is 'new' at the time of creation. If the
-            creation is still in progress, the state is shown as 'processing'.
-            When the request has been fully processed, the state changes to
-            'completed'.
-        :type status: str
-        :param total_count: Total number of enrollment identities found in the input CSV.
-        :type total_count: int
+        :param manifest: DEPRECATED: The URL for the current device manifest.
+        :type manifest: str
+        :param manifest_timestamp: The timestamp of the current manifest version.
+        :type manifest_timestamp: datetime
+        :param mechanism: The ID of the channel used to communicate with the device.
+        :type mechanism: str
+        :param mechanism_url: The address of the connector to use.
+        :type mechanism_url: str
+        :param name: The name of the device.
+        :type name: str
+        :param serial_number: The serial number of the device.
+        :type serial_number: str
+        :param state: The current state of the device.
+        :type state: str
+        :param updated_at: The time the object was updated.
+        :type updated_at: datetime
+        :param vendor_id: The device vendor ID.
+        :type vendor_id: str
         
-        :rtype: mbed_cloud.sdk.entities.EnrollmentBulkCreateTask
+        :rtype: mbed_cloud.sdk.entities.Device
         """
-        from mbed_cloud.sdk.entities import EnrollmentBulkCreateTask
+        from mbed_cloud.sdk.entities import Device
 
-        return EnrollmentBulkCreateTask(
+        return Device(
             _client=self._client,
             account_id=account_id,
-            completed_at=completed_at,
+            auto_update=auto_update,
+            bootstrap_expiration_date=bootstrap_expiration_date,
+            bootstrapped_timestamp=bootstrapped_timestamp,
+            ca_id=ca_id,
+            connector_expiration_date=connector_expiration_date,
             created_at=created_at,
-            errors_count=errors_count,
-            errors_report_file=errors_report_file,
-            full_report_file=full_report_file,
+            custom_attributes=custom_attributes,
+            deployed_state=deployed_state,
+            deployment=deployment,
+            description=description,
+            device_class=device_class,
+            device_execution_mode=device_execution_mode,
+            device_key=device_key,
+            endpoint_name=endpoint_name,
+            endpoint_type=endpoint_type,
+            enrolment_list_timestamp=enrolment_list_timestamp,
+            firmware_checksum=firmware_checksum,
+            host_gateway=host_gateway,
             id=id,
-            processed_count=processed_count,
-            status=status,
-            total_count=total_count,
+            manifest=manifest,
+            manifest_timestamp=manifest_timestamp,
+            mechanism=mechanism,
+            mechanism_url=mechanism_url,
+            name=name,
+            serial_number=serial_number,
+            state=state,
+            updated_at=updated_at,
+            vendor_id=vendor_id,
         )
 
-    def enrollment_bulk_delete_task(
-        self,
-        account_id=None,
-        completed_at=None,
-        created_at=None,
-        errors_count=None,
-        errors_report_file=None,
-        full_report_file=None,
-        id=None,
-        processed_count=None,
-        status=None,
-        total_count=None,
-    ):
-        """Creates a local `EnrollmentBulkDeleteTask` instance, binding the client
-
-        :param account_id: ID
-        :type account_id: str
-        :param completed_at: The time of completing the bulk creation task.
-        :type completed_at: datetime
-        :param created_at: The time of receiving the bulk creation task.
-        :type created_at: datetime
-        :param errors_count: The number of enrollment identities with failed processing.
-        :type errors_count: int
-        :param errors_report_file: 
-        :type errors_report_file: str
-        :param full_report_file: 
-        :type full_report_file: str
-        :param id: Bulk ID
-        :type id: str
-        :param processed_count: The number of enrollment identities processed until now.
-        :type processed_count: int
-        :param status: The state of the process is 'new' at the time of creation. If the
-            creation is still in progress, the state is shown as 'processing'.
-            When the request has been fully processed, the state changes to
-            'completed'.
-        :type status: str
-        :param total_count: Total number of enrollment identities found in the input CSV.
-        :type total_count: int
-        
-        :rtype: mbed_cloud.sdk.entities.EnrollmentBulkDeleteTask
-        """
-        from mbed_cloud.sdk.entities import EnrollmentBulkDeleteTask
-
-        return EnrollmentBulkDeleteTask(
-            _client=self._client,
-            account_id=account_id,
-            completed_at=completed_at,
-            created_at=created_at,
-            errors_count=errors_count,
-            errors_report_file=errors_report_file,
-            full_report_file=full_report_file,
-            id=id,
-            processed_count=processed_count,
-            status=status,
-            total_count=total_count,
-        )
-
-    def enrollment_claim(
+    def device_enrollment(
         self,
         account_id=None,
         claimed_at=None,
@@ -378,7 +410,7 @@ class InstanceFactory:
         expires_at=None,
         id=None,
     ):
-        """Creates a local `EnrollmentClaim` instance, binding the client
+        """Creates a local `DeviceEnrollment` instance, binding the client
 
         :param account_id: ID
         :type account_id: str
@@ -392,17 +424,17 @@ class InstanceFactory:
         :param enrollment_identity: Enrollment identity.
         :type enrollment_identity: str
         :param expires_at: The enrollment claim expiration time. If the device does not
-            connect to Device Management before the expiration, the claim is
-            removed without a separate notice
+            connect to Mbed Cloud before the expiration, the claim is removed
+            without a separate notice
         :type expires_at: datetime
         :param id: Enrollment identity.
         :type id: str
         
-        :rtype: mbed_cloud.sdk.entities.EnrollmentClaim
+        :rtype: mbed_cloud.sdk.entities.DeviceEnrollment
         """
-        from mbed_cloud.sdk.entities import EnrollmentClaim
+        from mbed_cloud.sdk.entities import DeviceEnrollment
 
-        return EnrollmentClaim(
+        return DeviceEnrollment(
             _client=self._client,
             account_id=account_id,
             claimed_at=claimed_at,
@@ -411,6 +443,121 @@ class InstanceFactory:
             enrollment_identity=enrollment_identity,
             expires_at=expires_at,
             id=id,
+        )
+
+    def device_enrollment_bulk_create(
+        self,
+        account_id=None,
+        completed_at=None,
+        created_at=None,
+        errors_count=None,
+        errors_report_file=None,
+        full_report_file=None,
+        id=None,
+        processed_count=None,
+        status=None,
+        total_count=None,
+    ):
+        """Creates a local `DeviceEnrollmentBulkCreate` instance, binding the client
+
+        :param account_id: ID
+        :type account_id: str
+        :param completed_at: The time of completing the bulk creation task.
+        :type completed_at: datetime
+        :param created_at: The time of receiving the bulk creation task.
+        :type created_at: datetime
+        :param errors_count: The number of enrollment identities with failed processing.
+        :type errors_count: int
+        :param errors_report_file: 
+        :type errors_report_file: str
+        :param full_report_file: 
+        :type full_report_file: str
+        :param id: Bulk ID
+        :type id: str
+        :param processed_count: The number of enrollment identities processed until now.
+        :type processed_count: int
+        :param status: The state of the process is 'new' at the time of creation. If the
+            creation is still in progress, the state is shown as 'processing'.
+            When the request has been fully processed, the state changes to
+            'completed'.
+        :type status: str
+        :param total_count: Total number of enrollment identities found in the input CSV.
+        :type total_count: int
+        
+        :rtype: mbed_cloud.sdk.entities.DeviceEnrollmentBulkCreate
+        """
+        from mbed_cloud.sdk.entities import DeviceEnrollmentBulkCreate
+
+        return DeviceEnrollmentBulkCreate(
+            _client=self._client,
+            account_id=account_id,
+            completed_at=completed_at,
+            created_at=created_at,
+            errors_count=errors_count,
+            errors_report_file=errors_report_file,
+            full_report_file=full_report_file,
+            id=id,
+            processed_count=processed_count,
+            status=status,
+            total_count=total_count,
+        )
+
+    def device_events(
+        self,
+        changes=None,
+        created_at=None,
+        data=None,
+        date_time=None,
+        description=None,
+        device_id=None,
+        event_type=None,
+        event_type_category=None,
+        event_type_description=None,
+        id=None,
+        state_change=None,
+    ):
+        """Creates a local `DeviceEvents` instance, binding the client
+
+        :param changes: Additional data relevant to the event.
+        :type changes: dict
+        :param created_at: 
+        :type created_at: datetime
+        :param data: 
+        :type data: dict
+        :param date_time: 
+        :type date_time: datetime
+        :param description: 
+        :type description: str
+        :param device_id: 
+        :type device_id: str
+        :param event_type: Event code
+        :type event_type: str
+        :param event_type_category: Category code which groups the event type by a summary category.
+        :type event_type_category: str
+        :param event_type_description: Generic description of the event
+        :type event_type_description: str
+        :param id: 
+        :type id: str
+        :param state_change: 
+        :type state_change: bool
+        
+        :rtype: mbed_cloud.sdk.entities.DeviceEvents
+        """
+        from mbed_cloud.sdk.entities import DeviceEvents
+
+        return DeviceEvents(
+            _client=self._client,
+            changes=changes,
+            created_at=created_at,
+            data=data,
+            date_time=date_time,
+            description=description,
+            device_id=device_id,
+            event_type=event_type,
+            event_type_category=event_type_category,
+            event_type_description=event_type_description,
+            id=id,
+            state_change=state_change,
         )
 
     def login_history(self, date=None, ip_address=None, success=None, user_agent=None):
