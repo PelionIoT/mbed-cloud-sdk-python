@@ -1,1 +1,1 @@
-[Beta] - adds a new 'Entities' based middle layer - _Foundation API_.
+Introduction of the _Foundation API_ which adds a new 'Entities' based interface.

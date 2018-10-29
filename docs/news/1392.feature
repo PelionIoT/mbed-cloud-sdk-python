@@ -1,1 +1,2 @@
-Backwards compatibility update for field renames in the enrollment API.
+Backwards compatibility update for field renames in the Enrollment API.
+
