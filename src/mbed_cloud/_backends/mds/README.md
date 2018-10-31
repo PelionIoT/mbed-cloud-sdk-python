@@ -95,6 +95,10 @@ Class | Method | HTTP request | Description
 *SubscriptionsApi* | [**get_endpoint_subscriptions**](docs/SubscriptionsApi.md#get_endpoint_subscriptions) | **GET** /v2/subscriptions/{device-id} | Read endpoints subscriptions
 *SubscriptionsApi* | [**get_pre_subscriptions**](docs/SubscriptionsApi.md#get_pre_subscriptions) | **GET** /v2/subscriptions | Get pre-subscriptions
 *SubscriptionsApi* | [**update_pre_subscriptions**](docs/SubscriptionsApi.md#update_pre_subscriptions) | **PUT** /v2/subscriptions | Set pre-subscriptions
+*WebsocketApi* | [**connect_websocket**](docs/WebsocketApi.md#connect_websocket) | **GET** /v2/notification/websocket-connect | Open the websocket.
+*WebsocketApi* | [**delete_websocket**](docs/WebsocketApi.md#delete_websocket) | **DELETE** /v2/notification/websocket | Delete websocket channel.
+*WebsocketApi* | [**get_websocket**](docs/WebsocketApi.md#get_websocket) | **GET** /v2/notification/websocket | Get websocket channel information.
+*WebsocketApi* | [**register_websocket**](docs/WebsocketApi.md#register_websocket) | **PUT** /v2/notification/websocket | Register a websocket channel
 
 
 ## Documentation For Models
@@ -113,6 +117,7 @@ Class | Method | HTTP request | Description
  - [ResourcesData](docs/ResourcesData.md)
  - [SubscriptionsList](docs/SubscriptionsList.md)
  - [Webhook](docs/Webhook.md)
+ - [WebsocketChannel](docs/WebsocketChannel.md)
 
 
 ## Documentation For Authorization
