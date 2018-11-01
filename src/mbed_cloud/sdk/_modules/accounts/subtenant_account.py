@@ -1115,26 +1115,27 @@ class SubtenantAccount(Entity):
 
         self._upgraded_at.set(value)
 
-    def api_keys(self, after=None, include=None, limit=50, order="ASC"):
+    def api_keys(self, include=None, max_results=None, page_size=None, order=None):
         """Get all API keys.
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/api-keys
         
-        :param after: The entity ID to fetch after the given one.
-        :type after: str
-        
         :param include: Comma separated additional data to return. Currently supported:
             total_count
         :type include: str
         
-        :param limit: The number of results to return (2-1000), default is 50.
-        :type limit: int
+        :param max_results: Total maximum number of results to retrieve
+        :type max_results: int
+            
+        :param page_size: The number of results to return (2-1000), default is 50.
+        :type page_size: int
         
         :param order: The order of the records based on creation time, ASC or DESC; by
             default ASC
         :type order: str
         
+        :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 
@@ -1144,9 +1145,9 @@ class SubtenantAccount(Entity):
         return paginate(
             self=self,
             foreign_key=ApiKey,
-            after=after,
             include=include,
-            limit=limit,
+            max_results=max_results,
+            page_size=page_size,
             order=order,
             wraps=self._paginate_api_keys,
         )
@@ -1241,26 +1242,27 @@ class SubtenantAccount(Entity):
             unpack=self,
         )
 
-    def groups(self, after=None, include=None, limit=50, order="ASC"):
+    def groups(self, include=None, max_results=None, page_size=None, order=None):
         """Get all group information.
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/policy-groups
         
-        :param after: The entity ID to fetch after the given one.
-        :type after: str
-        
         :param include: Comma separated additional data to return. Currently supported:
             total_count
         :type include: str
         
-        :param limit: The number of results to return (2-1000), default is 50.
-        :type limit: int
+        :param max_results: Total maximum number of results to retrieve
+        :type max_results: int
+            
+        :param page_size: The number of results to return (2-1000), default is 50.
+        :type page_size: int
         
         :param order: The order of the records based on creation time, ASC or DESC; by
             default ASC
         :type order: str
         
+        :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 
@@ -1270,29 +1272,18 @@ class SubtenantAccount(Entity):
         return paginate(
             self=self,
             foreign_key=PolicyGroup,
-            after=after,
             include=include,
-            limit=limit,
+            max_results=max_results,
+            page_size=page_size,
             order=order,
             wraps=self._paginate_groups,
         )
 
-    def list(
-        self,
-        after=None,
-        format=None,
-        include=None,
-        limit=1000,
-        order="ASC",
-        properties=None,
-    ):
+    def list(self, include=None, max_results=None, page_size=None, order=None):
         """Get all accounts.
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/accounts
-        
-        :param after: The entity ID to fetch after the given one.
-        :type after: str
         
         :param format: Format information for the response to the query, supported:
             format=breakdown.
@@ -1302,8 +1293,11 @@ class SubtenantAccount(Entity):
             limits, policies, sub_accounts
         :type include: str
         
-        :param limit: The number of results to return (2-1000), default is 1000.
-        :type limit: int
+        :param max_results: Total maximum number of results to retrieve
+        :type max_results: int
+            
+        :param page_size: The number of results to return (2-1000), default is 1000.
+        :type page_size: int
         
         :param order: The order of the records based on creation time, ASC or DESC. Default
             value is ASC
@@ -1312,6 +1306,7 @@ class SubtenantAccount(Entity):
         :param properties: Property name to be returned from account specific properties.
         :type properties: str
         
+        :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 
@@ -1321,35 +1316,36 @@ class SubtenantAccount(Entity):
         return paginate(
             self=self,
             foreign_key=SubtenantAccount,
-            after=after,
-            format=format,
             include=include,
-            limit=limit,
+            max_results=max_results,
+            page_size=page_size,
             order=order,
-            properties=properties,
             wraps=self._paginate_list,
         )
 
-    def _paginate_api_keys(self, after=None, include=None, limit=50, order="ASC"):
+    def _paginate_api_keys(
+        self, include=None, max_results=None, page_size=None, order=None
+    ):
         """Get all API keys.
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/api-keys
         
-        :param after: The entity ID to fetch after the given one.
-        :type after: str
-        
         :param include: Comma separated additional data to return. Currently supported:
             total_count
         :type include: str
         
-        :param limit: The number of results to return (2-1000), default is 50.
-        :type limit: int
+        :param max_results: Total maximum number of results to retrieve
+        :type max_results: int
+            
+        :param page_size: The number of results to return (2-1000), default is 50.
+        :type page_size: int
         
         :param order: The order of the records based on creation time, ASC or DESC; by
             default ASC
         :type order: str
         
+        :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 
@@ -1368,26 +1364,29 @@ class SubtenantAccount(Entity):
             unpack=False,
         )
 
-    def _paginate_groups(self, after=None, include=None, limit=50, order="ASC"):
+    def _paginate_groups(
+        self, include=None, max_results=None, page_size=None, order=None
+    ):
         """Get all group information.
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/policy-groups
         
-        :param after: The entity ID to fetch after the given one.
-        :type after: str
-        
         :param include: Comma separated additional data to return. Currently supported:
             total_count
         :type include: str
         
-        :param limit: The number of results to return (2-1000), default is 50.
-        :type limit: int
+        :param max_results: Total maximum number of results to retrieve
+        :type max_results: int
+            
+        :param page_size: The number of results to return (2-1000), default is 50.
+        :type page_size: int
         
         :param order: The order of the records based on creation time, ASC or DESC; by
             default ASC
         :type order: str
         
+        :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 
@@ -1407,21 +1406,12 @@ class SubtenantAccount(Entity):
         )
 
     def _paginate_list(
-        self,
-        after=None,
-        format=None,
-        include=None,
-        limit=1000,
-        order="ASC",
-        properties=None,
+        self, include=None, max_results=None, page_size=None, order=None
     ):
         """Get all accounts.
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/accounts
-        
-        :param after: The entity ID to fetch after the given one.
-        :type after: str
         
         :param format: Format information for the response to the query, supported:
             format=breakdown.
@@ -1431,8 +1421,11 @@ class SubtenantAccount(Entity):
             limits, policies, sub_accounts
         :type include: str
         
-        :param limit: The number of results to return (2-1000), default is 1000.
-        :type limit: int
+        :param max_results: Total maximum number of results to retrieve
+        :type max_results: int
+            
+        :param page_size: The number of results to return (2-1000), default is 1000.
+        :type page_size: int
         
         :param order: The order of the records based on creation time, ASC or DESC. Default
             value is ASC
@@ -1441,6 +1434,7 @@ class SubtenantAccount(Entity):
         :param properties: Property name to be returned from account specific properties.
         :type properties: str
         
+        :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 
@@ -1460,26 +1454,29 @@ class SubtenantAccount(Entity):
             unpack=False,
         )
 
-    def _paginate_users(self, after=None, include=None, limit=50, order="ASC"):
+    def _paginate_users(
+        self, include=None, max_results=None, page_size=None, order=None
+    ):
         """Get all user details.
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/users
         
-        :param after: The entity ID to fetch after the given one.
-        :type after: str
-        
         :param include: Comma separated additional data to return. Currently supported:
             total_count
         :type include: str
         
-        :param limit: The number of results to return (2-1000), default is 50.
-        :type limit: int
+        :param max_results: Total maximum number of results to retrieve
+        :type max_results: int
+            
+        :param page_size: The number of results to return (2-1000), default is 50.
+        :type page_size: int
         
         :param order: The order of the records based on creation time, ASC or DESC; by
             default ASC
         :type order: str
         
+        :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 
@@ -1538,26 +1535,27 @@ class SubtenantAccount(Entity):
             unpack=self,
         )
 
-    def users(self, after=None, include=None, limit=50, order="ASC"):
+    def users(self, include=None, max_results=None, page_size=None, order=None):
         """Get all user details.
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/users
         
-        :param after: The entity ID to fetch after the given one.
-        :type after: str
-        
         :param include: Comma separated additional data to return. Currently supported:
             total_count
         :type include: str
         
-        :param limit: The number of results to return (2-1000), default is 50.
-        :type limit: int
+        :param max_results: Total maximum number of results to retrieve
+        :type max_results: int
+            
+        :param page_size: The number of results to return (2-1000), default is 50.
+        :type page_size: int
         
         :param order: The order of the records based on creation time, ASC or DESC; by
             default ASC
         :type order: str
         
+        :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 
@@ -1567,9 +1565,9 @@ class SubtenantAccount(Entity):
         return paginate(
             self=self,
             foreign_key=User,
-            after=after,
             include=include,
-            limit=limit,
+            max_results=max_results,
+            page_size=page_size,
             order=order,
             wraps=self._paginate_users,
         )

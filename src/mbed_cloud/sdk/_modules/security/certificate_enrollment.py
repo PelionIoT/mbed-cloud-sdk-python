@@ -236,24 +236,25 @@ class CertificateEnrollment(Entity):
             unpack=self,
         )
 
-    def list(self, after=None, include=None, limit=None, order=None):
+    def list(self, include=None, max_results=None, page_size=None, order=None):
         """Get certificate enrollments list.
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/certificate-enrollments
         
-        :param after: The ID of the item after which to retrieve the next page.
-        :type after: str
-        
         :param include: a comma-separated list of data fields to return.
         :type include: str
         
-        :param limit: The number of results to be returned. Between 2 and 1000, inclusive.
-        :type limit: int
+        :param max_results: Total maximum number of results to retrieve
+        :type max_results: int
+            
+        :param page_size: The number of results to be returned. Between 2 and 1000, inclusive.
+        :type page_size: int
         
         :param order: The order of results.
         :type order: str
         
+        :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 
@@ -263,31 +264,34 @@ class CertificateEnrollment(Entity):
         return paginate(
             self=self,
             foreign_key=CertificateEnrollment,
-            after=after,
             include=include,
-            limit=limit,
+            max_results=max_results,
+            page_size=page_size,
             order=order,
             wraps=self._paginate_list,
         )
 
-    def _paginate_list(self, after=None, include=None, limit=None, order=None):
+    def _paginate_list(
+        self, include=None, max_results=None, page_size=None, order=None
+    ):
         """Get certificate enrollments list.
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/certificate-enrollments
         
-        :param after: The ID of the item after which to retrieve the next page.
-        :type after: str
-        
         :param include: a comma-separated list of data fields to return.
         :type include: str
         
-        :param limit: The number of results to be returned. Between 2 and 1000, inclusive.
-        :type limit: int
+        :param max_results: Total maximum number of results to retrieve
+        :type max_results: int
+            
+        :param page_size: The number of results to be returned. Between 2 and 1000, inclusive.
+        :type page_size: int
         
         :param order: The order of results.
         :type order: str
         
+        :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 

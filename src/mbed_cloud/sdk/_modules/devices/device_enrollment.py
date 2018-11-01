@@ -267,25 +267,26 @@ class DeviceEnrollment(Entity):
             unpack=self,
         )
 
-    def list(self, after=None, include=None, limit=None, order="ASC"):
+    def list(self, include=None, max_results=None, page_size=None, order=None):
         """Get enrollment list.
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/device-enrollments
         
-        :param after: Entity ID to fetch after.
-        :type after: str
-        
         :param include: Comma-separated additional data to return. Currently supported:
             total_count.
         :type include: str
         
-        :param limit: Number of results to be returned. Between 2 and 1000, inclusive.
-        :type limit: int
+        :param max_results: Total maximum number of results to retrieve
+        :type max_results: int
+            
+        :param page_size: Number of results to be returned. Between 2 and 1000, inclusive.
+        :type page_size: int
         
         :param order: ASC or DESC
         :type order: str
         
+        :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 
@@ -295,32 +296,35 @@ class DeviceEnrollment(Entity):
         return paginate(
             self=self,
             foreign_key=DeviceEnrollment,
-            after=after,
             include=include,
-            limit=limit,
+            max_results=max_results,
+            page_size=page_size,
             order=order,
             wraps=self._paginate_list,
         )
 
-    def _paginate_list(self, after=None, include=None, limit=None, order="ASC"):
+    def _paginate_list(
+        self, include=None, max_results=None, page_size=None, order=None
+    ):
         """Get enrollment list.
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/device-enrollments
         
-        :param after: Entity ID to fetch after.
-        :type after: str
-        
         :param include: Comma-separated additional data to return. Currently supported:
             total_count.
         :type include: str
         
-        :param limit: Number of results to be returned. Between 2 and 1000, inclusive.
-        :type limit: int
+        :param max_results: Total maximum number of results to retrieve
+        :type max_results: int
+            
+        :param page_size: Number of results to be returned. Between 2 and 1000, inclusive.
+        :type page_size: int
         
         :param order: ASC or DESC
         :type order: str
         
+        :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 

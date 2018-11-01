@@ -338,26 +338,27 @@ class DeviceEvents(Entity):
             unpack=self,
         )
 
-    def list(self, after=None, include=None, limit=None, order=None):
+    def list(self, include=None, max_results=None, page_size=None, order=None):
         """List all device events.
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/device-events/
         
-        :param after: The ID of The item after which to retrieve the next page.
-        :type after: str
-        
         :param include: Comma-separated list of data fields to return. Currently supported:
             `total_count`
         :type include: str
         
-        :param limit: How many objects to retrieve in the page.
-        :type limit: int
+        :param max_results: Total maximum number of results to retrieve
+        :type max_results: int
+            
+        :param page_size: How many objects to retrieve in the page.
+        :type page_size: int
         
         :param order: The order of the records based on creation time, `ASC` or `DESC`; by
             default `ASC`.
         :type order: str
         
+        :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 
@@ -367,33 +368,36 @@ class DeviceEvents(Entity):
         return paginate(
             self=self,
             foreign_key=DeviceEvents,
-            after=after,
             include=include,
-            limit=limit,
+            max_results=max_results,
+            page_size=page_size,
             order=order,
             wraps=self._paginate_list,
         )
 
-    def _paginate_list(self, after=None, include=None, limit=None, order=None):
+    def _paginate_list(
+        self, include=None, max_results=None, page_size=None, order=None
+    ):
         """List all device events.
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/device-events/
         
-        :param after: The ID of The item after which to retrieve the next page.
-        :type after: str
-        
         :param include: Comma-separated list of data fields to return. Currently supported:
             `total_count`
         :type include: str
         
-        :param limit: How many objects to retrieve in the page.
-        :type limit: int
+        :param max_results: Total maximum number of results to retrieve
+        :type max_results: int
+            
+        :param page_size: How many objects to retrieve in the page.
+        :type page_size: int
         
         :param order: The order of the records based on creation time, `ASC` or `DESC`; by
             default `ASC`.
         :type order: str
         
+        :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 

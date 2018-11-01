@@ -250,12 +250,13 @@ class CertificateIssuerConfig(Entity):
             unpack=self,
         )
 
-    def list(self):
+    def list(self, include=None, max_results=None, page_size=None, order=None):
         """Get certificate issuer configurations.
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/certificate-issuer-configurations
         
+        :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 
@@ -263,15 +264,24 @@ class CertificateIssuerConfig(Entity):
         from mbed_cloud.sdk.entities import CertificateIssuerConfig
 
         return paginate(
-            self=self, foreign_key=CertificateIssuerConfig, wraps=self._paginate_list
+            self=self,
+            foreign_key=CertificateIssuerConfig,
+            include=include,
+            max_results=max_results,
+            page_size=page_size,
+            order=order,
+            wraps=self._paginate_list,
         )
 
-    def _paginate_list(self):
+    def _paginate_list(
+        self, include=None, max_results=None, page_size=None, order=None
+    ):
         """Get certificate issuer configurations.
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/certificate-issuer-configurations
         
+        :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 
