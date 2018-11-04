@@ -346,29 +346,26 @@ class MyApiKey(Entity):
             wraps=self._paginate_groups,
         )
 
-    def _paginate_groups(
-        self, include=None, max_results=None, page_size=None, order=None
-    ):
+    def _paginate_groups(self, after=None, include=None, limit=50, order="ASC"):
         """Get groups of the API key.
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/api-keys/me/groups
         
+        :param after: The entity ID to fetch after the given one.
+        :type after: str
+        
         :param include: Comma separated additional data to return. Currently supported:
             total_count
         :type include: str
         
-        :param max_results: Total maximum number of results to retrieve
-        :type max_results: int
-            
-        :param page_size: The number of results to return (2-1000), default is 50.
-        :type page_size: int
+        :param limit: The number of results to return (2-1000), default is 50.
+        :type limit: int
         
         :param order: The order of the records based on creation time, ASC or DESC; by
             default ASC
         :type order: str
         
-        :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 

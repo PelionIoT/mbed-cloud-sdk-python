@@ -329,15 +329,12 @@ class CertificateIssuer(Entity):
             wraps=self._paginate_list,
         )
 
-    def _paginate_list(
-        self, include=None, max_results=None, page_size=None, order=None
-    ):
+    def _paginate_list(self):
         """Get certificate issuers list.
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/certificate-issuers
         
-        :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 

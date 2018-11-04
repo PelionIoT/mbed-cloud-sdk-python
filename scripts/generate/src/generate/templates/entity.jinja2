@@ -115,7 +115,7 @@ class {{ entity._key|to_pascal }}(Entity):
         {% set foreign_key_import = false %}
     {% endif %}
     def {% if method.private_method %}_{% endif %}{{method._key|to_snake}}(
-        {% if method.pagination %}
+        {% if method.pagination and method.custom_method %}
             self, include=None, max_results=None, page_size=None, order=None
         {% else %}
             self
@@ -134,7 +134,7 @@ class {{ entity._key|to_pascal }}(Entity):
 
         {% if method.path %}api documentation:
         https://os.mbed.com/search/?q=service+apis+{{ method.path }}{% endif %}
-        {%- if method.pagination %}
+        {%- if method.pagination and method.custom_method %}
         {% for field in method.fields if field._key != "after" %}{% if field.external_param %}
         {%- if field._key == "limit" %}
         :param max_results: Total maximum number of results to retrieve
