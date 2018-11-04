@@ -17,6 +17,9 @@ from mbed_cloud.sdk._modules.devices.device_enrollment import DeviceEnrollment
 from mbed_cloud.sdk._modules.devices.device_enrollment_bulk_create import (
     DeviceEnrollmentBulkCreate,
 )
+from mbed_cloud.sdk._modules.devices.device_enrollment_bulk_delete import (
+    DeviceEnrollmentBulkDelete,
+)
 from mbed_cloud.sdk._modules.devices.device_events import DeviceEvents
 from mbed_cloud.sdk._modules.security.certificate_enrollment import (
     CertificateEnrollment,
@@ -39,6 +42,7 @@ __all__ = [
     "Device",
     "DeviceEnrollment",
     "DeviceEnrollmentBulkCreate",
+    "DeviceEnrollmentBulkDelete",
     "DeviceEvents",
     "LoginHistory",
     "MyAccount",

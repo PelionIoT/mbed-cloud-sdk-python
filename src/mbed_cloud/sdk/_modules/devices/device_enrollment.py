@@ -56,8 +56,8 @@ class DeviceEnrollment(Entity):
         :param enrollment_identity: Enrollment identity.
         :type enrollment_identity: str
         :param expires_at: The enrollment claim expiration time. If the device does not
-            connect to Mbed Cloud before the expiration, the claim is removed
-            without a separate notice
+            connect to Device Management before the expiration, the claim is
+            removed without a separate notice
         :type expires_at: datetime
         :param id: Enrollment identity.
         :type id: str
@@ -180,8 +180,9 @@ class DeviceEnrollment(Entity):
 
     @property
     def expires_at(self):
-        """The enrollment claim expiration time. If the device does not connect to Mbed
-        Cloud before the expiration, the claim is removed without a separate notice
+        """The enrollment claim expiration time. If the device does not connect to Device
+        Management before the expiration, the claim is removed without a separate
+        notice
         
         :rtype: datetime
         """

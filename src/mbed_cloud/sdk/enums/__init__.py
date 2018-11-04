@@ -18,6 +18,7 @@ from mbed_cloud.sdk._modules.accounts.enums import UserOrderEnum
 from mbed_cloud.sdk._modules.accounts.enums import UserStatusEnum
 from mbed_cloud.sdk._modules.devices.enums import DeviceDeployedStateEnum
 from mbed_cloud.sdk._modules.devices.enums import DeviceEnrollmentBulkCreateStatusEnum
+from mbed_cloud.sdk._modules.devices.enums import DeviceEnrollmentBulkDeleteStatusEnum
 from mbed_cloud.sdk._modules.devices.enums import DeviceEnrollmentOrderEnum
 from mbed_cloud.sdk._modules.devices.enums import DeviceMechanismEnum
 from mbed_cloud.sdk._modules.devices.enums import DeviceStateEnum
@@ -41,6 +42,7 @@ __all__ = [
     "CertificateIssuerIssuerTypeEnum",
     "DeviceDeployedStateEnum",
     "DeviceEnrollmentBulkCreateStatusEnum",
+    "DeviceEnrollmentBulkDeleteStatusEnum",
     "DeviceEnrollmentOrderEnum",
     "DeviceMechanismEnum",
     "DeviceStateEnum",

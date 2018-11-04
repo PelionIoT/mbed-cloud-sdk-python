@@ -424,8 +424,8 @@ class InstanceFactory:
         :param enrollment_identity: Enrollment identity.
         :type enrollment_identity: str
         :param expires_at: The enrollment claim expiration time. If the device does not
-            connect to Mbed Cloud before the expiration, the claim is removed
-            without a separate notice
+            connect to Device Management before the expiration, the claim is
+            removed without a separate notice
         :type expires_at: datetime
         :param id: Enrollment identity.
         :type id: str
@@ -489,6 +489,63 @@ class InstanceFactory:
         from mbed_cloud.sdk.entities import DeviceEnrollmentBulkCreate
 
         return DeviceEnrollmentBulkCreate(
+            _client=self._client,
+            account_id=account_id,
+            completed_at=completed_at,
+            created_at=created_at,
+            errors_count=errors_count,
+            errors_report_file=errors_report_file,
+            full_report_file=full_report_file,
+            id=id,
+            processed_count=processed_count,
+            status=status,
+            total_count=total_count,
+        )
+
+    def device_enrollment_bulk_delete(
+        self,
+        account_id=None,
+        completed_at=None,
+        created_at=None,
+        errors_count=None,
+        errors_report_file=None,
+        full_report_file=None,
+        id=None,
+        processed_count=None,
+        status=None,
+        total_count=None,
+    ):
+        """Creates a local `DeviceEnrollmentBulkDelete` instance, binding the client
+
+        :param account_id: ID
+        :type account_id: str
+        :param completed_at: The time of completing the bulk creation task.
+        :type completed_at: datetime
+        :param created_at: The time of receiving the bulk creation task.
+        :type created_at: datetime
+        :param errors_count: The number of enrollment identities with failed processing.
+        :type errors_count: int
+        :param errors_report_file: 
+        :type errors_report_file: str
+        :param full_report_file: 
+        :type full_report_file: str
+        :param id: Bulk ID
+        :type id: str
+        :param processed_count: The number of enrollment identities processed until now.
+        :type processed_count: int
+        :param status: The state of the process is 'new' at the time of creation. If the
+            creation is still in progress, the state is shown as 'processing'.
+            When the request has been fully processed, the state changes to
+            'completed'.
+        :type status: str
+        :param total_count: Total number of enrollment identities found in the input CSV.
+        :type total_count: int
+        
+        :rtype: mbed_cloud.sdk.entities.DeviceEnrollmentBulkDelete
+        """
+        from mbed_cloud.sdk.entities import DeviceEnrollmentBulkDelete
+
+        return DeviceEnrollmentBulkDelete(
             _client=self._client,
             account_id=account_id,
             completed_at=completed_at,

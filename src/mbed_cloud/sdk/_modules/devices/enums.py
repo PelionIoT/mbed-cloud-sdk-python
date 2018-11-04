@@ -37,6 +37,19 @@ class DeviceEnrollmentBulkCreateStatusEnum(BaseEnum):
     values = frozenset(("completed", "new", "processing"))
 
 
+class DeviceEnrollmentBulkDeleteStatusEnum(BaseEnum):
+    """Represents the `DeviceEnrollmentBulkDeleteStatusEnum` options
+
+    as used by Mbed Cloud "devices" functionality
+    """
+
+    COMPLETED = "completed"
+    NEW = "new"
+    PROCESSING = "processing"
+
+    values = frozenset(("completed", "new", "processing"))
+
+
 class DeviceEnrollmentOrderEnum(BaseEnum):
     """Represents the `DeviceEnrollmentOrderEnum` options
 
