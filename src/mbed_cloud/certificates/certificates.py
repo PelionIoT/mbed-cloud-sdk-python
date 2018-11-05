@@ -123,16 +123,13 @@ class CertificatesAPI(BaseAPI):
         return
 
     @catch_exceptions(CaApiException, IamApiException)
-    def add_certificate(self, name, type, certificate_data, signature, **kwargs):
+    def add_certificate(self, name, type, certificate_data, signature=None, **kwargs):
         """Add a new BYOC certificate.
 
         :param str name: name of the certificate (Required)
         :param str type: type of the certificate. Values: lwm2m or bootstrap (Required)
         :param str certificate_data: X509.v3 trusted certificate in PEM format. (Required)
-        :param str signature: Base64 encoded signature of the account ID
-            signed by the certificate to be uploaded.
-            Signature must be hashed with SHA256. (Required)
-            If using enrollment_mode, this can be set to None
+        :param str signature:  This parameter has been DEPRECATED in the API and does not need to be provided.
         :param str status: Status of the certificate.
             Allowed values: "ACTIVE" | "INACTIVE".
         :param str description: Human readable description of this certificate,
@@ -146,7 +143,7 @@ class CertificatesAPI(BaseAPI):
 
         kwargs.update({'certificate_data': certificate_data})
         certificate = Certificate._create_request_map(kwargs)
-        if not certificate.get('enrollment_mode'):
+        if not certificate.get('enrollment_mode') and signature:
             certificate.update({'signature': signature})
         body = iam.TrustedCertificateReq(**certificate)
         prod_cert = api.add_certificate(body)
@@ -180,8 +177,7 @@ class CertificatesAPI(BaseAPI):
 
         :param str certificate_id: The certificate id (Required)
         :param str certificate_data: X509.v3 trusted certificate in PEM format.
-        :param str signature: Base64 encoded signature of the account ID
-            signed by the certificate to be uploaded. Available only for bootstrap and lwm2m types.
+        :param str signature: This parameter has been DEPRECATED in the API and does not need to be provided.
         :param str type: type of the certificate. Values: lwm2m or bootstrap.
         :param str status: Status of the certificate.
             Allowed values: "ACTIVE" | "INACTIVE".
@@ -267,6 +263,8 @@ class Certificate(BaseObject):
     @property
     def signature(self):
         """The signature of the certificate.
+
+        This parameter has been DEPRECATED in the API and is no longer used.
 
         :return: The signature of this certificate.
         :rtype: str
