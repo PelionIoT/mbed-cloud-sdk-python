@@ -13,6 +13,16 @@ a list of versions that have been released on PyPI.
 ..
     begin_release_notes
 
+2.0.3 (2018-11-07)
+==================
+
+Bugfixes
+--------
+
+- The signature parameter for the `add_certificate` method is now an optional
+  as it has been deprecated in the API. (#1483)
+
+
 2.0.2 (2018-09-28)
 ==================
 

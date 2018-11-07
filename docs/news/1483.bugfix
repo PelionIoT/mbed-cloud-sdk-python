@@ -1,1 +1,0 @@
-The signature parameter for the `add_certificate` method is now an optional as it has been deprecated in the API.
