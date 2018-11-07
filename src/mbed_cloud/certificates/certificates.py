@@ -123,13 +123,14 @@ class CertificatesAPI(BaseAPI):
         return
 
     @catch_exceptions(CaApiException, IamApiException)
-    def add_certificate(self, name, type, certificate_data, signature=None, **kwargs):
+    def add_certificate(self, name, type, certificate_data, signature=None, **kwargs)00:
         """Add a new BYOC certificate.
 
         :param str name: name of the certificate (Required)
         :param str type: type of the certificate. Values: lwm2m or bootstrap (Required)
         :param str certificate_data: X509.v3 trusted certificate in PEM format. (Required)
-        :param str signature:  This parameter has been DEPRECATED in the API and does not need to be provided.
+        :param str signature:  This parameter has been DEPRECATED in the API and does not need to
+            be provided.
         :param str status: Status of the certificate.
             Allowed values: "ACTIVE" | "INACTIVE".
         :param str description: Human readable description of this certificate,
@@ -177,7 +178,8 @@ class CertificatesAPI(BaseAPI):
 
         :param str certificate_id: The certificate id (Required)
         :param str certificate_data: X509.v3 trusted certificate in PEM format.
-        :param str signature: This parameter has been DEPRECATED in the API and does not need to be provided.
+        :param str signature: This parameter has been DEPRECATED in the API and does not need to
+            be provided.
         :param str type: type of the certificate. Values: lwm2m or bootstrap.
         :param str status: Status of the certificate.
             Allowed values: "ACTIVE" | "INACTIVE".
