@@ -123,7 +123,7 @@ class CertificatesAPI(BaseAPI):
         return
 
     @catch_exceptions(CaApiException, IamApiException)
-    def add_certificate(self, name, type, certificate_data, signature=None, **kwargs)00:
+    def add_certificate(self, name, type, certificate_data, signature=None, **kwargs):
         """Add a new BYOC certificate.
 
         :param str name: name of the certificate (Required)
