@@ -331,6 +331,16 @@ jobs:
     - run: python scripts/tpip.py python_tpip.csv
     - store_artifacts:
         path: python_tpip.csv
+  build_documentation:
+    docker:
+      - image: circleci/node:jessie-browsers
+    steps:
+      - run:
+          name: Trigger documentation build
+          command: |
+              curl -X POST --header "Content-Type: application/json" \
+               -d '{"branch":"master"}' \
+               https://circleci.com/api/v1.1/project/github/${GITHUB_DOCS_ORGANISATION}/${GITHUB_DOCS_PROJECT}/build?circle-token=${DOCS_CIRCLE_CI_TOKEN}
 version: 2
 workflows:
   python_sdk_workflow:
@@ -379,4 +389,13 @@ workflows:
             - master
             - integration
     - tpip_report: {}
+    - build_documentation:
+        requires:
+        - build_py2
+        - build_py3
+        filters:
+          branches:
+            only:
+              - master
+              - beta
   version: 2
