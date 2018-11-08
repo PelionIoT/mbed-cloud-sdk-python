@@ -12,6 +12,9 @@ from dateutil.parser import parse
 
 from io import BufferedIOBase
 
+import logging
+
+LOG = logging.getLogger(__name__)
 
 class Field(object):
     base_type = None
@@ -30,7 +33,7 @@ class Field(object):
         if not isinstance(value, (self.base_type, type(None))):
             raise TypeError("%r is not a %s" % (value, self.base_type))
         if value is not None and self._enum and value not in self._enum.values:
-            raise ValueError("%s must be a value from %s" % (value, self._enum))
+            LOG.warning("Unknown enum value '%s' received from API for %s", value, self._enum)
         self._val = value
         return self
 
