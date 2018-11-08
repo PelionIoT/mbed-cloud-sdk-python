@@ -9,7 +9,7 @@ from tests.common import BaseCase
 
 from mbed_cloud.sdk.entities import User
 from mbed_cloud.sdk.entities import PolicyGroup
-
+from mbed_cloud.sdk.common.exceptions import ApiErrorResponse
 
 @BaseCase._skip_in_ci
 class TestLookups(BaseCase):
@@ -48,24 +48,31 @@ class TestLookups(BaseCase):
 
         new_user = self.new_user()
         new_user.group_ids = [group.id]
-        new_user.create()
-        self.created = new_user.id
 
-        self.assertEqual('1800966228', new_user.phone_number)
+        try:
+            new_user.create()
+        except ApiErrorResponse as api_error:
+            # If there is an error then it should be a 409
+            # as at some point the user was not deleted
+            self.assertEqual(api_error.status_code, 409)
+        else:
+            self.created = new_user.id
 
-        # we have at least one group id
-        self.assertGreaterEqual(len(new_user.group_ids), 1)
+            self.assertEqual('1800966228', new_user.phone_number)
 
-        all_users = new_user.list()
+            # we have at least one group id
+            self.assertGreaterEqual(len(new_user.group_ids), 1)
 
-        found = [user for user in all_users if user == new_user].pop()
+            all_users = new_user.list()
 
-        self.assertEqual(found, new_user)
-        for user in all_users:
-            if user.login_history:
-                history_item = user.login_history.pop()
-                self.assertIsInstance(history_item.date, datetime.datetime)
+            found = [user for user in all_users if user == new_user].pop()
 
-        my_groups = new_user.groups()
-        for group in my_groups:
-            self.assertGreaterEqual(group.user_count, 1)
+            self.assertEqual(found, new_user)
+            for user in all_users:
+                if user.login_history:
+                    history_item = user.login_history.pop()
+                    self.assertIsInstance(history_item.date, datetime.datetime)
+
+            my_groups = new_user.groups()
+            for group in my_groups:
+                self.assertGreaterEqual(group.user_count, 1)
