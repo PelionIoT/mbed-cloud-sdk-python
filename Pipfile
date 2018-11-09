@@ -23,10 +23,3 @@ sphinx = "*"
 # locked to protect from Py2/3 compatibility break in more recent versions
 towncrier = "==17.8.0"
 auto-version = {editable = true, path = "./scripts/auto_version"}
-
-certifi = "==2018.10.15"
-future = "==0.17.1"
-python-dateutil = "==2.7.5"
-python-dotenv = "==0.9.1"
-six = "==1.11.0"
-urllib3 = "==1.24.1"
