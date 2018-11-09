@@ -1,5 +1,7 @@
 """Tests for entities in the security module."""
 
+import time
+
 from tests.common import BaseCase, CrudMixinTests
 
 from mbed_cloud.sdk.entities import CertificateIssuerConfig
@@ -10,6 +12,7 @@ from mbed_cloud.sdk.entities import DeviceEnrollment
 from mbed_cloud.sdk.entities import DeviceEvents
 
 from mbed_cloud.sdk.enums import DeviceStateEnum
+from mbed_cloud.sdk.enums import DeviceEnrollmentBulkCreateStatusEnum
 
 from mbed_cloud.sdk.common.exceptions import ApiErrorResponse
 
@@ -59,12 +62,37 @@ class TestDeviceEnrollment(BaseCase, CrudMixinTests):
         super(TestDeviceEnrollment, cls).setUpClass()
 
     def test_device_enrollment_single(self):
-        # an example: device enrollment single
-        pass
+
+        try:
+            # an example: device enrollment single
+
+            # Enroll a single device using the enrollment ID for the device
+            device_enrollment = DeviceEnrollment(
+                enrollment_identity = "A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12")
+
+            device_enrollment.create()
+            # end of example
+        except ApiErrorResponse as api_error:
+            self.assertEqual(api_error.status_code, 409, "This should be a duplicate identity")
 
     def test_device_enrollment_bulk(self):
+
         # an example: device enrollment bulk
-        pass
+        with open("tests/fixtures/bulk_device_enrollment.csv", "rb") as csv_file_handle:
+            bulk_device_enrollment = DeviceEnrollmentBulkCreate().create(csv_file_handle)
+
+        while bulk_device_enrollment.status != DeviceEnrollmentBulkCreateStatusEnum.COMPLETED:
+            time.sleep(1)
+            bulk_device_enrollment.get()
+
+        from urllib.parse import urlparse
+
+        response = bulk_device_enrollment._client.call_api(
+            method="get",
+            path=urlparse(bulk_device_enrollment.full_report_file).path
+        )
+
+        print(response.text)
 
 
 @BaseCase._skip_in_ci

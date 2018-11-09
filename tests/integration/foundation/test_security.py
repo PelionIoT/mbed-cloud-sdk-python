@@ -53,14 +53,14 @@ class TestCertificateIssuerConfig(BaseCase, CrudMixinTests):
 
 
 # @BaseCase._skip_in_ci
-# class TestServerCredentials(BaseCase, CrudMixinTests):
+# class TestServerCredentials(BaseCase):
 #     """Test server credentials in lieu of proper tests."""
 #
-#     @classmethod
-#     def setUpClass(cls):
-#         cls.class_under_test = ServerCredentials
-#         super(TestServerCredentials, cls).setUpClass()
-
+#     def test_get_bootstrap(self):
+#         print(ServerCredentials.get_bootstrap())
+#
+#     def test_get_bootstrap(self):
+#         print(ServerCredentials.get_lwm2m())
 
 @BaseCase._skip_in_ci
 class TestTrustedCertificate(BaseCase, CrudMixinTests):
@@ -71,17 +71,24 @@ class TestTrustedCertificate(BaseCase, CrudMixinTests):
         cls.class_under_test = TrustedCertificate
         super(TestTrustedCertificate, cls).setUpClass()
 
-    def test_developer_certificate_info(self):
-        for trusted_certs in TrustedCertificate().list():
+    def test_certificate_info(self):
+        for trusted_cert in TrustedCertificate().list():
             # Check name is set and of a sensible type
-            self.assertIsInstance(trusted_certs.name, str, "Expected a certification name to be a string")
-            self.assertTrue(len(trusted_certs.name) > 0, "Expected a certificate to have a non zero length name")
+            self.assertIsInstance(trusted_cert.name, str, "Expected a certification name to be a string")
+            self.assertTrue(len(trusted_cert.name) > 0, "Expected a certificate to have a non zero length name")
 
-            if trusted_certs.is_developer_certificate:
+            if trusted_cert.is_developer_certificate:
                 # If this is a developer certificate retrieve it
-                self.assertEqual(trusted_certs.developer_certificate_info().__class__.__name__, "DeveloperCertificate")
+                developer_certificate = trusted_cert.developer_certificate_info()
+                self.assertEqual(developer_certificate.__class__.__name__, "DeveloperCertificate")
+
+                new_developer_certificate = DeveloperCertificate(id=developer_certificate.id)
+                # Test the link back to the trusted certificate
+                back_linked_cert = new_developer_certificate.trusted_certificate_info()
+                self.assertEqual(back_linked_cert.__class__.__name__, "TrustedCertificate")
+                self.assertEqual(trusted_cert.id, back_linked_cert.id, "These should be the same trusted certificate")
             else:
                 # If this is not a developer certificate check that it cannot be retrieved
                 with self.assertRaises(ApiErrorResponse) as api_error:
-                    trusted_certs.developer_certificate_info()
+                    trusted_cert.developer_certificate_info()
                     self.assertEqual(api_error.exception.status_code, 404)
