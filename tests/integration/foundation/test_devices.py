@@ -27,6 +27,7 @@ class TestDevice(BaseCase, CrudMixinTests):
         super(TestDevice, cls).setUpClass()
 
     def test_cert_renew(self):
+        """Example of renewing a certificate on a device."""
         # an example: certificate renew
 
         # Find all certificate issuers that may be in use
@@ -62,7 +63,7 @@ class TestDeviceEnrollment(BaseCase, CrudMixinTests):
         super(TestDeviceEnrollment, cls).setUpClass()
 
     def test_device_enrollment_single(self):
-
+        """Example of enrolling a device in Pelion Device Management."""
         try:
             # an example: device enrollment single
 
@@ -76,7 +77,7 @@ class TestDeviceEnrollment(BaseCase, CrudMixinTests):
             self.assertEqual(api_error.status_code, 409, "This should be a duplicate identity")
 
     def test_device_enrollment_bulk(self):
-
+        """Example of enrolling a device in Pelion Device Management."""
         # an example: device enrollment bulk
         with open("tests/fixtures/bulk_device_enrollment.csv", "rb") as csv_file_handle:
             bulk_device_enrollment = DeviceEnrollmentBulkCreate().create(csv_file_handle)

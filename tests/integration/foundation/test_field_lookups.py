@@ -3,12 +3,10 @@ from __future__ import unicode_literals
 from builtins import str
 
 import datetime
-import random
 
 from tests.common import BaseCase
 
 from mbed_cloud.sdk.entities import User
-from mbed_cloud.sdk.entities import PolicyGroup
 from mbed_cloud.sdk.common.exceptions import ApiErrorResponse
 
 @BaseCase._skip_in_ci
@@ -44,10 +42,8 @@ class TestLookups(BaseCase):
         self.assertEqual('0800966228', new_user.phone_number)
 
     def test_sequence(self):
-        group = PolicyGroup().list().first()
 
         new_user = self.new_user()
-        new_user.group_ids = [group.id]
 
         try:
             new_user.create()
