@@ -273,7 +273,7 @@ class CertificateIssuerConfig(Entity):
             wraps=self._paginate_list,
         )
 
-    def _paginate_list(self):
+    def _paginate_list(self, **kwargs):
         """Get certificate issuer configurations.
 
         api documentation:
