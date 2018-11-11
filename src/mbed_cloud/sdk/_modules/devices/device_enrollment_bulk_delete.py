@@ -25,6 +25,8 @@ class DeviceEnrollmentBulkDelete(Entity):
         "errors_count",
         "errors_report_file",
         "full_report_file",
+        "get_errors_report_file",
+        "get_full_report_file",
         "id",
         "processed_count",
         "status",
@@ -43,6 +45,8 @@ class DeviceEnrollmentBulkDelete(Entity):
         errors_count=None,
         errors_report_file=None,
         full_report_file=None,
+        get_errors_report_file=None,
+        get_full_report_file=None,
         id=None,
         processed_count=None,
         status=None,
@@ -62,6 +66,12 @@ class DeviceEnrollmentBulkDelete(Entity):
         :type errors_report_file: str
         :param full_report_file: 
         :type full_report_file: str
+        :param get_errors_report_file: Get the report file describing errors encountered during the bulk
+            enrollment.
+        :type get_errors_report_file: file
+        :param get_full_report_file: Get the report file containing detailed information on the bulk
+            enrollment.
+        :type get_full_report_file: file
         :param id: Bulk ID
         :type id: str
         :param processed_count: The number of enrollment identities processed until now.
@@ -86,6 +96,8 @@ class DeviceEnrollmentBulkDelete(Entity):
         self._errors_count = fields.IntegerField(value=errors_count)
         self._errors_report_file = fields.StringField(value=errors_report_file)
         self._full_report_file = fields.StringField(value=full_report_file)
+        self._get_errors_report_file = fields.FileField(value=get_errors_report_file)
+        self._get_full_report_file = fields.FileField(value=get_full_report_file)
         self._id = fields.StringField(value=id)
         self._processed_count = fields.IntegerField(value=processed_count)
         self._status = fields.StringField(
@@ -214,6 +226,58 @@ class DeviceEnrollmentBulkDelete(Entity):
         """
 
         self._full_report_file.set(value)
+
+    @property
+    def get_errors_report_file(self):
+        """Get the report file describing errors encountered during the bulk enrollment.
+        
+        :rtype: file
+        """
+
+        from mbed_cloud.sdk.common._custom_methods import get_errors_report_file_getter
+
+        return get_errors_report_file_getter(
+            self=self, field=self._get_errors_report_file
+        )
+
+    @get_errors_report_file.setter
+    def get_errors_report_file(self, value):
+        """Set value of `get_errors_report_file`
+
+        :param value: value to set
+        :type value: file
+        """
+
+        from mbed_cloud.sdk.common._custom_methods import get_errors_report_file_setter
+
+        get_errors_report_file_setter(
+            self=self, field=self._get_errors_report_file, value=value
+        )
+
+    @property
+    def get_full_report_file(self):
+        """Get the report file containing detailed information on the bulk enrollment.
+        
+        :rtype: file
+        """
+
+        from mbed_cloud.sdk.common._custom_methods import get_full_report_file_getter
+
+        return get_full_report_file_getter(self=self, field=self._get_full_report_file)
+
+    @get_full_report_file.setter
+    def get_full_report_file(self, value):
+        """Set value of `get_full_report_file`
+
+        :param value: value to set
+        :type value: file
+        """
+
+        from mbed_cloud.sdk.common._custom_methods import get_full_report_file_setter
+
+        get_full_report_file_setter(
+            self=self, field=self._get_full_report_file, value=value
+        )
 
     @property
     def id(self):

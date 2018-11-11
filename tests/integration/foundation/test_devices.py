@@ -13,6 +13,7 @@ from mbed_cloud.sdk.entities import DeviceEvents
 
 from mbed_cloud.sdk.enums import DeviceStateEnum
 from mbed_cloud.sdk.enums import DeviceEnrollmentBulkCreateStatusEnum
+from mbed_cloud.sdk.enums import DeviceEnrollmentBulkDeleteStatusEnum
 
 from mbed_cloud.sdk.common.exceptions import ApiErrorResponse
 
@@ -76,7 +77,7 @@ class TestDeviceEnrollment(BaseCase, CrudMixinTests):
         except ApiErrorResponse as api_error:
             self.assertEqual(api_error.status_code, 409, "This should be a duplicate identity")
 
-    def test_device_enrollment_bulk(self):
+    def test_device_enrollment_bulk_create(self):
         """Example of enrolling a device in Pelion Device Management."""
         # an example: device enrollment bulk
         with open("tests/fixtures/bulk_device_enrollment.csv", "rb") as csv_file_handle:
@@ -86,15 +87,20 @@ class TestDeviceEnrollment(BaseCase, CrudMixinTests):
             time.sleep(1)
             bulk_device_enrollment.get()
 
-        from urllib.parse import urlparse
+        print(bulk_device_enrollment.get_full_report_file.read())
+        print(bulk_device_enrollment.get_errors_report_file.read())
 
-        response = bulk_device_enrollment._client.call_api(
-            method="get",
-            path=urlparse(bulk_device_enrollment.full_report_file).path
-        )
+    def test_device_enrollment_bulk_delete(self):
+        """Example of enrolling a device in Pelion Device Management."""
+        with open("tests/fixtures/bulk_device_enrollment.csv", "rb") as csv_file_handle:
+            bulk_device_enrollment = DeviceEnrollmentBulkDelete().delete(csv_file_handle)
 
-        print(response.text)
+        while bulk_device_enrollment.status != DeviceEnrollmentBulkDeleteStatusEnum.COMPLETED:
+            time.sleep(1)
+            bulk_device_enrollment.get()
 
+        print(bulk_device_enrollment.get_full_report_file.read())
+        print(bulk_device_enrollment.get_errors_report_file.read())
 
 @BaseCase._skip_in_ci
 class TestDeviceEvents(BaseCase, CrudMixinTests):
