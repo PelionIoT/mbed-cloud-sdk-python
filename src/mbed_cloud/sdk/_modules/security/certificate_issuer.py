@@ -24,6 +24,7 @@ class CertificateIssuer(Entity):
         "id",
         "issuer_attributes",
         "issuer_type",
+        "message",
         "name",
         "successful",
     ]
@@ -39,6 +40,7 @@ class CertificateIssuer(Entity):
         id=None,
         issuer_attributes=None,
         issuer_type=None,
+        message=None,
         name=None,
         successful=None,
     ):
@@ -67,6 +69,8 @@ class CertificateIssuer(Entity):
               The users must
             provide their own CFSSL host_url and credentials.
         :type issuer_type: str
+        :param message: Provides details in case of failure.
+        :type message: str
         :param name: Certificate issuer name, unique per account.
         :type name: str
         :param successful: Indicates whether the certificate issuer was verified
@@ -86,6 +90,7 @@ class CertificateIssuer(Entity):
         self._issuer_type = fields.StringField(
             value=issuer_type, enum=enums.CertificateIssuerIssuerTypeEnum
         )
+        self._message = fields.StringField(value=message)
         self._name = fields.StringField(value=name)
         self._successful = fields.BooleanField(value=successful)
 
@@ -204,6 +209,27 @@ class CertificateIssuer(Entity):
         """
 
         self._issuer_type.set(value)
+
+    @property
+    def message(self):
+        """Provides details in case of failure.
+        
+        api example: 'message describing the verification failure'
+        
+        :rtype: str
+        """
+
+        return self._message.value
+
+    @message.setter
+    def message(self, value):
+        """Set value of `message`
+
+        :param value: value to set
+        :type value: str
+        """
+
+        self._message.set(value)
 
     @property
     def name(self):
@@ -329,7 +355,7 @@ class CertificateIssuer(Entity):
             wraps=self._paginate_list,
         )
 
-    def _paginate_list(self, **kwargs):
+    def _paginate_list(self):
         """Get certificate issuers list.
 
         api documentation:

@@ -13,9 +13,13 @@ from mbed_cloud.sdk.common.enum import BaseEnum
 
 
 class DeviceDeployedStateEnum(BaseEnum):
-    """Represents the `DeviceDeployedStateEnum` options
+    """Represents expected values of `DeviceDeployedStateEnum`
 
-    as used by Mbed Cloud "devices" functionality
+    This is used by Mbed Cloud "devices" functionality
+
+    Note: If new values are added to the enum in the API they will be passed through unchanged by
+    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
+    version.
     """
 
     DEVELOPMENT = "development"
@@ -25,9 +29,13 @@ class DeviceDeployedStateEnum(BaseEnum):
 
 
 class DeviceEnrollmentBulkCreateStatusEnum(BaseEnum):
-    """Represents the `DeviceEnrollmentBulkCreateStatusEnum` options
+    """Represents expected values of `DeviceEnrollmentBulkCreateStatusEnum`
 
-    as used by Mbed Cloud "devices" functionality
+    This is used by Mbed Cloud "devices" functionality
+
+    Note: If new values are added to the enum in the API they will be passed through unchanged by
+    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
+    version.
     """
 
     COMPLETED = "completed"
@@ -38,9 +46,13 @@ class DeviceEnrollmentBulkCreateStatusEnum(BaseEnum):
 
 
 class DeviceEnrollmentBulkDeleteStatusEnum(BaseEnum):
-    """Represents the `DeviceEnrollmentBulkDeleteStatusEnum` options
+    """Represents expected values of `DeviceEnrollmentBulkDeleteStatusEnum`
 
-    as used by Mbed Cloud "devices" functionality
+    This is used by Mbed Cloud "devices" functionality
+
+    Note: If new values are added to the enum in the API they will be passed through unchanged by
+    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
+    version.
     """
 
     COMPLETED = "completed"
@@ -51,9 +63,13 @@ class DeviceEnrollmentBulkDeleteStatusEnum(BaseEnum):
 
 
 class DeviceEnrollmentOrderEnum(BaseEnum):
-    """Represents the `DeviceEnrollmentOrderEnum` options
+    """Represents expected values of `DeviceEnrollmentOrderEnum`
 
-    as used by Mbed Cloud "devices" functionality
+    This is used by Mbed Cloud "devices" functionality
+
+    Note: If new values are added to the enum in the API they will be passed through unchanged by
+    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
+    version.
     """
 
     ASC = "ASC"
@@ -63,9 +79,13 @@ class DeviceEnrollmentOrderEnum(BaseEnum):
 
 
 class DeviceMechanismEnum(BaseEnum):
-    """Represents the `DeviceMechanismEnum` options
+    """Represents expected values of `DeviceMechanismEnum`
 
-    as used by Mbed Cloud "devices" functionality
+    This is used by Mbed Cloud "devices" functionality
+
+    Note: If new values are added to the enum in the API they will be passed through unchanged by
+    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
+    version.
     """
 
     CONNECTOR = "connector"
@@ -75,9 +95,13 @@ class DeviceMechanismEnum(BaseEnum):
 
 
 class DeviceStateEnum(BaseEnum):
-    """Represents the `DeviceStateEnum` options
+    """Represents expected values of `DeviceStateEnum`
 
-    as used by Mbed Cloud "devices" functionality
+    This is used by Mbed Cloud "devices" functionality
+
+    Note: If new values are added to the enum in the API they will be passed through unchanged by
+    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
+    version.
     """
 
     BOOTSTRAPPED = "bootstrapped"

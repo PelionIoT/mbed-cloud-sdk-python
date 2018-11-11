@@ -34,7 +34,9 @@ class Field(object):
         if not isinstance(value, (self.base_type, type(None))):
             raise TypeError("%r is not a %s" % (value, self.base_type))
         if value is not None and self._enum and value not in self._enum.values:
-            LOG.warning("Unknown enum value '%s' received from API for %s", value, self._enum)
+            LOG.warning(
+                "Unknown enum value '%s' received from API for %s", value, self._enum
+            )
         self._val = value
         return self
 

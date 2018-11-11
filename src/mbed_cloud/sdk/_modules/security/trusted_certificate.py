@@ -30,6 +30,7 @@ class TrustedCertificate(Entity):
         "issuer",
         "name",
         "owner_id",
+        "private_key",
         "service",
         "status",
         "subject",
@@ -53,6 +54,7 @@ class TrustedCertificate(Entity):
         issuer=None,
         name=None,
         owner_id=None,
+        private_key=None,
         service=None,
         status=None,
         subject=None,
@@ -81,6 +83,9 @@ class TrustedCertificate(Entity):
         :type name: str
         :param owner_id: The UUID of the owner.
         :type owner_id: str
+        :param private_key: Private key of the certificate in PEM or base64 encoded DER
+            format.
+        :type private_key: str
         :param service: Service name where the certificate is to be used.
         :type service: str
         :param status: Status of the certificate.
@@ -111,6 +116,7 @@ class TrustedCertificate(Entity):
         self._issuer = fields.StringField(value=issuer)
         self._name = fields.StringField(value=name)
         self._owner_id = fields.StringField(value=owner_id)
+        self._private_key = fields.StringField(value=private_key)
         self._service = fields.StringField(
             value=service, enum=enums.TrustedCertificateServiceEnum
         )
@@ -340,6 +346,27 @@ class TrustedCertificate(Entity):
         """
 
         self._owner_id.set(value)
+
+    @property
+    def private_key(self):
+        """Private key of the certificate in PEM or base64 encoded DER format.
+        
+        api example: 'MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmE...'
+        
+        :rtype: str
+        """
+
+        return self._private_key.value
+
+    @private_key.setter
+    def private_key(self, value):
+        """Set value of `private_key`
+
+        :param value: value to set
+        :type value: str
+        """
+
+        self._private_key.set(value)
 
     @property
     def service(self):

@@ -26,7 +26,7 @@ class User(Entity):
         "email",
         "email_verified",
         "full_name",
-        "group_ids",
+        "groups",
         "id",
         "last_login_time",
         "login_history",
@@ -43,7 +43,6 @@ class User(Entity):
 
     # common renames used when mapping {<API spec>: <SDK>}
     _renames = {
-        "groups": "group_ids",
         "is_marketing_accepted": "marketing_accepted",
         "is_gtc_accepted": "terms_accepted",
         "is_totp_enabled": "two_factor_authentication",
@@ -59,7 +58,7 @@ class User(Entity):
         email=None,
         email_verified=None,
         full_name=None,
-        group_ids=None,
+        groups=None,
         id=None,
         last_login_time=None,
         login_history=None,
@@ -90,9 +89,9 @@ class User(Entity):
         :type email_verified: bool
         :param full_name: The full name of the user.
         :type full_name: str
-        :param group_ids: A list of IDs of the groups this user belongs to.
-        :type group_ids: list
-        :param id: Entity ID.
+        :param groups: A list of IDs of the groups this user belongs to.
+        :type groups: list
+        :param id: The UUID of the user.
         :type id: str
         :param last_login_time: A timestamp of the latest login of the user, in milliseconds.
         :type last_login_time: int
@@ -144,7 +143,7 @@ class User(Entity):
         self._email = fields.StringField(value=email)
         self._email_verified = fields.BooleanField(value=email_verified)
         self._full_name = fields.StringField(value=full_name)
-        self._group_ids = fields.ListField(value=group_ids)
+        self._groups = fields.ListField(value=groups)
         self._id = fields.StringField(value=id)
         self._last_login_time = fields.IntegerField(value=last_login_time)
         self._login_history = fields.ListField(value=login_history, entity=LoginHistory)
@@ -308,29 +307,29 @@ class User(Entity):
         self._full_name.set(value)
 
     @property
-    def group_ids(self):
+    def groups(self):
         """A list of IDs of the groups this user belongs to.
         
         :rtype: list
         """
 
-        return self._group_ids.value
+        return self._groups.value
 
-    @group_ids.setter
-    def group_ids(self, value):
-        """Set value of `group_ids`
+    @groups.setter
+    def groups(self, value):
+        """Set value of `groups`
 
         :param value: value to set
         :type value: list
         """
 
-        self._group_ids.set(value)
+        self._groups.set(value)
 
     @property
     def id(self):
-        """Entity ID.
+        """The UUID of the user.
         
-        api example: '01619571dad80242ac12000600000000'
+        api example: '01619571e2e89242ac12000600000000'
         
         :rtype: str
         """
@@ -582,77 +581,7 @@ class User(Entity):
 
         self._username.set(value)
 
-    def add_to_groups(self, add_to_group_ids):
-        """Add user to a list of groups.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/users/{user-id}/groups
-        
-        :param add_to_group_ids: A list of IDs of the groups to be updated.
-        :type add_to_group_ids: list
-        
-        :rtype: User
-        """
-
-        return self._client.call_api(
-            method="post",
-            path="/v3/users/{user-id}/groups",
-            body_params=fields.ListField(add_to_group_ids).to_api(),
-            path_params={"user-id": self._id.to_api()},
-            unpack=self,
-        )
-
     def create(self, action="create"):
-        """Create a new user.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/users
-        
-        :param action: Action, either 'create' or 'invite'.
-        :type action: str
-        
-        :rtype: User
-        """
-
-        from mbed_cloud.sdk.common._custom_methods import (
-            subtenant_account_switch_create,
-        )
-
-        return subtenant_account_switch_create(
-            self=self, foreign_key=self.__class__, action=action
-        )
-
-    def _create_on_aggregator(self, action="create"):
-        """Create a new user.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/users
-        
-        :param action: Action, either 'create' or 'invite'.
-        :type action: str
-        
-        :rtype: User
-        """
-
-        return self._client.call_api(
-            method="post",
-            path="/v3/users",
-            body_params={
-                "address": self._address.to_api(),
-                "email": self._email.to_api(),
-                "full_name": self._full_name.to_api(),
-                "groups": self._group_ids.to_api(),
-                "is_marketing_accepted": self._marketing_accepted.to_api(),
-                "password": self._password.to_api(),
-                "phone_number": self._phone_number.to_api(),
-                "is_gtc_accepted": self._terms_accepted.to_api(),
-                "username": self._username.to_api(),
-            },
-            query_params={"action": fields.StringField(action).to_api()},
-            unpack=self,
-        )
-
-    def _create_on_subtenant(self, action="create"):
         """Create a new user.
 
         api documentation:
@@ -671,7 +600,7 @@ class User(Entity):
                 "address": self._address.to_api(),
                 "email": self._email.to_api(),
                 "full_name": self._full_name.to_api(),
-                "groups": self._group_ids.to_api(),
+                "groups": self._groups.to_api(),
                 "is_marketing_accepted": self._marketing_accepted.to_api(),
                 "password": self._password.to_api(),
                 "phone_number": self._phone_number.to_api(),
@@ -687,48 +616,22 @@ class User(Entity):
         """Delete a user.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/users/{user-id}
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/users/{user-id}
         
         :rtype: User
         """
 
         return self._client.call_api(
             method="delete",
-            path="/v3/users/{user-id}",
-            path_params={"user-id": self._id.to_api()},
+            path="/v3/accounts/{accountID}/users/{user-id}",
+            path_params={
+                "accountID": self._account_id.to_api(),
+                "user-id": self._id.to_api(),
+            },
             unpack=self,
         )
 
     def get(self):
-        """Details of the user.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/users/{user-id}
-        
-        :rtype: User
-        """
-
-        from mbed_cloud.sdk.common._custom_methods import subtenant_account_switch_get
-
-        return subtenant_account_switch_get(self=self, foreign_key=self.__class__)
-
-    def _get_on_aggregator(self):
-        """Details of a user.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/users/{user-id}
-        
-        :rtype: User
-        """
-
-        return self._client.call_api(
-            method="get",
-            path="/v3/users/{user-id}",
-            path_params={"user-id": self._id.to_api()},
-            unpack=self,
-        )
-
-    def _get_on_subtenant(self):
         """Details of the user.
 
         api documentation:
@@ -747,48 +650,11 @@ class User(Entity):
             unpack=self,
         )
 
-    def groups(self, include=None, max_results=None, page_size=None, order=None):
-        """Get groups of the user.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/users/{user-id}/groups
-        
-        :param include: Comma separated additional data to return. Currently supported:
-            total_count
-        :type include: str
-        
-        :param max_results: Total maximum number of results to retrieve
-        :type max_results: int
-            
-        :param page_size: The number of results to return (2-1000), default is 50.
-        :type page_size: int
-        
-        :param order: The order of the records based on creation time, ASC or DESC; by
-            default ASC
-        :type order: str
-        
-        :return: An iterator object which yields instances of an entity.
-        :rtype: mbed_cloud.pagination.PaginatedResponse
-        """
-
-        from mbed_cloud.sdk.common._custom_methods import paginate
-        from mbed_cloud.sdk.entities import PolicyGroup
-
-        return paginate(
-            self=self,
-            foreign_key=PolicyGroup,
-            include=include,
-            max_results=max_results,
-            page_size=page_size,
-            order=order,
-            wraps=self._paginate_groups,
-        )
-
     def list(self, include=None, max_results=None, page_size=None, order=None):
-        """Get the details of all users.
+        """Get all user details.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/users
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/users
         
         :param include: Comma separated additional data to return. Currently supported:
             total_count
@@ -821,47 +687,11 @@ class User(Entity):
             wraps=self._paginate_list,
         )
 
-    def _paginate_groups(self, after=None, include=None, limit=50, order="ASC"):
-        """Get groups of the user.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/users/{user-id}/groups
-        
-        :param after: The entity ID to fetch after the given one.
-        :type after: str
-        
-        :param include: Comma separated additional data to return. Currently supported:
-            total_count
-        :type include: str
-        
-        :param limit: The number of results to return (2-1000), default is 50.
-        :type limit: int
-        
-        :param order: The order of the records based on creation time, ASC or DESC; by
-            default ASC
-        :type order: str
-        
-        :rtype: mbed_cloud.pagination.PaginatedResponse
-        """
-
-        return self._client.call_api(
-            method="get",
-            path="/v3/users/{user-id}/groups",
-            path_params={"user-id": self._id.to_api()},
-            query_params={
-                "after": fields.StringField(after).to_api(),
-                "include": fields.StringField(include).to_api(),
-                "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(order, enum=enums.UserOrderEnum).to_api(),
-            },
-            unpack=False,
-        )
-
     def _paginate_list(self, after=None, include=None, limit=50, order="ASC"):
-        """Get the details of all users.
+        """Get all user details.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/users
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/users
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
@@ -882,7 +712,8 @@ class User(Entity):
 
         return self._client.call_api(
             method="get",
-            path="/v3/users",
+            path="/v3/accounts/{accountID}/users",
+            path_params={"accountID": self._account_id.to_api()},
             query_params={
                 "after": fields.StringField(after).to_api(),
                 "include": fields.StringField(include).to_api(),
@@ -896,25 +727,28 @@ class User(Entity):
         """Update user details.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/users/{user-id}
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/users/{user-id}
         
         :rtype: User
         """
 
         return self._client.call_api(
             method="put",
-            path="/v3/users/{user-id}",
+            path="/v3/accounts/{accountID}/users/{user-id}",
             body_params={
                 "address": self._address.to_api(),
                 "full_name": self._full_name.to_api(),
-                "groups": self._group_ids.to_api(),
+                "groups": self._groups.to_api(),
                 "is_marketing_accepted": self._marketing_accepted.to_api(),
                 "phone_number": self._phone_number.to_api(),
                 "is_gtc_accepted": self._terms_accepted.to_api(),
                 "is_totp_enabled": self._two_factor_authentication.to_api(),
                 "username": self._username.to_api(),
             },
-            path_params={"user-id": self._id.to_api()},
+            path_params={
+                "accountID": self._account_id.to_api(),
+                "user-id": self._id.to_api(),
+            },
             unpack=self,
         )
 

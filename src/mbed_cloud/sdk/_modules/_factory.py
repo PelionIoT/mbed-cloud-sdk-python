@@ -17,11 +17,222 @@ class InstanceFactory:
         """InstanceFactory takes a client to attach to the models it creates"""
         self._client = client
 
+    def account(
+        self,
+        address_line1=None,
+        address_line2=None,
+        admin_email=None,
+        admin_full_name=None,
+        admin_id=None,
+        admin_key=None,
+        admin_name=None,
+        admin_password=None,
+        aliases=None,
+        city=None,
+        company=None,
+        contact=None,
+        contract_number=None,
+        country=None,
+        created_at=None,
+        creation_time=None,
+        custom_fields=None,
+        customer_number=None,
+        display_name=None,
+        email=None,
+        end_market=None,
+        expiration_warning_threshold=None,
+        groups=None,
+        id=None,
+        idle_timeout=None,
+        key=None,
+        last_login_time=None,
+        limits=None,
+        mfa_status=None,
+        name=None,
+        notification_emails=None,
+        owner=None,
+        parent_id=None,
+        password_policy=None,
+        phone_number=None,
+        policies=None,
+        postal_code=None,
+        reason=None,
+        reference_note=None,
+        sales_contact=None,
+        state=None,
+        status=None,
+        sub_accounts=None,
+        template_id=None,
+        tier=None,
+        updated_at=None,
+        upgraded_at=None,
+    ):
+        """Creates a local `Account` instance, binding the client
+
+        :param address_line1: Postal address line 1.
+        :type address_line1: str
+        :param address_line2: Postal address line 2.
+        :type address_line2: str
+        :param admin_email: The email address of the account admin, not longer than 254
+            characters.
+        :type admin_email: str
+        :param admin_full_name: The full name of the admin user to be created.
+        :type admin_full_name: str
+        :param admin_id: The ID of the admin user created.
+        :type admin_id: str
+        :param admin_key: The admin API key created for the account.
+        :type admin_key: str
+        :param admin_name: The username of the admin user to be created, containing
+            alphanumerical letters and -,._@+= characters. It must be at least
+            4 but not more than 30 character long.
+        :type admin_name: str
+        :param admin_password: The password when creating a new user. It will be generated when
+            not present in the request.
+        :type admin_password: str
+        :param aliases: An array of aliases.
+        :type aliases: list
+        :param city: The city part of the postal address.
+        :type city: str
+        :param company: The name of the company.
+        :type company: str
+        :param contact: The name of the contact person for this account.
+        :type contact: str
+        :param contract_number: Contract number of the customer.
+        :type contract_number: str
+        :param country: The country part of the postal address.
+        :type country: str
+        :param created_at: Creation UTC time RFC3339.
+        :type created_at: datetime
+        :param creation_time: The timestamp of the API key creation in the storage, in
+            milliseconds.
+        :type creation_time: int
+        :param custom_fields: Account's custom properties as key-value pairs.
+        :type custom_fields: dict
+        :param customer_number: Customer number of the customer.
+        :type customer_number: str
+        :param display_name: The display name for the account.
+        :type display_name: str
+        :param email: The company email address for this account.
+        :type email: str
+        :param end_market: Account end market.
+        :type end_market: str
+        :param expiration_warning_threshold: Indicates how many days (1-180) before account expiration a
+            notification email should be sent.
+        :type expiration_warning_threshold: str
+        :param groups: A list of group IDs this API key belongs to.
+        :type groups: list
+        :param id: Account ID.
+        :type id: str
+        :param idle_timeout: The reference token expiration time in minutes for this account.
+        :type idle_timeout: str
+        :param key: The API key.
+        :type key: str
+        :param last_login_time: The timestamp of the latest API key usage, in milliseconds.
+        :type last_login_time: int
+        :param limits: List of limits as key-value pairs if requested.
+        :type limits: dict
+        :param mfa_status: The enforcement status of the multi-factor authentication, either
+            'enforced' or 'optional'.
+        :type mfa_status: str
+        :param name: The display name for the API key.
+        :type name: str
+        :param notification_emails: A list of notification email addresses.
+        :type notification_emails: list
+        :param owner: The owner of this API key, who is the creator by default.
+        :type owner: str
+        :param parent_id: The ID of the parent account, if it has any.
+        :type parent_id: str
+        :param password_policy: 
+        :type password_policy: dict
+        :param phone_number: The phone number of a representative of the company.
+        :type phone_number: str
+        :param policies: List of policies if requested.
+        :type policies: list
+        :param postal_code: The postal code part of the postal address.
+        :type postal_code: str
+        :param reason: A reason note for updating the status of the account
+        :type reason: str
+        :param reference_note: A reference note for updating the status of the account
+        :type reference_note: str
+        :param sales_contact: Email address of the sales contact.
+        :type sales_contact: str
+        :param state: The state part of the postal address.
+        :type state: str
+        :param status: The status of the account.
+        :type status: str
+        :param sub_accounts: List of sub accounts. Not available for developer users.
+        :type sub_accounts: list
+        :param template_id: Account template ID.
+        :type template_id: str
+        :param tier: The tier level of the account; '0': free tier, '1': commercial
+            account, '2': partner tier. Other values are reserved for the
+            future.
+        :type tier: str
+        :param updated_at: Last update UTC time RFC3339.
+        :type updated_at: datetime
+        :param upgraded_at: Time when upgraded to commercial account in UTC format RFC3339.
+        :type upgraded_at: datetime
+        
+        :rtype: mbed_cloud.sdk.entities.Account
+        """
+        from mbed_cloud.sdk.entities import Account
+
+        return Account(
+            _client=self._client,
+            address_line1=address_line1,
+            address_line2=address_line2,
+            admin_email=admin_email,
+            admin_full_name=admin_full_name,
+            admin_id=admin_id,
+            admin_key=admin_key,
+            admin_name=admin_name,
+            admin_password=admin_password,
+            aliases=aliases,
+            city=city,
+            company=company,
+            contact=contact,
+            contract_number=contract_number,
+            country=country,
+            created_at=created_at,
+            creation_time=creation_time,
+            custom_fields=custom_fields,
+            customer_number=customer_number,
+            display_name=display_name,
+            email=email,
+            end_market=end_market,
+            expiration_warning_threshold=expiration_warning_threshold,
+            groups=groups,
+            id=id,
+            idle_timeout=idle_timeout,
+            key=key,
+            last_login_time=last_login_time,
+            limits=limits,
+            mfa_status=mfa_status,
+            name=name,
+            notification_emails=notification_emails,
+            owner=owner,
+            parent_id=parent_id,
+            password_policy=password_policy,
+            phone_number=phone_number,
+            policies=policies,
+            postal_code=postal_code,
+            reason=reason,
+            reference_note=reference_note,
+            sales_contact=sales_contact,
+            state=state,
+            status=status,
+            sub_accounts=sub_accounts,
+            template_id=template_id,
+            tier=tier,
+            updated_at=updated_at,
+            upgraded_at=upgraded_at,
+        )
+
     def api_key(
         self,
         created_at=None,
         creation_time=None,
-        group_ids=None,
+        groups=None,
         id=None,
         key=None,
         last_login_time=None,
@@ -37,8 +248,8 @@ class InstanceFactory:
         :param creation_time: The timestamp of the API key creation in the storage, in
             milliseconds.
         :type creation_time: int
-        :param group_ids: A list of group IDs this API key belongs to.
-        :type group_ids: list
+        :param groups: A list of group IDs this API key belongs to.
+        :type groups: list
         :param id: The UUID of the API key.
         :type id: str
         :param key: The API key.
@@ -62,7 +273,7 @@ class InstanceFactory:
             _client=self._client,
             created_at=created_at,
             creation_time=creation_time,
-            group_ids=group_ids,
+            groups=groups,
             id=id,
             key=key,
             last_login_time=last_login_time,
@@ -121,6 +332,7 @@ class InstanceFactory:
         id=None,
         issuer_attributes=None,
         issuer_type=None,
+        message=None,
         name=None,
         successful=None,
     ):
@@ -149,6 +361,8 @@ class InstanceFactory:
               The users must
             provide their own CFSSL host_url and credentials.
         :type issuer_type: str
+        :param message: Provides details in case of failure.
+        :type message: str
         :param name: Certificate issuer name, unique per account.
         :type name: str
         :param successful: Indicates whether the certificate issuer was verified
@@ -166,6 +380,7 @@ class InstanceFactory:
             id=id,
             issuer_attributes=issuer_attributes,
             issuer_type=issuer_type,
+            message=message,
             name=name,
             successful=successful,
         )
@@ -641,219 +856,6 @@ class InstanceFactory:
             user_agent=user_agent,
         )
 
-    def my_account(
-        self,
-        address_line1=None,
-        address_line2=None,
-        aliases=None,
-        city=None,
-        company=None,
-        contact=None,
-        contract_number=None,
-        country=None,
-        created_at=None,
-        custom_fields=None,
-        customer_number=None,
-        display_name=None,
-        email=None,
-        end_market=None,
-        expiration_warning_threshold=None,
-        id=None,
-        idle_timeout=None,
-        limits=None,
-        mfa_status=None,
-        notification_emails=None,
-        parent_id=None,
-        password_policy=None,
-        phone_number=None,
-        policies=None,
-        postal_code=None,
-        reason=None,
-        reference_note=None,
-        sales_contact=None,
-        state=None,
-        status=None,
-        sub_accounts=None,
-        template_id=None,
-        tier=None,
-        updated_at=None,
-        upgraded_at=None,
-    ):
-        """Creates a local `MyAccount` instance, binding the client
-
-        :param address_line1: Postal address line 1.
-        :type address_line1: str
-        :param address_line2: Postal address line 2.
-        :type address_line2: str
-        :param aliases: An array of aliases.
-        :type aliases: list
-        :param city: The city part of the postal address.
-        :type city: str
-        :param company: The name of the company.
-        :type company: str
-        :param contact: The name of the contact person for this account.
-        :type contact: str
-        :param contract_number: Contract number of the customer.
-        :type contract_number: str
-        :param country: The country part of the postal address.
-        :type country: str
-        :param created_at: Creation UTC time RFC3339.
-        :type created_at: datetime
-        :param custom_fields: Account's custom properties as key-value pairs.
-        :type custom_fields: dict
-        :param customer_number: Customer number of the customer.
-        :type customer_number: str
-        :param display_name: The display name for the account.
-        :type display_name: str
-        :param email: The company email address for this account.
-        :type email: str
-        :param end_market: Account end market.
-        :type end_market: str
-        :param expiration_warning_threshold: Indicates how many days (1-180) before account expiration a
-            notification email should be sent.
-        :type expiration_warning_threshold: str
-        :param id: Account ID.
-        :type id: str
-        :param idle_timeout: The reference token expiration time in minutes for this account.
-        :type idle_timeout: str
-        :param limits: List of limits as key-value pairs if requested.
-        :type limits: dict
-        :param mfa_status: The enforcement status of the multi-factor authentication, either
-            'enforced' or 'optional'.
-        :type mfa_status: str
-        :param notification_emails: A list of notification email addresses.
-        :type notification_emails: list
-        :param parent_id: The ID of the parent account, if it has any.
-        :type parent_id: str
-        :param password_policy: 
-        :type password_policy: dict
-        :param phone_number: The phone number of a representative of the company.
-        :type phone_number: str
-        :param policies: List of policies if requested.
-        :type policies: list
-        :param postal_code: The postal code part of the postal address.
-        :type postal_code: str
-        :param reason: A reason note for updating the status of the account
-        :type reason: str
-        :param reference_note: A reference note for updating the status of the account
-        :type reference_note: str
-        :param sales_contact: Email address of the sales contact.
-        :type sales_contact: str
-        :param state: The state part of the postal address.
-        :type state: str
-        :param status: The status of the account.
-        :type status: str
-        :param sub_accounts: List of sub accounts. Not available for developer users.
-        :type sub_accounts: list
-        :param template_id: Account template ID.
-        :type template_id: str
-        :param tier: The tier level of the account; '0': free tier, '1': commercial
-            account, '2': partner tier. Other values are reserved for the
-            future.
-        :type tier: str
-        :param updated_at: Last update UTC time RFC3339.
-        :type updated_at: datetime
-        :param upgraded_at: Time when upgraded to commercial account in UTC format RFC3339.
-        :type upgraded_at: datetime
-        
-        :rtype: mbed_cloud.sdk.entities.MyAccount
-        """
-        from mbed_cloud.sdk.entities import MyAccount
-
-        return MyAccount(
-            _client=self._client,
-            address_line1=address_line1,
-            address_line2=address_line2,
-            aliases=aliases,
-            city=city,
-            company=company,
-            contact=contact,
-            contract_number=contract_number,
-            country=country,
-            created_at=created_at,
-            custom_fields=custom_fields,
-            customer_number=customer_number,
-            display_name=display_name,
-            email=email,
-            end_market=end_market,
-            expiration_warning_threshold=expiration_warning_threshold,
-            id=id,
-            idle_timeout=idle_timeout,
-            limits=limits,
-            mfa_status=mfa_status,
-            notification_emails=notification_emails,
-            parent_id=parent_id,
-            password_policy=password_policy,
-            phone_number=phone_number,
-            policies=policies,
-            postal_code=postal_code,
-            reason=reason,
-            reference_note=reference_note,
-            sales_contact=sales_contact,
-            state=state,
-            status=status,
-            sub_accounts=sub_accounts,
-            template_id=template_id,
-            tier=tier,
-            updated_at=updated_at,
-            upgraded_at=upgraded_at,
-        )
-
-    def my_api_key(
-        self,
-        created_at=None,
-        creation_time=None,
-        group_ids=None,
-        id=None,
-        key=None,
-        last_login_time=None,
-        name=None,
-        owner=None,
-        status=None,
-        updated_at=None,
-    ):
-        """Creates a local `MyApiKey` instance, binding the client
-
-        :param created_at: Creation UTC time RFC3339.
-        :type created_at: datetime
-        :param creation_time: The timestamp of the API key creation in the storage, in
-            milliseconds.
-        :type creation_time: int
-        :param group_ids: A list of group IDs this API key belongs to.
-        :type group_ids: list
-        :param id: The UUID of the API key.
-        :type id: str
-        :param key: The API key.
-        :type key: str
-        :param last_login_time: The timestamp of the latest API key usage, in milliseconds.
-        :type last_login_time: int
-        :param name: The display name for the API key.
-        :type name: str
-        :param owner: The owner of this API key, who is the creator by default.
-        :type owner: str
-        :param status: The status of the API key.
-        :type status: str
-        :param updated_at: Last update UTC time RFC3339.
-        :type updated_at: datetime
-        
-        :rtype: mbed_cloud.sdk.entities.MyApiKey
-        """
-        from mbed_cloud.sdk.entities import MyApiKey
-
-        return MyApiKey(
-            _client=self._client,
-            created_at=created_at,
-            creation_time=creation_time,
-            group_ids=group_ids,
-            id=id,
-            key=key,
-            last_login_time=last_login_time,
-            name=name,
-            owner=owner,
-            status=status,
-            updated_at=updated_at,
-        )
-
     def password_policy(self, minimum_length=None):
         """Creates a local `PasswordPolicy` instance, binding the client
 
@@ -866,67 +868,46 @@ class InstanceFactory:
 
         return PasswordPolicy(_client=self._client, minimum_length=minimum_length)
 
-    def policy_group(
-        self,
-        account_id=None,
-        apikey_count=None,
-        created_at=None,
-        id=None,
-        name=None,
-        updated_at=None,
-        user_count=None,
+    def policy(
+        self, action=None, allow=None, feature=None, inherited=None, resource=None
     ):
-        """Creates a local `PolicyGroup` instance, binding the client
+        """Creates a local `Policy` instance, binding the client
 
-        :param account_id: The UUID of the account this group belongs to.
-        :type account_id: str
-        :param apikey_count: The number of API keys in this group.
-        :type apikey_count: int
-        :param created_at: Creation UTC time RFC3339.
-        :type created_at: datetime
-        :param id: The UUID of the group.
-        :type id: str
-        :param name: The name of the group.
-        :type name: str
-        :param updated_at: Last update UTC time RFC3339.
-        :type updated_at: datetime
-        :param user_count: The number of users in this group.
-        :type user_count: int
+        :param action: Comma separated list of actions, empty string represents all
+            actions.
+        :type action: str
+        :param allow: True or false controlling whether an action is allowed or not.
+        :type allow: bool
+        :param feature: Feature name corresponding to this policy.
+        :type feature: str
+        :param inherited: Flag indicating whether this feature is inherited or overwritten
+            specifically.
+        :type inherited: bool
+        :param resource: Resource that is protected by this policy.
+        :type resource: str
         
-        :rtype: mbed_cloud.sdk.entities.PolicyGroup
+        :rtype: mbed_cloud.sdk.entities.Policy
         """
-        from mbed_cloud.sdk.entities import PolicyGroup
+        from mbed_cloud.sdk.entities import Policy
 
-        return PolicyGroup(
+        return Policy(
             _client=self._client,
-            account_id=account_id,
-            apikey_count=apikey_count,
-            created_at=created_at,
-            id=id,
-            name=name,
-            updated_at=updated_at,
-            user_count=user_count,
+            action=action,
+            allow=allow,
+            feature=feature,
+            inherited=inherited,
+            resource=resource,
         )
 
     def server_credentials(
-        self,
-        bootstrap=None,
-        created_at=None,
-        id=None,
-        lwm2m=None,
-        server_certificate=None,
-        server_uri=None,
+        self, created_at=None, id=None, server_certificate=None, server_uri=None
     ):
         """Creates a local `ServerCredentials` instance, binding the client
 
-        :param bootstrap: 
-        :type bootstrap: dict
         :param created_at: Creation UTC time RFC3339.
         :type created_at: datetime
         :param id: mUUID that uniquely identifies the entity.
         :type id: str
-        :param lwm2m: 
-        :type lwm2m: dict
         :param server_certificate: PEM format X.509 server certificate that will be used to validate
             the server certificate that will be received during the TLS/DTLS
             handshake.
@@ -940,198 +921,10 @@ class InstanceFactory:
 
         return ServerCredentials(
             _client=self._client,
-            bootstrap=bootstrap,
             created_at=created_at,
             id=id,
-            lwm2m=lwm2m,
             server_certificate=server_certificate,
             server_uri=server_uri,
-        )
-
-    def subtenant_account(
-        self,
-        address_line1=None,
-        address_line2=None,
-        admin_email=None,
-        admin_full_name=None,
-        admin_id=None,
-        admin_key=None,
-        admin_name=None,
-        admin_password=None,
-        aliases=None,
-        city=None,
-        company=None,
-        contact=None,
-        contract_number=None,
-        country=None,
-        created_at=None,
-        custom_fields=None,
-        customer_number=None,
-        display_name=None,
-        email=None,
-        end_market=None,
-        expiration_warning_threshold=None,
-        id=None,
-        idle_timeout=None,
-        limits=None,
-        mfa_status=None,
-        notification_emails=None,
-        parent_id=None,
-        password_policy=None,
-        phone_number=None,
-        policies=None,
-        postal_code=None,
-        reason=None,
-        reference_note=None,
-        sales_contact=None,
-        state=None,
-        status=None,
-        sub_accounts=None,
-        template_id=None,
-        tier=None,
-        updated_at=None,
-        upgraded_at=None,
-    ):
-        """Creates a local `SubtenantAccount` instance, binding the client
-
-        :param address_line1: Postal address line 1.
-        :type address_line1: str
-        :param address_line2: Postal address line 2.
-        :type address_line2: str
-        :param admin_email: The email address of the account admin, not longer than 254
-            characters.
-        :type admin_email: str
-        :param admin_full_name: The full name of the admin user to be created.
-        :type admin_full_name: str
-        :param admin_id: The ID of the admin user created.
-        :type admin_id: str
-        :param admin_key: The admin API key created for the account.
-        :type admin_key: str
-        :param admin_name: The username of the admin user to be created, containing
-            alphanumerical letters and -,._@+= characters. It must be at least
-            4 but not more than 30 character long.
-        :type admin_name: str
-        :param admin_password: The password when creating a new user. It will be generated when
-            not present in the request.
-        :type admin_password: str
-        :param aliases: An array of aliases.
-        :type aliases: list
-        :param city: The city part of the postal address.
-        :type city: str
-        :param company: The name of the company.
-        :type company: str
-        :param contact: The name of the contact person for this account.
-        :type contact: str
-        :param contract_number: Contract number of the customer.
-        :type contract_number: str
-        :param country: The country part of the postal address.
-        :type country: str
-        :param created_at: Creation UTC time RFC3339.
-        :type created_at: datetime
-        :param custom_fields: Account's custom properties as key-value pairs.
-        :type custom_fields: dict
-        :param customer_number: Customer number of the customer.
-        :type customer_number: str
-        :param display_name: The display name for the account.
-        :type display_name: str
-        :param email: The company email address for this account.
-        :type email: str
-        :param end_market: Account end market.
-        :type end_market: str
-        :param expiration_warning_threshold: Indicates how many days (1-180) before account expiration a
-            notification email should be sent.
-        :type expiration_warning_threshold: str
-        :param id: Account ID.
-        :type id: str
-        :param idle_timeout: The reference token expiration time in minutes for this account.
-        :type idle_timeout: str
-        :param limits: List of limits as key-value pairs if requested.
-        :type limits: dict
-        :param mfa_status: The enforcement status of the multi-factor authentication, either
-            'enforced' or 'optional'.
-        :type mfa_status: str
-        :param notification_emails: A list of notification email addresses.
-        :type notification_emails: list
-        :param parent_id: The ID of the parent account, if it has any.
-        :type parent_id: str
-        :param password_policy: 
-        :type password_policy: dict
-        :param phone_number: The phone number of a representative of the company.
-        :type phone_number: str
-        :param policies: List of policies if requested.
-        :type policies: list
-        :param postal_code: The postal code part of the postal address.
-        :type postal_code: str
-        :param reason: A reason note for updating the status of the account
-        :type reason: str
-        :param reference_note: A reference note for updating the status of the account
-        :type reference_note: str
-        :param sales_contact: Email address of the sales contact.
-        :type sales_contact: str
-        :param state: The state part of the postal address.
-        :type state: str
-        :param status: The status of the account.
-        :type status: str
-        :param sub_accounts: List of sub accounts. Not available for developer users.
-        :type sub_accounts: list
-        :param template_id: Account template ID.
-        :type template_id: str
-        :param tier: The tier level of the account; '0': free tier, '1': commercial
-            account, '2': partner tier. Other values are reserved for the
-            future.
-        :type tier: str
-        :param updated_at: Last update UTC time RFC3339.
-        :type updated_at: datetime
-        :param upgraded_at: Time when upgraded to commercial account in UTC format RFC3339.
-        :type upgraded_at: datetime
-        
-        :rtype: mbed_cloud.sdk.entities.SubtenantAccount
-        """
-        from mbed_cloud.sdk.entities import SubtenantAccount
-
-        return SubtenantAccount(
-            _client=self._client,
-            address_line1=address_line1,
-            address_line2=address_line2,
-            admin_email=admin_email,
-            admin_full_name=admin_full_name,
-            admin_id=admin_id,
-            admin_key=admin_key,
-            admin_name=admin_name,
-            admin_password=admin_password,
-            aliases=aliases,
-            city=city,
-            company=company,
-            contact=contact,
-            contract_number=contract_number,
-            country=country,
-            created_at=created_at,
-            custom_fields=custom_fields,
-            customer_number=customer_number,
-            display_name=display_name,
-            email=email,
-            end_market=end_market,
-            expiration_warning_threshold=expiration_warning_threshold,
-            id=id,
-            idle_timeout=idle_timeout,
-            limits=limits,
-            mfa_status=mfa_status,
-            notification_emails=notification_emails,
-            parent_id=parent_id,
-            password_policy=password_policy,
-            phone_number=phone_number,
-            policies=policies,
-            postal_code=postal_code,
-            reason=reason,
-            reference_note=reference_note,
-            sales_contact=sales_contact,
-            state=state,
-            status=status,
-            sub_accounts=sub_accounts,
-            template_id=template_id,
-            tier=tier,
-            updated_at=updated_at,
-            upgraded_at=upgraded_at,
         )
 
     def trusted_certificate(
@@ -1146,6 +939,7 @@ class InstanceFactory:
         issuer=None,
         name=None,
         owner_id=None,
+        private_key=None,
         service=None,
         status=None,
         subject=None,
@@ -1176,6 +970,9 @@ class InstanceFactory:
         :type name: str
         :param owner_id: The UUID of the owner.
         :type owner_id: str
+        :param private_key: Private key of the certificate in PEM or base64 encoded DER
+            format.
+        :type private_key: str
         :param service: Service name where the certificate is to be used.
         :type service: str
         :param status: Status of the certificate.
@@ -1204,6 +1001,7 @@ class InstanceFactory:
             issuer=issuer,
             name=name,
             owner_id=owner_id,
+            private_key=private_key,
             service=service,
             status=status,
             subject=subject,
@@ -1220,7 +1018,7 @@ class InstanceFactory:
         email=None,
         email_verified=None,
         full_name=None,
-        group_ids=None,
+        groups=None,
         id=None,
         last_login_time=None,
         login_history=None,
@@ -1251,9 +1049,9 @@ class InstanceFactory:
         :type email_verified: bool
         :param full_name: The full name of the user.
         :type full_name: str
-        :param group_ids: A list of IDs of the groups this user belongs to.
-        :type group_ids: list
-        :param id: Entity ID.
+        :param groups: A list of IDs of the groups this user belongs to.
+        :type groups: list
+        :param id: The UUID of the user.
         :type id: str
         :param last_login_time: A timestamp of the latest login of the user, in milliseconds.
         :type last_login_time: int
@@ -1303,7 +1101,7 @@ class InstanceFactory:
             email=email,
             email_verified=email_verified,
             full_name=full_name,
-            group_ids=group_ids,
+            groups=groups,
             id=id,
             last_login_time=last_login_time,
             login_history=login_history,
@@ -1316,4 +1114,50 @@ class InstanceFactory:
             two_factor_authentication=two_factor_authentication,
             updated_at=updated_at,
             username=username,
+        )
+
+    def user_invitation(
+        self,
+        account_id=None,
+        created_at=None,
+        email=None,
+        expiration=None,
+        groups=None,
+        id=None,
+        updated_at=None,
+        user_id=None,
+    ):
+        """Creates a local `UserInvitation` instance, binding the client
+
+        :param account_id: The UUID of the account the user is invited to.
+        :type account_id: str
+        :param created_at: Creation UTC time RFC3339.
+        :type created_at: datetime
+        :param email: Email address of the invited user.
+        :type email: str
+        :param expiration: Invitation expiration as UTC time RFC3339.
+        :type expiration: datetime
+        :param groups: A list of IDs of the groups the user is invited to.
+        :type groups: list
+        :param id: The UUID of the invitation.
+        :type id: str
+        :param updated_at: Last update UTC time RFC3339.
+        :type updated_at: datetime
+        :param user_id: The UUID of the invited user.
+        :type user_id: str
+        
+        :rtype: mbed_cloud.sdk.entities.UserInvitation
+        """
+        from mbed_cloud.sdk.entities import UserInvitation
+
+        return UserInvitation(
+            _client=self._client,
+            account_id=account_id,
+            created_at=created_at,
+            email=email,
+            expiration=expiration,
+            groups=groups,
+            id=id,
+            updated_at=updated_at,
+            user_id=user_id,
         )
