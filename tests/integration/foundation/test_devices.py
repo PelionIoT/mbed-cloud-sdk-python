@@ -87,8 +87,8 @@ class TestDeviceEnrollment(BaseCase, CrudMixinTests):
             time.sleep(1)
             bulk_device_enrollment.get()
 
-        print(bulk_device_enrollment.get_full_report_file.read())
-        print(bulk_device_enrollment.get_errors_report_file.read())
+        print(bulk_device_enrollment.download_full_report_file().read())
+        print(bulk_device_enrollment.download_errors_report_file().read())
 
     def test_device_enrollment_bulk_delete(self):
         """Example of enrolling a device in Pelion Device Management."""
@@ -99,8 +99,8 @@ class TestDeviceEnrollment(BaseCase, CrudMixinTests):
             time.sleep(1)
             bulk_device_enrollment.get()
 
-        print(bulk_device_enrollment.get_full_report_file.read())
-        print(bulk_device_enrollment.get_errors_report_file.read())
+        print(bulk_device_enrollment.download_full_report_file().read())
+        print(bulk_device_enrollment.download_errors_report_file().read())
 
 @BaseCase._skip_in_ci
 class TestDeviceEvents(BaseCase, CrudMixinTests):

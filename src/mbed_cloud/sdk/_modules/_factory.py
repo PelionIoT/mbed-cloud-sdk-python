@@ -668,8 +668,6 @@ class InstanceFactory:
         errors_count=None,
         errors_report_file=None,
         full_report_file=None,
-        get_errors_report_file=None,
-        get_full_report_file=None,
         id=None,
         processed_count=None,
         status=None,
@@ -689,12 +687,6 @@ class InstanceFactory:
         :type errors_report_file: str
         :param full_report_file: 
         :type full_report_file: str
-        :param get_errors_report_file: Get the report file describing errors encountered during the bulk
-            enrollment.
-        :type get_errors_report_file: file
-        :param get_full_report_file: Get the report file containing detailed information on the bulk
-            enrollment.
-        :type get_full_report_file: file
         :param id: Bulk ID
         :type id: str
         :param processed_count: The number of enrollment identities processed until now.
@@ -719,8 +711,6 @@ class InstanceFactory:
             errors_count=errors_count,
             errors_report_file=errors_report_file,
             full_report_file=full_report_file,
-            get_errors_report_file=get_errors_report_file,
-            get_full_report_file=get_full_report_file,
             id=id,
             processed_count=processed_count,
             status=status,
@@ -735,8 +725,6 @@ class InstanceFactory:
         errors_count=None,
         errors_report_file=None,
         full_report_file=None,
-        get_errors_report_file=None,
-        get_full_report_file=None,
         id=None,
         processed_count=None,
         status=None,
@@ -756,12 +744,6 @@ class InstanceFactory:
         :type errors_report_file: str
         :param full_report_file: 
         :type full_report_file: str
-        :param get_errors_report_file: Get the report file describing errors encountered during the bulk
-            enrollment.
-        :type get_errors_report_file: file
-        :param get_full_report_file: Get the report file containing detailed information on the bulk
-            enrollment.
-        :type get_full_report_file: file
         :param id: Bulk ID
         :type id: str
         :param processed_count: The number of enrollment identities processed until now.
@@ -786,8 +768,6 @@ class InstanceFactory:
             errors_count=errors_count,
             errors_report_file=errors_report_file,
             full_report_file=full_report_file,
-            get_errors_report_file=get_errors_report_file,
-            get_full_report_file=get_full_report_file,
             id=id,
             processed_count=processed_count,
             status=status,

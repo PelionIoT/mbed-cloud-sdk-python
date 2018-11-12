@@ -97,22 +97,18 @@ class {{ entity._key|to_pascal }}(Entity):
 
     {% for method in entity.methods|sort(attribute='_key') %}
     {# Determine the return type of the method, it may be a paginated response, the entity itself of a foreign key #}
+    {% set return_type = method.python_return_type %}
     {% if method.pagination %}
-        {% set return_type = "mbed_cloud.pagination.PaginatedResponse" %}
         {% set unpack_type = false %}
         {% set foreign_key_import = false %}
-    {% elif method.foreign_key %}
-        {% set return_type = method.foreign_key.entity|to_pascal %}
-        {% set unpack_type = return_type %}
-        {% set foreign_key_import = true %}
-    {% elif method.defer_to_foreign_key_field %}
-        {% set return_type = method.defer_to_foreign_key_field.foreign_key.entity|to_pascal %}
-        {% set unpack_type = return_type %}
-        {% set foreign_key_import = true %}
-    {% else %}
-        {% set return_type = entity._key|to_pascal %}
+        {% set return_type = "mbed_cloud.pagination.PaginatedResponse" %}
+    {% elif entity._key == method.return_type %}
         {% set unpack_type = "self" %}
         {% set foreign_key_import = false %}
+    {% else %}
+        {% set unpack_type = return_type %}
+        {% set foreign_key_import = true %}
+
     {% endif %}
     def {% if method.private_method %}_{% endif %}{{method._key|to_snake}}(
         {% if method.pagination and method.custom_method %}
