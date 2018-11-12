@@ -24,9 +24,7 @@ class CertificateIssuer(Entity):
         "id",
         "issuer_attributes",
         "issuer_type",
-        "message",
         "name",
-        "successful",
     ]
 
     # common renames used when mapping {<API spec>: <SDK>}
@@ -40,9 +38,7 @@ class CertificateIssuer(Entity):
         id=None,
         issuer_attributes=None,
         issuer_type=None,
-        message=None,
         name=None,
-        successful=None,
     ):
         """Creates a local `CertificateIssuer` instance
 
@@ -69,13 +65,8 @@ class CertificateIssuer(Entity):
               The users must
             provide their own CFSSL host_url and credentials.
         :type issuer_type: str
-        :param message: Provides details in case of failure.
-        :type message: str
         :param name: Certificate issuer name, unique per account.
         :type name: str
-        :param successful: Indicates whether the certificate issuer was verified
-            successfully.
-        :type successful: bool
         """
 
         super().__init__(_client=_client)
@@ -90,9 +81,7 @@ class CertificateIssuer(Entity):
         self._issuer_type = fields.StringField(
             value=issuer_type, enum=enums.CertificateIssuerIssuerTypeEnum
         )
-        self._message = fields.StringField(value=message)
         self._name = fields.StringField(value=name)
-        self._successful = fields.BooleanField(value=successful)
 
     @property
     def created_at(self):
@@ -211,27 +200,6 @@ class CertificateIssuer(Entity):
         self._issuer_type.set(value)
 
     @property
-    def message(self):
-        """Provides details in case of failure.
-        
-        api example: 'message describing the verification failure'
-        
-        :rtype: str
-        """
-
-        return self._message.value
-
-    @message.setter
-    def message(self, value):
-        """Set value of `message`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._message.set(value)
-
-    @property
     def name(self):
         """Certificate issuer name, unique per account.
         
@@ -251,25 +219,6 @@ class CertificateIssuer(Entity):
         """
 
         self._name.set(value)
-
-    @property
-    def successful(self):
-        """Indicates whether the certificate issuer was verified successfully.
-        
-        :rtype: bool
-        """
-
-        return self._successful.value
-
-    @successful.setter
-    def successful(self, value):
-        """Set value of `successful`
-
-        :param value: value to set
-        :type value: bool
-        """
-
-        self._successful.set(value)
 
     def create(self, issuer_credentials=None):
         """Create certificate issuer.
@@ -403,12 +352,14 @@ class CertificateIssuer(Entity):
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/certificate-issuers/{certificate-issuer-id}/verify
         
-        :rtype: CertificateIssuer
+        :rtype: VerificationResponse
         """
+
+        from mbed_cloud.sdk.entities import VerificationResponse
 
         return self._client.call_api(
             method="post",
             path="/v3/certificate-issuers/{certificate-issuer-id}/verify",
             path_params={"certificate-issuer-id": self._id.to_api()},
-            unpack=self,
+            unpack=VerificationResponse,
         )

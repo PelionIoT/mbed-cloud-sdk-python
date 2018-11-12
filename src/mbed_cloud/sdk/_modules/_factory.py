@@ -332,9 +332,7 @@ class InstanceFactory:
         id=None,
         issuer_attributes=None,
         issuer_type=None,
-        message=None,
         name=None,
-        successful=None,
     ):
         """Creates a local `CertificateIssuer` instance, binding the client
 
@@ -361,13 +359,8 @@ class InstanceFactory:
               The users must
             provide their own CFSSL host_url and credentials.
         :type issuer_type: str
-        :param message: Provides details in case of failure.
-        :type message: str
         :param name: Certificate issuer name, unique per account.
         :type name: str
-        :param successful: Indicates whether the certificate issuer was verified
-            successfully.
-        :type successful: bool
         
         :rtype: mbed_cloud.sdk.entities.CertificateIssuer
         """
@@ -380,18 +373,16 @@ class InstanceFactory:
             id=id,
             issuer_attributes=issuer_attributes,
             issuer_type=issuer_type,
-            message=message,
             name=name,
-            successful=successful,
         )
 
     def certificate_issuer_config(
         self,
         certificate_issuer_id=None,
+        certificate_reference=None,
         created_at=None,
         id=None,
         is_custom=None,
-        reference=None,
         updated_at=None,
     ):
         """Creates a local `CertificateIssuerConfig` instance, binding the client
@@ -400,15 +391,15 @@ class InstanceFactory:
             Null if Device Management
             internal HSM is used.
         :type certificate_issuer_id: str
+        :param certificate_reference: The certificate name to which the certificate issuer configuration
+            applies.
+        :type certificate_reference: str
         :param created_at: Created UTC time RFC3339.
         :type created_at: datetime
         :param id: The ID of the certificate issuer configuration.
         :type id: str
         :param is_custom: 
         :type is_custom: bool
-        :param reference: The certificate name to which the certificate issuer configuration
-            applies.
-        :type reference: str
         :param updated_at: Updated UTC time RFC3339.
         :type updated_at: datetime
         
@@ -419,10 +410,10 @@ class InstanceFactory:
         return CertificateIssuerConfig(
             _client=self._client,
             certificate_issuer_id=certificate_issuer_id,
+            certificate_reference=certificate_reference,
             created_at=created_at,
             id=id,
             is_custom=is_custom,
-            reference=reference,
             updated_at=updated_at,
         )
 
@@ -1160,4 +1151,21 @@ class InstanceFactory:
             id=id,
             updated_at=updated_at,
             user_id=user_id,
+        )
+
+    def verification_response(self, message=None, successful=None):
+        """Creates a local `VerificationResponse` instance, binding the client
+
+        :param message: Provides details in case of failure.
+        :type message: str
+        :param successful: Indicates whether the certificate issuer was verified
+            successfully.
+        :type successful: bool
+        
+        :rtype: mbed_cloud.sdk.entities.VerificationResponse
+        """
+        from mbed_cloud.sdk.entities import VerificationResponse
+
+        return VerificationResponse(
+            _client=self._client, message=message, successful=successful
         )

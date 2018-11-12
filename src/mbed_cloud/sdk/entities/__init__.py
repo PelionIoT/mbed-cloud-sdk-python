@@ -30,6 +30,7 @@ from mbed_cloud.sdk._modules.security.certificate_issuer_config import (
 from mbed_cloud.sdk._modules.security.developer_certificate import DeveloperCertificate
 from mbed_cloud.sdk._modules.security.server_credentials import ServerCredentials
 from mbed_cloud.sdk._modules.security.trusted_certificate import TrustedCertificate
+from mbed_cloud.sdk._modules.security.verification_response import VerificationResponse
 
 
 __all__ = [
@@ -51,4 +52,5 @@ __all__ = [
     "TrustedCertificate",
     "User",
     "UserInvitation",
+    "VerificationResponse",
 ]

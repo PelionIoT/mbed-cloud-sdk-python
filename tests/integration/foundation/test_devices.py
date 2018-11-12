@@ -34,7 +34,7 @@ class TestDevice(BaseCase, CrudMixinTests):
         # Find all certificate issuers that may be in use
         certificate_references = []
         for certificate_issuer_config in CertificateIssuerConfig().list():
-            certificate_references.append(certificate_issuer_config.reference)
+            certificate_references.append(certificate_issuer_config.certificate_reference)
 
         # List all devices
         for device in Device().list():
