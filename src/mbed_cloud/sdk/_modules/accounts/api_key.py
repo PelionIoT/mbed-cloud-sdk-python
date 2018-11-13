@@ -298,6 +298,43 @@ class ApiKey(Entity):
 
         self._updated_at.set(value)
 
+    def create(self):
+        """Create a new API key.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/api-keys
+        
+        :rtype: ApiKey
+        """
+
+        return self._client.call_api(
+            method="post",
+            path="/v3/api-keys",
+            body_params={
+                "groups": self._groups.to_api(),
+                "name": self._name.to_api(),
+                "owner": self._owner.to_api(),
+                "status": self._status.to_api(),
+            },
+            unpack=self,
+        )
+
+    def delete(self):
+        """Delete API key.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/api-keys/{apiKey}
+        
+        :rtype: ApiKey
+        """
+
+        return self._client.call_api(
+            method="delete",
+            path="/v3/api-keys/{apiKey}",
+            path_params={"apiKey": self._id.to_api()},
+            unpack=self,
+        )
+
     def get(self):
         """Get API key details.
 
@@ -351,6 +388,17 @@ class ApiKey(Entity):
             wraps=self._paginate_list,
         )
 
+    def me(self):
+        """Get API key details.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/api-keys/me
+        
+        :rtype: ApiKey
+        """
+
+        return self._client.call_api(method="get", path="/v3/api-keys/me", unpack=self)
+
     def _paginate_list(self, after=None, include=None, limit=50, order="ASC"):
         """Get all API keys
 
@@ -384,4 +432,26 @@ class ApiKey(Entity):
                 "order": fields.StringField(order, enum=enums.ApiKeyOrderEnum).to_api(),
             },
             unpack=False,
+        )
+
+    def update(self):
+        """Update API key details.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/api-keys/{apiKey}
+        
+        :rtype: ApiKey
+        """
+
+        return self._client.call_api(
+            method="put",
+            path="/v3/api-keys/{apiKey}",
+            body_params={
+                "groups": self._groups.to_api(),
+                "name": self._name.to_api(),
+                "owner": self._owner.to_api(),
+                "status": self._status.to_api(),
+            },
+            path_params={"apiKey": self._id.to_api()},
+            unpack=self,
         )

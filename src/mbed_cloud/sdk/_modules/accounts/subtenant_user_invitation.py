@@ -14,8 +14,8 @@ from mbed_cloud.sdk.common import fields
 from mbed_cloud.sdk import enums
 
 
-class UserInvitation(Entity):
-    """Represents the `UserInvitation` entity in Mbed Cloud"""
+class SubtenantUserInvitation(Entity):
+    """Represents the `SubtenantUserInvitation` entity in Mbed Cloud"""
 
     # all fields available on this entity
     _fieldnames = [
@@ -44,7 +44,7 @@ class UserInvitation(Entity):
         updated_at=None,
         user_id=None,
     ):
-        """Creates a local `UserInvitation` instance
+        """Creates a local `SubtenantUserInvitation` instance
 
         :param account_id: The UUID of the account the user is invited to.
         :type account_id: str
@@ -248,15 +248,16 @@ class UserInvitation(Entity):
         """Create a user invitation.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/user-invitations
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account-id}/user-invitations
         
-        :rtype: UserInvitation
+        :rtype: SubtenantUserInvitation
         """
 
         return self._client.call_api(
             method="post",
-            path="/v3/user-invitations",
+            path="/v3/accounts/{account-id}/user-invitations",
             body_params={"email": self._email.to_api()},
+            path_params={"account-id": self._account_id.to_api()},
             unpack=self,
         )
 
@@ -264,15 +265,18 @@ class UserInvitation(Entity):
         """Delete a user invitation.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/user-invitations/{invitation-id}
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account-id}/user-invitations/{invitation-id}
         
-        :rtype: UserInvitation
+        :rtype: SubtenantUserInvitation
         """
 
         return self._client.call_api(
             method="delete",
-            path="/v3/user-invitations/{invitation-id}",
-            path_params={"invitation-id": self._id.to_api()},
+            path="/v3/accounts/{account-id}/user-invitations/{invitation-id}",
+            path_params={
+                "account-id": self._account_id.to_api(),
+                "invitation-id": self._id.to_api(),
+            },
             unpack=self,
         )
 
@@ -280,79 +284,17 @@ class UserInvitation(Entity):
         """Details of a user invitation.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/user-invitations/{invitation-id}
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account-id}/user-invitations/{invitation-id}
         
-        :rtype: UserInvitation
+        :rtype: SubtenantUserInvitation
         """
 
         return self._client.call_api(
             method="get",
-            path="/v3/user-invitations/{invitation-id}",
-            path_params={"invitation-id": self._id.to_api()},
-            unpack=self,
-        )
-
-    def list(self, include=None, max_results=None, page_size=None, order=None):
-        """Get the details of all the user invitations.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/user-invitations
-        
-        :param max_results: Total maximum number of results to retrieve
-        :type max_results: int
-            
-        :param page_size: The number of results to return (2-1000), default is 50.
-        :type page_size: int
-        
-        :param order: The order of the records based on creation time, ASC or DESC; by
-            default ASC
-        :type order: str
-        
-        :return: An iterator object which yields instances of an entity.
-        :rtype: mbed_cloud.pagination.PaginatedResponse
-        """
-
-        from mbed_cloud.sdk.common._custom_methods import paginate
-        from mbed_cloud.sdk.entities import UserInvitation
-
-        return paginate(
-            self=self,
-            foreign_key=UserInvitation,
-            include=include,
-            max_results=max_results,
-            page_size=page_size,
-            order=order,
-            wraps=self._paginate_list,
-        )
-
-    def _paginate_list(self, after=None, limit=50, order="ASC"):
-        """Get the details of all the user invitations.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/user-invitations
-        
-        :param after: The entity ID to fetch after the given one.
-        :type after: str
-        
-        :param limit: The number of results to return (2-1000), default is 50.
-        :type limit: int
-        
-        :param order: The order of the records based on creation time, ASC or DESC; by
-            default ASC
-        :type order: str
-        
-        :rtype: mbed_cloud.pagination.PaginatedResponse
-        """
-
-        return self._client.call_api(
-            method="get",
-            path="/v3/user-invitations",
-            query_params={
-                "after": fields.StringField(after).to_api(),
-                "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(
-                    order, enum=enums.UserInvitationOrderEnum
-                ).to_api(),
+            path="/v3/accounts/{account-id}/user-invitations/{invitation-id}",
+            path_params={
+                "account-id": self._account_id.to_api(),
+                "invitation-id": self._id.to_api(),
             },
-            unpack=False,
+            unpack=self,
         )

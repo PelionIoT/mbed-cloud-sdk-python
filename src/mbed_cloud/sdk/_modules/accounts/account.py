@@ -34,23 +34,17 @@ class Account(Entity):
         "contract_number",
         "country",
         "created_at",
-        "creation_time",
         "custom_fields",
         "customer_number",
         "display_name",
         "email",
         "end_market",
         "expiration_warning_threshold",
-        "groups",
         "id",
         "idle_timeout",
-        "key",
-        "last_login_time",
         "limits",
         "mfa_status",
-        "name",
         "notification_emails",
-        "owner",
         "parent_id",
         "password_policy",
         "phone_number",
@@ -89,23 +83,17 @@ class Account(Entity):
         contract_number=None,
         country=None,
         created_at=None,
-        creation_time=None,
         custom_fields=None,
         customer_number=None,
         display_name=None,
         email=None,
         end_market=None,
         expiration_warning_threshold=None,
-        groups=None,
         id=None,
         idle_timeout=None,
-        key=None,
-        last_login_time=None,
         limits=None,
         mfa_status=None,
-        name=None,
         notification_emails=None,
-        owner=None,
         parent_id=None,
         password_policy=None,
         phone_number=None,
@@ -158,9 +146,6 @@ class Account(Entity):
         :type country: str
         :param created_at: Creation UTC time RFC3339.
         :type created_at: datetime
-        :param creation_time: The timestamp of the API key creation in the storage, in
-            milliseconds.
-        :type creation_time: int
         :param custom_fields: Account's custom properties as key-value pairs.
         :type custom_fields: dict
         :param customer_number: Customer number of the customer.
@@ -174,27 +159,17 @@ class Account(Entity):
         :param expiration_warning_threshold: Indicates how many days (1-180) before account expiration a
             notification email should be sent.
         :type expiration_warning_threshold: str
-        :param groups: A list of group IDs this API key belongs to.
-        :type groups: list
         :param id: Account ID.
         :type id: str
         :param idle_timeout: The reference token expiration time in minutes for this account.
         :type idle_timeout: str
-        :param key: The API key.
-        :type key: str
-        :param last_login_time: The timestamp of the latest API key usage, in milliseconds.
-        :type last_login_time: int
         :param limits: List of limits as key-value pairs if requested.
         :type limits: dict
         :param mfa_status: The enforcement status of the multi-factor authentication, either
             'enforced' or 'optional'.
         :type mfa_status: str
-        :param name: The display name for the API key.
-        :type name: str
         :param notification_emails: A list of notification email addresses.
         :type notification_emails: list
-        :param owner: The owner of this API key, who is the creator by default.
-        :type owner: str
         :param parent_id: The ID of the parent account, if it has any.
         :type parent_id: str
         :param password_policy: 
@@ -252,7 +227,6 @@ class Account(Entity):
         self._contract_number = fields.StringField(value=contract_number)
         self._country = fields.StringField(value=country)
         self._created_at = fields.DateTimeField(value=created_at)
-        self._creation_time = fields.IntegerField(value=creation_time)
         self._custom_fields = fields.DictField(value=custom_fields)
         self._customer_number = fields.StringField(value=customer_number)
         self._display_name = fields.StringField(value=display_name)
@@ -261,18 +235,13 @@ class Account(Entity):
         self._expiration_warning_threshold = fields.StringField(
             value=expiration_warning_threshold
         )
-        self._groups = fields.ListField(value=groups)
         self._id = fields.StringField(value=id)
         self._idle_timeout = fields.StringField(value=idle_timeout)
-        self._key = fields.StringField(value=key)
-        self._last_login_time = fields.IntegerField(value=last_login_time)
         self._limits = fields.DictField(value=limits)
         self._mfa_status = fields.StringField(
             value=mfa_status, enum=enums.AccountMfaStatusEnum
         )
-        self._name = fields.StringField(value=name)
         self._notification_emails = fields.ListField(value=notification_emails)
-        self._owner = fields.StringField(value=owner)
         self._parent_id = fields.StringField(value=parent_id)
         self._password_policy = fields.DictField(
             value=password_policy, entity=PasswordPolicy
@@ -609,27 +578,6 @@ class Account(Entity):
         self._created_at.set(value)
 
     @property
-    def creation_time(self):
-        """The timestamp of the API key creation in the storage, in milliseconds.
-        
-        api example: 1518630727683
-        
-        :rtype: int
-        """
-
-        return self._creation_time.value
-
-    @creation_time.setter
-    def creation_time(self, value):
-        """Set value of `creation_time`
-
-        :param value: value to set
-        :type value: int
-        """
-
-        self._creation_time.set(value)
-
-    @property
     def custom_fields(self):
         """Account's custom properties as key-value pairs.
         
@@ -755,25 +703,6 @@ class Account(Entity):
         self._expiration_warning_threshold.set(value)
 
     @property
-    def groups(self):
-        """A list of group IDs this API key belongs to.
-        
-        :rtype: list
-        """
-
-        return self._groups.value
-
-    @groups.setter
-    def groups(self, value):
-        """Set value of `groups`
-
-        :param value: value to set
-        :type value: list
-        """
-
-        self._groups.set(value)
-
-    @property
     def id(self):
         """Account ID.
         
@@ -816,49 +745,6 @@ class Account(Entity):
         self._idle_timeout.set(value)
 
     @property
-    def key(self):
-        """The API key.
-        
-        api example: 'ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac120006000000
-            00'
-        
-        :rtype: str
-        """
-
-        return self._key.value
-
-    @key.setter
-    def key(self, value):
-        """Set value of `key`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._key.set(value)
-
-    @property
-    def last_login_time(self):
-        """The timestamp of the latest API key usage, in milliseconds.
-        
-        api example: 1518630727688
-        
-        :rtype: int
-        """
-
-        return self._last_login_time.value
-
-    @last_login_time.setter
-    def last_login_time(self, value):
-        """Set value of `last_login_time`
-
-        :param value: value to set
-        :type value: int
-        """
-
-        self._last_login_time.set(value)
-
-    @property
     def limits(self):
         """List of limits as key-value pairs if requested.
         
@@ -898,27 +784,6 @@ class Account(Entity):
         self._mfa_status.set(value)
 
     @property
-    def name(self):
-        """The display name for the API key.
-        
-        api example: 'API key gorgon'
-        
-        :rtype: str
-        """
-
-        return self._name.value
-
-    @name.setter
-    def name(self, value):
-        """Set value of `name`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._name.set(value)
-
-    @property
     def notification_emails(self):
         """A list of notification email addresses.
         
@@ -936,27 +801,6 @@ class Account(Entity):
         """
 
         self._notification_emails.set(value)
-
-    @property
-    def owner(self):
-        """The owner of this API key, who is the creator by default.
-        
-        api example: '01619571e2e89242ac12000600000000'
-        
-        :rtype: str
-        """
-
-        return self._owner.value
-
-    @owner.setter
-    def owner(self, value):
-        """Set value of `owner`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._owner.set(value)
 
     @property
     def parent_id(self):
@@ -1412,210 +1256,6 @@ class Account(Entity):
             unpack=self,
         )
 
-    def my_api_key(self):
-        """Get API key details.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/api-keys/me
-        
-        :rtype: Account
-        """
-
-        return self._client.call_api(method="get", path="/v3/api-keys/me", unpack=self)
-
-    def my_api_keys(self, include=None, max_results=None, page_size=None, order=None):
-        """Get all API keys
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/api-keys
-        
-        :param include: Comma separated additional data to return. Currently supported:
-            total_count
-        :type include: str
-        
-        :param max_results: Total maximum number of results to retrieve
-        :type max_results: int
-            
-        :param page_size: The number of results to return (2-1000), default is 50.
-        :type page_size: int
-        
-        :param order: The order of the records based on creation time, ASC or DESC; by
-            default ASC
-        :type order: str
-        
-        :return: An iterator object which yields instances of an entity.
-        :rtype: mbed_cloud.pagination.PaginatedResponse
-        """
-
-        from mbed_cloud.sdk.common._custom_methods import paginate
-        from mbed_cloud.sdk.entities import ApiKey
-
-        return paginate(
-            self=self,
-            foreign_key=ApiKey,
-            include=include,
-            max_results=max_results,
-            page_size=page_size,
-            order=order,
-            wraps=self._paginate_my_api_keys,
-        )
-
-    def my_trusted_certificates(
-        self, include=None, max_results=None, page_size=None, order=None
-    ):
-        """Get all trusted certificates.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/trusted-certificates
-        
-        :param device_execution_mode__eq: Device execution mode, as 1 for developer certificates or as another
-            natural integer value
-        :type device_execution_mode__eq: int
-        
-        :param device_execution_mode__neq: Device execution mode not equals filter
-        :type device_execution_mode__neq: int
-        
-        :param enrollment_mode__eq: Enrollment mode filter
-        :type enrollment_mode__eq: bool
-        
-        :param expire__eq: Expire filter in days
-        :type expire__eq: int
-        
-        :param include: Comma separated additional data to return. Currently supported:
-            total_count
-        :type include: str
-        
-        :param issuer__like: Issuer filter. Finds all matches where the filter value is a case
-            insensitive substring of the result. Example: issuer__like=cn=iss
-            matches CN=issuer.
-        :type issuer__like: str
-        
-        :param max_results: Total maximum number of results to retrieve
-        :type max_results: int
-            
-        :param page_size: The number of results to return (2-1000), default is 50.
-        :type page_size: int
-        
-        :param name__eq: Filter for certificate name
-        :type name__eq: str
-        
-        :param order: The order of the records based on creation time, ASC or DESC; by
-            default ASC
-        :type order: str
-        
-        :param owner__eq: Owner name filter
-        :type owner__eq: str
-        
-        :param service__eq: Service filter, either lwm2m or bootstrap
-        :type service__eq: str
-        
-        :param subject__like: Subject filter. Finds all matches where the filter value is a case
-            insensitive substring of the result. Example: subject__like=cn=su
-            matches CN=subject.
-        :type subject__like: str
-        
-        :return: An iterator object which yields instances of an entity.
-        :rtype: mbed_cloud.pagination.PaginatedResponse
-        """
-
-        from mbed_cloud.sdk.common._custom_methods import paginate
-        from mbed_cloud.sdk.entities import TrustedCertificate
-
-        return paginate(
-            self=self,
-            foreign_key=TrustedCertificate,
-            include=include,
-            max_results=max_results,
-            page_size=page_size,
-            order=order,
-            wraps=self._paginate_my_trusted_certificates,
-        )
-
-    def my_user_invitations(
-        self, include=None, max_results=None, page_size=None, order=None
-    ):
-        """Get the details of all the user invitations.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/user-invitations
-        
-        :param max_results: Total maximum number of results to retrieve
-        :type max_results: int
-            
-        :param page_size: The number of results to return (2-1000), default is 50.
-        :type page_size: int
-        
-        :param order: The order of the records based on creation time, ASC or DESC; by
-            default ASC
-        :type order: str
-        
-        :return: An iterator object which yields instances of an entity.
-        :rtype: mbed_cloud.pagination.PaginatedResponse
-        """
-
-        from mbed_cloud.sdk.common._custom_methods import paginate
-        from mbed_cloud.sdk.entities import UserInvitation
-
-        return paginate(
-            self=self,
-            foreign_key=UserInvitation,
-            include=include,
-            max_results=max_results,
-            page_size=page_size,
-            order=order,
-            wraps=self._paginate_my_user_invitations,
-        )
-
-    def my_users(self, include=None, max_results=None, page_size=None, order=None):
-        """Get the details of all users.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/users
-        
-        :param email__eq: Filter for email address
-        :type email__eq: str
-        
-        :param include: Comma separated additional data to return. Currently supported:
-            total_count
-        :type include: str
-        
-        :param max_results: Total maximum number of results to retrieve
-        :type max_results: int
-            
-        :param page_size: The number of results to return (2-1000), default is 50.
-        :type page_size: int
-        
-        :param order: The order of the records based on creation time, ASC or DESC; by
-            default ASC
-        :type order: str
-        
-        :param status__eq: Filter for status, for example active or reset
-        :type status__eq: str
-        
-        :param status__in: An optional filter for getting users with a specified set of statuses.
-        :type status__in: str
-        
-        :param status__nin: An optional filter for excluding users with a specified set of
-            statuses.
-        :type status__nin: str
-        
-        :return: An iterator object which yields instances of an entity.
-        :rtype: mbed_cloud.pagination.PaginatedResponse
-        """
-
-        from mbed_cloud.sdk.common._custom_methods import paginate
-        from mbed_cloud.sdk.entities import User
-
-        return paginate(
-            self=self,
-            foreign_key=User,
-            include=include,
-            max_results=max_results,
-            page_size=page_size,
-            order=order,
-            wraps=self._paginate_my_users,
-        )
-
     def _paginate_list(
         self,
         after=None,
@@ -1670,241 +1310,8 @@ class Account(Entity):
             unpack=False,
         )
 
-    def _paginate_my_api_keys(self, after=None, include=None, limit=50, order="ASC"):
-        """Get all API keys
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/api-keys
-        
-        :param after: The entity ID to fetch after the given one.
-        :type after: str
-        
-        :param include: Comma separated additional data to return. Currently supported:
-            total_count
-        :type include: str
-        
-        :param limit: The number of results to return (2-1000), default is 50.
-        :type limit: int
-        
-        :param order: The order of the records based on creation time, ASC or DESC; by
-            default ASC
-        :type order: str
-        
-        :rtype: mbed_cloud.pagination.PaginatedResponse
-        """
-
-        return self._client.call_api(
-            method="get",
-            path="/v3/api-keys",
-            query_params={
-                "after": fields.StringField(after).to_api(),
-                "include": fields.StringField(include).to_api(),
-                "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(
-                    order, enum=enums.AccountOrderEnum
-                ).to_api(),
-            },
-            unpack=False,
-        )
-
-    def _paginate_my_trusted_certificates(
-        self,
-        after=None,
-        device_execution_mode__eq=None,
-        device_execution_mode__neq=None,
-        enrollment_mode__eq=None,
-        expire__eq=None,
-        include=None,
-        issuer__like=None,
-        limit=50,
-        name__eq=None,
-        order="ASC",
-        owner__eq=None,
-        service__eq=None,
-        subject__like=None,
-    ):
-        """Get all trusted certificates.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/trusted-certificates
-        
-        :param after: The entity ID to fetch after the given one.
-        :type after: str
-        
-        :param device_execution_mode__eq: Device execution mode, as 1 for developer certificates or as another
-            natural integer value
-        :type device_execution_mode__eq: int
-        
-        :param device_execution_mode__neq: Device execution mode not equals filter
-        :type device_execution_mode__neq: int
-        
-        :param enrollment_mode__eq: Enrollment mode filter
-        :type enrollment_mode__eq: bool
-        
-        :param expire__eq: Expire filter in days
-        :type expire__eq: int
-        
-        :param include: Comma separated additional data to return. Currently supported:
-            total_count
-        :type include: str
-        
-        :param issuer__like: Issuer filter. Finds all matches where the filter value is a case
-            insensitive substring of the result. Example: issuer__like=cn=iss
-            matches CN=issuer.
-        :type issuer__like: str
-        
-        :param limit: The number of results to return (2-1000), default is 50.
-        :type limit: int
-        
-        :param name__eq: Filter for certificate name
-        :type name__eq: str
-        
-        :param order: The order of the records based on creation time, ASC or DESC; by
-            default ASC
-        :type order: str
-        
-        :param owner__eq: Owner name filter
-        :type owner__eq: str
-        
-        :param service__eq: Service filter, either lwm2m or bootstrap
-        :type service__eq: str
-        
-        :param subject__like: Subject filter. Finds all matches where the filter value is a case
-            insensitive substring of the result. Example: subject__like=cn=su
-            matches CN=subject.
-        :type subject__like: str
-        
-        :rtype: mbed_cloud.pagination.PaginatedResponse
-        """
-
-        return self._client.call_api(
-            method="get",
-            path="/v3/trusted-certificates",
-            query_params={
-                "after": fields.StringField(after).to_api(),
-                "": fields.IntegerField(device_execution_mode__eq).to_api(),
-                "": fields.IntegerField(device_execution_mode__neq).to_api(),
-                "": fields.BooleanField(enrollment_mode__eq).to_api(),
-                "": fields.IntegerField(expire__eq).to_api(),
-                "include": fields.StringField(include).to_api(),
-                "": fields.StringField(issuer__like).to_api(),
-                "limit": fields.IntegerField(limit).to_api(),
-                "": fields.StringField(name__eq).to_api(),
-                "order": fields.StringField(order).to_api(),
-                "": fields.StringField(owner__eq).to_api(),
-                "": fields.StringField(service__eq).to_api(),
-                "": fields.StringField(subject__like).to_api(),
-            },
-            unpack=False,
-        )
-
-    def _paginate_my_user_invitations(self, after=None, limit=50, order="ASC"):
-        """Get the details of all the user invitations.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/user-invitations
-        
-        :param after: The entity ID to fetch after the given one.
-        :type after: str
-        
-        :param limit: The number of results to return (2-1000), default is 50.
-        :type limit: int
-        
-        :param order: The order of the records based on creation time, ASC or DESC; by
-            default ASC
-        :type order: str
-        
-        :rtype: mbed_cloud.pagination.PaginatedResponse
-        """
-
-        return self._client.call_api(
-            method="get",
-            path="/v3/user-invitations",
-            query_params={
-                "after": fields.StringField(after).to_api(),
-                "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(order).to_api(),
-            },
-            unpack=False,
-        )
-
-    def _paginate_my_users(
-        self,
-        after=None,
-        email__eq=None,
-        include=None,
-        limit=50,
-        order="ASC",
-        status__eq=None,
-        status__in=None,
-        status__nin=None,
-    ):
-        """Get the details of all users.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/users
-        
-        :param after: The entity ID to fetch after the given one.
-        :type after: str
-        
-        :param email__eq: Filter for email address
-        :type email__eq: str
-        
-        :param include: Comma separated additional data to return. Currently supported:
-            total_count
-        :type include: str
-        
-        :param limit: The number of results to return (2-1000), default is 50.
-        :type limit: int
-        
-        :param order: The order of the records based on creation time, ASC or DESC; by
-            default ASC
-        :type order: str
-        
-        :param status__eq: Filter for status, for example active or reset
-        :type status__eq: str
-        
-        :param status__in: An optional filter for getting users with a specified set of statuses.
-        :type status__in: str
-        
-        :param status__nin: An optional filter for excluding users with a specified set of
-            statuses.
-        :type status__nin: str
-        
-        :rtype: mbed_cloud.pagination.PaginatedResponse
-        """
-
-        return self._client.call_api(
-            method="get",
-            path="/v3/users",
-            query_params={
-                "after": fields.StringField(after).to_api(),
-                "": fields.StringField(email__eq).to_api(),
-                "include": fields.StringField(include).to_api(),
-                "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(order).to_api(),
-                "": fields.StringField(status__eq).to_api(),
-                "": fields.StringField(status__in).to_api(),
-                "": fields.StringField(status__nin).to_api(),
-            },
-            unpack=False,
-        )
-
     def _paginate_trusted_certificates(
-        self,
-        after=None,
-        device_execution_mode__eq=None,
-        device_execution_mode__neq=None,
-        enrollment_mode__eq=None,
-        expire__eq=None,
-        include=None,
-        issuer__like=None,
-        limit=50,
-        name__eq=None,
-        order="ASC",
-        owner__eq=None,
-        service__eq=None,
-        subject__like=None,
+        self, after=None, include=None, limit=50, order="ASC"
     ):
         """Get all trusted certificates.
 
@@ -1914,47 +1321,16 @@ class Account(Entity):
         :param after: The entity ID to fetch after the given one.
         :type after: str
         
-        :param device_execution_mode__eq: Filter for developer certificates
-        :type device_execution_mode__eq: int
-        
-        :param device_execution_mode__neq: Filter for not developer certificates
-        :type device_execution_mode__neq: int
-        
-        :param enrollment_mode__eq: Enrollment mode filter
-        :type enrollment_mode__eq: bool
-        
-        :param expire__eq: Filter for expire
-        :type expire__eq: int
-        
         :param include: Comma separated additional data to return. Currently supported:
             total_count
         :type include: str
         
-        :param issuer__like: Filter for issuer. Finds all matches where the filter value is a case
-            insensitive substring of the result. Example: issuer__like=cn=iss
-            matches CN=issuer.
-        :type issuer__like: str
-        
         :param limit: The number of results to return (2-1000), default is 50.
         :type limit: int
-        
-        :param name__eq: Filter for certificate name
-        :type name__eq: str
         
         :param order: The order of the records based on creation time, ASC or DESC; by
             default ASC
         :type order: str
-        
-        :param owner__eq: Owner name filter
-        :type owner__eq: str
-        
-        :param service__eq: Filter for service
-        :type service__eq: str
-        
-        :param subject__like: Filter for subject. Finds all matches where the filter value is a case
-            insensitive substring of the result. Example: subject__like=cn=su
-            matches CN=subject.
-        :type subject__like: str
         
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
@@ -1965,18 +1341,11 @@ class Account(Entity):
             path_params={"accountID": self._id.to_api()},
             query_params={
                 "after": fields.StringField(after).to_api(),
-                "": fields.IntegerField(device_execution_mode__eq).to_api(),
-                "": fields.IntegerField(device_execution_mode__neq).to_api(),
-                "": fields.BooleanField(enrollment_mode__eq).to_api(),
-                "": fields.IntegerField(expire__eq).to_api(),
                 "include": fields.StringField(include).to_api(),
-                "": fields.StringField(issuer__like).to_api(),
                 "limit": fields.IntegerField(limit).to_api(),
-                "": fields.StringField(name__eq).to_api(),
-                "order": fields.StringField(order).to_api(),
-                "": fields.StringField(owner__eq).to_api(),
-                "": fields.StringField(service__eq).to_api(),
-                "": fields.StringField(subject__like).to_api(),
+                "order": fields.StringField(
+                    order, enum=enums.AccountOrderEnum
+                ).to_api(),
             },
             unpack=False,
         )
@@ -2007,22 +1376,14 @@ class Account(Entity):
             query_params={
                 "after": fields.StringField(after).to_api(),
                 "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(order).to_api(),
+                "order": fields.StringField(
+                    order, enum=enums.AccountOrderEnum
+                ).to_api(),
             },
             unpack=False,
         )
 
-    def _paginate_users(
-        self,
-        after=None,
-        email__eq=None,
-        include=None,
-        limit=50,
-        order="ASC",
-        status__eq=None,
-        status__in=None,
-        status__nin=None,
-    ):
+    def _paginate_users(self, after=None, include=None, limit=50, order="ASC"):
         """Get all user details.
 
         api documentation:
@@ -2030,9 +1391,6 @@ class Account(Entity):
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
-        
-        :param email__eq: Filter for email address
-        :type email__eq: str
         
         :param include: Comma separated additional data to return. Currently supported:
             total_count
@@ -2045,16 +1403,6 @@ class Account(Entity):
             default ASC
         :type order: str
         
-        :param status__eq: Filter for status
-        :type status__eq: str
-        
-        :param status__in: An optional filter for getting users with a specified set of statuses.
-        :type status__in: str
-        
-        :param status__nin: An optional filter for excluding users with a specified set of
-            statuses.
-        :type status__nin: str
-        
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 
@@ -2064,13 +1412,11 @@ class Account(Entity):
             path_params={"accountID": self._id.to_api()},
             query_params={
                 "after": fields.StringField(after).to_api(),
-                "": fields.StringField(email__eq).to_api(),
                 "include": fields.StringField(include).to_api(),
                 "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(order).to_api(),
-                "": fields.StringField(status__eq).to_api(),
-                "": fields.StringField(status__in).to_api(),
-                "": fields.StringField(status__nin).to_api(),
+                "order": fields.StringField(
+                    order, enum=enums.AccountOrderEnum
+                ).to_api(),
             },
             unpack=False,
         )
@@ -2083,26 +1429,9 @@ class Account(Entity):
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/trusted-certificates
         
-        :param device_execution_mode__eq: Filter for developer certificates
-        :type device_execution_mode__eq: int
-        
-        :param device_execution_mode__neq: Filter for not developer certificates
-        :type device_execution_mode__neq: int
-        
-        :param enrollment_mode__eq: Enrollment mode filter
-        :type enrollment_mode__eq: bool
-        
-        :param expire__eq: Filter for expire
-        :type expire__eq: int
-        
         :param include: Comma separated additional data to return. Currently supported:
             total_count
         :type include: str
-        
-        :param issuer__like: Filter for issuer. Finds all matches where the filter value is a case
-            insensitive substring of the result. Example: issuer__like=cn=iss
-            matches CN=issuer.
-        :type issuer__like: str
         
         :param max_results: Total maximum number of results to retrieve
         :type max_results: int
@@ -2110,34 +1439,20 @@ class Account(Entity):
         :param page_size: The number of results to return (2-1000), default is 50.
         :type page_size: int
         
-        :param name__eq: Filter for certificate name
-        :type name__eq: str
-        
         :param order: The order of the records based on creation time, ASC or DESC; by
             default ASC
         :type order: str
-        
-        :param owner__eq: Owner name filter
-        :type owner__eq: str
-        
-        :param service__eq: Filter for service
-        :type service__eq: str
-        
-        :param subject__like: Filter for subject. Finds all matches where the filter value is a case
-            insensitive substring of the result. Example: subject__like=cn=su
-            matches CN=subject.
-        :type subject__like: str
         
         :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 
         from mbed_cloud.sdk.common._custom_methods import paginate
-        from mbed_cloud.sdk.entities import TrustedCertificate
+        from mbed_cloud.sdk.entities import SubtenantTrustedCertificate
 
         return paginate(
             self=self,
-            foreign_key=TrustedCertificate,
+            foreign_key=SubtenantTrustedCertificate,
             include=include,
             max_results=max_results,
             page_size=page_size,
@@ -2208,11 +1523,11 @@ class Account(Entity):
         """
 
         from mbed_cloud.sdk.common._custom_methods import paginate
-        from mbed_cloud.sdk.entities import UserInvitation
+        from mbed_cloud.sdk.entities import SubtenantUserInvitation
 
         return paginate(
             self=self,
-            foreign_key=UserInvitation,
+            foreign_key=SubtenantUserInvitation,
             include=include,
             max_results=max_results,
             page_size=page_size,
@@ -2225,9 +1540,6 @@ class Account(Entity):
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/users
-        
-        :param email__eq: Filter for email address
-        :type email__eq: str
         
         :param include: Comma separated additional data to return. Currently supported:
             total_count
@@ -2243,26 +1555,16 @@ class Account(Entity):
             default ASC
         :type order: str
         
-        :param status__eq: Filter for status
-        :type status__eq: str
-        
-        :param status__in: An optional filter for getting users with a specified set of statuses.
-        :type status__in: str
-        
-        :param status__nin: An optional filter for excluding users with a specified set of
-            statuses.
-        :type status__nin: str
-        
         :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 
         from mbed_cloud.sdk.common._custom_methods import paginate
-        from mbed_cloud.sdk.entities import User
+        from mbed_cloud.sdk.entities import SubtenantUser
 
         return paginate(
             self=self,
-            foreign_key=User,
+            foreign_key=SubtenantUser,
             include=include,
             max_results=max_results,
             page_size=page_size,

@@ -56,11 +56,10 @@ class AccountStatusEnum(BaseEnum):
 
     ACTIVE = "ACTIVE"
     ENROLLING = "ENROLLING"
-    INACTIVE = "INACTIVE"
     RESTRICTED = "RESTRICTED"
     SUSPENDED = "SUSPENDED"
 
-    values = frozenset(("ACTIVE", "ENROLLING", "INACTIVE", "RESTRICTED", "SUSPENDED"))
+    values = frozenset(("ACTIVE", "ENROLLING", "RESTRICTED", "SUSPENDED"))
 
 
 class ApiKeyOrderEnum(BaseEnum):
@@ -93,6 +92,25 @@ class ApiKeyStatusEnum(BaseEnum):
     INACTIVE = "INACTIVE"
 
     values = frozenset(("ACTIVE", "INACTIVE"))
+
+
+class SubtenantUserStatusEnum(BaseEnum):
+    """Represents expected values of `SubtenantUserStatusEnum`
+
+    This is used by Mbed Cloud "accounts" functionality
+
+    Note: If new values are added to the enum in the API they will be passed through unchanged by
+    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
+    version.
+    """
+
+    ACTIVE = "ACTIVE"
+    ENROLLING = "ENROLLING"
+    INACTIVE = "INACTIVE"
+    INVITED = "INVITED"
+    RESET = "RESET"
+
+    values = frozenset(("ACTIVE", "ENROLLING", "INACTIVE", "INVITED", "RESET"))
 
 
 class UserInvitationOrderEnum(BaseEnum):

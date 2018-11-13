@@ -9,6 +9,7 @@ from mbed_cloud.sdk._modules.accounts.enums import AccountOrderEnum
 from mbed_cloud.sdk._modules.accounts.enums import AccountStatusEnum
 from mbed_cloud.sdk._modules.accounts.enums import ApiKeyOrderEnum
 from mbed_cloud.sdk._modules.accounts.enums import ApiKeyStatusEnum
+from mbed_cloud.sdk._modules.accounts.enums import SubtenantUserStatusEnum
 from mbed_cloud.sdk._modules.accounts.enums import UserInvitationOrderEnum
 from mbed_cloud.sdk._modules.accounts.enums import UserOrderEnum
 from mbed_cloud.sdk._modules.accounts.enums import UserStatusEnum
@@ -23,6 +24,10 @@ from mbed_cloud.sdk._modules.security.enums import CertificateEnrollmentEnrollSt
 from mbed_cloud.sdk._modules.security.enums import CertificateEnrollmentIncludeEnum
 from mbed_cloud.sdk._modules.security.enums import CertificateEnrollmentOrderEnum
 from mbed_cloud.sdk._modules.security.enums import CertificateIssuerIssuerTypeEnum
+from mbed_cloud.sdk._modules.security.enums import (
+    SubtenantTrustedCertificateServiceEnum,
+)
+from mbed_cloud.sdk._modules.security.enums import SubtenantTrustedCertificateStatusEnum
 from mbed_cloud.sdk._modules.security.enums import TrustedCertificateOrderEnum
 from mbed_cloud.sdk._modules.security.enums import TrustedCertificateServiceEnum
 from mbed_cloud.sdk._modules.security.enums import TrustedCertificateStatusEnum
@@ -45,6 +50,9 @@ __all__ = [
     "DeviceEnrollmentOrderEnum",
     "DeviceMechanismEnum",
     "DeviceStateEnum",
+    "SubtenantTrustedCertificateServiceEnum",
+    "SubtenantTrustedCertificateStatusEnum",
+    "SubtenantUserStatusEnum",
     "TrustedCertificateOrderEnum",
     "TrustedCertificateServiceEnum",
     "TrustedCertificateStatusEnum",

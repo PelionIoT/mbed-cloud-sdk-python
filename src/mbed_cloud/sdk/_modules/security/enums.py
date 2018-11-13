@@ -93,6 +93,38 @@ class CertificateIssuerIssuerTypeEnum(BaseEnum):
     values = frozenset(("CFSSL_AUTH", "GLOBAL_SIGN"))
 
 
+class SubtenantTrustedCertificateServiceEnum(BaseEnum):
+    """Represents expected values of `SubtenantTrustedCertificateServiceEnum`
+
+    This is used by Mbed Cloud "security" functionality
+
+    Note: If new values are added to the enum in the API they will be passed through unchanged by
+    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
+    version.
+    """
+
+    BOOTSTRAP = "bootstrap"
+    LWM2M = "lwm2m"
+
+    values = frozenset(("bootstrap", "lwm2m"))
+
+
+class SubtenantTrustedCertificateStatusEnum(BaseEnum):
+    """Represents expected values of `SubtenantTrustedCertificateStatusEnum`
+
+    This is used by Mbed Cloud "security" functionality
+
+    Note: If new values are added to the enum in the API they will be passed through unchanged by
+    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
+    version.
+    """
+
+    ACTIVE = "ACTIVE"
+    INACTIVE = "INACTIVE"
+
+    values = frozenset(("ACTIVE", "INACTIVE"))
+
+
 class TrustedCertificateOrderEnum(BaseEnum):
     """Represents expected values of `TrustedCertificateOrderEnum`
 

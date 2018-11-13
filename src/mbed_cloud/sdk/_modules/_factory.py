@@ -34,23 +34,17 @@ class InstanceFactory:
         contract_number=None,
         country=None,
         created_at=None,
-        creation_time=None,
         custom_fields=None,
         customer_number=None,
         display_name=None,
         email=None,
         end_market=None,
         expiration_warning_threshold=None,
-        groups=None,
         id=None,
         idle_timeout=None,
-        key=None,
-        last_login_time=None,
         limits=None,
         mfa_status=None,
-        name=None,
         notification_emails=None,
-        owner=None,
         parent_id=None,
         password_policy=None,
         phone_number=None,
@@ -103,9 +97,6 @@ class InstanceFactory:
         :type country: str
         :param created_at: Creation UTC time RFC3339.
         :type created_at: datetime
-        :param creation_time: The timestamp of the API key creation in the storage, in
-            milliseconds.
-        :type creation_time: int
         :param custom_fields: Account's custom properties as key-value pairs.
         :type custom_fields: dict
         :param customer_number: Customer number of the customer.
@@ -119,27 +110,17 @@ class InstanceFactory:
         :param expiration_warning_threshold: Indicates how many days (1-180) before account expiration a
             notification email should be sent.
         :type expiration_warning_threshold: str
-        :param groups: A list of group IDs this API key belongs to.
-        :type groups: list
         :param id: Account ID.
         :type id: str
         :param idle_timeout: The reference token expiration time in minutes for this account.
         :type idle_timeout: str
-        :param key: The API key.
-        :type key: str
-        :param last_login_time: The timestamp of the latest API key usage, in milliseconds.
-        :type last_login_time: int
         :param limits: List of limits as key-value pairs if requested.
         :type limits: dict
         :param mfa_status: The enforcement status of the multi-factor authentication, either
             'enforced' or 'optional'.
         :type mfa_status: str
-        :param name: The display name for the API key.
-        :type name: str
         :param notification_emails: A list of notification email addresses.
         :type notification_emails: list
-        :param owner: The owner of this API key, who is the creator by default.
-        :type owner: str
         :param parent_id: The ID of the parent account, if it has any.
         :type parent_id: str
         :param password_policy: 
@@ -194,23 +175,17 @@ class InstanceFactory:
             contract_number=contract_number,
             country=country,
             created_at=created_at,
-            creation_time=creation_time,
             custom_fields=custom_fields,
             customer_number=customer_number,
             display_name=display_name,
             email=email,
             end_market=end_market,
             expiration_warning_threshold=expiration_warning_threshold,
-            groups=groups,
             id=id,
             idle_timeout=idle_timeout,
-            key=key,
-            last_login_time=last_login_time,
             limits=limits,
             mfa_status=mfa_status,
-            name=name,
             notification_emails=notification_emails,
-            owner=owner,
             parent_id=parent_id,
             password_policy=password_policy,
             phone_number=phone_number,
@@ -916,6 +891,241 @@ class InstanceFactory:
             id=id,
             server_certificate=server_certificate,
             server_uri=server_uri,
+        )
+
+    def subtenant_trusted_certificate(
+        self,
+        account_id=None,
+        certificate=None,
+        created_at=None,
+        description=None,
+        enrollment_mode=None,
+        id=None,
+        is_developer_certificate=None,
+        issuer=None,
+        name=None,
+        owner_id=None,
+        private_key=None,
+        service=None,
+        status=None,
+        subject=None,
+        updated_at=None,
+        validity=None,
+    ):
+        """Creates a local `SubtenantTrustedCertificate` instance, binding the client
+
+        :param account_id: The UUID of the account.
+        :type account_id: str
+        :param certificate: X509.v3 trusted certificate in PEM format.
+        :type certificate: str
+        :param created_at: Creation UTC time RFC3339.
+        :type created_at: datetime
+        :param description: Human readable description of this certificate.
+        :type description: str
+        :param device_execution_mode: Device execution mode where 1 means a developer certificate.
+        :type device_execution_mode: int
+        :param enrollment_mode: If true, signature is not required. Default value false.
+        :type enrollment_mode: bool
+        :param id: Entity ID.
+        :type id: str
+        :param is_developer_certificate: Whether or not this certificate is a developer certificate.
+        :type is_developer_certificate: bool
+        :param issuer: Issuer of the certificate.
+        :type issuer: str
+        :param name: Certificate name.
+        :type name: str
+        :param owner_id: The UUID of the owner.
+        :type owner_id: str
+        :param private_key: Private key of the certificate in PEM or base64 encoded DER
+            format.
+        :type private_key: str
+        :param service: Service name where the certificate is to be used.
+        :type service: str
+        :param status: Status of the certificate.
+        :type status: str
+        :param subject: Subject of the certificate.
+        :type subject: str
+        :param updated_at: Last update UTC time RFC3339.
+        :type updated_at: datetime
+        :param validity: Expiration time in UTC formatted as RFC3339.
+        :type validity: datetime
+        
+        :rtype: mbed_cloud.sdk.entities.SubtenantTrustedCertificate
+        """
+        from mbed_cloud.sdk.entities import SubtenantTrustedCertificate
+
+        return SubtenantTrustedCertificate(
+            _client=self._client,
+            account_id=account_id,
+            certificate=certificate,
+            created_at=created_at,
+            description=description,
+            device_execution_mode=device_execution_mode,
+            enrollment_mode=enrollment_mode,
+            id=id,
+            is_developer_certificate=is_developer_certificate,
+            issuer=issuer,
+            name=name,
+            owner_id=owner_id,
+            private_key=private_key,
+            service=service,
+            status=status,
+            subject=subject,
+            updated_at=updated_at,
+            validity=validity,
+        )
+
+    def subtenant_user(
+        self,
+        account_id=None,
+        address=None,
+        created_at=None,
+        creation_time=None,
+        email=None,
+        email_verified=None,
+        full_name=None,
+        groups=None,
+        id=None,
+        last_login_time=None,
+        login_history=None,
+        marketing_accepted=None,
+        password=None,
+        password_changed_time=None,
+        phone_number=None,
+        status=None,
+        terms_accepted=None,
+        two_factor_authentication=None,
+        updated_at=None,
+        username=None,
+    ):
+        """Creates a local `SubtenantUser` instance, binding the client
+
+        :param account_id: The UUID of the account.
+        :type account_id: str
+        :param address: Address.
+        :type address: str
+        :param created_at: Creation UTC time RFC3339.
+        :type created_at: datetime
+        :param creation_time: A timestamp of the user creation in the storage, in milliseconds.
+        :type creation_time: int
+        :param email: The email address.
+        :type email: str
+        :param email_verified: A flag indicating whether the user's email address has been
+            verified or not.
+        :type email_verified: bool
+        :param full_name: The full name of the user.
+        :type full_name: str
+        :param groups: A list of IDs of the groups this user belongs to.
+        :type groups: list
+        :param id: The UUID of the user.
+        :type id: str
+        :param last_login_time: A timestamp of the latest login of the user, in milliseconds.
+        :type last_login_time: int
+        :param login_history: Timestamps, succeedings, IP addresses and user agent information
+            of the last five logins of the user, with timestamps in RFC3339
+            format.
+        :type login_history: list
+        :param marketing_accepted: A flag indicating that receiving marketing information has been
+            accepted.
+        :type marketing_accepted: bool
+        :param password: The password when creating a new user. It will be generated when
+            not present in the request.
+        :type password: str
+        :param password_changed_time: A timestamp of the latest change of the user password, in
+            milliseconds.
+        :type password_changed_time: int
+        :param phone_number: Phone number.
+        :type phone_number: str
+        :param status: The status of the user. ENROLLING state indicates that the user is
+            in the middle of the enrollment process. INVITED means that the
+            user has not accepted the invitation request. RESET means that the
+            password must be changed immediately. INACTIVE users are locked
+            out and not permitted to use the system.
+        :type status: str
+        :param terms_accepted: A flag indicating that the General Terms and Conditions has been
+            accepted.
+        :type terms_accepted: bool
+        :param two_factor_authentication: A flag indicating whether 2-factor authentication (TOTP) has been
+            enabled.
+        :type two_factor_authentication: bool
+        :param updated_at: Last update UTC time RFC3339.
+        :type updated_at: datetime
+        :param username: A username containing alphanumerical letters and -,._@+=
+            characters.
+        :type username: str
+        
+        :rtype: mbed_cloud.sdk.entities.SubtenantUser
+        """
+        from mbed_cloud.sdk.entities import SubtenantUser
+
+        return SubtenantUser(
+            _client=self._client,
+            account_id=account_id,
+            address=address,
+            created_at=created_at,
+            creation_time=creation_time,
+            email=email,
+            email_verified=email_verified,
+            full_name=full_name,
+            groups=groups,
+            id=id,
+            last_login_time=last_login_time,
+            login_history=login_history,
+            marketing_accepted=marketing_accepted,
+            password=password,
+            password_changed_time=password_changed_time,
+            phone_number=phone_number,
+            status=status,
+            terms_accepted=terms_accepted,
+            two_factor_authentication=two_factor_authentication,
+            updated_at=updated_at,
+            username=username,
+        )
+
+    def subtenant_user_invitation(
+        self,
+        account_id=None,
+        created_at=None,
+        email=None,
+        expiration=None,
+        groups=None,
+        id=None,
+        updated_at=None,
+        user_id=None,
+    ):
+        """Creates a local `SubtenantUserInvitation` instance, binding the client
+
+        :param account_id: The UUID of the account the user is invited to.
+        :type account_id: str
+        :param created_at: Creation UTC time RFC3339.
+        :type created_at: datetime
+        :param email: Email address of the invited user.
+        :type email: str
+        :param expiration: Invitation expiration as UTC time RFC3339.
+        :type expiration: datetime
+        :param groups: A list of IDs of the groups the user is invited to.
+        :type groups: list
+        :param id: The UUID of the invitation.
+        :type id: str
+        :param updated_at: Last update UTC time RFC3339.
+        :type updated_at: datetime
+        :param user_id: The UUID of the invited user.
+        :type user_id: str
+        
+        :rtype: mbed_cloud.sdk.entities.SubtenantUserInvitation
+        """
+        from mbed_cloud.sdk.entities import SubtenantUserInvitation
+
+        return SubtenantUserInvitation(
+            _client=self._client,
+            account_id=account_id,
+            created_at=created_at,
+            email=email,
+            expiration=expiration,
+            groups=groups,
+            id=id,
+            updated_at=updated_at,
+            user_id=user_id,
         )
 
     def trusted_certificate(

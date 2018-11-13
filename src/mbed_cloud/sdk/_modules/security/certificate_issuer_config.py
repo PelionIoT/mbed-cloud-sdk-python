@@ -273,6 +273,21 @@ class CertificateIssuerConfig(Entity):
             wraps=self._paginate_list,
         )
 
+    def lwm2m(self):
+        """Get certificate issuer configuration.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/certificate-issuer-configurations/lwm2m
+        
+        :rtype: CertificateIssuerConfig
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/certificate-issuer-configurations/lwm2m",
+            unpack=self,
+        )
+
     def _paginate_list(self, **kwargs):
         """Get certificate issuer configurations.
 
