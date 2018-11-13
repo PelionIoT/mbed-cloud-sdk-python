@@ -23,7 +23,7 @@ WORKDIR /build
 RUN apk update
 RUN apk add git
 
-RUN python -m pip install -U setuptools==40.0.0 pip==10.0.1 pipenv==11.10.0
+RUN python -m pip install -U setuptools pip pipenv
 
 # add bare minimum files to survive a pip install
 COPY scripts scripts
