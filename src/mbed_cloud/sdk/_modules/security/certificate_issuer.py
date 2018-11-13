@@ -288,7 +288,7 @@ class CertificateIssuer(Entity):
         https://os.mbed.com/search/?q=service+apis+/v3/certificate-issuers
         
         :return: An iterator object which yields instances of an entity.
-        :rtype: mbed_cloud.pagination.PaginatedResponse
+        :rtype: mbed_cloud.pagination.PaginatedResponse(CertificateIssuer)
         """
 
         from mbed_cloud.sdk.common._custom_methods import paginate

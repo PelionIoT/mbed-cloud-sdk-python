@@ -1215,7 +1215,7 @@ class Account(Entity):
         :type properties: str
         
         :return: An iterator object which yields instances of an entity.
-        :rtype: mbed_cloud.pagination.PaginatedResponse
+        :rtype: mbed_cloud.pagination.PaginatedResponse(Account)
         """
 
         from mbed_cloud.sdk.common._custom_methods import paginate
@@ -1444,7 +1444,7 @@ class Account(Entity):
         :type order: str
         
         :return: An iterator object which yields instances of an entity.
-        :rtype: mbed_cloud.pagination.PaginatedResponse
+        :rtype: mbed_cloud.pagination.PaginatedResponse(SubtenantTrustedCertificate)
         """
 
         from mbed_cloud.sdk.common._custom_methods import paginate
@@ -1519,7 +1519,7 @@ class Account(Entity):
         :type order: str
         
         :return: An iterator object which yields instances of an entity.
-        :rtype: mbed_cloud.pagination.PaginatedResponse
+        :rtype: mbed_cloud.pagination.PaginatedResponse(SubtenantUserInvitation)
         """
 
         from mbed_cloud.sdk.common._custom_methods import paginate
@@ -1556,7 +1556,7 @@ class Account(Entity):
         :type order: str
         
         :return: An iterator object which yields instances of an entity.
-        :rtype: mbed_cloud.pagination.PaginatedResponse
+        :rtype: mbed_cloud.pagination.PaginatedResponse(SubtenantUser)
         """
 
         from mbed_cloud.sdk.common._custom_methods import paginate

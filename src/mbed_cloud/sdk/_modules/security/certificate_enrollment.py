@@ -255,7 +255,7 @@ class CertificateEnrollment(Entity):
         :type order: str
         
         :return: An iterator object which yields instances of an entity.
-        :rtype: mbed_cloud.pagination.PaginatedResponse
+        :rtype: mbed_cloud.pagination.PaginatedResponse(CertificateEnrollment)
         """
 
         from mbed_cloud.sdk.common._custom_methods import paginate

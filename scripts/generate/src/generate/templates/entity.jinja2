@@ -101,7 +101,11 @@ class {{ entity._key|to_pascal }}(Entity):
     {% if method.pagination %}
         {% set unpack_type = false %}
         {% set foreign_key_import = false %}
-        {% set return_type = "mbed_cloud.pagination.PaginatedResponse" %}
+        {% if not return_type %}
+            {% set return_type = "mbed_cloud.pagination." + "PaginatedResponse" %}
+        {% else %}
+            {% set return_type = "mbed_cloud.pagination." + return_type %}
+        {% endif %}
     {% elif entity._key == method.return_type %}
         {% set unpack_type = "self" %}
         {% set foreign_key_import = false %}
