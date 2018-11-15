@@ -179,6 +179,22 @@ def new_newscheck():
     return 'news_check', template
 
 
+def new_build_documentation():
+    """Job for checking updating SDK documentation"""
+    template = yaml.safe_load("""
+    steps:
+      - run:
+          name: Trigger documentation build
+          command: >-
+              curl -X POST --header "Content-Type:application/json"
+              -d '{"branch":"master"}' 
+              https://circleci.com/api/v1.1/project/github/${GITHUB_DOCS_ORGANISATION}/${GITHUB_DOCS_PROJECT}/build?circle-token=${DOCS_CIRCLE_CI_TOKEN}
+    docker:
+      - image: circleci/node:jessie-browsers
+    """)
+    return 'build_documentation', template
+
+
 def build_name(py_ver: PyVer):
     """Name"""
     return f'build_{py_ver.name}'
@@ -188,7 +204,7 @@ def new_build(py_ver: PyVer):
     """Job for building/caching different docker images"""
     cache_file = f'app_{py_ver.name}.tar'
     cache_path = f'{cache_dir}/{cache_file}'
-    cache_key = f'v2-{py_ver.name}-{{{{ .Branch }}}}'
+    cache_key = f'v3-{py_ver.name}-{{{{ .Branch }}}}'
     template = yaml.safe_load(f"""
     machine:
       image: 'circleci/classic:201710-02'
@@ -367,6 +383,21 @@ def generate_circle_output():
                 )
             )
         )
+    )
+
+    job, content = new_build_documentation()
+    base['jobs'].update({job: content})
+    workflow.add_node(
+        job,
+        workflow=dict(
+            requires=['build_py2', 'build_py3'],
+            filters = dict(
+                branches=dict(
+                    # Only update the documentation on release branches
+                    only=['master', 'beta']
+        )
+    )
+    )
     )
 
     preload_job, content = new_preload()

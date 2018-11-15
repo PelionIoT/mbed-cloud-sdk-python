@@ -25,14 +25,12 @@ class DeveloperCertificate(Entity):
         "description",
         "id",
         "name",
-        "private_key",
         "security_file_content",
     ]
 
     # common renames used when mapping {<API spec>: <SDK>}
     _renames = {
         "developer_certificate": "certificate",
-        "developerCertificateId": "id",
         "developer_private_key": "private_key",
     }
 
@@ -45,7 +43,6 @@ class DeveloperCertificate(Entity):
         description=None,
         id=None,
         name=None,
-        private_key=None,
         security_file_content=None,
     ):
         """Creates a local `DeveloperCertificate` instance
@@ -62,8 +59,6 @@ class DeveloperCertificate(Entity):
         :type id: str
         :param name: Name of the developer certificate.
         :type name: str
-        :param private_key: PEM format developer private key associated to the certificate.
-        :type private_key: str
         :param security_file_content: Content of the security.c file that will be flashed into the
             device to provide the security credentials
         :type security_file_content: str
@@ -80,7 +75,6 @@ class DeveloperCertificate(Entity):
         self._description = fields.StringField(value=description)
         self._id = fields.StringField(value=id)
         self._name = fields.StringField(value=name)
-        self._private_key = fields.StringField(value=private_key)
         self._security_file_content = fields.StringField(value=security_file_content)
 
     @property
@@ -196,25 +190,6 @@ class DeveloperCertificate(Entity):
         """
 
         self._name.set(value)
-
-    @property
-    def private_key(self):
-        """PEM format developer private key associated to the certificate.
-        
-        :rtype: str
-        """
-
-        return self._private_key.value
-
-    @private_key.setter
-    def private_key(self, value):
-        """Set value of `private_key`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._private_key.set(value)
 
     @property
     def security_file_content(self):

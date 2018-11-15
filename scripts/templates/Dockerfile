@@ -23,7 +23,7 @@ WORKDIR /build
 RUN apk update
 RUN apk add git
 {py_ver.py2_pre}
-RUN python -m pip install -U setuptools==40.0.0 pip==10.0.1 pipenv==11.10.0
+RUN python -m pip install -U setuptools pip pipenv
 
 # add bare minimum files to survive a pip install
 COPY scripts scripts
@@ -33,8 +33,10 @@ COPY README.rst ./
 COPY requirements.txt ./
 COPY Pip* ./
 
+# Generate a Pipfile.lock file
+RUN pipenv lock
 # install the project (with dev dependencies)
-RUN pipenv install --dev
+RUN pipenv install -e . --dev
 
 # load the entire project from local checkout as build context
 COPY . .
@@ -46,7 +48,7 @@ RUN pipenv run auto_version --config=scripts/auto_version.toml --news --bump=pat
 RUN pipenv run python -c "import mbed_cloud; print(mbed_cloud.__version__)"
 
 # run smoke tests
-RUN pipenv run pytest --durations=3 tests/unit
+RUN (pipenv run pytest --durations=3 tests/unit) & sleep 10 ; kill $!
 
 # run static analysis
 RUN pipenv run pytest --durations=3 tests/static

@@ -14,8 +14,8 @@ from mbed_cloud.sdk.common import fields
 from mbed_cloud.sdk import enums
 
 
-class EnrollmentClaim(Entity):
-    """Represents the `EnrollmentClaim` entity in Mbed Cloud"""
+class DeviceEnrollment(Entity):
+    """Represents the `DeviceEnrollment` entity in Mbed Cloud"""
 
     # all fields available on this entity
     _fieldnames = [
@@ -42,7 +42,7 @@ class EnrollmentClaim(Entity):
         expires_at=None,
         id=None,
     ):
-        """Creates a local `EnrollmentClaim` instance
+        """Creates a local `DeviceEnrollment` instance
 
         :param account_id: ID
         :type account_id: str
@@ -226,7 +226,7 @@ class EnrollmentClaim(Entity):
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/device-enrollments
         
-        :rtype: EnrollmentClaim
+        :rtype: DeviceEnrollment
         """
 
         return self._client.call_api(
@@ -242,7 +242,7 @@ class EnrollmentClaim(Entity):
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/device-enrollments/{id}
         
-        :rtype: EnrollmentClaim
+        :rtype: DeviceEnrollment
         """
 
         return self._client.call_api(
@@ -258,7 +258,7 @@ class EnrollmentClaim(Entity):
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/device-enrollments/{id}
         
-        :rtype: EnrollmentClaim
+        :rtype: DeviceEnrollment
         """
 
         return self._client.call_api(
@@ -268,37 +268,38 @@ class EnrollmentClaim(Entity):
             unpack=self,
         )
 
-    def list(self, after=None, include=None, limit=None, order="ASC"):
+    def list(self, include=None, max_results=None, page_size=None, order=None):
         """Get enrollment list.
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/device-enrollments
         
-        :param after: Entity ID to fetch after.
-        :type after: str
-        
         :param include: Comma-separated additional data to return. Currently supported:
             total_count.
         :type include: str
         
-        :param limit: Number of results to be returned. Between 2 and 1000, inclusive.
-        :type limit: int
+        :param max_results: Total maximum number of results to retrieve
+        :type max_results: int
+            
+        :param page_size: Number of results to be returned. Between 2 and 1000, inclusive.
+        :type page_size: int
         
         :param order: ASC or DESC
         :type order: str
         
-        :rtype: mbed_cloud.pagination.PaginatedResponse
+        :return: An iterator object which yields instances of an entity.
+        :rtype: mbed_cloud.pagination.PaginatedResponse(DeviceEnrollment)
         """
 
         from mbed_cloud.sdk.common._custom_methods import paginate
-        from mbed_cloud.sdk.entities import EnrollmentClaim
+        from mbed_cloud.sdk.entities import DeviceEnrollment
 
         return paginate(
             self=self,
-            foreign_key=EnrollmentClaim,
-            after=after,
+            foreign_key=DeviceEnrollment,
             include=include,
-            limit=limit,
+            max_results=max_results,
+            page_size=page_size,
             order=order,
             wraps=self._paginate_list,
         )
@@ -333,7 +334,7 @@ class EnrollmentClaim(Entity):
                 "include": fields.StringField(include).to_api(),
                 "limit": fields.IntegerField(limit).to_api(),
                 "order": fields.StringField(
-                    order, enum=enums.EnrollmentClaimOrderEnum
+                    order, enum=enums.DeviceEnrollmentOrderEnum
                 ).to_api(),
             },
             unpack=False,

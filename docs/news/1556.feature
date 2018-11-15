@@ -1,1 +1,0 @@
-[Beta] - adds support for SubtenantAccount objects and associated API endpoints, using new Foundation API.

@@ -12,10 +12,64 @@ from builtins import object
 from mbed_cloud.sdk.common.enum import BaseEnum
 
 
-class ApiKeyOrderEnum(BaseEnum):
-    """Represents the `ApiKeyOrderEnum` options
+class AccountMfaStatusEnum(BaseEnum):
+    """Represents expected values of `AccountMfaStatusEnum`
 
-    as used by Mbed Cloud "accounts" functionality
+    This is used by Mbed Cloud "accounts" functionality
+
+    Note: If new values are added to the enum in the API they will be passed through unchanged by
+    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
+    version.
+    """
+
+    ENFORCED = "enforced"
+    OPTIONAL = "optional"
+
+    values = frozenset(("enforced", "optional"))
+
+
+class AccountOrderEnum(BaseEnum):
+    """Represents expected values of `AccountOrderEnum`
+
+    This is used by Mbed Cloud "accounts" functionality
+
+    Note: If new values are added to the enum in the API they will be passed through unchanged by
+    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
+    version.
+    """
+
+    ASC = "ASC"
+    DESC = "DESC"
+
+    values = frozenset(("ASC", "DESC"))
+
+
+class AccountStatusEnum(BaseEnum):
+    """Represents expected values of `AccountStatusEnum`
+
+    This is used by Mbed Cloud "accounts" functionality
+
+    Note: If new values are added to the enum in the API they will be passed through unchanged by
+    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
+    version.
+    """
+
+    ACTIVE = "ACTIVE"
+    ENROLLING = "ENROLLING"
+    RESTRICTED = "RESTRICTED"
+    SUSPENDED = "SUSPENDED"
+
+    values = frozenset(("ACTIVE", "ENROLLING", "RESTRICTED", "SUSPENDED"))
+
+
+class ApiKeyOrderEnum(BaseEnum):
+    """Represents expected values of `ApiKeyOrderEnum`
+
+    This is used by Mbed Cloud "accounts" functionality
+
+    Note: If new values are added to the enum in the API they will be passed through unchanged by
+    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
+    version.
     """
 
     ASC = "ASC"
@@ -25,9 +79,13 @@ class ApiKeyOrderEnum(BaseEnum):
 
 
 class ApiKeyStatusEnum(BaseEnum):
-    """Represents the `ApiKeyStatusEnum` options
+    """Represents expected values of `ApiKeyStatusEnum`
 
-    as used by Mbed Cloud "accounts" functionality
+    This is used by Mbed Cloud "accounts" functionality
+
+    Note: If new values are added to the enum in the API they will be passed through unchanged by
+    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
+    version.
     """
 
     ACTIVE = "ACTIVE"
@@ -36,110 +94,49 @@ class ApiKeyStatusEnum(BaseEnum):
     values = frozenset(("ACTIVE", "INACTIVE"))
 
 
-class MyAccountMfaStatusEnum(BaseEnum):
-    """Represents the `MyAccountMfaStatusEnum` options
+class SubtenantUserStatusEnum(BaseEnum):
+    """Represents expected values of `SubtenantUserStatusEnum`
 
-    as used by Mbed Cloud "accounts" functionality
-    """
+    This is used by Mbed Cloud "accounts" functionality
 
-    ENFORCED = "enforced"
-    OPTIONAL = "optional"
-
-    values = frozenset(("enforced", "optional"))
-
-
-class MyAccountStatusEnum(BaseEnum):
-    """Represents the `MyAccountStatusEnum` options
-
-    as used by Mbed Cloud "accounts" functionality
+    Note: If new values are added to the enum in the API they will be passed through unchanged by
+    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
+    version.
     """
 
     ACTIVE = "ACTIVE"
     ENROLLING = "ENROLLING"
-    RESTRICTED = "RESTRICTED"
-    SUSPENDED = "SUSPENDED"
-
-    values = frozenset(("ACTIVE", "ENROLLING", "RESTRICTED", "SUSPENDED"))
-
-
-class MyApiKeyOrderEnum(BaseEnum):
-    """Represents the `MyApiKeyOrderEnum` options
-
-    as used by Mbed Cloud "accounts" functionality
-    """
-
-    ASC = "ASC"
-    DESC = "DESC"
-
-    values = frozenset(("ASC", "DESC"))
-
-
-class MyApiKeyStatusEnum(BaseEnum):
-    """Represents the `MyApiKeyStatusEnum` options
-
-    as used by Mbed Cloud "accounts" functionality
-    """
-
-    ACTIVE = "ACTIVE"
     INACTIVE = "INACTIVE"
+    INVITED = "INVITED"
+    RESET = "RESET"
 
-    values = frozenset(("ACTIVE", "INACTIVE"))
+    values = frozenset(("ACTIVE", "ENROLLING", "INACTIVE", "INVITED", "RESET"))
 
 
-class PolicyGroupOrderEnum(BaseEnum):
-    """Represents the `PolicyGroupOrderEnum` options
+class UserInvitationOrderEnum(BaseEnum):
+    """Represents expected values of `UserInvitationOrderEnum`
 
-    as used by Mbed Cloud "accounts" functionality
+    This is used by Mbed Cloud "accounts" functionality
+
+    Note: If new values are added to the enum in the API they will be passed through unchanged by
+    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
+    version.
     """
 
     ASC = "ASC"
     DESC = "DESC"
 
     values = frozenset(("ASC", "DESC"))
-
-
-class SubtenantAccountMfaStatusEnum(BaseEnum):
-    """Represents the `SubtenantAccountMfaStatusEnum` options
-
-    as used by Mbed Cloud "accounts" functionality
-    """
-
-    ENFORCED = "enforced"
-    OPTIONAL = "optional"
-
-    values = frozenset(("enforced", "optional"))
-
-
-class SubtenantAccountOrderEnum(BaseEnum):
-    """Represents the `SubtenantAccountOrderEnum` options
-
-    as used by Mbed Cloud "accounts" functionality
-    """
-
-    ASC = "ASC"
-    DESC = "DESC"
-
-    values = frozenset(("ASC", "DESC"))
-
-
-class SubtenantAccountStatusEnum(BaseEnum):
-    """Represents the `SubtenantAccountStatusEnum` options
-
-    as used by Mbed Cloud "accounts" functionality
-    """
-
-    ACTIVE = "ACTIVE"
-    ENROLLING = "ENROLLING"
-    RESTRICTED = "RESTRICTED"
-    SUSPENDED = "SUSPENDED"
-
-    values = frozenset(("ACTIVE", "ENROLLING", "RESTRICTED", "SUSPENDED"))
 
 
 class UserOrderEnum(BaseEnum):
-    """Represents the `UserOrderEnum` options
+    """Represents expected values of `UserOrderEnum`
 
-    as used by Mbed Cloud "accounts" functionality
+    This is used by Mbed Cloud "accounts" functionality
+
+    Note: If new values are added to the enum in the API they will be passed through unchanged by
+    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
+    version.
     """
 
     ASC = "ASC"
@@ -149,9 +146,13 @@ class UserOrderEnum(BaseEnum):
 
 
 class UserStatusEnum(BaseEnum):
-    """Represents the `UserStatusEnum` options
+    """Represents expected values of `UserStatusEnum`
 
-    as used by Mbed Cloud "accounts" functionality
+    This is used by Mbed Cloud "accounts" functionality
+
+    Note: If new values are added to the enum in the API they will be passed through unchanged by
+    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
+    version.
     """
 
     ACTIVE = "ACTIVE"

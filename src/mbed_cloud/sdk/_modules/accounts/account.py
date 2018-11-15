@@ -14,8 +14,8 @@ from mbed_cloud.sdk.common import fields
 from mbed_cloud.sdk import enums
 
 
-class SubtenantAccount(Entity):
-    """Represents the `SubtenantAccount` entity in Mbed Cloud"""
+class Account(Entity):
+    """Represents the `Account` entity in Mbed Cloud"""
 
     # all fields available on this entity
     _fieldnames = [
@@ -55,7 +55,6 @@ class SubtenantAccount(Entity):
         "sales_contact",
         "state",
         "status",
-        "sub_accounts",
         "template_id",
         "tier",
         "updated_at",
@@ -104,13 +103,12 @@ class SubtenantAccount(Entity):
         sales_contact=None,
         state=None,
         status=None,
-        sub_accounts=None,
         template_id=None,
         tier=None,
         updated_at=None,
         upgraded_at=None,
     ):
-        """Creates a local `SubtenantAccount` instance
+        """Creates a local `Account` instance
 
         :param address_line1: Postal address line 1.
         :type address_line1: str
@@ -190,8 +188,6 @@ class SubtenantAccount(Entity):
         :type state: str
         :param status: The status of the account.
         :type status: str
-        :param sub_accounts: List of sub accounts. Not available for developer users.
-        :type sub_accounts: list
         :param template_id: Account template ID.
         :type template_id: str
         :param tier: The tier level of the account; '0': free tier, '1': commercial
@@ -209,6 +205,7 @@ class SubtenantAccount(Entity):
         # inline imports for avoiding circular references and bulk imports
 
         from mbed_cloud.sdk._modules.accounts.password_policy import PasswordPolicy
+        from mbed_cloud.sdk._modules.accounts.policy import Policy
 
         # fields
         self._address_line1 = fields.StringField(value=address_line1)
@@ -238,7 +235,7 @@ class SubtenantAccount(Entity):
         self._idle_timeout = fields.StringField(value=idle_timeout)
         self._limits = fields.DictField(value=limits)
         self._mfa_status = fields.StringField(
-            value=mfa_status, enum=enums.SubtenantAccountMfaStatusEnum
+            value=mfa_status, enum=enums.AccountMfaStatusEnum
         )
         self._notification_emails = fields.ListField(value=notification_emails)
         self._parent_id = fields.StringField(value=parent_id)
@@ -246,18 +243,13 @@ class SubtenantAccount(Entity):
             value=password_policy, entity=PasswordPolicy
         )
         self._phone_number = fields.StringField(value=phone_number)
-        self._policies = fields.ListField(value=policies)
+        self._policies = fields.ListField(value=policies, entity=Policy)
         self._postal_code = fields.StringField(value=postal_code)
         self._reason = fields.StringField(value=reason)
         self._reference_note = fields.StringField(value=reference_note)
         self._sales_contact = fields.StringField(value=sales_contact)
         self._state = fields.StringField(value=state)
-        self._status = fields.StringField(
-            value=status, enum=enums.SubtenantAccountStatusEnum
-        )
-        self._sub_accounts = fields.ListField(
-            value=sub_accounts, entity=SubtenantAccount
-        )
+        self._status = fields.StringField(value=status, enum=enums.AccountStatusEnum)
         self._template_id = fields.StringField(value=template_id)
         self._tier = fields.StringField(value=tier)
         self._updated_at = fields.DateTimeField(value=updated_at)
@@ -870,7 +862,7 @@ class SubtenantAccount(Entity):
     def policies(self):
         """List of policies if requested.
         
-        :rtype: list
+        :rtype: list[Policy]
         """
 
         return self._policies.value
@@ -880,7 +872,7 @@ class SubtenantAccount(Entity):
         """Set value of `policies`
 
         :param value: value to set
-        :type value: list
+        :type value: list[Policy]
         """
 
         self._policies.set(value)
@@ -1012,25 +1004,6 @@ class SubtenantAccount(Entity):
         self._status.set(value)
 
     @property
-    def sub_accounts(self):
-        """List of sub accounts. Not available for developer users.
-        
-        :rtype: list[SubtenantAccount]
-        """
-
-        return self._sub_accounts.value
-
-    @sub_accounts.setter
-    def sub_accounts(self, value):
-        """Set value of `sub_accounts`
-
-        :param value: value to set
-        :type value: list[SubtenantAccount]
-        """
-
-        self._sub_accounts.set(value)
-
-    @property
     def template_id(self):
         """Account template ID.
         
@@ -1115,42 +1088,6 @@ class SubtenantAccount(Entity):
 
         self._upgraded_at.set(value)
 
-    def api_keys(self, after=None, include=None, limit=50, order="ASC"):
-        """Get all API keys.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/api-keys
-        
-        :param after: The entity ID to fetch after the given one.
-        :type after: str
-        
-        :param include: Comma separated additional data to return. Currently supported:
-            total_count
-        :type include: str
-        
-        :param limit: The number of results to return (2-1000), default is 50.
-        :type limit: int
-        
-        :param order: The order of the records based on creation time, ASC or DESC; by
-            default ASC
-        :type order: str
-        
-        :rtype: mbed_cloud.pagination.PaginatedResponse
-        """
-
-        from mbed_cloud.sdk.common._custom_methods import paginate
-        from mbed_cloud.sdk.entities import ApiKey
-
-        return paginate(
-            self=self,
-            foreign_key=ApiKey,
-            after=after,
-            include=include,
-            limit=limit,
-            order=order,
-            wraps=self._paginate_api_keys,
-        )
-
     def create(self, action="create"):
         """Create a new account.
 
@@ -1168,7 +1105,7 @@ class SubtenantAccount(Entity):
             request. </li></ul>
         :type action: str
         
-        :rtype: SubtenantAccount
+        :rtype: Account
         """
 
         return self._client.call_api(
@@ -1199,21 +1136,6 @@ class SubtenantAccount(Entity):
             unpack=self,
         )
 
-    def create_user(self, user):
-        """Add a user to this subtenant
-
-        
-        
-        :param user: A user entity
-        :type user: mbed_cloud.sdk.User
-        
-        :rtype: User
-        """
-
-        user.account_id = self.id
-
-        return user.create()
-
     def get(self, include=None, properties=None):
         """Get account info.
 
@@ -1227,7 +1149,7 @@ class SubtenantAccount(Entity):
         :param properties: Property name to be returned from account specific properties.
         :type properties: str
         
-        :rtype: SubtenantAccount
+        :rtype: Account
         """
 
         return self._client.call_api(
@@ -1241,58 +1163,11 @@ class SubtenantAccount(Entity):
             unpack=self,
         )
 
-    def groups(self, after=None, include=None, limit=50, order="ASC"):
-        """Get all group information.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/policy-groups
-        
-        :param after: The entity ID to fetch after the given one.
-        :type after: str
-        
-        :param include: Comma separated additional data to return. Currently supported:
-            total_count
-        :type include: str
-        
-        :param limit: The number of results to return (2-1000), default is 50.
-        :type limit: int
-        
-        :param order: The order of the records based on creation time, ASC or DESC; by
-            default ASC
-        :type order: str
-        
-        :rtype: mbed_cloud.pagination.PaginatedResponse
-        """
-
-        from mbed_cloud.sdk.common._custom_methods import paginate
-        from mbed_cloud.sdk.entities import PolicyGroup
-
-        return paginate(
-            self=self,
-            foreign_key=PolicyGroup,
-            after=after,
-            include=include,
-            limit=limit,
-            order=order,
-            wraps=self._paginate_groups,
-        )
-
-    def list(
-        self,
-        after=None,
-        format=None,
-        include=None,
-        limit=1000,
-        order="ASC",
-        properties=None,
-    ):
+    def list(self, include=None, max_results=None, page_size=None, order=None):
         """Get all accounts.
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/accounts
-        
-        :param after: The entity ID to fetch after the given one.
-        :type after: str
         
         :param format: Format information for the response to the query, supported:
             format=breakdown.
@@ -1302,8 +1177,11 @@ class SubtenantAccount(Entity):
             limits, policies, sub_accounts
         :type include: str
         
-        :param limit: The number of results to return (2-1000), default is 1000.
-        :type limit: int
+        :param max_results: Total maximum number of results to retrieve
+        :type max_results: int
+            
+        :param page_size: The number of results to return (2-1000), default is 1000.
+        :type page_size: int
         
         :param order: The order of the records based on creation time, ASC or DESC. Default
             value is ASC
@@ -1312,98 +1190,46 @@ class SubtenantAccount(Entity):
         :param properties: Property name to be returned from account specific properties.
         :type properties: str
         
-        :rtype: mbed_cloud.pagination.PaginatedResponse
+        :return: An iterator object which yields instances of an entity.
+        :rtype: mbed_cloud.pagination.PaginatedResponse(Account)
         """
 
         from mbed_cloud.sdk.common._custom_methods import paginate
-        from mbed_cloud.sdk.entities import SubtenantAccount
 
         return paginate(
             self=self,
-            foreign_key=SubtenantAccount,
-            after=after,
-            format=format,
+            foreign_key=self.__class__,
             include=include,
-            limit=limit,
+            max_results=max_results,
+            page_size=page_size,
             order=order,
-            properties=properties,
             wraps=self._paginate_list,
         )
 
-    def _paginate_api_keys(self, after=None, include=None, limit=50, order="ASC"):
-        """Get all API keys.
+    def me(self, include=None, properties=None):
+        """Get account info.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/api-keys
-        
-        :param after: The entity ID to fetch after the given one.
-        :type after: str
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/me
         
         :param include: Comma separated additional data to return. Currently supported:
-            total_count
+            limits, policies, sub_accounts.
         :type include: str
         
-        :param limit: The number of results to return (2-1000), default is 50.
-        :type limit: int
+        :param properties: Property name to be returned from account specific properties.
+        :type properties: str
         
-        :param order: The order of the records based on creation time, ASC or DESC; by
-            default ASC
-        :type order: str
-        
-        :rtype: mbed_cloud.pagination.PaginatedResponse
+        :rtype: Account
         """
 
         return self._client.call_api(
             method="get",
-            path="/v3/accounts/{accountID}/api-keys",
-            path_params={"accountID": self._id.to_api()},
+            path="/v3/accounts/me",
             query_params={
-                "after": fields.StringField(after).to_api(),
                 "include": fields.StringField(include).to_api(),
-                "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(
-                    order, enum=enums.SubtenantAccountOrderEnum
-                ).to_api(),
+                "properties": fields.StringField(properties).to_api(),
             },
-            unpack=False,
-        )
-
-    def _paginate_groups(self, after=None, include=None, limit=50, order="ASC"):
-        """Get all group information.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/policy-groups
-        
-        :param after: The entity ID to fetch after the given one.
-        :type after: str
-        
-        :param include: Comma separated additional data to return. Currently supported:
-            total_count
-        :type include: str
-        
-        :param limit: The number of results to return (2-1000), default is 50.
-        :type limit: int
-        
-        :param order: The order of the records based on creation time, ASC or DESC; by
-            default ASC
-        :type order: str
-        
-        :rtype: mbed_cloud.pagination.PaginatedResponse
-        """
-
-        return self._client.call_api(
-            method="get",
-            path="/v3/accounts/{accountID}/policy-groups",
-            path_params={"accountID": self._id.to_api()},
-            query_params={
-                "after": fields.StringField(after).to_api(),
-                "include": fields.StringField(include).to_api(),
-                "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(
-                    order, enum=enums.SubtenantAccountOrderEnum
-                ).to_api(),
-            },
-            unpack=False,
+            unpack=self,
         )
 
     def _paginate_list(
@@ -1453,9 +1279,82 @@ class SubtenantAccount(Entity):
                 "include": fields.StringField(include).to_api(),
                 "limit": fields.IntegerField(limit).to_api(),
                 "order": fields.StringField(
-                    order, enum=enums.SubtenantAccountOrderEnum
+                    order, enum=enums.AccountOrderEnum
                 ).to_api(),
                 "properties": fields.StringField(properties).to_api(),
+            },
+            unpack=False,
+        )
+
+    def _paginate_trusted_certificates(
+        self, after=None, include=None, limit=50, order="ASC"
+    ):
+        """Get all trusted certificates.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/trusted-certificates
+        
+        :param after: The entity ID to fetch after the given one.
+        :type after: str
+        
+        :param include: Comma separated additional data to return. Currently supported:
+            total_count
+        :type include: str
+        
+        :param limit: The number of results to return (2-1000), default is 50.
+        :type limit: int
+        
+        :param order: The order of the records based on creation time, ASC or DESC; by
+            default ASC
+        :type order: str
+        
+        :rtype: mbed_cloud.pagination.PaginatedResponse
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/accounts/{accountID}/trusted-certificates",
+            path_params={"accountID": self._id.to_api()},
+            query_params={
+                "after": fields.StringField(after).to_api(),
+                "include": fields.StringField(include).to_api(),
+                "limit": fields.IntegerField(limit).to_api(),
+                "order": fields.StringField(
+                    order, enum=enums.AccountOrderEnum
+                ).to_api(),
+            },
+            unpack=False,
+        )
+
+    def _paginate_user_invitations(self, after=None, limit=50, order="ASC", **kwargs):
+        """Get the details of all the user invitations.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account-id}/user-invitations
+        
+        :param after: The entity ID to fetch after the given one.
+        :type after: str
+        
+        :param limit: The number of results to return (2-1000), default is 50.
+        :type limit: int
+        
+        :param order: The order of the records based on creation time, ASC or DESC; by
+            default ASC
+        :type order: str
+        
+        :rtype: mbed_cloud.pagination.PaginatedResponse
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/accounts/{account-id}/user-invitations",
+            path_params={"account-id": self._id.to_api()},
+            query_params={
+                "after": fields.StringField(after).to_api(),
+                "limit": fields.IntegerField(limit).to_api(),
+                "order": fields.StringField(
+                    order, enum=enums.AccountOrderEnum
+                ).to_api(),
             },
             unpack=False,
         )
@@ -1492,10 +1391,49 @@ class SubtenantAccount(Entity):
                 "include": fields.StringField(include).to_api(),
                 "limit": fields.IntegerField(limit).to_api(),
                 "order": fields.StringField(
-                    order, enum=enums.SubtenantAccountOrderEnum
+                    order, enum=enums.AccountOrderEnum
                 ).to_api(),
             },
             unpack=False,
+        )
+
+    def trusted_certificates(
+        self, include=None, max_results=None, page_size=None, order=None
+    ):
+        """Get all trusted certificates.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/trusted-certificates
+        
+        :param include: Comma separated additional data to return. Currently supported:
+            total_count
+        :type include: str
+        
+        :param max_results: Total maximum number of results to retrieve
+        :type max_results: int
+            
+        :param page_size: The number of results to return (2-1000), default is 50.
+        :type page_size: int
+        
+        :param order: The order of the records based on creation time, ASC or DESC; by
+            default ASC
+        :type order: str
+        
+        :return: An iterator object which yields instances of an entity.
+        :rtype: mbed_cloud.pagination.PaginatedResponse(SubtenantTrustedCertificate)
+        """
+
+        from mbed_cloud.sdk.common._custom_methods import paginate
+        from mbed_cloud.sdk.entities import SubtenantTrustedCertificate
+
+        return paginate(
+            self=self,
+            foreign_key=SubtenantTrustedCertificate,
+            include=include,
+            max_results=max_results,
+            page_size=page_size,
+            order=order,
+            wraps=self._paginate_trusted_certificates,
         )
 
     def update(self):
@@ -1504,7 +1442,7 @@ class SubtenantAccount(Entity):
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}
         
-        :rtype: SubtenantAccount
+        :rtype: Account
         """
 
         return self._client.call_api(
@@ -1538,38 +1476,74 @@ class SubtenantAccount(Entity):
             unpack=self,
         )
 
-    def users(self, after=None, include=None, limit=50, order="ASC"):
-        """Get all user details.
+    def user_invitations(
+        self, include=None, max_results=None, page_size=None, order=None
+    ):
+        """Get the details of all the user invitations.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/users
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account-id}/user-invitations
         
-        :param after: The entity ID to fetch after the given one.
-        :type after: str
-        
-        :param include: Comma separated additional data to return. Currently supported:
-            total_count
-        :type include: str
-        
-        :param limit: The number of results to return (2-1000), default is 50.
-        :type limit: int
+        :param max_results: Total maximum number of results to retrieve
+        :type max_results: int
+            
+        :param page_size: The number of results to return (2-1000), default is 50.
+        :type page_size: int
         
         :param order: The order of the records based on creation time, ASC or DESC; by
             default ASC
         :type order: str
         
-        :rtype: mbed_cloud.pagination.PaginatedResponse
+        :return: An iterator object which yields instances of an entity.
+        :rtype: mbed_cloud.pagination.PaginatedResponse(SubtenantUserInvitation)
         """
 
         from mbed_cloud.sdk.common._custom_methods import paginate
-        from mbed_cloud.sdk.entities import User
+        from mbed_cloud.sdk.entities import SubtenantUserInvitation
 
         return paginate(
             self=self,
-            foreign_key=User,
-            after=after,
+            foreign_key=SubtenantUserInvitation,
             include=include,
-            limit=limit,
+            max_results=max_results,
+            page_size=page_size,
+            order=order,
+            wraps=self._paginate_user_invitations,
+        )
+
+    def users(self, include=None, max_results=None, page_size=None, order=None):
+        """Get all user details.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/users
+        
+        :param include: Comma separated additional data to return. Currently supported:
+            total_count
+        :type include: str
+        
+        :param max_results: Total maximum number of results to retrieve
+        :type max_results: int
+            
+        :param page_size: The number of results to return (2-1000), default is 50.
+        :type page_size: int
+        
+        :param order: The order of the records based on creation time, ASC or DESC; by
+            default ASC
+        :type order: str
+        
+        :return: An iterator object which yields instances of an entity.
+        :rtype: mbed_cloud.pagination.PaginatedResponse(SubtenantUser)
+        """
+
+        from mbed_cloud.sdk.common._custom_methods import paginate
+        from mbed_cloud.sdk.entities import SubtenantUser
+
+        return paginate(
+            self=self,
+            foreign_key=SubtenantUser,
+            include=include,
+            max_results=max_results,
+            page_size=page_size,
             order=order,
             wraps=self._paginate_users,
         )

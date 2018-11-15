@@ -14,8 +14,8 @@ from mbed_cloud.sdk.common import fields
 from mbed_cloud.sdk import enums
 
 
-class TrustedCertificate(Entity):
-    """Represents the `TrustedCertificate` entity in Mbed Cloud"""
+class SubtenantTrustedCertificate(Entity):
+    """Represents the `SubtenantTrustedCertificate` entity in Mbed Cloud"""
 
     # all fields available on this entity
     _fieldnames = [
@@ -59,7 +59,7 @@ class TrustedCertificate(Entity):
         updated_at=None,
         validity=None,
     ):
-        """Creates a local `TrustedCertificate` instance
+        """Creates a local `SubtenantTrustedCertificate` instance
 
         :param account_id: The UUID of the account.
         :type account_id: str
@@ -112,10 +112,10 @@ class TrustedCertificate(Entity):
         self._name = fields.StringField(value=name)
         self._owner_id = fields.StringField(value=owner_id)
         self._service = fields.StringField(
-            value=service, enum=enums.TrustedCertificateServiceEnum
+            value=service, enum=enums.SubtenantTrustedCertificateServiceEnum
         )
         self._status = fields.StringField(
-            value=status, enum=enums.TrustedCertificateStatusEnum
+            value=status, enum=enums.SubtenantTrustedCertificateStatusEnum
         )
         self._subject = fields.StringField(value=subject)
         self._updated_at = fields.DateTimeField(value=updated_at)
@@ -445,17 +445,17 @@ class TrustedCertificate(Entity):
         self._validity.set(value)
 
     def create(self):
-        """Upload a new trusted certificate.
+        """Upload new trusted certificate.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/trusted-certificates
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/trusted-certificates
         
-        :rtype: TrustedCertificate
+        :rtype: SubtenantTrustedCertificate
         """
 
         return self._client.call_api(
             method="post",
-            path="/v3/trusted-certificates",
+            path="/v3/accounts/{accountID}/trusted-certificates",
             body_params={
                 "certificate": self._certificate.to_api(),
                 "description": self._description.to_api(),
@@ -464,22 +464,26 @@ class TrustedCertificate(Entity):
                 "service": self._service.to_api(),
                 "status": self._status.to_api(),
             },
+            path_params={"accountID": self._account_id.to_api()},
             unpack=self,
         )
 
     def delete(self):
-        """Delete a trusted certificate by ID.
+        """Delete trusted certificate by ID.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/trusted-certificates/{cert-id}
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/trusted-certificates/{cert-id}
         
-        :rtype: TrustedCertificate
+        :rtype: SubtenantTrustedCertificate
         """
 
         return self._client.call_api(
             method="delete",
-            path="/v3/trusted-certificates/{cert-id}",
-            path_params={"cert-id": self._id.to_api()},
+            path="/v3/accounts/{accountID}/trusted-certificates/{cert-id}",
+            path_params={
+                "accountID": self._account_id.to_api(),
+                "cert-id": self._id.to_api(),
+            },
             unpack=self,
         )
 
@@ -505,104 +509,33 @@ class TrustedCertificate(Entity):
         """Get trusted certificate by ID.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/trusted-certificates/{cert-id}
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/trusted-certificates/{cert-id}
         
-        :rtype: TrustedCertificate
+        :rtype: SubtenantTrustedCertificate
         """
 
         return self._client.call_api(
             method="get",
-            path="/v3/trusted-certificates/{cert-id}",
-            path_params={"cert-id": self._id.to_api()},
-            unpack=self,
-        )
-
-    def list(self, include=None, max_results=None, page_size=None, order=None):
-        """Get all trusted certificates.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/trusted-certificates
-        
-        :param include: Comma separated additional data to return. Currently supported:
-            total_count
-        :type include: str
-        
-        :param max_results: Total maximum number of results to retrieve
-        :type max_results: int
-            
-        :param page_size: The number of results to return (2-1000), default is 50.
-        :type page_size: int
-        
-        :param order: The order of the records based on creation time, ASC or DESC; by
-            default ASC
-        :type order: str
-        
-        :return: An iterator object which yields instances of an entity.
-        :rtype: mbed_cloud.pagination.PaginatedResponse(TrustedCertificate)
-        """
-
-        from mbed_cloud.sdk.common._custom_methods import paginate
-        from mbed_cloud.sdk.entities import TrustedCertificate
-
-        return paginate(
-            self=self,
-            foreign_key=TrustedCertificate,
-            include=include,
-            max_results=max_results,
-            page_size=page_size,
-            order=order,
-            wraps=self._paginate_list,
-        )
-
-    def _paginate_list(self, after=None, include=None, limit=50, order="ASC"):
-        """Get all trusted certificates.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/trusted-certificates
-        
-        :param after: The entity ID to fetch after the given one.
-        :type after: str
-        
-        :param include: Comma separated additional data to return. Currently supported:
-            total_count
-        :type include: str
-        
-        :param limit: The number of results to return (2-1000), default is 50.
-        :type limit: int
-        
-        :param order: The order of the records based on creation time, ASC or DESC; by
-            default ASC
-        :type order: str
-        
-        :rtype: mbed_cloud.pagination.PaginatedResponse
-        """
-
-        return self._client.call_api(
-            method="get",
-            path="/v3/trusted-certificates",
-            query_params={
-                "after": fields.StringField(after).to_api(),
-                "include": fields.StringField(include).to_api(),
-                "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(
-                    order, enum=enums.TrustedCertificateOrderEnum
-                ).to_api(),
+            path="/v3/accounts/{accountID}/trusted-certificates/{cert-id}",
+            path_params={
+                "accountID": self._account_id.to_api(),
+                "cert-id": self._id.to_api(),
             },
-            unpack=False,
+            unpack=self,
         )
 
     def update(self):
         """Update trusted certificate.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/trusted-certificates/{cert-id}
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/trusted-certificates/{cert-id}
         
-        :rtype: TrustedCertificate
+        :rtype: SubtenantTrustedCertificate
         """
 
         return self._client.call_api(
             method="put",
-            path="/v3/trusted-certificates/{cert-id}",
+            path="/v3/accounts/{accountID}/trusted-certificates/{cert-id}",
             body_params={
                 "certificate": self._certificate.to_api(),
                 "description": self._description.to_api(),
@@ -611,6 +544,9 @@ class TrustedCertificate(Entity):
                 "service": self._service.to_api(),
                 "status": self._status.to_api(),
             },
-            path_params={"cert-id": self._id.to_api()},
+            path_params={
+                "accountID": self._account_id.to_api(),
+                "cert-id": self._id.to_api(),
+            },
             unpack=self,
         )

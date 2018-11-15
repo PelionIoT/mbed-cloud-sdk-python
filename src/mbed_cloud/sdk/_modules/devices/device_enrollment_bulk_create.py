@@ -14,8 +14,8 @@ from mbed_cloud.sdk.common import fields
 from mbed_cloud.sdk import enums
 
 
-class EnrollmentBulkDeleteTask(Entity):
-    """Represents the `EnrollmentBulkDeleteTask` entity in Mbed Cloud"""
+class DeviceEnrollmentBulkCreate(Entity):
+    """Represents the `DeviceEnrollmentBulkCreate` entity in Mbed Cloud"""
 
     # all fields available on this entity
     _fieldnames = [
@@ -48,7 +48,7 @@ class EnrollmentBulkDeleteTask(Entity):
         status=None,
         total_count=None,
     ):
-        """Creates a local `EnrollmentBulkDeleteTask` instance
+        """Creates a local `DeviceEnrollmentBulkCreate` instance
 
         :param account_id: ID
         :type account_id: str
@@ -89,7 +89,7 @@ class EnrollmentBulkDeleteTask(Entity):
         self._id = fields.StringField(value=id)
         self._processed_count = fields.IntegerField(value=processed_count)
         self._status = fields.StringField(
-            value=status, enum=enums.EnrollmentBulkDeleteTaskStatusEnum
+            value=status, enum=enums.DeviceEnrollmentBulkCreateStatusEnum
         )
         self._total_count = fields.IntegerField(value=total_count)
 
@@ -297,22 +297,22 @@ class EnrollmentBulkDeleteTask(Entity):
 
         self._total_count.set(value)
 
-    def delete(self, enrollment_identities):
-        """Bulk delete
+    def create(self, enrollment_identities):
+        """Bulk upload
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/device-enrollments-bulk-deletes
+        https://os.mbed.com/search/?q=service+apis+/v3/device-enrollments-bulk-uploads
         
         :param enrollment_identities: The `CSV` file containing the enrollment IDs. The maximum file size is
             10MB.
         :type enrollment_identities: file
         
-        :rtype: EnrollmentBulkDeleteTask
+        :rtype: DeviceEnrollmentBulkCreate
         """
 
         return self._client.call_api(
             method="post",
-            path="/v3/device-enrollments-bulk-deletes",
+            path="/v3/device-enrollments-bulk-uploads",
             stream_params={
                 "enrollment_identities": fields.FileField(
                     enrollment_identities
@@ -321,18 +321,42 @@ class EnrollmentBulkDeleteTask(Entity):
             unpack=self,
         )
 
+    def download_errors_report_file(self):
+        """Download the error report file for the created the bulk enrollment.
+
+        
+        
+        :rtype: file
+        """
+
+        from mbed_cloud.sdk.common._custom_methods import download_errors_report_file
+
+        return download_errors_report_file(self=self, foreign_key=self.__class__)
+
+    def download_full_report_file(self):
+        """Download the full report file for the created of the bulk enrollment.
+
+        
+        
+        :rtype: file
+        """
+
+        from mbed_cloud.sdk.common._custom_methods import download_full_report_file
+
+        return download_full_report_file(self=self, foreign_key=self.__class__)
+
     def get(self):
-        """Get bulk delete entity
+        """Get bulk upload entity
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/device-enrollments-bulk-deletes/{id}
+        https://os.mbed.com/search/?q=service+apis+/v3/device-enrollments-bulk-uploads/{id}
         
-        :rtype: EnrollmentBulkDeleteTask
+        :rtype: DeviceEnrollmentBulkCreate
         """
 
         return self._client.call_api(
             method="get",
-            path="/v3/device-enrollments-bulk-deletes/{id}",
+            path="/v3/device-enrollments-bulk-uploads/{id}",
             path_params={"id": self._id.to_api()},
             unpack=self,
         )

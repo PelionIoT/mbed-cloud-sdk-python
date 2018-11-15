@@ -20,24 +20,22 @@ class CertificateIssuerConfig(Entity):
     # all fields available on this entity
     _fieldnames = [
         "certificate_issuer_id",
+        "certificate_reference",
         "created_at",
         "id",
-        "is_custom",
-        "reference",
         "updated_at",
     ]
 
     # common renames used when mapping {<API spec>: <SDK>}
-    _renames = {"certificate-issuer-configuration-id": "id"}
+    _renames = {"reference": "certificate_reference"}
 
     def __init__(
         self,
         _client=None,
         certificate_issuer_id=None,
+        certificate_reference=None,
         created_at=None,
         id=None,
-        is_custom=None,
-        reference=None,
         updated_at=None,
     ):
         """Creates a local `CertificateIssuerConfig` instance
@@ -46,15 +44,13 @@ class CertificateIssuerConfig(Entity):
             Null if Device Management
             internal HSM is used.
         :type certificate_issuer_id: str
+        :param certificate_reference: The certificate name to which the certificate issuer configuration
+            applies.
+        :type certificate_reference: str
         :param created_at: Created UTC time RFC3339.
         :type created_at: datetime
         :param id: The ID of the certificate issuer configuration.
         :type id: str
-        :param is_custom: 
-        :type is_custom: bool
-        :param reference: The certificate name to which the certificate issuer configuration
-            applies.
-        :type reference: str
         :param updated_at: Updated UTC time RFC3339.
         :type updated_at: datetime
         """
@@ -65,10 +61,9 @@ class CertificateIssuerConfig(Entity):
 
         # fields
         self._certificate_issuer_id = fields.StringField(value=certificate_issuer_id)
+        self._certificate_reference = fields.StringField(value=certificate_reference)
         self._created_at = fields.DateTimeField(value=created_at)
         self._id = fields.StringField(value=id)
-        self._is_custom = fields.BooleanField(value=is_custom)
-        self._reference = fields.StringField(value=reference)
         self._updated_at = fields.DateTimeField(value=updated_at)
 
     @property
@@ -93,6 +88,27 @@ class CertificateIssuerConfig(Entity):
         """
 
         self._certificate_issuer_id.set(value)
+
+    @property
+    def certificate_reference(self):
+        """The certificate name to which the certificate issuer configuration applies.
+        
+        api example: 'customer.dlms'
+        
+        :rtype: str
+        """
+
+        return self._certificate_reference.value
+
+    @certificate_reference.setter
+    def certificate_reference(self, value):
+        """Set value of `certificate_reference`
+
+        :param value: value to set
+        :type value: str
+        """
+
+        self._certificate_reference.set(value)
 
     @property
     def created_at(self):
@@ -137,48 +153,6 @@ class CertificateIssuerConfig(Entity):
         self._id.set(value)
 
     @property
-    def is_custom(self):
-        """
-        
-        api example: True
-        
-        :rtype: bool
-        """
-
-        return self._is_custom.value
-
-    @is_custom.setter
-    def is_custom(self, value):
-        """Set value of `is_custom`
-
-        :param value: value to set
-        :type value: bool
-        """
-
-        self._is_custom.set(value)
-
-    @property
-    def reference(self):
-        """The certificate name to which the certificate issuer configuration applies.
-        
-        api example: 'customer.dlms'
-        
-        :rtype: str
-        """
-
-        return self._reference.value
-
-    @reference.setter
-    def reference(self, value):
-        """Set value of `reference`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._reference.set(value)
-
-    @property
     def updated_at(self):
         """Updated UTC time RFC3339.
         
@@ -213,7 +187,7 @@ class CertificateIssuerConfig(Entity):
             path="/v3/certificate-issuer-configurations",
             body_params={
                 "certificate_issuer_id": self._certificate_issuer_id.to_api(),
-                "reference": self._reference.to_api(),
+                "reference": self._certificate_reference.to_api(),
             },
             unpack=self,
         )
@@ -250,23 +224,45 @@ class CertificateIssuerConfig(Entity):
             unpack=self,
         )
 
-    def list(self):
+    def list(self, include=None, max_results=None, page_size=None, order=None):
         """Get certificate issuer configurations.
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/certificate-issuer-configurations
         
-        :rtype: mbed_cloud.pagination.PaginatedResponse
+        :return: An iterator object which yields instances of an entity.
+        :rtype: mbed_cloud.pagination.PaginatedResponse(CertificateIssuerConfig)
         """
 
         from mbed_cloud.sdk.common._custom_methods import paginate
         from mbed_cloud.sdk.entities import CertificateIssuerConfig
 
         return paginate(
-            self=self, foreign_key=CertificateIssuerConfig, wraps=self._paginate_list
+            self=self,
+            foreign_key=CertificateIssuerConfig,
+            include=include,
+            max_results=max_results,
+            page_size=page_size,
+            order=order,
+            wraps=self._paginate_list,
         )
 
-    def _paginate_list(self):
+    def lwm2m(self):
+        """Get certificate issuer configuration.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/certificate-issuer-configurations/lwm2m
+        
+        :rtype: CertificateIssuerConfig
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/certificate-issuer-configurations/lwm2m",
+            unpack=self,
+        )
+
+    def _paginate_list(self, **kwargs):
         """Get certificate issuer configurations.
 
         api documentation:

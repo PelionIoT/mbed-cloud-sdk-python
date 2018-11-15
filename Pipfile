@@ -8,6 +8,7 @@ name = "pypi"
 mbed_cloud_sdk = {editable = true, path = "."}
 
 [dev-packages]
+markupsafe = "==1.0"
 coverage = "*"
 flake8 = "*"
 flake8-copyright = "*"

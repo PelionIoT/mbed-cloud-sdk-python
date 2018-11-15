@@ -97,43 +97,62 @@ class {{ entity._key|to_pascal }}(Entity):
 
     {% for method in entity.methods|sort(attribute='_key') %}
     {# Determine the return type of the method, it may be a paginated response, the entity itself of a foreign key #}
+    {% set return_type = method.python_return_type %}
     {% if method.pagination %}
-        {% set return_type = "mbed_cloud.pagination.PaginatedResponse" %}
         {% set unpack_type = false %}
         {% set foreign_key_import = false %}
-    {% elif method.foreign_key %}
-        {% set return_type = method.foreign_key.entity|to_pascal %}
-        {% set unpack_type = return_type %}
-        {% set foreign_key_import = true %}
-    {% elif method.defer_to_foreign_key_field %}
-        {% set return_type = method.defer_to_foreign_key_field.foreign_key.entity|to_pascal %}
-        {% set unpack_type = return_type %}
-        {% set foreign_key_import = true %}
-    {% else %}
-        {% set return_type = entity._key|to_pascal %}
+        {% if not return_type %}
+            {% set return_type = "mbed_cloud.pagination." + "PaginatedResponse" %}
+        {% else %}
+            {% set return_type = "mbed_cloud.pagination." + return_type %}
+        {% endif %}
+    {% elif entity._key == method.return_type %}
         {% set unpack_type = "self" %}
         {% set foreign_key_import = false %}
+    {% else %}
+        {% set unpack_type = return_type %}
+        {% set foreign_key_import = true %}
+
     {% endif %}
     def {% if method.private_method %}_{% endif %}{{method._key|to_snake}}(
-        self
-        {% for field in method.fields|sort_parg_kwarg %}
-            {% if field.external_param %},
-                {% if field.required %}
-                    {{field._key|to_snake}}
-                {% else %}
-                    {{field._key|to_snake}}={{ field.default|repr }}
+        {% if method.pagination and method.custom_method %}
+            self, include=None, max_results=None, page_size=None, order=None
+        {% else %}
+            self
+            {% for field in method.fields|sort_parg_kwarg %}
+                {% if field.external_param %},
+                    {% if field.required %}
+                        {{field._key|to_snake}}
+                    {% else %}
+                        {{field._key|to_snake}}={{ field.default|repr }}
+                    {% endif %}
                 {% endif %}
-            {% endif %}
-        {% endfor %}
-    ):
+            {% endfor %}
+        {% endif %}
+        ):
         """{{method.summary}}
 
         {% if method.path %}api documentation:
         https://os.mbed.com/search/?q=service+apis+{{ method.path }}{% endif %}
+        {%- if method.pagination and method.custom_method %}
+        {% for field in method.fields if field._key != "after" %}{% if field.external_param %}
+        {%- if field._key == "limit" %}
+        :param max_results: Total maximum number of results to retrieve
+        :type max_results: int
+            {% set field_name = "page_size" %}
+        {%- else %}
+            {%- set field_name = field._key|to_snake %}
+        {%- endif %}
+        :param {{field_name}}: {{ (field.description or field.foreign_key.entity|to_pascal)|wordwrap(width=70)|indent(width=12) }}
+        :type {{field_name}}: {{ (field.foreign_key and 'mbed_cloud.sdk.' + field.foreign_key.entity|to_pascal) or field.python_type}}
+        {% endif %}{% endfor %}
+        :return: An iterator object which yields instances of an entity.
+        {%- else %}
         {% for field in method.fields %}{% if field.external_param %}
         :param {{field._key|to_snake}}: {{ (field.description or field.foreign_key.entity|to_pascal)|wordwrap(width=70)|indent(width=12) }}
         :type {{field._key|to_snake}}: {{ (field.foreign_key and 'mbed_cloud.sdk.' + field.foreign_key.entity|to_pascal) or field.python_type}}
         {% endif %}{% endfor %}
+        {%- endif %}
         :rtype: {{ return_type }}
         """
     {% for field in method.fields %}
@@ -152,11 +171,18 @@ class {{ entity._key|to_pascal }}(Entity):
         return {{ method.custom_method }}(
             self=self,
             foreign_key={% if method.foreign_key %}{{ method.foreign_key.entity|to_pascal }}{% else %}self.__class__{% endif %}
-            {% for field in method.fields|pargs_kwargs %}
-                {% if field.external_param %},
-                    {{field._key|to_snake}}={{field._key|to_snake}}
-                {% endif %}
-            {% endfor %}
+            {% if method.pagination %}
+            , include=include
+            , max_results=max_results
+            , page_size=page_size
+            , order=order
+            {% else %}
+                {% for field in method.fields|pargs_kwargs %}
+                    {% if field.external_param %},
+                        {{field._key|to_snake}}={{field._key|to_snake}}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
             {% if method.pagination %},wraps=self._{{ method.paginate_target }}{% endif %}
         )
     {% else %}

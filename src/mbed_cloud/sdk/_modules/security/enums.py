@@ -13,9 +13,13 @@ from mbed_cloud.sdk.common.enum import BaseEnum
 
 
 class CertificateEnrollmentEnrollResultEnum(BaseEnum):
-    """Represents the `CertificateEnrollmentEnrollResultEnum` options
+    """Represents expected values of `CertificateEnrollmentEnrollResultEnum`
 
-    as used by Mbed Cloud "security" functionality
+    This is used by Mbed Cloud "security" functionality
+
+    Note: If new values are added to the enum in the API they will be passed through unchanged by
+    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
+    version.
     """
 
     FAILURE = "failure"
@@ -27,9 +31,13 @@ class CertificateEnrollmentEnrollResultEnum(BaseEnum):
 
 
 class CertificateEnrollmentEnrollStatusEnum(BaseEnum):
-    """Represents the `CertificateEnrollmentEnrollStatusEnum` options
+    """Represents expected values of `CertificateEnrollmentEnrollStatusEnum`
 
-    as used by Mbed Cloud "security" functionality
+    This is used by Mbed Cloud "security" functionality
+
+    Note: If new values are added to the enum in the API they will be passed through unchanged by
+    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
+    version.
     """
 
     COMPLETED = "completed"
@@ -38,10 +46,45 @@ class CertificateEnrollmentEnrollStatusEnum(BaseEnum):
     values = frozenset(("completed", "new"))
 
 
-class CertificateIssuerIssuerTypeEnum(BaseEnum):
-    """Represents the `CertificateIssuerIssuerTypeEnum` options
+class CertificateEnrollmentIncludeEnum(BaseEnum):
+    """Represents expected values of `CertificateEnrollmentIncludeEnum`
 
-    as used by Mbed Cloud "security" functionality
+    This is used by Mbed Cloud "security" functionality
+
+    Note: If new values are added to the enum in the API they will be passed through unchanged by
+    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
+    version.
+    """
+
+    TOTAL_COUNT = "total_count"
+
+    values = frozenset(("total_count",))
+
+
+class CertificateEnrollmentOrderEnum(BaseEnum):
+    """Represents expected values of `CertificateEnrollmentOrderEnum`
+
+    This is used by Mbed Cloud "security" functionality
+
+    Note: If new values are added to the enum in the API they will be passed through unchanged by
+    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
+    version.
+    """
+
+    ASC = "ASC"
+    DESC = "DESC"
+
+    values = frozenset(("ASC", "DESC"))
+
+
+class CertificateIssuerIssuerTypeEnum(BaseEnum):
+    """Represents expected values of `CertificateIssuerIssuerTypeEnum`
+
+    This is used by Mbed Cloud "security" functionality
+
+    Note: If new values are added to the enum in the API they will be passed through unchanged by
+    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
+    version.
     """
 
     CFSSL_AUTH = "CFSSL_AUTH"
@@ -50,10 +93,46 @@ class CertificateIssuerIssuerTypeEnum(BaseEnum):
     values = frozenset(("CFSSL_AUTH", "GLOBAL_SIGN"))
 
 
-class TrustedCertificateOrderEnum(BaseEnum):
-    """Represents the `TrustedCertificateOrderEnum` options
+class SubtenantTrustedCertificateServiceEnum(BaseEnum):
+    """Represents expected values of `SubtenantTrustedCertificateServiceEnum`
 
-    as used by Mbed Cloud "security" functionality
+    This is used by Mbed Cloud "security" functionality
+
+    Note: If new values are added to the enum in the API they will be passed through unchanged by
+    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
+    version.
+    """
+
+    BOOTSTRAP = "bootstrap"
+    LWM2M = "lwm2m"
+
+    values = frozenset(("bootstrap", "lwm2m"))
+
+
+class SubtenantTrustedCertificateStatusEnum(BaseEnum):
+    """Represents expected values of `SubtenantTrustedCertificateStatusEnum`
+
+    This is used by Mbed Cloud "security" functionality
+
+    Note: If new values are added to the enum in the API they will be passed through unchanged by
+    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
+    version.
+    """
+
+    ACTIVE = "ACTIVE"
+    INACTIVE = "INACTIVE"
+
+    values = frozenset(("ACTIVE", "INACTIVE"))
+
+
+class TrustedCertificateOrderEnum(BaseEnum):
+    """Represents expected values of `TrustedCertificateOrderEnum`
+
+    This is used by Mbed Cloud "security" functionality
+
+    Note: If new values are added to the enum in the API they will be passed through unchanged by
+    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
+    version.
     """
 
     ASC = "ASC"
@@ -63,9 +142,13 @@ class TrustedCertificateOrderEnum(BaseEnum):
 
 
 class TrustedCertificateServiceEnum(BaseEnum):
-    """Represents the `TrustedCertificateServiceEnum` options
+    """Represents expected values of `TrustedCertificateServiceEnum`
 
-    as used by Mbed Cloud "security" functionality
+    This is used by Mbed Cloud "security" functionality
+
+    Note: If new values are added to the enum in the API they will be passed through unchanged by
+    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
+    version.
     """
 
     BOOTSTRAP = "bootstrap"
@@ -75,9 +158,13 @@ class TrustedCertificateServiceEnum(BaseEnum):
 
 
 class TrustedCertificateStatusEnum(BaseEnum):
-    """Represents the `TrustedCertificateStatusEnum` options
+    """Represents expected values of `TrustedCertificateStatusEnum`
 
-    as used by Mbed Cloud "security" functionality
+    This is used by Mbed Cloud "security" functionality
+
+    Note: If new values are added to the enum in the API they will be passed through unchanged by
+    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
+    version.
     """
 
     ACTIVE = "ACTIVE"

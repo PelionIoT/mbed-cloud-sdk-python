@@ -15,9 +15,13 @@ from mbed_cloud.sdk.common.enum import BaseEnum
 {% for enum in enums %}
 
 class {{ enum.enum_name|to_pascal }}(BaseEnum):
-    """Represents the `{{enum.enum_name|to_pascal}}` options
+    """Represents expected values of `{{enum.enum_name|to_pascal}}`
 
-    as used by Mbed Cloud "{{ enum.group_id|to_snake }}" functionality
+    This is used by Mbed Cloud "{{ enum.group_id|to_snake }}" functionality
+
+    Note: If new values are added to the enum in the API they will be passed through unchanged by
+    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
+    version.
     """
 
     {% for value in enum['values'] %}{{ value|upper }} = '{{ value }}'

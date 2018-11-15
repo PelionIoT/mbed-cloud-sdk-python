@@ -18,14 +18,7 @@ class ServerCredentials(Entity):
     """Represents the `ServerCredentials` entity in Mbed Cloud"""
 
     # all fields available on this entity
-    _fieldnames = [
-        "bootstrap",
-        "created_at",
-        "id",
-        "lwm2m",
-        "server_certificate",
-        "server_uri",
-    ]
+    _fieldnames = ["created_at", "id", "server_certificate", "server_uri"]
 
     # common renames used when mapping {<API spec>: <SDK>}
     _renames = {}
@@ -33,23 +26,17 @@ class ServerCredentials(Entity):
     def __init__(
         self,
         _client=None,
-        bootstrap=None,
         created_at=None,
         id=None,
-        lwm2m=None,
         server_certificate=None,
         server_uri=None,
     ):
         """Creates a local `ServerCredentials` instance
 
-        :param bootstrap: 
-        :type bootstrap: dict
         :param created_at: Creation UTC time RFC3339.
         :type created_at: datetime
         :param id: mUUID that uniquely identifies the entity.
         :type id: str
-        :param lwm2m: 
-        :type lwm2m: dict
         :param server_certificate: PEM format X.509 server certificate that will be used to validate
             the server certificate that will be received during the TLS/DTLS
             handshake.
@@ -63,31 +50,10 @@ class ServerCredentials(Entity):
         # inline imports for avoiding circular references and bulk imports
 
         # fields
-        self._bootstrap = fields.DictField(value=bootstrap)
         self._created_at = fields.DateTimeField(value=created_at)
         self._id = fields.StringField(value=id)
-        self._lwm2m = fields.DictField(value=lwm2m)
         self._server_certificate = fields.StringField(value=server_certificate)
         self._server_uri = fields.StringField(value=server_uri)
-
-    @property
-    def bootstrap(self):
-        """
-        
-        :rtype: dict
-        """
-
-        return self._bootstrap.value
-
-    @bootstrap.setter
-    def bootstrap(self, value):
-        """Set value of `bootstrap`
-
-        :param value: value to set
-        :type value: dict
-        """
-
-        self._bootstrap.set(value)
 
     @property
     def created_at(self):
@@ -128,25 +94,6 @@ class ServerCredentials(Entity):
         self._id.set(value)
 
     @property
-    def lwm2m(self):
-        """
-        
-        :rtype: dict
-        """
-
-        return self._lwm2m.value
-
-    @lwm2m.setter
-    def lwm2m(self, value):
-        """Set value of `lwm2m`
-
-        :param value: value to set
-        :type value: dict
-        """
-
-        self._lwm2m.set(value)
-
-    @property
     def server_certificate(self):
         """PEM format X.509 server certificate that will be used to validate the server
         certificate that will be received during the TLS/DTLS handshake.
@@ -185,59 +132,28 @@ class ServerCredentials(Entity):
 
         self._server_uri.set(value)
 
-    def get_all(self, authorization):
-        """Fetch all (Bootstrap and LwM2M) server credentials.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/server-credentials
-        
-        :param authorization: Bearer {Access Token}.
-        :type authorization: str
-        
-        :rtype: ServerCredentials
-        """
-
-        return self._client.call_api(
-            method="get",
-            path="/v3/server-credentials",
-            header_params={"Authorization": fields.StringField(authorization).to_api()},
-            unpack=self,
-        )
-
-    def get_bootstrap(self, authorization):
+    def get_bootstrap(self):
         """Fetch bootstrap server credentials.
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/server-credentials/bootstrap
         
-        :param authorization: Bearer {Access Token}.
-        :type authorization: str
-        
         :rtype: ServerCredentials
         """
 
         return self._client.call_api(
-            method="get",
-            path="/v3/server-credentials/bootstrap",
-            header_params={"Authorization": fields.StringField(authorization).to_api()},
-            unpack=self,
+            method="get", path="/v3/server-credentials/bootstrap", unpack=self
         )
 
-    def get_lwm2m(self, authorization):
+    def get_lwm2m(self):
         """Fetch LwM2M server credentials.
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/server-credentials/lwm2m
         
-        :param authorization: Bearer {Access Token}.
-        :type authorization: str
-        
         :rtype: ServerCredentials
         """
 
         return self._client.call_api(
-            method="get",
-            path="/v3/server-credentials/lwm2m",
-            header_params={"Authorization": fields.StringField(authorization).to_api()},
-            unpack=self,
+            method="get", path="/v3/server-credentials/lwm2m", unpack=self
         )

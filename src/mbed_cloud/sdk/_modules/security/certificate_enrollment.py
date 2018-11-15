@@ -25,10 +25,11 @@ class CertificateEnrollment(Entity):
         "enroll_result",
         "enroll_status",
         "id",
+        "updated_at",
     ]
 
     # common renames used when mapping {<API spec>: <SDK>}
-    _renames = {"certificate-enrollment-id": "certificate_enrollment_id"}
+    _renames = {}
 
     def __init__(
         self,
@@ -39,6 +40,7 @@ class CertificateEnrollment(Entity):
         enroll_result=None,
         enroll_status=None,
         id=None,
+        updated_at=None,
     ):
         """Creates a local `CertificateEnrollment` instance
 
@@ -54,6 +56,8 @@ class CertificateEnrollment(Entity):
         :type enroll_status: str
         :param id: The ID of the certificate enrollment.
         :type id: str
+        :param updated_at: Update UTC time RFC3339.
+        :type updated_at: datetime
         """
 
         super().__init__(_client=_client)
@@ -71,6 +75,7 @@ class CertificateEnrollment(Entity):
             value=enroll_status, enum=enums.CertificateEnrollmentEnrollStatusEnum
         )
         self._id = fields.StringField(value=id)
+        self._updated_at = fields.DateTimeField(value=updated_at)
 
     @property
     def certificate_name(self):
@@ -194,14 +199,32 @@ class CertificateEnrollment(Entity):
 
         self._id.set(value)
 
-    def get(self, certificate_enrollment_id):
+    @property
+    def updated_at(self):
+        """Update UTC time RFC3339.
+        
+        api example: '2017-01-01T00:00:00Z'
+        
+        :rtype: datetime
+        """
+
+        return self._updated_at.value
+
+    @updated_at.setter
+    def updated_at(self, value):
+        """Set value of `updated_at`
+
+        :param value: value to set
+        :type value: datetime
+        """
+
+        self._updated_at.set(value)
+
+    def get(self):
         """Get a certificate enrollment by ID.
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/certificate-enrollments/{certificate-enrollment-id}
-        
-        :param certificate_enrollment_id: The ID of the certificate enrollment.
-        :type certificate_enrollment_id: str
         
         :rtype: CertificateEnrollment
         """
@@ -209,39 +232,78 @@ class CertificateEnrollment(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/certificate-enrollments/{certificate-enrollment-id}",
-            path_params={
-                "certificate-enrollment-id": fields.StringField(
-                    certificate_enrollment_id
-                ).to_api()
-            },
+            path_params={"certificate-enrollment-id": self._id.to_api()},
             unpack=self,
         )
 
-    def list(self):
+    def list(self, include=None, max_results=None, page_size=None, order=None):
         """Get certificate enrollments list.
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/certificate-enrollments
         
-        :rtype: mbed_cloud.pagination.PaginatedResponse
+        :param include: a comma-separated list of data fields to return.
+        :type include: str
+        
+        :param max_results: Total maximum number of results to retrieve
+        :type max_results: int
+            
+        :param page_size: The number of results to be returned. Between 2 and 1000, inclusive.
+        :type page_size: int
+        
+        :param order: The order of results.
+        :type order: str
+        
+        :return: An iterator object which yields instances of an entity.
+        :rtype: mbed_cloud.pagination.PaginatedResponse(CertificateEnrollment)
         """
 
         from mbed_cloud.sdk.common._custom_methods import paginate
         from mbed_cloud.sdk.entities import CertificateEnrollment
 
         return paginate(
-            self=self, foreign_key=CertificateEnrollment, wraps=self._paginate_list
+            self=self,
+            foreign_key=CertificateEnrollment,
+            include=include,
+            max_results=max_results,
+            page_size=page_size,
+            order=order,
+            wraps=self._paginate_list,
         )
 
-    def _paginate_list(self):
+    def _paginate_list(self, after=None, include=None, limit=None, order=None):
         """Get certificate enrollments list.
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/certificate-enrollments
         
+        :param after: The ID of the item after which to retrieve the next page.
+        :type after: str
+        
+        :param include: a comma-separated list of data fields to return.
+        :type include: str
+        
+        :param limit: The number of results to be returned. Between 2 and 1000, inclusive.
+        :type limit: int
+        
+        :param order: The order of results.
+        :type order: str
+        
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 
         return self._client.call_api(
-            method="get", path="/v3/certificate-enrollments", unpack=False
+            method="get",
+            path="/v3/certificate-enrollments",
+            query_params={
+                "after": fields.StringField(after).to_api(),
+                "include": fields.StringField(
+                    include, enum=enums.CertificateEnrollmentIncludeEnum
+                ).to_api(),
+                "limit": fields.IntegerField(limit).to_api(),
+                "order": fields.StringField(
+                    order, enum=enums.CertificateEnrollmentOrderEnum
+                ).to_api(),
+            },
+            unpack=False,
         )

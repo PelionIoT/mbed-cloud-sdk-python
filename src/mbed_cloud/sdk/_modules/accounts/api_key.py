@@ -21,7 +21,6 @@ class ApiKey(Entity):
     _fieldnames = [
         "created_at",
         "creation_time",
-        "group_ids",
         "id",
         "key",
         "last_login_time",
@@ -32,14 +31,13 @@ class ApiKey(Entity):
     ]
 
     # common renames used when mapping {<API spec>: <SDK>}
-    _renames = {"groups": "group_ids"}
+    _renames = {}
 
     def __init__(
         self,
         _client=None,
         created_at=None,
         creation_time=None,
-        group_ids=None,
         id=None,
         key=None,
         last_login_time=None,
@@ -55,8 +53,6 @@ class ApiKey(Entity):
         :param creation_time: The timestamp of the API key creation in the storage, in
             milliseconds.
         :type creation_time: int
-        :param group_ids: A list of group IDs this API key belongs to.
-        :type group_ids: list
         :param id: The UUID of the API key.
         :type id: str
         :param key: The API key.
@@ -80,7 +76,6 @@ class ApiKey(Entity):
         # fields
         self._created_at = fields.DateTimeField(value=created_at)
         self._creation_time = fields.IntegerField(value=creation_time)
-        self._group_ids = fields.ListField(value=group_ids)
         self._id = fields.StringField(value=id)
         self._key = fields.StringField(value=key)
         self._last_login_time = fields.IntegerField(value=last_login_time)
@@ -130,25 +125,6 @@ class ApiKey(Entity):
         """
 
         self._creation_time.set(value)
-
-    @property
-    def group_ids(self):
-        """A list of group IDs this API key belongs to.
-        
-        :rtype: list
-        """
-
-        return self._group_ids.value
-
-    @group_ids.setter
-    def group_ids(self, value):
-        """Set value of `group_ids`
-
-        :param value: value to set
-        :type value: list
-        """
-
-        self._group_ids.set(value)
 
     @property
     def id(self):
@@ -311,7 +287,6 @@ class ApiKey(Entity):
             method="post",
             path="/v3/api-keys",
             body_params={
-                "groups": self._group_ids.to_api(),
                 "name": self._name.to_api(),
                 "owner": self._owner.to_api(),
                 "status": self._status.to_api(),
@@ -351,63 +326,28 @@ class ApiKey(Entity):
             unpack=self,
         )
 
-    def groups(self, after=None, include=None, limit=50, order="ASC"):
-        """Get groups of the API key.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/api-keys/{apiKey}/groups
-        
-        :param after: The entity ID to fetch after the given one.
-        :type after: str
-        
-        :param include: Comma separated additional data to return. Currently supported:
-            total_count
-        :type include: str
-        
-        :param limit: The number of results to return (2-1000), default is 50.
-        :type limit: int
-        
-        :param order: The order of the records based on creation time, ASC or DESC; by
-            default ASC
-        :type order: str
-        
-        :rtype: mbed_cloud.pagination.PaginatedResponse
-        """
-
-        from mbed_cloud.sdk.common._custom_methods import paginate
-        from mbed_cloud.sdk.entities import PolicyGroup
-
-        return paginate(
-            self=self,
-            foreign_key=PolicyGroup,
-            after=after,
-            include=include,
-            limit=limit,
-            order=order,
-            wraps=self._paginate_groups,
-        )
-
-    def list(self, after=None, include=None, limit=50, order="ASC"):
+    def list(self, include=None, max_results=None, page_size=None, order=None):
         """Get all API keys
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/api-keys
         
-        :param after: The entity ID to fetch after the given one.
-        :type after: str
-        
         :param include: Comma separated additional data to return. Currently supported:
             total_count
         :type include: str
         
-        :param limit: The number of results to return (2-1000), default is 50.
-        :type limit: int
+        :param max_results: Total maximum number of results to retrieve
+        :type max_results: int
+            
+        :param page_size: The number of results to return (2-1000), default is 50.
+        :type page_size: int
         
         :param order: The order of the records based on creation time, ASC or DESC; by
             default ASC
         :type order: str
         
-        :rtype: mbed_cloud.pagination.PaginatedResponse
+        :return: An iterator object which yields instances of an entity.
+        :rtype: mbed_cloud.pagination.PaginatedResponse(ApiKey)
         """
 
         from mbed_cloud.sdk.common._custom_methods import paginate
@@ -416,50 +356,23 @@ class ApiKey(Entity):
         return paginate(
             self=self,
             foreign_key=ApiKey,
-            after=after,
             include=include,
-            limit=limit,
+            max_results=max_results,
+            page_size=page_size,
             order=order,
             wraps=self._paginate_list,
         )
 
-    def _paginate_groups(self, after=None, include=None, limit=50, order="ASC"):
-        """Get groups of the API key.
+    def me(self):
+        """Get API key details.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/api-keys/{apiKey}/groups
+        https://os.mbed.com/search/?q=service+apis+/v3/api-keys/me
         
-        :param after: The entity ID to fetch after the given one.
-        :type after: str
-        
-        :param include: Comma separated additional data to return. Currently supported:
-            total_count
-        :type include: str
-        
-        :param limit: The number of results to return (2-1000), default is 50.
-        :type limit: int
-        
-        :param order: The order of the records based on creation time, ASC or DESC; by
-            default ASC
-        :type order: str
-        
-        :rtype: mbed_cloud.pagination.PaginatedResponse
+        :rtype: ApiKey
         """
 
-        return self._client.call_api(
-            method="get",
-            path="/v3/api-keys/{apiKey}/groups",
-            path_params={"apiKey": self._id.to_api()},
-            query_params={
-                "after": fields.StringField(after).to_api(),
-                "include": fields.StringField(include).to_api(),
-                "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(
-                    order, enum=enums.SubtenantAccountOrderEnum
-                ).to_api(),
-            },
-            unpack=False,
-        )
+        return self._client.call_api(method="get", path="/v3/api-keys/me", unpack=self)
 
     def _paginate_list(self, after=None, include=None, limit=50, order="ASC"):
         """Get all API keys
@@ -491,33 +404,9 @@ class ApiKey(Entity):
                 "after": fields.StringField(after).to_api(),
                 "include": fields.StringField(include).to_api(),
                 "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(
-                    order, enum=enums.SubtenantAccountOrderEnum
-                ).to_api(),
+                "order": fields.StringField(order, enum=enums.ApiKeyOrderEnum).to_api(),
             },
             unpack=False,
-        )
-
-    def reset_secret(self, accountid):
-        """Reset the secret key.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/api-keys/{apiKey}/reset-secret
-        
-        :param accountid: Account ID.
-        :type accountid: str
-        
-        :rtype: ApiKey
-        """
-
-        return self._client.call_api(
-            method="post",
-            path="/v3/accounts/{accountID}/api-keys/{apiKey}/reset-secret",
-            path_params={
-                "accountID": fields.StringField(accountid).to_api(),
-                "apiKey": self._id.to_api(),
-            },
-            unpack=self,
         )
 
     def update(self):
@@ -533,7 +422,6 @@ class ApiKey(Entity):
             method="put",
             path="/v3/api-keys/{apiKey}",
             body_params={
-                "groups": self._group_ids.to_api(),
                 "name": self._name.to_api(),
                 "owner": self._owner.to_api(),
                 "status": self._status.to_api(),

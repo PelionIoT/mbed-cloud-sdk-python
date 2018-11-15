@@ -25,11 +25,10 @@ class CertificateIssuer(Entity):
         "issuer_attributes",
         "issuer_type",
         "name",
-        "successful",
     ]
 
     # common renames used when mapping {<API spec>: <SDK>}
-    _renames = {"certificate-issuer-id": "id"}
+    _renames = {}
 
     def __init__(
         self,
@@ -40,7 +39,6 @@ class CertificateIssuer(Entity):
         issuer_attributes=None,
         issuer_type=None,
         name=None,
-        successful=None,
     ):
         """Creates a local `CertificateIssuer` instance
 
@@ -69,9 +67,6 @@ class CertificateIssuer(Entity):
         :type issuer_type: str
         :param name: Certificate issuer name, unique per account.
         :type name: str
-        :param successful: Indicates whether the certificate issuer was verified
-            successfully.
-        :type successful: bool
         """
 
         super().__init__(_client=_client)
@@ -87,7 +82,6 @@ class CertificateIssuer(Entity):
             value=issuer_type, enum=enums.CertificateIssuerIssuerTypeEnum
         )
         self._name = fields.StringField(value=name)
-        self._successful = fields.BooleanField(value=successful)
 
     @property
     def created_at(self):
@@ -226,25 +220,6 @@ class CertificateIssuer(Entity):
 
         self._name.set(value)
 
-    @property
-    def successful(self):
-        """Indicates whether the certificate issuer was verified successfully.
-        
-        :rtype: bool
-        """
-
-        return self._successful.value
-
-    @successful.setter
-    def successful(self, value):
-        """Set value of `successful`
-
-        :param value: value to set
-        :type value: bool
-        """
-
-        self._successful.set(value)
-
     def create(self, issuer_credentials=None):
         """Create certificate issuer.
 
@@ -306,23 +281,30 @@ class CertificateIssuer(Entity):
             unpack=self,
         )
 
-    def list(self):
+    def list(self, include=None, max_results=None, page_size=None, order=None):
         """Get certificate issuers list.
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/certificate-issuers
         
-        :rtype: mbed_cloud.pagination.PaginatedResponse
+        :return: An iterator object which yields instances of an entity.
+        :rtype: mbed_cloud.pagination.PaginatedResponse(CertificateIssuer)
         """
 
         from mbed_cloud.sdk.common._custom_methods import paginate
         from mbed_cloud.sdk.entities import CertificateIssuer
 
         return paginate(
-            self=self, foreign_key=CertificateIssuer, wraps=self._paginate_list
+            self=self,
+            foreign_key=CertificateIssuer,
+            include=include,
+            max_results=max_results,
+            page_size=page_size,
+            order=order,
+            wraps=self._paginate_list,
         )
 
-    def _paginate_list(self):
+    def _paginate_list(self, **kwargs):
         """Get certificate issuers list.
 
         api documentation:
@@ -370,12 +352,14 @@ class CertificateIssuer(Entity):
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/certificate-issuers/{certificate-issuer-id}/verify
         
-        :rtype: CertificateIssuer
+        :rtype: VerificationResponse
         """
+
+        from mbed_cloud.sdk.entities import VerificationResponse
 
         return self._client.call_api(
             method="post",
             path="/v3/certificate-issuers/{certificate-issuer-id}/verify",
             path_params={"certificate-issuer-id": self._id.to_api()},
-            unpack=self,
+            unpack=VerificationResponse,
         )
