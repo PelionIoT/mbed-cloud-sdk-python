@@ -68,7 +68,8 @@ def main(mode):
     print('python - preparing environment')
     subprocess.check_call(['apk', 'update'])
     subprocess.check_call(['apk', 'add', 'git'])
-    subprocess.check_call(['pip', 'install', 'twine'])
+    # Pin twine to 1.11 due to https://github.com/pypa/twine/issues/404
+    subprocess.check_call(['pip', 'install', 'twine<1.12'])
     url = subprocess.check_output(['git', 'remote', 'get-url', 'origin'])
     new_url = git_url_ssh_to_https(url.decode())
     subprocess.check_call(['git', 'remote', 'set-url', 'origin', new_url])
