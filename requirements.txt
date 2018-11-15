@@ -1,4 +1,4 @@
-certifi >= 2017
+certifi >= 2018
 future >= 0.16
 python-dateutil>= 2
 python-dotenv >= 0.8.2
