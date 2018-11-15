@@ -23,7 +23,8 @@ WORKDIR /build
 RUN apk update
 RUN apk add git
 {py_ver.py2_pre}
-RUN python -m pip install -U setuptools pip pipenv
+#RUN python -m pip install -U setuptools pip pipenv
+RUN python -m pip install -U setuptools==40.0.0 pip==10.0.1 pipenv==11.10.0
 
 # add bare minimum files to survive a pip install
 COPY scripts scripts
@@ -34,8 +35,9 @@ COPY requirements.txt ./
 COPY Pip* ./
 
 # install the project (with dev dependencies)
-RUN pipenv lock
-RUN pipenv install -e . --dev
+#RUN pipenv lock
+#RUN pipenv install -e . --dev
+RUN pipenv install --dev
 
 # load the entire project from local checkout as build context
 COPY . .
