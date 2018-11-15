@@ -1350,7 +1350,7 @@ class Account(Entity):
             unpack=False,
         )
 
-    def _paginate_user_invitations(self, after=None, limit=50, order="ASC"):
+    def _paginate_user_invitations(self, after=None, limit=50, order="ASC", **kwargs):
         """Get the details of all the user invitations.
 
         api documentation:

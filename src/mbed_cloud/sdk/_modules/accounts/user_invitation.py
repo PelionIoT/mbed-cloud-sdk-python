@@ -325,7 +325,7 @@ class UserInvitation(Entity):
             wraps=self._paginate_list,
         )
 
-    def _paginate_list(self, after=None, limit=50, order="ASC"):
+    def _paginate_list(self, after=None, limit=50, order="ASC", **kwargs):
         """Get the details of all the user invitations.
 
         api documentation:

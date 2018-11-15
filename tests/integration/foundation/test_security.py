@@ -7,6 +7,7 @@ from mbed_cloud.sdk.entities import CertificateIssuerConfig
 from mbed_cloud.sdk.entities import CertificateIssuer
 from mbed_cloud.sdk.entities import DeveloperCertificate
 from mbed_cloud.sdk.entities import ServerCredentials
+from mbed_cloud.sdk.entities import SubtenantTrustedCertificate
 from mbed_cloud.sdk.entities import TrustedCertificate
 
 from mbed_cloud.sdk.common.exceptions import ApiErrorResponse
@@ -42,34 +43,29 @@ class TestCertificateIssuerConfig(BaseCase, CrudMixinTests):
         super(TestCertificateIssuerConfig, cls).setUpClass()
 
 
-# @BaseCase._skip_in_ci
-# class TestDeveloperCertificate(BaseCase, CrudMixinTests):
-#     """Test developer certificate in lieu of proper tests."""
-#
-#     @classmethod
-#     def setUpClass(cls):
-#         cls.class_under_test = DeveloperCertificate
-#         super(TestDeveloperCertificate, cls).setUpClass()
+@BaseCase._skip_in_ci
+class TestServerCredentials(BaseCase):
+    """Test server credentials in lieu of proper tests."""
 
+    def check_server_credentials(self, server_credentials):
+        self.assertIn("BEGIN CERTIFICATE", server_credentials.server_certificate)
+        self.assertIn("END CERTIFICATE", server_credentials.server_certificate)
 
-# @BaseCase._skip_in_ci
-# class TestServerCredentials(BaseCase):
-#     """Test server credentials in lieu of proper tests."""
-#
-#     def test_get_bootstrap(self):
-#         print(ServerCredentials.get_bootstrap())
-#
-#     def test_get_bootstrap(self):
-#         print(ServerCredentials.get_lwm2m())
+    def test_get_bootstrap(self):
+        self.check_server_credentials(ServerCredentials().get_bootstrap())
+
+    def test_get_lwm2m(self):
+        self.check_server_credentials(ServerCredentials().get_lwm2m())
+
 
 @BaseCase._skip_in_ci
-class TestTrustedCertificate(BaseCase, CrudMixinTests):
+class TestTrustedandDeveloperCertificate(BaseCase, CrudMixinTests):
     """Test certificates in lieu of proper tests."""
 
     @classmethod
     def setUpClass(cls):
         cls.class_under_test = TrustedCertificate
-        super(TestTrustedCertificate, cls).setUpClass()
+        super(TestTrustedandDeveloperCertificate, cls).setUpClass()
 
     def test_certificate_info(self):
         for trusted_cert in TrustedCertificate().list():
