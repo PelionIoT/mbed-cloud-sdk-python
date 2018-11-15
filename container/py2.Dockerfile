@@ -39,9 +39,9 @@ COPY README.rst ./
 COPY requirements.txt ./
 COPY Pip* ./
 
+# Generate a Pipfile.lock file
+RUN pipenv lock
 # install the project (with dev dependencies)
-#RUN pipenv lock
-#RUN pipenv install -e . --dev
 RUN pipenv install --dev
 
 # load the entire project from local checkout as build context
