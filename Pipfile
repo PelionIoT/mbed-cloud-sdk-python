@@ -23,4 +23,4 @@ slackclient = "*"
 sphinx = "*"
 # locked to protect from Py2/3 compatibility break in more recent versions
 towncrier = "==17.8.0"
-auto-version = {editable = true, path = "./scripts/auto_version"}
+pyautoversion = "*"
