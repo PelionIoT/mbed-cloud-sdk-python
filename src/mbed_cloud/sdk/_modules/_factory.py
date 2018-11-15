@@ -55,7 +55,6 @@ class InstanceFactory:
         sales_contact=None,
         state=None,
         status=None,
-        sub_accounts=None,
         template_id=None,
         tier=None,
         updated_at=None,
@@ -141,8 +140,6 @@ class InstanceFactory:
         :type state: str
         :param status: The status of the account.
         :type status: str
-        :param sub_accounts: List of sub accounts. Not available for developer users.
-        :type sub_accounts: list
         :param template_id: Account template ID.
         :type template_id: str
         :param tier: The tier level of the account; '0': free tier, '1': commercial
@@ -196,7 +193,6 @@ class InstanceFactory:
             sales_contact=sales_contact,
             state=state,
             status=status,
-            sub_accounts=sub_accounts,
             template_id=template_id,
             tier=tier,
             updated_at=updated_at,
@@ -207,7 +203,6 @@ class InstanceFactory:
         self,
         created_at=None,
         creation_time=None,
-        groups=None,
         id=None,
         key=None,
         last_login_time=None,
@@ -223,8 +218,6 @@ class InstanceFactory:
         :param creation_time: The timestamp of the API key creation in the storage, in
             milliseconds.
         :type creation_time: int
-        :param groups: A list of group IDs this API key belongs to.
-        :type groups: list
         :param id: The UUID of the API key.
         :type id: str
         :param key: The API key.
@@ -248,7 +241,6 @@ class InstanceFactory:
             _client=self._client,
             created_at=created_at,
             creation_time=creation_time,
-            groups=groups,
             id=id,
             key=key,
             last_login_time=last_login_time,
@@ -357,7 +349,6 @@ class InstanceFactory:
         certificate_reference=None,
         created_at=None,
         id=None,
-        is_custom=None,
         updated_at=None,
     ):
         """Creates a local `CertificateIssuerConfig` instance, binding the client
@@ -373,8 +364,6 @@ class InstanceFactory:
         :type created_at: datetime
         :param id: The ID of the certificate issuer configuration.
         :type id: str
-        :param is_custom: 
-        :type is_custom: bool
         :param updated_at: Updated UTC time RFC3339.
         :type updated_at: datetime
         
@@ -388,7 +377,6 @@ class InstanceFactory:
             certificate_reference=certificate_reference,
             created_at=created_at,
             id=id,
-            is_custom=is_custom,
             updated_at=updated_at,
         )
 
@@ -400,7 +388,6 @@ class InstanceFactory:
         description=None,
         id=None,
         name=None,
-        private_key=None,
         security_file_content=None,
     ):
         """Creates a local `DeveloperCertificate` instance, binding the client
@@ -417,8 +404,6 @@ class InstanceFactory:
         :type id: str
         :param name: Name of the developer certificate.
         :type name: str
-        :param private_key: PEM format developer private key associated to the certificate.
-        :type private_key: str
         :param security_file_content: Content of the security.c file that will be flashed into the
             device to provide the security credentials
         :type security_file_content: str
@@ -435,7 +420,6 @@ class InstanceFactory:
             description=description,
             id=id,
             name=name,
-            private_key=private_key,
             security_file_content=security_file_content,
         )
 
@@ -905,7 +889,6 @@ class InstanceFactory:
         issuer=None,
         name=None,
         owner_id=None,
-        private_key=None,
         service=None,
         status=None,
         subject=None,
@@ -936,9 +919,6 @@ class InstanceFactory:
         :type name: str
         :param owner_id: The UUID of the owner.
         :type owner_id: str
-        :param private_key: Private key of the certificate in PEM or base64 encoded DER
-            format.
-        :type private_key: str
         :param service: Service name where the certificate is to be used.
         :type service: str
         :param status: Status of the certificate.
@@ -967,7 +947,6 @@ class InstanceFactory:
             issuer=issuer,
             name=name,
             owner_id=owner_id,
-            private_key=private_key,
             service=service,
             status=status,
             subject=subject,
@@ -984,7 +963,6 @@ class InstanceFactory:
         email=None,
         email_verified=None,
         full_name=None,
-        groups=None,
         id=None,
         last_login_time=None,
         login_history=None,
@@ -1015,8 +993,6 @@ class InstanceFactory:
         :type email_verified: bool
         :param full_name: The full name of the user.
         :type full_name: str
-        :param groups: A list of IDs of the groups this user belongs to.
-        :type groups: list
         :param id: The UUID of the user.
         :type id: str
         :param last_login_time: A timestamp of the latest login of the user, in milliseconds.
@@ -1067,7 +1043,6 @@ class InstanceFactory:
             email=email,
             email_verified=email_verified,
             full_name=full_name,
-            groups=groups,
             id=id,
             last_login_time=last_login_time,
             login_history=login_history,
@@ -1088,7 +1063,6 @@ class InstanceFactory:
         created_at=None,
         email=None,
         expiration=None,
-        groups=None,
         id=None,
         updated_at=None,
         user_id=None,
@@ -1103,8 +1077,6 @@ class InstanceFactory:
         :type email: str
         :param expiration: Invitation expiration as UTC time RFC3339.
         :type expiration: datetime
-        :param groups: A list of IDs of the groups the user is invited to.
-        :type groups: list
         :param id: The UUID of the invitation.
         :type id: str
         :param updated_at: Last update UTC time RFC3339.
@@ -1122,7 +1094,6 @@ class InstanceFactory:
             created_at=created_at,
             email=email,
             expiration=expiration,
-            groups=groups,
             id=id,
             updated_at=updated_at,
             user_id=user_id,
@@ -1140,7 +1111,6 @@ class InstanceFactory:
         issuer=None,
         name=None,
         owner_id=None,
-        private_key=None,
         service=None,
         status=None,
         subject=None,
@@ -1171,9 +1141,6 @@ class InstanceFactory:
         :type name: str
         :param owner_id: The UUID of the owner.
         :type owner_id: str
-        :param private_key: Private key of the certificate in PEM or base64 encoded DER
-            format.
-        :type private_key: str
         :param service: Service name where the certificate is to be used.
         :type service: str
         :param status: Status of the certificate.
@@ -1202,7 +1169,6 @@ class InstanceFactory:
             issuer=issuer,
             name=name,
             owner_id=owner_id,
-            private_key=private_key,
             service=service,
             status=status,
             subject=subject,
@@ -1219,7 +1185,6 @@ class InstanceFactory:
         email=None,
         email_verified=None,
         full_name=None,
-        groups=None,
         id=None,
         last_login_time=None,
         login_history=None,
@@ -1250,8 +1215,6 @@ class InstanceFactory:
         :type email_verified: bool
         :param full_name: The full name of the user.
         :type full_name: str
-        :param groups: A list of IDs of the groups this user belongs to.
-        :type groups: list
         :param id: The UUID of the user.
         :type id: str
         :param last_login_time: A timestamp of the latest login of the user, in milliseconds.
@@ -1302,7 +1265,6 @@ class InstanceFactory:
             email=email,
             email_verified=email_verified,
             full_name=full_name,
-            groups=groups,
             id=id,
             last_login_time=last_login_time,
             login_history=login_history,
@@ -1323,7 +1285,6 @@ class InstanceFactory:
         created_at=None,
         email=None,
         expiration=None,
-        groups=None,
         id=None,
         updated_at=None,
         user_id=None,
@@ -1338,8 +1299,6 @@ class InstanceFactory:
         :type email: str
         :param expiration: Invitation expiration as UTC time RFC3339.
         :type expiration: datetime
-        :param groups: A list of IDs of the groups the user is invited to.
-        :type groups: list
         :param id: The UUID of the invitation.
         :type id: str
         :param updated_at: Last update UTC time RFC3339.
@@ -1357,7 +1316,6 @@ class InstanceFactory:
             created_at=created_at,
             email=email,
             expiration=expiration,
-            groups=groups,
             id=id,
             updated_at=updated_at,
             user_id=user_id,

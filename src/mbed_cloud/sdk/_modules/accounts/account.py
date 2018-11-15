@@ -55,7 +55,6 @@ class Account(Entity):
         "sales_contact",
         "state",
         "status",
-        "sub_accounts",
         "template_id",
         "tier",
         "updated_at",
@@ -104,7 +103,6 @@ class Account(Entity):
         sales_contact=None,
         state=None,
         status=None,
-        sub_accounts=None,
         template_id=None,
         tier=None,
         updated_at=None,
@@ -190,8 +188,6 @@ class Account(Entity):
         :type state: str
         :param status: The status of the account.
         :type status: str
-        :param sub_accounts: List of sub accounts. Not available for developer users.
-        :type sub_accounts: list
         :param template_id: Account template ID.
         :type template_id: str
         :param tier: The tier level of the account; '0': free tier, '1': commercial
@@ -254,7 +250,6 @@ class Account(Entity):
         self._sales_contact = fields.StringField(value=sales_contact)
         self._state = fields.StringField(value=state)
         self._status = fields.StringField(value=status, enum=enums.AccountStatusEnum)
-        self._sub_accounts = fields.ListField(value=sub_accounts)
         self._template_id = fields.StringField(value=template_id)
         self._tier = fields.StringField(value=tier)
         self._updated_at = fields.DateTimeField(value=updated_at)
@@ -1007,25 +1002,6 @@ class Account(Entity):
         """
 
         self._status.set(value)
-
-    @property
-    def sub_accounts(self):
-        """List of sub accounts. Not available for developer users.
-        
-        :rtype: list
-        """
-
-        return self._sub_accounts.value
-
-    @sub_accounts.setter
-    def sub_accounts(self, value):
-        """Set value of `sub_accounts`
-
-        :param value: value to set
-        :type value: list
-        """
-
-        self._sub_accounts.set(value)
 
     @property
     def template_id(self):

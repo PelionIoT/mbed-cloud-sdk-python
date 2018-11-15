@@ -23,7 +23,6 @@ class CertificateIssuerConfig(Entity):
         "certificate_reference",
         "created_at",
         "id",
-        "is_custom",
         "updated_at",
     ]
 
@@ -37,7 +36,6 @@ class CertificateIssuerConfig(Entity):
         certificate_reference=None,
         created_at=None,
         id=None,
-        is_custom=None,
         updated_at=None,
     ):
         """Creates a local `CertificateIssuerConfig` instance
@@ -53,8 +51,6 @@ class CertificateIssuerConfig(Entity):
         :type created_at: datetime
         :param id: The ID of the certificate issuer configuration.
         :type id: str
-        :param is_custom: 
-        :type is_custom: bool
         :param updated_at: Updated UTC time RFC3339.
         :type updated_at: datetime
         """
@@ -68,7 +64,6 @@ class CertificateIssuerConfig(Entity):
         self._certificate_reference = fields.StringField(value=certificate_reference)
         self._created_at = fields.DateTimeField(value=created_at)
         self._id = fields.StringField(value=id)
-        self._is_custom = fields.BooleanField(value=is_custom)
         self._updated_at = fields.DateTimeField(value=updated_at)
 
     @property
@@ -156,27 +151,6 @@ class CertificateIssuerConfig(Entity):
         """
 
         self._id.set(value)
-
-    @property
-    def is_custom(self):
-        """
-        
-        api example: True
-        
-        :rtype: bool
-        """
-
-        return self._is_custom.value
-
-    @is_custom.setter
-    def is_custom(self, value):
-        """Set value of `is_custom`
-
-        :param value: value to set
-        :type value: bool
-        """
-
-        self._is_custom.set(value)
 
     @property
     def updated_at(self):

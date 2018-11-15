@@ -23,7 +23,6 @@ class SubtenantUserInvitation(Entity):
         "created_at",
         "email",
         "expiration",
-        "groups",
         "id",
         "updated_at",
         "user_id",
@@ -39,7 +38,6 @@ class SubtenantUserInvitation(Entity):
         created_at=None,
         email=None,
         expiration=None,
-        groups=None,
         id=None,
         updated_at=None,
         user_id=None,
@@ -54,8 +52,6 @@ class SubtenantUserInvitation(Entity):
         :type email: str
         :param expiration: Invitation expiration as UTC time RFC3339.
         :type expiration: datetime
-        :param groups: A list of IDs of the groups the user is invited to.
-        :type groups: list
         :param id: The UUID of the invitation.
         :type id: str
         :param updated_at: Last update UTC time RFC3339.
@@ -73,7 +69,6 @@ class SubtenantUserInvitation(Entity):
         self._created_at = fields.DateTimeField(value=created_at)
         self._email = fields.StringField(value=email)
         self._expiration = fields.DateTimeField(value=expiration)
-        self._groups = fields.ListField(value=groups)
         self._id = fields.StringField(value=id)
         self._updated_at = fields.DateTimeField(value=updated_at)
         self._user_id = fields.StringField(value=user_id)
@@ -161,25 +156,6 @@ class SubtenantUserInvitation(Entity):
         """
 
         self._expiration.set(value)
-
-    @property
-    def groups(self):
-        """A list of IDs of the groups the user is invited to.
-        
-        :rtype: list
-        """
-
-        return self._groups.value
-
-    @groups.setter
-    def groups(self, value):
-        """Set value of `groups`
-
-        :param value: value to set
-        :type value: list
-        """
-
-        self._groups.set(value)
 
     @property
     def id(self):

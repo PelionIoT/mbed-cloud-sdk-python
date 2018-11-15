@@ -30,7 +30,6 @@ class SubtenantTrustedCertificate(Entity):
         "issuer",
         "name",
         "owner_id",
-        "private_key",
         "service",
         "status",
         "subject",
@@ -54,7 +53,6 @@ class SubtenantTrustedCertificate(Entity):
         issuer=None,
         name=None,
         owner_id=None,
-        private_key=None,
         service=None,
         status=None,
         subject=None,
@@ -83,9 +81,6 @@ class SubtenantTrustedCertificate(Entity):
         :type name: str
         :param owner_id: The UUID of the owner.
         :type owner_id: str
-        :param private_key: Private key of the certificate in PEM or base64 encoded DER
-            format.
-        :type private_key: str
         :param service: Service name where the certificate is to be used.
         :type service: str
         :param status: Status of the certificate.
@@ -116,7 +111,6 @@ class SubtenantTrustedCertificate(Entity):
         self._issuer = fields.StringField(value=issuer)
         self._name = fields.StringField(value=name)
         self._owner_id = fields.StringField(value=owner_id)
-        self._private_key = fields.StringField(value=private_key)
         self._service = fields.StringField(
             value=service, enum=enums.SubtenantTrustedCertificateServiceEnum
         )
@@ -348,27 +342,6 @@ class SubtenantTrustedCertificate(Entity):
         self._owner_id.set(value)
 
     @property
-    def private_key(self):
-        """Private key of the certificate in PEM or base64 encoded DER format.
-        
-        api example: 'MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmE...'
-        
-        :rtype: str
-        """
-
-        return self._private_key.value
-
-    @private_key.setter
-    def private_key(self, value):
-        """Set value of `private_key`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._private_key.set(value)
-
-    @property
     def service(self):
         """Service name where the certificate is to be used.
         
@@ -471,14 +444,11 @@ class SubtenantTrustedCertificate(Entity):
 
         self._validity.set(value)
 
-    def create(self, accountid):
+    def create(self):
         """Upload new trusted certificate.
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/trusted-certificates
-        
-        :param accountid: Account ID.
-        :type accountid: str
         
         :rtype: SubtenantTrustedCertificate
         """
@@ -494,18 +464,15 @@ class SubtenantTrustedCertificate(Entity):
                 "service": self._service.to_api(),
                 "status": self._status.to_api(),
             },
-            path_params={"accountID": fields.StringField(accountid).to_api()},
+            path_params={"accountID": self._account_id.to_api()},
             unpack=self,
         )
 
-    def delete(self, accountid):
+    def delete(self):
         """Delete trusted certificate by ID.
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/trusted-certificates/{cert-id}
-        
-        :param accountid: Account ID.
-        :type accountid: str
         
         :rtype: SubtenantTrustedCertificate
         """
@@ -514,7 +481,7 @@ class SubtenantTrustedCertificate(Entity):
             method="delete",
             path="/v3/accounts/{accountID}/trusted-certificates/{cert-id}",
             path_params={
-                "accountID": fields.StringField(accountid).to_api(),
+                "accountID": self._account_id.to_api(),
                 "cert-id": self._id.to_api(),
             },
             unpack=self,
@@ -538,14 +505,11 @@ class SubtenantTrustedCertificate(Entity):
             unpack=DeveloperCertificate,
         )
 
-    def get(self, accountid):
+    def get(self):
         """Get trusted certificate by ID.
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/trusted-certificates/{cert-id}
-        
-        :param accountid: Account ID.
-        :type accountid: str
         
         :rtype: SubtenantTrustedCertificate
         """
@@ -554,20 +518,17 @@ class SubtenantTrustedCertificate(Entity):
             method="get",
             path="/v3/accounts/{accountID}/trusted-certificates/{cert-id}",
             path_params={
-                "accountID": fields.StringField(accountid).to_api(),
+                "accountID": self._account_id.to_api(),
                 "cert-id": self._id.to_api(),
             },
             unpack=self,
         )
 
-    def update(self, accountid):
+    def update(self):
         """Update trusted certificate.
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/trusted-certificates/{cert-id}
-        
-        :param accountid: Account ID.
-        :type accountid: str
         
         :rtype: SubtenantTrustedCertificate
         """
@@ -584,7 +545,7 @@ class SubtenantTrustedCertificate(Entity):
                 "status": self._status.to_api(),
             },
             path_params={
-                "accountID": fields.StringField(accountid).to_api(),
+                "accountID": self._account_id.to_api(),
                 "cert-id": self._id.to_api(),
             },
             unpack=self,

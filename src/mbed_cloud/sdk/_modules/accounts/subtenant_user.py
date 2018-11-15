@@ -26,7 +26,6 @@ class SubtenantUser(Entity):
         "email",
         "email_verified",
         "full_name",
-        "groups",
         "id",
         "last_login_time",
         "login_history",
@@ -58,7 +57,6 @@ class SubtenantUser(Entity):
         email=None,
         email_verified=None,
         full_name=None,
-        groups=None,
         id=None,
         last_login_time=None,
         login_history=None,
@@ -89,8 +87,6 @@ class SubtenantUser(Entity):
         :type email_verified: bool
         :param full_name: The full name of the user.
         :type full_name: str
-        :param groups: A list of IDs of the groups this user belongs to.
-        :type groups: list
         :param id: The UUID of the user.
         :type id: str
         :param last_login_time: A timestamp of the latest login of the user, in milliseconds.
@@ -143,7 +139,6 @@ class SubtenantUser(Entity):
         self._email = fields.StringField(value=email)
         self._email_verified = fields.BooleanField(value=email_verified)
         self._full_name = fields.StringField(value=full_name)
-        self._groups = fields.ListField(value=groups)
         self._id = fields.StringField(value=id)
         self._last_login_time = fields.IntegerField(value=last_login_time)
         self._login_history = fields.ListField(value=login_history, entity=LoginHistory)
@@ -307,25 +302,6 @@ class SubtenantUser(Entity):
         """
 
         self._full_name.set(value)
-
-    @property
-    def groups(self):
-        """A list of IDs of the groups this user belongs to.
-        
-        :rtype: list
-        """
-
-        return self._groups.value
-
-    @groups.setter
-    def groups(self, value):
-        """Set value of `groups`
-
-        :param value: value to set
-        :type value: list
-        """
-
-        self._groups.set(value)
 
     @property
     def id(self):
@@ -602,7 +578,6 @@ class SubtenantUser(Entity):
                 "address": self._address.to_api(),
                 "email": self._email.to_api(),
                 "full_name": self._full_name.to_api(),
-                "groups": self._groups.to_api(),
                 "is_marketing_accepted": self._marketing_accepted.to_api(),
                 "password": self._password.to_api(),
                 "phone_number": self._phone_number.to_api(),
@@ -667,7 +642,6 @@ class SubtenantUser(Entity):
             body_params={
                 "address": self._address.to_api(),
                 "full_name": self._full_name.to_api(),
-                "groups": self._groups.to_api(),
                 "is_marketing_accepted": self._marketing_accepted.to_api(),
                 "phone_number": self._phone_number.to_api(),
                 "is_gtc_accepted": self._terms_accepted.to_api(),

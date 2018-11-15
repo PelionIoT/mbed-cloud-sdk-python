@@ -21,7 +21,6 @@ class ApiKey(Entity):
     _fieldnames = [
         "created_at",
         "creation_time",
-        "groups",
         "id",
         "key",
         "last_login_time",
@@ -39,7 +38,6 @@ class ApiKey(Entity):
         _client=None,
         created_at=None,
         creation_time=None,
-        groups=None,
         id=None,
         key=None,
         last_login_time=None,
@@ -55,8 +53,6 @@ class ApiKey(Entity):
         :param creation_time: The timestamp of the API key creation in the storage, in
             milliseconds.
         :type creation_time: int
-        :param groups: A list of group IDs this API key belongs to.
-        :type groups: list
         :param id: The UUID of the API key.
         :type id: str
         :param key: The API key.
@@ -80,7 +76,6 @@ class ApiKey(Entity):
         # fields
         self._created_at = fields.DateTimeField(value=created_at)
         self._creation_time = fields.IntegerField(value=creation_time)
-        self._groups = fields.ListField(value=groups)
         self._id = fields.StringField(value=id)
         self._key = fields.StringField(value=key)
         self._last_login_time = fields.IntegerField(value=last_login_time)
@@ -130,25 +125,6 @@ class ApiKey(Entity):
         """
 
         self._creation_time.set(value)
-
-    @property
-    def groups(self):
-        """A list of group IDs this API key belongs to.
-        
-        :rtype: list
-        """
-
-        return self._groups.value
-
-    @groups.setter
-    def groups(self, value):
-        """Set value of `groups`
-
-        :param value: value to set
-        :type value: list
-        """
-
-        self._groups.set(value)
 
     @property
     def id(self):
@@ -311,7 +287,6 @@ class ApiKey(Entity):
             method="post",
             path="/v3/api-keys",
             body_params={
-                "groups": self._groups.to_api(),
                 "name": self._name.to_api(),
                 "owner": self._owner.to_api(),
                 "status": self._status.to_api(),
@@ -447,7 +422,6 @@ class ApiKey(Entity):
             method="put",
             path="/v3/api-keys/{apiKey}",
             body_params={
-                "groups": self._groups.to_api(),
                 "name": self._name.to_api(),
                 "owner": self._owner.to_api(),
                 "status": self._status.to_api(),
