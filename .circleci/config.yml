@@ -17,7 +17,7 @@ jobs:
     - checkout
     - restore_cache:
         keys:
-        - v2-py2-{{ .Branch }}
+        - v3-py2-{{ .Branch }}
         paths:
         - ~/caches/app_py2.tar
     - attach_workspace:
@@ -40,7 +40,7 @@ jobs:
         command: docker save -o ~/caches/app_py2.tar mbed_sdk_py2:latest
         name: Export docker image layer cache
     - save_cache:
-        key: v2-py2-{{ .Branch }}
+        key: v3-py2-{{ .Branch }}
         paths:
         - ~/caches/app_py2.tar
     - persist_to_workspace:
@@ -62,7 +62,7 @@ jobs:
     - checkout
     - restore_cache:
         keys:
-        - v2-py3-{{ .Branch }}
+        - v3-py3-{{ .Branch }}
         paths:
         - ~/caches/app_py3.tar
     - attach_workspace:
@@ -85,7 +85,7 @@ jobs:
         command: docker save -o ~/caches/app_py3.tar mbed_sdk_py3:latest
         name: Export docker image layer cache
     - save_cache:
-        key: v2-py3-{{ .Branch }}
+        key: v3-py3-{{ .Branch }}
         paths:
         - ~/caches/app_py3.tar
     - persist_to_workspace:

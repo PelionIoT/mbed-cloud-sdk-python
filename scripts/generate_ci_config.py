@@ -204,7 +204,7 @@ def new_build(py_ver: PyVer):
     """Job for building/caching different docker images"""
     cache_file = f'app_{py_ver.name}.tar'
     cache_path = f'{cache_dir}/{cache_file}'
-    cache_key = f'v2-{py_ver.name}-{{{{ .Branch }}}}'
+    cache_key = f'v3-{py_ver.name}-{{{{ .Branch }}}}'
     template = yaml.safe_load(f"""
     machine:
       image: 'circleci/classic:201710-02'
