@@ -34,6 +34,7 @@ COPY requirements.txt ./
 COPY Pip* ./
 
 # install the project (with dev dependencies)
+RUN pipenv lock
 RUN pipenv install -e . --dev
 
 # load the entire project from local checkout as build context
