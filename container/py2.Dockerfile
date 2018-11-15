@@ -57,9 +57,6 @@ RUN (pipenv run pytest --durations=3 tests/unit) & sleep 10 ; kill $!
 # run static analysis
 RUN pipenv run pytest --durations=3 tests/static
 
-# run submodule tests (but ignore coverage)
-RUN pipenv run pytest scripts --no-cov
-
 # check the package file is good
 RUN pipenv run python setup.py check -r -s
 
