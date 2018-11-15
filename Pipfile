@@ -20,4 +20,4 @@ pytest-html = "*"
 slackclient = "*"
 sphinx = "*"
 towncrier = "*"
-auto-version = "*"
+auto-version = {editable = true, path = "./scripts/auto_version"}
