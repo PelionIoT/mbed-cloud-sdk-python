@@ -740,11 +740,11 @@ class InstanceFactory:
     ):
         """Creates a local `DeviceEvents` instance, binding the client
 
-        :param changes: Additional data relevant to the event.
+        :param changes: 
         :type changes: dict
         :param created_at: 
         :type created_at: datetime
-        :param data: 
+        :param data: Additional data relevant to the event.
         :type data: dict
         :param date_time: 
         :type date_time: datetime

@@ -52,11 +52,11 @@ class DeviceEvents(Entity):
     ):
         """Creates a local `DeviceEvents` instance
 
-        :param changes: Additional data relevant to the event.
+        :param changes: 
         :type changes: dict
         :param created_at: 
         :type created_at: datetime
-        :param data: 
+        :param data: Additional data relevant to the event.
         :type data: dict
         :param date_time: 
         :type date_time: datetime
@@ -95,9 +95,7 @@ class DeviceEvents(Entity):
 
     @property
     def changes(self):
-        """Additional data relevant to the event.
-        
-        api example: {'campaign_id': '00000000000000000000000000000000'}
+        """
         
         :rtype: dict
         """
@@ -137,9 +135,9 @@ class DeviceEvents(Entity):
 
     @property
     def data(self):
-        """
+        """Additional data relevant to the event.
         
-        api example: '{ }'
+        api example: {'campaign_id': '00000000000000000000000000000000'}
         
         :rtype: dict
         """
