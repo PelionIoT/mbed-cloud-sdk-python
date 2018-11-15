@@ -33,8 +33,6 @@ COPY README.rst ./
 COPY requirements.txt ./
 COPY Pip* ./
 
-# Generate a Pipfile.lock file
-RUN pipenv lock
 # install the project (with dev dependencies)
 RUN pipenv install -e . --dev
 
