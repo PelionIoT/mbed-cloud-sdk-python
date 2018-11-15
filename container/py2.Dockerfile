@@ -40,7 +40,7 @@ COPY requirements.txt ./
 COPY Pip* ./
 
 # install the project (with dev dependencies)
-RUN pipenv install -e . --dev
+RUN pipenv install -e . --dev --no-cache-dir
 
 # load the entire project from local checkout as build context
 COPY . .
