@@ -14,6 +14,7 @@ from mbed_cloud.sdk.entities import SubtenantUserInvitation
 
 from mbed_cloud.sdk.common.exceptions import ApiErrorResponse
 
+
 def random_string():
     return str(random.randint(1e6, 1e7 - 1))
 
@@ -29,12 +30,18 @@ class TestAccount(BaseCase, CrudMixinTests):
 
     def test_policies(self):
         for account in Account().list(include="policies"):
-            self.assertIsInstance(account.policies, list)
+            policies = account.policies
+            self.assertIsInstance(policies, list)
+            for policy in policies:
+                self.assertIsInstance(policy.action, str)
+                self.assertIsInstance(policy.allow, bool)
+                self.assertIsInstance(policy.feature, str)
+                self.assertIsInstance(policy.inherited, bool)
 
     def test_password_policy(self):
         for account in Account().list():
-            print(account.password_policy)
-            self.assertIsInstance(account.password_policy, dict)
+            if account.password_policy:
+                self.assertIsInstance(account.password_policy, dict)
 
     def check_subtenant_listing(self, listmethod, expected_entity):
         count = 0
@@ -136,9 +143,14 @@ class TestUser(BaseCase, CrudMixinTests):
         super(TestUser, cls).setUpClass()
 
     def test_login_history(self):
+        from datetime import datetime
         for user in User().list():
-            print(user.login_history)
-            self.assertIsInstance(user.login_history, list)
+            if isinstance(user.login_history, list):
+                for login in user.login_history:
+                    self.assertIsInstance(login.date, datetime)
+                    self.assertIsInstance(login.ip_address, str)
+                    self.assertIsInstance(login.success, bool)
+                    self.assertIsInstance(login.user_agent, str)
 
 @BaseCase._skip_in_ci
 class TestUserInvitation(BaseCase, CrudMixinTests):
