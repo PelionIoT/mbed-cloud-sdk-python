@@ -132,6 +132,9 @@ class TestApiKey(BaseCase, CrudMixinTests):
         cls.class_under_test = ApiKey
         super(TestApiKey, cls).setUpClass()
 
+    def test_me(self):
+        my_apikey = ApiKey().me()
+        self.assertTrue(my_apikey.key.startswith("ak_"))
 
 @BaseCase._skip_in_ci
 class TestUser(BaseCase, CrudMixinTests):

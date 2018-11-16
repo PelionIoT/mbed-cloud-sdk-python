@@ -52,7 +52,7 @@ class TestDevice(BaseCase, CrudMixinTests):
                     else:
                         print("Certificate '%s' was renewed on device '%s'" % (
                             certificate_reference, device.name))
-
+        # end of example
 
 @BaseCase._skip_in_ci
 class TestDeviceEnrollment(BaseCase, CrudMixinTests):
@@ -89,6 +89,7 @@ class TestDeviceEnrollment(BaseCase, CrudMixinTests):
 
         print(bulk_device_enrollment.download_full_report_file().read())
         print(bulk_device_enrollment.download_errors_report_file().read())
+        # end of example
 
     def test_device_enrollment_bulk_delete(self):
         """Example of enrolling a device in Pelion Device Management."""
