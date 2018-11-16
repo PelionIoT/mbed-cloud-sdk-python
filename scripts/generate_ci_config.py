@@ -217,8 +217,8 @@ def new_build(py_ver: PyVer):
       - attach_workspace:
           at: {cache_dir}
       - run:
-          name: Load docker image (with retry) for TestRunner
-          command: for i in 1 2 3 4 5; do docker load -i {cache_dir}/{testrunner_cache} && break || sleep 10; done
+          name: Load docker image for TestRunner
+          command: docker load -i {cache_dir}/{testrunner_cache}
       - run:
           name: Load docker image layer cache
           command: docker load -i {cache_path} || true  # silent failure if missing cache
