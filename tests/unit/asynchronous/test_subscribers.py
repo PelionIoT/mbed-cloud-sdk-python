@@ -44,20 +44,18 @@ class Test(BaseCase):
         # a valid channel, relevant for DeviceState
         subs.notify({
             channels.ChannelIdentifiers.reg_updates: [
-                dict(a=1, b=2, device_id='A')
+                dict(ep='A', original_ep='test_original_ep')
             ]
         })
 
         result = future_a.get(timeout=2)
-        self.assertDictContainsSubset(dict(a=1, b=2), result)
+        self.assertDictContainsSubset(dict(device_id="A", alias="test_original_ep"), result)
+
+        # just because one observer (`a`) is ready, does not mean another (`c`) is.
+        result = future_c.get(timeout=2)
+        self.assertDictContainsSubset(dict(device_id="A", alias="test_original_ep"), result)
 
         self.assertFalse(future_b.ready())
-
-        # possible race condition, so an unreliable check.
-        # just because one observer (`a`) is ready, does not mean another (`c`) is.
-        # self.assertTrue(future_c.ready())
-        result = future_c.get()
-        self.assertDictContainsSubset(dict(a=1, b=2), result)
 
     def test_subscribe_custom_threadpool(self):
         subs = SubscriptionsManager(mock.MagicMock())
@@ -71,6 +69,59 @@ class Test(BaseCase):
             observer_a.next().defer()
             # prove that we used the threadpool we provided
             self.assertEqual(custom_threads.apply_async.call_count, 2)
+
+    def test_notify_registration_expiry(self):
+        subs = SubscriptionsManager(mock.MagicMock())
+        observer = subs.subscribe(channels.DeviceStateChanges())
+        future = observer.next().defer()
+
+        subs.notify({
+            channels.ChannelIdentifiers.registrations_expired: [
+                "device_id_test"
+            ]
+        })
+
+        output = future.get(timeout=2)
+        self.assertEqual(output, {"device_id": "device_id_test", "channel": "registrations_expired"})
+
+    def test_notify_registration(self):
+        subs = SubscriptionsManager(mock.MagicMock())
+        observer = subs.subscribe(channels.DeviceStateChanges())
+        future = observer.next().defer()
+
+        subs.notify({
+            channels.ChannelIdentifiers.registrations: [
+                {
+                    "ep": "test_endpoint_name",
+                    "original_ep": "test_original_ep",
+                    "ept": "test_ept",
+                    "q": "test_q",
+                    "resources": [{
+                        "path": "test_path",
+                        "if": "test_if",
+                        "rt": "test_rt",
+                        "ct": "test_ct",
+                        "obs": "test_obs"
+                    }]
+                }
+            ]
+        })
+
+        output = future.get(timeout=2)
+
+        self.assertEqual(output, {
+            "channel": "registrations",
+            "device_id": "test_endpoint_name",
+            "alias": "test_original_ep",
+            "device_type": "test_ept",
+            "queue_mode": "test_q",
+            "resources": [{
+                "path": "test_path",
+                "type": "test_rt",
+                "content_type": "test_ct",
+                "observable": "test_obs"
+            }]
+        })
 
     @unittest.skipIf(os.environ.get('CI'), 'Do not run in CI')
     def test_live_create_and_cleanup(self):
