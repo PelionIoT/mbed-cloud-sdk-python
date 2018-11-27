@@ -51,6 +51,8 @@ from mbed_cloud.exceptions import CloudValueError
 from mbed_cloud.subscribe import SubscriptionsManager
 from mbed_cloud import utils
 
+from binascii import b2a_base64 as b64encoder
+
 from six.moves import queue
 
 LOG = logging.getLogger(__name__)
@@ -318,20 +320,20 @@ class ConnectAPI(BaseAPI):
         :param str device_id: The name/id of the device (Required)
         :param str resource_path: The resource path to update (Required)
         :param str resource_value: The new value to set for given path
-        :param fix_path: if True then the leading /, if found, will be stripped before
-            doing request to backend. This is a requirement for the API to work properly
+        :param fix_path: Unused
+        :param timeout: Timeout in seconds
         :raises: AsyncError
         :returns: The value of the new resource
         :rtype: str
         """
         self.ensure_notifications_thread()
         return self.set_resource_value_async(
-            device_id, resource_path, resource_value, fix_path
+            device_id, resource_path, resource_value
         ).wait(timeout)
 
     @catch_exceptions(mds.rest.ApiException)
     def set_resource_value_async(self, device_id, resource_path,
-                                 resource_value=None, fix_path=True):
+                                 resource_value=None):
         """Set resource value for given resource path, on device.
 
         Will not block. Returns immediately. Usage:
@@ -348,20 +350,16 @@ class ConnectAPI(BaseAPI):
         :param str device_id: The name/id of the device (Required)
         :param str resource_path: The resource path to update (Required)
         :param str resource_value: The new value to set for given path
-        :param fix_path: if True then the leading /, if found, will be stripped before
-            doing request to backend. This is a requirement for the API to work properly
         :returns: An async consumer object holding reference to request
         :rtype: AsyncConsumer
         """
-        # When path starts with / we remove the slash, as the API can't handle //.
-        if fix_path and resource_path.startswith("/"):
-            resource_path = resource_path[1:]
-
-        api = self._get_api(mds.ResourcesApi)
-        resp = api.update_resource_value(device_id,
-                                         resource_path,
-                                         resource_value)
-        return AsyncConsumer(resp.async_response_id, self._db)
+        return self._mds_rpc_post(
+            device_id,
+            method='PUT',
+            uri=resource_path,
+            content_type="text/plain",
+            payload_b64=b64encoder(resource_value)
+        )
 
     @catch_exceptions(mds.rest.ApiException)
     def execute_resource(self, device_id, resource_path, fix_path=True, timeout=None):
