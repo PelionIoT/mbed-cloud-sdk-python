@@ -162,7 +162,7 @@ class ResourcesApi(object):
             return data
 
     def execute_or_create_resource_with_http_info(self, device_id, _resource_path, **kwargs):  # noqa: E501
-        """Execute a function on a Resource or create new Object instance  # noqa: E501
+        """Execute a ` on a Resource or create new Object instance  # noqa: E501
 
         With this API, you can [execute a function](/docs/current/connecting/handle-resource-webapp.html#the-execute-operation) on an existing resource and create new Object instance to the device. The resource-path does not have to exist - it can be created by the call. The maximum length of resource-path is 255 characters.  All resource APIs are asynchronous. These APIs respond only if the device is turned on and connected to Device Management Connect and there is an active notification channel.  Supported content types depend on the device and its resource. Device Management translates HTTP to equivalent CoAP content type.  **Example usage:**  This example resets the min and max values of the [temperature sensor](http://www.openmobilealliance.org/tech/profiles/lwm2m/3303.xml) instance 0 by executing the Resource 5605 'Reset Min and Max Measured Values'.      curl -X POST \\       https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id}/3303/0/5605 \\       -H 'authorization: Bearer {api-key}'   # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
