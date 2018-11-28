@@ -16,8 +16,17 @@
 # --------------------------------------------------------------------------
 """Part of the CI process"""
 
+import argparse
+from collections import namedtuple
 import os
 import subprocess
+
+ReleaseTarget = namedtuple('ReleaseTarget', ['name', 'mode', 'bundle', 'twine_repo'])
+release_targets = [
+    ReleaseTarget('beta', 'beta', 'beta-dist/*', 'pypi'),
+    ReleaseTarget('production', 'prod', 'release-dist/*', 'pypi'),
+]
+release_target_map = {t.mode: t for t in release_targets}
 
 
 def git_url_ssh_to_https(url):
@@ -36,25 +45,25 @@ def git_url_ssh_to_https(url):
     return new.format(GITHUB_TOKEN=os.getenv('GITHUB_TOKEN'))
 
 
-def main():
+def main(mode):
     """Tags the current repository
 
     and commits changes to news files
+
+    :param mode: ReleaseTarget mode (i.e. beta or prod)
+    :type mode: ReleaseTarget
     """
     # see:
     # https://packaging.python.org/tutorials/distributing-packages/#uploading-your-project-to-pypi
+    version = subprocess.check_output(['python', 'setup.py', '--version']).decode().strip()
+
     twine_repo = os.getenv('TWINE_REPOSITORY_URL') or os.getenv('TWINE_REPOSITORY')
-    print('tagging and releasing to %s as %s' % (
+    print('tagging and releasing %r as a %s release to %s as Twine user %s' % (
+        version,
+        mode.name,
         twine_repo,
         os.getenv('TWINE_USERNAME')
     ))
-
-    if not twine_repo:
-        raise Exception('cannot release to implicit pypi repository. explicitly set the repo/url.')
-
-    version = subprocess.check_output(['python', 'setup.py', '--version']).decode().strip()
-    if 'dev' in version:
-        raise Exception('cannot release unversioned project: %s' % version)
 
     print('python - preparing environment')
     subprocess.check_call(['apk', 'update'])
@@ -67,23 +76,33 @@ def main():
     branch_spec = 'origin/%s' % os.getenv('CIRCLE_BRANCH')
     subprocess.check_call(['git', 'branch', '--set-upstream-to', branch_spec])
     subprocess.check_call(['git', 'fetch', '--tags', '--force'])
-    print('git - pushing tags')
+
+    # tags
     subprocess.check_call(['git', 'tag', '-a', version, '-m', 'release %s' % version])
     subprocess.check_call(['git', 'tag', '-f', 'latest'])
-    subprocess.check_call(['git', 'push', '-f', 'origin', '--tags'])
+    if mode == release_target_map['prod']:
+        print('git - pushing %s tags' % mode.name)
+        subprocess.check_call(['git', 'push', '-f', 'origin', '--tags'])
+
     print('git - add changes')
     subprocess.check_call(['git', 'add', 'src/mbed_cloud/_version.py'])
     subprocess.check_call(['git', 'add', 'CHANGELOG.rst'])
     subprocess.check_call(['git', 'add', 'docs/news/*'])
-    print('git - commit changes')
     message = ':checkered_flag: :newspaper: releasing version %s\n[skip ci]' % version
     subprocess.check_call(['git', 'commit', '-m', message])
-    print('git - pushing commits')
-    subprocess.check_call(['git', 'push', 'origin'])
+
+    if mode == release_target_map['prod']:
+        print('git - pushing %s changelog commit' % mode.name)
+        subprocess.check_call(['git', 'push', 'origin'])
+
     print('pypi - uploading')
-    subprocess.check_call(['python', '-m', 'twine', 'upload', 'release-dist/*'])
+    subprocess.check_call(['python', '-m', 'twine', 'upload', mode.bundle])
     print('pypi - uploading successful')
 
 
 if __name__ == '__main__':
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--mode', choices=[t.mode for t in release_targets])
+    args = parser.parse_args()
+    mode = release_target_map[args.mode]
+    main(mode=mode)
