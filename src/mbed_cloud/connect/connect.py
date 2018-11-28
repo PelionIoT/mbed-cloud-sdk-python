@@ -18,6 +18,7 @@
 from __future__ import absolute_import
 from __future__ import unicode_literals
 
+import base64
 import logging
 import re
 import threading
@@ -50,8 +51,6 @@ from mbed_cloud.exceptions import CloudApiException
 from mbed_cloud.exceptions import CloudValueError
 from mbed_cloud.subscribe import SubscriptionsManager
 from mbed_cloud import utils
-
-from binascii import b2a_base64 as b64encoder
 
 from six.moves import queue
 
@@ -353,12 +352,15 @@ class ConnectAPI(BaseAPI):
         :returns: An async consumer object holding reference to request
         :rtype: AsyncConsumer
         """
+        resource_value_bytes = bytes(resource_value, encoding='utf-8')
+        payload_b64 = base64.b64encode(resource_value_bytes).decode('utf-8')
+
         return self._mds_rpc_post(
             device_id,
             method='PUT',
             uri=resource_path,
             content_type="text/plain",
-            payload_b64=b64encoder(resource_value)
+            payload_b64=payload_b64
         )
 
     @catch_exceptions(mds.rest.ApiException)
