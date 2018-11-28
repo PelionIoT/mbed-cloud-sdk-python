@@ -332,7 +332,7 @@ class ConnectAPI(BaseAPI):
 
     @catch_exceptions(mds.rest.ApiException)
     def set_resource_value_async(self, device_id, resource_path,
-                                 resource_value=None):
+                                 resource_value=None, fix_path=True):
         """Set resource value for given resource path, on device.
 
         Will not block. Returns immediately. Usage:
@@ -349,6 +349,7 @@ class ConnectAPI(BaseAPI):
         :param str device_id: The name/id of the device (Required)
         :param str resource_path: The resource path to update (Required)
         :param str resource_value: The new value to set for given path
+        :param fix_path: Unused
         :returns: An async consumer object holding reference to request
         :rtype: AsyncConsumer
         """
@@ -390,7 +391,7 @@ class ConnectAPI(BaseAPI):
         return self.execute_resource_async(device_id, resource_path).wait(timeout)
 
     @catch_exceptions(mds.rest.ApiException)
-    def execute_resource_async(self, device_id, resource_path):
+    def execute_resource_async(self, device_id, resource_path, fix_path=True):
         """Execute a function on a resource.
 
         Will not block. Returns immediately. Usage:
@@ -406,6 +407,7 @@ class ConnectAPI(BaseAPI):
 
         :param str device_id: The name/id of the device (Required)
         :param str resource_path: The resource path to update (Required)
+        :param fix_path: Unused
         :returns: An async consumer object holding reference to request
         :rtype: AsyncConsumer
         """
