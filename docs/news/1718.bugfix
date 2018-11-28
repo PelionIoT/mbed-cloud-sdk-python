@@ -1,0 +1,1 @@
+Updated set_resource_value and execute_resource to use the device requests API.
