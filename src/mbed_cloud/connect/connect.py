@@ -356,6 +356,9 @@ class ConnectAPI(BaseAPI):
         resource_value_bytes = bytes(resource_value, encoding='utf-8')
         payload_b64 = base64.b64encode(resource_value_bytes).decode('utf-8')
 
+        if not resource_path.startswith("/"):
+            resource_path = "/" + resource_path
+
         return self._mds_rpc_post(
             device_id,
             method='PUT',
@@ -411,6 +414,9 @@ class ConnectAPI(BaseAPI):
         :returns: An async consumer object holding reference to request
         :rtype: AsyncConsumer
         """
+        if not resource_path.startswith("/"):
+            resource_path = "/" + resource_path
+
         return self._mds_rpc_post(device_id=device_id, method='POST', uri=resource_path)
 
     @catch_exceptions(mds.rest.ApiException)
