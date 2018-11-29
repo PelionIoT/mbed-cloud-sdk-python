@@ -353,8 +353,7 @@ class ConnectAPI(BaseAPI):
         :returns: An async consumer object holding reference to request
         :rtype: AsyncConsumer
         """
-        resource_value_bytes = bytes(resource_value, encoding='utf-8')
-        payload_b64 = base64.b64encode(resource_value_bytes).decode('utf-8')
+        payload_b64 = base64.b64encode(resource_value.encode("utf-8")).decode("utf-8")
 
         if not resource_path.startswith("/"):
             resource_path = "/" + resource_path
