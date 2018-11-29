@@ -1,0 +1,1 @@
+Updated package dependencies (to fix Python 2 build issues in CircleCI)
