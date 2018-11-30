@@ -1,1 +1,0 @@
-Fixed TypeError when devices de-register or expire.
