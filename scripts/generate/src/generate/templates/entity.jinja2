@@ -106,7 +106,7 @@ class {{ entity._key|to_pascal }}(Entity):
         {% else %}
             {% set return_type = "mbed_cloud.pagination." + return_type %}
         {% endif %}
-    {% elif entity._key == method.return_type %}
+    {% elif method.return_info.self %}
         {% set unpack_type = "self" %}
         {% set foreign_key_import = false %}
     {% else %}
