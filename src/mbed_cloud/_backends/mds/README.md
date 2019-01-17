@@ -86,7 +86,7 @@ Class | Method | HTTP request | Description
 *ResourcesApi* | [**delete_resource_path**](docs/ResourcesApi.md#delete_resource_path) | **DELETE** /v2/endpoints/{device-id}/{resourcePath} | Delete a resource path
 *ResourcesApi* | [**execute_or_create_resource**](docs/ResourcesApi.md#execute_or_create_resource) | **POST** /v2/endpoints/{device-id}/{resourcePath} | Execute a function on a Resource or create new Object instance
 *ResourcesApi* | [**get_resource_value**](docs/ResourcesApi.md#get_resource_value) | **GET** /v2/endpoints/{device-id}/{resourcePath} | Read from a resource
-*ResourcesApi* | [**update_resource_value**](docs/ResourcesApi.md#update_resource_value) | **PUT** /v2/endpoints/{device-id}/{resourcePath} | Write to a resource or use write-attributes for a resource
+*ResourcesApi* | [**update_resource_value**](docs/ResourcesApi.md#update_resource_value) | **PUT** /v2/endpoints/{device-id}/{resourcePath} | Write to a Resource or use write-attributes (notification rules) for a Resource
 *SubscriptionsApi* | [**add_resource_subscription**](docs/SubscriptionsApi.md#add_resource_subscription) | **PUT** /v2/subscriptions/{device-id}/{resourcePath} | Subscribe to a resource path
 *SubscriptionsApi* | [**check_resource_subscription**](docs/SubscriptionsApi.md#check_resource_subscription) | **GET** /v2/subscriptions/{device-id}/{resourcePath} | Read subscription status
 *SubscriptionsApi* | [**delete_endpoint_subscriptions**](docs/SubscriptionsApi.md#delete_endpoint_subscriptions) | **DELETE** /v2/subscriptions/{device-id} | Delete subscriptions from an endpoint
