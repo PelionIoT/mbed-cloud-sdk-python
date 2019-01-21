@@ -6,31 +6,43 @@ entities:
     api_fieldname: address_line1
     description: Postal address line 1.
     example: 110 Fulbourn Rd
+    readOnly: false
+    required: false
     type: string
   - _key: address_line2
     api_fieldname: address_line2
     description: Postal address line 2.
     example: ' '
+    readOnly: false
+    required: false
     type: string
   - _key: admin_email
     api_fieldname: admin_email
     description: The email address of the account admin, not longer than 254 characters.
     example: admin@arm.com
+    readOnly: false
+    required: false
     type: string
   - _key: admin_full_name
     api_fieldname: admin_full_name
     description: The full name of the admin user to be created.
     example: Admin Doe
+    readOnly: false
+    required: false
     type: string
   - _key: admin_id
     api_fieldname: admin_id
     description: The ID of the admin user created.
     example: 01619571e2e89242ac12000600000000
+    readOnly: true
+    required: false
     type: string
   - _key: admin_key
     api_fieldname: admin_key
     description: The admin API key created for the account.
     example: ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT
+    readOnly: true
+    required: false
     type: string
   - _key: admin_name
     api_fieldname: admin_name
@@ -38,97 +50,133 @@ entities:
       letters and -,._@+= characters. It must be at least 4 but not more than 30 character
       long.
     example: admin
+    readOnly: false
+    required: false
     type: string
   - _key: admin_password
     api_fieldname: admin_password
     description: The password when creating a new user. It will be generated when
       not present in the request.
     example: PZf9eEUH43DAPE9ULINFeuj
+    readOnly: false
+    required: false
     type: string
   - _key: aliases
     api_fieldname: aliases
     description: An array of aliases.
     items:
       type: string
+    readOnly: false
+    required: false
     type: array
   - _key: city
     api_fieldname: city
     description: The city part of the postal address.
     example: Cambridge
+    readOnly: false
+    required: false
     type: string
   - _key: company
     api_fieldname: company
     description: The name of the company.
     example: ARM Holdings Plc
+    readOnly: false
+    required: false
     type: string
   - _key: contact
     api_fieldname: contact
     description: The name of the contact person for this account.
     example: J. Doe
+    readOnly: false
+    required: false
     type: string
   - _key: contract_number
     api_fieldname: contract_number
     description: Contract number of the customer.
     example: 1NX25_0001
+    readOnly: false
+    required: false
     type: string
   - _key: country
     api_fieldname: country
     description: The country part of the postal address.
     example: United Kingdom
+    readOnly: false
+    required: false
     type: string
   - _key: created_at
     api_fieldname: created_at
     description: Creation UTC time RFC3339.
     example: '2018-02-13T09:35:20Z'
     format: date-time
+    readOnly: true
+    required: false
     type: string
   - _key: custom_fields
     additionalProperties:
       type: string
     api_fieldname: custom_fields
     description: Account's custom properties as key-value pairs.
+    readOnly: false
+    required: false
     type: object
   - _key: customer_number
     api_fieldname: customer_number
     description: Customer number of the customer.
     example: 1NC25_0001
+    readOnly: false
+    required: false
     type: string
   - _key: display_name
     api_fieldname: display_name
     description: The display name for the account.
     example: ARM
+    readOnly: false
+    required: false
     type: string
   - _key: email
     api_fieldname: email
     description: The company email address for this account.
     example: info@arm.com
+    readOnly: false
+    required: false
     type: string
   - _key: end_market
     api_fieldname: end_market
     description: Account end market.
     example: IT
+    readOnly: false
+    required: true
     type: string
   - _key: expiration_warning_threshold
     api_fieldname: expiration_warning_threshold
     description: Indicates how many days (1-180) before account expiration a notification
       email should be sent.
     example: '180'
+    readOnly: false
+    required: false
     type: string
   - _key: id
     api_fieldname: id
     description: Account ID.
     example: 01619571e2e90242ac12000600000000
+    readOnly: false
+    required: true
     type: string
   - _key: idle_timeout
     api_fieldname: idle_timeout
     description: The reference token expiration time in minutes for this account.
     example: '30'
+    readOnly: false
+    required: false
     type: string
   - _key: limits
     additionalProperties:
       type: string
     api_fieldname: limits
     description: List of limits as key-value pairs if requested.
+    readOnly: true
+    required: false
     type: object
   - _key: mfa_status
     api_fieldname: mfa_status
@@ -138,12 +186,16 @@ entities:
     - enforced
     - optional
     enum_reference: account_mfa_status_enum
+    readOnly: false
+    required: false
     type: string
   - _key: notification_emails
     api_fieldname: notification_emails
     description: A list of notification email addresses.
     items:
       type: string
+    readOnly: false
+    required: false
     type: array
   - _key: parent_account
     api_fieldname: parent_account
@@ -172,11 +224,15 @@ entities:
       entity_fieldname: id
       example: 01619571dad80242ac12000600000000
       type: string
+    readOnly: true
+    required: false
     type: object
   - _key: parent_id
     api_fieldname: parent_id
     description: The ID of the parent account, if it has any.
     example: 01619571dad80242ac12000600000000
+    readOnly: true
+    required: false
     type: string
   - _key: password_policy
     api_fieldname: password_policy
@@ -190,11 +246,15 @@ entities:
       entity_fieldname: minimum_length
       example: '8'
       type: string
+    readOnly: false
+    required: false
     type: object
   - _key: phone_number
     api_fieldname: phone_number
     description: The phone number of a representative of the company.
     example: +44 (1223) 400 400
+    readOnly: false
+    required: false
     type: string
   - _key: policies
     api_fieldname: policies
@@ -239,31 +299,43 @@ entities:
         example: /v3/update-campaign
         type: string
       type: object
+    readOnly: true
+    required: false
     type: array
   - _key: postal_code
     api_fieldname: postal_code
     description: The postal code part of the postal address.
     example: CB1 9NJ
+    readOnly: false
+    required: false
     type: string
   - _key: reason
     api_fieldname: reason
     description: A reason note for updating the status of the account
     example: Subscription paid.
+    readOnly: true
+    required: false
     type: string
   - _key: reference_note
     api_fieldname: reference_note
     description: A reference note for updating the status of the account
     example: ARM-INT-0001
+    readOnly: true
+    required: false
     type: string
   - _key: sales_contact
     api_fieldname: sales_contact
     description: Email address of the sales contact.
     example: sales@arm.com
+    readOnly: false
+    required: false
     type: string
   - _key: state
     api_fieldname: state
     description: The state part of the postal address.
     example: ' '
+    readOnly: false
+    required: false
     type: string
   - _key: status
     api_fieldname: status
@@ -275,29 +347,39 @@ entities:
     - SUSPENDED
     enum_reference: account_status_enum
     example: ACTIVE
+    readOnly: true
+    required: false
     type: string
   - _key: template_id
     api_fieldname: template_id
     description: Account template ID.
     example: 01619571e7160242ac12000600000000
+    readOnly: true
+    required: false
     type: string
   - _key: tier
     api_fieldname: tier
     description: 'The tier level of the account; ''0'': free tier, ''1'': commercial
       account, ''2'': partner tier. Other values are reserved for the future.'
     example: '1'
+    readOnly: true
+    required: false
     type: string
   - _key: updated_at
     api_fieldname: updated_at
     description: Last update UTC time RFC3339.
     example: '2018-02-14T15:24:14Z'
     format: date-time
+    readOnly: true
+    required: false
     type: string
   - _key: upgraded_at
     api_fieldname: upgraded_at
     description: Time when upgraded to commercial account in UTC format RFC3339.
     example: '2018-02-14T15:24:14Z'
     format: date-time
+    readOnly: true
+    required: false
     type: string
   group_id: Accounts
   methods:
@@ -316,8 +398,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -497,7 +579,7 @@ entities:
       example: IT
       in: body
       parameter_fieldname: end_market
-      required: false
+      required: true
       type: string
     - _key: phone_number
       api_fieldname: phone_number
@@ -858,8 +940,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -1693,8 +1775,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -2488,8 +2570,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -3268,8 +3350,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -3433,6 +3515,7 @@ entities:
               example: 1
               format: int32
               private_field: true
+              readOnly: false
               type: integer
             - _key: enrollment_mode
               api_fieldname: enrollment_mode
@@ -3454,6 +3537,9 @@ entities:
               description: Entity ID.
               entity_fieldname: id
               example: 01619571d01d0242ac12000600000000
+              in: path
+              parameter_fieldname: cert_id
+              required: true
               type: string
             - _key: issuer
               api_fieldname: issuer
@@ -3762,8 +3848,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -3966,8 +4052,7 @@ entities:
         entity_fieldname: minimum_length
         example: '8'
         type: string
-      required:
-      - minimum_length
+      required: false
       type: object
     - _key: phone_number
       api_fieldname: phone_number
@@ -4817,8 +4902,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -5219,8 +5304,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -5751,44 +5836,60 @@ entities:
     description: The ID of the account.
     example: 01619571e2e90242ac12000600000000
     pattern: '[a-f0-9]{32}'
+    readOnly: true
+    required: false
     type: string
   - _key: created_at
     api_fieldname: created_at
     description: Creation UTC time RFC3339.
     example: '2018-02-13T09:35:20Z'
     format: date-time
+    readOnly: true
+    required: false
     type: string
   - _key: creation_time
     api_fieldname: creation_time
     description: The timestamp of the API key creation in the storage, in milliseconds.
     example: 1518630727683
     format: int64
+    readOnly: true
+    required: false
     type: integer
   - _key: id
     api_fieldname: id
     description: The ID of the API key.
     example: 01619571f7020242ac12000600000000
+    readOnly: false
+    required: true
     type: string
   - _key: key
     api_fieldname: key
     description: The API key.
     example: ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000
+    readOnly: true
+    required: false
     type: string
   - _key: last_login_time
     api_fieldname: last_login_time
     description: The timestamp of the latest API key usage, in milliseconds.
     example: 1518630727688
     format: int64
+    readOnly: true
+    required: false
     type: integer
   - _key: name
     api_fieldname: name
     description: The display name for the API key.
     example: API key gorgon
+    readOnly: false
+    required: true
     type: string
   - _key: owner
     api_fieldname: owner
     description: The owner of this API key, who is the creator by default.
     example: 01619571e2e89242ac12000600000000
+    readOnly: false
+    required: false
     type: string
   - _key: status
     api_fieldname: status
@@ -5798,12 +5899,16 @@ entities:
     - INACTIVE
     enum_reference: api_key_status_enum
     example: ACTIVE
+    readOnly: false
+    required: false
     type: string
   - _key: updated_at
     api_fieldname: updated_at
     description: Last update UTC time RFC3339.
     example: '2018-02-14T15:24:14Z'
     format: date-time
+    readOnly: true
+    required: false
     type: string
   group_id: Accounts
   methods:
@@ -5820,8 +5925,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -5841,7 +5946,7 @@ entities:
       example: API key gorgon
       in: body
       parameter_fieldname: name
-      required: false
+      required: true
       type: string
     - _key: owner
       api_fieldname: owner
@@ -6139,8 +6244,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -6329,8 +6434,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -6629,8 +6734,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -6959,8 +7064,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -7209,8 +7314,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -7238,7 +7343,7 @@ entities:
       example: API key gorgon
       in: body
       parameter_fieldname: name
-      required: false
+      required: true
       type: string
     - _key: owner
       api_fieldname: owner
@@ -7591,17 +7696,23 @@ entities:
     name: certificate-name
     parameter_fieldname: certificate-name
     pattern: '[\w-]{1,10}\.[\w-.]{1,10}'
+    readOnly: true
+    required: false
     type: string
   - _key: created_at
     api_fieldname: created_at
     description: Creation UTC time RFC3339.
     example: '2017-01-01T00:00:00Z'
     format: date-time
+    readOnly: true
+    required: false
     type: string
   - _key: device_id
     api_fieldname: device_id
     description: The device ID.
     example: 01625daa23230a580a0100bd00000000
+    readOnly: true
+    required: false
     type: string
   - _key: enroll_result
     api_fieldname: enroll_result
@@ -7611,6 +7722,8 @@ entities:
     - forbidden
     - failure
     enum_reference: certificate_enrollment_enroll_result_enum
+    readOnly: true
+    required: false
     type: string
   - _key: enroll_status
     api_fieldname: enroll_status
@@ -7618,6 +7731,8 @@ entities:
     - new
     - completed
     enum_reference: certificate_enrollment_enroll_status_enum
+    readOnly: true
+    required: false
     type: string
   - _key: id
     api_fieldname: id
@@ -7625,12 +7740,16 @@ entities:
     example: 01612df56f3b0a580a010fc700000000
     in: path
     parameter_fieldname: device-id
+    readOnly: false
+    required: true
     type: string
   - _key: updated_at
     api_fieldname: updated_at
     description: Update UTC time RFC3339.
     example: '2017-01-01T00:00:00Z'
     format: date-time
+    readOnly: true
+    required: false
     type: string
   group_id: Security
   methods:
@@ -7654,8 +7773,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -7967,8 +8086,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -8335,17 +8454,23 @@ entities:
     description: Creation UTC time RFC3339.
     example: '2017-01-01T00:00:00Z'
     format: date-time
+    readOnly: true
+    required: false
     type: string
   - _key: description
     api_fieldname: description
     description: General description for the certificate issuer.
     example: GlobalSign sample issuer
     maxLength: 100
+    readOnly: false
+    required: false
     type: string
   - _key: id
     api_fieldname: id
     description: The ID of the certificate issuer.
     example: 01234567890ABCDEF01234567890ABCDEF
+    readOnly: false
+    required: true
     type: string
   - _key: issuer_attributes
     additionalProperties:
@@ -8359,6 +8484,8 @@ entities:
 
       '
     example: []
+    readOnly: false
+    required: false
     type: object
   - _key: issuer_type
     api_fieldname: issuer_type
@@ -8369,14 +8496,18 @@ entities:
     enum:
     - GLOBAL_SIGN
     - CFSSL_AUTH
-    enum_reference: certificate_issuer_issuer_type_enum
+    enum_reference: certificate_issuer_type_enum
     example: GLOBAL_SIGN
+    readOnly: false
+    required: true
     type: string
   - _key: name
     api_fieldname: name
     description: Certificate issuer name, unique per account.
     example: GS Issuer
     maxLength: 50
+    readOnly: false
+    required: true
     type: string
   group_id: Security
   methods:
@@ -8412,14 +8543,13 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
     - created_at
     - id
-    - issuer_type
     field_renames: []
     fields:
     - _key: description
@@ -8469,6 +8599,23 @@ entities:
       required: false
       schema_param: true
       type: object
+    - _key: issuer_type
+      api_fieldname: issuer_type
+      description: "The type of the certificate issuer.\n- GLOBAL_SIGN:\n  Certificates\
+        \ are issued by GlobalSign service. The users must provide their own GlobalSign\
+        \ account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL\
+        \ authenticated signing service.\n  The users must provide their own CFSSL\
+        \ host_url and credentials.\n"
+      entity_fieldname: issuer_type
+      enum:
+      - GLOBAL_SIGN
+      - CFSSL_AUTH
+      enum_reference: certificate_issuer_type_enum
+      example: GLOBAL_SIGN
+      in: body
+      parameter_fieldname: issuer_type
+      required: true
+      type: string
     - _key: name
       api_fieldname: name
       description: Certificate issuer name, unique per account.
@@ -8486,7 +8633,6 @@ entities:
     pagination: false
     parameter_map:
       certificate-issuer-id: id
-      issuer_type: type
     path: /v3/certificate-issuers
     responses:
     - _key: '201'
@@ -8801,8 +8947,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -8829,7 +8975,6 @@ entities:
     pagination: false
     parameter_map:
       certificate-issuer-id: id
-      issuer_type: type
     path: /v3/certificate-issuers/{certificate-issuer-id}
     responses:
     - _key: '204'
@@ -9008,8 +9153,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -9036,7 +9181,6 @@ entities:
     pagination: false
     parameter_map:
       certificate-issuer-id: id
-      issuer_type: type
     path: /v3/certificate-issuers/{certificate-issuer-id}
     responses:
     - _key: '200'
@@ -9293,8 +9437,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -9363,7 +9507,6 @@ entities:
     pagination: true
     parameter_map:
       certificate-issuer-id: id
-      issuer_type: type
     path: /v3/certificate-issuers
     responses:
     - _key: '200'
@@ -9590,8 +9733,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -9672,7 +9815,6 @@ entities:
     pagination: false
     parameter_map:
       certificate-issuer-id: id
-      issuer_type: type
     path: /v3/certificate-issuers/{certificate-issuer-id}
     responses:
     - _key: '200'
@@ -10041,8 +10183,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -10072,7 +10214,6 @@ entities:
     pagination: false
     parameter_map:
       certificate-issuer-id: id
-      issuer_type: type
     path: /v3/certificate-issuers/{certificate-issuer-id}/verify
     responses:
     - _key: '200'
@@ -10330,18 +10471,24 @@ entities:
 
       '
     example: 01648415a2a30242ac18000500000000
+    readOnly: false
+    required: true
     type: string
   - _key: certificate_reference
     api_fieldname: reference
     description: The certificate name to which the certificate issuer configuration
       applies.
     example: customer.dlms
+    readOnly: false
+    required: true
     type: string
   - _key: created_at
     api_fieldname: created_at
     description: Created UTC time RFC3339.
     example: '2017-01-01T00:00:00Z'
     format: date-time
+    readOnly: true
+    required: false
     type: string
   - _key: id
     api_fieldname: id
@@ -10349,12 +10496,16 @@ entities:
 
       '
     example: 01648415a2a30242ac18000500000000
+    readOnly: false
+    required: true
     type: string
   - _key: updated_at
     api_fieldname: updated_at
     description: Updated UTC time RFC3339.
     example: '2017-02-01T00:00:00Z'
     format: date-time
+    readOnly: true
+    required: false
     type: string
   group_id: Security
   methods:
@@ -10369,8 +10520,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -10402,7 +10553,7 @@ entities:
       example: customer.dlms
       in: body
       parameter_fieldname: reference
-      required: false
+      required: true
       type: string
     group_id: Security
     method: post
@@ -10656,8 +10807,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -10862,8 +11013,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -11125,6 +11276,230 @@ entities:
       type: certificate_issuer_config
     return_type: certificate_issuer_config
     summary: Get certificate issuer configuration.
+  - _key: get_default
+    description: 'Provides the configured certificate issuer to be used when creating
+      device
+
+      certificates for LwM2M communication.<br>
+
+      '
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - is_custom
+    - private_key
+    - sub_accounts
+    - id
+    - certificate_issuer_id
+    - created_at
+    - updated_at
+    - certificate_reference
+    field_renames:
+    - _key: certificate_reference
+      api_fieldname: reference
+    fields: []
+    group_id: Security
+    method: get
+    mode: get_default
+    operation_id: getCertificateIssuerConfig
+    pagination: false
+    parameter_map:
+      certificate-issuer-configuration-id: id
+    path: /v3/certificate-issuer-configurations/lwm2m
+    responses:
+    - _key: '200'
+      description: OK.
+      schema:
+        foreign_key:
+          entity: certificate_issuer_config
+          group: Security
+        properties:
+        - _key: certificate_issuer_id
+          api_fieldname: certificate_issuer_id
+          description: 'The ID of the certificate issuer.
+
+            Null if Device Management internal HSM is used.
+
+            '
+          entity_fieldname: certificate_issuer_id
+          example: 01648415a2a30242ac18000500000000
+          type: string
+        - _key: created_at
+          api_fieldname: created_at
+          description: Created UTC time RFC3339.
+          entity_fieldname: created_at
+          example: '2017-01-01T00:00:00Z'
+          format: date-time
+          type: string
+        - _key: etag
+          api_fieldname: etag
+          description: Entity instance signature.
+          entity_fieldname: etag
+          example: '1'
+          type: string
+        - _key: id
+          api_fieldname: id
+          description: 'The ID of the certificate issuer configuration.
+
+            '
+          entity_fieldname: id
+          example: 01648415a2a30242ac18000500000000
+          type: string
+        - _key: is_custom
+          api_fieldname: is_custom
+          entity_fieldname: is_custom
+          example: true
+          type: boolean
+        - _key: object
+          api_fieldname: object
+          entity_fieldname: object
+          enum:
+          - certificate-issuer-configuration
+          type: string
+        - _key: reference
+          api_fieldname: reference
+          description: The certificate name to which the certificate issuer configuration
+            applies.
+          entity_fieldname: certificate_reference
+          example: customer.dlms
+          type: string
+        - _key: updated_at
+          api_fieldname: updated_at
+          description: Updated UTC time RFC3339.
+          entity_fieldname: updated_at
+          example: '2017-02-01T00:00:00Z'
+          format: date-time
+          type: string
+        type: object
+    - _key: '400'
+      description: Validation error.
+      schema:
+        properties:
+        - _key: code
+          description: Error code. Correlates with response status code.
+          format: int32
+          type: integer
+        - _key: fields
+          description: A list of request fields that failed the validation.
+          items:
+            properties:
+            - _key: field
+              description: Field name.
+              type: string
+            - _key: message
+              description: Error message related to the field.
+              type: string
+            type: object
+          type: array
+        - _key: message
+          description: Error message.
+          type: string
+        - _key: object
+          description: 'entity name: ''error'''
+          type: string
+        - _key: request_id
+          description: Request ID from JWT.
+          type: string
+        - _key: type
+          description: Error type.
+          type: string
+        required:
+        - code
+        - fields
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '401'
+      description: Unauthorized.
+      schema:
+        properties:
+        - _key: code
+          description: Error code. Correlates with response status code.
+          format: int32
+          type: integer
+        - _key: fields
+          description: A list of request fields that failed the validation.
+          items:
+            properties:
+            - _key: field
+              description: Field name.
+              type: string
+            - _key: message
+              description: Error message related to the field.
+              type: string
+            type: object
+          type: array
+        - _key: message
+          description: Error message.
+          type: string
+        - _key: object
+          description: 'entity name: ''error'''
+          type: string
+        - _key: request_id
+          description: Request ID from JWT.
+          type: string
+        - _key: type
+          description: Error type.
+          type: string
+        required:
+        - code
+        - fields
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '403'
+      description: Forbidden.
+      schema:
+        properties:
+        - _key: code
+          description: Error code. Correlates with response status code.
+          format: int32
+          type: integer
+        - _key: fields
+          description: A list of request fields that failed the validation.
+          items:
+            properties:
+            - _key: field
+              description: Field name.
+              type: string
+            - _key: message
+              description: Error message related to the field.
+              type: string
+            type: object
+          type: array
+        - _key: message
+          description: Error message.
+          type: string
+        - _key: object
+          description: 'entity name: ''error'''
+          type: string
+        - _key: request_id
+          description: Request ID from JWT.
+          type: string
+        - _key: type
+          description: Error type.
+          type: string
+        required:
+        - code
+        - fields
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: certificate_issuer_config
+    return_type: certificate_issuer_config
+    summary: Get certificate issuer configuration.
   - _key: list
     description: 'Get certificate issuer configurations, optionally filtered by reference.
 
@@ -11166,8 +11541,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -11467,230 +11842,6 @@ entities:
       type: certificate_issuer_config
     return_type: paginated_response(certificate_issuer_config)
     summary: Get certificate issuer configurations.
-  - _key: lwm2m
-    description: 'Provides the configured certificate issuer to be used when creating
-      device
-
-      certificates for LwM2M communication.<br>
-
-      '
-    drop_fields:
-    - object
-    - etag
-    - type
-    - filter
-    - groups
-    - is_custom
-    - private_key
-    - sub_accounts
-    - id
-    - certificate_issuer_id
-    - created_at
-    - updated_at
-    - certificate_reference
-    field_renames:
-    - _key: certificate_reference
-      api_fieldname: reference
-    fields: []
-    group_id: Security
-    method: get
-    mode: lwm2m
-    operation_id: getCertificateIssuerConfig
-    pagination: false
-    parameter_map:
-      certificate-issuer-configuration-id: id
-    path: /v3/certificate-issuer-configurations/lwm2m
-    responses:
-    - _key: '200'
-      description: OK.
-      schema:
-        foreign_key:
-          entity: certificate_issuer_config
-          group: Security
-        properties:
-        - _key: certificate_issuer_id
-          api_fieldname: certificate_issuer_id
-          description: 'The ID of the certificate issuer.
-
-            Null if Device Management internal HSM is used.
-
-            '
-          entity_fieldname: certificate_issuer_id
-          example: 01648415a2a30242ac18000500000000
-          type: string
-        - _key: created_at
-          api_fieldname: created_at
-          description: Created UTC time RFC3339.
-          entity_fieldname: created_at
-          example: '2017-01-01T00:00:00Z'
-          format: date-time
-          type: string
-        - _key: etag
-          api_fieldname: etag
-          description: Entity instance signature.
-          entity_fieldname: etag
-          example: '1'
-          type: string
-        - _key: id
-          api_fieldname: id
-          description: 'The ID of the certificate issuer configuration.
-
-            '
-          entity_fieldname: id
-          example: 01648415a2a30242ac18000500000000
-          type: string
-        - _key: is_custom
-          api_fieldname: is_custom
-          entity_fieldname: is_custom
-          example: true
-          type: boolean
-        - _key: object
-          api_fieldname: object
-          entity_fieldname: object
-          enum:
-          - certificate-issuer-configuration
-          type: string
-        - _key: reference
-          api_fieldname: reference
-          description: The certificate name to which the certificate issuer configuration
-            applies.
-          entity_fieldname: certificate_reference
-          example: customer.dlms
-          type: string
-        - _key: updated_at
-          api_fieldname: updated_at
-          description: Updated UTC time RFC3339.
-          entity_fieldname: updated_at
-          example: '2017-02-01T00:00:00Z'
-          format: date-time
-          type: string
-        type: object
-    - _key: '400'
-      description: Validation error.
-      schema:
-        properties:
-        - _key: code
-          description: Error code. Correlates with response status code.
-          format: int32
-          type: integer
-        - _key: fields
-          description: A list of request fields that failed the validation.
-          items:
-            properties:
-            - _key: field
-              description: Field name.
-              type: string
-            - _key: message
-              description: Error message related to the field.
-              type: string
-            type: object
-          type: array
-        - _key: message
-          description: Error message.
-          type: string
-        - _key: object
-          description: 'entity name: ''error'''
-          type: string
-        - _key: request_id
-          description: Request ID from JWT.
-          type: string
-        - _key: type
-          description: Error type.
-          type: string
-        required:
-        - code
-        - fields
-        - message
-        - object
-        - request_id
-        - type
-        type: object
-    - _key: '401'
-      description: Unauthorized.
-      schema:
-        properties:
-        - _key: code
-          description: Error code. Correlates with response status code.
-          format: int32
-          type: integer
-        - _key: fields
-          description: A list of request fields that failed the validation.
-          items:
-            properties:
-            - _key: field
-              description: Field name.
-              type: string
-            - _key: message
-              description: Error message related to the field.
-              type: string
-            type: object
-          type: array
-        - _key: message
-          description: Error message.
-          type: string
-        - _key: object
-          description: 'entity name: ''error'''
-          type: string
-        - _key: request_id
-          description: Request ID from JWT.
-          type: string
-        - _key: type
-          description: Error type.
-          type: string
-        required:
-        - code
-        - fields
-        - message
-        - object
-        - request_id
-        - type
-        type: object
-    - _key: '403'
-      description: Forbidden.
-      schema:
-        properties:
-        - _key: code
-          description: Error code. Correlates with response status code.
-          format: int32
-          type: integer
-        - _key: fields
-          description: A list of request fields that failed the validation.
-          items:
-            properties:
-            - _key: field
-              description: Field name.
-              type: string
-            - _key: message
-              description: Error message related to the field.
-              type: string
-            type: object
-          type: array
-        - _key: message
-          description: Error message.
-          type: string
-        - _key: object
-          description: 'entity name: ''error'''
-          type: string
-        - _key: request_id
-          description: Request ID from JWT.
-          type: string
-        - _key: type
-          description: Error type.
-          type: string
-        required:
-        - code
-        - fields
-        - message
-        - object
-        - request_id
-        - type
-        type: object
-    return_info:
-      custom: false
-      self: true
-      type: certificate_issuer_config
-    return_type: certificate_issuer_config
-    summary: Get certificate issuer configuration.
   - _key: update
     additional_operations:
     - notes: After retrieving the resource using the `lwm2m` method, it can modified
@@ -11703,8 +11854,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -11996,34 +12147,48 @@ entities:
   - _key: account_id
     api_fieldname: account_id
     description: account to which the developer certificate belongs
+    readOnly: true
+    required: false
     type: string
   - _key: certificate
     api_fieldname: developer_certificate
     description: PEM format X.509 developer certificate.
+    readOnly: true
+    required: false
     type: string
   - _key: created_at
     api_fieldname: created_at
     description: Creation UTC time RFC3339.
     format: date-time
+    readOnly: true
+    required: false
     type: string
   - _key: description
     api_fieldname: description
     description: Description for the developer certificate.
+    readOnly: false
+    required: false
     type: string
   - _key: id
     api_fieldname: id
     description: mUUID that uniquely identifies the developer certificate.
     in: path
     parameter_fieldname: developerCertificateId
+    readOnly: false
+    required: true
     type: string
   - _key: name
     api_fieldname: name
     description: Name of the developer certificate.
+    readOnly: false
+    required: true
     type: string
   - _key: security_file_content
     api_fieldname: security_file_content
     description: Content of the security.c file that will be flashed into the device
       to provide the security credentials
+    readOnly: true
+    required: false
     type: string
   group_id: Security
   methods:
@@ -12049,8 +12214,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -12079,7 +12244,7 @@ entities:
       entity_fieldname: name
       in: body
       parameter_fieldname: name
-      required: false
+      required: true
       type: string
     group_id: Security
     method: post
@@ -12600,8 +12765,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -12611,11 +12776,11 @@ entities:
     - _key: private_key
       api_fieldname: developer_private_key
     fields:
-    - _key: cert_id
+    - _key: id
       api_fieldname: cert_id
       description: The ID of the trusted certificate to be deleted.
-      entity_fieldname: cert_id
-      external_param: true
+      entity_fieldname: id
+      external_param: false
       in: path
       name: cert_id
       parameter_fieldname: cert_id
@@ -12627,7 +12792,7 @@ entities:
     operation_id: deleteCertificate
     pagination: false
     parameter_map:
-      cert-id: id
+      cert_id: id
       developerCertificateId: id
     path: /v3/trusted-certificates/{cert_id}
     responses:
@@ -12799,8 +12964,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -13256,7 +13421,7 @@ entities:
       type: developer_certificate
     return_type: developer_certificate
     summary: Fetch an existing developer certificate to connect to the bootstrap server.
-  - _key: trusted_certificate_info
+  - _key: get_trusted_certificate_info
     description: 'An endpoint for retrieving a trusted certificate by ID.
 
 
@@ -13268,12 +13433,11 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
-    - id
     - created_at
     - updated_at
     - name
@@ -13294,16 +13458,6 @@ entities:
     - _key: private_key
       api_fieldname: developer_private_key
     fields:
-    - _key: cert_id
-      api_fieldname: cert_id
-      description: The ID of the trusted certificate to be retrieved.
-      entity_fieldname: cert_id
-      external_param: true
-      in: path
-      name: cert_id
-      parameter_fieldname: cert_id
-      required: true
-      type: string
     - _key: device_execution_mode
       _override: true
       api_fieldname: device_execution_mode
@@ -13312,17 +13466,27 @@ entities:
       example: 1
       format: int32
       private_field: true
+      readOnly: false
       type: integer
+    - _key: id
+      api_fieldname: id
+      description: Entity ID.
+      entity_fieldname: id
+      example: 01619571d01d0242ac12000600000000
+      in: path
+      parameter_fieldname: cert_id
+      required: true
+      type: string
     foreign_key:
       entity: trusted_certificate
       group: Security
     group_id: Security
     method: get
-    mode: trusted_certificate_info
+    mode: get_trusted_certificate_info
     operation_id: getCertificate
     pagination: false
     parameter_map:
-      cert-id: id
+      cert_id: id
       developerCertificateId: id
     path: /v3/trusted-certificates/{cert_id}
     responses:
@@ -13373,6 +13537,7 @@ entities:
           example: 1
           format: int32
           private_field: true
+          readOnly: false
           type: integer
         - _key: enrollment_mode
           api_fieldname: enrollment_mode
@@ -13633,39 +13798,53 @@ entities:
     api_fieldname: account_id
     description: The ID of the associated account.
     example: '00000000000000000000000000000000'
+    readOnly: true
+    required: false
     type: string
   - _key: auto_update
     api_fieldname: auto_update
     description: 'DEPRECATED: Mark this device for automatic firmware update.'
+    readOnly: false
+    required: false
     type: boolean
   - _key: bootstrap_expiration_date
     api_fieldname: bootstrap_expiration_date
     description: The expiration date of the certificate used to connect to bootstrap
       server.
     format: date
+    readOnly: false
+    required: false
     type: string
   - _key: bootstrapped_timestamp
     api_fieldname: bootstrapped_timestamp
     description: The timestamp of the device's most recent bootstrap process.
     example: '2017-05-22T12:37:55.576563Z'
     format: date-time
+    readOnly: false
+    required: false
     type: string
   - _key: ca_id
     api_fieldname: ca_id
     description: The certificate issuer's ID.
     example: '00000000000000000000000000000000'
     maxLength: 500
+    readOnly: false
+    required: false
     type: string
   - _key: connector_expiration_date
     api_fieldname: connector_expiration_date
     description: The expiration date of the certificate used to connect to LwM2M server.
     format: date
+    readOnly: false
+    required: false
     type: string
   - _key: created_at
     api_fieldname: created_at
     description: The timestamp of when the device was created in the device directory.
     example: '2017-05-22T12:37:55.576563Z'
     format: date-time
+    readOnly: true
+    required: false
     type: string
   - _key: custom_attributes
     additionalProperties:
@@ -13673,6 +13852,8 @@ entities:
     api_fieldname: custom_attributes
     description: Up to five custom key-value attributes.
     example: '{ ''key'': ''value'' }'
+    readOnly: false
+    required: false
     type: object
   - _key: deployed_state
     api_fieldname: deployed_state
@@ -13681,23 +13862,31 @@ entities:
     - development
     - production
     enum_reference: device_deployed_state_enum
+    readOnly: true
+    required: false
     type: string
   - _key: deployment
     api_fieldname: deployment
     description: 'DEPRECATED: The last deployment used on the device.'
     example: ''
+    readOnly: false
+    required: false
     type: string
   - _key: description
     api_fieldname: description
     description: The description of the device.
     example: description
     maxLength: 2000
+    readOnly: false
+    required: false
     type: string
   - _key: device_class
     api_fieldname: device_class
     description: An ID representing the model and hardware revision of the device.
     example: ''
     maxLength: 32
+    readOnly: false
+    required: false
     type: string
   - _key: device_execution_mode
     api_fieldname: device_execution_mode
@@ -13710,56 +13899,76 @@ entities:
     - 1
     - 5
     example: 0
+    readOnly: false
+    required: false
     type: integer
   - _key: device_key
     api_fieldname: device_key
     description: The fingerprint of the device certificate.
     example: 00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00
     maxLength: 512
+    readOnly: false
+    required: false
     type: string
   - _key: endpoint_name
     api_fieldname: endpoint_name
     description: The endpoint name given to the device.
     example: 00000000-0000-0000-0000-000000000000
+    readOnly: false
+    required: false
     type: string
   - _key: endpoint_type
     api_fieldname: endpoint_type
     description: The endpoint type of the device. For example, the device is a gateway.
     example: ''
     maxLength: 64
+    readOnly: false
+    required: false
     type: string
   - _key: enrolment_list_timestamp
     api_fieldname: enrolment_list_timestamp
     description: The claim date/time.
     example: '2017-05-22T12:37:55.576563Z'
     format: date-time
+    readOnly: true
+    required: false
     type: string
   - _key: firmware_checksum
     api_fieldname: firmware_checksum
     description: The SHA256 checksum of the current firmware image.
     example: '0000000000000000000000000000000000000000000000000000000000000000'
+    readOnly: false
+    required: false
     type: string
   - _key: host_gateway
     api_fieldname: host_gateway
     description: The `endpoint_name` of the host gateway, if appropriate.
     example: ''
+    readOnly: false
+    required: false
     type: string
   - _key: id
     api_fieldname: id
     description: The ID of the device. The device ID is used across all Device Management
       APIs.
     example: '00000000000000000000000000000000'
+    readOnly: false
+    required: true
     type: string
   - _key: manifest
     api_fieldname: manifest
     description: 'DEPRECATED: The URL for the current device manifest.'
     example: ''
+    readOnly: false
+    required: false
     type: string
   - _key: manifest_timestamp
     api_fieldname: manifest_timestamp
     description: The timestamp of the current manifest version.
     example: '2017-05-22T12:37:55.576563Z'
     format: date-time
+    readOnly: true
+    required: false
     type: string
   - _key: mechanism
     api_fieldname: mechanism
@@ -13768,22 +13977,30 @@ entities:
     - connector
     - direct
     enum_reference: device_mechanism_enum
+    readOnly: false
+    required: false
     type: string
   - _key: mechanism_url
     api_fieldname: mechanism_url
     description: The address of the connector to use.
     example: ''
+    readOnly: false
+    required: false
     type: string
   - _key: name
     api_fieldname: name
     description: The name of the device.
     example: 00000000-0000-0000-0000-000000000000
     maxLength: 128
+    readOnly: false
+    required: false
     type: string
   - _key: serial_number
     api_fieldname: serial_number
     description: The serial number of the device.
     example: 00000000-0000-0000-0000-000000000000
+    readOnly: false
+    required: false
     type: string
   - _key: state
     api_fieldname: state
@@ -13795,17 +14012,23 @@ entities:
     - registered
     - deregistered
     enum_reference: device_state_enum
+    readOnly: false
+    required: false
     type: string
   - _key: updated_at
     api_fieldname: updated_at
     description: The time the object was updated.
     example: '2017-05-22T12:37:55.576563Z'
     format: date-time
+    readOnly: true
+    required: false
     type: string
   - _key: vendor_id
     api_fieldname: vendor_id
     description: The device vendor ID.
     example: 00000000-0000-0000-0000-000000000000
+    readOnly: false
+    required: false
     type: string
   group_id: Devices
   methods:
@@ -13815,8 +14038,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -14319,8 +14542,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -14362,8 +14585,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -14668,8 +14891,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -14989,8 +15212,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -15370,8 +15593,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -15766,28 +15989,38 @@ entities:
     api_fieldname: account_id
     description: ID
     example: 00005a4e027f0a580a01081c00000000
+    readOnly: true
+    required: false
     type: string
   - _key: claimed_at
     api_fieldname: claimed_at
     description: The time of claiming the device to be assigned to the account.
     format: date-time
+    readOnly: true
+    required: false
     type: string
   - _key: created_at
     api_fieldname: created_at
     description: The time of the enrollment identity creation.
     format: date-time
+    readOnly: true
+    required: false
     type: string
   - _key: enrolled_device_id
     api_fieldname: enrolled_device_id
     description: The ID of the device in the Device Directory once it has been registered.
     example: 00005a4e027f0a580a01081c00000000
     pattern: ^[A-Za-z0-9]{32}
+    readOnly: true
+    required: false
     type: string
   - _key: enrollment_identity
     api_fieldname: enrollment_identity
     description: Enrollment identity.
     example: A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5
     pattern: ^A-[A-Za-z0-9:]{95}$
+    readOnly: false
+    required: true
     type: string
   - _key: expires_at
     api_fieldname: expires_at
@@ -15795,12 +16028,16 @@ entities:
       to Device Management before the expiration, the claim is removed without a separate
       notice
     format: date-time
+    readOnly: true
+    required: false
     type: string
   - _key: id
     api_fieldname: id
     description: Enrollment identity.
     example: 00005a4e027f0a580a01081c00000000
     pattern: ^[A-Za-z0-9]{32}
+    readOnly: false
+    required: true
     type: string
   group_id: Devices
   methods:
@@ -15831,8 +16068,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -15852,7 +16089,7 @@ entities:
       in: body
       parameter_fieldname: enrollment_identity
       pattern: ^A-[A-Za-z0-9:]{95}$
-      required: false
+      required: true
       type: string
     group_id: Devices
     method: post
@@ -16154,8 +16391,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -16311,8 +16548,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -16562,8 +16799,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -16912,6 +17149,8 @@ entities:
     api_fieldname: account_id
     description: ID
     example: 00005a4e027f0a580a01081c00000000
+    readOnly: true
+    required: false
     type: string
   - _key: completed_at
     api_fieldname: completed_at
@@ -16919,6 +17158,8 @@ entities:
 
       '
     format: date-time
+    readOnly: true
+    required: false
     type: string
   - _key: created_at
     api_fieldname: created_at
@@ -16926,6 +17167,8 @@ entities:
 
       '
     format: date-time
+    readOnly: true
+    required: false
     type: string
   - _key: errors_count
     api_fieldname: errors_count
@@ -16933,19 +17176,27 @@ entities:
 
       '
     example: 0
+    readOnly: true
+    required: false
     type: integer
   - _key: errors_report_file
     api_fieldname: errors_report_file
     example: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/errors_report.csv
+    readOnly: true
+    required: false
     type: string
   - _key: full_report_file
     api_fieldname: full_report_file
     example: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/full_report.csv
+    readOnly: true
+    required: false
     type: string
   - _key: id
     api_fieldname: id
     description: Bulk ID
     pattern: ^[A-Za-z0-9]{32}
+    readOnly: false
+    required: true
     type: string
   - _key: processed_count
     api_fieldname: processed_count
@@ -16953,6 +17204,8 @@ entities:
 
       '
     example: 0
+    readOnly: true
+    required: false
     type: integer
   - _key: status
     api_fieldname: status
@@ -16968,6 +17221,8 @@ entities:
     - completed
     enum_reference: device_enrollment_bulk_create_status_enum
     example: new
+    readOnly: true
+    required: false
     type: string
   - _key: total_count
     api_fieldname: total_count
@@ -16975,6 +17230,8 @@ entities:
 
       '
     example: 10
+    readOnly: true
+    required: false
     type: integer
   group_id: Devices
   methods:
@@ -17015,8 +17272,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -17301,8 +17558,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -17332,8 +17589,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -17409,8 +17666,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -17749,6 +18006,8 @@ entities:
     api_fieldname: account_id
     description: ID
     example: 00005a4e027f0a580a01081c00000000
+    readOnly: true
+    required: false
     type: string
   - _key: completed_at
     api_fieldname: completed_at
@@ -17756,6 +18015,8 @@ entities:
 
       '
     format: date-time
+    readOnly: true
+    required: false
     type: string
   - _key: created_at
     api_fieldname: created_at
@@ -17763,6 +18024,8 @@ entities:
 
       '
     format: date-time
+    readOnly: true
+    required: false
     type: string
   - _key: errors_count
     api_fieldname: errors_count
@@ -17770,14 +18033,20 @@ entities:
 
       '
     example: 0
+    readOnly: true
+    required: false
     type: integer
   - _key: errors_report_file
     api_fieldname: errors_report_file
     example: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/errors_report.csv
+    readOnly: true
+    required: false
     type: string
   - _key: full_report_file
     api_fieldname: full_report_file
     example: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/full_report.csv
+    readOnly: true
+    required: false
     type: string
   - _key: id
     api_fieldname: id
@@ -17785,6 +18054,8 @@ entities:
     in: path
     parameter_fieldname: id
     pattern: ^[A-Za-z0-9]{32}
+    readOnly: false
+    required: true
     type: string
   - _key: processed_count
     api_fieldname: processed_count
@@ -17792,6 +18063,8 @@ entities:
 
       '
     example: 0
+    readOnly: true
+    required: false
     type: integer
   - _key: status
     api_fieldname: status
@@ -17807,6 +18080,8 @@ entities:
     - completed
     enum_reference: device_enrollment_bulk_delete_status_enum
     example: new
+    readOnly: true
+    required: false
     type: string
   - _key: total_count
     api_fieldname: total_count
@@ -17814,6 +18089,8 @@ entities:
 
       '
     example: 10
+    readOnly: true
+    required: false
     type: integer
   group_id: Devices
   methods:
@@ -17854,8 +18131,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -18144,8 +18421,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -18175,8 +18452,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -18252,8 +18529,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -18596,11 +18873,15 @@ entities:
       type: string
     api_fieldname: changes
     example: []
+    readOnly: true
+    required: false
     type: object
   - _key: created_at
     api_fieldname: created_at
     example: '2017-05-22T12:37:55.576563Z'
     format: date-time
+    readOnly: true
+    required: false
     type: string
   - _key: data
     additionalProperties:
@@ -18609,42 +18890,60 @@ entities:
     description: Additional data relevant to the event.
     example:
       campaign_id: '00000000000000000000000000000000'
+    readOnly: true
+    required: false
     type: object
   - _key: date_time
     api_fieldname: date_time
     example: '2017-05-22T12:37:55.576563Z'
     format: date-time
+    readOnly: true
+    required: false
     type: string
   - _key: description
     api_fieldname: description
     example: Device record created
+    readOnly: true
+    required: false
     type: string
   - _key: device_id
     api_fieldname: device_id
     example: '00000000000000000000000000000000'
+    readOnly: true
+    required: false
     type: string
   - _key: event_type
     api_fieldname: event_type
     description: Event code
     example: UPD2_100
     maxLength: 100
+    readOnly: true
+    required: false
     type: string
   - _key: event_type_category
     api_fieldname: event_type_category
     description: Category code which groups the event type by a summary category.
     example: FAIL_MANIFEST_REJECTED
+    readOnly: true
+    required: false
     type: string
   - _key: event_type_description
     api_fieldname: event_type_description
     description: Generic description of the event
     example: FAIL
+    readOnly: true
+    required: false
     type: string
   - _key: id
     api_fieldname: id
     example: '00000000000000000000000000000000'
+    readOnly: false
+    required: true
     type: string
   - _key: state_change
     api_fieldname: state_change
+    readOnly: true
+    required: false
     type: boolean
   group_id: Devices
   methods:
@@ -18654,8 +18953,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -18794,8 +19093,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -18993,28 +19292,44 @@ entities:
     description: UTC time RFC3339 for this login attempt.
     example: '2018-02-14T17:52:07Z'
     format: date-time
+    readOnly: true
+    required: false
     type: string
   - _key: ip_address
     api_fieldname: ip_address
     description: IP address of the client.
     example: 127.0.0.1
+    readOnly: true
+    required: false
     type: string
   - _key: success
     api_fieldname: success
     description: Flag indicating whether login attempt was successful or not.
     example: true
+    readOnly: true
+    required: false
     type: boolean
   - _key: user_agent
     api_fieldname: user_agent
     description: User Agent header from the login request.
     example: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML,
       like Gecko) Chrome/41.0.2227.1 Safari/537.36
+    readOnly: true
+    required: false
     type: string
   group_id: Accounts
   methods: []
   primary_key_field: null
   swagger_models:
   - LoginHistory
+  tags: []
+- _key: login_profile
+  field_renames: []
+  fields: []
+  group_id: Accounts
+  methods: []
+  primary_key_field: null
+  swagger_models: []
   tags: []
 - _key: parent_account
   field_renames: []
@@ -19024,17 +19339,23 @@ entities:
     description: The email address of the admin user who is the contact person of
       the parent account.
     example: info@arm.com
+    readOnly: true
+    required: false
     type: string
   - _key: admin_name
     api_fieldname: admin_name
     description: The name of the admin user who is the contact person of the parent
       account.
     example: J. Doe
+    readOnly: true
+    required: false
     type: string
   - _key: id
     api_fieldname: id
     description: The ID of the parent account
     example: 01619571dad80242ac12000600000000
+    readOnly: true
+    required: false
     type: string
   group_id: Accounts
   methods: []
@@ -19049,6 +19370,8 @@ entities:
     api_fieldname: minimum_length
     description: Minimum length for the password. A number between 8 and 512.
     example: '8'
+    readOnly: true
+    required: false
     type: string
   group_id: Accounts
   methods: []
@@ -19063,27 +19386,37 @@ entities:
     api_fieldname: action
     description: Comma separated list of actions, empty string represents all actions.
     example: GET
+    readOnly: true
+    required: false
     type: string
   - _key: allow
     api_fieldname: allow
     description: True or false controlling whether an action is allowed or not.
     example: true
+    readOnly: true
+    required: false
     type: boolean
   - _key: feature
     api_fieldname: feature
     description: Feature name corresponding to this policy.
     example: update-campaigns
+    readOnly: true
+    required: false
     type: string
   - _key: inherited
     api_fieldname: inherited
     description: Flag indicating whether this feature is inherited or overwritten
       specifically.
     example: false
+    readOnly: true
+    required: false
     type: boolean
   - _key: resource
     api_fieldname: resource
     description: Resource that is protected by this policy.
     example: /v3/update-campaign
+    readOnly: true
+    required: false
     type: string
   group_id: Accounts
   methods: []
@@ -19098,19 +19431,27 @@ entities:
     api_fieldname: created_at
     description: Creation UTC time RFC3339.
     format: date-time
+    readOnly: true
+    required: false
     type: string
   - _key: id
     api_fieldname: id
     description: mUUID that uniquely identifies the entity.
+    readOnly: true
+    required: false
     type: string
   - _key: server_certificate
     api_fieldname: server_certificate
     description: PEM format X.509 server certificate that will be used to validate
       the server certificate that will be received during the TLS/DTLS handshake.
+    readOnly: true
+    required: false
     type: string
   - _key: server_uri
     api_fieldname: server_uri
     description: Server URI to which the client needs to connect to.
+    readOnly: true
+    required: false
     type: string
   group_id: Security
   methods:
@@ -19134,8 +19475,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -19330,8 +19671,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -19518,6 +19859,8 @@ entities:
     api_fieldname: account_id
     description: The ID of the account.
     example: 01619571e2e90242ac12000600000000
+    readOnly: false
+    required: true
     type: string
   - _key: certificate
     api_fieldname: certificate
@@ -19525,17 +19868,23 @@ entities:
     example: '-----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----'
     in: body
     parameter_fieldname: certificate
+    readOnly: false
+    required: true
     type: string
   - _key: certificate_fingerprint
     api_fieldname: certificate_fingerprint
     description: A SHA-256 fingerprint of the certificate.
     example: a10fb2c8ba90e6de927bd0ae391dcc38f6115685de2d7024712af37ead0608f1
+    readOnly: true
+    required: false
     type: string
   - _key: created_at
     api_fieldname: created_at
     description: Creation UTC time RFC3339.
     example: '2018-02-13T09:35:20Z'
     format: date-time
+    readOnly: true
+    required: false
     type: string
   - _key: description
     api_fieldname: description
@@ -19543,6 +19892,8 @@ entities:
     example: Certificate created by me.
     in: body
     parameter_fieldname: description
+    readOnly: false
+    required: false
     type: string
   - _key: device_execution_mode
     _override: true
@@ -19551,6 +19902,8 @@ entities:
     example: 1
     format: int32
     private_field: true
+    readOnly: false
+    required: false
     type: integer
   - _key: enrollment_mode
     api_fieldname: enrollment_mode
@@ -19558,11 +19911,17 @@ entities:
     example: false
     in: body
     parameter_fieldname: enrollment_mode
+    readOnly: false
+    required: false
     type: boolean
   - _key: id
     api_fieldname: id
     description: Entity ID.
     example: 01619571d01d0242ac12000600000000
+    in: path
+    parameter_fieldname: cert_id
+    readOnly: false
+    required: true
     type: string
   - _key: is_developer_certificate
     _override: true
@@ -19570,12 +19929,16 @@ entities:
     description: Whether or not this certificate is a developer certificate.
     example: true
     getter_custom_method: is_developer_certificate_getter
+    readOnly: false
+    required: false
     setter_custom_method: is_developer_certificate_setter
     type: boolean
   - _key: issuer
     api_fieldname: issuer
     description: Issuer of the certificate.
     example: CN=issuer
+    readOnly: true
+    required: false
     type: string
   - _key: name
     api_fieldname: name
@@ -19583,11 +19946,15 @@ entities:
     example: My certificate
     in: body
     parameter_fieldname: name
+    readOnly: false
+    required: true
     type: string
   - _key: owner_id
     api_fieldname: owner_id
     description: The ID of the owner.
     example: 01619571dad80242ac12000600000000
+    readOnly: true
+    required: false
     type: string
   - _key: service
     api_fieldname: service
@@ -19598,6 +19965,8 @@ entities:
     enum_reference: subtenant_trusted_certificate_service_enum
     in: body
     parameter_fieldname: service
+    readOnly: false
+    required: true
     type: string
   - _key: status
     api_fieldname: status
@@ -19609,23 +19978,31 @@ entities:
     example: ACTIVE
     in: body
     parameter_fieldname: status
+    readOnly: false
+    required: false
     type: string
   - _key: subject
     api_fieldname: subject
     description: Subject of the certificate.
     example: CN=subject
+    readOnly: true
+    required: false
     type: string
   - _key: updated_at
     api_fieldname: updated_at
     description: Last update UTC time RFC3339.
     example: '2018-02-14T15:24:14Z'
     format: date-time
+    readOnly: true
+    required: false
     type: string
   - _key: validity
     api_fieldname: validity
     description: Expiration time in UTC formatted as RFC3339.
     example: '2038-02-14T15:24:14Z'
     format: date-time
+    readOnly: true
+    required: false
     type: string
   group_id: Security
   methods:
@@ -19643,8 +20020,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -19675,7 +20052,7 @@ entities:
       example: '-----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----'
       in: body
       parameter_fieldname: certificate
-      required: false
+      required: true
       type: string
     - _key: description
       api_fieldname: description
@@ -19694,6 +20071,7 @@ entities:
       example: 1
       format: int32
       private_field: true
+      readOnly: false
       type: integer
     - _key: enrollment_mode
       api_fieldname: enrollment_mode
@@ -19720,7 +20098,7 @@ entities:
       example: My certificate
       in: body
       parameter_fieldname: name
-      required: false
+      required: true
       type: string
     - _key: service
       api_fieldname: service
@@ -19732,7 +20110,7 @@ entities:
       enum_reference: subtenant_trusted_certificate_service_enum
       in: body
       parameter_fieldname: service
-      required: false
+      required: true
       type: string
     - _key: status
       api_fieldname: status
@@ -19750,7 +20128,6 @@ entities:
     group_id: Security
     method: post
     mode: create
-    model: TrustedCertificateInternalResp
     notes: Signature is not used by the SDK as it is a deprecated field.
     operation_id: addAccountCertificate
     pagination: false
@@ -19809,6 +20186,7 @@ entities:
           example: 1
           format: int32
           private_field: true
+          readOnly: false
           type: integer
         - _key: enrollment_mode
           api_fieldname: enrollment_mode
@@ -19830,6 +20208,9 @@ entities:
           description: Entity ID.
           entity_fieldname: id
           example: 01619571d01d0242ac12000600000000
+          in: path
+          parameter_fieldname: cert_id
+          required: true
           type: string
         - _key: issuer
           api_fieldname: issuer
@@ -20128,8 +20509,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -20145,22 +20526,23 @@ entities:
       parameter_fieldname: account_id
       required: true
       type: string
-    - _key: cert_id
-      api_fieldname: cert_id
-      description: The ID of the trusted certificate to be deleted.
-      entity_fieldname: cert_id
-      external_param: true
-      in: path
-      name: cert_id
-      parameter_fieldname: cert_id
-      required: true
-      type: string
     - _key: device_execution_mode
       _override: true
       api_fieldname: device_execution_mode
       entity_fieldname: device_execution_mode
       private_field: true
+      readOnly: false
       type: integer
+    - _key: id
+      api_fieldname: cert_id
+      description: The ID of the trusted certificate to be deleted.
+      entity_fieldname: id
+      external_param: false
+      in: path
+      name: cert_id
+      parameter_fieldname: cert_id
+      required: true
+      type: string
     - _key: is_developer_certificate
       _override: true
       api_fieldname: is_developer_certificate
@@ -20173,9 +20555,10 @@ entities:
     group_id: Security
     method: delete
     mode: delete
-    model: TrustedCertificateInternalResp
     operation_id: deleteAccountCertificate
     pagination: false
+    parameter_map:
+      cert_id: id
     path: /v3/accounts/{account_id}/trusted-certificates/{cert_id}
     responses:
     - _key: '204'
@@ -20330,7 +20713,385 @@ entities:
       type: subtenant_trusted_certificate
     return_type: subtenant_trusted_certificate
     summary: Delete trusted certificate by ID.
-  - _key: developer_certificate_info
+  - _key: get
+    description: 'An endpoint for retrieving a trusted certificate by ID.
+
+
+      **Example usage:**
+
+      `curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates/{cert_id}
+      -H ''Authorization: Bearer API_KEY''`'
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - is_custom
+    - private_key
+    - sub_accounts
+    - created_at
+    - updated_at
+    - name
+    - description
+    - owner_id
+    - certificate
+    - service
+    - issuer
+    - subject
+    - validity
+    - status
+    - enrollment_mode
+    - certificate_fingerprint
+    field_renames: []
+    fields:
+    - _key: account_id
+      api_fieldname: account_id
+      description: The ID of the account.
+      entity_fieldname: account_id
+      example: 01619571e2e90242ac12000600000000
+      in: path
+      parameter_fieldname: account_id
+      required: true
+      type: string
+    - _key: device_execution_mode
+      _override: true
+      api_fieldname: device_execution_mode
+      description: Device execution mode where 1 means a developer certificate.
+      entity_fieldname: device_execution_mode
+      example: 1
+      format: int32
+      private_field: true
+      readOnly: false
+      type: integer
+    - _key: id
+      api_fieldname: id
+      description: Entity ID.
+      entity_fieldname: id
+      example: 01619571d01d0242ac12000600000000
+      in: path
+      parameter_fieldname: cert_id
+      required: true
+      type: string
+    - _key: is_developer_certificate
+      _override: true
+      api_fieldname: is_developer_certificate
+      description: Whether or not this certificate is a developer certificate.
+      entity_fieldname: is_developer_certificate
+      example: true
+      getter_custom_method: is_developer_certificate_getter
+      setter_custom_method: is_developer_certificate_setter
+      type: boolean
+    group_id: Security
+    method: get
+    mode: get
+    operation_id: getAccountCertificate
+    pagination: false
+    parameter_map:
+      cert_id: id
+    path: /v3/accounts/{account_id}/trusted-certificates/{cert_id}
+    responses:
+    - _key: '200'
+      description: successful operation
+      schema:
+        description: This object represents a trusted certificate in responses.
+        foreign_key:
+          entity: subtenant_trusted_certificate
+          group: Security
+        properties:
+        - _key: account_id
+          api_fieldname: account_id
+          description: The ID of the account.
+          entity_fieldname: account_id
+          example: 01619571e2e90242ac12000600000000
+          type: string
+        - _key: certificate
+          api_fieldname: certificate
+          description: X509.v3 trusted certificate in PEM format.
+          entity_fieldname: certificate
+          example: '-----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----'
+          type: string
+        - _key: certificate_fingerprint
+          api_fieldname: certificate_fingerprint
+          description: A SHA-256 fingerprint of the certificate.
+          entity_fieldname: certificate_fingerprint
+          example: a10fb2c8ba90e6de927bd0ae391dcc38f6115685de2d7024712af37ead0608f1
+          type: string
+        - _key: created_at
+          api_fieldname: created_at
+          description: Creation UTC time RFC3339.
+          entity_fieldname: created_at
+          example: '2018-02-13T09:35:20Z'
+          format: date-time
+          type: string
+        - _key: description
+          api_fieldname: description
+          description: Human readable description of this certificate.
+          entity_fieldname: description
+          example: Certificate created by me.
+          type: string
+        - _key: device_execution_mode
+          _override: true
+          api_fieldname: device_execution_mode
+          description: Device execution mode where 1 means a developer certificate.
+          entity_fieldname: device_execution_mode
+          example: 1
+          format: int32
+          private_field: true
+          readOnly: false
+          type: integer
+        - _key: enrollment_mode
+          api_fieldname: enrollment_mode
+          description: If true, signature is not required. Default value false.
+          entity_fieldname: enrollment_mode
+          example: false
+          type: boolean
+        - _key: etag
+          api_fieldname: etag
+          description: API resource entity version.
+          entity_fieldname: etag
+          example: '1'
+          type: string
+        - _key: id
+          api_fieldname: id
+          description: Entity ID.
+          entity_fieldname: id
+          example: 01619571d01d0242ac12000600000000
+          type: string
+        - _key: issuer
+          api_fieldname: issuer
+          description: Issuer of the certificate.
+          entity_fieldname: issuer
+          example: CN=issuer
+          type: string
+        - _key: name
+          api_fieldname: name
+          description: Certificate name.
+          entity_fieldname: name
+          example: My certificate
+          type: string
+        - _key: object
+          api_fieldname: object
+          description: 'Entity name: always ''trusted-cert'''
+          entity_fieldname: object
+          enum:
+          - trusted-cert
+          type: string
+        - _key: owner_id
+          api_fieldname: owner_id
+          description: The ID of the owner.
+          entity_fieldname: owner_id
+          example: 01619571dad80242ac12000600000000
+          type: string
+        - _key: private_key
+          api_fieldname: private_key
+          description: Private key of the certificate in PEM or base64 encoded DER
+            format.
+          entity_fieldname: private_key
+          example: MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmE...
+          type: string
+        - _key: service
+          api_fieldname: service
+          description: Service name where the certificate is to be used.
+          entity_fieldname: service
+          enum:
+          - lwm2m
+          - bootstrap
+          type: string
+        - _key: status
+          api_fieldname: status
+          description: Status of the certificate.
+          entity_fieldname: status
+          enum:
+          - ACTIVE
+          - INACTIVE
+          example: ACTIVE
+          type: string
+        - _key: subject
+          api_fieldname: subject
+          description: Subject of the certificate.
+          entity_fieldname: subject
+          example: CN=subject
+          type: string
+        - _key: updated_at
+          api_fieldname: updated_at
+          description: Last update UTC time RFC3339.
+          entity_fieldname: updated_at
+          example: '2018-02-14T15:24:14Z'
+          format: date-time
+          type: string
+        - _key: validity
+          api_fieldname: validity
+          description: Expiration time in UTC formatted as RFC3339.
+          entity_fieldname: validity
+          example: '2038-02-14T15:24:14Z'
+          format: date-time
+          type: string
+        required:
+        - account_id
+        - certificate
+        - certificate_fingerprint
+        - etag
+        - id
+        - issuer
+        - name
+        - object
+        - private_key
+        - service
+        - subject
+        - validity
+        type: object
+    - _key: '401'
+      description: Authentication failure.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '403'
+      description: Forbidden, only available for admins of commercial accounts.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '404'
+      description: Account or certificate with the given ID not found.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: subtenant_trusted_certificate
+    return_type: subtenant_trusted_certificate
+    summary: Get trusted certificate by ID.
+  - _key: get_developer_certificate_info
     description: 'This REST API is intended to be used by customers to fetch an existing
       developer certificate (a certificate that can be flashed into multiple devices
       to connect to bootstrap server).
@@ -20346,8 +21107,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -20365,6 +21126,7 @@ entities:
       api_fieldname: device_execution_mode
       entity_fieldname: device_execution_mode
       private_field: true
+      readOnly: false
       type: integer
     - _key: id
       api_fieldname: id
@@ -20388,8 +21150,7 @@ entities:
       group: Security
     group_id: Security
     method: get
-    mode: developer_certificate_info
-    model: TrustedCertificateInternalResp
+    mode: get_developer_certificate_info
     operation_id: getDeveloperCertificate
     pagination: false
     parameter_map:
@@ -20820,385 +21581,6 @@ entities:
     return_type: developer_certificate
     summary: Fetch an existing developer certificate to connect to the bootstrap server.
     unaggregated: true
-  - _key: get
-    description: 'An endpoint for retrieving a trusted certificate by ID.
-
-
-      **Example usage:**
-
-      `curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates/{cert_id}
-      -H ''Authorization: Bearer API_KEY''`'
-    drop_fields:
-    - object
-    - etag
-    - type
-    - filter
-    - groups
-    - is_custom
-    - private_key
-    - sub_accounts
-    - id
-    - created_at
-    - updated_at
-    - name
-    - description
-    - owner_id
-    - certificate
-    - service
-    - issuer
-    - subject
-    - validity
-    - status
-    - enrollment_mode
-    - certificate_fingerprint
-    field_renames: []
-    fields:
-    - _key: account_id
-      api_fieldname: account_id
-      description: The ID of the account.
-      entity_fieldname: account_id
-      example: 01619571e2e90242ac12000600000000
-      in: path
-      parameter_fieldname: account_id
-      required: true
-      type: string
-    - _key: cert_id
-      api_fieldname: cert_id
-      description: The ID of the trusted certificate to be retrieved.
-      entity_fieldname: cert_id
-      external_param: true
-      in: path
-      name: cert_id
-      parameter_fieldname: cert_id
-      required: true
-      type: string
-    - _key: device_execution_mode
-      _override: true
-      api_fieldname: device_execution_mode
-      description: Device execution mode where 1 means a developer certificate.
-      entity_fieldname: device_execution_mode
-      example: 1
-      format: int32
-      private_field: true
-      type: integer
-    - _key: is_developer_certificate
-      _override: true
-      api_fieldname: is_developer_certificate
-      description: Whether or not this certificate is a developer certificate.
-      entity_fieldname: is_developer_certificate
-      example: true
-      getter_custom_method: is_developer_certificate_getter
-      setter_custom_method: is_developer_certificate_setter
-      type: boolean
-    group_id: Security
-    method: get
-    mode: get
-    model: TrustedCertificateInternalResp
-    models:
-    - TrustedCertificateInternalResp
-    operation_id: getAccountCertificate
-    pagination: false
-    path: /v3/accounts/{account_id}/trusted-certificates/{cert_id}
-    responses:
-    - _key: '200'
-      description: successful operation
-      schema:
-        description: This object represents a trusted certificate in responses.
-        foreign_key:
-          entity: trusted_certificate
-          group: Security
-        properties:
-        - _key: account_id
-          api_fieldname: account_id
-          description: The ID of the account.
-          entity_fieldname: account_id
-          example: 01619571e2e90242ac12000600000000
-          type: string
-        - _key: certificate
-          api_fieldname: certificate
-          description: X509.v3 trusted certificate in PEM format.
-          entity_fieldname: certificate
-          example: '-----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----'
-          type: string
-        - _key: certificate_fingerprint
-          api_fieldname: certificate_fingerprint
-          description: A SHA-256 fingerprint of the certificate.
-          entity_fieldname: certificate_fingerprint
-          example: a10fb2c8ba90e6de927bd0ae391dcc38f6115685de2d7024712af37ead0608f1
-          type: string
-        - _key: created_at
-          api_fieldname: created_at
-          description: Creation UTC time RFC3339.
-          entity_fieldname: created_at
-          example: '2018-02-13T09:35:20Z'
-          format: date-time
-          type: string
-        - _key: description
-          api_fieldname: description
-          description: Human readable description of this certificate.
-          entity_fieldname: description
-          example: Certificate created by me.
-          type: string
-        - _key: device_execution_mode
-          _override: true
-          api_fieldname: device_execution_mode
-          description: Device execution mode where 1 means a developer certificate.
-          entity_fieldname: device_execution_mode
-          example: 1
-          format: int32
-          private_field: true
-          type: integer
-        - _key: enrollment_mode
-          api_fieldname: enrollment_mode
-          description: If true, signature is not required. Default value false.
-          entity_fieldname: enrollment_mode
-          example: false
-          type: boolean
-        - _key: etag
-          api_fieldname: etag
-          description: API resource entity version.
-          entity_fieldname: etag
-          example: '1'
-          type: string
-        - _key: id
-          api_fieldname: id
-          description: Entity ID.
-          entity_fieldname: id
-          example: 01619571d01d0242ac12000600000000
-          type: string
-        - _key: issuer
-          api_fieldname: issuer
-          description: Issuer of the certificate.
-          entity_fieldname: issuer
-          example: CN=issuer
-          type: string
-        - _key: name
-          api_fieldname: name
-          description: Certificate name.
-          entity_fieldname: name
-          example: My certificate
-          type: string
-        - _key: object
-          api_fieldname: object
-          description: 'Entity name: always ''trusted-cert'''
-          entity_fieldname: object
-          enum:
-          - trusted-cert
-          type: string
-        - _key: owner_id
-          api_fieldname: owner_id
-          description: The ID of the owner.
-          entity_fieldname: owner_id
-          example: 01619571dad80242ac12000600000000
-          type: string
-        - _key: private_key
-          api_fieldname: private_key
-          description: Private key of the certificate in PEM or base64 encoded DER
-            format.
-          entity_fieldname: private_key
-          example: MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmE...
-          type: string
-        - _key: service
-          api_fieldname: service
-          description: Service name where the certificate is to be used.
-          entity_fieldname: service
-          enum:
-          - lwm2m
-          - bootstrap
-          type: string
-        - _key: status
-          api_fieldname: status
-          description: Status of the certificate.
-          entity_fieldname: status
-          enum:
-          - ACTIVE
-          - INACTIVE
-          example: ACTIVE
-          type: string
-        - _key: subject
-          api_fieldname: subject
-          description: Subject of the certificate.
-          entity_fieldname: subject
-          example: CN=subject
-          type: string
-        - _key: updated_at
-          api_fieldname: updated_at
-          description: Last update UTC time RFC3339.
-          entity_fieldname: updated_at
-          example: '2018-02-14T15:24:14Z'
-          format: date-time
-          type: string
-        - _key: validity
-          api_fieldname: validity
-          description: Expiration time in UTC formatted as RFC3339.
-          entity_fieldname: validity
-          example: '2038-02-14T15:24:14Z'
-          format: date-time
-          type: string
-        required:
-        - account_id
-        - certificate
-        - certificate_fingerprint
-        - etag
-        - id
-        - issuer
-        - name
-        - object
-        - private_key
-        - service
-        - subject
-        - validity
-        type: object
-    - _key: '401'
-      description: Authentication failure.
-      schema:
-        properties:
-        - _key: code
-          description: HTTP response code
-          example: 400
-          format: int32
-          type: integer
-        - _key: fields
-          description: Request fields which failed validation.
-          items:
-            properties:
-            - _key: message
-              description: Message describing the error condition.
-              type: string
-            - _key: name
-              description: Name of the field which caused the error.
-              type: string
-            required:
-            - name
-            - message
-            type: object
-          type: array
-        - _key: message
-          description: A human readable informative explanation
-          example: Validation error
-          type: string
-        - _key: object
-          description: Entity name, always `error`.
-          enum:
-          - error
-          type: string
-        - _key: request_id
-          description: ID of the request.
-          example: 0161991d63150242ac12000600000000
-          type: string
-        - _key: type
-          description: Error type used to categorise the error.
-          example: validation_error
-          type: string
-        required:
-        - code
-        - message
-        - object
-        - request_id
-        - type
-        type: object
-    - _key: '403'
-      description: Forbidden, only available for admins of commercial accounts.
-      schema:
-        properties:
-        - _key: code
-          description: HTTP response code
-          example: 400
-          format: int32
-          type: integer
-        - _key: fields
-          description: Request fields which failed validation.
-          items:
-            properties:
-            - _key: message
-              description: Message describing the error condition.
-              type: string
-            - _key: name
-              description: Name of the field which caused the error.
-              type: string
-            required:
-            - name
-            - message
-            type: object
-          type: array
-        - _key: message
-          description: A human readable informative explanation
-          example: Validation error
-          type: string
-        - _key: object
-          description: Entity name, always `error`.
-          enum:
-          - error
-          type: string
-        - _key: request_id
-          description: ID of the request.
-          example: 0161991d63150242ac12000600000000
-          type: string
-        - _key: type
-          description: Error type used to categorise the error.
-          example: validation_error
-          type: string
-        required:
-        - code
-        - message
-        - object
-        - request_id
-        - type
-        type: object
-    - _key: '404'
-      description: Account or certificate with the given ID not found.
-      schema:
-        properties:
-        - _key: code
-          description: HTTP response code
-          example: 400
-          format: int32
-          type: integer
-        - _key: fields
-          description: Request fields which failed validation.
-          items:
-            properties:
-            - _key: message
-              description: Message describing the error condition.
-              type: string
-            - _key: name
-              description: Name of the field which caused the error.
-              type: string
-            required:
-            - name
-            - message
-            type: object
-          type: array
-        - _key: message
-          description: A human readable informative explanation
-          example: Validation error
-          type: string
-        - _key: object
-          description: Entity name, always `error`.
-          enum:
-          - error
-          type: string
-        - _key: request_id
-          description: ID of the request.
-          example: 0161991d63150242ac12000600000000
-          type: string
-        - _key: type
-          description: Error type used to categorise the error.
-          example: validation_error
-          type: string
-        required:
-        - code
-        - message
-        - object
-        - request_id
-        - type
-        type: object
-    return_info:
-      custom: false
-      self: true
-      type: subtenant_trusted_certificate
-    return_type: subtenant_trusted_certificate
-    summary: Get trusted certificate by ID.
   - _key: update
     description: 'An endpoint for updating existing trusted certificates.
 
@@ -21212,13 +21594,12 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
     - signature
-    - id
     - created_at
     - updated_at
     - owner_id
@@ -21235,16 +21616,6 @@ entities:
       example: 01619571e2e90242ac12000600000000
       in: path
       parameter_fieldname: account_id
-      required: true
-      type: string
-    - _key: cert_id
-      api_fieldname: cert_id
-      description: The ID of the trusted certificate to be updated.
-      entity_fieldname: cert_id
-      external_param: true
-      in: path
-      name: cert_id
-      parameter_fieldname: cert_id
       required: true
       type: string
     - _key: certificate
@@ -21273,6 +21644,7 @@ entities:
       example: 1
       format: int32
       private_field: true
+      readOnly: false
       type: integer
     - _key: enrollment_mode
       api_fieldname: enrollment_mode
@@ -21283,6 +21655,15 @@ entities:
       parameter_fieldname: enrollment_mode
       required: false
       type: boolean
+    - _key: id
+      api_fieldname: id
+      description: Entity ID.
+      entity_fieldname: id
+      example: 01619571d01d0242ac12000600000000
+      in: path
+      parameter_fieldname: cert_id
+      required: true
+      type: string
     - _key: is_developer_certificate
       _override: true
       api_fieldname: is_developer_certificate
@@ -21329,10 +21710,11 @@ entities:
     group_id: Security
     method: put
     mode: update
-    model: TrustedCertificateInternalResp
     notes: Signature is not used by the SDK as it is a deprecated field.
     operation_id: updateAccountCertificate
     pagination: false
+    parameter_map:
+      cert_id: id
     path: /v3/accounts/{account_id}/trusted-certificates/{cert_id}
     responses:
     - _key: '200'
@@ -21340,7 +21722,7 @@ entities:
       schema:
         description: This object represents a trusted certificate in responses.
         foreign_key:
-          entity: trusted_certificate
+          entity: subtenant_trusted_certificate
           group: Security
         properties:
         - _key: account_id
@@ -21382,6 +21764,7 @@ entities:
           example: 1
           format: int32
           private_field: true
+          readOnly: false
           type: integer
         - _key: enrollment_mode
           api_fieldname: enrollment_mode
@@ -21706,6 +22089,8 @@ entities:
     api_fieldname: account_id
     description: The ID of the account.
     example: 01619571e2e90242ac12000600000000
+    readOnly: false
+    required: true
     type: string
   - _key: address
     api_fieldname: address
@@ -21713,18 +22098,24 @@ entities:
     example: 110 Fulbourn Rd, Cambridge, United Kingdom
     in: body
     parameter_fieldname: address
+    readOnly: false
+    required: false
     type: string
   - _key: created_at
     api_fieldname: created_at
     description: Creation UTC time RFC3339.
     example: '2018-02-13T09:35:20Z'
     format: date-time
+    readOnly: true
+    required: false
     type: string
   - _key: creation_time
     api_fieldname: creation_time
     description: A timestamp of the user creation in the storage, in milliseconds.
     example: 1518630727683
     format: int64
+    readOnly: true
+    required: false
     type: integer
   - _key: email
     api_fieldname: email
@@ -21732,12 +22123,16 @@ entities:
     example: user@arm.com
     in: body
     parameter_fieldname: email
+    readOnly: false
+    required: true
     type: string
   - _key: email_verified
     api_fieldname: email_verified
     description: A flag indicating whether the user's email address has been verified
       or not.
     example: true
+    readOnly: true
+    required: false
     type: boolean
   - _key: full_name
     api_fieldname: full_name
@@ -21745,6 +22140,8 @@ entities:
     example: User Doe
     in: body
     parameter_fieldname: full_name
+    readOnly: false
+    required: false
     type: string
   - _key: id
     api_fieldname: id
@@ -21752,12 +22149,16 @@ entities:
     example: 01619571e2e89242ac12000600000000
     in: path
     parameter_fieldname: user_id
+    readOnly: false
+    required: true
     type: string
   - _key: last_login_time
     api_fieldname: last_login_time
     description: A timestamp of the latest login of the user, in milliseconds.
     example: 1518630727688
     format: int64
+    readOnly: true
+    required: false
     type: integer
   - _key: login_history
     api_fieldname: login_history
@@ -21801,6 +22202,8 @@ entities:
       - success
       - user_agent
       type: object
+    readOnly: true
+    required: false
     type: array
   - _key: login_profiles
     api_fieldname: login_profiles
@@ -21830,6 +22233,8 @@ entities:
       - type
       type: object
     parameter_fieldname: login_profiles
+    readOnly: false
+    required: false
     type: array
   - _key: marketing_accepted
     api_fieldname: is_marketing_accepted
@@ -21837,6 +22242,8 @@ entities:
     example: true
     in: body
     parameter_fieldname: is_marketing_accepted
+    readOnly: false
+    required: false
     type: boolean
   - _key: password
     api_fieldname: password
@@ -21845,12 +22252,16 @@ entities:
     example: PZf9eEUH43DAPE9ULINFeuj
     in: body
     parameter_fieldname: password
+    readOnly: false
+    required: false
     type: string
   - _key: password_changed_time
     api_fieldname: password_changed_time
     description: A timestamp of the latest change of the user password, in milliseconds.
     example: 1518630727688
     format: int64
+    readOnly: true
+    required: false
     type: integer
   - _key: phone_number
     api_fieldname: phone_number
@@ -21858,6 +22269,8 @@ entities:
     example: +44 (1223) 400 400
     in: body
     parameter_fieldname: phone_number
+    readOnly: false
+    required: false
     type: string
   - _key: status
     api_fieldname: status
@@ -21875,6 +22288,8 @@ entities:
     example: ACTIVE
     in: body
     parameter_fieldname: status
+    readOnly: false
+    required: false
     type: string
   - _key: terms_accepted
     api_fieldname: is_gtc_accepted
@@ -21883,6 +22298,8 @@ entities:
     example: true
     in: body
     parameter_fieldname: is_gtc_accepted
+    readOnly: false
+    required: false
     type: boolean
   - _key: two_factor_authentication
     api_fieldname: is_totp_enabled
@@ -21891,12 +22308,16 @@ entities:
     example: true
     in: body
     parameter_fieldname: is_totp_enabled
+    readOnly: false
+    required: false
     type: boolean
   - _key: updated_at
     api_fieldname: updated_at
     description: Last update UTC time RFC3339.
     example: '2018-02-14T15:24:14Z'
     format: date-time
+    readOnly: true
+    required: false
     type: string
   - _key: username
     api_fieldname: username
@@ -21904,6 +22325,8 @@ entities:
     example: admin
     in: body
     parameter_fieldname: username
+    readOnly: false
+    required: false
     type: string
   group_id: Accounts
   methods:
@@ -21922,8 +22345,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -22617,8 +23040,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -22871,8 +23294,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -23371,8 +23794,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -24049,8 +24472,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -24257,12 +24680,16 @@ entities:
     api_fieldname: account_id
     description: The ID of the account the user is invited to.
     example: 01619571e2e90242ac12000600000000
+    readOnly: false
+    required: true
     type: string
   - _key: created_at
     api_fieldname: created_at
     description: Creation UTC time RFC3339.
     example: '2018-02-13T09:35:20Z'
     format: date-time
+    readOnly: true
+    required: false
     type: string
   - _key: email
     api_fieldname: email
@@ -24270,12 +24697,16 @@ entities:
     example: friend@arm.com
     in: body
     parameter_fieldname: email
+    readOnly: false
+    required: true
     type: string
   - _key: expiration
     api_fieldname: expiration
     description: Invitation expiration as UTC time RFC3339.
     example: '2018-02-14T15:24:14Z'
     format: date-time
+    readOnly: true
+    required: false
     type: string
   - _key: id
     api_fieldname: id
@@ -24283,6 +24714,8 @@ entities:
     example: 01619571e2e89242ac12000600000000
     in: path
     parameter_fieldname: invitation_id
+    readOnly: false
+    required: true
     type: string
   - _key: login_profiles
     api_fieldname: login_profiles
@@ -24312,17 +24745,23 @@ entities:
       - type
       type: object
     parameter_fieldname: login_profiles
+    readOnly: false
+    required: false
     type: array
   - _key: updated_at
     api_fieldname: updated_at
     description: Last update UTC time RFC3339.
     example: '2018-02-14T15:24:14Z'
     format: date-time
+    readOnly: true
+    required: false
     type: string
   - _key: user_id
     api_fieldname: user_id
     description: The ID of the invited user.
     example: 01619571e2e90242ac12000600000000
+    readOnly: true
+    required: false
     type: string
   group_id: Accounts
   methods:
@@ -24339,8 +24778,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -24367,7 +24806,7 @@ entities:
       example: friend@arm.com
       in: body
       parameter_fieldname: email
-      required: false
+      required: true
       type: string
     - _key: login_profiles
       api_fieldname: login_profiles
@@ -24450,7 +24889,7 @@ entities:
           example: friend@arm.com
           in: body
           parameter_fieldname: email
-          required: false
+          required: true
           type: string
         - _key: etag
           api_fieldname: etag
@@ -24709,8 +25148,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -24910,8 +25349,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -24978,7 +25417,7 @@ entities:
           example: friend@arm.com
           in: body
           parameter_fieldname: email
-          required: false
+          required: true
           type: string
         - _key: etag
           api_fieldname: etag
@@ -25237,27 +25676,37 @@ entities:
     api_fieldname: account_id
     description: The ID of the account.
     example: 01619571e2e90242ac12000600000000
+    readOnly: true
+    required: false
     type: string
   - _key: certificate
     api_fieldname: certificate
     description: X509.v3 trusted certificate in PEM format.
     example: '-----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----'
+    readOnly: false
+    required: true
     type: string
   - _key: certificate_fingerprint
     api_fieldname: certificate_fingerprint
     description: A SHA-256 fingerprint of the certificate.
     example: a10fb2c8ba90e6de927bd0ae391dcc38f6115685de2d7024712af37ead0608f1
+    readOnly: true
+    required: false
     type: string
   - _key: created_at
     api_fieldname: created_at
     description: Creation UTC time RFC3339.
     example: '2018-02-13T09:35:20Z'
     format: date-time
+    readOnly: true
+    required: false
     type: string
   - _key: description
     api_fieldname: description
     description: Human readable description of this certificate.
     example: Certificate created by me.
+    readOnly: false
+    required: false
     type: string
   - _key: device_execution_mode
     _override: true
@@ -25266,16 +25715,22 @@ entities:
     example: 1
     format: int32
     private_field: true
+    readOnly: false
+    required: false
     type: integer
   - _key: enrollment_mode
     api_fieldname: enrollment_mode
     description: If true, signature is not required. Default value false.
     example: false
+    readOnly: false
+    required: false
     type: boolean
   - _key: id
     api_fieldname: id
     description: Entity ID.
     example: 01619571d01d0242ac12000600000000
+    readOnly: false
+    required: true
     type: string
   - _key: is_developer_certificate
     _override: true
@@ -25283,22 +25738,30 @@ entities:
     description: Whether or not this certificate is a developer certificate.
     example: true
     getter_custom_method: is_developer_certificate_getter
+    readOnly: false
+    required: false
     setter_custom_method: is_developer_certificate_setter
     type: boolean
   - _key: issuer
     api_fieldname: issuer
     description: Issuer of the certificate.
     example: CN=issuer
+    readOnly: true
+    required: false
     type: string
   - _key: name
     api_fieldname: name
     description: Certificate name.
     example: My certificate
+    readOnly: false
+    required: true
     type: string
   - _key: owner_id
     api_fieldname: owner_id
     description: The ID of the owner.
     example: 01619571dad80242ac12000600000000
+    readOnly: true
+    required: false
     type: string
   - _key: service
     api_fieldname: service
@@ -25307,6 +25770,8 @@ entities:
     - lwm2m
     - bootstrap
     enum_reference: trusted_certificate_service_enum
+    readOnly: false
+    required: true
     type: string
   - _key: status
     api_fieldname: status
@@ -25316,23 +25781,31 @@ entities:
     - INACTIVE
     enum_reference: trusted_certificate_status_enum
     example: ACTIVE
+    readOnly: false
+    required: false
     type: string
   - _key: subject
     api_fieldname: subject
     description: Subject of the certificate.
     example: CN=subject
+    readOnly: true
+    required: false
     type: string
   - _key: updated_at
     api_fieldname: updated_at
     description: Last update UTC time RFC3339.
     example: '2018-02-14T15:24:14Z'
     format: date-time
+    readOnly: true
+    required: false
     type: string
   - _key: validity
     api_fieldname: validity
     description: Expiration time in UTC formatted as RFC3339.
     example: '2038-02-14T15:24:14Z'
     format: date-time
+    readOnly: true
+    required: false
     type: string
   group_id: Security
   methods:
@@ -25350,8 +25823,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -25393,6 +25866,7 @@ entities:
       example: 1
       format: int32
       private_field: true
+      readOnly: false
       type: integer
     - _key: enrollment_mode
       api_fieldname: enrollment_mode
@@ -25449,12 +25923,9 @@ entities:
     group_id: Security
     method: post
     mode: create
-    model: TrustedCertificateInternalResp
     notes: Signature is not used by the SDK as it is a deprecated field.
     operation_id: addCertificate
     pagination: false
-    parameter_map:
-      cert-id: id
     path: /v3/trusted-certificates
     responses:
     - _key: '201'
@@ -25504,6 +25975,7 @@ entities:
           example: 1
           format: int32
           private_field: true
+          readOnly: false
           type: integer
         - _key: enrollment_mode
           api_fieldname: enrollment_mode
@@ -25808,29 +26280,30 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
     field_renames: []
     fields:
-    - _key: cert_id
-      api_fieldname: cert_id
-      description: The ID of the trusted certificate to be deleted.
-      entity_fieldname: cert_id
-      external_param: true
-      in: path
-      name: cert_id
-      parameter_fieldname: cert_id
-      required: true
-      type: string
     - _key: device_execution_mode
       _override: true
       api_fieldname: device_execution_mode
       entity_fieldname: device_execution_mode
       private_field: true
+      readOnly: false
       type: integer
+    - _key: id
+      api_fieldname: cert_id
+      description: The ID of the trusted certificate to be deleted.
+      entity_fieldname: id
+      external_param: false
+      in: path
+      name: cert_id
+      parameter_fieldname: cert_id
+      required: true
+      type: string
     - _key: is_developer_certificate
       _override: true
       api_fieldname: is_developer_certificate
@@ -25843,11 +26316,10 @@ entities:
     group_id: Security
     method: delete
     mode: delete
-    model: TrustedCertificateInternalResp
     operation_id: deleteCertificate
     pagination: false
     parameter_map:
-      cert-id: id
+      cert_id: id
     path: /v3/trusted-certificates/{cert_id}
     responses:
     - _key: '204'
@@ -26002,7 +26474,369 @@ entities:
       type: trusted_certificate
     return_type: trusted_certificate
     summary: Delete a trusted certificate by ID.
-  - _key: developer_certificate_info
+  - _key: get
+    description: 'An endpoint for retrieving a trusted certificate by ID.
+
+
+      **Example usage:**
+
+      `curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert_id}
+      -H ''Authorization: Bearer API_KEY''`'
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - is_custom
+    - private_key
+    - sub_accounts
+    - created_at
+    - updated_at
+    - name
+    - description
+    - account_id
+    - owner_id
+    - certificate
+    - service
+    - issuer
+    - subject
+    - validity
+    - status
+    - enrollment_mode
+    - certificate_fingerprint
+    field_renames: []
+    fields:
+    - _key: device_execution_mode
+      _override: true
+      api_fieldname: device_execution_mode
+      description: Device execution mode where 1 means a developer certificate.
+      entity_fieldname: device_execution_mode
+      example: 1
+      format: int32
+      private_field: true
+      readOnly: false
+      type: integer
+    - _key: id
+      api_fieldname: id
+      description: Entity ID.
+      entity_fieldname: id
+      example: 01619571d01d0242ac12000600000000
+      in: path
+      parameter_fieldname: cert_id
+      required: true
+      type: string
+    - _key: is_developer_certificate
+      _override: true
+      api_fieldname: is_developer_certificate
+      description: Whether or not this certificate is a developer certificate.
+      entity_fieldname: is_developer_certificate
+      example: true
+      getter_custom_method: is_developer_certificate_getter
+      setter_custom_method: is_developer_certificate_setter
+      type: boolean
+    group_id: Security
+    method: get
+    mode: get
+    operation_id: getCertificate
+    pagination: false
+    parameter_map:
+      cert_id: id
+    path: /v3/trusted-certificates/{cert_id}
+    responses:
+    - _key: '200'
+      description: successful operation
+      schema:
+        description: This object represents a trusted certificate in responses.
+        foreign_key:
+          entity: developer_certificate
+          group: Security
+        properties:
+        - _key: account_id
+          api_fieldname: account_id
+          description: The ID of the account.
+          entity_fieldname: account_id
+          example: 01619571e2e90242ac12000600000000
+          type: string
+        - _key: certificate
+          api_fieldname: certificate
+          description: X509.v3 trusted certificate in PEM format.
+          entity_fieldname: certificate
+          example: '-----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----'
+          type: string
+        - _key: certificate_fingerprint
+          api_fieldname: certificate_fingerprint
+          description: A SHA-256 fingerprint of the certificate.
+          entity_fieldname: certificate_fingerprint
+          example: a10fb2c8ba90e6de927bd0ae391dcc38f6115685de2d7024712af37ead0608f1
+          type: string
+        - _key: created_at
+          api_fieldname: created_at
+          description: Creation UTC time RFC3339.
+          entity_fieldname: created_at
+          example: '2018-02-13T09:35:20Z'
+          format: date-time
+          type: string
+        - _key: description
+          api_fieldname: description
+          description: Human readable description of this certificate.
+          entity_fieldname: description
+          example: Certificate created by me.
+          type: string
+        - _key: device_execution_mode
+          _override: true
+          api_fieldname: device_execution_mode
+          description: Device execution mode where 1 means a developer certificate.
+          entity_fieldname: device_execution_mode
+          example: 1
+          format: int32
+          private_field: true
+          readOnly: false
+          type: integer
+        - _key: enrollment_mode
+          api_fieldname: enrollment_mode
+          description: If true, signature is not required. Default value false.
+          entity_fieldname: enrollment_mode
+          example: false
+          type: boolean
+        - _key: etag
+          api_fieldname: etag
+          description: API resource entity version.
+          entity_fieldname: etag
+          example: '1'
+          type: string
+        - _key: id
+          api_fieldname: id
+          description: Entity ID.
+          entity_fieldname: id
+          example: 01619571d01d0242ac12000600000000
+          type: string
+        - _key: issuer
+          api_fieldname: issuer
+          description: Issuer of the certificate.
+          entity_fieldname: issuer
+          example: CN=issuer
+          type: string
+        - _key: name
+          api_fieldname: name
+          description: Certificate name.
+          entity_fieldname: name
+          example: My certificate
+          type: string
+        - _key: object
+          api_fieldname: object
+          description: 'Entity name: always ''trusted-cert'''
+          entity_fieldname: object
+          enum:
+          - trusted-cert
+          type: string
+        - _key: owner_id
+          api_fieldname: owner_id
+          description: The ID of the owner.
+          entity_fieldname: owner_id
+          example: 01619571dad80242ac12000600000000
+          type: string
+        - _key: service
+          api_fieldname: service
+          description: Service name where the certificate is to be used.
+          entity_fieldname: service
+          enum:
+          - lwm2m
+          - bootstrap
+          type: string
+        - _key: status
+          api_fieldname: status
+          description: Status of the certificate.
+          entity_fieldname: status
+          enum:
+          - ACTIVE
+          - INACTIVE
+          example: ACTIVE
+          type: string
+        - _key: subject
+          api_fieldname: subject
+          description: Subject of the certificate.
+          entity_fieldname: subject
+          example: CN=subject
+          type: string
+        - _key: updated_at
+          api_fieldname: updated_at
+          description: Last update UTC time RFC3339.
+          entity_fieldname: updated_at
+          example: '2018-02-14T15:24:14Z'
+          format: date-time
+          type: string
+        - _key: validity
+          api_fieldname: validity
+          description: Expiration time in UTC formatted as RFC3339.
+          entity_fieldname: validity
+          example: '2038-02-14T15:24:14Z'
+          format: date-time
+          type: string
+        required:
+        - account_id
+        - certificate
+        - certificate_fingerprint
+        - etag
+        - id
+        - issuer
+        - name
+        - object
+        - service
+        - subject
+        - validity
+        type: object
+    - _key: '401'
+      description: Authentication failure.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '403'
+      description: Forbidden.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '404'
+      description: Certificate not found.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: trusted_certificate
+    return_type: trusted_certificate
+    summary: Get trusted certificate by ID.
+  - _key: get_developer_certificate_info
     description: 'This REST API is intended to be used by customers to fetch an existing
       developer certificate (a certificate that can be flashed into multiple devices
       to connect to bootstrap server).
@@ -26018,8 +26852,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -26037,6 +26871,7 @@ entities:
       api_fieldname: device_execution_mode
       entity_fieldname: device_execution_mode
       private_field: true
+      readOnly: false
       type: integer
     - _key: id
       api_fieldname: id
@@ -26060,12 +26895,10 @@ entities:
       group: Security
     group_id: Security
     method: get
-    mode: developer_certificate_info
-    model: TrustedCertificateInternalResp
+    mode: get_developer_certificate_info
     operation_id: getDeveloperCertificate
     pagination: false
     parameter_map:
-      cert-id: id
       developerCertificateId: id
     path: /v3/developer-certificates/{developerCertificateId}
     responses:
@@ -26493,371 +27326,6 @@ entities:
     return_type: developer_certificate
     summary: Fetch an existing developer certificate to connect to the bootstrap server.
     unaggregated: true
-  - _key: get
-    description: 'An endpoint for retrieving a trusted certificate by ID.
-
-
-      **Example usage:**
-
-      `curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert_id}
-      -H ''Authorization: Bearer API_KEY''`'
-    drop_fields:
-    - object
-    - etag
-    - type
-    - filter
-    - groups
-    - is_custom
-    - private_key
-    - sub_accounts
-    - id
-    - created_at
-    - updated_at
-    - name
-    - description
-    - account_id
-    - owner_id
-    - certificate
-    - service
-    - issuer
-    - subject
-    - validity
-    - status
-    - enrollment_mode
-    - certificate_fingerprint
-    field_renames: []
-    fields:
-    - _key: cert_id
-      api_fieldname: cert_id
-      description: The ID of the trusted certificate to be retrieved.
-      entity_fieldname: cert_id
-      external_param: true
-      in: path
-      name: cert_id
-      parameter_fieldname: cert_id
-      required: true
-      type: string
-    - _key: device_execution_mode
-      _override: true
-      api_fieldname: device_execution_mode
-      description: Device execution mode where 1 means a developer certificate.
-      entity_fieldname: device_execution_mode
-      example: 1
-      format: int32
-      private_field: true
-      type: integer
-    - _key: is_developer_certificate
-      _override: true
-      api_fieldname: is_developer_certificate
-      description: Whether or not this certificate is a developer certificate.
-      entity_fieldname: is_developer_certificate
-      example: true
-      getter_custom_method: is_developer_certificate_getter
-      setter_custom_method: is_developer_certificate_setter
-      type: boolean
-    group_id: Security
-    method: get
-    mode: get
-    model: TrustedCertificateInternalResp
-    models:
-    - TrustedCertificateInternalResp
-    operation_id: getCertificate
-    pagination: false
-    parameter_map:
-      cert-id: id
-    path: /v3/trusted-certificates/{cert_id}
-    responses:
-    - _key: '200'
-      description: successful operation
-      schema:
-        description: This object represents a trusted certificate in responses.
-        foreign_key:
-          entity: developer_certificate
-          group: Security
-        properties:
-        - _key: account_id
-          api_fieldname: account_id
-          description: The ID of the account.
-          entity_fieldname: account_id
-          example: 01619571e2e90242ac12000600000000
-          type: string
-        - _key: certificate
-          api_fieldname: certificate
-          description: X509.v3 trusted certificate in PEM format.
-          entity_fieldname: certificate
-          example: '-----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----'
-          type: string
-        - _key: certificate_fingerprint
-          api_fieldname: certificate_fingerprint
-          description: A SHA-256 fingerprint of the certificate.
-          entity_fieldname: certificate_fingerprint
-          example: a10fb2c8ba90e6de927bd0ae391dcc38f6115685de2d7024712af37ead0608f1
-          type: string
-        - _key: created_at
-          api_fieldname: created_at
-          description: Creation UTC time RFC3339.
-          entity_fieldname: created_at
-          example: '2018-02-13T09:35:20Z'
-          format: date-time
-          type: string
-        - _key: description
-          api_fieldname: description
-          description: Human readable description of this certificate.
-          entity_fieldname: description
-          example: Certificate created by me.
-          type: string
-        - _key: device_execution_mode
-          _override: true
-          api_fieldname: device_execution_mode
-          description: Device execution mode where 1 means a developer certificate.
-          entity_fieldname: device_execution_mode
-          example: 1
-          format: int32
-          private_field: true
-          type: integer
-        - _key: enrollment_mode
-          api_fieldname: enrollment_mode
-          description: If true, signature is not required. Default value false.
-          entity_fieldname: enrollment_mode
-          example: false
-          type: boolean
-        - _key: etag
-          api_fieldname: etag
-          description: API resource entity version.
-          entity_fieldname: etag
-          example: '1'
-          type: string
-        - _key: id
-          api_fieldname: id
-          description: Entity ID.
-          entity_fieldname: id
-          example: 01619571d01d0242ac12000600000000
-          type: string
-        - _key: issuer
-          api_fieldname: issuer
-          description: Issuer of the certificate.
-          entity_fieldname: issuer
-          example: CN=issuer
-          type: string
-        - _key: name
-          api_fieldname: name
-          description: Certificate name.
-          entity_fieldname: name
-          example: My certificate
-          type: string
-        - _key: object
-          api_fieldname: object
-          description: 'Entity name: always ''trusted-cert'''
-          entity_fieldname: object
-          enum:
-          - trusted-cert
-          type: string
-        - _key: owner_id
-          api_fieldname: owner_id
-          description: The ID of the owner.
-          entity_fieldname: owner_id
-          example: 01619571dad80242ac12000600000000
-          type: string
-        - _key: service
-          api_fieldname: service
-          description: Service name where the certificate is to be used.
-          entity_fieldname: service
-          enum:
-          - lwm2m
-          - bootstrap
-          type: string
-        - _key: status
-          api_fieldname: status
-          description: Status of the certificate.
-          entity_fieldname: status
-          enum:
-          - ACTIVE
-          - INACTIVE
-          example: ACTIVE
-          type: string
-        - _key: subject
-          api_fieldname: subject
-          description: Subject of the certificate.
-          entity_fieldname: subject
-          example: CN=subject
-          type: string
-        - _key: updated_at
-          api_fieldname: updated_at
-          description: Last update UTC time RFC3339.
-          entity_fieldname: updated_at
-          example: '2018-02-14T15:24:14Z'
-          format: date-time
-          type: string
-        - _key: validity
-          api_fieldname: validity
-          description: Expiration time in UTC formatted as RFC3339.
-          entity_fieldname: validity
-          example: '2038-02-14T15:24:14Z'
-          format: date-time
-          type: string
-        required:
-        - account_id
-        - certificate
-        - certificate_fingerprint
-        - etag
-        - id
-        - issuer
-        - name
-        - object
-        - service
-        - subject
-        - validity
-        type: object
-    - _key: '401'
-      description: Authentication failure.
-      schema:
-        properties:
-        - _key: code
-          description: HTTP response code
-          example: 400
-          format: int32
-          type: integer
-        - _key: fields
-          description: Request fields which failed validation.
-          items:
-            properties:
-            - _key: message
-              description: Message describing the error condition.
-              type: string
-            - _key: name
-              description: Name of the field which caused the error.
-              type: string
-            required:
-            - name
-            - message
-            type: object
-          type: array
-        - _key: message
-          description: A human readable informative explanation
-          example: Validation error
-          type: string
-        - _key: object
-          description: Entity name, always `error`.
-          enum:
-          - error
-          type: string
-        - _key: request_id
-          description: ID of the request.
-          example: 0161991d63150242ac12000600000000
-          type: string
-        - _key: type
-          description: Error type used to categorise the error.
-          example: validation_error
-          type: string
-        required:
-        - code
-        - message
-        - object
-        - request_id
-        - type
-        type: object
-    - _key: '403'
-      description: Forbidden.
-      schema:
-        properties:
-        - _key: code
-          description: HTTP response code
-          example: 400
-          format: int32
-          type: integer
-        - _key: fields
-          description: Request fields which failed validation.
-          items:
-            properties:
-            - _key: message
-              description: Message describing the error condition.
-              type: string
-            - _key: name
-              description: Name of the field which caused the error.
-              type: string
-            required:
-            - name
-            - message
-            type: object
-          type: array
-        - _key: message
-          description: A human readable informative explanation
-          example: Validation error
-          type: string
-        - _key: object
-          description: Entity name, always `error`.
-          enum:
-          - error
-          type: string
-        - _key: request_id
-          description: ID of the request.
-          example: 0161991d63150242ac12000600000000
-          type: string
-        - _key: type
-          description: Error type used to categorise the error.
-          example: validation_error
-          type: string
-        required:
-        - code
-        - message
-        - object
-        - request_id
-        - type
-        type: object
-    - _key: '404'
-      description: Certificate not found.
-      schema:
-        properties:
-        - _key: code
-          description: HTTP response code
-          example: 400
-          format: int32
-          type: integer
-        - _key: fields
-          description: Request fields which failed validation.
-          items:
-            properties:
-            - _key: message
-              description: Message describing the error condition.
-              type: string
-            - _key: name
-              description: Name of the field which caused the error.
-              type: string
-            required:
-            - name
-            - message
-            type: object
-          type: array
-        - _key: message
-          description: A human readable informative explanation
-          example: Validation error
-          type: string
-        - _key: object
-          description: Entity name, always `error`.
-          enum:
-          - error
-          type: string
-        - _key: request_id
-          description: ID of the request.
-          example: 0161991d63150242ac12000600000000
-          type: string
-        - _key: type
-          description: Error type used to categorise the error.
-          example: validation_error
-          type: string
-        required:
-        - code
-        - message
-        - object
-        - request_id
-        - type
-        type: object
-    return_info:
-      custom: false
-      self: true
-      type: trusted_certificate
-    return_type: trusted_certificate
-    summary: Get trusted certificate by ID.
   - _key: list
     description: 'An endpoint for retrieving trusted certificates in an array.
 
@@ -26870,8 +27338,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -26906,6 +27374,7 @@ entities:
       api_fieldname: device_execution_mode
       entity_fieldname: device_execution_mode
       private_field: true
+      readOnly: false
       type: integer
     - _key: include
       api_fieldname: include
@@ -26963,11 +27432,8 @@ entities:
     group_id: Security
     method: get
     mode: list
-    model: TrustedCertificateInternalResp
     operation_id: getAllCertificates
     pagination: true
-    parameter_map:
-      cert-id: id
     path: /v3/trusted-certificates
     responses:
     - _key: '200'
@@ -27021,6 +27487,7 @@ entities:
               example: 1
               format: int32
               private_field: true
+              readOnly: false
               type: integer
             - _key: enrollment_mode
               description: If true, signature is not required. Default value false.
@@ -27252,13 +27719,12 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
     - signature
-    - id
     - created_at
     - updated_at
     - account_id
@@ -27269,16 +27735,6 @@ entities:
     - certificate_fingerprint
     field_renames: []
     fields:
-    - _key: cert_id
-      api_fieldname: cert_id
-      description: The ID of the trusted certificate to be updated.
-      entity_fieldname: cert_id
-      external_param: true
-      in: path
-      name: cert_id
-      parameter_fieldname: cert_id
-      required: true
-      type: string
     - _key: certificate
       api_fieldname: certificate
       description: X509.v3 trusted certificate in PEM format.
@@ -27305,6 +27761,7 @@ entities:
       example: 1
       format: int32
       private_field: true
+      readOnly: false
       type: integer
     - _key: enrollment_mode
       api_fieldname: enrollment_mode
@@ -27315,6 +27772,15 @@ entities:
       parameter_fieldname: enrollment_mode
       required: false
       type: boolean
+    - _key: id
+      api_fieldname: id
+      description: Entity ID.
+      entity_fieldname: id
+      example: 01619571d01d0242ac12000600000000
+      in: path
+      parameter_fieldname: cert_id
+      required: true
+      type: string
     - _key: is_developer_certificate
       _override: true
       api_fieldname: is_developer_certificate
@@ -27357,12 +27823,11 @@ entities:
     group_id: Security
     method: put
     mode: update
-    model: TrustedCertificateInternalResp
     notes: Signature is not used by the SDK as it is a deprecated field.
     operation_id: updateCertificate
     pagination: false
     parameter_map:
-      cert-id: id
+      cert_id: id
     path: /v3/trusted-certificates/{cert_id}
     responses:
     - _key: '200'
@@ -27412,6 +27877,7 @@ entities:
           example: 1
           format: int32
           private_field: true
+          readOnly: false
           type: integer
         - _key: enrollment_mode
           api_fieldname: enrollment_mode
@@ -27755,7 +28221,6 @@ entities:
   primary_key_field: id
   swagger_models:
   - DeveloperCertificateResponseData
-  - TrustedCertificateInternalResp
   - TrustedCertificateReq
   - TrustedCertificateResp
   - TrustedCertificateRespList
@@ -27777,50 +28242,68 @@ entities:
     api_fieldname: account_id
     description: The ID of the account.
     example: 01619571e2e90242ac12000600000000
+    readOnly: true
+    required: false
     type: string
   - _key: address
     api_fieldname: address
     description: Address.
     example: 110 Fulbourn Rd, Cambridge, United Kingdom
+    readOnly: false
+    required: false
     type: string
   - _key: created_at
     api_fieldname: created_at
     description: Creation UTC time RFC3339.
     example: '2018-02-13T09:35:20Z'
     format: date-time
+    readOnly: true
+    required: false
     type: string
   - _key: creation_time
     api_fieldname: creation_time
     description: A timestamp of the user creation in the storage, in milliseconds.
     example: 1518630727683
     format: int64
+    readOnly: true
+    required: false
     type: integer
   - _key: email
     api_fieldname: email
     description: The email address.
     example: user@arm.com
+    readOnly: false
+    required: true
     type: string
   - _key: email_verified
     api_fieldname: email_verified
     description: A flag indicating whether the user's email address has been verified
       or not.
     example: true
+    readOnly: true
+    required: false
     type: boolean
   - _key: full_name
     api_fieldname: full_name
     description: The full name of the user.
     example: User Doe
+    readOnly: false
+    required: false
     type: string
   - _key: id
     api_fieldname: id
     description: The ID of the user.
     example: 01619571e2e89242ac12000600000000
+    readOnly: false
+    required: true
     type: string
   - _key: last_login_time
     api_fieldname: last_login_time
     description: A timestamp of the latest login of the user, in milliseconds.
     example: 1518630727688
     format: int64
+    readOnly: true
+    required: false
     type: integer
   - _key: login_history
     api_fieldname: login_history
@@ -27864,6 +28347,8 @@ entities:
       - success
       - user_agent
       type: object
+    readOnly: true
+    required: false
     type: array
   - _key: login_profiles
     api_fieldname: login_profiles
@@ -27891,28 +28376,38 @@ entities:
       - name
       - type
       type: object
+    readOnly: false
+    required: false
     type: array
   - _key: marketing_accepted
     api_fieldname: is_marketing_accepted
     description: A flag indicating that receiving marketing information has been accepted.
     example: true
+    readOnly: false
+    required: false
     type: boolean
   - _key: password
     api_fieldname: password
     description: The password when creating a new user. It will be generated when
       not present in the request.
     example: PZf9eEUH43DAPE9ULINFeuj
+    readOnly: false
+    required: false
     type: string
   - _key: password_changed_time
     api_fieldname: password_changed_time
     description: A timestamp of the latest change of the user password, in milliseconds.
     example: 1518630727688
     format: int64
+    readOnly: true
+    required: false
     type: integer
   - _key: phone_number
     api_fieldname: phone_number
     description: Phone number.
     example: +44 (1223) 400 400
+    readOnly: false
+    required: false
     type: string
   - _key: status
     api_fieldname: status
@@ -27928,29 +28423,39 @@ entities:
     - INACTIVE
     enum_reference: user_status_enum
     example: ACTIVE
+    readOnly: false
+    required: false
     type: string
   - _key: terms_accepted
     api_fieldname: is_gtc_accepted
     description: A flag indicating that the General Terms and Conditions has been
       accepted.
     example: true
+    readOnly: false
+    required: false
     type: boolean
   - _key: two_factor_authentication
     api_fieldname: is_totp_enabled
     description: A flag indicating whether 2-factor authentication (TOTP) has been
       enabled.
     example: true
+    readOnly: false
+    required: false
     type: boolean
   - _key: updated_at
     api_fieldname: updated_at
     description: Last update UTC time RFC3339.
     example: '2018-02-14T15:24:14Z'
     format: date-time
+    readOnly: true
+    required: false
     type: string
   - _key: username
     api_fieldname: username
     description: A username containing alphanumerical letters and -,._@+= characters.
     example: admin
+    readOnly: false
+    required: false
     type: string
   group_id: Accounts
   methods:
@@ -27969,8 +28474,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -28566,8 +29071,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -28810,8 +29315,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -29259,8 +29764,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -29715,8 +30220,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -30346,28 +30851,38 @@ entities:
     api_fieldname: account_id
     description: The ID of the account the user is invited to.
     example: 01619571e2e90242ac12000600000000
+    readOnly: true
+    required: false
     type: string
   - _key: created_at
     api_fieldname: created_at
     description: Creation UTC time RFC3339.
     example: '2018-02-13T09:35:20Z'
     format: date-time
+    readOnly: true
+    required: false
     type: string
   - _key: email
     api_fieldname: email
     description: Email address of the invited user.
     example: friend@arm.com
+    readOnly: false
+    required: true
     type: string
   - _key: expiration
     api_fieldname: expiration
     description: Invitation expiration as UTC time RFC3339.
     example: '2018-02-14T15:24:14Z'
     format: date-time
+    readOnly: true
+    required: false
     type: string
   - _key: id
     api_fieldname: id
     description: The ID of the invitation.
     example: 01619571e2e89242ac12000600000000
+    readOnly: false
+    required: true
     type: string
   - _key: login_profiles
     api_fieldname: login_profiles
@@ -30395,17 +30910,23 @@ entities:
       - name
       - type
       type: object
+    readOnly: false
+    required: false
     type: array
   - _key: updated_at
     api_fieldname: updated_at
     description: Last update UTC time RFC3339.
     example: '2018-02-14T15:24:14Z'
     format: date-time
+    readOnly: true
+    required: false
     type: string
   - _key: user_id
     api_fieldname: user_id
     description: The ID of the invited user.
     example: 01619571e2e90242ac12000600000000
+    readOnly: true
+    required: false
     type: string
   group_id: Accounts
   methods:
@@ -30422,8 +30943,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -30442,7 +30963,7 @@ entities:
       example: friend@arm.com
       in: body
       parameter_fieldname: email
-      required: false
+      required: true
       type: string
     - _key: login_profiles
       api_fieldname: login_profiles
@@ -30769,8 +31290,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -30960,8 +31481,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -31264,8 +31785,8 @@ entities:
     - object
     - etag
     - type
-    - filter
     - groups
+    - filter
     - is_custom
     - private_key
     - sub_accounts
@@ -31596,6 +32117,8 @@ entities:
 
       '
     example: message describing the verification failure
+    readOnly: true
+    required: false
     type: string
   - _key: successful
     api_fieldname: successful
@@ -31603,6 +32126,8 @@ entities:
 
       '
     example: false
+    readOnly: true
+    required: false
     type: boolean
   group_id: Security
   methods: []
@@ -31686,9 +32211,9 @@ enums:
   values:
   - ASC
   - DESC
-- _key: certificate_issuer_issuer_type_enum
+- _key: certificate_issuer_type_enum
   entity_name: certificate_issuer
-  enum_name: certificate_issuer_issuer_type_enum
+  enum_name: certificate_issuer_type_enum
   field_name: issuer_type
   group_id: Security
   values:
@@ -31832,6 +32357,7 @@ groups:
   - login_history
   - parent_account
   - policy
+  - login_profile
   - user
   - subtenant_user
   - user_invitation
@@ -31873,7 +32399,7 @@ groups:
   - subtenant_trusted_certificate
   - developer_certificate
   enums:
-  - certificate_issuer_issuer_type_enum
+  - certificate_issuer_type_enum
   - certificate_enrollment_enroll_status_enum
   - certificate_enrollment_enroll_result_enum
   - certificate_enrollment_order_enum
