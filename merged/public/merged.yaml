@@ -94,115 +94,6 @@ definitions:
     required:
     - end_market
     type: object
-  AccountCreationResp:
-    description: This object represents an account creation response.
-    properties:
-      address_line1:
-        description: Postal address line 1, not longer than 100 characters. Required
-          for commercial accounts only.
-        example: 110 Fulbourn Rd
-        type: string
-      address_line2:
-        description: Postal address line 2, not longer than 100 characters.
-        example: ' '
-        type: string
-      admin_email:
-        description: The email address of the account admin, not longer than 254 characters.
-        example: admin@arm.com
-        type: string
-      admin_full_name:
-        description: The full name of the admin user to be created.
-        example: Admin Doe
-        type: string
-      admin_id:
-        description: The ID of the admin user created.
-        example: 01619571e2e89242ac12000600000000
-        type: string
-      admin_key:
-        description: The admin API key created for the account.
-        example: ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT
-        type: string
-      admin_name:
-        description: The username of the admin user to be created, containing alphanumerical
-          letters and -,._@+= characters. It must be at least 4 but not more than
-          30 character long.
-        example: admin
-        type: string
-      admin_password:
-        description: The password when creating a new user. It will be generated when
-          not present in the request.
-        example: PZf9eEUH43DAPE9ULINFeuj
-        type: string
-      aliases:
-        description: An array of aliases, not more than 10. An alias is not shorter
-          than 8 and not longer than 100 characters.
-        items:
-          type: string
-        type: array
-      city:
-        description: The city part of the postal address, not longer than 100 characters.
-          Required for commercial accounts only.
-        example: Cambridge
-        type: string
-      company:
-        description: The name of the company, not longer than 100 characters. Required
-          for commercial accounts only.
-        example: ARM Holdings Plc
-        type: string
-      contact:
-        description: The name of the contact person for this account, not longer than
-          100 characters. Required for commercial accounts only.
-        example: J. Doe
-        type: string
-      contract_number:
-        description: Contract number of the customer.
-        example: 1NX25_0001
-        type: string
-      country:
-        description: The country part of the postal address, not longer than 100 characters.
-          Required for commercial accounts only.
-        example: United Kingdom
-        type: string
-      customer_number:
-        description: Customer number of the customer.
-        example: 1NC25_0001
-        type: string
-      display_name:
-        description: The display name for the account, not longer than 100 characters.
-        example: ARM
-        type: string
-      email:
-        description: The company email address for this account, not longer than 254
-          characters. Required for commercial accounts only.
-        example: info@arm.com
-        type: string
-      end_market:
-        description: The end market of the account to be created.
-        example: IT
-        type: string
-      id:
-        description: Account ID.
-        example: 01619571e2e90242ac12000600000000
-        type: string
-      phone_number:
-        description: The phone number of a representative of the company, not longer
-          than 100 characters.
-        example: +44 (1223) 400 400
-        type: string
-      postal_code:
-        description: The postal code part of the postal address, not longer than 100
-          characters.
-        example: CB1 9NJ
-        type: string
-      state:
-        description: The state part of the postal address, not longer than 100 characters.
-        example: ' '
-        type: string
-    required:
-    - admin_id
-    - end_market
-    - id
-    type: object
   AccountInfo:
     description: This object represents an account in requests and responses.
     properties:
@@ -213,6 +104,36 @@ definitions:
       address_line2:
         description: Postal address line 2.
         example: ' '
+        type: string
+      admin_email:
+        description: The email address of the admin user created for this account.
+          Present only in the response for the account creation.
+        example: admin@arm.com
+        type: string
+      admin_full_name:
+        description: The full name of the admin user created for this account. Present
+          only in the response for the account creation.
+        example: Admin Doe
+        type: string
+      admin_id:
+        description: The ID of the admin user created for this account.
+        example: 01619571e2e89242ac12000600000000
+        type: string
+      admin_key:
+        description: The admin API key created for this account. Present only in the
+          response for the account creation.
+        example: ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT
+        readOnly: true
+        type: string
+      admin_name:
+        description: The username of the admin user created for this account. Present
+          only in the response for the account creation.
+        example: admin
+        type: string
+      admin_password:
+        description: The password of the admin user created for this account. Present
+          only in the response for the account creation.
+        example: PZf9eEUH43DAPE9ULINFeuj
         type: string
       aliases:
         description: An array of aliases.
@@ -268,6 +189,10 @@ definitions:
       etag:
         description: API resource entity version.
         example: '1'
+        type: string
+      expiration:
+        description: Expiration time of the account, as UTC time RFC3339.
+        format: date-time
         type: string
       expiration_warning_threshold:
         description: Indicates how many days (1-180) before account expiration a notification
@@ -377,7 +302,6 @@ definitions:
         format: date-time
         type: string
     required:
-    - aliases
     - end_market
     - etag
     - id
@@ -5010,155 +4934,6 @@ definitions:
     required:
     - quota_usage
     type: object
-  TrustedCertificateInternalResp:
-    description: This object represents a trusted certificate in responses.
-    properties:
-      account_id:
-        description: The ID of the account.
-        example: 01619571e2e90242ac12000600000000
-        type: string
-      certificate:
-        description: X509.v3 trusted certificate in PEM format.
-        example: '-----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----'
-        type: string
-      certificate_fingerprint:
-        description: A SHA-256 fingerprint of the certificate.
-        example: a10fb2c8ba90e6de927bd0ae391dcc38f6115685de2d7024712af37ead0608f1
-        type: string
-      created_at:
-        description: Creation UTC time RFC3339.
-        example: '2018-02-13T09:35:20Z'
-        format: date-time
-        type: string
-      description:
-        description: Human readable description of this certificate.
-        example: Certificate created by me.
-        type: string
-      device_execution_mode:
-        description: Device execution mode where 1 means a developer certificate.
-        example: 1
-        format: int32
-        type: integer
-      enrollment_mode:
-        description: If true, signature is not required. Default value false.
-        example: false
-        type: boolean
-      etag:
-        description: API resource entity version.
-        example: '1'
-        type: string
-      id:
-        description: Entity ID.
-        example: 01619571d01d0242ac12000600000000
-        type: string
-      issuer:
-        description: Issuer of the certificate.
-        example: CN=issuer
-        type: string
-      name:
-        description: Certificate name.
-        example: My certificate
-        type: string
-      object:
-        description: 'Entity name: always ''trusted-cert'''
-        enum:
-        - trusted-cert
-        type: string
-      owner_id:
-        description: The ID of the owner.
-        example: 01619571dad80242ac12000600000000
-        type: string
-      private_key:
-        description: Private key of the certificate in PEM or base64 encoded DER format.
-        example: MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmE...
-        type: string
-      service:
-        description: Service name where the certificate is to be used.
-        enum:
-        - lwm2m
-        - bootstrap
-        type: string
-      status:
-        description: Status of the certificate.
-        enum:
-        - ACTIVE
-        - INACTIVE
-        example: ACTIVE
-        type: string
-      subject:
-        description: Subject of the certificate.
-        example: CN=subject
-        type: string
-      updated_at:
-        description: Last update UTC time RFC3339.
-        example: '2018-02-14T15:24:14Z'
-        format: date-time
-        type: string
-      validity:
-        description: Expiration time in UTC formatted as RFC3339.
-        example: '2038-02-14T15:24:14Z'
-        format: date-time
-        type: string
-    required:
-    - account_id
-    - certificate
-    - certificate_fingerprint
-    - etag
-    - id
-    - issuer
-    - name
-    - object
-    - private_key
-    - service
-    - subject
-    - validity
-    type: object
-  TrustedCertificateInternalRespList:
-    properties:
-      after:
-        description: The entity ID to fetch after the given one.
-        example: 01619571f3c00242ac12000600000000
-        type: string
-      data:
-        description: A list of entities.
-        items:
-          $ref: '#/definitions/TrustedCertificateInternalResp'
-        type: array
-      has_more:
-        description: Flag indicating whether there is more results.
-        example: false
-        type: boolean
-      limit:
-        description: 'The number of results to return, (range: 2-1000), or equals
-          to `total_count`'
-        example: 50
-        format: int32
-        type: integer
-      object:
-        description: 'Entity name: always ''list'''
-        enum:
-        - list
-        type: string
-      order:
-        description: 'The order of the records to return based on creation time. Available
-          values: ASC, DESC; by default ASC.'
-        enum:
-        - ASC
-        - DESC
-        type: string
-      total_count:
-        description: The total number or records, if requested. It might be returned
-          also for small lists.
-        example: 20
-        format: int32
-        type: integer
-    required:
-    - data
-    - has_more
-    - limit
-    - object
-    - total_count
-    type: object
   TrustedCertificateReq:
     description: This object represents a trusted certificate in upload requests.
     properties:
@@ -5341,45 +5116,6 @@ definitions:
     - limit
     - object
     - total_count
-    type: object
-  TrustedCertificateRootReq:
-    description: This object represents a trusted certificate in upload requests.
-    properties:
-      certificate:
-        description: A chain of X509.v3 trusted certificates in PEM format. The chain
-          must contain all certificates from root to leaf. Otherwise, the signature
-          parameter is required.
-        type: string
-      description:
-        description: Human readable description of this certificate, not longer than
-          500 characters.
-        type: string
-      enrollment_mode:
-        description: Certificate is used in enrollment mode. Default value is false.
-        type: boolean
-      name:
-        description: Certificate name, not longer than 100 characters.
-        type: string
-      service:
-        description: Service name where the certificate must be used.
-        enum:
-        - lwm2m
-        - bootstrap
-        type: string
-      signature:
-        description: 'DEPRECATED: Base64 encoded signature of the account ID signed
-          by the certificate to be uploaded. The signature must be hashed with SHA256.'
-        type: string
-      status:
-        description: Status of the certificate.
-        enum:
-        - ACTIVE
-        - INACTIVE
-        type: string
-    required:
-    - certificate
-    - name
-    - service
     type: object
   TrustedCertificateUpdateReq:
     description: This object represents a trusted certificate in update requests.
@@ -8031,7 +7767,7 @@ paths:
         '201':
           description: Successful operation.
           schema:
-            $ref: '#/definitions/AccountCreationResp'
+            $ref: '#/definitions/AccountInfo'
         '400':
           description: Error in input data, for example invalid username.
           schema:
@@ -8763,6 +8499,776 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Reset the secret key.
+      tags:
+      - Aggregator Account Admin
+  /v3/accounts/{account_id}/branding-colors/dark:
+    get:
+      description: "Returns the branding colors of the dark theme. \n\n**Example usage:**\n\
+        `curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark\
+        \ -H 'Authorization: Bearer API_KEY'`"
+      operationId: getAccountDarkColors
+      parameters:
+      - description: Account ID.
+        in: path
+        name: account_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/BrandingColorList'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Account not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Get branding colors of the dark theme.
+      tags:
+      - Aggregator Account Admin
+    put:
+      consumes:
+      - application/json
+      description: "An endpoint for updating an array of branding colors in the dark\
+        \ theme. \n\n**Example usage:**\n`curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/dark\
+        \ '[{ \"reference\": \"primary\",\n   \"color\": \"#f3f93e\" }]' -H 'content-type:\
+        \ application/json' -H 'Authorization: Bearer API_KEY'`"
+      operationId: bulkSetAccountDarkColors
+      parameters:
+      - description: Account ID.
+        in: path
+        name: account_id
+        required: true
+        type: string
+      - description: List of branding colors.
+        in: body
+        name: body
+        required: true
+        schema:
+          items:
+            $ref: '#/definitions/BrandingColor'
+          type: array
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: Colors have been set successfully.
+        '400':
+          description: Error in input data format.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Account not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Updates an array of branding colors in the dark theme.
+      tags:
+      - Aggregator Account Admin
+  /v3/accounts/{account_id}/branding-colors/dark/{reference}:
+    delete:
+      description: "Resets the branding color to its default in the dark theme. \n\
+        \n**Example usage:**\n`curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/light/{reference}\
+        \ -H 'Authorization: Bearer API_KEY'`"
+      operationId: resetAccountDarkColor
+      parameters:
+      - description: Account ID.
+        in: path
+        name: account_id
+        required: true
+        type: string
+      - description: The name of the branding color.
+        enum: *id012
+        in: path
+        name: reference
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/BrandingColor'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Color or account not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Reset branding color to default.
+      tags:
+      - Aggregator Account Admin
+    get:
+      description: "Returns the requested branding color of the dark theme. \n\n**Example\
+        \ usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark/{reference}\
+        \ -H 'Authorization: Bearer API_KEY'`"
+      operationId: getAccountDarkColor
+      parameters:
+      - description: Account ID.
+        in: path
+        name: account_id
+        required: true
+        type: string
+      - description: The name of the branding color.
+        enum: *id012
+        in: path
+        name: reference
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/BrandingColor'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Color or account not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Get branding color of the dark theme.
+      tags:
+      - Aggregator Account Admin
+    put:
+      consumes:
+      - application/json
+      description: "An endpoint for updating a branding color in the dark theme. \n\
+        \n**Example usage:**\n`curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/dark/primary\
+        \ -d '{ \"color\": \"#f3f93e\" }' -H 'content-type: application/json' -H 'Authorization:\
+        \ Bearer API_KEY'`"
+      operationId: setAccountDarkColor
+      parameters:
+      - description: Account ID.
+        in: path
+        name: account_id
+        required: true
+        type: string
+      - description: The name of the branding color.
+        enum: *id012
+        in: path
+        name: reference
+        required: true
+        type: string
+      - description: The branding color.
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/BrandingColor'
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Color has been set successfully.
+          schema:
+            $ref: '#/definitions/BrandingColor'
+        '400':
+          description: Error in input data format.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Color or account not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Updates a branding color in the dark theme.
+      tags:
+      - Aggregator Account Admin
+  /v3/accounts/{account_id}/branding-colors/light:
+    get:
+      description: "Returns the branding colors of the light theme. \n\n**Example\
+        \ usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/light\
+        \ -H 'Authorization: Bearer API_KEY'`"
+      operationId: getAccountLightColors
+      parameters:
+      - description: Account ID.
+        in: path
+        name: account_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/BrandingColorList'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Account not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Get branding colors of the light theme.
+      tags:
+      - Aggregator Account Admin
+    put:
+      consumes:
+      - application/json
+      description: "An endpoint for updating an array of branding colors in the light\
+        \ theme. \n\n**Example usage:**\n`curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/light\
+        \ '[{ \"reference\": \"primary\",\n   \"color\": \"purple\" }]' -H 'content-type:\
+        \ application/json' -H 'Authorization: Bearer API_KEY'`"
+      operationId: bulkSetAccountLightColors
+      parameters:
+      - description: Account ID.
+        in: path
+        name: account_id
+        required: true
+        type: string
+      - description: List of branding colors.
+        in: body
+        name: body
+        required: true
+        schema:
+          items:
+            $ref: '#/definitions/BrandingColor'
+          type: array
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: Colors have been set successfully.
+        '400':
+          description: Error in input data format.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Account not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Updates an array of branding colors in the light theme.
+      tags:
+      - Aggregator Account Admin
+  /v3/accounts/{account_id}/branding-colors/light/{reference}:
+    delete:
+      description: "Resets the branding color to its default in the light theme. \n\
+        \n**Example usage:**\n`curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/light/{reference}\
+        \ -H 'Authorization: Bearer API_KEY'`"
+      operationId: resetAccountLightColor
+      parameters:
+      - description: Account ID.
+        in: path
+        name: account_id
+        required: true
+        type: string
+      - description: The name of the branding color.
+        enum: *id012
+        in: path
+        name: reference
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/BrandingColor'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Color or account not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Reset branding color to default.
+      tags:
+      - Aggregator Account Admin
+    get:
+      description: "Returns the requested branding color of the light theme. \n\n\
+        **Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/light/{reference}\
+        \ -H 'Authorization: Bearer API_KEY'`"
+      operationId: getAccountLightColor
+      parameters:
+      - description: Account ID.
+        in: path
+        name: account_id
+        required: true
+        type: string
+      - description: The name of the branding color.
+        enum: *id012
+        in: path
+        name: reference
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/BrandingColor'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Color or account not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Get branding color of the light theme.
+      tags:
+      - Aggregator Account Admin
+    put:
+      consumes:
+      - application/json
+      description: "An endpoint for updating a branding color in the light theme.\
+        \ \n\n**Example usage:**\n`curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/light/primary\
+        \ -d '{ \"color\": \"purple\" }' -H 'content-type: application/json' -H 'Authorization:\
+        \ Bearer API_KEY'`"
+      operationId: setAccountLightColor
+      parameters:
+      - description: Account ID.
+        in: path
+        name: account_id
+        required: true
+        type: string
+      - description: The name of the branding color.
+        enum: *id012
+        in: path
+        name: reference
+        required: true
+        type: string
+      - description: The branding color.
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/BrandingColor'
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Color has been set successfully.
+          schema:
+            $ref: '#/definitions/BrandingColor'
+        '400':
+          description: Error in input data format.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Color or account not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Updates a branding color in the light theme.
+      tags:
+      - Aggregator Account Admin
+  /v3/accounts/{account_id}/branding-images/dark:
+    get:
+      description: "Returns the metadata of all branding images in the dark theme.\
+        \ \n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/dark\
+        \ -H 'Authorization: Bearer API_KEY'`"
+      operationId: getAllAccountDarkImageData
+      parameters:
+      - description: Account ID.
+        in: path
+        name: account_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/BrandingImageList'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Account not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Get metadata of all images in the dark theme.
+      tags:
+      - Aggregator Account Admin
+  /v3/accounts/{account_id}/branding-images/dark/{reference}:
+    get:
+      description: "An endpoint for getting metadata of one account branding image\
+        \ in the dark theme. \n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/dark/{reference}\
+        \ -H 'Authorization: Bearer API_KEY'`"
+      operationId: getAccountDarkImageData
+      parameters:
+      - description: Account ID.
+        in: path
+        name: account_id
+        required: true
+        type: string
+      - description: Name of the branding images (icon or picture).
+        enum: *id013
+        in: path
+        name: reference
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/BrandingImage'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Unknown image reference or account not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Get metadata of an image in the dark theme.
+      tags:
+      - Aggregator Account Admin
+  /v3/accounts/{account_id}/branding-images/dark/{reference}/clear:
+    post:
+      description: "An endpoint for reverting an account branding image to default\
+        \ in the dark theme. \n\n**Example usage:**\n`curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/dark/{reference}/clear\
+        \ -H 'Authorization: Bearer API_KEY'`"
+      operationId: clearAccountDarkImage
+      parameters:
+      - description: Account ID.
+        in: path
+        name: account_id
+        required: true
+        type: string
+      - description: Name of the branding images (icon or picture).
+        enum: *id013
+        in: path
+        name: reference
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: Image has been reverted successfully.
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Unknown image reference or account not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Revert an image to default in the dark theme.
+      tags:
+      - Aggregator Account Admin
+  /v3/accounts/{account_id}/branding-images/dark/{reference}/upload:
+    post:
+      consumes:
+      - image/png
+      - image/jpeg
+      description: "An endpoint for uploading a new account branding image in the\
+        \ dark theme in PNG or JPEG format. \n\n**Example usage:**\n`curl -X POST\
+        \ https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/dark/{reference}/upload\
+        \ -H 'content-type: image/png' -H 'Authorization: Bearer API_KEY' --data-binary\
+        \ 'myimage.png'`"
+      operationId: uploadAccountDarkImage
+      parameters:
+      - description: Account ID.
+        in: path
+        name: account_id
+        required: true
+        type: string
+      - description: Name of the branding images (icon or picture).
+        enum: *id013
+        in: path
+        name: reference
+        required: true
+        type: string
+      - description: The image in PNG or JPEG format.
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/Image'
+      produces:
+      - application/json
+      responses:
+        '201':
+          description: Image has been uploaded successfully.
+          headers:
+            Content-Location:
+              description: Location of the image metadata.
+              type: string
+            Location:
+              description: Location of the image binary.
+              type: string
+          schema:
+            $ref: '#/definitions/BrandingImage'
+        '400':
+          description: Error in input data format, e.g. image is too large.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Unknown image reference or account not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Upload an image in the dark theme.
+      tags:
+      - Aggregator Account Admin
+  /v3/accounts/{account_id}/branding-images/light:
+    get:
+      description: "Returns the metadata of all branding images in the light theme.\
+        \ \n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/light\
+        \ -H 'Authorization: Bearer API_KEY'`"
+      operationId: getAllAccountLightImageData
+      parameters:
+      - description: Account ID.
+        in: path
+        name: account_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/BrandingImageList'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Account not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Get metadata of all images in the light theme.
+      tags:
+      - Aggregator Account Admin
+  /v3/accounts/{account_id}/branding-images/light/{reference}:
+    get:
+      description: "An endpoint for getting metadata of one account branding image\
+        \ in the light theme. \n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/light/{reference}\
+        \ -H 'Authorization: Bearer API_KEY'`"
+      operationId: getAccountLightImageData
+      parameters:
+      - description: Account ID.
+        in: path
+        name: account_id
+        required: true
+        type: string
+      - description: Name of the branding images (icon or picture).
+        enum: *id013
+        in: path
+        name: reference
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/BrandingImage'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Unknown image reference or account not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Get metadata of an image in the light theme.
+      tags:
+      - Aggregator Account Admin
+  /v3/accounts/{account_id}/branding-images/light/{reference}/clear:
+    post:
+      description: "An endpoint for reverting an account branding image to default\
+        \ in the light theme. \n\n**Example usage:**\n`curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/light/{reference}/clear\
+        \ -H 'Authorization: Bearer API_KEY'`"
+      operationId: clearAccountLightImage
+      parameters:
+      - description: Account ID.
+        in: path
+        name: account_id
+        required: true
+        type: string
+      - description: Name of the branding images (icon or picture).
+        enum: *id013
+        in: path
+        name: reference
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: Image has been reverted successfully.
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Unknown image reference or account not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Revert an image to default in the light theme.
+      tags:
+      - Aggregator Account Admin
+  /v3/accounts/{account_id}/branding-images/light/{reference}/upload:
+    post:
+      consumes:
+      - image/png
+      - image/jpeg
+      description: "An endpoint for uploading a new account branding image in the\
+        \ light theme in PNG or JPEG format. \n\n**Example usage:**\n`curl -X POST\
+        \ https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/light/{reference}/upload\
+        \ -H 'content-type: image/png' -H 'Authorization: Bearer API_KEY' --data-binary\
+        \ 'myimage.png'`"
+      operationId: uploadAccountLightImage
+      parameters:
+      - description: Account ID.
+        in: path
+        name: account_id
+        required: true
+        type: string
+      - description: Name of the branding images (icon or picture).
+        enum: *id013
+        in: path
+        name: reference
+        required: true
+        type: string
+      - description: The image in PNG or JPEG format.
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/Image'
+      produces:
+      - application/json
+      responses:
+        '201':
+          description: Image has been uploaded successfully.
+          headers:
+            Content-Location:
+              description: Location of the image metadata.
+              type: string
+            Location:
+              description: Location of the image binary.
+              type: string
+          schema:
+            $ref: '#/definitions/BrandingImage'
+        '400':
+          description: Error in input data format, e.g. image is too large.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Unknown image reference or account not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Upload an image in the light theme.
       tags:
       - Aggregator Account Admin
   /v3/accounts/{account_id}/identity-providers:
@@ -9787,7 +10293,7 @@ paths:
         '200':
           description: successful operation
           schema:
-            $ref: '#/definitions/TrustedCertificateInternalRespList'
+            $ref: '#/definitions/TrustedCertificateRespList'
         '401':
           description: Authentication failure.
           schema:
@@ -9827,7 +10333,7 @@ paths:
         name: body
         required: true
         schema:
-          $ref: '#/definitions/TrustedCertificateRootReq'
+          $ref: '#/definitions/TrustedCertificateReq'
       produces:
       - application/json
       responses:
@@ -9922,7 +10428,7 @@ paths:
         '200':
           description: successful operation
           schema:
-            $ref: '#/definitions/TrustedCertificateInternalResp'
+            $ref: '#/definitions/TrustedCertificateResp'
         '401':
           description: Authentication failure.
           schema:
@@ -9973,7 +10479,7 @@ paths:
         '200':
           description: successful operation
           schema:
-            $ref: '#/definitions/TrustedCertificateInternalResp'
+            $ref: '#/definitions/TrustedCertificateResp'
         '400':
           description: Invalid certificate data, certificate validation failed, certificate
             already expired or certificate uses unsupported, weak cipher.
@@ -11704,7 +12210,9 @@ paths:
       summary: Get raw billing data of the firmware updates for the month.
   /v3/branding-colors/dark:
     get:
-      description: Returns the branding colors of the dark theme.
+      description: "Returns the branding colors of the dark theme. \n\n**Example usage:**\n\
+        `curl https://api.us-east-1.mbedcloud.com/v3/branding-colors/dark -H 'Authorization:\
+        \ Bearer API_KEY'`"
       operationId: getDarkColors
       parameters: []
       produces:
@@ -11729,7 +12237,7 @@ paths:
       consumes:
       - application/json
       description: "An endpoint for updating an array of branding colors in the dark\
-        \ theme.\n\n**Example usage:**\n`curl -X PUT https://api.us-east-1.mbedcloud.com/v3/branding-colors/dark\
+        \ theme. \n\n**Example usage:**\n`curl -X PUT https://api.us-east-1.mbedcloud.com/v3/branding-colors/dark\
         \ '[{ \"reference\": \"primary\",\n   \"color\": \"#f3f93e\" }]' -H 'content-type:\
         \ application/json' -H 'Authorization: Bearer API_KEY'`"
       operationId: bulkSetDarkColors
@@ -11764,7 +12272,9 @@ paths:
       - Account Admin
   /v3/branding-colors/dark/{reference}:
     delete:
-      description: Resets the branding color to its default in the dark theme.
+      description: "Resets the branding color to its default in the dark theme. \n\
+        \n**Example usage:**\n`curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/branding-colors/light/{reference}\
+        \ -H 'Authorization: Bearer API_KEY'`"
       operationId: resetDarkColor
       parameters:
       - description: The name of the branding color.
@@ -11796,7 +12306,9 @@ paths:
       tags:
       - Account Admin
     get:
-      description: Returns the requested branding color of the dark theme.
+      description: "Returns the requested branding color of the dark theme. \n\n**Example\
+        \ usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/branding-colors/dark/{reference}\
+        \ -H 'Authorization: Bearer API_KEY'`"
       operationId: getDarkColor
       parameters:
       - description: The name of the branding color.
@@ -11830,14 +12342,10 @@ paths:
     put:
       consumes:
       - application/json
-      description: 'An endpoint for updating a branding color in the dark theme.
-
-
-        **Example usage:**
-
-        `curl -X PUT https://api.us-east-1.mbedcloud.com/v3/branding-colors/dark/primary
-        -d ''{ "color": "#f3f93e" }'' -H ''content-type: application/json'' -H ''Authorization:
-        Bearer API_KEY''`'
+      description: "An endpoint for updating a branding color in the dark theme. \n\
+        \n**Example usage:**\n`curl -X PUT https://api.us-east-1.mbedcloud.com/v3/branding-colors/dark/primary\
+        \ -d '{ \"color\": \"#f3f93e\" }' -H 'content-type: application/json' -H 'Authorization:\
+        \ Bearer API_KEY'`"
       operationId: setDarkColor
       parameters:
       - description: The name of the branding color.
@@ -11871,12 +12379,18 @@ paths:
           description: Forbidden.
           schema:
             $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Color not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
       summary: Updates a branding color in the dark theme.
       tags:
       - Account Admin
   /v3/branding-colors/light:
     get:
-      description: Returns the branding colors of the light theme.
+      description: "Returns the branding colors of the light theme. \n\n**Example\
+        \ usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/branding-colors/light\
+        \ -H 'Authorization: Bearer API_KEY'`"
       operationId: getLightColors
       parameters: []
       produces:
@@ -11901,7 +12415,7 @@ paths:
       consumes:
       - application/json
       description: "An endpoint for updating an array of branding colors in the light\
-        \ theme.\n\n**Example usage:**\n`curl -X PUT https://api.us-east-1.mbedcloud.com/v3/branding-colors/light\
+        \ theme. \n\n**Example usage:**\n`curl -X PUT https://api.us-east-1.mbedcloud.com/v3/branding-colors/light\
         \ '[{ \"reference\": \"primary\",\n   \"color\": \"purple\" }]' -H 'content-type:\
         \ application/json' -H 'Authorization: Bearer API_KEY'`"
       operationId: bulkSetLightColors
@@ -11936,7 +12450,9 @@ paths:
       - Account Admin
   /v3/branding-colors/light/{reference}:
     delete:
-      description: Resets the branding color to its default in the light theme.
+      description: "Resets the branding color to its default in the light theme. \n\
+        \n**Example usage:**\n`curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/branding-colors/light/{reference}\
+        \ -H 'Authorization: Bearer API_KEY'`"
       operationId: resetLightColor
       parameters:
       - description: The name of the branding color.
@@ -11968,7 +12484,9 @@ paths:
       tags:
       - Account Admin
     get:
-      description: Returns the requested branding color of the light theme.
+      description: "Returns the requested branding color of the light theme. \n\n\
+        **Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/branding-colors/light/{reference}\
+        \ -H 'Authorization: Bearer API_KEY'`"
       operationId: getLightColor
       parameters:
       - description: The name of the branding color.
@@ -12002,14 +12520,10 @@ paths:
     put:
       consumes:
       - application/json
-      description: 'An endpoint for updating a branding color in the light theme.
-
-
-        **Example usage:**
-
-        `curl -X PUT https://api.us-east-1.mbedcloud.com/v3/branding-colors/light/primary
-        -d ''{ "color": "purple" }'' -H ''content-type: application/json'' -H ''Authorization:
-        Bearer API_KEY''`'
+      description: "An endpoint for updating a branding color in the light theme.\
+        \ \n\n**Example usage:**\n`curl -X PUT https://api.us-east-1.mbedcloud.com/v3/branding-colors/light/primary\
+        \ -d '{ \"color\": \"purple\" }' -H 'content-type: application/json' -H 'Authorization:\
+        \ Bearer API_KEY'`"
       operationId: setLightColor
       parameters:
       - description: The name of the branding color.
@@ -12052,7 +12566,9 @@ paths:
       - Account Admin
   /v3/branding-images/dark:
     get:
-      description: Returns the metadata of all branding images in the dark theme.
+      description: "Returns the metadata of all branding images in the dark theme.\
+        \ \n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/branding-images/dark\
+        \ -H 'Authorization: Bearer API_KEY'`"
       operationId: getAllDarkImageData
       parameters: []
       produces:
@@ -12075,8 +12591,9 @@ paths:
       - Developer
   /v3/branding-images/dark/{reference}:
     get:
-      description: An endpoint for getting metadata of one account branding image
-        in the dark theme.
+      description: "An endpoint for getting metadata of one account branding image\
+        \ in the dark theme. \n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/branding-images/dark/{reference}\
+        \ -H 'Authorization: Bearer API_KEY'`"
       operationId: getDarkImageData
       parameters:
       - description: Name of the branding images (icon or picture).
@@ -12109,8 +12626,9 @@ paths:
       - Developer
   /v3/branding-images/dark/{reference}/clear:
     post:
-      description: An endpoint for reverting an account branding image to default
-        in the dark theme.
+      description: "An endpoint for reverting an account branding image to default\
+        \ in the dark theme. \n\n**Example usage:**\n`curl -X POST https://api.us-east-1.mbedcloud.com/v3/branding-images/dark/{reference}/clear\
+        \ -H 'Authorization: Bearer API_KEY'`"
       operationId: clearDarkImage
       parameters:
       - description: Name of the branding images (icon or picture).
@@ -12144,8 +12662,11 @@ paths:
       consumes:
       - image/png
       - image/jpeg
-      description: An endpoint for uploading a new account branding image in the dark
-        theme in PNG or JPEG format.
+      description: "An endpoint for uploading a new account branding image in the\
+        \ dark theme in PNG or JPEG format. \n\n**Example usage:**\n`curl -X POST\
+        \ https://api.us-east-1.mbedcloud.com/v3/branding-images/dark/{reference}/upload\
+        \ -H 'content-type: image/png' -H 'Authorization: Bearer API_KEY' --data-binary\
+        \ 'myimage.png'`"
       operationId: uploadDarkImage
       parameters:
       - description: Name of the branding images (icon or picture).
@@ -12195,7 +12716,9 @@ paths:
       - Account Admin
   /v3/branding-images/light:
     get:
-      description: Returns the metadata of all branding images in the light theme.
+      description: "Returns the metadata of all branding images in the light theme.\
+        \ \n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/branding-images/light\
+        \ -H 'Authorization: Bearer API_KEY'`"
       operationId: getAllLightImageData
       parameters: []
       produces:
@@ -12218,8 +12741,9 @@ paths:
       - Developer
   /v3/branding-images/light/{reference}:
     get:
-      description: An endpoint for getting metadata of one account branding image
-        in the light theme.
+      description: "An endpoint for getting metadata of one account branding image\
+        \ in the light theme. \n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/branding-images/light/{reference}\
+        \ -H 'Authorization: Bearer API_KEY'`"
       operationId: getLightImageData
       parameters:
       - description: Name of the branding images (icon or picture).
@@ -12252,8 +12776,9 @@ paths:
       - Developer
   /v3/branding-images/light/{reference}/clear:
     post:
-      description: An endpoint for reverting an account branding image to default
-        in the light theme.
+      description: "An endpoint for reverting an account branding image to default\
+        \ in the light theme. \n\n**Example usage:**\n`curl -X POST https://api.us-east-1.mbedcloud.com/v3/branding-images/light/{reference}/clear\
+        \ -H 'Authorization: Bearer API_KEY'`"
       operationId: clearLightImage
       parameters:
       - description: Name of the branding images (icon or picture).
@@ -12287,8 +12812,11 @@ paths:
       consumes:
       - image/png
       - image/jpeg
-      description: An endpoint for uploading a new account branding image in the light
-        theme in PNG or JPEG format.
+      description: "An endpoint for uploading a new account branding image in the\
+        \ light theme in PNG or JPEG format. \n\n**Example usage:**\n`curl -X POST\
+        \ https://api.us-east-1.mbedcloud.com/v3/branding-images/light/{reference}/upload\
+        \ -H 'content-type: image/png' -H 'Authorization: Bearer API_KEY' --data-binary\
+        \ 'myimage.png'`"
       operationId: uploadLightImage
       parameters:
       - description: Name of the branding images (icon or picture).

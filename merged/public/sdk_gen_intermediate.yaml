@@ -18,45 +18,47 @@ entities:
     type: string
   - _key: admin_email
     api_fieldname: admin_email
-    description: The email address of the account admin, not longer than 254 characters.
+    description: The email address of the admin user created for this account. Present
+      only in the response for the account creation.
     example: admin@arm.com
     readOnly: false
     required: false
     type: string
   - _key: admin_full_name
     api_fieldname: admin_full_name
-    description: The full name of the admin user to be created.
+    description: The full name of the admin user created for this account. Present
+      only in the response for the account creation.
     example: Admin Doe
     readOnly: false
     required: false
     type: string
   - _key: admin_id
     api_fieldname: admin_id
-    description: The ID of the admin user created.
+    description: The ID of the admin user created for this account.
     example: 01619571e2e89242ac12000600000000
     readOnly: true
     required: false
     type: string
   - _key: admin_key
     api_fieldname: admin_key
-    description: The admin API key created for the account.
+    description: The admin API key created for this account. Present only in the response
+      for the account creation.
     example: ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT
     readOnly: true
     required: false
     type: string
   - _key: admin_name
     api_fieldname: admin_name
-    description: The username of the admin user to be created, containing alphanumerical
-      letters and -,._@+= characters. It must be at least 4 but not more than 30 character
-      long.
+    description: The username of the admin user created for this account. Present
+      only in the response for the account creation.
     example: admin
     readOnly: false
     required: false
     type: string
   - _key: admin_password
     api_fieldname: admin_password
-    description: The password when creating a new user. It will be generated when
-      not present in the request.
+    description: The password of the admin user created for this account. Present
+      only in the response for the account creation.
     example: PZf9eEUH43DAPE9ULINFeuj
     readOnly: false
     required: false
@@ -147,6 +149,13 @@ entities:
     example: IT
     readOnly: false
     required: true
+    type: string
+  - _key: expiration
+    api_fieldname: expiration
+    description: Expiration time of the account, as UTC time RFC3339.
+    format: date-time
+    readOnly: true
+    required: false
     type: string
   - _key: expiration_warning_threshold
     api_fieldname: expiration_warning_threshold
@@ -404,6 +413,26 @@ entities:
     - private_key
     - sub_accounts
     - id
+    - created_at
+    - updated_at
+    - parent_id
+    - tier
+    - status
+    - upgraded_at
+    - limits
+    - policies
+    - template_id
+    - reason
+    - idle_timeout
+    - password_policy
+    - reference_note
+    - custom_fields
+    - mfa_status
+    - notification_emails
+    - sales_contact
+    - expiration_warning_threshold
+    - parent_account
+    - expiration
     - admin_id
     - admin_key
     field_renames: []
@@ -428,8 +457,7 @@ entities:
       type: string
     - _key: address_line1
       api_fieldname: address_line1
-      description: Postal address line 1, not longer than 100 characters. Required
-        for commercial accounts only.
+      description: Postal address line 1.
       entity_fieldname: address_line1
       example: 110 Fulbourn Rd
       in: body
@@ -438,7 +466,7 @@ entities:
       type: string
     - _key: address_line2
       api_fieldname: address_line2
-      description: Postal address line 2, not longer than 100 characters.
+      description: Postal address line 2.
       entity_fieldname: address_line2
       example: ' '
       in: body
@@ -447,7 +475,8 @@ entities:
       type: string
     - _key: admin_email
       api_fieldname: admin_email
-      description: The email address of the account admin, not longer than 254 characters.
+      description: The email address of the admin user created for this account. Present
+        only in the response for the account creation.
       entity_fieldname: admin_email
       example: admin@arm.com
       in: body
@@ -456,7 +485,8 @@ entities:
       type: string
     - _key: admin_full_name
       api_fieldname: admin_full_name
-      description: The full name of the admin user to be created.
+      description: The full name of the admin user created for this account. Present
+        only in the response for the account creation.
       entity_fieldname: admin_full_name
       example: Admin Doe
       in: body
@@ -465,9 +495,8 @@ entities:
       type: string
     - _key: admin_name
       api_fieldname: admin_name
-      description: The username of the admin user to be created, containing alphanumerical
-        letters and -,._@+= characters. It must be at least 4 but not more than 30
-        character long.
+      description: The username of the admin user created for this account. Present
+        only in the response for the account creation.
       entity_fieldname: admin_name
       example: admin
       in: body
@@ -476,8 +505,8 @@ entities:
       type: string
     - _key: admin_password
       api_fieldname: admin_password
-      description: The password when creating a new user. It will be generated when
-        not present in the request.
+      description: The password of the admin user created for this account. Present
+        only in the response for the account creation.
       entity_fieldname: admin_password
       example: PZf9eEUH43DAPE9ULINFeuj
       in: body
@@ -486,8 +515,7 @@ entities:
       type: string
     - _key: aliases
       api_fieldname: aliases
-      description: An array of aliases, not more than 10. An alias is not shorter
-        than 8 and not longer than 100 characters.
+      description: An array of aliases.
       entity_fieldname: aliases
       in: body
       items:
@@ -497,8 +525,7 @@ entities:
       type: array
     - _key: city
       api_fieldname: city
-      description: The city part of the postal address, not longer than 100 characters.
-        Required for commercial accounts only.
+      description: The city part of the postal address.
       entity_fieldname: city
       example: Cambridge
       in: body
@@ -507,8 +534,7 @@ entities:
       type: string
     - _key: company
       api_fieldname: company
-      description: The name of the company, not longer than 100 characters. Required
-        for commercial accounts only.
+      description: The name of the company.
       entity_fieldname: company
       example: ARM Holdings Plc
       in: body
@@ -517,8 +543,7 @@ entities:
       type: string
     - _key: contact
       api_fieldname: contact
-      description: The name of the contact person for this account, not longer than
-        100 characters. Required for commercial accounts only.
+      description: The name of the contact person for this account.
       entity_fieldname: contact
       example: J. Doe
       in: body
@@ -536,8 +561,7 @@ entities:
       type: string
     - _key: country
       api_fieldname: country
-      description: The country part of the postal address, not longer than 100 characters.
-        Required for commercial accounts only.
+      description: The country part of the postal address.
       entity_fieldname: country
       example: United Kingdom
       in: body
@@ -555,7 +579,7 @@ entities:
       type: string
     - _key: display_name
       api_fieldname: display_name
-      description: The display name for the account, not longer than 100 characters.
+      description: The display name for the account.
       entity_fieldname: display_name
       example: ARM
       in: body
@@ -564,8 +588,7 @@ entities:
       type: string
     - _key: email
       api_fieldname: email
-      description: The company email address for this account, not longer than 254
-        characters. Required for commercial accounts only.
+      description: The company email address for this account.
       entity_fieldname: email
       example: info@arm.com
       in: body
@@ -574,17 +597,16 @@ entities:
       type: string
     - _key: end_market
       api_fieldname: end_market
-      description: The end market of the account to be created.
+      description: Account end market.
       entity_fieldname: end_market
       example: IT
       in: body
       parameter_fieldname: end_market
-      required: true
+      required: false
       type: string
     - _key: phone_number
       api_fieldname: phone_number
-      description: The phone number of a representative of the company, not longer
-        than 100 characters.
+      description: The phone number of a representative of the company.
       entity_fieldname: phone_number
       example: +44 (1223) 400 400
       in: body
@@ -593,8 +615,7 @@ entities:
       type: string
     - _key: postal_code
       api_fieldname: postal_code
-      description: The postal code part of the postal address, not longer than 100
-        characters.
+      description: The postal code part of the postal address.
       entity_fieldname: postal_code
       example: CB1 9NJ
       in: body
@@ -603,7 +624,7 @@ entities:
       type: string
     - _key: state
       api_fieldname: state
-      description: The state part of the postal address, not longer than 100 characters.
+      description: The state part of the postal address.
       entity_fieldname: state
       example: ' '
       in: body
@@ -622,407 +643,6 @@ entities:
     - _key: '201'
       description: Successful operation.
       schema:
-        description: This object represents an account creation response.
-        foreign_key:
-          entity: account
-          group: Accounts
-        properties:
-        - _key: address_line1
-          api_fieldname: address_line1
-          description: Postal address line 1, not longer than 100 characters. Required
-            for commercial accounts only.
-          entity_fieldname: address_line1
-          example: 110 Fulbourn Rd
-          type: string
-        - _key: address_line2
-          api_fieldname: address_line2
-          description: Postal address line 2, not longer than 100 characters.
-          entity_fieldname: address_line2
-          example: ' '
-          type: string
-        - _key: admin_email
-          api_fieldname: admin_email
-          description: The email address of the account admin, not longer than 254
-            characters.
-          entity_fieldname: admin_email
-          example: admin@arm.com
-          type: string
-        - _key: admin_full_name
-          api_fieldname: admin_full_name
-          description: The full name of the admin user to be created.
-          entity_fieldname: admin_full_name
-          example: Admin Doe
-          type: string
-        - _key: admin_id
-          api_fieldname: admin_id
-          description: The ID of the admin user created.
-          entity_fieldname: admin_id
-          example: 01619571e2e89242ac12000600000000
-          type: string
-        - _key: admin_key
-          api_fieldname: admin_key
-          description: The admin API key created for the account.
-          entity_fieldname: admin_key
-          example: ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT
-          type: string
-        - _key: admin_name
-          api_fieldname: admin_name
-          description: The username of the admin user to be created, containing alphanumerical
-            letters and -,._@+= characters. It must be at least 4 but not more than
-            30 character long.
-          entity_fieldname: admin_name
-          example: admin
-          type: string
-        - _key: admin_password
-          api_fieldname: admin_password
-          description: The password when creating a new user. It will be generated
-            when not present in the request.
-          entity_fieldname: admin_password
-          example: PZf9eEUH43DAPE9ULINFeuj
-          type: string
-        - _key: aliases
-          api_fieldname: aliases
-          description: An array of aliases, not more than 10. An alias is not shorter
-            than 8 and not longer than 100 characters.
-          entity_fieldname: aliases
-          items:
-            type: string
-          type: array
-        - _key: city
-          api_fieldname: city
-          description: The city part of the postal address, not longer than 100 characters.
-            Required for commercial accounts only.
-          entity_fieldname: city
-          example: Cambridge
-          type: string
-        - _key: company
-          api_fieldname: company
-          description: The name of the company, not longer than 100 characters. Required
-            for commercial accounts only.
-          entity_fieldname: company
-          example: ARM Holdings Plc
-          type: string
-        - _key: contact
-          api_fieldname: contact
-          description: The name of the contact person for this account, not longer
-            than 100 characters. Required for commercial accounts only.
-          entity_fieldname: contact
-          example: J. Doe
-          type: string
-        - _key: contract_number
-          api_fieldname: contract_number
-          description: Contract number of the customer.
-          entity_fieldname: contract_number
-          example: 1NX25_0001
-          type: string
-        - _key: country
-          api_fieldname: country
-          description: The country part of the postal address, not longer than 100
-            characters. Required for commercial accounts only.
-          entity_fieldname: country
-          example: United Kingdom
-          type: string
-        - _key: customer_number
-          api_fieldname: customer_number
-          description: Customer number of the customer.
-          entity_fieldname: customer_number
-          example: 1NC25_0001
-          type: string
-        - _key: display_name
-          api_fieldname: display_name
-          description: The display name for the account, not longer than 100 characters.
-          entity_fieldname: display_name
-          example: ARM
-          type: string
-        - _key: email
-          api_fieldname: email
-          description: The company email address for this account, not longer than
-            254 characters. Required for commercial accounts only.
-          entity_fieldname: email
-          example: info@arm.com
-          type: string
-        - _key: end_market
-          api_fieldname: end_market
-          description: The end market of the account to be created.
-          entity_fieldname: end_market
-          example: IT
-          type: string
-        - _key: id
-          api_fieldname: id
-          description: Account ID.
-          entity_fieldname: id
-          example: 01619571e2e90242ac12000600000000
-          type: string
-        - _key: phone_number
-          api_fieldname: phone_number
-          description: The phone number of a representative of the company, not longer
-            than 100 characters.
-          entity_fieldname: phone_number
-          example: +44 (1223) 400 400
-          type: string
-        - _key: postal_code
-          api_fieldname: postal_code
-          description: The postal code part of the postal address, not longer than
-            100 characters.
-          entity_fieldname: postal_code
-          example: CB1 9NJ
-          type: string
-        - _key: state
-          api_fieldname: state
-          description: The state part of the postal address, not longer than 100 characters.
-          entity_fieldname: state
-          example: ' '
-          type: string
-        required:
-        - admin_id
-        - end_market
-        - id
-        type: object
-    - _key: '400'
-      description: Error in input data, for example invalid username.
-      schema:
-        properties:
-        - _key: code
-          description: HTTP response code
-          example: 400
-          format: int32
-          type: integer
-        - _key: fields
-          description: Request fields which failed validation.
-          items:
-            properties:
-            - _key: message
-              description: Message describing the error condition.
-              type: string
-            - _key: name
-              description: Name of the field which caused the error.
-              type: string
-            required:
-            - name
-            - message
-            type: object
-          type: array
-        - _key: message
-          description: A human readable informative explanation
-          example: Validation error
-          type: string
-        - _key: object
-          description: Entity name, always `error`.
-          enum:
-          - error
-          type: string
-        - _key: request_id
-          description: ID of the request.
-          example: 0161991d63150242ac12000600000000
-          type: string
-        - _key: type
-          description: Error type used to categorise the error.
-          example: validation_error
-          type: string
-        required:
-        - code
-        - message
-        - object
-        - request_id
-        - type
-        type: object
-    - _key: '401'
-      description: Authentication failure.
-      schema:
-        properties:
-        - _key: code
-          description: HTTP response code
-          example: 400
-          format: int32
-          type: integer
-        - _key: fields
-          description: Request fields which failed validation.
-          items:
-            properties:
-            - _key: message
-              description: Message describing the error condition.
-              type: string
-            - _key: name
-              description: Name of the field which caused the error.
-              type: string
-            required:
-            - name
-            - message
-            type: object
-          type: array
-        - _key: message
-          description: A human readable informative explanation
-          example: Validation error
-          type: string
-        - _key: object
-          description: Entity name, always `error`.
-          enum:
-          - error
-          type: string
-        - _key: request_id
-          description: ID of the request.
-          example: 0161991d63150242ac12000600000000
-          type: string
-        - _key: type
-          description: Error type used to categorise the error.
-          example: validation_error
-          type: string
-        required:
-        - code
-        - message
-        - object
-        - request_id
-        - type
-        type: object
-    - _key: '403'
-      description: Forbidden.
-      schema:
-        properties:
-        - _key: code
-          description: HTTP response code
-          example: 400
-          format: int32
-          type: integer
-        - _key: fields
-          description: Request fields which failed validation.
-          items:
-            properties:
-            - _key: message
-              description: Message describing the error condition.
-              type: string
-            - _key: name
-              description: Name of the field which caused the error.
-              type: string
-            required:
-            - name
-            - message
-            type: object
-          type: array
-        - _key: message
-          description: A human readable informative explanation
-          example: Validation error
-          type: string
-        - _key: object
-          description: Entity name, always `error`.
-          enum:
-          - error
-          type: string
-        - _key: request_id
-          description: ID of the request.
-          example: 0161991d63150242ac12000600000000
-          type: string
-        - _key: type
-          description: Error type used to categorise the error.
-          example: validation_error
-          type: string
-        required:
-        - code
-        - message
-        - object
-        - request_id
-        - type
-        type: object
-    return_info:
-      custom: false
-      self: true
-      type: account
-    return_type: account
-    summary: Create a new account.
-  - _key: get
-    description: 'Returns detailed information about the account.
-
-
-      **Example usage:**
-
-      `curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id} -H ''Authorization:
-      Bearer API_KEY''`.'
-    drop_fields:
-    - object
-    - etag
-    - type
-    - groups
-    - filter
-    - is_custom
-    - private_key
-    - sub_accounts
-    - created_at
-    - updated_at
-    - parent_id
-    - display_name
-    - company
-    - country
-    - address_line1
-    - address_line2
-    - city
-    - state
-    - postal_code
-    - contact
-    - email
-    - phone_number
-    - aliases
-    - tier
-    - status
-    - upgraded_at
-    - limits
-    - policies
-    - template_id
-    - reason
-    - end_market
-    - idle_timeout
-    - password_policy
-    - reference_note
-    - custom_fields
-    - mfa_status
-    - notification_emails
-    - sales_contact
-    - expiration_warning_threshold
-    - contract_number
-    - customer_number
-    - parent_account
-    field_renames: []
-    fields:
-    - _key: id
-      api_fieldname: id
-      description: Account ID.
-      entity_fieldname: id
-      example: 01619571e2e90242ac12000600000000
-      in: path
-      parameter_fieldname: account_id
-      required: true
-      type: string
-    - _key: include
-      api_fieldname: include
-      description: 'Comma separated additional data to return. Currently supported:
-        limits, policies, sub_accounts'
-      entity_fieldname: include
-      external_param: true
-      in: query
-      name: include
-      parameter_fieldname: include
-      required: false
-      type: string
-    - _key: properties
-      api_fieldname: properties
-      description: Property name to be returned from account specific properties.
-      entity_fieldname: properties
-      external_param: true
-      in: query
-      name: properties
-      parameter_fieldname: properties
-      required: false
-      type: string
-    group_id: Accounts
-    method: get
-    mode: get
-    operation_id: getAccountInfo
-    pagination: false
-    parameter_map:
-      account_id: id
-    path: /v3/accounts/{account_id}
-    responses:
-    - _key: '200'
-      description: successful operation
-      schema:
         description: This object represents an account in requests and responses.
         properties:
         - _key: address_line1
@@ -1036,6 +656,48 @@ entities:
           description: Postal address line 2.
           entity_fieldname: address_line2
           example: ' '
+          type: string
+        - _key: admin_email
+          api_fieldname: admin_email
+          description: The email address of the admin user created for this account.
+            Present only in the response for the account creation.
+          entity_fieldname: admin_email
+          example: admin@arm.com
+          type: string
+        - _key: admin_full_name
+          api_fieldname: admin_full_name
+          description: The full name of the admin user created for this account. Present
+            only in the response for the account creation.
+          entity_fieldname: admin_full_name
+          example: Admin Doe
+          type: string
+        - _key: admin_id
+          api_fieldname: admin_id
+          description: The ID of the admin user created for this account.
+          entity_fieldname: admin_id
+          example: 01619571e2e89242ac12000600000000
+          type: string
+        - _key: admin_key
+          api_fieldname: admin_key
+          description: The admin API key created for this account. Present only in
+            the response for the account creation.
+          entity_fieldname: admin_key
+          example: ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT
+          readOnly: true
+          type: string
+        - _key: admin_name
+          api_fieldname: admin_name
+          description: The username of the admin user created for this account. Present
+            only in the response for the account creation.
+          entity_fieldname: admin_name
+          example: admin
+          type: string
+        - _key: admin_password
+          api_fieldname: admin_password
+          description: The password of the admin user created for this account. Present
+            only in the response for the account creation.
+          entity_fieldname: admin_password
+          example: PZf9eEUH43DAPE9ULINFeuj
           type: string
         - _key: aliases
           api_fieldname: aliases
@@ -1117,6 +779,12 @@ entities:
           description: API resource entity version.
           entity_fieldname: etag
           example: '1'
+          type: string
+        - _key: expiration
+          api_fieldname: expiration
+          description: Expiration time of the account, as UTC time RFC3339.
+          entity_fieldname: expiration
+          format: date-time
           type: string
         - _key: expiration_warning_threshold
           api_fieldname: expiration_warning_threshold
@@ -1326,6 +994,36 @@ entities:
               description: Postal address line 2.
               example: ' '
               type: string
+            - _key: admin_email
+              description: The email address of the admin user created for this account.
+                Present only in the response for the account creation.
+              example: admin@arm.com
+              type: string
+            - _key: admin_full_name
+              description: The full name of the admin user created for this account.
+                Present only in the response for the account creation.
+              example: Admin Doe
+              type: string
+            - _key: admin_id
+              description: The ID of the admin user created for this account.
+              example: 01619571e2e89242ac12000600000000
+              type: string
+            - _key: admin_key
+              description: The admin API key created for this account. Present only
+                in the response for the account creation.
+              example: ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT
+              readOnly: true
+              type: string
+            - _key: admin_name
+              description: The username of the admin user created for this account.
+                Present only in the response for the account creation.
+              example: admin
+              type: string
+            - _key: admin_password
+              description: The password of the admin user created for this account.
+                Present only in the response for the account creation.
+              example: PZf9eEUH43DAPE9ULINFeuj
+              type: string
             - _key: aliases
               description: An array of aliases.
               items:
@@ -1380,6 +1078,10 @@ entities:
             - _key: etag
               description: API resource entity version.
               example: '1'
+              type: string
+            - _key: expiration
+              description: Expiration time of the account, as UTC time RFC3339.
+              format: date-time
               type: string
             - _key: expiration_warning_threshold
               description: Indicates how many days (1-180) before account expiration
@@ -1567,7 +1269,6 @@ entities:
               format: date-time
               type: string
             required:
-            - aliases
             - end_market
             - etag
             - id
@@ -1604,7 +1305,927 @@ entities:
           format: date-time
           type: string
         required:
-        - aliases
+        - end_market
+        - etag
+        - id
+        - object
+        - status
+        - tier
+        type: object
+    - _key: '400'
+      description: Error in input data, for example invalid username.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '401'
+      description: Authentication failure.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '403'
+      description: Forbidden.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: account
+    return_type: account
+    summary: Create a new account.
+  - _key: get
+    description: 'Returns detailed information about the account.
+
+
+      **Example usage:**
+
+      `curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id} -H ''Authorization:
+      Bearer API_KEY''`.'
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - is_custom
+    - private_key
+    - sub_accounts
+    - created_at
+    - updated_at
+    - parent_id
+    - display_name
+    - company
+    - country
+    - address_line1
+    - address_line2
+    - city
+    - state
+    - postal_code
+    - contact
+    - email
+    - phone_number
+    - aliases
+    - tier
+    - status
+    - upgraded_at
+    - limits
+    - policies
+    - template_id
+    - reason
+    - end_market
+    - idle_timeout
+    - password_policy
+    - reference_note
+    - custom_fields
+    - mfa_status
+    - notification_emails
+    - sales_contact
+    - expiration_warning_threshold
+    - contract_number
+    - customer_number
+    - parent_account
+    - expiration
+    - admin_id
+    - admin_name
+    - admin_email
+    - admin_key
+    - admin_password
+    - admin_full_name
+    field_renames: []
+    fields:
+    - _key: id
+      api_fieldname: id
+      description: Account ID.
+      entity_fieldname: id
+      example: 01619571e2e90242ac12000600000000
+      in: path
+      parameter_fieldname: account_id
+      required: true
+      type: string
+    - _key: include
+      api_fieldname: include
+      description: 'Comma separated additional data to return. Currently supported:
+        limits, policies, sub_accounts'
+      entity_fieldname: include
+      external_param: true
+      in: query
+      name: include
+      parameter_fieldname: include
+      required: false
+      type: string
+    - _key: properties
+      api_fieldname: properties
+      description: Property name to be returned from account specific properties.
+      entity_fieldname: properties
+      external_param: true
+      in: query
+      name: properties
+      parameter_fieldname: properties
+      required: false
+      type: string
+    group_id: Accounts
+    method: get
+    mode: get
+    operation_id: getAccountInfo
+    pagination: false
+    parameter_map:
+      account_id: id
+    path: /v3/accounts/{account_id}
+    responses:
+    - _key: '200'
+      description: successful operation
+      schema:
+        description: This object represents an account in requests and responses.
+        properties:
+        - _key: address_line1
+          api_fieldname: address_line1
+          description: Postal address line 1.
+          entity_fieldname: address_line1
+          example: 110 Fulbourn Rd
+          type: string
+        - _key: address_line2
+          api_fieldname: address_line2
+          description: Postal address line 2.
+          entity_fieldname: address_line2
+          example: ' '
+          type: string
+        - _key: admin_email
+          api_fieldname: admin_email
+          description: The email address of the admin user created for this account.
+            Present only in the response for the account creation.
+          entity_fieldname: admin_email
+          example: admin@arm.com
+          type: string
+        - _key: admin_full_name
+          api_fieldname: admin_full_name
+          description: The full name of the admin user created for this account. Present
+            only in the response for the account creation.
+          entity_fieldname: admin_full_name
+          example: Admin Doe
+          type: string
+        - _key: admin_id
+          api_fieldname: admin_id
+          description: The ID of the admin user created for this account.
+          entity_fieldname: admin_id
+          example: 01619571e2e89242ac12000600000000
+          type: string
+        - _key: admin_key
+          api_fieldname: admin_key
+          description: The admin API key created for this account. Present only in
+            the response for the account creation.
+          entity_fieldname: admin_key
+          example: ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT
+          readOnly: true
+          type: string
+        - _key: admin_name
+          api_fieldname: admin_name
+          description: The username of the admin user created for this account. Present
+            only in the response for the account creation.
+          entity_fieldname: admin_name
+          example: admin
+          type: string
+        - _key: admin_password
+          api_fieldname: admin_password
+          description: The password of the admin user created for this account. Present
+            only in the response for the account creation.
+          entity_fieldname: admin_password
+          example: PZf9eEUH43DAPE9ULINFeuj
+          type: string
+        - _key: aliases
+          api_fieldname: aliases
+          description: An array of aliases.
+          entity_fieldname: aliases
+          items:
+            type: string
+          type: array
+        - _key: city
+          api_fieldname: city
+          description: The city part of the postal address.
+          entity_fieldname: city
+          example: Cambridge
+          type: string
+        - _key: company
+          api_fieldname: company
+          description: The name of the company.
+          entity_fieldname: company
+          example: ARM Holdings Plc
+          type: string
+        - _key: contact
+          api_fieldname: contact
+          description: The name of the contact person for this account.
+          entity_fieldname: contact
+          example: J. Doe
+          type: string
+        - _key: contract_number
+          api_fieldname: contract_number
+          description: Contract number of the customer.
+          entity_fieldname: contract_number
+          example: 1NX25_0001
+          type: string
+        - _key: country
+          api_fieldname: country
+          description: The country part of the postal address.
+          entity_fieldname: country
+          example: United Kingdom
+          type: string
+        - _key: created_at
+          api_fieldname: created_at
+          description: Creation UTC time RFC3339.
+          entity_fieldname: created_at
+          example: '2018-02-13T09:35:20Z'
+          format: date-time
+          type: string
+        - _key: custom_fields
+          additionalProperties:
+            type: string
+          api_fieldname: custom_fields
+          description: Account's custom properties as key-value pairs.
+          entity_fieldname: custom_fields
+          type: object
+        - _key: customer_number
+          api_fieldname: customer_number
+          description: Customer number of the customer.
+          entity_fieldname: customer_number
+          example: 1NC25_0001
+          type: string
+        - _key: display_name
+          api_fieldname: display_name
+          description: The display name for the account.
+          entity_fieldname: display_name
+          example: ARM
+          type: string
+        - _key: email
+          api_fieldname: email
+          description: The company email address for this account.
+          entity_fieldname: email
+          example: info@arm.com
+          type: string
+        - _key: end_market
+          api_fieldname: end_market
+          description: Account end market.
+          entity_fieldname: end_market
+          example: IT
+          type: string
+        - _key: etag
+          api_fieldname: etag
+          description: API resource entity version.
+          entity_fieldname: etag
+          example: '1'
+          type: string
+        - _key: expiration
+          api_fieldname: expiration
+          description: Expiration time of the account, as UTC time RFC3339.
+          entity_fieldname: expiration
+          format: date-time
+          type: string
+        - _key: expiration_warning_threshold
+          api_fieldname: expiration_warning_threshold
+          description: Indicates how many days (1-180) before account expiration a
+            notification email should be sent.
+          entity_fieldname: expiration_warning_threshold
+          example: '180'
+          type: string
+        - _key: id
+          api_fieldname: id
+          description: Account ID.
+          entity_fieldname: id
+          example: 01619571e2e90242ac12000600000000
+          type: string
+        - _key: idle_timeout
+          api_fieldname: idle_timeout
+          description: The reference token expiration time in minutes for this account.
+          entity_fieldname: idle_timeout
+          example: '30'
+          type: string
+        - _key: limits
+          additionalProperties:
+            type: string
+          api_fieldname: limits
+          description: List of limits as key-value pairs if requested.
+          entity_fieldname: limits
+          type: object
+        - _key: mfa_status
+          api_fieldname: mfa_status
+          description: The enforcement status of the multi-factor authentication,
+            either 'enforced' or 'optional'.
+          entity_fieldname: mfa_status
+          enum:
+          - enforced
+          - optional
+          type: string
+        - _key: notification_emails
+          api_fieldname: notification_emails
+          description: A list of notification email addresses.
+          entity_fieldname: notification_emails
+          items:
+            type: string
+          type: array
+        - _key: object
+          api_fieldname: object
+          description: 'Entity name: always ''account'''
+          entity_fieldname: object
+          enum:
+          - account
+          type: string
+        - _key: parent_account
+          api_fieldname: parent_account
+          description: This object represents parent account contact details in responses.
+          entity_fieldname: parent_account
+          foreign_key:
+            entity: parent_account
+            group: Accounts
+          properties:
+          - _key: admin_email
+            api_fieldname: admin_email
+            description: The email address of the admin user who is the contact person
+              of the parent account.
+            entity_fieldname: admin_email
+            example: info@arm.com
+            type: string
+          - _key: admin_name
+            api_fieldname: admin_name
+            description: The name of the admin user who is the contact person of the
+              parent account.
+            entity_fieldname: admin_name
+            example: J. Doe
+            type: string
+          - _key: id
+            api_fieldname: id
+            description: The ID of the parent account
+            entity_fieldname: id
+            example: 01619571dad80242ac12000600000000
+            type: string
+          type: object
+        - _key: parent_id
+          api_fieldname: parent_id
+          description: The ID of the parent account, if it has any.
+          entity_fieldname: parent_id
+          example: 01619571dad80242ac12000600000000
+          type: string
+        - _key: password_policy
+          api_fieldname: password_policy
+          entity_fieldname: password_policy
+          foreign_key:
+            entity: password_policy
+            group: Accounts
+          properties:
+          - _key: minimum_length
+            api_fieldname: minimum_length
+            description: Minimum length for the password. A number between 8 and 512.
+            entity_fieldname: minimum_length
+            example: '8'
+            type: string
+          required:
+          - minimum_length
+          type: object
+        - _key: phone_number
+          api_fieldname: phone_number
+          description: The phone number of a representative of the company.
+          entity_fieldname: phone_number
+          example: +44 (1223) 400 400
+          type: string
+        - _key: policies
+          api_fieldname: policies
+          description: List of policies if requested.
+          entity_fieldname: policies
+          items:
+            description: This object represents a feature policy. Either the feature
+              or the resource must be specified.
+            foreign_key:
+              entity: policy
+              group: Accounts
+            properties:
+            - _key: action
+              api_fieldname: action
+              description: Comma separated list of actions, empty string represents
+                all actions.
+              entity_fieldname: action
+              example: GET
+              type: string
+            - _key: allow
+              api_fieldname: allow
+              description: True or false controlling whether an action is allowed
+                or not.
+              entity_fieldname: allow
+              example: true
+              type: boolean
+            - _key: feature
+              api_fieldname: feature
+              description: Feature name corresponding to this policy.
+              entity_fieldname: feature
+              example: update-campaigns
+              type: string
+            - _key: inherited
+              api_fieldname: inherited
+              description: Flag indicating whether this feature is inherited or overwritten
+                specifically.
+              entity_fieldname: inherited
+              example: false
+              type: boolean
+            - _key: resource
+              api_fieldname: resource
+              description: Resource that is protected by this policy.
+              entity_fieldname: resource
+              example: /v3/update-campaign
+              type: string
+            type: object
+          type: array
+        - _key: postal_code
+          api_fieldname: postal_code
+          description: The postal code part of the postal address.
+          entity_fieldname: postal_code
+          example: CB1 9NJ
+          type: string
+        - _key: reason
+          api_fieldname: reason
+          description: A reason note for updating the status of the account
+          entity_fieldname: reason
+          example: Subscription paid.
+          type: string
+        - _key: reference_note
+          api_fieldname: reference_note
+          description: A reference note for updating the status of the account
+          entity_fieldname: reference_note
+          example: ARM-INT-0001
+          type: string
+        - _key: sales_contact
+          api_fieldname: sales_contact
+          description: Email address of the sales contact.
+          entity_fieldname: sales_contact
+          example: sales@arm.com
+          type: string
+        - _key: state
+          api_fieldname: state
+          description: The state part of the postal address.
+          entity_fieldname: state
+          example: ' '
+          type: string
+        - _key: status
+          api_fieldname: status
+          description: The status of the account.
+          entity_fieldname: status
+          enum:
+          - ENROLLING
+          - ACTIVE
+          - RESTRICTED
+          - SUSPENDED
+          example: ACTIVE
+          type: string
+        - _key: sub_accounts
+          api_fieldname: sub_accounts
+          description: List of sub accounts. Not available for developer users.
+          entity_fieldname: sub_accounts
+          items:
+            description: This object represents an account in requests and responses.
+            properties:
+            - _key: address_line1
+              description: Postal address line 1.
+              example: 110 Fulbourn Rd
+              type: string
+            - _key: address_line2
+              description: Postal address line 2.
+              example: ' '
+              type: string
+            - _key: admin_email
+              description: The email address of the admin user created for this account.
+                Present only in the response for the account creation.
+              example: admin@arm.com
+              type: string
+            - _key: admin_full_name
+              description: The full name of the admin user created for this account.
+                Present only in the response for the account creation.
+              example: Admin Doe
+              type: string
+            - _key: admin_id
+              description: The ID of the admin user created for this account.
+              example: 01619571e2e89242ac12000600000000
+              type: string
+            - _key: admin_key
+              description: The admin API key created for this account. Present only
+                in the response for the account creation.
+              example: ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT
+              readOnly: true
+              type: string
+            - _key: admin_name
+              description: The username of the admin user created for this account.
+                Present only in the response for the account creation.
+              example: admin
+              type: string
+            - _key: admin_password
+              description: The password of the admin user created for this account.
+                Present only in the response for the account creation.
+              example: PZf9eEUH43DAPE9ULINFeuj
+              type: string
+            - _key: aliases
+              description: An array of aliases.
+              items:
+                type: string
+              type: array
+            - _key: city
+              description: The city part of the postal address.
+              example: Cambridge
+              type: string
+            - _key: company
+              description: The name of the company.
+              example: ARM Holdings Plc
+              type: string
+            - _key: contact
+              description: The name of the contact person for this account.
+              example: J. Doe
+              type: string
+            - _key: contract_number
+              description: Contract number of the customer.
+              example: 1NX25_0001
+              type: string
+            - _key: country
+              description: The country part of the postal address.
+              example: United Kingdom
+              type: string
+            - _key: created_at
+              description: Creation UTC time RFC3339.
+              example: '2018-02-13T09:35:20Z'
+              format: date-time
+              type: string
+            - _key: custom_fields
+              additionalProperties:
+                type: string
+              description: Account's custom properties as key-value pairs.
+              type: object
+            - _key: customer_number
+              description: Customer number of the customer.
+              example: 1NC25_0001
+              type: string
+            - _key: display_name
+              description: The display name for the account.
+              example: ARM
+              type: string
+            - _key: email
+              description: The company email address for this account.
+              example: info@arm.com
+              type: string
+            - _key: end_market
+              description: Account end market.
+              example: IT
+              type: string
+            - _key: etag
+              description: API resource entity version.
+              example: '1'
+              type: string
+            - _key: expiration
+              description: Expiration time of the account, as UTC time RFC3339.
+              format: date-time
+              type: string
+            - _key: expiration_warning_threshold
+              description: Indicates how many days (1-180) before account expiration
+                a notification email should be sent.
+              example: '180'
+              type: string
+            - _key: id
+              description: Account ID.
+              example: 01619571e2e90242ac12000600000000
+              type: string
+            - _key: idle_timeout
+              description: The reference token expiration time in minutes for this
+                account.
+              example: '30'
+              type: string
+            - _key: limits
+              additionalProperties:
+                type: string
+              description: List of limits as key-value pairs if requested.
+              type: object
+            - _key: mfa_status
+              description: The enforcement status of the multi-factor authentication,
+                either 'enforced' or 'optional'.
+              enum:
+              - enforced
+              - optional
+              type: string
+            - _key: notification_emails
+              description: A list of notification email addresses.
+              items:
+                type: string
+              type: array
+            - _key: object
+              description: 'Entity name: always ''account'''
+              enum:
+              - account
+              type: string
+            - _key: parent_account
+              description: This object represents parent account contact details in
+                responses.
+              foreign_key:
+                entity: parent_account
+                group: Accounts
+              properties:
+              - _key: admin_email
+                api_fieldname: admin_email
+                description: The email address of the admin user who is the contact
+                  person of the parent account.
+                entity_fieldname: admin_email
+                example: info@arm.com
+                type: string
+              - _key: admin_name
+                api_fieldname: admin_name
+                description: The name of the admin user who is the contact person
+                  of the parent account.
+                entity_fieldname: admin_name
+                example: J. Doe
+                type: string
+              - _key: id
+                api_fieldname: id
+                description: The ID of the parent account
+                entity_fieldname: id
+                example: 01619571dad80242ac12000600000000
+                type: string
+              type: object
+            - _key: parent_id
+              description: The ID of the parent account, if it has any.
+              example: 01619571dad80242ac12000600000000
+              type: string
+            - _key: password_policy
+              foreign_key:
+                entity: password_policy
+                group: Accounts
+              properties:
+              - _key: minimum_length
+                api_fieldname: minimum_length
+                description: Minimum length for the password. A number between 8 and
+                  512.
+                entity_fieldname: minimum_length
+                example: '8'
+                type: string
+              required:
+              - minimum_length
+              type: object
+            - _key: phone_number
+              description: The phone number of a representative of the company.
+              example: +44 (1223) 400 400
+              type: string
+            - _key: policies
+              description: List of policies if requested.
+              items:
+                description: This object represents a feature policy. Either the feature
+                  or the resource must be specified.
+                foreign_key:
+                  entity: policy
+                  group: Accounts
+                properties:
+                - _key: action
+                  api_fieldname: action
+                  description: Comma separated list of actions, empty string represents
+                    all actions.
+                  entity_fieldname: action
+                  example: GET
+                  type: string
+                - _key: allow
+                  api_fieldname: allow
+                  description: True or false controlling whether an action is allowed
+                    or not.
+                  entity_fieldname: allow
+                  example: true
+                  type: boolean
+                - _key: feature
+                  api_fieldname: feature
+                  description: Feature name corresponding to this policy.
+                  entity_fieldname: feature
+                  example: update-campaigns
+                  type: string
+                - _key: inherited
+                  api_fieldname: inherited
+                  description: Flag indicating whether this feature is inherited or
+                    overwritten specifically.
+                  entity_fieldname: inherited
+                  example: false
+                  type: boolean
+                - _key: resource
+                  api_fieldname: resource
+                  description: Resource that is protected by this policy.
+                  entity_fieldname: resource
+                  example: /v3/update-campaign
+                  type: string
+                type: object
+              type: array
+            - _key: postal_code
+              description: The postal code part of the postal address.
+              example: CB1 9NJ
+              type: string
+            - _key: reason
+              description: A reason note for updating the status of the account
+              example: Subscription paid.
+              type: string
+            - _key: reference_note
+              description: A reference note for updating the status of the account
+              example: ARM-INT-0001
+              type: string
+            - _key: sales_contact
+              description: Email address of the sales contact.
+              example: sales@arm.com
+              type: string
+            - _key: state
+              description: The state part of the postal address.
+              example: ' '
+              type: string
+            - _key: status
+              description: The status of the account.
+              enum:
+              - ENROLLING
+              - ACTIVE
+              - RESTRICTED
+              - SUSPENDED
+              example: ACTIVE
+              type: string
+            - _key: sub_accounts
+              description: List of sub accounts. Not available for developer users.
+              items: []
+              type: array
+            - _key: template_id
+              description: Account template ID.
+              example: 01619571e7160242ac12000600000000
+              type: string
+            - _key: tier
+              description: 'The tier level of the account; ''0'': free tier, ''1'':
+                commercial account, ''2'': partner tier. Other values are reserved
+                for the future.'
+              example: '1'
+              type: string
+            - _key: updated_at
+              description: Last update UTC time RFC3339.
+              example: '2018-02-14T15:24:14Z'
+              format: date-time
+              type: string
+            - _key: upgraded_at
+              description: Time when upgraded to commercial account in UTC format
+                RFC3339.
+              example: '2018-02-14T15:24:14Z'
+              format: date-time
+              type: string
+            required:
+            - end_market
+            - etag
+            - id
+            - object
+            - status
+            - tier
+            type: object
+          type: array
+        - _key: template_id
+          api_fieldname: template_id
+          description: Account template ID.
+          entity_fieldname: template_id
+          example: 01619571e7160242ac12000600000000
+          type: string
+        - _key: tier
+          api_fieldname: tier
+          description: 'The tier level of the account; ''0'': free tier, ''1'': commercial
+            account, ''2'': partner tier. Other values are reserved for the future.'
+          entity_fieldname: tier
+          example: '1'
+          type: string
+        - _key: updated_at
+          api_fieldname: updated_at
+          description: Last update UTC time RFC3339.
+          entity_fieldname: updated_at
+          example: '2018-02-14T15:24:14Z'
+          format: date-time
+          type: string
+        - _key: upgraded_at
+          api_fieldname: upgraded_at
+          description: Time when upgraded to commercial account in UTC format RFC3339.
+          entity_fieldname: upgraded_at
+          example: '2018-02-14T15:24:14Z'
+          format: date-time
+          type: string
+        required:
         - end_market
         - etag
         - id
@@ -1902,6 +2523,36 @@ entities:
               description: Postal address line 2.
               example: ' '
               type: string
+            - _key: admin_email
+              description: The email address of the admin user created for this account.
+                Present only in the response for the account creation.
+              example: admin@arm.com
+              type: string
+            - _key: admin_full_name
+              description: The full name of the admin user created for this account.
+                Present only in the response for the account creation.
+              example: Admin Doe
+              type: string
+            - _key: admin_id
+              description: The ID of the admin user created for this account.
+              example: 01619571e2e89242ac12000600000000
+              type: string
+            - _key: admin_key
+              description: The admin API key created for this account. Present only
+                in the response for the account creation.
+              example: ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT
+              readOnly: true
+              type: string
+            - _key: admin_name
+              description: The username of the admin user created for this account.
+                Present only in the response for the account creation.
+              example: admin
+              type: string
+            - _key: admin_password
+              description: The password of the admin user created for this account.
+                Present only in the response for the account creation.
+              example: PZf9eEUH43DAPE9ULINFeuj
+              type: string
             - _key: aliases
               description: An array of aliases.
               items:
@@ -1956,6 +2607,10 @@ entities:
             - _key: etag
               description: API resource entity version.
               example: '1'
+              type: string
+            - _key: expiration
+              description: Expiration time of the account, as UTC time RFC3339.
+              format: date-time
               type: string
             - _key: expiration_warning_threshold
               description: Indicates how many days (1-180) before account expiration
@@ -2130,6 +2785,36 @@ entities:
                   description: Postal address line 2.
                   example: ' '
                   type: string
+                - _key: admin_email
+                  description: The email address of the admin user created for this
+                    account. Present only in the response for the account creation.
+                  example: admin@arm.com
+                  type: string
+                - _key: admin_full_name
+                  description: The full name of the admin user created for this account.
+                    Present only in the response for the account creation.
+                  example: Admin Doe
+                  type: string
+                - _key: admin_id
+                  description: The ID of the admin user created for this account.
+                  example: 01619571e2e89242ac12000600000000
+                  type: string
+                - _key: admin_key
+                  description: The admin API key created for this account. Present
+                    only in the response for the account creation.
+                  example: ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT
+                  readOnly: true
+                  type: string
+                - _key: admin_name
+                  description: The username of the admin user created for this account.
+                    Present only in the response for the account creation.
+                  example: admin
+                  type: string
+                - _key: admin_password
+                  description: The password of the admin user created for this account.
+                    Present only in the response for the account creation.
+                  example: PZf9eEUH43DAPE9ULINFeuj
+                  type: string
                 - _key: aliases
                   description: An array of aliases.
                   items:
@@ -2184,6 +2869,10 @@ entities:
                 - _key: etag
                   description: API resource entity version.
                   example: '1'
+                  type: string
+                - _key: expiration
+                  description: Expiration time of the account, as UTC time RFC3339.
+                  format: date-time
                   type: string
                 - _key: expiration_warning_threshold
                   description: Indicates how many days (1-180) before account expiration
@@ -2371,7 +3060,6 @@ entities:
                   format: date-time
                   type: string
                 required:
-                - aliases
                 - end_market
                 - etag
                 - id
@@ -2402,7 +3090,6 @@ entities:
               format: date-time
               type: string
             required:
-            - aliases
             - end_market
             - etag
             - id
@@ -2610,6 +3297,13 @@ entities:
     - contract_number
     - customer_number
     - parent_account
+    - expiration
+    - admin_id
+    - admin_name
+    - admin_email
+    - admin_key
+    - admin_password
+    - admin_full_name
     field_renames: []
     fields:
     - _key: include
@@ -2660,6 +3354,48 @@ entities:
           description: Postal address line 2.
           entity_fieldname: address_line2
           example: ' '
+          type: string
+        - _key: admin_email
+          api_fieldname: admin_email
+          description: The email address of the admin user created for this account.
+            Present only in the response for the account creation.
+          entity_fieldname: admin_email
+          example: admin@arm.com
+          type: string
+        - _key: admin_full_name
+          api_fieldname: admin_full_name
+          description: The full name of the admin user created for this account. Present
+            only in the response for the account creation.
+          entity_fieldname: admin_full_name
+          example: Admin Doe
+          type: string
+        - _key: admin_id
+          api_fieldname: admin_id
+          description: The ID of the admin user created for this account.
+          entity_fieldname: admin_id
+          example: 01619571e2e89242ac12000600000000
+          type: string
+        - _key: admin_key
+          api_fieldname: admin_key
+          description: The admin API key created for this account. Present only in
+            the response for the account creation.
+          entity_fieldname: admin_key
+          example: ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT
+          readOnly: true
+          type: string
+        - _key: admin_name
+          api_fieldname: admin_name
+          description: The username of the admin user created for this account. Present
+            only in the response for the account creation.
+          entity_fieldname: admin_name
+          example: admin
+          type: string
+        - _key: admin_password
+          api_fieldname: admin_password
+          description: The password of the admin user created for this account. Present
+            only in the response for the account creation.
+          entity_fieldname: admin_password
+          example: PZf9eEUH43DAPE9ULINFeuj
           type: string
         - _key: aliases
           api_fieldname: aliases
@@ -2741,6 +3477,12 @@ entities:
           description: API resource entity version.
           entity_fieldname: etag
           example: '1'
+          type: string
+        - _key: expiration
+          api_fieldname: expiration
+          description: Expiration time of the account, as UTC time RFC3339.
+          entity_fieldname: expiration
+          format: date-time
           type: string
         - _key: expiration_warning_threshold
           api_fieldname: expiration_warning_threshold
@@ -2950,6 +3692,36 @@ entities:
               description: Postal address line 2.
               example: ' '
               type: string
+            - _key: admin_email
+              description: The email address of the admin user created for this account.
+                Present only in the response for the account creation.
+              example: admin@arm.com
+              type: string
+            - _key: admin_full_name
+              description: The full name of the admin user created for this account.
+                Present only in the response for the account creation.
+              example: Admin Doe
+              type: string
+            - _key: admin_id
+              description: The ID of the admin user created for this account.
+              example: 01619571e2e89242ac12000600000000
+              type: string
+            - _key: admin_key
+              description: The admin API key created for this account. Present only
+                in the response for the account creation.
+              example: ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT
+              readOnly: true
+              type: string
+            - _key: admin_name
+              description: The username of the admin user created for this account.
+                Present only in the response for the account creation.
+              example: admin
+              type: string
+            - _key: admin_password
+              description: The password of the admin user created for this account.
+                Present only in the response for the account creation.
+              example: PZf9eEUH43DAPE9ULINFeuj
+              type: string
             - _key: aliases
               description: An array of aliases.
               items:
@@ -3004,6 +3776,10 @@ entities:
             - _key: etag
               description: API resource entity version.
               example: '1'
+              type: string
+            - _key: expiration
+              description: Expiration time of the account, as UTC time RFC3339.
+              format: date-time
               type: string
             - _key: expiration_warning_threshold
               description: Indicates how many days (1-180) before account expiration
@@ -3191,7 +3967,6 @@ entities:
               format: date-time
               type: string
             required:
-            - aliases
             - end_market
             - etag
             - id
@@ -3228,7 +4003,6 @@ entities:
           format: date-time
           type: string
         required:
-        - aliases
         - end_market
         - etag
         - id
@@ -3447,8 +4221,8 @@ entities:
       description: successful operation
       schema:
         foreign_key:
-          entity: account
-          group: Accounts
+          entity: trusted_certificate
+          group: Security
         pagination: true
         properties:
         - _key: after
@@ -3456,6 +4230,11 @@ entities:
           description: The entity ID to fetch after the given one.
           entity_fieldname: after
           example: 01619571f3c00242ac12000600000000
+          external_param: true
+          in: query
+          name: after
+          parameter_fieldname: after
+          required: false
           type: string
         - _key: data
           api_fieldname: data
@@ -3464,160 +4243,91 @@ entities:
           items:
             description: This object represents a trusted certificate in responses.
             foreign_key:
-              entity: subtenant_trusted_certificate
+              entity: trusted_certificate
               group: Security
             properties:
             - _key: account_id
-              api_fieldname: account_id
               description: The ID of the account.
-              entity_fieldname: account_id
               example: 01619571e2e90242ac12000600000000
-              in: path
-              parameter_fieldname: account_id
-              required: true
               type: string
             - _key: certificate
-              api_fieldname: certificate
               description: X509.v3 trusted certificate in PEM format.
-              entity_fieldname: certificate
               example: '-----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----'
-              in: body
-              parameter_fieldname: certificate
-              required: false
               type: string
             - _key: certificate_fingerprint
-              api_fieldname: certificate_fingerprint
               description: A SHA-256 fingerprint of the certificate.
-              entity_fieldname: certificate_fingerprint
               example: a10fb2c8ba90e6de927bd0ae391dcc38f6115685de2d7024712af37ead0608f1
               type: string
             - _key: created_at
-              api_fieldname: created_at
               description: Creation UTC time RFC3339.
-              entity_fieldname: created_at
               example: '2018-02-13T09:35:20Z'
               format: date-time
               type: string
             - _key: description
-              api_fieldname: description
               description: Human readable description of this certificate.
-              entity_fieldname: description
               example: Certificate created by me.
-              in: body
-              parameter_fieldname: description
-              required: false
               type: string
             - _key: device_execution_mode
               _override: true
-              api_fieldname: device_execution_mode
               description: Device execution mode where 1 means a developer certificate.
-              entity_fieldname: device_execution_mode
               example: 1
               format: int32
               private_field: true
               readOnly: false
               type: integer
             - _key: enrollment_mode
-              api_fieldname: enrollment_mode
               description: If true, signature is not required. Default value false.
-              entity_fieldname: enrollment_mode
               example: false
-              in: body
-              parameter_fieldname: enrollment_mode
-              required: false
               type: boolean
             - _key: etag
-              api_fieldname: etag
               description: API resource entity version.
-              entity_fieldname: etag
               example: '1'
               type: string
             - _key: id
-              api_fieldname: id
               description: Entity ID.
-              entity_fieldname: id
               example: 01619571d01d0242ac12000600000000
-              in: path
-              parameter_fieldname: cert_id
-              required: true
               type: string
             - _key: issuer
-              api_fieldname: issuer
               description: Issuer of the certificate.
-              entity_fieldname: issuer
               example: CN=issuer
               type: string
             - _key: name
-              api_fieldname: name
               description: Certificate name.
-              entity_fieldname: name
               example: My certificate
-              in: body
-              parameter_fieldname: name
-              required: false
               type: string
             - _key: object
-              api_fieldname: object
               description: 'Entity name: always ''trusted-cert'''
-              entity_fieldname: object
               enum:
               - trusted-cert
               type: string
             - _key: owner_id
-              api_fieldname: owner_id
               description: The ID of the owner.
-              entity_fieldname: owner_id
               example: 01619571dad80242ac12000600000000
               type: string
-            - _key: private_key
-              api_fieldname: private_key
-              description: Private key of the certificate in PEM or base64 encoded
-                DER format.
-              entity_fieldname: private_key
-              example: MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmE...
-              type: string
             - _key: service
-              api_fieldname: service
               description: Service name where the certificate is to be used.
-              entity_fieldname: service
               enum:
               - lwm2m
               - bootstrap
-              enum_reference: subtenant_trusted_certificate_service_enum
-              in: body
-              parameter_fieldname: service
-              required: false
               type: string
             - _key: status
-              api_fieldname: status
               description: Status of the certificate.
-              entity_fieldname: status
               enum:
               - ACTIVE
               - INACTIVE
-              enum_reference: subtenant_trusted_certificate_status_enum
               example: ACTIVE
-              in: body
-              parameter_fieldname: status
-              required: false
               type: string
             - _key: subject
-              api_fieldname: subject
               description: Subject of the certificate.
-              entity_fieldname: subject
               example: CN=subject
               type: string
             - _key: updated_at
-              api_fieldname: updated_at
               description: Last update UTC time RFC3339.
-              entity_fieldname: updated_at
               example: '2018-02-14T15:24:14Z'
               format: date-time
               type: string
             - _key: validity
-              api_fieldname: validity
               description: Expiration time in UTC formatted as RFC3339.
-              entity_fieldname: validity
               example: '2038-02-14T15:24:14Z'
               format: date-time
               type: string
@@ -3630,7 +4340,6 @@ entities:
             - issuer
             - name
             - object
-            - private_key
             - service
             - subject
             - validity
@@ -3644,11 +4353,16 @@ entities:
           type: boolean
         - _key: limit
           api_fieldname: limit
-          description: 'The number of results to return, (range: 2-1000), or equals
-            to `total_count`'
+          default: 50
+          description: The number of results to return (2-1000), default is 50.
           entity_fieldname: limit
           example: 50
+          external_param: true
           format: int32
+          in: query
+          name: limit
+          parameter_fieldname: limit
+          required: false
           type: integer
         - _key: object
           api_fieldname: object
@@ -3659,12 +4373,19 @@ entities:
           type: string
         - _key: order
           api_fieldname: order
-          description: 'The order of the records to return based on creation time.
-            Available values: ASC, DESC; by default ASC.'
+          default: ASC
+          description: The order of the records based on creation time, ASC or DESC;
+            by default ASC
           entity_fieldname: order
           enum:
           - ASC
           - DESC
+          enum_reference: trusted_certificate_order_enum
+          external_param: true
+          in: query
+          name: order
+          parameter_fieldname: order
+          required: false
           type: string
         - _key: total_count
           api_fieldname: total_count
@@ -3865,6 +4586,13 @@ entities:
     - reason
     - reference_note
     - parent_account
+    - expiration
+    - admin_id
+    - admin_name
+    - admin_email
+    - admin_key
+    - admin_password
+    - admin_full_name
     field_renames: []
     fields:
     - _key: address_line1
@@ -4116,6 +4844,48 @@ entities:
           entity_fieldname: address_line2
           example: ' '
           type: string
+        - _key: admin_email
+          api_fieldname: admin_email
+          description: The email address of the admin user created for this account.
+            Present only in the response for the account creation.
+          entity_fieldname: admin_email
+          example: admin@arm.com
+          type: string
+        - _key: admin_full_name
+          api_fieldname: admin_full_name
+          description: The full name of the admin user created for this account. Present
+            only in the response for the account creation.
+          entity_fieldname: admin_full_name
+          example: Admin Doe
+          type: string
+        - _key: admin_id
+          api_fieldname: admin_id
+          description: The ID of the admin user created for this account.
+          entity_fieldname: admin_id
+          example: 01619571e2e89242ac12000600000000
+          type: string
+        - _key: admin_key
+          api_fieldname: admin_key
+          description: The admin API key created for this account. Present only in
+            the response for the account creation.
+          entity_fieldname: admin_key
+          example: ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT
+          readOnly: true
+          type: string
+        - _key: admin_name
+          api_fieldname: admin_name
+          description: The username of the admin user created for this account. Present
+            only in the response for the account creation.
+          entity_fieldname: admin_name
+          example: admin
+          type: string
+        - _key: admin_password
+          api_fieldname: admin_password
+          description: The password of the admin user created for this account. Present
+            only in the response for the account creation.
+          entity_fieldname: admin_password
+          example: PZf9eEUH43DAPE9ULINFeuj
+          type: string
         - _key: aliases
           api_fieldname: aliases
           description: An array of aliases.
@@ -4196,6 +4966,12 @@ entities:
           description: API resource entity version.
           entity_fieldname: etag
           example: '1'
+          type: string
+        - _key: expiration
+          api_fieldname: expiration
+          description: Expiration time of the account, as UTC time RFC3339.
+          entity_fieldname: expiration
+          format: date-time
           type: string
         - _key: expiration_warning_threshold
           api_fieldname: expiration_warning_threshold
@@ -4405,6 +5181,36 @@ entities:
               description: Postal address line 2.
               example: ' '
               type: string
+            - _key: admin_email
+              description: The email address of the admin user created for this account.
+                Present only in the response for the account creation.
+              example: admin@arm.com
+              type: string
+            - _key: admin_full_name
+              description: The full name of the admin user created for this account.
+                Present only in the response for the account creation.
+              example: Admin Doe
+              type: string
+            - _key: admin_id
+              description: The ID of the admin user created for this account.
+              example: 01619571e2e89242ac12000600000000
+              type: string
+            - _key: admin_key
+              description: The admin API key created for this account. Present only
+                in the response for the account creation.
+              example: ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT
+              readOnly: true
+              type: string
+            - _key: admin_name
+              description: The username of the admin user created for this account.
+                Present only in the response for the account creation.
+              example: admin
+              type: string
+            - _key: admin_password
+              description: The password of the admin user created for this account.
+                Present only in the response for the account creation.
+              example: PZf9eEUH43DAPE9ULINFeuj
+              type: string
             - _key: aliases
               description: An array of aliases.
               items:
@@ -4459,6 +5265,10 @@ entities:
             - _key: etag
               description: API resource entity version.
               example: '1'
+              type: string
+            - _key: expiration
+              description: Expiration time of the account, as UTC time RFC3339.
+              format: date-time
               type: string
             - _key: expiration_warning_threshold
               description: Indicates how many days (1-180) before account expiration
@@ -4646,7 +5456,6 @@ entities:
               format: date-time
               type: string
             required:
-            - aliases
             - end_market
             - etag
             - id
@@ -4683,7 +5492,6 @@ entities:
           format: date-time
           type: string
         required:
-        - aliases
         - end_market
         - etag
         - id
@@ -5818,11 +6626,10 @@ entities:
   primary_key_field: id
   swagger_models:
   - AccountCreationReq
-  - AccountCreationResp
   - AccountInfo
   - AccountInfoList
   - AccountUpdateRootReq
-  - TrustedCertificateInternalRespList
+  - TrustedCertificateRespList
   - UserInfoRespList
   - UserInvitationRespList
   tags:
@@ -20052,7 +20859,7 @@ entities:
       example: '-----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----'
       in: body
       parameter_fieldname: certificate
-      required: true
+      required: false
       type: string
     - _key: description
       api_fieldname: description
@@ -20098,25 +20905,25 @@ entities:
       example: My certificate
       in: body
       parameter_fieldname: name
-      required: true
+      required: false
       type: string
     - _key: service
       api_fieldname: service
       description: Service name where the certificate is to be used.
       entity_fieldname: service
-      enum:
+      enum: &id002
       - lwm2m
       - bootstrap
       enum_reference: subtenant_trusted_certificate_service_enum
       in: body
       parameter_fieldname: service
-      required: true
+      required: false
       type: string
     - _key: status
       api_fieldname: status
       description: Status of the certificate.
       entity_fieldname: status
-      enum:
+      enum: &id003
       - ACTIVE
       - INACTIVE
       enum_reference: subtenant_trusted_certificate_status_enum
@@ -20796,7 +21603,7 @@ entities:
       schema:
         description: This object represents a trusted certificate in responses.
         foreign_key:
-          entity: subtenant_trusted_certificate
+          entity: developer_certificate
           group: Security
         properties:
         - _key: account_id
@@ -20810,6 +21617,9 @@ entities:
           description: X509.v3 trusted certificate in PEM format.
           entity_fieldname: certificate
           example: '-----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----'
+          in: body
+          parameter_fieldname: certificate
+          required: false
           type: string
         - _key: certificate_fingerprint
           api_fieldname: certificate_fingerprint
@@ -20829,6 +21639,9 @@ entities:
           description: Human readable description of this certificate.
           entity_fieldname: description
           example: Certificate created by me.
+          in: body
+          parameter_fieldname: description
+          required: false
           type: string
         - _key: device_execution_mode
           _override: true
@@ -20845,6 +21658,9 @@ entities:
           description: If true, signature is not required. Default value false.
           entity_fieldname: enrollment_mode
           example: false
+          in: body
+          parameter_fieldname: enrollment_mode
+          required: false
           type: boolean
         - _key: etag
           api_fieldname: etag
@@ -20857,6 +21673,9 @@ entities:
           description: Entity ID.
           entity_fieldname: id
           example: 01619571d01d0242ac12000600000000
+          in: path
+          parameter_fieldname: cert_id
+          required: true
           type: string
         - _key: issuer
           api_fieldname: issuer
@@ -20869,6 +21688,9 @@ entities:
           description: Certificate name.
           entity_fieldname: name
           example: My certificate
+          in: body
+          parameter_fieldname: name
+          required: false
           type: string
         - _key: object
           api_fieldname: object
@@ -20883,13 +21705,6 @@ entities:
           entity_fieldname: owner_id
           example: 01619571dad80242ac12000600000000
           type: string
-        - _key: private_key
-          api_fieldname: private_key
-          description: Private key of the certificate in PEM or base64 encoded DER
-            format.
-          entity_fieldname: private_key
-          example: MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmE...
-          type: string
         - _key: service
           api_fieldname: service
           description: Service name where the certificate is to be used.
@@ -20897,6 +21712,10 @@ entities:
           enum:
           - lwm2m
           - bootstrap
+          enum_reference: trusted_certificate_service_enum
+          in: body
+          parameter_fieldname: service
+          required: false
           type: string
         - _key: status
           api_fieldname: status
@@ -20905,7 +21724,11 @@ entities:
           enum:
           - ACTIVE
           - INACTIVE
+          enum_reference: trusted_certificate_status_enum
           example: ACTIVE
+          in: body
+          parameter_fieldname: status
+          required: false
           type: string
         - _key: subject
           api_fieldname: subject
@@ -20936,7 +21759,6 @@ entities:
         - issuer
         - name
         - object
-        - private_key
         - service
         - subject
         - validity
@@ -21686,9 +22508,7 @@ entities:
       api_fieldname: service
       description: Service name where the certificate is to be used.
       entity_fieldname: service
-      enum:
-      - lwm2m
-      - bootstrap
+      enum: *id002
       enum_reference: subtenant_trusted_certificate_service_enum
       in: body
       parameter_fieldname: service
@@ -21698,9 +22518,7 @@ entities:
       api_fieldname: status
       description: Status of the certificate.
       entity_fieldname: status
-      enum:
-      - ACTIVE
-      - INACTIVE
+      enum: *id003
       enum_reference: subtenant_trusted_certificate_status_enum
       example: ACTIVE
       in: body
@@ -21722,7 +22540,7 @@ entities:
       schema:
         description: This object represents a trusted certificate in responses.
         foreign_key:
-          entity: subtenant_trusted_certificate
+          entity: developer_certificate
           group: Security
         properties:
         - _key: account_id
@@ -21736,6 +22554,9 @@ entities:
           description: X509.v3 trusted certificate in PEM format.
           entity_fieldname: certificate
           example: '-----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----'
+          in: body
+          parameter_fieldname: certificate
+          required: false
           type: string
         - _key: certificate_fingerprint
           api_fieldname: certificate_fingerprint
@@ -21755,6 +22576,9 @@ entities:
           description: Human readable description of this certificate.
           entity_fieldname: description
           example: Certificate created by me.
+          in: body
+          parameter_fieldname: description
+          required: false
           type: string
         - _key: device_execution_mode
           _override: true
@@ -21771,6 +22595,9 @@ entities:
           description: If true, signature is not required. Default value false.
           entity_fieldname: enrollment_mode
           example: false
+          in: body
+          parameter_fieldname: enrollment_mode
+          required: false
           type: boolean
         - _key: etag
           api_fieldname: etag
@@ -21783,6 +22610,9 @@ entities:
           description: Entity ID.
           entity_fieldname: id
           example: 01619571d01d0242ac12000600000000
+          in: path
+          parameter_fieldname: cert_id
+          required: true
           type: string
         - _key: issuer
           api_fieldname: issuer
@@ -21795,6 +22625,9 @@ entities:
           description: Certificate name.
           entity_fieldname: name
           example: My certificate
+          in: body
+          parameter_fieldname: name
+          required: false
           type: string
         - _key: object
           api_fieldname: object
@@ -21809,13 +22642,6 @@ entities:
           entity_fieldname: owner_id
           example: 01619571dad80242ac12000600000000
           type: string
-        - _key: private_key
-          api_fieldname: private_key
-          description: Private key of the certificate in PEM or base64 encoded DER
-            format.
-          entity_fieldname: private_key
-          example: MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmE...
-          type: string
         - _key: service
           api_fieldname: service
           description: Service name where the certificate is to be used.
@@ -21823,6 +22649,10 @@ entities:
           enum:
           - lwm2m
           - bootstrap
+          enum_reference: trusted_certificate_service_enum
+          in: body
+          parameter_fieldname: service
+          required: false
           type: string
         - _key: status
           api_fieldname: status
@@ -21831,7 +22661,11 @@ entities:
           enum:
           - ACTIVE
           - INACTIVE
+          enum_reference: trusted_certificate_status_enum
           example: ACTIVE
+          in: body
+          parameter_fieldname: status
+          required: false
           type: string
         - _key: subject
           api_fieldname: subject
@@ -21862,7 +22696,6 @@ entities:
         - issuer
         - name
         - object
-        - private_key
         - service
         - subject
         - validity
@@ -22069,9 +22902,8 @@ entities:
   primary_key_field: id
   swagger_models:
   - DeveloperCertificateResponseData
-  - TrustedCertificateInternalResp
+  - TrustedCertificateReq
   - TrustedCertificateResp
-  - TrustedCertificateRootReq
   - TrustedCertificateUpdateReq
   tags:
   - Aggregator Account Admin
@@ -22432,13 +23264,13 @@ entities:
           type: string
         - _key: type
           description: Identity provider type.
-          enum: &id002
+          enum: &id004
           - NATIVE
           - MBED
           - SAML2
           - OIDC
           type: string
-        required: &id003
+        required: &id005
         - id
         - name
         - type
@@ -23871,9 +24703,9 @@ entities:
           type: string
         - _key: type
           description: Identity provider type.
-          enum: *id002
+          enum: *id004
           type: string
-        required: *id003
+        required: *id005
         type: object
       parameter_fieldname: login_profiles
       required: false
@@ -25899,7 +26731,7 @@ entities:
       api_fieldname: service
       description: Service name where the certificate is to be used.
       entity_fieldname: service
-      enum: &id004
+      enum: &id006
       - lwm2m
       - bootstrap
       enum_reference: trusted_certificate_service_enum
@@ -25911,7 +26743,7 @@ entities:
       api_fieldname: status
       description: Status of the certificate.
       entity_fieldname: status
-      enum: &id005
+      enum: &id007
       - ACTIVE
       - INACTIVE
       enum_reference: trusted_certificate_status_enum
@@ -27803,7 +28635,7 @@ entities:
       api_fieldname: service
       description: Service name where the certificate is to be used.
       entity_fieldname: service
-      enum: *id004
+      enum: *id006
       enum_reference: trusted_certificate_service_enum
       in: body
       parameter_fieldname: service
@@ -27813,7 +28645,7 @@ entities:
       api_fieldname: status
       description: Status of the certificate.
       entity_fieldname: status
-      enum: *id005
+      enum: *id007
       enum_reference: trusted_certificate_status_enum
       example: ACTIVE
       in: body
@@ -28553,13 +29385,13 @@ entities:
           type: string
         - _key: type
           description: Identity provider type.
-          enum: &id006
+          enum: &id008
           - NATIVE
           - MBED
           - SAML2
           - OIDC
           type: string
-        required: &id007
+        required: &id009
         - id
         - name
         - type
@@ -30289,9 +31121,9 @@ entities:
           type: string
         - _key: type
           description: Identity provider type.
-          enum: *id006
+          enum: *id008
           type: string
-        required: *id007
+        required: *id009
         type: object
       parameter_fieldname: login_profiles
       required: false

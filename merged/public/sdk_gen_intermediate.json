@@ -366,11 +366,10 @@
     {
       "swagger_models": [
         "AccountCreationReq",
-        "AccountCreationResp",
         "AccountInfo",
         "AccountInfoList",
         "AccountUpdateRootReq",
-        "TrustedCertificateInternalRespList",
+        "TrustedCertificateRespList",
         "UserInfoRespList",
         "UserInvitationRespList"
       ],
@@ -396,7 +395,7 @@
             {
               "type": "string",
               "example": "110 Fulbourn Rd",
-              "description": "Postal address line 1, not longer than 100 characters. Required for commercial accounts only.",
+              "description": "Postal address line 1.",
               "api_fieldname": "address_line1",
               "entity_fieldname": "address_line1",
               "parameter_fieldname": "address_line1",
@@ -407,7 +406,7 @@
             {
               "type": "string",
               "example": " ",
-              "description": "Postal address line 2, not longer than 100 characters.",
+              "description": "Postal address line 2.",
               "api_fieldname": "address_line2",
               "entity_fieldname": "address_line2",
               "parameter_fieldname": "address_line2",
@@ -418,7 +417,7 @@
             {
               "type": "string",
               "example": "admin@arm.com",
-              "description": "The email address of the account admin, not longer than 254 characters.",
+              "description": "The email address of the admin user created for this account. Present only in the response for the account creation.",
               "api_fieldname": "admin_email",
               "entity_fieldname": "admin_email",
               "parameter_fieldname": "admin_email",
@@ -429,7 +428,7 @@
             {
               "type": "string",
               "example": "Admin Doe",
-              "description": "The full name of the admin user to be created.",
+              "description": "The full name of the admin user created for this account. Present only in the response for the account creation.",
               "api_fieldname": "admin_full_name",
               "entity_fieldname": "admin_full_name",
               "parameter_fieldname": "admin_full_name",
@@ -440,7 +439,7 @@
             {
               "type": "string",
               "example": "admin",
-              "description": "The username of the admin user to be created, containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.",
+              "description": "The username of the admin user created for this account. Present only in the response for the account creation.",
               "api_fieldname": "admin_name",
               "entity_fieldname": "admin_name",
               "parameter_fieldname": "admin_name",
@@ -451,7 +450,7 @@
             {
               "type": "string",
               "example": "PZf9eEUH43DAPE9ULINFeuj",
-              "description": "The password when creating a new user. It will be generated when not present in the request.",
+              "description": "The password of the admin user created for this account. Present only in the response for the account creation.",
               "api_fieldname": "admin_password",
               "entity_fieldname": "admin_password",
               "parameter_fieldname": "admin_password",
@@ -461,7 +460,7 @@
             },
             {
               "type": "array",
-              "description": "An array of aliases, not more than 10. An alias is not shorter than 8 and not longer than 100 characters.",
+              "description": "An array of aliases.",
               "items": {
                 "type": "string"
               },
@@ -475,7 +474,7 @@
             {
               "type": "string",
               "example": "Cambridge",
-              "description": "The city part of the postal address, not longer than 100 characters. Required for commercial accounts only.",
+              "description": "The city part of the postal address.",
               "api_fieldname": "city",
               "entity_fieldname": "city",
               "parameter_fieldname": "city",
@@ -486,7 +485,7 @@
             {
               "type": "string",
               "example": "ARM Holdings Plc",
-              "description": "The name of the company, not longer than 100 characters. Required for commercial accounts only.",
+              "description": "The name of the company.",
               "api_fieldname": "company",
               "entity_fieldname": "company",
               "parameter_fieldname": "company",
@@ -497,7 +496,7 @@
             {
               "type": "string",
               "example": "J. Doe",
-              "description": "The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.",
+              "description": "The name of the contact person for this account.",
               "api_fieldname": "contact",
               "entity_fieldname": "contact",
               "parameter_fieldname": "contact",
@@ -519,7 +518,7 @@
             {
               "type": "string",
               "example": "United Kingdom",
-              "description": "The country part of the postal address, not longer than 100 characters. Required for commercial accounts only.",
+              "description": "The country part of the postal address.",
               "api_fieldname": "country",
               "entity_fieldname": "country",
               "parameter_fieldname": "country",
@@ -541,7 +540,7 @@
             {
               "type": "string",
               "example": "ARM",
-              "description": "The display name for the account, not longer than 100 characters.",
+              "description": "The display name for the account.",
               "api_fieldname": "display_name",
               "entity_fieldname": "display_name",
               "parameter_fieldname": "display_name",
@@ -552,7 +551,7 @@
             {
               "type": "string",
               "example": "info@arm.com",
-              "description": "The company email address for this account, not longer than 254 characters. Required for commercial accounts only.",
+              "description": "The company email address for this account.",
               "api_fieldname": "email",
               "entity_fieldname": "email",
               "parameter_fieldname": "email",
@@ -563,18 +562,18 @@
             {
               "type": "string",
               "example": "IT",
-              "description": "The end market of the account to be created.",
+              "description": "Account end market.",
               "api_fieldname": "end_market",
               "entity_fieldname": "end_market",
               "parameter_fieldname": "end_market",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "end_market"
             },
             {
               "type": "string",
               "example": "+44 (1223) 400 400",
-              "description": "The phone number of a representative of the company, not longer than 100 characters.",
+              "description": "The phone number of a representative of the company.",
               "api_fieldname": "phone_number",
               "entity_fieldname": "phone_number",
               "parameter_fieldname": "phone_number",
@@ -585,7 +584,7 @@
             {
               "type": "string",
               "example": "CB1 9NJ",
-              "description": "The postal code part of the postal address, not longer than 100 characters.",
+              "description": "The postal code part of the postal address.",
               "api_fieldname": "postal_code",
               "entity_fieldname": "postal_code",
               "parameter_fieldname": "postal_code",
@@ -596,7 +595,7 @@
             {
               "type": "string",
               "example": " ",
-              "description": "The state part of the postal address, not longer than 100 characters.",
+              "description": "The state part of the postal address.",
               "api_fieldname": "state",
               "entity_fieldname": "state",
               "parameter_fieldname": "state",
@@ -613,496 +612,6 @@
               "schema": {
                 "type": "object",
                 "required": [
-                  "admin_id",
-                  "end_market",
-                  "id"
-                ],
-                "properties": [
-                  {
-                    "type": "string",
-                    "example": "110 Fulbourn Rd",
-                    "description": "Postal address line 1, not longer than 100 characters. Required for commercial accounts only.",
-                    "api_fieldname": "address_line1",
-                    "entity_fieldname": "address_line1",
-                    "_key": "address_line1"
-                  },
-                  {
-                    "type": "string",
-                    "example": " ",
-                    "description": "Postal address line 2, not longer than 100 characters.",
-                    "api_fieldname": "address_line2",
-                    "entity_fieldname": "address_line2",
-                    "_key": "address_line2"
-                  },
-                  {
-                    "type": "string",
-                    "example": "admin@arm.com",
-                    "description": "The email address of the account admin, not longer than 254 characters.",
-                    "api_fieldname": "admin_email",
-                    "entity_fieldname": "admin_email",
-                    "_key": "admin_email"
-                  },
-                  {
-                    "type": "string",
-                    "example": "Admin Doe",
-                    "description": "The full name of the admin user to be created.",
-                    "api_fieldname": "admin_full_name",
-                    "entity_fieldname": "admin_full_name",
-                    "_key": "admin_full_name"
-                  },
-                  {
-                    "type": "string",
-                    "example": "01619571e2e89242ac12000600000000",
-                    "description": "The ID of the admin user created.",
-                    "api_fieldname": "admin_id",
-                    "entity_fieldname": "admin_id",
-                    "_key": "admin_id"
-                  },
-                  {
-                    "type": "string",
-                    "example": "ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT",
-                    "description": "The admin API key created for the account.",
-                    "api_fieldname": "admin_key",
-                    "entity_fieldname": "admin_key",
-                    "_key": "admin_key"
-                  },
-                  {
-                    "type": "string",
-                    "example": "admin",
-                    "description": "The username of the admin user to be created, containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.",
-                    "api_fieldname": "admin_name",
-                    "entity_fieldname": "admin_name",
-                    "_key": "admin_name"
-                  },
-                  {
-                    "type": "string",
-                    "example": "PZf9eEUH43DAPE9ULINFeuj",
-                    "description": "The password when creating a new user. It will be generated when not present in the request.",
-                    "api_fieldname": "admin_password",
-                    "entity_fieldname": "admin_password",
-                    "_key": "admin_password"
-                  },
-                  {
-                    "type": "array",
-                    "description": "An array of aliases, not more than 10. An alias is not shorter than 8 and not longer than 100 characters.",
-                    "items": {
-                      "type": "string"
-                    },
-                    "api_fieldname": "aliases",
-                    "entity_fieldname": "aliases",
-                    "_key": "aliases"
-                  },
-                  {
-                    "type": "string",
-                    "example": "Cambridge",
-                    "description": "The city part of the postal address, not longer than 100 characters. Required for commercial accounts only.",
-                    "api_fieldname": "city",
-                    "entity_fieldname": "city",
-                    "_key": "city"
-                  },
-                  {
-                    "type": "string",
-                    "example": "ARM Holdings Plc",
-                    "description": "The name of the company, not longer than 100 characters. Required for commercial accounts only.",
-                    "api_fieldname": "company",
-                    "entity_fieldname": "company",
-                    "_key": "company"
-                  },
-                  {
-                    "type": "string",
-                    "example": "J. Doe",
-                    "description": "The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.",
-                    "api_fieldname": "contact",
-                    "entity_fieldname": "contact",
-                    "_key": "contact"
-                  },
-                  {
-                    "type": "string",
-                    "example": "1NX25_0001",
-                    "description": "Contract number of the customer.",
-                    "api_fieldname": "contract_number",
-                    "entity_fieldname": "contract_number",
-                    "_key": "contract_number"
-                  },
-                  {
-                    "type": "string",
-                    "example": "United Kingdom",
-                    "description": "The country part of the postal address, not longer than 100 characters. Required for commercial accounts only.",
-                    "api_fieldname": "country",
-                    "entity_fieldname": "country",
-                    "_key": "country"
-                  },
-                  {
-                    "type": "string",
-                    "example": "1NC25_0001",
-                    "description": "Customer number of the customer.",
-                    "api_fieldname": "customer_number",
-                    "entity_fieldname": "customer_number",
-                    "_key": "customer_number"
-                  },
-                  {
-                    "type": "string",
-                    "example": "ARM",
-                    "description": "The display name for the account, not longer than 100 characters.",
-                    "api_fieldname": "display_name",
-                    "entity_fieldname": "display_name",
-                    "_key": "display_name"
-                  },
-                  {
-                    "type": "string",
-                    "example": "info@arm.com",
-                    "description": "The company email address for this account, not longer than 254 characters. Required for commercial accounts only.",
-                    "api_fieldname": "email",
-                    "entity_fieldname": "email",
-                    "_key": "email"
-                  },
-                  {
-                    "type": "string",
-                    "example": "IT",
-                    "description": "The end market of the account to be created.",
-                    "api_fieldname": "end_market",
-                    "entity_fieldname": "end_market",
-                    "_key": "end_market"
-                  },
-                  {
-                    "type": "string",
-                    "example": "01619571e2e90242ac12000600000000",
-                    "description": "Account ID.",
-                    "api_fieldname": "id",
-                    "entity_fieldname": "id",
-                    "_key": "id"
-                  },
-                  {
-                    "type": "string",
-                    "example": "+44 (1223) 400 400",
-                    "description": "The phone number of a representative of the company, not longer than 100 characters.",
-                    "api_fieldname": "phone_number",
-                    "entity_fieldname": "phone_number",
-                    "_key": "phone_number"
-                  },
-                  {
-                    "type": "string",
-                    "example": "CB1 9NJ",
-                    "description": "The postal code part of the postal address, not longer than 100 characters.",
-                    "api_fieldname": "postal_code",
-                    "entity_fieldname": "postal_code",
-                    "_key": "postal_code"
-                  },
-                  {
-                    "type": "string",
-                    "example": " ",
-                    "description": "The state part of the postal address, not longer than 100 characters.",
-                    "api_fieldname": "state",
-                    "entity_fieldname": "state",
-                    "_key": "state"
-                  }
-                ],
-                "description": "This object represents an account creation response.",
-                "foreign_key": {
-                  "group": "Accounts",
-                  "entity": "account"
-                }
-              },
-              "_key": "201"
-            },
-            {
-              "description": "Error in input data, for example invalid username.",
-              "schema": {
-                "type": "object",
-                "required": [
-                  "code",
-                  "message",
-                  "object",
-                  "request_id",
-                  "type"
-                ],
-                "properties": [
-                  {
-                    "type": "integer",
-                    "format": "int32",
-                    "description": "HTTP response code",
-                    "example": 400,
-                    "_key": "code"
-                  },
-                  {
-                    "type": "array",
-                    "description": "Request fields which failed validation.",
-                    "items": {
-                      "type": "object",
-                      "required": [
-                        "name",
-                        "message"
-                      ],
-                      "properties": [
-                        {
-                          "type": "string",
-                          "description": "Message describing the error condition.",
-                          "_key": "message"
-                        },
-                        {
-                          "type": "string",
-                          "description": "Name of the field which caused the error.",
-                          "_key": "name"
-                        }
-                      ]
-                    },
-                    "_key": "fields"
-                  },
-                  {
-                    "type": "string",
-                    "description": "A human readable informative explanation",
-                    "example": "Validation error",
-                    "_key": "message"
-                  },
-                  {
-                    "type": "string",
-                    "description": "Entity name, always `error`.",
-                    "enum": [
-                      "error"
-                    ],
-                    "_key": "object"
-                  },
-                  {
-                    "type": "string",
-                    "description": "ID of the request.",
-                    "example": "0161991d63150242ac12000600000000",
-                    "_key": "request_id"
-                  },
-                  {
-                    "type": "string",
-                    "description": "Error type used to categorise the error.",
-                    "example": "validation_error",
-                    "_key": "type"
-                  }
-                ]
-              },
-              "_key": "400"
-            },
-            {
-              "description": "Authentication failure.",
-              "schema": {
-                "type": "object",
-                "required": [
-                  "code",
-                  "message",
-                  "object",
-                  "request_id",
-                  "type"
-                ],
-                "properties": [
-                  {
-                    "type": "integer",
-                    "format": "int32",
-                    "description": "HTTP response code",
-                    "example": 400,
-                    "_key": "code"
-                  },
-                  {
-                    "type": "array",
-                    "description": "Request fields which failed validation.",
-                    "items": {
-                      "type": "object",
-                      "required": [
-                        "name",
-                        "message"
-                      ],
-                      "properties": [
-                        {
-                          "type": "string",
-                          "description": "Message describing the error condition.",
-                          "_key": "message"
-                        },
-                        {
-                          "type": "string",
-                          "description": "Name of the field which caused the error.",
-                          "_key": "name"
-                        }
-                      ]
-                    },
-                    "_key": "fields"
-                  },
-                  {
-                    "type": "string",
-                    "description": "A human readable informative explanation",
-                    "example": "Validation error",
-                    "_key": "message"
-                  },
-                  {
-                    "type": "string",
-                    "description": "Entity name, always `error`.",
-                    "enum": [
-                      "error"
-                    ],
-                    "_key": "object"
-                  },
-                  {
-                    "type": "string",
-                    "description": "ID of the request.",
-                    "example": "0161991d63150242ac12000600000000",
-                    "_key": "request_id"
-                  },
-                  {
-                    "type": "string",
-                    "description": "Error type used to categorise the error.",
-                    "example": "validation_error",
-                    "_key": "type"
-                  }
-                ]
-              },
-              "_key": "401"
-            },
-            {
-              "description": "Forbidden.",
-              "schema": {
-                "type": "object",
-                "required": [
-                  "code",
-                  "message",
-                  "object",
-                  "request_id",
-                  "type"
-                ],
-                "properties": [
-                  {
-                    "type": "integer",
-                    "format": "int32",
-                    "description": "HTTP response code",
-                    "example": 400,
-                    "_key": "code"
-                  },
-                  {
-                    "type": "array",
-                    "description": "Request fields which failed validation.",
-                    "items": {
-                      "type": "object",
-                      "required": [
-                        "name",
-                        "message"
-                      ],
-                      "properties": [
-                        {
-                          "type": "string",
-                          "description": "Message describing the error condition.",
-                          "_key": "message"
-                        },
-                        {
-                          "type": "string",
-                          "description": "Name of the field which caused the error.",
-                          "_key": "name"
-                        }
-                      ]
-                    },
-                    "_key": "fields"
-                  },
-                  {
-                    "type": "string",
-                    "description": "A human readable informative explanation",
-                    "example": "Validation error",
-                    "_key": "message"
-                  },
-                  {
-                    "type": "string",
-                    "description": "Entity name, always `error`.",
-                    "enum": [
-                      "error"
-                    ],
-                    "_key": "object"
-                  },
-                  {
-                    "type": "string",
-                    "description": "ID of the request.",
-                    "example": "0161991d63150242ac12000600000000",
-                    "_key": "request_id"
-                  },
-                  {
-                    "type": "string",
-                    "description": "Error type used to categorise the error.",
-                    "example": "validation_error",
-                    "_key": "type"
-                  }
-                ]
-              },
-              "_key": "403"
-            }
-          ],
-          "path": "/v3/accounts",
-          "summary": "Create a new account.",
-          "return_type": "account",
-          "return_info": {
-            "self": true,
-            "custom": false,
-            "type": "account"
-          },
-          "drop_fields": [
-            "object",
-            "etag",
-            "type",
-            "groups",
-            "filter",
-            "is_custom",
-            "private_key",
-            "sub_accounts",
-            "id",
-            "admin_id",
-            "admin_key"
-          ],
-          "group_id": "Accounts",
-          "parameter_map": {
-            "account_id": "id"
-          },
-          "operation_id": "createAccount",
-          "pagination": false,
-          "_key": "create"
-        },
-        {
-          "description": "Returns detailed information about the account.\n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id} -H 'Authorization: Bearer API_KEY'`.",
-          "field_renames": [],
-          "fields": [
-            {
-              "type": "string",
-              "example": "01619571e2e90242ac12000600000000",
-              "description": "Account ID.",
-              "api_fieldname": "id",
-              "entity_fieldname": "id",
-              "parameter_fieldname": "account_id",
-              "in": "path",
-              "required": true,
-              "_key": "id"
-            },
-            {
-              "name": "include",
-              "in": "query",
-              "description": "Comma separated additional data to return. Currently supported: limits, policies, sub_accounts",
-              "required": false,
-              "type": "string",
-              "entity_fieldname": "include",
-              "api_fieldname": "include",
-              "external_param": true,
-              "parameter_fieldname": "include",
-              "_key": "include"
-            },
-            {
-              "name": "properties",
-              "in": "query",
-              "description": "Property name to be returned from account specific properties.",
-              "required": false,
-              "type": "string",
-              "entity_fieldname": "properties",
-              "api_fieldname": "properties",
-              "external_param": true,
-              "parameter_fieldname": "properties",
-              "_key": "properties"
-            }
-          ],
-          "method": "get",
-          "mode": "get",
-          "responses": [
-            {
-              "description": "successful operation",
-              "schema": {
-                "type": "object",
-                "required": [
-                  "aliases",
                   "end_market",
                   "etag",
                   "id",
@@ -1126,6 +635,55 @@
                     "api_fieldname": "address_line2",
                     "entity_fieldname": "address_line2",
                     "_key": "address_line2"
+                  },
+                  {
+                    "type": "string",
+                    "example": "admin@arm.com",
+                    "description": "The email address of the admin user created for this account. Present only in the response for the account creation.",
+                    "api_fieldname": "admin_email",
+                    "entity_fieldname": "admin_email",
+                    "_key": "admin_email"
+                  },
+                  {
+                    "type": "string",
+                    "example": "Admin Doe",
+                    "description": "The full name of the admin user created for this account. Present only in the response for the account creation.",
+                    "api_fieldname": "admin_full_name",
+                    "entity_fieldname": "admin_full_name",
+                    "_key": "admin_full_name"
+                  },
+                  {
+                    "type": "string",
+                    "example": "01619571e2e89242ac12000600000000",
+                    "description": "The ID of the admin user created for this account.",
+                    "api_fieldname": "admin_id",
+                    "entity_fieldname": "admin_id",
+                    "_key": "admin_id"
+                  },
+                  {
+                    "type": "string",
+                    "example": "ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT",
+                    "description": "The admin API key created for this account. Present only in the response for the account creation.",
+                    "readOnly": true,
+                    "api_fieldname": "admin_key",
+                    "entity_fieldname": "admin_key",
+                    "_key": "admin_key"
+                  },
+                  {
+                    "type": "string",
+                    "example": "admin",
+                    "description": "The username of the admin user created for this account. Present only in the response for the account creation.",
+                    "api_fieldname": "admin_name",
+                    "entity_fieldname": "admin_name",
+                    "_key": "admin_name"
+                  },
+                  {
+                    "type": "string",
+                    "example": "PZf9eEUH43DAPE9ULINFeuj",
+                    "description": "The password of the admin user created for this account. Present only in the response for the account creation.",
+                    "api_fieldname": "admin_password",
+                    "entity_fieldname": "admin_password",
+                    "_key": "admin_password"
                   },
                   {
                     "type": "array",
@@ -1235,6 +793,14 @@
                     "api_fieldname": "etag",
                     "entity_fieldname": "etag",
                     "_key": "etag"
+                  },
+                  {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Expiration time of the account, as UTC time RFC3339.",
+                    "api_fieldname": "expiration",
+                    "entity_fieldname": "expiration",
+                    "_key": "expiration"
                   },
                   {
                     "type": "string",
@@ -1494,7 +1060,6 @@
                     "items": {
                       "type": "object",
                       "required": [
-                        "aliases",
                         "end_market",
                         "etag",
                         "id",
@@ -1514,6 +1079,43 @@
                           "example": " ",
                           "description": "Postal address line 2.",
                           "_key": "address_line2"
+                        },
+                        {
+                          "type": "string",
+                          "example": "admin@arm.com",
+                          "description": "The email address of the admin user created for this account. Present only in the response for the account creation.",
+                          "_key": "admin_email"
+                        },
+                        {
+                          "type": "string",
+                          "example": "Admin Doe",
+                          "description": "The full name of the admin user created for this account. Present only in the response for the account creation.",
+                          "_key": "admin_full_name"
+                        },
+                        {
+                          "type": "string",
+                          "example": "01619571e2e89242ac12000600000000",
+                          "description": "The ID of the admin user created for this account.",
+                          "_key": "admin_id"
+                        },
+                        {
+                          "type": "string",
+                          "example": "ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT",
+                          "description": "The admin API key created for this account. Present only in the response for the account creation.",
+                          "readOnly": true,
+                          "_key": "admin_key"
+                        },
+                        {
+                          "type": "string",
+                          "example": "admin",
+                          "description": "The username of the admin user created for this account. Present only in the response for the account creation.",
+                          "_key": "admin_name"
+                        },
+                        {
+                          "type": "string",
+                          "example": "PZf9eEUH43DAPE9ULINFeuj",
+                          "description": "The password of the admin user created for this account. Present only in the response for the account creation.",
+                          "_key": "admin_password"
                         },
                         {
                           "type": "array",
@@ -1597,6 +1199,1217 @@
                           "example": "1",
                           "description": "API resource entity version.",
                           "_key": "etag"
+                        },
+                        {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "Expiration time of the account, as UTC time RFC3339.",
+                          "_key": "expiration"
+                        },
+                        {
+                          "type": "string",
+                          "example": "180",
+                          "description": "Indicates how many days (1-180) before account expiration a notification email should be sent.",
+                          "_key": "expiration_warning_threshold"
+                        },
+                        {
+                          "type": "string",
+                          "example": "01619571e2e90242ac12000600000000",
+                          "description": "Account ID.",
+                          "_key": "id"
+                        },
+                        {
+                          "type": "string",
+                          "example": "30",
+                          "description": "The reference token expiration time in minutes for this account.",
+                          "_key": "idle_timeout"
+                        },
+                        {
+                          "type": "object",
+                          "description": "List of limits as key-value pairs if requested.",
+                          "additionalProperties": {
+                            "type": "string"
+                          },
+                          "_key": "limits"
+                        },
+                        {
+                          "type": "string",
+                          "description": "The enforcement status of the multi-factor authentication, either 'enforced' or 'optional'.",
+                          "enum": [
+                            "enforced",
+                            "optional"
+                          ],
+                          "_key": "mfa_status"
+                        },
+                        {
+                          "type": "array",
+                          "description": "A list of notification email addresses.",
+                          "items": {
+                            "type": "string"
+                          },
+                          "_key": "notification_emails"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Entity name: always 'account'",
+                          "enum": [
+                            "account"
+                          ],
+                          "_key": "object"
+                        },
+                        {
+                          "type": "object",
+                          "properties": [
+                            {
+                              "type": "string",
+                              "example": "info@arm.com",
+                              "description": "The email address of the admin user who is the contact person of the parent account.",
+                              "api_fieldname": "admin_email",
+                              "entity_fieldname": "admin_email",
+                              "_key": "admin_email"
+                            },
+                            {
+                              "type": "string",
+                              "example": "J. Doe",
+                              "description": "The name of the admin user who is the contact person of the parent account.",
+                              "api_fieldname": "admin_name",
+                              "entity_fieldname": "admin_name",
+                              "_key": "admin_name"
+                            },
+                            {
+                              "type": "string",
+                              "example": "01619571dad80242ac12000600000000",
+                              "description": "The ID of the parent account",
+                              "api_fieldname": "id",
+                              "entity_fieldname": "id",
+                              "_key": "id"
+                            }
+                          ],
+                          "description": "This object represents parent account contact details in responses.",
+                          "foreign_key": {
+                            "group": "Accounts",
+                            "entity": "parent_account"
+                          },
+                          "_key": "parent_account"
+                        },
+                        {
+                          "type": "string",
+                          "example": "01619571dad80242ac12000600000000",
+                          "description": "The ID of the parent account, if it has any.",
+                          "_key": "parent_id"
+                        },
+                        {
+                          "type": "object",
+                          "required": [
+                            "minimum_length"
+                          ],
+                          "properties": [
+                            {
+                              "type": "string",
+                              "example": "8",
+                              "description": "Minimum length for the password. A number between 8 and 512.",
+                              "api_fieldname": "minimum_length",
+                              "entity_fieldname": "minimum_length",
+                              "_key": "minimum_length"
+                            }
+                          ],
+                          "foreign_key": {
+                            "group": "Accounts",
+                            "entity": "password_policy"
+                          },
+                          "_key": "password_policy"
+                        },
+                        {
+                          "type": "string",
+                          "example": "+44 (1223) 400 400",
+                          "description": "The phone number of a representative of the company.",
+                          "_key": "phone_number"
+                        },
+                        {
+                          "type": "array",
+                          "description": "List of policies if requested.",
+                          "items": {
+                            "type": "object",
+                            "properties": [
+                              {
+                                "type": "string",
+                                "example": "GET",
+                                "description": "Comma separated list of actions, empty string represents all actions.",
+                                "api_fieldname": "action",
+                                "entity_fieldname": "action",
+                                "_key": "action"
+                              },
+                              {
+                                "type": "boolean",
+                                "example": true,
+                                "description": "True or false controlling whether an action is allowed or not.",
+                                "api_fieldname": "allow",
+                                "entity_fieldname": "allow",
+                                "_key": "allow"
+                              },
+                              {
+                                "type": "string",
+                                "example": "update-campaigns",
+                                "description": "Feature name corresponding to this policy.",
+                                "api_fieldname": "feature",
+                                "entity_fieldname": "feature",
+                                "_key": "feature"
+                              },
+                              {
+                                "type": "boolean",
+                                "example": false,
+                                "description": "Flag indicating whether this feature is inherited or overwritten specifically.",
+                                "api_fieldname": "inherited",
+                                "entity_fieldname": "inherited",
+                                "_key": "inherited"
+                              },
+                              {
+                                "type": "string",
+                                "example": "/v3/update-campaign",
+                                "description": "Resource that is protected by this policy.",
+                                "api_fieldname": "resource",
+                                "entity_fieldname": "resource",
+                                "_key": "resource"
+                              }
+                            ],
+                            "description": "This object represents a feature policy. Either the feature or the resource must be specified.",
+                            "foreign_key": {
+                              "group": "Accounts",
+                              "entity": "policy"
+                            }
+                          },
+                          "_key": "policies"
+                        },
+                        {
+                          "type": "string",
+                          "example": "CB1 9NJ",
+                          "description": "The postal code part of the postal address.",
+                          "_key": "postal_code"
+                        },
+                        {
+                          "type": "string",
+                          "example": "Subscription paid.",
+                          "description": "A reason note for updating the status of the account",
+                          "_key": "reason"
+                        },
+                        {
+                          "type": "string",
+                          "example": "ARM-INT-0001",
+                          "description": "A reference note for updating the status of the account",
+                          "_key": "reference_note"
+                        },
+                        {
+                          "type": "string",
+                          "example": "sales@arm.com",
+                          "description": "Email address of the sales contact.",
+                          "_key": "sales_contact"
+                        },
+                        {
+                          "type": "string",
+                          "example": " ",
+                          "description": "The state part of the postal address.",
+                          "_key": "state"
+                        },
+                        {
+                          "type": "string",
+                          "example": "ACTIVE",
+                          "description": "The status of the account.",
+                          "enum": [
+                            "ENROLLING",
+                            "ACTIVE",
+                            "RESTRICTED",
+                            "SUSPENDED"
+                          ],
+                          "_key": "status"
+                        },
+                        {
+                          "type": "array",
+                          "description": "List of sub accounts. Not available for developer users.",
+                          "items": [],
+                          "_key": "sub_accounts"
+                        },
+                        {
+                          "type": "string",
+                          "example": "01619571e7160242ac12000600000000",
+                          "description": "Account template ID.",
+                          "_key": "template_id"
+                        },
+                        {
+                          "type": "string",
+                          "example": "1",
+                          "description": "The tier level of the account; '0': free tier, '1': commercial account, '2': partner tier. Other values are reserved for the future.",
+                          "_key": "tier"
+                        },
+                        {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2018-02-14T15:24:14Z",
+                          "description": "Last update UTC time RFC3339.",
+                          "_key": "updated_at"
+                        },
+                        {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2018-02-14T15:24:14Z",
+                          "description": "Time when upgraded to commercial account in UTC format RFC3339.",
+                          "_key": "upgraded_at"
+                        }
+                      ],
+                      "description": "This object represents an account in requests and responses."
+                    },
+                    "api_fieldname": "sub_accounts",
+                    "entity_fieldname": "sub_accounts",
+                    "_key": "sub_accounts"
+                  },
+                  {
+                    "type": "string",
+                    "example": "01619571e7160242ac12000600000000",
+                    "description": "Account template ID.",
+                    "api_fieldname": "template_id",
+                    "entity_fieldname": "template_id",
+                    "_key": "template_id"
+                  },
+                  {
+                    "type": "string",
+                    "example": "1",
+                    "description": "The tier level of the account; '0': free tier, '1': commercial account, '2': partner tier. Other values are reserved for the future.",
+                    "api_fieldname": "tier",
+                    "entity_fieldname": "tier",
+                    "_key": "tier"
+                  },
+                  {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2018-02-14T15:24:14Z",
+                    "description": "Last update UTC time RFC3339.",
+                    "api_fieldname": "updated_at",
+                    "entity_fieldname": "updated_at",
+                    "_key": "updated_at"
+                  },
+                  {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2018-02-14T15:24:14Z",
+                    "description": "Time when upgraded to commercial account in UTC format RFC3339.",
+                    "api_fieldname": "upgraded_at",
+                    "entity_fieldname": "upgraded_at",
+                    "_key": "upgraded_at"
+                  }
+                ],
+                "description": "This object represents an account in requests and responses."
+              },
+              "_key": "201"
+            },
+            {
+              "description": "Error in input data, for example invalid username.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "400"
+            },
+            {
+              "description": "Authentication failure.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "401"
+            },
+            {
+              "description": "Forbidden.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "403"
+            }
+          ],
+          "path": "/v3/accounts",
+          "summary": "Create a new account.",
+          "return_type": "account",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "account"
+          },
+          "drop_fields": [
+            "object",
+            "etag",
+            "type",
+            "groups",
+            "filter",
+            "is_custom",
+            "private_key",
+            "sub_accounts",
+            "id",
+            "created_at",
+            "updated_at",
+            "parent_id",
+            "tier",
+            "status",
+            "upgraded_at",
+            "limits",
+            "policies",
+            "template_id",
+            "reason",
+            "idle_timeout",
+            "password_policy",
+            "reference_note",
+            "custom_fields",
+            "mfa_status",
+            "notification_emails",
+            "sales_contact",
+            "expiration_warning_threshold",
+            "parent_account",
+            "expiration",
+            "admin_id",
+            "admin_key"
+          ],
+          "group_id": "Accounts",
+          "parameter_map": {
+            "account_id": "id"
+          },
+          "operation_id": "createAccount",
+          "pagination": false,
+          "_key": "create"
+        },
+        {
+          "description": "Returns detailed information about the account.\n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id} -H 'Authorization: Bearer API_KEY'`.",
+          "field_renames": [],
+          "fields": [
+            {
+              "type": "string",
+              "example": "01619571e2e90242ac12000600000000",
+              "description": "Account ID.",
+              "api_fieldname": "id",
+              "entity_fieldname": "id",
+              "parameter_fieldname": "account_id",
+              "in": "path",
+              "required": true,
+              "_key": "id"
+            },
+            {
+              "name": "include",
+              "in": "query",
+              "description": "Comma separated additional data to return. Currently supported: limits, policies, sub_accounts",
+              "required": false,
+              "type": "string",
+              "entity_fieldname": "include",
+              "api_fieldname": "include",
+              "external_param": true,
+              "parameter_fieldname": "include",
+              "_key": "include"
+            },
+            {
+              "name": "properties",
+              "in": "query",
+              "description": "Property name to be returned from account specific properties.",
+              "required": false,
+              "type": "string",
+              "entity_fieldname": "properties",
+              "api_fieldname": "properties",
+              "external_param": true,
+              "parameter_fieldname": "properties",
+              "_key": "properties"
+            }
+          ],
+          "method": "get",
+          "mode": "get",
+          "responses": [
+            {
+              "description": "successful operation",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "end_market",
+                  "etag",
+                  "id",
+                  "object",
+                  "status",
+                  "tier"
+                ],
+                "properties": [
+                  {
+                    "type": "string",
+                    "example": "110 Fulbourn Rd",
+                    "description": "Postal address line 1.",
+                    "api_fieldname": "address_line1",
+                    "entity_fieldname": "address_line1",
+                    "_key": "address_line1"
+                  },
+                  {
+                    "type": "string",
+                    "example": " ",
+                    "description": "Postal address line 2.",
+                    "api_fieldname": "address_line2",
+                    "entity_fieldname": "address_line2",
+                    "_key": "address_line2"
+                  },
+                  {
+                    "type": "string",
+                    "example": "admin@arm.com",
+                    "description": "The email address of the admin user created for this account. Present only in the response for the account creation.",
+                    "api_fieldname": "admin_email",
+                    "entity_fieldname": "admin_email",
+                    "_key": "admin_email"
+                  },
+                  {
+                    "type": "string",
+                    "example": "Admin Doe",
+                    "description": "The full name of the admin user created for this account. Present only in the response for the account creation.",
+                    "api_fieldname": "admin_full_name",
+                    "entity_fieldname": "admin_full_name",
+                    "_key": "admin_full_name"
+                  },
+                  {
+                    "type": "string",
+                    "example": "01619571e2e89242ac12000600000000",
+                    "description": "The ID of the admin user created for this account.",
+                    "api_fieldname": "admin_id",
+                    "entity_fieldname": "admin_id",
+                    "_key": "admin_id"
+                  },
+                  {
+                    "type": "string",
+                    "example": "ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT",
+                    "description": "The admin API key created for this account. Present only in the response for the account creation.",
+                    "readOnly": true,
+                    "api_fieldname": "admin_key",
+                    "entity_fieldname": "admin_key",
+                    "_key": "admin_key"
+                  },
+                  {
+                    "type": "string",
+                    "example": "admin",
+                    "description": "The username of the admin user created for this account. Present only in the response for the account creation.",
+                    "api_fieldname": "admin_name",
+                    "entity_fieldname": "admin_name",
+                    "_key": "admin_name"
+                  },
+                  {
+                    "type": "string",
+                    "example": "PZf9eEUH43DAPE9ULINFeuj",
+                    "description": "The password of the admin user created for this account. Present only in the response for the account creation.",
+                    "api_fieldname": "admin_password",
+                    "entity_fieldname": "admin_password",
+                    "_key": "admin_password"
+                  },
+                  {
+                    "type": "array",
+                    "description": "An array of aliases.",
+                    "items": {
+                      "type": "string"
+                    },
+                    "api_fieldname": "aliases",
+                    "entity_fieldname": "aliases",
+                    "_key": "aliases"
+                  },
+                  {
+                    "type": "string",
+                    "example": "Cambridge",
+                    "description": "The city part of the postal address.",
+                    "api_fieldname": "city",
+                    "entity_fieldname": "city",
+                    "_key": "city"
+                  },
+                  {
+                    "type": "string",
+                    "example": "ARM Holdings Plc",
+                    "description": "The name of the company.",
+                    "api_fieldname": "company",
+                    "entity_fieldname": "company",
+                    "_key": "company"
+                  },
+                  {
+                    "type": "string",
+                    "example": "J. Doe",
+                    "description": "The name of the contact person for this account.",
+                    "api_fieldname": "contact",
+                    "entity_fieldname": "contact",
+                    "_key": "contact"
+                  },
+                  {
+                    "type": "string",
+                    "example": "1NX25_0001",
+                    "description": "Contract number of the customer.",
+                    "api_fieldname": "contract_number",
+                    "entity_fieldname": "contract_number",
+                    "_key": "contract_number"
+                  },
+                  {
+                    "type": "string",
+                    "example": "United Kingdom",
+                    "description": "The country part of the postal address.",
+                    "api_fieldname": "country",
+                    "entity_fieldname": "country",
+                    "_key": "country"
+                  },
+                  {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2018-02-13T09:35:20Z",
+                    "description": "Creation UTC time RFC3339.",
+                    "api_fieldname": "created_at",
+                    "entity_fieldname": "created_at",
+                    "_key": "created_at"
+                  },
+                  {
+                    "type": "object",
+                    "description": "Account's custom properties as key-value pairs.",
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "api_fieldname": "custom_fields",
+                    "entity_fieldname": "custom_fields",
+                    "_key": "custom_fields"
+                  },
+                  {
+                    "type": "string",
+                    "example": "1NC25_0001",
+                    "description": "Customer number of the customer.",
+                    "api_fieldname": "customer_number",
+                    "entity_fieldname": "customer_number",
+                    "_key": "customer_number"
+                  },
+                  {
+                    "type": "string",
+                    "example": "ARM",
+                    "description": "The display name for the account.",
+                    "api_fieldname": "display_name",
+                    "entity_fieldname": "display_name",
+                    "_key": "display_name"
+                  },
+                  {
+                    "type": "string",
+                    "example": "info@arm.com",
+                    "description": "The company email address for this account.",
+                    "api_fieldname": "email",
+                    "entity_fieldname": "email",
+                    "_key": "email"
+                  },
+                  {
+                    "type": "string",
+                    "example": "IT",
+                    "description": "Account end market.",
+                    "api_fieldname": "end_market",
+                    "entity_fieldname": "end_market",
+                    "_key": "end_market"
+                  },
+                  {
+                    "type": "string",
+                    "example": "1",
+                    "description": "API resource entity version.",
+                    "api_fieldname": "etag",
+                    "entity_fieldname": "etag",
+                    "_key": "etag"
+                  },
+                  {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Expiration time of the account, as UTC time RFC3339.",
+                    "api_fieldname": "expiration",
+                    "entity_fieldname": "expiration",
+                    "_key": "expiration"
+                  },
+                  {
+                    "type": "string",
+                    "example": "180",
+                    "description": "Indicates how many days (1-180) before account expiration a notification email should be sent.",
+                    "api_fieldname": "expiration_warning_threshold",
+                    "entity_fieldname": "expiration_warning_threshold",
+                    "_key": "expiration_warning_threshold"
+                  },
+                  {
+                    "type": "string",
+                    "example": "01619571e2e90242ac12000600000000",
+                    "description": "Account ID.",
+                    "api_fieldname": "id",
+                    "entity_fieldname": "id",
+                    "_key": "id"
+                  },
+                  {
+                    "type": "string",
+                    "example": "30",
+                    "description": "The reference token expiration time in minutes for this account.",
+                    "api_fieldname": "idle_timeout",
+                    "entity_fieldname": "idle_timeout",
+                    "_key": "idle_timeout"
+                  },
+                  {
+                    "type": "object",
+                    "description": "List of limits as key-value pairs if requested.",
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "api_fieldname": "limits",
+                    "entity_fieldname": "limits",
+                    "_key": "limits"
+                  },
+                  {
+                    "type": "string",
+                    "description": "The enforcement status of the multi-factor authentication, either 'enforced' or 'optional'.",
+                    "enum": [
+                      "enforced",
+                      "optional"
+                    ],
+                    "api_fieldname": "mfa_status",
+                    "entity_fieldname": "mfa_status",
+                    "_key": "mfa_status"
+                  },
+                  {
+                    "type": "array",
+                    "description": "A list of notification email addresses.",
+                    "items": {
+                      "type": "string"
+                    },
+                    "api_fieldname": "notification_emails",
+                    "entity_fieldname": "notification_emails",
+                    "_key": "notification_emails"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name: always 'account'",
+                    "enum": [
+                      "account"
+                    ],
+                    "api_fieldname": "object",
+                    "entity_fieldname": "object",
+                    "_key": "object"
+                  },
+                  {
+                    "type": "object",
+                    "properties": [
+                      {
+                        "type": "string",
+                        "example": "info@arm.com",
+                        "description": "The email address of the admin user who is the contact person of the parent account.",
+                        "api_fieldname": "admin_email",
+                        "entity_fieldname": "admin_email",
+                        "_key": "admin_email"
+                      },
+                      {
+                        "type": "string",
+                        "example": "J. Doe",
+                        "description": "The name of the admin user who is the contact person of the parent account.",
+                        "api_fieldname": "admin_name",
+                        "entity_fieldname": "admin_name",
+                        "_key": "admin_name"
+                      },
+                      {
+                        "type": "string",
+                        "example": "01619571dad80242ac12000600000000",
+                        "description": "The ID of the parent account",
+                        "api_fieldname": "id",
+                        "entity_fieldname": "id",
+                        "_key": "id"
+                      }
+                    ],
+                    "description": "This object represents parent account contact details in responses.",
+                    "foreign_key": {
+                      "group": "Accounts",
+                      "entity": "parent_account"
+                    },
+                    "api_fieldname": "parent_account",
+                    "entity_fieldname": "parent_account",
+                    "_key": "parent_account"
+                  },
+                  {
+                    "type": "string",
+                    "example": "01619571dad80242ac12000600000000",
+                    "description": "The ID of the parent account, if it has any.",
+                    "api_fieldname": "parent_id",
+                    "entity_fieldname": "parent_id",
+                    "_key": "parent_id"
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "minimum_length"
+                    ],
+                    "properties": [
+                      {
+                        "type": "string",
+                        "example": "8",
+                        "description": "Minimum length for the password. A number between 8 and 512.",
+                        "api_fieldname": "minimum_length",
+                        "entity_fieldname": "minimum_length",
+                        "_key": "minimum_length"
+                      }
+                    ],
+                    "foreign_key": {
+                      "group": "Accounts",
+                      "entity": "password_policy"
+                    },
+                    "api_fieldname": "password_policy",
+                    "entity_fieldname": "password_policy",
+                    "_key": "password_policy"
+                  },
+                  {
+                    "type": "string",
+                    "example": "+44 (1223) 400 400",
+                    "description": "The phone number of a representative of the company.",
+                    "api_fieldname": "phone_number",
+                    "entity_fieldname": "phone_number",
+                    "_key": "phone_number"
+                  },
+                  {
+                    "type": "array",
+                    "description": "List of policies if requested.",
+                    "items": {
+                      "type": "object",
+                      "properties": [
+                        {
+                          "type": "string",
+                          "example": "GET",
+                          "description": "Comma separated list of actions, empty string represents all actions.",
+                          "api_fieldname": "action",
+                          "entity_fieldname": "action",
+                          "_key": "action"
+                        },
+                        {
+                          "type": "boolean",
+                          "example": true,
+                          "description": "True or false controlling whether an action is allowed or not.",
+                          "api_fieldname": "allow",
+                          "entity_fieldname": "allow",
+                          "_key": "allow"
+                        },
+                        {
+                          "type": "string",
+                          "example": "update-campaigns",
+                          "description": "Feature name corresponding to this policy.",
+                          "api_fieldname": "feature",
+                          "entity_fieldname": "feature",
+                          "_key": "feature"
+                        },
+                        {
+                          "type": "boolean",
+                          "example": false,
+                          "description": "Flag indicating whether this feature is inherited or overwritten specifically.",
+                          "api_fieldname": "inherited",
+                          "entity_fieldname": "inherited",
+                          "_key": "inherited"
+                        },
+                        {
+                          "type": "string",
+                          "example": "/v3/update-campaign",
+                          "description": "Resource that is protected by this policy.",
+                          "api_fieldname": "resource",
+                          "entity_fieldname": "resource",
+                          "_key": "resource"
+                        }
+                      ],
+                      "description": "This object represents a feature policy. Either the feature or the resource must be specified.",
+                      "foreign_key": {
+                        "group": "Accounts",
+                        "entity": "policy"
+                      }
+                    },
+                    "api_fieldname": "policies",
+                    "entity_fieldname": "policies",
+                    "_key": "policies"
+                  },
+                  {
+                    "type": "string",
+                    "example": "CB1 9NJ",
+                    "description": "The postal code part of the postal address.",
+                    "api_fieldname": "postal_code",
+                    "entity_fieldname": "postal_code",
+                    "_key": "postal_code"
+                  },
+                  {
+                    "type": "string",
+                    "example": "Subscription paid.",
+                    "description": "A reason note for updating the status of the account",
+                    "api_fieldname": "reason",
+                    "entity_fieldname": "reason",
+                    "_key": "reason"
+                  },
+                  {
+                    "type": "string",
+                    "example": "ARM-INT-0001",
+                    "description": "A reference note for updating the status of the account",
+                    "api_fieldname": "reference_note",
+                    "entity_fieldname": "reference_note",
+                    "_key": "reference_note"
+                  },
+                  {
+                    "type": "string",
+                    "example": "sales@arm.com",
+                    "description": "Email address of the sales contact.",
+                    "api_fieldname": "sales_contact",
+                    "entity_fieldname": "sales_contact",
+                    "_key": "sales_contact"
+                  },
+                  {
+                    "type": "string",
+                    "example": " ",
+                    "description": "The state part of the postal address.",
+                    "api_fieldname": "state",
+                    "entity_fieldname": "state",
+                    "_key": "state"
+                  },
+                  {
+                    "type": "string",
+                    "example": "ACTIVE",
+                    "description": "The status of the account.",
+                    "enum": [
+                      "ENROLLING",
+                      "ACTIVE",
+                      "RESTRICTED",
+                      "SUSPENDED"
+                    ],
+                    "api_fieldname": "status",
+                    "entity_fieldname": "status",
+                    "_key": "status"
+                  },
+                  {
+                    "type": "array",
+                    "description": "List of sub accounts. Not available for developer users.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "end_market",
+                        "etag",
+                        "id",
+                        "object",
+                        "status",
+                        "tier"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "example": "110 Fulbourn Rd",
+                          "description": "Postal address line 1.",
+                          "_key": "address_line1"
+                        },
+                        {
+                          "type": "string",
+                          "example": " ",
+                          "description": "Postal address line 2.",
+                          "_key": "address_line2"
+                        },
+                        {
+                          "type": "string",
+                          "example": "admin@arm.com",
+                          "description": "The email address of the admin user created for this account. Present only in the response for the account creation.",
+                          "_key": "admin_email"
+                        },
+                        {
+                          "type": "string",
+                          "example": "Admin Doe",
+                          "description": "The full name of the admin user created for this account. Present only in the response for the account creation.",
+                          "_key": "admin_full_name"
+                        },
+                        {
+                          "type": "string",
+                          "example": "01619571e2e89242ac12000600000000",
+                          "description": "The ID of the admin user created for this account.",
+                          "_key": "admin_id"
+                        },
+                        {
+                          "type": "string",
+                          "example": "ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT",
+                          "description": "The admin API key created for this account. Present only in the response for the account creation.",
+                          "readOnly": true,
+                          "_key": "admin_key"
+                        },
+                        {
+                          "type": "string",
+                          "example": "admin",
+                          "description": "The username of the admin user created for this account. Present only in the response for the account creation.",
+                          "_key": "admin_name"
+                        },
+                        {
+                          "type": "string",
+                          "example": "PZf9eEUH43DAPE9ULINFeuj",
+                          "description": "The password of the admin user created for this account. Present only in the response for the account creation.",
+                          "_key": "admin_password"
+                        },
+                        {
+                          "type": "array",
+                          "description": "An array of aliases.",
+                          "items": {
+                            "type": "string"
+                          },
+                          "_key": "aliases"
+                        },
+                        {
+                          "type": "string",
+                          "example": "Cambridge",
+                          "description": "The city part of the postal address.",
+                          "_key": "city"
+                        },
+                        {
+                          "type": "string",
+                          "example": "ARM Holdings Plc",
+                          "description": "The name of the company.",
+                          "_key": "company"
+                        },
+                        {
+                          "type": "string",
+                          "example": "J. Doe",
+                          "description": "The name of the contact person for this account.",
+                          "_key": "contact"
+                        },
+                        {
+                          "type": "string",
+                          "example": "1NX25_0001",
+                          "description": "Contract number of the customer.",
+                          "_key": "contract_number"
+                        },
+                        {
+                          "type": "string",
+                          "example": "United Kingdom",
+                          "description": "The country part of the postal address.",
+                          "_key": "country"
+                        },
+                        {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2018-02-13T09:35:20Z",
+                          "description": "Creation UTC time RFC3339.",
+                          "_key": "created_at"
+                        },
+                        {
+                          "type": "object",
+                          "description": "Account's custom properties as key-value pairs.",
+                          "additionalProperties": {
+                            "type": "string"
+                          },
+                          "_key": "custom_fields"
+                        },
+                        {
+                          "type": "string",
+                          "example": "1NC25_0001",
+                          "description": "Customer number of the customer.",
+                          "_key": "customer_number"
+                        },
+                        {
+                          "type": "string",
+                          "example": "ARM",
+                          "description": "The display name for the account.",
+                          "_key": "display_name"
+                        },
+                        {
+                          "type": "string",
+                          "example": "info@arm.com",
+                          "description": "The company email address for this account.",
+                          "_key": "email"
+                        },
+                        {
+                          "type": "string",
+                          "example": "IT",
+                          "description": "Account end market.",
+                          "_key": "end_market"
+                        },
+                        {
+                          "type": "string",
+                          "example": "1",
+                          "description": "API resource entity version.",
+                          "_key": "etag"
+                        },
+                        {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "Expiration time of the account, as UTC time RFC3339.",
+                          "_key": "expiration"
                         },
                         {
                           "type": "string",
@@ -2162,7 +2975,14 @@
             "expiration_warning_threshold",
             "contract_number",
             "customer_number",
-            "parent_account"
+            "parent_account",
+            "expiration",
+            "admin_id",
+            "admin_name",
+            "admin_email",
+            "admin_key",
+            "admin_password",
+            "admin_full_name"
           ],
           "group_id": "Accounts",
           "parameter_map": {
@@ -2288,7 +3108,6 @@
                     "items": {
                       "type": "object",
                       "required": [
-                        "aliases",
                         "end_market",
                         "etag",
                         "id",
@@ -2308,6 +3127,43 @@
                           "example": " ",
                           "description": "Postal address line 2.",
                           "_key": "address_line2"
+                        },
+                        {
+                          "type": "string",
+                          "example": "admin@arm.com",
+                          "description": "The email address of the admin user created for this account. Present only in the response for the account creation.",
+                          "_key": "admin_email"
+                        },
+                        {
+                          "type": "string",
+                          "example": "Admin Doe",
+                          "description": "The full name of the admin user created for this account. Present only in the response for the account creation.",
+                          "_key": "admin_full_name"
+                        },
+                        {
+                          "type": "string",
+                          "example": "01619571e2e89242ac12000600000000",
+                          "description": "The ID of the admin user created for this account.",
+                          "_key": "admin_id"
+                        },
+                        {
+                          "type": "string",
+                          "example": "ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT",
+                          "description": "The admin API key created for this account. Present only in the response for the account creation.",
+                          "readOnly": true,
+                          "_key": "admin_key"
+                        },
+                        {
+                          "type": "string",
+                          "example": "admin",
+                          "description": "The username of the admin user created for this account. Present only in the response for the account creation.",
+                          "_key": "admin_name"
+                        },
+                        {
+                          "type": "string",
+                          "example": "PZf9eEUH43DAPE9ULINFeuj",
+                          "description": "The password of the admin user created for this account. Present only in the response for the account creation.",
+                          "_key": "admin_password"
                         },
                         {
                           "type": "array",
@@ -2391,6 +3247,12 @@
                           "example": "1",
                           "description": "API resource entity version.",
                           "_key": "etag"
+                        },
+                        {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "Expiration time of the account, as UTC time RFC3339.",
+                          "_key": "expiration"
                         },
                         {
                           "type": "string",
@@ -2614,7 +3476,6 @@
                           "items": {
                             "type": "object",
                             "required": [
-                              "aliases",
                               "end_market",
                               "etag",
                               "id",
@@ -2634,6 +3495,43 @@
                                 "example": " ",
                                 "description": "Postal address line 2.",
                                 "_key": "address_line2"
+                              },
+                              {
+                                "type": "string",
+                                "example": "admin@arm.com",
+                                "description": "The email address of the admin user created for this account. Present only in the response for the account creation.",
+                                "_key": "admin_email"
+                              },
+                              {
+                                "type": "string",
+                                "example": "Admin Doe",
+                                "description": "The full name of the admin user created for this account. Present only in the response for the account creation.",
+                                "_key": "admin_full_name"
+                              },
+                              {
+                                "type": "string",
+                                "example": "01619571e2e89242ac12000600000000",
+                                "description": "The ID of the admin user created for this account.",
+                                "_key": "admin_id"
+                              },
+                              {
+                                "type": "string",
+                                "example": "ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT",
+                                "description": "The admin API key created for this account. Present only in the response for the account creation.",
+                                "readOnly": true,
+                                "_key": "admin_key"
+                              },
+                              {
+                                "type": "string",
+                                "example": "admin",
+                                "description": "The username of the admin user created for this account. Present only in the response for the account creation.",
+                                "_key": "admin_name"
+                              },
+                              {
+                                "type": "string",
+                                "example": "PZf9eEUH43DAPE9ULINFeuj",
+                                "description": "The password of the admin user created for this account. Present only in the response for the account creation.",
+                                "_key": "admin_password"
                               },
                               {
                                 "type": "array",
@@ -2717,6 +3615,12 @@
                                 "example": "1",
                                 "description": "API resource entity version.",
                                 "_key": "etag"
+                              },
+                              {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "Expiration time of the account, as UTC time RFC3339.",
+                                "_key": "expiration"
                               },
                               {
                                 "type": "string",
@@ -3281,7 +4185,6 @@
               "schema": {
                 "type": "object",
                 "required": [
-                  "aliases",
                   "end_market",
                   "etag",
                   "id",
@@ -3305,6 +4208,55 @@
                     "api_fieldname": "address_line2",
                     "entity_fieldname": "address_line2",
                     "_key": "address_line2"
+                  },
+                  {
+                    "type": "string",
+                    "example": "admin@arm.com",
+                    "description": "The email address of the admin user created for this account. Present only in the response for the account creation.",
+                    "api_fieldname": "admin_email",
+                    "entity_fieldname": "admin_email",
+                    "_key": "admin_email"
+                  },
+                  {
+                    "type": "string",
+                    "example": "Admin Doe",
+                    "description": "The full name of the admin user created for this account. Present only in the response for the account creation.",
+                    "api_fieldname": "admin_full_name",
+                    "entity_fieldname": "admin_full_name",
+                    "_key": "admin_full_name"
+                  },
+                  {
+                    "type": "string",
+                    "example": "01619571e2e89242ac12000600000000",
+                    "description": "The ID of the admin user created for this account.",
+                    "api_fieldname": "admin_id",
+                    "entity_fieldname": "admin_id",
+                    "_key": "admin_id"
+                  },
+                  {
+                    "type": "string",
+                    "example": "ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT",
+                    "description": "The admin API key created for this account. Present only in the response for the account creation.",
+                    "readOnly": true,
+                    "api_fieldname": "admin_key",
+                    "entity_fieldname": "admin_key",
+                    "_key": "admin_key"
+                  },
+                  {
+                    "type": "string",
+                    "example": "admin",
+                    "description": "The username of the admin user created for this account. Present only in the response for the account creation.",
+                    "api_fieldname": "admin_name",
+                    "entity_fieldname": "admin_name",
+                    "_key": "admin_name"
+                  },
+                  {
+                    "type": "string",
+                    "example": "PZf9eEUH43DAPE9ULINFeuj",
+                    "description": "The password of the admin user created for this account. Present only in the response for the account creation.",
+                    "api_fieldname": "admin_password",
+                    "entity_fieldname": "admin_password",
+                    "_key": "admin_password"
                   },
                   {
                     "type": "array",
@@ -3414,6 +4366,14 @@
                     "api_fieldname": "etag",
                     "entity_fieldname": "etag",
                     "_key": "etag"
+                  },
+                  {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Expiration time of the account, as UTC time RFC3339.",
+                    "api_fieldname": "expiration",
+                    "entity_fieldname": "expiration",
+                    "_key": "expiration"
                   },
                   {
                     "type": "string",
@@ -3673,7 +4633,6 @@
                     "items": {
                       "type": "object",
                       "required": [
-                        "aliases",
                         "end_market",
                         "etag",
                         "id",
@@ -3693,6 +4652,43 @@
                           "example": " ",
                           "description": "Postal address line 2.",
                           "_key": "address_line2"
+                        },
+                        {
+                          "type": "string",
+                          "example": "admin@arm.com",
+                          "description": "The email address of the admin user created for this account. Present only in the response for the account creation.",
+                          "_key": "admin_email"
+                        },
+                        {
+                          "type": "string",
+                          "example": "Admin Doe",
+                          "description": "The full name of the admin user created for this account. Present only in the response for the account creation.",
+                          "_key": "admin_full_name"
+                        },
+                        {
+                          "type": "string",
+                          "example": "01619571e2e89242ac12000600000000",
+                          "description": "The ID of the admin user created for this account.",
+                          "_key": "admin_id"
+                        },
+                        {
+                          "type": "string",
+                          "example": "ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT",
+                          "description": "The admin API key created for this account. Present only in the response for the account creation.",
+                          "readOnly": true,
+                          "_key": "admin_key"
+                        },
+                        {
+                          "type": "string",
+                          "example": "admin",
+                          "description": "The username of the admin user created for this account. Present only in the response for the account creation.",
+                          "_key": "admin_name"
+                        },
+                        {
+                          "type": "string",
+                          "example": "PZf9eEUH43DAPE9ULINFeuj",
+                          "description": "The password of the admin user created for this account. Present only in the response for the account creation.",
+                          "_key": "admin_password"
                         },
                         {
                           "type": "array",
@@ -3776,6 +4772,12 @@
                           "example": "1",
                           "description": "API resource entity version.",
                           "_key": "etag"
+                        },
+                        {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "Expiration time of the account, as UTC time RFC3339.",
+                          "_key": "expiration"
                         },
                         {
                           "type": "string",
@@ -4269,7 +5271,14 @@
             "expiration_warning_threshold",
             "contract_number",
             "customer_number",
-            "parent_account"
+            "parent_account",
+            "expiration",
+            "admin_id",
+            "admin_name",
+            "admin_email",
+            "admin_key",
+            "admin_password",
+            "admin_full_name"
           ],
           "group_id": "Accounts",
           "parameter_map": {
@@ -4376,6 +5385,11 @@
                     "description": "The entity ID to fetch after the given one.",
                     "api_fieldname": "after",
                     "entity_fieldname": "after",
+                    "name": "after",
+                    "in": "query",
+                    "required": false,
+                    "external_param": true,
+                    "parameter_fieldname": "after",
                     "_key": "after"
                   },
                   {
@@ -4392,7 +5406,6 @@
                         "issuer",
                         "name",
                         "object",
-                        "private_key",
                         "service",
                         "subject",
                         "validity"
@@ -4402,30 +5415,18 @@
                           "type": "string",
                           "example": "01619571e2e90242ac12000600000000",
                           "description": "The ID of the account.",
-                          "api_fieldname": "account_id",
-                          "entity_fieldname": "account_id",
-                          "parameter_fieldname": "account_id",
-                          "in": "path",
-                          "required": true,
                           "_key": "account_id"
                         },
                         {
                           "type": "string",
                           "example": "-----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----",
                           "description": "X509.v3 trusted certificate in PEM format.",
-                          "api_fieldname": "certificate",
-                          "entity_fieldname": "certificate",
-                          "parameter_fieldname": "certificate",
-                          "in": "body",
-                          "required": false,
                           "_key": "certificate"
                         },
                         {
                           "type": "string",
                           "example": "a10fb2c8ba90e6de927bd0ae391dcc38f6115685de2d7024712af37ead0608f1",
                           "description": "A SHA-256 fingerprint of the certificate.",
-                          "api_fieldname": "certificate_fingerprint",
-                          "entity_fieldname": "certificate_fingerprint",
                           "_key": "certificate_fingerprint"
                         },
                         {
@@ -4433,19 +5434,12 @@
                           "format": "date-time",
                           "example": "2018-02-13T09:35:20Z",
                           "description": "Creation UTC time RFC3339.",
-                          "api_fieldname": "created_at",
-                          "entity_fieldname": "created_at",
                           "_key": "created_at"
                         },
                         {
                           "type": "string",
                           "example": "Certificate created by me.",
                           "description": "Human readable description of this certificate.",
-                          "api_fieldname": "description",
-                          "entity_fieldname": "description",
-                          "parameter_fieldname": "description",
-                          "in": "body",
-                          "required": false,
                           "_key": "description"
                         },
                         {
@@ -4456,57 +5450,36 @@
                           "private_field": true,
                           "readOnly": false,
                           "_override": true,
-                          "api_fieldname": "device_execution_mode",
-                          "entity_fieldname": "device_execution_mode",
                           "_key": "device_execution_mode"
                         },
                         {
                           "type": "boolean",
                           "example": false,
                           "description": "If true, signature is not required. Default value false.",
-                          "api_fieldname": "enrollment_mode",
-                          "entity_fieldname": "enrollment_mode",
-                          "parameter_fieldname": "enrollment_mode",
-                          "in": "body",
-                          "required": false,
                           "_key": "enrollment_mode"
                         },
                         {
                           "type": "string",
                           "example": "1",
                           "description": "API resource entity version.",
-                          "api_fieldname": "etag",
-                          "entity_fieldname": "etag",
                           "_key": "etag"
                         },
                         {
                           "type": "string",
                           "example": "01619571d01d0242ac12000600000000",
                           "description": "Entity ID.",
-                          "api_fieldname": "id",
-                          "entity_fieldname": "id",
-                          "parameter_fieldname": "cert_id",
-                          "in": "path",
-                          "required": true,
                           "_key": "id"
                         },
                         {
                           "type": "string",
                           "example": "CN=issuer",
                           "description": "Issuer of the certificate.",
-                          "api_fieldname": "issuer",
-                          "entity_fieldname": "issuer",
                           "_key": "issuer"
                         },
                         {
                           "type": "string",
                           "example": "My certificate",
                           "description": "Certificate name.",
-                          "api_fieldname": "name",
-                          "entity_fieldname": "name",
-                          "parameter_fieldname": "name",
-                          "in": "body",
-                          "required": false,
                           "_key": "name"
                         },
                         {
@@ -4515,25 +5488,13 @@
                           "enum": [
                             "trusted-cert"
                           ],
-                          "api_fieldname": "object",
-                          "entity_fieldname": "object",
                           "_key": "object"
                         },
                         {
                           "type": "string",
                           "example": "01619571dad80242ac12000600000000",
                           "description": "The ID of the owner.",
-                          "api_fieldname": "owner_id",
-                          "entity_fieldname": "owner_id",
                           "_key": "owner_id"
-                        },
-                        {
-                          "type": "string",
-                          "example": "MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmE...",
-                          "description": "Private key of the certificate in PEM or base64 encoded DER format.",
-                          "api_fieldname": "private_key",
-                          "entity_fieldname": "private_key",
-                          "_key": "private_key"
                         },
                         {
                           "type": "string",
@@ -4542,12 +5503,6 @@
                             "lwm2m",
                             "bootstrap"
                           ],
-                          "api_fieldname": "service",
-                          "entity_fieldname": "service",
-                          "parameter_fieldname": "service",
-                          "in": "body",
-                          "required": false,
-                          "enum_reference": "subtenant_trusted_certificate_service_enum",
                           "_key": "service"
                         },
                         {
@@ -4558,20 +5513,12 @@
                             "ACTIVE",
                             "INACTIVE"
                           ],
-                          "api_fieldname": "status",
-                          "entity_fieldname": "status",
-                          "parameter_fieldname": "status",
-                          "in": "body",
-                          "required": false,
-                          "enum_reference": "subtenant_trusted_certificate_status_enum",
                           "_key": "status"
                         },
                         {
                           "type": "string",
                           "example": "CN=subject",
                           "description": "Subject of the certificate.",
-                          "api_fieldname": "subject",
-                          "entity_fieldname": "subject",
                           "_key": "subject"
                         },
                         {
@@ -4579,8 +5526,6 @@
                           "format": "date-time",
                           "example": "2018-02-14T15:24:14Z",
                           "description": "Last update UTC time RFC3339.",
-                          "api_fieldname": "updated_at",
-                          "entity_fieldname": "updated_at",
                           "_key": "updated_at"
                         },
                         {
@@ -4588,15 +5533,13 @@
                           "format": "date-time",
                           "example": "2038-02-14T15:24:14Z",
                           "description": "Expiration time in UTC formatted as RFC3339.",
-                          "api_fieldname": "validity",
-                          "entity_fieldname": "validity",
                           "_key": "validity"
                         }
                       ],
                       "description": "This object represents a trusted certificate in responses.",
                       "foreign_key": {
                         "group": "Security",
-                        "entity": "subtenant_trusted_certificate"
+                        "entity": "trusted_certificate"
                       }
                     },
                     "api_fieldname": "data",
@@ -4615,9 +5558,15 @@
                     "type": "integer",
                     "format": "int32",
                     "example": 50,
-                    "description": "The number of results to return, (range: 2-1000), or equals to `total_count`",
+                    "description": "The number of results to return (2-1000), default is 50.",
                     "api_fieldname": "limit",
                     "entity_fieldname": "limit",
+                    "name": "limit",
+                    "in": "query",
+                    "required": false,
+                    "default": 50,
+                    "external_param": true,
+                    "parameter_fieldname": "limit",
                     "_key": "limit"
                   },
                   {
@@ -4632,13 +5581,20 @@
                   },
                   {
                     "type": "string",
-                    "description": "The order of the records to return based on creation time. Available values: ASC, DESC; by default ASC.",
+                    "description": "The order of the records based on creation time, ASC or DESC; by default ASC",
                     "enum": [
                       "ASC",
                       "DESC"
                     ],
                     "api_fieldname": "order",
                     "entity_fieldname": "order",
+                    "name": "order",
+                    "in": "query",
+                    "required": false,
+                    "default": "ASC",
+                    "external_param": true,
+                    "parameter_fieldname": "order",
+                    "enum_reference": "trusted_certificate_order_enum",
                     "_key": "order"
                   },
                   {
@@ -4653,8 +5609,8 @@
                 ],
                 "pagination": true,
                 "foreign_key": {
-                  "group": "Accounts",
-                  "entity": "account"
+                  "group": "Security",
+                  "entity": "trusted_certificate"
                 }
               },
               "_key": "200"
@@ -5210,7 +6166,6 @@
               "schema": {
                 "type": "object",
                 "required": [
-                  "aliases",
                   "end_market",
                   "etag",
                   "id",
@@ -5234,6 +6189,55 @@
                     "api_fieldname": "address_line2",
                     "entity_fieldname": "address_line2",
                     "_key": "address_line2"
+                  },
+                  {
+                    "type": "string",
+                    "example": "admin@arm.com",
+                    "description": "The email address of the admin user created for this account. Present only in the response for the account creation.",
+                    "api_fieldname": "admin_email",
+                    "entity_fieldname": "admin_email",
+                    "_key": "admin_email"
+                  },
+                  {
+                    "type": "string",
+                    "example": "Admin Doe",
+                    "description": "The full name of the admin user created for this account. Present only in the response for the account creation.",
+                    "api_fieldname": "admin_full_name",
+                    "entity_fieldname": "admin_full_name",
+                    "_key": "admin_full_name"
+                  },
+                  {
+                    "type": "string",
+                    "example": "01619571e2e89242ac12000600000000",
+                    "description": "The ID of the admin user created for this account.",
+                    "api_fieldname": "admin_id",
+                    "entity_fieldname": "admin_id",
+                    "_key": "admin_id"
+                  },
+                  {
+                    "type": "string",
+                    "example": "ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT",
+                    "description": "The admin API key created for this account. Present only in the response for the account creation.",
+                    "readOnly": true,
+                    "api_fieldname": "admin_key",
+                    "entity_fieldname": "admin_key",
+                    "_key": "admin_key"
+                  },
+                  {
+                    "type": "string",
+                    "example": "admin",
+                    "description": "The username of the admin user created for this account. Present only in the response for the account creation.",
+                    "api_fieldname": "admin_name",
+                    "entity_fieldname": "admin_name",
+                    "_key": "admin_name"
+                  },
+                  {
+                    "type": "string",
+                    "example": "PZf9eEUH43DAPE9ULINFeuj",
+                    "description": "The password of the admin user created for this account. Present only in the response for the account creation.",
+                    "api_fieldname": "admin_password",
+                    "entity_fieldname": "admin_password",
+                    "_key": "admin_password"
                   },
                   {
                     "type": "array",
@@ -5343,6 +6347,14 @@
                     "api_fieldname": "etag",
                     "entity_fieldname": "etag",
                     "_key": "etag"
+                  },
+                  {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Expiration time of the account, as UTC time RFC3339.",
+                    "api_fieldname": "expiration",
+                    "entity_fieldname": "expiration",
+                    "_key": "expiration"
                   },
                   {
                     "type": "string",
@@ -5602,7 +6614,6 @@
                     "items": {
                       "type": "object",
                       "required": [
-                        "aliases",
                         "end_market",
                         "etag",
                         "id",
@@ -5622,6 +6633,43 @@
                           "example": " ",
                           "description": "Postal address line 2.",
                           "_key": "address_line2"
+                        },
+                        {
+                          "type": "string",
+                          "example": "admin@arm.com",
+                          "description": "The email address of the admin user created for this account. Present only in the response for the account creation.",
+                          "_key": "admin_email"
+                        },
+                        {
+                          "type": "string",
+                          "example": "Admin Doe",
+                          "description": "The full name of the admin user created for this account. Present only in the response for the account creation.",
+                          "_key": "admin_full_name"
+                        },
+                        {
+                          "type": "string",
+                          "example": "01619571e2e89242ac12000600000000",
+                          "description": "The ID of the admin user created for this account.",
+                          "_key": "admin_id"
+                        },
+                        {
+                          "type": "string",
+                          "example": "ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT",
+                          "description": "The admin API key created for this account. Present only in the response for the account creation.",
+                          "readOnly": true,
+                          "_key": "admin_key"
+                        },
+                        {
+                          "type": "string",
+                          "example": "admin",
+                          "description": "The username of the admin user created for this account. Present only in the response for the account creation.",
+                          "_key": "admin_name"
+                        },
+                        {
+                          "type": "string",
+                          "example": "PZf9eEUH43DAPE9ULINFeuj",
+                          "description": "The password of the admin user created for this account. Present only in the response for the account creation.",
+                          "_key": "admin_password"
                         },
                         {
                           "type": "array",
@@ -5705,6 +6753,12 @@
                           "example": "1",
                           "description": "API resource entity version.",
                           "_key": "etag"
+                        },
+                        {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "Expiration time of the account, as UTC time RFC3339.",
+                          "_key": "expiration"
                         },
                         {
                           "type": "string",
@@ -6321,7 +7375,14 @@
             "template_id",
             "reason",
             "reference_note",
-            "parent_account"
+            "parent_account",
+            "expiration",
+            "admin_id",
+            "admin_name",
+            "admin_email",
+            "admin_key",
+            "admin_password",
+            "admin_full_name"
           ],
           "group_id": "Accounts",
           "parameter_map": {
@@ -7591,7 +8652,7 @@
         {
           "type": "string",
           "example": "admin@arm.com",
-          "description": "The email address of the account admin, not longer than 254 characters.",
+          "description": "The email address of the admin user created for this account. Present only in the response for the account creation.",
           "api_fieldname": "admin_email",
           "readOnly": false,
           "required": false,
@@ -7600,7 +8661,7 @@
         {
           "type": "string",
           "example": "Admin Doe",
-          "description": "The full name of the admin user to be created.",
+          "description": "The full name of the admin user created for this account. Present only in the response for the account creation.",
           "api_fieldname": "admin_full_name",
           "readOnly": false,
           "required": false,
@@ -7609,7 +8670,7 @@
         {
           "type": "string",
           "example": "01619571e2e89242ac12000600000000",
-          "description": "The ID of the admin user created.",
+          "description": "The ID of the admin user created for this account.",
           "api_fieldname": "admin_id",
           "readOnly": true,
           "required": false,
@@ -7618,16 +8679,16 @@
         {
           "type": "string",
           "example": "ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT",
-          "description": "The admin API key created for the account.",
-          "api_fieldname": "admin_key",
+          "description": "The admin API key created for this account. Present only in the response for the account creation.",
           "readOnly": true,
+          "api_fieldname": "admin_key",
           "required": false,
           "_key": "admin_key"
         },
         {
           "type": "string",
           "example": "admin",
-          "description": "The username of the admin user to be created, containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.",
+          "description": "The username of the admin user created for this account. Present only in the response for the account creation.",
           "api_fieldname": "admin_name",
           "readOnly": false,
           "required": false,
@@ -7636,7 +8697,7 @@
         {
           "type": "string",
           "example": "PZf9eEUH43DAPE9ULINFeuj",
-          "description": "The password when creating a new user. It will be generated when not present in the request.",
+          "description": "The password of the admin user created for this account. Present only in the response for the account creation.",
           "api_fieldname": "admin_password",
           "readOnly": false,
           "required": false,
@@ -7754,6 +8815,15 @@
           "readOnly": false,
           "required": true,
           "_key": "end_market"
+        },
+        {
+          "type": "string",
+          "format": "date-time",
+          "description": "Expiration time of the account, as UTC time RFC3339.",
+          "api_fieldname": "expiration",
+          "readOnly": true,
+          "required": false,
+          "_key": "expiration"
         },
         {
           "type": "string",
@@ -25803,9 +26873,8 @@
     {
       "swagger_models": [
         "DeveloperCertificateResponseData",
-        "TrustedCertificateInternalResp",
+        "TrustedCertificateReq",
         "TrustedCertificateResp",
-        "TrustedCertificateRootReq",
         "TrustedCertificateUpdateReq"
       ],
       "primary_key_field": "id",
@@ -25833,7 +26902,7 @@
               "entity_fieldname": "certificate",
               "parameter_fieldname": "certificate",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "certificate"
             },
             {
@@ -25889,7 +26958,7 @@
               "entity_fieldname": "name",
               "parameter_fieldname": "name",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "name"
             },
             {
@@ -25903,7 +26972,7 @@
               "entity_fieldname": "service",
               "parameter_fieldname": "service",
               "in": "body",
-              "required": true,
+              "required": false,
               "enum_reference": "subtenant_trusted_certificate_service_enum",
               "_key": "service"
             },
@@ -26831,7 +27900,6 @@
                   "issuer",
                   "name",
                   "object",
-                  "private_key",
                   "service",
                   "subject",
                   "validity"
@@ -26851,6 +27919,9 @@
                     "description": "X509.v3 trusted certificate in PEM format.",
                     "api_fieldname": "certificate",
                     "entity_fieldname": "certificate",
+                    "parameter_fieldname": "certificate",
+                    "in": "body",
+                    "required": false,
                     "_key": "certificate"
                   },
                   {
@@ -26876,6 +27947,9 @@
                     "description": "Human readable description of this certificate.",
                     "api_fieldname": "description",
                     "entity_fieldname": "description",
+                    "parameter_fieldname": "description",
+                    "in": "body",
+                    "required": false,
                     "_key": "description"
                   },
                   {
@@ -26896,6 +27970,9 @@
                     "description": "If true, signature is not required. Default value false.",
                     "api_fieldname": "enrollment_mode",
                     "entity_fieldname": "enrollment_mode",
+                    "parameter_fieldname": "enrollment_mode",
+                    "in": "body",
+                    "required": false,
                     "_key": "enrollment_mode"
                   },
                   {
@@ -26912,6 +27989,9 @@
                     "description": "Entity ID.",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
+                    "parameter_fieldname": "cert_id",
+                    "in": "path",
+                    "required": true,
                     "_key": "id"
                   },
                   {
@@ -26928,6 +28008,9 @@
                     "description": "Certificate name.",
                     "api_fieldname": "name",
                     "entity_fieldname": "name",
+                    "parameter_fieldname": "name",
+                    "in": "body",
+                    "required": false,
                     "_key": "name"
                   },
                   {
@@ -26950,14 +28033,6 @@
                   },
                   {
                     "type": "string",
-                    "example": "MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmE...",
-                    "description": "Private key of the certificate in PEM or base64 encoded DER format.",
-                    "api_fieldname": "private_key",
-                    "entity_fieldname": "private_key",
-                    "_key": "private_key"
-                  },
-                  {
-                    "type": "string",
                     "description": "Service name where the certificate is to be used.",
                     "enum": [
                       "lwm2m",
@@ -26965,6 +28040,10 @@
                     ],
                     "api_fieldname": "service",
                     "entity_fieldname": "service",
+                    "parameter_fieldname": "service",
+                    "in": "body",
+                    "required": false,
+                    "enum_reference": "trusted_certificate_service_enum",
                     "_key": "service"
                   },
                   {
@@ -26977,6 +28056,10 @@
                     ],
                     "api_fieldname": "status",
                     "entity_fieldname": "status",
+                    "parameter_fieldname": "status",
+                    "in": "body",
+                    "required": false,
+                    "enum_reference": "trusted_certificate_status_enum",
                     "_key": "status"
                   },
                   {
@@ -27009,7 +28092,7 @@
                 "description": "This object represents a trusted certificate in responses.",
                 "foreign_key": {
                   "group": "Security",
-                  "entity": "subtenant_trusted_certificate"
+                  "entity": "developer_certificate"
                 }
               },
               "_key": "200"
@@ -27829,7 +28912,6 @@
                   "issuer",
                   "name",
                   "object",
-                  "private_key",
                   "service",
                   "subject",
                   "validity"
@@ -27849,6 +28931,9 @@
                     "description": "X509.v3 trusted certificate in PEM format.",
                     "api_fieldname": "certificate",
                     "entity_fieldname": "certificate",
+                    "parameter_fieldname": "certificate",
+                    "in": "body",
+                    "required": false,
                     "_key": "certificate"
                   },
                   {
@@ -27874,6 +28959,9 @@
                     "description": "Human readable description of this certificate.",
                     "api_fieldname": "description",
                     "entity_fieldname": "description",
+                    "parameter_fieldname": "description",
+                    "in": "body",
+                    "required": false,
                     "_key": "description"
                   },
                   {
@@ -27894,6 +28982,9 @@
                     "description": "If true, signature is not required. Default value false.",
                     "api_fieldname": "enrollment_mode",
                     "entity_fieldname": "enrollment_mode",
+                    "parameter_fieldname": "enrollment_mode",
+                    "in": "body",
+                    "required": false,
                     "_key": "enrollment_mode"
                   },
                   {
@@ -27910,6 +29001,9 @@
                     "description": "Entity ID.",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
+                    "parameter_fieldname": "cert_id",
+                    "in": "path",
+                    "required": true,
                     "_key": "id"
                   },
                   {
@@ -27926,6 +29020,9 @@
                     "description": "Certificate name.",
                     "api_fieldname": "name",
                     "entity_fieldname": "name",
+                    "parameter_fieldname": "name",
+                    "in": "body",
+                    "required": false,
                     "_key": "name"
                   },
                   {
@@ -27948,14 +29045,6 @@
                   },
                   {
                     "type": "string",
-                    "example": "MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmE...",
-                    "description": "Private key of the certificate in PEM or base64 encoded DER format.",
-                    "api_fieldname": "private_key",
-                    "entity_fieldname": "private_key",
-                    "_key": "private_key"
-                  },
-                  {
-                    "type": "string",
                     "description": "Service name where the certificate is to be used.",
                     "enum": [
                       "lwm2m",
@@ -27963,6 +29052,10 @@
                     ],
                     "api_fieldname": "service",
                     "entity_fieldname": "service",
+                    "parameter_fieldname": "service",
+                    "in": "body",
+                    "required": false,
+                    "enum_reference": "trusted_certificate_service_enum",
                     "_key": "service"
                   },
                   {
@@ -27975,6 +29068,10 @@
                     ],
                     "api_fieldname": "status",
                     "entity_fieldname": "status",
+                    "parameter_fieldname": "status",
+                    "in": "body",
+                    "required": false,
+                    "enum_reference": "trusted_certificate_status_enum",
                     "_key": "status"
                   },
                   {
@@ -28007,7 +29104,7 @@
                 "description": "This object represents a trusted certificate in responses.",
                 "foreign_key": {
                   "group": "Security",
-                  "entity": "subtenant_trusted_certificate"
+                  "entity": "developer_certificate"
                 }
               },
               "_key": "200"
