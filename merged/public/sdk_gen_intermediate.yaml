@@ -5849,25 +5849,34 @@ entities:
               items:
                 description: This object represents a user login profile in Device
                   Management.
+                foreign_key:
+                  entity: login_profile
+                  group: Accounts
                 properties:
                 - _key: id
+                  api_fieldname: id
                   description: ID of the identity provider.
+                  entity_fieldname: id
                   type: string
                 - _key: name
+                  api_fieldname: name
                   description: Name of the identity provider.
+                  entity_fieldname: name
+                  readOnly: true
                   type: string
                 - _key: type
+                  api_fieldname: type
                   description: Identity provider type.
+                  entity_fieldname: type
                   enum:
                   - NATIVE
                   - MBED
                   - SAML2
                   - OIDC
+                  readOnly: true
                   type: string
                 required:
                 - id
-                - name
-                - type
                 type: object
               type: array
             - _key: object
@@ -6342,25 +6351,34 @@ entities:
               items:
                 description: This object represents a user login profile in Device
                   Management.
+                foreign_key:
+                  entity: login_profile
+                  group: Accounts
                 properties:
                 - _key: id
+                  api_fieldname: id
                   description: ID of the identity provider.
+                  entity_fieldname: id
                   type: string
                 - _key: name
+                  api_fieldname: name
                   description: Name of the identity provider.
+                  entity_fieldname: name
+                  readOnly: true
                   type: string
                 - _key: type
+                  api_fieldname: type
                   description: Identity provider type.
+                  entity_fieldname: type
                   enum:
                   - NATIVE
                   - MBED
                   - SAML2
                   - OIDC
+                  readOnly: true
                   type: string
                 required:
                 - id
-                - name
-                - type
                 type: object
               type: array
             - _key: object
@@ -20132,11 +20150,24 @@ entities:
   tags: []
 - _key: login_profile
   field_renames: []
-  fields: []
+  fields:
+  - _key: id
+    api_fieldname: id
+    description: ID of the identity provider.
+    readOnly: true
+    required: false
+    type: string
+  - _key: name
+    api_fieldname: name
+    description: Name of the identity provider.
+    readOnly: true
+    required: false
+    type: string
   group_id: Accounts
   methods: []
-  primary_key_field: null
-  swagger_models: []
+  primary_key_field: id
+  swagger_models:
+  - LoginProfile
   tags: []
 - _key: parent_account
   field_renames: []
@@ -23044,25 +23075,34 @@ entities:
     in: body
     items:
       description: This object represents a user login profile in Device Management.
+      foreign_key:
+        entity: login_profile
+        group: Accounts
       properties:
       - _key: id
+        api_fieldname: id
         description: ID of the identity provider.
+        entity_fieldname: id
         type: string
       - _key: name
+        api_fieldname: name
         description: Name of the identity provider.
+        entity_fieldname: name
+        readOnly: true
         type: string
       - _key: type
+        api_fieldname: type
         description: Identity provider type.
+        entity_fieldname: type
         enum:
         - NATIVE
         - MBED
         - SAML2
         - OIDC
+        readOnly: true
         type: string
       required:
       - id
-      - name
-      - type
       type: object
     parameter_fieldname: login_profiles
     readOnly: false
@@ -23255,25 +23295,34 @@ entities:
       in: body
       items:
         description: This object represents a user login profile in Device Management.
+        foreign_key:
+          entity: login_profile
+          group: Accounts
         properties:
         - _key: id
+          api_fieldname: id
           description: ID of the identity provider.
+          entity_fieldname: id
           type: string
         - _key: name
+          api_fieldname: name
           description: Name of the identity provider.
+          entity_fieldname: name
+          readOnly: true
           type: string
         - _key: type
+          api_fieldname: type
           description: Identity provider type.
+          entity_fieldname: type
           enum: &id004
           - NATIVE
           - MBED
           - SAML2
           - OIDC
+          readOnly: true
           type: string
         required: &id005
         - id
-        - name
-        - type
         type: object
       parameter_fieldname: login_profiles
       required: false
@@ -23515,25 +23564,34 @@ entities:
           in: body
           items:
             description: This object represents a user login profile in Device Management.
+            foreign_key:
+              entity: login_profile
+              group: Accounts
             properties:
             - _key: id
+              api_fieldname: id
               description: ID of the identity provider.
+              entity_fieldname: id
               type: string
             - _key: name
+              api_fieldname: name
               description: Name of the identity provider.
+              entity_fieldname: name
+              readOnly: true
               type: string
             - _key: type
+              api_fieldname: type
               description: Identity provider type.
+              entity_fieldname: type
               enum:
               - NATIVE
               - MBED
               - SAML2
               - OIDC
+              readOnly: true
               type: string
             required:
             - id
-            - name
-            - type
             type: object
           parameter_fieldname: login_profiles
           required: false
@@ -24364,25 +24422,34 @@ entities:
           in: body
           items:
             description: This object represents a user login profile in Device Management.
+            foreign_key:
+              entity: login_profile
+              group: Accounts
             properties:
             - _key: id
+              api_fieldname: id
               description: ID of the identity provider.
+              entity_fieldname: id
               type: string
             - _key: name
+              api_fieldname: name
               description: Name of the identity provider.
+              entity_fieldname: name
+              readOnly: true
               type: string
             - _key: type
+              api_fieldname: type
               description: Identity provider type.
+              entity_fieldname: type
               enum:
               - NATIVE
               - MBED
               - SAML2
               - OIDC
+              readOnly: true
               type: string
             required:
             - id
-            - name
-            - type
             type: object
           parameter_fieldname: login_profiles
           required: false
@@ -24694,16 +24761,27 @@ entities:
       in: body
       items:
         description: This object represents a user login profile in Device Management.
+        foreign_key:
+          entity: login_profile
+          group: Accounts
         properties:
         - _key: id
+          api_fieldname: id
           description: ID of the identity provider.
+          entity_fieldname: id
           type: string
         - _key: name
+          api_fieldname: name
           description: Name of the identity provider.
+          entity_fieldname: name
+          readOnly: true
           type: string
         - _key: type
+          api_fieldname: type
           description: Identity provider type.
+          entity_fieldname: type
           enum: *id004
+          readOnly: true
           type: string
         required: *id005
         type: object
@@ -24947,25 +25025,34 @@ entities:
           in: body
           items:
             description: This object represents a user login profile in Device Management.
+            foreign_key:
+              entity: login_profile
+              group: Accounts
             properties:
             - _key: id
+              api_fieldname: id
               description: ID of the identity provider.
+              entity_fieldname: id
               type: string
             - _key: name
+              api_fieldname: name
               description: Name of the identity provider.
+              entity_fieldname: name
+              readOnly: true
               type: string
             - _key: type
+              api_fieldname: type
               description: Identity provider type.
+              entity_fieldname: type
               enum:
               - NATIVE
               - MBED
               - SAML2
               - OIDC
+              readOnly: true
               type: string
             required:
             - id
-            - name
-            - type
             type: object
           parameter_fieldname: login_profiles
           required: false
@@ -25556,25 +25643,34 @@ entities:
     in: body
     items:
       description: This object represents a user login profile in Device Management.
+      foreign_key:
+        entity: login_profile
+        group: Accounts
       properties:
       - _key: id
+        api_fieldname: id
         description: ID of the identity provider.
+        entity_fieldname: id
         type: string
       - _key: name
+        api_fieldname: name
         description: Name of the identity provider.
+        entity_fieldname: name
+        readOnly: true
         type: string
       - _key: type
+        api_fieldname: type
         description: Identity provider type.
+        entity_fieldname: type
         enum:
         - NATIVE
         - MBED
         - SAML2
         - OIDC
+        readOnly: true
         type: string
       required:
       - id
-      - name
-      - type
       type: object
     parameter_fieldname: login_profiles
     readOnly: false
@@ -25648,25 +25744,34 @@ entities:
       in: body
       items:
         description: This object represents a user login profile in Device Management.
+        foreign_key:
+          entity: login_profile
+          group: Accounts
         properties:
         - _key: id
+          api_fieldname: id
           description: ID of the identity provider.
+          entity_fieldname: id
           type: string
         - _key: name
+          api_fieldname: name
           description: Name of the identity provider.
+          entity_fieldname: name
+          readOnly: true
           type: string
         - _key: type
+          api_fieldname: type
           description: Identity provider type.
+          entity_fieldname: type
           enum:
           - NATIVE
           - MBED
           - SAML2
           - OIDC
+          readOnly: true
           type: string
         required:
         - id
-        - name
-        - type
         type: object
       parameter_fieldname: login_profiles
       required: false
@@ -25766,25 +25871,34 @@ entities:
           in: body
           items:
             description: This object represents a user login profile in Device Management.
+            foreign_key:
+              entity: login_profile
+              group: Accounts
             properties:
             - _key: id
+              api_fieldname: id
               description: ID of the identity provider.
+              entity_fieldname: id
               type: string
             - _key: name
+              api_fieldname: name
               description: Name of the identity provider.
+              entity_fieldname: name
+              readOnly: true
               type: string
             - _key: type
+              api_fieldname: type
               description: Identity provider type.
+              entity_fieldname: type
               enum:
               - NATIVE
               - MBED
               - SAML2
               - OIDC
+              readOnly: true
               type: string
             required:
             - id
-            - name
-            - type
             type: object
           parameter_fieldname: login_profiles
           required: false
@@ -26294,25 +26408,34 @@ entities:
           in: body
           items:
             description: This object represents a user login profile in Device Management.
+            foreign_key:
+              entity: login_profile
+              group: Accounts
             properties:
             - _key: id
+              api_fieldname: id
               description: ID of the identity provider.
+              entity_fieldname: id
               type: string
             - _key: name
+              api_fieldname: name
               description: Name of the identity provider.
+              entity_fieldname: name
+              readOnly: true
               type: string
             - _key: type
+              api_fieldname: type
               description: Identity provider type.
+              entity_fieldname: type
               enum:
               - NATIVE
               - MBED
               - SAML2
               - OIDC
+              readOnly: true
               type: string
             required:
             - id
-            - name
-            - type
             type: object
           parameter_fieldname: login_profiles
           required: false
@@ -29188,25 +29311,34 @@ entities:
       providers the user is associated with.
     items:
       description: This object represents a user login profile in Device Management.
+      foreign_key:
+        entity: login_profile
+        group: Accounts
       properties:
       - _key: id
+        api_fieldname: id
         description: ID of the identity provider.
+        entity_fieldname: id
         type: string
       - _key: name
+        api_fieldname: name
         description: Name of the identity provider.
+        entity_fieldname: name
+        readOnly: true
         type: string
       - _key: type
+        api_fieldname: type
         description: Identity provider type.
+        entity_fieldname: type
         enum:
         - NATIVE
         - MBED
         - SAML2
         - OIDC
+        readOnly: true
         type: string
       required:
       - id
-      - name
-      - type
       type: object
     readOnly: false
     required: false
@@ -29376,25 +29508,34 @@ entities:
       in: body
       items:
         description: This object represents a user login profile in Device Management.
+        foreign_key:
+          entity: login_profile
+          group: Accounts
         properties:
         - _key: id
+          api_fieldname: id
           description: ID of the identity provider.
+          entity_fieldname: id
           type: string
         - _key: name
+          api_fieldname: name
           description: Name of the identity provider.
+          entity_fieldname: name
+          readOnly: true
           type: string
         - _key: type
+          api_fieldname: type
           description: Identity provider type.
+          entity_fieldname: type
           enum: &id008
           - NATIVE
           - MBED
           - SAML2
           - OIDC
+          readOnly: true
           type: string
         required: &id009
         - id
-        - name
-        - type
         type: object
       parameter_fieldname: login_profiles
       required: false
@@ -29608,25 +29749,34 @@ entities:
           entity_fieldname: login_profiles
           items:
             description: This object represents a user login profile in Device Management.
+            foreign_key:
+              entity: login_profile
+              group: Accounts
             properties:
             - _key: id
+              api_fieldname: id
               description: ID of the identity provider.
+              entity_fieldname: id
               type: string
             - _key: name
+              api_fieldname: name
               description: Name of the identity provider.
+              entity_fieldname: name
+              readOnly: true
               type: string
             - _key: type
+              api_fieldname: type
               description: Identity provider type.
+              entity_fieldname: type
               enum:
               - NATIVE
               - MBED
               - SAML2
               - OIDC
+              readOnly: true
               type: string
             required:
             - id
-            - name
-            - type
             type: object
           type: array
         - _key: object
@@ -30349,25 +30499,34 @@ entities:
           entity_fieldname: login_profiles
           items:
             description: This object represents a user login profile in Device Management.
+            foreign_key:
+              entity: login_profile
+              group: Accounts
             properties:
             - _key: id
+              api_fieldname: id
               description: ID of the identity provider.
+              entity_fieldname: id
               type: string
             - _key: name
+              api_fieldname: name
               description: Name of the identity provider.
+              entity_fieldname: name
+              readOnly: true
               type: string
             - _key: type
+              api_fieldname: type
               description: Identity provider type.
+              entity_fieldname: type
               enum:
               - NATIVE
               - MBED
               - SAML2
               - OIDC
+              readOnly: true
               type: string
             required:
             - id
-            - name
-            - type
             type: object
           type: array
         - _key: object
@@ -30818,25 +30977,34 @@ entities:
               items:
                 description: This object represents a user login profile in Device
                   Management.
+                foreign_key:
+                  entity: login_profile
+                  group: Accounts
                 properties:
                 - _key: id
+                  api_fieldname: id
                   description: ID of the identity provider.
+                  entity_fieldname: id
                   type: string
                 - _key: name
+                  api_fieldname: name
                   description: Name of the identity provider.
+                  entity_fieldname: name
+                  readOnly: true
                   type: string
                 - _key: type
+                  api_fieldname: type
                   description: Identity provider type.
+                  entity_fieldname: type
                   enum:
                   - NATIVE
                   - MBED
                   - SAML2
                   - OIDC
+                  readOnly: true
                   type: string
                 required:
                 - id
-                - name
-                - type
                 type: object
               type: array
             - _key: object
@@ -31112,16 +31280,27 @@ entities:
       in: body
       items:
         description: This object represents a user login profile in Device Management.
+        foreign_key:
+          entity: login_profile
+          group: Accounts
         properties:
         - _key: id
+          api_fieldname: id
           description: ID of the identity provider.
+          entity_fieldname: id
           type: string
         - _key: name
+          api_fieldname: name
           description: Name of the identity provider.
+          entity_fieldname: name
+          readOnly: true
           type: string
         - _key: type
+          api_fieldname: type
           description: Identity provider type.
+          entity_fieldname: type
           enum: *id008
+          readOnly: true
           type: string
         required: *id009
         type: object
@@ -31337,25 +31516,34 @@ entities:
           entity_fieldname: login_profiles
           items:
             description: This object represents a user login profile in Device Management.
+            foreign_key:
+              entity: login_profile
+              group: Accounts
             properties:
             - _key: id
+              api_fieldname: id
               description: ID of the identity provider.
+              entity_fieldname: id
               type: string
             - _key: name
+              api_fieldname: name
               description: Name of the identity provider.
+              entity_fieldname: name
+              readOnly: true
               type: string
             - _key: type
+              api_fieldname: type
               description: Identity provider type.
+              entity_fieldname: type
               enum:
               - NATIVE
               - MBED
               - SAML2
               - OIDC
+              readOnly: true
               type: string
             required:
             - id
-            - name
-            - type
             type: object
           type: array
         - _key: object
@@ -31722,25 +31910,34 @@ entities:
       providers the user is associated with.
     items:
       description: This object represents a user login profile in Device Management.
+      foreign_key:
+        entity: login_profile
+        group: Accounts
       properties:
       - _key: id
+        api_fieldname: id
         description: ID of the identity provider.
+        entity_fieldname: id
         type: string
       - _key: name
+        api_fieldname: name
         description: Name of the identity provider.
+        entity_fieldname: name
+        readOnly: true
         type: string
       - _key: type
+        api_fieldname: type
         description: Identity provider type.
+        entity_fieldname: type
         enum:
         - NATIVE
         - MBED
         - SAML2
         - OIDC
+        readOnly: true
         type: string
       required:
       - id
-      - name
-      - type
       type: object
     readOnly: false
     required: false
@@ -31805,25 +32002,34 @@ entities:
       in: body
       items:
         description: This object represents a user login profile in Device Management.
+        foreign_key:
+          entity: login_profile
+          group: Accounts
         properties:
         - _key: id
+          api_fieldname: id
           description: ID of the identity provider.
+          entity_fieldname: id
           type: string
         - _key: name
+          api_fieldname: name
           description: Name of the identity provider.
+          entity_fieldname: name
+          readOnly: true
           type: string
         - _key: type
+          api_fieldname: type
           description: Identity provider type.
+          entity_fieldname: type
           enum:
           - NATIVE
           - MBED
           - SAML2
           - OIDC
+          readOnly: true
           type: string
         required:
         - id
-        - name
-        - type
         type: object
       parameter_fieldname: login_profiles
       required: false
@@ -31910,25 +32116,34 @@ entities:
           entity_fieldname: login_profiles
           items:
             description: This object represents a user login profile in Device Management.
+            foreign_key:
+              entity: login_profile
+              group: Accounts
             properties:
             - _key: id
+              api_fieldname: id
               description: ID of the identity provider.
+              entity_fieldname: id
               type: string
             - _key: name
+              api_fieldname: name
               description: Name of the identity provider.
+              entity_fieldname: name
+              readOnly: true
               type: string
             - _key: type
+              api_fieldname: type
               description: Identity provider type.
+              entity_fieldname: type
               enum:
               - NATIVE
               - MBED
               - SAML2
               - OIDC
+              readOnly: true
               type: string
             required:
             - id
-            - name
-            - type
             type: object
           type: array
         - _key: object
@@ -32405,25 +32620,34 @@ entities:
           entity_fieldname: login_profiles
           items:
             description: This object represents a user login profile in Device Management.
+            foreign_key:
+              entity: login_profile
+              group: Accounts
             properties:
             - _key: id
+              api_fieldname: id
               description: ID of the identity provider.
+              entity_fieldname: id
               type: string
             - _key: name
+              api_fieldname: name
               description: Name of the identity provider.
+              entity_fieldname: name
+              readOnly: true
               type: string
             - _key: type
+              api_fieldname: type
               description: Identity provider type.
+              entity_fieldname: type
               enum:
               - NATIVE
               - MBED
               - SAML2
               - OIDC
+              readOnly: true
               type: string
             required:
             - id
-            - name
-            - type
             type: object
           type: array
         - _key: object
@@ -32742,25 +32966,34 @@ entities:
               items:
                 description: This object represents a user login profile in Device
                   Management.
+                foreign_key:
+                  entity: login_profile
+                  group: Accounts
                 properties:
                 - _key: id
+                  api_fieldname: id
                   description: ID of the identity provider.
+                  entity_fieldname: id
                   type: string
                 - _key: name
+                  api_fieldname: name
                   description: Name of the identity provider.
+                  entity_fieldname: name
+                  readOnly: true
                   type: string
                 - _key: type
+                  api_fieldname: type
                   description: Identity provider type.
+                  entity_fieldname: type
                   enum:
                   - NATIVE
                   - MBED
                   - SAML2
                   - OIDC
+                  readOnly: true
                   type: string
                 required:
                 - id
-                - name
-                - type
                 type: object
               type: array
             - _key: object

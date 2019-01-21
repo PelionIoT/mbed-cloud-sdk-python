@@ -7555,34 +7555,44 @@
                           "items": {
                             "type": "object",
                             "required": [
-                              "id",
-                              "name",
-                              "type"
+                              "id"
                             ],
                             "properties": [
                               {
                                 "type": "string",
                                 "description": "ID of the identity provider.",
+                                "api_fieldname": "id",
+                                "entity_fieldname": "id",
                                 "_key": "id"
                               },
                               {
                                 "type": "string",
+                                "readOnly": true,
                                 "description": "Name of the identity provider.",
+                                "api_fieldname": "name",
+                                "entity_fieldname": "name",
                                 "_key": "name"
                               },
                               {
                                 "type": "string",
                                 "description": "Identity provider type.",
+                                "readOnly": true,
                                 "enum": [
                                   "NATIVE",
                                   "MBED",
                                   "SAML2",
                                   "OIDC"
                                 ],
+                                "api_fieldname": "type",
+                                "entity_fieldname": "type",
                                 "_key": "type"
                               }
                             ],
-                            "description": "This object represents a user login profile in Device Management."
+                            "description": "This object represents a user login profile in Device Management.",
+                            "foreign_key": {
+                              "group": "Accounts",
+                              "entity": "login_profile"
+                            }
                           },
                           "_key": "login_profiles"
                         },
@@ -8207,34 +8217,44 @@
                           "items": {
                             "type": "object",
                             "required": [
-                              "id",
-                              "name",
-                              "type"
+                              "id"
                             ],
                             "properties": [
                               {
                                 "type": "string",
                                 "description": "ID of the identity provider.",
+                                "api_fieldname": "id",
+                                "entity_fieldname": "id",
                                 "_key": "id"
                               },
                               {
                                 "type": "string",
+                                "readOnly": true,
                                 "description": "Name of the identity provider.",
+                                "api_fieldname": "name",
+                                "entity_fieldname": "name",
                                 "_key": "name"
                               },
                               {
                                 "type": "string",
                                 "description": "Identity provider type.",
+                                "readOnly": true,
                                 "enum": [
                                   "NATIVE",
                                   "MBED",
                                   "SAML2",
                                   "OIDC"
                                 ],
+                                "api_fieldname": "type",
+                                "entity_fieldname": "type",
                                 "_key": "type"
                               }
                             ],
-                            "description": "This object represents a user login profile in Device Management."
+                            "description": "This object represents a user login profile in Device Management.",
+                            "foreign_key": {
+                              "group": "Accounts",
+                              "entity": "login_profile"
+                            }
                           },
                           "_key": "login_profiles"
                         },
@@ -26164,10 +26184,29 @@
       "_key": "login_history"
     },
     {
-      "swagger_models": [],
-      "primary_key_field": null,
+      "swagger_models": [
+        "LoginProfile"
+      ],
+      "primary_key_field": "id",
       "methods": [],
-      "fields": [],
+      "fields": [
+        {
+          "type": "string",
+          "description": "ID of the identity provider.",
+          "api_fieldname": "id",
+          "readOnly": true,
+          "required": false,
+          "_key": "id"
+        },
+        {
+          "type": "string",
+          "readOnly": true,
+          "description": "Name of the identity provider.",
+          "api_fieldname": "name",
+          "required": false,
+          "_key": "name"
+        }
+      ],
       "field_renames": [],
       "tags": [],
       "group_id": "Accounts",
@@ -29721,34 +29760,44 @@
               "items": {
                 "type": "object",
                 "required": [
-                  "id",
-                  "name",
-                  "type"
+                  "id"
                 ],
                 "properties": [
                   {
                     "type": "string",
                     "description": "ID of the identity provider.",
+                    "api_fieldname": "id",
+                    "entity_fieldname": "id",
                     "_key": "id"
                   },
                   {
                     "type": "string",
+                    "readOnly": true,
                     "description": "Name of the identity provider.",
+                    "api_fieldname": "name",
+                    "entity_fieldname": "name",
                     "_key": "name"
                   },
                   {
                     "type": "string",
                     "description": "Identity provider type.",
+                    "readOnly": true,
                     "enum": [
                       "NATIVE",
                       "MBED",
                       "SAML2",
                       "OIDC"
                     ],
+                    "api_fieldname": "type",
+                    "entity_fieldname": "type",
                     "_key": "type"
                   }
                 ],
-                "description": "This object represents a user login profile in Device Management."
+                "description": "This object represents a user login profile in Device Management.",
+                "foreign_key": {
+                  "group": "Accounts",
+                  "entity": "login_profile"
+                }
               },
               "api_fieldname": "login_profiles",
               "entity_fieldname": "login_profiles",
@@ -30035,34 +30084,44 @@
                     "items": {
                       "type": "object",
                       "required": [
-                        "id",
-                        "name",
-                        "type"
+                        "id"
                       ],
                       "properties": [
                         {
                           "type": "string",
                           "description": "ID of the identity provider.",
+                          "api_fieldname": "id",
+                          "entity_fieldname": "id",
                           "_key": "id"
                         },
                         {
                           "type": "string",
+                          "readOnly": true,
                           "description": "Name of the identity provider.",
+                          "api_fieldname": "name",
+                          "entity_fieldname": "name",
                           "_key": "name"
                         },
                         {
                           "type": "string",
                           "description": "Identity provider type.",
+                          "readOnly": true,
                           "enum": [
                             "NATIVE",
                             "MBED",
                             "SAML2",
                             "OIDC"
                           ],
+                          "api_fieldname": "type",
+                          "entity_fieldname": "type",
                           "_key": "type"
                         }
                       ],
-                      "description": "This object represents a user login profile in Device Management."
+                      "description": "This object represents a user login profile in Device Management.",
+                      "foreign_key": {
+                        "group": "Accounts",
+                        "entity": "login_profile"
+                      }
                     },
                     "api_fieldname": "login_profiles",
                     "entity_fieldname": "login_profiles",
@@ -31191,34 +31250,44 @@
                     "items": {
                       "type": "object",
                       "required": [
-                        "id",
-                        "name",
-                        "type"
+                        "id"
                       ],
                       "properties": [
                         {
                           "type": "string",
                           "description": "ID of the identity provider.",
+                          "api_fieldname": "id",
+                          "entity_fieldname": "id",
                           "_key": "id"
                         },
                         {
                           "type": "string",
+                          "readOnly": true,
                           "description": "Name of the identity provider.",
+                          "api_fieldname": "name",
+                          "entity_fieldname": "name",
                           "_key": "name"
                         },
                         {
                           "type": "string",
                           "description": "Identity provider type.",
+                          "readOnly": true,
                           "enum": [
                             "NATIVE",
                             "MBED",
                             "SAML2",
                             "OIDC"
                           ],
+                          "api_fieldname": "type",
+                          "entity_fieldname": "type",
                           "_key": "type"
                         }
                       ],
-                      "description": "This object represents a user login profile in Device Management."
+                      "description": "This object represents a user login profile in Device Management.",
+                      "foreign_key": {
+                        "group": "Accounts",
+                        "entity": "login_profile"
+                      }
                     },
                     "api_fieldname": "login_profiles",
                     "entity_fieldname": "login_profiles",
@@ -31646,34 +31715,44 @@
               "items": {
                 "type": "object",
                 "required": [
-                  "id",
-                  "name",
-                  "type"
+                  "id"
                 ],
                 "properties": [
                   {
                     "type": "string",
                     "description": "ID of the identity provider.",
+                    "api_fieldname": "id",
+                    "entity_fieldname": "id",
                     "_key": "id"
                   },
                   {
                     "type": "string",
+                    "readOnly": true,
                     "description": "Name of the identity provider.",
+                    "api_fieldname": "name",
+                    "entity_fieldname": "name",
                     "_key": "name"
                   },
                   {
                     "type": "string",
                     "description": "Identity provider type.",
+                    "readOnly": true,
                     "enum": [
                       "NATIVE",
                       "MBED",
                       "SAML2",
                       "OIDC"
                     ],
+                    "api_fieldname": "type",
+                    "entity_fieldname": "type",
                     "_key": "type"
                   }
                 ],
-                "description": "This object represents a user login profile in Device Management."
+                "description": "This object represents a user login profile in Device Management.",
+                "foreign_key": {
+                  "group": "Accounts",
+                  "entity": "login_profile"
+                }
               },
               "api_fieldname": "login_profiles",
               "entity_fieldname": "login_profiles",
@@ -31960,34 +32039,44 @@
                     "items": {
                       "type": "object",
                       "required": [
-                        "id",
-                        "name",
-                        "type"
+                        "id"
                       ],
                       "properties": [
                         {
                           "type": "string",
                           "description": "ID of the identity provider.",
+                          "api_fieldname": "id",
+                          "entity_fieldname": "id",
                           "_key": "id"
                         },
                         {
                           "type": "string",
+                          "readOnly": true,
                           "description": "Name of the identity provider.",
+                          "api_fieldname": "name",
+                          "entity_fieldname": "name",
                           "_key": "name"
                         },
                         {
                           "type": "string",
                           "description": "Identity provider type.",
+                          "readOnly": true,
                           "enum": [
                             "NATIVE",
                             "MBED",
                             "SAML2",
                             "OIDC"
                           ],
+                          "api_fieldname": "type",
+                          "entity_fieldname": "type",
                           "_key": "type"
                         }
                       ],
-                      "description": "This object represents a user login profile in Device Management."
+                      "description": "This object represents a user login profile in Device Management.",
+                      "foreign_key": {
+                        "group": "Accounts",
+                        "entity": "login_profile"
+                      }
                     },
                     "api_fieldname": "login_profiles",
                     "entity_fieldname": "login_profiles",
@@ -32939,34 +33028,44 @@
           "items": {
             "type": "object",
             "required": [
-              "id",
-              "name",
-              "type"
+              "id"
             ],
             "properties": [
               {
                 "type": "string",
                 "description": "ID of the identity provider.",
+                "api_fieldname": "id",
+                "entity_fieldname": "id",
                 "_key": "id"
               },
               {
                 "type": "string",
+                "readOnly": true,
                 "description": "Name of the identity provider.",
+                "api_fieldname": "name",
+                "entity_fieldname": "name",
                 "_key": "name"
               },
               {
                 "type": "string",
                 "description": "Identity provider type.",
+                "readOnly": true,
                 "enum": [
                   "NATIVE",
                   "MBED",
                   "SAML2",
                   "OIDC"
                 ],
+                "api_fieldname": "type",
+                "entity_fieldname": "type",
                 "_key": "type"
               }
             ],
-            "description": "This object represents a user login profile in Device Management."
+            "description": "This object represents a user login profile in Device Management.",
+            "foreign_key": {
+              "group": "Accounts",
+              "entity": "login_profile"
+            }
           },
           "api_fieldname": "login_profiles",
           "parameter_fieldname": "login_profiles",
@@ -33140,34 +33239,44 @@
               "items": {
                 "type": "object",
                 "required": [
-                  "id",
-                  "name",
-                  "type"
+                  "id"
                 ],
                 "properties": [
                   {
                     "type": "string",
                     "description": "ID of the identity provider.",
+                    "api_fieldname": "id",
+                    "entity_fieldname": "id",
                     "_key": "id"
                   },
                   {
                     "type": "string",
+                    "readOnly": true,
                     "description": "Name of the identity provider.",
+                    "api_fieldname": "name",
+                    "entity_fieldname": "name",
                     "_key": "name"
                   },
                   {
                     "type": "string",
                     "description": "Identity provider type.",
+                    "readOnly": true,
                     "enum": [
                       "NATIVE",
                       "MBED",
                       "SAML2",
                       "OIDC"
                     ],
+                    "api_fieldname": "type",
+                    "entity_fieldname": "type",
                     "_key": "type"
                   }
                 ],
-                "description": "This object represents a user login profile in Device Management."
+                "description": "This object represents a user login profile in Device Management.",
+                "foreign_key": {
+                  "group": "Accounts",
+                  "entity": "login_profile"
+                }
               },
               "api_fieldname": "login_profiles",
               "entity_fieldname": "login_profiles",
@@ -33285,34 +33394,44 @@
                     "items": {
                       "type": "object",
                       "required": [
-                        "id",
-                        "name",
-                        "type"
+                        "id"
                       ],
                       "properties": [
                         {
                           "type": "string",
                           "description": "ID of the identity provider.",
+                          "api_fieldname": "id",
+                          "entity_fieldname": "id",
                           "_key": "id"
                         },
                         {
                           "type": "string",
+                          "readOnly": true,
                           "description": "Name of the identity provider.",
+                          "api_fieldname": "name",
+                          "entity_fieldname": "name",
                           "_key": "name"
                         },
                         {
                           "type": "string",
                           "description": "Identity provider type.",
+                          "readOnly": true,
                           "enum": [
                             "NATIVE",
                             "MBED",
                             "SAML2",
                             "OIDC"
                           ],
+                          "api_fieldname": "type",
+                          "entity_fieldname": "type",
                           "_key": "type"
                         }
                       ],
-                      "description": "This object represents a user login profile in Device Management."
+                      "description": "This object represents a user login profile in Device Management.",
+                      "foreign_key": {
+                        "group": "Accounts",
+                        "entity": "login_profile"
+                      }
                     },
                     "api_fieldname": "login_profiles",
                     "entity_fieldname": "login_profiles",
@@ -34011,34 +34130,44 @@
                     "items": {
                       "type": "object",
                       "required": [
-                        "id",
-                        "name",
-                        "type"
+                        "id"
                       ],
                       "properties": [
                         {
                           "type": "string",
                           "description": "ID of the identity provider.",
+                          "api_fieldname": "id",
+                          "entity_fieldname": "id",
                           "_key": "id"
                         },
                         {
                           "type": "string",
+                          "readOnly": true,
                           "description": "Name of the identity provider.",
+                          "api_fieldname": "name",
+                          "entity_fieldname": "name",
                           "_key": "name"
                         },
                         {
                           "type": "string",
                           "description": "Identity provider type.",
+                          "readOnly": true,
                           "enum": [
                             "NATIVE",
                             "MBED",
                             "SAML2",
                             "OIDC"
                           ],
+                          "api_fieldname": "type",
+                          "entity_fieldname": "type",
                           "_key": "type"
                         }
                       ],
-                      "description": "This object represents a user login profile in Device Management."
+                      "description": "This object represents a user login profile in Device Management.",
+                      "foreign_key": {
+                        "group": "Accounts",
+                        "entity": "login_profile"
+                      }
                     },
                     "api_fieldname": "login_profiles",
                     "entity_fieldname": "login_profiles",
@@ -34394,34 +34523,44 @@
           "items": {
             "type": "object",
             "required": [
-              "id",
-              "name",
-              "type"
+              "id"
             ],
             "properties": [
               {
                 "type": "string",
                 "description": "ID of the identity provider.",
+                "api_fieldname": "id",
+                "entity_fieldname": "id",
                 "_key": "id"
               },
               {
                 "type": "string",
+                "readOnly": true,
                 "description": "Name of the identity provider.",
+                "api_fieldname": "name",
+                "entity_fieldname": "name",
                 "_key": "name"
               },
               {
                 "type": "string",
                 "description": "Identity provider type.",
+                "readOnly": true,
                 "enum": [
                   "NATIVE",
                   "MBED",
                   "SAML2",
                   "OIDC"
                 ],
+                "api_fieldname": "type",
+                "entity_fieldname": "type",
                 "_key": "type"
               }
             ],
-            "description": "This object represents a user login profile in Device Management."
+            "description": "This object represents a user login profile in Device Management.",
+            "foreign_key": {
+              "group": "Accounts",
+              "entity": "login_profile"
+            }
           },
           "api_fieldname": "login_profiles",
           "parameter_fieldname": "login_profiles",
@@ -37752,34 +37891,44 @@
               "items": {
                 "type": "object",
                 "required": [
-                  "id",
-                  "name",
-                  "type"
+                  "id"
                 ],
                 "properties": [
                   {
                     "type": "string",
                     "description": "ID of the identity provider.",
+                    "api_fieldname": "id",
+                    "entity_fieldname": "id",
                     "_key": "id"
                   },
                   {
                     "type": "string",
+                    "readOnly": true,
                     "description": "Name of the identity provider.",
+                    "api_fieldname": "name",
+                    "entity_fieldname": "name",
                     "_key": "name"
                   },
                   {
                     "type": "string",
                     "description": "Identity provider type.",
+                    "readOnly": true,
                     "enum": [
                       "NATIVE",
                       "MBED",
                       "SAML2",
                       "OIDC"
                     ],
+                    "api_fieldname": "type",
+                    "entity_fieldname": "type",
                     "_key": "type"
                   }
                 ],
-                "description": "This object represents a user login profile in Device Management."
+                "description": "This object represents a user login profile in Device Management.",
+                "foreign_key": {
+                  "group": "Accounts",
+                  "entity": "login_profile"
+                }
               },
               "api_fieldname": "login_profiles",
               "entity_fieldname": "login_profiles",
@@ -38039,34 +38188,44 @@
                     "items": {
                       "type": "object",
                       "required": [
-                        "id",
-                        "name",
-                        "type"
+                        "id"
                       ],
                       "properties": [
                         {
                           "type": "string",
                           "description": "ID of the identity provider.",
+                          "api_fieldname": "id",
+                          "entity_fieldname": "id",
                           "_key": "id"
                         },
                         {
                           "type": "string",
+                          "readOnly": true,
                           "description": "Name of the identity provider.",
+                          "api_fieldname": "name",
+                          "entity_fieldname": "name",
                           "_key": "name"
                         },
                         {
                           "type": "string",
                           "description": "Identity provider type.",
+                          "readOnly": true,
                           "enum": [
                             "NATIVE",
                             "MBED",
                             "SAML2",
                             "OIDC"
                           ],
+                          "api_fieldname": "type",
+                          "entity_fieldname": "type",
                           "_key": "type"
                         }
                       ],
-                      "description": "This object represents a user login profile in Device Management."
+                      "description": "This object represents a user login profile in Device Management.",
+                      "foreign_key": {
+                        "group": "Accounts",
+                        "entity": "login_profile"
+                      }
                     },
                     "api_fieldname": "login_profiles",
                     "entity_fieldname": "login_profiles",
@@ -39058,34 +39217,44 @@
                     "items": {
                       "type": "object",
                       "required": [
-                        "id",
-                        "name",
-                        "type"
+                        "id"
                       ],
                       "properties": [
                         {
                           "type": "string",
                           "description": "ID of the identity provider.",
+                          "api_fieldname": "id",
+                          "entity_fieldname": "id",
                           "_key": "id"
                         },
                         {
                           "type": "string",
+                          "readOnly": true,
                           "description": "Name of the identity provider.",
+                          "api_fieldname": "name",
+                          "entity_fieldname": "name",
                           "_key": "name"
                         },
                         {
                           "type": "string",
                           "description": "Identity provider type.",
+                          "readOnly": true,
                           "enum": [
                             "NATIVE",
                             "MBED",
                             "SAML2",
                             "OIDC"
                           ],
+                          "api_fieldname": "type",
+                          "entity_fieldname": "type",
                           "_key": "type"
                         }
                       ],
-                      "description": "This object represents a user login profile in Device Management."
+                      "description": "This object represents a user login profile in Device Management.",
+                      "foreign_key": {
+                        "group": "Accounts",
+                        "entity": "login_profile"
+                      }
                     },
                     "api_fieldname": "login_profiles",
                     "entity_fieldname": "login_profiles",
@@ -39694,34 +39863,44 @@
                           "items": {
                             "type": "object",
                             "required": [
-                              "id",
-                              "name",
-                              "type"
+                              "id"
                             ],
                             "properties": [
                               {
                                 "type": "string",
                                 "description": "ID of the identity provider.",
+                                "api_fieldname": "id",
+                                "entity_fieldname": "id",
                                 "_key": "id"
                               },
                               {
                                 "type": "string",
+                                "readOnly": true,
                                 "description": "Name of the identity provider.",
+                                "api_fieldname": "name",
+                                "entity_fieldname": "name",
                                 "_key": "name"
                               },
                               {
                                 "type": "string",
                                 "description": "Identity provider type.",
+                                "readOnly": true,
                                 "enum": [
                                   "NATIVE",
                                   "MBED",
                                   "SAML2",
                                   "OIDC"
                                 ],
+                                "api_fieldname": "type",
+                                "entity_fieldname": "type",
                                 "_key": "type"
                               }
                             ],
-                            "description": "This object represents a user login profile in Device Management."
+                            "description": "This object represents a user login profile in Device Management.",
+                            "foreign_key": {
+                              "group": "Accounts",
+                              "entity": "login_profile"
+                            }
                           },
                           "_key": "login_profiles"
                         },
@@ -40087,34 +40266,44 @@
               "items": {
                 "type": "object",
                 "required": [
-                  "id",
-                  "name",
-                  "type"
+                  "id"
                 ],
                 "properties": [
                   {
                     "type": "string",
                     "description": "ID of the identity provider.",
+                    "api_fieldname": "id",
+                    "entity_fieldname": "id",
                     "_key": "id"
                   },
                   {
                     "type": "string",
+                    "readOnly": true,
                     "description": "Name of the identity provider.",
+                    "api_fieldname": "name",
+                    "entity_fieldname": "name",
                     "_key": "name"
                   },
                   {
                     "type": "string",
                     "description": "Identity provider type.",
+                    "readOnly": true,
                     "enum": [
                       "NATIVE",
                       "MBED",
                       "SAML2",
                       "OIDC"
                     ],
+                    "api_fieldname": "type",
+                    "entity_fieldname": "type",
                     "_key": "type"
                   }
                 ],
-                "description": "This object represents a user login profile in Device Management."
+                "description": "This object represents a user login profile in Device Management.",
+                "foreign_key": {
+                  "group": "Accounts",
+                  "entity": "login_profile"
+                }
               },
               "api_fieldname": "login_profiles",
               "entity_fieldname": "login_profiles",
@@ -40374,34 +40563,44 @@
                     "items": {
                       "type": "object",
                       "required": [
-                        "id",
-                        "name",
-                        "type"
+                        "id"
                       ],
                       "properties": [
                         {
                           "type": "string",
                           "description": "ID of the identity provider.",
+                          "api_fieldname": "id",
+                          "entity_fieldname": "id",
                           "_key": "id"
                         },
                         {
                           "type": "string",
+                          "readOnly": true,
                           "description": "Name of the identity provider.",
+                          "api_fieldname": "name",
+                          "entity_fieldname": "name",
                           "_key": "name"
                         },
                         {
                           "type": "string",
                           "description": "Identity provider type.",
+                          "readOnly": true,
                           "enum": [
                             "NATIVE",
                             "MBED",
                             "SAML2",
                             "OIDC"
                           ],
+                          "api_fieldname": "type",
+                          "entity_fieldname": "type",
                           "_key": "type"
                         }
                       ],
-                      "description": "This object represents a user login profile in Device Management."
+                      "description": "This object represents a user login profile in Device Management.",
+                      "foreign_key": {
+                        "group": "Accounts",
+                        "entity": "login_profile"
+                      }
                     },
                     "api_fieldname": "login_profiles",
                     "entity_fieldname": "login_profiles",
@@ -41036,34 +41235,44 @@
           "items": {
             "type": "object",
             "required": [
-              "id",
-              "name",
-              "type"
+              "id"
             ],
             "properties": [
               {
                 "type": "string",
                 "description": "ID of the identity provider.",
+                "api_fieldname": "id",
+                "entity_fieldname": "id",
                 "_key": "id"
               },
               {
                 "type": "string",
+                "readOnly": true,
                 "description": "Name of the identity provider.",
+                "api_fieldname": "name",
+                "entity_fieldname": "name",
                 "_key": "name"
               },
               {
                 "type": "string",
                 "description": "Identity provider type.",
+                "readOnly": true,
                 "enum": [
                   "NATIVE",
                   "MBED",
                   "SAML2",
                   "OIDC"
                 ],
+                "api_fieldname": "type",
+                "entity_fieldname": "type",
                 "_key": "type"
               }
             ],
-            "description": "This object represents a user login profile in Device Management."
+            "description": "This object represents a user login profile in Device Management.",
+            "foreign_key": {
+              "group": "Accounts",
+              "entity": "login_profile"
+            }
           },
           "api_fieldname": "login_profiles",
           "readOnly": false,
@@ -41211,34 +41420,44 @@
               "items": {
                 "type": "object",
                 "required": [
-                  "id",
-                  "name",
-                  "type"
+                  "id"
                 ],
                 "properties": [
                   {
                     "type": "string",
                     "description": "ID of the identity provider.",
+                    "api_fieldname": "id",
+                    "entity_fieldname": "id",
                     "_key": "id"
                   },
                   {
                     "type": "string",
+                    "readOnly": true,
                     "description": "Name of the identity provider.",
+                    "api_fieldname": "name",
+                    "entity_fieldname": "name",
                     "_key": "name"
                   },
                   {
                     "type": "string",
                     "description": "Identity provider type.",
+                    "readOnly": true,
                     "enum": [
                       "NATIVE",
                       "MBED",
                       "SAML2",
                       "OIDC"
                     ],
+                    "api_fieldname": "type",
+                    "entity_fieldname": "type",
                     "_key": "type"
                   }
                 ],
-                "description": "This object represents a user login profile in Device Management."
+                "description": "This object represents a user login profile in Device Management.",
+                "foreign_key": {
+                  "group": "Accounts",
+                  "entity": "login_profile"
+                }
               },
               "api_fieldname": "login_profiles",
               "entity_fieldname": "login_profiles",
@@ -41344,34 +41563,44 @@
                     "items": {
                       "type": "object",
                       "required": [
-                        "id",
-                        "name",
-                        "type"
+                        "id"
                       ],
                       "properties": [
                         {
                           "type": "string",
                           "description": "ID of the identity provider.",
+                          "api_fieldname": "id",
+                          "entity_fieldname": "id",
                           "_key": "id"
                         },
                         {
                           "type": "string",
+                          "readOnly": true,
                           "description": "Name of the identity provider.",
+                          "api_fieldname": "name",
+                          "entity_fieldname": "name",
                           "_key": "name"
                         },
                         {
                           "type": "string",
                           "description": "Identity provider type.",
+                          "readOnly": true,
                           "enum": [
                             "NATIVE",
                             "MBED",
                             "SAML2",
                             "OIDC"
                           ],
+                          "api_fieldname": "type",
+                          "entity_fieldname": "type",
                           "_key": "type"
                         }
                       ],
-                      "description": "This object represents a user login profile in Device Management."
+                      "description": "This object represents a user login profile in Device Management.",
+                      "foreign_key": {
+                        "group": "Accounts",
+                        "entity": "login_profile"
+                      }
                     },
                     "api_fieldname": "login_profiles",
                     "entity_fieldname": "login_profiles",
@@ -42033,34 +42262,44 @@
                     "items": {
                       "type": "object",
                       "required": [
-                        "id",
-                        "name",
-                        "type"
+                        "id"
                       ],
                       "properties": [
                         {
                           "type": "string",
                           "description": "ID of the identity provider.",
+                          "api_fieldname": "id",
+                          "entity_fieldname": "id",
                           "_key": "id"
                         },
                         {
                           "type": "string",
+                          "readOnly": true,
                           "description": "Name of the identity provider.",
+                          "api_fieldname": "name",
+                          "entity_fieldname": "name",
                           "_key": "name"
                         },
                         {
                           "type": "string",
                           "description": "Identity provider type.",
+                          "readOnly": true,
                           "enum": [
                             "NATIVE",
                             "MBED",
                             "SAML2",
                             "OIDC"
                           ],
+                          "api_fieldname": "type",
+                          "entity_fieldname": "type",
                           "_key": "type"
                         }
                       ],
-                      "description": "This object represents a user login profile in Device Management."
+                      "description": "This object represents a user login profile in Device Management.",
+                      "foreign_key": {
+                        "group": "Accounts",
+                        "entity": "login_profile"
+                      }
                     },
                     "api_fieldname": "login_profiles",
                     "entity_fieldname": "login_profiles",
@@ -42495,34 +42734,44 @@
                           "items": {
                             "type": "object",
                             "required": [
-                              "id",
-                              "name",
-                              "type"
+                              "id"
                             ],
                             "properties": [
                               {
                                 "type": "string",
                                 "description": "ID of the identity provider.",
+                                "api_fieldname": "id",
+                                "entity_fieldname": "id",
                                 "_key": "id"
                               },
                               {
                                 "type": "string",
+                                "readOnly": true,
                                 "description": "Name of the identity provider.",
+                                "api_fieldname": "name",
+                                "entity_fieldname": "name",
                                 "_key": "name"
                               },
                               {
                                 "type": "string",
                                 "description": "Identity provider type.",
+                                "readOnly": true,
                                 "enum": [
                                   "NATIVE",
                                   "MBED",
                                   "SAML2",
                                   "OIDC"
                                 ],
+                                "api_fieldname": "type",
+                                "entity_fieldname": "type",
                                 "_key": "type"
                               }
                             ],
-                            "description": "This object represents a user login profile in Device Management."
+                            "description": "This object represents a user login profile in Device Management.",
+                            "foreign_key": {
+                              "group": "Accounts",
+                              "entity": "login_profile"
+                            }
                           },
                           "_key": "login_profiles"
                         },
@@ -42851,34 +43100,44 @@
           "items": {
             "type": "object",
             "required": [
-              "id",
-              "name",
-              "type"
+              "id"
             ],
             "properties": [
               {
                 "type": "string",
                 "description": "ID of the identity provider.",
+                "api_fieldname": "id",
+                "entity_fieldname": "id",
                 "_key": "id"
               },
               {
                 "type": "string",
+                "readOnly": true,
                 "description": "Name of the identity provider.",
+                "api_fieldname": "name",
+                "entity_fieldname": "name",
                 "_key": "name"
               },
               {
                 "type": "string",
                 "description": "Identity provider type.",
+                "readOnly": true,
                 "enum": [
                   "NATIVE",
                   "MBED",
                   "SAML2",
                   "OIDC"
                 ],
+                "api_fieldname": "type",
+                "entity_fieldname": "type",
                 "_key": "type"
               }
             ],
-            "description": "This object represents a user login profile in Device Management."
+            "description": "This object represents a user login profile in Device Management.",
+            "foreign_key": {
+              "group": "Accounts",
+              "entity": "login_profile"
+            }
           },
           "api_fieldname": "login_profiles",
           "readOnly": false,

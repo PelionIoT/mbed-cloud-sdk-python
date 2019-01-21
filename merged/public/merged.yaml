@@ -3951,7 +3951,7 @@ definitions:
     - success
     - user_agent
     type: object
-  LoginProfileResp:
+  LoginProfile:
     description: This object represents a user login profile in Device Management.
     properties:
       id:
@@ -3959,6 +3959,7 @@ definitions:
         type: string
       name:
         description: Name of the identity provider.
+        readOnly: true
         type: string
       type:
         description: Identity provider type.
@@ -3967,11 +3968,10 @@ definitions:
         - MBED
         - SAML2
         - OIDC
+        readOnly: true
         type: string
     required:
     - id
-    - name
-    - type
     type: object
   NotificationData:
     properties:
@@ -5578,11 +5578,12 @@ definitions:
           accepted.
         type: boolean
       login_profiles:
-        description: A list of login profiles for the user. Specified as IDs of the
-          identity providers the user should be associated with. The list cannot be
-          empty. A limit of 100 profiles.
+        description: A list of login profiles for the user. Specified as the identity
+          providers the user should be associated with. Only the ID attribute of the
+          login profile should be set in the request object. The list cannot be empty.
+          A limit of 100 profiles.
         items:
-          type: string
+          $ref: '#/definitions/LoginProfile'
         type: array
       password:
         description: The password when creating a new user. It will be generated when
@@ -5675,7 +5676,7 @@ definitions:
         description: A list of login profiles for the user. Specified as the identity
           providers the user is associated with.
         items:
-          $ref: '#/definitions/LoginProfileResp'
+          $ref: '#/definitions/LoginProfile'
         type: array
       object:
         description: 'Entity name: always ''user'''
@@ -5786,11 +5787,12 @@ definitions:
           type: string
         type: array
       login_profiles:
-        description: A list of login profiles for the user. Specified as IDs of the
-          identity providers the user should be associated with. The list cannot be
-          empty. A limit of 100 profiles.
+        description: A list of login profiles for the user. Specified as the identity
+          providers the user should be associated with. Only the ID attribute of the
+          login profile should be set in the request object. The list cannot be empty.
+          A limit of 100 profiles.
         items:
-          type: string
+          $ref: '#/definitions/LoginProfile'
         type: array
       valid_for_days:
         description: Specifies how many days the invitation will be valid for. The
@@ -5838,7 +5840,7 @@ definitions:
         description: A list of login profiles for the user. Specified as the identity
           providers the user is associated with.
         items:
-          $ref: '#/definitions/LoginProfileResp'
+          $ref: '#/definitions/LoginProfile'
         type: array
       object:
         description: 'Entity name: always ''user-invitation'''
@@ -5938,11 +5940,12 @@ definitions:
           to be enabled or disabled.
         type: boolean
       login_profiles:
-        description: A list of login profiles for the user. Specified as IDs of the
-          identity providers the user should be associated with. The list cannot be
-          empty. A limit of 100 profiles.
+        description: A list of login profiles for the user. Specified as the identity
+          providers the user should be associated with. Only the ID attribute of the
+          login profile should be set in the request object. The list cannot be empty.
+          A limit of 100 profiles.
         items:
-          type: string
+          $ref: '#/definitions/LoginProfile'
         type: array
       phone_number:
         description: Phone number, not longer than 100 characters.
