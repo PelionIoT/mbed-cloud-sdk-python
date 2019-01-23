@@ -22,6 +22,7 @@ import traceback
 import threading
 import uuid
 import re
+import json
 
 import flask
 from flask import request
@@ -145,7 +146,12 @@ def modules_new_instance(module):
         created_at=datetime.datetime.utcnow(),
     )
     STORE[instance.uuid] = instance
-    return jsonify(serialise_instance(instance))
+    response = app.response_class(
+        response=json.dumps(serialise_instance(instance)),
+        status=201,
+        mimetype='application/json'
+    )
+    return response
 
 
 @app.route('/instances')
@@ -217,7 +223,12 @@ def create_foundationsdk_instance():
         created_at=datetime.datetime.utcnow(),
     )
     STORE[instance.uuid] = instance
-    return jsonify(serialise_instance(instance))
+    response = app.response_class(
+        response=json.dumps(serialise_instance(instance)),
+        status=201,
+        mimetype='application/json'
+    )
+    return response
 
 
 @app.route('/foundation/entities')
@@ -255,8 +266,12 @@ def create_foundation_entity_instance(entity):
         created_at=datetime.datetime.utcnow(),
     )
     STORE[instance.uuid] = instance
-    return jsonify(serialise_instance(instance))
-
+    response = app.response_class(
+        response=json.dumps(serialise_instance(instance)),
+        status=201,
+        mimetype='application/json'
+    )
+    return response
 
 @app.route('/foundation/instances')
 def list_foundation_instances():

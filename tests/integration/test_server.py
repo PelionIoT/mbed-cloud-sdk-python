@@ -35,7 +35,7 @@ class EndpointTests(unittest.TestCase):
 
         # Create a new instance
         response = self.app.post('/modules/%s/instances' % module)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 201)
         instance_id = response.json["id"]
         response = self.app.get('/modules/%s/instances' % module)
         self.assertEqual(response.status_code, 200)
@@ -62,7 +62,7 @@ class EndpointTests(unittest.TestCase):
 
         # Create a new instance
         response = self.app.post('/modules/%s/instances' % module)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 201)
         instance_id = response.json["id"]
 
         # Check methods can be listed
@@ -80,7 +80,7 @@ class EndpointTests(unittest.TestCase):
 
         # Create a new instance
         response = self.app.post('/foundation/entities/%s/instances' % entity)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 201)
         instance_id = response.json["id"]
 
         # Check methods can be listed /foundation/instances/<uuid>/methods
@@ -97,7 +97,7 @@ class EndpointTests(unittest.TestCase):
     def test_sdk_methods(self):
         # Create a new instance
         response = self.app.post('/foundation/sdk/instances')
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 201)
         instance_id = response.json["id"]
 
         # Check methods can be listed /foundation/instances/<uuid>/methods
@@ -117,7 +117,7 @@ class EndpointTests(unittest.TestCase):
 
         # Create a new instance
         response = self.app.post('/foundation/sdk/instances')
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 201)
         instance_id = response.json["id"]
         response = self.app.get('/foundation/sdk/instances')
         self.assertEqual(response.status_code, 200)
@@ -142,7 +142,7 @@ class EndpointTests(unittest.TestCase):
 
         # Create a new instance
         response = self.app.post('/foundation/entities/%s/instances' % entity)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 201)
         instance_id = response.json["id"]
         response = self.app.get('/foundation/entities/%s/instances' % entity)
         self.assertEqual(response.status_code, 200)
@@ -179,13 +179,13 @@ class EndpointTests(unittest.TestCase):
 
         # Create a new top level SDK instance
         response = self.app.post('/foundation/sdk/instances')
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 201)
         # Create a new Foundation entity instance
         response = self.app.post('/foundation/entities/%s/instances' % entity)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 201)
         # Create a new module instance
         response = self.app.post('/modules/%s/instances' % module)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 201)
 
         # The instance list endpoint for foundation should not include module instances
         response = self.app.get('/foundation/instances')
