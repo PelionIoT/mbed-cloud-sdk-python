@@ -1,18 +1,24 @@
+"""Basic tests to confirm that the Test Server can handle requests from the Test Runner for integration testing."""
 
 import unittest
 
 # Unit under test
-from server import app
+from tests.integration.server import app
 
 
-class BasicTests(unittest.TestCase):
+class EndpointTests(unittest.TestCase):
 
     def setUp(self):
+        """Setup standard test client for flask apps"""
         self.app = app.test_client()
 
     def test_ping(self):
         response = self.app.get('/ping')
         self.assertEqual(response.status_code, 200)
+
+    def test_reset(self):
+        response = self.app.post('/reset')
+        self.assertEqual(response.status_code, 205)
 
     def test_modules(self):
         response = self.app.get('/modules')
@@ -44,10 +50,64 @@ class BasicTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.json), starting_instance_count, "Instance should not be in the list.")
 
+    def test_unknown_module(self):
+        module = "unknown"
+
+        # Attempt to create an instance for a module that doesn't exist
+        response = self.app.post('/modules/%s/instances' % module)
+        self.assertEqual(response.status_code, 404)
+
+    def test_module_methods(self):
+        module = "update"
+
+        # Create a new instance
+        response = self.app.post('/modules/%s/instances' % module)
+        self.assertEqual(response.status_code, 200)
+        instance_id = response.json["id"]
+
+        # Check methods can be listed
+        response = self.app.get('/instances/%s/methods' % instance_id)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(isinstance(response.json, list))
+
     def test_entities(self):
         response = self.app.get('/foundation/entities')
         self.assertEqual(response.status_code, 200)
         self.assertTrue(isinstance(response.json, list))
+
+    def test_entity_methods(self):
+        entity = "User"
+
+        # Create a new instance
+        response = self.app.post('/foundation/entities/%s/instances' % entity)
+        self.assertEqual(response.status_code, 200)
+        instance_id = response.json["id"]
+
+        # Check methods can be listed /foundation/instances/<uuid>/methods
+        response = self.app.get('/foundation/instances/%s/methods' % instance_id)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(isinstance(response.json, list))
+
+        response = self.app.post('/foundation/instances/%s/methods/list' % instance_id)
+        self.assertEqual(response.status_code, 200)
+
+        response = self.app.post('/foundation/instances/%s/methods/unknown' % instance_id)
+        self.assertEqual(response.status_code, 404)
+
+    def test_sdk_methods(self):
+        # Create a new instance
+        response = self.app.post('/foundation/sdk/instances')
+        self.assertEqual(response.status_code, 200)
+        instance_id = response.json["id"]
+
+        # Check methods can be listed /foundation/instances/<uuid>/methods
+        response = self.app.get('/foundation/instances/%s/methods' % instance_id)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(isinstance(response.json, list))
+
+        # SDK methods should not be executable
+        response = self.app.post('/foundation/instances/%s/methods/entities' % instance_id)
+        self.assertEqual(response.status_code, 405)
 
     def test_sdk_instances(self):
         # Get a list of instances that already exist
@@ -97,6 +157,13 @@ class BasicTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.json), starting_instance_count, "Instance should not be in the list.")
 
+    def test_unknown_entity(self):
+        entity = "unknown"
+
+        # Attempt to create an instance for an entity that doesn't exist
+        response = self.app.post('/foundation/entities/%s/instances' % entity)
+        self.assertEqual(response.status_code, 404)
+
     def test_instances_listing(self):
         """Test that the instance list endpoint only list appropriate entities."""
         entity = "User"
@@ -129,6 +196,20 @@ class BasicTests(unittest.TestCase):
         response = self.app.get('/instances')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.json), module_instance_count + 1, "There should be one additional instance.")
+
+    def test_unknown_foundation_instance(self):
+        instance_id = "unknown"
+
+        # Attempt to get an instance for a foundation entity that doesn't exist
+        response = self.app.get('/foundation/instances/%s' % instance_id)
+        self.assertEqual(response.status_code, 404)
+
+    def test_unknown_module_instance(self):
+        instance_id = "unknown"
+
+        # Attempt to get an instance for a foundation entity that doesn't exist
+        response = self.app.get('/instances/%s' % instance_id)
+        self.assertEqual(response.status_code, 404)
 
 
 if __name__ == "__main__":

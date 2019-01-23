@@ -33,7 +33,7 @@ class SDK(object):
         # create a new client for making http calls
         self._client = Client(self._config)
 
-        self.entities = InstanceFactory(self.client)
+        self._entities = InstanceFactory(self.client)
 
     @property
     def client(self):
@@ -42,6 +42,10 @@ class SDK(object):
     @property
     def config(self):
         return self._config
+
+    @property
+    def entities(self):
+        return self._entities
 
 
 def get_or_create_global_sdk_instance():

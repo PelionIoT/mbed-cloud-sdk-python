@@ -26,7 +26,7 @@ import re
 import flask
 from flask import request
 from flask import jsonify
-from werkzeug.exceptions import NotFound
+from werkzeug.exceptions import HTTPException, NotFound, MethodNotAllowed
 
 from module_runner import run_module
 
@@ -86,10 +86,6 @@ def serialise_instance(instance):
         return dict(created_at=instance.created_at.isoformat(), id=instance.uuid, entity=instance.entity)
 
 
-class DoesNotExist(Exception):
-    pass
-
-
 @app.before_first_request
 def startup():
     print('{banner}{line}\n\n\tcRPC server\tSDK version: {version}\n'.format(
@@ -106,16 +102,17 @@ def get_instance_or_404(uuid):
     return instance
 
 
-@app.errorhandler(NotFound)
+@app.errorhandler(HTTPException)
 def handle_missing_objects(exc):
-    # missing objects are subtly different from missing API
+    """Let through all raised HTTP errors with formatting."""
     return jsonify(dict(
         message=str(exc)
-    )), 404
+    )), exc.code
 
 
 @app.errorhandler(Exception)
 def handle_unknown_errors(exc):
+    """All not HTTP errors should result in a formatted server error."""
     return jsonify(dict(
         traceback=traceback.format_exc(),
         message=str(exc),
@@ -134,9 +131,14 @@ def modules_all_instances(module):
 
 @app.route('/modules/<module>/instances', methods=['POST'])
 def modules_new_instance(module):
+    try:
+        module_class = MODULES[module]
+    except KeyError:
+        raise NotFound("Module '%s' cannot be found." % module)
+
     instance = LockedInstance(
         lock=threading.Lock(),
-        instance=MODULES.get(module)(params=request.get_json()),
+        instance=module_class(params=request.get_json()),
         module=module,
         entity=None,
         uuid=str(uuid.uuid4().hex),
@@ -152,6 +154,7 @@ def instances_all():
 
 
 @app.route('/instances/<uuid>')
+@app.route('/foundation/instances/<uuid>')
 def instances_detail(uuid):
     return jsonify(serialise_instance(get_instance_or_404(uuid)))
 
@@ -169,6 +172,7 @@ def instances_delete(uuid):
 
 
 @app.route('/instances/<uuid>/methods')
+@app.route('/foundation/instances/<uuid>/methods')
 def instances_methods(uuid):
     locked_instance = get_instance_or_404(uuid)
     return jsonify([
@@ -179,12 +183,15 @@ def instances_methods(uuid):
 
 
 @app.route('/instances/<uuid>/methods/<method>', methods=['POST'])
+@app.route('/foundation/instances/<uuid>/methods/<method>', methods=['POST'])
 def instances_call_rpc(uuid, method):
     locked_instance = get_instance_or_404(uuid)
     with locked_instance.lock:
         method = getattr(locked_instance.instance, method, None)
         if method is None:
-            raise DoesNotExist('SDK server: no such method on %s' % (uuid,))
+            raise NotFound('SDK server: no such method on %s' % (uuid,))
+        if not callable(method):
+            raise MethodNotAllowed("Method '%s' is not callable" % method)
         return app.response_class(
             response=run_module(method, request.get_json() or {}),
             status=200,
@@ -237,7 +244,7 @@ def create_foundation_entity_instance(entity):
         method_name = re.sub('(?<!^)(?=[A-Z])', '_', entity).lower()
         entity_class = getattr(sdk_instance.entities, method_name)
     except AttributeError:
-        flask.abort(404)
+        raise NotFound("Entity '%s' which was reformatted to '%s' cannot be found." % (entity, method_name))
 
     instance = LockedInstance(
         lock=threading.Lock(),
@@ -254,11 +261,6 @@ def create_foundation_entity_instance(entity):
 @app.route('/foundation/instances')
 def list_foundation_instances():
     return jsonify([serialise_instance(instance) for instance in STORE.values() if instance.entity is not None])
-
-
-@app.route('/foundation/instances/<instance_id>')
-def get_foundation_instance(instance_id):
-    return jsonify(serialise_instance(get_instance_or_404(instance_id)))
 
 
 @app.route('/foundation/instances/<instance_id>', methods=['DELETE'])
@@ -291,13 +293,11 @@ def server_reset():
 
 @app.route('/shutdown', methods=['POST'])
 def server_shutdown():
-    # do some clean shutdown logic for coverage
-    request.environ.get('werkzeug.server.shutdown')()
-    return app.response_class(
-        response=None,
-        status=202,
-    )
-
+    func = request.environ.get('werkzeug.server.shutdown')
+    if func is None:
+        raise RuntimeError('Not running with the Werkzeug Server')
+    func()
+    return 'Server shutting down', 202
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
