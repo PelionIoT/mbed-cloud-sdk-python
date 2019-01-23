@@ -89,7 +89,7 @@ class EndpointTests(unittest.TestCase):
         self.assertTrue(isinstance(response.json, list))
 
         response = self.app.post('/foundation/instances/%s/methods/list' % instance_id)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 200, response.json)
 
         response = self.app.post('/foundation/instances/%s/methods/unknown' % instance_id)
         self.assertEqual(response.status_code, 404)
