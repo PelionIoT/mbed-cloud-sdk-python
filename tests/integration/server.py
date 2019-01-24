@@ -266,7 +266,7 @@ def list_foundation_sdk_instances():
 
 
 @app.route('/foundation/sdk/instances', methods=['POST'])
-def create_foundationsdk_instance():
+def create_foundation_sdk_instance():
     """Create an instance of a Foundation SDK Entity"""
     instance = LockedInstance(
         lock=threading.Lock(),

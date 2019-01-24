@@ -1,6 +1,7 @@
 """Basic tests to confirm that the Test Server can handle requests from the Test Runner for integration testing."""
 
 import os
+import json
 import unittest
 
 # Unit under test
@@ -9,9 +10,29 @@ from tests.integration.server import app
 
 class EndpointTests(unittest.TestCase):
 
-    def setUp(self):
+    @classmethod
+    def setUpClass(cls):
         """Setup standard test client for flask apps"""
-        self.app = app.test_client()
+        cls.app = app.test_client()
+
+        # When run locally this will use the default environment variables, when running in CI use the OS2
+        # defaults for this test as it contacts the API to list the user entity.
+        sdk_config = {}
+        try:
+            sdk_config["api_key"] = os.environ['TEST_RUNNER_DEFAULT_API_KEY']
+        except KeyError:
+            pass
+
+        try:
+            sdk_config["host"] = os.environ['TEST_RUNNER_DEFAULT_API_HOST']
+        except KeyError:
+            pass
+
+        cls.sdk_config = json.dumps(sdk_config)
+
+    def create_instance(self, url):
+        """Create a module, entity or SDK instance."""
+        return self.app.post(url, data=self.sdk_config, content_type='application/json')
 
     def test_ping(self):
         response = self.app.get('/ping')
@@ -35,7 +56,7 @@ class EndpointTests(unittest.TestCase):
         starting_instance_count = len(response.json)
 
         # Create a new instance
-        response = self.app.post('/modules/%s/instances' % module)
+        response = self.create_instance('/modules/%s/instances' % module)
         self.assertEqual(response.status_code, 201)
         instance_id = response.json["id"]
         response = self.app.get('/modules/%s/instances' % module)
@@ -55,14 +76,14 @@ class EndpointTests(unittest.TestCase):
         module = "unknown"
 
         # Attempt to create an instance for a module that doesn't exist
-        response = self.app.post('/modules/%s/instances' % module)
+        response = self.create_instance('/modules/%s/instances' % module)
         self.assertEqual(response.status_code, 404)
 
     def test_module_methods(self):
         module = "update"
 
         # Create a new instance
-        response = self.app.post('/modules/%s/instances' % module)
+        response = self.create_instance('/modules/%s/instances' % module)
         self.assertEqual(response.status_code, 201)
         instance_id = response.json["id"]
 
@@ -79,21 +100,8 @@ class EndpointTests(unittest.TestCase):
     def test_entity_methods(self):
         entity = "User"
 
-        # When run locally this will use the default environment variables, when running in CI use the OS2
-        # defaults for this test as it contacts the API to list the user entity.
-        sdk_config = {}
-        try:
-            sdk_config["api_key"] = os.environ['TEST_RUNNER_DEFAULT_API_KEY']
-        except KeyError:
-            pass
-
-        try:
-            sdk_config["host"] = os.environ['TEST_RUNNER_DEFAULT_API_HOST']
-        except KeyError:
-            pass
-
         # Create a new instance
-        response = self.app.post('/foundation/entities/%s/instances' % entity, data=sdk_config)
+        response = self.create_instance('/foundation/entities/%s/instances' % entity)
         self.assertEqual(response.status_code, 201)
         instance_id = response.json["id"]
 
@@ -101,17 +109,16 @@ class EndpointTests(unittest.TestCase):
         response = self.app.get('/foundation/instances/%s/methods' % instance_id)
         self.assertEqual(response.status_code, 200)
         self.assertTrue(isinstance(response.json, list))
-        print(response.json)
 
         response = self.app.post('/foundation/instances/%s/methods/list' % instance_id)
-        self.assertEqual(response.status_code, 200, str(sdk_config) + "\n" + str(response.json))
+        self.assertEqual(response.status_code, 200, str(response.json))
 
         response = self.app.post('/foundation/instances/%s/methods/unknown' % instance_id)
         self.assertEqual(response.status_code, 404)
 
     def test_sdk_methods(self):
         # Create a new instance
-        response = self.app.post('/foundation/sdk/instances')
+        response = self.create_instance('/foundation/sdk/instances')
         self.assertEqual(response.status_code, 201)
         instance_id = response.json["id"]
 
@@ -119,7 +126,6 @@ class EndpointTests(unittest.TestCase):
         response = self.app.get('/foundation/instances/%s/methods' % instance_id)
         self.assertEqual(response.status_code, 200)
         self.assertTrue(isinstance(response.json, list))
-        print(response.json)
 
         # SDK methods should not be executable
         response = self.app.post('/foundation/instances/%s/methods/entities' % instance_id)
@@ -132,7 +138,7 @@ class EndpointTests(unittest.TestCase):
         starting_instance_count = len(response.json)
 
         # Create a new instance
-        response = self.app.post('/foundation/sdk/instances')
+        response = self.create_instance('/foundation/sdk/instances')
         self.assertEqual(response.status_code, 201)
         instance_id = response.json["id"]
         response = self.app.get('/foundation/sdk/instances')
@@ -157,7 +163,7 @@ class EndpointTests(unittest.TestCase):
         starting_instance_count = len(response.json)
 
         # Create a new instance
-        response = self.app.post('/foundation/entities/%s/instances' % entity)
+        response = self.create_instance('/foundation/entities/%s/instances' % entity)
         self.assertEqual(response.status_code, 201)
         instance_id = response.json["id"]
         response = self.app.get('/foundation/entities/%s/instances' % entity)
@@ -177,7 +183,7 @@ class EndpointTests(unittest.TestCase):
         entity = "unknown"
 
         # Attempt to create an instance for an entity that doesn't exist
-        response = self.app.post('/foundation/entities/%s/instances' % entity)
+        response = self.create_instance('/foundation/entities/%s/instances' % entity)
         self.assertEqual(response.status_code, 404)
 
     def test_instances_listing(self):
@@ -194,13 +200,13 @@ class EndpointTests(unittest.TestCase):
         module_instance_count = len(response.json)
 
         # Create a new top level SDK instance
-        response = self.app.post('/foundation/sdk/instances')
+        response = self.create_instance('/foundation/sdk/instances')
         self.assertEqual(response.status_code, 201)
         # Create a new Foundation entity instance
-        response = self.app.post('/foundation/entities/%s/instances' % entity)
+        response = self.create_instance('/foundation/entities/%s/instances' % entity)
         self.assertEqual(response.status_code, 201)
         # Create a new module instance
-        response = self.app.post('/modules/%s/instances' % module)
+        response = self.create_instance('/modules/%s/instances' % module)
         self.assertEqual(response.status_code, 201)
 
         # The instance list endpoint for foundation should not include module instances
