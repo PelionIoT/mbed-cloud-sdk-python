@@ -83,12 +83,12 @@ class EndpointTests(unittest.TestCase):
         # defaults for this test as it contacts the API to list the user entity.
         sdk_config = {}
         try:
-            sdk_config["api_key"] = os.environ['MBED_CLOUD_API_KEY_OS2']
+            sdk_config["api_key"] = os.environ['TEST_RUNNER_DEFAULT_API_KEY']
         except KeyError:
             pass
 
         try:
-            sdk_config["host"] = os.environ['MBED_CLOUD_API_HOST_OS2']
+            sdk_config["host"] = os.environ['TEST_RUNNER_DEFAULT_API_HOST']
         except KeyError:
             pass
 
@@ -97,10 +97,11 @@ class EndpointTests(unittest.TestCase):
         self.assertEqual(response.status_code, 201)
         instance_id = response.json["id"]
 
-        # Check methods can be listed /foundation/instances/<uuid>/methods
+        # Check methods can be listed
         response = self.app.get('/foundation/instances/%s/methods' % instance_id)
         self.assertEqual(response.status_code, 200)
         self.assertTrue(isinstance(response.json, list))
+        print(response.json)
 
         response = self.app.post('/foundation/instances/%s/methods/list' % instance_id)
         self.assertEqual(response.status_code, 200, str(sdk_config) + "\n" + str(response.json))
@@ -114,10 +115,11 @@ class EndpointTests(unittest.TestCase):
         self.assertEqual(response.status_code, 201)
         instance_id = response.json["id"]
 
-        # Check methods can be listed /foundation/instances/<uuid>/methods
+        # Check methods can be listed
         response = self.app.get('/foundation/instances/%s/methods' % instance_id)
         self.assertEqual(response.status_code, 200)
         self.assertTrue(isinstance(response.json, list))
+        print(response.json)
 
         # SDK methods should not be executable
         response = self.app.post('/foundation/instances/%s/methods/entities' % instance_id)
