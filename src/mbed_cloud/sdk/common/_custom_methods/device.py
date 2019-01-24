@@ -1,6 +1,10 @@
 """Custom methods for device entities."""
 
-from urllib.parse import urlparse
+try:
+    from urllib.parse import urlparse
+except ImportError:
+    from urlparse import urlparse
+
 from io import StringIO
 
 
