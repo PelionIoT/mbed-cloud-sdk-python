@@ -79,16 +79,16 @@ class EndpointTests(unittest.TestCase):
     def test_entity_methods(self):
         entity = "User"
 
-        # When run locally this will use the default environment variables, when running in CI use the Test Runner
+        # When run locally this will use the default environment variables, when running in CI use the OS2
         # defaults for this test as it contacts the API to list the user entity.
         sdk_config = {}
         try:
-            sdk_config["api_key"] = os.environ['TEST_RUNNER_DEFAULT_API_KEY']
+            sdk_config["api_key"] = os.environ['MBED_CLOUD_API_KEY_OS2']
         except KeyError:
             pass
 
         try:
-            sdk_config["host"] = os.environ['TEST_RUNNER_DEFAULT_API_HOST']
+            sdk_config["host"] = os.environ['MBED_CLOUD_API_HOST_OS2']
         except KeyError:
             pass
 
@@ -103,7 +103,7 @@ class EndpointTests(unittest.TestCase):
         self.assertTrue(isinstance(response.json, list))
 
         response = self.app.post('/foundation/instances/%s/methods/list' % instance_id)
-        self.assertEqual(response.status_code, 200, response.json)
+        self.assertEqual(response.status_code, 200, str(sdk_config) + "\n" + str(response.json))
 
         response = self.app.post('/foundation/instances/%s/methods/unknown' % instance_id)
         self.assertEqual(response.status_code, 404)
