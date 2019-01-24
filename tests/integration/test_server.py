@@ -1,5 +1,6 @@
 """Basic tests to confirm that the Test Server can handle requests from the Test Runner for integration testing."""
 
+import os
 import unittest
 
 # Unit under test
@@ -39,7 +40,7 @@ class EndpointTests(unittest.TestCase):
         instance_id = response.json["id"]
         response = self.app.get('/modules/%s/instances' % module)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.json), starting_instance_count+1, "Created instance should be in the list.")
+        self.assertEqual(len(response.json), starting_instance_count + 1, "Created instance should be in the list.")
 
         # Delete created instance
         response = self.app.delete('/instances/%s' % instance_id)
@@ -78,8 +79,21 @@ class EndpointTests(unittest.TestCase):
     def test_entity_methods(self):
         entity = "User"
 
+        # When run locally this will use the default environment variables, when running in CI use the Test Runner
+        # defaults for this test as it contacts the API to list the user entity.
+        sdk_config = {}
+        try:
+            sdk_config["api_key"] = os.environ['TEST_RUNNER_DEFAULT_API_KEY']
+        except KeyError:
+            pass
+
+        try:
+            sdk_config["host"] = os.environ['TEST_RUNNER_DEFAULT_API_HOST']
+        except KeyError:
+            pass
+
         # Create a new instance
-        response = self.app.post('/foundation/entities/%s/instances' % entity)
+        response = self.app.post('/foundation/entities/%s/instances' % entity, data=sdk_config)
         self.assertEqual(response.status_code, 201)
         instance_id = response.json["id"]
 
@@ -146,7 +160,7 @@ class EndpointTests(unittest.TestCase):
         instance_id = response.json["id"]
         response = self.app.get('/foundation/entities/%s/instances' % entity)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.json), starting_instance_count+1, "Created instance should be in the list.")
+        self.assertEqual(len(response.json), starting_instance_count + 1, "Created instance should be in the list.")
 
         # Delete created instance
         response = self.app.delete('/foundation/instances/%s' % instance_id)
