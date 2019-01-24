@@ -1,4 +1,4 @@
-"""Basic tests to confirm that the Test Server can handle requests from the Test Runner for integration testing."""
+"""Tests to confirm that the Test Server conforms to the Test Runner specification for integration testing."""
 
 import os
 import json

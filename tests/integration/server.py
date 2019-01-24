@@ -1,6 +1,6 @@
 # --------------------------------------------------------------------------
 # Mbed Cloud Python SDK
-# (C) COPYRIGHT 2017 Arm Limited
+# (C) COPYRIGHT 2019 Arm Limited
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # --------------------------------------------------------------------------
-"""This test server is executed by CI test runs with a common"""
+"""Test Server executed in the context of CI to run integration tests."""
 
 import logging
 import queue
@@ -106,8 +106,7 @@ def serialise(obj):
     except AttributeError:
         pass
 
-    raise TypeError("Object of type '%s' is not JSON serializable" %
-                    obj.__class__.__name__)
+    raise TypeError("Object of type '%s' is not JSON serializable" % obj.__class__.__name__)
 
 
 def deserialise(obj):
@@ -367,6 +366,7 @@ def server_shutdown():
         raise RuntimeError('Not running with the Werkzeug Server')
     func()
     return 'Server shutting down', 202
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
