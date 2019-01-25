@@ -14,6 +14,8 @@ services:
       environment:
         - MBED_CLOUD_SDK_API_KEY=abc123
         - CI=yes
+        - TEST_RUNNER_DEFAULT_API_KEY
+        - TEST_RUNNER_DEFAULT_API_HOST
       volumes:
         - ../results:/build/results
         - ../test_fixtures:/test_fixtures
