@@ -956,8 +956,6 @@ class InstanceFactory:
         :type created_at: datetime
         :param description: Human readable description of this certificate.
         :type description: str
-        :param device_execution_mode: Device execution mode where 1 means a developer certificate.
-        :type device_execution_mode: int
         :param enrollment_mode: If true, signature is not required. Default value false.
         :type enrollment_mode: bool
         :param id: Entity ID.
@@ -992,7 +990,6 @@ class InstanceFactory:
             certificate_fingerprint=certificate_fingerprint,
             created_at=created_at,
             description=description,
-            device_execution_mode=device_execution_mode,
             enrollment_mode=enrollment_mode,
             id=id,
             is_developer_certificate=is_developer_certificate,
@@ -1192,8 +1189,6 @@ class InstanceFactory:
         :type created_at: datetime
         :param description: Human readable description of this certificate.
         :type description: str
-        :param device_execution_mode: Device execution mode where 1 means a developer certificate.
-        :type device_execution_mode: int
         :param enrollment_mode: If true, signature is not required. Default value false.
         :type enrollment_mode: bool
         :param id: Entity ID.
@@ -1228,7 +1223,6 @@ class InstanceFactory:
             certificate_fingerprint=certificate_fingerprint,
             created_at=created_at,
             description=description,
-            device_execution_mode=device_execution_mode,
             enrollment_mode=enrollment_mode,
             id=id,
             is_developer_certificate=is_developer_certificate,
