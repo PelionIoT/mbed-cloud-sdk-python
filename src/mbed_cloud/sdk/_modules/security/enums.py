@@ -77,8 +77,8 @@ class CertificateEnrollmentOrderEnum(BaseEnum):
     values = frozenset(("ASC", "DESC"))
 
 
-class CertificateIssuerIssuerTypeEnum(BaseEnum):
-    """Represents expected values of `CertificateIssuerIssuerTypeEnum`
+class CertificateIssuerTypeEnum(BaseEnum):
+    """Represents expected values of `CertificateIssuerTypeEnum`
 
     This is used by Mbed Cloud "security" functionality
 

@@ -224,11 +224,42 @@ class CertificateIssuerConfig(Entity):
             unpack=self,
         )
 
+    def get_default(self):
+        """Get certificate issuer configuration.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/certificate-issuer-configurations/lwm2m
+        
+        :rtype: CertificateIssuerConfig
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/certificate-issuer-configurations/lwm2m",
+            unpack=self,
+        )
+
     def list(self, include=None, max_results=None, page_size=None, order=None):
         """Get certificate issuer configurations.
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/certificate-issuer-configurations
+        
+        :param include: Comma-separated list of data fields to return. Currently supported:
+            `total_count`
+        :type include: str
+        
+        :param max_results: Total maximum number of results to retrieve
+        :type max_results: int
+            
+        :param page_size: How many objects to retrieve in the page. The minimum limit is 2 and
+            the maximum is 1000. Limit values outside of this range are set to the
+            closest limit.
+        :type page_size: int
+        
+        :param order: The order of the records based on creation time, `ASC` or `DESC`; by
+            default `ASC`.
+        :type order: str
         
         :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse(CertificateIssuerConfig)
@@ -247,32 +278,41 @@ class CertificateIssuerConfig(Entity):
             wraps=self._paginate_list,
         )
 
-    def lwm2m(self):
-        """Get certificate issuer configuration.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/certificate-issuer-configurations/lwm2m
-        
-        :rtype: CertificateIssuerConfig
-        """
-
-        return self._client.call_api(
-            method="get",
-            path="/v3/certificate-issuer-configurations/lwm2m",
-            unpack=self,
-        )
-
-    def _paginate_list(self, **kwargs):
+    def _paginate_list(self, after=None, include=None, limit=None, order=None):
         """Get certificate issuer configurations.
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/certificate-issuer-configurations
         
+        :param after: The ID of The item after which to retrieve the next page.
+        :type after: str
+        
+        :param include: Comma-separated list of data fields to return. Currently supported:
+            `total_count`
+        :type include: str
+        
+        :param limit: How many objects to retrieve in the page. The minimum limit is 2 and
+            the maximum is 1000. Limit values outside of this range are set to the
+            closest limit.
+        :type limit: int
+        
+        :param order: The order of the records based on creation time, `ASC` or `DESC`; by
+            default `ASC`.
+        :type order: str
+        
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 
         return self._client.call_api(
-            method="get", path="/v3/certificate-issuer-configurations", unpack=False
+            method="get",
+            path="/v3/certificate-issuer-configurations",
+            query_params={
+                "after": fields.StringField(after).to_api(),
+                "include": fields.StringField(include).to_api(),
+                "limit": fields.IntegerField(limit).to_api(),
+                "order": fields.StringField(order).to_api(),
+            },
+            unpack=False,
         )
 
     def update(self):

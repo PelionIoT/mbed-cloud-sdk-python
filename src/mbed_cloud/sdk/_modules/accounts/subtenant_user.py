@@ -29,6 +29,7 @@ class SubtenantUser(Entity):
         "id",
         "last_login_time",
         "login_history",
+        "login_profiles",
         "marketing_accepted",
         "password",
         "password_changed_time",
@@ -60,6 +61,7 @@ class SubtenantUser(Entity):
         id=None,
         last_login_time=None,
         login_history=None,
+        login_profiles=None,
         marketing_accepted=None,
         password=None,
         password_changed_time=None,
@@ -72,7 +74,7 @@ class SubtenantUser(Entity):
     ):
         """Creates a local `SubtenantUser` instance
 
-        :param account_id: The UUID of the account.
+        :param account_id: The ID of the account.
         :type account_id: str
         :param address: Address.
         :type address: str
@@ -87,7 +89,7 @@ class SubtenantUser(Entity):
         :type email_verified: bool
         :param full_name: The full name of the user.
         :type full_name: str
-        :param id: The UUID of the user.
+        :param id: The ID of the user.
         :type id: str
         :param last_login_time: A timestamp of the latest login of the user, in milliseconds.
         :type last_login_time: int
@@ -95,6 +97,9 @@ class SubtenantUser(Entity):
             of the last five logins of the user, with timestamps in RFC3339
             format.
         :type login_history: list
+        :param login_profiles: A list of login profiles for the user. Specified as the identity
+            providers the user is associated with.
+        :type login_profiles: list
         :param marketing_accepted: A flag indicating that receiving marketing information has been
             accepted.
         :type marketing_accepted: bool
@@ -130,6 +135,7 @@ class SubtenantUser(Entity):
         # inline imports for avoiding circular references and bulk imports
 
         from mbed_cloud.sdk._modules.accounts.login_history import LoginHistory
+        from mbed_cloud.sdk._modules.accounts.login_profile import LoginProfile
 
         # fields
         self._account_id = fields.StringField(value=account_id)
@@ -142,6 +148,9 @@ class SubtenantUser(Entity):
         self._id = fields.StringField(value=id)
         self._last_login_time = fields.IntegerField(value=last_login_time)
         self._login_history = fields.ListField(value=login_history, entity=LoginHistory)
+        self._login_profiles = fields.ListField(
+            value=login_profiles, entity=LoginProfile
+        )
         self._marketing_accepted = fields.BooleanField(value=marketing_accepted)
         self._password = fields.StringField(value=password)
         self._password_changed_time = fields.IntegerField(value=password_changed_time)
@@ -158,7 +167,7 @@ class SubtenantUser(Entity):
 
     @property
     def account_id(self):
-        """The UUID of the account.
+        """The ID of the account.
         
         api example: '01619571e2e90242ac12000600000000'
         
@@ -305,7 +314,7 @@ class SubtenantUser(Entity):
 
     @property
     def id(self):
-        """The UUID of the user.
+        """The ID of the user.
         
         api example: '01619571e2e89242ac12000600000000'
         
@@ -364,6 +373,26 @@ class SubtenantUser(Entity):
         """
 
         self._login_history.set(value)
+
+    @property
+    def login_profiles(self):
+        """A list of login profiles for the user. Specified as the identity providers the
+        user is associated with.
+        
+        :rtype: list[LoginProfile]
+        """
+
+        return self._login_profiles.value
+
+    @login_profiles.setter
+    def login_profiles(self, value):
+        """Set value of `login_profiles`
+
+        :param value: value to set
+        :type value: list[LoginProfile]
+        """
+
+        self._login_profiles.set(value)
 
     @property
     def marketing_accepted(self):
@@ -563,7 +592,7 @@ class SubtenantUser(Entity):
         """Create a new user.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/users
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/users
         
         :param action: Create or invite user.
         :type action: str
@@ -573,18 +602,19 @@ class SubtenantUser(Entity):
 
         return self._client.call_api(
             method="post",
-            path="/v3/accounts/{accountID}/users",
+            path="/v3/accounts/{account_id}/users",
             body_params={
                 "address": self._address.to_api(),
                 "email": self._email.to_api(),
                 "full_name": self._full_name.to_api(),
+                "login_profiles": self._login_profiles.to_api(),
                 "is_marketing_accepted": self._marketing_accepted.to_api(),
                 "password": self._password.to_api(),
                 "phone_number": self._phone_number.to_api(),
                 "is_gtc_accepted": self._terms_accepted.to_api(),
                 "username": self._username.to_api(),
             },
-            path_params={"accountID": self._account_id.to_api()},
+            path_params={"account_id": self._account_id.to_api()},
             query_params={"action": fields.StringField(action).to_api()},
             unpack=self,
         )
@@ -593,17 +623,17 @@ class SubtenantUser(Entity):
         """Delete a user.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/users/{user-id}
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/users/{user_id}
         
         :rtype: SubtenantUser
         """
 
         return self._client.call_api(
             method="delete",
-            path="/v3/accounts/{accountID}/users/{user-id}",
+            path="/v3/accounts/{account_id}/users/{user_id}",
             path_params={
-                "accountID": self._account_id.to_api(),
-                "user-id": self._id.to_api(),
+                "account_id": self._account_id.to_api(),
+                "user_id": self._id.to_api(),
             },
             unpack=self,
         )
@@ -612,17 +642,17 @@ class SubtenantUser(Entity):
         """Details of the user.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/users/{user-id}
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/users/{user_id}
         
         :rtype: SubtenantUser
         """
 
         return self._client.call_api(
             method="get",
-            path="/v3/accounts/{accountID}/users/{user-id}",
+            path="/v3/accounts/{account_id}/users/{user_id}",
             path_params={
-                "accountID": self._account_id.to_api(),
-                "user-id": self._id.to_api(),
+                "account_id": self._account_id.to_api(),
+                "user_id": self._id.to_api(),
             },
             unpack=self,
         )
@@ -631,17 +661,18 @@ class SubtenantUser(Entity):
         """Update user details.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/users/{user-id}
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/users/{user_id}
         
         :rtype: SubtenantUser
         """
 
         return self._client.call_api(
             method="put",
-            path="/v3/accounts/{accountID}/users/{user-id}",
+            path="/v3/accounts/{account_id}/users/{user_id}",
             body_params={
                 "address": self._address.to_api(),
                 "full_name": self._full_name.to_api(),
+                "login_profiles": self._login_profiles.to_api(),
                 "is_marketing_accepted": self._marketing_accepted.to_api(),
                 "phone_number": self._phone_number.to_api(),
                 "is_gtc_accepted": self._terms_accepted.to_api(),
@@ -649,8 +680,8 @@ class SubtenantUser(Entity):
                 "username": self._username.to_api(),
             },
             path_params={
-                "accountID": self._account_id.to_api(),
-                "user-id": self._id.to_api(),
+                "account_id": self._account_id.to_api(),
+                "user_id": self._id.to_api(),
             },
             unpack=self,
         )
@@ -659,17 +690,17 @@ class SubtenantUser(Entity):
         """Validate the user email.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/users/{user-id}/validate-email
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/users/{user_id}/validate-email
         
         :rtype: SubtenantUser
         """
 
         return self._client.call_api(
             method="post",
-            path="/v3/accounts/{accountID}/users/{user-id}/validate-email",
+            path="/v3/accounts/{account_id}/users/{user_id}/validate-email",
             path_params={
-                "accountID": self._account_id.to_api(),
-                "user-id": self._id.to_api(),
+                "account_id": self._account_id.to_api(),
+                "user_id": self._id.to_api(),
             },
             unpack=self,
         )

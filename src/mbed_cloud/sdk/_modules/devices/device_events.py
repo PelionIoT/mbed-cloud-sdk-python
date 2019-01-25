@@ -349,7 +349,9 @@ class DeviceEvents(Entity):
         :param max_results: Total maximum number of results to retrieve
         :type max_results: int
             
-        :param page_size: How many objects to retrieve in the page.
+        :param page_size: How many objects to retrieve in the page. The minimum limit is 2 and
+            the maximum is 1000. Limit values outside of this range are set to the
+            closest limit.
         :type page_size: int
         
         :param order: The order of the records based on creation time, `ASC` or `DESC`; by
@@ -386,7 +388,9 @@ class DeviceEvents(Entity):
             `total_count`
         :type include: str
         
-        :param limit: How many objects to retrieve in the page.
+        :param limit: How many objects to retrieve in the page. The minimum limit is 2 and
+            the maximum is 1000. Limit values outside of this range are set to the
+            closest limit.
         :type limit: int
         
         :param order: The order of the records based on creation time, `ASC` or `DESC`; by

@@ -23,7 +23,7 @@ from mbed_cloud.sdk._modules.security.enums import CertificateEnrollmentEnrollRe
 from mbed_cloud.sdk._modules.security.enums import CertificateEnrollmentEnrollStatusEnum
 from mbed_cloud.sdk._modules.security.enums import CertificateEnrollmentIncludeEnum
 from mbed_cloud.sdk._modules.security.enums import CertificateEnrollmentOrderEnum
-from mbed_cloud.sdk._modules.security.enums import CertificateIssuerIssuerTypeEnum
+from mbed_cloud.sdk._modules.security.enums import CertificateIssuerTypeEnum
 from mbed_cloud.sdk._modules.security.enums import (
     SubtenantTrustedCertificateServiceEnum,
 )
@@ -43,7 +43,7 @@ __all__ = [
     "CertificateEnrollmentEnrollStatusEnum",
     "CertificateEnrollmentIncludeEnum",
     "CertificateEnrollmentOrderEnum",
-    "CertificateIssuerIssuerTypeEnum",
+    "CertificateIssuerTypeEnum",
     "DeviceDeployedStateEnum",
     "DeviceEnrollmentBulkCreateStatusEnum",
     "DeviceEnrollmentBulkDeleteStatusEnum",

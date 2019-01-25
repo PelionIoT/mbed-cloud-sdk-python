@@ -39,12 +39,14 @@ class InstanceFactory:
         display_name=None,
         email=None,
         end_market=None,
+        expiration=None,
         expiration_warning_threshold=None,
         id=None,
         idle_timeout=None,
         limits=None,
         mfa_status=None,
         notification_emails=None,
+        parent_account=None,
         parent_id=None,
         password_policy=None,
         phone_number=None,
@@ -66,21 +68,22 @@ class InstanceFactory:
         :type address_line1: str
         :param address_line2: Postal address line 2.
         :type address_line2: str
-        :param admin_email: The email address of the account admin, not longer than 254
-            characters.
+        :param admin_email: The email address of the admin user created for this account.
+            Present only in the response for the account creation.
         :type admin_email: str
-        :param admin_full_name: The full name of the admin user to be created.
+        :param admin_full_name: The full name of the admin user created for this account. Present
+            only in the response for the account creation.
         :type admin_full_name: str
-        :param admin_id: The ID of the admin user created.
+        :param admin_id: The ID of the admin user created for this account.
         :type admin_id: str
-        :param admin_key: The admin API key created for the account.
+        :param admin_key: The admin API key created for this account. Present only in the
+            response for the account creation.
         :type admin_key: str
-        :param admin_name: The username of the admin user to be created, containing
-            alphanumerical letters and -,._@+= characters. It must be at least
-            4 but not more than 30 character long.
+        :param admin_name: The username of the admin user created for this account. Present
+            only in the response for the account creation.
         :type admin_name: str
-        :param admin_password: The password when creating a new user. It will be generated when
-            not present in the request.
+        :param admin_password: The password of the admin user created for this account. Present
+            only in the response for the account creation.
         :type admin_password: str
         :param aliases: An array of aliases.
         :type aliases: list
@@ -106,6 +109,8 @@ class InstanceFactory:
         :type email: str
         :param end_market: Account end market.
         :type end_market: str
+        :param expiration: Expiration time of the account, as UTC time RFC3339.
+        :type expiration: datetime
         :param expiration_warning_threshold: Indicates how many days (1-180) before account expiration a
             notification email should be sent.
         :type expiration_warning_threshold: str
@@ -120,6 +125,9 @@ class InstanceFactory:
         :type mfa_status: str
         :param notification_emails: A list of notification email addresses.
         :type notification_emails: list
+        :param parent_account: This object represents parent account contact details in
+            responses.
+        :type parent_account: dict
         :param parent_id: The ID of the parent account, if it has any.
         :type parent_id: str
         :param password_policy: 
@@ -177,12 +185,14 @@ class InstanceFactory:
             display_name=display_name,
             email=email,
             end_market=end_market,
+            expiration=expiration,
             expiration_warning_threshold=expiration_warning_threshold,
             id=id,
             idle_timeout=idle_timeout,
             limits=limits,
             mfa_status=mfa_status,
             notification_emails=notification_emails,
+            parent_account=parent_account,
             parent_id=parent_id,
             password_policy=password_policy,
             phone_number=phone_number,
@@ -201,6 +211,7 @@ class InstanceFactory:
 
     def api_key(
         self,
+        account_id=None,
         created_at=None,
         creation_time=None,
         id=None,
@@ -213,12 +224,14 @@ class InstanceFactory:
     ):
         """Creates a local `ApiKey` instance, binding the client
 
+        :param account_id: The ID of the account.
+        :type account_id: str
         :param created_at: Creation UTC time RFC3339.
         :type created_at: datetime
         :param creation_time: The timestamp of the API key creation in the storage, in
             milliseconds.
         :type creation_time: int
-        :param id: The UUID of the API key.
+        :param id: The ID of the API key.
         :type id: str
         :param key: The API key.
         :type key: str
@@ -239,6 +252,7 @@ class InstanceFactory:
 
         return ApiKey(
             _client=self._client,
+            account_id=account_id,
             created_at=created_at,
             creation_time=creation_time,
             id=id,
@@ -806,6 +820,40 @@ class InstanceFactory:
             user_agent=user_agent,
         )
 
+    def login_profile(self, id=None, name=None):
+        """Creates a local `LoginProfile` instance, binding the client
+
+        :param id: ID of the identity provider.
+        :type id: str
+        :param name: Name of the identity provider.
+        :type name: str
+        
+        :rtype: mbed_cloud.sdk.entities.LoginProfile
+        """
+        from mbed_cloud.sdk.entities import LoginProfile
+
+        return LoginProfile(_client=self._client, id=id, name=name)
+
+    def parent_account(self, admin_email=None, admin_name=None, id=None):
+        """Creates a local `ParentAccount` instance, binding the client
+
+        :param admin_email: The email address of the admin user who is the contact person of
+            the parent account.
+        :type admin_email: str
+        :param admin_name: The name of the admin user who is the contact person of the parent
+            account.
+        :type admin_name: str
+        :param id: The ID of the parent account
+        :type id: str
+        
+        :rtype: mbed_cloud.sdk.entities.ParentAccount
+        """
+        from mbed_cloud.sdk.entities import ParentAccount
+
+        return ParentAccount(
+            _client=self._client, admin_email=admin_email, admin_name=admin_name, id=id
+        )
+
     def password_policy(self, minimum_length=None):
         """Creates a local `PasswordPolicy` instance, binding the client
 
@@ -881,6 +929,7 @@ class InstanceFactory:
         self,
         account_id=None,
         certificate=None,
+        certificate_fingerprint=None,
         created_at=None,
         description=None,
         enrollment_mode=None,
@@ -897,10 +946,12 @@ class InstanceFactory:
     ):
         """Creates a local `SubtenantTrustedCertificate` instance, binding the client
 
-        :param account_id: The UUID of the account.
+        :param account_id: The ID of the account.
         :type account_id: str
         :param certificate: X509.v3 trusted certificate in PEM format.
         :type certificate: str
+        :param certificate_fingerprint: A SHA-256 fingerprint of the certificate.
+        :type certificate_fingerprint: str
         :param created_at: Creation UTC time RFC3339.
         :type created_at: datetime
         :param description: Human readable description of this certificate.
@@ -917,7 +968,7 @@ class InstanceFactory:
         :type issuer: str
         :param name: Certificate name.
         :type name: str
-        :param owner_id: The UUID of the owner.
+        :param owner_id: The ID of the owner.
         :type owner_id: str
         :param service: Service name where the certificate is to be used.
         :type service: str
@@ -938,6 +989,7 @@ class InstanceFactory:
             _client=self._client,
             account_id=account_id,
             certificate=certificate,
+            certificate_fingerprint=certificate_fingerprint,
             created_at=created_at,
             description=description,
             device_execution_mode=device_execution_mode,
@@ -966,6 +1018,7 @@ class InstanceFactory:
         id=None,
         last_login_time=None,
         login_history=None,
+        login_profiles=None,
         marketing_accepted=None,
         password=None,
         password_changed_time=None,
@@ -978,7 +1031,7 @@ class InstanceFactory:
     ):
         """Creates a local `SubtenantUser` instance, binding the client
 
-        :param account_id: The UUID of the account.
+        :param account_id: The ID of the account.
         :type account_id: str
         :param address: Address.
         :type address: str
@@ -993,7 +1046,7 @@ class InstanceFactory:
         :type email_verified: bool
         :param full_name: The full name of the user.
         :type full_name: str
-        :param id: The UUID of the user.
+        :param id: The ID of the user.
         :type id: str
         :param last_login_time: A timestamp of the latest login of the user, in milliseconds.
         :type last_login_time: int
@@ -1001,6 +1054,9 @@ class InstanceFactory:
             of the last five logins of the user, with timestamps in RFC3339
             format.
         :type login_history: list
+        :param login_profiles: A list of login profiles for the user. Specified as the identity
+            providers the user is associated with.
+        :type login_profiles: list
         :param marketing_accepted: A flag indicating that receiving marketing information has been
             accepted.
         :type marketing_accepted: bool
@@ -1046,6 +1102,7 @@ class InstanceFactory:
             id=id,
             last_login_time=last_login_time,
             login_history=login_history,
+            login_profiles=login_profiles,
             marketing_accepted=marketing_accepted,
             password=password,
             password_changed_time=password_changed_time,
@@ -1064,12 +1121,13 @@ class InstanceFactory:
         email=None,
         expiration=None,
         id=None,
+        login_profiles=None,
         updated_at=None,
         user_id=None,
     ):
         """Creates a local `SubtenantUserInvitation` instance, binding the client
 
-        :param account_id: The UUID of the account the user is invited to.
+        :param account_id: The ID of the account the user is invited to.
         :type account_id: str
         :param created_at: Creation UTC time RFC3339.
         :type created_at: datetime
@@ -1077,11 +1135,14 @@ class InstanceFactory:
         :type email: str
         :param expiration: Invitation expiration as UTC time RFC3339.
         :type expiration: datetime
-        :param id: The UUID of the invitation.
+        :param id: The ID of the invitation.
         :type id: str
+        :param login_profiles: A list of login profiles for the user. Specified as the identity
+            providers the user is associated with.
+        :type login_profiles: list
         :param updated_at: Last update UTC time RFC3339.
         :type updated_at: datetime
-        :param user_id: The UUID of the invited user.
+        :param user_id: The ID of the invited user.
         :type user_id: str
         
         :rtype: mbed_cloud.sdk.entities.SubtenantUserInvitation
@@ -1095,6 +1156,7 @@ class InstanceFactory:
             email=email,
             expiration=expiration,
             id=id,
+            login_profiles=login_profiles,
             updated_at=updated_at,
             user_id=user_id,
         )
@@ -1103,6 +1165,7 @@ class InstanceFactory:
         self,
         account_id=None,
         certificate=None,
+        certificate_fingerprint=None,
         created_at=None,
         description=None,
         enrollment_mode=None,
@@ -1119,10 +1182,12 @@ class InstanceFactory:
     ):
         """Creates a local `TrustedCertificate` instance, binding the client
 
-        :param account_id: The UUID of the account.
+        :param account_id: The ID of the account.
         :type account_id: str
         :param certificate: X509.v3 trusted certificate in PEM format.
         :type certificate: str
+        :param certificate_fingerprint: A SHA-256 fingerprint of the certificate.
+        :type certificate_fingerprint: str
         :param created_at: Creation UTC time RFC3339.
         :type created_at: datetime
         :param description: Human readable description of this certificate.
@@ -1139,7 +1204,7 @@ class InstanceFactory:
         :type issuer: str
         :param name: Certificate name.
         :type name: str
-        :param owner_id: The UUID of the owner.
+        :param owner_id: The ID of the owner.
         :type owner_id: str
         :param service: Service name where the certificate is to be used.
         :type service: str
@@ -1160,6 +1225,7 @@ class InstanceFactory:
             _client=self._client,
             account_id=account_id,
             certificate=certificate,
+            certificate_fingerprint=certificate_fingerprint,
             created_at=created_at,
             description=description,
             device_execution_mode=device_execution_mode,
@@ -1188,6 +1254,7 @@ class InstanceFactory:
         id=None,
         last_login_time=None,
         login_history=None,
+        login_profiles=None,
         marketing_accepted=None,
         password=None,
         password_changed_time=None,
@@ -1200,7 +1267,7 @@ class InstanceFactory:
     ):
         """Creates a local `User` instance, binding the client
 
-        :param account_id: The UUID of the account.
+        :param account_id: The ID of the account.
         :type account_id: str
         :param address: Address.
         :type address: str
@@ -1215,7 +1282,7 @@ class InstanceFactory:
         :type email_verified: bool
         :param full_name: The full name of the user.
         :type full_name: str
-        :param id: The UUID of the user.
+        :param id: The ID of the user.
         :type id: str
         :param last_login_time: A timestamp of the latest login of the user, in milliseconds.
         :type last_login_time: int
@@ -1223,6 +1290,9 @@ class InstanceFactory:
             of the last five logins of the user, with timestamps in RFC3339
             format.
         :type login_history: list
+        :param login_profiles: A list of login profiles for the user. Specified as the identity
+            providers the user is associated with.
+        :type login_profiles: list
         :param marketing_accepted: A flag indicating that receiving marketing information has been
             accepted.
         :type marketing_accepted: bool
@@ -1268,6 +1338,7 @@ class InstanceFactory:
             id=id,
             last_login_time=last_login_time,
             login_history=login_history,
+            login_profiles=login_profiles,
             marketing_accepted=marketing_accepted,
             password=password,
             password_changed_time=password_changed_time,
@@ -1286,12 +1357,13 @@ class InstanceFactory:
         email=None,
         expiration=None,
         id=None,
+        login_profiles=None,
         updated_at=None,
         user_id=None,
     ):
         """Creates a local `UserInvitation` instance, binding the client
 
-        :param account_id: The UUID of the account the user is invited to.
+        :param account_id: The ID of the account the user is invited to.
         :type account_id: str
         :param created_at: Creation UTC time RFC3339.
         :type created_at: datetime
@@ -1299,11 +1371,14 @@ class InstanceFactory:
         :type email: str
         :param expiration: Invitation expiration as UTC time RFC3339.
         :type expiration: datetime
-        :param id: The UUID of the invitation.
+        :param id: The ID of the invitation.
         :type id: str
+        :param login_profiles: A list of login profiles for the user. Specified as the identity
+            providers the user is associated with.
+        :type login_profiles: list
         :param updated_at: Last update UTC time RFC3339.
         :type updated_at: datetime
-        :param user_id: The UUID of the invited user.
+        :param user_id: The ID of the invited user.
         :type user_id: str
         
         :rtype: mbed_cloud.sdk.entities.UserInvitation
@@ -1317,6 +1392,7 @@ class InstanceFactory:
             email=email,
             expiration=expiration,
             id=id,
+            login_profiles=login_profiles,
             updated_at=updated_at,
             user_id=user_id,
         )
