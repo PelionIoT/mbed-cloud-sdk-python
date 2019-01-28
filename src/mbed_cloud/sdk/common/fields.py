@@ -103,6 +103,14 @@ class BooleanField(Field):
 class ListField(Field):
     base_type = list
 
+    def set(self, value):
+        if isinstance(value, list) and self._entity:
+            # Convert a list of dictionaries into a list of entities
+            self._val = [self._entity(**item) if isinstance(item, dict) else item for item in value]
+        else:
+            return super().set(value)
+        return self
+
     def to_literal(self):
         if self._entity:
             return [item.to_literal() for item in self._val] if self._val else None
