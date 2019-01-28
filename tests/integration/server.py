@@ -242,7 +242,6 @@ def instances_methods(uuid):
 
 
 @app.route('/instances/<uuid>/methods/<method>', methods=['POST'])
-@app.route('/foundation/instances/<uuid>/methods/<method>', methods=['POST'])
 def instances_call_rpc(uuid, method):
     locked_instance = get_instance_or_404(uuid)
     with locked_instance.lock:
@@ -326,6 +325,7 @@ def create_foundation_entity_instance(entity):
     )
     return response
 
+
 @app.route('/foundation/instances')
 def list_foundation_instances():
     return jsonify([serialise_instance(instance) for instance in STORE.values() if instance.entity is not None])
@@ -342,6 +342,33 @@ def delete_foundation_instance(instance_id):
             pass
         STORE.pop(instance_id)
     return '', 204
+
+
+@app.route('/foundation/instances/<uuid>/methods/<method>', methods=['POST'])
+def execute_foundation_method(uuid, method):
+    locked_instance = get_instance_or_404(uuid)
+    with locked_instance.lock:
+        method = getattr(locked_instance.instance, method, None)
+        if method is None:
+            raise NotFound('SDK server: no such method on %s' % (uuid,))
+        if not callable(method):
+            raise MethodNotAllowed("Method '%s' is not callable" % method)
+
+        # Remove entity parameters from the passed parameters and set the attribute on the entity instance,
+        # any parameters left over pass them to the method.
+        entity_parameters = request.get_json() or {}
+        method_parameters = {}
+        for field, value in entity_parameters.items():
+            if hasattr(locked_instance.instance, field):
+                setattr(locked_instance.instance, field, value)
+            else:
+                method_parameters[field] = value
+
+        return app.response_class(
+            response=run_module(method, method_parameters),
+            status=200,
+            mimetype='application/json'
+        )
 
 
 @app.route('/ping')

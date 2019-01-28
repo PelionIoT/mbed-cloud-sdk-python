@@ -116,6 +116,50 @@ class EndpointTests(unittest.TestCase):
         response = self.app.post('/foundation/instances/%s/methods/unknown' % instance_id)
         self.assertEqual(response.status_code, 404)
 
+    def test_entity_parameters(self):
+        entity = "User"
+
+        # Create a new instance
+        response = self.create_instance('/foundation/entities/%s/instances' % entity)
+        self.assertEqual(response.status_code, 201)
+        instance_id = response.json["id"]
+
+        response = self.app.post('/foundation/instances/%s/methods/list' % instance_id)
+        self.assertEqual(response.status_code, 200, str(response.json))
+
+        # Clean up test user if it already exists as it could be left over in the event of a test failure
+        for user in response.json["payload"]["data"]:
+            if user["email"] == "python_sdk_test_server@example.com":
+                response = self.app.post(
+                    '/foundation/instances/%s/methods/delete' % instance_id,
+                    data=json.dumps({"id": user["id"]}),
+                    content_type='application/json'
+                )
+                self.assertEqual(response.status_code, 200, str(response.json))
+                # There should only be one user with that email address for break out of loop
+                # break
+
+        # Create a new user with parameters
+        create_parameters = {
+            # Entity parameters
+            "email": "python_sdk_test_server@example.com",
+            "full_name": "Mr Python SDK-Test-Server",
+            "password": "secret01",
+            "username": "python_sdk_test_server",
+            # Method parameter
+            "action": "create",
+        }
+        response = self.app.post(
+            '/foundation/instances/%s/methods/create' % instance_id,
+            data=json.dumps(create_parameters),
+            content_type='application/json'
+        )
+        self.assertEqual(response.status_code, 200, str(response.json))
+
+        # Delete created user, there should be no need to supply the ID as it should already be saved in the intance.
+        response = self.app.post('/foundation/instances/%s/methods/delete' % instance_id)
+        self.assertEqual(response.status_code, 200, str(response.json))
+
     def test_sdk_methods(self):
         # Create a new instance
         response = self.create_instance('/foundation/sdk/instances')
