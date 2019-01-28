@@ -7561,14 +7561,17 @@
                               {
                                 "type": "string",
                                 "description": "ID of the identity provider.",
+                                "readOnly": false,
+                                "_override": true,
                                 "api_fieldname": "id",
                                 "entity_fieldname": "id",
                                 "_key": "id"
                               },
                               {
                                 "type": "string",
-                                "readOnly": true,
+                                "readOnly": false,
                                 "description": "Name of the identity provider.",
+                                "_override": true,
                                 "api_fieldname": "name",
                                 "entity_fieldname": "name",
                                 "_key": "name"
@@ -8223,14 +8226,17 @@
                               {
                                 "type": "string",
                                 "description": "ID of the identity provider.",
+                                "readOnly": false,
+                                "_override": true,
                                 "api_fieldname": "id",
                                 "entity_fieldname": "id",
                                 "_key": "id"
                               },
                               {
                                 "type": "string",
-                                "readOnly": true,
+                                "readOnly": false,
                                 "description": "Name of the identity provider.",
+                                "_override": true,
                                 "api_fieldname": "name",
                                 "entity_fieldname": "name",
                                 "_key": "name"
@@ -26193,15 +26199,17 @@
         {
           "type": "string",
           "description": "ID of the identity provider.",
+          "readOnly": false,
+          "_override": true,
           "api_fieldname": "id",
-          "readOnly": true,
           "required": false,
           "_key": "id"
         },
         {
           "type": "string",
-          "readOnly": true,
+          "readOnly": false,
           "description": "Name of the identity provider.",
+          "_override": true,
           "api_fieldname": "name",
           "required": false,
           "_key": "name"
@@ -29766,14 +29774,17 @@
                   {
                     "type": "string",
                     "description": "ID of the identity provider.",
+                    "readOnly": false,
+                    "_override": true,
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
                     "_key": "id"
                   },
                   {
                     "type": "string",
-                    "readOnly": true,
+                    "readOnly": false,
                     "description": "Name of the identity provider.",
+                    "_override": true,
                     "api_fieldname": "name",
                     "entity_fieldname": "name",
                     "_key": "name"
@@ -30090,14 +30101,17 @@
                         {
                           "type": "string",
                           "description": "ID of the identity provider.",
+                          "readOnly": false,
+                          "_override": true,
                           "api_fieldname": "id",
                           "entity_fieldname": "id",
                           "_key": "id"
                         },
                         {
                           "type": "string",
-                          "readOnly": true,
+                          "readOnly": false,
                           "description": "Name of the identity provider.",
+                          "_override": true,
                           "api_fieldname": "name",
                           "entity_fieldname": "name",
                           "_key": "name"
@@ -31256,14 +31270,17 @@
                         {
                           "type": "string",
                           "description": "ID of the identity provider.",
+                          "readOnly": false,
+                          "_override": true,
                           "api_fieldname": "id",
                           "entity_fieldname": "id",
                           "_key": "id"
                         },
                         {
                           "type": "string",
-                          "readOnly": true,
+                          "readOnly": false,
                           "description": "Name of the identity provider.",
+                          "_override": true,
                           "api_fieldname": "name",
                           "entity_fieldname": "name",
                           "_key": "name"
@@ -31721,14 +31738,17 @@
                   {
                     "type": "string",
                     "description": "ID of the identity provider.",
+                    "readOnly": false,
+                    "_override": true,
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
                     "_key": "id"
                   },
                   {
                     "type": "string",
-                    "readOnly": true,
+                    "readOnly": false,
                     "description": "Name of the identity provider.",
+                    "_override": true,
                     "api_fieldname": "name",
                     "entity_fieldname": "name",
                     "_key": "name"
@@ -32045,14 +32065,17 @@
                         {
                           "type": "string",
                           "description": "ID of the identity provider.",
+                          "readOnly": false,
+                          "_override": true,
                           "api_fieldname": "id",
                           "entity_fieldname": "id",
                           "_key": "id"
                         },
                         {
                           "type": "string",
-                          "readOnly": true,
+                          "readOnly": false,
                           "description": "Name of the identity provider.",
+                          "_override": true,
                           "api_fieldname": "name",
                           "entity_fieldname": "name",
                           "_key": "name"
@@ -33034,14 +33057,17 @@
               {
                 "type": "string",
                 "description": "ID of the identity provider.",
+                "readOnly": false,
+                "_override": true,
                 "api_fieldname": "id",
                 "entity_fieldname": "id",
                 "_key": "id"
               },
               {
                 "type": "string",
-                "readOnly": true,
+                "readOnly": false,
                 "description": "Name of the identity provider.",
+                "_override": true,
                 "api_fieldname": "name",
                 "entity_fieldname": "name",
                 "_key": "name"
@@ -33245,14 +33271,17 @@
                   {
                     "type": "string",
                     "description": "ID of the identity provider.",
+                    "readOnly": false,
+                    "_override": true,
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
                     "_key": "id"
                   },
                   {
                     "type": "string",
-                    "readOnly": true,
+                    "readOnly": false,
                     "description": "Name of the identity provider.",
+                    "_override": true,
                     "api_fieldname": "name",
                     "entity_fieldname": "name",
                     "_key": "name"
@@ -33400,14 +33429,17 @@
                         {
                           "type": "string",
                           "description": "ID of the identity provider.",
+                          "readOnly": false,
+                          "_override": true,
                           "api_fieldname": "id",
                           "entity_fieldname": "id",
                           "_key": "id"
                         },
                         {
                           "type": "string",
-                          "readOnly": true,
+                          "readOnly": false,
                           "description": "Name of the identity provider.",
+                          "_override": true,
                           "api_fieldname": "name",
                           "entity_fieldname": "name",
                           "_key": "name"
@@ -34136,14 +34168,17 @@
                         {
                           "type": "string",
                           "description": "ID of the identity provider.",
+                          "readOnly": false,
+                          "_override": true,
                           "api_fieldname": "id",
                           "entity_fieldname": "id",
                           "_key": "id"
                         },
                         {
                           "type": "string",
-                          "readOnly": true,
+                          "readOnly": false,
                           "description": "Name of the identity provider.",
+                          "_override": true,
                           "api_fieldname": "name",
                           "entity_fieldname": "name",
                           "_key": "name"
@@ -34529,14 +34564,17 @@
               {
                 "type": "string",
                 "description": "ID of the identity provider.",
+                "readOnly": false,
+                "_override": true,
                 "api_fieldname": "id",
                 "entity_fieldname": "id",
                 "_key": "id"
               },
               {
                 "type": "string",
-                "readOnly": true,
+                "readOnly": false,
                 "description": "Name of the identity provider.",
+                "_override": true,
                 "api_fieldname": "name",
                 "entity_fieldname": "name",
                 "_key": "name"
@@ -37897,14 +37935,17 @@
                   {
                     "type": "string",
                     "description": "ID of the identity provider.",
+                    "readOnly": false,
+                    "_override": true,
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
                     "_key": "id"
                   },
                   {
                     "type": "string",
-                    "readOnly": true,
+                    "readOnly": false,
                     "description": "Name of the identity provider.",
+                    "_override": true,
                     "api_fieldname": "name",
                     "entity_fieldname": "name",
                     "_key": "name"
@@ -38194,14 +38235,17 @@
                         {
                           "type": "string",
                           "description": "ID of the identity provider.",
+                          "readOnly": false,
+                          "_override": true,
                           "api_fieldname": "id",
                           "entity_fieldname": "id",
                           "_key": "id"
                         },
                         {
                           "type": "string",
-                          "readOnly": true,
+                          "readOnly": false,
                           "description": "Name of the identity provider.",
+                          "_override": true,
                           "api_fieldname": "name",
                           "entity_fieldname": "name",
                           "_key": "name"
@@ -39223,14 +39267,17 @@
                         {
                           "type": "string",
                           "description": "ID of the identity provider.",
+                          "readOnly": false,
+                          "_override": true,
                           "api_fieldname": "id",
                           "entity_fieldname": "id",
                           "_key": "id"
                         },
                         {
                           "type": "string",
-                          "readOnly": true,
+                          "readOnly": false,
                           "description": "Name of the identity provider.",
+                          "_override": true,
                           "api_fieldname": "name",
                           "entity_fieldname": "name",
                           "_key": "name"
@@ -39869,14 +39916,17 @@
                               {
                                 "type": "string",
                                 "description": "ID of the identity provider.",
+                                "readOnly": false,
+                                "_override": true,
                                 "api_fieldname": "id",
                                 "entity_fieldname": "id",
                                 "_key": "id"
                               },
                               {
                                 "type": "string",
-                                "readOnly": true,
+                                "readOnly": false,
                                 "description": "Name of the identity provider.",
+                                "_override": true,
                                 "api_fieldname": "name",
                                 "entity_fieldname": "name",
                                 "_key": "name"
@@ -40272,14 +40322,17 @@
                   {
                     "type": "string",
                     "description": "ID of the identity provider.",
+                    "readOnly": false,
+                    "_override": true,
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
                     "_key": "id"
                   },
                   {
                     "type": "string",
-                    "readOnly": true,
+                    "readOnly": false,
                     "description": "Name of the identity provider.",
+                    "_override": true,
                     "api_fieldname": "name",
                     "entity_fieldname": "name",
                     "_key": "name"
@@ -40569,14 +40622,17 @@
                         {
                           "type": "string",
                           "description": "ID of the identity provider.",
+                          "readOnly": false,
+                          "_override": true,
                           "api_fieldname": "id",
                           "entity_fieldname": "id",
                           "_key": "id"
                         },
                         {
                           "type": "string",
-                          "readOnly": true,
+                          "readOnly": false,
                           "description": "Name of the identity provider.",
+                          "_override": true,
                           "api_fieldname": "name",
                           "entity_fieldname": "name",
                           "_key": "name"
@@ -41241,14 +41297,17 @@
               {
                 "type": "string",
                 "description": "ID of the identity provider.",
+                "readOnly": false,
+                "_override": true,
                 "api_fieldname": "id",
                 "entity_fieldname": "id",
                 "_key": "id"
               },
               {
                 "type": "string",
-                "readOnly": true,
+                "readOnly": false,
                 "description": "Name of the identity provider.",
+                "_override": true,
                 "api_fieldname": "name",
                 "entity_fieldname": "name",
                 "_key": "name"
@@ -41426,14 +41485,17 @@
                   {
                     "type": "string",
                     "description": "ID of the identity provider.",
+                    "readOnly": false,
+                    "_override": true,
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
                     "_key": "id"
                   },
                   {
                     "type": "string",
-                    "readOnly": true,
+                    "readOnly": false,
                     "description": "Name of the identity provider.",
+                    "_override": true,
                     "api_fieldname": "name",
                     "entity_fieldname": "name",
                     "_key": "name"
@@ -41569,14 +41631,17 @@
                         {
                           "type": "string",
                           "description": "ID of the identity provider.",
+                          "readOnly": false,
+                          "_override": true,
                           "api_fieldname": "id",
                           "entity_fieldname": "id",
                           "_key": "id"
                         },
                         {
                           "type": "string",
-                          "readOnly": true,
+                          "readOnly": false,
                           "description": "Name of the identity provider.",
+                          "_override": true,
                           "api_fieldname": "name",
                           "entity_fieldname": "name",
                           "_key": "name"
@@ -42268,14 +42333,17 @@
                         {
                           "type": "string",
                           "description": "ID of the identity provider.",
+                          "readOnly": false,
+                          "_override": true,
                           "api_fieldname": "id",
                           "entity_fieldname": "id",
                           "_key": "id"
                         },
                         {
                           "type": "string",
-                          "readOnly": true,
+                          "readOnly": false,
                           "description": "Name of the identity provider.",
+                          "_override": true,
                           "api_fieldname": "name",
                           "entity_fieldname": "name",
                           "_key": "name"
@@ -42740,14 +42808,17 @@
                               {
                                 "type": "string",
                                 "description": "ID of the identity provider.",
+                                "readOnly": false,
+                                "_override": true,
                                 "api_fieldname": "id",
                                 "entity_fieldname": "id",
                                 "_key": "id"
                               },
                               {
                                 "type": "string",
-                                "readOnly": true,
+                                "readOnly": false,
                                 "description": "Name of the identity provider.",
+                                "_override": true,
                                 "api_fieldname": "name",
                                 "entity_fieldname": "name",
                                 "_key": "name"
@@ -43106,14 +43177,17 @@
               {
                 "type": "string",
                 "description": "ID of the identity provider.",
+                "readOnly": false,
+                "_override": true,
                 "api_fieldname": "id",
                 "entity_fieldname": "id",
                 "_key": "id"
               },
               {
                 "type": "string",
-                "readOnly": true,
+                "readOnly": false,
                 "description": "Name of the identity provider.",
+                "_override": true,
                 "api_fieldname": "name",
                 "entity_fieldname": "name",
                 "_key": "name"

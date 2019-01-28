@@ -5854,15 +5854,18 @@ entities:
                   group: Accounts
                 properties:
                 - _key: id
+                  _override: true
                   api_fieldname: id
                   description: ID of the identity provider.
                   entity_fieldname: id
+                  readOnly: false
                   type: string
                 - _key: name
+                  _override: true
                   api_fieldname: name
                   description: Name of the identity provider.
                   entity_fieldname: name
-                  readOnly: true
+                  readOnly: false
                   type: string
                 - _key: type
                   api_fieldname: type
@@ -6356,15 +6359,18 @@ entities:
                   group: Accounts
                 properties:
                 - _key: id
+                  _override: true
                   api_fieldname: id
                   description: ID of the identity provider.
                   entity_fieldname: id
+                  readOnly: false
                   type: string
                 - _key: name
+                  _override: true
                   api_fieldname: name
                   description: Name of the identity provider.
                   entity_fieldname: name
-                  readOnly: true
+                  readOnly: false
                   type: string
                 - _key: type
                   api_fieldname: type
@@ -20152,15 +20158,17 @@ entities:
   field_renames: []
   fields:
   - _key: id
+    _override: true
     api_fieldname: id
     description: ID of the identity provider.
-    readOnly: true
+    readOnly: false
     required: false
     type: string
   - _key: name
+    _override: true
     api_fieldname: name
     description: Name of the identity provider.
-    readOnly: true
+    readOnly: false
     required: false
     type: string
   group_id: Accounts
@@ -23080,15 +23088,18 @@ entities:
         group: Accounts
       properties:
       - _key: id
+        _override: true
         api_fieldname: id
         description: ID of the identity provider.
         entity_fieldname: id
+        readOnly: false
         type: string
       - _key: name
+        _override: true
         api_fieldname: name
         description: Name of the identity provider.
         entity_fieldname: name
-        readOnly: true
+        readOnly: false
         type: string
       - _key: type
         api_fieldname: type
@@ -23300,15 +23311,18 @@ entities:
           group: Accounts
         properties:
         - _key: id
+          _override: true
           api_fieldname: id
           description: ID of the identity provider.
           entity_fieldname: id
+          readOnly: false
           type: string
         - _key: name
+          _override: true
           api_fieldname: name
           description: Name of the identity provider.
           entity_fieldname: name
-          readOnly: true
+          readOnly: false
           type: string
         - _key: type
           api_fieldname: type
@@ -23569,15 +23583,18 @@ entities:
               group: Accounts
             properties:
             - _key: id
+              _override: true
               api_fieldname: id
               description: ID of the identity provider.
               entity_fieldname: id
+              readOnly: false
               type: string
             - _key: name
+              _override: true
               api_fieldname: name
               description: Name of the identity provider.
               entity_fieldname: name
-              readOnly: true
+              readOnly: false
               type: string
             - _key: type
               api_fieldname: type
@@ -24427,15 +24444,18 @@ entities:
               group: Accounts
             properties:
             - _key: id
+              _override: true
               api_fieldname: id
               description: ID of the identity provider.
               entity_fieldname: id
+              readOnly: false
               type: string
             - _key: name
+              _override: true
               api_fieldname: name
               description: Name of the identity provider.
               entity_fieldname: name
-              readOnly: true
+              readOnly: false
               type: string
             - _key: type
               api_fieldname: type
@@ -24766,15 +24786,18 @@ entities:
           group: Accounts
         properties:
         - _key: id
+          _override: true
           api_fieldname: id
           description: ID of the identity provider.
           entity_fieldname: id
+          readOnly: false
           type: string
         - _key: name
+          _override: true
           api_fieldname: name
           description: Name of the identity provider.
           entity_fieldname: name
-          readOnly: true
+          readOnly: false
           type: string
         - _key: type
           api_fieldname: type
@@ -25030,15 +25053,18 @@ entities:
               group: Accounts
             properties:
             - _key: id
+              _override: true
               api_fieldname: id
               description: ID of the identity provider.
               entity_fieldname: id
+              readOnly: false
               type: string
             - _key: name
+              _override: true
               api_fieldname: name
               description: Name of the identity provider.
               entity_fieldname: name
-              readOnly: true
+              readOnly: false
               type: string
             - _key: type
               api_fieldname: type
@@ -25648,15 +25674,18 @@ entities:
         group: Accounts
       properties:
       - _key: id
+        _override: true
         api_fieldname: id
         description: ID of the identity provider.
         entity_fieldname: id
+        readOnly: false
         type: string
       - _key: name
+        _override: true
         api_fieldname: name
         description: Name of the identity provider.
         entity_fieldname: name
-        readOnly: true
+        readOnly: false
         type: string
       - _key: type
         api_fieldname: type
@@ -25749,15 +25778,18 @@ entities:
           group: Accounts
         properties:
         - _key: id
+          _override: true
           api_fieldname: id
           description: ID of the identity provider.
           entity_fieldname: id
+          readOnly: false
           type: string
         - _key: name
+          _override: true
           api_fieldname: name
           description: Name of the identity provider.
           entity_fieldname: name
-          readOnly: true
+          readOnly: false
           type: string
         - _key: type
           api_fieldname: type
@@ -25876,15 +25908,18 @@ entities:
               group: Accounts
             properties:
             - _key: id
+              _override: true
               api_fieldname: id
               description: ID of the identity provider.
               entity_fieldname: id
+              readOnly: false
               type: string
             - _key: name
+              _override: true
               api_fieldname: name
               description: Name of the identity provider.
               entity_fieldname: name
-              readOnly: true
+              readOnly: false
               type: string
             - _key: type
               api_fieldname: type
@@ -26413,15 +26448,18 @@ entities:
               group: Accounts
             properties:
             - _key: id
+              _override: true
               api_fieldname: id
               description: ID of the identity provider.
               entity_fieldname: id
+              readOnly: false
               type: string
             - _key: name
+              _override: true
               api_fieldname: name
               description: Name of the identity provider.
               entity_fieldname: name
-              readOnly: true
+              readOnly: false
               type: string
             - _key: type
               api_fieldname: type
@@ -29316,15 +29354,18 @@ entities:
         group: Accounts
       properties:
       - _key: id
+        _override: true
         api_fieldname: id
         description: ID of the identity provider.
         entity_fieldname: id
+        readOnly: false
         type: string
       - _key: name
+        _override: true
         api_fieldname: name
         description: Name of the identity provider.
         entity_fieldname: name
-        readOnly: true
+        readOnly: false
         type: string
       - _key: type
         api_fieldname: type
@@ -29513,15 +29554,18 @@ entities:
           group: Accounts
         properties:
         - _key: id
+          _override: true
           api_fieldname: id
           description: ID of the identity provider.
           entity_fieldname: id
+          readOnly: false
           type: string
         - _key: name
+          _override: true
           api_fieldname: name
           description: Name of the identity provider.
           entity_fieldname: name
-          readOnly: true
+          readOnly: false
           type: string
         - _key: type
           api_fieldname: type
@@ -29754,15 +29798,18 @@ entities:
               group: Accounts
             properties:
             - _key: id
+              _override: true
               api_fieldname: id
               description: ID of the identity provider.
               entity_fieldname: id
+              readOnly: false
               type: string
             - _key: name
+              _override: true
               api_fieldname: name
               description: Name of the identity provider.
               entity_fieldname: name
-              readOnly: true
+              readOnly: false
               type: string
             - _key: type
               api_fieldname: type
@@ -30504,15 +30551,18 @@ entities:
               group: Accounts
             properties:
             - _key: id
+              _override: true
               api_fieldname: id
               description: ID of the identity provider.
               entity_fieldname: id
+              readOnly: false
               type: string
             - _key: name
+              _override: true
               api_fieldname: name
               description: Name of the identity provider.
               entity_fieldname: name
-              readOnly: true
+              readOnly: false
               type: string
             - _key: type
               api_fieldname: type
@@ -30982,15 +31032,18 @@ entities:
                   group: Accounts
                 properties:
                 - _key: id
+                  _override: true
                   api_fieldname: id
                   description: ID of the identity provider.
                   entity_fieldname: id
+                  readOnly: false
                   type: string
                 - _key: name
+                  _override: true
                   api_fieldname: name
                   description: Name of the identity provider.
                   entity_fieldname: name
-                  readOnly: true
+                  readOnly: false
                   type: string
                 - _key: type
                   api_fieldname: type
@@ -31285,15 +31338,18 @@ entities:
           group: Accounts
         properties:
         - _key: id
+          _override: true
           api_fieldname: id
           description: ID of the identity provider.
           entity_fieldname: id
+          readOnly: false
           type: string
         - _key: name
+          _override: true
           api_fieldname: name
           description: Name of the identity provider.
           entity_fieldname: name
-          readOnly: true
+          readOnly: false
           type: string
         - _key: type
           api_fieldname: type
@@ -31521,15 +31577,18 @@ entities:
               group: Accounts
             properties:
             - _key: id
+              _override: true
               api_fieldname: id
               description: ID of the identity provider.
               entity_fieldname: id
+              readOnly: false
               type: string
             - _key: name
+              _override: true
               api_fieldname: name
               description: Name of the identity provider.
               entity_fieldname: name
-              readOnly: true
+              readOnly: false
               type: string
             - _key: type
               api_fieldname: type
@@ -31915,15 +31974,18 @@ entities:
         group: Accounts
       properties:
       - _key: id
+        _override: true
         api_fieldname: id
         description: ID of the identity provider.
         entity_fieldname: id
+        readOnly: false
         type: string
       - _key: name
+        _override: true
         api_fieldname: name
         description: Name of the identity provider.
         entity_fieldname: name
-        readOnly: true
+        readOnly: false
         type: string
       - _key: type
         api_fieldname: type
@@ -32007,15 +32069,18 @@ entities:
           group: Accounts
         properties:
         - _key: id
+          _override: true
           api_fieldname: id
           description: ID of the identity provider.
           entity_fieldname: id
+          readOnly: false
           type: string
         - _key: name
+          _override: true
           api_fieldname: name
           description: Name of the identity provider.
           entity_fieldname: name
-          readOnly: true
+          readOnly: false
           type: string
         - _key: type
           api_fieldname: type
@@ -32121,15 +32186,18 @@ entities:
               group: Accounts
             properties:
             - _key: id
+              _override: true
               api_fieldname: id
               description: ID of the identity provider.
               entity_fieldname: id
+              readOnly: false
               type: string
             - _key: name
+              _override: true
               api_fieldname: name
               description: Name of the identity provider.
               entity_fieldname: name
-              readOnly: true
+              readOnly: false
               type: string
             - _key: type
               api_fieldname: type
@@ -32625,15 +32693,18 @@ entities:
               group: Accounts
             properties:
             - _key: id
+              _override: true
               api_fieldname: id
               description: ID of the identity provider.
               entity_fieldname: id
+              readOnly: false
               type: string
             - _key: name
+              _override: true
               api_fieldname: name
               description: Name of the identity provider.
               entity_fieldname: name
-              readOnly: true
+              readOnly: false
               type: string
             - _key: type
               api_fieldname: type
@@ -32971,15 +33042,18 @@ entities:
                   group: Accounts
                 properties:
                 - _key: id
+                  _override: true
                   api_fieldname: id
                   description: ID of the identity provider.
                   entity_fieldname: id
+                  readOnly: false
                   type: string
                 - _key: name
+                  _override: true
                   api_fieldname: name
                   description: Name of the identity provider.
                   entity_fieldname: name
-                  readOnly: true
+                  readOnly: false
                   type: string
                 - _key: type
                   api_fieldname: type
