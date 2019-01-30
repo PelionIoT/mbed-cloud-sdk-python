@@ -1,5 +1,8 @@
+
 # Python 2 compatibility
 from __future__ import unicode_literals
+
+import datetime
 
 from tests.common import BaseCase
 
@@ -14,6 +17,8 @@ class SimpleEntity(Entity):
     _fieldnames = [
         "a_simple_field",
         "a_renamed_field",
+        "a_datetime_field",
+        "a_date_field",
     ]
 
     _renames = {
@@ -25,6 +30,8 @@ class SimpleEntity(Entity):
             _client=None,
             a_simple_field=None,
             a_renamed_field=None,
+            a_datetime_field=None,
+            a_date_field=None,
     ):
         super().__init__(_client=_client)
 
@@ -33,6 +40,8 @@ class SimpleEntity(Entity):
         # fields
         self._a_simple_field = fields.StringField(value=a_simple_field)
         self._a_renamed_field = fields.StringField(value=a_renamed_field)
+        self._a_datetime_field = fields.DateTimeField(value=a_datetime_field)
+        self._a_date_field = fields.DateField(value=a_date_field)
 
     @property
     def a_simple_field(self):
@@ -50,6 +59,22 @@ class SimpleEntity(Entity):
     def a_renamed_field(self, value):
         self._a_renamed_field.set(value)
 
+    @property
+    def a_datetime_field(self):
+        return self._a_datetime_field.value
+
+    @a_datetime_field.setter
+    def a_datetime_field(self, value):
+        self._a_datetime_field.set(value)
+
+    @property
+    def a_date_field(self):
+        return self._a_date_field.value
+
+    @a_date_field.setter
+    def a_date_field(self, value):
+        self._a_date_field.set(value)
+
 
 class TestEntity(BaseCase):
 
@@ -57,6 +82,12 @@ class TestEntity(BaseCase):
         entity_fields = {
             "a_simple_field": "hello",
             "a_renamed_field": "world",
+            "a_datetime_field": datetime.datetime(2019, 3, 28, 23, 58, 0),
+            "a_date_field": datetime.date(2019, 3, 29),
         }
         my_entity = SimpleEntity(**entity_fields)
+        entity_fields.update({
+            "a_datetime_field": "2019-03-28T23:58:00Z",
+            "a_date_field": "2019-03-29",
+        })
         self.assertEqual(my_entity.to_api(), entity_fields)
