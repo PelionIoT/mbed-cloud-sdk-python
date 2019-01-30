@@ -40,6 +40,7 @@ from mbed_cloud import __version__
 from mbed_cloud import pagination
 from mbed_cloud.core import BaseObject
 
+from mbed_cloud.sdk.common.exceptions import ApiErrorResponse
 from mbed_cloud.sdk.entities import __all__ as entity_list
 from mbed_cloud.sdk import SDK
 
@@ -89,6 +90,16 @@ ______      _   _                   ___________ _   __
 """
 
 
+def to_snake_case(string):
+    """Convert from PascalCase to snake_case
+
+    :param str string: String to reformat.
+    :returns: Reformatted string.
+    :rtype: str
+    """
+    return re.sub('([a-z0-9])([A-Z])', r'\1_\2', re.sub('(.)([A-Z][a-z]+)', r'\1_\2', string)).lower()
+
+
 def serialise(obj):
     """Serialises custom datatypes used in the SDK"""
     if isinstance(obj, datetime.datetime):
@@ -131,6 +142,51 @@ def run_module(method, kwargs):
     result = dict(payload=method(**kwargs))
 
     return json.dumps(result, default=serialise)
+
+
+def serialise_entity(field):
+    """Serialises entity fields"""
+
+    if isinstance(field, (datetime.datetime, datetime.date)):
+        return field.isoformat()
+
+    try:
+        return field.to_dict()
+    except AttributeError:
+        pass
+
+    raise TypeError("Entity/field of type '%s' is not JSON serializable" % field.__class__.__name__)
+
+
+def execute_method(method, kwargs):
+    """Runs the requested entity method and returns result as json string
+
+    :param method: SDK method to invoke
+    :param kwargs: parameters to pass to the SDK method
+
+    :return: JSON encoded dictionary of SDK method (empty dict if API returned a 404)
+    :rtype: str
+
+    """
+    for k, v in kwargs.items():
+        kwargs[k] = deserialise(v)
+
+    # Call SDK method
+    try:
+        method_result = method(**kwargs)
+    except ApiErrorResponse as api_error:
+        if api_error.status_code == 404:
+            result = {}
+        else:
+            # Anything other than a 404 re-raise the exception
+            raise
+    else:
+        if isinstance(method_result, pagination.PaginatedResponse):
+            result = dict(payload=method_result.data)
+        else:
+            result = dict(payload=method_result)
+
+    return json.dumps(result, default=serialise_entity)
 
 
 def serialise_instance(instance):
@@ -350,7 +406,7 @@ def execute_foundation_method(uuid, method):
     with locked_instance.lock:
         method = getattr(locked_instance.instance, method, None)
         if method is None:
-            raise NotFound('SDK server: no such method on %s' % (uuid,))
+            raise NotFound('SDK server: no such method on %s' % uuid)
         if not callable(method):
             raise MethodNotAllowed("Method '%s' is not callable" % method)
 
@@ -358,14 +414,17 @@ def execute_foundation_method(uuid, method):
         # any parameters left over pass them to the method.
         entity_parameters = request.get_json() or {}
         method_parameters = {}
+        id_field = to_snake_case(locked_instance.entity) + "_id"
         for field, value in entity_parameters.items():
             if hasattr(locked_instance.instance, field):
                 setattr(locked_instance.instance, field, value)
+            elif field == id_field and hasattr(locked_instance.instance, "id"):
+                setattr(locked_instance.instance, "id", value)
             else:
                 method_parameters[field] = value
 
         return app.response_class(
-            response=run_module(method, method_parameters),
+            response=execute_method(method, method_parameters),
             status=200,
             mimetype='application/json'
         )

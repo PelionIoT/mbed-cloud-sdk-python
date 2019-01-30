@@ -128,11 +128,11 @@ class EndpointTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200, str(response.json))
 
         # Clean up test user if it already exists as it could be left over in the event of a test failure
-        for user in response.json["payload"]["data"]:
+        for user in response.json["payload"]:
             if user["email"] == "python_sdk_test_server@example.com":
                 response = self.app.post(
                     '/foundation/instances/%s/methods/delete' % instance_id,
-                    data=json.dumps({"id": user["id"]}),
+                    data=json.dumps({"user_id": user["id"]}),
                     content_type='application/json'
                 )
                 self.assertEqual(response.status_code, 200, str(response.json))
@@ -156,7 +156,7 @@ class EndpointTests(unittest.TestCase):
         )
         self.assertEqual(response.status_code, 200, str(response.json))
 
-        # Delete created user, there should be no need to supply the ID as it should already be saved in the intance.
+        # Delete created user, there should be no need to supply the ID as it should already be saved in the instance.
         response = self.app.post('/foundation/instances/%s/methods/delete' % instance_id)
         self.assertEqual(response.status_code, 200, str(response.json))
 
