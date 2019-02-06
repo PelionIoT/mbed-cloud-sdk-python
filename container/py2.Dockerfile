@@ -52,7 +52,7 @@ RUN pipenv run auto_version --config=scripts/auto_version.toml --news --bump=pat
 RUN pipenv run python -c "import mbed_cloud; print(mbed_cloud.__version__)"
 
 # run smoke tests
-RUN (pipenv run pytest --durations=3 tests/unit) & sleep 10 ; kill $!
+RUN pipenv run pytest --durations=3 tests/unit
 
 # run static analysis
 RUN pipenv run pytest --durations=3 tests/static
