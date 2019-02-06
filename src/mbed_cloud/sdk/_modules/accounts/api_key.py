@@ -19,6 +19,7 @@ class ApiKey(Entity):
 
     # all fields available on this entity
     _fieldnames = [
+        "account_id",
         "created_at",
         "creation_time",
         "id",
@@ -36,6 +37,7 @@ class ApiKey(Entity):
     def __init__(
         self,
         _client=None,
+        account_id=None,
         created_at=None,
         creation_time=None,
         id=None,
@@ -48,12 +50,14 @@ class ApiKey(Entity):
     ):
         """Creates a local `ApiKey` instance
 
+        :param account_id: The ID of the account.
+        :type account_id: str
         :param created_at: Creation UTC time RFC3339.
         :type created_at: datetime
         :param creation_time: The timestamp of the API key creation in the storage, in
             milliseconds.
         :type creation_time: int
-        :param id: The UUID of the API key.
+        :param id: The ID of the API key.
         :type id: str
         :param key: The API key.
         :type key: str
@@ -74,6 +78,7 @@ class ApiKey(Entity):
         # inline imports for avoiding circular references and bulk imports
 
         # fields
+        self._account_id = fields.StringField(value=account_id)
         self._created_at = fields.DateTimeField(value=created_at)
         self._creation_time = fields.IntegerField(value=creation_time)
         self._id = fields.StringField(value=id)
@@ -83,6 +88,27 @@ class ApiKey(Entity):
         self._owner = fields.StringField(value=owner)
         self._status = fields.StringField(value=status, enum=enums.ApiKeyStatusEnum)
         self._updated_at = fields.DateTimeField(value=updated_at)
+
+    @property
+    def account_id(self):
+        """The ID of the account.
+        
+        api example: '01619571e2e90242ac12000600000000'
+        
+        :rtype: str
+        """
+
+        return self._account_id.value
+
+    @account_id.setter
+    def account_id(self, value):
+        """Set value of `account_id`
+
+        :param value: value to set
+        :type value: str
+        """
+
+        self._account_id.set(value)
 
     @property
     def created_at(self):
@@ -128,7 +154,7 @@ class ApiKey(Entity):
 
     @property
     def id(self):
-        """The UUID of the API key.
+        """The ID of the API key.
         
         api example: '01619571f7020242ac12000600000000'
         
@@ -298,15 +324,15 @@ class ApiKey(Entity):
         """Delete API key.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/api-keys/{apiKey}
+        https://os.mbed.com/search/?q=service+apis+/v3/api-keys/{apikey_id}
         
         :rtype: ApiKey
         """
 
         return self._client.call_api(
             method="delete",
-            path="/v3/api-keys/{apiKey}",
-            path_params={"apiKey": self._id.to_api()},
+            path="/v3/api-keys/{apikey_id}",
+            path_params={"apikey_id": self._id.to_api()},
             unpack=self,
         )
 
@@ -314,15 +340,15 @@ class ApiKey(Entity):
         """Get API key details.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/api-keys/{apiKey}
+        https://os.mbed.com/search/?q=service+apis+/v3/api-keys/{apikey_id}
         
         :rtype: ApiKey
         """
 
         return self._client.call_api(
             method="get",
-            path="/v3/api-keys/{apiKey}",
-            path_params={"apiKey": self._id.to_api()},
+            path="/v3/api-keys/{apikey_id}",
+            path_params={"apikey_id": self._id.to_api()},
             unpack=self,
         )
 
@@ -413,19 +439,19 @@ class ApiKey(Entity):
         """Update API key details.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/api-keys/{apiKey}
+        https://os.mbed.com/search/?q=service+apis+/v3/api-keys/{apikey_id}
         
         :rtype: ApiKey
         """
 
         return self._client.call_api(
             method="put",
-            path="/v3/api-keys/{apiKey}",
+            path="/v3/api-keys/{apikey_id}",
             body_params={
                 "name": self._name.to_api(),
                 "owner": self._owner.to_api(),
                 "status": self._status.to_api(),
             },
-            path_params={"apiKey": self._id.to_api()},
+            path_params={"apikey_id": self._id.to_api()},
             unpack=self,
         )

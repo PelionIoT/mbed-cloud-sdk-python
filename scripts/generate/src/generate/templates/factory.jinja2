@@ -27,7 +27,7 @@ class InstanceFactory:
     ):
         """Creates a local `{{entity._key|to_pascal}}` instance, binding the client
 
-        {% for field in entity.fields %}:param {{field._key|to_snake}}: {{ (field.description or '')|wordwrap(width=66)|indent(width=12) }}
+        {% for field in entity.fields if not field.private_field %}:param {{field._key|to_snake}}: {{ (field.description or '')|wordwrap(width=66)|indent(width=12) }}
         :type {{field._key|to_snake}}: {{field.python_type}}
         {% endfor %}
         :rtype: mbed_cloud.sdk.entities.{{ entity._key|to_pascal }}
@@ -35,7 +35,7 @@ class InstanceFactory:
         from mbed_cloud.sdk.entities import {{ entity._key|to_pascal }}
         return {{ entity._key|to_pascal }}(
             _client=self._client,
-            {% for field in entity.fields %}
+            {% for field in entity.fields if not field.private_field %}
                 {{field._key|to_snake}}={{field._key|to_snake}},
             {% endfor %}
         )

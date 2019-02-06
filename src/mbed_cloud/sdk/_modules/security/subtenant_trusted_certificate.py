@@ -21,6 +21,7 @@ class SubtenantTrustedCertificate(Entity):
     _fieldnames = [
         "account_id",
         "certificate",
+        "certificate_fingerprint",
         "created_at",
         "description",
         "device_execution_mode",
@@ -45,6 +46,7 @@ class SubtenantTrustedCertificate(Entity):
         _client=None,
         account_id=None,
         certificate=None,
+        certificate_fingerprint=None,
         created_at=None,
         description=None,
         enrollment_mode=None,
@@ -61,10 +63,12 @@ class SubtenantTrustedCertificate(Entity):
     ):
         """Creates a local `SubtenantTrustedCertificate` instance
 
-        :param account_id: The UUID of the account.
+        :param account_id: The ID of the account.
         :type account_id: str
         :param certificate: X509.v3 trusted certificate in PEM format.
         :type certificate: str
+        :param certificate_fingerprint: A SHA-256 fingerprint of the certificate.
+        :type certificate_fingerprint: str
         :param created_at: Creation UTC time RFC3339.
         :type created_at: datetime
         :param description: Human readable description of this certificate.
@@ -79,7 +83,7 @@ class SubtenantTrustedCertificate(Entity):
         :type issuer: str
         :param name: Certificate name.
         :type name: str
-        :param owner_id: The UUID of the owner.
+        :param owner_id: The ID of the owner.
         :type owner_id: str
         :param service: Service name where the certificate is to be used.
         :type service: str
@@ -100,6 +104,9 @@ class SubtenantTrustedCertificate(Entity):
         # fields
         self._account_id = fields.StringField(value=account_id)
         self._certificate = fields.StringField(value=certificate)
+        self._certificate_fingerprint = fields.StringField(
+            value=certificate_fingerprint
+        )
         self._created_at = fields.DateTimeField(value=created_at)
         self._description = fields.StringField(value=description)
         self._device_execution_mode = fields.IntegerField(value=None)
@@ -123,7 +130,7 @@ class SubtenantTrustedCertificate(Entity):
 
     @property
     def account_id(self):
-        """The UUID of the account.
+        """The ID of the account.
         
         api example: '01619571e2e90242ac12000600000000'
         
@@ -162,6 +169,27 @@ class SubtenantTrustedCertificate(Entity):
         """
 
         self._certificate.set(value)
+
+    @property
+    def certificate_fingerprint(self):
+        """A SHA-256 fingerprint of the certificate.
+        
+        api example: 'a10fb2c8ba90e6de927bd0ae391dcc38f6115685de2d7024712af37ead0608f1'
+        
+        :rtype: str
+        """
+
+        return self._certificate_fingerprint.value
+
+    @certificate_fingerprint.setter
+    def certificate_fingerprint(self, value):
+        """Set value of `certificate_fingerprint`
+
+        :param value: value to set
+        :type value: str
+        """
+
+        self._certificate_fingerprint.set(value)
 
     @property
     def created_at(self):
@@ -322,7 +350,7 @@ class SubtenantTrustedCertificate(Entity):
 
     @property
     def owner_id(self):
-        """The UUID of the owner.
+        """The ID of the owner.
         
         api example: '01619571dad80242ac12000600000000'
         
@@ -448,14 +476,14 @@ class SubtenantTrustedCertificate(Entity):
         """Upload new trusted certificate.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/trusted-certificates
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/trusted-certificates
         
         :rtype: SubtenantTrustedCertificate
         """
 
         return self._client.call_api(
             method="post",
-            path="/v3/accounts/{accountID}/trusted-certificates",
+            path="/v3/accounts/{account_id}/trusted-certificates",
             body_params={
                 "certificate": self._certificate.to_api(),
                 "description": self._description.to_api(),
@@ -464,7 +492,7 @@ class SubtenantTrustedCertificate(Entity):
                 "service": self._service.to_api(),
                 "status": self._status.to_api(),
             },
-            path_params={"accountID": self._account_id.to_api()},
+            path_params={"account_id": self._account_id.to_api()},
             unpack=self,
         )
 
@@ -472,22 +500,41 @@ class SubtenantTrustedCertificate(Entity):
         """Delete trusted certificate by ID.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/trusted-certificates/{cert-id}
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/trusted-certificates/{cert_id}
         
         :rtype: SubtenantTrustedCertificate
         """
 
         return self._client.call_api(
             method="delete",
-            path="/v3/accounts/{accountID}/trusted-certificates/{cert-id}",
+            path="/v3/accounts/{account_id}/trusted-certificates/{cert_id}",
             path_params={
-                "accountID": self._account_id.to_api(),
-                "cert-id": self._id.to_api(),
+                "account_id": self._account_id.to_api(),
+                "cert_id": self._id.to_api(),
             },
             unpack=self,
         )
 
-    def developer_certificate_info(self):
+    def get(self):
+        """Get trusted certificate by ID.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/trusted-certificates/{cert_id}
+        
+        :rtype: SubtenantTrustedCertificate
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/accounts/{account_id}/trusted-certificates/{cert_id}",
+            path_params={
+                "account_id": self._account_id.to_api(),
+                "cert_id": self._id.to_api(),
+            },
+            unpack=self,
+        )
+
+    def get_developer_certificate_info(self):
         """Fetch an existing developer certificate to connect to the bootstrap server.
 
         api documentation:
@@ -505,37 +552,18 @@ class SubtenantTrustedCertificate(Entity):
             unpack=DeveloperCertificate,
         )
 
-    def get(self):
-        """Get trusted certificate by ID.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/trusted-certificates/{cert-id}
-        
-        :rtype: SubtenantTrustedCertificate
-        """
-
-        return self._client.call_api(
-            method="get",
-            path="/v3/accounts/{accountID}/trusted-certificates/{cert-id}",
-            path_params={
-                "accountID": self._account_id.to_api(),
-                "cert-id": self._id.to_api(),
-            },
-            unpack=self,
-        )
-
     def update(self):
         """Update trusted certificate.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/trusted-certificates/{cert-id}
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/trusted-certificates/{cert_id}
         
         :rtype: SubtenantTrustedCertificate
         """
 
         return self._client.call_api(
             method="put",
-            path="/v3/accounts/{accountID}/trusted-certificates/{cert-id}",
+            path="/v3/accounts/{account_id}/trusted-certificates/{cert_id}",
             body_params={
                 "certificate": self._certificate.to_api(),
                 "description": self._description.to_api(),
@@ -545,8 +573,8 @@ class SubtenantTrustedCertificate(Entity):
                 "status": self._status.to_api(),
             },
             path_params={
-                "accountID": self._account_id.to_api(),
-                "cert-id": self._id.to_api(),
+                "account_id": self._account_id.to_api(),
+                "cert_id": self._id.to_api(),
             },
             unpack=self,
         )

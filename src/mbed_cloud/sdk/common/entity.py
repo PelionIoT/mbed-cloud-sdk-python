@@ -80,8 +80,8 @@ class Entity(object):
     def to_api(self):
         """Return all fields in API format"""
         return {
-            api_field: getattr(self, "_" + sdk_field).to_api()
-            for api_field, sdk_field in self._renames.items()
+            self._renames.get(sdk_field, sdk_field): getattr(self, "_" + sdk_field).to_api()
+            for sdk_field in self._fieldnames
         }
 
     def from_literal(self, **kwargs):

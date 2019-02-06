@@ -64,20 +64,44 @@ class Field(object):
 class DateTimeField(Field):
     base_type = datetime
 
+    def set(self, value):
+        """Set the date/time using a datetime object or a date/time like string."""
+        if isinstance(value, str):
+            # Use dateutil.parser to accept various input
+            self._val = parse(value)
+        else:
+            return super().set(value)
+        return self
+
     def to_literal(self):
         return self.value.isoformat() if self.value else None
 
     def to_api(self):
-        return self.value.isoformat() + "Z" if self.value else None
+        if self.value.tzinfo:
+            return self.to_literal()
+        else:
+            return self.value.isoformat() + "Z" if self.value else None
 
     def from_api(self, value):
-        return self.set(parse(value) if value else value)
+        return self.set(value)
 
     from_literal = from_api
 
 
 class DateField(DateTimeField):
     base_type = date
+
+    def to_api(self):
+        # ISO dates do not have a trailing Z
+        return self.value.isoformat() if self.value else None
+
+    def set(self, value):
+        """Set the date using a date object or a date/time like string."""
+        super().set(value)
+        # Use dateutil.parser to accept various input if a string is passed in but then convert to a date object
+        if isinstance(self._val, datetime):
+            self._val = self._val.date()
+        return self
 
 
 class DictField(Field):
@@ -102,6 +126,14 @@ class BooleanField(Field):
 
 class ListField(Field):
     base_type = list
+
+    def set(self, value):
+        if isinstance(value, list) and self._entity:
+            # Convert a list of dictionaries into a list of entities
+            self._val = [self._entity(**item) if isinstance(item, dict) else item for item in value]
+        else:
+            return super().set(value)
+        return self
 
     def to_literal(self):
         if self._entity:

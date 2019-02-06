@@ -234,15 +234,15 @@ class DeveloperCertificate(Entity):
         """Delete a trusted certificate by ID.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/trusted-certificates/{cert-id}
+        https://os.mbed.com/search/?q=service+apis+/v3/trusted-certificates/{cert_id}
         
         :rtype: DeveloperCertificate
         """
 
         return self._client.call_api(
             method="delete",
-            path="/v3/trusted-certificates/{cert-id}",
-            path_params={"cert-id": self._id.to_api()},
+            path="/v3/trusted-certificates/{cert_id}",
+            path_params={"cert_id": self._id.to_api()},
             unpack=self,
         )
 
@@ -262,11 +262,11 @@ class DeveloperCertificate(Entity):
             unpack=self,
         )
 
-    def trusted_certificate_info(self):
+    def get_trusted_certificate_info(self):
         """Get trusted certificate by ID.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/trusted-certificates/{cert-id}
+        https://os.mbed.com/search/?q=service+apis+/v3/trusted-certificates/{cert_id}
         
         :rtype: TrustedCertificate
         """
@@ -275,7 +275,7 @@ class DeveloperCertificate(Entity):
 
         return self._client.call_api(
             method="get",
-            path="/v3/trusted-certificates/{cert-id}",
-            path_params={"cert-id": self._id.to_api()},
+            path="/v3/trusted-certificates/{cert_id}",
+            path_params={"cert_id": self._id.to_api()},
             unpack=TrustedCertificate,
         )

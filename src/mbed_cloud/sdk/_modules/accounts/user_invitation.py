@@ -24,6 +24,7 @@ class UserInvitation(Entity):
         "email",
         "expiration",
         "id",
+        "login_profiles",
         "updated_at",
         "user_id",
     ]
@@ -39,12 +40,13 @@ class UserInvitation(Entity):
         email=None,
         expiration=None,
         id=None,
+        login_profiles=None,
         updated_at=None,
         user_id=None,
     ):
         """Creates a local `UserInvitation` instance
 
-        :param account_id: The UUID of the account the user is invited to.
+        :param account_id: The ID of the account the user is invited to.
         :type account_id: str
         :param created_at: Creation UTC time RFC3339.
         :type created_at: datetime
@@ -52,11 +54,14 @@ class UserInvitation(Entity):
         :type email: str
         :param expiration: Invitation expiration as UTC time RFC3339.
         :type expiration: datetime
-        :param id: The UUID of the invitation.
+        :param id: The ID of the invitation.
         :type id: str
+        :param login_profiles: A list of login profiles for the user. Specified as the identity
+            providers the user is associated with.
+        :type login_profiles: list
         :param updated_at: Last update UTC time RFC3339.
         :type updated_at: datetime
-        :param user_id: The UUID of the invited user.
+        :param user_id: The ID of the invited user.
         :type user_id: str
         """
 
@@ -64,18 +69,23 @@ class UserInvitation(Entity):
 
         # inline imports for avoiding circular references and bulk imports
 
+        from mbed_cloud.sdk._modules.accounts.login_profile import LoginProfile
+
         # fields
         self._account_id = fields.StringField(value=account_id)
         self._created_at = fields.DateTimeField(value=created_at)
         self._email = fields.StringField(value=email)
         self._expiration = fields.DateTimeField(value=expiration)
         self._id = fields.StringField(value=id)
+        self._login_profiles = fields.ListField(
+            value=login_profiles, entity=LoginProfile
+        )
         self._updated_at = fields.DateTimeField(value=updated_at)
         self._user_id = fields.StringField(value=user_id)
 
     @property
     def account_id(self):
-        """The UUID of the account the user is invited to.
+        """The ID of the account the user is invited to.
         
         api example: '01619571e2e90242ac12000600000000'
         
@@ -159,7 +169,7 @@ class UserInvitation(Entity):
 
     @property
     def id(self):
-        """The UUID of the invitation.
+        """The ID of the invitation.
         
         api example: '01619571e2e89242ac12000600000000'
         
@@ -177,6 +187,26 @@ class UserInvitation(Entity):
         """
 
         self._id.set(value)
+
+    @property
+    def login_profiles(self):
+        """A list of login profiles for the user. Specified as the identity providers the
+        user is associated with.
+        
+        :rtype: list[LoginProfile]
+        """
+
+        return self._login_profiles.value
+
+    @login_profiles.setter
+    def login_profiles(self, value):
+        """Set value of `login_profiles`
+
+        :param value: value to set
+        :type value: list[LoginProfile]
+        """
+
+        self._login_profiles.set(value)
 
     @property
     def updated_at(self):
@@ -201,7 +231,7 @@ class UserInvitation(Entity):
 
     @property
     def user_id(self):
-        """The UUID of the invited user.
+        """The ID of the invited user.
         
         api example: '01619571e2e90242ac12000600000000'
         
@@ -220,11 +250,15 @@ class UserInvitation(Entity):
 
         self._user_id.set(value)
 
-    def create(self):
+    def create(self, valid_for_days=None):
         """Create a user invitation.
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/user-invitations
+        
+        :param valid_for_days: Specifies how many days the invitation will be valid for. The default
+            is 30 days. Value should be between 1 and 100 days.
+        :type valid_for_days: int
         
         :rtype: UserInvitation
         """
@@ -232,7 +266,11 @@ class UserInvitation(Entity):
         return self._client.call_api(
             method="post",
             path="/v3/user-invitations",
-            body_params={"email": self._email.to_api()},
+            body_params={
+                "email": self._email.to_api(),
+                "login_profiles": self._login_profiles.to_api(),
+                "valid_for_days": fields.IntegerField(valid_for_days).to_api(),
+            },
             unpack=self,
         )
 
@@ -240,15 +278,15 @@ class UserInvitation(Entity):
         """Delete a user invitation.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/user-invitations/{invitation-id}
+        https://os.mbed.com/search/?q=service+apis+/v3/user-invitations/{invitation_id}
         
         :rtype: UserInvitation
         """
 
         return self._client.call_api(
             method="delete",
-            path="/v3/user-invitations/{invitation-id}",
-            path_params={"invitation-id": self._id.to_api()},
+            path="/v3/user-invitations/{invitation_id}",
+            path_params={"invitation_id": self._id.to_api()},
             unpack=self,
         )
 
@@ -256,15 +294,15 @@ class UserInvitation(Entity):
         """Details of a user invitation.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/user-invitations/{invitation-id}
+        https://os.mbed.com/search/?q=service+apis+/v3/user-invitations/{invitation_id}
         
         :rtype: UserInvitation
         """
 
         return self._client.call_api(
             method="get",
-            path="/v3/user-invitations/{invitation-id}",
-            path_params={"invitation-id": self._id.to_api()},
+            path="/v3/user-invitations/{invitation_id}",
+            path_params={"invitation_id": self._id.to_api()},
             unpack=self,
         )
 

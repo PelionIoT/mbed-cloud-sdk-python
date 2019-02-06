@@ -29,6 +29,7 @@ class User(Entity):
         "id",
         "last_login_time",
         "login_history",
+        "login_profiles",
         "marketing_accepted",
         "password",
         "password_changed_time",
@@ -60,6 +61,7 @@ class User(Entity):
         id=None,
         last_login_time=None,
         login_history=None,
+        login_profiles=None,
         marketing_accepted=None,
         password=None,
         password_changed_time=None,
@@ -72,7 +74,7 @@ class User(Entity):
     ):
         """Creates a local `User` instance
 
-        :param account_id: The UUID of the account.
+        :param account_id: The ID of the account.
         :type account_id: str
         :param address: Address.
         :type address: str
@@ -87,7 +89,7 @@ class User(Entity):
         :type email_verified: bool
         :param full_name: The full name of the user.
         :type full_name: str
-        :param id: The UUID of the user.
+        :param id: The ID of the user.
         :type id: str
         :param last_login_time: A timestamp of the latest login of the user, in milliseconds.
         :type last_login_time: int
@@ -95,6 +97,9 @@ class User(Entity):
             of the last five logins of the user, with timestamps in RFC3339
             format.
         :type login_history: list
+        :param login_profiles: A list of login profiles for the user. Specified as the identity
+            providers the user is associated with.
+        :type login_profiles: list
         :param marketing_accepted: A flag indicating that receiving marketing information has been
             accepted.
         :type marketing_accepted: bool
@@ -130,6 +135,7 @@ class User(Entity):
         # inline imports for avoiding circular references and bulk imports
 
         from mbed_cloud.sdk._modules.accounts.login_history import LoginHistory
+        from mbed_cloud.sdk._modules.accounts.login_profile import LoginProfile
 
         # fields
         self._account_id = fields.StringField(value=account_id)
@@ -142,6 +148,9 @@ class User(Entity):
         self._id = fields.StringField(value=id)
         self._last_login_time = fields.IntegerField(value=last_login_time)
         self._login_history = fields.ListField(value=login_history, entity=LoginHistory)
+        self._login_profiles = fields.ListField(
+            value=login_profiles, entity=LoginProfile
+        )
         self._marketing_accepted = fields.BooleanField(value=marketing_accepted)
         self._password = fields.StringField(value=password)
         self._password_changed_time = fields.IntegerField(value=password_changed_time)
@@ -156,7 +165,7 @@ class User(Entity):
 
     @property
     def account_id(self):
-        """The UUID of the account.
+        """The ID of the account.
         
         api example: '01619571e2e90242ac12000600000000'
         
@@ -303,7 +312,7 @@ class User(Entity):
 
     @property
     def id(self):
-        """The UUID of the user.
+        """The ID of the user.
         
         api example: '01619571e2e89242ac12000600000000'
         
@@ -362,6 +371,26 @@ class User(Entity):
         """
 
         self._login_history.set(value)
+
+    @property
+    def login_profiles(self):
+        """A list of login profiles for the user. Specified as the identity providers the
+        user is associated with.
+        
+        :rtype: list[LoginProfile]
+        """
+
+        return self._login_profiles.value
+
+    @login_profiles.setter
+    def login_profiles(self, value):
+        """Set value of `login_profiles`
+
+        :param value: value to set
+        :type value: list[LoginProfile]
+        """
+
+        self._login_profiles.set(value)
 
     @property
     def marketing_accepted(self):
@@ -576,6 +605,7 @@ class User(Entity):
                 "address": self._address.to_api(),
                 "email": self._email.to_api(),
                 "full_name": self._full_name.to_api(),
+                "login_profiles": self._login_profiles.to_api(),
                 "is_marketing_accepted": self._marketing_accepted.to_api(),
                 "password": self._password.to_api(),
                 "phone_number": self._phone_number.to_api(),
@@ -590,15 +620,15 @@ class User(Entity):
         """Delete a user.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/users/{user-id}
+        https://os.mbed.com/search/?q=service+apis+/v3/users/{user_id}
         
         :rtype: User
         """
 
         return self._client.call_api(
             method="delete",
-            path="/v3/users/{user-id}",
-            path_params={"user-id": self._id.to_api()},
+            path="/v3/users/{user_id}",
+            path_params={"user_id": self._id.to_api()},
             unpack=self,
         )
 
@@ -606,15 +636,15 @@ class User(Entity):
         """Details of a user.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/users/{user-id}
+        https://os.mbed.com/search/?q=service+apis+/v3/users/{user_id}
         
         :rtype: User
         """
 
         return self._client.call_api(
             method="get",
-            path="/v3/users/{user-id}",
-            path_params={"user-id": self._id.to_api()},
+            path="/v3/users/{user_id}",
+            path_params={"user_id": self._id.to_api()},
             unpack=self,
         )
 
@@ -694,23 +724,24 @@ class User(Entity):
         """Update user details.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/users/{user-id}
+        https://os.mbed.com/search/?q=service+apis+/v3/users/{user_id}
         
         :rtype: User
         """
 
         return self._client.call_api(
             method="put",
-            path="/v3/users/{user-id}",
+            path="/v3/users/{user_id}",
             body_params={
                 "address": self._address.to_api(),
                 "full_name": self._full_name.to_api(),
+                "login_profiles": self._login_profiles.to_api(),
                 "is_marketing_accepted": self._marketing_accepted.to_api(),
                 "phone_number": self._phone_number.to_api(),
                 "is_gtc_accepted": self._terms_accepted.to_api(),
                 "is_totp_enabled": self._two_factor_authentication.to_api(),
                 "username": self._username.to_api(),
             },
-            path_params={"user-id": self._id.to_api()},
+            path_params={"user_id": self._id.to_api()},
             unpack=self,
         )

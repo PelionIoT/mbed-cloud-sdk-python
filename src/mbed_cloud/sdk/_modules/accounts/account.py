@@ -39,12 +39,14 @@ class Account(Entity):
         "display_name",
         "email",
         "end_market",
+        "expiration",
         "expiration_warning_threshold",
         "id",
         "idle_timeout",
         "limits",
         "mfa_status",
         "notification_emails",
+        "parent_account",
         "parent_id",
         "password_policy",
         "phone_number",
@@ -87,12 +89,14 @@ class Account(Entity):
         display_name=None,
         email=None,
         end_market=None,
+        expiration=None,
         expiration_warning_threshold=None,
         id=None,
         idle_timeout=None,
         limits=None,
         mfa_status=None,
         notification_emails=None,
+        parent_account=None,
         parent_id=None,
         password_policy=None,
         phone_number=None,
@@ -114,21 +118,22 @@ class Account(Entity):
         :type address_line1: str
         :param address_line2: Postal address line 2.
         :type address_line2: str
-        :param admin_email: The email address of the account admin, not longer than 254
-            characters.
+        :param admin_email: The email address of the admin user created for this account.
+            Present only in the response for the account creation.
         :type admin_email: str
-        :param admin_full_name: The full name of the admin user to be created.
+        :param admin_full_name: The full name of the admin user created for this account. Present
+            only in the response for the account creation.
         :type admin_full_name: str
-        :param admin_id: The ID of the admin user created.
+        :param admin_id: The ID of the admin user created for this account.
         :type admin_id: str
-        :param admin_key: The admin API key created for the account.
+        :param admin_key: The admin API key created for this account. Present only in the
+            response for the account creation.
         :type admin_key: str
-        :param admin_name: The username of the admin user to be created, containing
-            alphanumerical letters and -,._@+= characters. It must be at least
-            4 but not more than 30 character long.
+        :param admin_name: The username of the admin user created for this account. Present
+            only in the response for the account creation.
         :type admin_name: str
-        :param admin_password: The password when creating a new user. It will be generated when
-            not present in the request.
+        :param admin_password: The password of the admin user created for this account. Present
+            only in the response for the account creation.
         :type admin_password: str
         :param aliases: An array of aliases.
         :type aliases: list
@@ -154,6 +159,8 @@ class Account(Entity):
         :type email: str
         :param end_market: Account end market.
         :type end_market: str
+        :param expiration: Expiration time of the account, as UTC time RFC3339.
+        :type expiration: datetime
         :param expiration_warning_threshold: Indicates how many days (1-180) before account expiration a
             notification email should be sent.
         :type expiration_warning_threshold: str
@@ -168,6 +175,9 @@ class Account(Entity):
         :type mfa_status: str
         :param notification_emails: A list of notification email addresses.
         :type notification_emails: list
+        :param parent_account: This object represents parent account contact details in
+            responses.
+        :type parent_account: dict
         :param parent_id: The ID of the parent account, if it has any.
         :type parent_id: str
         :param password_policy: 
@@ -204,6 +214,7 @@ class Account(Entity):
 
         # inline imports for avoiding circular references and bulk imports
 
+        from mbed_cloud.sdk._modules.accounts.parent_account import ParentAccount
         from mbed_cloud.sdk._modules.accounts.password_policy import PasswordPolicy
         from mbed_cloud.sdk._modules.accounts.policy import Policy
 
@@ -228,6 +239,7 @@ class Account(Entity):
         self._display_name = fields.StringField(value=display_name)
         self._email = fields.StringField(value=email)
         self._end_market = fields.StringField(value=end_market)
+        self._expiration = fields.DateTimeField(value=expiration)
         self._expiration_warning_threshold = fields.StringField(
             value=expiration_warning_threshold
         )
@@ -238,6 +250,9 @@ class Account(Entity):
             value=mfa_status, enum=enums.AccountMfaStatusEnum
         )
         self._notification_emails = fields.ListField(value=notification_emails)
+        self._parent_account = fields.DictField(
+            value=parent_account, entity=ParentAccount
+        )
         self._parent_id = fields.StringField(value=parent_id)
         self._password_policy = fields.DictField(
             value=password_policy, entity=PasswordPolicy
@@ -299,7 +314,8 @@ class Account(Entity):
 
     @property
     def admin_email(self):
-        """The email address of the account admin, not longer than 254 characters.
+        """The email address of the admin user created for this account. Present only in
+        the response for the account creation.
         
         api example: 'admin@arm.com'
         
@@ -320,7 +336,8 @@ class Account(Entity):
 
     @property
     def admin_full_name(self):
-        """The full name of the admin user to be created.
+        """The full name of the admin user created for this account. Present only in the
+        response for the account creation.
         
         api example: 'Admin Doe'
         
@@ -341,7 +358,7 @@ class Account(Entity):
 
     @property
     def admin_id(self):
-        """The ID of the admin user created.
+        """The ID of the admin user created for this account.
         
         api example: '01619571e2e89242ac12000600000000'
         
@@ -362,7 +379,8 @@ class Account(Entity):
 
     @property
     def admin_key(self):
-        """The admin API key created for the account.
+        """The admin API key created for this account. Present only in the response for
+        the account creation.
         
         api example: 'ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac120006000000
             00B40IkJADMANmAscAj0Ot0n2yeQnyt9tT'
@@ -384,9 +402,8 @@ class Account(Entity):
 
     @property
     def admin_name(self):
-        """The username of the admin user to be created, containing alphanumerical
-        letters and -,._@+= characters. It must be at least 4 but not more than 30
-        character long.
+        """The username of the admin user created for this account. Present only in the
+        response for the account creation.
         
         api example: 'admin'
         
@@ -407,8 +424,8 @@ class Account(Entity):
 
     @property
     def admin_password(self):
-        """The password when creating a new user. It will be generated when not present
-        in the request.
+        """The password of the admin user created for this account. Present only in the
+        response for the account creation.
         
         api example: 'PZf9eEUH43DAPE9ULINFeuj'
         
@@ -676,6 +693,25 @@ class Account(Entity):
         self._end_market.set(value)
 
     @property
+    def expiration(self):
+        """Expiration time of the account, as UTC time RFC3339.
+        
+        :rtype: datetime
+        """
+
+        return self._expiration.value
+
+    @expiration.setter
+    def expiration(self, value):
+        """Set value of `expiration`
+
+        :param value: value to set
+        :type value: datetime
+        """
+
+        self._expiration.set(value)
+
+    @property
     def expiration_warning_threshold(self):
         """Indicates how many days (1-180) before account expiration a notification email
         should be sent.
@@ -796,6 +832,25 @@ class Account(Entity):
         """
 
         self._notification_emails.set(value)
+
+    @property
+    def parent_account(self):
+        """This object represents parent account contact details in responses.
+        
+        :rtype: dict[ParentAccount]
+        """
+
+        return self._parent_account.value
+
+    @parent_account.setter
+    def parent_account(self, value):
+        """Set value of `parent_account`
+
+        :param value: value to set
+        :type value: dict[ParentAccount]
+        """
+
+        self._parent_account.set(value)
 
     @property
     def parent_id(self):
@@ -1140,7 +1195,7 @@ class Account(Entity):
         """Get account info.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}
         
         :param include: Comma separated additional data to return. Currently supported:
             limits, policies, sub_accounts
@@ -1154,8 +1209,8 @@ class Account(Entity):
 
         return self._client.call_api(
             method="get",
-            path="/v3/accounts/{accountID}",
-            path_params={"accountID": self._id.to_api()},
+            path="/v3/accounts/{account_id}",
+            path_params={"account_id": self._id.to_api()},
             query_params={
                 "include": fields.StringField(include).to_api(),
                 "properties": fields.StringField(properties).to_api(),
@@ -1292,7 +1347,7 @@ class Account(Entity):
         """Get all trusted certificates.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/trusted-certificates
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/trusted-certificates
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
@@ -1313,8 +1368,8 @@ class Account(Entity):
 
         return self._client.call_api(
             method="get",
-            path="/v3/accounts/{accountID}/trusted-certificates",
-            path_params={"accountID": self._id.to_api()},
+            path="/v3/accounts/{account_id}/trusted-certificates",
+            path_params={"account_id": self._id.to_api()},
             query_params={
                 "after": fields.StringField(after).to_api(),
                 "include": fields.StringField(include).to_api(),
@@ -1326,11 +1381,11 @@ class Account(Entity):
             unpack=False,
         )
 
-    def _paginate_user_invitations(self, after=None, limit=50, order="ASC", **kwargs):
+    def _paginate_user_invitations(self, after=None, limit=50, order="ASC"):
         """Get the details of all the user invitations.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account-id}/user-invitations
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/user-invitations
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
@@ -1347,8 +1402,8 @@ class Account(Entity):
 
         return self._client.call_api(
             method="get",
-            path="/v3/accounts/{account-id}/user-invitations",
-            path_params={"account-id": self._id.to_api()},
+            path="/v3/accounts/{account_id}/user-invitations",
+            path_params={"account_id": self._id.to_api()},
             query_params={
                 "after": fields.StringField(after).to_api(),
                 "limit": fields.IntegerField(limit).to_api(),
@@ -1363,7 +1418,7 @@ class Account(Entity):
         """Get all user details.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/users
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/users
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
@@ -1384,8 +1439,8 @@ class Account(Entity):
 
         return self._client.call_api(
             method="get",
-            path="/v3/accounts/{accountID}/users",
-            path_params={"accountID": self._id.to_api()},
+            path="/v3/accounts/{account_id}/users",
+            path_params={"account_id": self._id.to_api()},
             query_params={
                 "after": fields.StringField(after).to_api(),
                 "include": fields.StringField(include).to_api(),
@@ -1403,7 +1458,7 @@ class Account(Entity):
         """Get all trusted certificates.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/trusted-certificates
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/trusted-certificates
         
         :param include: Comma separated additional data to return. Currently supported:
             total_count
@@ -1440,14 +1495,14 @@ class Account(Entity):
         """Update attributes of an existing account.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}
         
         :rtype: Account
         """
 
         return self._client.call_api(
             method="put",
-            path="/v3/accounts/{accountID}",
+            path="/v3/accounts/{account_id}",
             body_params={
                 "address_line1": self._address_line1.to_api(),
                 "address_line2": self._address_line2.to_api(),
@@ -1472,7 +1527,7 @@ class Account(Entity):
                 "sales_contact": self._sales_contact.to_api(),
                 "state": self._state.to_api(),
             },
-            path_params={"accountID": self._id.to_api()},
+            path_params={"account_id": self._id.to_api()},
             unpack=self,
         )
 
@@ -1482,7 +1537,7 @@ class Account(Entity):
         """Get the details of all the user invitations.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account-id}/user-invitations
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/user-invitations
         
         :param max_results: Total maximum number of results to retrieve
         :type max_results: int
@@ -1515,7 +1570,7 @@ class Account(Entity):
         """Get all user details.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{accountID}/users
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/users
         
         :param include: Comma separated additional data to return. Currently supported:
             total_count
