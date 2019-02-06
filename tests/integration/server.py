@@ -106,6 +106,9 @@ def serialise(obj):
         # maybe assume UTC (as deserialise does the reverse)
         return obj.replace(tzinfo=du_tz.tzutc()).isoformat()
 
+    if isinstance(obj, datetime.date):
+        return obj.isoformat()
+
     if isinstance(obj, queue.Queue):
         return {}
 
