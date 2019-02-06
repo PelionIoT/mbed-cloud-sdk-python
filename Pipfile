@@ -10,7 +10,7 @@ mbed_cloud_sdk = {editable = true, path = "."}
 [dev-packages]
 markupsafe = "==1.0"
 coverage = "*"
-flake8 = "==3.7.3"
+flake8 = "==3.6.0"
 flake8-copyright = "*"
 flake8-docstrings = "*"
 flask = "*"
