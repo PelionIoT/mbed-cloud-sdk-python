@@ -653,7 +653,8 @@ class User(BaseObject):
     def __init__(self, dictionary):
         """Initialize object."""
         super(User, self).__init__(dictionary)
-        self._login_history = [LoginHistory(login) for login in getattr(self, 'login_history')]
+        login_history = getattr(self, 'login_history') or []
+        self._login_history = [LoginHistory(login) for login in login_history]
 
     @staticmethod
     def _get_attributes_map():
