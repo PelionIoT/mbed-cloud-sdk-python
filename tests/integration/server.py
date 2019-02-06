@@ -30,6 +30,7 @@ from dateutil import parser as du_parser
 from dateutil import tz as du_tz
 from builtins import str
 
+from werkzeug.serving import run_simple
 import flask
 from flask import request
 from flask import jsonify
@@ -458,4 +459,5 @@ def server_shutdown():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    # Run Flask app using Werkzeug's development server
+    run_simple('0.0.0.0', 5000, app)
