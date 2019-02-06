@@ -33,7 +33,7 @@ class SimpleEntity(Entity):
             a_datetime_field=None,
             a_date_field=None,
     ):
-        super().__init__(_client=_client)
+        super(SimpleEntity).__init__(_client=_client)
 
         # inline imports for avoiding circular references and bulk imports
 
