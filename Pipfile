@@ -8,17 +8,20 @@ name = "pypi"
 mbed_cloud_sdk = {editable = true, path = "."}
 
 [dev-packages]
-markupsafe = "==1.0"
+black = "*"
 coverage = "*"
 flake8 = "==3.6.0"
 flake8-copyright = "*"
 flake8-docstrings = "*"
 flask = "*"
+jinja2 = "*"
+markupsafe = "==1.0"
 mock = "*"
 # locked to protect from Pluggy compatibility break in more recent versions
 pytest = "==3.6.3"
 pytest-cov = "==2.5.1"
 pytest-html = "==1.19.0"
+pyyaml = "*"
 slackclient = "*"
 sphinx = "*"
 # locked to protect from Py2/3 compatibility break in more recent versions
