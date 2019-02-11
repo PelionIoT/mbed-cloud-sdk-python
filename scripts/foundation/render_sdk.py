@@ -8,16 +8,13 @@ import shutil
 import yaml
 import logging
 import copy
-from collections import defaultdict
-from jinja2 import Environment, PackageLoader, select_autoescape
+import functools
+import jinja2
 
 logging.basicConfig(format='%(asctime)s %(levelname)s %(message)s')
 logger = logging.getLogger(__name__)
 
-env = Environment(
-    loader=PackageLoader('render_sdk', 'templates'),
-    autoescape=select_autoescape(['html', 'xml'])
-)
+TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), 'templates')
 
 # Map from Swagger Types / Formats to Foundation field types
 SWAGGER_FIELD_MAP = {
@@ -50,6 +47,15 @@ SWAGGER_TYPE_MAP = {
 }
 
 
+def map_python_field_types(fields):
+    for field in fields:
+        swagger_type = field.get("type")
+        swagger_format = field.get("format")
+        field["python_type"] = SWAGGER_TYPE_MAP.get(swagger_format) or SWAGGER_TYPE_MAP.get(swagger_type)
+        field["python_field"] = SWAGGER_FIELD_MAP.get(swagger_format) or SWAGGER_FIELD_MAP.get(swagger_type)
+
+
+@functools.lru_cache()
 def to_pascal_case(string):
     """Convert from snake_case to PascalCase
 
@@ -70,12 +76,143 @@ def to_pascal_case(string):
     return string and "".join(n[0].upper() + n[1:] for n in string.split("_") if n)
 
 
-def map_python_field_types(fields):
-    for field in fields:
-        swagger_type = field.get("type")
-        swagger_format = field.get("format")
-        field["python_type"] = SWAGGER_TYPE_MAP.get(swagger_format) or SWAGGER_TYPE_MAP.get(swagger_type)
-        field["python_field"] = SWAGGER_FIELD_MAP.get(swagger_format) or SWAGGER_FIELD_MAP.get(swagger_type)
+@functools.lru_cache()
+def to_snake_case(name):
+    """Converts string to snake_case
+
+    we don't use title because that forces lowercase for the word, whereas we want:
+    PSK -> psk
+    api key -> api_key
+    user -> user
+    """
+    return name.replace(" ", "_").lower()
+
+
+class GenModule:
+    """Container for 'modules' (aka groups from the intermediate file)"""
+
+    def __init__(self, name=None, data=None, root=None, target=None):
+        """Init
+
+        :param name: name of the module
+        :param data: data to render using template
+        :param root: file path containing this module
+        """
+        self.name = name
+        self.data = data or {}
+        self.root = root
+        self.target = target
+
+
+class FileMap:
+    """Container for matching rendering of templates into directories
+
+    Includes iteration over a list of GenModules
+    """
+
+    def __init__(self, jinja_env, output_dir, template, target=None, per_module=None):
+        """Init
+
+        :param jinja_env:
+        :param output_dir:
+        :param template:
+        :param target:
+        :param per_module:
+        """
+        self.jinja_env = jinja_env
+        self.output_dir = output_dir
+        self.target = target or template.replace('jinja2', 'py')
+        self.template = self.jinja_env.get_template(template)
+        self.per_module = per_module or [GenModule()]
+
+    def run(self, config):
+        """Use self.template to write a file in each GenModule directory
+
+        using self.output_dir as a starting point
+        and self.target as the name of the destination file
+        """
+        for gen_module in self.per_module:
+            output_dir = os.path.join(*[
+                p for p in (self.output_dir, gen_module.root, gen_module.name) if p
+            ])
+
+            if not os.path.exists(output_dir):
+                os.makedirs(output_dir)
+
+            output = os.path.join(output_dir, gen_module.target or self.target)
+
+            logger.info("Rendering '%s' to '%s'", self.template, output)
+
+            rendered = self.template.render(gen_module.data or config)
+
+            with open(output, 'w') as fh:
+                fh.write(rendered)
+
+
+def sort_parg_kwarg(items):
+    """Very specific sort ordering for ensuring pargs, kwargs are in the correct order"""
+    return sorted(items, key=lambda x: not bool(x.get('required')))
+
+
+def render_foundation_sdk(python_sdk_gen_dict, output_dir):
+    """Render the Foundation SDK using the jinja templates
+
+    :param dict python_sdk_gen_dict: The 'inter.yaml' intermediate yaml configuration / specification file
+    :param str output_dir: Directory to generate the SDK in to
+    :return:
+    """
+
+    jinja_env = jinja2.Environment(
+        loader=jinja2.FileSystemLoader(TEMPLATE_DIR)
+    )
+    jinja_env.filters['repr'] = repr
+    jinja_env.filters['pargs_kwargs'] = sort_parg_kwarg
+    jinja_env.filters.update(dict(
+        repr=repr,
+        sort_parg_kwarg=sort_parg_kwarg,
+        to_snake=to_snake_case,
+        to_pascal=to_pascal_case,
+    ))
+
+    generation_root = '_modules'
+    generation_dir = os.path.join(output_dir, generation_root)
+
+    sub_modules = [
+        GenModule(name=to_snake_case(group['_key']), root=generation_root, data=group) for group in python_sdk_gen_dict.get('groups')
+    ]
+    entity_modules = [
+        GenModule(name=None, root=os.path.join(generation_root, to_snake_case(e['group_id'])), data=e) for e in python_sdk_gen_dict.get('entities')
+    ]
+    src_entity_modules = [
+        GenModule(name=None, root=os.path.join(generation_root, to_snake_case(e['group_id'])), data={'entities': [e]}, target=to_snake_case(e['_key']) + '.py') for e in python_sdk_gen_dict.get('entities')
+    ]
+    enum_modules = [
+        GenModule(
+            # name='enums',
+            root=os.path.join(generation_root, to_snake_case(g['_key'])),
+            data=dict(
+              enums=[e for e in python_sdk_gen_dict.get('enums') if e['group_id'] == g['_key']]
+            )
+        ) for g in python_sdk_gen_dict.get('groups')
+    ]
+
+    enum_dir = os.path.join(output_dir, 'enums')
+    entities_dir = os.path.join(output_dir, 'entities')
+
+    file_maps = [
+        FileMap(jinja_env, generation_dir, 'factory.jinja2', '_factory.py'),
+        FileMap(jinja_env, enum_dir, 'enums__init__.jinja2', '__init__.py'),
+        FileMap(jinja_env, entities_dir, 'entities__init__.jinja2', '__init__.py'),
+
+        # layed out in the module structure
+        FileMap(jinja_env, output_dir, 'entity.jinja2', per_module=src_entity_modules),
+        FileMap(jinja_env, output_dir, 'enum.jinja2', 'enums.py', per_module=enum_modules),
+        FileMap(jinja_env, output_dir, '__init__.jinja2', per_module=sub_modules),
+        FileMap(jinja_env, output_dir, '__init__.jinja2', per_module=entity_modules),
+    ]
+
+    for file_map in file_maps:
+        file_map.run(python_sdk_gen_dict)
 
 
 def count_param_in(fields):
@@ -146,29 +283,6 @@ def post_process_definition_file(sdk_def_filename):
     return sdk_gen_dict
 
 
-# def write_entity_files(output_dir, definition_info, template):
-#     """Write definition files to defined output directory.
-#
-#     - <output_dir>/
-#       - <group>.py - class per entity
-#
-#     :param str output_dir: Output directory to which to write the Marshmallow schemas.
-#     :param str definition_info: definition information created from SDK definition.
-#     :param str template: jinja template to render
-#     """
-#     logger.info("Loading template '%s'.", template)
-#     template = env.get_template(template)
-#
-#     for group, entities in definition_info.items():
-#         output_filename = os.path.join(output_dir, group) + ".py"
-#
-#         rendered = template.render(group=group, entities=entities)
-#
-#         logger.info("Writing to '%s'.", output_filename)
-#         with open(output_filename, "w+") as output_file_handle:
-#             output_file_handle.write(rendered)
-
-
 def write_intermediate_file(output_filename, python_sdk_gen_dict):
     """Write the post processed file to defined location as YAML.
 
@@ -176,7 +290,7 @@ def write_intermediate_file(output_filename, python_sdk_gen_dict):
       - __init__.py
 
     :param str output_filename: Name of file to which to write the file.
-    :param str python_sdk_gen_dict: SDK Generation post processed for Python
+    :param dict python_sdk_gen_dict: SDK Generation post processed for Python
     """
     logger.info("Writing post processed file to '%s'.", output_filename)
     with open(output_filename, "w+") as output_file_handle:
@@ -231,6 +345,8 @@ def main():
 
     if arguments.python_sdk_def_file:
         write_intermediate_file(arguments.python_sdk_def_file, python_sdk_gen_dict)
+
+    render_foundation_sdk(python_sdk_gen_dict, arguments.output_dir)
 
     # logger.info("Reformatting generated source files in directory '%s'", arguments.output_dir)
     # subprocess.run(['black', arguments.output_dir, '--fast'])
