@@ -130,7 +130,10 @@ class ListField(Field):
     def set(self, value):
         if isinstance(value, list) and self._entity:
             # Convert a list of dictionaries into a list of entities
-            self._val = [self._entity(**item) if isinstance(item, dict) else item for item in value]
+            self._val = [
+                self._entity(**item) if isinstance(item, dict) else item
+                for item in value
+            ]
         else:
             return super().set(value)
         return self
