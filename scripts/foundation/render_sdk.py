@@ -19,96 +19,38 @@ env = Environment(
     autoescape=select_autoescape(['html', 'xml'])
 )
 
-# Dictionary to temporarily override fields that we have found may be null
-NULLABLE_FIELDS = {
-    # "Entity": ["field_name1", ""field_name2"]
-    "User": ["address", "password", "phone_number", "username", "login_profiles"],
-    "UserInvitation": ["login_profiles"],
-}
-
-MARSHMALLOW_STRING = "fields.String"
-MARSHMALLOW_DATETIME = "fields.DateTime"
-MARSHMALLOW_DATE = "fields.Date"
-MARSHMALLOW_INTEGER = "fields.Integer"
-MARSHMALLOW_NUMBER = "fields.Float"
-MARSHMALLOW_BOOL = "fields.Boolean"
-MARSHMALLOW_LIST = "fields.List"
-MARSHMALLOW_DICT = "fields.Dict"
-MARSHMALLOW_NESTED = "fields.Nested"
-
-SCHEMA_FOLDER = "_schemas"
-DEFINITIONS_FOLDER = "_definitions"
-ENTITY_TESTS_FOLDER = "_entity_tests"
-
-
-swagger_field_map = {
-    # types...
+# Map from Swagger Types / Formats to Foundation field types
+SWAGGER_FIELD_MAP = {
+    # Swagger types
     "array": "ListField",
     "boolean": "BooleanField",
     "integer": "IntegerField",
     "number": "FloatField",
     "object": "DictField",
+    "file": "FileField",
+    # Swagger formats (specialisation of types)
     "string": "StringField",
     "date-time": "DateTimeField",
     "date": "DateField",
-    "file": "FileField",
 }
-swagger_type_map = {
-    # formats ...
+
+# Map from Swagger Types / Formats to native Python types
+SWAGGER_TYPE_MAP = {
+    # Swagger types
     "array": "list",
     "boolean": "bool",
     "integer": "int",
     "number": "float",
     "object": "dict",
     "string": "str",
+    "file": "file",
+    # Swagger formats (specialisation of types)
     "date-time": "datetime",
     "date": "date",
-    "file": "file",
 }
 
 
-# Lookup table for marshmallow types based on OpenAPI types and formats
-PYTHON_TYPE_LOOKUP = {
-    "string": {
-        "base_type": MARSHMALLOW_STRING,
-        "formats": {
-            "date-time": MARSHMALLOW_DATETIME,
-            "date": MARSHMALLOW_DATE,
-            "byte": MARSHMALLOW_STRING,
-            "binary": MARSHMALLOW_STRING,
-            "password": MARSHMALLOW_STRING,
-        }
-    },
-    "integer": {
-        "base_type": MARSHMALLOW_INTEGER,
-        "formats": {
-            "int32": MARSHMALLOW_INTEGER,
-            "int64": MARSHMALLOW_INTEGER,
-        }
-    },
-    "number": {
-        "base_type": MARSHMALLOW_NUMBER,
-        "formats": {
-            "float": MARSHMALLOW_NUMBER,
-            "double": MARSHMALLOW_NUMBER,
-        }
-    },
-    "boolean": {
-        "base_type": MARSHMALLOW_BOOL,
-        "formats": {}
-    },
-    "array": {
-        "base_type": MARSHMALLOW_LIST,
-        "formats": {}
-    },
-    "object": {
-        "base_type": MARSHMALLOW_DICT,
-        "formats": {}
-    },
-}
-
-
-def to_pascalcase(string):
+def to_pascal_case(string):
     """Convert from snake_case to PascalCase
 
     Using the standard library `title` doesn't help as it changes everything after the first letter to lowercase, we
@@ -128,45 +70,12 @@ def to_pascalcase(string):
     return string and "".join(n[0].upper() + n[1:] for n in string.split("_") if n)
 
 
-# def lookup_type(entity_name, field_name, field):
-#     """Lookup marshmallow type from swagger type and format information.
-#
-#     :param str entity_name: Name of SDK entity.
-#     :param str field_name: Name of field in SDK entity.
-#     :param str field: Field defintion from the API.
-#     :returns: Marshmallow schema type.
-#     :rtype: str
-#     """
-#     open_api_type = field.get("type")
-#     open_api_format = field.get("format")
-#
-#     try:
-#         marshmallow_info = MARSHMALLOW_TYPE_LOOKUP[open_api_type]
-#     except KeyError:
-#         marshmallow_type = None
-#         logger.error("%s:%s - Marshmallow type has not been defined for OpenAPI type '%s'.", entity_name, field_name,
-#                      open_api_type)
-#     else:
-#         marshmallow_type = marshmallow_info["base_type"]
-#         if open_api_format is not None:
-#             try:
-#                 marshmallow_type = marshmallow_info["formats"][open_api_format]
-#             except KeyError:
-#                 logger.warning("%s:%s - Unexpected OpenAPI format '%s', defaulting to '%s'.", entity_name, field_name,
-#                                open_api_format, marshmallow_type)
-#     return marshmallow_type
-
-
 def map_python_field_types(fields):
     for field in fields:
-        kind = field.get("type")
-        format = field.get("format")
-        field["python_type"] = swagger_type_map.get(format) or swagger_type_map.get(
-            kind
-        )
-        field["python_field"] = swagger_field_map.get(
-            format
-        ) or swagger_field_map.get(kind)
+        swagger_type = field.get("type")
+        swagger_format = field.get("format")
+        field["python_type"] = SWAGGER_TYPE_MAP.get(swagger_format) or SWAGGER_TYPE_MAP.get(swagger_type)
+        field["python_field"] = SWAGGER_FIELD_MAP.get(swagger_format) or SWAGGER_FIELD_MAP.get(swagger_type)
 
 
 def count_param_in(fields):
@@ -232,7 +141,7 @@ def post_process_definition_file(sdk_def_filename):
                 paginators_as_custom_methods(entity, method)
                 # Convert the return type to a Python type or assume it is an entity if not known
                 return_type = method["return_type"]
-                method["python_return_type"] = swagger_type_map.get(return_type, to_pascalcase(return_type))
+                method["python_return_type"] = SWAGGER_TYPE_MAP.get(return_type, to_pascal_case(return_type))
 
     return sdk_gen_dict
 
