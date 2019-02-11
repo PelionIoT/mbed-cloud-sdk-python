@@ -10,12 +10,78 @@ import logging
 import copy
 import functools
 import subprocess
+from operator import itemgetter
 import jinja2
 
 logging.basicConfig(format='%(asctime)s %(levelname)s %(message)s')
 logger = logging.getLogger(__name__)
 
 TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), 'templates')
+
+# The required parameters for a paginator
+PAGINATOR_PARAMETERS = {
+    "after": {
+        '_key': 'after',
+        'api_fieldname': 'after',
+        'description': 'Not supported by the API.',
+        'entity_fieldname': 'after',
+        'external_param': True,
+        'in': 'query',
+        'name': 'after',
+        'parameter_fieldname': 'after',
+        'required': False,
+        'type': 'string',
+        'python_type': 'str',
+        'python_field': 'StringField',
+        'default': None
+    },
+    "include": {
+        '_key': 'include',
+        'api_fieldname': 'include',
+        'description': 'Not supported by the API.',
+        'entity_fieldname': 'include',
+        'external_param': True,
+        'in': 'query',
+        'name': 'include',
+        'parameter_fieldname': 'include',
+        'required': False,
+        'type': 'string',
+        'python_type': 'str',
+        'python_field': 'StringField',
+        'default': None
+    },
+    "limit": {
+        '_key': 'limit',
+        'api_fieldname': 'limit',
+        'default': None,
+        'description': 'Not supported by the API.',
+        'entity_fieldname': 'limit',
+        'external_param': True,
+        'format': 'int32',
+        'in': 'query',
+        'name': 'limit',
+        'parameter_fieldname': 'limit',
+        'required': False,
+        'type': 'integer',
+        'python_type': 'int',
+        'python_field': 'IntegerField'
+    },
+    "order": {
+        '_key': 'order',
+        'api_fieldname': 'order',
+        'default': None,
+        'description': 'Not supported by the API.',
+        'entity_fieldname': 'order',
+        'external_param': True,
+        'in': 'query',
+        'name': 'order',
+        'parameter_fieldname': 'order',
+        'required': False,
+        'type': 'string',
+        'python_type': 'str',
+        'python_field': 'StringField'
+    },
+}
 
 # Map from Swagger Types / Formats to Foundation field types
 SWAGGER_FIELD_MAP = {
@@ -255,6 +321,19 @@ def paginators_as_custom_methods(entity, method):
         private["_key"] = f"paginate_{method['_key']}"
         method["custom_method"] = "paginate"
         method["paginate_target"] = private["_key"]
+
+        # Fill in any missing list parameters so there is a consistent interface
+        required_fields = list(PAGINATOR_PARAMETERS.keys())
+        for field in private["fields"]:
+            # If the field is already present it can be removed from the list
+            if field["_key"] in required_fields:
+                required_fields.remove(field["_key"])
+        # If there are any required fields add in a standard definition
+        for required_field in required_fields:
+            private["fields"].append(PAGINATOR_PARAMETERS[required_field])
+        # Sort the list by the name of the field so the parameter order is consistent
+        if required_fields:
+            private["fields"].sort(key=itemgetter("_key"))
         entity["methods"].append(private)
 
 

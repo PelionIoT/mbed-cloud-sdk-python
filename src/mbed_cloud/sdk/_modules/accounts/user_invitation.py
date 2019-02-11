@@ -339,7 +339,7 @@ class UserInvitation(Entity):
             wraps=self._paginate_list,
         )
 
-    def _paginate_list(self, after=None, limit=50, order="ASC", **kwargs):
+    def _paginate_list(self, after=None, include=None, limit=50, order="ASC"):
         """Get the details of all the user invitations.
 
         api documentation:
@@ -347,6 +347,9 @@ class UserInvitation(Entity):
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
+        
+        :param include: Not supported by the API.
+        :type include: str
         
         :param limit: The number of results to return (2-1000), default is 50.
         :type limit: int
@@ -363,6 +366,7 @@ class UserInvitation(Entity):
             path="/v3/user-invitations",
             query_params={
                 "after": fields.StringField(after).to_api(),
+                "include": fields.StringField(include).to_api(),
                 "limit": fields.IntegerField(limit).to_api(),
                 "order": fields.StringField(
                     order, enum=enums.UserInvitationOrderEnum
