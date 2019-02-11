@@ -1166,6 +1166,7 @@ class Account(Entity):
         return self._client.call_api(
             method="post",
             path="/v3/accounts",
+            query_params={"action": fields.StringField(action).to_api()},
             body_params={
                 "address_line1": self._address_line1.to_api(),
                 "address_line2": self._address_line2.to_api(),
@@ -1187,7 +1188,6 @@ class Account(Entity):
                 "postal_code": self._postal_code.to_api(),
                 "state": self._state.to_api(),
             },
-            query_params={"action": fields.StringField(action).to_api()},
             unpack=self,
         )
 
@@ -1369,7 +1369,6 @@ class Account(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/accounts/{account_id}/trusted-certificates",
-            path_params={"account_id": self._id.to_api()},
             query_params={
                 "after": fields.StringField(after).to_api(),
                 "include": fields.StringField(include).to_api(),
@@ -1378,10 +1377,13 @@ class Account(Entity):
                     order, enum=enums.AccountOrderEnum
                 ).to_api(),
             },
+            path_params={"account_id": self._id.to_api()},
             unpack=False,
         )
 
-    def _paginate_user_invitations(self, after=None, limit=50, order="ASC"):
+    def _paginate_user_invitations(
+        self, after=None, include=None, limit=50, order="ASC"
+    ):
         """Get the details of all the user invitations.
 
         api documentation:
@@ -1389,6 +1391,9 @@ class Account(Entity):
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
+        
+        :param include: Not supported by the API.
+        :type include: str
         
         :param limit: The number of results to return (2-1000), default is 50.
         :type limit: int
@@ -1403,14 +1408,15 @@ class Account(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/accounts/{account_id}/user-invitations",
-            path_params={"account_id": self._id.to_api()},
             query_params={
                 "after": fields.StringField(after).to_api(),
+                "include": fields.StringField(include).to_api(),
                 "limit": fields.IntegerField(limit).to_api(),
                 "order": fields.StringField(
                     order, enum=enums.AccountOrderEnum
                 ).to_api(),
             },
+            path_params={"account_id": self._id.to_api()},
             unpack=False,
         )
 
@@ -1440,7 +1446,6 @@ class Account(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/accounts/{account_id}/users",
-            path_params={"account_id": self._id.to_api()},
             query_params={
                 "after": fields.StringField(after).to_api(),
                 "include": fields.StringField(include).to_api(),
@@ -1449,6 +1454,7 @@ class Account(Entity):
                     order, enum=enums.AccountOrderEnum
                 ).to_api(),
             },
+            path_params={"account_id": self._id.to_api()},
             unpack=False,
         )
 

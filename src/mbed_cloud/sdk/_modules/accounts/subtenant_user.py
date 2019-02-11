@@ -603,6 +603,8 @@ class SubtenantUser(Entity):
         return self._client.call_api(
             method="post",
             path="/v3/accounts/{account_id}/users",
+            path_params={"account_id": self._account_id.to_api()},
+            query_params={"action": fields.StringField(action).to_api()},
             body_params={
                 "address": self._address.to_api(),
                 "email": self._email.to_api(),
@@ -614,8 +616,6 @@ class SubtenantUser(Entity):
                 "is_gtc_accepted": self._terms_accepted.to_api(),
                 "username": self._username.to_api(),
             },
-            path_params={"account_id": self._account_id.to_api()},
-            query_params={"action": fields.StringField(action).to_api()},
             unpack=self,
         )
 
@@ -669,6 +669,10 @@ class SubtenantUser(Entity):
         return self._client.call_api(
             method="put",
             path="/v3/accounts/{account_id}/users/{user_id}",
+            path_params={
+                "account_id": self._account_id.to_api(),
+                "user_id": self._id.to_api(),
+            },
             body_params={
                 "address": self._address.to_api(),
                 "full_name": self._full_name.to_api(),
@@ -678,10 +682,6 @@ class SubtenantUser(Entity):
                 "is_gtc_accepted": self._terms_accepted.to_api(),
                 "is_totp_enabled": self._two_factor_authentication.to_api(),
                 "username": self._username.to_api(),
-            },
-            path_params={
-                "account_id": self._account_id.to_api(),
-                "user_id": self._id.to_api(),
             },
             unpack=self,
         )

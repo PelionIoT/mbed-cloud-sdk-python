@@ -266,12 +266,12 @@ class SubtenantUserInvitation(Entity):
         return self._client.call_api(
             method="post",
             path="/v3/accounts/{account_id}/user-invitations",
+            path_params={"account_id": self._account_id.to_api()},
             body_params={
                 "email": self._email.to_api(),
                 "login_profiles": self._login_profiles.to_api(),
                 "valid_for_days": fields.IntegerField(valid_for_days).to_api(),
             },
-            path_params={"account_id": self._account_id.to_api()},
             unpack=self,
         )
 

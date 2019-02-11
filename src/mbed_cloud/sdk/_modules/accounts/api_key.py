@@ -447,11 +447,11 @@ class ApiKey(Entity):
         return self._client.call_api(
             method="put",
             path="/v3/api-keys/{apikey_id}",
+            path_params={"apikey_id": self._id.to_api()},
             body_params={
                 "name": self._name.to_api(),
                 "owner": self._owner.to_api(),
                 "status": self._status.to_api(),
             },
-            path_params={"apikey_id": self._id.to_api()},
             unpack=self,
         )

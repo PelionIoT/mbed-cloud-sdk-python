@@ -601,6 +601,7 @@ class User(Entity):
         return self._client.call_api(
             method="post",
             path="/v3/users",
+            query_params={"action": fields.StringField(action).to_api()},
             body_params={
                 "address": self._address.to_api(),
                 "email": self._email.to_api(),
@@ -612,7 +613,6 @@ class User(Entity):
                 "is_gtc_accepted": self._terms_accepted.to_api(),
                 "username": self._username.to_api(),
             },
-            query_params={"action": fields.StringField(action).to_api()},
             unpack=self,
         )
 
