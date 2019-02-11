@@ -186,7 +186,7 @@ def write_intermediate_file(output_filename, python_sdk_gen_dict):
 def main():
     """Argument handling and main entry point."""
     parser = argparse.ArgumentParser(description="""
-        Generate Foundation SDK code from the SDK Foundation Definition file.
+        Generate Foundation SDK code from the SDK Foundation Definition file (required Python 3).
         """)
 
     parser.add_argument("sdk_def_file", type=str, metavar="SDK Foundation Definition File",
@@ -199,6 +199,9 @@ def main():
                         help="Delete all files in the output subdirectories before writing files.")
     parser.add_argument("-v", "--verbose", action='count', default=0,
                         help="Logging verbosity, by default only errors are logged.")
+
+    if sys.version_info[0] < 3:
+        raise parser.error("This script must be executed using Python 3")
 
     arguments = parser.parse_args()
 
