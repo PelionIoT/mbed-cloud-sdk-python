@@ -9,6 +9,7 @@ import yaml
 import logging
 import copy
 import functools
+import subprocess
 import jinja2
 
 logging.basicConfig(format='%(asctime)s %(levelname)s %(message)s')
@@ -88,6 +89,11 @@ def to_snake_case(name):
     return name.replace(" ", "_").lower()
 
 
+def sort_parg_kwarg(items):
+    """Very specific sort ordering for ensuring pargs, kwargs are in the correct order"""
+    return sorted(items, key=lambda x: not bool(x.get('required')))
+
+
 class GenModule:
     """Container for 'modules' (aka groups from the intermediate file)"""
 
@@ -149,16 +155,11 @@ class FileMap:
                 fh.write(rendered)
 
 
-def sort_parg_kwarg(items):
-    """Very specific sort ordering for ensuring pargs, kwargs are in the correct order"""
-    return sorted(items, key=lambda x: not bool(x.get('required')))
-
-
-def render_foundation_sdk(python_sdk_gen_dict, output_dir):
+def render_foundation_sdk(python_sdk_def_dict, output_dir):
     """Render the Foundation SDK using the jinja templates
 
-    :param dict python_sdk_gen_dict: The 'inter.yaml' intermediate yaml configuration / specification file
-    :param str output_dir: Directory to generate the SDK in to
+    :param dict python_sdk_def_dict: SDK definitions dictionary post processed for Python
+    :param str output_dir: Directory in which the SDK generation should be written.
     :return:
     """
 
@@ -178,22 +179,22 @@ def render_foundation_sdk(python_sdk_gen_dict, output_dir):
     generation_dir = os.path.join(output_dir, generation_root)
 
     sub_modules = [
-        GenModule(name=to_snake_case(group['_key']), root=generation_root, data=group) for group in python_sdk_gen_dict.get('groups')
+        GenModule(name=to_snake_case(group['_key']), root=generation_root, data=group) for group in python_sdk_def_dict.get('groups')
     ]
     entity_modules = [
-        GenModule(name=None, root=os.path.join(generation_root, to_snake_case(e['group_id'])), data=e) for e in python_sdk_gen_dict.get('entities')
+        GenModule(name=None, root=os.path.join(generation_root, to_snake_case(e['group_id'])), data=e) for e in python_sdk_def_dict.get('entities')
     ]
     src_entity_modules = [
-        GenModule(name=None, root=os.path.join(generation_root, to_snake_case(e['group_id'])), data={'entities': [e]}, target=to_snake_case(e['_key']) + '.py') for e in python_sdk_gen_dict.get('entities')
+        GenModule(name=None, root=os.path.join(generation_root, to_snake_case(e['group_id'])), data={'entities': [e]}, target=to_snake_case(e['_key']) + '.py') for e in python_sdk_def_dict.get('entities')
     ]
     enum_modules = [
         GenModule(
             # name='enums',
             root=os.path.join(generation_root, to_snake_case(g['_key'])),
             data=dict(
-              enums=[e for e in python_sdk_gen_dict.get('enums') if e['group_id'] == g['_key']]
+              enums=[e for e in python_sdk_def_dict.get('enums') if e['group_id'] == g['_key']]
             )
-        ) for g in python_sdk_gen_dict.get('groups')
+        ) for g in python_sdk_def_dict.get('groups')
     ]
 
     enum_dir = os.path.join(output_dir, 'enums')
@@ -212,7 +213,7 @@ def render_foundation_sdk(python_sdk_gen_dict, output_dir):
     ]
 
     for file_map in file_maps:
-        file_map.run(python_sdk_gen_dict)
+        file_map.run(python_sdk_def_dict)
 
 
 def count_param_in(fields):
@@ -283,18 +284,15 @@ def post_process_definition_file(sdk_def_filename):
     return sdk_gen_dict
 
 
-def write_intermediate_file(output_filename, python_sdk_gen_dict):
+def write_intermediate_file(output_filename, python_sdk_def_dict):
     """Write the post processed file to defined location as YAML.
 
-    - <output_dir>/
-      - __init__.py
-
     :param str output_filename: Name of file to which to write the file.
-    :param dict python_sdk_gen_dict: SDK Generation post processed for Python
+    :param dict python_sdk_def_dict: SDK definitions dictionary post processed for Python
     """
     logger.info("Writing post processed file to '%s'.", output_filename)
     with open(output_filename, "w+") as output_file_handle:
-        yaml.safe_dump(python_sdk_gen_dict, output_file_handle, default_flow_style=False)
+        yaml.safe_dump(python_sdk_def_dict, output_file_handle, default_flow_style=False)
 
 
 def main():
@@ -341,15 +339,15 @@ def main():
         os.makedirs(arguments.output_dir)
 
     # Process the generic SDK definition file to create the specialised Python specifiv definition file
-    python_sdk_gen_dict = post_process_definition_file(arguments.sdk_def_file)
+    python_sdk_def_dict = post_process_definition_file(arguments.sdk_def_file)
 
     if arguments.python_sdk_def_file:
-        write_intermediate_file(arguments.python_sdk_def_file, python_sdk_gen_dict)
+        write_intermediate_file(arguments.python_sdk_def_file, python_sdk_def_dict)
 
-    render_foundation_sdk(python_sdk_gen_dict, arguments.output_dir)
+    render_foundation_sdk(python_sdk_def_dict, arguments.output_dir)
 
-    # logger.info("Reformatting generated source files in directory '%s'", arguments.output_dir)
-    # subprocess.run(['black', arguments.output_dir, '--fast'])
+    logger.info("Reformatting generated source files in directory '%s'", arguments.output_dir)
+    subprocess.run(['black', arguments.output_dir, '--fast'])
 
     return 0
 
