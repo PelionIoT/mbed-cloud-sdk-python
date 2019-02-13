@@ -172,14 +172,29 @@ def new_foundation_gen():
     template = yaml.safe_load("""
     steps:
       - checkout
-      - run: sudo pip install pipenv
-      - run: pipenv install --pre black
-      - run: pipenv install --dev . 
       - run:
-          pipenv run python scripts/foundation/render_sdk.py 
-          api_specifications/public/sdk_foundation_definition.yaml  -vv
-          -p python_definition.yaml 
-          -o src/mbed_cloud/sdk
+          name: Install pipenv
+          command: sudo pip install pipenv
+      - run:
+          name: Install beta version of black for Python formatting
+          command: pipenv install --pre black
+      - run:
+          name: Install SDK with dev dependencies
+          command: pipenv install --dev . 
+      - run:
+          name: Generate the Foundation interface code
+          command: pipenv run python scripts/foundation/render_sdk.py 
+            api_specifications/public/sdk_foundation_definition.yaml  -vv
+            -p python_definition.yaml 
+            -o src/mbed_cloud/sdk
+      - run:
+          name: Commit code changes
+          command: |-
+              git add -v src/mbed_cloud/sdk/_modules/\*.py
+              git add -v src/mbed_cloud/sdk/entities/\*.py
+              git add -v src/mbed_cloud/sdk/enums/\*.py
+              git commit --message "Auto-generated Foundation code" || true
+              git push -q https://${GITHUB_TOKEN}@github.com/ARMmbed/${CIRCLE_PROJECT_REPONAME}.git ${CIRCLE_BRANCH}
       - store_artifacts:
           path: python_definition.yaml
     docker:

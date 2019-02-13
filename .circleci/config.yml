@@ -166,11 +166,31 @@ jobs:
     - image: circleci/python:3.6.3
     steps:
     - checkout
-    - run: sudo pip install pipenv
-    - run: pipenv install --pre black
-    - run: pipenv install --dev .
-    - run: pipenv run python scripts/foundation/render_sdk.py api_specifications/public/sdk_foundation_definition.yaml  -vv
-        -p python_definition.yaml -o src/mbed_cloud/sdk
+    - run:
+        command: sudo pip install pipenv
+        name: Install pipenv
+    - run:
+        command: pipenv install --pre black
+        name: Install beta version of black for Python formatting
+    - run:
+        command: pipenv install --dev .
+        name: Install SDK with dev dependencies
+    - run:
+        command: pipenv run python scripts/foundation/render_sdk.py api_specifications/public/sdk_foundation_definition.yaml  -vv
+          -p python_definition.yaml -o src/mbed_cloud/sdk
+        name: Generate the Foundation interface code
+    - run:
+        command: 'git add -v src/mbed_cloud/sdk/_modules/\*.py
+
+          git add -v src/mbed_cloud/sdk/entities/\*.py
+
+          git add -v src/mbed_cloud/sdk/enums/\*.py
+
+          git commit --message "Auto-generated Foundation code" || true
+
+          git push -q https://${GITHUB_TOKEN}@github.com/ARMmbed/${CIRCLE_PROJECT_REPONAME}.git
+          ${CIRCLE_BRANCH}'
+        name: Commit code changes
     - store_artifacts:
         path: python_definition.yaml
   news_check:
