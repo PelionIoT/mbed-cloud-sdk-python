@@ -167,6 +167,21 @@ def new_tpip():
     return 'tpip_report', template
 
 
+def new_foundation_gen():
+    """Job to generate the Foundation interface"""
+    template = yaml.safe_load("""
+    steps:
+      - checkout
+      - run: sudo pip install -e .
+      - run: python scripts/foundation/render_sdk.py api_specifications/public/sdk_foundation_definition.yaml -p python_definition.yaml -o src/mbed_cloud/sdk -vv
+      - store_artifacts:
+          path: python_definition.yaml
+    docker:
+      - image: circleci/python:3.6.1
+    """)
+    return 'foundation_gen', template
+
+
 def new_newscheck():
     """Job for checking newsfile existence"""
     template = yaml.safe_load("""
@@ -371,6 +386,10 @@ def generate_circle_output():
     base['jobs'].update({job: content})
     workflow.add_node(job)
 
+    new_foundation_job, content = new_foundation_gen()
+    base['jobs'].update({new_foundation_job: content})
+    workflow.add_node(new_foundation_job)
+
     job, content = new_newscheck()
     base['jobs'].update({job: content})
     workflow.add_node(
@@ -407,7 +426,9 @@ def generate_circle_output():
     for py_ver in python_versions.values():
         build_job, build_content = new_build(py_ver=py_ver)
         base['jobs'].update({build_job: build_content})
+        # Add requires to builds on preload and foundation_gen
         workflow.add_edge(preload_job, build_job)
+        workflow.add_edge(new_foundation_job, build_job)
 
         for cloud_host in mbed_cloud_hosts.values():
             test_job, test_content = new_test(py_ver=py_ver, cloud_host=cloud_host)
