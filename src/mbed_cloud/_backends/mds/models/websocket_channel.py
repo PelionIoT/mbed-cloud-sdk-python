@@ -31,25 +31,78 @@ class WebsocketChannel(object):
                             and the value is json key in definition.
     """
     swagger_types = {
+        'channel_id': 'str',
+        'queue_size': 'int',
         'status': 'str'
     }
 
     attribute_map = {
+        'channel_id': 'channelId',
+        'queue_size': 'queueSize',
         'status': 'status'
     }
 
-    def __init__(self, status='DISCONNECTED'):
+    def __init__(self, channel_id=None, queue_size=None, status='disconnected'):
         """
         WebsocketChannel - a model defined in Swagger
         """
 
+        self._channel_id = channel_id
+        self._queue_size = queue_size
         self._status = status
         self.discriminator = None
+
+    @property
+    def channel_id(self):
+        """
+        Gets the channel_id of this WebsocketChannel.
+        Unique identifier of the channel
+
+        :return: The channel_id of this WebsocketChannel.
+        :rtype: str
+        """
+        return self._channel_id
+
+    @channel_id.setter
+    def channel_id(self, channel_id):
+        """
+        Sets the channel_id of this WebsocketChannel.
+        Unique identifier of the channel
+
+        :param channel_id: The channel_id of this WebsocketChannel.
+        :type: str
+        """
+
+        self._channel_id = channel_id
+
+    @property
+    def queue_size(self):
+        """
+        Gets the queue_size of this WebsocketChannel.
+        Number of events in the channel's event queue waiting to be delivered.
+
+        :return: The queue_size of this WebsocketChannel.
+        :rtype: int
+        """
+        return self._queue_size
+
+    @queue_size.setter
+    def queue_size(self, queue_size):
+        """
+        Sets the queue_size of this WebsocketChannel.
+        Number of events in the channel's event queue waiting to be delivered.
+
+        :param queue_size: The queue_size of this WebsocketChannel.
+        :type: int
+        """
+
+        self._queue_size = queue_size
 
     @property
     def status(self):
         """
         Gets the status of this WebsocketChannel.
+        Channel status will be 'connected' when the channel has an active WebSocket bound to it. The state will be 'disconnected' when either the channel or the WebSocket bound to it is closed. 
 
         :return: The status of this WebsocketChannel.
         :rtype: str
@@ -60,11 +113,12 @@ class WebsocketChannel(object):
     def status(self, status):
         """
         Sets the status of this WebsocketChannel.
+        Channel status will be 'connected' when the channel has an active WebSocket bound to it. The state will be 'disconnected' when either the channel or the WebSocket bound to it is closed. 
 
         :param status: The status of this WebsocketChannel.
         :type: str
         """
-        allowed_values = ["CONNECTED", "DISCONNECTED"]
+        allowed_values = ["connected", "disconnected"]
         if status not in allowed_values:
             raise ValueError(
                 "Invalid value for `status` ({0}), must be one of {1}"

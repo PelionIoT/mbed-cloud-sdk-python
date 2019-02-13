@@ -6,4 +6,3 @@ from .endpoints_api import EndpointsApi
 from .notifications_api import NotificationsApi
 from .resources_api import ResourcesApi
 from .subscriptions_api import SubscriptionsApi
-from .websocket_api import WebsocketApi
