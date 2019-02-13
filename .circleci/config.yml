@@ -166,7 +166,7 @@ jobs:
     - image: circleci/python:3.6.3
     steps:
     - checkout
-    - run: pip install pipenv
+    - run: sudo pip install pipenv
     - run: pipenv install --dev .
     - run: pipenv run python scripts/foundation/render_sdk.py api_specifications/public/sdk_foundation_definition.yaml  -vv
         -p python_definition.yaml -o src/mbed_cloud/sdk
