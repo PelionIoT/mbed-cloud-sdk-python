@@ -172,8 +172,12 @@ def new_foundation_gen():
     template = yaml.safe_load("""
     steps:
       - checkout
-      - run: sudo pip install -e .
-      - run: python scripts/foundation/render_sdk.py api_specifications/public/sdk_foundation_definition.yaml -p python_definition.yaml -o src/mbed_cloud/sdk -vv
+      - run: sudo pipenv install -e . --dev
+      - run:
+          pipenv run python scripts/foundation/render_sdk.py 
+          api_specifications/public/sdk_foundation_definition.yaml  -vv
+          -p python_definition.yaml 
+          -o src/mbed_cloud/sdk
       - store_artifacts:
           path: python_definition.yaml
     docker:
