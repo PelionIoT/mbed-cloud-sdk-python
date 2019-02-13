@@ -193,7 +193,7 @@ def new_foundation_gen():
               git add -v src/mbed_cloud/sdk/_modules/\*.py
               git add -v src/mbed_cloud/sdk/entities/\*.py
               git add -v src/mbed_cloud/sdk/enums/\*.py
-              git commit --message "Auto-generated Foundation code" || true
+              git commit --message "Auto-generated code [skip ci]" || true
               git push -q https://${GITHUB_TOKEN}@github.com/ARMmbed/${CIRCLE_PROJECT_REPONAME}.git ${CIRCLE_BRANCH}
       - store_artifacts:
           path: python_definition.yaml
