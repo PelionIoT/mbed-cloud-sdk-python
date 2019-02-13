@@ -167,6 +167,7 @@ jobs:
     steps:
     - checkout
     - run: sudo pip install pipenv
+    - run: pipenv install --pre black
     - run: pipenv install --dev .
     - run: pipenv run python scripts/foundation/render_sdk.py api_specifications/public/sdk_foundation_definition.yaml  -vv
         -p python_definition.yaml -o src/mbed_cloud/sdk

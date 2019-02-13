@@ -173,6 +173,7 @@ def new_foundation_gen():
     steps:
       - checkout
       - run: sudo pip install pipenv
+      - run: pipenv install --pre black
       - run: pipenv install --dev . 
       - run:
           pipenv run python scripts/foundation/render_sdk.py 
