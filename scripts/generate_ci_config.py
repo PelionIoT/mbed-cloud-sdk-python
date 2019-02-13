@@ -172,6 +172,7 @@ def new_foundation_gen():
     template = yaml.safe_load("""
     steps:
       - checkout
+      - run: sudo pip install pipenv
       - run: sudo pipenv install -e . --dev
       - run:
           pipenv run python scripts/foundation/render_sdk.py 
