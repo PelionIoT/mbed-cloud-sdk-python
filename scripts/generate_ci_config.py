@@ -182,7 +182,7 @@ def new_foundation_gen():
       - store_artifacts:
           path: python_definition.yaml
     docker:
-      - image: circleci/python:3.6.3
+      - image: circleci/python:3.6.7
     """)
     return 'foundation_gen', template
 

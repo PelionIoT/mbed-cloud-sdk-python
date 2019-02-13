@@ -163,7 +163,7 @@ jobs:
         name: Start the release party!
   foundation_gen:
     docker:
-    - image: circleci/python:3.6.3
+    - image: circleci/python:3.6.7
     steps:
     - checkout
     - run: sudo pip install pipenv
