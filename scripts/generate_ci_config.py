@@ -172,8 +172,8 @@ def new_foundation_gen():
     template = yaml.safe_load("""
     steps:
       - checkout
-      - run: sudo pip install pipenv
-      - run: sudo pipenv install -e . --dev
+      - run: pip install pipenv
+      - run: pipenv install --dev . 
       - run:
           pipenv run python scripts/foundation/render_sdk.py 
           api_specifications/public/sdk_foundation_definition.yaml  -vv
@@ -182,7 +182,7 @@ def new_foundation_gen():
       - store_artifacts:
           path: python_definition.yaml
     docker:
-      - image: circleci/python:3.6.7
+      - image: circleci/python:3.6.3
     """)
     return 'foundation_gen', template
 

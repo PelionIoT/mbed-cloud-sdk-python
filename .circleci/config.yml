@@ -163,11 +163,11 @@ jobs:
         name: Start the release party!
   foundation_gen:
     docker:
-    - image: circleci/python:3.6.7
+    - image: circleci/python:3.6.3
     steps:
     - checkout
-    - run: sudo pip install pipenv
-    - run: sudo pipenv install -e . --dev
+    - run: pip install pipenv
+    - run: pipenv install --dev .
     - run: pipenv run python scripts/foundation/render_sdk.py api_specifications/public/sdk_foundation_definition.yaml  -vv
         -p python_definition.yaml -o src/mbed_cloud/sdk
     - store_artifacts:
