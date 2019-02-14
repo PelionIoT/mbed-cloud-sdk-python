@@ -224,11 +224,11 @@ class FileMap:
 
 def render_foundation_sdk(python_sdk_def_dict, output_dir):
     """Render the Foundation SDK using the jinja templates
+
     :param dict python_sdk_def_dict: SDK definitions dictionary post processed for Python
     :param str output_dir: Directory in which the SDK generation should be written.
     :return:
     """
-
     jinja_env = jinja2.Environment(
         loader=jinja2.FileSystemLoader(TEMPLATE_DIR)
     )
@@ -289,9 +289,8 @@ def render_foundation_sdk(python_sdk_def_dict, output_dir):
 
 
 def count_param_in(fields):
-    """
-    we need to know whether to even render any given 'in' parameter group,
-    and to do this we have to count them...
+    """We need to know whether to even render any given 'in' parameter group, and to do this we have to count them...
+
     :param fields:
     :return:
     """
@@ -312,12 +311,12 @@ def count_param_in(fields):
 
 def paginators_as_custom_methods(entity, method):
     """Sets up a custom method whenever we come across a paginator
+
     The custom method is currently called 'paginate'
     :param entity:
     :param method:
     :return:
     """
-
     paginated = method.get("pagination")
     if paginated:
         private = copy.deepcopy(method)
@@ -343,11 +342,11 @@ def paginators_as_custom_methods(entity, method):
 
 def post_process_definition_file(sdk_def_filename):
     """Post-process SDK Definition file to add Python specific information.
+
     :param str sdk_def_filename: Path to SDK Definition file.
     :returns: Dictionary containing modified SDK Definitions
     :rtype: dict
     """
-
     with open(sdk_def_filename, "r") as sdk_def_file_handle:
         # Open the SDK Definition file and load the YAML
         sdk_gen_dict = yaml.load(sdk_def_file_handle)
@@ -368,6 +367,7 @@ def post_process_definition_file(sdk_def_filename):
 
 def write_intermediate_file(output_filename, python_sdk_def_dict):
     """Write the post processed file to defined location as YAML.
+
     :param str output_filename: Name of file to which to write the file.
     :param dict python_sdk_def_dict: SDK definitions dictionary post processed for Python
     """
