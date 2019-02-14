@@ -28,6 +28,7 @@ from .models.resource_path import ResourcePath
 from .models.resources_data import ResourcesData
 from .models.subscriptions_list import SubscriptionsList
 from .models.webhook import Webhook
+from .models.websocket_channel import WebsocketChannel
 
 # import apis into sdk package
 from .apis.device_requests_api import DeviceRequestsApi
