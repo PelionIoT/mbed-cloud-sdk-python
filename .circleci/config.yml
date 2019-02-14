@@ -161,6 +161,42 @@ jobs:
         command: docker run --env-file=scripts/templates/envvars.env mbed_sdk_py3:latest
           sh -c "source .venv/bin/activate && python scripts/notify.py"
         name: Start the release party!
+  foundation_gen:
+    docker:
+    - image: circleci/python:3.6.3
+    steps:
+    - checkout
+    - run:
+        command: sudo pip install pipenv
+        name: Install pipenv
+    - run:
+        command: pipenv install --pre black
+        name: Install beta version of black for Python formatting
+    - run:
+        command: pipenv install --dev .
+        name: Install SDK with dev dependencies
+    - run:
+        command: pipenv run python scripts/foundation/render_sdk.py api_specifications/public/sdk_foundation_definition.yaml  -vv
+          -p python_definition.yaml -o src/mbed_cloud/sdk
+        name: Generate the Foundation interface code
+    - run:
+        command: 'git add -v src/mbed_cloud/sdk/_modules/\*.py
+
+          git add -v src/mbed_cloud/sdk/entities/\*.py
+
+          git add -v src/mbed_cloud/sdk/enums/\*.py
+
+          git commit --message "Auto-generated code" || FILES_CHANGED=True
+
+          git push -q https://${GITHUB_TOKEN}@github.com/ARMmbed/${CIRCLE_PROJECT_REPONAME}.git
+          ${CIRCLE_BRANCH}
+
+          if [ -z "$FILES_CHANGED" ]; then curl -X POST https://circleci.com/api/v1.1/project/github/ARMmbed/${CIRCLE_PROJECT_REPONAME}/${CIRCLE_BUILD_NUM}/cancel?circle-token=${DOCS_CIRCLE_CI_TOKEN};
+          fi'
+        name: Commit code changes (cancel this build if commit made)
+    - store_artifacts:
+        path: python_definition.yaml
+        when: always
   news_check:
     docker:
     - image: circleci/python:3.6.1
@@ -343,9 +379,26 @@ workflows:
   python_sdk_workflow:
     jobs:
     - preload: {}
+    - build_documentation:
+        filters:
+          branches:
+            only:
+            - master
+            - beta
+        requires:
+        - build_py2
+        - build_py3
+    - news_check:
+        filters:
+          branches:
+            ignore:
+            - master
+            - integration
+    - foundation_gen: {}
     - build_py3:
         requires:
         - preload
+        - foundation_gen
     - test_py3_PROD:
         requires:
         - build_py3
@@ -362,6 +415,7 @@ workflows:
     - build_py2:
         requires:
         - preload
+        - foundation_gen
     - test_py2_PROD:
         requires:
         - build_py2
@@ -379,20 +433,5 @@ workflows:
     - test_py2_OS2:
         requires:
         - build_py2
-    - build_documentation:
-        filters:
-          branches:
-            only:
-            - master
-            - beta
-        requires:
-        - build_py2
-        - build_py3
-    - news_check:
-        filters:
-          branches:
-            ignore:
-            - master
-            - integration
     - tpip_report: {}
   version: 2
