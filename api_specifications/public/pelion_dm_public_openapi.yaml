@@ -931,7 +931,7 @@ definitions:
         type: string
       reference:
         description: Color name.
-        enum: &id012
+        enum: &id015
         - error_color
         - primary
         - secondary
@@ -1012,7 +1012,7 @@ definitions:
         type: string
       reference:
         description: Name of the image.
-        enum: &id013
+        enum: &id016
         - brand_logo_portrait
         - brand_logo_square
         - brand_logo_landscape
@@ -1266,9 +1266,12 @@ definitions:
         example: 'false'
         type: boolean
       limit:
-        description: 'The number of results to return, (range: 2-1000), or equals
-          to total_count'
+        description: How many objects to retrieve in the page. The minimum limit is
+          2 and the maximum is 1000. Limit values outside of this range are set to
+          the closest limit.
         example: '50'
+        maximum: 1000
+        minimum: 2
         type: integer
       object:
         description: 'The entity name: always ''list'''
@@ -1307,7 +1310,12 @@ definitions:
       pending_count:
         description: Running total of devices that have yet to receive an update or
           are applying an update.
-        example: '10'
+        example: '5'
+        format: int32
+        type: integer
+      skipped_count:
+        description: Running total of devices that were skipped.
+        example: '5'
         format: int32
         type: integer
       success_count:
@@ -2432,14 +2440,14 @@ definitions:
         example: '2017-05-22T12:37:55.576563Z'
         format: date-time
         type: string
-      custom_attributes: &id015
+      custom_attributes: &id018
         additionalProperties:
           type: string
         example:
           key: value
         maxProperties: 10
         type: object
-      description: &id016
+      description: &id019
         description: The description of the group.
         example: Devices on the factory floor.
         maxLength: 2000
@@ -2456,7 +2464,7 @@ definitions:
         description: The group ID.
         example: 015c3029f6f7000000000001001000c3
         type: string
-      name: &id017
+      name: &id020
         description: Name of the group.
         example: My devices
         maxLength: 128
@@ -3091,6 +3099,136 @@ definitions:
     - object
     - request_id
     - type
+    type: object
+  EventType:
+    properties:
+      count:
+        example: 10
+        type: integer
+      created_at:
+        example: '2017-05-22T12:37:55.576563Z'
+        format: date-time
+        type: string
+      description:
+        example: Update error, nonspecific network error
+        type: string
+      event_type:
+        example: UPD4_FAIL_101
+        type: string
+      id:
+        example: upd_fail_101
+        type: string
+      object:
+        example: event-type
+        type: string
+      summary_status:
+        example: FAIL
+        type: string
+    type: object
+  EventTypeList:
+    properties:
+      after:
+        description: The entity ID to fetch after the given one
+        example: 'null'
+        type: string
+      data:
+        items:
+          $ref: '#/definitions/EventType'
+        type: array
+      has_more:
+        description: A flag indicating whether there are more results
+        example: 'false'
+        type: boolean
+      limit:
+        description: 'The number of results to return, (range: 2-1000), or equals
+          to total_count'
+        example: '50'
+        type: integer
+      object:
+        description: 'The entity name: always ''list'''
+        example: list
+        type: string
+      order:
+        description: 'The order of the records to return. Acceptable values: ASC,
+          DESC. Default: ASC'
+        enum:
+        - ASC
+        - DESC
+        example: ASC
+        type: string
+      total_count:
+        description: The total number or records, if requested. It may be returned
+          also for small lists.
+        example: '1'
+        type: integer
+    type: object
+  EventTypeSummary:
+    properties:
+      count:
+        example: 10
+        type: integer
+      created_at:
+        example: '2017-05-22T12:37:55.576563Z'
+        format: date-time
+        type: string
+      id:
+        description: ID of the event type description
+        enum:
+        - fail
+        - success
+        - info
+        - skipped
+        example: fail
+        type: string
+      object:
+        example: summary_status
+        type: string
+      summary_status:
+        description: The event type description.
+        enum:
+        - FAIL
+        - SUCCESS
+        - INFO
+        - SKIPPED
+        example: FAIL
+        type: string
+    type: object
+  EventTypeSummaryList:
+    properties:
+      after:
+        description: The entity ID to fetch after the given one
+        example: 'null'
+        type: string
+      data:
+        items:
+          $ref: '#/definitions/EventTypeSummary'
+        type: array
+      has_more:
+        description: A flag indicating whether there are more results
+        example: 'false'
+        type: boolean
+      limit:
+        description: 'The number of results to return, (range: 2-1000), or equals
+          to total_count'
+        example: '50'
+        type: integer
+      object:
+        description: 'The entity name: always ''list'''
+        example: list
+        type: string
+      order:
+        description: 'The order of the records to return. Acceptable values: ASC,
+          DESC. Default: ASC'
+        enum:
+        - ASC
+        - DESC
+        example: ASC
+        type: string
+      total_count:
+        description: The total number or records, if requested. It may be returned
+          also for small lists.
+        example: '1'
+        type: integer
     type: object
   FeaturePolicy:
     description: This object represents a feature policy. Either the feature or the
@@ -5552,6 +5690,131 @@ definitions:
     - request_id
     - type
     type: object
+  UploadChunkInfo:
+    properties:
+      created_at: &id012
+        description: The time the entity was created
+        example: '2017-05-22T12:37:55.576563Z'
+        format: date-time
+        type: string
+      etag: &id013
+        description: API resource entity version
+        example: '2017-05-22T12:37:58.753425Z'
+        type: string
+      hash:
+        description: The hash of the chunk. The default hash is MD5. If no Content-MD5
+          header is supplied as part of uploading the chunk then this will be empty.
+        type: string
+      id:
+        description: The chunk number
+        example: 1
+        type: integer
+      length:
+        description: The length of the chunk
+        example: 1234
+        type: integer
+      object:
+        description: 'Entity name: always ''upload-info'''
+        example: upload-info
+        type: string
+      updated_at: &id014
+        description: The time the entity was updated
+        example: '2017-05-22T12:37:55.576563Z'
+        format: date-time
+        type: string
+    type: object
+  UploadChunkInfoPage:
+    properties:
+      after:
+        example: null
+        type: string
+      data:
+        items:
+          $ref: '#/definitions/UploadChunkInfo'
+        type: array
+      has_more:
+        type: boolean
+      limit:
+        format: int32
+        type: integer
+      object:
+        example: list
+        type: string
+      order:
+        description: 'The order of the records to return. Acceptable values: ASC,
+          DESC. Default: ASC'
+        enum:
+        - ASC
+        - DESC
+        example: ASC
+        type: string
+      total_count:
+        format: int32
+        type: integer
+  UploadJob:
+    properties:
+      complete:
+        description: A flag that indicates job completion
+        example: false
+        type: boolean
+      created_at: *id012
+      description: &id021
+        description: Human-readable description
+        example: New Linux update for my devices
+        maxLength: 2000
+        type: string
+      etag: *id013
+      firmware_image_id:
+        description: ID of the firmware image - empty until the Upload Job is complete
+        example: '00000000000000000000000000000000'
+        type: string
+      id:
+        description: The upload job ID
+        example: '00000000000000000000000000000000'
+        type: string
+      name: &id022
+        description: Human-readable name
+        example: New Linux update
+        maxLength: 128
+        type: string
+      object:
+        description: 'Entity name: always ''upload-job'''
+        example: upload-job
+        type: string
+      status:
+        description: Status of the upload job
+        example: in_progress
+        type: string
+      updated_at: *id014
+    type: object
+  UploadJobPage:
+    properties:
+      after:
+        example: null
+        type: string
+      data:
+        items:
+          $ref: '#/definitions/UploadJob'
+        type: array
+      has_more:
+        type: boolean
+      limit:
+        format: int32
+        type: integer
+      object:
+        example: list
+        type: string
+      order:
+        description: 'The order of the records to return. Acceptable values: ASC,
+          DESC. Default: ASC'
+        enum:
+        - ASC
+        - DESC
+        example: ASC
+        type: string
+      total_count:
+        format: int32
+        type: integer
   UserInfoReq:
     description: This object represents a user in requests towards Device Management.
     properties:
@@ -6232,7 +6495,7 @@ paths:
         required: true
         type: string
       - description: The name of the branding color.
-        enum: *id012
+        enum: *id015
         in: path
         name: reference
         required: true
@@ -6290,7 +6553,7 @@ paths:
         required: true
         type: string
       - description: The name of the branding color.
-        enum: *id012
+        enum: *id015
         in: path
         name: reference
         required: true
@@ -6349,7 +6612,7 @@ paths:
         required: true
         type: string
       - description: Name of the picture whose metadata to be fetched.
-        enum: *id013
+        enum: *id016
         in: path
         name: reference
         required: true
@@ -6408,7 +6671,7 @@ paths:
         required: true
         type: string
       - description: Name of the picture whose metadata to be fetched.
-        enum: *id013
+        enum: *id016
         in: path
         name: reference
         required: true
@@ -8597,7 +8860,7 @@ paths:
         required: true
         type: string
       - description: The name of the branding color.
-        enum: *id012
+        enum: *id015
         in: path
         name: reference
         required: true
@@ -8636,7 +8899,7 @@ paths:
         required: true
         type: string
       - description: The name of the branding color.
-        enum: *id012
+        enum: *id015
         in: path
         name: reference
         required: true
@@ -8678,7 +8941,7 @@ paths:
         required: true
         type: string
       - description: The name of the branding color.
-        enum: *id012
+        enum: *id015
         in: path
         name: reference
         required: true
@@ -8808,7 +9071,7 @@ paths:
         required: true
         type: string
       - description: The name of the branding color.
-        enum: *id012
+        enum: *id015
         in: path
         name: reference
         required: true
@@ -8847,7 +9110,7 @@ paths:
         required: true
         type: string
       - description: The name of the branding color.
-        enum: *id012
+        enum: *id015
         in: path
         name: reference
         required: true
@@ -8889,7 +9152,7 @@ paths:
         required: true
         type: string
       - description: The name of the branding color.
-        enum: *id012
+        enum: *id015
         in: path
         name: reference
         required: true
@@ -8973,7 +9236,7 @@ paths:
         required: true
         type: string
       - description: Name of the branding images (icon or picture).
-        enum: *id013
+        enum: *id016
         in: path
         name: reference
         required: true
@@ -9013,7 +9276,7 @@ paths:
         required: true
         type: string
       - description: Name of the branding images (icon or picture).
-        enum: *id013
+        enum: *id016
         in: path
         name: reference
         required: true
@@ -9056,7 +9319,7 @@ paths:
         required: true
         type: string
       - description: Name of the branding images (icon or picture).
-        enum: *id013
+        enum: *id016
         in: path
         name: reference
         required: true
@@ -9147,7 +9410,7 @@ paths:
         required: true
         type: string
       - description: Name of the branding images (icon or picture).
-        enum: *id013
+        enum: *id016
         in: path
         name: reference
         required: true
@@ -9187,7 +9450,7 @@ paths:
         required: true
         type: string
       - description: Name of the branding images (icon or picture).
-        enum: *id013
+        enum: *id016
         in: path
         name: reference
         required: true
@@ -9230,7 +9493,7 @@ paths:
         required: true
         type: string
       - description: Name of the branding images (icon or picture).
-        enum: *id013
+        enum: *id016
         in: path
         name: reference
         required: true
@@ -12281,7 +12544,7 @@ paths:
       operationId: resetDarkColor
       parameters:
       - description: The name of the branding color.
-        enum: *id012
+        enum: *id015
         in: path
         name: reference
         required: true
@@ -12315,7 +12578,7 @@ paths:
       operationId: getDarkColor
       parameters:
       - description: The name of the branding color.
-        enum: *id012
+        enum: *id015
         in: path
         name: reference
         required: true
@@ -12352,7 +12615,7 @@ paths:
       operationId: setDarkColor
       parameters:
       - description: The name of the branding color.
-        enum: *id012
+        enum: *id015
         in: path
         name: reference
         required: true
@@ -12459,7 +12722,7 @@ paths:
       operationId: resetLightColor
       parameters:
       - description: The name of the branding color.
-        enum: *id012
+        enum: *id015
         in: path
         name: reference
         required: true
@@ -12493,7 +12756,7 @@ paths:
       operationId: getLightColor
       parameters:
       - description: The name of the branding color.
-        enum: *id012
+        enum: *id015
         in: path
         name: reference
         required: true
@@ -12530,7 +12793,7 @@ paths:
       operationId: setLightColor
       parameters:
       - description: The name of the branding color.
-        enum: *id012
+        enum: *id015
         in: path
         name: reference
         required: true
@@ -12600,7 +12863,7 @@ paths:
       operationId: getDarkImageData
       parameters:
       - description: Name of the branding images (icon or picture).
-        enum: *id013
+        enum: *id016
         in: path
         name: reference
         required: true
@@ -12635,7 +12898,7 @@ paths:
       operationId: clearDarkImage
       parameters:
       - description: Name of the branding images (icon or picture).
-        enum: *id013
+        enum: *id016
         in: path
         name: reference
         required: true
@@ -12673,7 +12936,7 @@ paths:
       operationId: uploadDarkImage
       parameters:
       - description: Name of the branding images (icon or picture).
-        enum: *id013
+        enum: *id016
         in: path
         name: reference
         required: true
@@ -12750,7 +13013,7 @@ paths:
       operationId: getLightImageData
       parameters:
       - description: Name of the branding images (icon or picture).
-        enum: *id013
+        enum: *id016
         in: path
         name: reference
         required: true
@@ -12785,7 +13048,7 @@ paths:
       operationId: clearLightImage
       parameters:
       - description: Name of the branding images (icon or picture).
-        enum: *id013
+        enum: *id016
         in: path
         name: reference
         required: true
@@ -12823,7 +13086,7 @@ paths:
       operationId: uploadLightImage
       parameters:
       - description: Name of the branding images (icon or picture).
-        enum: *id013
+        enum: *id016
         in: path
         name: reference
         required: true
@@ -13304,7 +13567,7 @@ paths:
         '
       operationId: deleteCertificateIssuerConfigByID
       parameters:
-      - &id014
+      - &id017
         description: 'The ID of the certificate issuer configuration.
 
           '
@@ -13340,7 +13603,7 @@ paths:
         '
       operationId: getCertificateIssuerConfigByID
       parameters:
-      - *id014
+      - *id017
       responses:
         '200':
           description: OK.
@@ -13377,7 +13640,7 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/CertificateIssuerConfigRequest'
-      - *id014
+      - *id017
       responses:
         '200':
           description: OK.
@@ -15243,9 +15506,9 @@ paths:
         required: true
         schema:
           properties:
-            custom_attributes: *id015
-            description: *id016
-            name: *id017
+            custom_attributes: *id018
+            description: *id019
+            name: *id020
           type: object
       responses:
         '201':
@@ -15328,9 +15591,9 @@ paths:
         required: true
         schema:
           properties:
-            custom_attributes: *id015
-            description: *id016
-            name: *id017
+            custom_attributes: *id018
+            description: *id019
+            name: *id020
           type: object
       responses:
         '200':
@@ -16080,8 +16343,12 @@ paths:
       description: List all firmware images.
       operationId: Firmware_Image_list
       parameters:
-      - description: How many firmware images to retrieve
+      - description: How many objects to retrieve in the page. The minimum limit is
+          2 and the maximum is 1000. Limit values outside of this range are set to
+          the closest limit.
         in: query
+        maximum: 1000
+        minimum: 2
         name: limit
         type: integer
       - description: ASC or DESC
@@ -16182,15 +16449,385 @@ paths:
           schema:
             $ref: '#/definitions/FirmwareImage'
         '400':
-          description: 'Validation error: Cannot validate the data used to create
-            the firmware image
-
-            '
+          description: Cannot validate the data used to create the firmware image.
         '401':
           description: Not authenticated
         '403':
           description: Forbidden
+        413:
+          description: Firmware image too large.
       summary: Create an image
+  /v3/firmware-images/upload-jobs:
+    get:
+      description: Get all upload jobs
+      operationId: Upload_Job_List
+      parameters:
+      - description: How many objects to retrieve in the page. The minimum limit is
+          2 and the maximum is 1000. Limit values outside of this range are set to
+          the closest limit.
+        in: query
+        maximum: 1000
+        minimum: 2
+        name: limit
+        type: integer
+      - description: ASC or DESC
+        in: query
+        name: order
+        type: string
+      - description: The ID of the the item after which to retrieve the next page
+        in: query
+        name: after
+        type: string
+      - description: 'A comma-separated list of data fields to return. Currently supported:
+          total_count'
+        in: query
+        name: include
+        type: string
+      - description: "URL-encoded query string parameter to filter returned data\n\
+          \n`?filter={URL-encoded query string}`\n\n###### Filterable fields:\n\n\
+          The table lists all the fields that can be filtered on with certain filters:\n\
+          \n<table>\n  <thead>\n    <tr>\n      <th>Field</th>\n      <th>= / __eq\
+          \ / __neq</th>\n      <th>__in /  __nin</th>\n      <th>__lte / __gte</th>\n\
+          \    <tr>\n  <thead>\n  <tbody>\n    <tr>\n      <td>name</td>\n      <td>\u2713\
+          </td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n\
+          \      <td>description</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n\
+          \      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>complete</td>\n \
+          \     <td>\u2713</td>\n      <td>\u2713</td>\n    </tr>\n    <tr>\n    \
+          \  <td>id</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n\
+          \    </tr>\n    <tr>\n      <td>firmware_image_id</td>\n      <td>\u2713\
+          </td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n\
+          \      <td>status</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n \
+          \     <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>created_at</td>\n\
+          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n \
+          \   </tr>\n    <tr>\n      <td>etag</td>\n      <td>\u2713</td>\n      <td>\u2713\
+          </td>\n      <td>\u2713</td>\n    </tr>\n    <tr>\n      <td>updated_at</td>\n\
+          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n \
+          \   </tr>\n  </tbody>\n</table>\n&nbsp;\n\nThe query string is made up of\
+          \ key-value pairs separated by ampersands. For example, this query:\n`key1=value1&key2=value2&key3=value3`\n\
+          \nwould be URL-encoded as:\n`?filter=key1__eq%3Dvalue1%26key2__eq%3Dvalue2%26key3__eq%3Dvalue3`\n\
+          \n\n**Filtering by properties**\n`name__eq=myimage`\n\n**Filtering on date-time\
+          \ fields**\n\nDate-time fields should be specified in UTC RFC3339 format,\
+          \ `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:\n\n*\
+          \ UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z`\n\
+          * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z`\n* UTC\
+          \ RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`\n\
+          \nDate-time filtering supports three operators:\n\n* equality by appending\
+          \ `__eq` to the field name\n* greater than or equal to by appending `__gte`\
+          \ to the field name\n* less than or equal to by appending `__lte` to the\
+          \ field name\n\n`{field name}[|__eq|__lte|__gte]={UTC RFC3339 date-time}`\n\
+          \nTime ranges may be specified by including both the `__gte` and `__lte`\
+          \ forms in the filter. For example:\n\n`created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`\n\
+          \n**Filtering on multiple fields**\n\n`name__eq=myimage&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`\n\
+          \n**Filtering with filter operators**\n\nString field filtering supports\
+          \ the following operators:\n\n* equality: `__eq`\n* non-equality: `__neq`\n\
+          * in : `__in`\n* not in: `__nin`\n\nFor `__in` and `__nin` filters list\
+          \ of parameters must be comma-separated:\n\n`name__in=fw-image1,fw-image2`"
+        in: query
+        name: filter
+        type: string
+      responses:
+        200:
+          description: Ok
+          schema:
+            $ref: '#/definitions/UploadJobPage'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        401:
+          description: Not Authenticated
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Get all upload jobs
+    post:
+      description: Create a new upload job
+      operationId: Upload_Job_Create
+      parameters:
+      - description: Upload job
+        in: body
+        name: Upload job
+        required: true
+        schema:
+          properties:
+            description: *id021
+            name: *id022
+          type: object
+      responses:
+        201:
+          description: Success - New job created
+          headers:
+            Location:
+              description: URL of the metadata for the created Upload Job
+              type: string
+          schema:
+            $ref: '#/definitions/UploadJob'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        401:
+          description: Not Authenticated
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        409:
+          description: Conflict
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Create a new upload job
+  /v3/firmware-images/upload-jobs/{upload_job_id}:
+    delete:
+      description: Delete an upload job
+      operationId: Upload_Job_Delete
+      parameters:
+      - description: Upload job
+        in: path
+        name: upload_job_id
+        required: true
+        type: string
+      responses:
+        204:
+          description: Job deleted - no content to show
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        401:
+          description: Not Authenticated
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        404:
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Delete an upload job
+    get:
+      description: Get an upload job
+      operationId: Upload_Job_Retrieve
+      parameters:
+      - description: Upload job
+        in: path
+        name: upload_job_id
+        required: true
+        type: string
+      responses:
+        200:
+          description: Ok
+          schema:
+            $ref: '#/definitions/UploadJob'
+        401:
+          description: Not Authenticated
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        404:
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Get an upload job
+    put:
+      description: Update an upload job
+      operationId: Upload_Job_Update
+      parameters:
+      - description: Upload job id
+        in: path
+        name: upload_job_id
+        required: true
+        type: string
+      - description: Upload job
+        in: body
+        name: Upload job
+        required: true
+        schema:
+          properties:
+            description: *id021
+            name: *id022
+          type: object
+      responses:
+        200:
+          description: Ok
+          schema:
+            $ref: '#/definitions/UploadJob'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        401:
+          description: Not Authenticated
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        404:
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Update an upload job
+  /v3/firmware-images/upload-jobs/{upload_job_id}/chunks:
+    get:
+      description: List all metadata for uploaded chunks
+      operationId: Upload_Job_Chunk_List
+      parameters:
+      - description: Upload job
+        in: path
+        name: upload_job_id
+        required: true
+        type: string
+      - description: How many objects to retrieve in the page. The minimum limit is
+          2 and the maximum is 1000. Limit values outside of this range are set to
+          the closest limit.
+        in: query
+        maximum: 1000
+        minimum: 2
+        name: limit
+        type: integer
+      - description: ASC or DESC
+        in: query
+        name: order
+        type: string
+      - description: The ID of the the item after which to retrieve the next page
+        in: query
+        name: after
+        type: string
+      - description: 'A comma-separated list of data fields to return. Currently supported:
+          total_count'
+        in: query
+        name: include
+        type: string
+      - description: "URL-encoded query string parameter to filter returned data\n\
+          \n`?filter={URL-encoded query string}`\n\n###### Filterable fields:\n\n\
+          The table lists all the fields that can be filtered on with certain filters:\n\
+          \n<table>\n  <thead>\n    <tr>\n      <th>Field</th>\n      <th>= / __eq\
+          \ / __neq</th>\n      <th>__in /  __nin</th>\n      <th>__lte / __gte</th>\n\
+          \    <tr>\n  <thead>\n  <tbody>\n    <tr>\n      <td>created_at</td>\n \
+          \     <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n  \
+          \  </tr>\n    <tr>\n      <td>etag</td>\n      <td>\u2713</td>\n      <td>\u2713\
+          </td>\n      <td>\u2713</td>\n    </tr>\n    <tr>\n      <td>id</td>\n \
+          \     <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n  \
+          \  </tr>\n    <tr>\n      <td>updated_at</td>\n      <td>\u2713</td>\n \
+          \     <td>\u2713</td>\n      <td>\u2713</td>\n    </tr>\n    <tr>\n    \
+          \  <td>hash</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n    </tr>\n\
+          \    <tr>\n      <td>length</td>\n      <td>\u2713</td>\n      <td>\u2713\
+          </td>\n      <td>\u2713</td>\n    </tr>\n  </tbody>\n</table>\n&nbsp;\n\n\
+          The query string is made up of key-value pairs separated by ampersands.\
+          \ For example, this query:\n`key1=value1&key2=value2&key3=value3`\n\nwould\
+          \ be URL-encoded as:\n`?filter=key1__eq%3Dvalue1%26key2__eq%3Dvalue2%26key3__eq%3Dvalue3`\n\
+          \n\n**Filtering by properties**\n`hash__eq=8FS70vXrq5y1VxAAssUMAg==`\n\n\
+          **Filtering on date-time fields**\n\nDate-time fields should be specified\
+          \ in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted\
+          \ variations:\n\n* UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z`\n\
+          * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z`\n* UTC\
+          \ RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`\n\
+          \nDate-time filtering supports three operators:\n\n* equality by appending\
+          \ `__eq` to the field name\n* greater than or equal to by appending `__gte`\
+          \ to the field name\n* less than or equal to by appending `__lte` to the\
+          \ field name\n\n`{field name}[|__eq|__lte|__gte]={UTC RFC3339 date-time}`\n\
+          \nTime ranges may be specified by including both the `__gte` and `__lte`\
+          \ forms in the filter. For example:\n\n`created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`\n\
+          \n**Filtering on multiple fields**\n\n`status__eq=in_progress&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`\n\
+          \n**Filtering with filter operators**\n\nString field filtering supports\
+          \ the following operators:\n\n* equality: `__eq`\n* non-equality: `__neq`\n\
+          * in : `__in`\n* not in: `__nin`\n\nFor `__in` and `__nin` filters list\
+          \ of parameters must be comma-separated:\n\n`status__in=in_progress,success`"
+        in: query
+        name: filter
+        type: string
+      responses:
+        200:
+          description: Ok
+          schema:
+            $ref: '#/definitions/UploadChunkInfoPage'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        401:
+          description: Not Authenticated
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        404:
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: List all metadata for uploaded chunks
+    post:
+      consumes:
+      - binary/octet-stream
+      description: Append a chunks to an upload job. To finish a job upload a zero-length
+        chunk.
+      operationId: Upload_Job_Chunk_Create
+      parameters:
+      - description: The base64-encoded binary digest of the body (chunk data).
+        in: header
+        name: Content-MD5
+        required: true
+        type: string
+      - in: header
+        name: Content-Length
+        required: true
+        type: integer
+      - description: Upload job ID
+        in: path
+        name: upload_job_id
+        required: true
+        type: string
+      - description: Chunk
+        in: body
+        name: chunk
+        required: false
+        schema:
+          format: byte
+          type: string
+      responses:
+        201:
+          description: Success - Chunk appended to the upload
+          headers:
+            Content-Location:
+              description: URL of the metadata for the uploaded chunk
+              type: string
+            Location:
+              description: URL of the metadata for the uploaded chunk
+              type: string
+          schema:
+            $ref: '#/definitions/UploadChunkInfo'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        401:
+          description: Not Authenticated
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        404:
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Append a chunks to an upload job
+  /v3/firmware-images/upload-jobs/{upload_job_id}/chunks/{chunk_id}:
+    get:
+      description: Get metadata about a chunk
+      operationId: Upload_Job_Chunk_retreive
+      parameters:
+      - description: Upload job
+        in: path
+        name: upload_job_id
+        required: true
+        type: string
+      - description: Chunk
+        in: path
+        name: chunk_id
+        required: true
+        type: string
+      responses:
+        200:
+          description: Ok
+          schema:
+            $ref: '#/definitions/UploadChunkInfo'
+        401:
+          description: Not Authenticated
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        404:
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Get metadata about a chunk
   /v3/firmware-images/{image_id}/:
     delete:
       description: Delete a firmware image.
@@ -16237,8 +16874,12 @@ paths:
       description: List firmware manifests.
       operationId: Firmware_Manifest_list
       parameters:
-      - description: How many firmware manifests to retrieve
+      - description: How many objects to retrieve in the page. The minimum limit is
+          2 and the maximum is 1000. Limit values outside of this range are set to
+          the closest limit.
         in: query
+        maximum: 1000
+        minimum: 2
         name: limit
         type: integer
       - description: ASC or DESC
@@ -17979,8 +18620,12 @@ paths:
       description: Get update campaigns for devices specified by a filter.
       operationId: Update_Campaign_list
       parameters:
-      - description: How many update campaigns to retrieve
+      - description: How many objects to retrieve in the page. The minimum limit is
+          2 and the maximum is 1000. Limit values outside of this range are set to
+          the closest limit.
         in: query
+        maximum: 1000
+        minimum: 2
         name: limit
         type: integer
       - description: 'The order of the records. Acceptable values: ASC, DESC. Default:
@@ -18106,6 +18751,11 @@ paths:
           description: Not authenticated
         '404':
           description: Update campaign can't be found
+        409:
+          description: Conflict - Cannot delete the campaign while in the current
+            phase.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
       summary: Delete a campaign
     get:
       description: Get an update campaign.
@@ -18195,8 +18845,12 @@ paths:
         name: campaign_id
         required: true
         type: string
-      - description: How many objects to retrieve in the page
+      - description: How many objects to retrieve in the page. The minimum limit is
+          2 and the maximum is 1000. Limit values outside of this range are set to
+          the closest limit.
         in: query
+        maximum: 1000
+        minimum: 2
         name: limit
         type: integer
       - description: ASC or DESC
@@ -18287,6 +18941,123 @@ paths:
         '409':
           description: Cannot start the campaign while in the current phase.
       summary: Start a campaign.
+  /v3/update-campaigns/{campaign_id}/statistics/:
+    get:
+      description: Get a list of statistics for a campaign
+      operationId: Update_Campaign_statistics_list
+      parameters:
+      - description: The campaign ID
+        in: path
+        name: campaign_id
+        required: true
+        type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/EventTypeSummaryList'
+        401:
+          description: Not Authenticated
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        404:
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Get a list of statistics for a campaign
+  /v3/update-campaigns/{campaign_id}/statistics/{summary_status_id}:
+    get:
+      description: Get a summary status
+      operationId: Update_Campaign_statistics_retrieve
+      parameters:
+      - description: The campaign ID
+        in: path
+        name: campaign_id
+        required: true
+        type: string
+      - description: The summary status. For example, fail
+        in: path
+        name: summary_status_id
+        required: true
+        type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/EventTypeSummary'
+        401:
+          description: Not Authenticated
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        404:
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Get a summary status
+  /v3/update-campaigns/{campaign_id}/statistics/{summary_status_id}/event_types/:
+    get:
+      description: Get a list of events grouped by summary
+      operationId: Update_Campaign_event_types_list
+      parameters:
+      - description: The campaign ID
+        in: path
+        name: campaign_id
+        required: true
+        type: string
+      - description: The summary status. For example, fail
+        in: path
+        name: summary_status_id
+        required: true
+        type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/EventTypeList'
+        401:
+          description: Not Authenticated
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        404:
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Get a list of events grouped by summary
+  /v3/update-campaigns/{campaign_id}/statistics/{summary_status_id}/event_types/{event_type_id}:
+    get:
+      description: Get an event type for a campaign
+      operationId: Update_Campaign_event_types_retrieve
+      parameters:
+      - description: The campaign ID
+        in: path
+        name: campaign_id
+        required: true
+        type: string
+      - description: The summary status. For example, fail
+        in: path
+        name: summary_status_id
+        required: true
+        type: string
+      - description: The event type parameter. For example, UPD4_FAIL_101
+        in: path
+        name: event_type_id
+        pattern: ^\w{1,16}$
+        required: true
+        type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/EventType'
+        401:
+          description: Not Authenticated
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        404:
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Get an event type for a campaign
   /v3/update-campaigns/{campaign_id}/stop:
     post:
       description: This command will begin the process of stopping a campaign.
