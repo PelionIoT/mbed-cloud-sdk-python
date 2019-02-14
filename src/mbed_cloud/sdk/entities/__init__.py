@@ -1,7 +1,7 @@
 """
 Entity module
 
-This file is auto-generated from API specifications
+This file is auto-generated from API Specifications
 """
 
 from mbed_cloud.sdk._modules.accounts.account import Account
