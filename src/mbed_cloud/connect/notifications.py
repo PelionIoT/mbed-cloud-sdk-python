@@ -31,6 +31,7 @@ from mbed_cloud.exceptions import CloudAsyncError
 from mbed_cloud.exceptions import CloudTimeoutError
 from mbed_cloud.exceptions import CloudUnhandledError
 from websocket import WebSocketApp
+from mbed_cloud.exceptions import CloudApiException
 
 LOG = logging.getLogger(__name__)
 
@@ -202,7 +203,8 @@ class NotificationsThread(threading.Thread):
         self._stopping = False
         self._stopped = threading.Event()
         self._ws = None
-        self._api_key = None
+        self._api_key = notifications_api.api_client.configuration.api_key['Authorization']
+        self._host = notifications_api.api_client.configuration.host
         self._force_clear = force_clear
         self._logger = logger
 
@@ -245,7 +247,8 @@ class NotificationsThread(threading.Thread):
 
     def _get_on_error_callback(self):
         def on_error(ws, error):
-            # TODO log error
+            if self._logger:
+                self._logger.error('An error happened in the notification thread : %s' % error)
             ws.close()
 
         return on_error
@@ -260,10 +263,14 @@ class NotificationsThread(threading.Thread):
     def _register_websocket(self):
         if self._stopping:
             self.stop()
-        # TODO make the call
-        websocket = True
-        error = None
-        reason = None
+
+        websocket = False
+        try:
+            self.notifications_api.register_websocket()
+            websocket = True
+        except CloudApiException as e:
+            error = e.status
+            reason = e.message
         if websocket:
             self._get_websocket()
         else:
@@ -275,8 +282,12 @@ class NotificationsThread(threading.Thread):
     def _get_websocket(self):
         if self._stopping:
             self.stop()
-        # TODO make the call
-        websocket_channel = True
+        websocket_channel = False
+        try:
+            self.notifications_api.register_websocket()
+            websocket_channel = True
+        except CloudApiException:
+            pass
         if websocket_channel:
             self._start_websocket()
         else:
@@ -285,7 +296,10 @@ class NotificationsThread(threading.Thread):
     def _delete_websocket_channel(self):
         if self._stopping:
             self.stop()
-        # TODO delete channel
+        try:
+            self.notifications_api.delete_websocket()
+        except CloudApiException:
+            pass
         self._close_socket()
 
     def _close_socket(self):
@@ -312,12 +326,12 @@ class NotificationsThread(threading.Thread):
     def _start_websocket(self):
         if self._stopping:
             self.stop()
-        self._ws = WebSocketApp("ws://echo.websocket.org/",
+        self._ws = WebSocketApp('%s/v2/notification/websocket-connect' % self._host.replace('https', 'ws'),
                                 on_open=self._get_on_open_callback(),
                                 on_message=self._get_on_message_calback(),
                                 on_error=self._get_on_close_callback(),
                                 on_close=self._get_on_close_callback(),
-                                subprotocols=['ws', 'pelion_%s' % self._api_key])
+                                subprotocols=['wss', 'pelion_%s' % self._api_key])
         self._ws.run_forever()
 
     def stop(self):

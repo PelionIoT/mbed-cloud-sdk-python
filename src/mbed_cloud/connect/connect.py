@@ -638,6 +638,7 @@ class ConnectAPI(BaseAPI):
 
         :param str payload: the encoded payload, as sent by the notification channel
         """
+
         class PayloadContainer:  # noqa
             # bodge to give attribute lookup
             data = payload
@@ -717,8 +718,11 @@ class ConnectAPI(BaseAPI):
             api.delete_long_poll_channel()
         except:
             pass
-        # TODO delete websocket channel
-        
+        try:
+            api.delete_websocket()
+        except:
+            pass
+
     @catch_exceptions(mds.rest.ApiException)
     def get_websocket(self):
         """Get the current websocket if it exists.
