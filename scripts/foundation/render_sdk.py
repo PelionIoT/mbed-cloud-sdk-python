@@ -115,6 +115,7 @@ SWAGGER_TYPE_MAP = {
 
 
 def map_python_field_types(fields):
+    """Add Python types and Foundation field types to definition file."""
     for field in fields:
         swagger_type = field.get("type")
         swagger_format = field.get("format")
@@ -223,7 +224,6 @@ class FileMap:
 
 def render_foundation_sdk(python_sdk_def_dict, output_dir):
     """Render the Foundation SDK using the jinja templates
-
     :param dict python_sdk_def_dict: SDK definitions dictionary post processed for Python
     :param str output_dir: Directory in which the SDK generation should be written.
     :return:
@@ -245,21 +245,27 @@ def render_foundation_sdk(python_sdk_def_dict, output_dir):
     generation_dir = os.path.join(output_dir, generation_root)
 
     sub_modules = [
-        GenModule(name=to_snake_case(group['_key']), root=generation_root, data=group) for group in python_sdk_def_dict.get('groups')
+        GenModule(
+            name=to_snake_case(group['_key']),
+            root=generation_root,
+            data=group) for group in python_sdk_def_dict.get('groups')
     ]
     entity_modules = [
-        GenModule(name=None, root=os.path.join(generation_root, to_snake_case(e['group_id'])), data=e) for e in python_sdk_def_dict.get('entities')
+        GenModule(name=None,
+                  root=os.path.join(generation_root, to_snake_case(e['group_id'])),
+                  data=e) for e in python_sdk_def_dict.get('entities')
     ]
     src_entity_modules = [
-        GenModule(name=None, root=os.path.join(generation_root, to_snake_case(e['group_id'])), data={'entities': [e]}, target=to_snake_case(e['_key']) + '.py') for e in python_sdk_def_dict.get('entities')
+        GenModule(name=None,
+                  root=os.path.join(generation_root, to_snake_case(e['group_id'])),
+                  data={'entities': [e]},
+                  target=to_snake_case(e['_key']) + '.py') for e in python_sdk_def_dict.get('entities')
     ]
     enum_modules = [
         GenModule(
             # name='enums',
             root=os.path.join(generation_root, to_snake_case(g['_key'])),
-            data=dict(
-              enums=[e for e in python_sdk_def_dict.get('enums') if e['group_id'] == g['_key']]
-            )
+            data=dict(enums=[e for e in python_sdk_def_dict.get('enums') if e['group_id'] == g['_key']])
         ) for g in python_sdk_def_dict.get('groups')
     ]
 
@@ -305,9 +311,7 @@ def count_param_in(fields):
 
 
 def paginators_as_custom_methods(entity, method):
-    """
-    Sets up a custom method whenever we come across a paginator
-
+    """Sets up a custom method whenever we come across a paginator
     The custom method is currently called 'paginate'
     :param entity:
     :param method:
@@ -339,7 +343,6 @@ def paginators_as_custom_methods(entity, method):
 
 def post_process_definition_file(sdk_def_filename):
     """Post-process SDK Definition file to add Python specific information.
-
     :param str sdk_def_filename: Path to SDK Definition file.
     :returns: Dictionary containing modified SDK Definitions
     :rtype: dict
@@ -365,7 +368,6 @@ def post_process_definition_file(sdk_def_filename):
 
 def write_intermediate_file(output_filename, python_sdk_def_dict):
     """Write the post processed file to defined location as YAML.
-
     :param str output_filename: Name of file to which to write the file.
     :param dict python_sdk_def_dict: SDK definitions dictionary post processed for Python
     """
