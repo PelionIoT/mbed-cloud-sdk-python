@@ -195,7 +195,7 @@ def new_foundation_gen():
               git add -v src/mbed_cloud/sdk/enums/\*.py
               git commit --message "Auto-generated code" || FILES_CHANGED=True
               git push -q https://${GITHUB_TOKEN}@github.com/ARMmbed/${CIRCLE_PROJECT_REPONAME}.git ${CIRCLE_BRANCH}
-              if [ -z "$FILES_CHANGED" ]; then curl -X POST https://circleci.com/api/v1.1/project/github/${GIT_COMMITTER_NAME}/ARMmbed/${CIRCLE_PROJECT_REPONAME}/${CIRCLE_BUILD_NUM}/cancel?circle-token=${CIRCLE_TOKEN}; fi
+              if [ -z "$FILES_CHANGED" ]; then curl -X POST https://circleci.com/api/v1.1/project/github/ARMmbed/${CIRCLE_PROJECT_REPONAME}/${CIRCLE_BUILD_NUM}/cancel?circle-token=${DOCS_CIRCLE_CI_TOKEN}; fi
       - store_artifacts:
           path: python_definition.yaml
           when: always
