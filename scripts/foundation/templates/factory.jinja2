@@ -1,7 +1,7 @@
 """
 Factory module
 
-This file is auto-generated from API specifications
+This file is auto-generated from API Specifications
 """
 
 # Python 2 compatibility
