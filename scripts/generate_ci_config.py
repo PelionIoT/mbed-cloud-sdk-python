@@ -167,6 +167,49 @@ def new_tpip():
     return 'tpip_report', template
 
 
+def new_foundation_gen():
+    """Job to generate the Foundation interface.
+
+    If there are file changes caused by the generation then these are submitted back to github (which will trigger
+    another build). The current build is then cancelled to avoid unnecessary builds and misleading test results (
+    which would be with a pre-render code version).
+    """
+    template = yaml.safe_load("""
+    steps:
+      - checkout
+      - run:
+          name: Install pipenv
+          command: sudo pip install pipenv
+      - run:
+          name: Install beta version of black for Python formatting
+          command: pipenv install --pre black
+      - run:
+          name: Install SDK with dev dependencies
+          command: pipenv install --dev . 
+      - run:
+          name: Generate the Foundation interface code
+          command: pipenv run python scripts/foundation/render_sdk.py 
+            api_specifications/public/sdk_foundation_definition.yaml  -vv
+            -p python_definition.yaml 
+            -o src/mbed_cloud/sdk
+      - run:
+          name: Commit code changes (cancel this build if commit made)
+          command: |-
+              git add -v src/mbed_cloud/sdk/_modules/\*.py
+              git add -v src/mbed_cloud/sdk/entities/\*.py
+              git add -v src/mbed_cloud/sdk/enums/\*.py
+              git commit --message "Auto-generated code" || FILES_CHANGED=True
+              git push -q https://${GITHUB_TOKEN}@github.com/ARMmbed/${CIRCLE_PROJECT_REPONAME}.git ${CIRCLE_BRANCH}
+              if [ -z "$FILES_CHANGED" ]; then curl -X POST https://circleci.com/api/v1.1/project/github/ARMmbed/${CIRCLE_PROJECT_REPONAME}/${CIRCLE_BUILD_NUM}/cancel?circle-token=${DOCS_CIRCLE_CI_TOKEN}; fi
+      - store_artifacts:
+          path: python_definition.yaml
+          when: always
+    docker:
+      - image: circleci/python:3.6.3
+    """)
+    return 'foundation_gen', template
+
+
 def new_newscheck():
     """Job for checking newsfile existence"""
     template = yaml.safe_load("""
@@ -371,6 +414,10 @@ def generate_circle_output():
     base['jobs'].update({job: content})
     workflow.add_node(job)
 
+    new_foundation_job, content = new_foundation_gen()
+    base['jobs'].update({new_foundation_job: content})
+    workflow.add_node(new_foundation_job)
+
     job, content = new_newscheck()
     base['jobs'].update({job: content})
     workflow.add_node(
@@ -407,7 +454,9 @@ def generate_circle_output():
     for py_ver in python_versions.values():
         build_job, build_content = new_build(py_ver=py_ver)
         base['jobs'].update({build_job: build_content})
+        # Add requires to builds on preload and foundation_gen
         workflow.add_edge(preload_job, build_job)
+        workflow.add_edge(new_foundation_job, build_job)
 
         for cloud_host in mbed_cloud_hosts.values():
             test_job, test_content = new_test(py_ver=py_ver, cloud_host=cloud_host)
