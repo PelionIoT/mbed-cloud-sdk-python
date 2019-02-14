@@ -5,3 +5,4 @@ python-dotenv >= 0.8.2
 requests >= 2.20
 six >= 1.10
 urllib3 >= 1.15
+websocket-client >= 0.54.0

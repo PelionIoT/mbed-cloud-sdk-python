@@ -715,6 +715,25 @@ class ConnectAPI(BaseAPI):
         self._queues.clear()
         return
 
+    def clear_notification_channel(self):
+        """Delete/remove any notification channel in place.
+
+        No exception is raised
+
+        :return: void
+        """
+        try:
+            self.delete_webhook()
+        except:
+            pass
+        try:
+            api = self._get_api(mds.NotificationsApi)
+            # Delete notifications channel
+            api.delete_long_poll_channel()
+        except:
+            pass
+        # TODO delete websocket channel
+        
     @catch_exceptions(statistics.rest.ApiException)
     def list_metrics(self, include=None, interval="1d", **kwargs):
         """Get statistics.

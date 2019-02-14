@@ -30,6 +30,7 @@ from mbed_cloud.decorators import catch_exceptions
 from mbed_cloud.exceptions import CloudAsyncError
 from mbed_cloud.exceptions import CloudTimeoutError
 from mbed_cloud.exceptions import CloudUnhandledError
+from websocket import WebSocketApp
 
 LOG = logging.getLogger(__name__)
 
@@ -187,7 +188,7 @@ class NotificationsThread(threading.Thread):
     """A thread object"""
 
     def __init__(self, db, queues, b64decode=True, notifications_api=None,
-                 subscription_manager=None):
+                 subscription_manager=None, force_clear=False, logger=None):
         """Stoppable thread"""
         super(NotificationsThread, self).__init__()
 
@@ -200,26 +201,128 @@ class NotificationsThread(threading.Thread):
 
         self._stopping = False
         self._stopped = threading.Event()
+        self._ws = None
+        self._api_key = None
+        self._force_clear = force_clear
+        self._logger = logger
 
     @catch_exceptions(mds.rest.ApiException)
     @functools.wraps(threading.Thread.run)
     def run(self):
         """Thread main loop"""
         try:
-            while not self._stopping:
-                data = self.notifications_api.long_poll_notifications()
-                handle_channel_message(
-                    db=self.db,
-                    queues=self.queues,
-                    b64decode=self._b64decode,
-                    notification_object=data
-                )
-                if self.subscription_manager:
-                    self.subscription_manager.notify(data.to_dict())
+            self._start_notifications()
         finally:
             self._stopped.set()
+
+    def _get_on_message_calback(self):
+        def on_message(ws, data):
+            if self._stopping:
+                self.stop()
+            handle_channel_message(
+                db=self.db,
+                queues=self.queues,
+                b64decode=self._b64decode,
+                notification_object=data
+            )
+            if self.subscription_manager:
+                self.subscription_manager.notify(data.to_dict())
+
+        return on_message
+
+    def _get_on_close_callback(self):
+        def on_close(ws, error, reason):
+            if error == 1000:
+                self._delete_websocket_channel()
+            elif error == 1008:
+                self._log_error(error, reason)
+            elif error == 1006:
+                self._start_websocket()
+            elif error == 1001 or error == 1011:
+                self._register_websocket()
+
+        return on_close
+
+    def _get_on_error_callback(self):
+        def on_error(ws, error):
+            # TODO log error
+            ws.close()
+
+        return on_error
+
+    def _get_on_open_callback(self):
+        def on_open(ws):
+            # TODO do something maybe
+            pass
+
+        return on_open
+
+    def _register_websocket(self):
+        if self._stopping:
+            self.stop()
+        # TODO make the call
+        websocket = True
+        error = None
+        reason = None
+        if websocket:
+            self._get_websocket()
+        else:
+            if self._force_clear:
+                self._clear_channel()
+            else:
+                self._log_error(error, reason)
+
+    def _get_websocket(self):
+        if self._stopping:
+            self.stop()
+        # TODO make the call
+        websocket_channel = True
+        if websocket_channel:
+            self._start_websocket()
+        else:
+            self._register_websocket()
+
+    def _delete_websocket_channel(self):
+        if self._stopping:
+            self.stop()
+        # TODO delete channel
+        self._close_socket()
+
+    def _close_socket(self):
+        self._stopped.set()
+
+    def _clear_channel(self):
+        if self._stopping:
+            self.stop()
+        self.notifications_api.clear_notification_channel()
+        self._register_websocket()
+
+    def _log_error(self, error, reason):
+        if self._stopping:
+            self.stop()
+        if self._logger:
+            self._logger.error('An error happened in the notification thread : %s because %s', error, reason)
+        self._delete_websocket_channel()
+
+    def _start_notifications(self):
+        if self._stopping:
+            self.stop()
+        self._get_websocket()
+
+    def _start_websocket(self):
+        if self._stopping:
+            self.stop()
+        self._ws = WebSocketApp("ws://echo.websocket.org/",
+                                on_open=self._get_on_open_callback(),
+                                on_message=self._get_on_message_calback(),
+                                on_error=self._get_on_close_callback(),
+                                on_close=self._get_on_close_callback(),
+                                subprotocols=['ws', 'pelion_%s' % self._api_key])
+        self._ws.run_forever()
 
     def stop(self):
         """Request thread stop"""
         self._stopping = True
+        if self._ws:
+            self._ws.close()
         return self._stopped
