@@ -39,6 +39,7 @@ from mbed_cloud.connect.notifications import NotificationsThread
 from mbed_cloud.connect.presubscription import Presubscription
 from mbed_cloud.connect.resource import Resource
 from mbed_cloud.connect.webhooks import Webhook
+from mbed_cloud.connect.websockets import Websocket
 
 from mbed_cloud.core import BaseAPI
 from mbed_cloud.pagination import PaginatedResponse
@@ -72,7 +73,8 @@ class ConnectAPI(BaseAPI):
             mds.NotificationsApi,
             mds.DeviceRequestsApi,
             mds.ResourcesApi,
-            mds.SubscriptionsApi
+            mds.SubscriptionsApi,
+            mds.WebsocketApi,
         ],
         statistics: [statistics.AccountApi, statistics.StatisticsApi],
         device_directory: [device_directory.DefaultApi],
@@ -697,6 +699,33 @@ class ConnectAPI(BaseAPI):
         # Every subscription will be deleted, so we can clear the queues too.
         self._queues.clear()
         return
+
+    @catch_exceptions(mds.rest.ApiException)
+    def get_websocket(self):
+        """Get the current websocket if it exists.
+
+        :return: The currently set websocket
+        """
+        api = self._get_api(mds.WebsocketApi)
+        return Websocket(api.get_websocket())
+
+    @catch_exceptions(mds.rest.ApiException)
+    def register_websocket(self):
+        """Register a websocket channel
+
+        :return: The set websocket
+        """
+        api = self._get_api(mds.WebsocketApi)
+        return Websocket(api.register_websocket())
+
+    @catch_exceptions(mds.rest.ApiException)
+    def delete_websocket(self):
+        """Delete websocket channel
+
+        :return: void
+        """
+        api = self._get_api(mds.WebsocketApi)
+        api.delete_websocket()
 
     @catch_exceptions(statistics.rest.ApiException)
     def list_metrics(self, include=None, interval="1d", **kwargs):
