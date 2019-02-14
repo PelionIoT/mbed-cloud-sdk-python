@@ -168,7 +168,12 @@ def new_tpip():
 
 
 def new_foundation_gen():
-    """Job to generate the Foundation interface"""
+    """Job to generate the Foundation interface.
+
+    If there are file changes caused by the generation then these are submitted back to github (which will trigger
+    another build). The current build is then cancelled to avoid unnecessary builds and misleading test results (
+    which would be with a pre-render code version).
+    """
     template = yaml.safe_load("""
     steps:
       - checkout
@@ -188,7 +193,7 @@ def new_foundation_gen():
             -p python_definition.yaml 
             -o src/mbed_cloud/sdk
       - run:
-          name: Commit code changes
+          name: Commit code changes (cancel this build if commit made)
           command: |-
               git add -v src/mbed_cloud/sdk/_modules/\*.py
               git add -v src/mbed_cloud/sdk/entities/\*.py

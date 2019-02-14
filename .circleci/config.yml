@@ -193,7 +193,7 @@ jobs:
 
           if [ -z "$FILES_CHANGED" ]; then curl -X POST https://circleci.com/api/v1.1/project/github/ARMmbed/${CIRCLE_PROJECT_REPONAME}/${CIRCLE_BUILD_NUM}/cancel?circle-token=${DOCS_CIRCLE_CI_TOKEN};
           fi'
-        name: Commit code changes
+        name: Commit code changes (cancel this build if commit made)
     - store_artifacts:
         path: python_definition.yaml
         when: always
