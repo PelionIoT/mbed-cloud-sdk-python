@@ -13,6 +13,21 @@ a list of versions that have been released on PyPI.
 ..
     begin_release_notes
 
+2.0.4 (2018-11-30)
+==================
+
+Bugfixes
+--------
+
+- Updated set_resource_value and execute_resource to use the device requests
+  API. (#1718)
+
+- Fixed TypeError when devices de-register or expire. (#1871)
+
+- Updated package dependencies (to fix Python 2 build issues in CircleCI)
+  (#1921)
+
+
 2.0.3 (2018-11-07)
 ==================
 

@@ -46,6 +46,8 @@ while True:
 """
 import itertools
 import logging
+
+import six
 from mbed_cloud import utils
 
 LOG = logging.getLogger(__name__)
@@ -193,8 +195,10 @@ class SubscriptionsManager(RoutingBase):
             for item in items or []:
                 LOG.debug('notify received: %s', item)
                 try:
+                    # some channels return strings rather than objects (e.g. de-registrations),
+                    # normalize them here
+                    item = {'value': item} if isinstance(item, six.string_types) else dict(item)
                     # inject the channel name to the data (so channels can filter on it)
-                    item = dict(item)
                     item['channel'] = channel_name
                     triggered_channels.extend(list(self._notify_single_item(item)))
                 except Exception:  # noqa
