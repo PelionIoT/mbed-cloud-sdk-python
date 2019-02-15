@@ -326,7 +326,7 @@ class NotificationsThread(threading.Thread):
     def _start_websocket(self):
         if self._stopping:
             self.stop()
-        self._ws = WebSocketApp('%s/v2/notification/websocket-connect' % self._host.replace('https', 'ws'),
+        self._ws = WebSocketApp('%s/v2/notification/websocket-connect' % self._host.replace('https', 'wss'),
                                 on_open=self._get_on_open_callback(),
                                 on_message=self._get_on_message_calback(),
                                 on_error=self._get_on_close_callback(),

@@ -84,14 +84,22 @@ class ConnectAPI(BaseAPI):
         """A module to access this section of the Mbed Cloud API.
 
         :param params: Dictionary to override configuration values
-                     : autostart_notification_thread : Automatically starts a thread
+                     : autostart_notifications : Automatically starts a thread
                      if needed for Async APIs (e.g. get_resource_value).
-                     This should be set to False when using webhooks for notifications.
+                     : force_clear : forcibly remove any existing channels before receiving notifications
+                     : skip_cleanup : do not clean up channels and subscriptions after quitting
         """
         super(ConnectAPI, self).__init__(params)
 
         self._db = {}
         self._queues = defaultdict(dict)
+
+        # check for autostart_notification_thread if autostart_notifications is not set, for backwards compatibility
+        self._autostart_notifications = self.config.get('autostart_notifications', self.config.get('autostart_notification_thread'))
+        if self._autostart_notifications:
+            self._delivery_method = "CLIENT_INITIATED"
+        self._force_clear = self.config.get('force_clear', False)
+        self._skip_cleanup = self.config.get('skip_cleanup', False)
 
         self.b64decode = True
         self._notifications_thread = None
@@ -106,7 +114,7 @@ class ConnectAPI(BaseAPI):
 
     def ensure_notifications_thread(self):
         """Ensure notification thread is running"""
-        if self.config.get('autostart_notification_thread'):
+        if self._autostart_notifications:
             if not self.has_active_notification_thread:
                 self.start_notifications()
 
@@ -125,9 +133,28 @@ class ConnectAPI(BaseAPI):
 
         :returns: void
         """
+
+        # delivery method is server initiated so raise an exception
+        if self._delivery_method == "SERVER_INITIATED":
+            raise CloudApiException("cannot call start_notifications if delivery method is Server Initiated")
+
+        # delivery method not set so set to client initiated
+        if not self._delivery_method:
+            self._delivery_method = "CLIENT_INITIATED"
+
         with self._notifications_lock:
             if self.has_active_notification_thread:
                 return
+
+            # force clear is true so clear all channels
+            if self._force_clear:
+                # TODO delete webhook or websocket
+                pass
+
+            # check for webhook
+            if self.get_webhook:
+                raise CloudApiException("cannot start notifications because a webhook exists")
+
             api = self._get_api(mds.NotificationsApi)
             self._notifications_thread = NotificationsThread(
                 self._db,
@@ -144,14 +171,20 @@ class ConnectAPI(BaseAPI):
 
         :returns:
         """
+
+        if self._delivery_method == "SERVER_INITIATED":
+            LOG.warn("should not be calling stop_notifications when delivery method is server initiated")
+
         with self._notifications_lock:
             if not self.has_active_notification_thread:
                 return
             thread = self._notifications_thread
             self._notifications_thread = None
             stopping = thread.stop()
-            api = self._get_api(mds.NotificationsApi)
-            api.delete_long_poll_channel()
+            if not self._skip_cleanup:
+                # TODO delete websocket and clear subscriptions
+                api = self._get_api(mds.NotificationsApi)
+                api.delete_long_poll_channel()
             return stopping.wait()
 
     @catch_exceptions(device_directory.rest.ApiException)
@@ -301,6 +334,7 @@ class ConnectAPI(BaseAPI):
         :returns: The resource value for the requested resource path
         :rtype: str
         """
+        self.ensure_notifications_thread()
         return self.get_resource_value_async(device_id, resource_path, fix_path).wait(timeout)
 
     @catch_exceptions(mds.rest.ApiException)
@@ -630,7 +664,7 @@ class ConnectAPI(BaseAPI):
                 del self._queues[e][r]
         return
 
-    def notify_webhook_received(self, payload):
+    def notify(self, payload):
         """Callback function for triggering notification channel handlers.
 
         Use this in conjunction with a webserver to complete the loop when using
@@ -653,6 +687,17 @@ class ConnectAPI(BaseAPI):
             notification_object=notification
         )
 
+    # TODO mark as deprecated, use notify instead
+    def notify_webhook_received(self, payload):
+        """Callback function for triggering notification channel handlers.
+
+        Use this in conjunction with a webserver to complete the loop when using
+        webhooks as the notification channel.
+
+        :param str payload: the encoded payload, as sent by the notification channel
+        """
+        self.notify(payload)
+
     @catch_exceptions(mds.rest.ApiException)
     def get_webhook(self):
         """Get the current callback URL if it exists.
@@ -672,11 +717,19 @@ class ConnectAPI(BaseAPI):
         :param dict headers: K/V dict with additional headers to send with request
         :return: void
         """
+
+        if not self._delivery_method:
+            self._delivery_method = "SERVER_INITIATED"
+
+        if self._delivery_method == "CLIENT_INITIATED":
+            raise CloudApiException("cannot update webhook if delivery method is client initiated")
+
         headers = headers or {}
         api = self._get_api(mds.NotificationsApi)
 
-        # Delete notifications channel
-        api.delete_long_poll_channel()
+        if self._force_clear:
+            # TODO Delete webhook or websocket
+            pass
 
         # Send the request to register the webhook
         webhook_obj = WebhookData(url=url, headers=headers)
@@ -779,6 +832,19 @@ class ConnectAPI(BaseAPI):
         kwargs.update(dict(include=include, interval=interval))
         api = self._get_api(statistics.StatisticsApi)
         return PaginatedResponse(api.get_metrics, lwrap_type=Metric, **kwargs)
+
+    def _pre_device_request_check(self, method_name):
+        if self._autostart_notifications:
+            self.start_notifications()
+        else:
+            # force clear is true so clear all channels
+            if self._force_clear:
+                # delete shit
+                pass
+
+            # check for webhook
+            if self.get_webhook:
+                raise CloudApiException("cannot call %s because a webhook exists", method_name)
 
     def _subscription_handler(self, queue, device_id, path, callback_fn):
         while True:
