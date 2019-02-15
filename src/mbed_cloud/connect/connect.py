@@ -152,7 +152,8 @@ class ConnectAPI(BaseAPI):
                 pass
 
             # check for webhook
-            if self.get_webhook:
+            print(self.get_webhook())
+            if self.get_webhook():
                 raise CloudApiException("cannot start notifications because a webhook exists")
 
             api = self._get_api(mds.NotificationsApi)
