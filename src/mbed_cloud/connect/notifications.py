@@ -221,6 +221,8 @@ class NotificationsThread(threading.Thread):
         def on_message(ws, data):
             if self._stopping:
                 self.stop()
+            if self._logger:
+                self._logger.debug('received data: %s', data)
             handle_channel_message(
                 db=self.db,
                 queues=self.queues,

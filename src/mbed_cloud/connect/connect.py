@@ -94,7 +94,8 @@ class ConnectAPI(BaseAPI):
         self._queues = defaultdict(dict)
 
         # check for autostart_notification_thread if autostart_notifications is not set, for backwards compatibility
-        self._autostart_notifications = self.config.get('autostart_notifications', self.config.get('autostart_notification_thread'))
+        self._autostart_notifications = self.config.get('autostart_notifications',
+                                                        self.config.get('autostart_notification_thread'))
         if self._autostart_notifications:
             self._delivery_method = "CLIENT_INITIATED"
         self._force_clear = self.config.get('force_clear', False)
@@ -151,8 +152,7 @@ class ConnectAPI(BaseAPI):
                 pass
 
             # check for webhook
-            if self.get_webhook:
-                raise CloudApiException("cannot start notifications because a webhook exists")
+            self._fail_if_webhook_is_setup("start notifications")
 
             api = self._get_api(mds.NotificationsApi)
             self._notifications_thread = NotificationsThread(
@@ -161,6 +161,8 @@ class ConnectAPI(BaseAPI):
                 b64decode=self.b64decode,
                 notifications_api=api,
                 subscription_manager=self.subscribe,
+                force_clear=self._force_clear,
+                logger=LOG
             )
             self._notifications_thread.daemon = True
             self._notifications_thread.start()
@@ -842,13 +844,20 @@ class ConnectAPI(BaseAPI):
                 pass
 
             # check for webhook
-            if self.get_webhook:
-                raise CloudApiException("cannot call %s because a webhook exists", method_name)
+            self._fail_if_webhook_is_setup(method_name)
 
     def _subscription_handler(self, queue, device_id, path, callback_fn):
         while True:
             value = queue.get()
             callback_fn(device_id, path, value)
+
+    def _fail_if_webhook_is_setup(self, method_name):
+        try:
+            webhook = self.get_webhook()
+        except:
+            pass
+        if webhook and webhook.url():
+            raise CloudApiException("cannot call %s because a webhook exists [%s]", method_name, webhook.url())
 
     def _verify_arguments(self, interval, kwargs):
         start = kwargs.get("start", None)
