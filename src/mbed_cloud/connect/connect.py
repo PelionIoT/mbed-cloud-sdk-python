@@ -74,7 +74,6 @@ class ConnectAPI(BaseAPI):
             mds.DeviceRequestsApi,
             mds.ResourcesApi,
             mds.SubscriptionsApi,
-            mds.WebsocketApi,
         ],
         statistics: [statistics.AccountApi, statistics.StatisticsApi],
         device_directory: [device_directory.DefaultApi],
@@ -729,7 +728,7 @@ class ConnectAPI(BaseAPI):
 
         :return: The currently set websocket
         """
-        api = self._get_api(mds.WebsocketApi)
+        api = self._get_api(mds.NotificationsApi)
         return Websocket(api.get_websocket())
 
     @catch_exceptions(mds.rest.ApiException)
@@ -738,7 +737,7 @@ class ConnectAPI(BaseAPI):
 
         :return: The set websocket
         """
-        api = self._get_api(mds.WebsocketApi)
+        api = self._get_api(mds.NotificationsApi)
         return Websocket(api.register_websocket())
 
     @catch_exceptions(mds.rest.ApiException)
@@ -747,7 +746,7 @@ class ConnectAPI(BaseAPI):
 
         :return: void
         """
-        api = self._get_api(mds.WebsocketApi)
+        api = self._get_api(mds.NotificationsApi)
         api.delete_websocket()
 
     @catch_exceptions(statistics.rest.ApiException)
