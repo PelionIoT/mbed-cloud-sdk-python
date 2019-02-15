@@ -845,8 +845,7 @@ class ConnectAPI(BaseAPI):
                 pass
 
             # check for webhook
-            if self.get_webhook:
-                raise CloudApiException("cannot call %s because a webhook exists", method_name)
+            self._fail_if_webhook_is_setup(method_name)
 
     def _subscription_handler(self, queue, device_id, path, callback_fn):
         while True:

@@ -32,6 +32,7 @@ from mbed_cloud.exceptions import CloudTimeoutError
 from mbed_cloud.exceptions import CloudUnhandledError
 from websocket import WebSocketApp
 from mbed_cloud.exceptions import CloudApiException
+from mbed_cloud._backends.mds import NotificationMessage
 
 LOG = logging.getLogger(__name__)
 
@@ -186,6 +187,10 @@ def handle_channel_message(db, queues, b64decode, notification_object):
 
 
 class NotificationsThread(threading.Thread):
+    class NotificationWebsocketMessage(object):
+        def __init__(self, message):
+            self.data = message
+
     """A thread object"""
 
     def __init__(self, db, queues, b64decode=True, notifications_api=None,
@@ -207,6 +212,7 @@ class NotificationsThread(threading.Thread):
         self._host = notifications_api.api_client.configuration.host
         self._force_clear = force_clear
         self._logger = logger
+        self._api_client = notifications_api.api_client
 
     @catch_exceptions(mds.rest.ApiException)
     @functools.wraps(threading.Thread.run)
@@ -222,7 +228,14 @@ class NotificationsThread(threading.Thread):
             if self._stopping:
                 self.stop()
             if self._logger:
-                self._logger.debug('received data: %s', data)
+                self._logger.debug('received notification data: %s', data)
+            try:
+                data = self._api_client.deserialize(NotificationsThread.NotificationWebsocketMessage(data),
+                                                    NotificationMessage)
+            except Exception as e:
+                if self._logger:
+                    self._logger.error('Could not deserialise received notification: %s because %s ', data, e)
+
             handle_channel_message(
                 db=self.db,
                 queues=self.queues,
