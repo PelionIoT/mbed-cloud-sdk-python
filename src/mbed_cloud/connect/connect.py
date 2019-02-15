@@ -832,19 +832,6 @@ class ConnectAPI(BaseAPI):
         api = self._get_api(statistics.StatisticsApi)
         return PaginatedResponse(api.get_metrics, lwrap_type=Metric, **kwargs)
 
-    def _pre_device_request_check(self, method_name):
-        if self._autostart_notifications:
-            self.start_notifications()
-        else:
-            # force clear is true so clear all channels
-            if self._force_clear:
-                # delete shit
-                pass
-
-            # check for webhook
-            if self.get_webhook:
-                raise CloudApiException("cannot call %s because a webhook exists", method_name)
-
     def _subscription_handler(self, queue, device_id, path, callback_fn):
         while True:
             value = queue.get()
