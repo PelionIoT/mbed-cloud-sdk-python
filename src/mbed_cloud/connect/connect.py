@@ -93,6 +93,7 @@ class ConnectAPI(BaseAPI):
         self._db = {}
         self._queues = defaultdict(dict)
 
+        self._delivery_method = None
         # check for autostart_notification_thread if autostart_notifications is not set, for backwards compatibility
         self._autostart_notifications = self.config.get('autostart_notifications',
                                                         self.config.get('autostart_notification_thread'))
@@ -844,7 +845,8 @@ class ConnectAPI(BaseAPI):
                 pass
 
             # check for webhook
-            self._fail_if_webhook_is_setup(method_name)
+            if self.get_webhook:
+                raise CloudApiException("cannot call %s because a webhook exists", method_name)
 
     def _subscription_handler(self, queue, device_id, path, callback_fn):
         while True:
