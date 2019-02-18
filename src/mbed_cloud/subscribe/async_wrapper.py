@@ -18,6 +18,7 @@
 from builtins import object
 from multiprocessing.pool import ThreadPool
 
+import queue
 import functools
 import logging
 import six
@@ -115,13 +116,12 @@ class AsyncWrapper(object):
                 )
         return self._deferable
 
-    def block(self, *args, **kwargs):
+    def block(self, timeout=None):
         """Call the wrapped function, and wait for the result in a blocking fashion
 
         Returns the result of the function call.
 
-        :param args:
-        :param kwargs:
+        :param float timeout: Time in seconds to wait for result.
         :return: result of function call
         """
         LOG.debug(
@@ -137,9 +137,12 @@ class AsyncWrapper(object):
             raise RuntimeError('Already activated this call by deferring it')
         with self._lock:
             if not hasattr(self, '_result'):
-                self._result = (
-                    self._concurrency_provider.run_until_complete(self.defer(*args, **kwargs))
-                    if self._is_asyncio_provider else self._func(*args, **kwargs)
-                )
+                try:
+                    self._result = (
+                        self._concurrency_provider.run_until_complete(self.defer(timeout=timeout))
+                        if self._is_asyncio_provider else self._func(timeout=timeout)
+                    )
+                except queue.Empty:
+                    raise TimeoutError("No data received after %.1f seconds." % timeout)
             self._blocked = True
         return self._result

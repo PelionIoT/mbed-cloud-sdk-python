@@ -1,0 +1,1 @@
+Fix to subscription filtering, also a timeout on a blocking subscription now raises a Timeout not a Queue.empty exception.
