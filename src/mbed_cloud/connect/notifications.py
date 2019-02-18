@@ -275,7 +275,7 @@ class NotificationsThread(threading.Thread):
 
         return on_open
 
-    def _register_websocket(self):
+    def register_websocket(self):
         if self._stopping:
             self.stop()
 
@@ -294,7 +294,7 @@ class NotificationsThread(threading.Thread):
             else:
                 self._log_error(error, reason)
 
-    def _get_websocket(self):
+    def get_websocket(self):
         if self._stopping:
             self.stop()
         websocket_channel = False
@@ -308,7 +308,7 @@ class NotificationsThread(threading.Thread):
         else:
             self._register_websocket()
 
-    def _delete_websocket_channel(self):
+    def delete_websocket_channel(self):
         if self._stopping:
             self.stop()
         try:
@@ -338,7 +338,7 @@ class NotificationsThread(threading.Thread):
             self.stop()
         self._get_websocket()
 
-    def _start_websocket(self):
+    def start_websocket(self):
         if self._stopping:
             self.stop()
         self._ws = WebSocketApp('%s/v2/notification/websocket-connect' % self._host.replace('https', 'wss'),

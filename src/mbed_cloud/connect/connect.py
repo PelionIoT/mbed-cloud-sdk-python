@@ -115,9 +115,11 @@ class ConnectAPI(BaseAPI):
 
     def ensure_notifications_thread(self):
         """Ensure notification thread is running"""
-        if self._autostart_notifications:
-            if not self.has_active_notification_thread:
+        if not self.has_active_notification_thread:
+            if self._autostart_notifications:
                 self.start_notifications()
+            else:
+                raise CloudApiException("notifications not running, please call start_notifications first")
 
     def start_notifications(self):
         """Start the notifications thread.
@@ -147,11 +149,6 @@ class ConnectAPI(BaseAPI):
             if self.has_active_notification_thread:
                 return
 
-            # force clear is true so clear all channels
-            if self._force_clear:
-                # TODO delete webhook or websocket
-                pass
-
             # check for webhook
             self._fail_if_webhook_is_setup("start notifications")
 
@@ -165,6 +162,11 @@ class ConnectAPI(BaseAPI):
                 force_clear=self._force_clear,
                 logger=LOG
             )
+
+            # force clear is true so clear all channels
+            if self._force_clear:
+                self._perform_force_clear()
+
             self._notifications_thread.daemon = True
             self._notifications_thread.start()
 
@@ -184,9 +186,8 @@ class ConnectAPI(BaseAPI):
             self._notifications_thread = None
             stopping = thread.stop()
             if not self._skip_cleanup:
-                # TODO delete websocket and clear subscriptions
-                api = self._get_api(mds.NotificationsApi)
-                api.delete_long_poll_channel()
+                self.delete_websocket()
+                # TODO clear subscriptions
             return stopping.wait()
 
     @catch_exceptions(device_directory.rest.ApiException)
@@ -233,7 +234,6 @@ class ConnectAPI(BaseAPI):
         :returns: a list of connected :py:class:`Device` objects.
         :rtype: PaginatedResponse
         """
-        # TODO(pick one of these)
         filter_or_filters = 'filter' if 'filter' in kwargs else 'filters'
         kwargs.setdefault(filter_or_filters, {}).setdefault('state', {'$eq': 'registered'})
         kwargs = self._verify_sort_options(kwargs)
@@ -336,7 +336,6 @@ class ConnectAPI(BaseAPI):
         :returns: The resource value for the requested resource path
         :rtype: str
         """
-        self.ensure_notifications_thread()
         return self.get_resource_value_async(device_id, resource_path, fix_path).wait(timeout)
 
     @catch_exceptions(mds.rest.ApiException)
@@ -363,7 +362,6 @@ class ConnectAPI(BaseAPI):
         :returns: The value of the new resource
         :rtype: str
         """
-        self.ensure_notifications_thread()
         return self.set_resource_value_async(
             device_id, resource_path, resource_value
         ).wait(timeout)
@@ -427,7 +425,6 @@ class ConnectAPI(BaseAPI):
         :returns: The value returned from the function executed on the resource
         :rtype: str
         """
-        self.ensure_notifications_thread()
         return self.execute_resource_async(device_id, resource_path).wait(timeout)
 
     @catch_exceptions(mds.rest.ApiException)
@@ -730,8 +727,7 @@ class ConnectAPI(BaseAPI):
         api = self._get_api(mds.NotificationsApi)
 
         if self._force_clear:
-            # TODO Delete webhook or websocket
-            pass
+            self._perform_force_clear()
 
         # Send the request to register the webhook
         webhook_obj = WebhookData(url=url, headers=headers)
@@ -835,17 +831,14 @@ class ConnectAPI(BaseAPI):
         api = self._get_api(statistics.StatisticsApi)
         return PaginatedResponse(api.get_metrics, lwrap_type=Metric, **kwargs)
 
-    def _pre_device_request_check(self, method_name):
-        if self._autostart_notifications:
-            self.start_notifications()
-        else:
-            # force clear is true so clear all channels
-            if self._force_clear:
-                # delete shit
-                pass
-
-            # check for webhook
-            self._fail_if_webhook_is_setup(method_name)
+    def _perform_force_clear(self):
+        try:
+            self.delete_websocket()
+            self.delete_webhook()
+        except CloudApiException:
+            # don't care if these fail because there may be nothing to clear
+            pass
+        pass
 
     def _subscription_handler(self, queue, device_id, path, callback_fn):
         while True:
