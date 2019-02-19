@@ -936,6 +936,16 @@
                     "_key": "password_policy"
                   },
                   {
+                    "type": "integer",
+                    "format": "int32",
+                    "minimum": 1,
+                    "maximum": 45,
+                    "description": "Indicates how many minutes a password recovery email for users of this account is valid for. Valid range is: 1-45.",
+                    "api_fieldname": "password_recovery_expiration",
+                    "entity_fieldname": "password_recovery_expiration",
+                    "_key": "password_recovery_expiration"
+                  },
+                  {
                     "type": "string",
                     "example": "+44 (1223) 400 400",
                     "description": "The phone number of a representative of the company.",
@@ -1318,6 +1328,14 @@
                             "entity": "password_policy"
                           },
                           "_key": "password_policy"
+                        },
+                        {
+                          "type": "integer",
+                          "format": "int32",
+                          "minimum": 1,
+                          "maximum": 45,
+                          "description": "Indicates how many minutes a password recovery email for users of this account is valid for. Valid range is: 1-45.",
+                          "_key": "password_recovery_expiration"
                         },
                         {
                           "type": "string",
@@ -1759,7 +1777,8 @@
             "parent_account",
             "expiration",
             "admin_id",
-            "admin_key"
+            "admin_key",
+            "password_recovery_expiration"
           ],
           "group_id": "Accounts",
           "parameter_map": {
@@ -2139,6 +2158,16 @@
                     "api_fieldname": "password_policy",
                     "entity_fieldname": "password_policy",
                     "_key": "password_policy"
+                  },
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "minimum": 1,
+                    "maximum": 45,
+                    "description": "Indicates how many minutes a password recovery email for users of this account is valid for. Valid range is: 1-45.",
+                    "api_fieldname": "password_recovery_expiration",
+                    "entity_fieldname": "password_recovery_expiration",
+                    "_key": "password_recovery_expiration"
                   },
                   {
                     "type": "string",
@@ -2523,6 +2552,14 @@
                             "entity": "password_policy"
                           },
                           "_key": "password_policy"
+                        },
+                        {
+                          "type": "integer",
+                          "format": "int32",
+                          "minimum": 1,
+                          "maximum": 45,
+                          "description": "Indicates how many minutes a password recovery email for users of this account is valid for. Valid range is: 1-45.",
+                          "_key": "password_recovery_expiration"
                         },
                         {
                           "type": "string",
@@ -2982,7 +3019,8 @@
             "admin_email",
             "admin_key",
             "admin_password",
-            "admin_full_name"
+            "admin_full_name",
+            "password_recovery_expiration"
           ],
           "group_id": "Accounts",
           "parameter_map": {
@@ -3368,6 +3406,14 @@
                           "_key": "password_policy"
                         },
                         {
+                          "type": "integer",
+                          "format": "int32",
+                          "minimum": 1,
+                          "maximum": 45,
+                          "description": "Indicates how many minutes a password recovery email for users of this account is valid for. Valid range is: 1-45.",
+                          "_key": "password_recovery_expiration"
+                        },
+                        {
                           "type": "string",
                           "example": "+44 (1223) 400 400",
                           "description": "The phone number of a representative of the company.",
@@ -3734,6 +3780,14 @@
                                   "entity": "password_policy"
                                 },
                                 "_key": "password_policy"
+                              },
+                              {
+                                "type": "integer",
+                                "format": "int32",
+                                "minimum": 1,
+                                "maximum": 45,
+                                "description": "Indicates how many minutes a password recovery email for users of this account is valid for. Valid range is: 1-45.",
+                                "_key": "password_recovery_expiration"
                               },
                               {
                                 "type": "string",
@@ -4509,6 +4563,16 @@
                     "_key": "password_policy"
                   },
                   {
+                    "type": "integer",
+                    "format": "int32",
+                    "minimum": 1,
+                    "maximum": 45,
+                    "description": "Indicates how many minutes a password recovery email for users of this account is valid for. Valid range is: 1-45.",
+                    "api_fieldname": "password_recovery_expiration",
+                    "entity_fieldname": "password_recovery_expiration",
+                    "_key": "password_recovery_expiration"
+                  },
+                  {
                     "type": "string",
                     "example": "+44 (1223) 400 400",
                     "description": "The phone number of a representative of the company.",
@@ -4891,6 +4955,14 @@
                             "entity": "password_policy"
                           },
                           "_key": "password_policy"
+                        },
+                        {
+                          "type": "integer",
+                          "format": "int32",
+                          "minimum": 1,
+                          "maximum": 45,
+                          "description": "Indicates how many minutes a password recovery email for users of this account is valid for. Valid range is: 1-45.",
+                          "_key": "password_recovery_expiration"
                         },
                         {
                           "type": "string",
@@ -5278,7 +5350,8 @@
             "admin_email",
             "admin_key",
             "admin_password",
-            "admin_full_name"
+            "admin_full_name",
+            "password_recovery_expiration"
           ],
           "group_id": "Accounts",
           "parameter_map": {
@@ -5527,6 +5600,13 @@
                           "example": "2018-02-14T15:24:14Z",
                           "description": "Last update UTC time RFC3339.",
                           "_key": "updated_at"
+                        },
+                        {
+                          "type": "boolean",
+                          "example": true,
+                          "description": "This read-only flag indicates whether the certificate is valid or not.",
+                          "readOnly": true,
+                          "_key": "valid"
                         },
                         {
                           "type": "string",
@@ -5864,7 +5944,8 @@
             "enrollment_mode__eq",
             "status__eq",
             "issuer__like",
-            "subject__like"
+            "subject__like",
+            "valid__eq"
           ],
           "group_id": "Accounts",
           "parameter_map": {
@@ -6112,6 +6193,19 @@
               "parameter_fieldname": "password_policy",
               "in": "body",
               "_key": "password_policy"
+            },
+            {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1,
+              "maximum": 45,
+              "description": "Indicates how many minutes a password recovery email for users of this account is valid for. Valid range is: 1-45.",
+              "api_fieldname": "password_recovery_expiration",
+              "entity_fieldname": "password_recovery_expiration",
+              "parameter_fieldname": "password_recovery_expiration",
+              "in": "body",
+              "required": false,
+              "_key": "password_recovery_expiration"
             },
             {
               "type": "string",
@@ -6488,6 +6582,16 @@
                     "api_fieldname": "password_policy",
                     "entity_fieldname": "password_policy",
                     "_key": "password_policy"
+                  },
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "minimum": 1,
+                    "maximum": 45,
+                    "description": "Indicates how many minutes a password recovery email for users of this account is valid for. Valid range is: 1-45.",
+                    "api_fieldname": "password_recovery_expiration",
+                    "entity_fieldname": "password_recovery_expiration",
+                    "_key": "password_recovery_expiration"
                   },
                   {
                     "type": "string",
@@ -6872,6 +6976,14 @@
                             "entity": "password_policy"
                           },
                           "_key": "password_policy"
+                        },
+                        {
+                          "type": "integer",
+                          "format": "int32",
+                          "minimum": 1,
+                          "maximum": 45,
+                          "description": "Indicates how many minutes a password recovery email for users of this account is valid for. Valid range is: 1-45.",
+                          "_key": "password_recovery_expiration"
                         },
                         {
                           "type": "string",
@@ -8078,6 +8190,64 @@
                           "_key": "account_id"
                         },
                         {
+                          "type": "array",
+                          "description": "List of active user sessions.",
+                          "items": {
+                            "type": "object",
+                            "required": [
+                              "account_id",
+                              "ip_address",
+                              "login_time",
+                              "object",
+                              "reference_token",
+                              "user_agent"
+                            ],
+                            "properties": [
+                              {
+                                "type": "string",
+                                "example": "01619571e2e90242ac12000600000000",
+                                "description": "The UUID of the account.",
+                                "_key": "account_id"
+                              },
+                              {
+                                "type": "string",
+                                "example": "127.0.0.1",
+                                "description": "IP address of the client.",
+                                "_key": "ip_address"
+                              },
+                              {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "2018-02-14T17:52:07Z",
+                                "description": "The login time of the user.",
+                                "_key": "login_time"
+                              },
+                              {
+                                "type": "string",
+                                "description": "Entity name: always 'user-session'",
+                                "enum": [
+                                  "user-session"
+                                ],
+                                "_key": "object"
+                              },
+                              {
+                                "type": "string",
+                                "example": "rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk",
+                                "description": "The reference token.",
+                                "_key": "reference_token"
+                              },
+                              {
+                                "type": "string",
+                                "example": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36",
+                                "description": "User Agent header from the login request.",
+                                "_key": "user_agent"
+                              }
+                            ],
+                            "description": "This object represents an active user session."
+                          },
+                          "_key": "active_sessions"
+                        },
+                        {
                           "type": "string",
                           "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
                           "description": "Address.",
@@ -8096,6 +8266,14 @@
                           "example": 1518630727683,
                           "description": "A timestamp of the user creation in the storage, in milliseconds.",
                           "_key": "creation_time"
+                        },
+                        {
+                          "type": "object",
+                          "description": "User's account specific custom properties. The value is a string.",
+                          "additionalProperties": {
+                            "type": "string"
+                          },
+                          "_key": "custom_fields"
                         },
                         {
                           "type": "string",
@@ -8303,6 +8481,14 @@
                             "INACTIVE"
                           ],
                           "_key": "status"
+                        },
+                        {
+                          "type": "array",
+                          "description": "A list of scratch codes for the 2-factor authentication. Visible only when 2FA is requested to be enabled or the codes regenerated.",
+                          "items": {
+                            "type": "string"
+                          },
+                          "_key": "totp_scratch_codes"
                         },
                         {
                           "type": "string",
@@ -8980,6 +9166,17 @@
           "api_fieldname": "password_policy",
           "readOnly": false,
           "_key": "password_policy"
+        },
+        {
+          "type": "integer",
+          "format": "int32",
+          "minimum": 1,
+          "maximum": 45,
+          "description": "Indicates how many minutes a password recovery email for users of this account is valid for. Valid range is: 1-45.",
+          "api_fieldname": "password_recovery_expiration",
+          "readOnly": false,
+          "required": false,
+          "_key": "password_recovery_expiration"
         },
         {
           "type": "string",
@@ -19036,6 +19233,15 @@
                     "_key": "updated_at"
                   },
                   {
+                    "type": "boolean",
+                    "example": true,
+                    "description": "This read-only flag indicates whether the certificate is valid or not.",
+                    "readOnly": true,
+                    "api_fieldname": "valid",
+                    "entity_fieldname": "valid",
+                    "_key": "valid"
+                  },
+                  {
                     "type": "string",
                     "format": "date-time",
                     "example": "2038-02-14T15:24:14Z",
@@ -19303,7 +19509,8 @@
             "validity",
             "status",
             "enrollment_mode",
-            "certificate_fingerprint"
+            "certificate_fingerprint",
+            "valid"
           ],
           "group_id": "Security",
           "parameter_map": {
@@ -27236,6 +27443,15 @@
                     "_key": "updated_at"
                   },
                   {
+                    "type": "boolean",
+                    "example": true,
+                    "description": "This read-only flag indicates whether the certificate is valid or not.",
+                    "readOnly": true,
+                    "api_fieldname": "valid",
+                    "entity_fieldname": "valid",
+                    "_key": "valid"
+                  },
+                  {
                     "type": "string",
                     "format": "date-time",
                     "example": "2038-02-14T15:24:14Z",
@@ -27571,7 +27787,8 @@
             "issuer",
             "subject",
             "validity",
-            "certificate_fingerprint"
+            "certificate_fingerprint",
+            "valid"
           ],
           "group_id": "Security",
           "operation_id": "addAccountCertificate",
@@ -28127,6 +28344,15 @@
                     "_key": "updated_at"
                   },
                   {
+                    "type": "boolean",
+                    "example": true,
+                    "description": "This read-only flag indicates whether the certificate is valid or not.",
+                    "readOnly": true,
+                    "api_fieldname": "valid",
+                    "entity_fieldname": "valid",
+                    "_key": "valid"
+                  },
+                  {
                     "type": "string",
                     "format": "date-time",
                     "example": "2038-02-14T15:24:14Z",
@@ -28393,7 +28619,8 @@
             "validity",
             "status",
             "enrollment_mode",
-            "certificate_fingerprint"
+            "certificate_fingerprint",
+            "valid"
           ],
           "group_id": "Security",
           "operation_id": "getAccountCertificate",
@@ -29139,6 +29366,15 @@
                     "_key": "updated_at"
                   },
                   {
+                    "type": "boolean",
+                    "example": true,
+                    "description": "This read-only flag indicates whether the certificate is valid or not.",
+                    "readOnly": true,
+                    "api_fieldname": "valid",
+                    "entity_fieldname": "valid",
+                    "_key": "valid"
+                  },
+                  {
                     "type": "string",
                     "format": "date-time",
                     "example": "2038-02-14T15:24:14Z",
@@ -29473,7 +29709,8 @@
             "issuer",
             "subject",
             "validity",
-            "certificate_fingerprint"
+            "certificate_fingerprint",
+            "valid"
           ],
           "group_id": "Security",
           "operation_id": "updateAccountCertificate",
@@ -29660,6 +29897,15 @@
           "readOnly": true,
           "required": false,
           "_key": "updated_at"
+        },
+        {
+          "type": "boolean",
+          "example": true,
+          "description": "This read-only flag indicates whether the certificate is valid or not.",
+          "readOnly": true,
+          "api_fieldname": "valid",
+          "required": false,
+          "_key": "valid"
         },
         {
           "type": "string",
@@ -29898,6 +30144,66 @@
                     "_key": "account_id"
                   },
                   {
+                    "type": "array",
+                    "description": "List of active user sessions.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "account_id",
+                        "ip_address",
+                        "login_time",
+                        "object",
+                        "reference_token",
+                        "user_agent"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "example": "01619571e2e90242ac12000600000000",
+                          "description": "The UUID of the account.",
+                          "_key": "account_id"
+                        },
+                        {
+                          "type": "string",
+                          "example": "127.0.0.1",
+                          "description": "IP address of the client.",
+                          "_key": "ip_address"
+                        },
+                        {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2018-02-14T17:52:07Z",
+                          "description": "The login time of the user.",
+                          "_key": "login_time"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Entity name: always 'user-session'",
+                          "enum": [
+                            "user-session"
+                          ],
+                          "_key": "object"
+                        },
+                        {
+                          "type": "string",
+                          "example": "rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk",
+                          "description": "The reference token.",
+                          "_key": "reference_token"
+                        },
+                        {
+                          "type": "string",
+                          "example": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36",
+                          "description": "User Agent header from the login request.",
+                          "_key": "user_agent"
+                        }
+                      ],
+                      "description": "This object represents an active user session."
+                    },
+                    "api_fieldname": "active_sessions",
+                    "entity_fieldname": "active_sessions",
+                    "_key": "active_sessions"
+                  },
+                  {
                     "type": "string",
                     "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
                     "description": "Address.",
@@ -29925,6 +30231,16 @@
                     "api_fieldname": "creation_time",
                     "entity_fieldname": "creation_time",
                     "_key": "creation_time"
+                  },
+                  {
+                    "type": "object",
+                    "description": "User's account specific custom properties. The value is a string.",
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "api_fieldname": "custom_fields",
+                    "entity_fieldname": "custom_fields",
+                    "_key": "custom_fields"
                   },
                   {
                     "type": "string",
@@ -30202,6 +30518,16 @@
                     "in": "body",
                     "required": false,
                     "_key": "status"
+                  },
+                  {
+                    "type": "array",
+                    "description": "A list of scratch codes for the 2-factor authentication. Visible only when 2FA is requested to be enabled or the codes regenerated.",
+                    "items": {
+                      "type": "string"
+                    },
+                    "api_fieldname": "totp_scratch_codes",
+                    "entity_fieldname": "totp_scratch_codes",
+                    "_key": "totp_scratch_codes"
                   },
                   {
                     "type": "string",
@@ -30624,6 +30950,9 @@
             "last_login_time",
             "password_changed_time",
             "login_history",
+            "totp_scratch_codes",
+            "custom_fields",
+            "active_sessions",
             "two_factor_authentication"
           ],
           "group_id": "Accounts",
@@ -31067,6 +31396,66 @@
                     "_key": "account_id"
                   },
                   {
+                    "type": "array",
+                    "description": "List of active user sessions.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "account_id",
+                        "ip_address",
+                        "login_time",
+                        "object",
+                        "reference_token",
+                        "user_agent"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "example": "01619571e2e90242ac12000600000000",
+                          "description": "The UUID of the account.",
+                          "_key": "account_id"
+                        },
+                        {
+                          "type": "string",
+                          "example": "127.0.0.1",
+                          "description": "IP address of the client.",
+                          "_key": "ip_address"
+                        },
+                        {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2018-02-14T17:52:07Z",
+                          "description": "The login time of the user.",
+                          "_key": "login_time"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Entity name: always 'user-session'",
+                          "enum": [
+                            "user-session"
+                          ],
+                          "_key": "object"
+                        },
+                        {
+                          "type": "string",
+                          "example": "rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk",
+                          "description": "The reference token.",
+                          "_key": "reference_token"
+                        },
+                        {
+                          "type": "string",
+                          "example": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36",
+                          "description": "User Agent header from the login request.",
+                          "_key": "user_agent"
+                        }
+                      ],
+                      "description": "This object represents an active user session."
+                    },
+                    "api_fieldname": "active_sessions",
+                    "entity_fieldname": "active_sessions",
+                    "_key": "active_sessions"
+                  },
+                  {
                     "type": "string",
                     "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
                     "description": "Address.",
@@ -31094,6 +31483,16 @@
                     "api_fieldname": "creation_time",
                     "entity_fieldname": "creation_time",
                     "_key": "creation_time"
+                  },
+                  {
+                    "type": "object",
+                    "description": "User's account specific custom properties. The value is a string.",
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "api_fieldname": "custom_fields",
+                    "entity_fieldname": "custom_fields",
+                    "_key": "custom_fields"
                   },
                   {
                     "type": "string",
@@ -31371,6 +31770,16 @@
                     "in": "body",
                     "required": false,
                     "_key": "status"
+                  },
+                  {
+                    "type": "array",
+                    "description": "A list of scratch codes for the 2-factor authentication. Visible only when 2FA is requested to be enabled or the codes regenerated.",
+                    "items": {
+                      "type": "string"
+                    },
+                    "api_fieldname": "totp_scratch_codes",
+                    "entity_fieldname": "totp_scratch_codes",
+                    "_key": "totp_scratch_codes"
                   },
                   {
                     "type": "string",
@@ -31653,6 +32062,9 @@
             "password_changed_time",
             "login_history",
             "login_profiles",
+            "totp_scratch_codes",
+            "custom_fields",
+            "active_sessions",
             "two_factor_authentication",
             "terms_accepted",
             "marketing_accepted"
@@ -31862,6 +32274,66 @@
                     "_key": "account_id"
                   },
                   {
+                    "type": "array",
+                    "description": "List of active user sessions.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "account_id",
+                        "ip_address",
+                        "login_time",
+                        "object",
+                        "reference_token",
+                        "user_agent"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "example": "01619571e2e90242ac12000600000000",
+                          "description": "The UUID of the account.",
+                          "_key": "account_id"
+                        },
+                        {
+                          "type": "string",
+                          "example": "127.0.0.1",
+                          "description": "IP address of the client.",
+                          "_key": "ip_address"
+                        },
+                        {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2018-02-14T17:52:07Z",
+                          "description": "The login time of the user.",
+                          "_key": "login_time"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Entity name: always 'user-session'",
+                          "enum": [
+                            "user-session"
+                          ],
+                          "_key": "object"
+                        },
+                        {
+                          "type": "string",
+                          "example": "rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk",
+                          "description": "The reference token.",
+                          "_key": "reference_token"
+                        },
+                        {
+                          "type": "string",
+                          "example": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36",
+                          "description": "User Agent header from the login request.",
+                          "_key": "user_agent"
+                        }
+                      ],
+                      "description": "This object represents an active user session."
+                    },
+                    "api_fieldname": "active_sessions",
+                    "entity_fieldname": "active_sessions",
+                    "_key": "active_sessions"
+                  },
+                  {
                     "type": "string",
                     "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
                     "description": "Address.",
@@ -31889,6 +32361,16 @@
                     "api_fieldname": "creation_time",
                     "entity_fieldname": "creation_time",
                     "_key": "creation_time"
+                  },
+                  {
+                    "type": "object",
+                    "description": "User's account specific custom properties. The value is a string.",
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "api_fieldname": "custom_fields",
+                    "entity_fieldname": "custom_fields",
+                    "_key": "custom_fields"
                   },
                   {
                     "type": "string",
@@ -32166,6 +32648,16 @@
                     "in": "body",
                     "required": false,
                     "_key": "status"
+                  },
+                  {
+                    "type": "array",
+                    "description": "A list of scratch codes for the 2-factor authentication. Visible only when 2FA is requested to be enabled or the codes regenerated.",
+                    "items": {
+                      "type": "string"
+                    },
+                    "api_fieldname": "totp_scratch_codes",
+                    "entity_fieldname": "totp_scratch_codes",
+                    "_key": "totp_scratch_codes"
                   },
                   {
                     "type": "string",
@@ -32589,7 +33081,10 @@
             "creation_time",
             "last_login_time",
             "password_changed_time",
-            "login_history"
+            "login_history",
+            "totp_scratch_codes",
+            "custom_fields",
+            "active_sessions"
           ],
           "group_id": "Accounts",
           "parameter_map": {
@@ -32906,6 +33401,67 @@
           "_key": "account_id"
         },
         {
+          "type": "array",
+          "description": "List of active user sessions.",
+          "items": {
+            "type": "object",
+            "required": [
+              "account_id",
+              "ip_address",
+              "login_time",
+              "object",
+              "reference_token",
+              "user_agent"
+            ],
+            "properties": [
+              {
+                "type": "string",
+                "example": "01619571e2e90242ac12000600000000",
+                "description": "The UUID of the account.",
+                "_key": "account_id"
+              },
+              {
+                "type": "string",
+                "example": "127.0.0.1",
+                "description": "IP address of the client.",
+                "_key": "ip_address"
+              },
+              {
+                "type": "string",
+                "format": "date-time",
+                "example": "2018-02-14T17:52:07Z",
+                "description": "The login time of the user.",
+                "_key": "login_time"
+              },
+              {
+                "type": "string",
+                "description": "Entity name: always 'user-session'",
+                "enum": [
+                  "user-session"
+                ],
+                "_key": "object"
+              },
+              {
+                "type": "string",
+                "example": "rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk",
+                "description": "The reference token.",
+                "_key": "reference_token"
+              },
+              {
+                "type": "string",
+                "example": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36",
+                "description": "User Agent header from the login request.",
+                "_key": "user_agent"
+              }
+            ],
+            "description": "This object represents an active user session."
+          },
+          "api_fieldname": "active_sessions",
+          "readOnly": true,
+          "required": false,
+          "_key": "active_sessions"
+        },
+        {
           "type": "string",
           "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
           "description": "Address.",
@@ -32935,6 +33491,17 @@
           "readOnly": true,
           "required": false,
           "_key": "creation_time"
+        },
+        {
+          "type": "object",
+          "description": "User's account specific custom properties. The value is a string.",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "api_fieldname": "custom_fields",
+          "readOnly": true,
+          "required": false,
+          "_key": "custom_fields"
         },
         {
           "type": "string",
@@ -33172,6 +33739,17 @@
           "required": false,
           "readOnly": false,
           "_key": "terms_accepted"
+        },
+        {
+          "type": "array",
+          "description": "A list of scratch codes for the 2-factor authentication. Visible only when 2FA is requested to be enabled or the codes regenerated.",
+          "items": {
+            "type": "string"
+          },
+          "api_fieldname": "totp_scratch_codes",
+          "readOnly": true,
+          "required": false,
+          "_key": "totp_scratch_codes"
         },
         {
           "type": "boolean",
@@ -34920,6 +35498,15 @@
                     "_key": "updated_at"
                   },
                   {
+                    "type": "boolean",
+                    "example": true,
+                    "description": "This read-only flag indicates whether the certificate is valid or not.",
+                    "readOnly": true,
+                    "api_fieldname": "valid",
+                    "entity_fieldname": "valid",
+                    "_key": "valid"
+                  },
+                  {
                     "type": "string",
                     "format": "date-time",
                     "example": "2038-02-14T15:24:14Z",
@@ -35256,7 +35843,8 @@
             "issuer",
             "subject",
             "validity",
-            "certificate_fingerprint"
+            "certificate_fingerprint",
+            "valid"
           ],
           "group_id": "Security",
           "operation_id": "addCertificate",
@@ -35766,6 +36354,15 @@
                     "_key": "updated_at"
                   },
                   {
+                    "type": "boolean",
+                    "example": true,
+                    "description": "This read-only flag indicates whether the certificate is valid or not.",
+                    "readOnly": true,
+                    "api_fieldname": "valid",
+                    "entity_fieldname": "valid",
+                    "_key": "valid"
+                  },
+                  {
                     "type": "string",
                     "format": "date-time",
                     "example": "2038-02-14T15:24:14Z",
@@ -36033,7 +36630,8 @@
             "validity",
             "status",
             "enrollment_mode",
-            "certificate_fingerprint"
+            "certificate_fingerprint",
+            "valid"
           ],
           "group_id": "Security",
           "operation_id": "getCertificate",
@@ -36701,6 +37299,13 @@
                           "_key": "updated_at"
                         },
                         {
+                          "type": "boolean",
+                          "example": true,
+                          "description": "This read-only flag indicates whether the certificate is valid or not.",
+                          "readOnly": true,
+                          "_key": "valid"
+                        },
+                        {
                           "type": "string",
                           "format": "date-time",
                           "example": "2038-02-14T15:24:14Z",
@@ -36950,7 +37555,8 @@
             "enrollment_mode__eq",
             "status__eq",
             "issuer__like",
-            "subject__like"
+            "subject__like",
+            "valid__eq"
           ],
           "foreign_key_priority": "self",
           "group_id": "Security",
@@ -37247,6 +37853,15 @@
                     "api_fieldname": "updated_at",
                     "entity_fieldname": "updated_at",
                     "_key": "updated_at"
+                  },
+                  {
+                    "type": "boolean",
+                    "example": true,
+                    "description": "This read-only flag indicates whether the certificate is valid or not.",
+                    "readOnly": true,
+                    "api_fieldname": "valid",
+                    "entity_fieldname": "valid",
+                    "_key": "valid"
                   },
                   {
                     "type": "string",
@@ -37657,7 +38272,8 @@
             "issuer",
             "subject",
             "validity",
-            "certificate_fingerprint"
+            "certificate_fingerprint",
+            "valid"
           ],
           "group_id": "Security",
           "operation_id": "updateCertificate",
@@ -37830,6 +38446,15 @@
           "readOnly": true,
           "required": false,
           "_key": "updated_at"
+        },
+        {
+          "type": "boolean",
+          "example": true,
+          "description": "This read-only flag indicates whether the certificate is valid or not.",
+          "readOnly": true,
+          "api_fieldname": "valid",
+          "required": false,
+          "_key": "valid"
         },
         {
           "type": "string",
@@ -38059,6 +38684,66 @@
                     "_key": "account_id"
                   },
                   {
+                    "type": "array",
+                    "description": "List of active user sessions.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "account_id",
+                        "ip_address",
+                        "login_time",
+                        "object",
+                        "reference_token",
+                        "user_agent"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "example": "01619571e2e90242ac12000600000000",
+                          "description": "The UUID of the account.",
+                          "_key": "account_id"
+                        },
+                        {
+                          "type": "string",
+                          "example": "127.0.0.1",
+                          "description": "IP address of the client.",
+                          "_key": "ip_address"
+                        },
+                        {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2018-02-14T17:52:07Z",
+                          "description": "The login time of the user.",
+                          "_key": "login_time"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Entity name: always 'user-session'",
+                          "enum": [
+                            "user-session"
+                          ],
+                          "_key": "object"
+                        },
+                        {
+                          "type": "string",
+                          "example": "rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk",
+                          "description": "The reference token.",
+                          "_key": "reference_token"
+                        },
+                        {
+                          "type": "string",
+                          "example": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36",
+                          "description": "User Agent header from the login request.",
+                          "_key": "user_agent"
+                        }
+                      ],
+                      "description": "This object represents an active user session."
+                    },
+                    "api_fieldname": "active_sessions",
+                    "entity_fieldname": "active_sessions",
+                    "_key": "active_sessions"
+                  },
+                  {
                     "type": "string",
                     "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
                     "description": "Address.",
@@ -38083,6 +38768,16 @@
                     "api_fieldname": "creation_time",
                     "entity_fieldname": "creation_time",
                     "_key": "creation_time"
+                  },
+                  {
+                    "type": "object",
+                    "description": "User's account specific custom properties. The value is a string.",
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "api_fieldname": "custom_fields",
+                    "entity_fieldname": "custom_fields",
+                    "_key": "custom_fields"
                   },
                   {
                     "type": "string",
@@ -38324,6 +39019,16 @@
                     "api_fieldname": "status",
                     "entity_fieldname": "status",
                     "_key": "status"
+                  },
+                  {
+                    "type": "array",
+                    "description": "A list of scratch codes for the 2-factor authentication. Visible only when 2FA is requested to be enabled or the codes regenerated.",
+                    "items": {
+                      "type": "string"
+                    },
+                    "api_fieldname": "totp_scratch_codes",
+                    "entity_fieldname": "totp_scratch_codes",
+                    "_key": "totp_scratch_codes"
                   },
                   {
                     "type": "string",
@@ -38671,6 +39376,9 @@
             "password_changed_time",
             "account_id",
             "login_history",
+            "totp_scratch_codes",
+            "custom_fields",
+            "active_sessions",
             "two_factor_authentication"
           ],
           "group_id": "Accounts",
@@ -39091,6 +39799,66 @@
                     "_key": "account_id"
                   },
                   {
+                    "type": "array",
+                    "description": "List of active user sessions.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "account_id",
+                        "ip_address",
+                        "login_time",
+                        "object",
+                        "reference_token",
+                        "user_agent"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "example": "01619571e2e90242ac12000600000000",
+                          "description": "The UUID of the account.",
+                          "_key": "account_id"
+                        },
+                        {
+                          "type": "string",
+                          "example": "127.0.0.1",
+                          "description": "IP address of the client.",
+                          "_key": "ip_address"
+                        },
+                        {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2018-02-14T17:52:07Z",
+                          "description": "The login time of the user.",
+                          "_key": "login_time"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Entity name: always 'user-session'",
+                          "enum": [
+                            "user-session"
+                          ],
+                          "_key": "object"
+                        },
+                        {
+                          "type": "string",
+                          "example": "rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk",
+                          "description": "The reference token.",
+                          "_key": "reference_token"
+                        },
+                        {
+                          "type": "string",
+                          "example": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36",
+                          "description": "User Agent header from the login request.",
+                          "_key": "user_agent"
+                        }
+                      ],
+                      "description": "This object represents an active user session."
+                    },
+                    "api_fieldname": "active_sessions",
+                    "entity_fieldname": "active_sessions",
+                    "_key": "active_sessions"
+                  },
+                  {
                     "type": "string",
                     "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
                     "description": "Address.",
@@ -39115,6 +39883,16 @@
                     "api_fieldname": "creation_time",
                     "entity_fieldname": "creation_time",
                     "_key": "creation_time"
+                  },
+                  {
+                    "type": "object",
+                    "description": "User's account specific custom properties. The value is a string.",
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "api_fieldname": "custom_fields",
+                    "entity_fieldname": "custom_fields",
+                    "_key": "custom_fields"
                   },
                   {
                     "type": "string",
@@ -39356,6 +40134,16 @@
                     "api_fieldname": "status",
                     "entity_fieldname": "status",
                     "_key": "status"
+                  },
+                  {
+                    "type": "array",
+                    "description": "A list of scratch codes for the 2-factor authentication. Visible only when 2FA is requested to be enabled or the codes regenerated.",
+                    "items": {
+                      "type": "string"
+                    },
+                    "api_fieldname": "totp_scratch_codes",
+                    "entity_fieldname": "totp_scratch_codes",
+                    "_key": "totp_scratch_codes"
                   },
                   {
                     "type": "string",
@@ -39636,6 +40424,9 @@
             "account_id",
             "login_history",
             "login_profiles",
+            "totp_scratch_codes",
+            "custom_fields",
+            "active_sessions",
             "two_factor_authentication",
             "terms_accepted",
             "marketing_accepted"
@@ -39768,6 +40559,64 @@
                           "_key": "account_id"
                         },
                         {
+                          "type": "array",
+                          "description": "List of active user sessions.",
+                          "items": {
+                            "type": "object",
+                            "required": [
+                              "account_id",
+                              "ip_address",
+                              "login_time",
+                              "object",
+                              "reference_token",
+                              "user_agent"
+                            ],
+                            "properties": [
+                              {
+                                "type": "string",
+                                "example": "01619571e2e90242ac12000600000000",
+                                "description": "The UUID of the account.",
+                                "_key": "account_id"
+                              },
+                              {
+                                "type": "string",
+                                "example": "127.0.0.1",
+                                "description": "IP address of the client.",
+                                "_key": "ip_address"
+                              },
+                              {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "2018-02-14T17:52:07Z",
+                                "description": "The login time of the user.",
+                                "_key": "login_time"
+                              },
+                              {
+                                "type": "string",
+                                "description": "Entity name: always 'user-session'",
+                                "enum": [
+                                  "user-session"
+                                ],
+                                "_key": "object"
+                              },
+                              {
+                                "type": "string",
+                                "example": "rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk",
+                                "description": "The reference token.",
+                                "_key": "reference_token"
+                              },
+                              {
+                                "type": "string",
+                                "example": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36",
+                                "description": "User Agent header from the login request.",
+                                "_key": "user_agent"
+                              }
+                            ],
+                            "description": "This object represents an active user session."
+                          },
+                          "_key": "active_sessions"
+                        },
+                        {
                           "type": "string",
                           "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
                           "description": "Address.",
@@ -39786,6 +40635,14 @@
                           "example": 1518630727683,
                           "description": "A timestamp of the user creation in the storage, in milliseconds.",
                           "_key": "creation_time"
+                        },
+                        {
+                          "type": "object",
+                          "description": "User's account specific custom properties. The value is a string.",
+                          "additionalProperties": {
+                            "type": "string"
+                          },
+                          "_key": "custom_fields"
                         },
                         {
                           "type": "string",
@@ -39993,6 +40850,14 @@
                             "INACTIVE"
                           ],
                           "_key": "status"
+                        },
+                        {
+                          "type": "array",
+                          "description": "A list of scratch codes for the 2-factor authentication. Visible only when 2FA is requested to be enabled or the codes regenerated.",
+                          "items": {
+                            "type": "string"
+                          },
+                          "_key": "totp_scratch_codes"
                         },
                         {
                           "type": "string",
@@ -40446,6 +41311,66 @@
                     "_key": "account_id"
                   },
                   {
+                    "type": "array",
+                    "description": "List of active user sessions.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "account_id",
+                        "ip_address",
+                        "login_time",
+                        "object",
+                        "reference_token",
+                        "user_agent"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "example": "01619571e2e90242ac12000600000000",
+                          "description": "The UUID of the account.",
+                          "_key": "account_id"
+                        },
+                        {
+                          "type": "string",
+                          "example": "127.0.0.1",
+                          "description": "IP address of the client.",
+                          "_key": "ip_address"
+                        },
+                        {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2018-02-14T17:52:07Z",
+                          "description": "The login time of the user.",
+                          "_key": "login_time"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Entity name: always 'user-session'",
+                          "enum": [
+                            "user-session"
+                          ],
+                          "_key": "object"
+                        },
+                        {
+                          "type": "string",
+                          "example": "rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk",
+                          "description": "The reference token.",
+                          "_key": "reference_token"
+                        },
+                        {
+                          "type": "string",
+                          "example": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36",
+                          "description": "User Agent header from the login request.",
+                          "_key": "user_agent"
+                        }
+                      ],
+                      "description": "This object represents an active user session."
+                    },
+                    "api_fieldname": "active_sessions",
+                    "entity_fieldname": "active_sessions",
+                    "_key": "active_sessions"
+                  },
+                  {
                     "type": "string",
                     "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
                     "description": "Address.",
@@ -40470,6 +41395,16 @@
                     "api_fieldname": "creation_time",
                     "entity_fieldname": "creation_time",
                     "_key": "creation_time"
+                  },
+                  {
+                    "type": "object",
+                    "description": "User's account specific custom properties. The value is a string.",
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "api_fieldname": "custom_fields",
+                    "entity_fieldname": "custom_fields",
+                    "_key": "custom_fields"
                   },
                   {
                     "type": "string",
@@ -40711,6 +41646,16 @@
                     "api_fieldname": "status",
                     "entity_fieldname": "status",
                     "_key": "status"
+                  },
+                  {
+                    "type": "array",
+                    "description": "A list of scratch codes for the 2-factor authentication. Visible only when 2FA is requested to be enabled or the codes regenerated.",
+                    "items": {
+                      "type": "string"
+                    },
+                    "api_fieldname": "totp_scratch_codes",
+                    "entity_fieldname": "totp_scratch_codes",
+                    "_key": "totp_scratch_codes"
                   },
                   {
                     "type": "string",
@@ -41132,7 +42077,10 @@
             "last_login_time",
             "password_changed_time",
             "account_id",
-            "login_history"
+            "login_history",
+            "totp_scratch_codes",
+            "custom_fields",
+            "active_sessions"
           ],
           "group_id": "Accounts",
           "parameter_map": {
@@ -41152,6 +42100,67 @@
           "readOnly": true,
           "required": false,
           "_key": "account_id"
+        },
+        {
+          "type": "array",
+          "description": "List of active user sessions.",
+          "items": {
+            "type": "object",
+            "required": [
+              "account_id",
+              "ip_address",
+              "login_time",
+              "object",
+              "reference_token",
+              "user_agent"
+            ],
+            "properties": [
+              {
+                "type": "string",
+                "example": "01619571e2e90242ac12000600000000",
+                "description": "The UUID of the account.",
+                "_key": "account_id"
+              },
+              {
+                "type": "string",
+                "example": "127.0.0.1",
+                "description": "IP address of the client.",
+                "_key": "ip_address"
+              },
+              {
+                "type": "string",
+                "format": "date-time",
+                "example": "2018-02-14T17:52:07Z",
+                "description": "The login time of the user.",
+                "_key": "login_time"
+              },
+              {
+                "type": "string",
+                "description": "Entity name: always 'user-session'",
+                "enum": [
+                  "user-session"
+                ],
+                "_key": "object"
+              },
+              {
+                "type": "string",
+                "example": "rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk",
+                "description": "The reference token.",
+                "_key": "reference_token"
+              },
+              {
+                "type": "string",
+                "example": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36",
+                "description": "User Agent header from the login request.",
+                "_key": "user_agent"
+              }
+            ],
+            "description": "This object represents an active user session."
+          },
+          "api_fieldname": "active_sessions",
+          "readOnly": true,
+          "required": false,
+          "_key": "active_sessions"
         },
         {
           "type": "string",
@@ -41181,6 +42190,17 @@
           "readOnly": true,
           "required": false,
           "_key": "creation_time"
+        },
+        {
+          "type": "object",
+          "description": "User's account specific custom properties. The value is a string.",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "api_fieldname": "custom_fields",
+          "readOnly": true,
+          "required": false,
+          "_key": "custom_fields"
         },
         {
           "type": "string",
@@ -41400,6 +42420,17 @@
           "readOnly": false,
           "required": false,
           "_key": "terms_accepted"
+        },
+        {
+          "type": "array",
+          "description": "A list of scratch codes for the 2-factor authentication. Visible only when 2FA is requested to be enabled or the codes regenerated.",
+          "items": {
+            "type": "string"
+          },
+          "api_fieldname": "totp_scratch_codes",
+          "readOnly": true,
+          "required": false,
+          "_key": "totp_scratch_codes"
         },
         {
           "type": "boolean",

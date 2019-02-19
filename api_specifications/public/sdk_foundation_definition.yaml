@@ -258,6 +258,16 @@ entities:
     readOnly: false
     required: false
     type: object
+  - _key: password_recovery_expiration
+    api_fieldname: password_recovery_expiration
+    description: 'Indicates how many minutes a password recovery email for users of
+      this account is valid for. Valid range is: 1-45.'
+    format: int32
+    maximum: 45
+    minimum: 1
+    readOnly: false
+    required: false
+    type: integer
   - _key: phone_number
     api_fieldname: phone_number
     description: The phone number of a representative of the company.
@@ -435,6 +445,7 @@ entities:
     - expiration
     - admin_id
     - admin_key
+    - password_recovery_expiration
     field_renames: []
     fields:
     - _key: action
@@ -886,6 +897,15 @@ entities:
           required:
           - minimum_length
           type: object
+        - _key: password_recovery_expiration
+          api_fieldname: password_recovery_expiration
+          description: 'Indicates how many minutes a password recovery email for users
+            of this account is valid for. Valid range is: 1-45.'
+          entity_fieldname: password_recovery_expiration
+          format: int32
+          maximum: 45
+          minimum: 1
+          type: integer
         - _key: phone_number
           api_fieldname: phone_number
           description: The phone number of a representative of the company.
@@ -1166,6 +1186,13 @@ entities:
               required:
               - minimum_length
               type: object
+            - _key: password_recovery_expiration
+              description: 'Indicates how many minutes a password recovery email for
+                users of this account is valid for. Valid range is: 1-45.'
+              format: int32
+              maximum: 45
+              minimum: 1
+              type: integer
             - _key: phone_number
               description: The phone number of a representative of the company.
               example: +44 (1223) 400 400
@@ -1520,6 +1547,7 @@ entities:
     - admin_key
     - admin_password
     - admin_full_name
+    - password_recovery_expiration
     field_renames: []
     fields:
     - _key: id
@@ -1807,6 +1835,15 @@ entities:
           required:
           - minimum_length
           type: object
+        - _key: password_recovery_expiration
+          api_fieldname: password_recovery_expiration
+          description: 'Indicates how many minutes a password recovery email for users
+            of this account is valid for. Valid range is: 1-45.'
+          entity_fieldname: password_recovery_expiration
+          format: int32
+          maximum: 45
+          minimum: 1
+          type: integer
         - _key: phone_number
           api_fieldname: phone_number
           description: The phone number of a representative of the company.
@@ -2087,6 +2124,13 @@ entities:
               required:
               - minimum_length
               type: object
+            - _key: password_recovery_expiration
+              description: 'Indicates how many minutes a password recovery email for
+                users of this account is valid for. Valid range is: 1-45.'
+              format: int32
+              maximum: 45
+              minimum: 1
+              type: integer
             - _key: phone_number
               description: The phone number of a representative of the company.
               example: +44 (1223) 400 400
@@ -2695,6 +2739,13 @@ entities:
               required:
               - minimum_length
               type: object
+            - _key: password_recovery_expiration
+              description: 'Indicates how many minutes a password recovery email for
+                users of this account is valid for. Valid range is: 1-45.'
+              format: int32
+              maximum: 45
+              minimum: 1
+              type: integer
             - _key: phone_number
               description: The phone number of a representative of the company.
               example: +44 (1223) 400 400
@@ -2957,6 +3008,13 @@ entities:
                   required:
                   - minimum_length
                   type: object
+                - _key: password_recovery_expiration
+                  description: 'Indicates how many minutes a password recovery email
+                    for users of this account is valid for. Valid range is: 1-45.'
+                  format: int32
+                  maximum: 45
+                  minimum: 1
+                  type: integer
                 - _key: phone_number
                   description: The phone number of a representative of the company.
                   example: +44 (1223) 400 400
@@ -3304,6 +3362,7 @@ entities:
     - admin_key
     - admin_password
     - admin_full_name
+    - password_recovery_expiration
     field_renames: []
     fields:
     - _key: include
@@ -3584,6 +3643,15 @@ entities:
           required:
           - minimum_length
           type: object
+        - _key: password_recovery_expiration
+          api_fieldname: password_recovery_expiration
+          description: 'Indicates how many minutes a password recovery email for users
+            of this account is valid for. Valid range is: 1-45.'
+          entity_fieldname: password_recovery_expiration
+          format: int32
+          maximum: 45
+          minimum: 1
+          type: integer
         - _key: phone_number
           api_fieldname: phone_number
           description: The phone number of a representative of the company.
@@ -3864,6 +3932,13 @@ entities:
               required:
               - minimum_length
               type: object
+            - _key: password_recovery_expiration
+              description: 'Indicates how many minutes a password recovery email for
+                users of this account is valid for. Valid range is: 1-45.'
+              format: int32
+              maximum: 45
+              minimum: 1
+              type: integer
             - _key: phone_number
               description: The phone number of a representative of the company.
               example: +44 (1223) 400 400
@@ -4142,6 +4217,7 @@ entities:
     - status__eq
     - issuer__like
     - subject__like
+    - valid__eq
     field_renames: []
     fields:
     - _key: after
@@ -4326,6 +4402,12 @@ entities:
               example: '2018-02-14T15:24:14Z'
               format: date-time
               type: string
+            - _key: valid
+              description: This read-only flag indicates whether the certificate is
+                valid or not.
+              example: true
+              readOnly: true
+              type: boolean
             - _key: validity
               description: Expiration time in UTC formatted as RFC3339.
               example: '2038-02-14T15:24:14Z'
@@ -4782,6 +4864,18 @@ entities:
         type: string
       required: false
       type: object
+    - _key: password_recovery_expiration
+      api_fieldname: password_recovery_expiration
+      description: 'Indicates how many minutes a password recovery email for users
+        of this account is valid for. Valid range is: 1-45.'
+      entity_fieldname: password_recovery_expiration
+      format: int32
+      in: body
+      maximum: 45
+      minimum: 1
+      parameter_fieldname: password_recovery_expiration
+      required: false
+      type: integer
     - _key: phone_number
       api_fieldname: phone_number
       description: The phone number of a representative of the company.
@@ -5073,6 +5167,15 @@ entities:
           required:
           - minimum_length
           type: object
+        - _key: password_recovery_expiration
+          api_fieldname: password_recovery_expiration
+          description: 'Indicates how many minutes a password recovery email for users
+            of this account is valid for. Valid range is: 1-45.'
+          entity_fieldname: password_recovery_expiration
+          format: int32
+          maximum: 45
+          minimum: 1
+          type: integer
         - _key: phone_number
           api_fieldname: phone_number
           description: The phone number of a representative of the company.
@@ -5353,6 +5456,13 @@ entities:
               required:
               - minimum_length
               type: object
+            - _key: password_recovery_expiration
+              description: 'Indicates how many minutes a password recovery email for
+                users of this account is valid for. Valid range is: 1-45.'
+              format: int32
+              maximum: 45
+              minimum: 1
+              type: integer
             - _key: phone_number
               description: The phone number of a representative of the company.
               example: +44 (1223) 400 400
@@ -6245,6 +6355,47 @@ entities:
               description: The ID of the account.
               example: 01619571e2e90242ac12000600000000
               type: string
+            - _key: active_sessions
+              description: List of active user sessions.
+              items:
+                description: This object represents an active user session.
+                properties:
+                - _key: account_id
+                  description: The UUID of the account.
+                  example: 01619571e2e90242ac12000600000000
+                  type: string
+                - _key: ip_address
+                  description: IP address of the client.
+                  example: 127.0.0.1
+                  type: string
+                - _key: login_time
+                  description: The login time of the user.
+                  example: '2018-02-14T17:52:07Z'
+                  format: date-time
+                  type: string
+                - _key: object
+                  description: 'Entity name: always ''user-session'''
+                  enum:
+                  - user-session
+                  type: string
+                - _key: reference_token
+                  description: The reference token.
+                  example: rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk
+                  type: string
+                - _key: user_agent
+                  description: User Agent header from the login request.
+                  example: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36
+                    (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36
+                  type: string
+                required:
+                - account_id
+                - ip_address
+                - login_time
+                - object
+                - reference_token
+                - user_agent
+                type: object
+              type: array
             - _key: address
               description: Address.
               example: 110 Fulbourn Rd, Cambridge, United Kingdom
@@ -6259,6 +6410,12 @@ entities:
               example: 1518630727683
               format: int64
               type: integer
+            - _key: custom_fields
+              additionalProperties:
+                type: string
+              description: User's account specific custom properties. The value is
+                a string.
+              type: object
             - _key: email
               description: The email address.
               example: user@arm.com
@@ -6421,6 +6578,12 @@ entities:
               - INACTIVE
               example: ACTIVE
               type: string
+            - _key: totp_scratch_codes
+              description: A list of scratch codes for the 2-factor authentication.
+                Visible only when 2FA is requested to be enabled or the codes regenerated.
+              items:
+                type: string
+              type: array
             - _key: updated_at
               description: Last update UTC time RFC3339.
               example: '2018-02-14T15:24:14Z'
@@ -14283,6 +14446,7 @@ entities:
     - status
     - enrollment_mode
     - certificate_fingerprint
+    - valid
     field_renames:
     - _key: certificate
       api_fieldname: developer_certificate
@@ -14443,6 +14607,14 @@ entities:
           example: '2018-02-14T15:24:14Z'
           format: date-time
           type: string
+        - _key: valid
+          api_fieldname: valid
+          description: This read-only flag indicates whether the certificate is valid
+            or not.
+          entity_fieldname: valid
+          example: true
+          readOnly: true
+          type: boolean
         - _key: validity
           api_fieldname: validity
           description: Expiration time in UTC formatted as RFC3339.
@@ -20842,6 +21014,14 @@ entities:
     readOnly: true
     required: false
     type: string
+  - _key: valid
+    api_fieldname: valid
+    description: This read-only flag indicates whether the certificate is valid or
+      not.
+    example: true
+    readOnly: true
+    required: false
+    type: boolean
   - _key: validity
     api_fieldname: validity
     description: Expiration time in UTC formatted as RFC3339.
@@ -20880,6 +21060,7 @@ entities:
     - subject
     - validity
     - certificate_fingerprint
+    - valid
     field_renames: []
     fields:
     - _key: account_id
@@ -21124,6 +21305,14 @@ entities:
           example: '2018-02-14T15:24:14Z'
           format: date-time
           type: string
+        - _key: valid
+          api_fieldname: valid
+          description: This read-only flag indicates whether the certificate is valid
+            or not.
+          entity_fieldname: valid
+          example: true
+          readOnly: true
+          type: boolean
         - _key: validity
           api_fieldname: validity
           description: Expiration time in UTC formatted as RFC3339.
@@ -21589,6 +21778,7 @@ entities:
     - status
     - enrollment_mode
     - certificate_fingerprint
+    - valid
     field_renames: []
     fields:
     - _key: account_id
@@ -21782,6 +21972,14 @@ entities:
           example: '2018-02-14T15:24:14Z'
           format: date-time
           type: string
+        - _key: valid
+          api_fieldname: valid
+          description: This read-only flag indicates whether the certificate is valid
+            or not.
+          entity_fieldname: valid
+          example: true
+          readOnly: true
+          type: boolean
         - _key: validity
           api_fieldname: validity
           description: Expiration time in UTC formatted as RFC3339.
@@ -22468,6 +22666,7 @@ entities:
     - subject
     - validity
     - certificate_fingerprint
+    - valid
     field_renames: []
     fields:
     - _key: account_id
@@ -22719,6 +22918,14 @@ entities:
           example: '2018-02-14T15:24:14Z'
           format: date-time
           type: string
+        - _key: valid
+          api_fieldname: valid
+          description: This read-only flag indicates whether the certificate is valid
+            or not.
+          entity_fieldname: valid
+          example: true
+          readOnly: true
+          type: boolean
         - _key: validity
           api_fieldname: validity
           description: Expiration time in UTC formatted as RFC3339.
@@ -22963,6 +23170,50 @@ entities:
     readOnly: false
     required: true
     type: string
+  - _key: active_sessions
+    api_fieldname: active_sessions
+    description: List of active user sessions.
+    items:
+      description: This object represents an active user session.
+      properties:
+      - _key: account_id
+        description: The UUID of the account.
+        example: 01619571e2e90242ac12000600000000
+        type: string
+      - _key: ip_address
+        description: IP address of the client.
+        example: 127.0.0.1
+        type: string
+      - _key: login_time
+        description: The login time of the user.
+        example: '2018-02-14T17:52:07Z'
+        format: date-time
+        type: string
+      - _key: object
+        description: 'Entity name: always ''user-session'''
+        enum:
+        - user-session
+        type: string
+      - _key: reference_token
+        description: The reference token.
+        example: rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk
+        type: string
+      - _key: user_agent
+        description: User Agent header from the login request.
+        example: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36
+          (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36
+        type: string
+      required:
+      - account_id
+      - ip_address
+      - login_time
+      - object
+      - reference_token
+      - user_agent
+      type: object
+    readOnly: true
+    required: false
+    type: array
   - _key: address
     api_fieldname: address
     description: Address.
@@ -22988,6 +23239,14 @@ entities:
     readOnly: true
     required: false
     type: integer
+  - _key: custom_fields
+    additionalProperties:
+      type: string
+    api_fieldname: custom_fields
+    description: User's account specific custom properties. The value is a string.
+    readOnly: true
+    required: false
+    type: object
   - _key: email
     api_fieldname: email
     description: The email address.
@@ -23184,6 +23443,15 @@ entities:
     readOnly: false
     required: false
     type: boolean
+  - _key: totp_scratch_codes
+    api_fieldname: totp_scratch_codes
+    description: A list of scratch codes for the 2-factor authentication. Visible
+      only when 2FA is requested to be enabled or the codes regenerated.
+    items:
+      type: string
+    readOnly: true
+    required: false
+    type: array
   - _key: two_factor_authentication
     api_fieldname: is_totp_enabled
     description: A flag indicating whether 2-factor authentication (TOTP) has been
@@ -23242,6 +23510,9 @@ entities:
     - last_login_time
     - password_changed_time
     - login_history
+    - totp_scratch_codes
+    - custom_fields
+    - active_sessions
     - two_factor_authentication
     field_renames:
     - _key: marketing_accepted
@@ -23412,6 +23683,49 @@ entities:
           entity_fieldname: account_id
           example: 01619571e2e90242ac12000600000000
           type: string
+        - _key: active_sessions
+          api_fieldname: active_sessions
+          description: List of active user sessions.
+          entity_fieldname: active_sessions
+          items:
+            description: This object represents an active user session.
+            properties:
+            - _key: account_id
+              description: The UUID of the account.
+              example: 01619571e2e90242ac12000600000000
+              type: string
+            - _key: ip_address
+              description: IP address of the client.
+              example: 127.0.0.1
+              type: string
+            - _key: login_time
+              description: The login time of the user.
+              example: '2018-02-14T17:52:07Z'
+              format: date-time
+              type: string
+            - _key: object
+              description: 'Entity name: always ''user-session'''
+              enum:
+              - user-session
+              type: string
+            - _key: reference_token
+              description: The reference token.
+              example: rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk
+              type: string
+            - _key: user_agent
+              description: User Agent header from the login request.
+              example: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36
+                (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36
+              type: string
+            required:
+            - account_id
+            - ip_address
+            - login_time
+            - object
+            - reference_token
+            - user_agent
+            type: object
+          type: array
         - _key: address
           api_fieldname: address
           description: Address.
@@ -23435,6 +23749,13 @@ entities:
           example: 1518630727683
           format: int64
           type: integer
+        - _key: custom_fields
+          additionalProperties:
+            type: string
+          api_fieldname: custom_fields
+          description: User's account specific custom properties. The value is a string.
+          entity_fieldname: custom_fields
+          type: object
         - _key: email
           api_fieldname: email
           description: The email address.
@@ -23665,6 +23986,14 @@ entities:
           parameter_fieldname: status
           required: false
           type: string
+        - _key: totp_scratch_codes
+          api_fieldname: totp_scratch_codes
+          description: A list of scratch codes for the 2-factor authentication. Visible
+            only when 2FA is requested to be enabled or the codes regenerated.
+          entity_fieldname: totp_scratch_codes
+          items:
+            type: string
+          type: array
         - _key: updated_at
           api_fieldname: updated_at
           description: Last update UTC time RFC3339.
@@ -24221,6 +24550,9 @@ entities:
     - password_changed_time
     - login_history
     - login_profiles
+    - totp_scratch_codes
+    - custom_fields
+    - active_sessions
     - two_factor_authentication
     - terms_accepted
     - marketing_accepted
@@ -24273,6 +24605,49 @@ entities:
           entity_fieldname: account_id
           example: 01619571e2e90242ac12000600000000
           type: string
+        - _key: active_sessions
+          api_fieldname: active_sessions
+          description: List of active user sessions.
+          entity_fieldname: active_sessions
+          items:
+            description: This object represents an active user session.
+            properties:
+            - _key: account_id
+              description: The UUID of the account.
+              example: 01619571e2e90242ac12000600000000
+              type: string
+            - _key: ip_address
+              description: IP address of the client.
+              example: 127.0.0.1
+              type: string
+            - _key: login_time
+              description: The login time of the user.
+              example: '2018-02-14T17:52:07Z'
+              format: date-time
+              type: string
+            - _key: object
+              description: 'Entity name: always ''user-session'''
+              enum:
+              - user-session
+              type: string
+            - _key: reference_token
+              description: The reference token.
+              example: rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk
+              type: string
+            - _key: user_agent
+              description: User Agent header from the login request.
+              example: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36
+                (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36
+              type: string
+            required:
+            - account_id
+            - ip_address
+            - login_time
+            - object
+            - reference_token
+            - user_agent
+            type: object
+          type: array
         - _key: address
           api_fieldname: address
           description: Address.
@@ -24296,6 +24671,13 @@ entities:
           example: 1518630727683
           format: int64
           type: integer
+        - _key: custom_fields
+          additionalProperties:
+            type: string
+          api_fieldname: custom_fields
+          description: User's account specific custom properties. The value is a string.
+          entity_fieldname: custom_fields
+          type: object
         - _key: email
           api_fieldname: email
           description: The email address.
@@ -24526,6 +24908,14 @@ entities:
           parameter_fieldname: status
           required: false
           type: string
+        - _key: totp_scratch_codes
+          api_fieldname: totp_scratch_codes
+          description: A list of scratch codes for the 2-factor authentication. Visible
+            only when 2FA is requested to be enabled or the codes regenerated.
+          entity_fieldname: totp_scratch_codes
+          items:
+            type: string
+          type: array
         - _key: updated_at
           api_fieldname: updated_at
           description: Last update UTC time RFC3339.
@@ -24729,6 +25119,9 @@ entities:
     - last_login_time
     - password_changed_time
     - login_history
+    - totp_scratch_codes
+    - custom_fields
+    - active_sessions
     field_renames:
     - _key: marketing_accepted
       api_fieldname: is_marketing_accepted
@@ -24882,6 +25275,49 @@ entities:
           entity_fieldname: account_id
           example: 01619571e2e90242ac12000600000000
           type: string
+        - _key: active_sessions
+          api_fieldname: active_sessions
+          description: List of active user sessions.
+          entity_fieldname: active_sessions
+          items:
+            description: This object represents an active user session.
+            properties:
+            - _key: account_id
+              description: The UUID of the account.
+              example: 01619571e2e90242ac12000600000000
+              type: string
+            - _key: ip_address
+              description: IP address of the client.
+              example: 127.0.0.1
+              type: string
+            - _key: login_time
+              description: The login time of the user.
+              example: '2018-02-14T17:52:07Z'
+              format: date-time
+              type: string
+            - _key: object
+              description: 'Entity name: always ''user-session'''
+              enum:
+              - user-session
+              type: string
+            - _key: reference_token
+              description: The reference token.
+              example: rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk
+              type: string
+            - _key: user_agent
+              description: User Agent header from the login request.
+              example: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36
+                (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36
+              type: string
+            required:
+            - account_id
+            - ip_address
+            - login_time
+            - object
+            - reference_token
+            - user_agent
+            type: object
+          type: array
         - _key: address
           api_fieldname: address
           description: Address.
@@ -24905,6 +25341,13 @@ entities:
           example: 1518630727683
           format: int64
           type: integer
+        - _key: custom_fields
+          additionalProperties:
+            type: string
+          api_fieldname: custom_fields
+          description: User's account specific custom properties. The value is a string.
+          entity_fieldname: custom_fields
+          type: object
         - _key: email
           api_fieldname: email
           description: The email address.
@@ -25135,6 +25578,14 @@ entities:
           parameter_fieldname: status
           required: false
           type: string
+        - _key: totp_scratch_codes
+          api_fieldname: totp_scratch_codes
+          description: A list of scratch codes for the 2-factor authentication. Visible
+            only when 2FA is requested to be enabled or the codes regenerated.
+          entity_fieldname: totp_scratch_codes
+          items:
+            type: string
+          type: array
         - _key: updated_at
           api_fieldname: updated_at
           description: Last update UTC time RFC3339.
@@ -26792,6 +27243,14 @@ entities:
     readOnly: true
     required: false
     type: string
+  - _key: valid
+    api_fieldname: valid
+    description: This read-only flag indicates whether the certificate is valid or
+      not.
+    example: true
+    readOnly: true
+    required: false
+    type: boolean
   - _key: validity
     api_fieldname: validity
     description: Expiration time in UTC formatted as RFC3339.
@@ -26831,6 +27290,7 @@ entities:
     - subject
     - validity
     - certificate_fingerprint
+    - valid
     field_renames: []
     fields:
     - _key: certificate
@@ -27043,6 +27503,14 @@ entities:
           example: '2018-02-14T15:24:14Z'
           format: date-time
           type: string
+        - _key: valid
+          api_fieldname: valid
+          description: This read-only flag indicates whether the certificate is valid
+            or not.
+          entity_fieldname: valid
+          example: true
+          readOnly: true
+          type: boolean
         - _key: validity
           api_fieldname: validity
           description: Expiration time in UTC formatted as RFC3339.
@@ -27498,6 +27966,7 @@ entities:
     - status
     - enrollment_mode
     - certificate_fingerprint
+    - valid
     field_renames: []
     fields:
     - _key: device_execution_mode
@@ -27659,6 +28128,14 @@ entities:
           example: '2018-02-14T15:24:14Z'
           format: date-time
           type: string
+        - _key: valid
+          api_fieldname: valid
+          description: This read-only flag indicates whether the certificate is valid
+            or not.
+          entity_fieldname: valid
+          example: true
+          readOnly: true
+          type: boolean
         - _key: validity
           api_fieldname: validity
           description: Expiration time in UTC formatted as RFC3339.
@@ -28349,6 +28826,7 @@ entities:
     - status__eq
     - issuer__like
     - subject__like
+    - valid__eq
     field_renames: []
     fields:
     - _key: after
@@ -28533,6 +29011,12 @@ entities:
               example: '2018-02-14T15:24:14Z'
               format: date-time
               type: string
+            - _key: valid
+              description: This read-only flag indicates whether the certificate is
+                valid or not.
+              example: true
+              readOnly: true
+              type: boolean
             - _key: validity
               description: Expiration time in UTC formatted as RFC3339.
               example: '2038-02-14T15:24:14Z'
@@ -28726,6 +29210,7 @@ entities:
     - subject
     - validity
     - certificate_fingerprint
+    - valid
     field_renames: []
     fields:
     - _key: certificate
@@ -28945,6 +29430,14 @@ entities:
           example: '2018-02-14T15:24:14Z'
           format: date-time
           type: string
+        - _key: valid
+          api_fieldname: valid
+          description: This read-only flag indicates whether the certificate is valid
+            or not.
+          entity_fieldname: valid
+          example: true
+          readOnly: true
+          type: boolean
         - _key: validity
           api_fieldname: validity
           description: Expiration time in UTC formatted as RFC3339.
@@ -29238,6 +29731,50 @@ entities:
     readOnly: true
     required: false
     type: string
+  - _key: active_sessions
+    api_fieldname: active_sessions
+    description: List of active user sessions.
+    items:
+      description: This object represents an active user session.
+      properties:
+      - _key: account_id
+        description: The UUID of the account.
+        example: 01619571e2e90242ac12000600000000
+        type: string
+      - _key: ip_address
+        description: IP address of the client.
+        example: 127.0.0.1
+        type: string
+      - _key: login_time
+        description: The login time of the user.
+        example: '2018-02-14T17:52:07Z'
+        format: date-time
+        type: string
+      - _key: object
+        description: 'Entity name: always ''user-session'''
+        enum:
+        - user-session
+        type: string
+      - _key: reference_token
+        description: The reference token.
+        example: rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk
+        type: string
+      - _key: user_agent
+        description: User Agent header from the login request.
+        example: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36
+          (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36
+        type: string
+      required:
+      - account_id
+      - ip_address
+      - login_time
+      - object
+      - reference_token
+      - user_agent
+      type: object
+    readOnly: true
+    required: false
+    type: array
   - _key: address
     api_fieldname: address
     description: Address.
@@ -29261,6 +29798,14 @@ entities:
     readOnly: true
     required: false
     type: integer
+  - _key: custom_fields
+    additionalProperties:
+      type: string
+    api_fieldname: custom_fields
+    description: User's account specific custom properties. The value is a string.
+    readOnly: true
+    required: false
+    type: object
   - _key: email
     api_fieldname: email
     description: The email address.
@@ -29439,6 +29984,15 @@ entities:
     readOnly: false
     required: false
     type: boolean
+  - _key: totp_scratch_codes
+    api_fieldname: totp_scratch_codes
+    description: A list of scratch codes for the 2-factor authentication. Visible
+      only when 2FA is requested to be enabled or the codes regenerated.
+    items:
+      type: string
+    readOnly: true
+    required: false
+    type: array
   - _key: two_factor_authentication
     api_fieldname: is_totp_enabled
     description: A flag indicating whether 2-factor authentication (TOTP) has been
@@ -29494,6 +30048,9 @@ entities:
     - password_changed_time
     - account_id
     - login_history
+    - totp_scratch_codes
+    - custom_fields
+    - active_sessions
     - two_factor_authentication
     field_renames:
     - _key: marketing_accepted
@@ -29655,6 +30212,49 @@ entities:
           entity_fieldname: account_id
           example: 01619571e2e90242ac12000600000000
           type: string
+        - _key: active_sessions
+          api_fieldname: active_sessions
+          description: List of active user sessions.
+          entity_fieldname: active_sessions
+          items:
+            description: This object represents an active user session.
+            properties:
+            - _key: account_id
+              description: The UUID of the account.
+              example: 01619571e2e90242ac12000600000000
+              type: string
+            - _key: ip_address
+              description: IP address of the client.
+              example: 127.0.0.1
+              type: string
+            - _key: login_time
+              description: The login time of the user.
+              example: '2018-02-14T17:52:07Z'
+              format: date-time
+              type: string
+            - _key: object
+              description: 'Entity name: always ''user-session'''
+              enum:
+              - user-session
+              type: string
+            - _key: reference_token
+              description: The reference token.
+              example: rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk
+              type: string
+            - _key: user_agent
+              description: User Agent header from the login request.
+              example: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36
+                (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36
+              type: string
+            required:
+            - account_id
+            - ip_address
+            - login_time
+            - object
+            - reference_token
+            - user_agent
+            type: object
+          type: array
         - _key: address
           api_fieldname: address
           description: Address.
@@ -29675,6 +30275,13 @@ entities:
           example: 1518630727683
           format: int64
           type: integer
+        - _key: custom_fields
+          additionalProperties:
+            type: string
+          api_fieldname: custom_fields
+          description: User's account specific custom properties. The value is a string.
+          entity_fieldname: custom_fields
+          type: object
         - _key: email
           api_fieldname: email
           description: The email address.
@@ -29869,6 +30476,14 @@ entities:
           - INACTIVE
           example: ACTIVE
           type: string
+        - _key: totp_scratch_codes
+          api_fieldname: totp_scratch_codes
+          description: A list of scratch codes for the 2-factor authentication. Visible
+            only when 2FA is requested to be enabled or the codes regenerated.
+          entity_fieldname: totp_scratch_codes
+          items:
+            type: string
+          type: array
         - _key: updated_at
           api_fieldname: updated_at
           description: Last update UTC time RFC3339.
@@ -30365,6 +30980,9 @@ entities:
     - account_id
     - login_history
     - login_profiles
+    - totp_scratch_codes
+    - custom_fields
+    - active_sessions
     - two_factor_authentication
     - terms_accepted
     - marketing_accepted
@@ -30408,6 +31026,49 @@ entities:
           entity_fieldname: account_id
           example: 01619571e2e90242ac12000600000000
           type: string
+        - _key: active_sessions
+          api_fieldname: active_sessions
+          description: List of active user sessions.
+          entity_fieldname: active_sessions
+          items:
+            description: This object represents an active user session.
+            properties:
+            - _key: account_id
+              description: The UUID of the account.
+              example: 01619571e2e90242ac12000600000000
+              type: string
+            - _key: ip_address
+              description: IP address of the client.
+              example: 127.0.0.1
+              type: string
+            - _key: login_time
+              description: The login time of the user.
+              example: '2018-02-14T17:52:07Z'
+              format: date-time
+              type: string
+            - _key: object
+              description: 'Entity name: always ''user-session'''
+              enum:
+              - user-session
+              type: string
+            - _key: reference_token
+              description: The reference token.
+              example: rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk
+              type: string
+            - _key: user_agent
+              description: User Agent header from the login request.
+              example: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36
+                (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36
+              type: string
+            required:
+            - account_id
+            - ip_address
+            - login_time
+            - object
+            - reference_token
+            - user_agent
+            type: object
+          type: array
         - _key: address
           api_fieldname: address
           description: Address.
@@ -30428,6 +31089,13 @@ entities:
           example: 1518630727683
           format: int64
           type: integer
+        - _key: custom_fields
+          additionalProperties:
+            type: string
+          api_fieldname: custom_fields
+          description: User's account specific custom properties. The value is a string.
+          entity_fieldname: custom_fields
+          type: object
         - _key: email
           api_fieldname: email
           description: The email address.
@@ -30622,6 +31290,14 @@ entities:
           - INACTIVE
           example: ACTIVE
           type: string
+        - _key: totp_scratch_codes
+          api_fieldname: totp_scratch_codes
+          description: A list of scratch codes for the 2-factor authentication. Visible
+            only when 2FA is requested to be enabled or the codes regenerated.
+          entity_fieldname: totp_scratch_codes
+          items:
+            type: string
+          type: array
         - _key: updated_at
           api_fieldname: updated_at
           description: Last update UTC time RFC3339.
@@ -30918,6 +31594,47 @@ entities:
               description: The ID of the account.
               example: 01619571e2e90242ac12000600000000
               type: string
+            - _key: active_sessions
+              description: List of active user sessions.
+              items:
+                description: This object represents an active user session.
+                properties:
+                - _key: account_id
+                  description: The UUID of the account.
+                  example: 01619571e2e90242ac12000600000000
+                  type: string
+                - _key: ip_address
+                  description: IP address of the client.
+                  example: 127.0.0.1
+                  type: string
+                - _key: login_time
+                  description: The login time of the user.
+                  example: '2018-02-14T17:52:07Z'
+                  format: date-time
+                  type: string
+                - _key: object
+                  description: 'Entity name: always ''user-session'''
+                  enum:
+                  - user-session
+                  type: string
+                - _key: reference_token
+                  description: The reference token.
+                  example: rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk
+                  type: string
+                - _key: user_agent
+                  description: User Agent header from the login request.
+                  example: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36
+                    (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36
+                  type: string
+                required:
+                - account_id
+                - ip_address
+                - login_time
+                - object
+                - reference_token
+                - user_agent
+                type: object
+              type: array
             - _key: address
               description: Address.
               example: 110 Fulbourn Rd, Cambridge, United Kingdom
@@ -30932,6 +31649,12 @@ entities:
               example: 1518630727683
               format: int64
               type: integer
+            - _key: custom_fields
+              additionalProperties:
+                type: string
+              description: User's account specific custom properties. The value is
+                a string.
+              type: object
             - _key: email
               description: The email address.
               example: user@arm.com
@@ -31094,6 +31817,12 @@ entities:
               - INACTIVE
               example: ACTIVE
               type: string
+            - _key: totp_scratch_codes
+              description: A list of scratch codes for the 2-factor authentication.
+                Visible only when 2FA is requested to be enabled or the codes regenerated.
+              items:
+                type: string
+              type: array
             - _key: updated_at
               description: Last update UTC time RFC3339.
               example: '2018-02-14T15:24:14Z'
@@ -31290,6 +32019,9 @@ entities:
     - password_changed_time
     - account_id
     - login_history
+    - totp_scratch_codes
+    - custom_fields
+    - active_sessions
     field_renames:
     - _key: marketing_accepted
       api_fieldname: is_marketing_accepted
@@ -31434,6 +32166,49 @@ entities:
           entity_fieldname: account_id
           example: 01619571e2e90242ac12000600000000
           type: string
+        - _key: active_sessions
+          api_fieldname: active_sessions
+          description: List of active user sessions.
+          entity_fieldname: active_sessions
+          items:
+            description: This object represents an active user session.
+            properties:
+            - _key: account_id
+              description: The UUID of the account.
+              example: 01619571e2e90242ac12000600000000
+              type: string
+            - _key: ip_address
+              description: IP address of the client.
+              example: 127.0.0.1
+              type: string
+            - _key: login_time
+              description: The login time of the user.
+              example: '2018-02-14T17:52:07Z'
+              format: date-time
+              type: string
+            - _key: object
+              description: 'Entity name: always ''user-session'''
+              enum:
+              - user-session
+              type: string
+            - _key: reference_token
+              description: The reference token.
+              example: rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk
+              type: string
+            - _key: user_agent
+              description: User Agent header from the login request.
+              example: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36
+                (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36
+              type: string
+            required:
+            - account_id
+            - ip_address
+            - login_time
+            - object
+            - reference_token
+            - user_agent
+            type: object
+          type: array
         - _key: address
           api_fieldname: address
           description: Address.
@@ -31454,6 +32229,13 @@ entities:
           example: 1518630727683
           format: int64
           type: integer
+        - _key: custom_fields
+          additionalProperties:
+            type: string
+          api_fieldname: custom_fields
+          description: User's account specific custom properties. The value is a string.
+          entity_fieldname: custom_fields
+          type: object
         - _key: email
           api_fieldname: email
           description: The email address.
@@ -31648,6 +32430,14 @@ entities:
           - INACTIVE
           example: ACTIVE
           type: string
+        - _key: totp_scratch_codes
+          api_fieldname: totp_scratch_codes
+          description: A list of scratch codes for the 2-factor authentication. Visible
+            only when 2FA is requested to be enabled or the codes regenerated.
+          entity_fieldname: totp_scratch_codes
+          items:
+            type: string
+          type: array
         - _key: updated_at
           api_fieldname: updated_at
           description: Last update UTC time RFC3339.
