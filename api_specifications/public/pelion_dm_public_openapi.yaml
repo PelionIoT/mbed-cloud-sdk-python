@@ -7086,8 +7086,9 @@ paths:
         415:
           description: Media type is not supported by the endpoint. (Through AsyncIDResponse)
         429:
-          description: Cannot make a request at the moment; the queue is full or queue
-            was cleared because endpoint made full registration.
+          description: Cannot make a request at the moment; the queue is full or it
+            was cleared because the device deregistered, the registration expired
+            or the device was suspended.
         502:
           description: TCP or TLS connection to endpoint cannot be established.
         503:
@@ -7190,8 +7191,9 @@ paths:
         415:
           description: Media type is not supported by the endpoint. (Through AsyncIDResponse)
         429:
-          description: Cannot make a request at the moment; the queue is full or queue
-            was cleared because endpoint made full registration.
+          description: Cannot make a request at the moment; the queue is full or it
+            was cleared because the device deregistered, the registration expired
+            or the device was suspended.
         502:
           description: TCP or TLS connection to endpoint cannot be established.
         503:
@@ -7308,8 +7310,9 @@ paths:
         415:
           description: Media type is not supported by the endpoint. (Through AsyncIDResponse)
         429:
-          description: Cannot make a request at the moment; the queue is full or queue
-            was cleared because endpoint made full registration.
+          description: Cannot make a request at the moment; the queue is full or it
+            was cleared because the device deregistered, the registration expired
+            or the device was suspended.
         502:
           description: TCP or TLS connection to endpoint cannot be established.
         503:
@@ -7420,8 +7423,9 @@ paths:
         415:
           description: Media type is not supported by the endpoint. (Through AsyncIDResponse)
         429:
-          description: Cannot make a request at the moment; the queue is full or queue
-            was cleared because endpoint made full registration.
+          description: Cannot make a request at the moment; the queue is full or it
+            was cleared because the device deregistered, the registration expired
+            or the device was suspended.
         502:
           description: TCP or TLS connection to endpoint cannot be established.
         503:
@@ -7874,7 +7878,8 @@ paths:
             resource. (Through AsyncIDResponse)
         429:
           description: Cannot make a request at the moment; the queue is full or it
-            was cleared because the endpoint made a full registration.
+            was cleared because the device deregistered, the registration expired
+            or the device was suspended.
         502:
           description: Subscription failed, endpoint not connected.
         503:
