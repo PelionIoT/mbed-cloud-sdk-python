@@ -161,14 +161,23 @@ class UpdateAPI(BaseAPI):
                                                    campaign=campaign_object))
 
     @catch_exceptions(UpdateServiceApiException)
-    def delete_campaign(self, campaign_id):
+    def delete_campaign(self, campaign_id, force=False):
         """Delete an update campaign.
 
         :param str campaign_id: Campaign ID to delete (Required)
+        :param bool force: Stop the campaign if needed
         :return: void
         """
         api = self._get_api(update_service.DefaultApi)
-        api.update_campaign_destroy(campaign_id)
+        try:
+            api.update_campaign_destroy(campaign_id)
+        except UpdateServiceApiException as e:
+            if e.status == 409 and force:
+                # 'Conflict - Cannot delete the campaign while in the current phase.'
+                api.update_campaign_stop(campaign_id)
+                api.update_campaign_destroy(campaign_id)
+            else:
+                raise e
         return
 
     @catch_exceptions(UpdateServiceApiException)
