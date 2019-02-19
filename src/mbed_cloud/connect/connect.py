@@ -118,8 +118,6 @@ class ConnectAPI(BaseAPI):
         if not self.has_active_notification_thread:
             if self._autostart_notifications:
                 self.start_notifications()
-            else:
-                raise CloudApiException("notifications not running, please call start_notifications first")
 
     def start_notifications(self):
         """Start the notifications thread.
