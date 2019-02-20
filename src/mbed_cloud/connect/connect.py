@@ -848,10 +848,8 @@ class ConnectAPI(BaseAPI):
             webhook = self.get_webhook()
         except:
             pass
-        
-        print(webhook)
-        if webhook and webhook.url():
-            raise CloudApiException("cannot call %s because a webhook exists [%s]", method_name, webhook.url())
+        if webhook and webhook.url:
+            raise CloudApiException("cannot call %s because a webhook exists [%s]", method_name, webhook.url)
 
     def _verify_arguments(self, interval, kwargs):
         start = kwargs.get("start", None)
