@@ -193,7 +193,7 @@ class NotificationsThread(threading.Thread):
         """notification websocket message"""
 
         def __init__(self, message):
-            """init"""
+            """Init"""
             self.data = message
 
     """A thread object"""
