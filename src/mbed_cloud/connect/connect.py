@@ -134,7 +134,6 @@ class ConnectAPI(BaseAPI):
 
         :returns: void
         """
-
         # delivery method is server initiated so raise an exception
         if self._delivery_method == "SERVER_INITIATED":
             raise CloudApiException("cannot call start_notifications if delivery method is Server Initiated")
@@ -173,7 +172,6 @@ class ConnectAPI(BaseAPI):
 
         :returns:
         """
-
         if self._delivery_method == "SERVER_INITIATED":
             LOG.warn("should not be calling stop_notifications when delivery method is server initiated")
 
@@ -669,7 +667,6 @@ class ConnectAPI(BaseAPI):
 
         :param str payload: the encoded payload, as sent by the notification channel
         """
-
         class PayloadContainer:  # noqa
             # bodge to give attribute lookup
             data = payload
@@ -714,7 +711,6 @@ class ConnectAPI(BaseAPI):
         :param dict headers: K/V dict with additional headers to send with request
         :return: void
         """
-
         if not self._delivery_method:
             self._delivery_method = "SERVER_INITIATED"
 
@@ -759,17 +755,17 @@ class ConnectAPI(BaseAPI):
         """
         try:
             self.delete_webhook()
-        except:
+        except CloudApiException:
             pass
         try:
             api = self._get_api(mds.NotificationsApi)
             # Delete notifications channel
             api.delete_long_poll_channel()
-        except:
+        except CloudApiException:
             pass
         try:
             api.delete_websocket()
-        except:
+        except CloudApiException:
             pass
 
     @catch_exceptions(mds.rest.ApiException)
@@ -846,7 +842,7 @@ class ConnectAPI(BaseAPI):
     def _fail_if_webhook_is_setup(self, method_name):
         try:
             webhook = self.get_webhook()
-        except:
+        except CloudApiException:
             pass
         if webhook and webhook.url:
             raise CloudApiException("cannot call %s because a webhook exists [%s]", method_name, webhook.url)

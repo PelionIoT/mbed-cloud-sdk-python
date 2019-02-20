@@ -187,8 +187,11 @@ def handle_channel_message(db, queues, b64decode, notification_object):
 
 
 class NotificationsThread(threading.Thread):
+    """ notifications thread"""
     class NotificationWebsocketMessage(object):
+        """ notification websocket message """
         def __init__(self, message):
+            """ init """
             self.data = message
 
     """A thread object"""
@@ -275,7 +278,7 @@ class NotificationsThread(threading.Thread):
 
         return on_open
 
-    def register_websocket(self):
+    def _register_websocket(self):
         if self._stopping:
             self.stop()
 
@@ -294,7 +297,7 @@ class NotificationsThread(threading.Thread):
             else:
                 self._log_error(error, reason)
 
-    def get_websocket(self):
+    def _get_websocket(self):
         if self._stopping:
             self.stop()
         websocket_channel = False
@@ -308,7 +311,7 @@ class NotificationsThread(threading.Thread):
         else:
             self._register_websocket()
 
-    def delete_websocket_channel(self):
+    def _delete_websocket_channel(self):
         if self._stopping:
             self.stop()
         try:
