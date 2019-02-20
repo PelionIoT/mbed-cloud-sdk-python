@@ -1178,6 +1178,8 @@ definitions:
       completed_at:
         description: 'The time of completing the bulk creation task.
 
+          Null when creating bulk upload or delete.
+
           '
         format: date-time
         type: string
@@ -1194,6 +1196,11 @@ definitions:
         example: 0
         type: integer
       errors_report_file:
+        description: 'Link to error report file.
+
+          Null when creating bulk upload or delete.
+
+          '
         example: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/errors_report.csv
         type: string
       etag:
@@ -1202,6 +1209,11 @@ definitions:
         pattern: '[A-Za-z0-9]{0,256}'
         type: string
       full_report_file:
+        description: 'Link to full report file.
+
+          Null when creating bulk upload or delete.
+
+          '
         example: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/full_report.csv
         type: string
       id:
@@ -1247,6 +1259,9 @@ definitions:
     - total_count
     - processed_count
     - errors_count
+    - completet_at
+    - full_report_file
+    - errors_report_file
     type: object
   CampaignDeviceMetadata:
     properties:
@@ -14931,52 +14946,14 @@ paths:
       responses:
         200:
           description: OK.
-          examples:
-            Success:
-              after: 2d238a89038b4ddb84699dd36a901063
-              data:
-              - account_id: 015fee5d9b3538c98640fbfb00000000
-                claimed_at: '2017-12-13T14:35:10.000Z'
-                created_at: '2017-12-11T14:35:20.009Z'
-                enrolled_device_id: 2d238a89038b4ddb84699dd36a901063
-                enrollment_identity: A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5
-                etag: '1'
-                expires_at: '2018-01-11T14:35:20.009Z'
-                id: sckv52bebji8dxnxuw3zvnon95u8gshm
-                object: enrollment
-              - account_id: 015fee5d9b3538c98640fbfb00000000
-                created_at: '2017-12-11T14:36:20.009Z'
-                enrolled_device_id: 2d238a89038b4ddb84699dd36a901063
-                enrollment_identity: A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5
-                etag: '1'
-                expires_at: '2018-01-11T14:35:20.009Z'
-                id: 000v52bebji8dxnxuw3zvnon95u8gshm
-                object: enrollment
-              has_more: true
-              limit: 2
-              object: list
-              order: ASC
-              total_count: 55
           schema:
             $ref: '#/definitions/EnrollmentIdentities'
         400:
           description: Bad request. The access token could not be read.
-          examples:
-            Error:
-              code: 400
-              message: JWT couldn't be read
-              object: error
-              type: validation_error
           schema:
             $ref: '#/definitions/ErrorResponse'
         401:
           description: The provided access token is not valid.
-          examples:
-            Error:
-              code: 401
-              message: The provided JWT was not valid
-              object: error
-              type: invalid_auth
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Get enrollment list.
@@ -15016,17 +14993,6 @@ paths:
         201:
           description: Created. The enrollment claim has been created and is waiting
             for the device to connect.
-          examples:
-            Success:
-              account_id: 015fee5d9b3538c98640fbfb00000000
-              claimed_at: '2017-12-13T14:35:10.000Z'
-              created_at: '2017-12-11T14:22:20.009Z'
-              enrolled_device_id: 00005a4e027f0a580a01081c00000000
-              enrollment_identity: A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5
-              etag: '1'
-              expires_at: '2018-01-11T14:22:20.009Z'
-              id: 015fee4431fd38c98640fbfb00000000
-              object: enrollment
           schema:
             $ref: '#/definitions/EnrollmentIdentity'
         400:
@@ -15035,37 +15001,11 @@ paths:
             $ref: '#/definitions/ErrorResponse'
         401:
           description: The provided access token is not valid.
-          examples:
-            Authentication Error:
-              code: 401
-              message: Provided access token is not valid.
-              object: error
-              request_id: 015fee4431fd38c98640fbfb00000000
-              type: invalid_auth
           schema:
             $ref: '#/definitions/ErrorResponse'
         409:
-          description: 'Conflict. The identity requested to be added already exists
+          description: Conflict. The identity requested to be added already exists
             either on this or another account.
-
-            '
-          examples:
-            Already claimed:
-              code: 409
-              fields:
-              - enrollment_identity: Enrollment identity already claimed
-              message: The requested enrollment identity has already been claimed.
-              object: error
-              request_id: 015fee4431fd38c98640fbfb00000000
-              type: duplicate
-            Conflict:
-              code: 409
-              fields:
-              - enrollment_identity: Enrollment identity already exists
-              message: The requested enrollment identity already exists.
-              object: error
-              request_id: 015fee4431fd38c98640fbfb00000000
-              type: duplicate
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Place an enrollment claim for one or several devices.
@@ -15109,56 +15049,24 @@ paths:
         ,,\n, This is also considered to a blank line\n```\n"
       operationId: deleteBulkDeviceEnrollment
       parameters:
-      - description: 'The `CSV` file containing the enrollment IDs. The maximum file
+      - description: The `CSV` file containing the enrollment IDs. The maximum file
           size is 10MB.
-
-          '
         in: formData
         name: enrollment_identities
         required: true
         type: file
       responses:
         201:
-          description: 'Bulk delete data has been received and asynchronous processing
+          description: Bulk delete data has been received and asynchronous processing
             has been started.
-
-            '
-          examples:
-            BulkCreateResponse:
-              properties:
-                account_id: 00005a4e027f0a580a01081c00000000
-                completed_at: null
-                created_at: '2018-06-26T07:41:47.217Z'
-                errors_count: 0
-                errors_report_file: null
-                etag: '1'
-                full_report_file: null
-                id: 00005a4e027f0a580a04567c00000000
-                object: enrollment-identity-bulk-deletes
-                processed_count: 0
-                status: new
-                total_count: 10
           schema:
             $ref: '#/definitions/BulkResponse'
         400:
           description: Bad request.
-          examples:
-            Bad request:
-              code: 400
-              message: Invalid request. Check your request parameters and URL.
-              object: error
-              request_id: 73fb0bd3ec1d452383255dd9a336668c
-              type: bad_request
           schema:
             $ref: '#/definitions/ErrorResponse'
         401:
           description: The provided access token is not valid.
-          examples:
-            Error:
-              code: 401
-              message: The provided JWT was not valid
-              object: error
-              type: invalid_auth
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Bulk delete
@@ -15228,55 +15136,18 @@ paths:
       responses:
         200:
           description: Bulk delete entity found
-          examples:
-            BulkResponse:
-              account_id: 00005a4e027f0a580a01081c00000000
-              completed_at: '2018-06-26T09:13:21.308Z'
-              created_at: '2018-06-26T09:12:21.308Z'
-              errors_count: 1
-              errors_report_file: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-deletes/2d238a89038b4ddb84699dd36a901063/errors_report.csv
-              etag: '1'
-              full_report_file: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-deletes/2d238a89038b4ddb84699dd36a901063/full_report.csv
-              id: 2d238a89038b4ddb84699dd36a901063
-              object: enrollment-identity-bulk-deletes
-              processed_count: 10
-              status: completed
-              total_count: 10
           schema:
             $ref: '#/definitions/BulkResponse'
         400:
           description: Bad request. The bulk identity is not valid.
-          examples:
-            Bad request:
-              code: 400
-              fields:
-              - bulk_id: Invalid bulk identity
-              message: An error description.
-              object: error
-              request_id: 73fb0bd3ec1d452383255dd9a336668c
-              type: validation_error
           schema:
             $ref: '#/definitions/ErrorResponse'
         401:
           description: The provided access token is not valid.
-          examples:
-            Error:
-              code: 401
-              message: The provided JWT was not valid
-              object: error
-              type: invalid_auth
           schema:
             $ref: '#/definitions/ErrorResponse'
         404:
           description: Not found.
-          examples:
-            Not found:
-              code: 404
-              fields: []
-              message: The requested resource could not be found
-              object: error
-              request_id: 73fb0bd3ec1d452383255dd9a336668c
-              type: not_found
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Get bulk delete entity
@@ -15320,55 +15191,24 @@ paths:
         ,,\n, This is also considered to a blank line\n```\n"
       operationId: createBulkDeviceEnrollment
       parameters:
-      - description: 'The `CSV` file containing the enrollment IDs. The maximum file
+      - description: The `CSV` file containing the enrollment IDs. The maximum file
           size is 10MB.
-
-          '
         in: formData
         name: enrollment_identities
         required: true
         type: file
       responses:
         201:
-          description: 'Bulk upload data has been received and asynchronous processing
+          description: Bulk upload data has been received and asynchronous processing
             has been started.
-
-            '
-          examples:
-            BulkResponse:
-              account_id: 00005a4e027f0a580a01081c00000000
-              completed_at: null
-              created_at: '2018-06-26T09:12:21.308Z'
-              errors_count: 0
-              errors_report_file: null
-              etag: '1'
-              full_report_file: null
-              id: 00005a4e017f0a667a01081c00000000
-              object: enrollment-identity-bulk-uploads
-              processed_count: 0
-              status: new
-              total_count: 10
           schema:
             $ref: '#/definitions/BulkResponse'
         400:
           description: Bad request.
-          examples:
-            Bad request:
-              code: 400
-              message: Invalid request. Check your request parameters and URL.
-              object: error
-              request_id: 73fb0bd3ec1d452383255dd9a336668c
-              type: bad_request
           schema:
             $ref: '#/definitions/ErrorResponse'
         401:
           description: The provided access token is not valid.
-          examples:
-            Error:
-              code: 401
-              message: The provided JWT was not valid
-              object: error
-              type: invalid_auth
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Bulk upload
@@ -15438,55 +15278,18 @@ paths:
       responses:
         200:
           description: Bulk upload entity found
-          examples:
-            BulkResponse:
-              account_id: 00005a4e027f0a580a01081c00000000
-              completed_at: '2018-06-26T09:13:21.308Z'
-              created_at: '2018-06-26T09:12:21.308Z'
-              errors_count: 1
-              errors_report_file: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/errors_report.csv
-              etag: '1'
-              full_report_file: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/full_report.csv
-              id: 2d238a89038b4ddb84699dd36a901063
-              object: enrollment-identity-bulk-uploads
-              processed_count: 10
-              status: completed
-              total_count: 10
           schema:
             $ref: '#/definitions/BulkResponse'
         400:
           description: Bad request. The bulk identity is not valid.
-          examples:
-            Bad request:
-              code: 400
-              fields:
-              - bulk_id: Invalid bulk identity
-              message: An error description.
-              object: error
-              request_id: 73fb0bd3ec1d452383255dd9a336668c
-              type: validation_error
           schema:
             $ref: '#/definitions/ErrorResponse'
         401:
           description: The provided access token is not valid.
-          examples:
-            Error:
-              code: 401
-              message: The provided JWT was not valid
-              object: error
-              type: invalid_auth
           schema:
             $ref: '#/definitions/ErrorResponse'
         404:
           description: Not found.
-          examples:
-            Not found:
-              code: 404
-              fields: []
-              message: The requested resource could not be found
-              object: error
-              request_id: 73fb0bd3ec1d452383255dd9a336668c
-              type: not_found
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Get bulk upload entity
@@ -15530,14 +15333,6 @@ paths:
             $ref: '#/definitions/ErrorResponse'
         404:
           description: Not found.
-          examples:
-            Not found:
-              code: 404
-              fields: []
-              message: Enrollment identity not found
-              object: error
-              request_id: 73fb0bd3ec1d452383255dd9a336668c
-              type: not_found
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Delete an enrollment by ID.
@@ -15578,14 +15373,6 @@ paths:
             $ref: '#/definitions/ErrorResponse'
         404:
           description: Not found.
-          examples:
-            Not found:
-              code: 404
-              fields: []
-              message: Enrollment identity not found
-              object: error
-              request_id: 73fb0bd3ec1d452383255dd9a336668c
-              type: not_found
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Get details of an enrollment by ID.

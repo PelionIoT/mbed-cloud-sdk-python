@@ -17104,17 +17104,6 @@ entities:
     - _key: '201'
       description: Created. The enrollment claim has been created and is waiting for
         the device to connect.
-      examples:
-      - _key: Success
-        account_id: 015fee5d9b3538c98640fbfb00000000
-        claimed_at: '2017-12-13T14:35:10.000Z'
-        created_at: '2017-12-11T14:22:20.009Z'
-        enrolled_device_id: 00005a4e027f0a580a01081c00000000
-        enrollment_identity: A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5
-        etag: '1'
-        expires_at: '2018-01-11T14:22:20.009Z'
-        id: 015fee4431fd38c98640fbfb00000000
-        object: enrollment
       schema:
         foreign_key:
           entity: device_enrollment
@@ -17242,13 +17231,6 @@ entities:
         type: object
     - _key: '401'
       description: The provided access token is not valid.
-      examples:
-      - _key: Authentication Error
-        code: 401
-        message: Provided access token is not valid.
-        object: error
-        request_id: 015fee4431fd38c98640fbfb00000000
-        type: invalid_auth
       schema:
         properties:
         - _key: code
@@ -17296,27 +17278,8 @@ entities:
         - type
         type: object
     - _key: '409'
-      description: 'Conflict. The identity requested to be added already exists either
+      description: Conflict. The identity requested to be added already exists either
         on this or another account.
-
-        '
-      examples:
-      - _key: Already claimed
-        code: 409
-        fields:
-        - enrollment_identity: Enrollment identity already claimed
-        message: The requested enrollment identity has already been claimed.
-        object: error
-        request_id: 015fee4431fd38c98640fbfb00000000
-        type: duplicate
-      - _key: Conflict
-        code: 409
-        fields:
-        - enrollment_identity: Enrollment identity already exists
-        message: The requested enrollment identity already exists.
-        object: error
-        request_id: 015fee4431fd38c98640fbfb00000000
-        type: duplicate
       schema:
         properties:
         - _key: code
@@ -17470,14 +17433,6 @@ entities:
         type: object
     - _key: '404'
       description: Not found.
-      examples:
-      - _key: Not found
-        code: 404
-        fields: []
-        message: Enrollment identity not found
-        object: error
-        request_id: 73fb0bd3ec1d452383255dd9a336668c
-        type: not_found
       schema:
         properties:
         - _key: code
@@ -17710,14 +17665,6 @@ entities:
         type: object
     - _key: '404'
       description: Not found.
-      examples:
-      - _key: Not found
-        code: 404
-        fields: []
-        message: Enrollment identity not found
-        object: error
-        request_id: 73fb0bd3ec1d452383255dd9a336668c
-        type: not_found
       schema:
         properties:
         - _key: code
@@ -17877,32 +17824,6 @@ entities:
     responses:
     - _key: '200'
       description: OK.
-      examples:
-      - _key: Success
-        after: 2d238a89038b4ddb84699dd36a901063
-        data:
-        - account_id: 015fee5d9b3538c98640fbfb00000000
-          claimed_at: '2017-12-13T14:35:10.000Z'
-          created_at: '2017-12-11T14:35:20.009Z'
-          enrolled_device_id: 2d238a89038b4ddb84699dd36a901063
-          enrollment_identity: A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5
-          etag: '1'
-          expires_at: '2018-01-11T14:35:20.009Z'
-          id: sckv52bebji8dxnxuw3zvnon95u8gshm
-          object: enrollment
-        - account_id: 015fee5d9b3538c98640fbfb00000000
-          created_at: '2017-12-11T14:36:20.009Z'
-          enrolled_device_id: 2d238a89038b4ddb84699dd36a901063
-          enrollment_identity: A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5
-          etag: '1'
-          expires_at: '2018-01-11T14:35:20.009Z'
-          id: 000v52bebji8dxnxuw3zvnon95u8gshm
-          object: enrollment
-        has_more: true
-        limit: 2
-        object: list
-        order: ASC
-        total_count: 55
       schema:
         foreign_key:
           entity: device_enrollment
@@ -18026,12 +17947,6 @@ entities:
         type: object
     - _key: '400'
       description: Bad request. The access token could not be read.
-      examples:
-      - _key: Error
-        code: 400
-        message: JWT couldn't be read
-        object: error
-        type: validation_error
       schema:
         properties:
         - _key: code
@@ -18080,12 +17995,6 @@ entities:
         type: object
     - _key: '401'
       description: The provided access token is not valid.
-      examples:
-      - _key: Error
-        code: 401
-        message: The provided JWT was not valid
-        object: error
-        type: invalid_auth
       schema:
         properties:
         - _key: code
@@ -18159,6 +18068,8 @@ entities:
     api_fieldname: completed_at
     description: 'The time of completing the bulk creation task.
 
+      Null when creating bulk upload or delete.
+
       '
     format: date-time
     readOnly: true
@@ -18184,12 +18095,22 @@ entities:
     type: integer
   - _key: errors_report_file
     api_fieldname: errors_report_file
+    description: 'Link to error report file.
+
+      Null when creating bulk upload or delete.
+
+      '
     example: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/errors_report.csv
     readOnly: true
     required: false
     type: string
   - _key: full_report_file
     api_fieldname: full_report_file
+    description: 'Link to full report file.
+
+      Null when creating bulk upload or delete.
+
+      '
     example: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/full_report.csv
     readOnly: true
     required: false
@@ -18294,10 +18215,8 @@ entities:
     fields:
     - _key: enrollment_identities
       api_fieldname: enrollment_identities
-      description: 'The `CSV` file containing the enrollment IDs. The maximum file
+      description: The `CSV` file containing the enrollment IDs. The maximum file
         size is 10MB.
-
-        '
       entity_fieldname: enrollment_identities
       external_param: true
       in: stream
@@ -18313,24 +18232,8 @@ entities:
     path: /v3/device-enrollments-bulk-uploads
     responses:
     - _key: '201'
-      description: 'Bulk upload data has been received and asynchronous processing
+      description: Bulk upload data has been received and asynchronous processing
         has been started.
-
-        '
-      examples:
-      - _key: BulkResponse
-        account_id: 00005a4e027f0a580a01081c00000000
-        completed_at: null
-        created_at: '2018-06-26T09:12:21.308Z'
-        errors_count: 0
-        errors_report_file: null
-        etag: '1'
-        full_report_file: null
-        id: 00005a4e017f0a667a01081c00000000
-        object: enrollment-identity-bulk-uploads
-        processed_count: 0
-        status: new
-        total_count: 10
       schema:
         foreign_key:
           entity: device_enrollment_bulk_delete
@@ -18345,6 +18248,8 @@ entities:
         - _key: completed_at
           api_fieldname: completed_at
           description: 'The time of completing the bulk creation task.
+
+            Null when creating bulk upload or delete.
 
             '
           entity_fieldname: completed_at
@@ -18368,6 +18273,11 @@ entities:
           type: integer
         - _key: errors_report_file
           api_fieldname: errors_report_file
+          description: 'Link to error report file.
+
+            Null when creating bulk upload or delete.
+
+            '
           entity_fieldname: errors_report_file
           example: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/errors_report.csv
           type: string
@@ -18380,6 +18290,11 @@ entities:
           type: string
         - _key: full_report_file
           api_fieldname: full_report_file
+          description: 'Link to full report file.
+
+            Null when creating bulk upload or delete.
+
+            '
           entity_fieldname: full_report_file
           example: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/full_report.csv
           type: string
@@ -18437,16 +18352,12 @@ entities:
         - total_count
         - processed_count
         - errors_count
+        - completet_at
+        - full_report_file
+        - errors_report_file
         type: object
     - _key: '400'
       description: Bad request.
-      examples:
-      - _key: Bad request
-        code: 400
-        message: Invalid request. Check your request parameters and URL.
-        object: error
-        request_id: 73fb0bd3ec1d452383255dd9a336668c
-        type: bad_request
       schema:
         properties:
         - _key: code
@@ -18495,12 +18406,6 @@ entities:
         type: object
     - _key: '401'
       description: The provided access token is not valid.
-      examples:
-      - _key: Error
-        code: 401
-        message: The provided JWT was not valid
-        object: error
-        type: invalid_auth
       schema:
         properties:
         - _key: code
@@ -18703,20 +18608,6 @@ entities:
     responses:
     - _key: '200'
       description: Bulk upload entity found
-      examples:
-      - _key: BulkResponse
-        account_id: 00005a4e027f0a580a01081c00000000
-        completed_at: '2018-06-26T09:13:21.308Z'
-        created_at: '2018-06-26T09:12:21.308Z'
-        errors_count: 1
-        errors_report_file: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/errors_report.csv
-        etag: '1'
-        full_report_file: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/full_report.csv
-        id: 2d238a89038b4ddb84699dd36a901063
-        object: enrollment-identity-bulk-uploads
-        processed_count: 10
-        status: completed
-        total_count: 10
       schema:
         foreign_key:
           entity: device_enrollment_bulk_delete
@@ -18731,6 +18622,8 @@ entities:
         - _key: completed_at
           api_fieldname: completed_at
           description: 'The time of completing the bulk creation task.
+
+            Null when creating bulk upload or delete.
 
             '
           entity_fieldname: completed_at
@@ -18754,6 +18647,11 @@ entities:
           type: integer
         - _key: errors_report_file
           api_fieldname: errors_report_file
+          description: 'Link to error report file.
+
+            Null when creating bulk upload or delete.
+
+            '
           entity_fieldname: errors_report_file
           example: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/errors_report.csv
           type: string
@@ -18766,6 +18664,11 @@ entities:
           type: string
         - _key: full_report_file
           api_fieldname: full_report_file
+          description: 'Link to full report file.
+
+            Null when creating bulk upload or delete.
+
+            '
           entity_fieldname: full_report_file
           example: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/full_report.csv
           type: string
@@ -18823,18 +18726,12 @@ entities:
         - total_count
         - processed_count
         - errors_count
+        - completet_at
+        - full_report_file
+        - errors_report_file
         type: object
     - _key: '400'
       description: Bad request. The bulk identity is not valid.
-      examples:
-      - _key: Bad request
-        code: 400
-        fields:
-        - bulk_id: Invalid bulk identity
-        message: An error description.
-        object: error
-        request_id: 73fb0bd3ec1d452383255dd9a336668c
-        type: validation_error
       schema:
         properties:
         - _key: code
@@ -18883,12 +18780,6 @@ entities:
         type: object
     - _key: '401'
       description: The provided access token is not valid.
-      examples:
-      - _key: Error
-        code: 401
-        message: The provided JWT was not valid
-        object: error
-        type: invalid_auth
       schema:
         properties:
         - _key: code
@@ -18937,14 +18828,6 @@ entities:
         type: object
     - _key: '404'
       description: Not found.
-      examples:
-      - _key: Not found
-        code: 404
-        fields: []
-        message: The requested resource could not be found
-        object: error
-        request_id: 73fb0bd3ec1d452383255dd9a336668c
-        type: not_found
       schema:
         properties:
         - _key: code
@@ -19016,6 +18899,8 @@ entities:
     api_fieldname: completed_at
     description: 'The time of completing the bulk creation task.
 
+      Null when creating bulk upload or delete.
+
       '
     format: date-time
     readOnly: true
@@ -19041,12 +18926,22 @@ entities:
     type: integer
   - _key: errors_report_file
     api_fieldname: errors_report_file
+    description: 'Link to error report file.
+
+      Null when creating bulk upload or delete.
+
+      '
     example: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/errors_report.csv
     readOnly: true
     required: false
     type: string
   - _key: full_report_file
     api_fieldname: full_report_file
+    description: 'Link to full report file.
+
+      Null when creating bulk upload or delete.
+
+      '
     example: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/full_report.csv
     readOnly: true
     required: false
@@ -19153,10 +19048,8 @@ entities:
     fields:
     - _key: enrollment_identities
       api_fieldname: enrollment_identities
-      description: 'The `CSV` file containing the enrollment IDs. The maximum file
+      description: The `CSV` file containing the enrollment IDs. The maximum file
         size is 10MB.
-
-        '
       entity_fieldname: enrollment_identities
       external_param: true
       in: stream
@@ -19172,25 +19065,8 @@ entities:
     path: /v3/device-enrollments-bulk-deletes
     responses:
     - _key: '201'
-      description: 'Bulk delete data has been received and asynchronous processing
+      description: Bulk delete data has been received and asynchronous processing
         has been started.
-
-        '
-      examples:
-      - _key: BulkCreateResponse
-        properties:
-          account_id: 00005a4e027f0a580a01081c00000000
-          completed_at: null
-          created_at: '2018-06-26T07:41:47.217Z'
-          errors_count: 0
-          errors_report_file: null
-          etag: '1'
-          full_report_file: null
-          id: 00005a4e027f0a580a04567c00000000
-          object: enrollment-identity-bulk-deletes
-          processed_count: 0
-          status: new
-          total_count: 10
       schema:
         foreign_key:
           entity: device_enrollment_bulk_create
@@ -19205,6 +19081,8 @@ entities:
         - _key: completed_at
           api_fieldname: completed_at
           description: 'The time of completing the bulk creation task.
+
+            Null when creating bulk upload or delete.
 
             '
           entity_fieldname: completed_at
@@ -19228,6 +19106,11 @@ entities:
           type: integer
         - _key: errors_report_file
           api_fieldname: errors_report_file
+          description: 'Link to error report file.
+
+            Null when creating bulk upload or delete.
+
+            '
           entity_fieldname: errors_report_file
           example: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/errors_report.csv
           type: string
@@ -19240,6 +19123,11 @@ entities:
           type: string
         - _key: full_report_file
           api_fieldname: full_report_file
+          description: 'Link to full report file.
+
+            Null when creating bulk upload or delete.
+
+            '
           entity_fieldname: full_report_file
           example: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/full_report.csv
           type: string
@@ -19300,16 +19188,12 @@ entities:
         - total_count
         - processed_count
         - errors_count
+        - completet_at
+        - full_report_file
+        - errors_report_file
         type: object
     - _key: '400'
       description: Bad request.
-      examples:
-      - _key: Bad request
-        code: 400
-        message: Invalid request. Check your request parameters and URL.
-        object: error
-        request_id: 73fb0bd3ec1d452383255dd9a336668c
-        type: bad_request
       schema:
         properties:
         - _key: code
@@ -19358,12 +19242,6 @@ entities:
         type: object
     - _key: '401'
       description: The provided access token is not valid.
-      examples:
-      - _key: Error
-        code: 401
-        message: The provided JWT was not valid
-        object: error
-        type: invalid_auth
       schema:
         properties:
         - _key: code
@@ -19566,20 +19444,6 @@ entities:
     responses:
     - _key: '200'
       description: Bulk delete entity found
-      examples:
-      - _key: BulkResponse
-        account_id: 00005a4e027f0a580a01081c00000000
-        completed_at: '2018-06-26T09:13:21.308Z'
-        created_at: '2018-06-26T09:12:21.308Z'
-        errors_count: 1
-        errors_report_file: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-deletes/2d238a89038b4ddb84699dd36a901063/errors_report.csv
-        etag: '1'
-        full_report_file: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-deletes/2d238a89038b4ddb84699dd36a901063/full_report.csv
-        id: 2d238a89038b4ddb84699dd36a901063
-        object: enrollment-identity-bulk-deletes
-        processed_count: 10
-        status: completed
-        total_count: 10
       schema:
         foreign_key:
           entity: device_enrollment_bulk_create
@@ -19594,6 +19458,8 @@ entities:
         - _key: completed_at
           api_fieldname: completed_at
           description: 'The time of completing the bulk creation task.
+
+            Null when creating bulk upload or delete.
 
             '
           entity_fieldname: completed_at
@@ -19617,6 +19483,11 @@ entities:
           type: integer
         - _key: errors_report_file
           api_fieldname: errors_report_file
+          description: 'Link to error report file.
+
+            Null when creating bulk upload or delete.
+
+            '
           entity_fieldname: errors_report_file
           example: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/errors_report.csv
           type: string
@@ -19629,6 +19500,11 @@ entities:
           type: string
         - _key: full_report_file
           api_fieldname: full_report_file
+          description: 'Link to full report file.
+
+            Null when creating bulk upload or delete.
+
+            '
           entity_fieldname: full_report_file
           example: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/full_report.csv
           type: string
@@ -19689,18 +19565,12 @@ entities:
         - total_count
         - processed_count
         - errors_count
+        - completet_at
+        - full_report_file
+        - errors_report_file
         type: object
     - _key: '400'
       description: Bad request. The bulk identity is not valid.
-      examples:
-      - _key: Bad request
-        code: 400
-        fields:
-        - bulk_id: Invalid bulk identity
-        message: An error description.
-        object: error
-        request_id: 73fb0bd3ec1d452383255dd9a336668c
-        type: validation_error
       schema:
         properties:
         - _key: code
@@ -19749,12 +19619,6 @@ entities:
         type: object
     - _key: '401'
       description: The provided access token is not valid.
-      examples:
-      - _key: Error
-        code: 401
-        message: The provided JWT was not valid
-        object: error
-        type: invalid_auth
       schema:
         properties:
         - _key: code
@@ -19803,14 +19667,6 @@ entities:
         type: object
     - _key: '404'
       description: Not found.
-      examples:
-      - _key: Not found
-        code: 404
-        fields: []
-        message: The requested resource could not be found
-        object: error
-        request_id: 73fb0bd3ec1d452383255dd9a336668c
-        type: not_found
       schema:
         properties:
         - _key: code

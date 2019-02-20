@@ -22430,20 +22430,6 @@
                   "entity": "device_enrollment"
                 }
               },
-              "examples": [
-                {
-                  "object": "enrollment",
-                  "id": "015fee4431fd38c98640fbfb00000000",
-                  "etag": "1",
-                  "enrollment_identity": "A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5",
-                  "claimed_at": "2017-12-13T14:35:10.000Z",
-                  "account_id": "015fee5d9b3538c98640fbfb00000000",
-                  "expires_at": "2018-01-11T14:22:20.009Z",
-                  "created_at": "2017-12-11T14:22:20.009Z",
-                  "enrolled_device_id": "00005a4e027f0a580a01081c00000000",
-                  "_key": "Success"
-                }
-              ],
               "_key": "201"
             },
             {
@@ -22590,20 +22576,10 @@
                   }
                 ]
               },
-              "examples": [
-                {
-                  "object": "error",
-                  "code": 401,
-                  "type": "invalid_auth",
-                  "message": "Provided access token is not valid.",
-                  "request_id": "015fee4431fd38c98640fbfb00000000",
-                  "_key": "Authentication Error"
-                }
-              ],
               "_key": "401"
             },
             {
-              "description": "Conflict. The identity requested to be added already exists either on this or another account.\n",
+              "description": "Conflict. The identity requested to be added already exists either on this or another account.",
               "schema": {
                 "type": "object",
                 "required": [
@@ -22673,34 +22649,6 @@
                   }
                 ]
               },
-              "examples": [
-                {
-                  "object": "error",
-                  "code": 409,
-                  "type": "duplicate",
-                  "message": "The requested enrollment identity has already been claimed.",
-                  "request_id": "015fee4431fd38c98640fbfb00000000",
-                  "fields": [
-                    {
-                      "enrollment_identity": "Enrollment identity already claimed"
-                    }
-                  ],
-                  "_key": "Already claimed"
-                },
-                {
-                  "object": "error",
-                  "code": 409,
-                  "type": "duplicate",
-                  "message": "The requested enrollment identity already exists.",
-                  "request_id": "015fee4431fd38c98640fbfb00000000",
-                  "fields": [
-                    {
-                      "enrollment_identity": "Enrollment identity already exists"
-                    }
-                  ],
-                  "_key": "Conflict"
-                }
-              ],
               "_key": "409"
             }
           ],
@@ -22901,17 +22849,6 @@
                   }
                 ]
               },
-              "examples": [
-                {
-                  "object": "error",
-                  "code": 404,
-                  "type": "not_found",
-                  "message": "Enrollment identity not found",
-                  "request_id": "73fb0bd3ec1d452383255dd9a336668c",
-                  "fields": [],
-                  "_key": "Not found"
-                }
-              ],
               "_key": "404"
             }
           ],
@@ -23203,17 +23140,6 @@
                   }
                 ]
               },
-              "examples": [
-                {
-                  "object": "error",
-                  "code": 404,
-                  "type": "not_found",
-                  "message": "Enrollment identity not found",
-                  "request_id": "73fb0bd3ec1d452383255dd9a336668c",
-                  "fields": [],
-                  "_key": "Not found"
-                }
-              ],
               "_key": "404"
             }
           ],
@@ -23477,40 +23403,6 @@
                   "entity": "device_enrollment"
                 }
               },
-              "examples": [
-                {
-                  "object": "list",
-                  "limit": 2,
-                  "after": "2d238a89038b4ddb84699dd36a901063",
-                  "order": "ASC",
-                  "has_more": true,
-                  "total_count": 55,
-                  "data": [
-                    {
-                      "object": "enrollment",
-                      "id": "sckv52bebji8dxnxuw3zvnon95u8gshm",
-                      "etag": "1",
-                      "created_at": "2017-12-11T14:35:20.009Z",
-                      "claimed_at": "2017-12-13T14:35:10.000Z",
-                      "enrollment_identity": "A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5",
-                      "account_id": "015fee5d9b3538c98640fbfb00000000",
-                      "expires_at": "2018-01-11T14:35:20.009Z",
-                      "enrolled_device_id": "2d238a89038b4ddb84699dd36a901063"
-                    },
-                    {
-                      "object": "enrollment",
-                      "id": "000v52bebji8dxnxuw3zvnon95u8gshm",
-                      "etag": "1",
-                      "created_at": "2017-12-11T14:36:20.009Z",
-                      "enrollment_identity": "A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5",
-                      "account_id": "015fee5d9b3538c98640fbfb00000000",
-                      "expires_at": "2018-01-11T14:35:20.009Z",
-                      "enrolled_device_id": "2d238a89038b4ddb84699dd36a901063"
-                    }
-                  ],
-                  "_key": "Success"
-                }
-              ],
               "_key": "200"
             },
             {
@@ -23584,15 +23476,6 @@
                   }
                 ]
               },
-              "examples": [
-                {
-                  "object": "error",
-                  "code": 400,
-                  "type": "validation_error",
-                  "message": "JWT couldn't be read",
-                  "_key": "Error"
-                }
-              ],
               "_key": "400"
             },
             {
@@ -23666,15 +23549,6 @@
                   }
                 ]
               },
-              "examples": [
-                {
-                  "object": "error",
-                  "code": 401,
-                  "type": "invalid_auth",
-                  "message": "The provided JWT was not valid",
-                  "_key": "Error"
-                }
-              ],
               "_key": "401"
             }
           ],
@@ -23800,7 +23674,7 @@
               "name": "enrollment_identities",
               "type": "file",
               "required": true,
-              "description": "The `CSV` file containing the enrollment IDs. The maximum file size is 10MB.\n",
+              "description": "The `CSV` file containing the enrollment IDs. The maximum file size is 10MB.",
               "entity_fieldname": "enrollment_identities",
               "api_fieldname": "enrollment_identities",
               "external_param": true,
@@ -23812,7 +23686,7 @@
           "mode": "create",
           "responses": [
             {
-              "description": "Bulk upload data has been received and asynchronous processing has been started.\n",
+              "description": "Bulk upload data has been received and asynchronous processing has been started.",
               "schema": {
                 "type": "object",
                 "required": [
@@ -23824,7 +23698,10 @@
                   "status",
                   "total_count",
                   "processed_count",
-                  "errors_count"
+                  "errors_count",
+                  "completet_at",
+                  "full_report_file",
+                  "errors_report_file"
                 ],
                 "properties": [
                   {
@@ -23837,7 +23714,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "The time of completing the bulk creation task.\n",
+                    "description": "The time of completing the bulk creation task.\nNull when creating bulk upload or delete.\n",
                     "format": "date-time",
                     "api_fieldname": "completed_at",
                     "entity_fieldname": "completed_at",
@@ -23861,6 +23738,7 @@
                   },
                   {
                     "type": "string",
+                    "description": "Link to error report file.\nNull when creating bulk upload or delete.\n",
                     "example": "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/errors_report.csv",
                     "api_fieldname": "errors_report_file",
                     "entity_fieldname": "errors_report_file",
@@ -23877,6 +23755,7 @@
                   },
                   {
                     "type": "string",
+                    "description": "Link to full report file.\nNull when creating bulk upload or delete.\n",
                     "example": "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/full_report.csv",
                     "api_fieldname": "full_report_file",
                     "entity_fieldname": "full_report_file",
@@ -23936,23 +23815,6 @@
                   "entity": "device_enrollment_bulk_delete"
                 }
               },
-              "examples": [
-                {
-                  "object": "enrollment-identity-bulk-uploads",
-                  "id": "00005a4e017f0a667a01081c00000000",
-                  "account_id": "00005a4e027f0a580a01081c00000000",
-                  "etag": "1",
-                  "created_at": "2018-06-26T09:12:21.308Z",
-                  "status": "new",
-                  "total_count": 10,
-                  "processed_count": 0,
-                  "errors_count": 0,
-                  "completed_at": null,
-                  "full_report_file": null,
-                  "errors_report_file": null,
-                  "_key": "BulkResponse"
-                }
-              ],
               "_key": "201"
             },
             {
@@ -24026,16 +23888,6 @@
                   }
                 ]
               },
-              "examples": [
-                {
-                  "object": "error",
-                  "code": 400,
-                  "type": "bad_request",
-                  "message": "Invalid request. Check your request parameters and URL.",
-                  "request_id": "73fb0bd3ec1d452383255dd9a336668c",
-                  "_key": "Bad request"
-                }
-              ],
               "_key": "400"
             },
             {
@@ -24109,15 +23961,6 @@
                   }
                 ]
               },
-              "examples": [
-                {
-                  "object": "error",
-                  "code": 401,
-                  "type": "invalid_auth",
-                  "message": "The provided JWT was not valid",
-                  "_key": "Error"
-                }
-              ],
               "_key": "401"
             }
           ],
@@ -24254,7 +24097,10 @@
                   "status",
                   "total_count",
                   "processed_count",
-                  "errors_count"
+                  "errors_count",
+                  "completet_at",
+                  "full_report_file",
+                  "errors_report_file"
                 ],
                 "properties": [
                   {
@@ -24267,7 +24113,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "The time of completing the bulk creation task.\n",
+                    "description": "The time of completing the bulk creation task.\nNull when creating bulk upload or delete.\n",
                     "format": "date-time",
                     "api_fieldname": "completed_at",
                     "entity_fieldname": "completed_at",
@@ -24291,6 +24137,7 @@
                   },
                   {
                     "type": "string",
+                    "description": "Link to error report file.\nNull when creating bulk upload or delete.\n",
                     "example": "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/errors_report.csv",
                     "api_fieldname": "errors_report_file",
                     "entity_fieldname": "errors_report_file",
@@ -24307,6 +24154,7 @@
                   },
                   {
                     "type": "string",
+                    "description": "Link to full report file.\nNull when creating bulk upload or delete.\n",
                     "example": "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/full_report.csv",
                     "api_fieldname": "full_report_file",
                     "entity_fieldname": "full_report_file",
@@ -24366,23 +24214,6 @@
                   "entity": "device_enrollment_bulk_delete"
                 }
               },
-              "examples": [
-                {
-                  "object": "enrollment-identity-bulk-uploads",
-                  "id": "2d238a89038b4ddb84699dd36a901063",
-                  "account_id": "00005a4e027f0a580a01081c00000000",
-                  "etag": "1",
-                  "created_at": "2018-06-26T09:12:21.308Z",
-                  "status": "completed",
-                  "total_count": 10,
-                  "processed_count": 10,
-                  "errors_count": 1,
-                  "completed_at": "2018-06-26T09:13:21.308Z",
-                  "full_report_file": "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/full_report.csv",
-                  "errors_report_file": "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/errors_report.csv",
-                  "_key": "BulkResponse"
-                }
-              ],
               "_key": "200"
             },
             {
@@ -24456,21 +24287,6 @@
                   }
                 ]
               },
-              "examples": [
-                {
-                  "object": "error",
-                  "code": 400,
-                  "type": "validation_error",
-                  "message": "An error description.",
-                  "request_id": "73fb0bd3ec1d452383255dd9a336668c",
-                  "fields": [
-                    {
-                      "bulk_id": "Invalid bulk identity"
-                    }
-                  ],
-                  "_key": "Bad request"
-                }
-              ],
               "_key": "400"
             },
             {
@@ -24544,15 +24360,6 @@
                   }
                 ]
               },
-              "examples": [
-                {
-                  "object": "error",
-                  "code": 401,
-                  "type": "invalid_auth",
-                  "message": "The provided JWT was not valid",
-                  "_key": "Error"
-                }
-              ],
               "_key": "401"
             },
             {
@@ -24626,17 +24433,6 @@
                   }
                 ]
               },
-              "examples": [
-                {
-                  "object": "error",
-                  "code": 404,
-                  "type": "not_found",
-                  "message": "The requested resource could not be found",
-                  "request_id": "73fb0bd3ec1d452383255dd9a336668c",
-                  "fields": [],
-                  "_key": "Not found"
-                }
-              ],
               "_key": "404"
             }
           ],
@@ -24685,7 +24481,7 @@
         },
         {
           "type": "string",
-          "description": "The time of completing the bulk creation task.\n",
+          "description": "The time of completing the bulk creation task.\nNull when creating bulk upload or delete.\n",
           "format": "date-time",
           "api_fieldname": "completed_at",
           "readOnly": true,
@@ -24712,6 +24508,7 @@
         },
         {
           "type": "string",
+          "description": "Link to error report file.\nNull when creating bulk upload or delete.\n",
           "example": "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/errors_report.csv",
           "api_fieldname": "errors_report_file",
           "readOnly": true,
@@ -24720,6 +24517,7 @@
         },
         {
           "type": "string",
+          "description": "Link to full report file.\nNull when creating bulk upload or delete.\n",
           "example": "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/full_report.csv",
           "api_fieldname": "full_report_file",
           "readOnly": true,
@@ -24792,7 +24590,7 @@
               "name": "enrollment_identities",
               "type": "file",
               "required": true,
-              "description": "The `CSV` file containing the enrollment IDs. The maximum file size is 10MB.\n",
+              "description": "The `CSV` file containing the enrollment IDs. The maximum file size is 10MB.",
               "entity_fieldname": "enrollment_identities",
               "api_fieldname": "enrollment_identities",
               "external_param": true,
@@ -24804,7 +24602,7 @@
           "mode": "delete",
           "responses": [
             {
-              "description": "Bulk delete data has been received and asynchronous processing has been started.\n",
+              "description": "Bulk delete data has been received and asynchronous processing has been started.",
               "schema": {
                 "type": "object",
                 "required": [
@@ -24816,7 +24614,10 @@
                   "status",
                   "total_count",
                   "processed_count",
-                  "errors_count"
+                  "errors_count",
+                  "completet_at",
+                  "full_report_file",
+                  "errors_report_file"
                 ],
                 "properties": [
                   {
@@ -24829,7 +24630,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "The time of completing the bulk creation task.\n",
+                    "description": "The time of completing the bulk creation task.\nNull when creating bulk upload or delete.\n",
                     "format": "date-time",
                     "api_fieldname": "completed_at",
                     "entity_fieldname": "completed_at",
@@ -24853,6 +24654,7 @@
                   },
                   {
                     "type": "string",
+                    "description": "Link to error report file.\nNull when creating bulk upload or delete.\n",
                     "example": "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/errors_report.csv",
                     "api_fieldname": "errors_report_file",
                     "entity_fieldname": "errors_report_file",
@@ -24869,6 +24671,7 @@
                   },
                   {
                     "type": "string",
+                    "description": "Link to full report file.\nNull when creating bulk upload or delete.\n",
                     "example": "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/full_report.csv",
                     "api_fieldname": "full_report_file",
                     "entity_fieldname": "full_report_file",
@@ -24931,25 +24734,6 @@
                   "entity": "device_enrollment_bulk_create"
                 }
               },
-              "examples": [
-                {
-                  "properties": {
-                    "object": "enrollment-identity-bulk-deletes",
-                    "id": "00005a4e027f0a580a04567c00000000",
-                    "account_id": "00005a4e027f0a580a01081c00000000",
-                    "etag": "1",
-                    "created_at": "2018-06-26T07:41:47.217Z",
-                    "status": "new",
-                    "total_count": 10,
-                    "processed_count": 0,
-                    "errors_count": 0,
-                    "completed_at": null,
-                    "full_report_file": null,
-                    "errors_report_file": null
-                  },
-                  "_key": "BulkCreateResponse"
-                }
-              ],
               "_key": "201"
             },
             {
@@ -25023,16 +24807,6 @@
                   }
                 ]
               },
-              "examples": [
-                {
-                  "object": "error",
-                  "code": 400,
-                  "type": "bad_request",
-                  "message": "Invalid request. Check your request parameters and URL.",
-                  "request_id": "73fb0bd3ec1d452383255dd9a336668c",
-                  "_key": "Bad request"
-                }
-              ],
               "_key": "400"
             },
             {
@@ -25106,15 +24880,6 @@
                   }
                 ]
               },
-              "examples": [
-                {
-                  "object": "error",
-                  "code": 401,
-                  "type": "invalid_auth",
-                  "message": "The provided JWT was not valid",
-                  "_key": "Error"
-                }
-              ],
               "_key": "401"
             }
           ],
@@ -25251,7 +25016,10 @@
                   "status",
                   "total_count",
                   "processed_count",
-                  "errors_count"
+                  "errors_count",
+                  "completet_at",
+                  "full_report_file",
+                  "errors_report_file"
                 ],
                 "properties": [
                   {
@@ -25264,7 +25032,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "The time of completing the bulk creation task.\n",
+                    "description": "The time of completing the bulk creation task.\nNull when creating bulk upload or delete.\n",
                     "format": "date-time",
                     "api_fieldname": "completed_at",
                     "entity_fieldname": "completed_at",
@@ -25288,6 +25056,7 @@
                   },
                   {
                     "type": "string",
+                    "description": "Link to error report file.\nNull when creating bulk upload or delete.\n",
                     "example": "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/errors_report.csv",
                     "api_fieldname": "errors_report_file",
                     "entity_fieldname": "errors_report_file",
@@ -25304,6 +25073,7 @@
                   },
                   {
                     "type": "string",
+                    "description": "Link to full report file.\nNull when creating bulk upload or delete.\n",
                     "example": "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/full_report.csv",
                     "api_fieldname": "full_report_file",
                     "entity_fieldname": "full_report_file",
@@ -25366,23 +25136,6 @@
                   "entity": "device_enrollment_bulk_create"
                 }
               },
-              "examples": [
-                {
-                  "object": "enrollment-identity-bulk-deletes",
-                  "id": "2d238a89038b4ddb84699dd36a901063",
-                  "account_id": "00005a4e027f0a580a01081c00000000",
-                  "etag": "1",
-                  "created_at": "2018-06-26T09:12:21.308Z",
-                  "status": "completed",
-                  "total_count": 10,
-                  "processed_count": 10,
-                  "errors_count": 1,
-                  "completed_at": "2018-06-26T09:13:21.308Z",
-                  "full_report_file": "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-deletes/2d238a89038b4ddb84699dd36a901063/full_report.csv",
-                  "errors_report_file": "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-deletes/2d238a89038b4ddb84699dd36a901063/errors_report.csv",
-                  "_key": "BulkResponse"
-                }
-              ],
               "_key": "200"
             },
             {
@@ -25456,21 +25209,6 @@
                   }
                 ]
               },
-              "examples": [
-                {
-                  "object": "error",
-                  "code": 400,
-                  "type": "validation_error",
-                  "message": "An error description.",
-                  "request_id": "73fb0bd3ec1d452383255dd9a336668c",
-                  "fields": [
-                    {
-                      "bulk_id": "Invalid bulk identity"
-                    }
-                  ],
-                  "_key": "Bad request"
-                }
-              ],
               "_key": "400"
             },
             {
@@ -25544,15 +25282,6 @@
                   }
                 ]
               },
-              "examples": [
-                {
-                  "object": "error",
-                  "code": 401,
-                  "type": "invalid_auth",
-                  "message": "The provided JWT was not valid",
-                  "_key": "Error"
-                }
-              ],
               "_key": "401"
             },
             {
@@ -25626,17 +25355,6 @@
                   }
                 ]
               },
-              "examples": [
-                {
-                  "object": "error",
-                  "code": 404,
-                  "type": "not_found",
-                  "message": "The requested resource could not be found",
-                  "request_id": "73fb0bd3ec1d452383255dd9a336668c",
-                  "fields": [],
-                  "_key": "Not found"
-                }
-              ],
               "_key": "404"
             }
           ],
@@ -25685,7 +25403,7 @@
         },
         {
           "type": "string",
-          "description": "The time of completing the bulk creation task.\n",
+          "description": "The time of completing the bulk creation task.\nNull when creating bulk upload or delete.\n",
           "format": "date-time",
           "api_fieldname": "completed_at",
           "readOnly": true,
@@ -25712,6 +25430,7 @@
         },
         {
           "type": "string",
+          "description": "Link to error report file.\nNull when creating bulk upload or delete.\n",
           "example": "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/errors_report.csv",
           "api_fieldname": "errors_report_file",
           "readOnly": true,
@@ -25720,6 +25439,7 @@
         },
         {
           "type": "string",
+          "description": "Link to full report file.\nNull when creating bulk upload or delete.\n",
           "example": "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/full_report.csv",
           "api_fieldname": "full_report_file",
           "readOnly": true,
