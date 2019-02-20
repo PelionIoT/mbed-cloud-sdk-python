@@ -6359,31 +6359,46 @@ entities:
               description: List of active user sessions.
               items:
                 description: This object represents an active user session.
+                foreign_key:
+                  entity: active_session
+                  group: Accounts
                 properties:
                 - _key: account_id
+                  api_fieldname: account_id
                   description: The UUID of the account.
+                  entity_fieldname: account_id
                   example: 01619571e2e90242ac12000600000000
                   type: string
                 - _key: ip_address
+                  api_fieldname: ip_address
                   description: IP address of the client.
+                  entity_fieldname: ip_address
                   example: 127.0.0.1
                   type: string
                 - _key: login_time
+                  api_fieldname: login_time
                   description: The login time of the user.
+                  entity_fieldname: login_time
                   example: '2018-02-14T17:52:07Z'
                   format: date-time
                   type: string
                 - _key: object
+                  api_fieldname: object
                   description: 'Entity name: always ''user-session'''
+                  entity_fieldname: object
                   enum:
                   - user-session
                   type: string
                 - _key: reference_token
+                  api_fieldname: reference_token
                   description: The reference token.
+                  entity_fieldname: reference_token
                   example: rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk
                   type: string
                 - _key: user_agent
+                  api_fieldname: user_agent
                   description: User Agent header from the login request.
+                  entity_fieldname: user_agent
                   example: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36
                     (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36
                   type: string
@@ -6822,6 +6837,52 @@ entities:
   tags:
   - Developer
   - Aggregator Account Admin
+- _key: active_session
+  field_renames: []
+  fields:
+  - _key: account_id
+    api_fieldname: account_id
+    description: The UUID of the account.
+    example: 01619571e2e90242ac12000600000000
+    readOnly: true
+    required: false
+    type: string
+  - _key: ip_address
+    api_fieldname: ip_address
+    description: IP address of the client.
+    example: 127.0.0.1
+    readOnly: true
+    required: false
+    type: string
+  - _key: login_time
+    api_fieldname: login_time
+    description: The login time of the user.
+    example: '2018-02-14T17:52:07Z'
+    format: date-time
+    readOnly: true
+    required: false
+    type: string
+  - _key: reference_token
+    api_fieldname: reference_token
+    description: The reference token.
+    example: rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk
+    readOnly: true
+    required: false
+    type: string
+  - _key: user_agent
+    api_fieldname: user_agent
+    description: User Agent header from the login request.
+    example: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML,
+      like Gecko) Chrome/41.0.2227.1 Safari/537.36
+    readOnly: true
+    required: false
+    type: string
+  group_id: Accounts
+  methods: []
+  primary_key_field: null
+  swagger_models:
+  - ActiveSession
+  tags: []
 - _key: api_key
   field_renames: []
   fields:
@@ -23031,31 +23092,46 @@ entities:
     description: List of active user sessions.
     items:
       description: This object represents an active user session.
+      foreign_key:
+        entity: active_session
+        group: Accounts
       properties:
       - _key: account_id
+        api_fieldname: account_id
         description: The UUID of the account.
+        entity_fieldname: account_id
         example: 01619571e2e90242ac12000600000000
         type: string
       - _key: ip_address
+        api_fieldname: ip_address
         description: IP address of the client.
+        entity_fieldname: ip_address
         example: 127.0.0.1
         type: string
       - _key: login_time
+        api_fieldname: login_time
         description: The login time of the user.
+        entity_fieldname: login_time
         example: '2018-02-14T17:52:07Z'
         format: date-time
         type: string
       - _key: object
+        api_fieldname: object
         description: 'Entity name: always ''user-session'''
+        entity_fieldname: object
         enum:
         - user-session
         type: string
       - _key: reference_token
+        api_fieldname: reference_token
         description: The reference token.
+        entity_fieldname: reference_token
         example: rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk
         type: string
       - _key: user_agent
+        api_fieldname: user_agent
         description: User Agent header from the login request.
+        entity_fieldname: user_agent
         example: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36
           (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36
         type: string
@@ -23545,31 +23621,46 @@ entities:
           entity_fieldname: active_sessions
           items:
             description: This object represents an active user session.
+            foreign_key:
+              entity: active_session
+              group: Accounts
             properties:
             - _key: account_id
+              api_fieldname: account_id
               description: The UUID of the account.
+              entity_fieldname: account_id
               example: 01619571e2e90242ac12000600000000
               type: string
             - _key: ip_address
+              api_fieldname: ip_address
               description: IP address of the client.
+              entity_fieldname: ip_address
               example: 127.0.0.1
               type: string
             - _key: login_time
+              api_fieldname: login_time
               description: The login time of the user.
+              entity_fieldname: login_time
               example: '2018-02-14T17:52:07Z'
               format: date-time
               type: string
             - _key: object
+              api_fieldname: object
               description: 'Entity name: always ''user-session'''
+              entity_fieldname: object
               enum:
               - user-session
               type: string
             - _key: reference_token
+              api_fieldname: reference_token
               description: The reference token.
+              entity_fieldname: reference_token
               example: rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk
               type: string
             - _key: user_agent
+              api_fieldname: user_agent
               description: User Agent header from the login request.
+              entity_fieldname: user_agent
               example: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36
                 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36
               type: string
@@ -24467,31 +24558,46 @@ entities:
           entity_fieldname: active_sessions
           items:
             description: This object represents an active user session.
+            foreign_key:
+              entity: active_session
+              group: Accounts
             properties:
             - _key: account_id
+              api_fieldname: account_id
               description: The UUID of the account.
+              entity_fieldname: account_id
               example: 01619571e2e90242ac12000600000000
               type: string
             - _key: ip_address
+              api_fieldname: ip_address
               description: IP address of the client.
+              entity_fieldname: ip_address
               example: 127.0.0.1
               type: string
             - _key: login_time
+              api_fieldname: login_time
               description: The login time of the user.
+              entity_fieldname: login_time
               example: '2018-02-14T17:52:07Z'
               format: date-time
               type: string
             - _key: object
+              api_fieldname: object
               description: 'Entity name: always ''user-session'''
+              entity_fieldname: object
               enum:
               - user-session
               type: string
             - _key: reference_token
+              api_fieldname: reference_token
               description: The reference token.
+              entity_fieldname: reference_token
               example: rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk
               type: string
             - _key: user_agent
+              api_fieldname: user_agent
               description: User Agent header from the login request.
+              entity_fieldname: user_agent
               example: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36
                 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36
               type: string
@@ -25137,31 +25243,46 @@ entities:
           entity_fieldname: active_sessions
           items:
             description: This object represents an active user session.
+            foreign_key:
+              entity: active_session
+              group: Accounts
             properties:
             - _key: account_id
+              api_fieldname: account_id
               description: The UUID of the account.
+              entity_fieldname: account_id
               example: 01619571e2e90242ac12000600000000
               type: string
             - _key: ip_address
+              api_fieldname: ip_address
               description: IP address of the client.
+              entity_fieldname: ip_address
               example: 127.0.0.1
               type: string
             - _key: login_time
+              api_fieldname: login_time
               description: The login time of the user.
+              entity_fieldname: login_time
               example: '2018-02-14T17:52:07Z'
               format: date-time
               type: string
             - _key: object
+              api_fieldname: object
               description: 'Entity name: always ''user-session'''
+              entity_fieldname: object
               enum:
               - user-session
               type: string
             - _key: reference_token
+              api_fieldname: reference_token
               description: The reference token.
+              entity_fieldname: reference_token
               example: rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk
               type: string
             - _key: user_agent
+              api_fieldname: user_agent
               description: User Agent header from the login request.
+              entity_fieldname: user_agent
               example: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36
                 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36
               type: string
@@ -29592,31 +29713,46 @@ entities:
     description: List of active user sessions.
     items:
       description: This object represents an active user session.
+      foreign_key:
+        entity: active_session
+        group: Accounts
       properties:
       - _key: account_id
+        api_fieldname: account_id
         description: The UUID of the account.
+        entity_fieldname: account_id
         example: 01619571e2e90242ac12000600000000
         type: string
       - _key: ip_address
+        api_fieldname: ip_address
         description: IP address of the client.
+        entity_fieldname: ip_address
         example: 127.0.0.1
         type: string
       - _key: login_time
+        api_fieldname: login_time
         description: The login time of the user.
+        entity_fieldname: login_time
         example: '2018-02-14T17:52:07Z'
         format: date-time
         type: string
       - _key: object
+        api_fieldname: object
         description: 'Entity name: always ''user-session'''
+        entity_fieldname: object
         enum:
         - user-session
         type: string
       - _key: reference_token
+        api_fieldname: reference_token
         description: The reference token.
+        entity_fieldname: reference_token
         example: rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk
         type: string
       - _key: user_agent
+        api_fieldname: user_agent
         description: User Agent header from the login request.
+        entity_fieldname: user_agent
         example: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36
           (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36
         type: string
@@ -30074,31 +30210,46 @@ entities:
           entity_fieldname: active_sessions
           items:
             description: This object represents an active user session.
+            foreign_key:
+              entity: active_session
+              group: Accounts
             properties:
             - _key: account_id
+              api_fieldname: account_id
               description: The UUID of the account.
+              entity_fieldname: account_id
               example: 01619571e2e90242ac12000600000000
               type: string
             - _key: ip_address
+              api_fieldname: ip_address
               description: IP address of the client.
+              entity_fieldname: ip_address
               example: 127.0.0.1
               type: string
             - _key: login_time
+              api_fieldname: login_time
               description: The login time of the user.
+              entity_fieldname: login_time
               example: '2018-02-14T17:52:07Z'
               format: date-time
               type: string
             - _key: object
+              api_fieldname: object
               description: 'Entity name: always ''user-session'''
+              entity_fieldname: object
               enum:
               - user-session
               type: string
             - _key: reference_token
+              api_fieldname: reference_token
               description: The reference token.
+              entity_fieldname: reference_token
               example: rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk
               type: string
             - _key: user_agent
+              api_fieldname: user_agent
               description: User Agent header from the login request.
+              entity_fieldname: user_agent
               example: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36
                 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36
               type: string
@@ -30888,31 +31039,46 @@ entities:
           entity_fieldname: active_sessions
           items:
             description: This object represents an active user session.
+            foreign_key:
+              entity: active_session
+              group: Accounts
             properties:
             - _key: account_id
+              api_fieldname: account_id
               description: The UUID of the account.
+              entity_fieldname: account_id
               example: 01619571e2e90242ac12000600000000
               type: string
             - _key: ip_address
+              api_fieldname: ip_address
               description: IP address of the client.
+              entity_fieldname: ip_address
               example: 127.0.0.1
               type: string
             - _key: login_time
+              api_fieldname: login_time
               description: The login time of the user.
+              entity_fieldname: login_time
               example: '2018-02-14T17:52:07Z'
               format: date-time
               type: string
             - _key: object
+              api_fieldname: object
               description: 'Entity name: always ''user-session'''
+              entity_fieldname: object
               enum:
               - user-session
               type: string
             - _key: reference_token
+              api_fieldname: reference_token
               description: The reference token.
+              entity_fieldname: reference_token
               example: rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk
               type: string
             - _key: user_agent
+              api_fieldname: user_agent
               description: User Agent header from the login request.
+              entity_fieldname: user_agent
               example: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36
                 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36
               type: string
@@ -31454,31 +31620,46 @@ entities:
               description: List of active user sessions.
               items:
                 description: This object represents an active user session.
+                foreign_key:
+                  entity: active_session
+                  group: Accounts
                 properties:
                 - _key: account_id
+                  api_fieldname: account_id
                   description: The UUID of the account.
+                  entity_fieldname: account_id
                   example: 01619571e2e90242ac12000600000000
                   type: string
                 - _key: ip_address
+                  api_fieldname: ip_address
                   description: IP address of the client.
+                  entity_fieldname: ip_address
                   example: 127.0.0.1
                   type: string
                 - _key: login_time
+                  api_fieldname: login_time
                   description: The login time of the user.
+                  entity_fieldname: login_time
                   example: '2018-02-14T17:52:07Z'
                   format: date-time
                   type: string
                 - _key: object
+                  api_fieldname: object
                   description: 'Entity name: always ''user-session'''
+                  entity_fieldname: object
                   enum:
                   - user-session
                   type: string
                 - _key: reference_token
+                  api_fieldname: reference_token
                   description: The reference token.
+                  entity_fieldname: reference_token
                   example: rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk
                   type: string
                 - _key: user_agent
+                  api_fieldname: user_agent
                   description: User Agent header from the login request.
+                  entity_fieldname: user_agent
                   example: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36
                     (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36
                   type: string
@@ -32028,31 +32209,46 @@ entities:
           entity_fieldname: active_sessions
           items:
             description: This object represents an active user session.
+            foreign_key:
+              entity: active_session
+              group: Accounts
             properties:
             - _key: account_id
+              api_fieldname: account_id
               description: The UUID of the account.
+              entity_fieldname: account_id
               example: 01619571e2e90242ac12000600000000
               type: string
             - _key: ip_address
+              api_fieldname: ip_address
               description: IP address of the client.
+              entity_fieldname: ip_address
               example: 127.0.0.1
               type: string
             - _key: login_time
+              api_fieldname: login_time
               description: The login time of the user.
+              entity_fieldname: login_time
               example: '2018-02-14T17:52:07Z'
               format: date-time
               type: string
             - _key: object
+              api_fieldname: object
               description: 'Entity name: always ''user-session'''
+              entity_fieldname: object
               enum:
               - user-session
               type: string
             - _key: reference_token
+              api_fieldname: reference_token
               description: The reference token.
+              entity_fieldname: reference_token
               example: rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk
               type: string
             - _key: user_agent
+              api_fieldname: user_agent
               description: User Agent header from the login request.
+              entity_fieldname: user_agent
               example: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36
                 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36
               type: string
@@ -34143,6 +34339,7 @@ groups:
   - parent_account
   - policy
   - login_profile
+  - active_session
   - user
   - subtenant_user
   - user_invitation

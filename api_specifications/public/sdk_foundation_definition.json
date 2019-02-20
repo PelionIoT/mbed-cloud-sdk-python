@@ -7,6 +7,7 @@
         "parent_account",
         "policy",
         "login_profile",
+        "active_session",
         "user",
         "subtenant_user",
         "user_invitation",
@@ -8207,12 +8208,16 @@
                                 "type": "string",
                                 "example": "01619571e2e90242ac12000600000000",
                                 "description": "The UUID of the account.",
+                                "api_fieldname": "account_id",
+                                "entity_fieldname": "account_id",
                                 "_key": "account_id"
                               },
                               {
                                 "type": "string",
                                 "example": "127.0.0.1",
                                 "description": "IP address of the client.",
+                                "api_fieldname": "ip_address",
+                                "entity_fieldname": "ip_address",
                                 "_key": "ip_address"
                               },
                               {
@@ -8220,6 +8225,8 @@
                                 "format": "date-time",
                                 "example": "2018-02-14T17:52:07Z",
                                 "description": "The login time of the user.",
+                                "api_fieldname": "login_time",
+                                "entity_fieldname": "login_time",
                                 "_key": "login_time"
                               },
                               {
@@ -8228,22 +8235,32 @@
                                 "enum": [
                                   "user-session"
                                 ],
+                                "api_fieldname": "object",
+                                "entity_fieldname": "object",
                                 "_key": "object"
                               },
                               {
                                 "type": "string",
                                 "example": "rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk",
                                 "description": "The reference token.",
+                                "api_fieldname": "reference_token",
+                                "entity_fieldname": "reference_token",
                                 "_key": "reference_token"
                               },
                               {
                                 "type": "string",
                                 "example": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36",
                                 "description": "User Agent header from the login request.",
+                                "api_fieldname": "user_agent",
+                                "entity_fieldname": "user_agent",
                                 "_key": "user_agent"
                               }
                             ],
-                            "description": "This object represents an active user session."
+                            "description": "This object represents an active user session.",
+                            "foreign_key": {
+                              "group": "Accounts",
+                              "entity": "active_session"
+                            }
                           },
                           "_key": "active_sessions"
                         },
@@ -9352,6 +9369,65 @@
       ],
       "group_id": "Accounts",
       "_key": "account"
+    },
+    {
+      "swagger_models": [
+        "ActiveSession"
+      ],
+      "primary_key_field": null,
+      "methods": [],
+      "fields": [
+        {
+          "type": "string",
+          "example": "01619571e2e90242ac12000600000000",
+          "description": "The UUID of the account.",
+          "api_fieldname": "account_id",
+          "readOnly": true,
+          "required": false,
+          "_key": "account_id"
+        },
+        {
+          "type": "string",
+          "example": "127.0.0.1",
+          "description": "IP address of the client.",
+          "api_fieldname": "ip_address",
+          "readOnly": true,
+          "required": false,
+          "_key": "ip_address"
+        },
+        {
+          "type": "string",
+          "format": "date-time",
+          "example": "2018-02-14T17:52:07Z",
+          "description": "The login time of the user.",
+          "api_fieldname": "login_time",
+          "readOnly": true,
+          "required": false,
+          "_key": "login_time"
+        },
+        {
+          "type": "string",
+          "example": "rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk",
+          "description": "The reference token.",
+          "api_fieldname": "reference_token",
+          "readOnly": true,
+          "required": false,
+          "_key": "reference_token"
+        },
+        {
+          "type": "string",
+          "example": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36",
+          "description": "User Agent header from the login request.",
+          "api_fieldname": "user_agent",
+          "readOnly": true,
+          "required": false,
+          "_key": "user_agent"
+        }
+      ],
+      "field_renames": [],
+      "tags": [],
+      "group_id": "Accounts",
+      "_key": "active_session"
     },
     {
       "swagger_models": [
@@ -29881,12 +29957,16 @@
                           "type": "string",
                           "example": "01619571e2e90242ac12000600000000",
                           "description": "The UUID of the account.",
+                          "api_fieldname": "account_id",
+                          "entity_fieldname": "account_id",
                           "_key": "account_id"
                         },
                         {
                           "type": "string",
                           "example": "127.0.0.1",
                           "description": "IP address of the client.",
+                          "api_fieldname": "ip_address",
+                          "entity_fieldname": "ip_address",
                           "_key": "ip_address"
                         },
                         {
@@ -29894,6 +29974,8 @@
                           "format": "date-time",
                           "example": "2018-02-14T17:52:07Z",
                           "description": "The login time of the user.",
+                          "api_fieldname": "login_time",
+                          "entity_fieldname": "login_time",
                           "_key": "login_time"
                         },
                         {
@@ -29902,22 +29984,32 @@
                           "enum": [
                             "user-session"
                           ],
+                          "api_fieldname": "object",
+                          "entity_fieldname": "object",
                           "_key": "object"
                         },
                         {
                           "type": "string",
                           "example": "rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk",
                           "description": "The reference token.",
+                          "api_fieldname": "reference_token",
+                          "entity_fieldname": "reference_token",
                           "_key": "reference_token"
                         },
                         {
                           "type": "string",
                           "example": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36",
                           "description": "User Agent header from the login request.",
+                          "api_fieldname": "user_agent",
+                          "entity_fieldname": "user_agent",
                           "_key": "user_agent"
                         }
                       ],
-                      "description": "This object represents an active user session."
+                      "description": "This object represents an active user session.",
+                      "foreign_key": {
+                        "group": "Accounts",
+                        "entity": "active_session"
+                      }
                     },
                     "api_fieldname": "active_sessions",
                     "entity_fieldname": "active_sessions",
@@ -31133,12 +31225,16 @@
                           "type": "string",
                           "example": "01619571e2e90242ac12000600000000",
                           "description": "The UUID of the account.",
+                          "api_fieldname": "account_id",
+                          "entity_fieldname": "account_id",
                           "_key": "account_id"
                         },
                         {
                           "type": "string",
                           "example": "127.0.0.1",
                           "description": "IP address of the client.",
+                          "api_fieldname": "ip_address",
+                          "entity_fieldname": "ip_address",
                           "_key": "ip_address"
                         },
                         {
@@ -31146,6 +31242,8 @@
                           "format": "date-time",
                           "example": "2018-02-14T17:52:07Z",
                           "description": "The login time of the user.",
+                          "api_fieldname": "login_time",
+                          "entity_fieldname": "login_time",
                           "_key": "login_time"
                         },
                         {
@@ -31154,22 +31252,32 @@
                           "enum": [
                             "user-session"
                           ],
+                          "api_fieldname": "object",
+                          "entity_fieldname": "object",
                           "_key": "object"
                         },
                         {
                           "type": "string",
                           "example": "rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk",
                           "description": "The reference token.",
+                          "api_fieldname": "reference_token",
+                          "entity_fieldname": "reference_token",
                           "_key": "reference_token"
                         },
                         {
                           "type": "string",
                           "example": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36",
                           "description": "User Agent header from the login request.",
+                          "api_fieldname": "user_agent",
+                          "entity_fieldname": "user_agent",
                           "_key": "user_agent"
                         }
                       ],
-                      "description": "This object represents an active user session."
+                      "description": "This object represents an active user session.",
+                      "foreign_key": {
+                        "group": "Accounts",
+                        "entity": "active_session"
+                      }
                     },
                     "api_fieldname": "active_sessions",
                     "entity_fieldname": "active_sessions",
@@ -32011,12 +32119,16 @@
                           "type": "string",
                           "example": "01619571e2e90242ac12000600000000",
                           "description": "The UUID of the account.",
+                          "api_fieldname": "account_id",
+                          "entity_fieldname": "account_id",
                           "_key": "account_id"
                         },
                         {
                           "type": "string",
                           "example": "127.0.0.1",
                           "description": "IP address of the client.",
+                          "api_fieldname": "ip_address",
+                          "entity_fieldname": "ip_address",
                           "_key": "ip_address"
                         },
                         {
@@ -32024,6 +32136,8 @@
                           "format": "date-time",
                           "example": "2018-02-14T17:52:07Z",
                           "description": "The login time of the user.",
+                          "api_fieldname": "login_time",
+                          "entity_fieldname": "login_time",
                           "_key": "login_time"
                         },
                         {
@@ -32032,22 +32146,32 @@
                           "enum": [
                             "user-session"
                           ],
+                          "api_fieldname": "object",
+                          "entity_fieldname": "object",
                           "_key": "object"
                         },
                         {
                           "type": "string",
                           "example": "rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk",
                           "description": "The reference token.",
+                          "api_fieldname": "reference_token",
+                          "entity_fieldname": "reference_token",
                           "_key": "reference_token"
                         },
                         {
                           "type": "string",
                           "example": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36",
                           "description": "User Agent header from the login request.",
+                          "api_fieldname": "user_agent",
+                          "entity_fieldname": "user_agent",
                           "_key": "user_agent"
                         }
                       ],
-                      "description": "This object represents an active user session."
+                      "description": "This object represents an active user session.",
+                      "foreign_key": {
+                        "group": "Accounts",
+                        "entity": "active_session"
+                      }
                     },
                     "api_fieldname": "active_sessions",
                     "entity_fieldname": "active_sessions",
@@ -33138,12 +33262,16 @@
                 "type": "string",
                 "example": "01619571e2e90242ac12000600000000",
                 "description": "The UUID of the account.",
+                "api_fieldname": "account_id",
+                "entity_fieldname": "account_id",
                 "_key": "account_id"
               },
               {
                 "type": "string",
                 "example": "127.0.0.1",
                 "description": "IP address of the client.",
+                "api_fieldname": "ip_address",
+                "entity_fieldname": "ip_address",
                 "_key": "ip_address"
               },
               {
@@ -33151,6 +33279,8 @@
                 "format": "date-time",
                 "example": "2018-02-14T17:52:07Z",
                 "description": "The login time of the user.",
+                "api_fieldname": "login_time",
+                "entity_fieldname": "login_time",
                 "_key": "login_time"
               },
               {
@@ -33159,22 +33289,32 @@
                 "enum": [
                   "user-session"
                 ],
+                "api_fieldname": "object",
+                "entity_fieldname": "object",
                 "_key": "object"
               },
               {
                 "type": "string",
                 "example": "rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk",
                 "description": "The reference token.",
+                "api_fieldname": "reference_token",
+                "entity_fieldname": "reference_token",
                 "_key": "reference_token"
               },
               {
                 "type": "string",
                 "example": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36",
                 "description": "User Agent header from the login request.",
+                "api_fieldname": "user_agent",
+                "entity_fieldname": "user_agent",
                 "_key": "user_agent"
               }
             ],
-            "description": "This object represents an active user session."
+            "description": "This object represents an active user session.",
+            "foreign_key": {
+              "group": "Accounts",
+              "entity": "active_session"
+            }
           },
           "api_fieldname": "active_sessions",
           "readOnly": true,
@@ -38421,12 +38561,16 @@
                           "type": "string",
                           "example": "01619571e2e90242ac12000600000000",
                           "description": "The UUID of the account.",
+                          "api_fieldname": "account_id",
+                          "entity_fieldname": "account_id",
                           "_key": "account_id"
                         },
                         {
                           "type": "string",
                           "example": "127.0.0.1",
                           "description": "IP address of the client.",
+                          "api_fieldname": "ip_address",
+                          "entity_fieldname": "ip_address",
                           "_key": "ip_address"
                         },
                         {
@@ -38434,6 +38578,8 @@
                           "format": "date-time",
                           "example": "2018-02-14T17:52:07Z",
                           "description": "The login time of the user.",
+                          "api_fieldname": "login_time",
+                          "entity_fieldname": "login_time",
                           "_key": "login_time"
                         },
                         {
@@ -38442,22 +38588,32 @@
                           "enum": [
                             "user-session"
                           ],
+                          "api_fieldname": "object",
+                          "entity_fieldname": "object",
                           "_key": "object"
                         },
                         {
                           "type": "string",
                           "example": "rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk",
                           "description": "The reference token.",
+                          "api_fieldname": "reference_token",
+                          "entity_fieldname": "reference_token",
                           "_key": "reference_token"
                         },
                         {
                           "type": "string",
                           "example": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36",
                           "description": "User Agent header from the login request.",
+                          "api_fieldname": "user_agent",
+                          "entity_fieldname": "user_agent",
                           "_key": "user_agent"
                         }
                       ],
-                      "description": "This object represents an active user session."
+                      "description": "This object represents an active user session.",
+                      "foreign_key": {
+                        "group": "Accounts",
+                        "entity": "active_session"
+                      }
                     },
                     "api_fieldname": "active_sessions",
                     "entity_fieldname": "active_sessions",
@@ -39536,12 +39692,16 @@
                           "type": "string",
                           "example": "01619571e2e90242ac12000600000000",
                           "description": "The UUID of the account.",
+                          "api_fieldname": "account_id",
+                          "entity_fieldname": "account_id",
                           "_key": "account_id"
                         },
                         {
                           "type": "string",
                           "example": "127.0.0.1",
                           "description": "IP address of the client.",
+                          "api_fieldname": "ip_address",
+                          "entity_fieldname": "ip_address",
                           "_key": "ip_address"
                         },
                         {
@@ -39549,6 +39709,8 @@
                           "format": "date-time",
                           "example": "2018-02-14T17:52:07Z",
                           "description": "The login time of the user.",
+                          "api_fieldname": "login_time",
+                          "entity_fieldname": "login_time",
                           "_key": "login_time"
                         },
                         {
@@ -39557,22 +39719,32 @@
                           "enum": [
                             "user-session"
                           ],
+                          "api_fieldname": "object",
+                          "entity_fieldname": "object",
                           "_key": "object"
                         },
                         {
                           "type": "string",
                           "example": "rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk",
                           "description": "The reference token.",
+                          "api_fieldname": "reference_token",
+                          "entity_fieldname": "reference_token",
                           "_key": "reference_token"
                         },
                         {
                           "type": "string",
                           "example": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36",
                           "description": "User Agent header from the login request.",
+                          "api_fieldname": "user_agent",
+                          "entity_fieldname": "user_agent",
                           "_key": "user_agent"
                         }
                       ],
-                      "description": "This object represents an active user session."
+                      "description": "This object represents an active user session.",
+                      "foreign_key": {
+                        "group": "Accounts",
+                        "entity": "active_session"
+                      }
                     },
                     "api_fieldname": "active_sessions",
                     "entity_fieldname": "active_sessions",
@@ -40296,12 +40468,16 @@
                                 "type": "string",
                                 "example": "01619571e2e90242ac12000600000000",
                                 "description": "The UUID of the account.",
+                                "api_fieldname": "account_id",
+                                "entity_fieldname": "account_id",
                                 "_key": "account_id"
                               },
                               {
                                 "type": "string",
                                 "example": "127.0.0.1",
                                 "description": "IP address of the client.",
+                                "api_fieldname": "ip_address",
+                                "entity_fieldname": "ip_address",
                                 "_key": "ip_address"
                               },
                               {
@@ -40309,6 +40485,8 @@
                                 "format": "date-time",
                                 "example": "2018-02-14T17:52:07Z",
                                 "description": "The login time of the user.",
+                                "api_fieldname": "login_time",
+                                "entity_fieldname": "login_time",
                                 "_key": "login_time"
                               },
                               {
@@ -40317,22 +40495,32 @@
                                 "enum": [
                                   "user-session"
                                 ],
+                                "api_fieldname": "object",
+                                "entity_fieldname": "object",
                                 "_key": "object"
                               },
                               {
                                 "type": "string",
                                 "example": "rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk",
                                 "description": "The reference token.",
+                                "api_fieldname": "reference_token",
+                                "entity_fieldname": "reference_token",
                                 "_key": "reference_token"
                               },
                               {
                                 "type": "string",
                                 "example": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36",
                                 "description": "User Agent header from the login request.",
+                                "api_fieldname": "user_agent",
+                                "entity_fieldname": "user_agent",
                                 "_key": "user_agent"
                               }
                             ],
-                            "description": "This object represents an active user session."
+                            "description": "This object represents an active user session.",
+                            "foreign_key": {
+                              "group": "Accounts",
+                              "entity": "active_session"
+                            }
                           },
                           "_key": "active_sessions"
                         },
@@ -41048,12 +41236,16 @@
                           "type": "string",
                           "example": "01619571e2e90242ac12000600000000",
                           "description": "The UUID of the account.",
+                          "api_fieldname": "account_id",
+                          "entity_fieldname": "account_id",
                           "_key": "account_id"
                         },
                         {
                           "type": "string",
                           "example": "127.0.0.1",
                           "description": "IP address of the client.",
+                          "api_fieldname": "ip_address",
+                          "entity_fieldname": "ip_address",
                           "_key": "ip_address"
                         },
                         {
@@ -41061,6 +41253,8 @@
                           "format": "date-time",
                           "example": "2018-02-14T17:52:07Z",
                           "description": "The login time of the user.",
+                          "api_fieldname": "login_time",
+                          "entity_fieldname": "login_time",
                           "_key": "login_time"
                         },
                         {
@@ -41069,22 +41263,32 @@
                           "enum": [
                             "user-session"
                           ],
+                          "api_fieldname": "object",
+                          "entity_fieldname": "object",
                           "_key": "object"
                         },
                         {
                           "type": "string",
                           "example": "rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk",
                           "description": "The reference token.",
+                          "api_fieldname": "reference_token",
+                          "entity_fieldname": "reference_token",
                           "_key": "reference_token"
                         },
                         {
                           "type": "string",
                           "example": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36",
                           "description": "User Agent header from the login request.",
+                          "api_fieldname": "user_agent",
+                          "entity_fieldname": "user_agent",
                           "_key": "user_agent"
                         }
                       ],
-                      "description": "This object represents an active user session."
+                      "description": "This object represents an active user session.",
+                      "foreign_key": {
+                        "group": "Accounts",
+                        "entity": "active_session"
+                      }
                     },
                     "api_fieldname": "active_sessions",
                     "entity_fieldname": "active_sessions",
@@ -41839,12 +42043,16 @@
                 "type": "string",
                 "example": "01619571e2e90242ac12000600000000",
                 "description": "The UUID of the account.",
+                "api_fieldname": "account_id",
+                "entity_fieldname": "account_id",
                 "_key": "account_id"
               },
               {
                 "type": "string",
                 "example": "127.0.0.1",
                 "description": "IP address of the client.",
+                "api_fieldname": "ip_address",
+                "entity_fieldname": "ip_address",
                 "_key": "ip_address"
               },
               {
@@ -41852,6 +42060,8 @@
                 "format": "date-time",
                 "example": "2018-02-14T17:52:07Z",
                 "description": "The login time of the user.",
+                "api_fieldname": "login_time",
+                "entity_fieldname": "login_time",
                 "_key": "login_time"
               },
               {
@@ -41860,22 +42070,32 @@
                 "enum": [
                   "user-session"
                 ],
+                "api_fieldname": "object",
+                "entity_fieldname": "object",
                 "_key": "object"
               },
               {
                 "type": "string",
                 "example": "rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk",
                 "description": "The reference token.",
+                "api_fieldname": "reference_token",
+                "entity_fieldname": "reference_token",
                 "_key": "reference_token"
               },
               {
                 "type": "string",
                 "example": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36",
                 "description": "User Agent header from the login request.",
+                "api_fieldname": "user_agent",
+                "entity_fieldname": "user_agent",
                 "_key": "user_agent"
               }
             ],
-            "description": "This object represents an active user session."
+            "description": "This object represents an active user session.",
+            "foreign_key": {
+              "group": "Accounts",
+              "entity": "active_session"
+            }
           },
           "api_fieldname": "active_sessions",
           "readOnly": true,
