@@ -187,11 +187,13 @@ def handle_channel_message(db, queues, b64decode, notification_object):
 
 
 class NotificationsThread(threading.Thread):
-    """ notifications thread"""
+    """notifications thread"""
+
     class NotificationWebsocketMessage(object):
-        """ notification websocket message """
+        """notification websocket message"""
+
         def __init__(self, message):
-            """ init """
+            """init"""
             self.data = message
 
     """A thread object"""
@@ -341,7 +343,7 @@ class NotificationsThread(threading.Thread):
             self.stop()
         self._get_websocket()
 
-    def start_websocket(self):
+    def _start_websocket(self):
         if self._stopping:
             self.stop()
         self._ws = WebSocketApp('%s/v2/notification/websocket-connect' % self._host.replace('https', 'wss'),
