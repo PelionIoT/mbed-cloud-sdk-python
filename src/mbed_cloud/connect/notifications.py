@@ -19,6 +19,7 @@ import functools
 import logging
 import threading
 import time
+import random
 
 import six
 
@@ -205,17 +206,30 @@ class NotificationsThread(threading.Thread):
     @functools.wraps(threading.Thread.run)
     def run(self):
         """Thread main loop"""
+        retries = 0
         try:
             while not self._stopping:
-                data = self.notifications_api.long_poll_notifications()
-                handle_channel_message(
-                    db=self.db,
-                    queues=self.queues,
-                    b64decode=self._b64decode,
-                    notification_object=data
-                )
-                if self.subscription_manager:
-                    self.subscription_manager.notify(data.to_dict())
+                try:
+                    data = self.notifications_api.long_poll_notifications()
+                except mds.rest.ApiException as e:
+                    # An HTTP 410 can be raised when stopping so don't log anything
+                    if not self._stopping:
+                        backoff = 2 ** retries - random.randint(int(retries / 2), retries)
+                        LOG.error('Notification long poll failed with exception (retry in %d seconds):\n%s', e, backoff)
+                        retries += 1
+                        # Backoff for an increasing amount of time until we have tried 10 times, then reset the backoff.
+                        if retries >= 10:
+                            retries = 0
+                        time.sleep(backoff)
+                else:
+                    handle_channel_message(
+                        db=self.db,
+                        queues=self.queues,
+                        b64decode=self._b64decode,
+                        notification_object=data
+                    )
+                    if self.subscription_manager:
+                        self.subscription_manager.notify(data.to_dict())
         finally:
             self._stopped.set()
 

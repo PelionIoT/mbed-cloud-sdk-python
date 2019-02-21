@@ -1,0 +1,1 @@
+Stopping notifications now terminates cleanly without logging an error.
