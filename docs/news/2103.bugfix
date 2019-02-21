@@ -1,1 +1,1 @@
-Fixes to subscription patterns and filtering, also a timeout on a blocking subscription now raises a Timeout not a Queue.empty exception.
+Fixes to subscription patterns and filtering, also a timeout on a blocking subscription now raises a CloudTimeoutError not a Queue.empty exception.

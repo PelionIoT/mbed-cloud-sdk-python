@@ -24,6 +24,8 @@ import logging
 import six
 import threading
 
+from mbed_cloud.exceptions import CloudTimeoutError
+
 if six.PY3:
     import asyncio
 
@@ -144,6 +146,6 @@ class AsyncWrapper(object):
                         if self._is_asyncio_provider else self._func(*args, **kwargs)
                     )
                 except queue.Empty:
-                    raise TimeoutError("No data received after %.1f seconds." % kwargs.get("timeout", 0))
+                    raise CloudTimeoutError("No data received after %.1f seconds." % kwargs.get("timeout", 0))
             self._blocked = True
         return self._result

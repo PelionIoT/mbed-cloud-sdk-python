@@ -1,5 +1,6 @@
 from mbed_cloud.subscribe import SubscriptionsManager
 from mbed_cloud.subscribe import channels
+from mbed_cloud.exceptions import CloudTimeoutError
 
 from tests.common import BaseCase
 
@@ -327,6 +328,6 @@ class Test(BaseCase):
         from mbed_cloud.connect import ConnectAPI
         api = ConnectAPI()
         observer = api.subscribe(api.subscribe.channels.DeviceStateChanges(device_id=123456))
-        with self.assertRaises(TimeoutError) as timeout_error:
+        with self.assertRaises(CloudTimeoutError) as timeout_error:
             observer.next().block(timeout=2)
         self.assertEqual(str(timeout_error.exception), "No data received after 2.0 seconds.")
