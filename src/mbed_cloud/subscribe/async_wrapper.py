@@ -116,12 +116,13 @@ class AsyncWrapper(object):
                 )
         return self._deferable
 
-    def block(self, timeout=None):
+    def block(self, *args, **kwargs):
         """Call the wrapped function, and wait for the result in a blocking fashion
 
         Returns the result of the function call.
 
-        :param float timeout: Time in seconds to wait for result.
+        :param args:
+        :param kwargs:
         :return: result of function call
         """
         LOG.debug(
@@ -139,10 +140,10 @@ class AsyncWrapper(object):
             if not hasattr(self, '_result'):
                 try:
                     self._result = (
-                        self._concurrency_provider.run_until_complete(self.defer(timeout=timeout))
-                        if self._is_asyncio_provider else self._func(timeout=timeout)
+                        self._concurrency_provider.run_until_complete(self.defer(*args, **kwargs))
+                        if self._is_asyncio_provider else self._func(*args, **kwargs)
                     )
                 except queue.Empty:
-                    raise TimeoutError("No data received after %.1f seconds." % timeout)
+                    raise TimeoutError("No data received after %.1f seconds." % kwargs.get("timeout", 0))
             self._blocked = True
         return self._result
