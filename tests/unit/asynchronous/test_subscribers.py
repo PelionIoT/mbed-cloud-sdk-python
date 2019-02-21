@@ -209,9 +209,9 @@ class Test(BaseCase):
         # cheat, waiting takes too long
         api.subscribe.notify({
             channels.ChannelIdentifiers.reg_updates: [
-                dict(a=1, b=2, device_id=d.id),
-                dict(a=1, b=2, device_id='A'),
-                dict(a=1, b=2, device_id='B'),
+                dict(a=1, b=2, ep=d.id),
+                dict(a=1, b=2, ep='A'),
+                dict(a=1, b=2, ep='B'),
             ]
         })
         r = observer.next().block(timeout=2)
@@ -327,5 +327,6 @@ class Test(BaseCase):
         from mbed_cloud.connect import ConnectAPI
         api = ConnectAPI()
         observer = api.subscribe(api.subscribe.channels.DeviceStateChanges(device_id=123456))
-        with self.assertRaises(TimeoutError):
+        with self.assertRaises(TimeoutError) as timeout_error:
             observer.next().block(timeout=2)
+        self.assertEqual(str(timeout_error.exception), "No data received after 2.0 seconds.")
