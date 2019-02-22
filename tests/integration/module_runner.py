@@ -25,7 +25,7 @@ def serialise(obj):
 
     if isinstance(obj, datetime.date):
         return obj.isoformat()
-    
+
     if isinstance(obj, queue.Queue):
         return {}
 
