@@ -77,16 +77,23 @@ class AsyncConsumer(object):
                 )
             time.sleep(0.1)
 
-        # If we get an error we throw an exception to the user, which can then be handled
+        # If we get an any status code other than a 2xx we raise an exception to the user, which can then be handled
         # accordingly.
-        error = self.error
-        if error:
-            raise CloudAsyncError(error)
+        status_code, error_msg, payload = self.check_error()
+        if not self._status_ok(status_code):
+            raise CloudAsyncError("Async response for '%s' returned an error." % self.async_id,
+                                  reason=error_msg,
+                                  status=status_code)
 
         value = self.value
         if isinstance(value, six.binary_type):
             value = value.decode('utf-8')
         return value
+
+    @staticmethod
+    def _status_ok(status_code):
+        """Check the status code is in the 2xx range"""
+        return 200 <= status_code <= 299
 
     @property
     def is_done(self):
@@ -96,6 +103,24 @@ class AsyncConsumer(object):
         :rtype: bool
         """
         return self.async_id in self.db
+
+    def check_error(self):
+        """Check if the async response is an error.
+
+        Take care to call `is_done` before calling `error`. Note that the error
+        messages are always encoded as strings.
+
+        :raises CloudUnhandledError: When not checking `is_done` first
+        :return: status_code, error_msg, payload
+        :rtype: tuple
+        """
+        if not self.is_done:
+            raise CloudUnhandledError("Need to check if request is done, before checking for error")
+        response = self.db[self.async_id]
+        error_msg = response["error"]
+        status_code = int(response["status_code"])
+        payload = response["payload"]
+        return status_code, error_msg, payload
 
     @property
     def error(self):
@@ -108,12 +133,8 @@ class AsyncConsumer(object):
         :return: the error value/payload, if found.
         :rtype: str
         """
-        if not self.is_done:
-            raise CloudUnhandledError("Need to check if request is done, before checking for error")
-        response = self.db[self.async_id]
-        error_msg = response["error"]
-        status_code = int(response["status_code"])
-        payload = response["payload"]
+        status_code, error_msg, payload = self.check_error()
+
         if status_code != 200 and not error_msg and not payload:
             return "Async error (%s). Status code: %r" % (self.async_id, status_code)
         return error_msg
@@ -126,10 +147,12 @@ class AsyncConsumer(object):
         :return: the payload value
         :rtype: str
         """
-        if self.error:
-            raise CloudUnhandledError("Async request returned an error. Need to check for errors,"
-                                      "before getting value.\nError: %s" % self.error)
+        status_code, error_msg, payload = self.check_error()
 
+        if not self._status_ok(status_code) and not payload:
+            raise CloudUnhandledError("Attempted to decode async request which returned an error.",
+                                      reason=error_msg,
+                                      status=status_code)
         return self.db[self.async_id]["payload"]
 
     def to_dict(self):

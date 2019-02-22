@@ -30,7 +30,7 @@ class CloudApiException(Exception):
 
     def __str__(self):
         """Print the exception"""
-        return ('(%s) "%s" %s' % (
+        return ("(%s) '%s' %s" % (
             self.status,
             self.reason,
             self.message)

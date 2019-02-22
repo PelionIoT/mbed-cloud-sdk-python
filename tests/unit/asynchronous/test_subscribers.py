@@ -1,6 +1,7 @@
 from mbed_cloud.subscribe import SubscriptionsManager
 from mbed_cloud.subscribe import channels
-from mbed_cloud.exceptions import CloudTimeoutError
+from mbed_cloud.exceptions import CloudTimeoutError, CloudAsyncError, CloudUnhandledError
+from mbed_cloud.connect import ConnectAPI
 
 from tests.common import BaseCase
 
@@ -9,12 +10,13 @@ import six
 
 from multiprocessing.pool import ThreadPool
 
+import json
 import os
 import time
 import unittest
 
 
-class Test(BaseCase):
+class TestSubscriptions(BaseCase):
     def test_subscribe(self):
         subs = SubscriptionsManager(mock.MagicMock())
         observer_a = subs.subscribe(channels.DeviceStateChanges(device_id='A'))
@@ -284,16 +286,7 @@ class Test(BaseCase):
             "registrations_expired": [device_id],
         }
 
-        # from pprint import pprint
         api.subscribe.notify(example_data)
-        # r = registrations_observer.next().block(timeout=2)
-        # pprint(r)
-        # r = de_registrations_observer.next().block(timeout=2)
-        # pprint(r)
-        # r = reg_updates_observer.next().block(timeout=2)
-        # pprint(r)
-        # r = registrations_expired_observer.next().block(timeout=2)
-        # pprint(r)
 
         self.assertEqual(registrations_observer.next().block(timeout=2),
                          {
@@ -331,3 +324,86 @@ class Test(BaseCase):
         with self.assertRaises(CloudTimeoutError) as timeout_error:
             observer.next().block(timeout=2)
         self.assertEqual(str(timeout_error.exception), "No data received after 2.0 seconds.")
+
+
+class TestGetResourceValue(BaseCase):
+
+    def setUp(self):
+        """Mock the HTTP request method so that the long poll does not received anything."""
+        self.patch = mock.patch('urllib3.PoolManager.request')
+        mocked = self.patch.start()
+        mocked.return_value.data = b''
+        mocked.return_value.status = 200
+
+        self.api = ConnectAPI(dict(autostart_notification_thread=False))
+
+    def tearDown(self):
+        self.patch.stop()
+
+    def test_async_wait(self):
+        """Test a all registration notifications in a single message"""
+        async_result = self.api.get_resource_value_async("abc123", "/3/0/0")
+
+        example_data = {
+            "async-responses": [{
+                "ct": "text/plain",
+                "payload": "My4zMQ==",
+                "max-age": "60",
+                "id": async_result.async_id,
+                "error": None,
+                "status": 202
+            }],
+        }
+        self.api.notify_webhook_received(payload=json.dumps(example_data))
+
+        self.assertEqual('3.31', async_result.wait())
+
+    def test_async_wait_error(self):
+        """Test a all registration notifications in a single message"""
+        async_result = self.api.get_resource_value_async("abc123", "/3/0/0")
+
+        example_data = {
+            "async-responses": [{
+                "ct": "text/plain",
+                "payload": "My4zMQ==",
+                "max-age": "60",
+                "id": async_result.async_id,
+                "error": "TIMEOUT",
+                "status": 504
+            }],
+        }
+        self.api.notify_webhook_received(payload=json.dumps(example_data))
+
+        # An Async response with an error should raise an exception
+        with self.assertRaises(CloudAsyncError) as e:
+            async_result.wait()
+
+        self.assertTrue(str(e.exception).startswith("(504) 'TIMEOUT' Async response for"))
+        self.assertEqual("TIMEOUT", e.exception.reason)
+        self.assertEqual(504, e.exception.status)
+
+    def test_async_value_error(self):
+        """Test a all registration notifications in a single message"""
+        async_result = self.api.get_resource_value_async("abc123", "/3/0/0")
+
+        example_data = {
+            "async-responses": [{
+                "ct": "text/plain",
+                "payload": None,
+                "max-age": "60",
+                "id": async_result.async_id,
+                "error": "AN ERROR",
+                "status": 499
+            }],
+        }
+
+        self.api.notify_webhook_received(payload=json.dumps(example_data))
+
+        # Attempted to get the value when there is an error and no payload should raise an exception
+        with self.assertRaises(CloudUnhandledError) as e:
+            async_result.value
+
+        self.assertEqual("(499) 'AN ERROR' Attempted to decode async request which returned an error.",
+                         str(e.exception))
+        self.assertEqual("AN ERROR", e.exception.reason)
+        self.assertEqual(499, e.exception.status)
