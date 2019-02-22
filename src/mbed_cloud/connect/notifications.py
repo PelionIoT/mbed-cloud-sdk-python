@@ -275,7 +275,7 @@ class NotificationsThread(threading.Thread):
 
     def _get_on_open_callback(self):
         def on_open(ws):
-            # TODO do something maybe
+            self._logger.debug("websocket opened successfully")
             pass
 
         return on_open

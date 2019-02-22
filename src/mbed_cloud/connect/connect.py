@@ -57,6 +57,9 @@ from six.moves import queue
 
 LOG = logging.getLogger(__name__)
 
+CLIENT_INITIATED = "CLIENT_INITIATED"
+SERVER_INITIATED = "SERVER_INITIATED"
+
 
 class ConnectAPI(BaseAPI):
     """API reference for the Connect API.
@@ -96,9 +99,9 @@ class ConnectAPI(BaseAPI):
         self._delivery_method = None
         # check for autostart_notification_thread if autostart_notifications is not set, for backwards compatibility
         self._autostart_notifications = self.config.get('autostart_notifications',
-                                                        self.config.get('autostart_notification_thread'))
+                                                        self.config.get('autostart_notification_thread'), False)
         if self._autostart_notifications:
-            self._delivery_method = "CLIENT_INITIATED"
+            self._delivery_method = CLIENT_INITIATED
         self._force_clear = self.config.get('force_clear', False)
         self._skip_cleanup = self.config.get('skip_cleanup', False)
 
@@ -134,16 +137,19 @@ class ConnectAPI(BaseAPI):
 
         :returns: void
         """
+        LOG.debug("starting notifications...")
         # delivery method is server initiated so raise an exception
-        if self._delivery_method == "SERVER_INITIATED":
-            raise CloudApiException("cannot call start_notifications if delivery method is Server Initiated")
+        if self._delivery_method == SERVER_INITIATED:
+            raise CloudApiException("cannot call start_notifications if delivery method is %s", SERVER_INITIATED)
 
         # delivery method not set so set to client initiated
         if not self._delivery_method:
-            self._delivery_method = "CLIENT_INITIATED"
+            LOG.debug("setting delivery method to %s", CLIENT_INITIATED)
+            self._delivery_method = CLIENT_INITIATED
 
         with self._notifications_lock:
             if self.has_active_notification_thread:
+                LOG.debug("notifications already started")
                 return
 
             # check for webhook
@@ -166,25 +172,30 @@ class ConnectAPI(BaseAPI):
 
             self._notifications_thread.daemon = True
             self._notifications_thread.start()
+            LOG.debug("notification thread started")
 
     def stop_notifications(self):
         """Stop the notifications thread.
 
         :returns:
         """
-        if self._delivery_method == "SERVER_INITIATED":
-            LOG.warn("should not be calling stop_notifications when delivery method is server initiated")
+        LOG.debug("stopping notifications...")
+        if self._delivery_method == SERVER_INITIATED:
+            LOG.warning("should not be calling stop_notifications when delivery method is %s", SERVER_INITIATED)
 
         with self._notifications_lock:
             if not self.has_active_notification_thread:
+                LOG.debug("nothing to stop...")
                 return
             thread = self._notifications_thread
             self._notifications_thread = None
             stopping = thread.stop()
             if not self._skip_cleanup:
                 self.delete_websocket()
-                # TODO clear subscriptions
-            return stopping.wait()
+                self.delete_subscriptions()
+            # this seemed to cause stop_notifications to block?
+            # return stopping.wait()
+            return
 
     @catch_exceptions(device_directory.rest.ApiException)
     def list_connected_devices(self, **kwargs):
