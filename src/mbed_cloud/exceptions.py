@@ -37,6 +37,18 @@ class CloudApiException(Exception):
         )
 
 
+class CloudApiNotFound(CloudApiException):
+    """Raised when a resource if not found backend API.
+
+    Sometimes HTTP 404's from the API are suppressed because it is part of the
+    endpoint behaviour which does not make sense. For example, when listing
+    resources, if there are no items to list the endpoint may return a 404
+    rather than return an empty list. The SDK works around this inconsistency.
+    """
+
+    pass
+
+
 class CloudBackendError(CloudApiException):
     """Common exception thrown when ApiException is raised from backend API.
 

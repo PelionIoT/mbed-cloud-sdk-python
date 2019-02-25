@@ -21,11 +21,31 @@ import functools
 from six import reraise as raise_
 import sys
 
-from mbed_cloud.exceptions import CloudApiException
+from mbed_cloud.exceptions import CloudApiException, CloudApiNotFound
 
 
 def catch_exceptions(*exceptions):
     """Catch all exceptions provided as arguments, and raise CloudApiException instead."""
+    def wrap(fn):
+        @functools.wraps(fn)
+        def wrapped_f(*args, **kwargs):
+            try:
+                return fn(*args, **kwargs)
+            except exceptions:
+                t, value, traceback = sys.exc_info()
+                # If any resource does not exist, return None instead of raising
+                if str(value.status) == '404':
+                    e = CloudApiNotFound(str(value), value.reason, value.status)
+                    raise_(CloudApiNotFound, e, traceback)
+                else:
+                    e = CloudApiException(str(value), value.reason, value.status)
+                    raise_(CloudApiException, e, traceback)
+        return wrapped_f
+    return wrap
+
+
+def catch_exceptions_suppress_not_found(*exceptions):
+    """Catch all exceptions including, and raise CloudApiException instead."""
     def wrap(fn):
         @functools.wraps(fn)
         def wrapped_f(*args, **kwargs):
