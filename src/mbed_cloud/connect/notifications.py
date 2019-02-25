@@ -191,7 +191,8 @@ class NotificationsThread(threading.Thread):
     """notifications thread"""
 
     class WebsocketState(Enum):
-        """STATES of the websocket"""
+        """States of the websocket"""
+
         GET_WEBSOCKET = 1
         RUN_WEBSOCKET = 2
         REGISTER_WEBSOCKET = 3
