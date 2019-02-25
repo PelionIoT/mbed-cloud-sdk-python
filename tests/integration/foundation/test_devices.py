@@ -28,11 +28,13 @@ class TestDevice(BaseCase, CrudMixinTests):
         super(TestDevice, cls).setUpClass()
 
     def test_hello_world(self):
+        # an example: hello world
         from mbed_cloud.sdk.entities import Device
 
         # List the first 10 devices on your Pelion DM account
         for device in Device().list(max_results=10):
             print("Hello device %s" % device.name)
+        # end of example
 
     def test_cert_renew(self):
         """Example of renewing a certificate on a device."""
