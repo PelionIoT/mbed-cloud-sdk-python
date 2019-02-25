@@ -99,7 +99,7 @@ class ConnectAPI(BaseAPI):
         self._delivery_method = None
         # check for autostart_notification_thread if autostart_notifications is not set, for backwards compatibility
         self._autostart_notifications = self.config.get('autostart_notifications',
-                                                        self.config.get('autostart_notification_thread'), False)
+                                                        self.config.get('autostart_notification_thread', False))
         if self._autostart_notifications:
             self._delivery_method = CLIENT_INITIATED
         self._force_clear = self.config.get('force_clear', False)
