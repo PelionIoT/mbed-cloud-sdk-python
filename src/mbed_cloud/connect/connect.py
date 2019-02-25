@@ -193,9 +193,7 @@ class ConnectAPI(BaseAPI):
             if not self._skip_cleanup:
                 self.delete_websocket()
                 self.delete_subscriptions()
-            # this seemed to cause stop_notifications to block?
-            # return stopping.wait()
-            return
+            return stopping.wait()
 
     @catch_exceptions(device_directory.rest.ApiException)
     def list_connected_devices(self, **kwargs):

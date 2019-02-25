@@ -188,7 +188,10 @@ def handle_channel_message(db, queues, b64decode, notification_object):
 
 
 class NotificationsThread(threading.Thread):
+    """notifications thread"""
+
     class WebsocketState(Enum):
+        """STATES of the websocket"""
         GET_WEBSOCKET = 1
         RUN_WEBSOCKET = 2
         REGISTER_WEBSOCKET = 3
@@ -198,8 +201,6 @@ class NotificationsThread(threading.Thread):
         CLOSE_SOCKET = 7
         START = 8
         END = 9
-
-    """notifications thread"""
 
     class NotificationWebsocketMessage(object):
         """notification websocket message"""
@@ -232,11 +233,14 @@ class NotificationsThread(threading.Thread):
         self._closing_code = 0
         self._closing_reason = None
         self.state = NotificationsThread.WebsocketState.START
+        self._stopping = threading.Event()
 
     @catch_exceptions(mds.rest.ApiException)
     @functools.wraps(threading.Thread.run)
     def run(self):
         """Thread main loop"""
+        self._stopping.clear()
+        self.state = NotificationsThread.WebsocketState.START
         try:
             self.run_state_machine()
         finally:
@@ -310,6 +314,7 @@ class NotificationsThread(threading.Thread):
             return False
 
     def _close_socket(self):
+        self._logger.debug('Closing websocket')
         if self._ws:
             self._ws.close()
         self._stopped.set()
@@ -336,31 +341,38 @@ class NotificationsThread(threading.Thread):
 
     def stop(self):
         """Request thread stop"""
+        self._stopping.set()
         self.state = NotificationsThread.WebsocketState.CLOSE_SOCKET
+        self._close_socket()
         return self._stopped
 
-    def _determine_action_on_close(self):
-        if self._closing_code == 1000:
-            self.state = NotificationsThread.WebsocketState.DELETE_WEBSOCKET_CHANNEL
-        elif self._closing_code == 1008:
-            self.state = NotificationsThread.WebsocketState.LOG_ERROR
-        elif self._closing_code == 1006:
-            self.state = NotificationsThread.WebsocketState.START
-        elif self._closing_code == 1001 or self._closing_code == 1011:
-            self.state = NotificationsThread.WebsocketState.REGISTER_WEBSOCKET
-        else:
-            self.state = NotificationsThread.WebsocketState.START
-
-    def run_state_machine(self):
-        while True:
+    def run_state_machine(self):  # noqa: C901
+        """Run state machine"""
+        while not self._stopping.is_set():
+            self._logger.debug('Notification machine state: %s' % self.state)
             if self.state == NotificationsThread.WebsocketState.START:
+                self._logger.debug('Starting websocket')
                 self.state = NotificationsThread.WebsocketState.GET_WEBSOCKET
             elif self.state == NotificationsThread.WebsocketState.GET_WEBSOCKET:
-                self.state = NotificationsThread.WebsocketState.RUN_WEBSOCKET if self._get_websocket() else \
-                    NotificationsThread.WebsocketState.REGISTER_WEBSOCKET
+                if self._get_websocket():
+                    self.state = NotificationsThread.WebsocketState.RUN_WEBSOCKET
+                else:
+                    self.state = NotificationsThread.WebsocketState.REGISTER_WEBSOCKET
             elif self.state == NotificationsThread.WebsocketState.RUN_WEBSOCKET:
                 self._run_websocket()
-                self._determine_action_on_close()
+                self._logger.debug('Closing code: %s' % self._closing_code)
+                if self._stopping.is_set():
+                    self.state = NotificationsThread.WebsocketState.END
+                elif self._closing_code == 1000:
+                    self.state = NotificationsThread.WebsocketState.DELETE_WEBSOCKET_CHANNEL
+                elif self._closing_code == 1008:
+                    self.state = NotificationsThread.WebsocketState.LOG_ERROR
+                elif self._closing_code == 1006:
+                    self.state = NotificationsThread.WebsocketState.START
+                elif self._closing_code == 1001 or self._closing_code == 1011:
+                    self.state = NotificationsThread.WebsocketState.REGISTER_WEBSOCKET
+                else:
+                    self.state = NotificationsThread.WebsocketState.START
             elif self.state == NotificationsThread.WebsocketState.DELETE_WEBSOCKET_CHANNEL:
                 self._delete_websocket_channel()
                 self.state = NotificationsThread.WebsocketState.CLOSE_SOCKET
@@ -371,12 +383,17 @@ class NotificationsThread(threading.Thread):
                 self._log_error(self._closing_code, self._closing_reason)
                 self.state = NotificationsThread.WebsocketState.DELETE_WEBSOCKET_CHANNEL
             elif self.state == NotificationsThread.WebsocketState.REGISTER_WEBSOCKET:
-                self.state == NotificationsThread.WebsocketState.GET_WEBSOCKET if self._register_websocket() else (
-                    NotificationsThread.WebsocketState.CLEAR_CHANNELS if self._force_clear else \
-                        NotificationsThread.WebsocketState.LOG_ERROR)
+                if self._register_websocket():
+                    self.state = NotificationsThread.WebsocketState.GET_WEBSOCKET
+                else:
+                    if self._force_clear:
+                        self.state = NotificationsThread.WebsocketState.CLEAR_CHANNELS
+                    else:
+                        self.state = NotificationsThread.WebsocketState.LOG_ERROR
+                # Waiting to ensure the server has correctly registered the websocket
+                time.sleep(0.5)
             elif self.state == NotificationsThread.WebsocketState.CLEAR_CHANNELS:
                 self._clear_channel()
                 self.state = NotificationsThread.WebsocketState.REGISTER_WEBSOCKET
             elif self.state == NotificationsThread.WebsocketState.END:
-                return
-            time.sleep(0.5)
+                self._stopping.set()
