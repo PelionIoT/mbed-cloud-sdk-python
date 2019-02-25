@@ -19,6 +19,7 @@ import functools
 import logging
 import threading
 import time
+from enum import Enum
 
 import six
 
@@ -187,6 +188,17 @@ def handle_channel_message(db, queues, b64decode, notification_object):
 
 
 class NotificationsThread(threading.Thread):
+    class WebsocketState(Enum):
+        GET_WEBSOCKET = 1
+        RUN_WEBSOCKET = 2
+        REGISTER_WEBSOCKET = 3
+        DELETE_WEBSOCKET_CHANNEL = 4
+        LOG_ERROR = 5
+        CLEAR_CHANNELS = 6
+        CLOSE_SOCKET = 7
+        START = 8
+        END = 9
+
     """notifications thread"""
 
     class NotificationWebsocketMessage(object):
@@ -210,7 +222,6 @@ class NotificationsThread(threading.Thread):
 
         self._b64decode = b64decode
 
-        self._stopping = False
         self._stopped = threading.Event()
         self._ws = None
         self._api_key = notifications_api.api_client.configuration.api_key['Authorization']
@@ -218,20 +229,21 @@ class NotificationsThread(threading.Thread):
         self._force_clear = force_clear
         self._logger = logger
         self._api_client = notifications_api.api_client
+        self._closing_code = 0
+        self._closing_reason = None
+        self.state = NotificationsThread.WebsocketState.START
 
     @catch_exceptions(mds.rest.ApiException)
     @functools.wraps(threading.Thread.run)
     def run(self):
         """Thread main loop"""
         try:
-            self._start_notifications()
+            self.run_state_machine()
         finally:
             self._stopped.set()
 
     def _get_on_message_calback(self):
         def on_message(ws, data):
-            if self._stopping:
-                self.stop()
             if self._logger:
                 self._logger.debug('received notification data: %s', data)
             try:
@@ -254,14 +266,8 @@ class NotificationsThread(threading.Thread):
 
     def _get_on_close_callback(self):
         def on_close(ws, error, reason):
-            if error == 1000:
-                self._delete_websocket_channel()
-            elif error == 1008:
-                self._log_error(error, reason)
-            elif error == 1006:
-                self._start_websocket()
-            elif error == 1001 or error == 1011:
-                self._register_websocket()
+            self._closing_code = error
+            self._closing_reason = reason
 
         return on_close
 
@@ -281,82 +287,96 @@ class NotificationsThread(threading.Thread):
         return on_open
 
     def _register_websocket(self):
-        if self._stopping:
-            self.stop()
-
-        websocket = False
         try:
             self.notifications_api.register_websocket()
-            websocket = True
+            return True
         except CloudApiException as e:
-            error = e.status
-            reason = e.message
-        if websocket:
-            self._get_websocket()
-        else:
-            if self._force_clear:
-                self._clear_channel()
-            else:
-                self._log_error(error, reason)
+            self._closing_code = e.status
+            self._closing_reason = e.message
+            return False
 
     def _get_websocket(self):
-        if self._stopping:
-            self.stop()
-        websocket_channel = False
         try:
             self.notifications_api.register_websocket()
-            websocket_channel = True
+            return True
         except CloudApiException:
-            pass
-        if websocket_channel:
-            self._start_websocket()
-        else:
-            self._register_websocket()
+            return False
 
     def _delete_websocket_channel(self):
-        if self._stopping:
-            self.stop()
         try:
             self.notifications_api.delete_websocket()
+            return True
         except CloudApiException:
-            pass
-        self._close_socket()
+            return False
 
     def _close_socket(self):
+        if self._ws:
+            self._ws.close()
         self._stopped.set()
+        return True
 
     def _clear_channel(self):
-        if self._stopping:
-            self.stop()
         self.notifications_api.clear_notification_channel()
-        self._register_websocket()
+        return True
 
     def _log_error(self, error, reason):
-        if self._stopping:
-            self.stop()
         if self._logger:
             self._logger.error('An error happened in the notification thread : %s because %s', error, reason)
-        self._delete_websocket_channel()
+        return True
 
-    def _start_notifications(self):
-        if self._stopping:
-            self.stop()
-        self._get_websocket()
-
-    def _start_websocket(self):
-        if self._stopping:
-            self.stop()
+    def _run_websocket(self):
+        self._closing_reason = None
         self._ws = WebSocketApp('%s/v2/notification/websocket-connect' % self._host.replace('https', 'wss'),
                                 on_open=self._get_on_open_callback(),
                                 on_message=self._get_on_message_calback(),
-                                on_error=self._get_on_close_callback(),
+                                on_error=self._get_on_error_callback(),
                                 on_close=self._get_on_close_callback(),
                                 subprotocols=['wss', 'pelion_%s' % self._api_key])
         self._ws.run_forever()
 
     def stop(self):
         """Request thread stop"""
-        self._stopping = True
-        if self._ws:
-            self._ws.close()
+        self.state = NotificationsThread.WebsocketState.CLOSE_SOCKET
         return self._stopped
+
+    def _determine_action_on_close(self):
+        if self._closing_code == 1000:
+            self.state = NotificationsThread.WebsocketState.DELETE_WEBSOCKET_CHANNEL
+        elif self._closing_code == 1008:
+            self.state = NotificationsThread.WebsocketState.LOG_ERROR
+        elif self._closing_code == 1006:
+            self.state = NotificationsThread.WebsocketState.START
+        elif self._closing_code == 1001 or self._closing_code == 1011:
+            self.state = NotificationsThread.WebsocketState.REGISTER_WEBSOCKET
+        else:
+            self.state = NotificationsThread.WebsocketState.START
+
+    def run_state_machine(self):
+        while True:
+            if self.state == NotificationsThread.WebsocketState.START:
+                self.state = NotificationsThread.WebsocketState.GET_WEBSOCKET
+            elif self.state == NotificationsThread.WebsocketState.GET_WEBSOCKET:
+                self.state = NotificationsThread.WebsocketState.RUN_WEBSOCKET if self._get_websocket() else \
+                    NotificationsThread.WebsocketState.REGISTER_WEBSOCKET
+            elif self.state == NotificationsThread.WebsocketState.RUN_WEBSOCKET:
+                self._run_websocket()
+                self._determine_action_on_close()
+            elif self.state == NotificationsThread.WebsocketState.DELETE_WEBSOCKET_CHANNEL:
+                self._delete_websocket_channel()
+                self.state = NotificationsThread.WebsocketState.CLOSE_SOCKET
+            elif self.state == NotificationsThread.WebsocketState.CLOSE_SOCKET:
+                self._close_socket()
+                self.state = NotificationsThread.WebsocketState.END
+            elif self.state == NotificationsThread.WebsocketState.LOG_ERROR:
+                self._log_error(self._closing_code, self._closing_reason)
+                self.state = NotificationsThread.WebsocketState.DELETE_WEBSOCKET_CHANNEL
+            elif self.state == NotificationsThread.WebsocketState.REGISTER_WEBSOCKET:
+                self.state == NotificationsThread.WebsocketState.GET_WEBSOCKET if self._register_websocket() else (
+                    NotificationsThread.WebsocketState.CLEAR_CHANNELS if self._force_clear else \
+                        NotificationsThread.WebsocketState.LOG_ERROR)
+            elif self.state == NotificationsThread.WebsocketState.CLEAR_CHANNELS:
+                self._clear_channel()
+                self.state = NotificationsThread.WebsocketState.REGISTER_WEBSOCKET
+            elif self.state == NotificationsThread.WebsocketState.END:
+                return
+            time.sleep(0.5)
