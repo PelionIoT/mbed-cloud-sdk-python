@@ -318,7 +318,7 @@ class NotificationsThread(threading.Thread):
         return True
 
     def _clear_channel(self):
-        self.notifications_api.clear_notification_channel()
+        self.notifications_api._clear_notification_channel()
         return True
 
     def _log_error(self, error, reason):

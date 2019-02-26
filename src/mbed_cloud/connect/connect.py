@@ -754,7 +754,7 @@ class ConnectAPI(BaseAPI):
         self._queues.clear()
         return
 
-    def clear_notification_channel(self):
+    def _clear_notification_channel(self):
         """Delete/remove any notification channel in place.
 
         No exception is raised
