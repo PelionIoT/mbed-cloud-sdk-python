@@ -46,6 +46,7 @@ class FirstValue(object):
     """
 
     # waits for a device to send re-register message. one  = 'on_registration'
+    on_registration = 'on_registration'
 
     # sets up subscriptions on existing live resources. many api calls. medium wait.
     on_value_update = 'on_value_update'

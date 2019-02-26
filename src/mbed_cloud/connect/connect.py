@@ -154,7 +154,7 @@ class ConnectAPI(BaseAPI):
 
             # force clear is true so clear all channels
             if self._force_clear:
-                self._perform_force_clear()
+                self._clear_notification_channel()
 
             # check for webhook
             self._fail_if_webhook_is_setup("start notifications")
@@ -689,9 +689,10 @@ class ConnectAPI(BaseAPI):
             notification_object=notification
         )
 
-    # TODO mark as deprecated, use notify instead
     def notify_webhook_received(self, payload):
         """Callback function for triggering notification channel handlers.
+
+        This method is still functional, but preferable to use notify() instead
 
         Use this in conjunction with a webserver to complete the loop when using
         webhooks as the notification channel.
@@ -723,13 +724,15 @@ class ConnectAPI(BaseAPI):
             self._delivery_method = "SERVER_INITIATED"
 
         elif self._delivery_method == "CLIENT_INITIATED":
-            raise CloudApiException("cannot update webhook if delivery method is client initiated")
+            raise CloudApiException("cannot update webhook if receiving notifications on the client."
+                                    "If you want to use a webhook, make sure autostart_notifications is False"
+                                    "and start_notifications isn't being called.")
 
         headers = headers or {}
         api = self._get_api(mds.NotificationsApi)
 
         if self._force_clear:
-            self._perform_force_clear()
+            self._clear_notification_channel()
 
         # Send the request to register the webhook
         webhook_obj = WebhookData(url=url, headers=headers)
@@ -832,15 +835,6 @@ class ConnectAPI(BaseAPI):
         kwargs.update(dict(include=include, interval=interval))
         api = self._get_api(statistics.StatisticsApi)
         return PaginatedResponse(api.get_metrics, lwrap_type=Metric, **kwargs)
-
-    def _perform_force_clear(self):
-        try:
-            self.delete_websocket()
-            self.delete_webhook()
-        except CloudApiException:
-            # don't care if these fail because there may be nothing to clear
-            pass
-        pass
 
     def _subscription_handler(self, queue, device_id, path, callback_fn):
         while True:
