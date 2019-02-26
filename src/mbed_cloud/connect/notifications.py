@@ -238,7 +238,7 @@ class NotificationsThread(threading.Thread):
                     # An HTTP 410 can be raised when stopping so don't log anything
                     if not self._stopping:
                         backoff = 2 ** retries - random.randint(int(retries / 2), retries)
-                        LOG.error('Notification long poll failed with exception (retry in %d seconds):\n%s', e, backoff)
+                        LOG.error('Notification long poll failed with exception (retry in %d seconds):\n%s', backoff, e)
                         retries += 1
                         # Backoff for an increasing amount of time until we have tried 10 times, then reset the backoff.
                         if retries >= 10:
