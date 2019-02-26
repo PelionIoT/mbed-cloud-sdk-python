@@ -152,6 +152,10 @@ class ConnectAPI(BaseAPI):
                 LOG.debug("notifications already started")
                 return
 
+            # force clear is true so clear all channels
+            if self._force_clear:
+                self._perform_force_clear()
+
             # check for webhook
             self._fail_if_webhook_is_setup("start notifications")
 
@@ -164,10 +168,6 @@ class ConnectAPI(BaseAPI):
                 subscription_manager=self.subscribe,
                 force_clear=self._force_clear,
             )
-
-            # force clear is true so clear all channels
-            if self._force_clear:
-                self._perform_force_clear()
 
             self._notifications_thread.daemon = True
             self._notifications_thread.start()
