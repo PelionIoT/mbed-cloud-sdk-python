@@ -180,7 +180,7 @@ class ConnectAPI(BaseAPI):
         """
         LOG.debug("stopping notifications...")
         if self._delivery_method == SERVER_INITIATED:
-            LOG.warning("should not be calling stop_notifications when delivery method is %s", SERVER_INITIATED)
+            LOG.warning("Should not call stop notifications as Webhooks have been previously configured.")
 
         with self._notifications_lock:
             if not self.has_active_notification_thread:
