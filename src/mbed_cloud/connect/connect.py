@@ -722,7 +722,7 @@ class ConnectAPI(BaseAPI):
         if not self._delivery_method:
             self._delivery_method = "SERVER_INITIATED"
 
-        if self._delivery_method == "CLIENT_INITIATED":
+        elif self._delivery_method == "CLIENT_INITIATED":
             raise CloudApiException("cannot update webhook if delivery method is client initiated")
 
         headers = headers or {}
