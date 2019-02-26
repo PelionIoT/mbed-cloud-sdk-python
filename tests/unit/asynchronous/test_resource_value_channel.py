@@ -171,3 +171,129 @@ class Test(BaseCase):
         channel.stop()
         current_subs = api.list_device_subscriptions(d.id)
         self.assertIsNone(None, current_subs)
+
+
+class FakeDevice(object):
+    def __init__(self, device_id):
+        self.id = device_id
+
+class FakeResource(object):
+    def __init__(self, observable, path):
+        self.observable = observable
+        self.path = path
+        
+        
+class FakeConnectAPI(object):
+
+    def list_connected_devices(self):
+        return [FakeDevice("Device1"), FakeDevice("Device2"), FakeDevice("Device3"), FakeDevice("Excluded")]
+
+    def list_resources(self, unused):
+        return [FakeResource(False, '/3/0/13'),
+                FakeResource(True, '/3/0/21'),
+                FakeResource(False, '/3/0/18'),
+                FakeResource(True, '/3/0/17'),
+                FakeResource(True, '/3/0/2'),
+                FakeResource(False, '/3/0/1'),
+                FakeResource(False, '/3/0/0'),
+                FakeResource(False, '/35011'),
+                FakeResource(True, '/35011/0'),
+                FakeResource(True, '/35011/0/27002'),
+                FakeResource(False, '/10252/0/9'),
+                FakeResource(True, '/10252/0/5'),
+                FakeResource(False, '/10252/0/3'),
+                FakeResource(True, '/10252/0/2'),
+                FakeResource(False, '/10252/0/1')]
+
+
+class TestMatchingDeviceResources(BaseCase):
+
+    def test_observable_single(self):
+        channel = channels.ResourceValues(
+            device_id="Device1",
+            resource_path="/10252/0/3")
+        # Mock the Connect API to return connected devices and available resources
+        channel._api = mock.Mock().method.return_value = FakeConnectAPI()
+
+        self.assertEqual([], channel._matching_device_resources(), "The specified resource was not observable")
+
+    def test_observable_list(self):
+        channel = channels.ResourceValues(
+            device_id="Device1",
+            resource_path=["/10252/0/1", "/10252/0/5"])
+        # Mock the Connect API to return connected devices and available resources
+        channel._api = mock.Mock().method.return_value = FakeConnectAPI()
+
+        self.assertEqual([('Device1', '/10252/0/5')],
+                         channel._matching_device_resources(),
+                         "Only the observable resources in the specified list, on Device1 should be returned")
+
+    def test_observable_pattern(self):
+        channel = channels.ResourceValues(
+            device_id="Device1",
+            resource_path="/10252/0/*")
+        # Mock the Connect API to return connected devices and available resources
+        channel._api = mock.Mock().method.return_value = FakeConnectAPI()
+
+        self.assertEqual(
+            [('Device1', '/10252/0/5'), ('Device1', '/10252/0/2')],
+            channel._matching_device_resources(),
+            "Only the observable resources beginning '/10252/0/' on Device1 should be returned")
+
+    def test_wildcard_resource(self):
+        channel = channels.ResourceValues(
+            device_id="Device1",
+            resource_path="/35011/0*")
+        # Mock the Connect API to return connected devices and available resources
+        channel._api = mock.Mock().method.return_value = FakeConnectAPI()
+
+        self.assertEqual(
+            [('Device1', '/35011/0'), ('Device1', '/35011/0/27002')],
+            channel._matching_device_resources(),
+            "'/35011/0*' should match all resource beginning '/35011/0'")
+
+    def test_list_device(self):
+        channel = channels.ResourceValues(
+            device_id=["Device1", "Device2"],
+            resource_path="/10252/0/5")
+        # Mock the Connect API to return connected devices and available resources
+        channel._api = mock.Mock().method.return_value = FakeConnectAPI()
+
+        self.assertEqual(
+            [('Device1', '/10252/0/5'), ('Device2', '/10252/0/5')],
+            channel._matching_device_resources(),
+            "Defining devices as a list should explicitly match device IDs")
+
+    def test_wildcard_device(self):
+        channel = channels.ResourceValues(
+            # device_id=["Device1", "Device2"],
+            device_id="Device*",
+            resource_path="/10252/0/5")
+        # Mock the Connect API to return connected devices and available resources
+        channel._api = mock.Mock().method.return_value = FakeConnectAPI()
+
+        self.assertEqual(
+            [('Device1', '/10252/0/5'), ('Device2', '/10252/0/5'), ('Device3', '/10252/0/5')],
+            channel._matching_device_resources(),
+            "'Device*' should not match all devices starting with 'Device'")
+
+    def test_device_no_match(self):
+        channel = channels.ResourceValues(
+            device_id="Device",
+            resource_path="*")
+        # Mock the Connect API to return connected devices and available resources
+        channel._api = mock.Mock().method.return_value = FakeConnectAPI()
+
+        self.assertEqual([], channel._matching_device_resources(), "'Device' should not match any devices")
+
+    def test_multiple_matches(self):
+        channel = channels.ResourceValues(
+            device_id=["Device1", "Device*"],
+            resource_path=["/35011/0", "/35011*"])
+        # Mock the Connect API to return connected devices and available resources
+        channel._api = mock.Mock().method.return_value = FakeConnectAPI()
+
+        self.assertEqual([('Device1', '/35011/0'), ('Device1', '/35011/0/27002'), ('Device2', '/35011/0'),
+                          ('Device2', '/35011/0/27002'), ('Device3', '/35011/0'), ('Device3', '/35011/0/27002')],
+                         channel._matching_device_resources(),
+                         "Each Device and resource path should be listed once")

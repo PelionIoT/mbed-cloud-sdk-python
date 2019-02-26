@@ -18,10 +18,13 @@
 from builtins import object
 from multiprocessing.pool import ThreadPool
 
+import queue
 import functools
 import logging
 import six
 import threading
+
+from mbed_cloud.exceptions import CloudTimeoutError
 
 if six.PY3:
     import asyncio
@@ -137,9 +140,12 @@ class AsyncWrapper(object):
             raise RuntimeError('Already activated this call by deferring it')
         with self._lock:
             if not hasattr(self, '_result'):
-                self._result = (
-                    self._concurrency_provider.run_until_complete(self.defer(*args, **kwargs))
-                    if self._is_asyncio_provider else self._func(*args, **kwargs)
-                )
+                try:
+                    self._result = (
+                        self._concurrency_provider.run_until_complete(self.defer(*args, **kwargs))
+                        if self._is_asyncio_provider else self._func(*args, **kwargs)
+                    )
+                except queue.Empty:
+                    raise CloudTimeoutError("No data received after %.1f seconds." % kwargs.get("timeout", 0))
             self._blocked = True
         return self._result
