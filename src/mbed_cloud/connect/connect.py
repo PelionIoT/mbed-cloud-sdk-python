@@ -140,7 +140,7 @@ class ConnectAPI(BaseAPI):
         LOG.debug("starting notifications...")
         # delivery method is server initiated so raise an exception
         if self._delivery_method == SERVER_INITIATED:
-            raise CloudApiException("Cannot start the notification thread as Webhooks have been previously configured.)
+            raise CloudApiException("Cannot start the notification thread as Webhooks have been previously configured.")
 
         # delivery method not set so set to client initiated
         if not self._delivery_method:
@@ -163,7 +163,6 @@ class ConnectAPI(BaseAPI):
                 notifications_api=api,
                 subscription_manager=self.subscribe,
                 force_clear=self._force_clear,
-                logger=LOG
             )
 
             # force clear is true so clear all channels

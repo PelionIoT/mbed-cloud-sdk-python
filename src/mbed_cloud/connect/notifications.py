@@ -229,7 +229,6 @@ class NotificationsThread(threading.Thread):
         self._api_key = notifications_api.api_client.configuration.api_key['Authorization']
         self._host = notifications_api.api_client.configuration.host
         self._force_clear = force_clear
-        self._logger = logger
         self._api_client = notifications_api.api_client
         self._closing_code = 0
         self._closing_reason = None
@@ -249,14 +248,12 @@ class NotificationsThread(threading.Thread):
 
     def _get_on_message_calback(self):
         def on_message(ws, data):
-            if self._logger:
-                self._logger.debug('received notification data: %s', data)
+            LOG.debug('received notification data: %s', data)
             try:
                 data = self._api_client.deserialize(NotificationsThread.NotificationWebsocketMessage(data),
                                                     NotificationMessage)
             except Exception as e:
-                if self._logger:
-                    self._logger.error('Could not deserialise received notification: %s because %s ', data, e)
+                LOG.error('Could not deserialise received notification: %s because %s ', data, e)
 
             handle_channel_message(
                 db=self.db,
@@ -278,15 +275,14 @@ class NotificationsThread(threading.Thread):
 
     def _get_on_error_callback(self):
         def on_error(ws, error):
-            if self._logger:
-                self._logger.error('An error happened in the notification thread : %s' % error)
+            LOG.error('An error happened in the notification thread : %s' % error)
             ws.close()
 
         return on_error
 
     def _get_on_open_callback(self):
         def on_open(ws):
-            self._logger.debug("websocket opened successfully")
+            LOG.debug("websocket opened successfully")
             pass
 
         return on_open
@@ -315,7 +311,7 @@ class NotificationsThread(threading.Thread):
             return False
 
     def _close_socket(self):
-        self._logger.debug('Closing websocket')
+        LOG.debug('Closing websocket')
         if self._ws:
             self._ws.close()
         self._stopped.set()
@@ -326,8 +322,7 @@ class NotificationsThread(threading.Thread):
         return True
 
     def _log_error(self, error, reason):
-        if self._logger:
-            self._logger.error('An error happened in the notification thread : %s because %s', error, reason)
+        LOG.error('An error happened in the notification thread : %s because %s', error, reason)
         return True
 
     def _run_websocket(self):
@@ -350,9 +345,9 @@ class NotificationsThread(threading.Thread):
     def run_state_machine(self):  # noqa: C901
         """Run state machine"""
         while not self._stopping.is_set():
-            self._logger.debug('Notification machine state: %s' % self.state)
+            LOG.debug('Notification machine state: %s' % self.state)
             if self.state == NotificationsThread.WebsocketState.START:
-                self._logger.debug('Starting websocket')
+                LOG.debug('Starting websocket')
                 self.state = NotificationsThread.WebsocketState.GET_WEBSOCKET
             elif self.state == NotificationsThread.WebsocketState.GET_WEBSOCKET:
                 if self._get_websocket():
@@ -361,7 +356,7 @@ class NotificationsThread(threading.Thread):
                     self.state = NotificationsThread.WebsocketState.REGISTER_WEBSOCKET
             elif self.state == NotificationsThread.WebsocketState.RUN_WEBSOCKET:
                 self._run_websocket()
-                self._logger.debug('Closing code: %s' % self._closing_code)
+                LOG.debug('Closing code: %s' % self._closing_code)
                 if self._stopping.is_set():
                     self.state = NotificationsThread.WebsocketState.END
                 elif self._closing_code == 1000:
