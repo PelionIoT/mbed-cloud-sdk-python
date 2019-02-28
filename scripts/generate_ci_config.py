@@ -381,6 +381,9 @@ def new_test(py_ver: PyVer, cloud_host: CloudHost):
           path: results
     """
     code_coverage = f"""
+      - run:
+          name: Install pipenv
+          command: sudo pip install pipenv
       - run: 
           command: pipenv run codecov --file=results/coverage.xml --flags {py_ver.name}
           name: Upload code coverage results

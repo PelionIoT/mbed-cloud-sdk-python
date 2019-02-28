@@ -322,6 +322,9 @@ jobs:
     - store_artifacts:
         path: results
     - run:
+        command: sudo pip install pipenv
+        name: Install pipenv
+    - run:
         command: pipenv run codecov --file=results/coverage.xml --flags py2
         name: Upload code coverage results
   test_py3_OS2:
@@ -390,6 +393,9 @@ jobs:
         when: always
     - store_artifacts:
         path: results
+    - run:
+        command: sudo pip install pipenv
+        name: Install pipenv
     - run:
         command: pipenv run codecov --file=results/coverage.xml --flags py3
         name: Upload code coverage results
