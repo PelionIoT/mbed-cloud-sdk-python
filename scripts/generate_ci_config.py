@@ -50,10 +50,13 @@ base_structure = OrderedDict(
     ),
 )
 
+OS2_HOST_NAME = "OS2"
+PRODUCTION_HOST_NAME = "PROD"
+
 CloudHost = namedtuple('CloudHost', ['name', 'envvar_host', 'envvar_key'])
 mbed_cloud_hosts = dict(
-    osii=CloudHost('OS2', 'MBED_CLOUD_API_HOST_OS2', 'MBED_CLOUD_API_KEY_OS2'),
-    production=CloudHost('PROD', 'MBED_CLOUD_API_HOST_PROD', 'MBED_CLOUD_API_KEY_PROD'),
+    osii=CloudHost(OS2_HOST_NAME, 'MBED_CLOUD_API_HOST_OS2', 'MBED_CLOUD_API_KEY_OS2'),
+    production=CloudHost(PRODUCTION_HOST_NAME, 'MBED_CLOUD_API_HOST_PROD', 'MBED_CLOUD_API_KEY_PROD'),
 )
 
 py2_openssl_install = """
@@ -341,7 +344,7 @@ def test_name(py_ver: PyVer, cloud_host: CloudHost):
 def new_test(py_ver: PyVer, cloud_host: CloudHost):
     """Job for running integration/coverage tests"""
     sdk_docker_cache = f'app_{py_ver.name}.tar'
-    template = yaml.safe_load(f"""
+    common = f"""
     machine:
       image: circleci/classic:201710-02
     steps:
@@ -376,7 +379,17 @@ def new_test(py_ver: PyVer, cloud_host: CloudHost):
           when: always
       - store_artifacts:
           path: results
-    """)
+    """
+    code_coverage = f"""
+      - run: 
+          command: pipenv run codecov --file=results/coverage.xml --flags {py_ver.name}
+          name: Upload code coverage results
+    """
+    # Only upload code coverage for the production run (otherwise there will be duplicates for OS2)
+    if cloud_host.name == PRODUCTION_HOST_NAME:
+        template = yaml.safe_load(common + code_coverage)
+    else:
+        template = yaml.safe_load(common)
     return test_name(py_ver, cloud_host), template
 
 

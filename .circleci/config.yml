@@ -321,6 +321,9 @@ jobs:
         when: always
     - store_artifacts:
         path: results
+    - run:
+        command: pipenv run codecov --file=results/coverage.xml --flags py2
+        name: Upload code coverage results
   test_py3_OS2:
     machine:
       image: circleci/classic:201710-02
@@ -387,6 +390,9 @@ jobs:
         when: always
     - store_artifacts:
         path: results
+    - run:
+        command: pipenv run codecov --file=results/coverage.xml --flags py3
+        name: Upload code coverage results
   tpip_report:
     docker:
     - image: circleci/python:3.6.1
