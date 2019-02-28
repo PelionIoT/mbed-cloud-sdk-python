@@ -322,10 +322,10 @@ jobs:
     - store_artifacts:
         path: results
     - run:
-        command: sudo pip install pipenv
-        name: Install pipenv
+        command: sudo pip install codecov
+        name: Install codecov
     - run:
-        command: pipenv run codecov --file=results/coverage.xml --flags py2
+        command: codecov --file=results/coverage.xml --flags py2
         name: Upload code coverage results
   test_py3_OS2:
     machine:
@@ -394,10 +394,10 @@ jobs:
     - store_artifacts:
         path: results
     - run:
-        command: sudo pip install pipenv
-        name: Install pipenv
+        command: sudo pip install codecov
+        name: Install codecov
     - run:
-        command: pipenv run codecov --file=results/coverage.xml --flags py3
+        command: codecov --file=results/coverage.xml --flags py3
         name: Upload code coverage results
   tpip_report:
     docker:

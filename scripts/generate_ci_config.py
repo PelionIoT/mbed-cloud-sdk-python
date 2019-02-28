@@ -382,10 +382,10 @@ def new_test(py_ver: PyVer, cloud_host: CloudHost):
     """
     code_coverage = f"""
       - run:
-          name: Install pipenv
-          command: sudo pip install pipenv
+          name: Install codecov
+          command: sudo pip install codecov
       - run: 
-          command: pipenv run codecov --file=results/coverage.xml --flags {py_ver.name}
+          command: codecov --file=results/coverage.xml --flags {py_ver.name}
           name: Upload code coverage results
     """
     # Only upload code coverage for the production run (otherwise there will be duplicates for OS2)
