@@ -119,7 +119,7 @@ jobs:
         command: docker cp SDK:/build/built_docs ./built_docs
         name: Extract the documentation
     - run:
-        command: aws s3 sync --delete --cache-control max-age=3600 built_docs s3://mbed-cloud-sdk-python
+        command: aws s3 sync --delete --cache-control max-age=3600 built_docs s3://mbed-cloud-sdk-python/${CIRCLE_BRANCH}-release
         name: Upload the documentation
     - run:
         command: docker run --env-file=scripts/templates/envvars.env -e TWINE_REPOSITORY=pypi
@@ -150,7 +150,7 @@ jobs:
         command: docker cp SDK:/build/built_docs ./built_docs
         name: Extract the documentation
     - run:
-        command: aws s3 sync --delete --cache-control max-age=3600 built_docs s3://mbed-cloud-sdk-python
+        command: aws s3 sync --delete --cache-control max-age=3600 built_docs s3://mbed-cloud-sdk-python/${CIRCLE_BRANCH}-release
         name: Upload the documentation
     - run:
         command: docker run --env-file=scripts/templates/envvars.env -e TWINE_REPOSITORY=pypi
@@ -233,6 +233,28 @@ jobs:
         root: ~/caches
     - store_artifacts:
         path: testrunner_version.txt
+  reference_documentation:
+    machine:
+      image: circleci/classic:201710-02
+    steps:
+    - attach_workspace:
+        at: ~/caches
+    - checkout
+    - run:
+        command: sudo pip install awscli
+        name: Install prerequisites
+    - run:
+        command: docker load -i ~/caches/app_py3.tar
+        name: Load docker image layer cache
+    - run:
+        command: docker run --name=SDK mbed_sdk_py3:latest
+        name: Start a named container
+    - run:
+        command: docker cp SDK:/build/built_docs ./built_docs
+        name: Extract the documentation
+    - run:
+        command: aws s3 sync --delete --cache-control max-age=3600 built_docs s3://mbed-cloud-sdk-python/${CIRCLE_BRANCH}-branch
+        name: Upload the documentation
   test_py2_OS2:
     machine:
       image: circleci/classic:201710-02
@@ -379,6 +401,15 @@ workflows:
   python_sdk_workflow:
     jobs:
     - preload: {}
+    - reference_documentation:
+        filters:
+          branches:
+            only:
+            - master
+            - beta
+        requires:
+        - build_py2
+        - build_py3
     - build_documentation:
         filters:
           branches:

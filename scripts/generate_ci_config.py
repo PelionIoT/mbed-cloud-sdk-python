@@ -238,6 +238,41 @@ def new_build_documentation():
     return 'build_documentation', template
 
 
+def upload_reference_documentation():
+    """Job for uploading reference documentation to S3"""
+
+    # Build the documentation using python 3
+    py_ver = python_versions["three"]
+
+    cache_file = f'app_{py_ver.name}.tar'
+    template = yaml.safe_load(f"""
+    machine:
+      image: circleci/classic:201710-02
+    steps:
+      - attach_workspace:
+          at: {cache_dir}
+      - checkout
+      - run:
+          name: Install prerequisites
+          command: sudo pip install awscli
+      - run:
+          name: Load docker image layer cache
+          command: docker load -i {cache_dir}/{cache_file}
+      - run:
+          name: Start a named container
+          command: docker run --name=SDK {py_ver.tag}
+      - run:
+          name: Extract the documentation
+          command: 'docker cp SDK:/build/built_docs ./built_docs'
+      - run:
+          name: Upload the documentation
+          command: >-
+            aws s3 sync --delete --cache-control
+            max-age=3600 built_docs s3://mbed-cloud-sdk-python/${{CIRCLE_BRANCH}}-branch
+    """)
+    return 'reference_documentation', template
+
+
 def build_name(py_ver: PyVer):
     """Name"""
     return f'build_{py_ver.name}'
@@ -376,7 +411,7 @@ def new_deploy(py_ver: PyVer, release_target: ReleaseTarget):
           name: Upload the documentation
           command: >-
             aws s3 sync --delete --cache-control
-            max-age=3600 built_docs s3://mbed-cloud-sdk-python
+            max-age=3600 built_docs s3://mbed-cloud-sdk-python/${{CIRCLE_BRANCH}}-release
       - run:
           name: Tag and release
           command: >-
@@ -438,13 +473,28 @@ def generate_circle_output():
         job,
         workflow=dict(
             requires=['build_py2', 'build_py3'],
-            filters = dict(
+            filters=dict(
                 branches=dict(
                     # Only update the documentation on release branches
                     only=['master', 'beta']
+                )
+            )
         )
     )
-    )
+
+    job, content = upload_reference_documentation()
+    base['jobs'].update({job: content})
+    workflow.add_node(
+        job,
+        workflow=dict(
+            requires=['build_py2', 'build_py3'],
+            filters=dict(
+                branches=dict(
+                    # Only update the documentation on release branches
+                    only=['master', 'beta']
+                )
+            )
+        )
     )
 
     preload_job, content = new_preload()
