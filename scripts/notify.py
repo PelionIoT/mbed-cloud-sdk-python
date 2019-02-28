@@ -31,7 +31,7 @@ def main():
      otherwise: https://github.com/slackapi/python-slackclient#joining-a-channel
     """
     slack_token = os.environ.get('SLACK_API_TOKEN')
-    channel_id = os.environ.get('SLACK_CHANNEL', '#mbed-cloud-sdk')
+    channel_id = os.environ.get('SLACK_CHANNEL', '#isg-dm-sdk')
     message = os.environ.get('SLACK_MESSAGE', (
         ':checkered_flag: New version of :snake: Python SDK released: *{version}* '
         '(<https://pypi.org/project/mbed-cloud-sdk/{version}/|PyPI>)'

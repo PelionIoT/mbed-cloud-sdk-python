@@ -44,6 +44,13 @@ class CertificateEnrollment(Entity):
     ):
         """Creates a local `CertificateEnrollment` instance
 
+        Parameters can be supplied on creation of the instance or given by
+        setting the properties on the instance after creation.
+
+        Parameters marked as `required` must be set for one or more operations
+        on the entity. For details on when they are required please see the
+        documentation for the setter method.
+
         :param certificate_name: The certificate name.
         :type certificate_name: str
         :param created_at: Creation UTC time RFC3339.
@@ -54,7 +61,7 @@ class CertificateEnrollment(Entity):
         :type enroll_result: str
         :param enroll_status: 
         :type enroll_status: str
-        :param id: The ID of the certificate enrollment.
+        :param id: (Required) The ID of the certificate enrollment.
         :type id: str
         :param updated_at: Update UTC time RFC3339.
         :type updated_at: datetime
@@ -192,6 +199,8 @@ class CertificateEnrollment(Entity):
     @id.setter
     def id(self, value):
         """Set value of `id`
+
+        This field must be set when updating or deleting an existing CertificateEnrollment Entity.
 
         :param value: value to set
         :type value: str

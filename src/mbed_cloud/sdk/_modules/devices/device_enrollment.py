@@ -44,6 +44,13 @@ class DeviceEnrollment(Entity):
     ):
         """Creates a local `DeviceEnrollment` instance
 
+        Parameters can be supplied on creation of the instance or given by
+        setting the properties on the instance after creation.
+
+        Parameters marked as `required` must be set for one or more operations
+        on the entity. For details on when they are required please see the
+        documentation for the setter method.
+
         :param account_id: ID
         :type account_id: str
         :param claimed_at: The time of claiming the device to be assigned to the account.
@@ -53,13 +60,13 @@ class DeviceEnrollment(Entity):
         :param enrolled_device_id: The ID of the device in the Device Directory once it has been
             registered.
         :type enrolled_device_id: str
-        :param enrollment_identity: Enrollment identity.
+        :param enrollment_identity: (Required) Enrollment identity.
         :type enrollment_identity: str
         :param expires_at: The enrollment claim expiration time. If the device does not
             connect to Device Management before the expiration, the claim is
             removed without a separate notice
         :type expires_at: datetime
-        :param id: Enrollment identity.
+        :param id: (Required) Enrollment identity.
         :type id: str
         """
 
@@ -172,6 +179,8 @@ class DeviceEnrollment(Entity):
     def enrollment_identity(self, value):
         """Set value of `enrollment_identity`
 
+        This field must be set when creating a new DeviceEnrollment Entity.
+
         :param value: value to set
         :type value: str
         """
@@ -213,6 +222,8 @@ class DeviceEnrollment(Entity):
     @id.setter
     def id(self, value):
         """Set value of `id`
+
+        This field must be set when updating or deleting an existing DeviceEnrollment Entity.
 
         :param value: value to set
         :type value: str

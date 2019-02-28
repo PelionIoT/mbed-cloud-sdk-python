@@ -47,6 +47,13 @@ class DeveloperCertificate(Entity):
     ):
         """Creates a local `DeveloperCertificate` instance
 
+        Parameters can be supplied on creation of the instance or given by
+        setting the properties on the instance after creation.
+
+        Parameters marked as `required` must be set for one or more operations
+        on the entity. For details on when they are required please see the
+        documentation for the setter method.
+
         :param account_id: account to which the developer certificate belongs
         :type account_id: str
         :param certificate: PEM format X.509 developer certificate.
@@ -55,9 +62,9 @@ class DeveloperCertificate(Entity):
         :type created_at: datetime
         :param description: Description for the developer certificate.
         :type description: str
-        :param id: mUUID that uniquely identifies the developer certificate.
+        :param id: (Required) mUUID that uniquely identifies the developer certificate.
         :type id: str
-        :param name: Name of the developer certificate.
+        :param name: (Required) Name of the developer certificate.
         :type name: str
         :param security_file_content: Content of the security.c file that will be flashed into the
             device to provide the security credentials
@@ -166,6 +173,8 @@ class DeveloperCertificate(Entity):
     def id(self, value):
         """Set value of `id`
 
+        This field must be set when updating or deleting an existing DeveloperCertificate Entity.
+
         :param value: value to set
         :type value: str
         """
@@ -184,6 +193,8 @@ class DeveloperCertificate(Entity):
     @name.setter
     def name(self, value):
         """Set value of `name`
+
+        This field must be set when creating a new DeveloperCertificate Entity.
 
         :param value: value to set
         :type value: str

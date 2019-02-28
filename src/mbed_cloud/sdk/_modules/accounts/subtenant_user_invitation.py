@@ -46,15 +46,22 @@ class SubtenantUserInvitation(Entity):
     ):
         """Creates a local `SubtenantUserInvitation` instance
 
-        :param account_id: The ID of the account the user is invited to.
+        Parameters can be supplied on creation of the instance or given by
+        setting the properties on the instance after creation.
+
+        Parameters marked as `required` must be set for one or more operations
+        on the entity. For details on when they are required please see the
+        documentation for the setter method.
+
+        :param account_id: (Required) The ID of the account the user is invited to.
         :type account_id: str
         :param created_at: Creation UTC time RFC3339.
         :type created_at: datetime
-        :param email: Email address of the invited user.
+        :param email: (Required) Email address of the invited user.
         :type email: str
         :param expiration: Invitation expiration as UTC time RFC3339.
         :type expiration: datetime
-        :param id: The ID of the invitation.
+        :param id: (Required) The ID of the invitation.
         :type id: str
         :param login_profiles: A list of login profiles for the user. Specified as the identity
             providers the user is associated with.
@@ -98,6 +105,8 @@ class SubtenantUserInvitation(Entity):
     def account_id(self, value):
         """Set value of `account_id`
 
+        This field must be set when creating a new SubtenantUserInvitation Entity.
+
         :param value: value to set
         :type value: str
         """
@@ -140,6 +149,8 @@ class SubtenantUserInvitation(Entity):
     def email(self, value):
         """Set value of `email`
 
+        This field must be set when creating a new SubtenantUserInvitation Entity.
+
         :param value: value to set
         :type value: str
         """
@@ -181,6 +192,8 @@ class SubtenantUserInvitation(Entity):
     @id.setter
     def id(self, value):
         """Set value of `id`
+
+        This field must be set when updating or deleting an existing SubtenantUserInvitation Entity.
 
         :param value: value to set
         :type value: str

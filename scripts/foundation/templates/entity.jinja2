@@ -41,7 +41,14 @@ class {{ entity._key|to_pascal }}(Entity):
     ):
         """Creates a local `{{entity._key|to_pascal}}` instance
 
-        {% for field in entity.fields if not field.private_field %}:param {{field._key|to_snake}}: {{ (field.description or '')|wordwrap(width=66)|indent(width=12) }}
+        Parameters can be supplied on creation of the instance or given by
+        setting the properties on the instance after creation.
+
+        Parameters marked as `required` must be set for one or more operations
+        on the entity. For details on when they are required please see the
+        documentation for the setter method.
+
+        {% for field in entity.fields if not field.private_field %}:param {{field._key|to_snake}}: {% if field.required %}(Required) {% endif %}{{ (field.description or '')|wordwrap(width=66)|indent(width=12) }}
         :type {{field._key|to_snake}}: {{field.python_type}}
         {% endfor %}"""
 
@@ -82,7 +89,9 @@ class {{ entity._key|to_pascal }}(Entity):
     @{{ field._key|to_snake }}.setter
     def {{field._key|to_snake}}(self, value):
         """Set value of `{{ field._key|to_snake }}`
-
+{% if field.required %}
+        This field must be set when {% if field._key=='id' %}updating or deleting an existing{% else %}creating a new{% endif %} {{ entity._key|to_pascal }} Entity.
+{% endif %}
         :param value: value to set
         :type value: {{ field.python_type }}{% if field['items'] and field['items'].foreign_key %}[{{ field['items'].foreign_key.entity|to_pascal }}]{% endif %}{% if field.foreign_key %}[{{ field.foreign_key.entity|to_pascal }}]{% endif %}
         """

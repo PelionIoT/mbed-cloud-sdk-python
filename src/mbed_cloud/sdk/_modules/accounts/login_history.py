@@ -28,6 +28,13 @@ class LoginHistory(Entity):
     ):
         """Creates a local `LoginHistory` instance
 
+        Parameters can be supplied on creation of the instance or given by
+        setting the properties on the instance after creation.
+
+        Parameters marked as `required` must be set for one or more operations
+        on the entity. For details on when they are required please see the
+        documentation for the setter method.
+
         :param date: UTC time RFC3339 for this login attempt.
         :type date: datetime
         :param ip_address: IP address of the client.

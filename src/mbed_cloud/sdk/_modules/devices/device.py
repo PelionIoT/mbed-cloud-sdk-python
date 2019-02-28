@@ -88,6 +88,13 @@ class Device(Entity):
     ):
         """Creates a local `Device` instance
 
+        Parameters can be supplied on creation of the instance or given by
+        setting the properties on the instance after creation.
+
+        Parameters marked as `required` must be set for one or more operations
+        on the entity. For details on when they are required please see the
+        documentation for the setter method.
+
         :param account_id: The ID of the associated account.
         :type account_id: str
         :param auto_update: DEPRECATED: Mark this device for automatic firmware update.
@@ -137,7 +144,7 @@ class Device(Entity):
         :type firmware_checksum: str
         :param host_gateway: The `endpoint_name` of the host gateway, if appropriate.
         :type host_gateway: str
-        :param id: The ID of the device. The device ID is used across all Device
+        :param id: (Required) The ID of the device. The device ID is used across all Device
             Management APIs.
         :type id: str
         :param manifest: DEPRECATED: The URL for the current device manifest.
@@ -610,6 +617,8 @@ class Device(Entity):
     @id.setter
     def id(self, value):
         """Set value of `id`
+
+        This field must be set when updating or deleting an existing Device Entity.
 
         :param value: value to set
         :type value: str

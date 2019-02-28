@@ -26,6 +26,13 @@ class ParentAccount(Entity):
     def __init__(self, _client=None, admin_email=None, admin_name=None, id=None):
         """Creates a local `ParentAccount` instance
 
+        Parameters can be supplied on creation of the instance or given by
+        setting the properties on the instance after creation.
+
+        Parameters marked as `required` must be set for one or more operations
+        on the entity. For details on when they are required please see the
+        documentation for the setter method.
+
         :param admin_email: The email address of the admin user who is the contact person of
             the parent account.
         :type admin_email: str

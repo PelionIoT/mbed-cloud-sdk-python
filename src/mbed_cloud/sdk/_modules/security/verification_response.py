@@ -26,6 +26,13 @@ class VerificationResponse(Entity):
     def __init__(self, _client=None, message=None, successful=None):
         """Creates a local `VerificationResponse` instance
 
+        Parameters can be supplied on creation of the instance or given by
+        setting the properties on the instance after creation.
+
+        Parameters marked as `required` must be set for one or more operations
+        on the entity. For details on when they are required please see the
+        documentation for the setter method.
+
         :param message: Provides details in case of failure.
         :type message: str
         :param successful: Indicates whether the certificate issuer was verified

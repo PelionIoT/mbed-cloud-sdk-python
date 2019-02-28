@@ -50,6 +50,13 @@ class DeviceEnrollmentBulkCreate(Entity):
     ):
         """Creates a local `DeviceEnrollmentBulkCreate` instance
 
+        Parameters can be supplied on creation of the instance or given by
+        setting the properties on the instance after creation.
+
+        Parameters marked as `required` must be set for one or more operations
+        on the entity. For details on when they are required please see the
+        documentation for the setter method.
+
         :param account_id: ID
         :type account_id: str
         :param completed_at: The time of completing the bulk creation task.
@@ -62,7 +69,7 @@ class DeviceEnrollmentBulkCreate(Entity):
         :type errors_report_file: str
         :param full_report_file: 
         :type full_report_file: str
-        :param id: Bulk ID
+        :param id: (Required) Bulk ID
         :type id: str
         :param processed_count: The number of enrollment identities processed until now.
         :type processed_count: int
@@ -227,6 +234,8 @@ class DeviceEnrollmentBulkCreate(Entity):
     @id.setter
     def id(self, value):
         """Set value of `id`
+
+        This field must be set when updating or deleting an existing DeviceEnrollmentBulkCreate Entity.
 
         :param value: value to set
         :type value: str
