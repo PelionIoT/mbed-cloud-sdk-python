@@ -26,6 +26,13 @@ class LoginProfile(Entity):
     def __init__(self, _client=None, id=None, name=None):
         """Creates a local `LoginProfile` instance
 
+        Parameters can be supplied on creation of the instance or given by
+        setting the properties on the instance after creation.
+
+        Parameters marked as `required` must be set for one or more operations
+        on the entity. For details on when they are required please see the
+        documentation for the setter method.
+
         :param id: ID of the identity provider.
         :type id: str
         :param name: Name of the identity provider.

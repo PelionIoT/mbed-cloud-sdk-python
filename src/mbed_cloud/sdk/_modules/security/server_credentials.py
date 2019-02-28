@@ -33,6 +33,13 @@ class ServerCredentials(Entity):
     ):
         """Creates a local `ServerCredentials` instance
 
+        Parameters can be supplied on creation of the instance or given by
+        setting the properties on the instance after creation.
+
+        Parameters marked as `required` must be set for one or more operations
+        on the entity. For details on when they are required please see the
+        documentation for the setter method.
+
         :param created_at: Creation UTC time RFC3339.
         :type created_at: datetime
         :param id: mUUID that uniquely identifies the entity.

@@ -40,16 +40,23 @@ class CertificateIssuerConfig(Entity):
     ):
         """Creates a local `CertificateIssuerConfig` instance
 
-        :param certificate_issuer_id: The ID of the certificate issuer.
+        Parameters can be supplied on creation of the instance or given by
+        setting the properties on the instance after creation.
+
+        Parameters marked as `required` must be set for one or more operations
+        on the entity. For details on when they are required please see the
+        documentation for the setter method.
+
+        :param certificate_issuer_id: (Required) The ID of the certificate issuer.
             Null if Device Management
             internal HSM is used.
         :type certificate_issuer_id: str
-        :param certificate_reference: The certificate name to which the certificate issuer configuration
+        :param certificate_reference: (Required) The certificate name to which the certificate issuer configuration
             applies.
         :type certificate_reference: str
         :param created_at: Created UTC time RFC3339.
         :type created_at: datetime
-        :param id: The ID of the certificate issuer configuration.
+        :param id: (Required) The ID of the certificate issuer configuration.
         :type id: str
         :param updated_at: Updated UTC time RFC3339.
         :type updated_at: datetime
@@ -83,6 +90,8 @@ class CertificateIssuerConfig(Entity):
     def certificate_issuer_id(self, value):
         """Set value of `certificate_issuer_id`
 
+        This field must be set when creating a new CertificateIssuerConfig Entity.
+
         :param value: value to set
         :type value: str
         """
@@ -103,6 +112,8 @@ class CertificateIssuerConfig(Entity):
     @certificate_reference.setter
     def certificate_reference(self, value):
         """Set value of `certificate_reference`
+
+        This field must be set when creating a new CertificateIssuerConfig Entity.
 
         :param value: value to set
         :type value: str
@@ -145,6 +156,8 @@ class CertificateIssuerConfig(Entity):
     @id.setter
     def id(self, value):
         """Set value of `id`
+
+        This field must be set when updating or deleting an existing CertificateIssuerConfig Entity.
 
         :param value: value to set
         :type value: str

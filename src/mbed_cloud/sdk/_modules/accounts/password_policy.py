@@ -26,6 +26,13 @@ class PasswordPolicy(Entity):
     def __init__(self, _client=None, minimum_length=None):
         """Creates a local `PasswordPolicy` instance
 
+        Parameters can be supplied on creation of the instance or given by
+        setting the properties on the instance after creation.
+
+        Parameters marked as `required` must be set for one or more operations
+        on the entity. For details on when they are required please see the
+        documentation for the setter method.
+
         :param minimum_length: Minimum length for the password. A number between 8 and 512.
         :type minimum_length: str
         """

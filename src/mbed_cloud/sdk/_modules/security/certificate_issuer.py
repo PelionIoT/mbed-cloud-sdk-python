@@ -42,11 +42,18 @@ class CertificateIssuer(Entity):
     ):
         """Creates a local `CertificateIssuer` instance
 
+        Parameters can be supplied on creation of the instance or given by
+        setting the properties on the instance after creation.
+
+        Parameters marked as `required` must be set for one or more operations
+        on the entity. For details on when they are required please see the
+        documentation for the setter method.
+
         :param created_at: Creation UTC time RFC3339.
         :type created_at: datetime
         :param description: General description for the certificate issuer.
         :type description: str
-        :param id: The ID of the certificate issuer.
+        :param id: (Required) The ID of the certificate issuer.
         :type id: str
         :param issuer_attributes: General attributes for connecting the certificate issuer.
             When the
@@ -54,7 +61,7 @@ class CertificateIssuer(Entity):
             When the
             issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
         :type issuer_attributes: dict
-        :param issuer_type: The type of the certificate issuer.
+        :param issuer_type: (Required) The type of the certificate issuer.
             - GLOBAL_SIGN:
               Certificates
             are issued by GlobalSign service. The users must provide their own
@@ -65,7 +72,7 @@ class CertificateIssuer(Entity):
               The users must
             provide their own CFSSL host_url and credentials.
         :type issuer_type: str
-        :param name: Certificate issuer name, unique per account.
+        :param name: (Required) Certificate issuer name, unique per account.
         :type name: str
         """
 
@@ -140,6 +147,8 @@ class CertificateIssuer(Entity):
     def id(self, value):
         """Set value of `id`
 
+        This field must be set when updating or deleting an existing CertificateIssuer Entity.
+
         :param value: value to set
         :type value: str
         """
@@ -193,6 +202,8 @@ class CertificateIssuer(Entity):
     def issuer_type(self, value):
         """Set value of `issuer_type`
 
+        This field must be set when creating a new CertificateIssuer Entity.
+
         :param value: value to set
         :type value: str
         """
@@ -213,6 +224,8 @@ class CertificateIssuer(Entity):
     @name.setter
     def name(self, value):
         """Set value of `name`
+
+        This field must be set when creating a new CertificateIssuer Entity.
 
         :param value: value to set
         :type value: str

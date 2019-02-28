@@ -52,6 +52,13 @@ class DeviceEvents(Entity):
     ):
         """Creates a local `DeviceEvents` instance
 
+        Parameters can be supplied on creation of the instance or given by
+        setting the properties on the instance after creation.
+
+        Parameters marked as `required` must be set for one or more operations
+        on the entity. For details on when they are required please see the
+        documentation for the setter method.
+
         :param changes: 
         :type changes: dict
         :param created_at: 
@@ -70,7 +77,7 @@ class DeviceEvents(Entity):
         :type event_type_category: str
         :param event_type_description: Generic description of the event
         :type event_type_description: str
-        :param id: 
+        :param id: (Required) 
         :type id: str
         :param state_change: 
         :type state_change: bool
@@ -294,6 +301,8 @@ class DeviceEvents(Entity):
     @id.setter
     def id(self, value):
         """Set value of `id`
+
+        This field must be set when updating or deleting an existing DeviceEvents Entity.
 
         :param value: value to set
         :type value: str

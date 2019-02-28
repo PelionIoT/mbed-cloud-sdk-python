@@ -74,6 +74,13 @@ class User(Entity):
     ):
         """Creates a local `User` instance
 
+        Parameters can be supplied on creation of the instance or given by
+        setting the properties on the instance after creation.
+
+        Parameters marked as `required` must be set for one or more operations
+        on the entity. For details on when they are required please see the
+        documentation for the setter method.
+
         :param account_id: The ID of the account.
         :type account_id: str
         :param address: Address.
@@ -82,14 +89,14 @@ class User(Entity):
         :type created_at: datetime
         :param creation_time: A timestamp of the user creation in the storage, in milliseconds.
         :type creation_time: int
-        :param email: The email address.
+        :param email: (Required) The email address.
         :type email: str
         :param email_verified: A flag indicating whether the user's email address has been
             verified or not.
         :type email_verified: bool
         :param full_name: The full name of the user.
         :type full_name: str
-        :param id: The ID of the user.
+        :param id: (Required) The ID of the user.
         :type id: str
         :param last_login_time: A timestamp of the latest login of the user, in milliseconds.
         :type last_login_time: int
@@ -262,6 +269,8 @@ class User(Entity):
     def email(self, value):
         """Set value of `email`
 
+        This field must be set when creating a new User Entity.
+
         :param value: value to set
         :type value: str
         """
@@ -324,6 +333,8 @@ class User(Entity):
     @id.setter
     def id(self, value):
         """Set value of `id`
+
+        This field must be set when updating or deleting an existing User Entity.
 
         :param value: value to set
         :type value: str

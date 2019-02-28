@@ -50,6 +50,13 @@ class ApiKey(Entity):
     ):
         """Creates a local `ApiKey` instance
 
+        Parameters can be supplied on creation of the instance or given by
+        setting the properties on the instance after creation.
+
+        Parameters marked as `required` must be set for one or more operations
+        on the entity. For details on when they are required please see the
+        documentation for the setter method.
+
         :param account_id: The ID of the account.
         :type account_id: str
         :param created_at: Creation UTC time RFC3339.
@@ -57,13 +64,13 @@ class ApiKey(Entity):
         :param creation_time: The timestamp of the API key creation in the storage, in
             milliseconds.
         :type creation_time: int
-        :param id: The ID of the API key.
+        :param id: (Required) The ID of the API key.
         :type id: str
         :param key: The API key.
         :type key: str
         :param last_login_time: The timestamp of the latest API key usage, in milliseconds.
         :type last_login_time: int
-        :param name: The display name for the API key.
+        :param name: (Required) The display name for the API key.
         :type name: str
         :param owner: The owner of this API key, who is the creator by default.
         :type owner: str
@@ -167,6 +174,8 @@ class ApiKey(Entity):
     def id(self, value):
         """Set value of `id`
 
+        This field must be set when updating or deleting an existing ApiKey Entity.
+
         :param value: value to set
         :type value: str
         """
@@ -230,6 +239,8 @@ class ApiKey(Entity):
     @name.setter
     def name(self, value):
         """Set value of `name`
+
+        This field must be set when creating a new ApiKey Entity.
 
         :param value: value to set
         :type value: str

@@ -114,6 +114,13 @@ class Account(Entity):
     ):
         """Creates a local `Account` instance
 
+        Parameters can be supplied on creation of the instance or given by
+        setting the properties on the instance after creation.
+
+        Parameters marked as `required` must be set for one or more operations
+        on the entity. For details on when they are required please see the
+        documentation for the setter method.
+
         :param address_line1: Postal address line 1.
         :type address_line1: str
         :param address_line2: Postal address line 2.
@@ -157,14 +164,14 @@ class Account(Entity):
         :type display_name: str
         :param email: The company email address for this account.
         :type email: str
-        :param end_market: Account end market.
+        :param end_market: (Required) Account end market.
         :type end_market: str
         :param expiration: Expiration time of the account, as UTC time RFC3339.
         :type expiration: datetime
         :param expiration_warning_threshold: Indicates how many days (1-180) before account expiration a
             notification email should be sent.
         :type expiration_warning_threshold: str
-        :param id: Account ID.
+        :param id: (Required) Account ID.
         :type id: str
         :param idle_timeout: The reference token expiration time in minutes for this account.
         :type idle_timeout: str
@@ -686,6 +693,8 @@ class Account(Entity):
     def end_market(self, value):
         """Set value of `end_market`
 
+        This field must be set when creating a new Account Entity.
+
         :param value: value to set
         :type value: str
         """
@@ -747,6 +756,8 @@ class Account(Entity):
     @id.setter
     def id(self, value):
         """Set value of `id`
+
+        This field must be set when updating or deleting an existing Account Entity.
 
         :param value: value to set
         :type value: str

@@ -63,9 +63,16 @@ class TrustedCertificate(Entity):
     ):
         """Creates a local `TrustedCertificate` instance
 
+        Parameters can be supplied on creation of the instance or given by
+        setting the properties on the instance after creation.
+
+        Parameters marked as `required` must be set for one or more operations
+        on the entity. For details on when they are required please see the
+        documentation for the setter method.
+
         :param account_id: The ID of the account.
         :type account_id: str
-        :param certificate: X509.v3 trusted certificate in PEM format.
+        :param certificate: (Required) X509.v3 trusted certificate in PEM format.
         :type certificate: str
         :param certificate_fingerprint: A SHA-256 fingerprint of the certificate.
         :type certificate_fingerprint: str
@@ -75,17 +82,17 @@ class TrustedCertificate(Entity):
         :type description: str
         :param enrollment_mode: If true, signature is not required. Default value false.
         :type enrollment_mode: bool
-        :param id: Entity ID.
+        :param id: (Required) Entity ID.
         :type id: str
         :param is_developer_certificate: Whether or not this certificate is a developer certificate.
         :type is_developer_certificate: bool
         :param issuer: Issuer of the certificate.
         :type issuer: str
-        :param name: Certificate name.
+        :param name: (Required) Certificate name.
         :type name: str
         :param owner_id: The ID of the owner.
         :type owner_id: str
-        :param service: Service name where the certificate is to be used.
+        :param service: (Required) Service name where the certificate is to be used.
         :type service: str
         :param status: Status of the certificate.
         :type status: str
@@ -163,6 +170,8 @@ class TrustedCertificate(Entity):
     @certificate.setter
     def certificate(self, value):
         """Set value of `certificate`
+
+        This field must be set when creating a new TrustedCertificate Entity.
 
         :param value: value to set
         :type value: str
@@ -267,6 +276,8 @@ class TrustedCertificate(Entity):
     def id(self, value):
         """Set value of `id`
 
+        This field must be set when updating or deleting an existing TrustedCertificate Entity.
+
         :param value: value to set
         :type value: str
         """
@@ -342,6 +353,8 @@ class TrustedCertificate(Entity):
     def name(self, value):
         """Set value of `name`
 
+        This field must be set when creating a new TrustedCertificate Entity.
+
         :param value: value to set
         :type value: str
         """
@@ -381,6 +394,8 @@ class TrustedCertificate(Entity):
     @service.setter
     def service(self, value):
         """Set value of `service`
+
+        This field must be set when creating a new TrustedCertificate Entity.
 
         :param value: value to set
         :type value: str
