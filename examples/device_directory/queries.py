@@ -18,7 +18,6 @@
 from mbed_cloud import DeviceDirectoryAPI
 import random
 import string
-import uuid
 
 
 def _id_generator(size=6, chars=string.ascii_uppercase + string.digits):
@@ -49,7 +48,6 @@ def _main():
         'serial_number': {'$eq': '1234'},
         'vendor_id': {'$eq': 'Arm'},
         'description': {'$eq': 'Loreum ipsum'},
-        'device_class': {'$eq': 'DevicClass'},
         'custom_attributes': {
             'customA': {'$eq': 'SomethingA'},
             'customB': {'$eq': 'Something B'}
