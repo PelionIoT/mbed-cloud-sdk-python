@@ -255,7 +255,14 @@ class DeviceDirectoryAPI(BaseAPI):
         ) if filter else None
 
         query_map = Query._create_request_map(kwargs)
-        body = DeviceQueryPostPutRequest(name=name, query=filter_obj['filter'], **query_map)
+
+        # The filter option is optional on update but DeviceQueryPostPutRequest sets it None, which is invalid.
+        # Manually create a resource body without the filter parameter if only the name is provided.
+        if filter is None:
+            body = {"name": name}
+        else:
+            body = DeviceQueryPostPutRequest(name=name, query=filter_obj['filter'], **query_map)
+
         api = self._get_api(device_directory.DefaultApi)
         return Query(api.device_query_update(query_id, body))
 
