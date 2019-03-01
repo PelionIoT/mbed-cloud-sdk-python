@@ -8750,7 +8750,7 @@ entities:
     maxLength: 50
     name: certificate-name
     parameter_fieldname: certificate-name
-    pattern: '[\w-]{1,10}\.[\w-.]{1,10}'
+    pattern: '[\w\-]{1,10}\.[\w\-.]{1,10}'
     readOnly: true
     required: false
     type: string
@@ -8962,7 +8962,7 @@ entities:
               maxLength: 50
               name: certificate-name
               parameter_fieldname: certificate-name
-              pattern: '[\w-]{1,10}\.[\w-.]{1,10}'
+              pattern: '[\w\-]{1,10}\.[\w\-.]{1,10}'
               required: true
               type: string
             - _key: created_at
@@ -9260,7 +9260,7 @@ entities:
           maxLength: 50
           name: certificate-name
           parameter_fieldname: certificate-name
-          pattern: '[\w-]{1,10}\.[\w-.]{1,10}'
+          pattern: '[\w\-]{1,10}\.[\w\-.]{1,10}'
           required: true
           type: string
         - _key: created_at
@@ -16298,7 +16298,7 @@ entities:
       maxLength: 50
       name: certificate-name
       parameter_fieldname: certificate-name
-      pattern: '[\w-]{1,10}\.[\w-.]{1,10}'
+      pattern: '[\w\-]{1,10}\.[\w\-.]{1,10}'
       required: true
       type: string
     - _key: id

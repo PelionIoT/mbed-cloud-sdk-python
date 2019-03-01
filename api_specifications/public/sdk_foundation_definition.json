@@ -12065,7 +12065,7 @@
                           "in": "path",
                           "name": "certificate-name",
                           "required": true,
-                          "pattern": "[\\w-]{1,10}\\.[\\w-.]{1,10}",
+                          "pattern": "[\\w\\-]{1,10}\\.[\\w\\-.]{1,10}",
                           "external_param": true,
                           "parameter_fieldname": "certificate-name",
                           "_key": "certificate_name"
@@ -12485,7 +12485,7 @@
                     "in": "path",
                     "name": "certificate-name",
                     "required": true,
-                    "pattern": "[\\w-]{1,10}\\.[\\w-.]{1,10}",
+                    "pattern": "[\\w\\-]{1,10}\\.[\\w\\-.]{1,10}",
                     "external_param": true,
                     "parameter_fieldname": "certificate-name",
                     "_key": "certificate_name"
@@ -12877,7 +12877,7 @@
           "in": "path",
           "name": "certificate-name",
           "required": false,
-          "pattern": "[\\w-]{1,10}\\.[\\w-.]{1,10}",
+          "pattern": "[\\w\\-]{1,10}\\.[\\w\\-.]{1,10}",
           "external_param": true,
           "parameter_fieldname": "certificate-name",
           "readOnly": true,
@@ -21085,7 +21085,7 @@
               "in": "path",
               "name": "certificate-name",
               "required": true,
-              "pattern": "[\\w-]{1,10}\\.[\\w-.]{1,10}",
+              "pattern": "[\\w\\-]{1,10}\\.[\\w\\-.]{1,10}",
               "external_param": true,
               "parameter_fieldname": "certificate-name",
               "_key": "certificate_name"
