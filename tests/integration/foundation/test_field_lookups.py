@@ -54,21 +54,16 @@ class TestLookups(BaseCase):
         else:
             self.created = new_user.id
 
-            self.assertEqual('1800966228', new_user.phone_number)
+            self.assertEqual('1800966228', new_user.phone_number, "User should have been created with the phone number")
+            new_user.phone_number = '999'
+            self.assertEqual('999', new_user.phone_number, "The phone number property should contain the local update")
 
-            # we have at least one group id
-            self.assertGreaterEqual(len(new_user.group_ids), 1)
+            new_user.read()
+            self.assertEqual('1800966228', new_user.phone_number,
+                             "After getting the user the local update should be reverted")
 
-            all_users = new_user.list()
-
-            found = [user for user in all_users if user == new_user].pop()
-
-            self.assertEqual(found, new_user)
-            for user in all_users:
-                if user.login_history:
-                    history_item = user.login_history.pop()
-                    self.assertIsInstance(history_item.date, datetime.datetime)
-
-            my_groups = new_user.groups()
-            for group in my_groups:
-                self.assertGreaterEqual(group.user_count, 1)
+            new_user.phone_number = '0800966228'
+            new_user.update()
+            new_user.read()
+            self.assertEqual('0800966228', new_user.phone_number,
+                             "The local update should now be in the replicated in the cloud")
