@@ -15,9 +15,9 @@ The ``mbed-cloud-sdk`` gives developers access to the full `Mbed Cloud suite <ht
 .. image:: https://img.shields.io/pypi/status/mbed-cloud-sdk.svg
     :target: https://pypi.org/project/mbed-cloud-sdk/
 
-.. image:: https://circleci.com/gh/ARMmbed/mbed-cloud-sdk-python/tree/master.svg?style=shield&circle-token=ec05043ded945f81984e7fd2fce23fe793e7b634
+.. image:: https://img.shields.io/circleci/project/github/ARMmbed/mbed-cloud-sdk-python/master.svg?label=circleci
     :target: https://circleci.com/gh/ARMmbed/mbed-cloud-sdk-python/tree/master
-
+    
 .. image:: https://codecov.io/gh/ARMmbed/mbed-cloud-sdk-python/branch/master/graph/badge.svg
     :target: https://codecov.io/gh/ARMmbed/mbed-cloud-sdk-python
 
