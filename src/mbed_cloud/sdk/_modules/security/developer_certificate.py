@@ -257,22 +257,6 @@ class DeveloperCertificate(Entity):
             unpack=self,
         )
 
-    def get(self):
-        """Fetch an existing developer certificate to connect to the bootstrap server.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/developer-certificates/{developerCertificateId}
-        
-        :rtype: DeveloperCertificate
-        """
-
-        return self._client.call_api(
-            method="get",
-            path="/v3/developer-certificates/{developerCertificateId}",
-            path_params={"developerCertificateId": self._id.to_api()},
-            unpack=self,
-        )
-
     def get_trusted_certificate_info(self):
         """Get trusted certificate by ID.
 
@@ -289,4 +273,20 @@ class DeveloperCertificate(Entity):
             path="/v3/trusted-certificates/{cert_id}",
             path_params={"cert_id": self._id.to_api()},
             unpack=TrustedCertificate,
+        )
+
+    def read(self):
+        """Fetch an existing developer certificate to connect to the bootstrap server.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/developer-certificates/{developerCertificateId}
+        
+        :rtype: DeveloperCertificate
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/developer-certificates/{developerCertificateId}",
+            path_params={"developerCertificateId": self._id.to_api()},
+            unpack=self,
         )

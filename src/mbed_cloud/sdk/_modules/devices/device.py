@@ -862,22 +862,6 @@ class Device(Entity):
             unpack=self,
         )
 
-    def get(self):
-        """Get a device
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/devices/{id}/
-        
-        :rtype: Device
-        """
-
-        return self._client.call_api(
-            method="get",
-            path="/v3/devices/{id}/",
-            path_params={"id": self._id.to_api()},
-            unpack=self,
-        )
-
     def list(self, include=None, max_results=None, page_size=None, order=None):
         """List all devices.
 
@@ -952,6 +936,22 @@ class Device(Entity):
                 "order": fields.StringField(order).to_api(),
             },
             unpack=False,
+        )
+
+    def read(self):
+        """Get a device
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/devices/{id}/
+        
+        :rtype: Device
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/devices/{id}/",
+            path_params={"id": self._id.to_api()},
+            unpack=self,
         )
 
     def renew_certificate(self, certificate_name):

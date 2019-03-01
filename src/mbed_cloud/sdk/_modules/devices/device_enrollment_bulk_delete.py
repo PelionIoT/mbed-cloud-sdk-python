@@ -60,14 +60,20 @@ class DeviceEnrollmentBulkDelete(Entity):
         :param account_id: ID
         :type account_id: str
         :param completed_at: The time of completing the bulk creation task.
+            Null when creating
+            bulk upload or delete.
         :type completed_at: datetime
         :param created_at: The time of receiving the bulk creation task.
         :type created_at: datetime
         :param errors_count: The number of enrollment identities with failed processing.
         :type errors_count: int
-        :param errors_report_file: 
+        :param errors_report_file: Link to error report file.
+            Null when creating bulk upload or
+            delete.
         :type errors_report_file: str
-        :param full_report_file: 
+        :param full_report_file: Link to full report file.
+            Null when creating bulk upload or
+            delete.
         :type full_report_file: str
         :param id: (Required) Bulk ID
         :type id: str
@@ -124,6 +130,8 @@ class DeviceEnrollmentBulkDelete(Entity):
     @property
     def completed_at(self):
         """The time of completing the bulk creation task.
+        Null when creating bulk upload
+        or delete.
         
         :rtype: datetime
         """
@@ -180,7 +188,8 @@ class DeviceEnrollmentBulkDelete(Entity):
 
     @property
     def errors_report_file(self):
-        """
+        """Link to error report file.
+        Null when creating bulk upload or delete.
         
         api example: 'https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-
             uploads/2d238a89038b4ddb84699dd36a901063/errors_report.csv'
@@ -202,7 +211,8 @@ class DeviceEnrollmentBulkDelete(Entity):
 
     @property
     def full_report_file(self):
-        """
+        """Link to full report file.
+        Null when creating bulk upload or delete.
         
         api example: 'https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-
             uploads/2d238a89038b4ddb84699dd36a901063/full_report.csv'
@@ -354,7 +364,7 @@ class DeviceEnrollmentBulkDelete(Entity):
 
         return download_full_report_file(self=self, foreign_key=self.__class__)
 
-    def get(self):
+    def read(self):
         """Get bulk delete entity
 
         api documentation:

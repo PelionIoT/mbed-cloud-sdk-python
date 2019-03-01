@@ -5,6 +5,7 @@ This file is auto-generated from API Specifications.
 """
 
 from mbed_cloud.sdk._modules.accounts.account import Account
+from mbed_cloud.sdk._modules.accounts.active_session import ActiveSession
 from mbed_cloud.sdk._modules.accounts.api_key import ApiKey
 from mbed_cloud.sdk._modules.accounts.login_history import LoginHistory
 from mbed_cloud.sdk._modules.accounts.login_profile import LoginProfile
@@ -44,6 +45,7 @@ from mbed_cloud.sdk._modules.security.verification_response import VerificationR
 
 __all__ = [
     "Account",
+    "ActiveSession",
     "ApiKey",
     "CertificateEnrollment",
     "CertificateIssuer",

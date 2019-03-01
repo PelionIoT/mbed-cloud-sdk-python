@@ -263,22 +263,6 @@ class DeviceEnrollment(Entity):
             unpack=self,
         )
 
-    def get(self):
-        """Get details of an enrollment by ID.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/device-enrollments/{id}
-        
-        :rtype: DeviceEnrollment
-        """
-
-        return self._client.call_api(
-            method="get",
-            path="/v3/device-enrollments/{id}",
-            path_params={"id": self._id.to_api()},
-            unpack=self,
-        )
-
     def list(self, include=None, max_results=None, page_size=None, order=None):
         """Get enrollment list.
 
@@ -349,4 +333,20 @@ class DeviceEnrollment(Entity):
                 ).to_api(),
             },
             unpack=False,
+        )
+
+    def read(self):
+        """Get details of an enrollment by ID.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/device-enrollments/{id}
+        
+        :rtype: DeviceEnrollment
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/device-enrollments/{id}",
+            path_params={"id": self._id.to_api()},
+            unpack=self,
         )

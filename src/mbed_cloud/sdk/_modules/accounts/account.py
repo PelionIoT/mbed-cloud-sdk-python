@@ -49,6 +49,7 @@ class Account(Entity):
         "parent_account",
         "parent_id",
         "password_policy",
+        "password_recovery_expiration",
         "phone_number",
         "policies",
         "postal_code",
@@ -99,6 +100,7 @@ class Account(Entity):
         parent_account=None,
         parent_id=None,
         password_policy=None,
+        password_recovery_expiration=None,
         phone_number=None,
         policies=None,
         postal_code=None,
@@ -189,6 +191,9 @@ class Account(Entity):
         :type parent_id: str
         :param password_policy: 
         :type password_policy: dict
+        :param password_recovery_expiration: Indicates how many minutes a password recovery email for users of
+            this account is valid for. Valid range is: 1-45.
+        :type password_recovery_expiration: int
         :param phone_number: The phone number of a representative of the company.
         :type phone_number: str
         :param policies: List of policies if requested.
@@ -263,6 +268,9 @@ class Account(Entity):
         self._parent_id = fields.StringField(value=parent_id)
         self._password_policy = fields.DictField(
             value=password_policy, entity=PasswordPolicy
+        )
+        self._password_recovery_expiration = fields.IntegerField(
+            value=password_recovery_expiration
         )
         self._phone_number = fields.StringField(value=phone_number)
         self._policies = fields.ListField(value=policies, entity=Policy)
@@ -904,6 +912,26 @@ class Account(Entity):
         self._password_policy.set(value)
 
     @property
+    def password_recovery_expiration(self):
+        """Indicates how many minutes a password recovery email for users of this account
+        is valid for. Valid range is: 1-45.
+        
+        :rtype: int
+        """
+
+        return self._password_recovery_expiration.value
+
+    @password_recovery_expiration.setter
+    def password_recovery_expiration(self, value):
+        """Set value of `password_recovery_expiration`
+
+        :param value: value to set
+        :type value: int
+        """
+
+        self._password_recovery_expiration.set(value)
+
+    @property
     def phone_number(self):
         """The phone number of a representative of the company.
         
@@ -1202,33 +1230,6 @@ class Account(Entity):
             unpack=self,
         )
 
-    def get(self, include=None, properties=None):
-        """Get account info.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}
-        
-        :param include: Comma separated additional data to return. Currently supported:
-            limits, policies, sub_accounts
-        :type include: str
-        
-        :param properties: Property name to be returned from account specific properties.
-        :type properties: str
-        
-        :rtype: Account
-        """
-
-        return self._client.call_api(
-            method="get",
-            path="/v3/accounts/{account_id}",
-            path_params={"account_id": self._id.to_api()},
-            query_params={
-                "include": fields.StringField(include).to_api(),
-                "properties": fields.StringField(properties).to_api(),
-            },
-            unpack=self,
-        )
-
     def list(self, include=None, max_results=None, page_size=None, order=None):
         """Get all accounts.
 
@@ -1469,6 +1470,33 @@ class Account(Entity):
             unpack=False,
         )
 
+    def read(self, include=None, properties=None):
+        """Get account info.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}
+        
+        :param include: Comma separated additional data to return. Currently supported:
+            limits, policies, sub_accounts
+        :type include: str
+        
+        :param properties: Property name to be returned from account specific properties.
+        :type properties: str
+        
+        :rtype: Account
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/accounts/{account_id}",
+            path_params={"account_id": self._id.to_api()},
+            query_params={
+                "include": fields.StringField(include).to_api(),
+                "properties": fields.StringField(properties).to_api(),
+            },
+            unpack=self,
+        )
+
     def trusted_certificates(
         self, include=None, max_results=None, page_size=None, order=None
     ):
@@ -1539,6 +1567,7 @@ class Account(Entity):
                 "mfa_status": self._mfa_status.to_api(),
                 "notification_emails": self._notification_emails.to_api(),
                 "password_policy": self._password_policy.to_api(),
+                "password_recovery_expiration": self._password_recovery_expiration.to_api(),
                 "phone_number": self._phone_number.to_api(),
                 "postal_code": self._postal_code.to_api(),
                 "sales_contact": self._sales_contact.to_api(),

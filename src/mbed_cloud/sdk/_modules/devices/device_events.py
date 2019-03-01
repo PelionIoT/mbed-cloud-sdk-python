@@ -329,22 +329,6 @@ class DeviceEvents(Entity):
 
         self._state_change.set(value)
 
-    def get(self):
-        """Retrieve a device event.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/device-events/{device_event_id}/
-        
-        :rtype: DeviceEvents
-        """
-
-        return self._client.call_api(
-            method="get",
-            path="/v3/device-events/{device_event_id}/",
-            path_params={"device_event_id": self._id.to_api()},
-            unpack=self,
-        )
-
     def list(self, include=None, max_results=None, page_size=None, order=None):
         """List all device events.
 
@@ -419,4 +403,20 @@ class DeviceEvents(Entity):
                 "order": fields.StringField(order).to_api(),
             },
             unpack=False,
+        )
+
+    def read(self):
+        """Retrieve a device event.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/device-events/{device_event_id}/
+        
+        :rtype: DeviceEvents
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/device-events/{device_event_id}/",
+            path_params={"device_event_id": self._id.to_api()},
+            unpack=self,
         )

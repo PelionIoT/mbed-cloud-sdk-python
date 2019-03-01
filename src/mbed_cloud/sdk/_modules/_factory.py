@@ -49,6 +49,7 @@ class InstanceFactory:
         parent_account=None,
         parent_id=None,
         password_policy=None,
+        password_recovery_expiration=None,
         phone_number=None,
         policies=None,
         postal_code=None,
@@ -132,6 +133,9 @@ class InstanceFactory:
         :type parent_id: str
         :param password_policy: 
         :type password_policy: dict
+        :param password_recovery_expiration: Indicates how many minutes a password recovery email for users of
+            this account is valid for. Valid range is: 1-45.
+        :type password_recovery_expiration: int
         :param phone_number: The phone number of a representative of the company.
         :type phone_number: str
         :param policies: List of policies if requested.
@@ -195,6 +199,7 @@ class InstanceFactory:
             parent_account=parent_account,
             parent_id=parent_id,
             password_policy=password_policy,
+            password_recovery_expiration=password_recovery_expiration,
             phone_number=phone_number,
             policies=policies,
             postal_code=postal_code,
@@ -207,6 +212,40 @@ class InstanceFactory:
             tier=tier,
             updated_at=updated_at,
             upgraded_at=upgraded_at,
+        )
+
+    def active_session(
+        self,
+        account_id=None,
+        ip_address=None,
+        login_time=None,
+        reference_token=None,
+        user_agent=None,
+    ):
+        """Creates a local `ActiveSession` instance, binding the client
+
+        :param account_id: The UUID of the account.
+        :type account_id: str
+        :param ip_address: IP address of the client.
+        :type ip_address: str
+        :param login_time: The login time of the user.
+        :type login_time: datetime
+        :param reference_token: The reference token.
+        :type reference_token: str
+        :param user_agent: User Agent header from the login request.
+        :type user_agent: str
+        
+        :rtype: mbed_cloud.sdk.entities.ActiveSession
+        """
+        from mbed_cloud.sdk.entities import ActiveSession
+
+        return ActiveSession(
+            _client=self._client,
+            account_id=account_id,
+            ip_address=ip_address,
+            login_time=login_time,
+            reference_token=reference_token,
+            user_agent=user_agent,
         )
 
     def api_key(
@@ -642,14 +681,20 @@ class InstanceFactory:
         :param account_id: ID
         :type account_id: str
         :param completed_at: The time of completing the bulk creation task.
+            Null when creating
+            bulk upload or delete.
         :type completed_at: datetime
         :param created_at: The time of receiving the bulk creation task.
         :type created_at: datetime
         :param errors_count: The number of enrollment identities with failed processing.
         :type errors_count: int
-        :param errors_report_file: 
+        :param errors_report_file: Link to error report file.
+            Null when creating bulk upload or
+            delete.
         :type errors_report_file: str
-        :param full_report_file: 
+        :param full_report_file: Link to full report file.
+            Null when creating bulk upload or
+            delete.
         :type full_report_file: str
         :param id: Bulk ID
         :type id: str
@@ -699,14 +744,20 @@ class InstanceFactory:
         :param account_id: ID
         :type account_id: str
         :param completed_at: The time of completing the bulk creation task.
+            Null when creating
+            bulk upload or delete.
         :type completed_at: datetime
         :param created_at: The time of receiving the bulk creation task.
         :type created_at: datetime
         :param errors_count: The number of enrollment identities with failed processing.
         :type errors_count: int
-        :param errors_report_file: 
+        :param errors_report_file: Link to error report file.
+            Null when creating bulk upload or
+            delete.
         :type errors_report_file: str
-        :param full_report_file: 
+        :param full_report_file: Link to full report file.
+            Null when creating bulk upload or
+            delete.
         :type full_report_file: str
         :param id: Bulk ID
         :type id: str
@@ -942,6 +993,7 @@ class InstanceFactory:
         status=None,
         subject=None,
         updated_at=None,
+        valid=None,
         validity=None,
     ):
         """Creates a local `SubtenantTrustedCertificate` instance, binding the client
@@ -976,6 +1028,9 @@ class InstanceFactory:
         :type subject: str
         :param updated_at: Last update UTC time RFC3339.
         :type updated_at: datetime
+        :param valid: This read-only flag indicates whether the certificate is valid or
+            not.
+        :type valid: bool
         :param validity: Expiration time in UTC formatted as RFC3339.
         :type validity: datetime
         
@@ -1000,15 +1055,18 @@ class InstanceFactory:
             status=status,
             subject=subject,
             updated_at=updated_at,
+            valid=valid,
             validity=validity,
         )
 
     def subtenant_user(
         self,
         account_id=None,
+        active_sessions=None,
         address=None,
         created_at=None,
         creation_time=None,
+        custom_fields=None,
         email=None,
         email_verified=None,
         full_name=None,
@@ -1022,6 +1080,7 @@ class InstanceFactory:
         phone_number=None,
         status=None,
         terms_accepted=None,
+        totp_scratch_codes=None,
         two_factor_authentication=None,
         updated_at=None,
         username=None,
@@ -1030,12 +1089,16 @@ class InstanceFactory:
 
         :param account_id: The ID of the account.
         :type account_id: str
+        :param active_sessions: List of active user sessions.
+        :type active_sessions: list
         :param address: Address.
         :type address: str
         :param created_at: Creation UTC time RFC3339.
         :type created_at: datetime
         :param creation_time: A timestamp of the user creation in the storage, in milliseconds.
         :type creation_time: int
+        :param custom_fields: User's account specific custom properties. The value is a string.
+        :type custom_fields: dict
         :param email: The email address.
         :type email: str
         :param email_verified: A flag indicating whether the user's email address has been
@@ -1074,6 +1137,9 @@ class InstanceFactory:
         :param terms_accepted: A flag indicating that the General Terms and Conditions has been
             accepted.
         :type terms_accepted: bool
+        :param totp_scratch_codes: A list of scratch codes for the 2-factor authentication. Visible
+            only when 2FA is requested to be enabled or the codes regenerated.
+        :type totp_scratch_codes: list
         :param two_factor_authentication: A flag indicating whether 2-factor authentication (TOTP) has been
             enabled.
         :type two_factor_authentication: bool
@@ -1090,9 +1156,11 @@ class InstanceFactory:
         return SubtenantUser(
             _client=self._client,
             account_id=account_id,
+            active_sessions=active_sessions,
             address=address,
             created_at=created_at,
             creation_time=creation_time,
+            custom_fields=custom_fields,
             email=email,
             email_verified=email_verified,
             full_name=full_name,
@@ -1106,6 +1174,7 @@ class InstanceFactory:
             phone_number=phone_number,
             status=status,
             terms_accepted=terms_accepted,
+            totp_scratch_codes=totp_scratch_codes,
             two_factor_authentication=two_factor_authentication,
             updated_at=updated_at,
             username=username,
@@ -1175,6 +1244,7 @@ class InstanceFactory:
         status=None,
         subject=None,
         updated_at=None,
+        valid=None,
         validity=None,
     ):
         """Creates a local `TrustedCertificate` instance, binding the client
@@ -1209,6 +1279,9 @@ class InstanceFactory:
         :type subject: str
         :param updated_at: Last update UTC time RFC3339.
         :type updated_at: datetime
+        :param valid: This read-only flag indicates whether the certificate is valid or
+            not.
+        :type valid: bool
         :param validity: Expiration time in UTC formatted as RFC3339.
         :type validity: datetime
         
@@ -1233,15 +1306,18 @@ class InstanceFactory:
             status=status,
             subject=subject,
             updated_at=updated_at,
+            valid=valid,
             validity=validity,
         )
 
     def user(
         self,
         account_id=None,
+        active_sessions=None,
         address=None,
         created_at=None,
         creation_time=None,
+        custom_fields=None,
         email=None,
         email_verified=None,
         full_name=None,
@@ -1255,6 +1331,7 @@ class InstanceFactory:
         phone_number=None,
         status=None,
         terms_accepted=None,
+        totp_scratch_codes=None,
         two_factor_authentication=None,
         updated_at=None,
         username=None,
@@ -1263,12 +1340,16 @@ class InstanceFactory:
 
         :param account_id: The ID of the account.
         :type account_id: str
+        :param active_sessions: List of active user sessions.
+        :type active_sessions: list
         :param address: Address.
         :type address: str
         :param created_at: Creation UTC time RFC3339.
         :type created_at: datetime
         :param creation_time: A timestamp of the user creation in the storage, in milliseconds.
         :type creation_time: int
+        :param custom_fields: User's account specific custom properties. The value is a string.
+        :type custom_fields: dict
         :param email: The email address.
         :type email: str
         :param email_verified: A flag indicating whether the user's email address has been
@@ -1307,6 +1388,9 @@ class InstanceFactory:
         :param terms_accepted: A flag indicating that the General Terms and Conditions has been
             accepted.
         :type terms_accepted: bool
+        :param totp_scratch_codes: A list of scratch codes for the 2-factor authentication. Visible
+            only when 2FA is requested to be enabled or the codes regenerated.
+        :type totp_scratch_codes: list
         :param two_factor_authentication: A flag indicating whether 2-factor authentication (TOTP) has been
             enabled.
         :type two_factor_authentication: bool
@@ -1323,9 +1407,11 @@ class InstanceFactory:
         return User(
             _client=self._client,
             account_id=account_id,
+            active_sessions=active_sessions,
             address=address,
             created_at=created_at,
             creation_time=creation_time,
+            custom_fields=custom_fields,
             email=email,
             email_verified=email_verified,
             full_name=full_name,
@@ -1339,6 +1425,7 @@ class InstanceFactory:
             phone_number=phone_number,
             status=status,
             terms_accepted=terms_accepted,
+            totp_scratch_codes=totp_scratch_codes,
             two_factor_authentication=two_factor_authentication,
             updated_at=updated_at,
             username=username,

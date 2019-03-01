@@ -35,6 +35,7 @@ class SubtenantTrustedCertificate(Entity):
         "status",
         "subject",
         "updated_at",
+        "valid",
         "validity",
     ]
 
@@ -59,6 +60,7 @@ class SubtenantTrustedCertificate(Entity):
         status=None,
         subject=None,
         updated_at=None,
+        valid=None,
         validity=None,
     ):
         """Creates a local `SubtenantTrustedCertificate` instance
@@ -100,6 +102,9 @@ class SubtenantTrustedCertificate(Entity):
         :type subject: str
         :param updated_at: Last update UTC time RFC3339.
         :type updated_at: datetime
+        :param valid: This read-only flag indicates whether the certificate is valid or
+            not.
+        :type valid: bool
         :param validity: Expiration time in UTC formatted as RFC3339.
         :type validity: datetime
         """
@@ -133,6 +138,7 @@ class SubtenantTrustedCertificate(Entity):
         )
         self._subject = fields.StringField(value=subject)
         self._updated_at = fields.DateTimeField(value=updated_at)
+        self._valid = fields.BooleanField(value=valid)
         self._validity = fields.DateTimeField(value=validity)
 
     @property
@@ -469,6 +475,27 @@ class SubtenantTrustedCertificate(Entity):
         self._updated_at.set(value)
 
     @property
+    def valid(self):
+        """This read-only flag indicates whether the certificate is valid or not.
+        
+        api example: True
+        
+        :rtype: bool
+        """
+
+        return self._valid.value
+
+    @valid.setter
+    def valid(self, value):
+        """Set value of `valid`
+
+        :param value: value to set
+        :type value: bool
+        """
+
+        self._valid.set(value)
+
+    @property
     def validity(self):
         """Expiration time in UTC formatted as RFC3339.
         
@@ -532,25 +559,6 @@ class SubtenantTrustedCertificate(Entity):
             unpack=self,
         )
 
-    def get(self):
-        """Get trusted certificate by ID.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/trusted-certificates/{cert_id}
-        
-        :rtype: SubtenantTrustedCertificate
-        """
-
-        return self._client.call_api(
-            method="get",
-            path="/v3/accounts/{account_id}/trusted-certificates/{cert_id}",
-            path_params={
-                "account_id": self._account_id.to_api(),
-                "cert_id": self._id.to_api(),
-            },
-            unpack=self,
-        )
-
     def get_developer_certificate_info(self):
         """Fetch an existing developer certificate to connect to the bootstrap server.
 
@@ -567,6 +575,25 @@ class SubtenantTrustedCertificate(Entity):
             path="/v3/developer-certificates/{developerCertificateId}",
             path_params={"developerCertificateId": self._id.to_api()},
             unpack=DeveloperCertificate,
+        )
+
+    def read(self):
+        """Get trusted certificate by ID.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/trusted-certificates/{cert_id}
+        
+        :rtype: SubtenantTrustedCertificate
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/accounts/{account_id}/trusted-certificates/{cert_id}",
+            path_params={
+                "account_id": self._account_id.to_api(),
+                "cert_id": self._id.to_api(),
+            },
+            unpack=self,
         )
 
     def update(self):
