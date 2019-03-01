@@ -239,6 +239,13 @@ definitions:
       password_policy:
         $ref: '#/definitions/PasswordPolicy'
         description: The password policy for this account.
+      password_recovery_expiration:
+        description: 'Indicates how many minutes a password recovery email for users
+          of this account is valid for. Valid range is: 1-45.'
+        format: int32
+        maximum: 45
+        minimum: 1
+        type: integer
       phone_number:
         description: The phone number of a representative of the company.
         example: +44 (1223) 400 400
@@ -437,6 +444,13 @@ definitions:
       password_policy:
         $ref: '#/definitions/PasswordPolicy'
         description: Password policy for this account.
+      password_recovery_expiration:
+        description: 'Indicates how many minutes a password recovery email for users
+          of this account is valid for. Valid range is: 1-45.'
+        format: int32
+        maximum: 45
+        minimum: 1
+        type: integer
       phone_number:
         description: The phone number of a representative of the company, not longer
           than 100 characters.
@@ -540,6 +554,13 @@ definitions:
       password_policy:
         $ref: '#/definitions/PasswordPolicy'
         description: Password policy for this account.
+      password_recovery_expiration:
+        description: 'Indicates how many minutes a password recovery email for users
+          of this account is valid for. Valid range is: 1-45.'
+        format: int32
+        maximum: 45
+        minimum: 1
+        type: integer
       phone_number:
         description: The phone number of a representative of the company, not longer
           than 100 characters.
@@ -606,6 +627,44 @@ definitions:
     - expires
     - firmware_update_count
     - grace_period
+    type: object
+  ActiveSession:
+    description: This object represents an active user session.
+    properties:
+      account_id:
+        description: The UUID of the account.
+        example: 01619571e2e90242ac12000600000000
+        type: string
+      ip_address:
+        description: IP address of the client.
+        example: 127.0.0.1
+        type: string
+      login_time:
+        description: The login time of the user.
+        example: '2018-02-14T17:52:07Z'
+        format: date-time
+        type: string
+      object:
+        description: 'Entity name: always ''user-session'''
+        enum:
+        - user-session
+        type: string
+      reference_token:
+        description: The reference token.
+        example: rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk
+        type: string
+      user_agent:
+        description: User Agent header from the login request.
+        example: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36
+          (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36
+        type: string
+    required:
+    - account_id
+    - ip_address
+    - login_time
+    - object
+    - reference_token
+    - user_agent
     type: object
   AggregatedQuotaUsageReport:
     description: Aggregated quota usage entry.
@@ -931,7 +990,7 @@ definitions:
         type: string
       reference:
         description: Color name.
-        enum: &id012
+        enum: &id015
         - error_color
         - primary
         - secondary
@@ -1012,7 +1071,7 @@ definitions:
         type: string
       reference:
         description: Name of the image.
-        enum: &id013
+        enum: &id016
         - brand_logo_portrait
         - brand_logo_square
         - brand_logo_landscape
@@ -1119,6 +1178,8 @@ definitions:
       completed_at:
         description: 'The time of completing the bulk creation task.
 
+          Null when creating bulk upload or delete.
+
           '
         format: date-time
         type: string
@@ -1135,6 +1196,11 @@ definitions:
         example: 0
         type: integer
       errors_report_file:
+        description: 'Link to error report file.
+
+          Null when creating bulk upload or delete.
+
+          '
         example: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/errors_report.csv
         type: string
       etag:
@@ -1143,6 +1209,11 @@ definitions:
         pattern: '[A-Za-z0-9]{0,256}'
         type: string
       full_report_file:
+        description: 'Link to full report file.
+
+          Null when creating bulk upload or delete.
+
+          '
         example: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/full_report.csv
         type: string
       id:
@@ -1188,6 +1259,9 @@ definitions:
     - total_count
     - processed_count
     - errors_count
+    - completet_at
+    - full_report_file
+    - errors_report_file
     type: object
   CampaignDeviceMetadata:
     properties:
@@ -1266,9 +1340,12 @@ definitions:
         example: 'false'
         type: boolean
       limit:
-        description: 'The number of results to return, (range: 2-1000), or equals
-          to total_count'
+        description: How many objects to retrieve in the page. The minimum limit is
+          2 and the maximum is 1000. Limit values outside of this range are set to
+          the closest limit.
         example: '50'
+        maximum: 1000
+        minimum: 2
         type: integer
       object:
         description: 'The entity name: always ''list'''
@@ -1307,7 +1384,12 @@ definitions:
       pending_count:
         description: Running total of devices that have yet to receive an update or
           are applying an update.
-        example: '10'
+        example: '5'
+        format: int32
+        type: integer
+      skipped_count:
+        description: Running total of devices that were skipped.
+        example: '5'
         format: int32
         type: integer
       success_count:
@@ -2432,14 +2514,14 @@ definitions:
         example: '2017-05-22T12:37:55.576563Z'
         format: date-time
         type: string
-      custom_attributes: &id015
+      custom_attributes: &id018
         additionalProperties:
           type: string
         example:
           key: value
         maxProperties: 10
         type: object
-      description: &id016
+      description: &id019
         description: The description of the group.
         example: Devices on the factory floor.
         maxLength: 2000
@@ -2456,7 +2538,7 @@ definitions:
         description: The group ID.
         example: 015c3029f6f7000000000001001000c3
         type: string
-      name: &id017
+      name: &id020
         description: Name of the group.
         example: My devices
         maxLength: 128
@@ -3091,6 +3173,136 @@ definitions:
     - object
     - request_id
     - type
+    type: object
+  EventType:
+    properties:
+      count:
+        example: 10
+        type: integer
+      created_at:
+        example: '2017-05-22T12:37:55.576563Z'
+        format: date-time
+        type: string
+      description:
+        example: Update error, nonspecific network error
+        type: string
+      event_type:
+        example: UPD4_FAIL_101
+        type: string
+      id:
+        example: upd_fail_101
+        type: string
+      object:
+        example: event-type
+        type: string
+      summary_status:
+        example: FAIL
+        type: string
+    type: object
+  EventTypeList:
+    properties:
+      after:
+        description: The entity ID to fetch after the given one
+        example: 'null'
+        type: string
+      data:
+        items:
+          $ref: '#/definitions/EventType'
+        type: array
+      has_more:
+        description: A flag indicating whether there are more results
+        example: 'false'
+        type: boolean
+      limit:
+        description: 'The number of results to return, (range: 2-1000), or equals
+          to total_count'
+        example: '50'
+        type: integer
+      object:
+        description: 'The entity name: always ''list'''
+        example: list
+        type: string
+      order:
+        description: 'The order of the records to return. Acceptable values: ASC,
+          DESC. Default: ASC'
+        enum:
+        - ASC
+        - DESC
+        example: ASC
+        type: string
+      total_count:
+        description: The total number or records, if requested. It may be returned
+          also for small lists.
+        example: '1'
+        type: integer
+    type: object
+  EventTypeSummary:
+    properties:
+      count:
+        example: 10
+        type: integer
+      created_at:
+        example: '2017-05-22T12:37:55.576563Z'
+        format: date-time
+        type: string
+      id:
+        description: ID of the event type description
+        enum:
+        - fail
+        - success
+        - info
+        - skipped
+        example: fail
+        type: string
+      object:
+        example: summary_status
+        type: string
+      summary_status:
+        description: The event type description.
+        enum:
+        - FAIL
+        - SUCCESS
+        - INFO
+        - SKIPPED
+        example: FAIL
+        type: string
+    type: object
+  EventTypeSummaryList:
+    properties:
+      after:
+        description: The entity ID to fetch after the given one
+        example: 'null'
+        type: string
+      data:
+        items:
+          $ref: '#/definitions/EventTypeSummary'
+        type: array
+      has_more:
+        description: A flag indicating whether there are more results
+        example: 'false'
+        type: boolean
+      limit:
+        description: 'The number of results to return, (range: 2-1000), or equals
+          to total_count'
+        example: '50'
+        type: integer
+      object:
+        description: 'The entity name: always ''list'''
+        example: list
+        type: string
+      order:
+        description: 'The order of the records to return. Acceptable values: ASC,
+          DESC. Default: ASC'
+        enum:
+        - ASC
+        - DESC
+        example: ASC
+        type: string
+      total_count:
+        description: The total number or records, if requested. It may be returned
+          also for small lists.
+        example: '1'
+        type: integer
     type: object
   FeaturePolicy:
     description: This object represents a feature policy. Either the feature or the
@@ -4576,6 +4788,9 @@ definitions:
         type: string
       sp_x509_cert:
         description: Public X509 certificate of the service provider in PEM format.
+          This is a read-only attribute, see API documentation about how to generate
+          a new one or how to delete it.
+        readOnly: true
         type: string
       sso_endpoint:
         description: URL of the identity provider's SSO endpoint.
@@ -5053,6 +5268,12 @@ definitions:
         example: '2018-02-14T15:24:14Z'
         format: date-time
         type: string
+      valid:
+        description: This read-only flag indicates whether the certificate is valid
+          or not.
+        example: true
+        readOnly: true
+        type: boolean
       validity:
         description: Expiration time in UTC formatted as RFC3339.
         example: '2038-02-14T15:24:14Z'
@@ -5552,6 +5773,131 @@ definitions:
     - request_id
     - type
     type: object
+  UploadChunkInfo:
+    properties:
+      created_at: &id012
+        description: The time the entity was created
+        example: '2017-05-22T12:37:55.576563Z'
+        format: date-time
+        type: string
+      etag: &id013
+        description: API resource entity version
+        example: '2017-05-22T12:37:58.753425Z'
+        type: string
+      hash:
+        description: The hash of the chunk. The default hash is MD5. If no Content-MD5
+          header is supplied as part of uploading the chunk then this will be empty.
+        type: string
+      id:
+        description: The chunk number
+        example: 1
+        type: integer
+      length:
+        description: The length of the chunk
+        example: 1234
+        type: integer
+      object:
+        description: 'Entity name: always ''upload-info'''
+        example: upload-info
+        type: string
+      updated_at: &id014
+        description: The time the entity was updated
+        example: '2017-05-22T12:37:55.576563Z'
+        format: date-time
+        type: string
+    type: object
+  UploadChunkInfoPage:
+    properties:
+      after:
+        example: null
+        type: string
+      data:
+        items:
+          $ref: '#/definitions/UploadChunkInfo'
+        type: array
+      has_more:
+        type: boolean
+      limit:
+        format: int32
+        type: integer
+      object:
+        example: list
+        type: string
+      order:
+        description: 'The order of the records to return. Acceptable values: ASC,
+          DESC. Default: ASC'
+        enum:
+        - ASC
+        - DESC
+        example: ASC
+        type: string
+      total_count:
+        format: int32
+        type: integer
+  UploadJob:
+    properties:
+      complete:
+        description: A flag that indicates job completion
+        example: false
+        type: boolean
+      created_at: *id012
+      description: &id021
+        description: Human-readable description
+        example: New Linux update for my devices
+        maxLength: 2000
+        type: string
+      etag: *id013
+      firmware_image_id:
+        description: ID of the firmware image - empty until the Upload Job is complete
+        example: '00000000000000000000000000000000'
+        type: string
+      id:
+        description: The upload job ID
+        example: '00000000000000000000000000000000'
+        type: string
+      name: &id022
+        description: Human-readable name
+        example: New Linux update
+        maxLength: 128
+        type: string
+      object:
+        description: 'Entity name: always ''upload-job'''
+        example: upload-job
+        type: string
+      status:
+        description: Status of the upload job
+        example: in_progress
+        type: string
+      updated_at: *id014
+    type: object
+  UploadJobPage:
+    properties:
+      after:
+        example: null
+        type: string
+      data:
+        items:
+          $ref: '#/definitions/UploadJob'
+        type: array
+      has_more:
+        type: boolean
+      limit:
+        format: int32
+        type: integer
+      object:
+        example: list
+        type: string
+      order:
+        description: 'The order of the records to return. Acceptable values: ASC,
+          DESC. Default: ASC'
+        enum:
+        - ASC
+        - DESC
+        example: ASC
+        type: string
+      total_count:
+        format: int32
+        type: integer
   UserInfoReq:
     description: This object represents a user in requests towards Device Management.
     properties:
@@ -5606,6 +5952,11 @@ definitions:
         description: The ID of the account.
         example: 01619571e2e90242ac12000600000000
         type: string
+      active_sessions:
+        description: List of active user sessions.
+        items:
+          $ref: '#/definitions/ActiveSession'
+        type: array
       address:
         description: Address.
         example: 110 Fulbourn Rd, Cambridge, United Kingdom
@@ -5620,6 +5971,11 @@ definitions:
         example: 1518630727683
         format: int64
         type: integer
+      custom_fields:
+        additionalProperties:
+          type: string
+        description: User's account specific custom properties. The value is a string.
+        type: object
       email:
         description: The email address.
         example: user@arm.com
@@ -5711,6 +6067,12 @@ definitions:
         - INACTIVE
         example: ACTIVE
         type: string
+      totp_scratch_codes:
+        description: A list of scratch codes for the 2-factor authentication. Visible
+          only when 2FA is requested to be enabled or the codes regenerated.
+        items:
+          type: string
+        type: array
       updated_at:
         description: Last update UTC time RFC3339.
         example: '2018-02-14T15:24:14Z'
@@ -6232,7 +6594,7 @@ paths:
         required: true
         type: string
       - description: The name of the branding color.
-        enum: *id012
+        enum: *id015
         in: path
         name: reference
         required: true
@@ -6290,7 +6652,7 @@ paths:
         required: true
         type: string
       - description: The name of the branding color.
-        enum: *id012
+        enum: *id015
         in: path
         name: reference
         required: true
@@ -6349,7 +6711,7 @@ paths:
         required: true
         type: string
       - description: Name of the picture whose metadata to be fetched.
-        enum: *id013
+        enum: *id016
         in: path
         name: reference
         required: true
@@ -6408,7 +6770,7 @@ paths:
         required: true
         type: string
       - description: Name of the picture whose metadata to be fetched.
-        enum: *id013
+        enum: *id016
         in: path
         name: reference
         required: true
@@ -6823,8 +7185,9 @@ paths:
         415:
           description: Media type is not supported by the endpoint. (Through AsyncIDResponse)
         429:
-          description: Cannot make a request at the moment; the queue is full or queue
-            was cleared because endpoint made full registration.
+          description: Cannot make a request at the moment; the queue is full or it
+            was cleared because the device deregistered, the registration expired
+            or the device was suspended.
         502:
           description: TCP or TLS connection to endpoint cannot be established.
         503:
@@ -6927,8 +7290,9 @@ paths:
         415:
           description: Media type is not supported by the endpoint. (Through AsyncIDResponse)
         429:
-          description: Cannot make a request at the moment; the queue is full or queue
-            was cleared because endpoint made full registration.
+          description: Cannot make a request at the moment; the queue is full or it
+            was cleared because the device deregistered, the registration expired
+            or the device was suspended.
         502:
           description: TCP or TLS connection to endpoint cannot be established.
         503:
@@ -7045,8 +7409,9 @@ paths:
         415:
           description: Media type is not supported by the endpoint. (Through AsyncIDResponse)
         429:
-          description: Cannot make a request at the moment; the queue is full or queue
-            was cleared because endpoint made full registration.
+          description: Cannot make a request at the moment; the queue is full or it
+            was cleared because the device deregistered, the registration expired
+            or the device was suspended.
         502:
           description: TCP or TLS connection to endpoint cannot be established.
         503:
@@ -7157,8 +7522,9 @@ paths:
         415:
           description: Media type is not supported by the endpoint. (Through AsyncIDResponse)
         429:
-          description: Cannot make a request at the moment; the queue is full or queue
-            was cleared because endpoint made full registration.
+          description: Cannot make a request at the moment; the queue is full or it
+            was cleared because the device deregistered, the registration expired
+            or the device was suspended.
         502:
           description: TCP or TLS connection to endpoint cannot be established.
         503:
@@ -7611,7 +7977,8 @@ paths:
             resource. (Through AsyncIDResponse)
         429:
           description: Cannot make a request at the moment; the queue is full or it
-            was cleared because the endpoint made a full registration.
+            was cleared because the device deregistered, the registration expired
+            or the device was suspended.
         502:
           description: Subscription failed, endpoint not connected.
         503:
@@ -8506,9 +8873,13 @@ paths:
       - Aggregator Account Admin
   /v3/accounts/{account_id}/branding-colors/dark:
     get:
-      description: "Returns the branding colors of the dark theme. \n\n**Example usage:**\n\
-        `curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark\
-        \ -H 'Authorization: Bearer API_KEY'`"
+      description: 'Returns the branding colors of the dark theme.
+
+
+        **Example usage:**
+
+        `curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark
+        -H ''Authorization: Bearer API_KEY''`'
       operationId: getAccountDarkColors
       parameters:
       - description: Account ID.
@@ -8542,7 +8913,7 @@ paths:
       consumes:
       - application/json
       description: "An endpoint for updating an array of branding colors in the dark\
-        \ theme. \n\n**Example usage:**\n`curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/dark\
+        \ theme.\n\n**Example usage:**\n`curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/dark\
         \ '[{ \"reference\": \"primary\",\n   \"color\": \"#f3f93e\" }]' -H 'content-type:\
         \ application/json' -H 'Authorization: Bearer API_KEY'`"
       operationId: bulkSetAccountDarkColors
@@ -8586,9 +8957,13 @@ paths:
       - Aggregator Account Admin
   /v3/accounts/{account_id}/branding-colors/dark/{reference}:
     delete:
-      description: "Resets the branding color to its default in the dark theme. \n\
-        \n**Example usage:**\n`curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/light/{reference}\
-        \ -H 'Authorization: Bearer API_KEY'`"
+      description: 'Resets the branding color to its default in the dark theme.
+
+
+        **Example usage:**
+
+        `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/light/{reference}
+        -H ''Authorization: Bearer API_KEY''`'
       operationId: resetAccountDarkColor
       parameters:
       - description: Account ID.
@@ -8597,7 +8972,7 @@ paths:
         required: true
         type: string
       - description: The name of the branding color.
-        enum: *id012
+        enum: *id015
         in: path
         name: reference
         required: true
@@ -8625,9 +9000,13 @@ paths:
       tags:
       - Aggregator Account Admin
     get:
-      description: "Returns the requested branding color of the dark theme. \n\n**Example\
-        \ usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark/{reference}\
-        \ -H 'Authorization: Bearer API_KEY'`"
+      description: 'Returns the requested branding color of the dark theme.
+
+
+        **Example usage:**
+
+        `curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark/{reference}
+        -H ''Authorization: Bearer API_KEY''`'
       operationId: getAccountDarkColor
       parameters:
       - description: Account ID.
@@ -8636,7 +9015,7 @@ paths:
         required: true
         type: string
       - description: The name of the branding color.
-        enum: *id012
+        enum: *id015
         in: path
         name: reference
         required: true
@@ -8666,10 +9045,14 @@ paths:
     put:
       consumes:
       - application/json
-      description: "An endpoint for updating a branding color in the dark theme. \n\
-        \n**Example usage:**\n`curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/dark/primary\
-        \ -d '{ \"color\": \"#f3f93e\" }' -H 'content-type: application/json' -H 'Authorization:\
-        \ Bearer API_KEY'`"
+      description: 'An endpoint for updating a branding color in the dark theme.
+
+
+        **Example usage:**
+
+        `curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/dark/primary
+        -d ''{ "color": "#f3f93e" }'' -H ''content-type: application/json'' -H ''Authorization:
+        Bearer API_KEY''`'
       operationId: setAccountDarkColor
       parameters:
       - description: Account ID.
@@ -8678,7 +9061,7 @@ paths:
         required: true
         type: string
       - description: The name of the branding color.
-        enum: *id012
+        enum: *id015
         in: path
         name: reference
         required: true
@@ -8717,9 +9100,13 @@ paths:
       - Aggregator Account Admin
   /v3/accounts/{account_id}/branding-colors/light:
     get:
-      description: "Returns the branding colors of the light theme. \n\n**Example\
-        \ usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/light\
-        \ -H 'Authorization: Bearer API_KEY'`"
+      description: 'Returns the branding colors of the light theme.
+
+
+        **Example usage:**
+
+        `curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/light
+        -H ''Authorization: Bearer API_KEY''`'
       operationId: getAccountLightColors
       parameters:
       - description: Account ID.
@@ -8753,7 +9140,7 @@ paths:
       consumes:
       - application/json
       description: "An endpoint for updating an array of branding colors in the light\
-        \ theme. \n\n**Example usage:**\n`curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/light\
+        \ theme.\n\n**Example usage:**\n`curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/light\
         \ '[{ \"reference\": \"primary\",\n   \"color\": \"purple\" }]' -H 'content-type:\
         \ application/json' -H 'Authorization: Bearer API_KEY'`"
       operationId: bulkSetAccountLightColors
@@ -8797,9 +9184,13 @@ paths:
       - Aggregator Account Admin
   /v3/accounts/{account_id}/branding-colors/light/{reference}:
     delete:
-      description: "Resets the branding color to its default in the light theme. \n\
-        \n**Example usage:**\n`curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/light/{reference}\
-        \ -H 'Authorization: Bearer API_KEY'`"
+      description: 'Resets the branding color to its default in the light theme.
+
+
+        **Example usage:**
+
+        `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/light/{reference}
+        -H ''Authorization: Bearer API_KEY''`'
       operationId: resetAccountLightColor
       parameters:
       - description: Account ID.
@@ -8808,7 +9199,7 @@ paths:
         required: true
         type: string
       - description: The name of the branding color.
-        enum: *id012
+        enum: *id015
         in: path
         name: reference
         required: true
@@ -8836,9 +9227,13 @@ paths:
       tags:
       - Aggregator Account Admin
     get:
-      description: "Returns the requested branding color of the light theme. \n\n\
-        **Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/light/{reference}\
-        \ -H 'Authorization: Bearer API_KEY'`"
+      description: 'Returns the requested branding color of the light theme.
+
+
+        **Example usage:**
+
+        `curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/light/{reference}
+        -H ''Authorization: Bearer API_KEY''`'
       operationId: getAccountLightColor
       parameters:
       - description: Account ID.
@@ -8847,7 +9242,7 @@ paths:
         required: true
         type: string
       - description: The name of the branding color.
-        enum: *id012
+        enum: *id015
         in: path
         name: reference
         required: true
@@ -8877,10 +9272,14 @@ paths:
     put:
       consumes:
       - application/json
-      description: "An endpoint for updating a branding color in the light theme.\
-        \ \n\n**Example usage:**\n`curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/light/primary\
-        \ -d '{ \"color\": \"purple\" }' -H 'content-type: application/json' -H 'Authorization:\
-        \ Bearer API_KEY'`"
+      description: 'An endpoint for updating a branding color in the light theme.
+
+
+        **Example usage:**
+
+        `curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/light/primary
+        -d ''{ "color": "purple" }'' -H ''content-type: application/json'' -H ''Authorization:
+        Bearer API_KEY''`'
       operationId: setAccountLightColor
       parameters:
       - description: Account ID.
@@ -8889,7 +9288,7 @@ paths:
         required: true
         type: string
       - description: The name of the branding color.
-        enum: *id012
+        enum: *id015
         in: path
         name: reference
         required: true
@@ -8928,9 +9327,13 @@ paths:
       - Aggregator Account Admin
   /v3/accounts/{account_id}/branding-images/dark:
     get:
-      description: "Returns the metadata of all branding images in the dark theme.\
-        \ \n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/dark\
-        \ -H 'Authorization: Bearer API_KEY'`"
+      description: 'Returns the metadata of all branding images in the dark theme.
+
+
+        **Example usage:**
+
+        `curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/dark
+        -H ''Authorization: Bearer API_KEY''`'
       operationId: getAllAccountDarkImageData
       parameters:
       - description: Account ID.
@@ -8962,9 +9365,14 @@ paths:
       - Aggregator Account Admin
   /v3/accounts/{account_id}/branding-images/dark/{reference}:
     get:
-      description: "An endpoint for getting metadata of one account branding image\
-        \ in the dark theme. \n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/dark/{reference}\
-        \ -H 'Authorization: Bearer API_KEY'`"
+      description: 'An endpoint for getting metadata of one account branding image
+        in the dark theme.
+
+
+        **Example usage:**
+
+        `curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/dark/{reference}
+        -H ''Authorization: Bearer API_KEY''`'
       operationId: getAccountDarkImageData
       parameters:
       - description: Account ID.
@@ -8973,7 +9381,7 @@ paths:
         required: true
         type: string
       - description: Name of the branding images (icon or picture).
-        enum: *id013
+        enum: *id016
         in: path
         name: reference
         required: true
@@ -9002,9 +9410,14 @@ paths:
       - Aggregator Account Admin
   /v3/accounts/{account_id}/branding-images/dark/{reference}/clear:
     post:
-      description: "An endpoint for reverting an account branding image to default\
-        \ in the dark theme. \n\n**Example usage:**\n`curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/dark/{reference}/clear\
-        \ -H 'Authorization: Bearer API_KEY'`"
+      description: 'An endpoint for reverting an account branding image to default
+        in the dark theme.
+
+
+        **Example usage:**
+
+        `curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/dark/{reference}/clear
+        -H ''Authorization: Bearer API_KEY''`'
       operationId: clearAccountDarkImage
       parameters:
       - description: Account ID.
@@ -9013,7 +9426,7 @@ paths:
         required: true
         type: string
       - description: Name of the branding images (icon or picture).
-        enum: *id013
+        enum: *id016
         in: path
         name: reference
         required: true
@@ -9043,11 +9456,15 @@ paths:
       consumes:
       - image/png
       - image/jpeg
-      description: "An endpoint for uploading a new account branding image in the\
-        \ dark theme in PNG or JPEG format. \n\n**Example usage:**\n`curl -X POST\
-        \ https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/dark/{reference}/upload\
-        \ -H 'content-type: image/png' -H 'Authorization: Bearer API_KEY' --data-binary\
-        \ 'myimage.png'`"
+      description: 'An endpoint for uploading a new account branding image in the
+        dark theme in PNG or JPEG format.
+
+
+        **Example usage:**
+
+        `curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/dark/{reference}/upload
+        -H ''content-type: image/png'' -H ''Authorization: Bearer API_KEY'' --data-binary
+        ''myimage.png''`'
       operationId: uploadAccountDarkImage
       parameters:
       - description: Account ID.
@@ -9056,7 +9473,7 @@ paths:
         required: true
         type: string
       - description: Name of the branding images (icon or picture).
-        enum: *id013
+        enum: *id016
         in: path
         name: reference
         required: true
@@ -9102,9 +9519,13 @@ paths:
       - Aggregator Account Admin
   /v3/accounts/{account_id}/branding-images/light:
     get:
-      description: "Returns the metadata of all branding images in the light theme.\
-        \ \n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/light\
-        \ -H 'Authorization: Bearer API_KEY'`"
+      description: 'Returns the metadata of all branding images in the light theme.
+
+
+        **Example usage:**
+
+        `curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/light
+        -H ''Authorization: Bearer API_KEY''`'
       operationId: getAllAccountLightImageData
       parameters:
       - description: Account ID.
@@ -9136,9 +9557,14 @@ paths:
       - Aggregator Account Admin
   /v3/accounts/{account_id}/branding-images/light/{reference}:
     get:
-      description: "An endpoint for getting metadata of one account branding image\
-        \ in the light theme. \n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/light/{reference}\
-        \ -H 'Authorization: Bearer API_KEY'`"
+      description: 'An endpoint for getting metadata of one account branding image
+        in the light theme.
+
+
+        **Example usage:**
+
+        `curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/light/{reference}
+        -H ''Authorization: Bearer API_KEY''`'
       operationId: getAccountLightImageData
       parameters:
       - description: Account ID.
@@ -9147,7 +9573,7 @@ paths:
         required: true
         type: string
       - description: Name of the branding images (icon or picture).
-        enum: *id013
+        enum: *id016
         in: path
         name: reference
         required: true
@@ -9176,9 +9602,14 @@ paths:
       - Aggregator Account Admin
   /v3/accounts/{account_id}/branding-images/light/{reference}/clear:
     post:
-      description: "An endpoint for reverting an account branding image to default\
-        \ in the light theme. \n\n**Example usage:**\n`curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/light/{reference}/clear\
-        \ -H 'Authorization: Bearer API_KEY'`"
+      description: 'An endpoint for reverting an account branding image to default
+        in the light theme.
+
+
+        **Example usage:**
+
+        `curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/light/{reference}/clear
+        -H ''Authorization: Bearer API_KEY''`'
       operationId: clearAccountLightImage
       parameters:
       - description: Account ID.
@@ -9187,7 +9618,7 @@ paths:
         required: true
         type: string
       - description: Name of the branding images (icon or picture).
-        enum: *id013
+        enum: *id016
         in: path
         name: reference
         required: true
@@ -9217,11 +9648,15 @@ paths:
       consumes:
       - image/png
       - image/jpeg
-      description: "An endpoint for uploading a new account branding image in the\
-        \ light theme in PNG or JPEG format. \n\n**Example usage:**\n`curl -X POST\
-        \ https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/light/{reference}/upload\
-        \ -H 'content-type: image/png' -H 'Authorization: Bearer API_KEY' --data-binary\
-        \ 'myimage.png'`"
+      description: 'An endpoint for uploading a new account branding image in the
+        light theme in PNG or JPEG format.
+
+
+        **Example usage:**
+
+        `curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/light/{reference}/upload
+        -H ''content-type: image/png'' -H ''Authorization: Bearer API_KEY'' --data-binary
+        ''myimage.png''`'
       operationId: uploadAccountLightImage
       parameters:
       - description: Account ID.
@@ -9230,7 +9665,7 @@ paths:
         required: true
         type: string
       - description: Name of the branding images (icon or picture).
-        enum: *id013
+        enum: *id016
         in: path
         name: reference
         required: true
@@ -9502,6 +9937,50 @@ paths:
       summary: Update an existing identity provider.
       tags:
       - Aggregator Account Admin
+  /v3/accounts/{account_id}/identity-providers/{identity_provider_id}/delete-sp-certificate:
+    post:
+      consumes:
+      - application/json
+      description: An endpoint for deleting the service provider certificate.
+      operationId: deleteAccountSpCertificate
+      parameters:
+      - description: Account ID.
+        in: path
+        name: account_id
+        required: true
+        type: string
+      - description: The ID of the identity provider to which the certificate should
+          be deleted.
+        in: path
+        name: identity_provider_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Successful operation.
+          headers:
+            Content-Location:
+              description: /v3/accounts/{account_id}/identity-providers/{identity_provider_id}
+              type: string
+          schema:
+            $ref: '#/definitions/IdentityProviderInfo'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Account or identity provider not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Delete the service provider certificate.
+      tags:
+      - Aggregator Account Admin
   /v3/accounts/{account_id}/identity-providers/{identity_provider_id}/generate-sp-certificate:
     post:
       consumes:
@@ -9531,6 +10010,10 @@ paths:
       responses:
         '200':
           description: Successful operation.
+          headers:
+            Content-Location:
+              description: /v3/accounts/{account_id}/identity-providers/{identity_provider_id}
+              type: string
           schema:
             $ref: '#/definitions/IdentityProviderInfo'
         '400':
@@ -10290,6 +10773,12 @@ paths:
         name: subject__like
         required: false
         type: string
+      - description: Filter for finding certificates by validity. True returns certificates
+          which are not yet expired. False returns certificates which have expired.
+        in: query
+        name: valid__eq
+        required: false
+        type: boolean
       produces:
       - application/json
       responses:
@@ -12213,9 +12702,13 @@ paths:
       summary: Get raw billing data of the firmware updates for the month.
   /v3/branding-colors/dark:
     get:
-      description: "Returns the branding colors of the dark theme. \n\n**Example usage:**\n\
-        `curl https://api.us-east-1.mbedcloud.com/v3/branding-colors/dark -H 'Authorization:\
-        \ Bearer API_KEY'`"
+      description: 'Returns the branding colors of the dark theme.
+
+
+        **Example usage:**
+
+        `curl https://api.us-east-1.mbedcloud.com/v3/branding-colors/dark -H ''Authorization:
+        Bearer API_KEY''`'
       operationId: getDarkColors
       parameters: []
       produces:
@@ -12240,7 +12733,7 @@ paths:
       consumes:
       - application/json
       description: "An endpoint for updating an array of branding colors in the dark\
-        \ theme. \n\n**Example usage:**\n`curl -X PUT https://api.us-east-1.mbedcloud.com/v3/branding-colors/dark\
+        \ theme.\n\n**Example usage:**\n`curl -X PUT https://api.us-east-1.mbedcloud.com/v3/branding-colors/dark\
         \ '[{ \"reference\": \"primary\",\n   \"color\": \"#f3f93e\" }]' -H 'content-type:\
         \ application/json' -H 'Authorization: Bearer API_KEY'`"
       operationId: bulkSetDarkColors
@@ -12275,13 +12768,17 @@ paths:
       - Account Admin
   /v3/branding-colors/dark/{reference}:
     delete:
-      description: "Resets the branding color to its default in the dark theme. \n\
-        \n**Example usage:**\n`curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/branding-colors/light/{reference}\
-        \ -H 'Authorization: Bearer API_KEY'`"
+      description: 'Resets the branding color to its default in the dark theme.
+
+
+        **Example usage:**
+
+        `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/branding-colors/light/{reference}
+        -H ''Authorization: Bearer API_KEY''`'
       operationId: resetDarkColor
       parameters:
       - description: The name of the branding color.
-        enum: *id012
+        enum: *id015
         in: path
         name: reference
         required: true
@@ -12309,13 +12806,17 @@ paths:
       tags:
       - Account Admin
     get:
-      description: "Returns the requested branding color of the dark theme. \n\n**Example\
-        \ usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/branding-colors/dark/{reference}\
-        \ -H 'Authorization: Bearer API_KEY'`"
+      description: 'Returns the requested branding color of the dark theme.
+
+
+        **Example usage:**
+
+        `curl https://api.us-east-1.mbedcloud.com/v3/branding-colors/dark/{reference}
+        -H ''Authorization: Bearer API_KEY''`'
       operationId: getDarkColor
       parameters:
       - description: The name of the branding color.
-        enum: *id012
+        enum: *id015
         in: path
         name: reference
         required: true
@@ -12345,14 +12846,18 @@ paths:
     put:
       consumes:
       - application/json
-      description: "An endpoint for updating a branding color in the dark theme. \n\
-        \n**Example usage:**\n`curl -X PUT https://api.us-east-1.mbedcloud.com/v3/branding-colors/dark/primary\
-        \ -d '{ \"color\": \"#f3f93e\" }' -H 'content-type: application/json' -H 'Authorization:\
-        \ Bearer API_KEY'`"
+      description: 'An endpoint for updating a branding color in the dark theme.
+
+
+        **Example usage:**
+
+        `curl -X PUT https://api.us-east-1.mbedcloud.com/v3/branding-colors/dark/primary
+        -d ''{ "color": "#f3f93e" }'' -H ''content-type: application/json'' -H ''Authorization:
+        Bearer API_KEY''`'
       operationId: setDarkColor
       parameters:
       - description: The name of the branding color.
-        enum: *id012
+        enum: *id015
         in: path
         name: reference
         required: true
@@ -12391,9 +12896,13 @@ paths:
       - Account Admin
   /v3/branding-colors/light:
     get:
-      description: "Returns the branding colors of the light theme. \n\n**Example\
-        \ usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/branding-colors/light\
-        \ -H 'Authorization: Bearer API_KEY'`"
+      description: 'Returns the branding colors of the light theme.
+
+
+        **Example usage:**
+
+        `curl https://api.us-east-1.mbedcloud.com/v3/branding-colors/light -H ''Authorization:
+        Bearer API_KEY''`'
       operationId: getLightColors
       parameters: []
       produces:
@@ -12418,7 +12927,7 @@ paths:
       consumes:
       - application/json
       description: "An endpoint for updating an array of branding colors in the light\
-        \ theme. \n\n**Example usage:**\n`curl -X PUT https://api.us-east-1.mbedcloud.com/v3/branding-colors/light\
+        \ theme.\n\n**Example usage:**\n`curl -X PUT https://api.us-east-1.mbedcloud.com/v3/branding-colors/light\
         \ '[{ \"reference\": \"primary\",\n   \"color\": \"purple\" }]' -H 'content-type:\
         \ application/json' -H 'Authorization: Bearer API_KEY'`"
       operationId: bulkSetLightColors
@@ -12453,13 +12962,17 @@ paths:
       - Account Admin
   /v3/branding-colors/light/{reference}:
     delete:
-      description: "Resets the branding color to its default in the light theme. \n\
-        \n**Example usage:**\n`curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/branding-colors/light/{reference}\
-        \ -H 'Authorization: Bearer API_KEY'`"
+      description: 'Resets the branding color to its default in the light theme.
+
+
+        **Example usage:**
+
+        `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/branding-colors/light/{reference}
+        -H ''Authorization: Bearer API_KEY''`'
       operationId: resetLightColor
       parameters:
       - description: The name of the branding color.
-        enum: *id012
+        enum: *id015
         in: path
         name: reference
         required: true
@@ -12487,13 +13000,17 @@ paths:
       tags:
       - Account Admin
     get:
-      description: "Returns the requested branding color of the light theme. \n\n\
-        **Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/branding-colors/light/{reference}\
-        \ -H 'Authorization: Bearer API_KEY'`"
+      description: 'Returns the requested branding color of the light theme.
+
+
+        **Example usage:**
+
+        `curl https://api.us-east-1.mbedcloud.com/v3/branding-colors/light/{reference}
+        -H ''Authorization: Bearer API_KEY''`'
       operationId: getLightColor
       parameters:
       - description: The name of the branding color.
-        enum: *id012
+        enum: *id015
         in: path
         name: reference
         required: true
@@ -12523,14 +13040,18 @@ paths:
     put:
       consumes:
       - application/json
-      description: "An endpoint for updating a branding color in the light theme.\
-        \ \n\n**Example usage:**\n`curl -X PUT https://api.us-east-1.mbedcloud.com/v3/branding-colors/light/primary\
-        \ -d '{ \"color\": \"purple\" }' -H 'content-type: application/json' -H 'Authorization:\
-        \ Bearer API_KEY'`"
+      description: 'An endpoint for updating a branding color in the light theme.
+
+
+        **Example usage:**
+
+        `curl -X PUT https://api.us-east-1.mbedcloud.com/v3/branding-colors/light/primary
+        -d ''{ "color": "purple" }'' -H ''content-type: application/json'' -H ''Authorization:
+        Bearer API_KEY''`'
       operationId: setLightColor
       parameters:
       - description: The name of the branding color.
-        enum: *id012
+        enum: *id015
         in: path
         name: reference
         required: true
@@ -12569,9 +13090,13 @@ paths:
       - Account Admin
   /v3/branding-images/dark:
     get:
-      description: "Returns the metadata of all branding images in the dark theme.\
-        \ \n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/branding-images/dark\
-        \ -H 'Authorization: Bearer API_KEY'`"
+      description: 'Returns the metadata of all branding images in the dark theme.
+
+
+        **Example usage:**
+
+        `curl https://api.us-east-1.mbedcloud.com/v3/branding-images/dark -H ''Authorization:
+        Bearer API_KEY''`'
       operationId: getAllDarkImageData
       parameters: []
       produces:
@@ -12594,13 +13119,18 @@ paths:
       - Developer
   /v3/branding-images/dark/{reference}:
     get:
-      description: "An endpoint for getting metadata of one account branding image\
-        \ in the dark theme. \n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/branding-images/dark/{reference}\
-        \ -H 'Authorization: Bearer API_KEY'`"
+      description: 'An endpoint for getting metadata of one account branding image
+        in the dark theme.
+
+
+        **Example usage:**
+
+        `curl https://api.us-east-1.mbedcloud.com/v3/branding-images/dark/{reference}
+        -H ''Authorization: Bearer API_KEY''`'
       operationId: getDarkImageData
       parameters:
       - description: Name of the branding images (icon or picture).
-        enum: *id013
+        enum: *id016
         in: path
         name: reference
         required: true
@@ -12629,13 +13159,18 @@ paths:
       - Developer
   /v3/branding-images/dark/{reference}/clear:
     post:
-      description: "An endpoint for reverting an account branding image to default\
-        \ in the dark theme. \n\n**Example usage:**\n`curl -X POST https://api.us-east-1.mbedcloud.com/v3/branding-images/dark/{reference}/clear\
-        \ -H 'Authorization: Bearer API_KEY'`"
+      description: 'An endpoint for reverting an account branding image to default
+        in the dark theme.
+
+
+        **Example usage:**
+
+        `curl -X POST https://api.us-east-1.mbedcloud.com/v3/branding-images/dark/{reference}/clear
+        -H ''Authorization: Bearer API_KEY''`'
       operationId: clearDarkImage
       parameters:
       - description: Name of the branding images (icon or picture).
-        enum: *id013
+        enum: *id016
         in: path
         name: reference
         required: true
@@ -12665,15 +13200,19 @@ paths:
       consumes:
       - image/png
       - image/jpeg
-      description: "An endpoint for uploading a new account branding image in the\
-        \ dark theme in PNG or JPEG format. \n\n**Example usage:**\n`curl -X POST\
-        \ https://api.us-east-1.mbedcloud.com/v3/branding-images/dark/{reference}/upload\
-        \ -H 'content-type: image/png' -H 'Authorization: Bearer API_KEY' --data-binary\
-        \ 'myimage.png'`"
+      description: 'An endpoint for uploading a new account branding image in the
+        dark theme in PNG or JPEG format.
+
+
+        **Example usage:**
+
+        `curl -X POST https://api.us-east-1.mbedcloud.com/v3/branding-images/dark/{reference}/upload
+        -H ''content-type: image/png'' -H ''Authorization: Bearer API_KEY'' --data-binary
+        ''myimage.png''`'
       operationId: uploadDarkImage
       parameters:
       - description: Name of the branding images (icon or picture).
-        enum: *id013
+        enum: *id016
         in: path
         name: reference
         required: true
@@ -12719,9 +13258,13 @@ paths:
       - Account Admin
   /v3/branding-images/light:
     get:
-      description: "Returns the metadata of all branding images in the light theme.\
-        \ \n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/branding-images/light\
-        \ -H 'Authorization: Bearer API_KEY'`"
+      description: 'Returns the metadata of all branding images in the light theme.
+
+
+        **Example usage:**
+
+        `curl https://api.us-east-1.mbedcloud.com/v3/branding-images/light -H ''Authorization:
+        Bearer API_KEY''`'
       operationId: getAllLightImageData
       parameters: []
       produces:
@@ -12744,13 +13287,18 @@ paths:
       - Developer
   /v3/branding-images/light/{reference}:
     get:
-      description: "An endpoint for getting metadata of one account branding image\
-        \ in the light theme. \n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/branding-images/light/{reference}\
-        \ -H 'Authorization: Bearer API_KEY'`"
+      description: 'An endpoint for getting metadata of one account branding image
+        in the light theme.
+
+
+        **Example usage:**
+
+        `curl https://api.us-east-1.mbedcloud.com/v3/branding-images/light/{reference}
+        -H ''Authorization: Bearer API_KEY''`'
       operationId: getLightImageData
       parameters:
       - description: Name of the branding images (icon or picture).
-        enum: *id013
+        enum: *id016
         in: path
         name: reference
         required: true
@@ -12779,13 +13327,18 @@ paths:
       - Developer
   /v3/branding-images/light/{reference}/clear:
     post:
-      description: "An endpoint for reverting an account branding image to default\
-        \ in the light theme. \n\n**Example usage:**\n`curl -X POST https://api.us-east-1.mbedcloud.com/v3/branding-images/light/{reference}/clear\
-        \ -H 'Authorization: Bearer API_KEY'`"
+      description: 'An endpoint for reverting an account branding image to default
+        in the light theme.
+
+
+        **Example usage:**
+
+        `curl -X POST https://api.us-east-1.mbedcloud.com/v3/branding-images/light/{reference}/clear
+        -H ''Authorization: Bearer API_KEY''`'
       operationId: clearLightImage
       parameters:
       - description: Name of the branding images (icon or picture).
-        enum: *id013
+        enum: *id016
         in: path
         name: reference
         required: true
@@ -12815,15 +13368,19 @@ paths:
       consumes:
       - image/png
       - image/jpeg
-      description: "An endpoint for uploading a new account branding image in the\
-        \ light theme in PNG or JPEG format. \n\n**Example usage:**\n`curl -X POST\
-        \ https://api.us-east-1.mbedcloud.com/v3/branding-images/light/{reference}/upload\
-        \ -H 'content-type: image/png' -H 'Authorization: Bearer API_KEY' --data-binary\
-        \ 'myimage.png'`"
+      description: 'An endpoint for uploading a new account branding image in the
+        light theme in PNG or JPEG format.
+
+
+        **Example usage:**
+
+        `curl -X POST https://api.us-east-1.mbedcloud.com/v3/branding-images/light/{reference}/upload
+        -H ''content-type: image/png'' -H ''Authorization: Bearer API_KEY'' --data-binary
+        ''myimage.png''`'
       operationId: uploadLightImage
       parameters:
       - description: Name of the branding images (icon or picture).
-        enum: *id013
+        enum: *id016
         in: path
         name: reference
         required: true
@@ -13304,7 +13861,7 @@ paths:
         '
       operationId: deleteCertificateIssuerConfigByID
       parameters:
-      - &id014
+      - &id017
         description: 'The ID of the certificate issuer configuration.
 
           '
@@ -13340,7 +13897,7 @@ paths:
         '
       operationId: getCertificateIssuerConfigByID
       parameters:
-      - *id014
+      - *id017
       responses:
         '200':
           description: OK.
@@ -13377,7 +13934,7 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/CertificateIssuerConfigRequest'
-      - *id014
+      - *id017
       responses:
         '200':
           description: OK.
@@ -14389,52 +14946,14 @@ paths:
       responses:
         200:
           description: OK.
-          examples:
-            Success:
-              after: 2d238a89038b4ddb84699dd36a901063
-              data:
-              - account_id: 015fee5d9b3538c98640fbfb00000000
-                claimed_at: '2017-12-13T14:35:10.000Z'
-                created_at: '2017-12-11T14:35:20.009Z'
-                enrolled_device_id: 2d238a89038b4ddb84699dd36a901063
-                enrollment_identity: A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5
-                etag: '1'
-                expires_at: '2018-01-11T14:35:20.009Z'
-                id: sckv52bebji8dxnxuw3zvnon95u8gshm
-                object: enrollment
-              - account_id: 015fee5d9b3538c98640fbfb00000000
-                created_at: '2017-12-11T14:36:20.009Z'
-                enrolled_device_id: 2d238a89038b4ddb84699dd36a901063
-                enrollment_identity: A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5
-                etag: '1'
-                expires_at: '2018-01-11T14:35:20.009Z'
-                id: 000v52bebji8dxnxuw3zvnon95u8gshm
-                object: enrollment
-              has_more: true
-              limit: 2
-              object: list
-              order: ASC
-              total_count: 55
           schema:
             $ref: '#/definitions/EnrollmentIdentities'
         400:
           description: Bad request. The access token could not be read.
-          examples:
-            Error:
-              code: 400
-              message: JWT couldn't be read
-              object: error
-              type: validation_error
           schema:
             $ref: '#/definitions/ErrorResponse'
         401:
           description: The provided access token is not valid.
-          examples:
-            Error:
-              code: 401
-              message: The provided JWT was not valid
-              object: error
-              type: invalid_auth
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Get enrollment list.
@@ -14474,17 +14993,6 @@ paths:
         201:
           description: Created. The enrollment claim has been created and is waiting
             for the device to connect.
-          examples:
-            Success:
-              account_id: 015fee5d9b3538c98640fbfb00000000
-              claimed_at: '2017-12-13T14:35:10.000Z'
-              created_at: '2017-12-11T14:22:20.009Z'
-              enrolled_device_id: 00005a4e027f0a580a01081c00000000
-              enrollment_identity: A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5
-              etag: '1'
-              expires_at: '2018-01-11T14:22:20.009Z'
-              id: 015fee4431fd38c98640fbfb00000000
-              object: enrollment
           schema:
             $ref: '#/definitions/EnrollmentIdentity'
         400:
@@ -14493,37 +15001,11 @@ paths:
             $ref: '#/definitions/ErrorResponse'
         401:
           description: The provided access token is not valid.
-          examples:
-            Authentication Error:
-              code: 401
-              message: Provided access token is not valid.
-              object: error
-              request_id: 015fee4431fd38c98640fbfb00000000
-              type: invalid_auth
           schema:
             $ref: '#/definitions/ErrorResponse'
         409:
-          description: 'Conflict. The identity requested to be added already exists
+          description: Conflict. The identity requested to be added already exists
             either on this or another account.
-
-            '
-          examples:
-            Already claimed:
-              code: 409
-              fields:
-              - enrollment_identity: Enrollment identity already claimed
-              message: The requested enrollment identity has already been claimed.
-              object: error
-              request_id: 015fee4431fd38c98640fbfb00000000
-              type: duplicate
-            Conflict:
-              code: 409
-              fields:
-              - enrollment_identity: Enrollment identity already exists
-              message: The requested enrollment identity already exists.
-              object: error
-              request_id: 015fee4431fd38c98640fbfb00000000
-              type: duplicate
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Place an enrollment claim for one or several devices.
@@ -14567,56 +15049,24 @@ paths:
         ,,\n, This is also considered to a blank line\n```\n"
       operationId: deleteBulkDeviceEnrollment
       parameters:
-      - description: 'The `CSV` file containing the enrollment IDs. The maximum file
+      - description: The `CSV` file containing the enrollment IDs. The maximum file
           size is 10MB.
-
-          '
         in: formData
         name: enrollment_identities
         required: true
         type: file
       responses:
         201:
-          description: 'Bulk delete data has been received and asynchronous processing
+          description: Bulk delete data has been received and asynchronous processing
             has been started.
-
-            '
-          examples:
-            BulkCreateResponse:
-              properties:
-                account_id: 00005a4e027f0a580a01081c00000000
-                completed_at: null
-                created_at: '2018-06-26T07:41:47.217Z'
-                errors_count: 0
-                errors_report_file: null
-                etag: '1'
-                full_report_file: null
-                id: 00005a4e027f0a580a04567c00000000
-                object: enrollment-identity-bulk-deletes
-                processed_count: 0
-                status: new
-                total_count: 10
           schema:
             $ref: '#/definitions/BulkResponse'
         400:
           description: Bad request.
-          examples:
-            Bad request:
-              code: 400
-              message: Invalid request. Check your request parameters and URL.
-              object: error
-              request_id: 73fb0bd3ec1d452383255dd9a336668c
-              type: bad_request
           schema:
             $ref: '#/definitions/ErrorResponse'
         401:
           description: The provided access token is not valid.
-          examples:
-            Error:
-              code: 401
-              message: The provided JWT was not valid
-              object: error
-              type: invalid_auth
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Bulk delete
@@ -14686,55 +15136,18 @@ paths:
       responses:
         200:
           description: Bulk delete entity found
-          examples:
-            BulkResponse:
-              account_id: 00005a4e027f0a580a01081c00000000
-              completed_at: '2018-06-26T09:13:21.308Z'
-              created_at: '2018-06-26T09:12:21.308Z'
-              errors_count: 1
-              errors_report_file: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-deletes/2d238a89038b4ddb84699dd36a901063/errors_report.csv
-              etag: '1'
-              full_report_file: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-deletes/2d238a89038b4ddb84699dd36a901063/full_report.csv
-              id: 2d238a89038b4ddb84699dd36a901063
-              object: enrollment-identity-bulk-deletes
-              processed_count: 10
-              status: completed
-              total_count: 10
           schema:
             $ref: '#/definitions/BulkResponse'
         400:
           description: Bad request. The bulk identity is not valid.
-          examples:
-            Bad request:
-              code: 400
-              fields:
-              - bulk_id: Invalid bulk identity
-              message: An error description.
-              object: error
-              request_id: 73fb0bd3ec1d452383255dd9a336668c
-              type: validation_error
           schema:
             $ref: '#/definitions/ErrorResponse'
         401:
           description: The provided access token is not valid.
-          examples:
-            Error:
-              code: 401
-              message: The provided JWT was not valid
-              object: error
-              type: invalid_auth
           schema:
             $ref: '#/definitions/ErrorResponse'
         404:
           description: Not found.
-          examples:
-            Not found:
-              code: 404
-              fields: []
-              message: The requested resource could not be found
-              object: error
-              request_id: 73fb0bd3ec1d452383255dd9a336668c
-              type: not_found
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Get bulk delete entity
@@ -14778,55 +15191,24 @@ paths:
         ,,\n, This is also considered to a blank line\n```\n"
       operationId: createBulkDeviceEnrollment
       parameters:
-      - description: 'The `CSV` file containing the enrollment IDs. The maximum file
+      - description: The `CSV` file containing the enrollment IDs. The maximum file
           size is 10MB.
-
-          '
         in: formData
         name: enrollment_identities
         required: true
         type: file
       responses:
         201:
-          description: 'Bulk upload data has been received and asynchronous processing
+          description: Bulk upload data has been received and asynchronous processing
             has been started.
-
-            '
-          examples:
-            BulkResponse:
-              account_id: 00005a4e027f0a580a01081c00000000
-              completed_at: null
-              created_at: '2018-06-26T09:12:21.308Z'
-              errors_count: 0
-              errors_report_file: null
-              etag: '1'
-              full_report_file: null
-              id: 00005a4e017f0a667a01081c00000000
-              object: enrollment-identity-bulk-uploads
-              processed_count: 0
-              status: new
-              total_count: 10
           schema:
             $ref: '#/definitions/BulkResponse'
         400:
           description: Bad request.
-          examples:
-            Bad request:
-              code: 400
-              message: Invalid request. Check your request parameters and URL.
-              object: error
-              request_id: 73fb0bd3ec1d452383255dd9a336668c
-              type: bad_request
           schema:
             $ref: '#/definitions/ErrorResponse'
         401:
           description: The provided access token is not valid.
-          examples:
-            Error:
-              code: 401
-              message: The provided JWT was not valid
-              object: error
-              type: invalid_auth
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Bulk upload
@@ -14896,55 +15278,18 @@ paths:
       responses:
         200:
           description: Bulk upload entity found
-          examples:
-            BulkResponse:
-              account_id: 00005a4e027f0a580a01081c00000000
-              completed_at: '2018-06-26T09:13:21.308Z'
-              created_at: '2018-06-26T09:12:21.308Z'
-              errors_count: 1
-              errors_report_file: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/errors_report.csv
-              etag: '1'
-              full_report_file: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/full_report.csv
-              id: 2d238a89038b4ddb84699dd36a901063
-              object: enrollment-identity-bulk-uploads
-              processed_count: 10
-              status: completed
-              total_count: 10
           schema:
             $ref: '#/definitions/BulkResponse'
         400:
           description: Bad request. The bulk identity is not valid.
-          examples:
-            Bad request:
-              code: 400
-              fields:
-              - bulk_id: Invalid bulk identity
-              message: An error description.
-              object: error
-              request_id: 73fb0bd3ec1d452383255dd9a336668c
-              type: validation_error
           schema:
             $ref: '#/definitions/ErrorResponse'
         401:
           description: The provided access token is not valid.
-          examples:
-            Error:
-              code: 401
-              message: The provided JWT was not valid
-              object: error
-              type: invalid_auth
           schema:
             $ref: '#/definitions/ErrorResponse'
         404:
           description: Not found.
-          examples:
-            Not found:
-              code: 404
-              fields: []
-              message: The requested resource could not be found
-              object: error
-              request_id: 73fb0bd3ec1d452383255dd9a336668c
-              type: not_found
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Get bulk upload entity
@@ -14988,14 +15333,6 @@ paths:
             $ref: '#/definitions/ErrorResponse'
         404:
           description: Not found.
-          examples:
-            Not found:
-              code: 404
-              fields: []
-              message: Enrollment identity not found
-              object: error
-              request_id: 73fb0bd3ec1d452383255dd9a336668c
-              type: not_found
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Delete an enrollment by ID.
@@ -15036,14 +15373,6 @@ paths:
             $ref: '#/definitions/ErrorResponse'
         404:
           description: Not found.
-          examples:
-            Not found:
-              code: 404
-              fields: []
-              message: Enrollment identity not found
-              object: error
-              request_id: 73fb0bd3ec1d452383255dd9a336668c
-              type: not_found
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Get details of an enrollment by ID.
@@ -15243,9 +15572,9 @@ paths:
         required: true
         schema:
           properties:
-            custom_attributes: *id015
-            description: *id016
-            name: *id017
+            custom_attributes: *id018
+            description: *id019
+            name: *id020
           type: object
       responses:
         '201':
@@ -15328,9 +15657,9 @@ paths:
         required: true
         schema:
           properties:
-            custom_attributes: *id015
-            description: *id016
-            name: *id017
+            custom_attributes: *id018
+            description: *id019
+            name: *id020
           type: object
       responses:
         '200':
@@ -16080,8 +16409,12 @@ paths:
       description: List all firmware images.
       operationId: Firmware_Image_list
       parameters:
-      - description: How many firmware images to retrieve
+      - description: How many objects to retrieve in the page. The minimum limit is
+          2 and the maximum is 1000. Limit values outside of this range are set to
+          the closest limit.
         in: query
+        maximum: 1000
+        minimum: 2
         name: limit
         type: integer
       - description: ASC or DESC
@@ -16182,15 +16515,385 @@ paths:
           schema:
             $ref: '#/definitions/FirmwareImage'
         '400':
-          description: 'Validation error: Cannot validate the data used to create
-            the firmware image
-
-            '
+          description: Cannot validate the data used to create the firmware image.
         '401':
           description: Not authenticated
         '403':
           description: Forbidden
+        413:
+          description: Firmware image too large.
       summary: Create an image
+  /v3/firmware-images/upload-jobs:
+    get:
+      description: Get all upload jobs
+      operationId: Upload_Job_List
+      parameters:
+      - description: How many objects to retrieve in the page. The minimum limit is
+          2 and the maximum is 1000. Limit values outside of this range are set to
+          the closest limit.
+        in: query
+        maximum: 1000
+        minimum: 2
+        name: limit
+        type: integer
+      - description: ASC or DESC
+        in: query
+        name: order
+        type: string
+      - description: The ID of the the item after which to retrieve the next page
+        in: query
+        name: after
+        type: string
+      - description: 'A comma-separated list of data fields to return. Currently supported:
+          total_count'
+        in: query
+        name: include
+        type: string
+      - description: "URL-encoded query string parameter to filter returned data\n\
+          \n`?filter={URL-encoded query string}`\n\n###### Filterable fields:\n\n\
+          The table lists all the fields that can be filtered on with certain filters:\n\
+          \n<table>\n  <thead>\n    <tr>\n      <th>Field</th>\n      <th>= / __eq\
+          \ / __neq</th>\n      <th>__in /  __nin</th>\n      <th>__lte / __gte</th>\n\
+          \    <tr>\n  <thead>\n  <tbody>\n    <tr>\n      <td>name</td>\n      <td>\u2713\
+          </td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n\
+          \      <td>description</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n\
+          \      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>complete</td>\n \
+          \     <td>\u2713</td>\n      <td>\u2713</td>\n    </tr>\n    <tr>\n    \
+          \  <td>id</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n\
+          \    </tr>\n    <tr>\n      <td>firmware_image_id</td>\n      <td>\u2713\
+          </td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n\
+          \      <td>status</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n \
+          \     <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>created_at</td>\n\
+          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n \
+          \   </tr>\n    <tr>\n      <td>etag</td>\n      <td>\u2713</td>\n      <td>\u2713\
+          </td>\n      <td>\u2713</td>\n    </tr>\n    <tr>\n      <td>updated_at</td>\n\
+          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n \
+          \   </tr>\n  </tbody>\n</table>\n&nbsp;\n\nThe query string is made up of\
+          \ key-value pairs separated by ampersands. For example, this query:\n`key1=value1&key2=value2&key3=value3`\n\
+          \nwould be URL-encoded as:\n`?filter=key1__eq%3Dvalue1%26key2__eq%3Dvalue2%26key3__eq%3Dvalue3`\n\
+          \n\n**Filtering by properties**\n`name__eq=myimage`\n\n**Filtering on date-time\
+          \ fields**\n\nDate-time fields should be specified in UTC RFC3339 format,\
+          \ `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:\n\n*\
+          \ UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z`\n\
+          * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z`\n* UTC\
+          \ RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`\n\
+          \nDate-time filtering supports three operators:\n\n* equality by appending\
+          \ `__eq` to the field name\n* greater than or equal to by appending `__gte`\
+          \ to the field name\n* less than or equal to by appending `__lte` to the\
+          \ field name\n\n`{field name}[|__eq|__lte|__gte]={UTC RFC3339 date-time}`\n\
+          \nTime ranges may be specified by including both the `__gte` and `__lte`\
+          \ forms in the filter. For example:\n\n`created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`\n\
+          \n**Filtering on multiple fields**\n\n`name__eq=myimage&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`\n\
+          \n**Filtering with filter operators**\n\nString field filtering supports\
+          \ the following operators:\n\n* equality: `__eq`\n* non-equality: `__neq`\n\
+          * in : `__in`\n* not in: `__nin`\n\nFor `__in` and `__nin` filters list\
+          \ of parameters must be comma-separated:\n\n`name__in=fw-image1,fw-image2`"
+        in: query
+        name: filter
+        type: string
+      responses:
+        200:
+          description: Ok
+          schema:
+            $ref: '#/definitions/UploadJobPage'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        401:
+          description: Not Authenticated
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Get all upload jobs
+    post:
+      description: Create a new upload job
+      operationId: Upload_Job_Create
+      parameters:
+      - description: Upload job
+        in: body
+        name: Upload job
+        required: true
+        schema:
+          properties:
+            description: *id021
+            name: *id022
+          type: object
+      responses:
+        201:
+          description: Success - New job created
+          headers:
+            Location:
+              description: URL of the metadata for the created Upload Job
+              type: string
+          schema:
+            $ref: '#/definitions/UploadJob'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        401:
+          description: Not Authenticated
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        409:
+          description: Conflict
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Create a new upload job
+  /v3/firmware-images/upload-jobs/{upload_job_id}:
+    delete:
+      description: Delete an upload job
+      operationId: Upload_Job_Delete
+      parameters:
+      - description: Upload job
+        in: path
+        name: upload_job_id
+        required: true
+        type: string
+      responses:
+        204:
+          description: Job deleted - no content to show
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        401:
+          description: Not Authenticated
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        404:
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Delete an upload job
+    get:
+      description: Get an upload job
+      operationId: Upload_Job_Retrieve
+      parameters:
+      - description: Upload job
+        in: path
+        name: upload_job_id
+        required: true
+        type: string
+      responses:
+        200:
+          description: Ok
+          schema:
+            $ref: '#/definitions/UploadJob'
+        401:
+          description: Not Authenticated
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        404:
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Get an upload job
+    put:
+      description: Update an upload job
+      operationId: Upload_Job_Update
+      parameters:
+      - description: Upload job id
+        in: path
+        name: upload_job_id
+        required: true
+        type: string
+      - description: Upload job
+        in: body
+        name: Upload job
+        required: true
+        schema:
+          properties:
+            description: *id021
+            name: *id022
+          type: object
+      responses:
+        200:
+          description: Ok
+          schema:
+            $ref: '#/definitions/UploadJob'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        401:
+          description: Not Authenticated
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        404:
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Update an upload job
+  /v3/firmware-images/upload-jobs/{upload_job_id}/chunks:
+    get:
+      description: List all metadata for uploaded chunks
+      operationId: Upload_Job_Chunk_List
+      parameters:
+      - description: Upload job
+        in: path
+        name: upload_job_id
+        required: true
+        type: string
+      - description: How many objects to retrieve in the page. The minimum limit is
+          2 and the maximum is 1000. Limit values outside of this range are set to
+          the closest limit.
+        in: query
+        maximum: 1000
+        minimum: 2
+        name: limit
+        type: integer
+      - description: ASC or DESC
+        in: query
+        name: order
+        type: string
+      - description: The ID of the the item after which to retrieve the next page
+        in: query
+        name: after
+        type: string
+      - description: 'A comma-separated list of data fields to return. Currently supported:
+          total_count'
+        in: query
+        name: include
+        type: string
+      - description: "URL-encoded query string parameter to filter returned data\n\
+          \n`?filter={URL-encoded query string}`\n\n###### Filterable fields:\n\n\
+          The table lists all the fields that can be filtered on with certain filters:\n\
+          \n<table>\n  <thead>\n    <tr>\n      <th>Field</th>\n      <th>= / __eq\
+          \ / __neq</th>\n      <th>__in /  __nin</th>\n      <th>__lte / __gte</th>\n\
+          \    <tr>\n  <thead>\n  <tbody>\n    <tr>\n      <td>created_at</td>\n \
+          \     <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n  \
+          \  </tr>\n    <tr>\n      <td>etag</td>\n      <td>\u2713</td>\n      <td>\u2713\
+          </td>\n      <td>\u2713</td>\n    </tr>\n    <tr>\n      <td>id</td>\n \
+          \     <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n  \
+          \  </tr>\n    <tr>\n      <td>updated_at</td>\n      <td>\u2713</td>\n \
+          \     <td>\u2713</td>\n      <td>\u2713</td>\n    </tr>\n    <tr>\n    \
+          \  <td>hash</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n    </tr>\n\
+          \    <tr>\n      <td>length</td>\n      <td>\u2713</td>\n      <td>\u2713\
+          </td>\n      <td>\u2713</td>\n    </tr>\n  </tbody>\n</table>\n&nbsp;\n\n\
+          The query string is made up of key-value pairs separated by ampersands.\
+          \ For example, this query:\n`key1=value1&key2=value2&key3=value3`\n\nwould\
+          \ be URL-encoded as:\n`?filter=key1__eq%3Dvalue1%26key2__eq%3Dvalue2%26key3__eq%3Dvalue3`\n\
+          \n\n**Filtering by properties**\n`hash__eq=8FS70vXrq5y1VxAAssUMAg==`\n\n\
+          **Filtering on date-time fields**\n\nDate-time fields should be specified\
+          \ in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted\
+          \ variations:\n\n* UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z`\n\
+          * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z`\n* UTC\
+          \ RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`\n\
+          \nDate-time filtering supports three operators:\n\n* equality by appending\
+          \ `__eq` to the field name\n* greater than or equal to by appending `__gte`\
+          \ to the field name\n* less than or equal to by appending `__lte` to the\
+          \ field name\n\n`{field name}[|__eq|__lte|__gte]={UTC RFC3339 date-time}`\n\
+          \nTime ranges may be specified by including both the `__gte` and `__lte`\
+          \ forms in the filter. For example:\n\n`created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`\n\
+          \n**Filtering on multiple fields**\n\n`status__eq=in_progress&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`\n\
+          \n**Filtering with filter operators**\n\nString field filtering supports\
+          \ the following operators:\n\n* equality: `__eq`\n* non-equality: `__neq`\n\
+          * in : `__in`\n* not in: `__nin`\n\nFor `__in` and `__nin` filters list\
+          \ of parameters must be comma-separated:\n\n`status__in=in_progress,success`"
+        in: query
+        name: filter
+        type: string
+      responses:
+        200:
+          description: Ok
+          schema:
+            $ref: '#/definitions/UploadChunkInfoPage'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        401:
+          description: Not Authenticated
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        404:
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: List all metadata for uploaded chunks
+    post:
+      consumes:
+      - binary/octet-stream
+      description: Append a chunks to an upload job. To finish a job upload a zero-length
+        chunk.
+      operationId: Upload_Job_Chunk_Create
+      parameters:
+      - description: The base64-encoded binary digest of the body (chunk data).
+        in: header
+        name: Content-MD5
+        required: true
+        type: string
+      - in: header
+        name: Content-Length
+        required: true
+        type: integer
+      - description: Upload job ID
+        in: path
+        name: upload_job_id
+        required: true
+        type: string
+      - description: Chunk
+        in: body
+        name: chunk
+        required: false
+        schema:
+          format: byte
+          type: string
+      responses:
+        201:
+          description: Success - Chunk appended to the upload
+          headers:
+            Content-Location:
+              description: URL of the metadata for the uploaded chunk
+              type: string
+            Location:
+              description: URL of the metadata for the uploaded chunk
+              type: string
+          schema:
+            $ref: '#/definitions/UploadChunkInfo'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        401:
+          description: Not Authenticated
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        404:
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Append a chunks to an upload job
+  /v3/firmware-images/upload-jobs/{upload_job_id}/chunks/{chunk_id}:
+    get:
+      description: Get metadata about a chunk
+      operationId: Upload_Job_Chunk_retreive
+      parameters:
+      - description: Upload job
+        in: path
+        name: upload_job_id
+        required: true
+        type: string
+      - description: Chunk
+        in: path
+        name: chunk_id
+        required: true
+        type: string
+      responses:
+        200:
+          description: Ok
+          schema:
+            $ref: '#/definitions/UploadChunkInfo'
+        401:
+          description: Not Authenticated
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        404:
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Get metadata about a chunk
   /v3/firmware-images/{image_id}/:
     delete:
       description: Delete a firmware image.
@@ -16237,8 +16940,12 @@ paths:
       description: List firmware manifests.
       operationId: Firmware_Manifest_list
       parameters:
-      - description: How many firmware manifests to retrieve
+      - description: How many objects to retrieve in the page. The minimum limit is
+          2 and the maximum is 1000. Limit values outside of this range are set to
+          the closest limit.
         in: query
+        maximum: 1000
+        minimum: 2
         name: limit
         type: integer
       - description: ASC or DESC
@@ -16590,6 +17297,45 @@ paths:
       summary: Update an existing identity provider.
       tags:
       - Account Admin
+  /v3/identity-providers/{identity_provider_id}/delete-sp-certificate:
+    post:
+      consumes:
+      - application/json
+      description: An endpoint for deleting the service provider certificate.
+      operationId: deleteSpCertificate
+      parameters:
+      - description: The ID of the identity provider to which the certificate should
+          be deleted.
+        in: path
+        name: identity_provider_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Successful operation.
+          headers:
+            Content-Location:
+              description: /v3/identity-providers/{identity_provider_id}
+              type: string
+          schema:
+            $ref: '#/definitions/IdentityProviderInfo'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Identity provider not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Delete the service provider certificate.
+      tags:
+      - Account Admin
   /v3/identity-providers/{identity_provider_id}/generate-sp-certificate:
     post:
       consumes:
@@ -16614,6 +17360,10 @@ paths:
       responses:
         '200':
           description: Successful operation.
+          headers:
+            Content-Location:
+              description: /v3/identity-providers/{identity_provider_id}
+              type: string
           schema:
             $ref: '#/definitions/IdentityProviderInfo'
         '400':
@@ -17783,6 +18533,12 @@ paths:
         name: subject__like
         required: false
         type: string
+      - description: Filter for finding certificates by validity. True returns certificates
+          which are not yet expired. False returns certificates which have expired.
+        in: query
+        name: valid__eq
+        required: false
+        type: boolean
       produces:
       - application/json
       responses:
@@ -17979,8 +18735,12 @@ paths:
       description: Get update campaigns for devices specified by a filter.
       operationId: Update_Campaign_list
       parameters:
-      - description: How many update campaigns to retrieve
+      - description: How many objects to retrieve in the page. The minimum limit is
+          2 and the maximum is 1000. Limit values outside of this range are set to
+          the closest limit.
         in: query
+        maximum: 1000
+        minimum: 2
         name: limit
         type: integer
       - description: 'The order of the records. Acceptable values: ASC, DESC. Default:
@@ -18106,6 +18866,11 @@ paths:
           description: Not authenticated
         '404':
           description: Update campaign can't be found
+        409:
+          description: Conflict - Cannot delete the campaign while in the current
+            phase.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
       summary: Delete a campaign
     get:
       description: Get an update campaign.
@@ -18195,8 +18960,12 @@ paths:
         name: campaign_id
         required: true
         type: string
-      - description: How many objects to retrieve in the page
+      - description: How many objects to retrieve in the page. The minimum limit is
+          2 and the maximum is 1000. Limit values outside of this range are set to
+          the closest limit.
         in: query
+        maximum: 1000
+        minimum: 2
         name: limit
         type: integer
       - description: ASC or DESC
@@ -18287,6 +19056,123 @@ paths:
         '409':
           description: Cannot start the campaign while in the current phase.
       summary: Start a campaign.
+  /v3/update-campaigns/{campaign_id}/statistics/:
+    get:
+      description: Get a list of statistics for a campaign
+      operationId: Update_Campaign_statistics_list
+      parameters:
+      - description: The campaign ID
+        in: path
+        name: campaign_id
+        required: true
+        type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/EventTypeSummaryList'
+        401:
+          description: Not Authenticated
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        404:
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Get a list of statistics for a campaign
+  /v3/update-campaigns/{campaign_id}/statistics/{summary_status_id}:
+    get:
+      description: Get a summary status
+      operationId: Update_Campaign_statistics_retrieve
+      parameters:
+      - description: The campaign ID
+        in: path
+        name: campaign_id
+        required: true
+        type: string
+      - description: The summary status. For example, fail
+        in: path
+        name: summary_status_id
+        required: true
+        type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/EventTypeSummary'
+        401:
+          description: Not Authenticated
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        404:
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Get a summary status
+  /v3/update-campaigns/{campaign_id}/statistics/{summary_status_id}/event_types/:
+    get:
+      description: Get a list of events grouped by summary
+      operationId: Update_Campaign_event_types_list
+      parameters:
+      - description: The campaign ID
+        in: path
+        name: campaign_id
+        required: true
+        type: string
+      - description: The summary status. For example, fail
+        in: path
+        name: summary_status_id
+        required: true
+        type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/EventTypeList'
+        401:
+          description: Not Authenticated
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        404:
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Get a list of events grouped by summary
+  /v3/update-campaigns/{campaign_id}/statistics/{summary_status_id}/event_types/{event_type_id}:
+    get:
+      description: Get an event type for a campaign
+      operationId: Update_Campaign_event_types_retrieve
+      parameters:
+      - description: The campaign ID
+        in: path
+        name: campaign_id
+        required: true
+        type: string
+      - description: The summary status. For example, fail
+        in: path
+        name: summary_status_id
+        required: true
+        type: string
+      - description: The event type parameter. For example, UPD4_FAIL_101
+        in: path
+        name: event_type_id
+        pattern: ^\w{1,16}$
+        required: true
+        type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/EventType'
+        401:
+          description: Not Authenticated
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        404:
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Get an event type for a campaign
   /v3/update-campaigns/{campaign_id}/stop:
     post:
       description: This command will begin the process of stopping a campaign.
@@ -18614,6 +19500,46 @@ paths:
       summary: Create a new user.
       tags:
       - Account Admin
+  /v3/users/me:
+    get:
+      description: An endpoint for retrieving the details of the logged in user.
+      operationId: getMyUser
+      parameters:
+      - description: Request to regenerate new emergency scratch codes.
+        in: query
+        name: scratch_codes
+        required: false
+        type: string
+      - description: Request to return account specific user property values according
+          to the given property name.
+        in: query
+        name: properties
+        required: false
+        type: string
+      - description: 'Comma separated additional data to return. Currently supported:
+          active_sessions'
+        in: query
+        name: include
+        required: false
+        type: string
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Successful operation.
+          schema:
+            $ref: '#/definitions/UserInfoResp'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Details of the current user.
+      tags:
+      - Developer
   /v3/users/{user_id}:
     delete:
       description: 'An endpoint for deleting a user.
