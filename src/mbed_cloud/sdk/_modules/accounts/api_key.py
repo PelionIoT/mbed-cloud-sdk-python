@@ -347,22 +347,6 @@ class ApiKey(Entity):
             unpack=self,
         )
 
-    def get(self):
-        """Get API key details.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/api-keys/{apikey_id}
-        
-        :rtype: ApiKey
-        """
-
-        return self._client.call_api(
-            method="get",
-            path="/v3/api-keys/{apikey_id}",
-            path_params={"apikey_id": self._id.to_api()},
-            unpack=self,
-        )
-
     def list(self, include=None, max_results=None, page_size=None, order=None):
         """Get all API keys
 
@@ -444,6 +428,22 @@ class ApiKey(Entity):
                 "order": fields.StringField(order, enum=enums.ApiKeyOrderEnum).to_api(),
             },
             unpack=False,
+        )
+
+    def read(self):
+        """Get API key details.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/api-keys/{apikey_id}
+        
+        :rtype: ApiKey
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/api-keys/{apikey_id}",
+            path_params={"apikey_id": self._id.to_api()},
+            unpack=self,
         )
 
     def update(self):

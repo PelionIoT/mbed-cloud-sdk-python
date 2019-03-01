@@ -229,22 +229,6 @@ class CertificateEnrollment(Entity):
 
         self._updated_at.set(value)
 
-    def get(self):
-        """Get a certificate enrollment by ID.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/certificate-enrollments/{certificate-enrollment-id}
-        
-        :rtype: CertificateEnrollment
-        """
-
-        return self._client.call_api(
-            method="get",
-            path="/v3/certificate-enrollments/{certificate-enrollment-id}",
-            path_params={"certificate-enrollment-id": self._id.to_api()},
-            unpack=self,
-        )
-
     def list(self, include=None, max_results=None, page_size=None, order=None):
         """Get certificate enrollments list.
 
@@ -315,4 +299,20 @@ class CertificateEnrollment(Entity):
                 ).to_api(),
             },
             unpack=False,
+        )
+
+    def read(self):
+        """Get a certificate enrollment by ID.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/certificate-enrollments/{certificate-enrollment-id}
+        
+        :rtype: CertificateEnrollment
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/certificate-enrollments/{certificate-enrollment-id}",
+            path_params={"certificate-enrollment-id": self._id.to_api()},
+            unpack=self,
         )

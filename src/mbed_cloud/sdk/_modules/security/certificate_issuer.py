@@ -278,22 +278,6 @@ class CertificateIssuer(Entity):
             unpack=self,
         )
 
-    def get(self):
-        """Get certificate issuer by ID.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/certificate-issuers/{certificate-issuer-id}
-        
-        :rtype: CertificateIssuer
-        """
-
-        return self._client.call_api(
-            method="get",
-            path="/v3/certificate-issuers/{certificate-issuer-id}",
-            path_params={"certificate-issuer-id": self._id.to_api()},
-            unpack=self,
-        )
-
     def list(self, include=None, max_results=None, page_size=None, order=None):
         """Get certificate issuers list.
 
@@ -368,6 +352,22 @@ class CertificateIssuer(Entity):
                 "order": fields.StringField(order).to_api(),
             },
             unpack=False,
+        )
+
+    def read(self):
+        """Get certificate issuer by ID.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/certificate-issuers/{certificate-issuer-id}
+        
+        :rtype: CertificateIssuer
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/certificate-issuers/{certificate-issuer-id}",
+            path_params={"certificate-issuer-id": self._id.to_api()},
+            unpack=self,
         )
 
     def update(self, issuer_credentials=None):

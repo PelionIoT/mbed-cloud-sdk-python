@@ -20,9 +20,11 @@ class User(Entity):
     # all fields available on this entity
     _fieldnames = [
         "account_id",
+        "active_sessions",
         "address",
         "created_at",
         "creation_time",
+        "custom_fields",
         "email",
         "email_verified",
         "full_name",
@@ -36,6 +38,7 @@ class User(Entity):
         "phone_number",
         "status",
         "terms_accepted",
+        "totp_scratch_codes",
         "two_factor_authentication",
         "updated_at",
         "username",
@@ -52,9 +55,11 @@ class User(Entity):
         self,
         _client=None,
         account_id=None,
+        active_sessions=None,
         address=None,
         created_at=None,
         creation_time=None,
+        custom_fields=None,
         email=None,
         email_verified=None,
         full_name=None,
@@ -68,6 +73,7 @@ class User(Entity):
         phone_number=None,
         status=None,
         terms_accepted=None,
+        totp_scratch_codes=None,
         two_factor_authentication=None,
         updated_at=None,
         username=None,
@@ -83,12 +89,16 @@ class User(Entity):
 
         :param account_id: The ID of the account.
         :type account_id: str
+        :param active_sessions: List of active user sessions.
+        :type active_sessions: list
         :param address: Address.
         :type address: str
         :param created_at: Creation UTC time RFC3339.
         :type created_at: datetime
         :param creation_time: A timestamp of the user creation in the storage, in milliseconds.
         :type creation_time: int
+        :param custom_fields: User's account specific custom properties. The value is a string.
+        :type custom_fields: dict
         :param email: (Required) The email address.
         :type email: str
         :param email_verified: A flag indicating whether the user's email address has been
@@ -127,6 +137,9 @@ class User(Entity):
         :param terms_accepted: A flag indicating that the General Terms and Conditions has been
             accepted.
         :type terms_accepted: bool
+        :param totp_scratch_codes: A list of scratch codes for the 2-factor authentication. Visible
+            only when 2FA is requested to be enabled or the codes regenerated.
+        :type totp_scratch_codes: list
         :param two_factor_authentication: A flag indicating whether 2-factor authentication (TOTP) has been
             enabled.
         :type two_factor_authentication: bool
@@ -141,14 +154,19 @@ class User(Entity):
 
         # inline imports for avoiding circular references and bulk imports
 
+        from mbed_cloud.sdk._modules.accounts.active_session import ActiveSession
         from mbed_cloud.sdk._modules.accounts.login_history import LoginHistory
         from mbed_cloud.sdk._modules.accounts.login_profile import LoginProfile
 
         # fields
         self._account_id = fields.StringField(value=account_id)
+        self._active_sessions = fields.ListField(
+            value=active_sessions, entity=ActiveSession
+        )
         self._address = fields.StringField(value=address)
         self._created_at = fields.DateTimeField(value=created_at)
         self._creation_time = fields.IntegerField(value=creation_time)
+        self._custom_fields = fields.DictField(value=custom_fields)
         self._email = fields.StringField(value=email)
         self._email_verified = fields.BooleanField(value=email_verified)
         self._full_name = fields.StringField(value=full_name)
@@ -164,6 +182,7 @@ class User(Entity):
         self._phone_number = fields.StringField(value=phone_number)
         self._status = fields.StringField(value=status, enum=enums.UserStatusEnum)
         self._terms_accepted = fields.BooleanField(value=terms_accepted)
+        self._totp_scratch_codes = fields.ListField(value=totp_scratch_codes)
         self._two_factor_authentication = fields.BooleanField(
             value=two_factor_authentication
         )
@@ -190,6 +209,25 @@ class User(Entity):
         """
 
         self._account_id.set(value)
+
+    @property
+    def active_sessions(self):
+        """List of active user sessions.
+        
+        :rtype: list[ActiveSession]
+        """
+
+        return self._active_sessions.value
+
+    @active_sessions.setter
+    def active_sessions(self, value):
+        """Set value of `active_sessions`
+
+        :param value: value to set
+        :type value: list[ActiveSession]
+        """
+
+        self._active_sessions.set(value)
 
     @property
     def address(self):
@@ -253,6 +291,25 @@ class User(Entity):
         """
 
         self._creation_time.set(value)
+
+    @property
+    def custom_fields(self):
+        """User's account specific custom properties. The value is a string.
+        
+        :rtype: dict
+        """
+
+        return self._custom_fields.value
+
+    @custom_fields.setter
+    def custom_fields(self, value):
+        """Set value of `custom_fields`
+
+        :param value: value to set
+        :type value: dict
+        """
+
+        self._custom_fields.set(value)
 
     @property
     def email(self):
@@ -535,6 +592,26 @@ class User(Entity):
         self._terms_accepted.set(value)
 
     @property
+    def totp_scratch_codes(self):
+        """A list of scratch codes for the 2-factor authentication. Visible only when 2FA
+        is requested to be enabled or the codes regenerated.
+        
+        :rtype: list
+        """
+
+        return self._totp_scratch_codes.value
+
+    @totp_scratch_codes.setter
+    def totp_scratch_codes(self, value):
+        """Set value of `totp_scratch_codes`
+
+        :param value: value to set
+        :type value: list
+        """
+
+        self._totp_scratch_codes.set(value)
+
+    @property
     def two_factor_authentication(self):
         """A flag indicating whether 2-factor authentication (TOTP) has been enabled.
         
@@ -643,22 +720,6 @@ class User(Entity):
             unpack=self,
         )
 
-    def get(self):
-        """Details of a user.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/users/{user_id}
-        
-        :rtype: User
-        """
-
-        return self._client.call_api(
-            method="get",
-            path="/v3/users/{user_id}",
-            path_params={"user_id": self._id.to_api()},
-            unpack=self,
-        )
-
     def list(self, include=None, max_results=None, page_size=None, order=None):
         """Get the details of all users.
 
@@ -729,6 +790,22 @@ class User(Entity):
                 "order": fields.StringField(order, enum=enums.UserOrderEnum).to_api(),
             },
             unpack=False,
+        )
+
+    def read(self):
+        """Details of a user.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/users/{user_id}
+        
+        :rtype: User
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/users/{user_id}",
+            path_params={"user_id": self._id.to_api()},
+            unpack=self,
         )
 
     def update(self):

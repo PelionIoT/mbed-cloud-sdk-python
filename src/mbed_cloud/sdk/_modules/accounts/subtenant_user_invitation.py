@@ -307,7 +307,7 @@ class SubtenantUserInvitation(Entity):
             unpack=self,
         )
 
-    def get(self):
+    def read(self):
         """Details of a user invitation.
 
         api documentation:

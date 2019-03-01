@@ -24,6 +24,13 @@ class Field(object):
         self._val = None
         self._enum = enum
         self._entity = entity
+
+        # Work out the valid valid types that the set method can use
+        if self._entity:
+            self._valid_types = (self.base_type, self._entity, type(None))
+        else:
+            self._valid_types = (self.base_type, type(None))
+
         self.set(value)
 
     @property
@@ -31,8 +38,8 @@ class Field(object):
         return self._val
 
     def set(self, value):
-        if not isinstance(value, (self.base_type, type(None))):
-            raise TypeError("%r is not a %s" % (value, self.base_type))
+        if not isinstance(value, self._valid_types):
+            raise TypeError("%r is not one of the valid types %s" % (value, self._valid_types))
         if value is not None and self._enum and value not in self._enum.values:
             LOG.warning(
                 "Unknown enum value '%s' received from API for %s", value, self._enum
@@ -47,11 +54,11 @@ class Field(object):
         return self.value.to_api() if self.value and self._entity else self.value
 
     def from_api(self, value):
-        return (
-            self.set(self._entity().from_api(**value))
-            if value and self._entity
-            else self.set(value)
-        )
+        if value and self._entity:
+            new_entity = self._entity().from_api(**value)
+            return self.set(new_entity)
+        else:
+            return self.set(value)
 
     def from_literal(self, value):
         return (
@@ -111,9 +118,25 @@ class DictField(Field):
 class IntegerField(Field):
     base_type = int
 
+    def set(self, value):
+        """Attempt to convert to an integer if not already."""
+        try:
+            int_value = int(value)
+        except TypeError:
+            int_value = value
+        return super().set(int_value)
+
 
 class FloatField(Field):
     base_type = float
+
+    def set(self, value):
+        """Attempt to convert to a float if not already."""
+        try:
+            int_value = float(value)
+        except TypeError:
+            int_value = value
+        return super().set(int_value)
 
 
 class StringField(Field):

@@ -75,16 +75,16 @@ class TestTrustedandDeveloperCertificate(BaseCase, CrudMixinTests):
 
             if trusted_cert.is_developer_certificate:
                 # If this is a developer certificate retrieve it
-                developer_certificate = trusted_cert.developer_certificate_info()
+                developer_certificate = trusted_cert.get_developer_certificate_info()
                 self.assertEqual(developer_certificate.__class__.__name__, "DeveloperCertificate")
 
                 new_developer_certificate = DeveloperCertificate(id=developer_certificate.id)
                 # Test the link back to the trusted certificate
-                back_linked_cert = new_developer_certificate.trusted_certificate_info()
+                back_linked_cert = new_developer_certificate.get_trusted_certificate_info()
                 self.assertEqual(back_linked_cert.__class__.__name__, "TrustedCertificate")
                 self.assertEqual(trusted_cert.id, back_linked_cert.id, "These should be the same trusted certificate")
             else:
                 # If this is not a developer certificate check that it cannot be retrieved
                 with self.assertRaises(ApiErrorResponse) as api_error:
-                    trusted_cert.developer_certificate_info()
+                    trusted_cert.get_developer_certificate_info()
                     self.assertEqual(api_error.exception.status_code, 404)

@@ -301,22 +301,6 @@ class UserInvitation(Entity):
             unpack=self,
         )
 
-    def get(self):
-        """Details of a user invitation.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/user-invitations/{invitation_id}
-        
-        :rtype: UserInvitation
-        """
-
-        return self._client.call_api(
-            method="get",
-            path="/v3/user-invitations/{invitation_id}",
-            path_params={"invitation_id": self._id.to_api()},
-            unpack=self,
-        )
-
     def list(self, include=None, max_results=None, page_size=None, order=None):
         """Get the details of all the user invitations.
 
@@ -384,4 +368,20 @@ class UserInvitation(Entity):
                 ).to_api(),
             },
             unpack=False,
+        )
+
+    def read(self):
+        """Details of a user invitation.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/user-invitations/{invitation_id}
+        
+        :rtype: UserInvitation
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/user-invitations/{invitation_id}",
+            path_params={"invitation_id": self._id.to_api()},
+            unpack=self,
         )
