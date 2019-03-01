@@ -230,6 +230,12 @@ jobs:
         when: always
     - store_artifacts:
         path: results
+    - run:
+        command: sudo pip install codecov
+        name: Install codecov
+    - run:
+        command: codecov --file=results/coverage.xml --flags py2 staging
+        name: Upload code coverage results
   test_py2_PROD:
     machine:
       image: circleci/classic:201710-02
@@ -263,6 +269,12 @@ jobs:
         when: always
     - store_artifacts:
         path: results
+    - run:
+        command: sudo pip install codecov
+        name: Install codecov
+    - run:
+        command: codecov --file=results/coverage.xml --flags py2 production
+        name: Upload code coverage results
   test_py3_OS2:
     machine:
       image: circleci/classic:201710-02
@@ -296,6 +308,12 @@ jobs:
         when: always
     - store_artifacts:
         path: results
+    - run:
+        command: sudo pip install codecov
+        name: Install codecov
+    - run:
+        command: codecov --file=results/coverage.xml --flags py3 staging
+        name: Upload code coverage results
   test_py3_PROD:
     machine:
       image: circleci/classic:201710-02
@@ -329,6 +347,12 @@ jobs:
         when: always
     - store_artifacts:
         path: results
+    - run:
+        command: sudo pip install codecov
+        name: Install codecov
+    - run:
+        command: codecov --file=results/coverage.xml --flags py3 production
+        name: Upload code coverage results
   tpip_report:
     docker:
     - image: circleci/python:3.6.1

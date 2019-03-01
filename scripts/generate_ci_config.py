@@ -50,10 +50,16 @@ base_structure = OrderedDict(
     ),
 )
 
-CloudHost = namedtuple('CloudHost', ['name', 'envvar_host', 'envvar_key'])
+CloudHost = namedtuple('CloudHost', [
+    'name',
+    'public_name',
+    'envvar_host',
+    'envvar_key'
+])
+
 mbed_cloud_hosts = dict(
-    osii=CloudHost('OS2', 'MBED_CLOUD_API_HOST_OS2', 'MBED_CLOUD_API_KEY_OS2'),
-    production=CloudHost('PROD', 'MBED_CLOUD_API_HOST_PROD', 'MBED_CLOUD_API_KEY_PROD'),
+    osii=CloudHost('OS2', 'staging', 'MBED_CLOUD_API_HOST_OS2', 'MBED_CLOUD_API_KEY_OS2'),
+    production=CloudHost('PROD', 'production', 'MBED_CLOUD_API_HOST_PROD', 'MBED_CLOUD_API_KEY_PROD'),
 )
 
 py2_openssl_install = """
@@ -298,6 +304,12 @@ def new_test(py_ver: PyVer, cloud_host: CloudHost):
           when: always
       - store_artifacts:
           path: results
+      - run:
+          name: Install codecov
+          command: sudo pip install codecov
+      - run: 
+          command: codecov --file=results/coverage.xml --flags {py_ver.name} {cloud_host.public_name}
+          name: Upload code coverage results
     """)
     return test_name(py_ver, cloud_host), template
 
