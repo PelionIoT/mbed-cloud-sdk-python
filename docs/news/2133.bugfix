@@ -1,1 +1,1 @@
-Fix encoding of integers when calling set_resource_value_async or set_resource_value.
+ConnectAPI set_resource_value_async and set_resource_value will now encode and send integers, not just strings.
