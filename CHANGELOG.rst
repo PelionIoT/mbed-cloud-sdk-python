@@ -13,6 +13,23 @@ a list of versions that have been released on PyPI.
 ..
     begin_release_notes
 
+2.0.5 (2019-02-26)
+==================
+
+Bugfixes
+--------
+
+- Fixes to subscription patterns and filtering, also a timeout on a blocking
+  subscription now raises a CloudTimeoutError not a Queue.empty exception.
+  (#2103)
+
+- Errors received in async-responses will now populate the exception `status`
+  and `reason` attributes. (#2134)
+
+- Stopping notifications now terminates cleanly without logging an error.
+  (#2136)
+
+
 2.0.4 (2018-11-30)
 ==================
 

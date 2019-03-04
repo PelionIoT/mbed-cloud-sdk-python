@@ -114,7 +114,7 @@ class ChannelSubscription(object):
                 'optional keys filter %s: %s (%s)',
                 filter_key, filter_value, data_value
             )
-            if data_value is None or data_value not in filter_value:
+            if data_value is None or data_value != filter_value:
                 LOG.debug(
                     'optional keys filter rejecting %s: %s (%s)',
                     filter_key, filter_value, data_value

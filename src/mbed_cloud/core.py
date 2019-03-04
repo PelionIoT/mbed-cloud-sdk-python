@@ -188,7 +188,7 @@ class BaseObject(object):
         query = {}
         for (key, value) in list(qs.items()):
             operator = self._get_operator(key)
-            if operator is not "":
+            if operator != "":
                 key = key.replace("__%s" % (operator), "")
             else:
                 operator = "eq"

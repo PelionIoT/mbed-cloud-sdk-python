@@ -137,21 +137,31 @@ class ResourceValues(ChannelSubscription):
     def _is_wildcard(self, item):
         return item.endswith('*')
 
+    def _pattern_match(self, item, pattern):
+        """Determine whether the item supplied is matched by the pattern."""
+        if pattern.endswith('*'):
+            return item.startswith(pattern[:-1])
+        else:
+            return item == pattern
+
     def _matching_device_resources(self):
         device_resource_pairs = []
         devices = self._api.list_connected_devices()
         LOG.debug('found %s connected device(s)', len(devices))
         for device in devices:
             if self.device_ids and not any(
-                self._wildcard_match(device.id, filter_id) for filter_id in self.device_ids
+                self._pattern_match(device.id, filter_id) for filter_id in self.device_ids
             ):
                 continue
             resources = self._api.list_resources(device.id)
             LOG.debug('found %s resource(s) on device %s', len(resources), device.id)
             for live_device_resource in resources:
+                # Don't subscribe to resources which are not observable
+                if not live_device_resource.observable:
+                    continue
                 # If a wildcard matches then subscribe, default to wildcard match-all
                 for filter_path in self.resource_paths or ["*"]:
-                    if self._wildcard_match(live_device_resource.path, filter_path):
+                    if self._pattern_match(live_device_resource.path, filter_path):
                         # if we reach this point, we have matched this resource
                         device_resource_pairs.append((device.id, live_device_resource.path))
                         break

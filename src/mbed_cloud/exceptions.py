@@ -30,7 +30,7 @@ class CloudApiException(Exception):
 
     def __str__(self):
         """Print the exception"""
-        return ('(%s) "%s" %s' % (
+        return ("(%s) '%s' %s" % (
             self.status,
             self.reason,
             self.message)
@@ -82,4 +82,10 @@ class CloudAsyncError(CloudApiException):
 class CloudTimeoutError(CloudApiException):
     """Thrown when running in synchronized/blocking mode, and the request times out."""
 
-    pass
+    def __init__(self, message, reason=None, status=0):
+        """Initialize CloudApiException class"""
+        super(CloudTimeoutError, self).__init__(message, reason=reason, status=status)
+
+    def __str__(self):
+        """Print the exception"""
+        return self.message
