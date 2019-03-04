@@ -159,8 +159,6 @@ class DeviceDirectoryAPI(BaseAPI):
         :rtype: Device
         """
         api = self._get_api(device_directory.DefaultApi)
-        if "device_execution_mode" not in kwargs:
-            kwargs.update({"device_execution_mode": 1})
         device = Device._create_request_map(kwargs)
         device = DeviceData(**device)
         return Device(api.device_create(device))

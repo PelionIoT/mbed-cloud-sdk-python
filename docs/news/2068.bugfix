@@ -1,0 +1,1 @@
+ DeviceDirectoryAPI add_device will now default the device_execution_mode to 0 when not defined (as per REST API behaviour)
