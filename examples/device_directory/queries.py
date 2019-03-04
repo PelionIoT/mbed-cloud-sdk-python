@@ -18,7 +18,6 @@
 from mbed_cloud import DeviceDirectoryAPI
 import random
 import string
-import uuid
 
 
 def _id_generator(size=6, chars=string.ascii_uppercase + string.digits):
@@ -33,7 +32,7 @@ def _main():
         print(e)
 
     # Create a new query
-    new_query = api.add_query("test_filter", {'device_id': {'$eq': str(uuid.uuid4())}})
+    new_query = api.add_query("test_filter", {'device_class': {'$eq': 'embedded'}})
     print("\nCreated new query: %r" % (new_query.name))
 
     # Delete same query
@@ -42,20 +41,21 @@ def _main():
 
     # Create more complex query
     print("Creating complex query")
-    new_c_query = api.add_query("complex_test_query %s" % _id_generator(), {
-        'device_id': {'$eq': str(uuid.uuid4())},
-        'auto_update': {'$eq': True},
+    random_id = _id_generator()
+    new_c_query = api.add_query("complex_test_query %s" % random_id, {
         'state': {'$eq': 'bootstrapped'},
         'device_class': {'$eq': 'embedded'},
         'serial_number': {'$eq': '1234'},
         'vendor_id': {'$eq': 'Arm'},
         'description': {'$eq': 'Loreum ipsum'},
-        'device_name': {'$eq': 'DeviceName'},
         'custom_attributes': {
             'customA': {'$eq': 'SomethingA'},
             'customB': {'$eq': 'Something B'}
         }
     })
+
+    # Rename of the query
+    api.update_query(new_c_query.id, name="complex_test_query (updated) %s" % random_id)
 
     # Manually get it
     gf = api.get_query(new_c_query.id)
@@ -65,7 +65,6 @@ def _main():
     new_filter_dict['serial_number']['$eq'] = '12345'
     updated_gf = api.update_query(
         query_id=gf.id,
-        name=gf.name,
         filter=new_filter_dict
     )
     # Check it was successful
@@ -74,9 +73,9 @@ def _main():
 
     # Find device using query object
     print("Find devices that are matching the created query")
-    devicesResponse = api.list_devices(filters=updated_gf.filter)
+    devices_response = api.list_devices(filters=updated_gf.filter)
     # Print all devices that are matching provided query
-    print(list(devicesResponse))
+    print(list(devices_response))
 
     # And delete that too
     api.delete_query(new_c_query.id)
