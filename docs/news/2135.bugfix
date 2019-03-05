@@ -1,1 +1,0 @@
-DeviceDirectoryAPI update_query can now be used to change the query name without supplying a filter.

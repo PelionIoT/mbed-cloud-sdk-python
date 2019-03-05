@@ -13,6 +13,22 @@ a list of versions that have been released on PyPI.
 ..
     begin_release_notes
 
+2.0.6 (2019-03-05)
+==================
+
+Bugfixes
+--------
+
+- DeviceDirectoryAPI add_device will now default the device_execution_mode to 0
+  when not defined (as per REST API behaviour) (#2068)
+
+- ConnectAPI set_resource_value_async and set_resource_value will now encode
+  and send integers, not just strings. (#2133)
+
+- DeviceDirectoryAPI update_query can now be used to change the query name
+  without supplying a filter. (#2135)
+
+
 2.0.5 (2019-02-26)
 ==================
 
