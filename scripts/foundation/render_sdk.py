@@ -11,6 +11,7 @@ import copy
 import functools
 import subprocess
 from operator import itemgetter
+from collections import defaultdict
 import jinja2
 
 logging.basicConfig(format='%(asctime)s %(levelname)s %(message)s')
@@ -161,131 +162,98 @@ def sort_parg_kwarg(items):
     return sorted(items, key=lambda x: not bool(x.get('required')))
 
 
-class GenModule:
-    """Container for 'modules' (aka groups from the intermediate file)"""
+class TemplateRenderer(object):
+    """Foundation Interface Template Renderer for jinja2"""
 
-    def __init__(self, name=None, data=None, root=None, target=None):
-        """Init
+    def __init__(self, output_root_dir):
+        """Setup the jinja2 environment
 
-        :param name: name of the module
-        :param data: data to render using template
-        :param root: file path containing this module
+        :param str output_root_dir: Root directory in which to write the Foundation interface.
         """
-        self.name = name
-        self.data = data or {}
-        self.root = root
-        self.target = target
+        self.output_root_dir = output_root_dir
 
+        self.jinja_env = jinja2.Environment(loader=jinja2.FileSystemLoader(TEMPLATE_DIR))
+        self.jinja_env.filters['repr'] = repr
+        self.jinja_env.filters['pargs_kwargs'] = sort_parg_kwarg
+        self.jinja_env.filters.update(dict(
+            repr=repr,
+            sort_parg_kwarg=sort_parg_kwarg,
+            to_snake=to_snake_case,
+            to_pascal=to_pascal_case,
+        ))
 
-class FileMap:
-    """Container for matching rendering of templates into directories
+    def render_template(self, template_filename, group="", entity="", template_data=None):
+        """Render one or more jinja2 templates.
 
-    Includes iteration over a list of GenModules
-    """
+        The output filename is relative to the `output_root_dir` defined in the class instance but is also defined by
+        the `template_filename`. The `template_filename` should be interspersed with `.` to indicate subdirectories.
 
-    def __init__(self, jinja_env, output_dir, template, target=None, per_module=None):
-        """Init
+        Two place holders are also supported in the template filename:
+        - `group`: which will be replaced by the `group` parameter
+        - `entity`: which will be replaced by the `entity` parameter
 
-        :param jinja_env:
-        :param output_dir:
-        :param template:
-        :param target:
-        :param per_module:
+        :param str template_filename: name of template to render, this also defines the output path and filename.
+        :param str group: This should be supplied when the template filename contains `group` .
+        :param str entity: This should be supplied when the template filename contains `entity`.
+        :param str template_data: Data to pass to the template.
         """
-        self.jinja_env = jinja_env
-        self.output_dir = output_dir
-        self.target = target or template.replace('jinja2', 'py')
-        self.template = self.jinja_env.get_template(template)
-        self.per_module = per_module or [GenModule()]
+        template = self.jinja_env.get_template(template_filename)
 
-    def run(self, config):
-        """Use self.template to write a file in each GenModule directory
+        # Remove template extension (we'll append .py later).
+        output_path = template_filename.replace(".jinja2", "")
 
-        using self.output_dir as a starting point
-        and self.target as the name of the destination file
-        """
-        for gen_module in self.per_module:
-            output_dir = os.path.join(*[
-                p for p in (self.output_dir, gen_module.root, gen_module.name) if p
-            ])
+        # Covert the template filename to a path (which will be relative to the output_root_dir).
+        output_path = output_path.replace(".", os.path.sep)
 
-            if not os.path.exists(output_dir):
-                os.makedirs(output_dir)
+        # If `group` or `entity` exist in the path name replace them with the provided group and entity parameters
+        output_path = output_path.replace("group", group)
+        output_path = output_path.replace("entity", entity)
 
-            output = os.path.join(output_dir, gen_module.target or self.target)
+        # Combine the root directory with the directory defined by the template filename
+        output_path = os.path.join(self.output_root_dir, output_path) + ".py"
 
-            logger.info("Rendering '%s' to '%s'", self.template, output)
-
-            rendered = self.template.render(gen_module.data or config)
-
-            with open(output, 'w') as fh:
-                fh.write(rendered)
+        logger.info("Rendering template from '%s' to '%s'", template_filename, output_path)
+        rendered = template.render(template_data)
+        with open(output_path, "w") as output_fh:
+            output_fh.write(rendered)
 
 
 def render_foundation_sdk(python_sdk_def_dict, output_dir):
-    """Render the Foundation SDK using the jinja templates
+    """Render the Foundation interface using the jinja templates
 
     :param dict python_sdk_def_dict: SDK definitions dictionary post processed for Python
     :param str output_dir: Directory in which the SDK generation should be written.
-    :return:
     """
-    jinja_env = jinja2.Environment(
-        loader=jinja2.FileSystemLoader(TEMPLATE_DIR)
-    )
-    jinja_env.filters['repr'] = repr
-    jinja_env.filters['pargs_kwargs'] = sort_parg_kwarg
-    jinja_env.filters.update(dict(
-        repr=repr,
-        sort_parg_kwarg=sort_parg_kwarg,
-        to_snake=to_snake_case,
-        to_pascal=to_pascal_case,
-    ))
+    renderer = TemplateRenderer(output_dir)
 
-    generation_root = '_modules'
-    generation_dir = os.path.join(output_dir, generation_root)
+    # Create a python file for each entity
+    for entity in python_sdk_def_dict.get("entities", []):
+        renderer.render_template("_modules.group.entity.jinja2",
+                                 group=entity['group_id'],
+                                 entity=entity['_key'],
+                                 template_data={'entities': [entity]})
 
-    sub_modules = [
-        GenModule(
-            name=to_snake_case(group['_key']),
-            root=generation_root,
-            data=group) for group in python_sdk_def_dict.get('groups')
-    ]
-    entity_modules = [
-        GenModule(name=None,
-                  root=os.path.join(generation_root, to_snake_case(e['group_id'])),
-                  data=e) for e in python_sdk_def_dict.get('entities')
-    ]
-    src_entity_modules = [
-        GenModule(name=None,
-                  root=os.path.join(generation_root, to_snake_case(e['group_id'])),
-                  data={'entities': [e]},
-                  target=to_snake_case(e['_key']) + '.py') for e in python_sdk_def_dict.get('entities')
-    ]
-    enum_modules = [
-        GenModule(
-            # name='enums',
-            root=os.path.join(generation_root, to_snake_case(g['_key'])),
-            data=dict(enums=[e for e in python_sdk_def_dict.get('enums') if e['group_id'] == g['_key']])
-        ) for g in python_sdk_def_dict.get('groups')
-    ]
+    # Create a init file to allow an entity to be imported without defining the group
+    renderer.render_template("entities.__init__.jinja2", template_data=python_sdk_def_dict)
 
-    enum_dir = os.path.join(output_dir, 'enums')
-    entities_dir = os.path.join(output_dir, 'entities')
+    # Create a init file for each group of entities
+    for group in python_sdk_def_dict.get("groups", []):
+        renderer.render_template("_modules.group.__init__.jinja2", group=group['_key'], template_data=group)
 
-    file_maps = [
-        FileMap(jinja_env, generation_dir, 'factory.jinja2', '_factory.py'),
-        FileMap(jinja_env, enum_dir, 'enums__init__.jinja2', '__init__.py'),
-        FileMap(jinja_env, entities_dir, 'entities__init__.jinja2', '__init__.py'),
+    # Create a init file to allow an enum to be imported without defining the group
+    renderer.render_template("enums.__init__.jinja2", template_data=python_sdk_def_dict)
 
-        # layed out in the module structure
-        FileMap(jinja_env, output_dir, 'entity.jinja2', per_module=src_entity_modules),
-        FileMap(jinja_env, output_dir, 'enum.jinja2', 'enums.py', per_module=enum_modules),
-        FileMap(jinja_env, output_dir, '__init__.jinja2', per_module=sub_modules),
-        FileMap(jinja_env, output_dir, '__init__.jinja2', per_module=entity_modules),
-    ]
+    # Collect the enum definitions in a list per group
+    enum_data = defaultdict(list)
+    for enum in python_sdk_def_dict.get("enums", []):
+        enum_data[enum['group_id']].append(enum)
 
-    for file_map in file_maps:
-        file_map.run(python_sdk_def_dict)
+    # Create an enum definition file for each group of entities
+    for group, enum_list in enum_data.items():
+        renderer.render_template("_modules.group.enums.jinja2", group=group, template_data={"enums": enum_list})
+
+    # Create the factory which is used by the SDK instance to create entity instances
+    renderer.render_template("_modules._factory.jinja2", template_data=python_sdk_def_dict)
 
 
 def count_param_in(fields):

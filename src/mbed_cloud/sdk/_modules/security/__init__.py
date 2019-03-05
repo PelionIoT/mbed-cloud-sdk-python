@@ -1,5 +1,5 @@
 """
-Provides structure to expose VerificationResponse functionality grouped as a module.
+Provides structure to expose Security functionality grouped as a module.
 
 This file is auto-generated from API Specifications.
 """

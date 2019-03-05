@@ -39,7 +39,9 @@ class Field(object):
 
     def set(self, value):
         if not isinstance(value, self._valid_types):
-            raise TypeError("%r is not one of the valid types %s" % (value, self._valid_types))
+            raise TypeError(
+                "%r is not one of the valid types %s" % (value, self._valid_types)
+            )
         if value is not None and self._enum and value not in self._enum.values:
             LOG.warning(
                 "Unknown enum value '%s' received from API for %s", value, self._enum
