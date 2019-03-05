@@ -206,11 +206,16 @@ class TemplateRenderer(object):
         output_path = output_path.replace(".", os.path.sep)
 
         # If `group` or `entity` exist in the path name replace them with the provided group and entity parameters
-        output_path = output_path.replace("group", group)
-        output_path = output_path.replace("entity", entity)
+        output_path = output_path.replace("group", to_snake_case(group))
+        output_path = output_path.replace("entity", to_snake_case(entity))
 
         # Combine the root directory with the directory defined by the template filename
         output_path = os.path.join(self.output_root_dir, output_path) + ".py"
+
+        output_dir = os.path.dirname(output_path)
+        if not os.path.exists(output_dir):
+            logger.info("Creating subdirectory '%s'", output_dir)
+            os.makedirs(output_dir)
 
         logger.info("Rendering template from '%s' to '%s'", template_filename, output_path)
         rendered = template.render(template_data)
@@ -228,20 +233,20 @@ def render_foundation_sdk(python_sdk_def_dict, output_dir):
 
     # Create a python file for each entity
     for entity in python_sdk_def_dict.get("entities", []):
-        renderer.render_template("_modules.group.entity.jinja2",
+        renderer.render_template("entities.group.entity.jinja2",
                                  group=entity['group_id'],
                                  entity=entity['_key'],
                                  template_data={'entities': [entity]})
 
-    # Create a init file to allow an entity to be imported without defining the group
-    renderer.render_template("entities.__init__.jinja2", template_data=python_sdk_def_dict)
-
     # Create a init file for each group of entities
     for group in python_sdk_def_dict.get("groups", []):
-        renderer.render_template("_modules.group.__init__.jinja2", group=group['_key'], template_data=group)
+        renderer.render_template("entities.group.__init__.jinja2", group=group['_key'], template_data=group)
 
-    # Create a init file to allow an enum to be imported without defining the group
-    renderer.render_template("enums.__init__.jinja2", template_data=python_sdk_def_dict)
+    # Create a init file at the group level
+    renderer.render_template("entities.__init__.jinja2", template_data=python_sdk_def_dict)
+
+    # Create a init file to allow an entity to be imported without defining the group
+    renderer.render_template("__init__.jinja2", template_data=python_sdk_def_dict)
 
     # Collect the enum definitions in a list per group
     enum_data = defaultdict(list)
@@ -250,10 +255,13 @@ def render_foundation_sdk(python_sdk_def_dict, output_dir):
 
     # Create an enum definition file for each group of entities
     for group, enum_list in enum_data.items():
-        renderer.render_template("_modules.group.enums.jinja2", group=group, template_data={"enums": enum_list})
+        renderer.render_template("entities.group.enums.jinja2", group=group, template_data={"enums": enum_list})
+
+    # Create a init file to allow an enum to be imported without defining the group
+    renderer.render_template("enums.__init__.jinja2", template_data=python_sdk_def_dict)
 
     # Create the factory which is used by the SDK instance to create entity instances
-    renderer.render_template("_modules._factory.jinja2", template_data=python_sdk_def_dict)
+    renderer.render_template("entities._factory.jinja2", template_data=python_sdk_def_dict)
 
 
 def count_param_in(fields):
@@ -357,7 +365,7 @@ def main():
     parser.add_argument("-p", "--python-sdk-def-file", type=str,
                         help="Provide an file path to save the post processed Python specific definition file as YAML.")
     parser.add_argument("--clean-output-dir", action='store_true',
-                        help="Delete all files in the output subdirectories before writing files.")
+                        help="Delete all files in the entity subdirectory to ensure old files are purged.")
     parser.add_argument("-v", "--verbose", action='count', default=0,
                         help="Logging verbosity, by default only errors are logged.")
 
@@ -379,13 +387,10 @@ def main():
         raise parser.error("The current directory cannot be cleaned, please specify a different output directory.")
 
     # Clean output directory if requested and it is needed
-    if arguments.clean_output_dir and os.path.exists(arguments.output_dir):
-        logger.info("Removing directory '%s'", arguments.output_dir)
-        shutil.rmtree(arguments.output_dir)
-    # Create output directory if it doesn't exist
-    if not os.path.exists(arguments.output_dir):
-        logger.info("Creating directory '%s'", arguments.output_dir)
-        os.makedirs(arguments.output_dir)
+    entity_dir = os.path.join(arguments.output_dir, "entities")
+    if arguments.clean_output_dir and os.path.exists(entity_dir):
+        logger.info("Removing directory '%s'", entity_dir)
+        shutil.rmtree(entity_dir)
 
     # Process the generic SDK definition file to create the specialised Python specifiv definition file
     python_sdk_def_dict = post_process_definition_file(arguments.sdk_def_file)

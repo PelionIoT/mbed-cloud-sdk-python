@@ -226,9 +226,11 @@ class Account(Entity):
 
         # inline imports for avoiding circular references and bulk imports
 
-        from mbed_cloud.sdk._modules.accounts.parent_account import ParentAccount
-        from mbed_cloud.sdk._modules.accounts.password_policy import PasswordPolicy
-        from mbed_cloud.sdk._modules.accounts.policy import Policy
+        from mbed_cloud.foundation.entities.accounts.parent_account import ParentAccount
+        from mbed_cloud.foundation.entities.accounts.password_policy import (
+            PasswordPolicy,
+        )
+        from mbed_cloud.foundation.entities.accounts.policy import Policy
 
         # fields
         self._address_line1 = fields.StringField(value=address_line1)

@@ -14,8 +14,8 @@ from mbed_cloud.sdk.common import fields
 from mbed_cloud.sdk import enums
 
 
-class User(Entity):
-    """Represents the `User` entity in Mbed Cloud"""
+class SubtenantUser(Entity):
+    """Represents the `SubtenantUser` entity in Mbed Cloud"""
 
     # all fields available on this entity
     _fieldnames = [
@@ -78,7 +78,7 @@ class User(Entity):
         updated_at=None,
         username=None,
     ):
-        """Creates a local `User` instance
+        """Creates a local `SubtenantUser` instance
 
         Parameters can be supplied on creation of the instance or given by
         setting the properties on the instance after creation.
@@ -87,7 +87,7 @@ class User(Entity):
         on the entity. For details on when they are required please see the
         documentation for the setter method.
 
-        :param account_id: The ID of the account.
+        :param account_id: (Required) The ID of the account.
         :type account_id: str
         :param active_sessions: List of active user sessions.
         :type active_sessions: list
@@ -154,9 +154,9 @@ class User(Entity):
 
         # inline imports for avoiding circular references and bulk imports
 
-        from mbed_cloud.sdk._modules.accounts.active_session import ActiveSession
-        from mbed_cloud.sdk._modules.accounts.login_history import LoginHistory
-        from mbed_cloud.sdk._modules.accounts.login_profile import LoginProfile
+        from mbed_cloud.foundation.entities.accounts.active_session import ActiveSession
+        from mbed_cloud.foundation.entities.accounts.login_history import LoginHistory
+        from mbed_cloud.foundation.entities.accounts.login_profile import LoginProfile
 
         # fields
         self._account_id = fields.StringField(value=account_id)
@@ -180,7 +180,9 @@ class User(Entity):
         self._password = fields.StringField(value=password)
         self._password_changed_time = fields.IntegerField(value=password_changed_time)
         self._phone_number = fields.StringField(value=phone_number)
-        self._status = fields.StringField(value=status, enum=enums.UserStatusEnum)
+        self._status = fields.StringField(
+            value=status, enum=enums.SubtenantUserStatusEnum
+        )
         self._terms_accepted = fields.BooleanField(value=terms_accepted)
         self._totp_scratch_codes = fields.ListField(value=totp_scratch_codes)
         self._two_factor_authentication = fields.BooleanField(
@@ -203,6 +205,8 @@ class User(Entity):
     @account_id.setter
     def account_id(self, value):
         """Set value of `account_id`
+
+        This field must be set when creating a new SubtenantUser Entity.
 
         :param value: value to set
         :type value: str
@@ -326,7 +330,7 @@ class User(Entity):
     def email(self, value):
         """Set value of `email`
 
-        This field must be set when creating a new User Entity.
+        This field must be set when creating a new SubtenantUser Entity.
 
         :param value: value to set
         :type value: str
@@ -391,7 +395,7 @@ class User(Entity):
     def id(self, value):
         """Set value of `id`
 
-        This field must be set when updating or deleting an existing User Entity.
+        This field must be set when updating or deleting an existing SubtenantUser Entity.
 
         :param value: value to set
         :type value: str
@@ -678,17 +682,18 @@ class User(Entity):
         """Create a new user.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/users
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/users
         
-        :param action: Action, either 'create' or 'invite'.
+        :param action: Create or invite user.
         :type action: str
         
-        :rtype: User
+        :rtype: SubtenantUser
         """
 
         return self._client.call_api(
             method="post",
-            path="/v3/users",
+            path="/v3/accounts/{account_id}/users",
+            path_params={"account_id": self._account_id.to_api()},
             query_params={"action": fields.StringField(action).to_api()},
             body_params={
                 "address": self._address.to_api(),
@@ -708,103 +713,37 @@ class User(Entity):
         """Delete a user.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/users/{user_id}
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/users/{user_id}
         
-        :rtype: User
+        :rtype: SubtenantUser
         """
 
         return self._client.call_api(
             method="delete",
-            path="/v3/users/{user_id}",
-            path_params={"user_id": self._id.to_api()},
+            path="/v3/accounts/{account_id}/users/{user_id}",
+            path_params={
+                "account_id": self._account_id.to_api(),
+                "user_id": self._id.to_api(),
+            },
             unpack=self,
         )
 
-    def list(self, include=None, max_results=None, page_size=None, order=None):
-        """Get the details of all users.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/users
-        
-        :param include: Comma separated additional data to return. Currently supported:
-            total_count
-        :type include: str
-        
-        :param max_results: Total maximum number of results to retrieve
-        :type max_results: int
-            
-        :param page_size: The number of results to return (2-1000), default is 50.
-        :type page_size: int
-        
-        :param order: The order of the records based on creation time, ASC or DESC; by
-            default ASC
-        :type order: str
-        
-        :return: An iterator object which yields instances of an entity.
-        :rtype: mbed_cloud.pagination.PaginatedResponse(User)
-        """
-
-        from mbed_cloud.sdk.common._custom_methods import paginate
-        from mbed_cloud.sdk.entities import User
-
-        return paginate(
-            self=self,
-            foreign_key=User,
-            include=include,
-            max_results=max_results,
-            page_size=page_size,
-            order=order,
-            wraps=self._paginate_list,
-        )
-
-    def _paginate_list(self, after=None, include=None, limit=50, order="ASC"):
-        """Get the details of all users.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/users
-        
-        :param after: The entity ID to fetch after the given one.
-        :type after: str
-        
-        :param include: Comma separated additional data to return. Currently supported:
-            total_count
-        :type include: str
-        
-        :param limit: The number of results to return (2-1000), default is 50.
-        :type limit: int
-        
-        :param order: The order of the records based on creation time, ASC or DESC; by
-            default ASC
-        :type order: str
-        
-        :rtype: mbed_cloud.pagination.PaginatedResponse
-        """
-
-        return self._client.call_api(
-            method="get",
-            path="/v3/users",
-            query_params={
-                "after": fields.StringField(after).to_api(),
-                "include": fields.StringField(include).to_api(),
-                "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(order, enum=enums.UserOrderEnum).to_api(),
-            },
-            unpack=False,
-        )
-
     def read(self):
-        """Details of a user.
+        """Details of the user.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/users/{user_id}
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/users/{user_id}
         
-        :rtype: User
+        :rtype: SubtenantUser
         """
 
         return self._client.call_api(
             method="get",
-            path="/v3/users/{user_id}",
-            path_params={"user_id": self._id.to_api()},
+            path="/v3/accounts/{account_id}/users/{user_id}",
+            path_params={
+                "account_id": self._account_id.to_api(),
+                "user_id": self._id.to_api(),
+            },
             unpack=self,
         )
 
@@ -812,14 +751,18 @@ class User(Entity):
         """Update user details.
 
         api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/users/{user_id}
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/users/{user_id}
         
-        :rtype: User
+        :rtype: SubtenantUser
         """
 
         return self._client.call_api(
             method="put",
-            path="/v3/users/{user_id}",
+            path="/v3/accounts/{account_id}/users/{user_id}",
+            path_params={
+                "account_id": self._account_id.to_api(),
+                "user_id": self._id.to_api(),
+            },
             body_params={
                 "address": self._address.to_api(),
                 "full_name": self._full_name.to_api(),
@@ -830,6 +773,24 @@ class User(Entity):
                 "is_totp_enabled": self._two_factor_authentication.to_api(),
                 "username": self._username.to_api(),
             },
-            path_params={"user_id": self._id.to_api()},
+            unpack=self,
+        )
+
+    def validate_email(self):
+        """Validate the user email.
+
+        api documentation:
+        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/users/{user_id}/validate-email
+        
+        :rtype: SubtenantUser
+        """
+
+        return self._client.call_api(
+            method="post",
+            path="/v3/accounts/{account_id}/users/{user_id}/validate-email",
+            path_params={
+                "account_id": self._account_id.to_api(),
+                "user_id": self._id.to_api(),
+            },
             unpack=self,
         )

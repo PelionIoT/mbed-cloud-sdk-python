@@ -76,7 +76,7 @@ class SubtenantUserInvitation(Entity):
 
         # inline imports for avoiding circular references and bulk imports
 
-        from mbed_cloud.sdk._modules.accounts.login_profile import LoginProfile
+        from mbed_cloud.foundation.entities.accounts.login_profile import LoginProfile
 
         # fields
         self._account_id = fields.StringField(value=account_id)

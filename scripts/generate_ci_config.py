@@ -201,9 +201,9 @@ def new_foundation_gen():
       - run:
           name: Commit code changes (cancel this build if commit made)
           command: |-
-              git add -v src/mbed_cloud/sdk/_modules/\*.py
-              git add -v src/mbed_cloud/sdk/entities/\*.py
-              git add -v src/mbed_cloud/sdk/enums/\*.py
+              git add -v src/mbed_cloud/foundation/entities/\*.py
+              git add -v src/mbed_cloud/foundation/enums/\*.py
+              git add -v src/mbed_cloud/foundation/__init__.py
               git commit --message "Auto-generated code" || FILES_CHANGED=True
               git push -q https://${GITHUB_TOKEN}@github.com/ARMmbed/${CIRCLE_PROJECT_REPONAME}.git ${CIRCLE_BRANCH}
               if [ -z "$FILES_CHANGED" ]; then curl -X POST https://circleci.com/api/v1.1/project/github/ARMmbed/${CIRCLE_PROJECT_REPONAME}/${CIRCLE_BUILD_NUM}/cancel?circle-token=${DOCS_CIRCLE_CI_TOKEN}; fi

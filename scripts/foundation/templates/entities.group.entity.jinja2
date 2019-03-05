@@ -56,7 +56,7 @@ class {{ entity._key|to_pascal }}(Entity):
 
         # inline imports for avoiding circular references and bulk imports
         {% for field in entity.fields %}{% set fkey = (field.foreign_key or (field['items'] and field['items'].foreign_key)) %}{% if fkey and fkey.entity != entity._key%}
-        from mbed_cloud.sdk._modules.{{ fkey.group|to_snake }}.{{ fkey.entity|to_snake }} import {{ fkey.entity|to_pascal }}{% endif %}{% endfor %}
+        from mbed_cloud.foundation.entities.{{ fkey.group|to_snake }}.{{ fkey.entity|to_snake }} import {{ fkey.entity|to_pascal }}{% endif %}{% endfor %}
 
         # fields
         {% for field in entity.fields %}self._{{field._key|to_snake}} = fields.{{field.python_field}}(
