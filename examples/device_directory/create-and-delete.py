@@ -31,7 +31,8 @@ def _main():
     print("Creating new device...")
     device = {
         "certificate_issuer_id": _id_generator(12),
-        "certificate_fingerprint": _id_generator(12)
+        "certificate_fingerprint": _id_generator(12),
+        "device_execution_mode": 1,
     }
     new_device = api.add_device(**device)
     print("Successfully created device with id: %r" % new_device.id)
