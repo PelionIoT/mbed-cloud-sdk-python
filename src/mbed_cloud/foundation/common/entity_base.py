@@ -1,4 +1,4 @@
-from mbed_cloud.sdk.common import fields
+from mbed_cloud.foundation.common import fields
 
 
 class Entity(object):

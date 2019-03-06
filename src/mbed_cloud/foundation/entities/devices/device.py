@@ -9,9 +9,9 @@ from __future__ import unicode_literals
 from builtins import str  # noqa
 from builtins import super
 
-from mbed_cloud.sdk.common.entity import Entity
-from mbed_cloud.sdk.common import fields
-from mbed_cloud.sdk import enums
+from mbed_cloud.foundation.common.entity_base import Entity
+from mbed_cloud.foundation.common import fields
+from mbed_cloud.foundation import enums
 
 
 class Device(Entity):
@@ -888,8 +888,8 @@ class Device(Entity):
         :rtype: mbed_cloud.pagination.PaginatedResponse(Device)
         """
 
-        from mbed_cloud.sdk.common._custom_methods import paginate
-        from mbed_cloud.sdk.entities import Device
+        from mbed_cloud.foundation._custom_methods import paginate
+        from mbed_cloud.foundation import Device
 
         return paginate(
             self=self,
@@ -966,7 +966,7 @@ class Device(Entity):
         :rtype: CertificateEnrollment
         """
 
-        from mbed_cloud.sdk.entities import CertificateEnrollment
+        from mbed_cloud.foundation import CertificateEnrollment
 
         return self._client.call_api(
             method="post",

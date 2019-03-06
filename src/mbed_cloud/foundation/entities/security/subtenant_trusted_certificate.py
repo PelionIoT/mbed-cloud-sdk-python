@@ -9,9 +9,9 @@ from __future__ import unicode_literals
 from builtins import str  # noqa
 from builtins import super
 
-from mbed_cloud.sdk.common.entity import Entity
-from mbed_cloud.sdk.common import fields
-from mbed_cloud.sdk import enums
+from mbed_cloud.foundation.common.entity_base import Entity
+from mbed_cloud.foundation.common import fields
+from mbed_cloud.foundation import enums
 
 
 class SubtenantTrustedCertificate(Entity):
@@ -301,7 +301,7 @@ class SubtenantTrustedCertificate(Entity):
         :rtype: bool
         """
 
-        from mbed_cloud.sdk.common._custom_methods import (
+        from mbed_cloud.foundation._custom_methods import (
             is_developer_certificate_getter,
         )
 
@@ -317,7 +317,7 @@ class SubtenantTrustedCertificate(Entity):
         :type value: bool
         """
 
-        from mbed_cloud.sdk.common._custom_methods import (
+        from mbed_cloud.foundation._custom_methods import (
             is_developer_certificate_setter,
         )
 
@@ -568,7 +568,7 @@ class SubtenantTrustedCertificate(Entity):
         :rtype: DeveloperCertificate
         """
 
-        from mbed_cloud.sdk.entities import DeveloperCertificate
+        from mbed_cloud.foundation import DeveloperCertificate
 
         return self._client.call_api(
             method="get",

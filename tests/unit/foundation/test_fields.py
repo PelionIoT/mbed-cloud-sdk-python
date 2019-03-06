@@ -7,7 +7,7 @@ import datetime
 from tests.common import BaseCase
 
 # Units under test
-from mbed_cloud.sdk.common import fields
+from mbed_cloud.foundation.common import fields
 
 
 class TZ(datetime.tzinfo):

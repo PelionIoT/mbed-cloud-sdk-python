@@ -9,9 +9,9 @@ from __future__ import unicode_literals
 from builtins import str  # noqa
 from builtins import super
 
-from mbed_cloud.sdk.common.entity import Entity
-from mbed_cloud.sdk.common import fields
-from mbed_cloud.sdk import enums
+from mbed_cloud.foundation.common.entity_base import Entity
+from mbed_cloud.foundation.common import fields
+from mbed_cloud.foundation import enums
 
 
 class DeviceEnrollmentBulkCreate(Entity):
@@ -348,7 +348,7 @@ class DeviceEnrollmentBulkCreate(Entity):
         :rtype: file
         """
 
-        from mbed_cloud.sdk.common._custom_methods import download_errors_report_file
+        from mbed_cloud.foundation._custom_methods import download_errors_report_file
 
         return download_errors_report_file(self=self, foreign_key=self.__class__)
 
@@ -360,7 +360,7 @@ class DeviceEnrollmentBulkCreate(Entity):
         :rtype: file
         """
 
-        from mbed_cloud.sdk.common._custom_methods import download_full_report_file
+        from mbed_cloud.foundation._custom_methods import download_full_report_file
 
         return download_full_report_file(self=self, foreign_key=self.__class__)
 

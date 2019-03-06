@@ -9,9 +9,9 @@ from __future__ import unicode_literals
 from builtins import str  # noqa
 from builtins import super
 
-from mbed_cloud.sdk.common.entity import Entity
-from mbed_cloud.sdk.common import fields
-from mbed_cloud.sdk import enums
+from mbed_cloud.foundation.common.entity_base import Entity
+from mbed_cloud.foundation.common import fields
+from mbed_cloud.foundation import enums
 
 
 class CertificateIssuerConfig(Entity):
@@ -262,8 +262,8 @@ class CertificateIssuerConfig(Entity):
         :rtype: mbed_cloud.pagination.PaginatedResponse(CertificateIssuerConfig)
         """
 
-        from mbed_cloud.sdk.common._custom_methods import paginate
-        from mbed_cloud.sdk.entities import CertificateIssuerConfig
+        from mbed_cloud.foundation._custom_methods import paginate
+        from mbed_cloud.foundation import CertificateIssuerConfig
 
         return paginate(
             self=self,
