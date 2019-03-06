@@ -13,7 +13,7 @@ class Entity(object):
         :param kwargs:
         """
         if _client is None:
-            from mbed_cloud.sdk.common.sdk import get_or_create_global_sdk_instance
+            from mbed_cloud.sdk.sdk import get_or_create_global_sdk_instance
 
             _client = get_or_create_global_sdk_instance().client
         self._client = _client

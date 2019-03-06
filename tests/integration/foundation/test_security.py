@@ -10,7 +10,7 @@ from mbed_cloud.sdk.entities import ServerCredentials
 from mbed_cloud.sdk.entities import SubtenantTrustedCertificate
 from mbed_cloud.sdk.entities import TrustedCertificate
 
-from mbed_cloud.sdk.common.exceptions import ApiErrorResponse
+from mbed_cloud.sdk.exceptions import ApiErrorResponse
 
 
 @BaseCase._skip_in_ci

@@ -12,7 +12,7 @@ from mbed_cloud.sdk.entities import SubtenantTrustedCertificate
 from mbed_cloud.sdk.entities import SubtenantUser
 from mbed_cloud.sdk.entities import SubtenantUserInvitation
 
-from mbed_cloud.sdk.common.exceptions import ApiErrorResponse
+from mbed_cloud.sdk.exceptions import ApiErrorResponse
 
 
 def random_string():

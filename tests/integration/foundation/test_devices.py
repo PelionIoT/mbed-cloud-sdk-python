@@ -15,7 +15,7 @@ from mbed_cloud.sdk.enums import DeviceStateEnum
 from mbed_cloud.sdk.enums import DeviceEnrollmentBulkCreateStatusEnum
 from mbed_cloud.sdk.enums import DeviceEnrollmentBulkDeleteStatusEnum
 
-from mbed_cloud.sdk.common.exceptions import ApiErrorResponse
+from mbed_cloud.sdk.exceptions import ApiErrorResponse
 
 
 @BaseCase._skip_in_ci

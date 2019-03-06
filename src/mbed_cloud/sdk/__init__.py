@@ -1,3 +1,3 @@
-from mbed_cloud.sdk.common.exceptions import ApiErrorResponse
-from mbed_cloud.sdk.common.config import Config
-from mbed_cloud.sdk.common.sdk import SDK
+from mbed_cloud.sdk.exceptions import ApiErrorResponse
+from mbed_cloud.sdk.config import Config
+from mbed_cloud.sdk.sdk import SDK
