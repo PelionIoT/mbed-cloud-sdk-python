@@ -4,16 +4,16 @@ import time
 
 from tests.common import BaseCase, CrudMixinTests
 
-from mbed_cloud.sdk.entities import CertificateIssuerConfig
-from mbed_cloud.sdk.entities import Device
-from mbed_cloud.sdk.entities import DeviceEnrollmentBulkCreate
-from mbed_cloud.sdk.entities import DeviceEnrollmentBulkDelete
-from mbed_cloud.sdk.entities import DeviceEnrollment
-from mbed_cloud.sdk.entities import DeviceEvents
+from mbed_cloud.foundation import CertificateIssuerConfig
+from mbed_cloud.foundation import Device
+from mbed_cloud.foundation import DeviceEnrollmentBulkCreate
+from mbed_cloud.foundation import DeviceEnrollmentBulkDelete
+from mbed_cloud.foundation import DeviceEnrollment
+from mbed_cloud.foundation import DeviceEvents
 
-from mbed_cloud.sdk.enums import DeviceStateEnum
-from mbed_cloud.sdk.enums import DeviceEnrollmentBulkCreateStatusEnum
-from mbed_cloud.sdk.enums import DeviceEnrollmentBulkDeleteStatusEnum
+from mbed_cloud.foundation.enums import DeviceStateEnum
+from mbed_cloud.foundation.enums import DeviceEnrollmentBulkCreateStatusEnum
+from mbed_cloud.foundation.enums import DeviceEnrollmentBulkDeleteStatusEnum
 
 from mbed_cloud.sdk.exceptions import ApiErrorResponse
 
@@ -26,15 +26,6 @@ class TestDevice(BaseCase, CrudMixinTests):
     def setUpClass(cls):
         cls.class_under_test = Device
         super(TestDevice, cls).setUpClass()
-
-    def test_hello_world(self):
-        # an example: hello world
-        from mbed_cloud.sdk.entities import Device
-
-        # List the first 10 devices on your Pelion DM account
-        for device in Device().list(max_results=10):
-            print("Hello device %s" % device.name)
-        # end of example
 
     def test_cert_renew(self):
         """Example of renewing a certificate on a device."""

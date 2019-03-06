@@ -30,9 +30,9 @@ class InstanceFactory:
         {% for field in entity.fields if not field.private_field %}:param {{field._key|to_snake}}: {{ (field.description or '')|wordwrap(width=66)|indent(width=12) }}
         :type {{field._key|to_snake}}: {{field.python_type}}
         {% endfor %}
-        :rtype: mbed_cloud.sdk.entities.{{ entity._key|to_pascal }}
+        :rtype: mbed_cloud.foundation.{{ entity._key|to_pascal }}
         """
-        from mbed_cloud.sdk.entities import {{ entity._key|to_pascal }}
+        from mbed_cloud.foundation import {{ entity._key|to_pascal }}
         return {{ entity._key|to_pascal }}(
             _client=self._client,
             {% for field in entity.fields if not field.private_field %}

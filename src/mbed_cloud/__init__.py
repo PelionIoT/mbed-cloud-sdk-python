@@ -27,3 +27,5 @@ from mbed_cloud.connect import ConnectAPI
 from mbed_cloud.device_directory import DeviceDirectoryAPI
 from mbed_cloud.enrollment import EnrollmentAPI
 from mbed_cloud.update import UpdateAPI
+
+from mbed_cloud.sdk.sdk import SDK

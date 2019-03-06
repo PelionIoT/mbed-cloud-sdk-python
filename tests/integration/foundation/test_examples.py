@@ -11,10 +11,30 @@ from mbed_cloud.pagination import PaginatedResponse
 @BaseCase._skip_in_ci
 class TestExamples(BaseCase):
 
+    def test_hello_world(self):
+        # an example: hello world
+        from mbed_cloud.foundation import Device
+
+        # List the first 10 devices on your Pelion Device Management account.
+        for device in Device().list(max_results=10):
+            print("Hello device %s" % device.name)
+        # end of example
+
+    def test_hello_world_with_sdk_instance(self):
+        # an example: hello world with sdk instance
+        from mbed_cloud import SDK
+
+        # Create an instance of the Pelion Device Management SDK
+        pelion_dm_sdk = SDK()
+        # List the first 10 devices on your Pelion DM account
+        for device in pelion_dm_sdk.foundation.device().list(max_results=10):
+            print("Hello device %s" % device.name)
+        # end of example
+
     def test_quick(self):
         # an example: checking account status
-        from mbed_cloud.sdk.entities import Account
-        from mbed_cloud.sdk.enums import AccountStatusEnum
+        from mbed_cloud.foundation import Account
+        from mbed_cloud.foundation.enums import AccountStatusEnum
 
         my_account = Account()
         my_account.me()
@@ -25,7 +45,7 @@ class TestExamples(BaseCase):
 
     def test_listing(self):
         # an example: listing api keys
-        from mbed_cloud.sdk.entities import ApiKey
+        from mbed_cloud.foundation import ApiKey
         all_keys = ApiKey().list()
         all_key_names = [key.name for key in all_keys]
         # end of example
@@ -34,25 +54,25 @@ class TestExamples(BaseCase):
     def test_custom_config(self):
         with self.assertRaises(ApiErrorResponse):
             # an example: using multiple api keys
-            from mbed_cloud.sdk import SDK
+            from mbed_cloud import SDK
             all_users = []
             for account_key in ('ak_1', 'ak_2'):
-                all_users.extend(SDK(api_key=account_key).entities.user().list())
+                all_users.extend(SDK(api_key=account_key).foundation.user().list())
             # end of example
 
     def test_really_custom_config(self):
         # an example: using custom hosts
-        from mbed_cloud.sdk import SDK
+        from mbed_cloud import SDK
         from mbed_cloud.sdk import Config
         config = Config(api_key='ak_1', host='https://example')
-        all_users = SDK(config).entities.user().list()
+        all_users = SDK(config).foundation.user().list()
         # end of example
         self.assertIsInstance(all_users, PaginatedResponse)
 
     def test_custom_api_call(self):
         # an example: custom api call
-        from mbed_cloud.sdk import SDK
-        from mbed_cloud.sdk.entities import User
+        from mbed_cloud import SDK
+        from mbed_cloud.foundation import User
         response = SDK().client.call_api('get', '/v3/users', query_params={'limit': 2})
         # response object from the`requests` library
         for user_data in response.json()['data']:

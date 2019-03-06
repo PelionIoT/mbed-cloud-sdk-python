@@ -163,9 +163,9 @@ class InstanceFactory:
         :param upgraded_at: Time when upgraded to commercial account in UTC format RFC3339.
         :type upgraded_at: datetime
         
-        :rtype: mbed_cloud.sdk.entities.Account
+        :rtype: mbed_cloud.foundation.Account
         """
-        from mbed_cloud.sdk.entities import Account
+        from mbed_cloud.foundation import Account
 
         return Account(
             _client=self._client,
@@ -235,9 +235,9 @@ class InstanceFactory:
         :param user_agent: User Agent header from the login request.
         :type user_agent: str
         
-        :rtype: mbed_cloud.sdk.entities.ActiveSession
+        :rtype: mbed_cloud.foundation.ActiveSession
         """
-        from mbed_cloud.sdk.entities import ActiveSession
+        from mbed_cloud.foundation import ActiveSession
 
         return ActiveSession(
             _client=self._client,
@@ -285,9 +285,9 @@ class InstanceFactory:
         :param updated_at: Last update UTC time RFC3339.
         :type updated_at: datetime
         
-        :rtype: mbed_cloud.sdk.entities.ApiKey
+        :rtype: mbed_cloud.foundation.ApiKey
         """
-        from mbed_cloud.sdk.entities import ApiKey
+        from mbed_cloud.foundation import ApiKey
 
         return ApiKey(
             _client=self._client,
@@ -330,9 +330,9 @@ class InstanceFactory:
         :param updated_at: Update UTC time RFC3339.
         :type updated_at: datetime
         
-        :rtype: mbed_cloud.sdk.entities.CertificateEnrollment
+        :rtype: mbed_cloud.foundation.CertificateEnrollment
         """
-        from mbed_cloud.sdk.entities import CertificateEnrollment
+        from mbed_cloud.foundation import CertificateEnrollment
 
         return CertificateEnrollment(
             _client=self._client,
@@ -382,9 +382,9 @@ class InstanceFactory:
         :param name: Certificate issuer name, unique per account.
         :type name: str
         
-        :rtype: mbed_cloud.sdk.entities.CertificateIssuer
+        :rtype: mbed_cloud.foundation.CertificateIssuer
         """
-        from mbed_cloud.sdk.entities import CertificateIssuer
+        from mbed_cloud.foundation import CertificateIssuer
 
         return CertificateIssuer(
             _client=self._client,
@@ -420,9 +420,9 @@ class InstanceFactory:
         :param updated_at: Updated UTC time RFC3339.
         :type updated_at: datetime
         
-        :rtype: mbed_cloud.sdk.entities.CertificateIssuerConfig
+        :rtype: mbed_cloud.foundation.CertificateIssuerConfig
         """
-        from mbed_cloud.sdk.entities import CertificateIssuerConfig
+        from mbed_cloud.foundation import CertificateIssuerConfig
 
         return CertificateIssuerConfig(
             _client=self._client,
@@ -461,9 +461,9 @@ class InstanceFactory:
             device to provide the security credentials
         :type security_file_content: str
         
-        :rtype: mbed_cloud.sdk.entities.DeveloperCertificate
+        :rtype: mbed_cloud.foundation.DeveloperCertificate
         """
-        from mbed_cloud.sdk.entities import DeveloperCertificate
+        from mbed_cloud.foundation import DeveloperCertificate
 
         return DeveloperCertificate(
             _client=self._client,
@@ -581,9 +581,9 @@ class InstanceFactory:
         :param vendor_id: The device vendor ID.
         :type vendor_id: str
         
-        :rtype: mbed_cloud.sdk.entities.Device
+        :rtype: mbed_cloud.foundation.Device
         """
-        from mbed_cloud.sdk.entities import Device
+        from mbed_cloud.foundation import Device
 
         return Device(
             _client=self._client,
@@ -648,9 +648,9 @@ class InstanceFactory:
         :param id: Enrollment identity.
         :type id: str
         
-        :rtype: mbed_cloud.sdk.entities.DeviceEnrollment
+        :rtype: mbed_cloud.foundation.DeviceEnrollment
         """
-        from mbed_cloud.sdk.entities import DeviceEnrollment
+        from mbed_cloud.foundation import DeviceEnrollment
 
         return DeviceEnrollment(
             _client=self._client,
@@ -708,9 +708,9 @@ class InstanceFactory:
         :param total_count: Total number of enrollment identities found in the input CSV.
         :type total_count: int
         
-        :rtype: mbed_cloud.sdk.entities.DeviceEnrollmentBulkCreate
+        :rtype: mbed_cloud.foundation.DeviceEnrollmentBulkCreate
         """
-        from mbed_cloud.sdk.entities import DeviceEnrollmentBulkCreate
+        from mbed_cloud.foundation import DeviceEnrollmentBulkCreate
 
         return DeviceEnrollmentBulkCreate(
             _client=self._client,
@@ -771,9 +771,9 @@ class InstanceFactory:
         :param total_count: Total number of enrollment identities found in the input CSV.
         :type total_count: int
         
-        :rtype: mbed_cloud.sdk.entities.DeviceEnrollmentBulkDelete
+        :rtype: mbed_cloud.foundation.DeviceEnrollmentBulkDelete
         """
-        from mbed_cloud.sdk.entities import DeviceEnrollmentBulkDelete
+        from mbed_cloud.foundation import DeviceEnrollmentBulkDelete
 
         return DeviceEnrollmentBulkDelete(
             _client=self._client,
@@ -828,9 +828,9 @@ class InstanceFactory:
         :param state_change: 
         :type state_change: bool
         
-        :rtype: mbed_cloud.sdk.entities.DeviceEvents
+        :rtype: mbed_cloud.foundation.DeviceEvents
         """
-        from mbed_cloud.sdk.entities import DeviceEvents
+        from mbed_cloud.foundation import DeviceEvents
 
         return DeviceEvents(
             _client=self._client,
@@ -859,9 +859,9 @@ class InstanceFactory:
         :param user_agent: User Agent header from the login request.
         :type user_agent: str
         
-        :rtype: mbed_cloud.sdk.entities.LoginHistory
+        :rtype: mbed_cloud.foundation.LoginHistory
         """
-        from mbed_cloud.sdk.entities import LoginHistory
+        from mbed_cloud.foundation import LoginHistory
 
         return LoginHistory(
             _client=self._client,
@@ -879,9 +879,9 @@ class InstanceFactory:
         :param name: Name of the identity provider.
         :type name: str
         
-        :rtype: mbed_cloud.sdk.entities.LoginProfile
+        :rtype: mbed_cloud.foundation.LoginProfile
         """
-        from mbed_cloud.sdk.entities import LoginProfile
+        from mbed_cloud.foundation import LoginProfile
 
         return LoginProfile(_client=self._client, id=id, name=name)
 
@@ -897,9 +897,9 @@ class InstanceFactory:
         :param id: The ID of the parent account
         :type id: str
         
-        :rtype: mbed_cloud.sdk.entities.ParentAccount
+        :rtype: mbed_cloud.foundation.ParentAccount
         """
-        from mbed_cloud.sdk.entities import ParentAccount
+        from mbed_cloud.foundation import ParentAccount
 
         return ParentAccount(
             _client=self._client, admin_email=admin_email, admin_name=admin_name, id=id
@@ -911,9 +911,9 @@ class InstanceFactory:
         :param minimum_length: Minimum length for the password. A number between 8 and 512.
         :type minimum_length: str
         
-        :rtype: mbed_cloud.sdk.entities.PasswordPolicy
+        :rtype: mbed_cloud.foundation.PasswordPolicy
         """
-        from mbed_cloud.sdk.entities import PasswordPolicy
+        from mbed_cloud.foundation import PasswordPolicy
 
         return PasswordPolicy(_client=self._client, minimum_length=minimum_length)
 
@@ -935,9 +935,9 @@ class InstanceFactory:
         :param resource: Resource that is protected by this policy.
         :type resource: str
         
-        :rtype: mbed_cloud.sdk.entities.Policy
+        :rtype: mbed_cloud.foundation.Policy
         """
-        from mbed_cloud.sdk.entities import Policy
+        from mbed_cloud.foundation import Policy
 
         return Policy(
             _client=self._client,
@@ -964,9 +964,9 @@ class InstanceFactory:
         :param server_uri: Server URI to which the client needs to connect to.
         :type server_uri: str
         
-        :rtype: mbed_cloud.sdk.entities.ServerCredentials
+        :rtype: mbed_cloud.foundation.ServerCredentials
         """
-        from mbed_cloud.sdk.entities import ServerCredentials
+        from mbed_cloud.foundation import ServerCredentials
 
         return ServerCredentials(
             _client=self._client,
@@ -1034,9 +1034,9 @@ class InstanceFactory:
         :param validity: Expiration time in UTC formatted as RFC3339.
         :type validity: datetime
         
-        :rtype: mbed_cloud.sdk.entities.SubtenantTrustedCertificate
+        :rtype: mbed_cloud.foundation.SubtenantTrustedCertificate
         """
-        from mbed_cloud.sdk.entities import SubtenantTrustedCertificate
+        from mbed_cloud.foundation import SubtenantTrustedCertificate
 
         return SubtenantTrustedCertificate(
             _client=self._client,
@@ -1149,9 +1149,9 @@ class InstanceFactory:
             characters.
         :type username: str
         
-        :rtype: mbed_cloud.sdk.entities.SubtenantUser
+        :rtype: mbed_cloud.foundation.SubtenantUser
         """
-        from mbed_cloud.sdk.entities import SubtenantUser
+        from mbed_cloud.foundation import SubtenantUser
 
         return SubtenantUser(
             _client=self._client,
@@ -1211,9 +1211,9 @@ class InstanceFactory:
         :param user_id: The ID of the invited user.
         :type user_id: str
         
-        :rtype: mbed_cloud.sdk.entities.SubtenantUserInvitation
+        :rtype: mbed_cloud.foundation.SubtenantUserInvitation
         """
-        from mbed_cloud.sdk.entities import SubtenantUserInvitation
+        from mbed_cloud.foundation import SubtenantUserInvitation
 
         return SubtenantUserInvitation(
             _client=self._client,
@@ -1285,9 +1285,9 @@ class InstanceFactory:
         :param validity: Expiration time in UTC formatted as RFC3339.
         :type validity: datetime
         
-        :rtype: mbed_cloud.sdk.entities.TrustedCertificate
+        :rtype: mbed_cloud.foundation.TrustedCertificate
         """
-        from mbed_cloud.sdk.entities import TrustedCertificate
+        from mbed_cloud.foundation import TrustedCertificate
 
         return TrustedCertificate(
             _client=self._client,
@@ -1400,9 +1400,9 @@ class InstanceFactory:
             characters.
         :type username: str
         
-        :rtype: mbed_cloud.sdk.entities.User
+        :rtype: mbed_cloud.foundation.User
         """
-        from mbed_cloud.sdk.entities import User
+        from mbed_cloud.foundation import User
 
         return User(
             _client=self._client,
@@ -1462,9 +1462,9 @@ class InstanceFactory:
         :param user_id: The ID of the invited user.
         :type user_id: str
         
-        :rtype: mbed_cloud.sdk.entities.UserInvitation
+        :rtype: mbed_cloud.foundation.UserInvitation
         """
-        from mbed_cloud.sdk.entities import UserInvitation
+        from mbed_cloud.foundation import UserInvitation
 
         return UserInvitation(
             _client=self._client,
@@ -1487,9 +1487,9 @@ class InstanceFactory:
             successfully.
         :type successful: bool
         
-        :rtype: mbed_cloud.sdk.entities.VerificationResponse
+        :rtype: mbed_cloud.foundation.VerificationResponse
         """
-        from mbed_cloud.sdk.entities import VerificationResponse
+        from mbed_cloud.foundation import VerificationResponse
 
         return VerificationResponse(
             _client=self._client, message=message, successful=successful

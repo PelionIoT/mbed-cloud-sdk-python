@@ -4,13 +4,13 @@ import random
 
 from tests.common import BaseCase, CrudMixinTests
 
-from mbed_cloud.sdk.entities import Account
-from mbed_cloud.sdk.entities import ApiKey
-from mbed_cloud.sdk.entities import User
-from mbed_cloud.sdk.entities import UserInvitation
-from mbed_cloud.sdk.entities import SubtenantTrustedCertificate
-from mbed_cloud.sdk.entities import SubtenantUser
-from mbed_cloud.sdk.entities import SubtenantUserInvitation
+from mbed_cloud.foundation import Account
+from mbed_cloud.foundation import ApiKey
+from mbed_cloud.foundation import User
+from mbed_cloud.foundation import UserInvitation
+from mbed_cloud.foundation import SubtenantTrustedCertificate
+from mbed_cloud.foundation import SubtenantUser
+from mbed_cloud.foundation import SubtenantUserInvitation
 
 from mbed_cloud.sdk.exceptions import ApiErrorResponse
 
@@ -69,7 +69,7 @@ class TestAccount(BaseCase, CrudMixinTests):
         # Keep the example at the same indent level so the documentation looks sensible
         try:
             # an example: creating and managing a subtenant account
-            from mbed_cloud.sdk.entities import Account, SubtenantUser
+            from mbed_cloud.foundation import Account, SubtenantUser
 
             # Populate the new account details
             new_subtenant = Account(

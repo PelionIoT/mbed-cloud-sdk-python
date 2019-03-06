@@ -12,7 +12,7 @@ def download_report_file(self, absolute_url):
     """Download a report file.
 
     :param self: Instance of the entity for which this is being called.
-    :type self: mbed_cloud.sdk.entities.DeviceEnrollmentBulkCreate or mbed_cloud.sdk.entities.DeviceEnrollmentBulkDelete
+    :type self: mbed_cloud.foundation.DeviceEnrollmentBulkCreate or mbed_cloud.foundation.DeviceEnrollmentBulkDelete
     :param absolute_url: URL of the report file in Pelion Device Management.
     :type absolute_url: str
 
@@ -30,7 +30,7 @@ def download_full_report_file(self, foreign_key):
     """Download a full report file.
 
     :param self: Instance of the entity for which this is a custom method.
-    :type self: mbed_cloud.sdk.entities.DeviceEnrollmentBulkCreate or mbed_cloud.sdk.entities.DeviceEnrollmentBulkDelete
+    :type self: mbed_cloud.foundation.DeviceEnrollmentBulkCreate or mbed_cloud.foundation.DeviceEnrollmentBulkDelete
     :param foreign_key: Class name.
 
     :rtype: StringIO - contents of the downloaded file.
@@ -42,7 +42,7 @@ def download_errors_report_file(self, foreign_key):
     """Download an error report file.
 
     :param self: Instance of the entity for which this is a custom method.
-    :type self: mbed_cloud.sdk.entities.DeviceEnrollmentBulkCreate or mbed_cloud.sdk.entities.DeviceEnrollmentBulkDelete
+    :type self: mbed_cloud.foundation.DeviceEnrollmentBulkCreate or mbed_cloud.foundation.DeviceEnrollmentBulkDelete
     :param foreign_key: Class name.
 
     :rtype: StringIO - contents of the downloaded file.

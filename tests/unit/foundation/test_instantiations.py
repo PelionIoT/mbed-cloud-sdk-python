@@ -4,15 +4,15 @@ from builtins import str
 
 from tests.common import BaseCase
 
-from mbed_cloud.sdk.entities import User
-from mbed_cloud.sdk import SDK
+from mbed_cloud.foundation import User
+from mbed_cloud import SDK
 
 
 class TestUserFactory(BaseCase):
 
     def get_user(self, **kwargs):
         sdk = SDK()
-        return sdk.entities.user(**kwargs)
+        return sdk.foundation.user(**kwargs)
 
     def test_attr(self):
         user = self.get_user()
@@ -48,7 +48,7 @@ class TestUserLazyExplicit(TestUserFactory):
 class TestEquality(BaseCase):
 
     def test_fast(self):
-        from mbed_cloud.sdk.entities import User
+        from mbed_cloud.foundation import User
         a = User()
         b = a
         c = 'cat'
@@ -56,7 +56,7 @@ class TestEquality(BaseCase):
         self.assertNotEqual(a, c)
 
     def test_ids(self):
-        from mbed_cloud.sdk.entities import User
+        from mbed_cloud.foundation import User
         a = User(id='1')
         b = User(id='1')
         c = User(id='cat')
@@ -64,7 +64,7 @@ class TestEquality(BaseCase):
         self.assertNotEqual(a, c)
 
     def test_values(self):
-        from mbed_cloud.sdk.entities import User
+        from mbed_cloud.foundation import User
         a = User(full_name='1')
         b = User(full_name='1')
         c = User(full_name='cat')

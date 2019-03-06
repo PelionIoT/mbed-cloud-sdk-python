@@ -4,7 +4,7 @@ from mbed_cloud.sdk import Config
 from mbed_cloud.client.client import Client
 
 # create a new InstanceFactory for providing access to Entities directly from this instance
-from mbed_cloud.sdk._modules._factory import InstanceFactory
+from mbed_cloud.foundation.entities._factory import InstanceFactory
 
 global_sdk = None
 has_warned = None
@@ -44,7 +44,7 @@ class SDK(object):
         return self._config
 
     @property
-    def entities(self):
+    def foundation(self):
         return self._entities
 
 

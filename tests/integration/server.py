@@ -42,8 +42,8 @@ from mbed_cloud import pagination
 from mbed_cloud.core import BaseObject
 
 from mbed_cloud.sdk.exceptions import ApiErrorResponse
-from mbed_cloud.sdk.entities import __all__ as entity_list
-from mbed_cloud.sdk import SDK
+from mbed_cloud.foundation import __all__ as entity_list
+from mbed_cloud import SDK
 
 
 LOG = logging.getLogger(__name__)
