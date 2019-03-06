@@ -136,7 +136,10 @@ def new_preload():
             ${{login}}
       - run:
           name: Pull TestRunner Image
-          command: docker pull {testrunner_image}
+          command: docker pull 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
+      - run:
+          command: docker tag 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master {testrunner_image}
+          name: Tag pulled TestRunner Image as latest
       - run:
           name: Make cache directory
           command: mkdir -p {cache_dir}
