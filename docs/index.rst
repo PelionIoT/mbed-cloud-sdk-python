@@ -1,7 +1,7 @@
-Mbed Cloud SDK for Python
-=========================
+Pelion Device Management SDK for Python
+=======================================
 
-The ``mbed-cloud-sdk`` gives developers access to the full `Arm Mbed <https://docs.mbed.com/>`__ suite using Python.
+The ``mbed-cloud-sdk`` gives developers access to `Pelion Device Management <https://cloud.mbed.com/>`__ API using Python.
 
 .. toctree::
     :maxdepth: 1
@@ -18,7 +18,7 @@ The ``mbed-cloud-sdk`` gives developers access to the full `Arm Mbed <https://do
 
 .. toctree::
   :maxdepth: 1
-  :caption: Detailed Usage
+  :caption: Legacy Interface
 
   account_management
   billing
