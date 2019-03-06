@@ -365,7 +365,7 @@ def create_foundation_entity_instance(entity):
     try:
         # Entity names are PascalCase, SDK entity methods are snake case.
         method_name = re.sub('(?<!^)(?=[A-Z])', '_', entity).lower()
-        entity_class = getattr(sdk_instance.entities, method_name)
+        entity_class = getattr(sdk_instance.foundation, method_name)
     except AttributeError:
         raise NotFound("Entity '%s' which was reformatted to '%s' cannot be found." % (entity, method_name))
 
