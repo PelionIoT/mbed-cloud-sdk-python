@@ -16,6 +16,7 @@ has_warned = None
 
 class SDK(object):
     """SDK Interface for interacting with Primary, Foundation and Client interfaces."""
+
     def __init__(self, config=None, **config_overrides):
         """Create a new SDK instance
 
@@ -76,6 +77,7 @@ def get_or_create_global_sdk_instance():
 
 
 def beta_warning(header, category=FutureWarning):
+    """Utility function to generate a beta warning."""
     global has_warned
     if not has_warned:
         warnings.warn(
