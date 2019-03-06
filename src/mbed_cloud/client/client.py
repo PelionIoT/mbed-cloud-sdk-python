@@ -4,7 +4,7 @@ import json
 from mbed_cloud import utils
 from mbed_cloud.sdk import ApiErrorResponse
 from mbed_cloud.sdk.common.config import Config
-from mbed_cloud.sdk.common import util
+from mbed_cloud.client import util
 
 import requests
 

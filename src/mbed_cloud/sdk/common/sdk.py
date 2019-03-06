@@ -1,7 +1,7 @@
 import warnings
 
 from mbed_cloud.sdk import Config
-from mbed_cloud.sdk.common.client import Client
+from mbed_cloud.client.client import Client
 
 # create a new InstanceFactory for providing access to Entities directly from this instance
 from mbed_cloud.sdk._modules._factory import InstanceFactory
