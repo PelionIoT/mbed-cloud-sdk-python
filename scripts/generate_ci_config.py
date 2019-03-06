@@ -135,11 +135,9 @@ def new_preload():
             login="$(aws ecr get-login --no-include-email)"
             ${{login}}
       - run:
-          name: Pull TestRunner Image
-          command: docker pull 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
-      - run:
-          command: docker tag 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master {testrunner_image}
-          name: Tag pulled TestRunner Image as latest
+          name: Pull TestRunner Image and Tag as latest
+          command: |-
+            (docker pull 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:${{CIRCLE_BRANCH}} && docker tag 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:${{CIRCLE_BRANCH}} {testrunner_image}) || (docker pull 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master && docker tag 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master)
       - run:
           name: Make cache directory
           command: mkdir -p {cache_dir}
