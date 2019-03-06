@@ -1,7 +1,10 @@
+"""Base Class for Foundation Entities"""
 from mbed_cloud.foundation.common import fields
 
 
 class Entity(object):
+    """Base Class for Foundation Entities"""
+
     _fieldnames = []
     _renames = {}
 

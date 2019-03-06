@@ -1,3 +1,7 @@
+"""SDK Interface
+
+This provides a single point of entry to use the Primary, Foundation and Client interfaces.
+"""
 import warnings
 
 from mbed_cloud.sdk import Config
@@ -11,6 +15,7 @@ has_warned = None
 
 
 class SDK(object):
+    """SDK Interface for interacting with Primary, Foundation and Client interfaces."""
     def __init__(self, config=None, **config_overrides):
         """Create a new SDK instance
 
@@ -37,14 +42,28 @@ class SDK(object):
 
     @property
     def client(self):
+        """Client Interface, which can be use for direct communication with the Pelion Device Management API
+
+        :rtype: mbed_cloud.client.client.Client - Client Interface.
+        """
         return self._client
 
     @property
     def config(self):
+        """Configuration in use by SDK instance.
+
+        :rtype: mbed_cloud.sdk.config.Config - Configuration object.
+        """
         return self._config
 
     @property
     def foundation(self):
+        """Foundation Interface Entities
+
+        This provides access to all Entities in the Foundation Interface via the returned factory class.
+
+        :rtype: mbed_cloud.foundation.entities._factory.InstanceFactory - Foundation Interface entity factory.
+        """
         return self._entities
 
 

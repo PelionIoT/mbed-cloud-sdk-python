@@ -1,3 +1,4 @@
+"""Utilities for the client interface."""
 import functools
 import json
 
@@ -20,7 +21,6 @@ def paginate(unpack):
 
     In a way that allows it to be paginated
     """
-
     def decorator(listable_call):
         @functools.wraps(listable_call)
         def wrapper(**kwargs):
@@ -38,7 +38,6 @@ def pretty_literal(content, indent=2, replace_null=True):
 
     json lib is used instead of pretty print because subjectively it looks better
     """
-
     # create a mostly-foolproof serialisation of the object
     content = json.dumps(content, indent=2, default=lambda x: str(type(x)))
 

@@ -1,15 +1,22 @@
+"""Client Interface
+
+This provides direct access the Pelion Device Management API.
+
+Note: It is not recommended that this is used directly, instead please use this class from an SDK instance.
+"""
 import inspect
 import json
 
 from mbed_cloud import utils
 from mbed_cloud.sdk import ApiErrorResponse
-from mbed_cloud.sdk.config import Config
 from mbed_cloud.client import util
 
 import requests
 
 
 class Client(object):
+    """Client Interface to give direct access to thePelion Device Management API."""
+
     def __init__(self, config):
         """An http client container
 

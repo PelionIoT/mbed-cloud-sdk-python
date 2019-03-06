@@ -1,19 +1,23 @@
 import os
+import logging
 
 import dotenv
 
 from mbed_cloud import utils
-from mbed_cloud.sdk import constants, logs
+from mbed_cloud.sdk import constants
+
+LOGGER = logging.getLogger(__file__)
 
 
 class Config(object):
+    """Configuration object for SDK"""
     _tried_dotenv = False
     api_key = None
     host = None
     user_agent = None
 
     def __init__(self, **kwargs):
-        self._logger = logs.LOGGER.getChild(self.__class__.__name__)
+        self._logger = LOGGER.getChild(self.__class__.__name__)
         self.update(**kwargs)
         if not self.api_key and not Config._tried_dotenv:
             # mark dotenv load complete, so we don't have to do it again

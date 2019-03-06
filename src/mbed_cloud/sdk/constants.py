@@ -1,3 +1,5 @@
+"""Constants which are used throughout the SDK."""
+
 DEFAULT_HOST = "https://api.us-east-1.mbedcloud.com"
 DEFAULT_API_KEY = None
 
