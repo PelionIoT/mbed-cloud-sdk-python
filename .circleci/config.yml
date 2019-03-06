@@ -217,8 +217,9 @@ jobs:
           && docker tag 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:${CIRCLE_BRANCH}
           104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:latest)
           || (docker pull 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
-          && docker tag 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master)
-        name: Pull TestRunner Image and Tag as latest
+          && docker tag 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
+          104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:latest)
+        name: Pull TestRunner Image for branch and fullback to master
     - run:
         command: mkdir -p ~/caches
         name: Make cache directory

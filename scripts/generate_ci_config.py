@@ -121,7 +121,14 @@ def new_base():
 
 
 def new_preload():
-    """Job running prior to builds - fetches TestRunner image"""
+    """Job running prior to builds - fetches TestRunner image
+
+    This attempts to pull an image for the TestRunner with the same name as the branch which is being built for the
+    Python SDK. If that cannot be found it falls back to the master build of TestRunner. Whichever is pulled is renamed
+    with the tag `latest` which will be used by the docker compose.
+    """
+    branched_testrunner_image = '104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:${CIRCLE_BRANCH}'
+    master_testrunner_image = '104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master'
     testrunner_image = get_testrunner_image()
     local_image = testrunner_image.rsplit(':')[-2].rsplit('/')[-1]
     version_file = 'testrunner_version.txt'
@@ -135,9 +142,9 @@ def new_preload():
             login="$(aws ecr get-login --no-include-email)"
             ${{login}}
       - run:
-          name: Pull TestRunner Image and Tag as latest
+          name: Pull TestRunner Image for branch and fullback to master
           command: |-
-            (docker pull 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:${{CIRCLE_BRANCH}} && docker tag 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:${{CIRCLE_BRANCH}} {testrunner_image}) || (docker pull 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master && docker tag 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master)
+            (docker pull {branched_testrunner_image} && docker tag {branched_testrunner_image} {testrunner_image}) || (docker pull {master_testrunner_image} && docker tag {master_testrunner_image} {testrunner_image})
       - run:
           name: Make cache directory
           command: mkdir -p {cache_dir}
