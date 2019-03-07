@@ -378,7 +378,7 @@
       "methods": [
         {
           "description": "An endpoint for creating a new account.\n\n**Example usage:**\n`curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts -d '{\"display_name\": \"MyAccount1\", \"admin_name\": \"accountAdmin1\", \"email\": \"example_admin@myaccount.info\", \"country\": \"United Kingdom\", \"end_market\": \"Smart City\", \"address_line1\": \"110 Fulbourn Rd\", \"city\": \"Cambridge\", \"contact\": \"J. Doe\", \"company\": \"Arm\"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "name": "action",
@@ -1444,7 +1444,7 @@
                         {
                           "type": "array",
                           "description": "List of sub accounts. Not available for developer users.",
-                          "items": [],
+                          "items": {},
                           "_key": "sub_accounts"
                         },
                         {
@@ -1747,6 +1747,7 @@
             "custom": false,
             "type": "account"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -1791,7 +1792,7 @@
         },
         {
           "description": "Returns an array of account objects, optionally filtered by status and tier level.\n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/accounts -H 'Authorization: Bearer API_KEY'`.",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "type": "string",
@@ -2654,7 +2655,7 @@
                               {
                                 "type": "array",
                                 "description": "List of sub accounts. Not available for developer users.",
-                                "items": [],
+                                "items": {},
                                 "_key": "sub_accounts"
                               },
                               {
@@ -2932,6 +2933,25 @@
             "custom": false,
             "type": "account"
           },
+          "x_filter": {
+            "status": [
+              "eq",
+              "in",
+              "nin"
+            ],
+            "tier": [
+              "eq"
+            ],
+            "parent": [
+              "eq"
+            ],
+            "end_market": [
+              "eq"
+            ],
+            "country": [
+              "like"
+            ]
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -2963,7 +2983,7 @@
         },
         {
           "description": "Returns detailed information about the account.\n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/accounts/me?include=policies -H 'Authorization: Bearer API_KEY'`.",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "name": "include",
@@ -3829,7 +3849,7 @@
                         {
                           "type": "array",
                           "description": "List of sub accounts. Not available for developer users.",
-                          "items": [],
+                          "items": {},
                           "_key": "sub_accounts"
                         },
                         {
@@ -4059,6 +4079,7 @@
             "custom": false,
             "type": "account"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -4123,7 +4144,7 @@
         },
         {
           "description": "Returns detailed information about the account.\n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id} -H 'Authorization: Bearer API_KEY'`.",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "type": "string",
@@ -5000,7 +5021,7 @@
                         {
                           "type": "array",
                           "description": "List of sub accounts. Not available for developer users.",
-                          "items": [],
+                          "items": {},
                           "_key": "sub_accounts"
                         },
                         {
@@ -5303,6 +5324,7 @@
             "custom": false,
             "type": "account"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -5365,7 +5387,7 @@
         },
         {
           "description": "An endpoint for retrieving trusted certificates in an array.\n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "type": "string",
@@ -5924,6 +5946,39 @@
             "custom": false,
             "type": "subtenant_trusted_certificate"
           },
+          "x_filter": {
+            "name": [
+              "eq"
+            ],
+            "service": [
+              "eq"
+            ],
+            "expire": [
+              "eq"
+            ],
+            "device_execution_mode": [
+              "eq",
+              "neq"
+            ],
+            "owner": [
+              "eq"
+            ],
+            "enrollment_mode": [
+              "eq"
+            ],
+            "status": [
+              "eq"
+            ],
+            "issuer": [
+              "like"
+            ],
+            "subject": [
+              "like"
+            ],
+            "valid": [
+              "eq"
+            ]
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -5962,7 +6017,7 @@
         },
         {
           "description": "An endpoint for updating an account.\n\n**Example usage:**\n`curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id} -d '{\"phone_number\": \"12345678\"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "type": "string",
@@ -7092,7 +7147,7 @@
                         {
                           "type": "array",
                           "description": "List of sub accounts. Not available for developer users.",
-                          "items": [],
+                          "items": {},
                           "_key": "sub_accounts"
                         },
                         {
@@ -7468,6 +7523,7 @@
             "custom": false,
             "type": "account"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -7513,7 +7569,7 @@
         },
         {
           "description": "An endpoint for retrieving the details of all the active user invitations sent for new or existing users to join the account.\n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/user-invitations -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "type": "string",
@@ -8041,6 +8097,11 @@
             "custom": false,
             "type": "subtenant_user_invitation"
           },
+          "x_filter": {
+            "login_profile": [
+              "eq"
+            ]
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -8069,7 +8130,7 @@
         },
         {
           "description": "An endpoint for retrieving details of all users.\n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "type": "string",
@@ -8828,6 +8889,19 @@
             "custom": false,
             "type": "subtenant_user"
           },
+          "x_filter": {
+            "email": [
+              "eq"
+            ],
+            "status": [
+              "eq",
+              "in",
+              "nin"
+            ],
+            "login_profile": [
+              "eq"
+            ]
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -9362,7 +9436,7 @@
           "_key": "upgraded_at"
         }
       ],
-      "field_renames": [],
+      "field_renames": {},
       "tags": [
         "Developer",
         "Aggregator Account Admin"
@@ -9375,7 +9449,7 @@
         "ActiveSession"
       ],
       "primary_key_field": null,
-      "methods": [],
+      "methods": {},
       "fields": [
         {
           "type": "string",
@@ -9424,7 +9498,7 @@
           "_key": "user_agent"
         }
       ],
-      "field_renames": [],
+      "field_renames": {},
       "tags": [],
       "group_id": "Accounts",
       "_key": "active_session"
@@ -9440,7 +9514,7 @@
       "methods": [
         {
           "description": "An endpoint for creating a new API key.\n\n**Example usage:**\n`curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys -d '{\"name\": \"MyKey1\"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "type": "string",
@@ -9850,6 +9924,7 @@
             "custom": false,
             "type": "api_key"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -9877,7 +9952,7 @@
         },
         {
           "description": "An endpoint for deleting the API key.\n\n**Example usage:**\n`curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id} -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "name": "apikey_id",
@@ -10127,6 +10202,7 @@
             "custom": false,
             "type": "api_key"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -10147,7 +10223,7 @@
         },
         {
           "description": "An endpoint for retrieving API keys in an array, optionally filtered by the owner.\n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/api-keys -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "type": "string",
@@ -10557,6 +10633,14 @@
             "custom": false,
             "type": "api_key"
           },
+          "x_filter": {
+            "key": [
+              "eq"
+            ],
+            "owner": [
+              "eq"
+            ]
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -10587,8 +10671,8 @@
         },
         {
           "description": "An endpoint for retrieving API key details.\n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/api-keys/me -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": [],
-          "fields": [],
+          "field_renames": {},
+          "fields": {},
           "method": "get",
           "mode": "me",
           "responses": [
@@ -10885,6 +10969,7 @@
             "custom": false,
             "type": "api_key"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -10916,7 +11001,7 @@
         },
         {
           "description": "An endpoint for retrieving API key details.\n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id} -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "type": "string",
@@ -11299,6 +11384,7 @@
             "custom": false,
             "type": "api_key"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -11328,7 +11414,7 @@
         },
         {
           "description": "An endpoint for updating API key details.\n\n**Example usage:**\n`curl -X PUT https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id} -d '{\"name\": \"TestApiKey25\"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "type": "string",
@@ -11822,6 +11908,7 @@
             "custom": false,
             "type": "api_key"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -11955,7 +12042,7 @@
           "_key": "updated_at"
         }
       ],
-      "field_renames": [],
+      "field_renames": {},
       "tags": [
         "Developer"
       ],
@@ -11971,7 +12058,7 @@
       "methods": [
         {
           "description": "\nGet certificate enrollments list, optionally filtered.\n\n**Example usage:**\n\n```\ncurl -H 'authorization: Bearer <valid access token>'\nhttps://api.us-east-1.mbedcloud.com/v3/certificate-enrollments\n```\n```\ncurl -H 'authorization: Bearer <valid access token>'\nhttps://api.us-east-1.mbedcloud.com/v3/certificate-enrollments?device_id__eq=01612df56f3b0a580a010fc700000000\n```\n",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "type": "string",
@@ -12415,6 +12502,30 @@
             "custom": false,
             "type": "certificate_enrollment"
           },
+          "x_filter": {
+            "device_id": [
+              "eq"
+            ],
+            "certificate_name": [
+              "eq"
+            ],
+            "enroll_status": [
+              "neq",
+              "eq"
+            ],
+            "enroll_result": [
+              "neq",
+              "eq"
+            ],
+            "created_at": [
+              "lte",
+              "gte"
+            ],
+            "updated_at": [
+              "lte",
+              "gte"
+            ]
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -12453,7 +12564,7 @@
         },
         {
           "description": "Get a certificate enrollment by ID.\n\n**Example usage:**\n\n```\ncurl -H 'authorization: Bearer <valid access token>'\nhttps://api.us-east-1.mbedcloud.com/v3/certificate-enrollments/01612df56f3b0a580a010fc700000000\n```\n",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "type": "string",
@@ -12842,6 +12953,7 @@
             "custom": false,
             "type": "certificate_enrollment"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -12950,7 +13062,7 @@
           "_key": "updated_at"
         }
       ],
-      "field_renames": [],
+      "field_renames": {},
       "tags": [
         "Certificate Enrollments"
       ],
@@ -12969,7 +13081,7 @@
       "methods": [
         {
           "description": "Create a certificate issuer.\nThe maximum number of issuers is limited to 20 per account.\nMultiple certificate issuers of the same issuer type can be created, provided they have a different name. This allows verification of the certificate issuer configuration before activating it.\n<br>\n**Example usage:**\n\n```\ncurl -X POST \\\n-H 'authorization: Bearer <valid access token>' \\\n-H 'content-type: application/json;charset=UTF-8' \\\nhttps://api.us-east-1.mbedcloud.com/v3/certificate-issuers \\\n-d '{\n  \"issuer_type\": \"GLOBAL_SIGN\",\n  \"name\": \"GS Issuer\",\n  \"description\": \"Sample GlobalSign certificate issuer\",\n  \"issuer_attributes\": null,\n  \"issuer_credentials\": {\n      \"api_key\": \"e510e289e6cd8947\",\n      \"api_secret\": \"a477a8393d17a55ecb2ba6a61f58feb84770b621\",\n      \"client_certificate\": \"-----BEGIN CERTIFICATE-----MIIC7zCCAdegAwIBAgIJANTlU4x5S74VMA0GCSqGSIb3DQEBCwUAMA4xDDAKBgNVBAoMA0FybTAeFw0xODAzMTExMzE5MTFaFw0xOTAzMTExMzE5MTFaMA4xDDAKBgNVBAoMA0FybTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAJWLStsVMJULZtxdieK9qocM4ymDXMaAusmd9TZLzBgznKQe/CW2yxyA8C8K5e6MmvMYGeKDd4Lkw/ezOj2OsUj2xzNIltUxpGi/GhsNYiN/khNJa/Y1SllLoihJAPm/xbMywOBRu/dM88PiJsNZccOk0I8DYvvyAs9wCTkbKLnfHygl98DCRqXw7nBCplU6F03qpUd/4BUtMtugyqt7yboGH+4YewnUh4Yh4QNOJIvE93Ob++eKjO3pIOYEhQmUxzOLaLNuWXlv2l1WuN281hUP4XBcV8mCzRQfTBBDYTWt+5BEWoLOUkXjW0Um6EAaN3usph1IKDEH6Ia5VHP4Pj0CAwEAAaNQME4wHQYDVR0OBBYEFLsfYZxFcQTjPJKYMjHI2In316fmMB8GA1UdIwQYMBaAFLsfYZxFcQTjPJKYMjHI2In316fmMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEBAFl08GFsIkkUs6M7QgCWmsnwP6PtD8V87wM1GAqQQlOOeztaeRR2TEOeYiKRZQugYszJ/FVfVp4ggqzepJMn6UZ42j5nmSJs+6t79i23QAzX1zNQ354lr/t7kt3fMdhuL3AP0oZGzdy+EnXXiWeAD22UwzvVmLt38ypJIl+pmTsx9jJy4PN7yoRgtP9k+50m3X6oDxVruehC/JPSeTvEhqyLW3fLcG6IoJMX3vIwfO9uXbFJumTowQeViNJJ9duWvD2KBXn/muOOBe97TPuvAms1gOtMmmPT9/jpo9b4+NsfFiAN6bMici81aIKZzLC+lLGOUmR2fFJyM5OsVLxKsko=-----END CERTIFICATE-----\",\n        \"private_key\":\"-----BEGIN RSA PRIVATE KEY-----\\nProc-Type: 4,ENCRYPTED\\nDEK-Info: DES-EDE3-CBC,CCAC26A4133947CB\\n\\np3KJ4FI3wcz3I0MtiLkrznkjWFvprVmoNywySUGb5IqZViJZqCMEsyU9a9iDsSfP\\nZ07cg9GviV21WYIPSxZOQrpy1g1VWILzFnH+J6z8dSH4mxXh0PwdOzYgAeqkrIVM\\nJ7KRm6t222dZFjjXK3eEcLmBLGo29XwVJxKHx+l4++gU1LZmeHZR5M8fJ4jejUly\\n7sqzPlmRF0N3I4lwKVj+PfQTVz43QoCnpxOjuSEL4liBrc2agY2xH1O0PFyHimz9\\n3XM9HR/iuPHW0N2D+NPjXlWKacerupH9d4i9IYIagzB+HTgej8limdo03GmmxcZ6\\nYNa58n5yQSaqu0TPRU9DsrKeGjadHTlZQGdzfq1SWsROCnHLrXFKE2ozIG3+hxA5\\nujBF/QWpX5+inXUwDJhBxp8isHbPEnBEUUd6ZRzCTjvN0jaUti5B9yFhO2G6mbE8\\nCvhyzQK8oJqsjZXnlcpPf95LP+9XbcCDjLSIaWJstzXO9tPiv6+x1MVWmivtRHcC\\nSTzpx8jAGCiG6ejLqWB87ZXiZm7ujlCBheHSf5RHwNHhUvoP2JEYalDDRxjcDMSx\\n4uV42Np4yJlIQEDlGHcBlXoL7vEukFpuWgkYdpcZy/Ou9qz8mXrpLcu8C8MhLmSC\\nixGoR5iRhV7cxoHLyuCzj87eYEA73Xu238DQorSEEuiVFnLzQ2+PJMs4qoI14q/L\\notlBDz+Ko6DrU/EZROYmiqMkLKXR2sx9zNAJwPYRs6nSH08tZ3dwqzZbgtP3Wazi\\nhLWHt5/En7wQRA5a+/dDEHXSoLvvSQ9jvhclhWf+eCYuq2eH+g54oyJGRSY+8GV7\\nujhLxkzl/3OZdhZPWoz4U13KpbSTcNWu5Y7oGDoabw19UbvqmLf1PJkpDH/tQgzB\\nxYtsLBRUcofpYoeIiIxfAA4do5WilJc8xqrGhkE4WcHfY24HXAiOvsjbxV+BRprX\\n1jtgJpV/9nJESMap+8PxipGUFRGjB83/uwJaa6mLftEKflX8i4MZ+HnqraXERsqA\\nWRUcDHIWmFfpzIB3iNuxawVvPH8NdCSPmQ9qTb8Cozl0AuOK2E9S+ke8oiYQScWR\\nLdu+zhej7GjuQ9R+Ub+wPWqvOA5qLXejqnCexVScDUuN+z9JWM3N2FG1MwxhAzhP\\ndEfoQHoBn6uyOmrVGP6fosV3chqhPoec42KeOAm1xDvx692isaIy1jPgIyPxeqhm\\n2Tw4E+02R7dlP8Ljf7JzfLm4oKpWHWlcHeqg24x6lY/wXU1RBcWaTa0AQUwoGm2m\\nIQCPfIqOEv/QC2HpO7SVCYkl65KwR0oTd1AzYxdxEq3xHQbh69EL0FGZPVxVCPI+\\nhEAyifKy1/tm3l91Rf/kGpHY7nIQKCXH49tmFwix8gke2nZJmRgX7/zAdMOAKeKH\\nAaIl4nQtv14EbaasMgnn9qgaDYnWzaReEob2QlQ/WYlTor61+KFpGtcf9jAkgudT\\n2op+4CF7wT2+aTXdtkVWfmv++iB8GnlqZdxLvyG1cTYjjYHVFbMSWQnxzQqiE2ms\\nQgp+byjWCumpsWTMdTO+d9NkDOo80vDpaRxEgebmhJ0MbX+eFjBgVg==\\n-----END RSA PRIVATE KEY-----\",\n      \"passphrase\": \"helloworld\"\n  }\n}'\n```\n",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "type": "string",
@@ -12989,7 +13101,7 @@
                 "type": "string"
               },
               "description": "General attributes for connecting the certificate issuer.\nWhen the issuer_type is GLOBAL_SIGN, the value shall be empty.\nWhen the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.\n",
-              "example": [],
+              "example": {},
               "api_fieldname": "issuer_attributes",
               "entity_fieldname": "issuer_attributes",
               "parameter_fieldname": "issuer_attributes",
@@ -13003,7 +13115,7 @@
                 "type": "string"
               },
               "description": "The credentials required for connecting to the certificate issuer.\nWhen the issuer_type is GLOBAL_SIGN, see definition of GlobalSignCredentials.\nWhen the issuer_type is CFSSL_AUTH, see definition of CfsslAuthCredentials.\n",
-              "example": [],
+              "example": {},
               "name": "issuer_credentials",
               "in": "body",
               "schema_param": true,
@@ -13091,7 +13203,7 @@
                       "type": "string"
                     },
                     "description": "General attributes for connecting the certificate issuer.\nWhen the issuer_type is GLOBAL_SIGN, the value shall be empty.\nWhen the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.\n",
-                    "example": [],
+                    "example": {},
                     "api_fieldname": "issuer_attributes",
                     "entity_fieldname": "issuer_attributes",
                     "_key": "issuer_attributes"
@@ -13461,6 +13573,7 @@
             "custom": false,
             "type": "certificate_issuer"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -13483,7 +13596,7 @@
         },
         {
           "description": "Delete a certificate issuer by ID.\n<br>\n**Example usage:**\n\n```\ncurl -X DELETE \\\n-H 'authorization: <valid access token>' \\\nhttps://api.us-east-1.mbedcloud.com/v3/certificate-issuers/0162155dc77d507b9d48a91b00000000\n```\n",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "name": "certificate-issuer-id",
@@ -13766,6 +13879,7 @@
             "custom": false,
             "type": "certificate_issuer"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -13786,7 +13900,7 @@
         },
         {
           "description": "Note: This endpoint does not implement pagination and therefore, list control parameters such as `limit` or `after` will be ignored by the system.\n",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "type": "string",
@@ -13900,7 +14014,7 @@
                             "type": "string"
                           },
                           "description": "General attributes for connecting the certificate issuer.\nWhen the issuer_type is GLOBAL_SIGN, the value shall be empty.\nWhen the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.\n",
-                          "example": [],
+                          "example": {},
                           "_key": "issuer_attributes"
                         },
                         {
@@ -14137,6 +14251,7 @@
             "custom": false,
             "type": "certificate_issuer"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -14165,7 +14280,7 @@
         },
         {
           "description": "(No description provided)",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "type": "string",
@@ -14227,7 +14342,7 @@
                       "type": "string"
                     },
                     "description": "General attributes for connecting the certificate issuer.\nWhen the issuer_type is GLOBAL_SIGN, the value shall be empty.\nWhen the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.\n",
-                    "example": [],
+                    "example": {},
                     "api_fieldname": "issuer_attributes",
                     "entity_fieldname": "issuer_attributes",
                     "_key": "issuer_attributes"
@@ -14534,6 +14649,7 @@
             "custom": false,
             "type": "certificate_issuer"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -14559,7 +14675,7 @@
         },
         {
           "description": "Update a certificate issuer.\n<br>\n**Example usage:**\n\n```\ncurl -X PUT \\\n-H 'authorization: <valid access token>' \\\n-H 'content-type: application/json;charset=UTF-8' \\\nhttps://api.us-east-1.mbedcloud.com/v3/certificate-issuers/01621560be51507b9d48a91b00000000 \\\n-d '{\n  \"description\": \"Sample GlobalSign certificate issuer - updated.\",\n  \"name\": \"GlobalSign Issuer\"\n}'\n```\n",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "type": "string",
@@ -14590,7 +14706,7 @@
                 "type": "string"
               },
               "description": "General attributes for connecting the certificate issuer.\nWhen the issuer_type is GLOBAL_SIGN, the value shall be empty.\nWhen the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.\n",
-              "example": [],
+              "example": {},
               "api_fieldname": "issuer_attributes",
               "entity_fieldname": "issuer_attributes",
               "parameter_fieldname": "issuer_attributes",
@@ -14604,7 +14720,7 @@
                 "type": "string"
               },
               "description": "The credentials required for connecting to the certificate issuer.\nWhen the issuer_type is GLOBAL_SIGN, see definition of GlobalSignCredentials.\nWhen the issuer_type is CFSSL_AUTH, see definition of CfsslAuthCredentials.\n",
-              "example": [],
+              "example": {},
               "name": "issuer_credentials",
               "in": "body",
               "schema_param": true,
@@ -14676,7 +14792,7 @@
                       "type": "string"
                     },
                     "description": "General attributes for connecting the certificate issuer.\nWhen the issuer_type is GLOBAL_SIGN, the value shall be empty.\nWhen the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.\n",
-                    "example": [],
+                    "example": {},
                     "api_fieldname": "issuer_attributes",
                     "entity_fieldname": "issuer_attributes",
                     "_key": "issuer_attributes"
@@ -15109,6 +15225,7 @@
             "custom": false,
             "type": "certificate_issuer"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -15131,7 +15248,7 @@
         },
         {
           "description": "A utility API that can be used to validate the user configuration before activating a certificate issuer.\nVerifies that the certificate issuer is accessible and can be used to generate certificates by Device Management.\n<br>\n**Note:**\nThe API requests the 3rd party CA to sign a test certificate.\nFor some 3rd party CAs, this operation may make use of the account quota.\n<br>\n**Example usage:**\n\n```\ncurl -X POST \\\n-H 'authorization: <valid access token>' \\\n-H 'content-type: application/json;charset=UTF-8' \\\nhttps://api.us-east-1.mbedcloud.com/v3/certificate-issuers/01621a36719d507b9d48a91b00000000/verify\n```\n",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "name": "certificate-issuer-id",
@@ -15502,6 +15619,7 @@
             "custom": false,
             "type": "verification_response"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -15564,7 +15682,7 @@
             "type": "string"
           },
           "description": "General attributes for connecting the certificate issuer.\nWhen the issuer_type is GLOBAL_SIGN, the value shall be empty.\nWhen the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.\n",
-          "example": [],
+          "example": {},
           "api_fieldname": "issuer_attributes",
           "readOnly": false,
           "required": false,
@@ -15595,7 +15713,7 @@
           "_key": "name"
         }
       ],
-      "field_renames": [],
+      "field_renames": {},
       "tags": [
         "Certificate Issuers"
       ],
@@ -15986,6 +16104,7 @@
             "custom": false,
             "type": "certificate_issuer_config"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -16297,6 +16416,7 @@
             "custom": false,
             "type": "certificate_issuer_config"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -16323,7 +16443,7 @@
               "_key": "certificate_reference"
             }
           ],
-          "fields": [],
+          "fields": {},
           "method": "get",
           "mode": "get_default",
           "responses": [
@@ -16604,6 +16724,7 @@
             "custom": false,
             "type": "certificate_issuer_config"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -17021,6 +17142,11 @@
             "custom": false,
             "type": "certificate_issuer_config"
           },
+          "x_filter": {
+            "certificate_reference": [
+              "eq"
+            ]
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -17412,6 +17538,7 @@
             "custom": false,
             "type": "certificate_issuer_config"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -17809,6 +17936,7 @@
             "custom": false,
             "type": "certificate_issuer_config"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -18398,6 +18526,7 @@
             "custom": false,
             "type": "developer_certificate"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -18682,6 +18811,7 @@
             "custom": false,
             "type": "developer_certificate"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -19165,6 +19295,7 @@
             "custom": false,
             "type": "trusted_certificate"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -19578,6 +19709,7 @@
             "custom": false,
             "type": "developer_certificate"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -19693,7 +19825,7 @@
       "methods": [
         {
           "description": "Create a new device.",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "type": "boolean",
@@ -20263,6 +20395,7 @@
             "custom": false,
             "type": "device"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -20287,7 +20420,7 @@
         },
         {
           "description": "Delete device. Only available for devices with a developer certificate. Attempts to delete a device with a production certicate will return a 400 response.",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "in": "path",
@@ -20329,6 +20462,7 @@
             "custom": false,
             "type": "device"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -20346,7 +20480,7 @@
         },
         {
           "description": "List all devices.",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "type": "string",
@@ -20692,6 +20826,7 @@
             "custom": false,
             "type": "device"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -20718,7 +20853,7 @@
         },
         {
           "description": "Retrieve information about a specific device.",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "type": "string",
@@ -21028,6 +21163,7 @@
             "custom": false,
             "type": "device"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -21073,7 +21209,7 @@
         },
         {
           "description": "Request a certificate renewal.\n\n**Example usage:**\n\n```\ncurl -X POST\n-H 'authorization: Bearer <valid access token>'\n-H 'content-length: 0'\nhttps://api.us-east-1.mbedcloud.com/v3/devices/01612df56f3b0a580a010fc700000000/certificates/customer.dlms/renew\n```\n",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "type": "string",
@@ -21594,6 +21730,7 @@
             "custom": false,
             "type": "certificate_enrollment"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -21625,7 +21762,7 @@
         },
         {
           "description": "Update a specific device.",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "type": "boolean",
@@ -22041,6 +22178,7 @@
             "custom": false,
             "type": "device"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -22372,7 +22510,7 @@
           "_key": "vendor_id"
         }
       ],
-      "field_renames": [],
+      "field_renames": {},
       "tags": [
         "Certificate Renewal"
       ],
@@ -22389,7 +22527,7 @@
       "methods": [
         {
           "description": "When the device connects to the bootstrap server and provides the enrollment ID, it will be assigned to your account.\n<br>\n**Example usage:**\n```\ncurl -X POST \\\n-H 'Authorization: Bearer <valid access token>' \\\n-H 'content-type: application/json' \\\nhttps://api.us-east-1.mbedcloud.com/v3/device-enrollments \\\n-d '{\"enrollment_identity\": \"A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5\"}'\n```\n",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "type": "string",
@@ -22736,6 +22874,7 @@
             "custom": false,
             "type": "device_enrollment"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -22759,7 +22898,7 @@
         },
         {
           "description": "To free a device from your account you can delete the enrollment claim. To bypass the device ownership, you need to delete the enrollment and do a factory reset for the device. For more information, see [Transferring the ownership using First-to-Claim](/docs/current/connecting/device-ownership-first-to-claim-by-enrollment-list.html).\n<br>\n**Example usage:**\n```\ncurl -X DELETE \\\n-H 'Authorization: Bearer <valid access token>' \\\nhttps://api.us-east-1.mbedcloud.com/v3/device-enrollments/{id}\n```\n",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "in": "path",
@@ -22936,6 +23075,7 @@
             "custom": false,
             "type": "device_enrollment"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -22953,7 +23093,7 @@
         },
         {
           "description": "Provides a list of pending and claimed enrollments.\n**Example usage:**\n```\ncurl -X GET \\\n-H 'Authorization: Bearer <valid access token>' \\\nhttps://api.us-east-1.mbedcloud.com/v3/device-enrollments\n```\nWith query parameters:\n```\ncurl -X GET \\\n-H 'Authorization: Bearer <valid access token>' \\\n'https://api.us-east-1.mbedcloud.com/v3/device-enrollments?limit=10'\n```\n",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "type": "string",
@@ -23339,6 +23479,7 @@
             "custom": false,
             "type": "device_enrollment"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -23364,7 +23505,7 @@
         },
         {
           "description": "To check the enrollment info in detail, for example date of claim and expiration date.\n**Example usage:**\n```\ncurl -X GET \\\n-H 'Authorization: Bearer <valid access token>' \\\nhttps://api.us-east-1.mbedcloud.com/v3/device-enrollments/{id}\n```\n",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "type": "string",
@@ -23638,6 +23779,7 @@
             "custom": false,
             "type": "device_enrollment"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -23728,7 +23870,7 @@
           "_key": "id"
         }
       ],
-      "field_renames": [],
+      "field_renames": {},
       "tags": [
         "Public API"
       ],
@@ -23743,7 +23885,7 @@
       "methods": [
         {
           "description": "With bulk upload, you can upload a `CSV` file containing a number of enrollment IDs.\n\n**Example usage:**\n```\ncurl -X POST \\\n-H 'Authorization: Bearer <valid access token>' \\\n-F 'enrollment_identities=@/path/to/enrollments/enrollments.csv' \\\nhttps://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads\n\n```\n**The validation rules for an CSV file.**\n1. The first line in the uploaded CSV file is assumed to be the header and is ignored.\n1. Each line can contain comma-separated values, where the first value is always assumed to be the Enrollment ID. Everything after the first comma is ignored.\n1. Valid enrollments begin with A followed by a - and 95 characters in the format as below.\n1. Up to one enrollment ID is expected per line. Empty lines are ignored.\n1. Trailing comma at the end of the line is optional.\n1. Lines are terminated with either a line feed \\n, a carriage return \\r, or both together \\r\\n.\n1. Leading and trailing whitespace characters (Unicode U+0000 - U+0020) are removed from the identity before validation.\n1. Empty identities are ignored.\n1. Valid enrollment identities may be enclosed within quotes. Whitespace inside quotes is not trimmed and will fail validation. Empty quotes are also considered to be an invalid enrollment identity.\n1. UTF-8 encoding is expected.\n\n\n**A valid enrollment file:**\n```\n\"Examples of valid identites, notes\"\n\"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12\",\n\"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12\"\nA-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12\nA-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:24:44:71:22:15:43:23:12, This text is ignored,\n A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:60:25:48:44:71:22:15:43:23:12       , Whitespace is trimmed before validation\n  \"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:60:25:48:44:71:22:15:43:23:12\"       , Whitespace around quotes is also trimmed\n\n```\n\n**A file containing invalid identities:**\n```\n\"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12\", First line is ignored\nA_4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12, Invalid version identifier\nA-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12, Too short identity\n\"\", Empty quotes are an invalid identity\n\" A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12 \", Whitespace inside quotes is not trimmed causing an error\n\n```\n\n**An empty file:**\n```\n\"Examples of blank lines that are ignored\"\n\n,,\n, This is also considered to a blank line\n```\n",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "in": "stream",
@@ -24048,6 +24190,7 @@
             "custom": false,
             "type": "device_enrollment_bulk_create"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -24075,11 +24218,11 @@
         },
         {
           "description": "This method will download the CSV file containing detailed information on status of the bulk enrollment.",
-          "field_renames": [],
-          "fields": [],
+          "field_renames": {},
+          "fields": {},
           "method": null,
           "mode": "download_errors_report_file",
-          "responses": [],
+          "responses": {},
           "path": null,
           "summary": "Download the error report file for the created the bulk enrollment.",
           "return_type": "file",
@@ -24088,6 +24231,7 @@
             "custom": true,
             "type": "file"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -24109,11 +24253,11 @@
         },
         {
           "description": "This method will download the CSV file containing detailed information on status of the bulk enrollment.",
-          "field_renames": [],
-          "fields": [],
+          "field_renames": {},
+          "fields": {},
           "method": null,
           "mode": "download_full_report_file",
-          "responses": [],
+          "responses": {},
           "path": null,
           "summary": "Download the full report file for the created of the bulk enrollment.",
           "return_type": "file",
@@ -24122,6 +24266,7 @@
             "custom": true,
             "type": "file"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -24143,7 +24288,7 @@
         },
         {
           "description": "Provides information on bulk upload for the given ID. For example, the bulk status and the number of processed enrollment identities. Also links to the bulk upload reports are provided.\n**Report file format:**\nThe report files have a header line and the value are separated by commas. The lines are delimited by a line break (CRLF). The report file is compliant with IETF Informal CSV common format [RFC 4180](https://tools.ietf.org/html/rfc4180).\nAn example of a full report file:\n```\n\"entity__id\",\"entity__created_at\",\"error__code\",\"error__type\",\"error__message\",\"error__fields\"\n\"A-F9:AA:AA:AA:DE:31:C7:30:72:55:27:AE:8B:E1:1C:6F:42:7D:06:CF:FB:18:6F:59:48:29:B3:98:4B:76:8F:9E\",\"2018-09-07T12:10:58.428Z\",\"\",\"\",\"\",\"\"\n\"A-FF:AA:AA:AA:3B:43:EB:D7:C7:30:03:5F:C8:D0:15:91:70:C2:5D:4F:EB:24:E9:3A:BB:D8:3C:FE:20:EA:B1:72\",\"2018-09-07T12:10:58.428Z\",\"\",\"\",\"\",\"\"\n```\nAn example of an error report file:\n```\n\"entity__id\",\"error__code\",\"error__type\",\"error__message\",\"error__fields\"\n\"A-F9:AA:AA:AA:DE:31:C7:30:72:55:27:AE:8B:E1:1C:6F:42:7D:06:CF:FB:18:6F:59:48:29:B3:98:4B:76:8F:9E\",\"409\",\"duplicate\",\"Enrollment identity is already claimed in the mbed Cloud.\",\"\"\n\"A-FF:AA:AA:AA:3B:43:EB:D7:C7:30:03:5F:C8:D0:15:91:70:C2:5D:4F:EB:24:E9:3A:BB:D8:3C:FE:20:EA:B1:72\",\"409\",\"duplicate\",\"Enrollment identity is already claimed in the mbed Cloud.\",\"\"\n```\n**Example usage:**\n```\ncurl -X GET \\\n-H 'Authorization: Bearer <valid access token>' \\\nhttps://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/{id}\n```\n",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "type": "string",
@@ -24520,6 +24665,7 @@
             "custom": false,
             "type": "device_enrollment_bulk_create"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -24644,7 +24790,7 @@
           "_key": "total_count"
         }
       ],
-      "field_renames": [],
+      "field_renames": {},
       "tags": [
         "Public API"
       ],
@@ -24659,7 +24805,7 @@
       "methods": [
         {
           "description": "With bulk delete, you can upload a `CSV` file containing a number of enrollment IDs to be deleted.\n\n**Example usage:**\n```\ncurl -X POST \\\n-H 'Authorization: Bearer <valid access token>' \\\n-F 'enrollment_identities=@/path/to/enrollments/enrollments.csv' \\\nhttps://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-deletes\n\n```\n**The validation rules for an CSV file.**\n1. The first line in the uploaded CSV file is assumed to be the header and is ignored.\n1. Each line can contain comma-separated values, where the first value is always assumed to be the Enrollment ID. Everything after the first comma is ignored.\n1. Valid enrollments begin with A followed by a - and 95 characters in the format as below.\n1. Up to one enrollment ID is expected per line. Empty lines are ignored.\n1. Trailing comma at the end of the line is optional.\n1. Lines are terminated with either a line feed \\n, a carriage return \\r, or both together \\r\\n.\n1. Leading and trailing whitespace characters (Unicode U+0000 - U+0020) are removed from the identity before validation.\n1. Empty identities are ignored.\n1. Valid enrollment identities may be enclosed within quotes. Whitespace inside quotes is not trimmed and will fail validation. Empty quotes are also considered to be an invalid enrollment identity.\n1. UTF-8 encoding is expected.\n\n\n**A valid enrollment file:**\n```\n\"Examples of valid identites, notes\"\n\"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12\",\n\"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12\"\nA-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12\nA-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:24:44:71:22:15:43:23:12, This text is ignored,\n A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:60:25:48:44:71:22:15:43:23:12       , Whitespace is trimmed before validation\n  \"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:60:25:48:44:71:22:15:43:23:12\"       , Whitespace around quotes is also trimmed\n\n```\n\n**A file containing invalid identities:**\n```\n\"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12\", First line is ignored\nA_4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12, Invalid version identifier\nA-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12, Too short identity\n\"\", Empty quotes are an invalid identity\n\" A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12 \", Whitespace inside quotes is not trimmed causing an error\n\n```\n\n**An empty file:**\n```\n\"Examples of blank lines that are ignored\"\n\n,,\n, This is also considered to a blank line\n```\n",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "in": "stream",
@@ -24967,6 +25113,7 @@
             "custom": false,
             "type": "device_enrollment_bulk_delete"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -24994,11 +25141,11 @@
         },
         {
           "description": "This method will download the CSV file containing detailed information on status of the bulk enrollment.",
-          "field_renames": [],
-          "fields": [],
+          "field_renames": {},
+          "fields": {},
           "method": null,
           "mode": "download_errors_report_file",
-          "responses": [],
+          "responses": {},
           "path": null,
           "summary": "Download the error report file for the bulk enrollment deletion.",
           "return_type": "file",
@@ -25007,6 +25154,7 @@
             "custom": true,
             "type": "file"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -25028,11 +25176,11 @@
         },
         {
           "description": "This method will download the CSV file containing detailed information on status of the bulk enrollment.",
-          "field_renames": [],
-          "fields": [],
+          "field_renames": {},
+          "fields": {},
           "method": null,
           "mode": "download_full_report_file",
-          "responses": [],
+          "responses": {},
           "path": null,
           "summary": "Download the full report file for the bulk enrollment deletion.",
           "return_type": "file",
@@ -25041,6 +25189,7 @@
             "custom": true,
             "type": "file"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -25062,7 +25211,7 @@
         },
         {
           "description": "Provides information on bulk delete for the given ID. For example, the bulk status and the number of processed enrollment identities. Also links to the bulk delete reports are provided.\n**Report file format:**\nThe report files have a header line and the value are separated by commas. The lines are delimited by a line break (CRLF). The report file is compliant with IETF Informal CSV common format [RFC 4180](https://tools.ietf.org/html/rfc4180).\nAn example of a full report file:\n```\n\"entity__id\",\"entity__deleted_at\",\"error__code\",\"error__type\",\"error__message\",\"error__fields\"\n\"A-F9:AA:AA:AA:DE:31:C7:30:72:55:27:AE:8B:E1:1C:6F:42:7D:06:CF:FB:18:6F:59:48:29:B3:98:4B:76:8F:9E\",\"2018-09-07T12:10:58.428Z\",\"\",\"\",\"\",\"\"\n\"A-FF:AA:AA:AA:3B:43:EB:D7:C7:30:03:5F:C8:D0:15:91:70:C2:5D:4F:EB:24:E9:3A:BB:D8:3C:FE:20:EA:B1:72\",\"2018-09-07T12:10:58.428Z\",\"\",\"\",\"\",\"\"\n```\nAn example of an error report file:\n```\n\"entity__id\",\"error__code\",\"error__type\",\"error__message\",\"error__fields\"\n\"A-F9:AA:AA:AA:DE:31:C7:30:72:55:27:AE:8B:E1:1C:6F:42:7D:06:CF:FB:18:6F:59:48:29:B3:98:4B:76:8F:9E\",\"409\",\"duplicate\",\"Enrollment identity is already claimed in the mbed Cloud.\",\"\"\n\"A-FF:AA:AA:AA:3B:43:EB:D7:C7:30:03:5F:C8:D0:15:91:70:C2:5D:4F:EB:24:E9:3A:BB:D8:3C:FE:20:EA:B1:72\",\"409\",\"duplicate\",\"Enrollment identity is already claimed in the mbed Cloud.\",\"\"\n```\n**Example usage:**\n```\ncurl -X GET \\\n-H 'Authorization: Bearer <valid access token>' \\\nhttps://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-deletes/{id}\n```\n",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "type": "string",
@@ -25442,6 +25591,7 @@
             "custom": false,
             "type": "device_enrollment_bulk_delete"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -25568,7 +25718,7 @@
           "_key": "total_count"
         }
       ],
-      "field_renames": [],
+      "field_renames": {},
       "tags": [
         "Public API"
       ],
@@ -25584,7 +25734,7 @@
       "methods": [
         {
           "description": "List all device events for an account.",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "type": "string",
@@ -25662,7 +25812,7 @@
                           "additionalProperties": {
                             "type": "string"
                           },
-                          "example": [],
+                          "example": {},
                           "_key": "changes"
                         },
                         {
@@ -25819,6 +25969,7 @@
             "custom": false,
             "type": "device_events"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -25844,7 +25995,7 @@
         },
         {
           "description": "Retrieve a specific device event.",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "type": "string",
@@ -25869,7 +26020,7 @@
                     "additionalProperties": {
                       "type": "string"
                     },
-                    "example": [],
+                    "example": {},
                     "api_fieldname": "changes",
                     "entity_fieldname": "changes",
                     "_key": "changes"
@@ -26004,6 +26155,7 @@
             "custom": false,
             "type": "device_events"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -26039,7 +26191,7 @@
           "additionalProperties": {
             "type": "string"
           },
-          "example": [],
+          "example": {},
           "api_fieldname": "changes",
           "readOnly": true,
           "required": false,
@@ -26137,7 +26289,7 @@
           "_key": "state_change"
         }
       ],
-      "field_renames": [],
+      "field_renames": {},
       "tags": [],
       "group_id": "Devices",
       "_key": "device_events"
@@ -26147,7 +26299,7 @@
         "LoginHistory"
       ],
       "primary_key_field": null,
-      "methods": [],
+      "methods": {},
       "fields": [
         {
           "type": "string",
@@ -26187,7 +26339,7 @@
           "_key": "user_agent"
         }
       ],
-      "field_renames": [],
+      "field_renames": {},
       "tags": [],
       "group_id": "Accounts",
       "_key": "login_history"
@@ -26197,7 +26349,7 @@
         "LoginProfile"
       ],
       "primary_key_field": "id",
-      "methods": [],
+      "methods": {},
       "fields": [
         {
           "type": "string",
@@ -26218,7 +26370,7 @@
           "_key": "name"
         }
       ],
-      "field_renames": [],
+      "field_renames": {},
       "tags": [],
       "group_id": "Accounts",
       "_key": "login_profile"
@@ -26228,7 +26380,7 @@
         "ParentAccountInfo"
       ],
       "primary_key_field": "id",
-      "methods": [],
+      "methods": {},
       "fields": [
         {
           "type": "string",
@@ -26258,7 +26410,7 @@
           "_key": "id"
         }
       ],
-      "field_renames": [],
+      "field_renames": {},
       "tags": [],
       "group_id": "Accounts",
       "_key": "parent_account"
@@ -26268,7 +26420,7 @@
         "PasswordPolicy"
       ],
       "primary_key_field": null,
-      "methods": [],
+      "methods": {},
       "fields": [
         {
           "type": "string",
@@ -26280,7 +26432,7 @@
           "_key": "minimum_length"
         }
       ],
-      "field_renames": [],
+      "field_renames": {},
       "tags": [],
       "group_id": "Accounts",
       "_key": "password_policy"
@@ -26290,7 +26442,7 @@
         "FeaturePolicy"
       ],
       "primary_key_field": null,
-      "methods": [],
+      "methods": {},
       "fields": [
         {
           "type": "string",
@@ -26338,7 +26490,7 @@
           "_key": "resource"
         }
       ],
-      "field_renames": [],
+      "field_renames": {},
       "tags": [],
       "group_id": "Accounts",
       "_key": "policy"
@@ -26351,8 +26503,8 @@
       "methods": [
         {
           "description": "This REST API is intended to be used by customers to fetch bootstrap server credentials that they will need to use with their clients to connect to bootstrap server.\n\n**Example usage:**\ncurl -X GET \"http://api.us-east-1.mbedcloud.com/v3/server-credentials/bootstrap\" -H \"accept: application/json\" -H \"Authorization: Bearer THE_ACCESS_TOKEN\"\n",
-          "field_renames": [],
-          "fields": [],
+          "field_renames": {},
+          "fields": {},
           "method": "get",
           "mode": "get_bootstrap",
           "responses": [
@@ -26588,6 +26740,7 @@
             "custom": false,
             "type": "server_credentials"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -26615,8 +26768,8 @@
         },
         {
           "description": "This REST API is intended to be used by customers to fetch LwM2M server credentials that they will need to use with their clients to connect to LwM2M server.\n\n**Example usage:**\ncurl -X GET \"http://api.us-east-1.mbedcloud.com/v3/server-credentials/lwm2m\" -H \"accept: application/json\" -H \"Authorization: Bearer THE_ACCESS_TOKEN\"\n",
-          "field_renames": [],
-          "fields": [],
+          "field_renames": {},
+          "fields": {},
           "method": "get",
           "mode": "get_lwm2m",
           "responses": [
@@ -26852,6 +27005,7 @@
             "custom": false,
             "type": "server_credentials"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -26913,7 +27067,7 @@
           "_key": "server_uri"
         }
       ],
-      "field_renames": [],
+      "field_renames": {},
       "tags": [
         "Server credentials"
       ],
@@ -26931,7 +27085,7 @@
       "methods": [
         {
           "description": "An endpoint for uploading new trusted certificates.\n\n**Example usage:**\n`curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates -d {\"name\": \"myCert1\", \"description\": \"very important cert\", \"certificate\": \"certificate_data\", \"service\": \"lwm2m\"} -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "type": "string",
@@ -27566,6 +27720,7 @@
             "custom": false,
             "type": "subtenant_trusted_certificate"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -27594,7 +27749,7 @@
         },
         {
           "description": "An endpoint for deleting the trusted certificate.\n\n**Example usage:**\n`curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates/{cert_id} -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "name": "account_id",
@@ -27876,6 +28031,7 @@
             "custom": false,
             "type": "subtenant_trusted_certificate"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -27896,7 +28052,7 @@
         },
         {
           "description": "This REST API is intended to be used by customers to fetch an existing developer certificate (a certificate that can be flashed into multiple devices to connect to bootstrap server).\n\n**Example usage:**\ncurl -X GET \"http://api.us-east-1.mbedcloud.com/v3/developer-certificates/THE_CERTIFICATE_ID\" -H \"accept: application/json\" -H \"Authorization: Bearer THE_ACCESS_TOKEN\"\n",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "type": "integer",
@@ -28279,6 +28435,7 @@
             "custom": false,
             "type": "developer_certificate"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -28311,7 +28468,7 @@
         },
         {
           "description": "An endpoint for retrieving a trusted certificate by ID.\n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates/{cert_id} -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "type": "string",
@@ -28809,6 +28966,7 @@
             "custom": false,
             "type": "subtenant_trusted_certificate"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -28843,7 +29001,7 @@
         },
         {
           "description": "An endpoint for updating existing trusted certificates.\n\n**Example usage:**\n`curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates/{cert_id} -d {\"description\": \"very important cert\"} -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "type": "string",
@@ -29489,6 +29647,7 @@
             "custom": false,
             "type": "subtenant_trusted_certificate"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -29714,7 +29873,7 @@
           "_key": "validity"
         }
       ],
-      "field_renames": [],
+      "field_renames": {},
       "tags": [
         "Aggregator Account Admin",
         "Developer certificate"
@@ -30744,6 +30903,7 @@
             "custom": false,
             "type": "subtenant_user"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -31125,6 +31285,7 @@
             "custom": false,
             "type": "subtenant_user"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -31866,6 +32027,7 @@
             "custom": false,
             "type": "subtenant_user"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -32906,6 +33068,7 @@
             "custom": false,
             "type": "subtenant_user"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -33215,6 +33378,7 @@
             "custom": false,
             "type": "subtenant_user"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -33673,7 +33837,7 @@
       "methods": [
         {
           "description": "An endpoint for inviting a new or an existing user to join the account.\n\n**Example usage:**\n`curl -X POST https://api.us-east-1.mbedcloud.com/v3/accouns/{account_id}/user-invitations -d {\"email\": \"myemail@company.com\"} -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "type": "string",
@@ -34174,6 +34338,7 @@
             "custom": false,
             "type": "subtenant_user_invitation"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -34199,7 +34364,7 @@
         },
         {
           "description": "An endpoint for deleting an active user invitation which has been sent for a new or an existing user to join the account.\n\n**Example usage:**\n`curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/user-invitations/{invitation_id} -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "name": "account_id",
@@ -34461,6 +34626,7 @@
             "custom": false,
             "type": "subtenant_user_invitation"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -34481,7 +34647,7 @@
         },
         {
           "description": "An endpoint for retrieving the details of an active user invitation sent for a new or an existing user to join the account.\n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/user-invitations/{invitation_id} -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "type": "string",
@@ -34913,6 +35079,7 @@
             "custom": false,
             "type": "subtenant_user_invitation"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -35065,7 +35232,7 @@
           "_key": "user_id"
         }
       ],
-      "field_renames": [],
+      "field_renames": {},
       "tags": [
         "Aggregator Account Admin"
       ],
@@ -35084,7 +35251,7 @@
       "methods": [
         {
           "description": "An endpoint for uploading new trusted certificates.\n\n**Example usage:**\n`curl -X POST https://api.us-east-1.mbedcloud.com/v3/trusted-certificates -d {\"name\": \"myCert1\", \"description\": \"very important cert\", \"certificate\": \"certificate_data\", \"service\": \"lwm2m\"} -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "type": "string",
@@ -35685,6 +35852,7 @@
             "custom": false,
             "type": "trusted_certificate"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -35714,7 +35882,7 @@
         },
         {
           "description": "An endpoint for deleting a trusted certificate.\n\n**Example usage:**\n`curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert_id} -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "type": "integer",
@@ -35984,6 +36152,7 @@
             "custom": false,
             "type": "trusted_certificate"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -36004,7 +36173,7 @@
         },
         {
           "description": "This REST API is intended to be used by customers to fetch an existing developer certificate (a certificate that can be flashed into multiple devices to connect to bootstrap server).\n\n**Example usage:**\ncurl -X GET \"http://api.us-east-1.mbedcloud.com/v3/developer-certificates/THE_CERTIFICATE_ID\" -H \"accept: application/json\" -H \"Authorization: Bearer THE_ACCESS_TOKEN\"\n",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "type": "integer",
@@ -36387,6 +36556,7 @@
             "custom": false,
             "type": "developer_certificate"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -36419,7 +36589,7 @@
         },
         {
           "description": "An endpoint for retrieving trusted certificates in an array.\n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "type": "string",
@@ -36895,6 +37065,39 @@
             "custom": false,
             "type": "trusted_certificate"
           },
+          "x_filter": {
+            "name": [
+              "eq"
+            ],
+            "service": [
+              "eq"
+            ],
+            "expire": [
+              "eq"
+            ],
+            "device_execution_mode": [
+              "eq",
+              "neq"
+            ],
+            "owner": [
+              "eq"
+            ],
+            "enrollment_mode": [
+              "eq"
+            ],
+            "status": [
+              "eq"
+            ],
+            "issuer": [
+              "like"
+            ],
+            "subject": [
+              "like"
+            ],
+            "valid": [
+              "eq"
+            ]
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -36931,7 +37134,7 @@
         },
         {
           "description": "An endpoint for retrieving a trusted certificate by ID.\n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert_id} -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "type": "integer",
@@ -37395,6 +37598,7 @@
             "custom": false,
             "type": "trusted_certificate"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -37430,7 +37634,7 @@
         },
         {
           "description": "An endpoint for updating existing trusted certificates.\n\n**Example usage:**\n`curl -X PUT https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert_id} -d {\"description\": \"very important cert\"} -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "type": "string",
@@ -38115,6 +38319,7 @@
             "custom": false,
             "type": "trusted_certificate"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -38327,7 +38532,7 @@
           "_key": "validity"
         }
       ],
-      "field_renames": [],
+      "field_renames": {},
       "tags": [
         "Developer",
         "Account Admin",
@@ -39233,6 +39438,7 @@
             "custom": false,
             "type": "user"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -39603,6 +39809,7 @@
             "custom": false,
             "type": "user"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -40291,6 +40498,19 @@
             "self": true,
             "custom": false,
             "type": "user"
+          },
+          "x_filter": {
+            "email": [
+              "eq"
+            ],
+            "status": [
+              "eq",
+              "in",
+              "nin"
+            ],
+            "login_profile": [
+              "eq"
+            ]
           },
           "drop_fields": [
             "object",
@@ -40993,6 +41213,7 @@
             "custom": false,
             "type": "user"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -41981,6 +42202,7 @@
             "custom": false,
             "type": "user"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -42431,7 +42653,7 @@
       "methods": [
         {
           "description": "An endpoint for inviting a new or an existing user to join the account.\n\n**Example usage:**\n`curl -X POST https://api.us-east-1.mbedcloud.com/v3/user-invitations -d {\"email\": \"myemail@company.com\"} -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "type": "string",
@@ -42906,6 +43128,7 @@
             "custom": false,
             "type": "user_invitation"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -42932,7 +43155,7 @@
         },
         {
           "description": "An endpoint for deleting an active user invitation which has been sent for a new or an existing user to join the account.\n\n**Example usage:**\n`curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/user-invitations/{invitation_id} -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "name": "invitation_id",
@@ -43182,6 +43405,7 @@
             "custom": false,
             "type": "user_invitation"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -43202,7 +43426,7 @@
         },
         {
           "description": "An endpoint for retrieving the details of all the active user invitations sent for new or existing users to join the account.\n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/user-invitations -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "type": "string",
@@ -43627,6 +43851,11 @@
             "custom": false,
             "type": "user_invitation"
           },
+          "x_filter": {
+            "login_profile": [
+              "eq"
+            ]
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -43656,7 +43885,7 @@
         },
         {
           "description": "An endpoint for retrieving the details of an active user invitation sent for a new or an existing user to join the account.\n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/user-invitations/{invitation_id} -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": [],
+          "field_renames": {},
           "fields": [
             {
               "type": "string",
@@ -44062,6 +44291,7 @@
             "custom": false,
             "type": "user_invitation"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -44209,7 +44439,7 @@
           "_key": "user_id"
         }
       ],
-      "field_renames": [],
+      "field_renames": {},
       "tags": [
         "Account Admin"
       ],
@@ -44221,7 +44451,7 @@
         "CertificateIssuerVerifyResponse"
       ],
       "primary_key_field": null,
-      "methods": [],
+      "methods": {},
       "fields": [
         {
           "type": "string",
@@ -44242,7 +44472,7 @@
           "_key": "successful"
         }
       ],
-      "field_renames": [],
+      "field_renames": {},
       "tags": [],
       "group_id": "Security",
       "_key": "verification_response"

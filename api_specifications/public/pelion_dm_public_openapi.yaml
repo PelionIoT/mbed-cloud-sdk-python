@@ -8097,6 +8097,19 @@ paths:
       summary: Get all accounts.
       tags:
       - Aggregator Account Admin
+      x-filter:
+        country:
+        - like
+        end_market:
+        - eq
+        parent:
+        - eq
+        status:
+        - eq
+        - in
+        - nin
+        tier:
+        - eq
     post:
       consumes:
       - application/json
@@ -8454,6 +8467,11 @@ paths:
       summary: Get all API keys.
       tags:
       - Aggregator Account Admin
+      x-filter:
+        key:
+        - eq
+        owner:
+        - eq
     post:
       consumes:
       - application/json
@@ -10159,6 +10177,9 @@ paths:
       summary: Get all group information.
       tags:
       - Aggregator Account Admin
+      x-filter:
+        name:
+        - eq
     post:
       consumes:
       - application/json
@@ -10675,6 +10696,11 @@ paths:
       summary: Get users of a group.
       tags:
       - Aggregator Account Admin
+      x-filter:
+        status:
+        - eq
+        - in
+        - nin
   /v3/accounts/{account_id}/trusted-certificates:
     get:
       description: 'An endpoint for retrieving trusted certificates in an array.
@@ -10801,6 +10827,28 @@ paths:
       summary: Get all trusted certificates.
       tags:
       - Aggregator Account Admin
+      x-filter:
+        device_execution_mode:
+        - eq
+        - neq
+        enrollment_mode:
+        - eq
+        expire:
+        - eq
+        issuer:
+        - like
+        name:
+        - eq
+        owner:
+        - eq
+        service:
+        - eq
+        status:
+        - eq
+        subject:
+        - like
+        valid:
+        - eq
     post:
       consumes:
       - application/json
@@ -11055,6 +11103,9 @@ paths:
       summary: Get the details of all the user invitations.
       tags:
       - Aggregator Account Admin
+      x-filter:
+        login_profile:
+        - eq
     post:
       consumes:
       - application/json
@@ -11279,6 +11330,15 @@ paths:
       summary: Get all user details.
       tags:
       - Aggregator Account Admin
+      x-filter:
+        email:
+        - eq
+        login_profile:
+        - eq
+        status:
+        - eq
+        - in
+        - nin
     post:
       consumes:
       - application/json
@@ -11780,6 +11840,11 @@ paths:
       summary: Get all API keys
       tags:
       - Developer
+      x-filter:
+        key:
+        - eq
+        owner:
+        - eq
     post:
       consumes:
       - application/json
@@ -13600,6 +13665,23 @@ paths:
       summary: Get certificate enrollments list.
       tags:
       - Certificate Enrollments
+      x-filter:
+        certificate_name:
+        - eq
+        created_at:
+        - lte
+        - gte
+        device_id:
+        - eq
+        enroll_result:
+        - neq
+        - eq
+        enroll_status:
+        - neq
+        - eq
+        updated_at:
+        - lte
+        - gte
   /v3/certificate-enrollments/{certificate-enrollment-id}:
     get:
       description: 'Get a certificate enrollment by ID.
@@ -13742,6 +13824,9 @@ paths:
       summary: Get certificate issuer configurations.
       tags:
       - Certificate Issuers Activation
+      x-filter:
+        reference:
+        - eq
     post:
       description: "Configure the certificate issuer to be used when creating the\
         \ device custom certificates.\n<br>\n**Example usage:**\n\n```\ncurl -X POST\
@@ -17588,6 +17673,9 @@ paths:
       summary: Get all group information.
       tags:
       - Developer
+      x-filter:
+        name:
+        - eq
     post:
       consumes:
       - application/json
@@ -18055,6 +18143,11 @@ paths:
       summary: Get users of a group.
       tags:
       - Account Admin
+      x-filter:
+        status:
+        - eq
+        - in
+        - nin
   /v3/server-credentials:
     get:
       description: 'This REST API is intended to be used by customers to fetch all
@@ -18557,6 +18650,28 @@ paths:
       summary: Get all trusted certificates.
       tags:
       - Developer
+      x-filter:
+        device_execution_mode:
+        - eq
+        - neq
+        enrollment_mode:
+        - eq
+        expire:
+        - eq
+        issuer:
+        - like
+        name:
+        - eq
+        owner:
+        - eq
+        service:
+        - eq
+        status:
+        - eq
+        subject:
+        - like
+        valid:
+        - eq
     post:
       consumes:
       - application/json
@@ -19249,6 +19364,9 @@ paths:
       summary: Get the details of all the user invitations.
       tags:
       - Account Admin
+      x-filter:
+        login_profile:
+        - eq
     post:
       consumes:
       - application/json
@@ -19447,6 +19565,15 @@ paths:
       summary: Get the details of all users.
       tags:
       - Account Admin
+      x-filter:
+        email:
+        - eq
+        login_profile:
+        - eq
+        status:
+        - eq
+        - in
+        - nin
     post:
       consumes:
       - application/json
