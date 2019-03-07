@@ -159,8 +159,6 @@ class DeviceDirectoryAPI(BaseAPI):
         :rtype: Device
         """
         api = self._get_api(device_directory.DefaultApi)
-        if "device_execution_mode" not in kwargs:
-            kwargs.update({"device_execution_mode": 1})
         device = Device._create_request_map(kwargs)
         device = DeviceData(**device)
         return Device(api.device_create(device))
@@ -255,7 +253,14 @@ class DeviceDirectoryAPI(BaseAPI):
         ) if filter else None
 
         query_map = Query._create_request_map(kwargs)
-        body = DeviceQueryPostPutRequest(name=name, query=filter_obj['filter'], **query_map)
+
+        # The filter option is optional on update but DeviceQueryPostPutRequest sets it None, which is invalid.
+        # Manually create a resource body without the filter parameter if only the name is provided.
+        if filter is None:
+            body = {"name": name}
+        else:
+            body = DeviceQueryPostPutRequest(name=name, query=filter_obj['filter'], **query_map)
+
         api = self._get_api(device_directory.DefaultApi)
         return Query(api.device_query_update(query_id, body))
 
