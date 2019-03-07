@@ -41,9 +41,9 @@ from mbed_cloud import __version__
 from mbed_cloud import pagination
 from mbed_cloud.core import BaseObject
 
-from mbed_cloud.sdk.common.exceptions import ApiErrorResponse
-from mbed_cloud.sdk.entities import __all__ as entity_list
-from mbed_cloud.sdk import SDK
+from mbed_cloud.sdk.exceptions import ApiErrorResponse
+from mbed_cloud.foundation import __all__ as entity_list
+from mbed_cloud import SDK
 
 
 LOG = logging.getLogger(__name__)
@@ -365,7 +365,7 @@ def create_foundation_entity_instance(entity):
     try:
         # Entity names are PascalCase, SDK entity methods are snake case.
         method_name = re.sub('(?<!^)(?=[A-Z])', '_', entity).lower()
-        entity_class = getattr(sdk_instance.entities, method_name)
+        entity_class = getattr(sdk_instance.foundation, method_name)
     except AttributeError:
         raise NotFound("Entity '%s' which was reformatted to '%s' cannot be found." % (entity, method_name))
 

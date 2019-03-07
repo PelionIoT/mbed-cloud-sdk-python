@@ -2,15 +2,15 @@
 
 from tests.common import BaseCase, CrudMixinTests
 
-from mbed_cloud.sdk.entities import CertificateEnrollment
-from mbed_cloud.sdk.entities import CertificateIssuerConfig
-from mbed_cloud.sdk.entities import CertificateIssuer
-from mbed_cloud.sdk.entities import DeveloperCertificate
-from mbed_cloud.sdk.entities import ServerCredentials
-from mbed_cloud.sdk.entities import SubtenantTrustedCertificate
-from mbed_cloud.sdk.entities import TrustedCertificate
+from mbed_cloud.foundation import CertificateEnrollment
+from mbed_cloud.foundation import CertificateIssuerConfig
+from mbed_cloud.foundation import CertificateIssuer
+from mbed_cloud.foundation import DeveloperCertificate
+from mbed_cloud.foundation import ServerCredentials
+from mbed_cloud.foundation import SubtenantTrustedCertificate
+from mbed_cloud.foundation import TrustedCertificate
 
-from mbed_cloud.sdk.common.exceptions import ApiErrorResponse
+from mbed_cloud.sdk.exceptions import ApiErrorResponse
 
 
 @BaseCase._skip_in_ci

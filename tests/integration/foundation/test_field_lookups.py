@@ -6,8 +6,8 @@ import datetime
 
 from tests.common import BaseCase
 
-from mbed_cloud.sdk.entities import User
-from mbed_cloud.sdk.common.exceptions import ApiErrorResponse
+from mbed_cloud.foundation import User
+from mbed_cloud.sdk.exceptions import ApiErrorResponse
 
 @BaseCase._skip_in_ci
 class TestLookups(BaseCase):

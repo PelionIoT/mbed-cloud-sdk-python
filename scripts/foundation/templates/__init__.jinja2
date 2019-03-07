@@ -1,5 +1,13 @@
 """
-Provides structure to expose {{ _key|to_pascal }} functionality grouped as a module.
+Foundation Interface
 
 This file is auto-generated from API Specifications.
 """
+
+{% for entity in entities|sort(attribute='_key')|sort(attribute='group_id') %}from mbed_cloud.foundation.entities.{{ entity.group_id|to_snake }}.{{ entity._key|to_snake }} import {{ entity._key|to_pascal }}
+{% endfor %}
+
+__all__ = [
+{% for entity in entities|sort(attribute='_key') %}'{{ entity._key|to_pascal }}',
+{% endfor %}
+]

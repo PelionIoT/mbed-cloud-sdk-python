@@ -1,0 +1,34 @@
+"""
+Enum module
+
+This file is auto-generated from API Specifications.
+"""
+
+# Python 2 compatibility
+from __future__ import unicode_literals
+from builtins import str  # noqa
+from builtins import object
+
+from mbed_cloud.foundation.common.enum_base import BaseEnum
+
+
+{% for enum in enums %}
+
+class {{ enum.enum_name|to_pascal }}(BaseEnum):
+    """Represents expected values of `{{enum.enum_name|to_pascal}}`
+
+    This is used by Mbed Cloud "{{ enum.group_id|to_snake }}" functionality
+
+    Note: If new values are added to the enum in the API they will be passed through unchanged by
+    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
+    version.
+    """
+
+    {% for value in enum['values'] %}{{ value|upper }} = '{{ value }}'
+    {% endfor %}
+
+    values = frozenset((
+        {% for value in enum['values'] %}'{{ value }}',
+        {% endfor %}
+    ))
+{% endfor %}

@@ -172,7 +172,7 @@ class EndpointTests(unittest.TestCase):
         self.assertTrue(isinstance(response.json, list))
 
         # SDK methods should not be executable
-        response = self.app.post('/foundation/instances/%s/methods/entities' % instance_id)
+        response = self.app.post('/foundation/instances/%s/methods/foundation' % instance_id)
         self.assertEqual(response.status_code, 405)
 
     def test_sdk_instances(self):

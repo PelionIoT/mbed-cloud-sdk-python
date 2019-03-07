@@ -1,0 +1,42 @@
+"""
+Factory module
+
+This file is auto-generated from API Specifications.
+"""
+
+# Python 2 compatibility
+from __future__ import unicode_literals
+from builtins import str  # noqa
+from builtins import object
+
+
+class InstanceFactory:
+    """Creates instances of Entities with a client mixed in"""
+
+    def __init__(self, client):
+        """InstanceFactory takes a client to attach to the models it creates"""
+        self._client = client
+
+    {#  this is a duplicate of the __init__ signature from the entity template  #}
+    {% for entity in entities %}
+    def {{ entity._key|to_snake }}(
+        self,
+        {% for field in entity.fields if not field.private_field %}
+            {{field._key|to_snake}}=None,
+        {% endfor %}
+    ):
+        """Creates a local `{{entity._key|to_pascal}}` instance, binding the client
+
+        {% for field in entity.fields if not field.private_field %}:param {{field._key|to_snake}}: {{ (field.description or '')|wordwrap(width=66)|indent(width=12) }}
+        :type {{field._key|to_snake}}: {{field.python_type}}
+        {% endfor %}
+        :rtype: mbed_cloud.foundation.{{ entity._key|to_pascal }}
+        """
+        from mbed_cloud.foundation import {{ entity._key|to_pascal }}
+        return {{ entity._key|to_pascal }}(
+            _client=self._client,
+            {% for field in entity.fields if not field.private_field %}
+                {{field._key|to_snake}}={{field._key|to_snake}},
+            {% endfor %}
+        )
+    {% endfor %}

@@ -180,11 +180,11 @@ jobs:
           -p python_definition.yaml -o src/mbed_cloud/sdk
         name: Generate the Foundation interface code
     - run:
-        command: 'git add -v src/mbed_cloud/sdk/_modules/\*.py
+        command: 'git add -v src/mbed_cloud/foundation/entities/\*.py
 
-          git add -v src/mbed_cloud/sdk/entities/\*.py
+          git add -v src/mbed_cloud/foundation/enums/\*.py
 
-          git add -v src/mbed_cloud/sdk/enums/\*.py
+          git add -v src/mbed_cloud/foundation/__init__.py
 
           git commit --message "Auto-generated code" || FILES_CHANGED=True
 
