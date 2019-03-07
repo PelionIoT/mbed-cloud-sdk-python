@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 from builtins import int
 from builtins import object
-from builtins import str
 from builtins import super
 
 from datetime import datetime
@@ -10,6 +9,7 @@ from datetime import date
 from dateutil.parser import parse
 from io import BufferedIOBase
 import json
+import six
 
 import logging
 
@@ -75,12 +75,13 @@ class Field(object):
         """
         return json.dumps(self.value) if self.value is None else self.to_api()
 
+
 class DateTimeField(Field):
     base_type = datetime
 
     def set(self, value):
         """Set the date/time using a datetime object or a date/time like string."""
-        if isinstance(value, str):
+        if isinstance(value, six.string_types):
             # Use dateutil.parser to accept various input
             self._val = parse(value)
         else:
@@ -154,7 +155,8 @@ class FloatField(Field):
 
 
 class StringField(Field):
-    base_type = str
+    # Python 2 and 3 compatible string type
+    base_type = six.string_types
 
 
 class BooleanField(Field):
@@ -166,6 +168,7 @@ class BooleanField(Field):
         Note: This will not URL encode as this will be performed by the `requests` library
         """
         return json.dumps(self.value)
+
 
 class ListField(Field):
     base_type = list

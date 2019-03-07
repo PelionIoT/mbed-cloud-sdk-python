@@ -58,8 +58,8 @@ class TestApiFilter(BaseCase):
         self.assertEqual(expected_filter, api_filter.to_api())
 
     def test_dict_type(self):
-        filter_definition = {"name": {"nin": {"Animal": "Badger", "Home": "Set"}}}
-        expected_filter = {"name__nin": '{"Animal": "Badger", "Home": "Set"}'}
+        filter_definition = {"name": {"nin": {"Animal": "Badger"}}}
+        expected_filter = {"name__nin": '{"Animal": "Badger"}'}
 
         api_filter = ApiFilter(filter_definition)
         self.assertEqual(expected_filter, api_filter.to_api())
