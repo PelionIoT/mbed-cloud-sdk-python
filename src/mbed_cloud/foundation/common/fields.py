@@ -7,10 +7,9 @@ from builtins import super
 
 from datetime import datetime
 from datetime import date
-
 from dateutil.parser import parse
-
 from io import BufferedIOBase
+import json
 
 import logging
 
@@ -69,6 +68,12 @@ class Field(object):
             else self.set(value)
         )
 
+    def to_query_param(self):
+        """Generate a format which is appropriate to representing a a query param
+
+        Note: This will not URL encode as this will be performed by the `requests` library
+        """
+        return json.dumps(self.value) if self.value is None else self.to_api()
 
 class DateTimeField(Field):
     base_type = datetime
@@ -116,6 +121,13 @@ class DateField(DateTimeField):
 class DictField(Field):
     base_type = dict
 
+    def to_query_param(self):
+        """Generate a format which is appropriate to representing a a query param
+
+        Note: This will not URL encode as this will be performed by the `requests` library
+        """
+        return json.dumps(self.value)
+
 
 class IntegerField(Field):
     base_type = int
@@ -148,6 +160,12 @@ class StringField(Field):
 class BooleanField(Field):
     base_type = bool
 
+    def to_query_param(self):
+        """Generate a format which is appropriate to representing a a query param
+
+        Note: This will not URL encode as this will be performed by the `requests` library
+        """
+        return json.dumps(self.value)
 
 class ListField(Field):
     base_type = list
@@ -192,6 +210,13 @@ class ListField(Field):
             )
         else:
             return super().from_api(value)
+
+    def to_query_param(self):
+        """Generate a format which is appropriate to representing a a query param
+
+        Note: This will not URL encode as this will be performed by the `requests` library
+        """
+        return ",".join(self.value)
 
 
 class FileField(Field):

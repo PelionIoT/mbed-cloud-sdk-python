@@ -29,3 +29,4 @@ from mbed_cloud.enrollment import EnrollmentAPI
 from mbed_cloud.update import UpdateAPI
 
 from mbed_cloud.sdk.sdk import SDK
+from mbed_cloud.client.api_filter import ApiFilter
