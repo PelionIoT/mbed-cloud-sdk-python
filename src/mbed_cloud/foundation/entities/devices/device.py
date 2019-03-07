@@ -606,6 +606,8 @@ class Device(Entity):
     @property
     def id(self):
         """The ID of the device. The device ID is used across all Device Management APIs.
+
+        This field must be set when updating or deleting an existing Device Entity.
         
         api example: '00000000000000000000000000000000'
         
@@ -617,8 +619,6 @@ class Device(Entity):
     @id.setter
     def id(self, value):
         """Set value of `id`
-
-        This field must be set when updating or deleting an existing Device Entity.
 
         :param value: value to set
         :type value: str

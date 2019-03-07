@@ -290,6 +290,8 @@ class DeviceEvents(Entity):
     @property
     def id(self):
         """
+
+        This field must be set when updating or deleting an existing DeviceEvents Entity.
         
         api example: '00000000000000000000000000000000'
         
@@ -301,8 +303,6 @@ class DeviceEvents(Entity):
     @id.setter
     def id(self, value):
         """Set value of `id`
-
-        This field must be set when updating or deleting an existing DeviceEvents Entity.
 
         :param value: value to set
         :type value: str

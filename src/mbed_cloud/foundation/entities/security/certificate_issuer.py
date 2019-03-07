@@ -135,6 +135,8 @@ class CertificateIssuer(Entity):
     @property
     def id(self):
         """The ID of the certificate issuer.
+
+        This field must be set when updating or deleting an existing CertificateIssuer Entity.
         
         api example: '01234567890ABCDEF01234567890ABCDEF'
         
@@ -146,8 +148,6 @@ class CertificateIssuer(Entity):
     @id.setter
     def id(self, value):
         """Set value of `id`
-
-        This field must be set when updating or deleting an existing CertificateIssuer Entity.
 
         :param value: value to set
         :type value: str
@@ -190,6 +190,8 @@ class CertificateIssuer(Entity):
         signing service.
           The users must provide their own CFSSL host_url and
         credentials.
+
+        This field must be set when creating a new CertificateIssuer Entity.
         
         api example: 'GLOBAL_SIGN'
         
@@ -202,8 +204,6 @@ class CertificateIssuer(Entity):
     def issuer_type(self, value):
         """Set value of `issuer_type`
 
-        This field must be set when creating a new CertificateIssuer Entity.
-
         :param value: value to set
         :type value: str
         """
@@ -213,6 +213,8 @@ class CertificateIssuer(Entity):
     @property
     def name(self):
         """Certificate issuer name, unique per account.
+
+        This field must be set when creating a new CertificateIssuer Entity.
         
         api example: 'GS Issuer'
         
@@ -224,8 +226,6 @@ class CertificateIssuer(Entity):
     @name.setter
     def name(self, value):
         """Set value of `name`
-
-        This field must be set when creating a new CertificateIssuer Entity.
 
         :param value: value to set
         :type value: str

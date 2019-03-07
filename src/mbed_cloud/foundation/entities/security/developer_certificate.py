@@ -163,6 +163,8 @@ class DeveloperCertificate(Entity):
     @property
     def id(self):
         """mUUID that uniquely identifies the developer certificate.
+
+        This field must be set when updating or deleting an existing DeveloperCertificate Entity.
         
         :rtype: str
         """
@@ -173,8 +175,6 @@ class DeveloperCertificate(Entity):
     def id(self, value):
         """Set value of `id`
 
-        This field must be set when updating or deleting an existing DeveloperCertificate Entity.
-
         :param value: value to set
         :type value: str
         """
@@ -184,6 +184,8 @@ class DeveloperCertificate(Entity):
     @property
     def name(self):
         """Name of the developer certificate.
+
+        This field must be set when creating a new DeveloperCertificate Entity.
         
         :rtype: str
         """
@@ -193,8 +195,6 @@ class DeveloperCertificate(Entity):
     @name.setter
     def name(self, value):
         """Set value of `name`
-
-        This field must be set when creating a new DeveloperCertificate Entity.
 
         :param value: value to set
         :type value: str

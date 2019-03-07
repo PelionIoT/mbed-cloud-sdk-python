@@ -194,6 +194,8 @@ class SubtenantUser(Entity):
     @property
     def account_id(self):
         """The ID of the account.
+
+        This field must be set when creating a new SubtenantUser Entity.
         
         api example: '01619571e2e90242ac12000600000000'
         
@@ -205,8 +207,6 @@ class SubtenantUser(Entity):
     @account_id.setter
     def account_id(self, value):
         """Set value of `account_id`
-
-        This field must be set when creating a new SubtenantUser Entity.
 
         :param value: value to set
         :type value: str
@@ -318,6 +318,8 @@ class SubtenantUser(Entity):
     @property
     def email(self):
         """The email address.
+
+        This field must be set when creating a new SubtenantUser Entity.
         
         api example: 'user@arm.com'
         
@@ -329,8 +331,6 @@ class SubtenantUser(Entity):
     @email.setter
     def email(self, value):
         """Set value of `email`
-
-        This field must be set when creating a new SubtenantUser Entity.
 
         :param value: value to set
         :type value: str
@@ -383,6 +383,8 @@ class SubtenantUser(Entity):
     @property
     def id(self):
         """The ID of the user.
+
+        This field must be set when updating or deleting an existing SubtenantUser Entity.
         
         api example: '01619571e2e89242ac12000600000000'
         
@@ -394,8 +396,6 @@ class SubtenantUser(Entity):
     @id.setter
     def id(self, value):
         """Set value of `id`
-
-        This field must be set when updating or deleting an existing SubtenantUser Entity.
 
         :param value: value to set
         :type value: str

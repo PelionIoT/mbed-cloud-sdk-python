@@ -314,6 +314,8 @@ class User(Entity):
     @property
     def email(self):
         """The email address.
+
+        This field must be set when creating a new User Entity.
         
         api example: 'user@arm.com'
         
@@ -325,8 +327,6 @@ class User(Entity):
     @email.setter
     def email(self, value):
         """Set value of `email`
-
-        This field must be set when creating a new User Entity.
 
         :param value: value to set
         :type value: str
@@ -379,6 +379,8 @@ class User(Entity):
     @property
     def id(self):
         """The ID of the user.
+
+        This field must be set when updating or deleting an existing User Entity.
         
         api example: '01619571e2e89242ac12000600000000'
         
@@ -390,8 +392,6 @@ class User(Entity):
     @id.setter
     def id(self, value):
         """Set value of `id`
-
-        This field must be set when updating or deleting an existing User Entity.
 
         :param value: value to set
         :type value: str

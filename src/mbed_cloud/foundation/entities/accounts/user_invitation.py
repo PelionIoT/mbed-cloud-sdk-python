@@ -135,6 +135,8 @@ class UserInvitation(Entity):
     @property
     def email(self):
         """Email address of the invited user.
+
+        This field must be set when creating a new UserInvitation Entity.
         
         api example: 'friend@arm.com'
         
@@ -146,8 +148,6 @@ class UserInvitation(Entity):
     @email.setter
     def email(self, value):
         """Set value of `email`
-
-        This field must be set when creating a new UserInvitation Entity.
 
         :param value: value to set
         :type value: str
@@ -179,6 +179,8 @@ class UserInvitation(Entity):
     @property
     def id(self):
         """The ID of the invitation.
+
+        This field must be set when updating or deleting an existing UserInvitation Entity.
         
         api example: '01619571e2e89242ac12000600000000'
         
@@ -190,8 +192,6 @@ class UserInvitation(Entity):
     @id.setter
     def id(self, value):
         """Set value of `id`
-
-        This field must be set when updating or deleting an existing UserInvitation Entity.
 
         :param value: value to set
         :type value: str

@@ -162,6 +162,8 @@ class ApiKey(Entity):
     @property
     def id(self):
         """The ID of the API key.
+
+        This field must be set when updating or deleting an existing ApiKey Entity.
         
         api example: '01619571f7020242ac12000600000000'
         
@@ -173,8 +175,6 @@ class ApiKey(Entity):
     @id.setter
     def id(self, value):
         """Set value of `id`
-
-        This field must be set when updating or deleting an existing ApiKey Entity.
 
         :param value: value to set
         :type value: str
@@ -228,6 +228,8 @@ class ApiKey(Entity):
     @property
     def name(self):
         """The display name for the API key.
+
+        This field must be set when creating a new ApiKey Entity.
         
         api example: 'API key gorgon'
         
@@ -239,8 +241,6 @@ class ApiKey(Entity):
     @name.setter
     def name(self, value):
         """Set value of `name`
-
-        This field must be set when creating a new ApiKey Entity.
 
         :param value: value to set
         :type value: str

@@ -165,6 +165,8 @@ class TrustedCertificate(Entity):
     @property
     def certificate(self):
         """X509.v3 trusted certificate in PEM format.
+
+        This field must be set when creating a new TrustedCertificate Entity.
         
         api example: '-----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----'
         
@@ -176,8 +178,6 @@ class TrustedCertificate(Entity):
     @certificate.setter
     def certificate(self, value):
         """Set value of `certificate`
-
-        This field must be set when creating a new TrustedCertificate Entity.
 
         :param value: value to set
         :type value: str
@@ -270,6 +270,8 @@ class TrustedCertificate(Entity):
     @property
     def id(self):
         """Entity ID.
+
+        This field must be set when updating or deleting an existing TrustedCertificate Entity.
         
         api example: '01619571d01d0242ac12000600000000'
         
@@ -281,8 +283,6 @@ class TrustedCertificate(Entity):
     @id.setter
     def id(self, value):
         """Set value of `id`
-
-        This field must be set when updating or deleting an existing TrustedCertificate Entity.
 
         :param value: value to set
         :type value: str
@@ -347,6 +347,8 @@ class TrustedCertificate(Entity):
     @property
     def name(self):
         """Certificate name.
+
+        This field must be set when creating a new TrustedCertificate Entity.
         
         api example: 'My certificate'
         
@@ -358,8 +360,6 @@ class TrustedCertificate(Entity):
     @name.setter
     def name(self, value):
         """Set value of `name`
-
-        This field must be set when creating a new TrustedCertificate Entity.
 
         :param value: value to set
         :type value: str
@@ -391,6 +391,8 @@ class TrustedCertificate(Entity):
     @property
     def service(self):
         """Service name where the certificate is to be used.
+
+        This field must be set when creating a new TrustedCertificate Entity.
         
         :rtype: str
         """
@@ -400,8 +402,6 @@ class TrustedCertificate(Entity):
     @service.setter
     def service(self, value):
         """Set value of `service`
-
-        This field must be set when creating a new TrustedCertificate Entity.
 
         :param value: value to set
         :type value: str

@@ -691,6 +691,8 @@ class Account(Entity):
     @property
     def end_market(self):
         """Account end market.
+
+        This field must be set when creating a new Account Entity.
         
         api example: 'IT'
         
@@ -702,8 +704,6 @@ class Account(Entity):
     @end_market.setter
     def end_market(self, value):
         """Set value of `end_market`
-
-        This field must be set when creating a new Account Entity.
 
         :param value: value to set
         :type value: str
@@ -755,6 +755,8 @@ class Account(Entity):
     @property
     def id(self):
         """Account ID.
+
+        This field must be set when updating or deleting an existing Account Entity.
         
         api example: '01619571e2e90242ac12000600000000'
         
@@ -766,8 +768,6 @@ class Account(Entity):
     @id.setter
     def id(self, value):
         """Set value of `id`
-
-        This field must be set when updating or deleting an existing Account Entity.
 
         :param value: value to set
         :type value: str

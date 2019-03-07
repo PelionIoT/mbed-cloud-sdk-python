@@ -78,6 +78,8 @@ class CertificateIssuerConfig(Entity):
         """The ID of the certificate issuer.
         Null if Device Management internal HSM is
         used.
+
+        This field must be set when creating a new CertificateIssuerConfig Entity.
         
         api example: '01648415a2a30242ac18000500000000'
         
@@ -90,8 +92,6 @@ class CertificateIssuerConfig(Entity):
     def certificate_issuer_id(self, value):
         """Set value of `certificate_issuer_id`
 
-        This field must be set when creating a new CertificateIssuerConfig Entity.
-
         :param value: value to set
         :type value: str
         """
@@ -101,6 +101,8 @@ class CertificateIssuerConfig(Entity):
     @property
     def certificate_reference(self):
         """The certificate name to which the certificate issuer configuration applies.
+
+        This field must be set when creating a new CertificateIssuerConfig Entity.
         
         api example: 'customer.dlms'
         
@@ -112,8 +114,6 @@ class CertificateIssuerConfig(Entity):
     @certificate_reference.setter
     def certificate_reference(self, value):
         """Set value of `certificate_reference`
-
-        This field must be set when creating a new CertificateIssuerConfig Entity.
 
         :param value: value to set
         :type value: str
@@ -145,6 +145,8 @@ class CertificateIssuerConfig(Entity):
     @property
     def id(self):
         """The ID of the certificate issuer configuration.
+
+        This field must be set when updating or deleting an existing CertificateIssuerConfig Entity.
         
         api example: '01648415a2a30242ac18000500000000'
         
@@ -156,8 +158,6 @@ class CertificateIssuerConfig(Entity):
     @id.setter
     def id(self, value):
         """Set value of `id`
-
-        This field must be set when updating or deleting an existing CertificateIssuerConfig Entity.
 
         :param value: value to set
         :type value: str

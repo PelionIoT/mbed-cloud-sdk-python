@@ -188,6 +188,8 @@ class CertificateEnrollment(Entity):
     @property
     def id(self):
         """The ID of the certificate enrollment.
+
+        This field must be set when updating or deleting an existing CertificateEnrollment Entity.
         
         api example: '01612df56f3b0a580a010fc700000000'
         
@@ -199,8 +201,6 @@ class CertificateEnrollment(Entity):
     @id.setter
     def id(self, value):
         """Set value of `id`
-
-        This field must be set when updating or deleting an existing CertificateEnrollment Entity.
 
         :param value: value to set
         :type value: str

@@ -166,6 +166,8 @@ class DeviceEnrollment(Entity):
     @property
     def enrollment_identity(self):
         """Enrollment identity.
+
+        This field must be set when creating a new DeviceEnrollment Entity.
         
         api example: 'A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:
             fa:af:4d:2d:73:95:c5'
@@ -178,8 +180,6 @@ class DeviceEnrollment(Entity):
     @enrollment_identity.setter
     def enrollment_identity(self, value):
         """Set value of `enrollment_identity`
-
-        This field must be set when creating a new DeviceEnrollment Entity.
 
         :param value: value to set
         :type value: str
@@ -211,6 +211,8 @@ class DeviceEnrollment(Entity):
     @property
     def id(self):
         """Enrollment identity.
+
+        This field must be set when updating or deleting an existing DeviceEnrollment Entity.
         
         api example: '00005a4e027f0a580a01081c00000000'
         
@@ -222,8 +224,6 @@ class DeviceEnrollment(Entity):
     @id.setter
     def id(self, value):
         """Set value of `id`
-
-        This field must be set when updating or deleting an existing DeviceEnrollment Entity.
 
         :param value: value to set
         :type value: str

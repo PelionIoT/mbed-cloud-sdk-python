@@ -235,6 +235,8 @@ class DeviceEnrollmentBulkDelete(Entity):
     @property
     def id(self):
         """Bulk ID
+
+        This field must be set when updating or deleting an existing DeviceEnrollmentBulkDelete Entity.
         
         :rtype: str
         """
@@ -244,8 +246,6 @@ class DeviceEnrollmentBulkDelete(Entity):
     @id.setter
     def id(self, value):
         """Set value of `id`
-
-        This field must be set when updating or deleting an existing DeviceEnrollmentBulkDelete Entity.
 
         :param value: value to set
         :type value: str
