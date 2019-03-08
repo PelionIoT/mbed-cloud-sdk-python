@@ -639,7 +639,7 @@ class TrustedCertificate(Entity):
         # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
         if isinstance(filter, dict):
             ApiFilter(filter_definition=filter, field_renames=self._renames_to_api)
-        # The preferred method is an ApiFilter instance as this should be easier to use
+        # The preferred method is an ApiFilter instance as this should be easier to use.
         elif isinstance(filter, ApiFilter):
             # If filter renames have not be defined then configure the ApiFilter so that any renames
             # performed by the SDK are reversed when the query parameters are created.
@@ -660,46 +660,6 @@ class TrustedCertificate(Entity):
 
     def _paginate_list(self, after=None, include=None, limit=50, order="ASC"):
         """Get all trusted certificates.
-
-        **API Filters**
-
-        The following filters are supported by the API when listing TrustedCertificate entities:
-
-        +----------------------+------+------+------+------+------+------+------+
-        |      Field           |  eq  | neq  | gte  | lte  |  in  | nin  | like |
-        +======================+======+======+======+======+======+======+======+
-        | device_execution_mode |  x   |  x   |      |      |      |      |      |
-        +----------------------+------+------+------+------+------+------+------+
-        | enrollment_mode      |  x   |      |      |      |      |      |      |
-        +----------------------+------+------+------+------+------+------+------+
-        | expire               |  x   |      |      |      |      |      |      |
-        +----------------------+------+------+------+------+------+------+------+
-        | issuer               |      |      |      |      |      |      |  x   |
-        +----------------------+------+------+------+------+------+------+------+
-        | name                 |  x   |      |      |      |      |      |      |
-        +----------------------+------+------+------+------+------+------+------+
-        | owner                |  x   |      |      |      |      |      |      |
-        +----------------------+------+------+------+------+------+------+------+
-        | service              |  x   |      |      |      |      |      |      |
-        +----------------------+------+------+------+------+------+------+------+
-        | status               |  x   |      |      |      |      |      |      |
-        +----------------------+------+------+------+------+------+------+------+
-        | subject              |      |      |      |      |      |      |  x   |
-        +----------------------+------+------+------+------+------+------+------+
-        | valid                |  x   |      |      |      |      |      |      |
-        +----------------------+------+------+------+------+------+------+------+
-
-        **Example Usage**
-
-        .. code-block:: python
-
-            from mbed_cloud.foundation import TrustedCertificate
-            from mbed_cloud import ApiFilter
-
-            api_filter = ApiFilter()
-            api_filter.add_filter("device_execution_mode", "eq", <filter value>)
-            for trusted_certificate in TrustedCertificate().paginate_list(filter=api_filter):
-                print(trusted_certificate.device_execution_mode)
         
         :param after: The entity ID to fetch after the given one.
         :type after: str

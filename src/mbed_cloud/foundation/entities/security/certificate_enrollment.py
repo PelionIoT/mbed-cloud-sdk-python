@@ -295,7 +295,7 @@ class CertificateEnrollment(Entity):
         # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
         if isinstance(filter, dict):
             ApiFilter(filter_definition=filter, field_renames=self._renames_to_api)
-        # The preferred method is an ApiFilter instance as this should be easier to use
+        # The preferred method is an ApiFilter instance as this should be easier to use.
         elif isinstance(filter, ApiFilter):
             # If filter renames have not be defined then configure the ApiFilter so that any renames
             # performed by the SDK are reversed when the query parameters are created.
@@ -316,38 +316,6 @@ class CertificateEnrollment(Entity):
 
     def _paginate_list(self, after=None, include=None, limit=None, order=None):
         """Get certificate enrollments list.
-
-        **API Filters**
-
-        The following filters are supported by the API when listing CertificateEnrollment entities:
-
-        +----------------------+------+------+------+------+------+------+------+
-        |      Field           |  eq  | neq  | gte  | lte  |  in  | nin  | like |
-        +======================+======+======+======+======+======+======+======+
-        | certificate_name     |  x   |      |      |      |      |      |      |
-        +----------------------+------+------+------+------+------+------+------+
-        | created_at           |      |      |  x   |  x   |      |      |      |
-        +----------------------+------+------+------+------+------+------+------+
-        | device_id            |  x   |      |      |      |      |      |      |
-        +----------------------+------+------+------+------+------+------+------+
-        | enroll_result        |  x   |  x   |      |      |      |      |      |
-        +----------------------+------+------+------+------+------+------+------+
-        | enroll_status        |  x   |  x   |      |      |      |      |      |
-        +----------------------+------+------+------+------+------+------+------+
-        | updated_at           |      |      |  x   |  x   |      |      |      |
-        +----------------------+------+------+------+------+------+------+------+
-
-        **Example Usage**
-
-        .. code-block:: python
-
-            from mbed_cloud.foundation import CertificateEnrollment
-            from mbed_cloud import ApiFilter
-
-            api_filter = ApiFilter()
-            api_filter.add_filter("certificate_name", "eq", <filter value>)
-            for certificate_enrollment in CertificateEnrollment().paginate_list(filter=api_filter):
-                print(certificate_enrollment.certificate_name)
         
         :param after: The ID of the item after which to retrieve the next page.
         :type after: str

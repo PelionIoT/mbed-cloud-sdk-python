@@ -353,7 +353,7 @@ class UserInvitation(Entity):
         # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
         if isinstance(filter, dict):
             ApiFilter(filter_definition=filter, field_renames=self._renames_to_api)
-        # The preferred method is an ApiFilter instance as this should be easier to use
+        # The preferred method is an ApiFilter instance as this should be easier to use.
         elif isinstance(filter, ApiFilter):
             # If filter renames have not be defined then configure the ApiFilter so that any renames
             # performed by the SDK are reversed when the query parameters are created.
@@ -374,28 +374,6 @@ class UserInvitation(Entity):
 
     def _paginate_list(self, after=None, include=None, limit=50, order="ASC"):
         """Get the details of all the user invitations.
-
-        **API Filters**
-
-        The following filters are supported by the API when listing UserInvitation entities:
-
-        +----------------------+------+------+------+------+------+------+------+
-        |      Field           |  eq  | neq  | gte  | lte  |  in  | nin  | like |
-        +======================+======+======+======+======+======+======+======+
-        | login_profile        |  x   |      |      |      |      |      |      |
-        +----------------------+------+------+------+------+------+------+------+
-
-        **Example Usage**
-
-        .. code-block:: python
-
-            from mbed_cloud.foundation import UserInvitation
-            from mbed_cloud import ApiFilter
-
-            api_filter = ApiFilter()
-            api_filter.add_filter("login_profile", "eq", <filter value>)
-            for user_invitation in UserInvitation().paginate_list(filter=api_filter):
-                print(user_invitation.login_profile)
         
         :param after: The entity ID to fetch after the given one.
         :type after: str

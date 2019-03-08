@@ -294,7 +294,7 @@ class CertificateIssuerConfig(Entity):
         # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
         if isinstance(filter, dict):
             ApiFilter(filter_definition=filter, field_renames=self._renames_to_api)
-        # The preferred method is an ApiFilter instance as this should be easier to use
+        # The preferred method is an ApiFilter instance as this should be easier to use.
         elif isinstance(filter, ApiFilter):
             # If filter renames have not be defined then configure the ApiFilter so that any renames
             # performed by the SDK are reversed when the query parameters are created.
@@ -315,28 +315,6 @@ class CertificateIssuerConfig(Entity):
 
     def _paginate_list(self, after=None, include=None, limit=None, order=None):
         """Get certificate issuer configurations.
-
-        **API Filters**
-
-        The following filters are supported by the API when listing CertificateIssuerConfig entities:
-
-        +----------------------+------+------+------+------+------+------+------+
-        |      Field           |  eq  | neq  | gte  | lte  |  in  | nin  | like |
-        +======================+======+======+======+======+======+======+======+
-        | certificate_reference |  x   |      |      |      |      |      |      |
-        +----------------------+------+------+------+------+------+------+------+
-
-        **Example Usage**
-
-        .. code-block:: python
-
-            from mbed_cloud.foundation import CertificateIssuerConfig
-            from mbed_cloud import ApiFilter
-
-            api_filter = ApiFilter()
-            api_filter.add_filter("certificate_reference", "eq", <filter value>)
-            for certificate_issuer_config in CertificateIssuerConfig().paginate_list(filter=api_filter):
-                print(certificate_issuer_config.certificate_reference)
         
         :param after: The ID of The item after which to retrieve the next page.
         :type after: str

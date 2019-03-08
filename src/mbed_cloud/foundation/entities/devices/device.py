@@ -896,7 +896,7 @@ class Device(Entity):
         # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
         if isinstance(filter, dict):
             ApiFilter(filter_definition=filter, field_renames=self._renames_to_api)
-        # The preferred method is an ApiFilter instance as this should be easier to use
+        # The preferred method is an ApiFilter instance as this should be easier to use.
         elif isinstance(filter, ApiFilter):
             # If filter renames have not be defined then configure the ApiFilter so that any renames
             # performed by the SDK are reversed when the query parameters are created.
@@ -917,9 +917,6 @@ class Device(Entity):
 
     def _paginate_list(self, after=None, include=None, limit=None, order=None):
         """List all devices.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/devices/
         
         :param after: The ID of The item after which to retrieve the next page.
         :type after: str

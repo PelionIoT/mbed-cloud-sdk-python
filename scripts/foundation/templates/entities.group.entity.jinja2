@@ -149,7 +149,7 @@ class {{ entity._key|to_pascal }}(Entity):
         {% endif %}
         ):
         """{{method.summary}}
-        {%- if method.x_filter %}
+        {%- if method.x_filter and method.pagination and not method.private_method %}
 
         **API Filters**
 
@@ -184,7 +184,7 @@ class {{ entity._key|to_pascal }}(Entity):
                 print({{ entity._key|to_snake }}.{{ field_name }})
             {%- endif -%}
             {%- endfor %}
-        {%- else %}
+        {%- elif not method.private_method %}
 
         {% if method.path %}api documentation:
         https://os.mbed.com/search/?q=service+apis+{{ method.path }}{% endif %}

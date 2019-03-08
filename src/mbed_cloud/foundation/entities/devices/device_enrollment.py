@@ -300,7 +300,7 @@ class DeviceEnrollment(Entity):
         # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
         if isinstance(filter, dict):
             ApiFilter(filter_definition=filter, field_renames=self._renames_to_api)
-        # The preferred method is an ApiFilter instance as this should be easier to use
+        # The preferred method is an ApiFilter instance as this should be easier to use.
         elif isinstance(filter, ApiFilter):
             # If filter renames have not be defined then configure the ApiFilter so that any renames
             # performed by the SDK are reversed when the query parameters are created.
@@ -321,9 +321,6 @@ class DeviceEnrollment(Entity):
 
     def _paginate_list(self, after=None, include=None, limit=None, order="ASC"):
         """Get enrollment list.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/device-enrollments
         
         :param after: Entity ID to fetch after.
         :type after: str

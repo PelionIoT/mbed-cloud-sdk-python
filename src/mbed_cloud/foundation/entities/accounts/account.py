@@ -1300,7 +1300,7 @@ class Account(Entity):
         # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
         if isinstance(filter, dict):
             ApiFilter(filter_definition=filter, field_renames=self._renames_to_api)
-        # The preferred method is an ApiFilter instance as this should be easier to use
+        # The preferred method is an ApiFilter instance as this should be easier to use.
         elif isinstance(filter, ApiFilter):
             # If filter renames have not be defined then configure the ApiFilter so that any renames
             # performed by the SDK are reversed when the query parameters are created.
@@ -1355,36 +1355,6 @@ class Account(Entity):
         properties=None,
     ):
         """Get all accounts.
-
-        **API Filters**
-
-        The following filters are supported by the API when listing Account entities:
-
-        +----------------------+------+------+------+------+------+------+------+
-        |      Field           |  eq  | neq  | gte  | lte  |  in  | nin  | like |
-        +======================+======+======+======+======+======+======+======+
-        | country              |      |      |      |      |      |      |  x   |
-        +----------------------+------+------+------+------+------+------+------+
-        | end_market           |  x   |      |      |      |      |      |      |
-        +----------------------+------+------+------+------+------+------+------+
-        | parent               |  x   |      |      |      |      |      |      |
-        +----------------------+------+------+------+------+------+------+------+
-        | status               |  x   |      |      |      |  x   |  x   |      |
-        +----------------------+------+------+------+------+------+------+------+
-        | tier                 |  x   |      |      |      |      |      |      |
-        +----------------------+------+------+------+------+------+------+------+
-
-        **Example Usage**
-
-        .. code-block:: python
-
-            from mbed_cloud.foundation import Account
-            from mbed_cloud import ApiFilter
-
-            api_filter = ApiFilter()
-            api_filter.add_filter("country", "like", <filter value>)
-            for account in Account().paginate_list(filter=api_filter):
-                print(account.country)
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
@@ -1428,46 +1398,6 @@ class Account(Entity):
         self, after=None, include=None, limit=50, order="ASC"
     ):
         """Get all trusted certificates.
-
-        **API Filters**
-
-        The following filters are supported by the API when listing Account entities:
-
-        +----------------------+------+------+------+------+------+------+------+
-        |      Field           |  eq  | neq  | gte  | lte  |  in  | nin  | like |
-        +======================+======+======+======+======+======+======+======+
-        | device_execution_mode |  x   |  x   |      |      |      |      |      |
-        +----------------------+------+------+------+------+------+------+------+
-        | enrollment_mode      |  x   |      |      |      |      |      |      |
-        +----------------------+------+------+------+------+------+------+------+
-        | expire               |  x   |      |      |      |      |      |      |
-        +----------------------+------+------+------+------+------+------+------+
-        | issuer               |      |      |      |      |      |      |  x   |
-        +----------------------+------+------+------+------+------+------+------+
-        | name                 |  x   |      |      |      |      |      |      |
-        +----------------------+------+------+------+------+------+------+------+
-        | owner                |  x   |      |      |      |      |      |      |
-        +----------------------+------+------+------+------+------+------+------+
-        | service              |  x   |      |      |      |      |      |      |
-        +----------------------+------+------+------+------+------+------+------+
-        | status               |  x   |      |      |      |      |      |      |
-        +----------------------+------+------+------+------+------+------+------+
-        | subject              |      |      |      |      |      |      |  x   |
-        +----------------------+------+------+------+------+------+------+------+
-        | valid                |  x   |      |      |      |      |      |      |
-        +----------------------+------+------+------+------+------+------+------+
-
-        **Example Usage**
-
-        .. code-block:: python
-
-            from mbed_cloud.foundation import Account
-            from mbed_cloud import ApiFilter
-
-            api_filter = ApiFilter()
-            api_filter.add_filter("device_execution_mode", "eq", <filter value>)
-            for account in Account().paginate_trusted_certificates(filter=api_filter):
-                print(account.device_execution_mode)
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
@@ -1501,28 +1431,6 @@ class Account(Entity):
 
     def _paginate_user_invitations(self, after=None, include=None, limit=50, order="ASC"):
         """Get the details of all the user invitations.
-
-        **API Filters**
-
-        The following filters are supported by the API when listing Account entities:
-
-        +----------------------+------+------+------+------+------+------+------+
-        |      Field           |  eq  | neq  | gte  | lte  |  in  | nin  | like |
-        +======================+======+======+======+======+======+======+======+
-        | login_profile        |  x   |      |      |      |      |      |      |
-        +----------------------+------+------+------+------+------+------+------+
-
-        **Example Usage**
-
-        .. code-block:: python
-
-            from mbed_cloud.foundation import Account
-            from mbed_cloud import ApiFilter
-
-            api_filter = ApiFilter()
-            api_filter.add_filter("login_profile", "eq", <filter value>)
-            for account in Account().paginate_user_invitations(filter=api_filter):
-                print(account.login_profile)
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
@@ -1555,32 +1463,6 @@ class Account(Entity):
 
     def _paginate_users(self, after=None, include=None, limit=50, order="ASC"):
         """Get all user details.
-
-        **API Filters**
-
-        The following filters are supported by the API when listing Account entities:
-
-        +----------------------+------+------+------+------+------+------+------+
-        |      Field           |  eq  | neq  | gte  | lte  |  in  | nin  | like |
-        +======================+======+======+======+======+======+======+======+
-        | email                |  x   |      |      |      |      |      |      |
-        +----------------------+------+------+------+------+------+------+------+
-        | login_profile        |  x   |      |      |      |      |      |      |
-        +----------------------+------+------+------+------+------+------+------+
-        | status               |  x   |      |      |      |  x   |  x   |      |
-        +----------------------+------+------+------+------+------+------+------+
-
-        **Example Usage**
-
-        .. code-block:: python
-
-            from mbed_cloud.foundation import Account
-            from mbed_cloud import ApiFilter
-
-            api_filter = ApiFilter()
-            api_filter.add_filter("email", "eq", <filter value>)
-            for account in Account().paginate_users(filter=api_filter):
-                print(account.email)
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
@@ -1714,7 +1596,7 @@ class Account(Entity):
         # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
         if isinstance(filter, dict):
             ApiFilter(filter_definition=filter, field_renames=self._renames_to_api)
-        # The preferred method is an ApiFilter instance as this should be easier to use
+        # The preferred method is an ApiFilter instance as this should be easier to use.
         elif isinstance(filter, ApiFilter):
             # If filter renames have not be defined then configure the ApiFilter so that any renames
             # performed by the SDK are reversed when the query parameters are created.
@@ -1827,7 +1709,7 @@ class Account(Entity):
         # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
         if isinstance(filter, dict):
             ApiFilter(filter_definition=filter, field_renames=self._renames_to_api)
-        # The preferred method is an ApiFilter instance as this should be easier to use
+        # The preferred method is an ApiFilter instance as this should be easier to use.
         elif isinstance(filter, ApiFilter):
             # If filter renames have not be defined then configure the ApiFilter so that any renames
             # performed by the SDK are reversed when the query parameters are created.
@@ -1907,7 +1789,7 @@ class Account(Entity):
         # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
         if isinstance(filter, dict):
             ApiFilter(filter_definition=filter, field_renames=self._renames_to_api)
-        # The preferred method is an ApiFilter instance as this should be easier to use
+        # The preferred method is an ApiFilter instance as this should be easier to use.
         elif isinstance(filter, ApiFilter):
             # If filter renames have not be defined then configure the ApiFilter so that any renames
             # performed by the SDK are reversed when the query parameters are created.
