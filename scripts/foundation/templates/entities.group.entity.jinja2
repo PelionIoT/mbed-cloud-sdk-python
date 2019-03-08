@@ -26,10 +26,17 @@ class {{ entity._key|to_pascal }}(Entity):
         {% endfor %}
     ]
 
-    # common renames used when mapping {% raw %}{<API spec>: <SDK>}{% endraw %}
+    # Renames to be performed by the SDK when receiving data {% raw %}{<API Field Name>: <SDK Field Name>}{% endraw %}
     _renames = {
         {% for rename in entity.field_renames %}
         '{{rename.api_fieldname}}': '{{rename._key|to_snake}}',
+        {% endfor %}
+    }
+
+    # Renames to be performed by the SDK when sending data {% raw %}{<SDK Field Name>: <API Field Name>}{% endraw %}
+    _renames_to_api = {
+        {% for rename in entity.field_renames %}
+        '{{rename._key|to_snake}}' : '{{rename.api_fieldname}}',
         {% endfor %}
     }
 
@@ -163,15 +170,18 @@ class {{ entity._key|to_pascal }}(Entity):
 
         .. code-block:: python
 
+            from mbed_cloud.foundation import {{ entity._key|to_pascal }}
+            from mbed_cloud import ApiFilter
+
             api_filter = ApiFilter()
             {%- for field_name, filter_operator in method.x_filter.items() -%}
             {% if loop.index == 1 %}
             api_filter.add_filter("{{ field_name }}", "{{ filter_operator[0] }}", <filter value>){%- endif -%}
             {%- endfor %}
-            for {{ entity._key|to_snake }} in {{ entity._key|to_pascal }}.{{method._key|to_snake}}(filter=api_filter)
+            for {{ entity._key|to_snake }} in {{ entity._key|to_pascal }}().{{method._key|to_snake}}(filter=api_filter):
             {%- for field_name, filter_operator in method.x_filter.items() %}
             {%- if loop.index == 1 %}
-                print {{ entity._key|to_snake }}.{{ field_name }}
+                print({{ entity._key|to_snake }}.{{ field_name }})
             {%- endif -%}
             {%- endfor %}
         {%- else %}
@@ -192,11 +202,12 @@ class {{ entity._key|to_pascal }}(Entity):
         :type {{field_name}}: {{ (field.foreign_key and 'mbed_cloud.foundation.entities.' + field.foreign_key.entity|to_pascal) or field.python_type}}
         {% endif %}{% endfor %}
         {%- if method.x_filter %}
-        :param filter: An optional filter to apply when listing entities, please see the above **API Filters** table for supported filters.
+        :param filter: An optional filter to apply when listing entities, please see the above **API Filters**
+            table for supported filters.
         {%- else %}
         :param filter: Filtering when listing entities is not supported by the API for this entity.
         {%- endif %}
-        :type filter: mbed_cloud.ApiFilter
+        :type filter: mbed_cloud.client.ApiFilter
 
         :return: An iterator object which yields instances of an entity.
         {%- else %}
@@ -219,6 +230,21 @@ class {{ entity._key|to_pascal }}(Entity):
     {% elif method.custom_method %}
         from mbed_cloud.foundation._custom_methods import {{ method.custom_method }}
         {% if method.foreign_key %}from mbed_cloud.foundation import {{ method.foreign_key.entity|to_pascal }}{% endif %}
+        {% if method.pagination %}
+        from mbed_cloud import ApiFilter
+
+        # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
+        if isinstance(filter, dict):
+            ApiFilter(filter_definition=filter, field_renames=self._renames_to_api)
+        # The preferred method is an ApiFilter instance as this should be easier to use.
+        elif isinstance(filter, ApiFilter):
+            # If filter renames have not be defined then configure the ApiFilter so that any renames
+            # performed by the SDK are reversed when the query parameters are created.
+            if filter.field_renames is None:
+                filter.field_renames = self._renames_to_api
+        else:
+            raise TypeError("The 'filter' parameter may be either 'dict' or 'ApiFilter'.")
+        {% endif %}
 
         return {{ method.custom_method }}(
             self=self,

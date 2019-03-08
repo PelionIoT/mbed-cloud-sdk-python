@@ -29,8 +29,11 @@ class SubtenantUserInvitation(Entity):
         "user_id",
     ]
 
-    # common renames used when mapping {<API spec>: <SDK>}
+    # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
     _renames = {}
+
+    # Renames to be performed by the SDK when sending data {<SDK Field Name>: <API Field Name>}
+    _renames_to_api = {}
 
     def __init__(
         self,

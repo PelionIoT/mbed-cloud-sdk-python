@@ -44,11 +44,18 @@ class SubtenantUser(Entity):
         "username",
     ]
 
-    # common renames used when mapping {<API spec>: <SDK>}
+    # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
     _renames = {
         "is_marketing_accepted": "marketing_accepted",
         "is_gtc_accepted": "terms_accepted",
         "is_totp_enabled": "two_factor_authentication",
+    }
+
+    # Renames to be performed by the SDK when sending data {<SDK Field Name>: <API Field Name>}
+    _renames_to_api = {
+        "marketing_accepted": "is_marketing_accepted",
+        "terms_accepted": "is_gtc_accepted",
+        "two_factor_authentication": "is_totp_enabled",
     }
 
     def __init__(

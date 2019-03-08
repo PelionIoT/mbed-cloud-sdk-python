@@ -64,8 +64,11 @@ class Account(Entity):
         "upgraded_at",
     ]
 
-    # common renames used when mapping {<API spec>: <SDK>}
+    # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
     _renames = {}
+
+    # Renames to be performed by the SDK when sending data {<SDK Field Name>: <API Field Name>}
+    _renames_to_api = {}
 
     def __init__(
         self,
@@ -1252,11 +1255,14 @@ class Account(Entity):
         **Example Usage**
 
         .. code-block:: python
-            
+
+            from mbed_cloud.foundation import Account
+            from mbed_cloud import ApiFilter
+
             api_filter = ApiFilter()
             api_filter.add_filter("country", "like", <filter value>)
-            for account in Account.list(filter=api_filter)
-                print account.country
+            for account in Account().list(filter=api_filter):
+                print(account.country)
         
         :param format: Format information for the response to the query, supported:
             format=breakdown.
@@ -1279,14 +1285,29 @@ class Account(Entity):
         :param properties: Property name to be returned from account specific properties.
         :type properties: str
         
-        :param filter: An optional filter to apply when listing entities, please see the above **API Filters** table for supported filters.
-        :type filter: mbed_cloud.ApiFilter
+        :param filter: An optional filter to apply when listing entities, please see the above **API Filters**
+            table for supported filters.
+        :type filter: mbed_cloud.client.ApiFilter
 
         :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse(Account)
         """
 
         from mbed_cloud.foundation._custom_methods import paginate
+
+        from mbed_cloud import ApiFilter
+
+        # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
+        if isinstance(filter, dict):
+            ApiFilter(filter_definition=filter, field_renames=self._renames_to_api)
+        # The preferred method is an ApiFilter instance as this should be easier to use
+        elif isinstance(filter, ApiFilter):
+            # If filter renames have not be defined then configure the ApiFilter so that any renames
+            # performed by the SDK are reversed when the query parameters are created.
+            if filter.field_renames is None:
+                filter.field_renames = self._renames_to_api
+        else:
+            raise TypeError("The 'filter' parameter may be either 'dict' or 'ApiFilter'.")
 
         return paginate(
             self=self,
@@ -1356,11 +1377,14 @@ class Account(Entity):
         **Example Usage**
 
         .. code-block:: python
-            
+
+            from mbed_cloud.foundation import Account
+            from mbed_cloud import ApiFilter
+
             api_filter = ApiFilter()
             api_filter.add_filter("country", "like", <filter value>)
-            for account in Account.paginate_list(filter=api_filter)
-                print account.country
+            for account in Account().paginate_list(filter=api_filter):
+                print(account.country)
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
@@ -1436,11 +1460,14 @@ class Account(Entity):
         **Example Usage**
 
         .. code-block:: python
-            
+
+            from mbed_cloud.foundation import Account
+            from mbed_cloud import ApiFilter
+
             api_filter = ApiFilter()
             api_filter.add_filter("device_execution_mode", "eq", <filter value>)
-            for account in Account.paginate_trusted_certificates(filter=api_filter)
-                print account.device_execution_mode
+            for account in Account().paginate_trusted_certificates(filter=api_filter):
+                print(account.device_execution_mode)
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
@@ -1488,11 +1515,14 @@ class Account(Entity):
         **Example Usage**
 
         .. code-block:: python
-            
+
+            from mbed_cloud.foundation import Account
+            from mbed_cloud import ApiFilter
+
             api_filter = ApiFilter()
             api_filter.add_filter("login_profile", "eq", <filter value>)
-            for account in Account.paginate_user_invitations(filter=api_filter)
-                print account.login_profile
+            for account in Account().paginate_user_invitations(filter=api_filter):
+                print(account.login_profile)
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
@@ -1543,11 +1573,14 @@ class Account(Entity):
         **Example Usage**
 
         .. code-block:: python
-            
+
+            from mbed_cloud.foundation import Account
+            from mbed_cloud import ApiFilter
+
             api_filter = ApiFilter()
             api_filter.add_filter("email", "eq", <filter value>)
-            for account in Account.paginate_users(filter=api_filter)
-                print account.email
+            for account in Account().paginate_users(filter=api_filter):
+                print(account.email)
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
@@ -1642,11 +1675,14 @@ class Account(Entity):
         **Example Usage**
 
         .. code-block:: python
-            
+
+            from mbed_cloud.foundation import Account
+            from mbed_cloud import ApiFilter
+
             api_filter = ApiFilter()
             api_filter.add_filter("device_execution_mode", "eq", <filter value>)
-            for account in Account.trusted_certificates(filter=api_filter)
-                print account.device_execution_mode
+            for account in Account().trusted_certificates(filter=api_filter):
+                print(account.device_execution_mode)
         
         :param include: Comma separated additional data to return. Currently supported:
             total_count
@@ -1662,8 +1698,9 @@ class Account(Entity):
             default ASC
         :type order: str
         
-        :param filter: An optional filter to apply when listing entities, please see the above **API Filters** table for supported filters.
-        :type filter: mbed_cloud.ApiFilter
+        :param filter: An optional filter to apply when listing entities, please see the above **API Filters**
+            table for supported filters.
+        :type filter: mbed_cloud.client.ApiFilter
 
         :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse(SubtenantTrustedCertificate)
@@ -1671,6 +1708,20 @@ class Account(Entity):
 
         from mbed_cloud.foundation._custom_methods import paginate
         from mbed_cloud.foundation import SubtenantTrustedCertificate
+
+        from mbed_cloud import ApiFilter
+
+        # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
+        if isinstance(filter, dict):
+            ApiFilter(filter_definition=filter, field_renames=self._renames_to_api)
+        # The preferred method is an ApiFilter instance as this should be easier to use
+        elif isinstance(filter, ApiFilter):
+            # If filter renames have not be defined then configure the ApiFilter so that any renames
+            # performed by the SDK are reversed when the query parameters are created.
+            if filter.field_renames is None:
+                filter.field_renames = self._renames_to_api
+        else:
+            raise TypeError("The 'filter' parameter may be either 'dict' or 'ApiFilter'.")
 
         return paginate(
             self=self,
@@ -1741,11 +1792,14 @@ class Account(Entity):
         **Example Usage**
 
         .. code-block:: python
-            
+
+            from mbed_cloud.foundation import Account
+            from mbed_cloud import ApiFilter
+
             api_filter = ApiFilter()
             api_filter.add_filter("login_profile", "eq", <filter value>)
-            for account in Account.user_invitations(filter=api_filter)
-                print account.login_profile
+            for account in Account().user_invitations(filter=api_filter):
+                print(account.login_profile)
         
         :param max_results: Total maximum number of results to retrieve
         :type max_results: int
@@ -1757,8 +1811,9 @@ class Account(Entity):
             default ASC
         :type order: str
         
-        :param filter: An optional filter to apply when listing entities, please see the above **API Filters** table for supported filters.
-        :type filter: mbed_cloud.ApiFilter
+        :param filter: An optional filter to apply when listing entities, please see the above **API Filters**
+            table for supported filters.
+        :type filter: mbed_cloud.client.ApiFilter
 
         :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse(SubtenantUserInvitation)
@@ -1766,6 +1821,20 @@ class Account(Entity):
 
         from mbed_cloud.foundation._custom_methods import paginate
         from mbed_cloud.foundation import SubtenantUserInvitation
+
+        from mbed_cloud import ApiFilter
+
+        # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
+        if isinstance(filter, dict):
+            ApiFilter(filter_definition=filter, field_renames=self._renames_to_api)
+        # The preferred method is an ApiFilter instance as this should be easier to use
+        elif isinstance(filter, ApiFilter):
+            # If filter renames have not be defined then configure the ApiFilter so that any renames
+            # performed by the SDK are reversed when the query parameters are created.
+            if filter.field_renames is None:
+                filter.field_renames = self._renames_to_api
+        else:
+            raise TypeError("The 'filter' parameter may be either 'dict' or 'ApiFilter'.")
 
         return paginate(
             self=self,
@@ -1799,11 +1868,14 @@ class Account(Entity):
         **Example Usage**
 
         .. code-block:: python
-            
+
+            from mbed_cloud.foundation import Account
+            from mbed_cloud import ApiFilter
+
             api_filter = ApiFilter()
             api_filter.add_filter("email", "eq", <filter value>)
-            for account in Account.users(filter=api_filter)
-                print account.email
+            for account in Account().users(filter=api_filter):
+                print(account.email)
         
         :param include: Comma separated additional data to return. Currently supported:
             total_count
@@ -1819,8 +1891,9 @@ class Account(Entity):
             default ASC
         :type order: str
         
-        :param filter: An optional filter to apply when listing entities, please see the above **API Filters** table for supported filters.
-        :type filter: mbed_cloud.ApiFilter
+        :param filter: An optional filter to apply when listing entities, please see the above **API Filters**
+            table for supported filters.
+        :type filter: mbed_cloud.client.ApiFilter
 
         :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse(SubtenantUser)
@@ -1828,6 +1901,20 @@ class Account(Entity):
 
         from mbed_cloud.foundation._custom_methods import paginate
         from mbed_cloud.foundation import SubtenantUser
+
+        from mbed_cloud import ApiFilter
+
+        # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
+        if isinstance(filter, dict):
+            ApiFilter(filter_definition=filter, field_renames=self._renames_to_api)
+        # The preferred method is an ApiFilter instance as this should be easier to use
+        elif isinstance(filter, ApiFilter):
+            # If filter renames have not be defined then configure the ApiFilter so that any renames
+            # performed by the SDK are reversed when the query parameters are created.
+            if filter.field_renames is None:
+                filter.field_renames = self._renames_to_api
+        else:
+            raise TypeError("The 'filter' parameter may be either 'dict' or 'ApiFilter'.")
 
         return paginate(
             self=self,

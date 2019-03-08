@@ -28,8 +28,11 @@ class CertificateEnrollment(Entity):
         "updated_at",
     ]
 
-    # common renames used when mapping {<API spec>: <SDK>}
+    # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
     _renames = {}
+
+    # Renames to be performed by the SDK when sending data {<SDK Field Name>: <API Field Name>}
+    _renames_to_api = {}
 
     def __init__(
         self,
@@ -255,11 +258,14 @@ class CertificateEnrollment(Entity):
         **Example Usage**
 
         .. code-block:: python
-            
+
+            from mbed_cloud.foundation import CertificateEnrollment
+            from mbed_cloud import ApiFilter
+
             api_filter = ApiFilter()
             api_filter.add_filter("certificate_name", "eq", <filter value>)
-            for certificate_enrollment in CertificateEnrollment.list(filter=api_filter)
-                print certificate_enrollment.certificate_name
+            for certificate_enrollment in CertificateEnrollment().list(filter=api_filter):
+                print(certificate_enrollment.certificate_name)
         
         :param include: a comma-separated list of data fields to return.
         :type include: str
@@ -273,8 +279,9 @@ class CertificateEnrollment(Entity):
         :param order: The order of results.
         :type order: str
         
-        :param filter: An optional filter to apply when listing entities, please see the above **API Filters** table for supported filters.
-        :type filter: mbed_cloud.ApiFilter
+        :param filter: An optional filter to apply when listing entities, please see the above **API Filters**
+            table for supported filters.
+        :type filter: mbed_cloud.client.ApiFilter
 
         :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse(CertificateEnrollment)
@@ -282,6 +289,20 @@ class CertificateEnrollment(Entity):
 
         from mbed_cloud.foundation._custom_methods import paginate
         from mbed_cloud.foundation import CertificateEnrollment
+
+        from mbed_cloud import ApiFilter
+
+        # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
+        if isinstance(filter, dict):
+            ApiFilter(filter_definition=filter, field_renames=self._renames_to_api)
+        # The preferred method is an ApiFilter instance as this should be easier to use
+        elif isinstance(filter, ApiFilter):
+            # If filter renames have not be defined then configure the ApiFilter so that any renames
+            # performed by the SDK are reversed when the query parameters are created.
+            if filter.field_renames is None:
+                filter.field_renames = self._renames_to_api
+        else:
+            raise TypeError("The 'filter' parameter may be either 'dict' or 'ApiFilter'.")
 
         return paginate(
             self=self,
@@ -319,11 +340,14 @@ class CertificateEnrollment(Entity):
         **Example Usage**
 
         .. code-block:: python
-            
+
+            from mbed_cloud.foundation import CertificateEnrollment
+            from mbed_cloud import ApiFilter
+
             api_filter = ApiFilter()
             api_filter.add_filter("certificate_name", "eq", <filter value>)
-            for certificate_enrollment in CertificateEnrollment.paginate_list(filter=api_filter)
-                print certificate_enrollment.certificate_name
+            for certificate_enrollment in CertificateEnrollment().paginate_list(filter=api_filter):
+                print(certificate_enrollment.certificate_name)
         
         :param after: The ID of the item after which to retrieve the next page.
         :type after: str

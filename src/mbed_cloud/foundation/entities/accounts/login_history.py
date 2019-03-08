@@ -20,8 +20,11 @@ class LoginHistory(Entity):
     # all fields available on this entity
     _fieldnames = ["date", "ip_address", "success", "user_agent"]
 
-    # common renames used when mapping {<API spec>: <SDK>}
+    # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
     _renames = {}
+
+    # Renames to be performed by the SDK when sending data {<SDK Field Name>: <API Field Name>}
+    _renames_to_api = {}
 
     def __init__(
         self, _client=None, date=None, ip_address=None, success=None, user_agent=None
