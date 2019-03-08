@@ -1252,6 +1252,7 @@ class Account(Entity):
         **Example Usage**
 
         .. code-block:: python
+            
             api_filter = ApiFilter()
             api_filter.add_filter("country", "like", <filter value>)
             for account in Account.list(filter=api_filter)
@@ -1355,6 +1356,7 @@ class Account(Entity):
         **Example Usage**
 
         .. code-block:: python
+            
             api_filter = ApiFilter()
             api_filter.add_filter("country", "like", <filter value>)
             for account in Account.paginate_list(filter=api_filter)
@@ -1434,6 +1436,7 @@ class Account(Entity):
         **Example Usage**
 
         .. code-block:: python
+            
             api_filter = ApiFilter()
             api_filter.add_filter("device_execution_mode", "eq", <filter value>)
             for account in Account.paginate_trusted_certificates(filter=api_filter)
@@ -1485,6 +1488,7 @@ class Account(Entity):
         **Example Usage**
 
         .. code-block:: python
+            
             api_filter = ApiFilter()
             api_filter.add_filter("login_profile", "eq", <filter value>)
             for account in Account.paginate_user_invitations(filter=api_filter)
@@ -1539,6 +1543,7 @@ class Account(Entity):
         **Example Usage**
 
         .. code-block:: python
+            
             api_filter = ApiFilter()
             api_filter.add_filter("email", "eq", <filter value>)
             for account in Account.paginate_users(filter=api_filter)
@@ -1637,6 +1642,7 @@ class Account(Entity):
         **Example Usage**
 
         .. code-block:: python
+            
             api_filter = ApiFilter()
             api_filter.add_filter("device_execution_mode", "eq", <filter value>)
             for account in Account.trusted_certificates(filter=api_filter)
@@ -1735,6 +1741,7 @@ class Account(Entity):
         **Example Usage**
 
         .. code-block:: python
+            
             api_filter = ApiFilter()
             api_filter.add_filter("login_profile", "eq", <filter value>)
             for account in Account.user_invitations(filter=api_filter)
@@ -1792,6 +1799,7 @@ class Account(Entity):
         **Example Usage**
 
         .. code-block:: python
+            
             api_filter = ApiFilter()
             api_filter.add_filter("email", "eq", <filter value>)
             for account in Account.users(filter=api_filter)

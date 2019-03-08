@@ -315,6 +315,7 @@ class UserInvitation(Entity):
         **Example Usage**
 
         .. code-block:: python
+            
             api_filter = ApiFilter()
             api_filter.add_filter("login_profile", "eq", <filter value>)
             for user_invitation in UserInvitation.list(filter=api_filter)
@@ -366,6 +367,7 @@ class UserInvitation(Entity):
         **Example Usage**
 
         .. code-block:: python
+            
             api_filter = ApiFilter()
             api_filter.add_filter("login_profile", "eq", <filter value>)
             for user_invitation in UserInvitation.paginate_list(filter=api_filter)

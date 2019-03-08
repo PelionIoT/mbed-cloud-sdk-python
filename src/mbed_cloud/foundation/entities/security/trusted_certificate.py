@@ -597,6 +597,7 @@ class TrustedCertificate(Entity):
         **Example Usage**
 
         .. code-block:: python
+            
             api_filter = ApiFilter()
             api_filter.add_filter("device_execution_mode", "eq", <filter value>)
             for trusted_certificate in TrustedCertificate.list(filter=api_filter)
@@ -670,6 +671,7 @@ class TrustedCertificate(Entity):
         **Example Usage**
 
         .. code-block:: python
+            
             api_filter = ApiFilter()
             api_filter.add_filter("device_execution_mode", "eq", <filter value>)
             for trusted_certificate in TrustedCertificate.paginate_list(filter=api_filter)

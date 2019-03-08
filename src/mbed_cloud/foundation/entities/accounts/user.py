@@ -738,6 +738,7 @@ class User(Entity):
         **Example Usage**
 
         .. code-block:: python
+            
             api_filter = ApiFilter()
             api_filter.add_filter("email", "eq", <filter value>)
             for user in User.list(filter=api_filter)
@@ -797,6 +798,7 @@ class User(Entity):
         **Example Usage**
 
         .. code-block:: python
+            
             api_filter = ApiFilter()
             api_filter.add_filter("email", "eq", <filter value>)
             for user in User.paginate_list(filter=api_filter)

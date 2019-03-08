@@ -365,6 +365,7 @@ class ApiKey(Entity):
         **Example Usage**
 
         .. code-block:: python
+            
             api_filter = ApiFilter()
             api_filter.add_filter("key", "eq", <filter value>)
             for api_key in ApiKey.list(filter=api_filter)
@@ -433,6 +434,7 @@ class ApiKey(Entity):
         **Example Usage**
 
         .. code-block:: python
+            
             api_filter = ApiFilter()
             api_filter.add_filter("key", "eq", <filter value>)
             for api_key in ApiKey.paginate_list(filter=api_filter)

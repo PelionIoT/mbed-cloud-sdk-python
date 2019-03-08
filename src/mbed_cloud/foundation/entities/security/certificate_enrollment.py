@@ -255,6 +255,7 @@ class CertificateEnrollment(Entity):
         **Example Usage**
 
         .. code-block:: python
+            
             api_filter = ApiFilter()
             api_filter.add_filter("certificate_name", "eq", <filter value>)
             for certificate_enrollment in CertificateEnrollment.list(filter=api_filter)
@@ -318,6 +319,7 @@ class CertificateEnrollment(Entity):
         **Example Usage**
 
         .. code-block:: python
+            
             api_filter = ApiFilter()
             api_filter.add_filter("certificate_name", "eq", <filter value>)
             for certificate_enrollment in CertificateEnrollment.paginate_list(filter=api_filter)
